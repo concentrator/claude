@@ -1,0 +1,31 @@
+---
+paths:
+  - "**/CLAUDE.md"
+  - "**/CLAUDE.local.md"
+---
+
+# CLAUDE.md maintenance
+
+Rules for any CLAUDE.md (global, project, nested). Apply on every read and edit.
+
+## Content
+- **Only persistent facts.** Build/test commands, conventions, architecture, "always do X" rules. If it's a procedure or only matters for one area, move to a skill or `.claude/rules/*.md`.
+- **Project/tech/process specifics only.** The reader is Claude — he already knows languages, frameworks, standard tooling, and common best practices. Skip anything you'd find in an "intro to X" or generic style guide. Keep only what's non-obvious, custom to this project, or contradicts a sensible default.
+- **Every entry must earn its place.** For each instruction ask: what concrete value does it add, would behavior change without it, are we actually relying on it? If the answer is unclear → remove.
+- **Concrete and verifiable.** "2-space indent", not "format nicely". "Run `npm test` before commit", not "test changes".
+- **No transient content.** No changelogs, task lists, in-progress notes, dated entries, history.
+- **No secrets.** No tokens, keys, credentials, private URLs.
+- **No absolute home paths** (`/Users/...`, `/home/...`). Use `~/` or repo-relative.
+
+## Size and structure
+- **Max 200 lines.** Over budget → split via `@path/to/file` import or move narrow rules to `.claude/rules/*.md` with `paths:` frontmatter.
+- **Markdown headers and bullets.** No dense paragraphs.
+- **No duplication.** Same rule in two files → pick one location, delete the other.
+
+## On edit
+- Check whether the rule belongs in a path-scoped `.claude/rules/*.md` instead — narrow scope = rule file, universal = CLAUDE.md.
+- Remove anything now stale (renamed commands, removed conventions, outdated paths).
+- Verify line count stays ≤ 200.
+
+## Approval
+- **Never auto-fix CLAUDE.md.** Report violations and propose changes; wait for explicit approval before editing.

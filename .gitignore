@@ -1,0 +1,40 @@
+# Harness-managed state
+history.jsonl
+session-env/
+projects/
+file-history/
+cache/
+paste-cache/
+shell-snapshots/
+backups/
+sessions/
+tasks/
+telemetry/
+downloads/
+debug/
+chrome/
+usage-data/
+
+# Harness-managed cache/state files
+mcp-needs-auth-cache.json
+policy-limits.json
+remote-settings.json
+stats-cache.json
+skill_invocations.jsonl
+.last-cleanup
+
+# Contains credentials — clean before tracking
+settings.json
+
+# Local overrides
+*.local.json
+*.local.md
+
+# Side-effect from approving rm commands earlier
+.claude/
+
+# Plugins (marketplace-managed)
+plugins/
+
+# OS
+.DS_Store
