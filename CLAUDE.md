@@ -22,6 +22,8 @@ Examples:
 Never commit to `main` or `master`. Before making changes, check the current
 branch; if it's the default branch, create a feature branch first.
 
+**Slug length**: ≤20 chars. Prune redundant words.
+
 **Exception**: initial project scaffold (first commits on a fresh repo) goes on
 the default branch.
 
@@ -53,3 +55,6 @@ or internal files.
 - Discuss before making significant changes. Get approval before writing code.
 - If the user asks a question, reply and suggest — do not take action until
   explicitly instructed.
+- If your reasoning produces "the rule says X, but Y is fine here because…",
+  that's rationalization. Name the conflict and ask before deviating. Written
+  rules only.
