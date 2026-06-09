@@ -16,16 +16,16 @@ Baseline tests green. If any fail before refactoring starts, fix that first as a
 1. **Safe step** — small, behavior-preserving change.
 2. **Verify** — run project's test + lint commands. Green.
 3. **DRY / purity check** — duplicated functionality removed? Side effects isolated?
-4. **Docs** — minimum: `CHANGELOG.md ## [Unreleased]` entry. Public-surface changes go under existing kind headings; internal-only refactors go under `### Internal`. README + extended docs only if surface changed.
+4. **Docs** — per project `CLAUDE.md § Conventions`: if `release-routine: yes`, add `CHANGELOG.md ## [Unreleased]` entry (public-surface under existing kind headings; internal-only under `### Internal`); update `README.md` + extended docs only if surface changed.
 5. **Commit** — single-line message. Mark `[x]` in branch plan immediately after committing.
 
 If a step breaks tests and the fix isn't immediate, revert and try smaller.
 
-## Scope discovery
+## Scope discoveries
 
-If a refactor reveals a defect, surface it — do not fix it in this task. Add to plan separately.
+See `~/.claude/rules/branch-plan.md` § Scope discoveries.
 
 ## Done?
 
 If branch plan has open `[ ]` items, run cadence again for next commit.
-Branch plan all `[x]` → `/dev finish`.
+Last non-final `[x]` → closing routine per `~/.claude/rules/branch-plan.md`.

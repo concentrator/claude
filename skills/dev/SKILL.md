@@ -1,52 +1,59 @@
 ---
 name: dev
-description: Use to start, continue, or finish a structured development cycle.
+description: Use to enter DEV mode for spec-driven, planned, reviewed work.
 ---
 
 # Dev
 
-Entry point for structured development. Two operating modes:
-- **Free** — no `/dev` invoked: regular session, light touch.
-- **Dev** — `/dev <subcommand>`: planned, tested, reviewed, documented at every step.
+DEV mode — strict, spec-driven workflow. Default: **VIBE** (no skill).
 
-## Subcommands
+## Surface
 
-**`/dev`** — ask: project / feature / bug / refactor / release?
+| Command | Purpose |
+|---|---|
+| `/dev` | Route by state (ask if ambiguous) |
+| `/dev plan [<target>]` | Planning — commits to main |
+| `/dev code [<slug>]` | Execution — work on a branch |
+| `/dev release` | Finalize release |
 
-**`/dev project <name>`** — new project scaffold → invoke `starting-a-project`.
+## `/dev plan <target>`
 
-**`/dev feature|bug|refactor <slug>`**
-1. Verify off `main`/`master` (branch if on it).
-2. Pre-flight: `git status`, project's build + test commands (see project CLAUDE.md).
-3. Plan: `brainstorming` if scope fuzzy → `writing-plans`. Save to `.claude/plans/<slug>.md` as a checkbox list.
-4. Create branch: `feat/<slug>`, `fix/<slug>`, or `refactor/<slug>`.
-5. If a release plan exists, auto-append the branch entry.
-6. Invoke matching L2: `adding-a-feature`, `fixing-a-bug`, or `doing-a-refactor`.
+| Target | Action | Parent required |
+|---|---|---|
+| `REQ` | Start initiative — new `REQ-XXX.md` | — |
+| `REQ-XXX` | Amend existing requirement | REQ-XXX open |
+| `roadmap` | Create/extend `roadmap.md` | — |
+| `R-XXX` | Add tasks under roadmap item | R-XXX open |
+| `T-XXX` | Create branch plan for task | T-XXX open |
+| `<slug>` | Adjust existing branch plan | plan exists |
+| `release` | Create release plan (next semver) | ≥1 closed task |
+| (bare) | Ask | — |
 
-**`/dev release <version>`** — create `.claude/plans/release-<version>.md` with checkbox sections for branches and release tasks. Subsequent `/dev <kind> <slug>` calls auto-append.
+After each step, **propose** next; never auto-execute. See
+`~/.claude/rules/planning.md`.
 
-**`/dev continue`**
-1. Read current branch prefix (`feat/`/`fix/`/`refactor/`).
-2. Read `.claude/plans/<slug>.md`.
-3. Find first `[ ]`.
-4. Dispatch matching L2.
+## `/dev code [<slug>]`
 
-**`/dev finish`**
-1. Invoke `simplify` (mandatory; do not skip even if changes look small).
-2. Ask "manual testing done?" (yes / n/a / not yet).
-3. Scan `.claude/plans/roadmap.md` for entries matching closed work; propose removal.
-4. Invoke `finishing-a-development-branch`.
+- On `main` (no arg): list unassigned plans → ask.
+- On `main` + `<slug>`: verify plan → create branch → start.
+- On dev branch (no arg / matching): continue from first `[ ]`.
+- On dev branch + different `<slug>`: error, switch branch first.
+- Orphan (dev branch, no plan file): error, missing
+  `.claude/plans/<slug>.md`.
 
-Branch stays `[ ]` in release plan until merged.
+Prefix inherits task tag. Dispatch: `feat`→`adding-a-feature`,
+`fix`→`fixing-a-bug`, `refactor`→`doing-a-refactor`. Release branches
+go via `/dev release`. See `~/.claude/rules/branch-plan.md`.
 
-**`/dev release-finish`** — invoke `release` (project override if defined, else global).
+## Branching
 
-## Plan format
+- Never commit to `main`/`master` except: `.claude/plans/*.md`,
+  `.claude/requirements.md`, `.claude/design.md`, initial scaffold.
+- Branch: `<prefix>/<slug>`, prefix ∈ `{feat, fix, refactor, release}`,
+  slug ≤20 chars.
+- One branch = one task. Soft cap 20 commits (warn at 15, prompt at 20).
 
-Three-level hierarchy:
+## `/dev release`
 
-1. **Roadmap** `.claude/plans/roadmap.md` — outstanding work, not yet assigned to a release.
-2. **Release plan** `.claude/plans/release-<version>.md` — checkbox list of branches in a release. Mark `[x]` only when the branch is merged into the default branch.
-3. **Branch plan** `.claude/plans/<slug>.md` — checkbox list, one entry per commit. Mark `[x]` at commit time.
-
-`/dev continue` reads the branch plan; works the first `[ ]`.
+Invokes the project's `release` skill (override or global): tag, CHANGELOG,
+publish (if applicable).

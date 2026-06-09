@@ -55,7 +55,7 @@ Present exactly these 4 options:
 Implementation complete. What would you like to do?
 
 1. Merge back to <base-branch> locally
-2. Push and create a Pull Request
+2. Push and create an MR/PR
 3. Keep the branch as-is (I'll handle it later)
 4. Discard this work
 
@@ -87,13 +87,25 @@ git branch -d <feature-branch>
 
 Then: Cleanup worktree (Step 5)
 
-#### Option 2: Push and Create PR
+#### Option 2: Push and Create MR/PR
 
 ```bash
 # Push branch
 git push -u origin <feature-branch>
 
-# Create PR
+# Create MR/PR — pick the CLI for your platform.
+
+# GitLab:
+glab mr create --title "<title>" --description "$(cat <<'EOF'
+## Summary
+<2-3 bullets of what changed>
+
+## Test Plan
+- [ ] <verification steps>
+EOF
+)"
+
+# GitHub:
 gh pr create --title "<title>" --body "$(cat <<'EOF'
 ## Summary
 <2-3 bullets of what changed>

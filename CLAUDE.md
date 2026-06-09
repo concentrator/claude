@@ -2,8 +2,14 @@
 
 ## Session Workflow
 
-- **Free mode**: just start a session, no skill invoked.
-- **Dev mode**: `/dev <subcommand>` for structured work (project / feature / bug / refactor / release).
+Two modes:
+
+- **VIBE** (default) — no skill, freestyle. Commit-message style below
+  still applies.
+- **DEV** — spec-driven: requirements → design → roadmap → tasks → branch
+  plans → commits. Entered explicitly via `/dev`. Branching, plan
+  hierarchy, and per-branch routine live in the `dev` skill and
+  `~/.claude/rules/`.
 
 ## Commit Messages
 
@@ -17,16 +23,6 @@ Examples:
 - BAD: `Fix period chrome shadowing the logo; anchor via .container::before`
 - BAD: `Add slide--st03-multi--dense modifier toggled by tenant count for 9+ tenants`
 
-## Branching
-
-Never commit to `main` or `master`. Before making changes, check the current
-branch; if it's the default branch, create a feature branch first.
-
-**Slug length**: ≤20 chars. Prune redundant words.
-
-**Exception**: initial project scaffold (first commits on a fresh repo) goes on
-the default branch.
-
 ## Code Comments
 
 When you change a function's behavior, update or remove any comment that
@@ -38,17 +34,18 @@ In user-facing writing (CHANGELOG, release notes, docs, code comments, PR
 bodies), don't reference what the reader can't see: gitignored paths,
 internal tickets, prior conversations, agent names.
 
-## Structured Data
+## Structured Data / API parameters
 
 When constructing schemas, configs, or API payloads: read the authoritative
 reference first. Never approximate from memory — Claude hallucinates field
-names and shapes.
+names and shapes. If there's no reference - ask for it, or suggest probing, 
+don't try to guess.
 
 ## Temporary Files
 
-Store plans, specs, and other working documents in `.claude/plans/` inside the
-project directory. Never use `docs/` or other project directories for temporary
-or internal files.
+Store plans (roadmap, tasks, branch plans, REQ-XXX, release plans) in
+`.claude/plans/`. Foundational specs (`requirements.md`, `design.md`) in
+`.claude/`. Never use `docs/` or other project directories for these.
 
 ## Communication
 
