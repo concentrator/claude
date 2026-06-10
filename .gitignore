@@ -20,12 +20,8 @@ mcp-needs-auth-cache.json
 policy-limits.json
 remote-settings.json
 stats-cache.json
-skill_invocations.jsonl
 .last-cleanup
 .last-update-result.json
-
-# Contains credentials — clean before tracking
-settings.json
 
 # Local overrides
 *.local.json
