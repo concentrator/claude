@@ -25,6 +25,8 @@ Four-level hierarchy for DEV mode.
 - Requirements: `REQ-001`, `REQ-002`, ...
 - Roadmap: `R-001`, `R-002`, ...
 - Tasks: `T-001`, `T-002`, ...
+- Batches: `B-001`, `B-002`, ... (execution grouping, not a level —
+  see `branch-plan.md § Agentic execution`)
 - One-indexed, three digits, monotonic.
 
 ## Referential integrity
@@ -34,6 +36,10 @@ Four-level hierarchy for DEV mode.
 - Branch plans reference exactly one parent task (via header).
 - Each parent must be **open** (`[ ]`) at the time the child is created.
 - Commits inside a branch plan need no external refs.
+- This applies to findings promotion too: a finding becomes a `T-XXX`
+  only under a fitting open `R-XXX`. If none exists, promote it to a
+  `REQ-XXX` instead (next planning round spawns R → T). Never create a
+  task with a closed, missing, or unrelated parent.
 
 ## Where things live
 
@@ -44,6 +50,7 @@ Four-level hierarchy for DEV mode.
 | `roadmap.md`, `tasks.md` | `.claude/plans/` |
 | `REQ-XXX.md` | `.claude/plans/` |
 | `<slug>.md` (branch plans) | `.claude/plans/` |
+| `B-XXX.md` (execution batches) | `.claude/plans/` |
 | `release-vX.Y.Z.md` | `.claude/plans/` |
 | `<slug>.findings.md` | `.claude/plans/` |
 
@@ -161,3 +168,23 @@ kind: feat | bug | refactor
 The **Acceptance criteria** section is load-bearing across all kinds:
 source for manual / automated tests, and the fallback reference when
 downstream tasks lack detail.
+
+### Release plan `release-vX.Y.Z.md`
+
+Created by `/dev plan release` (requires ≥1 closed task since the last
+release). One checkbox per planned branch; `[x]` only after that branch
+is merged to the default branch (set by `finishing-a-branch`). The
+`release` skill halts while planned entries remain `[ ]` unless the user
+confirms dropping them.
+
+```
+# Release vX.Y.Z
+
+## Scope     — one-line theme of the release
+
+## Branches  — one checkbox per planned branch
+- [ ] feat/<slug> (T-014): description
+- [ ] fix/<slug> (T-015): description
+
+## Notes     — deferred or dropped scope, with reason
+```

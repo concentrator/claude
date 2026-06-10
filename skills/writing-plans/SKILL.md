@@ -37,6 +37,12 @@ Generate a branch plan (`.claude/plans/<slug>.md`) from a task in
 If decomposition exceeds 15 commits, warn. At 20, prompt to split.
 Override requires stated reason in plan header.
 
+## Bulk mode (`/dev plan all`)
+
+One plan-writer subagent per open task lacking a plan (independent —
+dispatch in parallel), each following this skill. Then a single user
+review pass over all slugs + plans before committing to main.
+
 ## Out of scope
 
 - Per-commit implementation — the execution skill (`adding-a-feature`,

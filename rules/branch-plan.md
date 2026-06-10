@@ -9,6 +9,7 @@ must be complete and committed to `main` **before** the branch is created.
     type: feat                      # required — inherited from task tag; determines branch prefix
     architecture-changing: true     # optional — triggers design.md update commit
     depends-on: T-012               # optional — blocks `/dev code` until merged
+    agentic: approved 2026-06-10    # optional — eligible for auto mode; absent = manual-only
 
 The `type:` value is inherited from the parent task's tag in `tasks.md`
 (e.g. `T-014 (R-001) [feat]:`). Branch prefix matches.
@@ -39,7 +40,9 @@ at discovery time. See "Scope discoveries" below.
 Anything you notice mid-execution that wasn't in the plan.
 
 **Blocker** — proceeding would produce wrong, unsafe, or contradictory
-code, or the current task's premise is invalidated:
+code, the current task's premise is invalidated, a plan item can't be
+interpreted unambiguously, or verification keeps failing after repeated
+fixes:
 - **Stop. Ask the user.** Resolution may require plan extension, new
   task, new REQ, or aborting the branch. Never inline-fix beyond a true
   typo in code you're currently writing.
@@ -75,6 +78,7 @@ mandatory final commit, then hands off to merge/PR.
 5. Request manual testing/verification; suggest automation where applicable.
 6. **Triage `<slug>.findings.md`** — for each `[ ]` item, prompt user:
    - Promote to `T-XXX` (new entry in `tasks.md`, committed to main now)
+     — only under a fitting open `R-XXX`; none → use the REQ route
    - Promote to `REQ-XXX` (defer to next planning round)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Mandatory final commit** — the last `[ ]`:
@@ -83,7 +87,7 @@ mandatory final commit, then hands off to merge/PR.
    > (stale/temp data), mark plan complete, commit.
 
    Includes the resolved findings file.
-8. Invoke `finishing-a-development-branch` — present merge/PR/keep/discard
+8. Invoke `finishing-a-branch` — present merge/PR/keep/discard
    options and execute.
 
 ## Architecture-changing branches
@@ -95,6 +99,56 @@ that updates `design.md`. Routine branches do not modify `design.md`.
 
 One task = one branch. Soft cap: warn at 15 planned commits, prompt to split
 at 20. Override with stated reason in plan header.
+
+## Agentic execution
+
+Auto mode (`/dev auto`, engine: `delegating-to-agents`) runs whole
+batches of branches via subagents. Manual mode is the default; auto
+requires every gate below.
+
+### `agentic:` stamp
+
+A plan becomes auto-eligible via a **readiness review** (run by
+`/dev plan batch` for unstamped plans): each commit item must be
+unambiguous, have a testable outcome, depend only on earlier items,
+and need no design judgment beyond the plan's text. Items failing →
+fix via `/dev plan <slug>` first. User approves → stamp
+`agentic: approved YYYY-MM-DD`.
+
+### Batches
+
+`.claude/plans/B-XXX.md` — ordered checklist, one `[ ]` per task:
+
+    # B-001
+    - [ ] T-014 (<slug>)
+    - [ ] T-015 (<slug>)
+
+Execution grouping, not a planning level: members must be open tasks
+with agentic-approved plans; `depends-on` must resolve within batch
+order or already-merged work. Soft cap ~25 planned commits total.
+Manual mode may use an open batch as its task queue; auto mode
+requires one. Checkbox closes at checkpoint validation.
+
+### Rails
+
+- Agents touch only code, plan checkboxes, and findings files —
+  never plan content, never the closing decisions.
+- Never push. Merging to the **local** default branch is allowed only
+  inside a batch run, with rollback tag `pre-B-XXX` set at start and
+  branch refs kept until the user validates the checkpoint.
+- No commit on red tests/lint — no exceptions.
+- Findings triage and push decisions always defer to the checkpoint.
+
+### Stop conditions
+
+| Event | Action |
+|---|---|
+| Blocker (per § Scope discoveries) | Halt, report |
+| NEEDS_CONTEXT unanswerable from REQ/design | Halt, report |
+| Spec check rejects the same commit twice | Halt, report |
+| Tests/lint not green after the implementer's fix attempt | Halt, report |
+| Non-blocker discovery | `<slug>.findings.md`, continue |
+| Batch complete | Checkpoint, wait for user |
 
 ## Releases
 

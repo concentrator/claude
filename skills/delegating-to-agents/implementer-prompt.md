@@ -4,13 +4,13 @@ Use this template when dispatching an implementer subagent.
 
 ```
 Task tool (general-purpose):
-  description: "Implement Task N: [task name]"
+  description: "Implement commit item: [item text]"
   prompt: |
-    You are implementing Task N: [task name]
+    You are implementing one commit item from a branch plan: [item text]
 
-    ## Task Description
+    ## Commit Item
 
-    [FULL TEXT of task from plan - paste it here, don't make subagent read file]
+    [FULL TEXT of the commit checkbox - paste it here, don't make subagent read plan files]
 
     ## Context
 
@@ -22,19 +22,22 @@ Task tool (general-purpose):
     - The requirements or acceptance criteria
     - The approach or implementation strategy
     - Dependencies or assumptions
-    - Anything unclear in the task description
+    - Anything unclear in the commit item
 
     **Ask them now.** Raise any concerns before starting work.
 
     ## Your Job
 
     Once you're clear on requirements:
-    1. Implement exactly what the task specifies
-    2. Write tests (following TDD if task says to)
-    3. Verify implementation works
-    4. Commit your work
-    5. Self-review (see below)
-    6. Report back
+    1. Implement exactly what the commit item specifies
+    2. Tests per branch type: feat/fix — strict TDD (failing test first);
+       refactor — behavior preserved, baseline stays green
+    3. Verify: project's test + lint commands, green
+    4. Docs in this same commit per project CLAUDE.md conventions
+       (CHANGELOG [Unreleased], README if public surface changed)
+    5. Commit — single-line message, ~50 chars, WHAT not HOW
+    6. Self-review (see below)
+    7. Report back
 
     Work from: [directory]
 

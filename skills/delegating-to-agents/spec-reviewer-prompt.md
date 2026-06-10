@@ -6,13 +6,13 @@ Use this template when dispatching a spec compliance reviewer subagent.
 
 ```
 Task tool (general-purpose):
-  description: "Review spec compliance for Task N"
+  description: "Review spec compliance for commit item"
   prompt: |
     You are reviewing whether an implementation matches its specification.
 
     ## What Was Requested
 
-    [FULL TEXT of task requirements]
+    [FULL TEXT of the commit item + relevant acceptance criteria]
 
     ## What Implementer Claims They Built
 
