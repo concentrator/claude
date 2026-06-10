@@ -45,6 +45,19 @@
     ],
     "defaultMode": "default"
   },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -c '{ts: (now | strftime(\"%Y-%m-%dT%H:%M:%SZ\")), skill: .tool_input.skill}' >> ~/.claude/skill_invocations.jsonl 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  },
   "model": "claude-fable-5[1m]",
   "effortLevel": "xhigh",
   "editorMode": "normal",

@@ -16,6 +16,7 @@ chrome/
 usage-data/
 
 # Harness-managed cache/state files
+skill_invocations.jsonl
 mcp-needs-auth-cache.json
 policy-limits.json
 remote-settings.json
@@ -32,6 +33,10 @@ stats-cache.json
 
 # Plugins (marketplace-managed)
 plugins/
+
+# Project-specific skills, symlinked from external repos
+skills/wallarm-api-tf-rules
+skills/wallarm-tf-usage
 
 # OS
 .DS_Store
