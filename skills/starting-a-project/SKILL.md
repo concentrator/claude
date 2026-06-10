@@ -37,6 +37,8 @@ Files:
 - Project `CLAUDE.md`: stack, base branch, build/test/lint. Don't restate
   global rules.
 
+Full `.claude/` layout: `~/.claude/rules/project-layout.md`.
+
 Ask: **release routine?** Record `release-routine:` in `CLAUDE.md
 § Conventions`. If yes: `CHANGELOG.md`, versioning (default `vX.Y.Z`),
 `.claude/plans/release-v0.1.0.md`. Ask about external publishing

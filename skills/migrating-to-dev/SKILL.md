@@ -11,8 +11,8 @@ design from code, then layer on planning infrastructure.
 ## 1. Inventory
 
 Check existing: `CLAUDE.md`, `README.md`, `CHANGELOG.md`, language/stack,
-build/test/lint commands, CI config, open branches, `docs/`. Report
-findings to the user.
+build/test/lint commands, CI config, open branches, `docs/`. Cross-check
+against `~/.claude/rules/project-layout.md` and report gaps.
 
 ## 2. Requirements
 
