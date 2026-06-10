@@ -45,7 +45,7 @@ Use the skill on a real task. Note failures or unclear steps. Fix and re-test. S
 
 ## When to escalate to `writing-skills`
 
-Use `writing-skills` (the superpowers methodology skill) instead when the skill must:
+Use `writing-skills` (the pressure-tested methodology) instead when the skill must:
 
 - Enforce discipline under pressure (TDD, verification, "no shortcuts")
 - Resist rationalization — agents will try to skip steps
