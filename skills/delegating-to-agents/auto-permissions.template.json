@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit(//__PROJECT_DIR__/**)",
+      "Write(//__PROJECT_DIR__/**)",
+
+      "Read(//__PROJECT_DIR__/.claude/plans/**)",
+      "Edit(//__PROJECT_DIR__/.claude/plans/**)",
+      "Write(//__PROJECT_DIR__/.claude/plans/**)",
+
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(git branch:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git switch:*)",
+      "Bash(git merge:*)",
+      "Bash(git restore:*)",
+      "Bash(git tag:*)",
+
+      "Bash(sed:*)",
+      "Bash(grep:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(awk:*)",
+      "Bash(wc:*)",
+      "Bash(cat:*)",
+
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Edit(//tmp/**)",
+      "Edit(//private/tmp/**)",
+      "Write(//tmp/**)",
+      "Write(//private/tmp/**)"
+    ],
+    "deny": [
+      "Bash(git push:*)"
+    ]
+  }
+}

@@ -11,6 +11,11 @@ Two modes:
   hierarchy, and per-branch routine live in the `dev` skill and
   `~/.claude/rules/`.
 
+Projects run via `/dev auto` declare their build/test/VCS commands as
+`permissions.allow` rules in an `## Agent toolchain` section of the project
+CLAUDE.md; the `delegating-to-agents` pre-flight reads it to prepare agent
+settings deterministically.
+
 ## Commit Messages
 
 Single-line, ~50 chars / 6-8 words, subject only. No semicolons joining clauses,

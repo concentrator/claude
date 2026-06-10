@@ -180,9 +180,11 @@ Agent 3 → Fix tool-approval-race-conditions.test.ts
 
 After agents return:
 1. **Review each summary** - Understand what changed
-2. **Check for conflicts** - Did agents edit same code?
-3. **Run full suite** - Verify all fixes work together
-4. **Spot check** - Agents can make systematic errors
+2. **Verify the diff** - An agent's "success" report is a claim, not
+   evidence; confirm via `git diff` that the claimed changes exist
+3. **Check for conflicts** - Did agents edit same code?
+4. **Run full suite** - Verify all fixes work together
+5. **Spot check** - Agents can make systematic errors
 
 ## Real-World Impact
 

@@ -5,14 +5,23 @@ description: Use when executing an approved batch via subagents (DEV auto mode).
 
 # Delegating to Agents
 
-Execution engine behind `/dev auto`. Runs an approved batch
-(`.claude/plans/B-XXX.md`) of branch plans via subagents, autonomously
-between checkpoints. Rules: `~/.claude/rules/branch-plan.md § Agentic
+Execution engine behind `/dev auto`: runs an approved batch
+(`.claude/plans/B-XXX.md`) via subagents, autonomously between
+checkpoints. Rules: `~/.claude/rules/branch-plan.md § Agentic
 execution`.
+
+Touch `.claude/` files (plans, findings) only via Read/Edit/Write tools, never
+`sed`/`cat`/`grep` — edit-class shell on `.claude/` paths hits a sensitive-file
+prompt no allow-rule clears.
 
 ## Pre-flight
 
 - Batch exists; every member plan has `agentic: approved`.
+- Agent permissions: read the project CLAUDE.md `## Agent toolchain` rules;
+  verify `.claude/settings.local.json` holds every `auto-permissions.template.json`
+  rule (`__PROJECT_DIR__` → abs path) plus the toolchain rules. Missing →
+  propose the merged file, apply on approval. No `## Agent toolchain` →
+  halt, ask.
 - On default branch, working tree clean, tests + lint green.
 - Set rollback tag: `git tag pre-B-XXX`.
 
@@ -45,12 +54,14 @@ integration → standard. Reviews → most capable.
 ## Checkpoint (batch end, or any halt)
 
 Report per branch: commits, test results, review outcomes, queued
-judgment calls, findings. Then:
+judgment calls, findings. `.claude/permission_prompts.jsonl` non-empty →
+group entries by root cause, propose rail/allowlist fixes, truncate.
+Then:
 
 - **Accept** → post-merge bookkeeping per `finishing-a-branch` §4 for
   each branch, triage accumulated findings, delete branch refs and
   `pre-B-XXX` tag, mark batch items `[x]`. Pushing is the user's call.
 - **Reject** → `git reset --hard pre-B-XXX`; branch refs preserved
   for salvage.
-- **Halt** reports stop at the failed item with everything completed
-  so far intact; user resolves, then re-run `/dev auto B-XXX`.
+- **Halt** → stop at the failed item, completed work intact; user
+  resolves, re-run `/dev auto B-XXX`.

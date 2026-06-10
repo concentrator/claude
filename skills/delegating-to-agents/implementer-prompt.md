@@ -57,6 +57,26 @@ Task tool (general-purpose):
     - In existing codebases, follow established patterns. Improve code you're touching
       the way a good developer would, but don't restructure things outside your task.
 
+    ## Scratch & Probe Scripts
+
+    When you need a throwaway script (API probe, one-off check), create the
+    file with the Write tool, then run it. Never write it via a shell heredoc
+    (`cat > file <<EOF`) — heredocs embedding JS/JSON (`${...}`, quotes) trip
+    the harness obfuscation guard and stall the run on a permission prompt.
+    Put scratch files in /tmp, not the repo tree.
+
+    Leave scratch files in place when done — do not `rm` them. Glob
+    deletes are rejected by the sandbox, an `rm` segment turns an
+    otherwise-allowed compound command into a prompt, and bulk-clearing
+    shared /tmp is destructive. /tmp is ephemeral; cleanup is not your job.
+
+    ## Plan & Findings Files
+
+    Read or edit files under `.claude/` (plan checkboxes, `<slug>.findings.md`)
+    only with the Read/Edit/Write tools — never `sed`/`cat`/`grep`/`awk`.
+    Edit-class shell on `.claude/` paths stalls on a sensitive-file prompt that
+    no permission rule clears.
+
     ## When You're in Over Your Head
 
     It is always OK to stop and say "this is too hard for me." Bad work is worse than
