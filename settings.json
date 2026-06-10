@@ -58,6 +58,18 @@
       }
     ]
   },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "gopls-lsp@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true
+  },
   "model": "claude-fable-5[1m]",
   "effortLevel": "xhigh",
   "editorMode": "normal",
