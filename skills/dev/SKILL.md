@@ -29,7 +29,7 @@ development is DEV-only).
 | `R-XXX` | Add tasks under roadmap item | R-XXX open |
 | `T-XXX` | Branch plan via `writing-plans` | T-XXX open |
 | `all` | Branch plans for all open tasks lacking one (parallel subagents, one review pass) | open tasks |
-| `batch` | Compose `B-XXX.md`; readiness-review + `agentic:` stamps | plans exist |
+| `batch` | Compose `plans/batches/B-XXX.md`; readiness-review + `agentic:` stamps | plans exist |
 | `<slug>` | Adjust branch plan | plan exists |
 | `release` | Release plan (next semver) | ≥1 closed task |
 | (bare) | Ask | — |
