@@ -31,7 +31,7 @@ prompt no allow-rule clears.
 2. Per commit checkbox:
    - Dispatch fresh implementer subagent (`implementer-prompt.md`) with
      the full item text + parent-chain context (REQ acceptance criteria,
-     `design.md` excerpts) pasted in — never have it read plan files.
+     `DESIGN.md` excerpts) pasted in — never have it read plan files.
    - Status handling: DONE → spec check. DONE_WITH_CONCERNS → resolve
      correctness/scope concerns first. NEEDS_CONTEXT → answer from
      REQ/design once, re-dispatch; unanswerable → halt. BLOCKED → halt.
