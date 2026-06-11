@@ -131,7 +131,8 @@ Execution grouping, not a planning level: members must be open tasks
 with agentic-approved plans; `depends-on` must resolve within batch
 order or already-merged work. Soft cap ~25 planned commits total.
 Manual mode may use an open batch as its task queue; auto mode
-requires one. Checkbox closes at checkpoint validation.
+requires one. Batch and member-task checkboxes close when the batch
+MR merges to the default branch — not at local merge or checkpoint.
 
 ### Rails
 
@@ -166,4 +167,5 @@ the batch branch (`delegating-to-agents` owns the mechanics).
 ## Releases
 
 If the project uses releases, completed branches are listed in
-`.claude/plans/release-<version>.md` with `[x]` only after merge to default.
+`.claude/plans/release-<version>.md` with `[x]` only after they reach
+the default branch (directly, or via a merged batch MR).
