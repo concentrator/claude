@@ -25,5 +25,5 @@ its own. No other planning activity while this branch is open.
       (Adjusted with approval: clause narrowed to adopters-pending
       rather than removed — rules are global and T-003 hasn't run;
       removal moved to T-003's plan.)
-- [ ] Complete the branch: re-review docs across all commits, cleanup,
+- [x] Complete the branch: re-review docs across all commits, cleanup,
       mark plan complete, commit.
