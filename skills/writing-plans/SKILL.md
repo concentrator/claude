@@ -5,12 +5,12 @@ description: Use when generating a branch plan from a task.
 
 # Writing Plans
 
-Generate a branch plan (`.claude/plans/<slug>.md`) from a task in
-`tasks.md`. Invoked by `/dev plan T-XXX`.
+Generate a branch plan (`.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`)
+from a task in `tasks.md`. Invoked by `/dev plan T-XXX`.
 
 ## Inputs
 
-- Task ID (e.g. `T-014`) from `.claude/plans/tasks.md`
+- Task ID (e.g. `T-014`) from `.claude/tasks.md`
 - Task tag: `[feat] | [fix] | [refactor]`
 - Parent chain for context: T-XXX → R-XXX → REQ-XXX
 - Project `CLAUDE.md` (build/test/lint), `.claude/design.md` (architecture)
@@ -30,7 +30,10 @@ Generate a branch plan (`.claude/plans/<slug>.md`) from a task in
    - `architecture-changing: true` (only if it touches design)
    - `depends-on: T-012` (if cross-task dependency)
 5. **Add mandatory final commit** at the end (per branch-plan.md).
-6. **Confirm with user**, then commit plan file to `main`.
+6. **Confirm with user**, then write to
+   `plans/R-XXX-<slug>/T-XXX-<slug>.md` — create the parent R-dir if
+   absent (slug from the roadmap entry subject, fixed at creation, per
+   `planning.md § Directory conventions`) — and commit to `main`.
 
 ## Soft cap
 
