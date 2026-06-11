@@ -14,10 +14,10 @@ project on the machine.
 | `rules/` | Always-loaded rules: planning hierarchy, branch plans, project layout, CLAUDE.md/skill maintenance |
 | `skills/` | Invocable capabilities — the DEV workflow engine and supporting skills |
 | `agents/` | Custom agents (e.g. branch-close code reviewer) |
-| `requirements.md` | What this environment is for and how success is judged |
-| `design.md` | Architecture, full tree-map, self-hosting layout |
-| `maintenance.md` | Sanity routine: cleanup, repair, allow-list hygiene, skill audits |
-| `roadmap.md`, `tasks.md` | Planning indexes (roadmap entries, open tasks) |
+| `REQUIREMENTS.md` | What this environment is for and how success is judged |
+| `DESIGN.md` | Architecture, full tree-map, self-hosting layout |
+| `MAINTENANCE.md` | Sanity routine: cleanup, repair, allow-list hygiene, skill audits |
+| `ROADMAP.md`, `TASKS.md` | Planning indexes (roadmap entries, open tasks) |
 | `plans/` | This repo's own planning artifacts (`REQ-XXX`, per-entry plan dirs, batches) |
 
 ## Workflow
@@ -38,7 +38,7 @@ This repo manages itself with the same DEV discipline it provides:
 changes to the environment flow through `plans/REQ-XXX` like any other
 project. Because the repo root *is* the `.claude/` directory, the
 foundational files live at the root — see
-`design.md § Self-hosting layout`.
+`DESIGN.md § Self-hosting layout`.
 
 ## Setup on a new machine
 

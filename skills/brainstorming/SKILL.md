@@ -12,7 +12,7 @@ later via the planning chain (R → T → branch plan).
 
 ## Process
 
-1. **Context** — read `requirements.md`, `design.md`, roadmap, recent
+1. **Context** — read `REQUIREMENTS.md`, `DESIGN.md`, roadmap, recent
    commits. Know what exists before asking.
 2. **Scope check** — if the idea spans multiple independent initiatives,
    say so and split: one REQ per initiative, brainstorm the first.
@@ -41,5 +41,5 @@ later via the planning chain (R → T → branch plan).
 - No code, no scaffolding, no implementation skill — regardless of
   perceived simplicity. A small idea still gets a REQ; it can be short.
 - Stay at requirement altitude: behavior, surfaces, edge cases,
-  acceptance criteria. Architecture belongs in `design.md`; commit
+  acceptance criteria. Architecture belongs in `DESIGN.md`; commit
   decomposition belongs to branch planning.

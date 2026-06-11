@@ -6,11 +6,11 @@ Canonical structure for `.claude/` in a project. Other paths inside
 ## Layout
 
     .claude/
-    ├── requirements.md           # foundational requirements
-    ├── design.md                 # architecture and design (≤1000w inline)
-    ├── maintenance.md            # sanity routine — seeded from template
-    ├── roadmap.md                # planning indexes — see planning.md
-    ├── tasks.md
+    ├── REQUIREMENTS.md           # foundational requirements
+    ├── DESIGN.md                 # architecture and design (≤1000w inline)
+    ├── MAINTENANCE.md            # sanity routine — seeded from template
+    ├── ROADMAP.md                # planning indexes — see planning.md
+    ├── TASKS.md
     ├── plans/                    # planning hierarchy — see planning.md
     │   ├── REQ-XXX.md
     │   ├── release-vX.Y.Z.md
@@ -35,10 +35,10 @@ Canonical structure for `.claude/` in a project. Other paths inside
 
 ## Creation policy
 
-- **Required at scaffold**: `requirements.md`, `design.md`, `plans/`,
+- **Required at scaffold**: `REQUIREMENTS.md`, `DESIGN.md`, `plans/`,
   `settings.json`.
 - **Created as workflows need them**: `skills/`, `rules/`, `commands/`,
-  `agents/`, `maintenance.md`, `roadmap.md`, `tasks.md`.
+  `agents/`, `MAINTENANCE.md`, `ROADMAP.md`, `TASKS.md`.
 - **Lazy** (created on first use): `adr/`, `references/`,
   `plans/batches/`, `plans/R-XXX-<slug>/`, `plans/archive/`,
   `plans/visual-artifacts/` (gitignored — session artifacts, not docs).
@@ -59,7 +59,7 @@ format. **Read-only** — the agent never modifies these.
 ## ADRs
 
 Architecture Decision Records — one file per decision, sequentially
-numbered. Referenced from `design.md` where relevant.
+numbered. Referenced from `DESIGN.md` where relevant.
 
 Naming: `NNN-<short-title>.md` (e.g. `001-database-choice.md`).
 

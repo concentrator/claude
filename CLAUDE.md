@@ -49,8 +49,8 @@ don't try to guess.
 ## Temporary Files
 
 Store branch plans, REQ-XXX, and release plans in `.claude/plans/`
-(layout: `rules/planning.md`). Foundational specs (`requirements.md`,
-`design.md`) and planning indexes (`roadmap.md`, `tasks.md`) in
+(layout: `rules/planning.md`). Foundational specs (`REQUIREMENTS.md`,
+`DESIGN.md`) and planning indexes (`ROADMAP.md`, `TASKS.md`) in
 `.claude/`. Never use `docs/` or other project directories for these.
 
 ## Communication

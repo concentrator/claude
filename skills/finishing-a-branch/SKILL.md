@@ -41,13 +41,13 @@ stays `[ ]`; ask whether to keep or delete the branch plan file.
 
 ## 4. Post-merge bookkeeping (on default branch)
 
-1. Mark `T-XXX` `[x]` in `.claude/tasks.md`.
+1. Mark `T-XXX` `[x]` in `.claude/TASKS.md`.
 2. If all tasks under the parent `R-XXX` are now `[x]`, mark `R-XXX`
-   `[x]` in `roadmap.md`.
+   `[x]` in `ROADMAP.md`.
 3. If `.claude/plans/release-<version>.md` lists this branch, mark it
    `[x]`.
 4. Commit plan updates to the default branch (allowed exception),
    single-line message, e.g. `Close T-014`.
 5. Delete the merged branch (local; remote too if pushed).
 
-Then propose next: an open task from `tasks.md`, or `/dev plan`.
+Then propose next: an open task from `TASKS.md`, or `/dev plan`.

@@ -2,7 +2,7 @@
 
 Keeps `.claude/` and the project root clean and healthy — a periodical
 cleanup + repair routine. The **Routine** section is generic and seeded
-into each project's `.claude/maintenance.md`; the **This environment**
+into each project's `.claude/MAINTENANCE.md`; the **This environment**
 section holds targets unique to this repo.
 
 ## Routine
@@ -70,4 +70,4 @@ Targets beyond the generic routine:
   `skillListingBudgetFraction`.
 - Verify no skill or rule references removed scripts/log files.
 - Confirm foundational files stay at the repo root (not nested
-  `.claude/`), per `design.md § Self-hosting layout`.
+  `.claude/`), per `DESIGN.md § Self-hosting layout`.
