@@ -5,14 +5,14 @@ Four-level hierarchy for DEV mode.
 ## Levels
 
 1. **Requirements** — source of motivation, goals, acceptance criteria.
-   - `.claude/requirements.md` — project foundational, persistent.
+   - `.claude/REQUIREMENTS.md` — project foundational, persistent.
    - `.claude/plans/REQ-001.md`, `REQ-002.md`, ... — per-initiative
      (new feature, bug, or any work the foundational requirements don't
      already cover).
-2. **Roadmap** — `.claude/roadmap.md`. Business-level features over
+2. **Roadmap** — `.claude/ROADMAP.md`. Business-level features over
    time. Items: `R-001 (REQ-002): description`. Checkbox closes only
    when all child tasks are `[x]`.
-3. **Tasks** — `.claude/tasks.md`. Concrete units of work. Items:
+3. **Tasks** — `.claude/TASKS.md`. Concrete units of work. Items:
    `T-001 (R-001) [feat]: description` — the tag in brackets
    (`[feat] | [fix] | [refactor]`) declares task type and determines the
    branch prefix. Checkbox closes only when the task's branch is merged.
@@ -45,9 +45,9 @@ Four-level hierarchy for DEV mode.
 
 | File | Location |
 |---|---|
-| `requirements.md` (foundational) | `.claude/` |
-| `design.md` | `.claude/` |
-| `roadmap.md`, `tasks.md` | `.claude/` |
+| `REQUIREMENTS.md` (foundational) | `.claude/` |
+| `DESIGN.md` | `.claude/` |
+| `ROADMAP.md`, `TASKS.md` | `.claude/` |
 | `REQ-XXX.md` | `.claude/plans/` |
 | `T-XXX-<slug>.md` (branch plans) | `.claude/plans/R-XXX-<slug>/` |
 | `T-XXX-<slug>.findings.md` | beside its branch plan |
@@ -89,7 +89,7 @@ refuses to start the branch until the dependency is merged.
 
 ## Approval
 
-`.claude/requirements.md` and per-initiative `REQ-XXX.md` carry an
+`.claude/REQUIREMENTS.md` and per-initiative `REQ-XXX.md` carry an
 `approved:` field in YAML frontmatter. New: `approved: pending`. After
 user confirmation: `approved: YYYY-MM-DD`. Nothing downstream proceeds
 while `approved: pending`.
@@ -106,7 +106,7 @@ Exception: release plans (`release-vX.Y.Z.md`) may be moved to
 
 ## Templates
 
-### Foundational `.claude/requirements.md`
+### Foundational `.claude/REQUIREMENTS.md`
 
 ```
 ---
