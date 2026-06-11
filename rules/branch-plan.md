@@ -9,11 +9,11 @@ branch = one task. The plan must be complete and committed to `main`
 
     task: T-014
     type: feat                      # required — inherited from task tag; determines branch prefix
-    architecture-changing: true     # optional — triggers design.md update commit
+    architecture-changing: true     # optional — triggers DESIGN.md update commit
     depends-on: T-012               # optional — blocks `/dev code` until merged
     agentic: approved 2026-06-10    # optional — eligible for auto mode; absent = manual-only
 
-The `type:` value is inherited from the parent task's tag in `tasks.md`
+The `type:` value is inherited from the parent task's tag in `TASKS.md`
 (e.g. `T-014 (R-001) [feat]:`). Branch prefix matches.
 
 ## Body
@@ -32,7 +32,7 @@ any documentation it touches.
 ### No TODOs in code
 
 Never write `TODO`, `FIXME`, or `XXX` comments in code. Every such item
-routes to a plan artifact (branch-plan commit, `tasks.md`, or `REQ-XXX`)
+routes to a plan artifact (branch-plan commit, `TASKS.md`, or `REQ-XXX`)
 at discovery time. See "Scope discoveries" below.
 
 ## Mid-execution rules
@@ -79,7 +79,7 @@ mandatory final commit, then hands off to merge/PR.
 4. Apply approved fixes as additional commits if needed.
 5. Request manual testing/verification; suggest automation where applicable.
 6. **Triage `T-XXX-<slug>.findings.md`** — for each `[ ]` item, prompt user:
-   - Promote to `T-XXX` (new entry in `tasks.md`, committed to main now)
+   - Promote to `T-XXX` (new entry in `TASKS.md`, committed to main now)
      — only under a fitting open `R-XXX`; none → use the REQ route
    - Promote to `REQ-XXX` (defer to next planning round)
    - Discard (mark `[x]` with reason: "won't fix")
@@ -95,7 +95,7 @@ mandatory final commit, then hands off to merge/PR.
 ## Architecture-changing branches
 
 If header has `architecture-changing: true`, the plan must include a commit
-that updates `design.md`. Routine branches do not modify `design.md`.
+that updates `DESIGN.md`. Routine branches do not modify `DESIGN.md`.
 
 ## Size cap
 
