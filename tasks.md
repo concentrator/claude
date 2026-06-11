@@ -11,7 +11,7 @@ branch prefix. A checkbox closes only when the task's branch is merged.
       `finishing-a-branch`, `starting-a-project`, `migrating-to-dev`,
       `release`, `brainstorming`), and this repo's `design.md`
       tree-map + `maintenance.md` targets.
-- [ ] T-002 (R-001) [refactor]: Migrate this repo's own planning
+- [x] T-002 (R-001) [refactor]: Migrate this repo's own planning
       artifacts to the new layout (`roadmap.md`/`tasks.md` to root,
       `plans/batches/`, R-dirs, task-id-prefixed plan files). Manual
       mode only — the branch moves active plan files, including its
