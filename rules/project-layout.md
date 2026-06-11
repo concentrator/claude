@@ -8,13 +8,16 @@ Canonical structure for `.claude/` in a project. Other paths inside
     .claude/
     ├── requirements.md           # foundational requirements
     ├── design.md                 # architecture and design (≤1000w inline)
+    ├── maintenance.md            # sanity routine — seeded from template
+    ├── roadmap.md                # planning indexes — see planning.md
+    ├── tasks.md
     ├── plans/                    # planning hierarchy — see planning.md
-    │   ├── roadmap.md
-    │   ├── tasks.md
     │   ├── REQ-XXX.md
-    │   ├── <slug>.md
-    │   ├── <slug>.findings.md
     │   ├── release-vX.Y.Z.md
+    │   ├── batches/              # B-XXX.md manifests (lazy)
+    │   ├── R-XXX-<slug>/         # one per roadmap entry (lazy)
+    │   │   ├── T-XXX-<slug>.md
+    │   │   └── T-XXX-<slug>.findings.md
     │   ├── archive/              # optional, release plans only
     │   └── visual-artifacts/     # brainstorming mockups (lazy, gitignored)
     ├── skills/                   # project skill overrides
@@ -35,8 +38,9 @@ Canonical structure for `.claude/` in a project. Other paths inside
 - **Required at scaffold**: `requirements.md`, `design.md`, `plans/`,
   `settings.json`.
 - **Created as workflows need them**: `skills/`, `rules/`, `commands/`,
-  `agents/`.
-- **Lazy** (created on first use): `adr/`, `references/`, `plans/archive/`,
+  `agents/`, `maintenance.md`, `roadmap.md`, `tasks.md`.
+- **Lazy** (created on first use): `adr/`, `references/`,
+  `plans/batches/`, `plans/R-XXX-<slug>/`, `plans/archive/`,
   `plans/visual-artifacts/` (gitignored — session artifacts, not docs).
 
 ## Disallowed in `.claude/`
