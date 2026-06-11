@@ -30,6 +30,18 @@ Examples:
 - BAD: `Fix period chrome shadowing the logo; anchor via .container::before`
 - BAD: `Add slide--st03-multi--dense modifier toggled by tenant count for 9+ tenants`
 
+## MR / PR Messages
+
+Unlike commits, an MR carries a body. **Title**: commit-subject style
+(imperative, ~50 chars, WHAT not how). **Body**: a short summary (what
+changed and why — prose or bullets) and a test plan (what was run, or
+how to verify). Scannable, not a wall of text.
+
+- No agent attribution, "Generated with…", or Co-Authored-By trailers.
+- Per Audience visibility below: no gitignored paths, internal ticket
+  IDs, or references to this conversation. Link issues only if the
+  reader can open them.
+
 ## Code Comments
 
 When you change a function's behavior, update or remove any comment that
