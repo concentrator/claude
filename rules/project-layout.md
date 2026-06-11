@@ -18,7 +18,7 @@ Canonical structure for `.claude/` in a project. Other paths inside
     │   ├── R-XXX-<slug>/         # one per roadmap entry (lazy)
     │   │   ├── T-XXX-<slug>.md
     │   │   └── T-XXX-<slug>.findings.md
-    │   ├── archive/              # optional, release plans only
+    │   ├── archive/              # optional: shipped releases, pre-DEV legacy
     │   └── visual-artifacts/     # brainstorming mockups (lazy, gitignored)
     ├── skills/                   # project skill overrides
     │   └── <name>/SKILL.md

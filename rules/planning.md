@@ -98,9 +98,14 @@ Plans and requirements are not physically moved when closed. Closed items
 are marked `[x]`. Git history preserves the work. Manual cleanup is
 possible but optional.
 
-Exception: release plans (`release-vX.Y.Z.md`) may be moved to
-`.claude/plans/archive/` after the release ships, at the user's option
-(offered by the `release` skill).
+Exceptions — may be moved to `.claude/plans/archive/` at the user's
+option:
+
+- Release plans (`release-vX.Y.Z.md`) after the release ships (offered
+  by the `release` skill).
+- Pre-DEV legacy artifacts: completed plan files predating the
+  project's DEV adoption, with no `task:` chain. Closed DEV plans stay
+  in their `R-XXX-<slug>/` dirs.
 
 ## Templates
 
