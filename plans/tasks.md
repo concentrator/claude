@@ -4,7 +4,7 @@ Concrete units of work. Items:
 `T-001 (R-001) [feat|fix|refactor]: description`. The tag determines the
 branch prefix. A checkbox closes only when the task's branch is merged.
 
-- [ ] T-001 (R-001) [refactor]: Define the new planning layout — update
+- [x] T-001 (R-001) [refactor]: Define the new planning layout — update
       `rules/planning.md`, `rules/project-layout.md`,
       `rules/branch-plan.md`, all skills with hardcoded `plans/` paths
       (`dev`, `writing-plans`, `delegating-to-agents` + prompts,
