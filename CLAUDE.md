@@ -42,18 +42,6 @@ how to verify). Scannable, not a wall of text.
   IDs, or references to this conversation. Link issues only if the
   reader can open them.
 
-## Changelog
-
-One scannable line per change: what changed + the user-visible effect.
-No probe findings, wire-level mechanics, or rationale — those live in
-README / JSDoc / the diff. A reader scans the changelog for *what*
-moved and opens the docs for *how*. Group under the project's standard
-headings, newest on top; breaking entries state the change and a
-one-line migration, not a paragraph.
-
-- GOOD: `SecurityIssues.get` — args now `(clientId, id)`; unknown id returns `null`.
-- BAD: a paragraph on the 404-catch, payload shape, and no-alias rationale.
-
 ## Code Comments
 
 When you change a function's behavior, update or remove any comment that
