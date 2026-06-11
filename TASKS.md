@@ -25,3 +25,22 @@ branch prefix. A checkbox closes only when the task's branch is merged.
       Amendment 1) — update every reference in rules and skills, then
       `git mv` this repo's five files to `REQUIREMENTS.md`, `DESIGN.md`,
       `MAINTENANCE.md`, `ROADMAP.md`, `TASKS.md`. Runs before T-003.
+- [ ] T-005 (R-002) [feat]: Batch integration branch — rewrite
+      `branch-plan.md § Agentic execution`: `batch/B-XXX` created at
+      pre-flight, member branches merge into it (default branch
+      untouched during the run), rollback = delete batch branch
+      (`pre-B-XXX` tag stays as belt-and-braces), never-push rail
+      narrowed to mid-batch, task checkboxes close on MR merge
+      (planning.md + finishing-a-branch alignment).
+- [ ] T-006 (R-002) [feat]: Batch close phase + report artifact —
+      `delegating-to-agents`: full-diff review of `batch/B-XXX` vs
+      default on the most capable model, fixes as batch-branch commits,
+      tests + lint re-run, docs coherence pass; checkpoint writes and
+      presents `plans/batches/B-XXX.report.md` (per-branch + batch
+      sections); accept is invalid without the report.
+- [ ] T-007 (R-002) [feat]: Push + MR at accept — checkpoint accept
+      pushes `batch/B-XXX` and creates the MR (`glab`/`gh`, description
+      from the report); explicit defer-push option; VCS-CLI toolchain
+      requirement with push-only fallback; deny-rule carve-out guidance
+      for `git push origin batch/B-XXX` in the permission template
+      docs.
