@@ -18,7 +18,7 @@ Initial defaults — tune per project.
 | Target | Check | Cadence / threshold |
 |---|---|---|
 | Transcripts | retention | `cleanupPeriodDays` (settings) |
-| `plans/` | orphaned or closed plan & findings files | monthly |
+| `plans/` | orphaned or closed plan & findings files; empty `R-XXX-*` dirs | monthly |
 | `plans/visual-artifacts/` | gitignored scratch left behind | clear when stale |
 | `settings.local.json` | allow-list mess: one-off / dead / overlapping rules | weekly |
 | skills/ | dead, unused, broken, or duplicate skills | monthly |
