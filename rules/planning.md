@@ -9,16 +9,16 @@ Four-level hierarchy for DEV mode.
    - `.claude/plans/REQ-001.md`, `REQ-002.md`, ... — per-initiative
      (new feature, bug, or any work the foundational requirements don't
      already cover).
-2. **Roadmap** — `.claude/plans/roadmap.md`. Business-level features over
+2. **Roadmap** — `.claude/roadmap.md`. Business-level features over
    time. Items: `R-001 (REQ-002): description`. Checkbox closes only
    when all child tasks are `[x]`.
-3. **Tasks** — `.claude/plans/tasks.md`. Concrete units of work. Items:
+3. **Tasks** — `.claude/tasks.md`. Concrete units of work. Items:
    `T-001 (R-001) [feat]: description` — the tag in brackets
    (`[feat] | [fix] | [refactor]`) declares task type and determines the
    branch prefix. Checkbox closes only when the task's branch is merged.
-4. **Branch plan** — `.claude/plans/<slug>.md`. Checkboxes per commit.
-   Header: `task: T-001`. Checkbox closes at commit time. See
-   `branch-plan.md`.
+4. **Branch plan** — `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`.
+   Checkboxes per commit. Header: `task: T-001`. Checkbox closes at
+   commit time. See `branch-plan.md`.
 
 ## ID format
 
@@ -47,12 +47,26 @@ Four-level hierarchy for DEV mode.
 |---|---|
 | `requirements.md` (foundational) | `.claude/` |
 | `design.md` | `.claude/` |
-| `roadmap.md`, `tasks.md` | `.claude/plans/` |
+| `roadmap.md`, `tasks.md` | `.claude/` |
 | `REQ-XXX.md` | `.claude/plans/` |
-| `<slug>.md` (branch plans) | `.claude/plans/` |
-| `B-XXX.md` (execution batches) | `.claude/plans/` |
+| `T-XXX-<slug>.md` (branch plans) | `.claude/plans/R-XXX-<slug>/` |
+| `T-XXX-<slug>.findings.md` | beside its branch plan |
+| `B-XXX.md` (execution batches) | `.claude/plans/batches/` |
 | `release-vX.Y.Z.md` | `.claude/plans/` |
-| `<slug>.findings.md` | `.claude/plans/` |
+
+## Directory conventions
+
+- One plan directory per roadmap entry: `plans/R-XXX-<slug>/`, created
+  lazily by `writing-plans` with the first child branch plan. Slug
+  derives from the roadmap entry subject, is fixed at creation, and is
+  never renamed on roadmap rewording.
+- Branch plans are task-id-prefixed (`T-XXX-<slug>.md`); findings sit
+  beside as `T-XXX-<slug>.findings.md`. Branch names stay
+  `<prefix>/<slug>` — no id in git refs.
+- `plans/batches/` is created with the first batch manifest.
+- Transition: files predating the REQ-002 layout migration may sit at
+  legacy flat paths (`plans/<slug>.md`, `plans/roadmap.md`); resolve
+  both until the migration tasks close (clause removed by T-002).
 
 ## Where plans live in git
 

@@ -5,7 +5,8 @@ description: Use when fixing a bug from a planned task.
 
 # Fixing a Bug
 
-Iteration loop for one bug-fix task from `.claude/plans/<slug>.md`.
+Iteration loop for one bug-fix task from its branch plan
+(`.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`).
 
 ## Iteration cadence (one commit per pass)
 

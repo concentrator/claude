@@ -10,7 +10,8 @@ Close out a DEV branch. Invoked by the closing routine
 
 ## 1. Verify
 
-- `.claude/plans/<slug>.md`: every `[ ]` is `[x]`; findings file triaged.
+- `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`: every `[ ]` is `[x]`;
+  findings file triaged.
 - Fresh test + lint run, green. Failing → stop, report, don't proceed.
 
 ## 2. Present options
@@ -40,7 +41,7 @@ stays `[ ]`; ask whether to keep or delete the branch plan file.
 
 ## 4. Post-merge bookkeeping (on default branch)
 
-1. Mark `T-XXX` `[x]` in `.claude/plans/tasks.md`.
+1. Mark `T-XXX` `[x]` in `.claude/tasks.md`.
 2. If all tasks under the parent `R-XXX` are now `[x]`, mark `R-XXX`
    `[x]` in `roadmap.md`.
 3. If `.claude/plans/release-<version>.md` lists this branch, mark it

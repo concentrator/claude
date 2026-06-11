@@ -23,9 +23,10 @@ relate, and the invariants that keep them coherent.
 
 This repo is consumed as `~/.claude`, so the directory that is `.claude/`
 in a normal project is the repo root here. Foundational DEV files
-(`requirements.md`, `design.md`, `plans/`, `maintenance.md`) sit at the
-root, not in a nested `.claude/`. The nested `.claude/` holds only Claude
-Code's project settings, whose location is fixed by the tool.
+(`requirements.md`, `design.md`, `maintenance.md`, `roadmap.md`,
+`tasks.md`, `plans/`) sit at the root, not in a nested `.claude/`. The
+nested `.claude/` holds only Claude Code's project settings, whose
+location is fixed by the tool.
 
 ## Tree-map
 
@@ -43,10 +44,14 @@ excluded — see `.gitignore`.
 ├── maintenance.md                # sanity routine (template + repo-specific)
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
+├── roadmap.md                    # planning indexes at root
+├── tasks.md                      #   (REQ-002 layout; file moves land with T-002)
 ├── plans/                        # planning hierarchy
-│   ├── roadmap.md
-│   ├── tasks.md
-│   └── REQ-001.md                # parallel batch execution (pending)
+│   ├── REQ-XXX.md                # per-initiative requirements
+│   ├── batches/                  # B-XXX manifests (lazy)
+│   └── R-XXX-<slug>/             # one dir per roadmap entry (lazy)
+│       ├── T-XXX-<slug>.md
+│       └── T-XXX-<slug>.findings.md
 ├── rules/                        # always-loaded rule files
 │   ├── branch-plan.md            # branch plan format, agentic rails
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
