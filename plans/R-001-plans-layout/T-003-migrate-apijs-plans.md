@@ -1,6 +1,6 @@
 task: T-003
 type: refactor
-depends-on: T-001
+depends-on: T-004
 
 # refactor/migrate-apijs-plans — migrate wallarm-api-js plans (REQ-002)
 
@@ -9,8 +9,12 @@ main (plans exception), no branch there. Manual mode only. Run only
 between batches (B-002 must not be open). Recommended after T-002
 proves the pattern. Record pre-migration file count first.
 
-- [ ] Indexes: `git mv .claude/plans/roadmap.md .claude/roadmap.md`,
-      same for `tasks.md`, in wallarm-api-js.
+- [ ] Indexes: `git mv .claude/plans/roadmap.md .claude/ROADMAP.md`,
+      same for `tasks.md` → `.claude/TASKS.md` (move + uppercase per
+      Amendment 1), in wallarm-api-js.
+- [ ] Uppercase any other foundational docs present in its `.claude/`
+      (`requirements.md`, `design.md`, `maintenance.md`) via `git mv`;
+      skip those absent.
 - [ ] Batches: create `.claude/plans/batches/`; `git mv` B-001–B-003
       manifests in (entries reference T-ids/slugs, not paths — verify,
       no content edits expected).

@@ -17,7 +17,11 @@ branch prefix. A checkbox closes only when the task's branch is merged.
       mode only — the branch moves active plan files, including its
       own; final commit relocates the remainder.
 - [ ] T-003 (R-001) [refactor]: Migrate wallarm-api-js plans to the new
-      layout — `git mv` per REQ-002, update `B-XXX` manifest
-      references, verify file count preserved. Lands as documentation
-      commits on that repo's main (plans exception); run only between
-      batches.
+      layout — `git mv` per REQ-002 (incl. uppercase renames per
+      Amendment 1), update `B-XXX` manifest references, verify file
+      count preserved. Lands as documentation commits on that repo's
+      main (plans exception); run only between batches, after T-004.
+- [ ] T-004 (R-001) [refactor]: Uppercase the foundational docs (REQ-002
+      Amendment 1) — update every reference in rules and skills, then
+      `git mv` this repo's five files to `REQUIREMENTS.md`, `DESIGN.md`,
+      `MAINTENANCE.md`, `ROADMAP.md`, `TASKS.md`. Runs before T-003.
