@@ -14,7 +14,7 @@ there hits a sensitive-file prompt no allow-rule clears.
 
 ## Pre-flight
 
-- Batch exists; every member plan has `agentic: approved`.
+- Batch exists; member plans all `agentic: approved`.
 - Permissions: `.claude/settings.local.json` holds every
   `auto-permissions.template.json` rule (`__PROJECT_DIR__` → abs path)
   plus the CLAUDE.md `## Agent toolchain` rules. Missing → propose
@@ -24,7 +24,7 @@ there hits a sensitive-file prompt no allow-rule clears.
 
 ## Per branch, in batch order
 
-1. Create branch per plan (prefix from `type:`).
+1. Branch per plan (prefix from `type:`).
 2. Per commit checkbox:
    - Dispatch a fresh implementer (`implementer-prompt.md`) with full
      item text + parent-chain context (REQ criteria, `DESIGN.md`
@@ -41,31 +41,31 @@ there hits a sensitive-file prompt no allow-rule clears.
    judgment calls for checkpoint. Mandatory final commit (docs
    re-review, cleanup, mark plan complete). Tests + lint green →
    merge into `batch/B-XXX`; red → halt.
-4. Never push mid-batch. Keep branch refs until checkpoint validation.
+4. Never push mid-batch; keep branch refs until checkpoint.
 
-## Batch close (after the last branch)
+## Batch close
 
 1. Full-diff review of `batch/B-XXX` vs default — `code-reviewer`,
    most capable model: cross-branch interactions, duplicated helpers,
    convention drift.
-2. Apply fixes as batch-branch commits; queue judgment calls.
-3. Re-run tests + lint; red → halt. Docs coherence pass (CHANGELOG /
-   README across all member branches).
+2. Fixes land as batch-branch commits; queue judgment calls.
+3. Re-run tests + lint; red → halt. Docs coherence pass
+   (CHANGELOG/README across member branches).
 
 ## Model selection
 
 Mechanical item (1–2 files, complete spec) → fast; multi-file
 integration → standard; reviews → most capable.
 
-## Checkpoint (batch end, or any halt)
+## Checkpoint (batch end or halt)
 
-Write `plans/batches/B-XXX.report.md` per `report-template.md`
-(includes the `permission_prompts.jsonl` analysis). No report → no
-accept offer. Present it, then:
+Write `plans/batches/B-XXX.report.md` per `report-template.md` (incl.
+`permission_prompts.jsonl` analysis). No report → no accept offer.
+Present it, then:
 
 - **Accept** → push flow (T-007), findings triage, delete branch refs,
   mark batch items `[x]` per the MR-merge rule.
 - **Reject** → delete `batch/B-XXX` (`pre-B-XXX` tag is
   belt-and-braces); member refs preserved for salvage.
-- **Halt** → stop at the failed item, completed work intact; user
-  resolves, re-run `/dev auto B-XXX`.
+- **Halt** → failed item reported, completed work intact; user
+  resolves, re-runs `/dev auto B-XXX`.
