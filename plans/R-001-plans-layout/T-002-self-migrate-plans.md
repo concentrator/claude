@@ -8,7 +8,7 @@ depends-on: T-001
 Manual mode only (no agentic stamp): moves active plan files including
 its own. No other planning activity while this branch is open.
 
-- [ ] Create `plans/R-001-plans-layout/`; `git mv` this plan, T-001's,
+- [x] Create `plans/R-001-plans-layout/`; `git mv` this plan, T-001's,
       and T-003's plans (+ any findings files) in as
       `T-002-…`/`T-001-…`/`T-003-…`; own plan moves first in the
       commit. (T-003's file added at pre-flight — it postdates this
