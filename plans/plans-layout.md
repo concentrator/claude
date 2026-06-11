@@ -12,6 +12,9 @@ File migrations are T-002 (this repo) and T-003 (wallarm-api-js).
       dirs (created lazily by writing-plans on first child plan; slug
       fixed at creation, no rename on roadmap rewording);
       `T-XXX-<slug>.md` + `.findings.md` plan files; `plans/batches/`.
+      Include transition clause: files predating migration may sit at
+      legacy flat paths; resolve both until the migration tasks close
+      (clause removed by T-002).
 - [ ] branch-plan.md: plan, findings, and batch manifest paths updated
       to the new scheme; agentic-rails path references aligned.
 - [ ] project-layout.md: canonical `.claude/` tree updated.
