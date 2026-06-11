@@ -72,7 +72,7 @@ Task tool (general-purpose):
 
     ## Plan & Findings Files
 
-    Read or edit files under `.claude/` (plan checkboxes, `<slug>.findings.md`)
+    Read or edit files under `.claude/` (plan checkboxes, `T-XXX-<slug>.findings.md`)
     only with the Read/Edit/Write tools — never `sed`/`cat`/`grep`/`awk`.
     Edit-class shell on `.claude/` paths stalls on a sensitive-file prompt that
     no permission rule clears.

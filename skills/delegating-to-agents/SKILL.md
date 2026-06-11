@@ -6,7 +6,7 @@ description: Use when executing an approved batch via subagents (DEV auto mode).
 # Delegating to Agents
 
 Execution engine behind `/dev auto`: runs an approved batch
-(`.claude/plans/B-XXX.md`) via subagents, autonomously between
+(`.claude/plans/batches/B-XXX.md`) via subagents, autonomously between
 checkpoints. Rules: `~/.claude/rules/branch-plan.md § Agentic
 execution`.
 
