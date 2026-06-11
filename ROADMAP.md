@@ -3,7 +3,7 @@
 Business-level features over time. Items: `R-001 (REQ-XXX): description`.
 A checkbox closes only when all child tasks are `[x]`.
 
-- [ ] R-001 (REQ-002): Restructure planning layout — indexes to
+- [x] R-001 (REQ-002): Restructure planning layout — indexes to
       `.claude/` root, per-roadmap-entry plan dirs, task-id-prefixed
       branch plans, batch manifests dir; rules, skills, and adopter
       projects migrated.

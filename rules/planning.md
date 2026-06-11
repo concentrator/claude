@@ -64,8 +64,6 @@ Four-level hierarchy for DEV mode.
   beside as `T-XXX-<slug>.findings.md`. Branch names stay
   `<prefix>/<slug>` — no id in git refs.
 - `plans/batches/` is created with the first batch manifest.
-- Transition: adopter projects not yet migrated to this layout may have
-  files at legacy flat paths; resolve both there until T-003 closes.
 
 ## Where plans live in git
 
