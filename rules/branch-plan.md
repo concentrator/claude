@@ -158,7 +158,10 @@ requires one. Checkbox closes at checkpoint validation.
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
-| Batch complete | Checkpoint, wait for user |
+| Batch complete | Close phase on `batch/B-XXX`, then checkpoint, wait for user |
+
+Checkpoint accept is the only point where anything is pushed, and only
+the batch branch (`delegating-to-agents` owns the mechanics).
 
 ## Releases
 
