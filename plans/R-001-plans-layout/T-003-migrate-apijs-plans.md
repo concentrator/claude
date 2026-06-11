@@ -22,5 +22,7 @@ proves the pattern. Record pre-migration file count first.
       artifacts) stay at `plans/` root, listed in the commit message;
       `release-0.2.0.md` stays at root. Verify file count matches
       pre-migration.
+- [ ] Remove the transition clause from `rules/planning.md` — the last
+      adopter is migrated; legacy flat paths no longer exist anywhere.
 - [ ] Complete the branch: grep wallarm-api-js docs for stale flat
       paths, mark this plan complete (commit here), final verification.
