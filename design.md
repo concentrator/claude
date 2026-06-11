@@ -17,14 +17,14 @@ relate, and the invariants that keep them coherent.
   for this repo: `.claude/settings.local.json`.
 - **plans/** — this environment's own planning hierarchy
   (`rules/planning.md`).
-- **maintenance.md** — `.claude/` and project-root sanity routine.
+- **MAINTENANCE.md** — `.claude/` and project-root sanity routine.
 
 ## Self-hosting layout
 
 This repo is consumed as `~/.claude`, so the directory that is `.claude/`
 in a normal project is the repo root here. Foundational DEV files
-(`requirements.md`, `design.md`, `maintenance.md`, `roadmap.md`,
-`tasks.md`, `plans/`) sit at the root, not in a nested `.claude/`. The
+(`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`, `ROADMAP.md`,
+`TASKS.md`, `plans/`) sit at the root, not in a nested `.claude/`. The
 nested `.claude/` holds only Claude Code's project settings, whose
 location is fixed by the tool.
 
@@ -39,13 +39,13 @@ excluded — see `.gitignore`.
 ├── CLAUDE.md                     # global instructions, every session
 ├── settings.json                 # global Claude Code config (tracked)
 ├── .gitignore
-├── requirements.md               # foundational requirements
-├── design.md                     # this file
-├── maintenance.md                # sanity routine (template + repo-specific)
+├── REQUIREMENTS.md               # foundational requirements
+├── DESIGN.md                     # this file
+├── MAINTENANCE.md                # sanity routine (template + repo-specific)
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
-├── roadmap.md                    # planning indexes — see rules/planning.md
-├── tasks.md
+├── ROADMAP.md                    # planning indexes — see rules/planning.md
+├── TASKS.md
 ├── plans/                        # planning hierarchy
 │   ├── REQ-XXX.md                # per-initiative requirements
 │   ├── batches/                  # B-XXX manifests (lazy)
