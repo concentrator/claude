@@ -38,7 +38,7 @@ branch prefix. A checkbox closes only when the task's branch is merged.
       tests + lint re-run, docs coherence pass; checkpoint writes and
       presents `plans/batches/B-XXX.report.md` (per-branch + batch
       sections); accept is invalid without the report.
-- [ ] T-007 (R-002) [feat]: Push + MR at accept — checkpoint accept
+- [x] T-007 (R-002) [feat]: Push + MR at accept — checkpoint accept
       pushes `batch/B-XXX` and creates the MR (`glab`/`gh`, description
       from the report); explicit defer-push option; VCS-CLI toolchain
       requirement with push-only fallback; deny-rule carve-out guidance

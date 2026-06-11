@@ -7,7 +7,7 @@ A checkbox closes only when all child tasks are `[x]`.
       `.claude/` root, per-roadmap-entry plan dirs, task-id-prefixed
       branch plans, batch manifests dir; rules, skills, and adopter
       projects migrated.
-- [ ] R-002 (REQ-003): Batch integration flow — `batch/B-XXX` branch,
+- [x] R-002 (REQ-003): Batch integration flow — `batch/B-XXX` branch,
       enforced checkpoint report artifact, full-strength batch review,
       push + MR at accept.
 
