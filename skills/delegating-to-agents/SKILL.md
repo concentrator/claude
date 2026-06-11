@@ -23,7 +23,7 @@ prompt no allow-rule clears.
   propose the merged file, apply on approval. No `## Agent toolchain` →
   halt, ask.
 - On default branch, working tree clean, tests + lint green.
-- Set rollback tag: `git tag pre-B-XXX`.
+- Set rollback tag `pre-B-XXX`; create `batch/B-XXX` off default.
 
 ## Per branch, in batch order
 
@@ -43,8 +43,17 @@ prompt no allow-rule clears.
    agent (full branch diff vs plan); apply mechanical fixes, queue
    judgment calls for checkpoint. Mandatory final commit (docs
    re-review, cleanup, mark plan complete). Tests + lint green →
-   merge to **local** default branch; red → halt.
-4. Never push. Keep branch refs until checkpoint validation.
+   merge into `batch/B-XXX`; red → halt.
+4. Never push mid-batch. Keep branch refs until checkpoint validation.
+
+## Batch close (after the last branch)
+
+1. Full-diff review of `batch/B-XXX` vs default — `code-reviewer`,
+   most capable model: cross-branch interactions, duplicated helpers,
+   convention drift.
+2. Apply fixes as batch-branch commits; queue judgment calls.
+3. Re-run tests + lint; red → halt. Docs coherence pass (CHANGELOG /
+   README across all member branches).
 
 ## Model selection
 
