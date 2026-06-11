@@ -35,5 +35,5 @@ docs, and open-REQ normative references.
 - [x] Grep sweep: no lowercase forms outside closed plans/historical
       narrative (only TASKS.md closed-entry texts remain, per scope);
       `git ls-files` confirms 5 uppercase, 0 lowercase in the index.
-- [ ] Complete the branch: re-review docs across all commits, cleanup,
+- [x] Complete the branch: re-review docs across all commits, cleanup,
       mark plan complete, commit.
