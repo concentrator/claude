@@ -32,8 +32,8 @@ from a task in `tasks.md`. Invoked by `/dev plan T-XXX`.
 5. **Add mandatory final commit** at the end (per branch-plan.md).
 6. **Confirm with user**, then write to
    `plans/R-XXX-<slug>/T-XXX-<slug>.md` — create the parent R-dir if
-   absent (slug from the roadmap entry subject, fixed at creation, per
-   `planning.md § Directory conventions`) — and commit to `main`.
+   absent per `planning.md § Directory conventions` — and commit to
+   `main`.
 
 ## Soft cap
 
