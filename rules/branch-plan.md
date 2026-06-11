@@ -105,8 +105,10 @@ at 20. Override with stated reason in plan header.
 ## Agentic execution
 
 Auto mode (`/dev auto`, engine: `delegating-to-agents`) runs whole
-batches of branches via subagents. Manual mode is the default; auto
-requires every gate below.
+batches of branches via subagents, integrating them on a dedicated
+batch branch `batch/B-XXX` — the default branch is never modified
+during a run. Manual mode is the default; auto requires every gate
+below.
 
 ### `agentic:` stamp
 
@@ -135,11 +137,17 @@ requires one. Checkbox closes at checkpoint validation.
 
 - Agents touch only code, plan checkboxes, and findings files —
   never plan content, never the closing decisions.
-- Never push. Merging to the **local** default branch is allowed only
-  inside a batch run, with rollback tag `pre-B-XXX` set at start and
-  branch refs kept until the user validates the checkpoint.
+- Pre-flight creates `batch/B-XXX` off the default branch and sets the
+  `pre-B-XXX` tag (belt-and-braces). Member branches merge into the
+  batch branch only; the default branch is untouched until the batch
+  MR merges.
+- Agents never push. The only push in the flow is the checkpoint-accept
+  push of the batch branch — never the default branch (mechanics:
+  `delegating-to-agents` checkpoint).
 - No commit on red tests/lint — no exceptions.
 - Findings triage and push decisions always defer to the checkpoint.
+- Branch refs are kept until the user validates the checkpoint.
+  Reject = delete the batch branch; member refs preserved for salvage.
 
 ### Stop conditions
 
