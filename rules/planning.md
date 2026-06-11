@@ -64,9 +64,8 @@ Four-level hierarchy for DEV mode.
   beside as `T-XXX-<slug>.findings.md`. Branch names stay
   `<prefix>/<slug>` — no id in git refs.
 - `plans/batches/` is created with the first batch manifest.
-- Transition: files predating the REQ-002 layout migration may sit at
-  legacy flat paths (`plans/<slug>.md`, `plans/roadmap.md`); resolve
-  both until the migration tasks close (clause removed by T-002).
+- Transition: adopter projects not yet migrated to this layout may have
+  files at legacy flat paths; resolve both there until T-003 closes.
 
 ## Where plans live in git
 

@@ -44,8 +44,8 @@ excluded — see `.gitignore`.
 ├── maintenance.md                # sanity routine (template + repo-specific)
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
-├── roadmap.md                    # planning indexes at root
-├── tasks.md                      #   (REQ-002 layout; file moves land with T-002)
+├── roadmap.md                    # planning indexes — see rules/planning.md
+├── tasks.md
 ├── plans/                        # planning hierarchy
 │   ├── REQ-XXX.md                # per-initiative requirements
 │   ├── batches/                  # B-XXX manifests (lazy)
