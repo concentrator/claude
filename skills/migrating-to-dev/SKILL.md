@@ -43,7 +43,8 @@ before changing existing config. If user defers any item, record
 
 ## 6. Backfill plans
 
-Create `.claude/plans/` with `roadmap.md`, `tasks.md`. Ask user about
+Create `.claude/plans/` plus `roadmap.md`, `tasks.md` at the `.claude/`
+root. Ask user about
 ongoing work → roadmap items (R-XXX) and open tasks (T-XXX). Known bugs
 or tech debt → new `REQ-XXX.md` per `~/.claude/rules/planning.md`.
 
