@@ -14,16 +14,16 @@ default branch — exception to the no-commit-to-`main` rule.
 
 The user supplies a description (text file, prompt, or both). Read it, ask
 1–3 clarifying questions if needed. Create `.claude/` if absent, then write
-`.claude/requirements.md` with `approved: pending` frontmatter and sections
+`.claude/REQUIREMENTS.md` with `approved: pending` frontmatter and sections
 per `~/.claude/rules/planning.md § Templates → Foundational`. **Do not
 proceed until the user approves** — then update `approved:` to today.
 
-The user's seed file (if any) is **not** committed — `requirements.md` is
+The user's seed file (if any) is **not** committed — `REQUIREMENTS.md` is
 the project's owned spec.
 
 ## 2. Design
 
-Write `.claude/design.md` — initial architecture and design decisions.
+Write `.claude/DESIGN.md` — initial architecture and design decisions.
 **≤1000 words inline**, external refs allowed (diagrams, ADRs). Project
 `CLAUDE.md` holds only always-on essentials.
 
@@ -33,7 +33,7 @@ Files:
 - `/init` → project `CLAUDE.md`.
 - `README.md` (verify or stub).
 - `.gitignore` — `.claude/settings.local.json`, secrets, build artifacts.
-- `.claude/plans/` (empty) plus `roadmap.md` and `tasks.md` at the
+- `.claude/plans/` (empty) plus `ROADMAP.md` and `TASKS.md` at the
   `.claude/` root.
 - Project `CLAUDE.md`: stack, base branch, build/test/lint. Don't restate
   global rules.

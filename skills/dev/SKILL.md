@@ -25,7 +25,7 @@ development is DEV-only).
 |---|---|---|
 | `REQ` | New `REQ-XXX.md` via `brainstorming` | — |
 | `REQ-XXX` | Amend requirement | REQ-XXX open |
-| `roadmap` | Create/extend `roadmap.md` | — |
+| `roadmap` | Create/extend `ROADMAP.md` | — |
 | `R-XXX` | Add tasks under roadmap item | R-XXX open |
 | `T-XXX` | Branch plan via `writing-plans` | T-XXX open |
 | `all` | Branch plans for all open tasks lacking one (parallel subagents, one review pass) | open tasks |

@@ -6,14 +6,14 @@ description: Use when generating a branch plan from a task.
 # Writing Plans
 
 Generate a branch plan (`.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`)
-from a task in `tasks.md`. Invoked by `/dev plan T-XXX`.
+from a task in `TASKS.md`. Invoked by `/dev plan T-XXX`.
 
 ## Inputs
 
-- Task ID (e.g. `T-014`) from `.claude/tasks.md`
+- Task ID (e.g. `T-014`) from `.claude/TASKS.md`
 - Task tag: `[feat] | [fix] | [refactor]`
 - Parent chain for context: T-XXX → R-XXX → REQ-XXX
-- Project `CLAUDE.md` (build/test/lint), `.claude/design.md` (architecture)
+- Project `CLAUDE.md` (build/test/lint), `.claude/DESIGN.md` (architecture)
 
 ## Steps
 

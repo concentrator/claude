@@ -17,7 +17,7 @@ against `~/.claude/rules/project-layout.md` and report gaps.
 ## 2. Requirements
 
 Read README + code. Ask user 3–5 clarifying questions (purpose, audience,
-goals, non-goals, success criteria). Write `.claude/requirements.md` with
+goals, non-goals, success criteria). Write `.claude/REQUIREMENTS.md` with
 `approved: pending` per `~/.claude/rules/planning.md § Templates →
 Foundational`. **Block on user approval** — then update `approved:` to
 today.
@@ -25,7 +25,7 @@ today.
 ## 3. Design
 
 Document module boundaries, data/control flow, architectural decisions
-evident from code. Write `.claude/design.md` (≤1000 words inline). User
+evident from code. Write `.claude/DESIGN.md` (≤1000 words inline). User
 approves.
 
 ## 4. CLAUDE.md alignment
@@ -43,7 +43,7 @@ before changing existing config. If user defers any item, record
 
 ## 6. Backfill plans
 
-Create `.claude/plans/` plus `roadmap.md`, `tasks.md` at the `.claude/`
+Create `.claude/plans/` plus `ROADMAP.md`, `TASKS.md` at the `.claude/`
 root. Ask user about
 ongoing work → roadmap items (R-XXX) and open tasks (T-XXX). Known bugs
 or tech debt → new `REQ-XXX.md` per `~/.claude/rules/planning.md`.
@@ -55,5 +55,5 @@ category for clarity).
 
 ## 8. Next
 
-Propose: pick a `T-XXX` from `tasks.md` → `/dev plan T-XXX` to start a
+Propose: pick a `T-XXX` from `TASKS.md` → `/dev plan T-XXX` to start a
 branch plan.
