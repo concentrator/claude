@@ -1,7 +1,9 @@
 # Branch plan rules
 
-A branch plan is `.claude/plans/<slug>.md`. One branch = one task. The plan
-must be complete and committed to `main` **before** the branch is created.
+A branch plan is `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md` (dir per
+parent roadmap entry — `planning.md § Directory conventions`). One
+branch = one task. The plan must be complete and committed to `main`
+**before** the branch is created.
 
 ## Header
 
@@ -49,8 +51,8 @@ fixes:
 
 **Non-blocker** — improvement, refactor idea, tangential test gap, code
 smell, naming inconsistency:
-- Append to `.claude/plans/<slug>.findings.md` as a checklist item
-  (one line + brief context). Continue coding.
+- Append to the plan's sibling `T-XXX-<slug>.findings.md` as a
+  checklist item (one line + brief context). Continue coding.
 - Never silently expand scope.
 
 Findings file format:
@@ -76,7 +78,7 @@ mandatory final commit, then hands off to merge/PR.
 3. Print report; request user approval before applying.
 4. Apply approved fixes as additional commits if needed.
 5. Request manual testing/verification; suggest automation where applicable.
-6. **Triage `<slug>.findings.md`** — for each `[ ]` item, prompt user:
+6. **Triage `T-XXX-<slug>.findings.md`** — for each `[ ]` item, prompt user:
    - Promote to `T-XXX` (new entry in `tasks.md`, committed to main now)
      — only under a fitting open `R-XXX`; none → use the REQ route
    - Promote to `REQ-XXX` (defer to next planning round)
@@ -117,7 +119,7 @@ fix via `/dev plan <slug>` first. User approves → stamp
 
 ### Batches
 
-`.claude/plans/B-XXX.md` — ordered checklist, one `[ ]` per task:
+`.claude/plans/batches/B-XXX.md` — ordered checklist, one `[ ]` per task:
 
     # B-001
     - [ ] T-014 (<slug>)
@@ -147,7 +149,7 @@ requires one. Checkbox closes at checkpoint validation.
 | NEEDS_CONTEXT unanswerable from REQ/design | Halt, report |
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
-| Non-blocker discovery | `<slug>.findings.md`, continue |
+| Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
 | Batch complete | Checkpoint, wait for user |
 
 ## Releases
