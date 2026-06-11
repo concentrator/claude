@@ -105,8 +105,10 @@ at 20. Override with stated reason in plan header.
 ## Agentic execution
 
 Auto mode (`/dev auto`, engine: `delegating-to-agents`) runs whole
-batches of branches via subagents. Manual mode is the default; auto
-requires every gate below.
+batches of branches via subagents, integrating them on a dedicated
+batch branch `batch/B-XXX` — the default branch is never modified
+during a run. Manual mode is the default; auto requires every gate
+below.
 
 ### `agentic:` stamp
 
@@ -129,17 +131,24 @@ Execution grouping, not a planning level: members must be open tasks
 with agentic-approved plans; `depends-on` must resolve within batch
 order or already-merged work. Soft cap ~25 planned commits total.
 Manual mode may use an open batch as its task queue; auto mode
-requires one. Checkbox closes at checkpoint validation.
+requires one. Batch and member-task checkboxes close when the batch
+MR merges to the default branch — not at local merge or checkpoint.
 
 ### Rails
 
 - Agents touch only code, plan checkboxes, and findings files —
   never plan content, never the closing decisions.
-- Never push. Merging to the **local** default branch is allowed only
-  inside a batch run, with rollback tag `pre-B-XXX` set at start and
-  branch refs kept until the user validates the checkpoint.
+- Pre-flight creates `batch/B-XXX` off the default branch and sets the
+  `pre-B-XXX` tag (belt-and-braces). Member branches merge into the
+  batch branch only; the default branch is untouched until the batch
+  MR merges.
+- Agents never push. The only push in the flow is the checkpoint-accept
+  push of the batch branch — never the default branch (mechanics:
+  `delegating-to-agents` checkpoint).
 - No commit on red tests/lint — no exceptions.
 - Findings triage and push decisions always defer to the checkpoint.
+- Branch refs are kept until the user validates the checkpoint.
+  Reject = delete the batch branch; member refs preserved for salvage.
 
 ### Stop conditions
 
@@ -150,9 +159,13 @@ requires one. Checkbox closes at checkpoint validation.
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
-| Batch complete | Checkpoint, wait for user |
+| Batch complete | Close phase on `batch/B-XXX`, then checkpoint, wait for user |
+
+Checkpoint accept is the only point where anything is pushed, and only
+the batch branch (`delegating-to-agents` owns the mechanics).
 
 ## Releases
 
 If the project uses releases, completed branches are listed in
-`.claude/plans/release-<version>.md` with `[x]` only after merge to default.
+`.claude/plans/release-<version>.md` with `[x]` only after they reach
+the default branch (directly, or via a merged batch MR).

@@ -41,6 +41,9 @@ stays `[ ]`; ask whether to keep or delete the branch plan file.
 
 ## 4. Post-merge bookkeeping (on default branch)
 
+In auto mode this runs only after the batch MR merges to the default
+branch (branch-plan.md § Agentic execution); manual mode unchanged.
+
 1. Mark `T-XXX` `[x]` in `.claude/TASKS.md`.
 2. If all tasks under the parent `R-XXX` are now `[x]`, mark `R-XXX`
    `[x]` in `ROADMAP.md`.
