@@ -65,6 +65,10 @@ Task tool (general-purpose):
     the harness obfuscation guard and stall the run on a permission prompt.
     Put scratch files in /tmp, not the repo tree.
 
+    Load env the flag way: `node --env-file=.env /tmp/probe.mjs`. Do NOT
+    prefix with `set -a && source .env && ...` or similar — the prefix makes
+    it a compound command the `Bash(node:*)` rule can't match, and it prompts.
+
     Leave scratch files in place when done — do not `rm` them. Glob
     deletes are rejected by the sandbox, an `rm` segment turns an
     otherwise-allowed compound command into a prompt, and bulk-clearing

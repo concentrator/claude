@@ -53,7 +53,10 @@ Task tool (general-purpose):
     - Did they solve the wrong problem?
     - Did they implement the right feature but wrong way?
 
-    **Verify by reading code, not by trusting report.**
+    **Verify by reading code, not by trusting report.** Use the Read tool and
+    plain `git show <ref>:<path>` — not process/command substitution
+    (`diff <(git show ...)`, `$(grep ...)`), which the permission matcher
+    can't allowlist and which stalls the run on a prompt.
 
     Report:
     - ✅ Spec compliant (if everything matches after code inspection)
