@@ -25,7 +25,7 @@ branch prefix. A checkbox closes only when the task's branch is merged.
       Amendment 1) — update every reference in rules and skills, then
       `git mv` this repo's five files to `REQUIREMENTS.md`, `DESIGN.md`,
       `MAINTENANCE.md`, `ROADMAP.md`, `TASKS.md`. Runs before T-003.
-- [ ] T-005 (R-002) [feat]: Batch integration branch — rewrite
+- [x] T-005 (R-002) [feat]: Batch integration branch — rewrite
       `branch-plan.md § Agentic execution`: `batch/B-XXX` created at
       pre-flight, member branches merge into it (default branch
       untouched during the run), rollback = delete batch branch
