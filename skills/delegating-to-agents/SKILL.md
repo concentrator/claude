@@ -17,8 +17,10 @@ shell trips the sensitive-file guard).
 - Batch exists; member plans all `agentic: approved`.
 - Permissions: `.claude/settings.local.json` holds every
   `auto-permissions.template.json` rule (`__PROJECT_DIR__` → abs path)
-  plus the CLAUDE.md `## Agent toolchain` rules. Missing → propose
-  merged file, apply on approval. No toolchain section → halt, ask.
+  plus the CLAUDE.md `## Agent toolchain` rules, incl. a VCS-host CLI
+  (`glab`/`gh`; absent → checkpoint pushes + notes manual MR). Missing
+  → propose merged file, apply on approval. No toolchain section →
+  halt, ask.
 - On default branch, working tree clean, tests + lint green.
 - Set rollback tag `pre-B-XXX`; create `batch/B-XXX` off default.
 
@@ -29,18 +31,16 @@ shell trips the sensitive-file guard).
    - Dispatch a fresh implementer (`implementer-prompt.md`) with full
      item text + parent-chain context (REQ criteria, `DESIGN.md`
      excerpts) pasted in — never have it read plan files.
-   - Status handling: DONE → spec check. DONE_WITH_CONCERNS → resolve
-     concerns first. NEEDS_CONTEXT → answer from
-     REQ/design once, re-dispatch; unanswerable → halt. BLOCKED → halt.
-   - Spec check (`spec-reviewer-prompt.md`, fast model): exactly the
-     item, nothing extra. Reject → implementer fixes → recheck; second
-     rejection → halt.
+   - DONE → spec check. DONE_WITH_CONCERNS → resolve concerns first.
+     NEEDS_CONTEXT → answer once from REQ/design, re-dispatch;
+     unanswerable → halt. BLOCKED → halt.
+   - Spec check (`spec-reviewer-prompt.md`, fast): exactly the item.
+     Reject → fix → recheck; second rejection → halt.
    - Mark `[x]` after the commit lands.
-3. Close the branch agentically: quality review by `code-reviewer`
-   agent (full branch diff vs plan); apply mechanical fixes, queue
-   judgment calls for checkpoint. Mandatory final commit (docs
-   re-review, cleanup, mark plan complete). Tests + lint green →
-   merge into `batch/B-XXX`; red → halt.
+3. Close agentically: `code-reviewer` (branch diff vs plan);
+   mechanical fixes applied, judgment calls queued. Mandatory final
+   commit (docs re-review, cleanup, plan complete). Tests + lint
+   green → merge into `batch/B-XXX`; red → halt.
 4. Never push mid-batch; keep branch refs until checkpoint.
 
 ## Batch close
@@ -51,14 +51,13 @@ shell trips the sensitive-file guard).
 3. Re-run tests + lint; red → halt. Docs coherence pass
    (CHANGELOG/README across member branches).
 
-Models: mechanical item (1–2 files, complete spec) → fast; multi-file
-integration → standard; reviews → most capable.
+Models: mechanical (1–2 files, complete spec) → fast; multi-file →
+standard; reviews → most capable.
 
 ## Checkpoint (batch end or halt)
 
-Write `plans/batches/B-XXX.report.md` per `report-template.md` (incl.
-`permission_prompts.jsonl` analysis). No report → no accept offer.
-Present it, then:
+Write `plans/batches/B-XXX.report.md` per `report-template.md`. No
+report → no accept. Present it, then:
 
 - **Accept** → push `batch/B-XXX` to origin + create the MR per
   `toolchain.md`, description from the report (defer = explicit user
