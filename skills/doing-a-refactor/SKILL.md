@@ -5,7 +5,8 @@ description: Use when refactoring without behavior change in current branch.
 
 # Doing a Refactor
 
-Iteration for one refactor task from `.claude/plans/<slug>.md`. Behavior preserved.
+Iteration for one refactor task from its branch plan
+(`.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`). Behavior preserved.
 
 ## Pre-requisite
 

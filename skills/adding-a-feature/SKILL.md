@@ -5,7 +5,8 @@ description: Use when implementing a feature task via strict TDD.
 
 # Adding a Feature
 
-Strict TDD iteration for one feature task from `.claude/plans/<slug>.md`.
+Strict TDD iteration for one feature task from its branch plan
+(`.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`).
 
 ## Iteration cadence (one commit per pass — red → green → refactor)
 
