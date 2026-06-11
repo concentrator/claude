@@ -32,7 +32,7 @@ branch prefix. A checkbox closes only when the task's branch is merged.
       (`pre-B-XXX` tag stays as belt-and-braces), never-push rail
       narrowed to mid-batch, task checkboxes close on MR merge
       (planning.md + finishing-a-branch alignment).
-- [ ] T-006 (R-002) [feat]: Batch close phase + report artifact —
+- [x] T-006 (R-002) [feat]: Batch close phase + report artifact —
       `delegating-to-agents`: full-diff review of `batch/B-XXX` vs
       default on the most capable model, fixes as batch-branch commits,
       tests + lint re-run, docs coherence pass; checkpoint writes and
