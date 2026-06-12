@@ -1,9 +1,9 @@
 ---
-approved: pending
+approved: 2026-06-12
 kind: refactor
 ---
 
-# REQ-006: Trim agentic verification cost
+# R-005: Trim agentic verification cost
 
 ## Motivation
 

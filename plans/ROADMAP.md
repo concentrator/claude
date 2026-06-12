@@ -19,8 +19,12 @@ Initiative index. Items: `R-001: description`; each entry owns
       projects migrated.
 - [ ] R-004: Parallel batch execution for DEV auto mode — run
       independent member branches concurrently between checkpoints.
+- [ ] R-005: Trim agentic verification cost — verification-depth
+      policy (spec-check skip for mechanical commits), per-role model
+      routing, branch-close folding, slimmer dispatch prompts, context
+      diet for always-loaded rules; no defect regression vs the
+      B-002/B-003 baseline.
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
-     approved. REQ-006 (trim agentic verification cost) is also
-     pending at plans/ root; it becomes an R stub on approval.
-     Sequence both after R-003. -->
+     approved. Sequence after R-005: concurrency would multiply an
+     unoptimised verification routine. -->
