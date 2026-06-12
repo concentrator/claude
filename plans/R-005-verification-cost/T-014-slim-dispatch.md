@@ -1,6 +1,7 @@
 task: T-014
 type: refactor
 depends-on: T-013
+agentic: approved 2026-06-12
 
 # refactor/slim-dispatch — pointers over pasted conventions in dispatch prompts (R-005 lever 4)
 

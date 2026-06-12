@@ -1,5 +1,6 @@
 task: T-012
 type: feat
+agentic: approved 2026-06-12
 
 # feat/verif-depth — verification depth policy in delegating-to-agents (R-005)
 

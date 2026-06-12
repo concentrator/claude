@@ -1,6 +1,7 @@
 task: T-013
 type: feat
 depends-on: T-012
+agentic: approved 2026-06-12
 
 # feat/close-folding — fold small-branch close review into batch close (R-005)
 
