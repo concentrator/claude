@@ -41,7 +41,7 @@ scope.
       (`ROADMAP.md`, `TASKS.md`) now live in `.claude/plans/`;
       initiative requirements live in their `R-XXX-<slug>/` dir
       (`requirements.md`); foundational specs unchanged at `.claude/`.
-- [ ] Update `README.md` Contents table to the now-factual state:
+- [x] Update `README.md` Contents table to the now-factual state:
       `ROADMAP.md`/`TASKS.md` row moves under the `plans/` row;
       `plans/` role text reflects in-dir `requirements.md` and
       R-scoped batches; Workflow section chain wording
