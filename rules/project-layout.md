@@ -39,16 +39,15 @@ Canonical structure for `.claude/` in a project. Other paths inside
   `settings.json`.
 - **Created as workflows need them**: `skills/`, `rules/`, `commands/`,
   `agents/`, `MAINTENANCE.md`, `plans/ROADMAP.md`, `plans/TASKS.md`.
-- **Initiative-time**: `plans/R-XXX-<slug>/` with its
-  `requirements.md` — created as one act with the ROADMAP entry
-  (`planning.md § Directory conventions`).
+- **Initiative-time**: `plans/R-XXX-<slug>/` + `requirements.md`,
+  created with the ROADMAP entry (`planning.md § Directory
+  conventions`).
 - **Lazy** (created on first use): `adr/`, `references/`,
   `plans/R-XXX-<slug>/batches/`, `plans/archive/`,
   `plans/visual-artifacts/` (gitignored — session artifacts, not docs).
 
-Transition: repos migrating from the four-level layout may still have
-root-level indexes, `plans/REQ-XXX.md`, and a global `plans/batches/`
-until their migration branch closes.
+Transition exceptions for repos migrating from the four-level layout:
+`planning.md § Directory conventions`.
 
 ## Disallowed in `.claude/`
 

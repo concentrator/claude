@@ -63,7 +63,7 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       `batches/`, `plans/REQ-XXX.md` and global `plans/batches/`
       dropped from the tree; R-dirs become initiative-time, in-dir
       `batches/` lazy; transition note mirroring planning.md's.
-- [ ] Grep sweep of the three rule files: no stale `plans/batches/`,
+- [x] Grep sweep of the three rule files: no stale `plans/batches/`,
       `plans/REQ-XXX.md`, or `.claude/ROADMAP.md`-style references
       remain (REQ-005 criteria); hits in skills/docs are deferred to
       T-009/T-010, not fixed here.

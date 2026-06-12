@@ -1,21 +1,17 @@
 # Planning rules
 
 Three-level hierarchy for DEV mode: `R-XXX → T-XXX → branch plan`.
-The roadmap entry is the chain root; its requirements live in the
-entry's own directory.
+An initiative is any work foundational `.claude/REQUIREMENTS.md`
+doesn't already cover.
 
 ## Levels
 
 1. **Roadmap** — `.claude/plans/ROADMAP.md`. Initiative index —
    business-level features over time. Items: `R-001: description`.
-   Each entry owns `plans/R-XXX-<slug>/`, whose
-   `plans/R-XXX-<slug>/requirements.md` carries the initiative's
-   motivation, goals, and acceptance criteria (same template as the
-   retired per-initiative REQ files; no id of its own — the file's
-   title names its R-XXX). Foundational requirements stay at
-   `.claude/REQUIREMENTS.md`, persistent — they cover the project;
-   an initiative is any work they don't already cover. Closure: see
-   § Approval and closure.
+   Each entry owns `plans/R-XXX-<slug>/`, whose `requirements.md`
+   carries the initiative's motivation, goals, and acceptance
+   criteria (template: § Templates). Closure: see § Approval and
+   closure.
 2. **Tasks** — `.claude/plans/TASKS.md`. Concrete units of work. Items:
    `T-001 (R-001) [feat]: description` — the tag in brackets
    (`[feat] | [fix] | [refactor]`) declares task type and determines the
@@ -32,8 +28,7 @@ entry's own directory.
   see `branch-plan.md § Agentic execution`)
 - One-indexed, three digits, monotonic.
 - `REQ-XXX` is retired: requirement content carries its parent's
-  R-XXX id. Legacy `plans/REQ-XXX.md` files remain at `plans/` root
-  as read-only history (see § Archival).
+  R-XXX id (legacy files: § Archival).
 
 ## Referential integrity
 
@@ -45,10 +40,9 @@ entry's own directory.
 - Commits inside a branch plan need no external refs.
 - This applies to findings promotion too: a finding becomes a `T-XXX`
   only under a fitting open `R-XXX`. If none exists, create an R stub
-  instead — ROADMAP entry + dir + `requirements.md` draft
-  (`approved: pending`); the next planning round shapes and spawns its
-  tasks. Never create a task with a closed, missing, or unrelated
-  parent.
+  instead — the initiative act per § Directory conventions, shaped
+  next planning round. Never create a task with a closed, missing, or
+  unrelated parent.
 
 ## Where things live
 
@@ -84,9 +78,9 @@ paths resolve until then.
 
 ## Where plans live in git
 
-Requirements (foundational and per-initiative), design, roadmap, tasks,
-branch plans, and release plans commit directly to `main` — they are
-documentation, visible across all branches. Explicit exception to the no-commit-to-main rule, alongside
+Requirements, design, roadmap, tasks, branch plans, and release plans
+commit directly to `main` — they are documentation, visible across all
+branches. Explicit exception to the no-commit-to-main rule, alongside
 initial project scaffold.
 
 ## Cross-plan dependencies
@@ -118,10 +112,9 @@ An R entry closes (`[x]` in ROADMAP) only when **both** hold:
   with one-line evidence per criterion, stamped
   `status: done YYYY-MM-DD` in that file's frontmatter.
 
-Run-dependent criteria (verifiable only by a later event, e.g. a batch
-checkpoint) keep the R open; the relevant event re-triggers
-verification. Since a batch's members are tasks of exactly one R, a
-batch checkpoint validates exactly that R's criteria.
+Run-dependent criteria (verifiable only by a later event) keep the R
+open; the relevant event re-triggers verification (e.g. a batch
+checkpoint — `branch-plan.md § Batches`).
 
 ## Archival
 
@@ -161,13 +154,11 @@ approved: pending
 
 ### Per-initiative `plans/R-XXX-<slug>/requirements.md`
 
-Always written path-qualified in rules, skills, and docs — never bare
-`requirements.md`, which is ambiguous against root `REQUIREMENTS.md`.
+In rules, skills, and docs, write it path-qualified wherever bare
+`requirements.md` could be read against root `REQUIREMENTS.md`.
 
 All variants share the frontmatter. Body sections depend on `kind:`.
-The title names the parent R — the file has no id of its own. Closure
-adds `status: done YYYY-MM-DD` to the frontmatter (§ Approval and
-closure).
+The title names the parent R — the file has no id of its own.
 
 Frontmatter:
 

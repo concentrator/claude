@@ -81,8 +81,8 @@ mandatory final commit, then hands off to merge/PR.
 6. **Triage `T-XXX-<slug>.findings.md`** — for each `[ ]` item, prompt user:
    - Promote to `T-XXX` (new entry in `TASKS.md`, committed to main now)
      — only under a fitting open `R-XXX`; none → use the R-stub route
-   - Promote to an R stub (ROADMAP entry + dir + `requirements.md`
-     draft; shaped next planning round)
+   - Promote to an R stub (`planning.md § Directory conventions`;
+     shaped next planning round)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Mandatory final commit** — the last `[ ]`:
 
@@ -123,29 +123,25 @@ fix via `/dev plan <slug>` first. User approves → stamp
 ### Batches
 
 `.claude/plans/R-XXX-<slug>/batches/B-XXX.md` — ordered checklist,
-one `[ ]` per task (the checkpoint report lands beside it as
-`B-XXX.report.md`):
+one `[ ]` per task:
 
     # B-001
     - [ ] T-014 (<slug>)
     - [ ] T-015 (<slug>)
 
-Execution grouping, not a planning level: a batch is scoped to the
-single R whose dir holds it — members must be open tasks of that R
-with agentic-approved plans; `depends-on` must resolve within batch
-order or already-merged work. A cross-initiative need becomes its own
-R. Because members belong to one R, the batch checkpoint validates
-exactly that R's acceptance criteria. Soft cap ~25 planned commits
-total. Manual mode may use an open batch as its task queue; auto mode
-requires one.
+Execution grouping, not a planning level: a batch is scoped to the R
+whose dir holds it — members must be open tasks of that R with
+agentic-approved plans; `depends-on` must resolve within batch order
+or already-merged work. A cross-initiative need becomes its own R.
+The checkpoint validates exactly that R's acceptance criteria. Soft
+cap ~25 planned commits total. Manual mode may use an open batch as
+its task queue; auto mode requires one.
 
 Batch-close bookkeeping: the close phase marks batch and member-task
 checkboxes as commits on `batch/B-XXX`, **before** the MR — the `[x]`
-reaches the default branch atomically with the merge ("closes on MR
-merge" holds), and no closure commit ever lands directly on the
-default branch. Reject deletes the batch branch and the premature
-marks with it. Genuinely post-merge steps — the R-closure check and
-release-plan marking — stay post-merge.
+reaches the default branch atomically with the merge; reject discards
+the marks with the branch (§ Rails). The R-closure check and
+release-plan marking stay post-merge.
 
 ### Rails
 
