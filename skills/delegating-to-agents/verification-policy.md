@@ -28,3 +28,24 @@ Evidence:
 - `skills/delegating-to-agents/implementer-prompt.md` — the Task-tool
   dispatch template passes `description` and `prompt` only; no effort
   field. The Agent tool's sole per-dispatch override is `model`.
+
+## Mechanical commits
+
+A commit item is **mechanical** if and only if both conditions hold,
+evaluated from the plan-item text alone, before dispatch:
+
+1. **File set ≤ 2, explicitly named** — the item text names at most two
+   files to touch (by path or filename). Unnamed, implied, or
+   wildcard-described files do not count toward the limit and void the
+   classification.
+2. **Complete spec** — the item states a testable outcome and contains
+   no unresolved design choices. A testable outcome means a reader can
+   write a failing check before seeing the implementation. An unresolved
+   design choice is any decision the implementer must make that the item
+   text does not settle.
+
+**Post-implementation guard:** after the implementer reports back, the
+controller checks the "Files changed" line in the report. If the set of
+files the implementer actually touched exceeds the files named in the
+plan item, the mechanical classification is void and the spec check runs
+after all — regardless of how the item read before dispatch.
