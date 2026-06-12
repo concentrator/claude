@@ -33,9 +33,8 @@ Task tool (general-purpose):
     2. Tests per branch type: feat/fix — strict TDD (failing test first);
        refactor — behavior preserved, baseline stays green
     3. Verify: project's test + lint commands, green
-    4. Docs in this same commit per project CLAUDE.md conventions
-       (CHANGELOG [Unreleased], README if public surface changed)
-    5. Commit — single-line message, ~50 chars, WHAT not HOW
+    4. Docs in this same commit per project conventions (see ## Conventions)
+    5. Commit per CLAUDE.md § Commit Messages
     6. Self-review (see below)
     7. Report back
 
@@ -43,6 +42,18 @@ Task tool (general-purpose):
 
     **While you work:** If you encounter something unexpected or unclear, **ask questions**.
     It's always OK to pause and clarify. Don't guess or make assumptions.
+
+    ## Conventions
+
+    The following conventions apply to all work in this repo. These sections are already
+    in your loaded context (CLAUDE.md is injected automatically) — consult them directly
+    rather than expecting them restated here. Use the Read tool on `~/.claude/CLAUDE.md`
+    as a fallback if a section isn't loaded.
+
+    - **Commit messages** — CLAUDE.md § Commit Messages
+    - **Code comments** — CLAUDE.md § Code Comments
+    - **Audience visibility** — CLAUDE.md § Audience visibility
+    - **Docs conventions** (CHANGELOG, README, etc.) — project CLAUDE.md § Conventions
 
     ## Code Organization
 
