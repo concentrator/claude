@@ -49,3 +49,26 @@ controller checks the "Files changed" line in the report. If the set of
 files the implementer actually touched exceeds the files named in the
 plan item, the mechanical classification is void and the spec check runs
 after all — regardless of how the item read before dispatch.
+
+## Spec-check skip
+
+A commit classified mechanical (per the predicate above, guard not
+voided) skips the per-commit spec check. Drift from the plan is caught
+by the branch-close review instead.
+
+**Recording:** for every skipped spec check the controller appends a
+line to the running batch log:
+
+    <commit-sha or plan-item id>: spec check skipped: mechanical
+
+These records feed the batch report's cost line (tallied there, not
+here).
+
+**Scope of this rule:** only the per-commit spec check is skipped.
+Everything else is unchanged:
+
+- Non-mechanical commits keep the full spec-check flow.
+- The stop conditions in `rules/branch-plan.md § Stop conditions` are
+  untouched.
+- "Spec check rejects the same commit twice → halt" still applies
+  wherever a spec check runs.
