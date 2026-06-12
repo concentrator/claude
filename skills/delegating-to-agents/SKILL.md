@@ -38,10 +38,11 @@ shell trips the sensitive-file guard).
      for mechanical commits per `verification-policy.md`. Reject → fix
      → recheck; second → halt.
    - Mark `[x]` after the commit lands.
-3. Close agentically: `code-reviewer` (branch diff vs plan);
-   mechanical fixes applied, judgment calls queued. Mandatory final
-   commit (docs re-review, cleanup, plan complete). Tests + lint
-   green → merge into `batch/B-XXX`; red → halt.
+3. Close agentically: `code-reviewer` (branch diff vs plan; skipped
+   for small branches per `verification-policy.md`); mechanical fixes
+   applied, judgment calls queued. Mandatory final commit (docs
+   re-review, cleanup, plan complete). Tests + lint green → merge
+   into `batch/B-XXX`; red → halt.
 4. Never push mid-batch; keep branch refs until checkpoint.
 
 ## Batch close
