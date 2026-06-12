@@ -34,7 +34,7 @@ every in-dir requirements reference is path-qualified as
       `status: done YYYY-MM-DD` in its frontmatter + mark `R-XXX`
       `[x]`; run-dependent criteria pending → R stays open, report;
       index paths → `plans/ROADMAP.md`/`plans/TASKS.md`.
-- [ ] finishing-a-branch skill: auto-mode bookkeeping relocation —
+- [x] finishing-a-branch skill: auto-mode bookkeeping relocation —
       batch + task checkbox marking happens in the batch close phase
       on `batch/B-XXX` (lands via the MR); only the R-closure check
       and release-plan marking remain post-merge.
