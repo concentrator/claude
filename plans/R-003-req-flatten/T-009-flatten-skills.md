@@ -53,7 +53,7 @@ every in-dir requirements reference is path-qualified as
       R acceptance-criteria status section; sweep
       implementer/spec-reviewer prompts and toolchain.md for REQ
       wording or batch paths (none expected — confirm).
-- [ ] starting-a-project + migrating-to-dev skills: scaffold/backfill
+- [x] starting-a-project + migrating-to-dev skills: scaffold/backfill
       create `ROADMAP.md`/`TASKS.md` under `.claude/plans/`; tech-debt
       backfill produces R stubs (entry + dir + path-qualified
       `requirements.md`) instead of `REQ-XXX.md`; Next steps →
