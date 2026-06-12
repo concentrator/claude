@@ -47,7 +47,7 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       members are tasks of exactly one R, so the checkpoint
       validates exactly that R's acceptance criteria; soft cap and
       `depends-on` resolution unchanged.
-- [ ] branch-plan.md batch-close bookkeeping: the close phase marks
+- [x] branch-plan.md batch-close bookkeeping: the close phase marks
       batch + member-task checkboxes on `batch/B-XXX` before the MR
       (no post-merge direct-to-`main` closure commit; "closes on MR
       merge" holds — the `[x]` lands atomically with the merge;

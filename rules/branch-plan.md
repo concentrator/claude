@@ -32,8 +32,8 @@ any documentation it touches.
 ### No TODOs in code
 
 Never write `TODO`, `FIXME`, or `XXX` comments in code. Every such item
-routes to a plan artifact (branch-plan commit, `TASKS.md`, or `REQ-XXX`)
-at discovery time. See "Scope discoveries" below.
+routes to a plan artifact (branch-plan commit, `TASKS.md`, or an R
+stub) at discovery time. See "Scope discoveries" below.
 
 ## Mid-execution rules
 
@@ -46,7 +46,7 @@ code, the current task's premise is invalidated, a plan item can't be
 interpreted unambiguously, or verification keeps failing after repeated
 fixes:
 - **Stop. Ask the user.** Resolution may require plan extension, new
-  task, new REQ, or aborting the branch. Never inline-fix beyond a true
+  task, new R, or aborting the branch. Never inline-fix beyond a true
   typo in code you're currently writing.
 
 **Non-blocker** — improvement, refactor idea, tangential test gap, code
@@ -80,8 +80,9 @@ mandatory final commit, then hands off to merge/PR.
 5. Request manual testing/verification; suggest automation where applicable.
 6. **Triage `T-XXX-<slug>.findings.md`** — for each `[ ]` item, prompt user:
    - Promote to `T-XXX` (new entry in `TASKS.md`, committed to main now)
-     — only under a fitting open `R-XXX`; none → use the REQ route
-   - Promote to `REQ-XXX` (defer to next planning round)
+     — only under a fitting open `R-XXX`; none → use the R-stub route
+   - Promote to an R stub (ROADMAP entry + dir + `requirements.md`
+     draft; shaped next planning round)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Mandatory final commit** — the last `[ ]`:
 
@@ -167,7 +168,7 @@ release-plan marking — stay post-merge.
 | Event | Action |
 |---|---|
 | Blocker (per § Scope discoveries) | Halt, report |
-| NEEDS_CONTEXT unanswerable from REQ/design | Halt, report |
+| NEEDS_CONTEXT unanswerable from the R's `requirements.md`/design | Halt, report |
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
