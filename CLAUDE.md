@@ -22,6 +22,15 @@ push + MR; the `delegating-to-agents` pre-flight reads it to prepare
 agent settings deterministically. Push-permission patterns:
 `skills/delegating-to-agents/toolchain.md`.
 
+## Agent toolchain
+
+This repo's own `/dev auto` toolchain (self-hosting: this file is also
+the project CLAUDE.md). No test suite — green means SKILL.md word caps
+(`wc -w`) and grep sweeps per plan item. Rules live in
+`.claude/settings.local.json`: template + `Bash(gh pr create:*)`,
+`Bash(git push -u origin batch/*)` carve-out (deny narrowed to
+default-branch/force pushes).
+
 ## Commit Messages
 
 Single-line, ~50 chars / 6-8 words, subject only. No semicolons joining clauses,
