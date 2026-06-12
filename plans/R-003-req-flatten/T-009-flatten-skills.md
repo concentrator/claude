@@ -28,7 +28,7 @@ every in-dir requirements reference is path-qualified as
       plans/R-XXX-<slug>/requirements.md` for acceptance criteria;
       drop the lazy R-dir creation step (dir exists from
       initiative time); update Out-of-scope target names.
-- [ ] finishing-a-branch skill: §4 R-closure — when the last open task
+- [x] finishing-a-branch skill: §4 R-closure — when the last open task
       under the R closes, verify acceptance criteria in
       `plans/R-XXX-<slug>/requirements.md`; all verified → stamp
       `status: done YYYY-MM-DD` in its frontmatter + mark `R-XXX`
