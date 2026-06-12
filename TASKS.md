@@ -52,7 +52,7 @@ branch prefix. A checkbox closes only when the task's branch is merged.
       `branch-plan.md` (batch manifest/report under
       `R-XXX-<slug>/batches/`, single-R batch scope, batch-close
       bookkeeping on the batch branch), `project-layout.md` tree.
-- [ ] T-009 (R-003) [refactor]: Update skills to the flattened chain —
+- [x] T-009 (R-003) [refactor]: Update skills to the flattened chain —
       `dev` (merge `REQ`/`REQ-XXX`/`roadmap` targets into `R`/`R-XXX`,
       net words out), `brainstorming` (entry + dir + requirements in
       one act), `writing-plans`, `finishing-a-branch` (R-closure
