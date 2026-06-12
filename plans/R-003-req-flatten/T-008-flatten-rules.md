@@ -27,7 +27,7 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       R-XXX; findings promotion rewritten — no fitting open R →
       create an R stub (ROADMAP entry + dir + requirements draft),
       replacing "promote to REQ-XXX".
-- [ ] planning.md § Approval + new R-closure rule: `approved:` gate
+- [x] planning.md § Approval + new R-closure rule: `approved:` gate
       relocates to the in-dir `requirements.md` (semantics
       unchanged); an R entry closes only when all child tasks are
       `[x]` AND its acceptance criteria are verified with evidence

@@ -96,7 +96,8 @@ refuses to start the branch until the dependency is merged.
 
 ## Adjusting existing plans
 
-- **REQ-XXX** body: `/dev plan REQ-XXX` to extend.
+- **Initiative requirements** (`plans/R-XXX-<slug>/requirements.md`):
+  `/dev plan R-XXX` to extend.
 - **Branch plan (`<slug>`)**: `/dev plan <slug>` to add commits after
   the final.
 - **Roadmap items, tasks** (single-line entries): direct file edit.
@@ -126,7 +127,8 @@ batch checkpoint validates exactly that R's criteria.
 
 Plans and requirements are not physically moved when closed. Closed items
 are marked `[x]`. Git history preserves the work. Manual cleanup is
-possible but optional.
+possible but optional. Legacy `plans/REQ-XXX.md` files from the
+four-level era stay at `plans/` root as read-only history.
 
 Exceptions — may be moved to `.claude/plans/archive/` at the user's
 option:
@@ -157,9 +159,15 @@ approved: pending
 ## Open questions
 ```
 
-### Per-initiative `REQ-XXX.md`
+### Per-initiative `plans/R-XXX-<slug>/requirements.md`
+
+Always written path-qualified in rules, skills, and docs — never bare
+`requirements.md`, which is ambiguous against root `REQUIREMENTS.md`.
 
 All variants share the frontmatter. Body sections depend on `kind:`.
+The title names the parent R — the file has no id of its own. Closure
+adds `status: done YYYY-MM-DD` to the frontmatter (§ Approval and
+closure).
 
 Frontmatter:
 
@@ -169,7 +177,7 @@ approved: pending
 kind: feat | bug | refactor
 ---
 
-# REQ-001: <short title>
+# R-001: <short title>
 ```
 
 #### `kind: feat`
@@ -182,7 +190,7 @@ kind: feat | bug | refactor
 ## Acceptance criteria   — testable behaviors (checkboxes)
 ## Constraints
 ## Open questions
-## References            — related REQ-/R-/T-XXX
+## References            — related R-/T-XXX
 ```
 
 #### `kind: bug`
