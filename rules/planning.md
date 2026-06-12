@@ -53,23 +53,31 @@ entry's own directory.
 |---|---|
 | `REQUIREMENTS.md` (foundational) | `.claude/` |
 | `DESIGN.md` | `.claude/` |
-| `ROADMAP.md`, `TASKS.md` | `.claude/` |
-| `REQ-XXX.md` | `.claude/plans/` |
+| `ROADMAP.md`, `TASKS.md` | `.claude/plans/` |
+| `requirements.md` (per initiative) | `.claude/plans/R-XXX-<slug>/` |
 | `T-XXX-<slug>.md` (branch plans) | `.claude/plans/R-XXX-<slug>/` |
 | `T-XXX-<slug>.findings.md` | beside its branch plan |
-| `B-XXX.md` (execution batches) | `.claude/plans/batches/` |
+| `B-XXX.md`, `B-XXX.report.md` (batches) | `.claude/plans/R-XXX-<slug>/batches/` |
 | `release-vX.Y.Z.md` | `.claude/plans/` |
 
 ## Directory conventions
 
 - One plan directory per roadmap entry: `plans/R-XXX-<slug>/`, created
-  lazily by `writing-plans` with the first child branch plan. Slug
-  derives from the roadmap entry subject, is fixed at creation, and is
-  never renamed on roadmap rewording.
+  at initiative time — a new initiative is one act: ROADMAP entry +
+  dir + `requirements.md` (`approved: pending`). Slug derives from the
+  roadmap entry subject, is fixed at creation, and is never renamed on
+  roadmap rewording.
 - Branch plans are task-id-prefixed (`T-XXX-<slug>.md`); findings sit
   beside as `T-XXX-<slug>.findings.md`. Branch names stay
   `<prefix>/<slug>` — no id in git refs.
-- `plans/batches/` is created with the first batch manifest.
+- `R-XXX-<slug>/batches/` is created with the R's first batch
+  manifest; batches are scoped to that single R (`branch-plan.md
+  § Batches`).
+
+Transition: repos migrating from the four-level layout may still have
+indexes at `.claude/` root, `plans/REQ-XXX.md` requirements, and a
+global `plans/batches/` until their migration branch closes; legacy
+paths resolve until then.
 
 ## Where plans live in git
 

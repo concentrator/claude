@@ -10,7 +10,7 @@ T-001/T-002 split). Invariants held throughout: requirement template
 sections unchanged, `approved:` gating semantics unchanged, closed
 REQ-002/003/004 stay at `plans/` root as read-only history.
 
-- [ ] planning.md §§ Levels + ID format: three-level R-rooted chain
+- [x] planning.md §§ Levels + ID format: three-level R-rooted chain
       (`R-XXX → T-XXX → branch plan`), requirement content as in-dir
       `requirements.md` with no own id (points to its R-XXX); retire
       the per-initiative `REQ-XXX` id (legacy files at `plans/` root
