@@ -9,15 +9,15 @@ Canonical structure for `.claude/` in a project. Other paths inside
     ├── REQUIREMENTS.md           # foundational requirements
     ├── DESIGN.md                 # architecture and design (≤1000w inline)
     ├── MAINTENANCE.md            # sanity routine — seeded from template
-    ├── ROADMAP.md                # planning indexes — see planning.md
-    ├── TASKS.md
     ├── plans/                    # planning hierarchy — see planning.md
-    │   ├── REQ-XXX.md
+    │   ├── ROADMAP.md            # initiative index
+    │   ├── TASKS.md              # task index
     │   ├── release-vX.Y.Z.md
-    │   ├── batches/              # B-XXX.md manifests (lazy)
-    │   ├── R-XXX-<slug>/         # one per roadmap entry (lazy)
+    │   ├── R-XXX-<slug>/         # one per roadmap entry (initiative-time)
+    │   │   ├── requirements.md   # initiative requirements
     │   │   ├── T-XXX-<slug>.md
-    │   │   └── T-XXX-<slug>.findings.md
+    │   │   ├── T-XXX-<slug>.findings.md
+    │   │   └── batches/          # B-XXX.md + B-XXX.report.md (lazy)
     │   ├── archive/              # optional: shipped releases, pre-DEV legacy
     │   └── visual-artifacts/     # brainstorming mockups (lazy, gitignored)
     ├── skills/                   # project skill overrides
@@ -38,10 +38,17 @@ Canonical structure for `.claude/` in a project. Other paths inside
 - **Required at scaffold**: `REQUIREMENTS.md`, `DESIGN.md`, `plans/`,
   `settings.json`.
 - **Created as workflows need them**: `skills/`, `rules/`, `commands/`,
-  `agents/`, `MAINTENANCE.md`, `ROADMAP.md`, `TASKS.md`.
+  `agents/`, `MAINTENANCE.md`, `plans/ROADMAP.md`, `plans/TASKS.md`.
+- **Initiative-time**: `plans/R-XXX-<slug>/` with its
+  `requirements.md` — created as one act with the ROADMAP entry
+  (`planning.md § Directory conventions`).
 - **Lazy** (created on first use): `adr/`, `references/`,
-  `plans/batches/`, `plans/R-XXX-<slug>/`, `plans/archive/`,
+  `plans/R-XXX-<slug>/batches/`, `plans/archive/`,
   `plans/visual-artifacts/` (gitignored — session artifacts, not docs).
+
+Transition: repos migrating from the four-level layout may still have
+root-level indexes, `plans/REQ-XXX.md`, and a global `plans/batches/`
+until their migration branch closes.
 
 ## Disallowed in `.claude/`
 

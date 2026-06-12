@@ -54,7 +54,7 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       reject deletes the branch and the premature marks); genuinely
       post-merge steps (R-closure verification, release-plan
       marking) stay post-merge.
-- [ ] branch-plan.md residual REQ wording: closing-routine findings
+- [x] branch-plan.md residual REQ wording: closing-routine findings
       triage gets the R-stub route, § Scope discoveries blocker text
       ("new REQ" → "new R"), NEEDS_CONTEXT stop condition reads
       "unanswerable from the R's requirements.md/design".
