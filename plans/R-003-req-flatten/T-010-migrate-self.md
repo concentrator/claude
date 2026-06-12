@@ -14,7 +14,7 @@ read-only history — stamped, not moved. REQ-005 (open parent of this
 work) and pending REQ-006 also stay put; they are out of this task's
 scope.
 
-- [ ] `git mv ROADMAP.md plans/ROADMAP.md` and
+- [x] `git mv ROADMAP.md plans/ROADMAP.md` and
       `git mv TASKS.md plans/TASKS.md`; align both index header blurbs
       with post-T-008 `rules/planning.md` wording (R-rooted entry
       format, closure rule pointer). Doc: the indexes themselves.
