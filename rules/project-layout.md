@@ -46,9 +46,6 @@ Canonical structure for `.claude/` in a project. Other paths inside
   `plans/R-XXX-<slug>/batches/`, `plans/archive/`,
   `plans/visual-artifacts/` (gitignored — session artifacts, not docs).
 
-Transition exceptions for repos migrating from the four-level layout:
-`planning.md § Directory conventions`.
-
 ## Disallowed in `.claude/`
 
 - Generated/build artifacts

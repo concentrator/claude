@@ -71,11 +71,6 @@ doesn't already cover.
   manifest; batches are scoped to that single R (`branch-plan.md
   § Batches`).
 
-Transition: repos migrating from the four-level layout may still have
-indexes at `.claude/` root, `plans/REQ-XXX.md` requirements, and a
-global `plans/batches/` until their migration branch closes; legacy
-paths resolve until then.
-
 ## Where plans live in git
 
 Requirements, design, roadmap, tasks, branch plans, and release plans
