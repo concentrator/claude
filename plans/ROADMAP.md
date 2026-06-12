@@ -18,8 +18,11 @@ Initiative index — business-level features over time. Items:
       closure point on verified acceptance criteria, batch-close
       bookkeeping on the batch branch; rules, skills, and adopter
       projects migrated.
+- [ ] R-004: Parallel batch execution for DEV auto mode — run
+      independent member branches concurrently between checkpoints
+      (requirements pending approval).
 
-<!-- REQ-001 (parallel batch execution) and REQ-006 (trim agentic
-     verification cost) are approved: pending — they spawn roadmap
-     items once approved; sequence after R-003, which relocates the
-     artifacts they build on. -->
+<!-- R-004's requirements are approved: pending — tasks spawn once
+     approved. REQ-006 (trim agentic verification cost) is also
+     pending at plans/ root; it becomes an R stub on approval.
+     Sequence both after R-003. -->

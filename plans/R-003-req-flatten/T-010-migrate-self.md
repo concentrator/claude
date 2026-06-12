@@ -23,13 +23,13 @@ scope.
       against the shipped T-001..T-004 work, tick with one-line
       evidence, then stamp frontmatter `status: done 2026-06-12` per
       the new closure rule. File stays at `plans/` root.
-- [ ] Stamp `plans/REQ-003.md` `status: done 2026-06-12` (all criteria
+- [x] Stamp `plans/REQ-003.md` `status: done 2026-06-12` (all criteria
       already `[x]` with B-002 evidence — verify intact); verify
       `plans/REQ-004.md` superseded marking (`superseded-by: REQ-005`
       frontmatter + history note) conforms to post-T-008 planning.md;
       adjust the marker only if the rule requires a different form.
       Both stay at `plans/` root.
-- [ ] Migrate open REQ-001 into an R-stub: add open ROADMAP entry
+- [x] Migrate open REQ-001 into an R-stub: add open ROADMAP entry
       `R-004: Parallel batch execution for DEV auto mode`, create
       `plans/R-004-parallel-batches/`,
       `git mv plans/REQ-001.md plans/R-004-parallel-batches/requirements.md`;
