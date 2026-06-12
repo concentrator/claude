@@ -67,5 +67,5 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       `plans/REQ-XXX.md`, or `.claude/ROADMAP.md`-style references
       remain (REQ-005 criteria); hits in skills/docs are deferred to
       T-009/T-010, not fixed here.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
