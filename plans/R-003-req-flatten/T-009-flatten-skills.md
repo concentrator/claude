@@ -12,7 +12,7 @@ every in-dir requirements reference is path-qualified as
 `plans/R-XXX-<slug>/requirements.md` to stay unambiguous against root
 `REQUIREMENTS.md`.
 
-- [ ] dev skill: collapse the `REQ`/`REQ-XXX`/`roadmap` routing rows
+- [x] dev skill: collapse the `REQ`/`REQ-XXX`/`roadmap` routing rows
       into `R` (new initiative via `brainstorming`) and `R-XXX`
       (state-routed: requirements pending → shape/approve; approved →
       add tasks); `batch` target path →
