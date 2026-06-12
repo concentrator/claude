@@ -44,8 +44,10 @@ state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
   B-002/B-003 baseline: ~800–900k subagent tokens / 12 commits
 - spec checks skipped: <count> (<per-commit skip records per
   verification-policy.md § Spec-check skip, or "none">)
-- dispatch-prompt or other notable size changes: <description, or omit
-  line if none>
+- dispatch-prompt sizes (wc -w): implementer-prompt.md <before> → <after>;
+  spec-reviewer-prompt.md <before> → <after>
+  (lever-4 baseline, pre-T-014: implementer 866, spec-reviewer 312)
+- convention drift flagged by spec checks: <n> (B-002/B-003 baseline: 0)
 - defect outcomes: spec rejections reaching merge: <n>
   (B-002/B-003 baseline: 0 merge-reaching spec rejections);
   review findings surfaced: <n> fixed / <n> queued / <n> dismissed

@@ -33,9 +33,8 @@ Task tool (general-purpose):
     2. Tests per branch type: feat/fix — strict TDD (failing test first);
        refactor — behavior preserved, baseline stays green
     3. Verify: project's test + lint commands, green
-    4. Docs in this same commit per project CLAUDE.md conventions
-       (CHANGELOG [Unreleased], README if public surface changed)
-    5. Commit — single-line message, ~50 chars, WHAT not HOW
+    4. Docs in this same commit per project conventions (see ## Conventions)
+    5. Commit per CLAUDE.md § Commit Messages
     6. Self-review (see below)
     7. Report back
 
@@ -44,18 +43,18 @@ Task tool (general-purpose):
     **While you work:** If you encounter something unexpected or unclear, **ask questions**.
     It's always OK to pause and clarify. Don't guess or make assumptions.
 
+    ## Conventions
+
+    CLAUDE.md is in your context; follow § Commit Messages, § Code Comments,
+    § Audience visibility, and project `## Conventions` (docs/CHANGELOG).
+
     ## Code Organization
 
-    You reason best about code you can hold in context at once, and your edits are more
-    reliable when files are focused. Keep this in mind:
-    - Follow the file structure defined in the plan
-    - Each file should have one clear responsibility with a well-defined interface
-    - If a file you're creating is growing beyond the plan's intent, stop and report
-      it as DONE_WITH_CONCERNS — don't split files on your own without plan guidance
-    - If an existing file you're modifying is already large or tangled, work carefully
-      and note it as a concern in your report
-    - In existing codebases, follow established patterns. Improve code you're touching
-      the way a good developer would, but don't restructure things outside your task.
+    - Follow the file structure defined in the plan. If a file you're
+      creating grows beyond the plan's intent, stop and report
+      DONE_WITH_CONCERNS — don't split files on your own.
+    - Don't restructure things outside your task; note concerns about
+      large/tangled existing files in your report.
 
     ## Scratch & Probe Scripts
 
