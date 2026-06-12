@@ -46,7 +46,7 @@ scope.
       `plans/` role text reflects in-dir `requirements.md` and
       R-scoped batches; Workflow section chain wording
       (`R-XXX → T-XXX → branch`).
-- [ ] Update `DESIGN.md` (architecture commit): tree-map (indexes under
+- [x] Update `DESIGN.md` (architecture commit): tree-map (indexes under
       `plans/`, `R-XXX-<slug>/` with `requirements.md` + `batches/`,
       global `plans/batches/` gone, `R-004-parallel-batches/` real),
       `§ Self-hosting layout` root-file list, `§ Planning model`

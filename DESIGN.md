@@ -23,10 +23,10 @@ relate, and the invariants that keep them coherent.
 
 This repo is consumed as `~/.claude`, so the directory that is `.claude/`
 in a normal project is the repo root here. Foundational DEV files
-(`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`, `ROADMAP.md`,
-`TASKS.md`, `plans/`) sit at the root, not in a nested `.claude/`. The
-nested `.claude/` holds only Claude Code's project settings, whose
-location is fixed by the tool.
+(`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`, `plans/` — which
+holds the `ROADMAP.md`/`TASKS.md` indexes) sit at the root, not in a
+nested `.claude/`. The nested `.claude/` holds only Claude Code's
+project settings, whose location is fixed by the tool.
 
 ## Tree-map
 
@@ -44,14 +44,15 @@ excluded — see `.gitignore`.
 ├── MAINTENANCE.md                # sanity routine (template + repo-specific)
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
-├── ROADMAP.md                    # planning indexes — see rules/planning.md
-├── TASKS.md
 ├── plans/                        # planning hierarchy
-│   ├── REQ-XXX.md                # per-initiative requirements
-│   ├── batches/                  # B-XXX manifests (lazy)
-│   └── R-XXX-<slug>/             # one dir per roadmap entry (lazy)
+│   ├── ROADMAP.md                # planning indexes — see rules/planning.md
+│   ├── TASKS.md
+│   ├── REQ-XXX.md                # legacy four-level-era requirements (read-only history)
+│   └── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
+│       ├── requirements.md       # initiative requirements
 │       ├── T-XXX-<slug>.md
-│       └── T-XXX-<slug>.findings.md
+│       ├── T-XXX-<slug>.findings.md
+│       └── batches/              # B-XXX manifests + reports (lazy)
 ├── rules/                        # always-loaded rule files
 │   ├── branch-plan.md            # branch plan format, agentic rails
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
@@ -76,6 +77,8 @@ excluded — see `.gitignore`.
     │   ├── SKILL.md
     │   ├── implementer-prompt.md
     │   ├── spec-reviewer-prompt.md
+    │   ├── report-template.md
+    │   ├── toolchain.md
     │   └── auto-permissions.template.json
     ├── dev/SKILL.md              # DEV mode orchestrator
     ├── dispatching-parallel-agents/SKILL.md
@@ -118,10 +121,13 @@ in their own repo.
 
 ## Planning model
 
-Self-development uses the full four-level hierarchy
-(`requirements → roadmap → tasks → branch plan`) per `rules/planning.md`,
-unchanged. The environment is a reference implementation of its own
-conventions; structure is never simplified, only description detail.
+Self-development uses the full three-level hierarchy
+(`roadmap → tasks → branch plan`, each initiative's requirements in
+its `R-XXX-<slug>/` dir, single closure point per
+`rules/planning.md § Approval and closure`), unchanged from what the
+rules prescribe. The environment is a reference implementation of its
+own conventions; structure is never simplified, only description
+detail.
 
 ## Invariants
 
