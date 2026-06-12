@@ -34,7 +34,7 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       per criterion, stamped `status: done YYYY-MM-DD` in
       frontmatter; run-dependent criteria keep the R open and are
       re-verified at the relevant event (e.g. batch checkpoint).
-- [ ] planning.md §§ Templates + Adjusting + Archival: per-initiative
+- [x] planning.md §§ Templates + Adjusting + Archival: per-initiative
       template retitled to in-dir `requirements.md` (sections and
       `kind:` variants unchanged, frontmatter gains the R-XXX
       pointer); `/dev plan REQ-XXX` reference becomes `/dev plan

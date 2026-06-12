@@ -121,16 +121,21 @@ fix via `/dev plan <slug>` first. User approves → stamp
 
 ### Batches
 
-`.claude/plans/batches/B-XXX.md` — ordered checklist, one `[ ]` per task:
+`.claude/plans/R-XXX-<slug>/batches/B-XXX.md` — ordered checklist,
+one `[ ]` per task (the checkpoint report lands beside it as
+`B-XXX.report.md`):
 
     # B-001
     - [ ] T-014 (<slug>)
     - [ ] T-015 (<slug>)
 
-Execution grouping, not a planning level: members must be open tasks
+Execution grouping, not a planning level: a batch is scoped to the
+single R whose dir holds it — members must be open tasks of that R
 with agentic-approved plans; `depends-on` must resolve within batch
-order or already-merged work. Soft cap ~25 planned commits total.
-Manual mode may use an open batch as its task queue; auto mode
+order or already-merged work. A cross-initiative need becomes its own
+R. Because members belong to one R, the batch checkpoint validates
+exactly that R's acceptance criteria. Soft cap ~25 planned commits
+total. Manual mode may use an open batch as its task queue; auto mode
 requires one. Batch and member-task checkboxes close when the batch
 MR merges to the default branch — not at local merge or checkpoint.
 
