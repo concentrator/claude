@@ -66,7 +66,7 @@ format and closure: `rules/planning.md § Levels`.
       mark verified, REQ-001 → R-stub dir (`requirements.md`,
       `approved: pending`), path updates in `CLAUDE.md`, `README.md`,
       `DESIGN.md` tree-map, `MAINTENANCE.md` targets.
-- [ ] T-011 (R-003) [refactor]: Migrate wallarm-api-js to the new
+- [x] T-011 (R-003) [refactor]: Migrate wallarm-api-js to the new
       layout — indexes → `plans/`, REQ-001 content → its R-dir
       `requirements.md`, `plans/batches/` B-001..003 manifests +
       reports → that R's `batches/`, manifest references updated, file
