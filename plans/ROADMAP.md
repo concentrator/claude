@@ -1,7 +1,9 @@
 # Roadmap
 
-Business-level features over time. Items: `R-001 (REQ-XXX): description`.
-A checkbox closes only when all child tasks are `[x]`.
+Initiative index — business-level features over time. Items:
+`R-001: description`; each entry owns `R-XXX-<slug>/` with its
+`requirements.md`. A checkbox closes per `rules/planning.md
+§ Approval and closure` (all child tasks `[x]`, criteria verified).
 
 - [x] R-001 (REQ-002): Restructure planning layout — indexes to
       `.claude/` root, per-roadmap-entry plan dirs, task-id-prefixed

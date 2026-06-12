@@ -1,6 +1,6 @@
 # Tasks
 
-Concrete units of work. Items:
+Concrete units of work under roadmap entries. Items:
 `T-001 (R-001) [feat|fix|refactor]: description`. The tag determines the
 branch prefix. A checkbox closes only when the task's branch is merged.
 
