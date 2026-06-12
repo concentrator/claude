@@ -70,6 +70,29 @@ Everything else is unchanged:
 - "Spec check rejects the same commit twice → halt" still applies
   wherever a spec check runs.
 
+## Close folding
+
+A branch is **small** iff its committed plan file satisfies both conditions,
+evaluated by reading the plan file at branch close — no agent judgment:
+
+1. **≤ 3 non-final commit checkboxes** in the plan body.
+2. **No `architecture-changing: true` header.**
+
+**Consequence:** a small branch skips the per-branch `code-reviewer` pass.
+Its first review is the batch full-diff review at batch close (the
+batch full-diff covers most of the per-branch pass — ~45–60k tokens each,
+overlap observed in B-003).
+
+**Invariants — unaffected by this rule:**
+
+- The mandatory final commit applies to every branch regardless of size.
+- The tests/lint-green gate before merging into `batch/B-XXX` applies to
+  every branch regardless of size.
+- Branches above the threshold keep the full per-branch close review.
+
+**Scope:** this rule applies to auto mode only. Manual-mode
+`rules/branch-plan.md § Closing routine` is unaffected.
+
 ## Models
 
 This table replaces the former "Models:" heuristic line in `SKILL.md`
