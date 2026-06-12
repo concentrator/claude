@@ -44,9 +44,9 @@ before changing existing config. If user defers any item, record
 ## 6. Backfill plans
 
 Create `.claude/plans/` with `ROADMAP.md`, `TASKS.md`. Ask user about
-ongoing work → initiatives (R-XXX entry + dir +
-`plans/R-XXX-<slug>/requirements.md`) and open tasks (T-XXX). Known
-bugs or tech debt → R stubs per `~/.claude/rules/planning.md`.
+ongoing work → initiatives (R-XXX) and open tasks (T-XXX). Known bugs
+or tech debt → R stubs per `~/.claude/rules/planning.md
+§ Referential integrity`.
 
 ## 7. Commit
 

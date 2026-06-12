@@ -24,11 +24,9 @@ code — implementation comes later via the planning chain
    message, opt-in.
 4. **Approaches** — propose 2–3 with trade-offs; lead with your
    recommendation. YAGNI ruthlessly.
-5. **Draft** — next free `R-XXX` id, ROADMAP entry + slug dir +
-   `plans/R-XXX-<slug>/requirements.md`: `kind: feat | bug |
-   refactor`, sections per `~/.claude/rules/planning.md § Templates`,
-   frontmatter `approved: pending`. Present it section by section,
-   confirming each.
+5. **Draft** — next free `R-XXX` id; requirements sections per
+   `~/.claude/rules/planning.md § Templates`. Present it section by
+   section, confirming each.
 6. **Self-check** — placeholders, contradictions, criteria readable two
    ways, scope creep. Fix inline before showing the file.
 7. **User review** — user reads the committed-to-be file; iterate. On

@@ -58,8 +58,8 @@ standard; reviews → most capable.
 ## Checkpoint (batch end or halt)
 
 Write the R's `batches/B-XXX.report.md` per `report-template.md`,
-re-verifying its run-dependent acceptance criteria. No report → no
-accept. Present it, then:
+re-verifying its acceptance criteria. No report → no accept. Present
+it, then:
 
 - **Accept** → push `batch/B-XXX` to origin + create the MR per
   `toolchain.md`, description from the report (defer = explicit user

@@ -31,8 +31,7 @@ from a task in `TASKS.md`. Invoked by `/dev plan T-XXX`.
    - `depends-on: T-012` (if cross-task dependency)
 5. **Add mandatory final commit** at the end (per branch-plan.md).
 6. **Confirm with user**, then write to
-   `plans/R-XXX-<slug>/T-XXX-<slug>.md` (the R-dir exists from
-   initiative time) and commit to `main`.
+   `plans/R-XXX-<slug>/T-XXX-<slug>.md` and commit to `main`.
 
 ## Soft cap
 

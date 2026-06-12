@@ -5,14 +5,14 @@ description: Use when a branch plan is complete and tests pass.
 
 # Finishing a Development Branch
 
-Close out a DEV branch. Invoked by the closing routine
+Close out a DEV branch — invoked by the closing routine
 (`~/.claude/rules/branch-plan.md`) after the mandatory final commit.
 
 ## 1. Verify
 
 - `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`: every `[ ]` is `[x]`;
   findings file triaged.
-- Fresh test + lint run green; failing → stop and report.
+- Fresh test + lint green; failing → stop and report.
 
 ## 2. Present options
 
@@ -41,18 +41,18 @@ stays `[ ]`; ask whether to keep the plan file.
 ## 4. Post-merge bookkeeping (on default branch)
 
 Auto mode: step 1 runs in the batch close phase on `batch/B-XXX`
-(branch-plan.md § Batches); after the batch MR merges, run steps 2–5.
+(branch-plan.md § Batches); after the batch MR merges, run steps 2–5
+(step 5: batch branch; member refs went at accept).
 
 1. Mark `T-XXX` `[x]` in `.claude/plans/TASKS.md`.
-2. If the parent `R-XXX`'s tasks are all `[x]`, verify its acceptance
-   criteria in `plans/R-XXX-<slug>/requirements.md`: all verified →
-   tick with evidence, stamp `status: done YYYY-MM-DD`, mark `R-XXX`
-   `[x]` in `plans/ROADMAP.md`; a run-dependent criterion pending →
-   R stays open, report.
+2. If the parent `R-XXX`'s tasks are all `[x]`, run the closure check
+   (`planning.md § Approval and closure`): verified → mark `R-XXX`
+   `[x]` in `plans/ROADMAP.md`; pending criteria → report, R stays
+   open.
 3. If `.claude/plans/release-<version>.md` lists this branch, mark it
    `[x]`.
 4. Commit plan updates to the default branch (allowed exception),
    e.g. `Close T-014`.
 5. Delete the merged branch (local; remote too if pushed).
 
-Then propose next: an open task from `plans/TASKS.md`, or `/dev plan`.
+Next: an open task from `plans/TASKS.md`, or `/dev plan`.

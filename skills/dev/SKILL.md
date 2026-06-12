@@ -23,8 +23,8 @@ development is DEV-only).
 
 | Target | Action | Parent required |
 |---|---|---|
-| `R` | New initiative via `brainstorming` (ROADMAP entry + dir + requirements) | — |
-| `R-XXX` | Requirements pending → shape/approve; approved → add tasks | R-XXX open |
+| `R` | New initiative via `brainstorming` | — |
+| `R-XXX` | Requirements pending → shape/approve (`brainstorming`); approved → add tasks | R-XXX open |
 | `T-XXX` | Branch plan via `writing-plans` | T-XXX open |
 | `all` | Branch plans for all open tasks lacking one (parallel subagents, one review pass) | open tasks |
 | `batch` | Compose `plans/R-XXX-<slug>/batches/B-XXX.md`; readiness-review + `agentic:` stamps | plans exist |
