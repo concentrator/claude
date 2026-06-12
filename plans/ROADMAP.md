@@ -1,7 +1,8 @@
 # Roadmap
 
-Business-level features over time. Items: `R-001 (REQ-XXX): description`.
-A checkbox closes only when all child tasks are `[x]`.
+Initiative index. Items: `R-001: description`; each entry owns
+`R-XXX-<slug>/` with its `requirements.md`. A checkbox closes per
+`rules/planning.md § Approval and closure`.
 
 - [x] R-001 (REQ-002): Restructure planning layout — indexes to
       `.claude/` root, per-roadmap-entry plan dirs, task-id-prefixed
@@ -16,8 +17,10 @@ A checkbox closes only when all child tasks are `[x]`.
       closure point on verified acceptance criteria, batch-close
       bookkeeping on the batch branch; rules, skills, and adopter
       projects migrated.
+- [ ] R-004: Parallel batch execution for DEV auto mode — run
+      independent member branches concurrently between checkpoints.
 
-<!-- REQ-001 (parallel batch execution) and REQ-006 (trim agentic
-     verification cost) are approved: pending — they spawn roadmap
-     items once approved; sequence after R-003, which relocates the
-     artifacts they build on. -->
+<!-- R-004's requirements are approved: pending — tasks spawn once
+     approved. REQ-006 (trim agentic verification cost) is also
+     pending at plans/ root; it becomes an R stub on approval.
+     Sequence both after R-003. -->

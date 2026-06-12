@@ -1,8 +1,7 @@
 # Tasks
 
-Concrete units of work. Items:
-`T-001 (R-001) [feat|fix|refactor]: description`. The tag determines the
-branch prefix. A checkbox closes only when the task's branch is merged.
+Task index. Items: `T-001 (R-001) [feat|fix|refactor]: description` —
+format and closure: `rules/planning.md § Levels`.
 
 - [x] T-001 (R-001) [refactor]: Define the new planning layout — update
       `rules/planning.md`, `rules/project-layout.md`,

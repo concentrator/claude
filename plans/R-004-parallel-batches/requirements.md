@@ -3,7 +3,7 @@ approved: pending
 kind: feat
 ---
 
-# REQ-001: Parallel batch execution for DEV auto mode
+# R-004: Parallel batch execution for DEV auto mode
 
 ## Motivation
 

@@ -17,17 +17,16 @@ project on the machine.
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
 | `DESIGN.md` | Architecture, full tree-map, self-hosting layout |
 | `MAINTENANCE.md` | Sanity routine: cleanup, repair, allow-list hygiene, skill audits |
-| `ROADMAP.md`, `TASKS.md` | Planning indexes (roadmap entries, open tasks) |
-| `plans/` | This repo's own planning artifacts (`REQ-XXX`, per-entry plan dirs, batches) |
+| `plans/` | This repo's own planning artifacts — indexes and per-initiative `R-XXX-<slug>/` dirs (layout: `rules/planning.md`) |
 
 ## Workflow
 
 Two modes, defined in `CLAUDE.md`:
 
 - **VIBE** (default) — freestyle, no ceremony.
-- **DEV** — entered via `/dev`: requirements → roadmap → tasks →
+- **DEV** — entered via `/dev`: initiatives (requirements) → tasks →
   branch plans → commits. Every level traceable
-  (`REQ-XXX → R-XXX → T-XXX → branch`). Execution is manual
+  (`R-XXX → T-XXX → branch`). Execution is manual
   (`/dev code`, one branch at a time) or agentic (`/dev auto`, a batch
   of branches run by subagents between checkpoints, on permission
   rails). See `rules/planning.md` and `rules/branch-plan.md`.
@@ -35,8 +34,8 @@ Two modes, defined in `CLAUDE.md`:
 ## Self-hosting
 
 This repo manages itself with the same DEV discipline it provides:
-changes to the environment flow through `plans/REQ-XXX` like any other
-project. Because the repo root *is* the `.claude/` directory, the
+changes to the environment flow through `plans/` initiatives like any
+other project. Because the repo root *is* the `.claude/` directory, the
 foundational files live at the root — see
 `DESIGN.md § Self-hosting layout`.
 
