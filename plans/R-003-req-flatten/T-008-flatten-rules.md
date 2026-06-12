@@ -15,7 +15,7 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       `requirements.md` with no own id (points to its R-XXX); retire
       the per-initiative `REQ-XXX` id (legacy files at `plans/` root
       remain history); T-/B-XXX schemes unchanged.
-- [ ] planning.md §§ Where-things-live + Directory conventions:
+- [x] planning.md §§ Where-things-live + Directory conventions:
       `ROADMAP.md`/`TASKS.md` move to `plans/`, `requirements.md`
       inside the R-dir, batches at `plans/R-XXX-<slug>/batches/`
       (manifest + report, lazy); R-dir creation moves from lazy

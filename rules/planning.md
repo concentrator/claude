@@ -37,15 +37,18 @@ entry's own directory.
 
 ## Referential integrity
 
-- Roadmap items reference exactly one parent requirement.
+- Roadmap items are the chain root; each owns exactly one
+  `R-XXX-<slug>/` dir with its `requirements.md`.
 - Tasks reference exactly one parent roadmap item.
 - Branch plans reference exactly one parent task (via header).
 - Each parent must be **open** (`[ ]`) at the time the child is created.
 - Commits inside a branch plan need no external refs.
 - This applies to findings promotion too: a finding becomes a `T-XXX`
-  only under a fitting open `R-XXX`. If none exists, promote it to a
-  `REQ-XXX` instead (next planning round spawns R → T). Never create a
-  task with a closed, missing, or unrelated parent.
+  only under a fitting open `R-XXX`. If none exists, create an R stub
+  instead — ROADMAP entry + dir + `requirements.md` draft
+  (`approved: pending`); the next planning round shapes and spawns its
+  tasks. Never create a task with a closed, missing, or unrelated
+  parent.
 
 ## Where things live
 
