@@ -14,8 +14,8 @@ entry's own directory.
    retired per-initiative REQ files; no id of its own — the file's
    title names its R-XXX). Foundational requirements stay at
    `.claude/REQUIREMENTS.md`, persistent — they cover the project;
-   an initiative is any work they don't already cover. Checkbox
-   closes only when all child tasks are `[x]`.
+   an initiative is any work they don't already cover. Closure: see
+   § Approval and closure.
 2. **Tasks** — `.claude/plans/TASKS.md`. Concrete units of work. Items:
    `T-001 (R-001) [feat]: description` — the tag in brackets
    (`[feat] | [fix] | [refactor]`) declares task type and determines the
@@ -102,12 +102,25 @@ refuses to start the branch until the dependency is merged.
 - **Roadmap items, tasks** (single-line entries): direct file edit.
 - Never rewrite history retroactively.
 
-## Approval
+## Approval and closure
 
-`.claude/REQUIREMENTS.md` and per-initiative `REQ-XXX.md` carry an
-`approved:` field in YAML frontmatter. New: `approved: pending`. After
-user confirmation: `approved: YYYY-MM-DD`. Nothing downstream proceeds
-while `approved: pending`.
+`.claude/REQUIREMENTS.md` and each initiative's
+`plans/R-XXX-<slug>/requirements.md` carry an `approved:` field in
+YAML frontmatter. New: `approved: pending`. After user confirmation:
+`approved: YYYY-MM-DD`. Nothing downstream proceeds while
+`approved: pending`.
+
+An R entry closes (`[x]` in ROADMAP) only when **both** hold:
+
+- all child tasks are `[x]`, and
+- every acceptance criterion in its `requirements.md` is verified,
+  with one-line evidence per criterion, stamped
+  `status: done YYYY-MM-DD` in that file's frontmatter.
+
+Run-dependent criteria (verifiable only by a later event, e.g. a batch
+checkpoint) keep the R open; the relevant event re-triggers
+verification. Since a batch's members are tasks of exactly one R, a
+batch checkpoint validates exactly that R's criteria.
 
 ## Archival
 

@@ -23,7 +23,7 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       `requirements.md` in one act). Include transition clause:
       legacy paths resolve until T-010/T-011 close (clause removed
       by T-011, the last migration).
-- [ ] planning.md § Referential integrity: tasks root at an open
+- [x] planning.md § Referential integrity: tasks root at an open
       R-XXX; findings promotion rewritten — no fitting open R →
       create an R stub (ROADMAP entry + dir + requirements draft),
       replacing "promote to REQ-XXX".
