@@ -23,13 +23,11 @@ development is DEV-only).
 
 | Target | Action | Parent required |
 |---|---|---|
-| `REQ` | New `REQ-XXX.md` via `brainstorming` | — |
-| `REQ-XXX` | Amend requirement | REQ-XXX open |
-| `roadmap` | Create/extend `ROADMAP.md` | — |
-| `R-XXX` | Add tasks under roadmap item | R-XXX open |
+| `R` | New initiative via `brainstorming` (ROADMAP entry + dir + requirements) | — |
+| `R-XXX` | Requirements pending → shape/approve; approved → add tasks | R-XXX open |
 | `T-XXX` | Branch plan via `writing-plans` | T-XXX open |
 | `all` | Branch plans for all open tasks lacking one (parallel subagents, one review pass) | open tasks |
-| `batch` | Compose `plans/batches/B-XXX.md`; readiness-review + `agentic:` stamps | plans exist |
+| `batch` | Compose `plans/R-XXX-<slug>/batches/B-XXX.md`; readiness-review + `agentic:` stamps | plans exist |
 | `<slug>` | Adjust branch plan | plan exists |
 | `release` | Release plan (next semver) | ≥1 closed task |
 | (bare) | Ask | — |
