@@ -60,7 +60,7 @@ format and closure: `rules/planning.md § Levels`.
       re-verification, R-scoped batch/report paths, close phase marks
       checkboxes before the MR), `starting-a-project`,
       `migrating-to-dev`, `release`.
-- [ ] T-010 (R-003) [refactor]: Migrate this repo to the new layout —
+- [x] T-010 (R-003) [refactor]: Migrate this repo to the new layout —
       `ROADMAP.md`/`TASKS.md` → `plans/`, REQ-002/REQ-003 criteria
       stamped `status: done` under the new rule, REQ-004 superseded
       mark verified, REQ-001 → R-stub dir (`requirements.md`,
