@@ -14,7 +14,7 @@ only pointer wording with compensating trims, and `wc -w` ≤ 400 is
 verified after every SKILL.md edit. The mechanical rule is a checkable
 predicate evaluated without agent judgment (acceptance criterion 2).
 
-- [ ] Effort-mechanics probe: establish whether reasoning effort is
+- [x] Effort-mechanics probe: establish whether reasoning effort is
       settable per subagent dispatch (the Agent tool exposes a `model`
       override — `sonnet`/`opus`/`haiku`/`fable` — but no effort field;
       check agent-definition frontmatter and Claude Code settings for a
@@ -23,7 +23,7 @@ predicate evaluated without agent judgment (acceptance criterion 2).
       § Effort mechanics — the section states either the per-dispatch
       mechanism or "session-level only; routing degrades to model
       choice"; no SKILL.md edit.
-- [ ] Mechanical-commit predicate in `verification-policy.md`: a commit
+- [x] Mechanical-commit predicate in `verification-policy.md`: a commit
       item is mechanical iff its plan text explicitly names at most 2
       files to touch and states a complete spec (testable outcome, no
       unresolved design choices) — evaluated from the item text alone
@@ -32,25 +32,25 @@ predicate evaluated without agent judgment (acceptance criterion 2).
       "Files changed" report exceeds the named set — guard input
       already exists in `implementer-prompt.md` § Report Format
       (confirm, no edit expected).
-- [ ] Spec-check skip semantics in `verification-policy.md`: mechanical
+- [x] Spec-check skip semantics in `verification-policy.md`: mechanical
       commits skip the per-commit spec check, relying on the
       branch-close review to catch drift; each skip is recorded per
       commit (feeds the batch-report cost line); non-mechanical flow,
       stop conditions, and the second-rejection halt unchanged.
-- [ ] Per-role model routing table in `verification-policy.md`
+- [x] Per-role model routing table in `verification-policy.md`
       § Models: implementers → Opus 4.8 (`opus`, high effort);
       mechanical commits (per the predicate) → Sonnet 4.6 (`sonnet`);
       probes → Opus 4.8 (`opus`); judgment-heavy implementers and all
       reviews → Fable 5 (`fable`); effort column encoded per the
       § Effort mechanics finding from the first commit.
-- [ ] delegating-to-agents SKILL.md: gate the per-commit spec-check
+- [x] delegating-to-agents SKILL.md: gate the per-commit spec-check
       step on `verification-policy.md` (mechanical class skips) and
       collapse the trailing "Models:" heuristic line into the same
       pointer; compensating trims as needed; verify `wc -w` ≤ 400.
-- [ ] report-template.md: add a "Cost" section — total subagent tokens
+- [x] report-template.md: add a "Cost" section — total subagent tokens
       (per role where attributable), count of spec checks skipped, and
       defect outcomes, each against the B-002/B-003 baseline stated
       inline in the template (~800–900k subagent tokens / 12 commits;
       0 merge-reaching spec rejections).
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
