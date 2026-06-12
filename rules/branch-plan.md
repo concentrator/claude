@@ -143,6 +143,14 @@ reaches the default branch atomically with the merge; reject discards
 the marks with the branch (§ Rails). The R-closure check and
 release-plan marking stay post-merge.
 
+Per-branch close in auto mode: the close review (the `code-reviewer`
+pass) runs only for branches above the small-branch threshold defined
+in the `delegating-to-agents` verification policy — small branches
+defer their first review to the batch-close full-diff pass. The
+mandatory final commit and the tests/lint-green gate before merging
+into `batch/B-XXX` hold for every branch regardless of size. The
+manual-mode § Closing routine above is unchanged by this rule.
+
 ### Rails
 
 - Agents touch only code, plan checkboxes, and findings files —
@@ -167,6 +175,7 @@ release-plan marking stay post-merge.
 | NEEDS_CONTEXT unanswerable from the R's `requirements.md`/design | Halt, report |
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
+| Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
 | Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
 | Batch complete | Close phase on `batch/B-XXX`, then checkpoint, wait for user |
 
