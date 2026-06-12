@@ -51,7 +51,7 @@ scope.
       global `plans/batches/` gone, `R-004-parallel-batches/` real),
       `§ Self-hosting layout` root-file list, `§ Planning model`
       chain wording (R-rooted, single closure point).
-- [ ] Update `MAINTENANCE.md` targets to the new paths (plans/ row
+- [x] Update `MAINTENANCE.md` targets to the new paths (plans/ row
       covers `requirements.md` + in-dir `batches/`; root-files check
       list matches DESIGN); then grep this repo's docs for stale
       root-index references (`ROADMAP.md`/`TASKS.md` outside `plans/`,
