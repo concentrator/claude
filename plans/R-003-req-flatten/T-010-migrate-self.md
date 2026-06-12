@@ -37,7 +37,7 @@ scope.
       to R-004 (no own REQ id per the new template); update the
       ROADMAP pending-initiatives comment (REQ-001 now R-004; REQ-006
       still pending at `plans/` root, spawns its R-stub on approval).
-- [ ] Update `CLAUDE.md § Temporary Files`: planning indexes
+- [x] Update `CLAUDE.md § Temporary Files`: planning indexes
       (`ROADMAP.md`, `TASKS.md`) now live in `.claude/plans/`;
       initiative requirements live in their `R-XXX-<slug>/` dir
       (`requirements.md`); foundational specs unchanged at `.claude/`.
