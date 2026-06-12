@@ -84,9 +84,9 @@ paths resolve until then.
 
 ## Where plans live in git
 
-Requirements, design, roadmap, tasks, REQ-XXX, branch plans, and release
-plans commit directly to `main` — they are documentation, visible across
-all branches. Explicit exception to the no-commit-to-main rule, alongside
+Requirements (foundational and per-initiative), design, roadmap, tasks,
+branch plans, and release plans commit directly to `main` — they are
+documentation, visible across all branches. Explicit exception to the no-commit-to-main rule, alongside
 initial project scaffold.
 
 ## Cross-plan dependencies

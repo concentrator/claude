@@ -58,7 +58,7 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       triage gets the R-stub route, § Scope discoveries blocker text
       ("new REQ" → "new R"), NEEDS_CONTEXT stop condition reads
       "unanswerable from the R's requirements.md/design".
-- [ ] project-layout.md: canonical tree and creation policy updated —
+- [x] project-layout.md: canonical tree and creation policy updated —
       indexes under `plans/`, R-dirs with `requirements.md` +
       `batches/`, `plans/REQ-XXX.md` and global `plans/batches/`
       dropped from the tree; R-dirs become initiative-time, in-dir
