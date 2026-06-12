@@ -48,7 +48,7 @@ state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
   line if none>
 - defect outcomes: spec rejections reaching merge: <n>
   (B-002/B-003 baseline: 0 merge-reaching spec rejections);
-  review findings surfaced: <n fixed / <n> queued / <n> dismissed>
+  review findings surfaced: <n> fixed / <n> queued / <n> dismissed
 
 ## R acceptance criteria
 

@@ -56,13 +56,10 @@ A commit classified mechanical (per the predicate above, guard not
 voided) skips the per-commit spec check. Drift from the plan is caught
 by the branch-close review instead.
 
-**Recording:** for every skipped spec check the controller appends a
-line to the running batch log:
+**Recording:** for every skipped spec check the controller records a
+line and carries the records verbatim into the report's Cost section:
 
     <commit-sha or plan-item id>: spec check skipped: mechanical
-
-These records feed the batch report's cost line (tallied there, not
-here).
 
 **Scope of this rule:** only the per-commit spec check is skipped.
 Everything else is unchanged:
@@ -75,8 +72,8 @@ Everything else is unchanged:
 
 ## Models
 
-This table replaces the "Models:" heuristic line in `SKILL.md` (that edit
-is the next commit — `SKILL.md` is not touched here).
+This table replaces the former "Models:" heuristic line in `SKILL.md`
+(now a pointer here).
 
 | Role | Model (dispatch value) | Effort |
 |---|---|---|
