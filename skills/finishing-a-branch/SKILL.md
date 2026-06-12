@@ -44,9 +44,13 @@ stays `[ ]`; ask whether to keep or delete the branch plan file.
 In auto mode this runs only after the batch MR merges to the default
 branch (branch-plan.md § Agentic execution); manual mode unchanged.
 
-1. Mark `T-XXX` `[x]` in `.claude/TASKS.md`.
-2. If all tasks under the parent `R-XXX` are now `[x]`, mark `R-XXX`
-   `[x]` in `ROADMAP.md`.
+1. Mark `T-XXX` `[x]` in `.claude/plans/TASKS.md`.
+2. If all tasks under the parent `R-XXX` are now `[x]`, verify its
+   acceptance criteria in `plans/R-XXX-<slug>/requirements.md`
+   (`planning.md § Approval and closure`): all verified → tick each
+   with one-line evidence, stamp `status: done YYYY-MM-DD` in its
+   frontmatter, mark `R-XXX` `[x]` in `plans/ROADMAP.md`. Any
+   run-dependent criterion pending → R stays open; report which.
 3. If `.claude/plans/release-<version>.md` lists this branch, mark it
    `[x]`.
 4. Commit plan updates to the default branch (allowed exception),

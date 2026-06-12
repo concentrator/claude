@@ -24,7 +24,7 @@ every in-dir requirements reference is path-qualified as
       template, no own id), method behind `/dev plan R`; update
       frontmatter description, draft step (next free `R-XXX` id), and
       Next step (propose tasks via `/dev plan R-XXX`).
-- [ ] writing-plans skill: chain resolution `T → R →
+- [x] writing-plans skill: chain resolution `T → R →
       plans/R-XXX-<slug>/requirements.md` for acceptance criteria;
       drop the lazy R-dir creation step (dir exists from
       initiative time); update Out-of-scope target names.
