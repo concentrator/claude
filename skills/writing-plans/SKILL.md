@@ -10,15 +10,15 @@ from a task in `TASKS.md`. Invoked by `/dev plan T-XXX`.
 
 ## Inputs
 
-- Task ID (e.g. `T-014`) from `.claude/TASKS.md`
+- Task ID (e.g. `T-014`) from `.claude/plans/TASKS.md`
 - Task tag: `[feat] | [fix] | [refactor]`
-- Parent chain for context: T-XXX → R-XXX → REQ-XXX
+- Parent chain for context: T-XXX → R-XXX
 - Project `CLAUDE.md` (build/test/lint), `.claude/DESIGN.md` (architecture)
 
 ## Steps
 
-1. **Resolve chain.** Read task line; walk back T → R → REQ. Read the
-   REQ-XXX file for acceptance criteria.
+1. **Resolve chain.** Read task line; walk back T → R. Read
+   `plans/R-XXX-<slug>/requirements.md` for acceptance criteria.
 2. **Propose slug.** ≤20 chars, kebab-case, prune redundant words.
    Confirm with user.
 3. **Decompose work** into commit-sized checkboxes. Each `[ ]` = one
@@ -31,9 +31,8 @@ from a task in `TASKS.md`. Invoked by `/dev plan T-XXX`.
    - `depends-on: T-012` (if cross-task dependency)
 5. **Add mandatory final commit** at the end (per branch-plan.md).
 6. **Confirm with user**, then write to
-   `plans/R-XXX-<slug>/T-XXX-<slug>.md` — create the parent R-dir if
-   absent per `planning.md § Directory conventions` — and commit to
-   `main`.
+   `plans/R-XXX-<slug>/T-XXX-<slug>.md` (the R-dir exists from
+   initiative time) and commit to `main`.
 
 ## Soft cap
 
@@ -50,7 +49,7 @@ review pass over all slugs + plans before committing to main.
 
 - Per-commit implementation — the execution skill (`adding-a-feature`,
   `fixing-a-bug`, `doing-a-refactor`) handles iteration.
-- Roadmap / task / requirement creation — separate `/dev plan` targets.
+- Initiative / task creation — separate `/dev plan` targets.
 
 See `~/.claude/rules/branch-plan.md` for plan structure and execution
 rules.

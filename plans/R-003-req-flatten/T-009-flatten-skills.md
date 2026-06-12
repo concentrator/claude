@@ -18,7 +18,7 @@ every in-dir requirements reference is path-qualified as
       add tasks); `batch` target path →
       `plans/R-XXX-<slug>/batches/B-XXX.md`; verify net words out
       (`wc -w` < 379).
-- [ ] brainstorming skill: new initiative as one act — output is a
+- [x] brainstorming skill: new initiative as one act — output is a
       ROADMAP entry + `plans/R-XXX-<slug>/` dir +
       `plans/R-XXX-<slug>/requirements.md` (`approved: pending`, same
       template, no own id), method behind `/dev plan R`; update
