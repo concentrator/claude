@@ -41,7 +41,7 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       R-XXX`; archival notes legacy REQ files stay at `plans/` root
       read-only; `requirements.md` always path-qualified against
       root `REQUIREMENTS.md`.
-- [ ] branch-plan.md § Agentic execution — Batches: manifest and
+- [x] branch-plan.md § Agentic execution — Batches: manifest and
       report move to `plans/R-XXX-<slug>/batches/B-XXX[.report].md`,
       global `plans/batches/` removed; single-R scope rule — batch
       members are tasks of exactly one R, so the checkpoint

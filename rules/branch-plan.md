@@ -136,8 +136,15 @@ order or already-merged work. A cross-initiative need becomes its own
 R. Because members belong to one R, the batch checkpoint validates
 exactly that R's acceptance criteria. Soft cap ~25 planned commits
 total. Manual mode may use an open batch as its task queue; auto mode
-requires one. Batch and member-task checkboxes close when the batch
-MR merges to the default branch — not at local merge or checkpoint.
+requires one.
+
+Batch-close bookkeeping: the close phase marks batch and member-task
+checkboxes as commits on `batch/B-XXX`, **before** the MR — the `[x]`
+reaches the default branch atomically with the merge ("closes on MR
+merge" holds), and no closure commit ever lands directly on the
+default branch. Reject deletes the batch branch and the premature
+marks with it. Genuinely post-merge steps — the R-closure check and
+release-plan marking — stay post-merge.
 
 ### Rails
 
