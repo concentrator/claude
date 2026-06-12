@@ -143,6 +143,14 @@ reaches the default branch atomically with the merge; reject discards
 the marks with the branch (§ Rails). The R-closure check and
 release-plan marking stay post-merge.
 
+Per-branch close in auto mode: the `/simplify` review (§ Closing
+routine steps 1–4) runs only for branches that meet the small-branch
+threshold defined in `delegating-to-agents` verification policy —
+small branches defer that review to the batch-close full-diff pass.
+The mandatory final commit (step 7) and the tests/lint-green gate
+before merging into `batch/B-XXX` hold for every branch regardless of
+size. The manual-mode § Closing routine above is unchanged by this rule.
+
 ### Rails
 
 - Agents touch only code, plan checkboxes, and findings files —
