@@ -34,8 +34,9 @@ shell trips the sensitive-file guard).
    - DONE → spec check. DONE_WITH_CONCERNS → resolve first.
      NEEDS_CONTEXT → answer once from requirements/design,
      re-dispatch; unanswerable → halt. BLOCKED → halt.
-   - Spec check (`spec-reviewer-prompt.md`, fast): exactly the item.
-     Reject → fix → recheck; second → halt.
+   - Spec check (`spec-reviewer-prompt.md`): exactly the item; skipped
+     for mechanical commits per `verification-policy.md`. Reject → fix
+     → recheck; second → halt.
    - Mark `[x]` after the commit lands.
 3. Close agentically: `code-reviewer` (branch diff vs plan);
    mechanical fixes applied, judgment calls queued. Mandatory final
@@ -52,8 +53,7 @@ shell trips the sensitive-file guard).
    (CHANGELOG/README across member branches).
 4. Mark batch + member-task checkboxes; commit on `batch/B-XXX`.
 
-Models: mechanical (1–2 files, complete spec) → fast; multi-file →
-standard; reviews → most capable.
+Models + spec-check depth: `verification-policy.md`.
 
 ## Checkpoint (batch end or halt)
 
