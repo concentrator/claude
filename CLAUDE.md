@@ -6,8 +6,8 @@ Two modes:
 
 - **VIBE** (default) — no skill, freestyle. Commit-message style below
   still applies.
-- **DEV** — spec-driven: requirements → design → roadmap → tasks → branch
-  plans → commits. Entered explicitly via `/dev`. Branching, plan
+- **DEV** — spec-driven: requirements → design → initiatives → tasks →
+  branch plans → commits. Entered explicitly via `/dev`. Branching, plan
   hierarchy, and per-branch routine live in the `dev` skill and
   `~/.claude/rules/`.
 
@@ -62,11 +62,10 @@ don't try to guess.
 
 ## Temporary Files
 
-Store branch plans, initiative requirements, release plans, and the
-planning indexes (`ROADMAP.md`, `TASKS.md`) in `.claude/plans/`
-(layout: `rules/planning.md`). Foundational specs (`REQUIREMENTS.md`,
-`DESIGN.md`) stay in `.claude/`. Never use `docs/` or other project
-directories for these.
+Store planning artifacts in `.claude/plans/` and foundational specs
+(`REQUIREMENTS.md`, `DESIGN.md`) in `.claude/` (layout:
+`rules/planning.md § Where things live`). Never use `docs/` or other
+project directories for these.
 
 ## Communication
 

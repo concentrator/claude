@@ -17,7 +17,7 @@ project on the machine.
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
 | `DESIGN.md` | Architecture, full tree-map, self-hosting layout |
 | `MAINTENANCE.md` | Sanity routine: cleanup, repair, allow-list hygiene, skill audits |
-| `plans/` | This repo's own planning artifacts: `ROADMAP.md`/`TASKS.md` indexes, per-initiative `R-XXX-<slug>/` dirs (requirements, branch plans, batches) |
+| `plans/` | This repo's own planning artifacts — indexes and per-initiative `R-XXX-<slug>/` dirs (layout: `rules/planning.md`) |
 
 ## Workflow
 

@@ -23,9 +23,8 @@ relate, and the invariants that keep them coherent.
 
 This repo is consumed as `~/.claude`, so the directory that is `.claude/`
 in a normal project is the repo root here. Foundational DEV files
-(`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`, `plans/` — which
-holds the `ROADMAP.md`/`TASKS.md` indexes) sit at the root, not in a
-nested `.claude/`. The nested `.claude/` holds only Claude Code's
+(`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`, `plans/`) sit at
+the root, not in a nested `.claude/`. The nested `.claude/` holds only Claude Code's
 project settings, whose location is fixed by the tool.
 
 ## Tree-map
@@ -47,7 +46,7 @@ excluded — see `.gitignore`.
 ├── plans/                        # planning hierarchy
 │   ├── ROADMAP.md                # planning indexes — see rules/planning.md
 │   ├── TASKS.md
-│   ├── REQ-XXX.md                # legacy four-level-era requirements (read-only history)
+│   ├── REQ-XXX.md                # four-level-era requirements (closed: history; open → R stubs on approval)
 │   └── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
 │       ├── requirements.md       # initiative requirements
 │       ├── T-XXX-<slug>.md
@@ -55,9 +54,10 @@ excluded — see `.gitignore`.
 │       └── batches/              # B-XXX manifests + reports (lazy)
 ├── rules/                        # always-loaded rule files
 │   ├── branch-plan.md            # branch plan format, agentic rails
+│   ├── changelog.md              # CHANGELOG entry rules (path-scoped)
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
 │   ├── js.md                     # JS conventions (path-scoped)
-│   ├── planning.md               # REQ/R/T hierarchy, templates
+│   ├── planning.md               # R/T hierarchy, templates
 │   ├── project-layout.md         # canonical project .claude/ layout
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/
@@ -121,13 +121,9 @@ in their own repo.
 
 ## Planning model
 
-Self-development uses the full three-level hierarchy
-(`roadmap → tasks → branch plan`, each initiative's requirements in
-its `R-XXX-<slug>/` dir, single closure point per
-`rules/planning.md § Approval and closure`), unchanged from what the
-rules prescribe. The environment is a reference implementation of its
-own conventions; structure is never simplified, only description
-detail.
+Self-development uses the planning hierarchy per `rules/planning.md`,
+unchanged. The environment is a reference implementation of its own
+conventions; structure is never simplified, only description detail.
 
 ## Invariants
 

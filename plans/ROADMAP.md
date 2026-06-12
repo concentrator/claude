@@ -1,9 +1,8 @@
 # Roadmap
 
-Initiative index — business-level features over time. Items:
-`R-001: description`; each entry owns `R-XXX-<slug>/` with its
-`requirements.md`. A checkbox closes per `rules/planning.md
-§ Approval and closure` (all child tasks `[x]`, criteria verified).
+Initiative index. Items: `R-001: description`; each entry owns
+`R-XXX-<slug>/` with its `requirements.md`. A checkbox closes per
+`rules/planning.md § Approval and closure`.
 
 - [x] R-001 (REQ-002): Restructure planning layout — indexes to
       `.claude/` root, per-roadmap-entry plan dirs, task-id-prefixed
@@ -19,8 +18,7 @@ Initiative index — business-level features over time. Items:
       bookkeeping on the batch branch; rules, skills, and adopter
       projects migrated.
 - [ ] R-004: Parallel batch execution for DEV auto mode — run
-      independent member branches concurrently between checkpoints
-      (requirements pending approval).
+      independent member branches concurrently between checkpoints.
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. REQ-006 (trim agentic verification cost) is also
