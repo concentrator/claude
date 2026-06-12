@@ -175,6 +175,7 @@ size. The manual-mode § Closing routine above is unchanged by this rule.
 | NEEDS_CONTEXT unanswerable from the R's `requirements.md`/design | Halt, report |
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
+| Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
 | Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
 | Batch complete | Close phase on `batch/B-XXX`, then checkpoint, wait for user |
 
