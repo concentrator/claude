@@ -20,40 +20,40 @@ full close; manual-mode `branch-plan.md § Closing routine` untouched.
 after every edit; rule detail lives in the policy artifact, the skill
 only points.
 
-- [ ] Extend the verification-depth policy from T-012 (its companion
+- [x] Extend the verification-depth policy from T-012 (its companion
       file in `skills/delegating-to-agents/`, per T-012's merged
       shape) with a close-folding entry: the small-branch predicate
       above, read off the committed plan at branch close; folded =
       per-branch `code-reviewer` skipped, first review at batch
       close; final commit and green-merge gate explicitly unaffected.
-- [ ] delegating-to-agents SKILL.md § Per branch step 3: close
+- [x] delegating-to-agents SKILL.md § Per branch step 3: close
       becomes conditional — small branches (per policy) skip the
       `code-reviewer` pass; mandatory final commit, tests+lint green
       gate, and merge into `batch/B-XXX` unchanged for every branch;
       above-threshold branches close exactly as today. `wc -w` ≤400
       — free words by pointing to the policy, not restating it.
-- [ ] delegating-to-agents SKILL.md § Batch close step 1: the
+- [x] delegating-to-agents SKILL.md § Batch close step 1: the
       full-diff review receives the list of folded branches and
       reviews their diffs as first-reviewed-here (per-plan coverage,
       not only cross-branch concerns). `wc -w` ≤400 after edit.
-- [ ] report-template.md § Branches: per-branch "review findings"
+- [x] report-template.md § Branches: per-branch "review findings"
       line records "folded into batch review (small branch)" for
       folded members; § Batch review attributes findings in folded
       branches to their branch — checkpoint sees review coverage
       explicitly.
-- [ ] branch-plan.md § Agentic execution: rules-level statement of
+- [x] branch-plan.md § Agentic execution: rules-level statement of
       the folding — auto-mode per-branch close runs the review only
       above the small-branch threshold (predicate by pointer to the
       delegating-to-agents policy); final commit and green-merge gate
       named as all-branch invariants; manual § Closing routine
       explicitly unchanged.
-- [ ] branch-plan.md § Stop conditions: new row — batch-close review
+- [x] branch-plan.md § Stop conditions: new row — batch-close review
       finds a folded-branch defect beyond batch-branch fixup (branch
       rework needed) → Halt, report; existing tests/lint and
       spec-check rows unchanged.
-- [ ] Grep sweep of skills + rules + CLAUDE.md: no stale claim that
+- [x] Grep sweep of skills + rules + CLAUDE.md: no stale claim that
       every branch close runs a `code-reviewer` pass; confirmed
       out-of-scope hits (`release`, `dispatching-parallel-agents`
       routing table) left as-is.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
