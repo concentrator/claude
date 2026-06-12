@@ -36,6 +36,20 @@ state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
   reworded items, dedupes>
 - README / extended docs: <surface changes consistent?>
 
+## Cost
+
+- total subagent tokens: <N> (implementer: <n> / spec-check: <n> /
+  reviews: <n> / other: <n> — attribute where logs distinguish roles;
+  collapse unattributable into "other")
+  B-002/B-003 baseline: ~800–900k subagent tokens / 12 commits
+- spec checks skipped: <count> (<per-commit skip records per
+  verification-policy.md § Spec-check skip, or "none">)
+- dispatch-prompt or other notable size changes: <description, or omit
+  line if none>
+- defect outcomes: spec rejections reaching merge: <n>
+  (B-002/B-003 baseline: 0 merge-reaching spec rejections);
+  review findings surfaced: <n fixed / <n> queued / <n> dismissed>
+
 ## R acceptance criteria
 
 <per criterion of this R's `requirements.md`: verified (one-line
