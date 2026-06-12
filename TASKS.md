@@ -44,7 +44,7 @@ branch prefix. A checkbox closes only when the task's branch is merged.
       requirement with push-only fallback; deny-rule carve-out guidance
       for `git push origin batch/B-XXX` in the permission template
       docs.
-- [ ] T-008 (R-003) [refactor]: Define the flattened layout in rules —
+- [x] T-008 (R-003) [refactor]: Define the flattened layout in rules —
       `planning.md` (R-rooted chain, in-dir `requirements.md` template,
       initiative-time dir creation, R-closure rule with criteria
       verification + `status: done`, indexes at `plans/`, R-scoped
