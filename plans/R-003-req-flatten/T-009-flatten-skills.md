@@ -58,8 +58,8 @@ every in-dir requirements reference is path-qualified as
       backfill produces R stubs (entry + dir + path-qualified
       `requirements.md`) instead of `REQ-XXX.md`; Next steps →
       `/dev plan R`.
-- [ ] release skill: roadmap-prune path → `.claude/plans/ROADMAP.md`.
-- [ ] Grep sweep across all skills: no `/dev plan REQ`/`roadmap`
+- [x] release skill: roadmap-prune path → `.claude/plans/ROADMAP.md`.
+- [x] Grep sweep across all skills: no `/dev plan REQ`/`roadmap`
       targets, no `plans/REQ-XXX.md` or global `plans/batches/`
       references (REQ-005 grep-clean criteria); re-verify `wc -w` for
       every edited skill against its cap.
