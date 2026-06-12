@@ -57,6 +57,6 @@ scope.
       root-index references (`ROADMAP.md`/`TASKS.md` outside `plans/`,
       `plans/batches/`, `REQ-XXX` template paths) and fix stragglers —
       rules/skills are T-008/T-009 ground, touch only repo docs here.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), relocate any remaining planning files missed
       above, mark plan complete, commit.
