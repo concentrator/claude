@@ -45,15 +45,8 @@ Task tool (general-purpose):
 
     ## Conventions
 
-    The following conventions apply to all work in this repo. These sections are already
-    in your loaded context (CLAUDE.md is injected automatically) — consult them directly
-    rather than expecting them restated here. Use the Read tool on `~/.claude/CLAUDE.md`
-    as a fallback if a section isn't loaded.
-
-    - **Commit messages** — CLAUDE.md § Commit Messages
-    - **Code comments** — CLAUDE.md § Code Comments
-    - **Audience visibility** — CLAUDE.md § Audience visibility
-    - **Docs conventions** (CHANGELOG, README, etc.) — project CLAUDE.md § Conventions
+    CLAUDE.md is in your context; follow § Commit Messages, § Code Comments,
+    § Audience visibility, and project `## Conventions` (docs/CHANGELOG).
 
     ## Code Organization
 
