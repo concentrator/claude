@@ -19,14 +19,14 @@ state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
 - tests: <command + summary line, e.g. "npm test: 124 pass / 0 fail">
 - spec checks: <n> passed, <n> rejected→fixed
 - review findings: <each finding + resolution: fixed in <sha> |
-  queued judgment call | dismissed (reason)>
+  queued judgment call | dismissed (reason); or "folded into batch review (small branch)">
 - findings file: <open items count, or "none">
 
 ## Batch review (full diff vs base, most capable model)
 
 - cross-branch findings: <interactions invisible to per-branch review:
   semantic conflicts, duplicated helpers, divergent conventions —
-  each + resolution>
+  each + resolution; findings in folded branches attributed per branch>
 - fixes applied on batch branch: <shas + one-liners, or "none">
 - tests + lint after fixes: <results>
 
