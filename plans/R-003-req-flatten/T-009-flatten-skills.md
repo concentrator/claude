@@ -43,7 +43,7 @@ every in-dir requirements reference is path-qualified as
       single-R batch scope; "REQ criteria"/"REQ/design" wording →
       acceptance criteria from the R's
       `plans/R-XXX-<slug>/requirements.md`; `wc -w` ≤ 400.
-- [ ] delegating-to-agents SKILL.md: close phase commits batch +
+- [x] delegating-to-agents SKILL.md: close phase commits batch +
       member-task checkbox marks on `batch/B-XXX` before the
       checkpoint (no post-merge closure commit on the default branch);
       checkpoint re-triggers acceptance-criteria verification for

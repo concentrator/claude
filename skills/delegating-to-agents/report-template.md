@@ -1,9 +1,9 @@
 # Batch report template
 
-Written by the checkpoint to `plans/batches/B-XXX.report.md` BEFORE the
-accept/reject offer. Accept is invalid without it. Fill every section;
-write "none" rather than omitting one — an empty heading reads as a
-skipped step.
+Written by the checkpoint to `plans/R-XXX-<slug>/batches/B-XXX.report.md`
+BEFORE the accept/reject offer. Accept is invalid without it. Fill every
+section; write "none" rather than omitting one — an empty heading reads
+as a skipped step.
 
 ```markdown
 # B-XXX report — <one-line batch theme>
@@ -35,6 +35,12 @@ state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
 - CHANGELOG: <entries from all branches read as one release block?
   reworded items, dedupes>
 - README / extended docs: <surface changes consistent?>
+
+## R acceptance criteria
+
+<per criterion of this R's `requirements.md`: verified (one-line
+evidence) | still pending (which event verifies it); or "all
+previously verified">
 
 ## Prompt friction
 
