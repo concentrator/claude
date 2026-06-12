@@ -48,7 +48,7 @@ every in-dir requirements reference is path-qualified as
       checkpoint (no post-merge closure commit on the default branch);
       checkpoint re-triggers acceptance-criteria verification for
       run-dependent criteria of the R awaiting validation.
-- [ ] delegating-to-agents auxiliary files: report-template.md report
+- [x] delegating-to-agents auxiliary files: report-template.md report
       path → `plans/R-XXX-<slug>/batches/B-XXX.report.md` + an
       R acceptance-criteria status section; sweep
       implementer/spec-reviewer prompts and toolchain.md for REQ

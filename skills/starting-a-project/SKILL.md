@@ -33,8 +33,7 @@ Files:
 - `/init` → project `CLAUDE.md`.
 - `README.md` (verify or stub).
 - `.gitignore` — `.claude/settings.local.json`, secrets, build artifacts.
-- `.claude/plans/` (empty) plus `ROADMAP.md` and `TASKS.md` at the
-  `.claude/` root.
+- `.claude/plans/` with `ROADMAP.md` and `TASKS.md`.
 - Project `CLAUDE.md`: stack, base branch, build/test/lint. Don't restate
   global rules.
 
@@ -63,5 +62,5 @@ branch.
 
 ## 6. Next
 
-Propose: run `/dev plan roadmap` to seed the initial roadmap from
+Propose: run `/dev plan R` to shape the first initiative from
 requirements + design. Do not auto-execute.
