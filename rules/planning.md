@@ -1,33 +1,39 @@
 # Planning rules
 
-Four-level hierarchy for DEV mode.
+Three-level hierarchy for DEV mode: `R-XXX → T-XXX → branch plan`.
+The roadmap entry is the chain root; its requirements live in the
+entry's own directory.
 
 ## Levels
 
-1. **Requirements** — source of motivation, goals, acceptance criteria.
-   - `.claude/REQUIREMENTS.md` — project foundational, persistent.
-   - `.claude/plans/REQ-001.md`, `REQ-002.md`, ... — per-initiative
-     (new feature, bug, or any work the foundational requirements don't
-     already cover).
-2. **Roadmap** — `.claude/ROADMAP.md`. Business-level features over
-   time. Items: `R-001 (REQ-002): description`. Checkbox closes only
-   when all child tasks are `[x]`.
-3. **Tasks** — `.claude/TASKS.md`. Concrete units of work. Items:
+1. **Roadmap** — `.claude/plans/ROADMAP.md`. Initiative index —
+   business-level features over time. Items: `R-001: description`.
+   Each entry owns `plans/R-XXX-<slug>/`, whose
+   `plans/R-XXX-<slug>/requirements.md` carries the initiative's
+   motivation, goals, and acceptance criteria (same template as the
+   retired per-initiative REQ files; no id of its own — the file's
+   title names its R-XXX). Foundational requirements stay at
+   `.claude/REQUIREMENTS.md`, persistent — they cover the project;
+   an initiative is any work they don't already cover. Checkbox
+   closes only when all child tasks are `[x]`.
+2. **Tasks** — `.claude/plans/TASKS.md`. Concrete units of work. Items:
    `T-001 (R-001) [feat]: description` — the tag in brackets
    (`[feat] | [fix] | [refactor]`) declares task type and determines the
    branch prefix. Checkbox closes only when the task's branch is merged.
-4. **Branch plan** — `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`.
+3. **Branch plan** — `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`.
    Checkboxes per commit. Header: `task: T-001`. Checkbox closes at
    commit time. See `branch-plan.md`.
 
 ## ID format
 
-- Requirements: `REQ-001`, `REQ-002`, ...
-- Roadmap: `R-001`, `R-002`, ...
+- Initiatives (roadmap): `R-001`, `R-002`, ...
 - Tasks: `T-001`, `T-002`, ...
 - Batches: `B-001`, `B-002`, ... (execution grouping, not a level —
   see `branch-plan.md § Agentic execution`)
 - One-indexed, three digits, monotonic.
+- `REQ-XXX` is retired: requirement content carries its parent's
+  R-XXX id. Legacy `plans/REQ-XXX.md` files remain at `plans/` root
+  as read-only history (see § Archival).
 
 ## Referential integrity
 
