@@ -63,5 +63,5 @@ every in-dir requirements reference is path-qualified as
       targets, no `plans/REQ-XXX.md` or global `plans/batches/`
       references (REQ-005 grep-clean criteria); re-verify `wc -w` for
       every edited skill against its cap.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
