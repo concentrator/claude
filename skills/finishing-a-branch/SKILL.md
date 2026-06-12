@@ -12,7 +12,7 @@ Close out a DEV branch. Invoked by the closing routine
 
 - `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`: every `[ ]` is `[x]`;
   findings file triaged.
-- Fresh test + lint run, green. Failing → stop, report, don't proceed.
+- Fresh test + lint run green; failing → stop and report.
 
 ## 2. Present options
 
@@ -25,8 +25,8 @@ Exactly four, no elaboration:
 
 ## 3. Execute
 
-**Merge locally** — checkout default branch, pull, merge, rerun tests on
-the result. Green → bookkeeping (§4). Red → stop, report, ask.
+**Merge locally** — checkout default branch, pull, merge, rerun tests
+on the result. Green → §4. Red → stop, report, ask.
 
 **Push + MR/PR** — `git push -u origin <branch>`, create MR/PR
 (`glab`/`gh`: summary + test plan). Bookkeeping is deferred — `T-XXX`
@@ -36,7 +36,7 @@ stays `[ ]` until the MR merges; run §4 then.
 
 **Discard** — list branch, commits, and plan state; require the user to
 type `discard`. Then checkout default branch, `git branch -D`. `T-XXX`
-stays `[ ]`; ask whether to keep or delete the branch plan file.
+stays `[ ]`; ask whether to keep the plan file.
 
 ## 4. Post-merge bookkeeping (on default branch)
 
@@ -44,15 +44,15 @@ Auto mode: step 1 runs in the batch close phase on `batch/B-XXX`
 (branch-plan.md § Batches); after the batch MR merges, run steps 2–5.
 
 1. Mark `T-XXX` `[x]` in `.claude/plans/TASKS.md`.
-2. If all tasks under the parent `R-XXX` are now `[x]`, verify its
-   acceptance criteria in `plans/R-XXX-<slug>/requirements.md`: all
-   verified → tick each with one-line evidence, stamp
-   `status: done YYYY-MM-DD`, mark `R-XXX` `[x]` in `plans/ROADMAP.md`;
-   a run-dependent criterion pending → R stays open, report which.
+2. If the parent `R-XXX`'s tasks are all `[x]`, verify its acceptance
+   criteria in `plans/R-XXX-<slug>/requirements.md`: all verified →
+   tick with evidence, stamp `status: done YYYY-MM-DD`, mark `R-XXX`
+   `[x]` in `plans/ROADMAP.md`; a run-dependent criterion pending →
+   R stays open, report.
 3. If `.claude/plans/release-<version>.md` lists this branch, mark it
    `[x]`.
 4. Commit plan updates to the default branch (allowed exception),
-   single-line message, e.g. `Close T-014`.
+   e.g. `Close T-014`.
 5. Delete the merged branch (local; remote too if pushed).
 
-Then propose next: an open task from `TASKS.md`, or `/dev plan`.
+Then propose next: an open task from `plans/TASKS.md`, or `/dev plan`.
