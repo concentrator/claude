@@ -70,6 +70,11 @@ Everything else is unchanged:
 - "Spec check rejects the same commit twice → halt" still applies
   wherever a spec check runs.
 
+**Convention drift outcome:** a spec-check report of "⚠️ Convention
+drift only" is not a rejection — it never counts toward the
+two-rejection halt. The controller fixes the drift directly on the
+member branch and carries the count into the report's Cost section.
+
 ## Close folding
 
 A branch is **small** iff its committed plan file satisfies both conditions,

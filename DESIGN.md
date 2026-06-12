@@ -77,6 +77,7 @@ excluded — see `.gitignore`.
     │   ├── SKILL.md
     │   ├── implementer-prompt.md
     │   ├── spec-reviewer-prompt.md
+    │   ├── verification-policy.md
     │   ├── report-template.md
     │   ├── toolchain.md
     │   └── auto-permissions.template.json

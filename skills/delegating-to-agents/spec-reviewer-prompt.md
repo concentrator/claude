@@ -66,7 +66,6 @@ Task tool (general-purpose):
     Report:
     - ✅ Spec compliant (if everything matches after code inspection)
     - ⚠️ Convention drift only: [list] — spec otherwise compliant
-      (controller fixes directly and counts it in the report's Cost
-      section; no reject loop)
+      (handling: `verification-policy.md § Spec-check skip`)
     - ❌ Issues found: [list specifically what's missing or extra, with file:line references]
 ```
