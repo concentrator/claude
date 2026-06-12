@@ -14,15 +14,15 @@ shell trips the sensitive-file guard).
 
 ## Pre-flight
 
-- Batch exists; member plans all `agentic: approved`.
+- Batch exists; member plans `agentic: approved`.
 - Permissions: `.claude/settings.local.json` holds every
   `auto-permissions.template.json` rule (`__PROJECT_DIR__` → abs path)
   plus the CLAUDE.md `## Agent toolchain` rules, incl. a VCS-host CLI
   (`glab`/`gh`; absent → push-only checkpoint, manual MR). Missing
   → propose merged file, apply on approval. No toolchain section →
   halt, ask.
-- On default branch, working tree clean, tests + lint green.
-- Set rollback tag `pre-B-XXX`; create `batch/B-XXX` off default.
+- Default branch, clean tree, tests + lint green.
+- Tag `pre-B-XXX`; create `batch/B-XXX` off default.
 
 ## Per branch, in batch order
 
@@ -50,20 +50,22 @@ shell trips the sensitive-file guard).
 2. Fixes land as batch-branch commits; queue judgment calls.
 3. Re-run tests + lint; red → halt. Docs coherence pass
    (CHANGELOG/README across member branches).
+4. Mark batch + member-task checkboxes; commit on `batch/B-XXX`.
 
 Models: mechanical (1–2 files, complete spec) → fast; multi-file →
 standard; reviews → most capable.
 
 ## Checkpoint (batch end or halt)
 
-Write the R's `batches/B-XXX.report.md` per `report-template.md`. No
-report → no accept. Present it, then:
+Write the R's `batches/B-XXX.report.md` per `report-template.md`,
+re-verifying its run-dependent acceptance criteria. No report → no
+accept. Present it, then:
 
 - **Accept** → push `batch/B-XXX` to origin + create the MR per
   `toolchain.md`, description from the report (defer = explicit user
   choice; never the default branch). Findings triage, delete member
-  refs; batch items `[x]` on MR merge.
-- **Reject** → delete `batch/B-XXX` (`pre-B-XXX` tag is
-  belt-and-braces); member refs preserved for salvage.
-- **Halt** → failed item reported, completed work intact; user
-  resolves, re-runs `/dev auto B-XXX`.
+  refs.
+- **Reject** → delete `batch/B-XXX` (`pre-B-XXX` tag remains);
+  member refs preserved for salvage.
+- **Halt** → failed item reported, work intact; user resolves,
+  re-runs `/dev auto B-XXX`.

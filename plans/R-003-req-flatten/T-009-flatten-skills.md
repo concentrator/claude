@@ -38,7 +38,7 @@ every in-dir requirements reference is path-qualified as
       batch + task checkbox marking happens in the batch close phase
       on `batch/B-XXX` (lands via the MR); only the R-closure check
       and release-plan marking remain post-merge.
-- [ ] delegating-to-agents SKILL.md: R-scoped paths
+- [x] delegating-to-agents SKILL.md: R-scoped paths
       (`plans/R-XXX-<slug>/batches/B-XXX.md`, report beside) +
       single-R batch scope; "REQ criteria"/"REQ/design" wording →
       acceptance criteria from the R's
