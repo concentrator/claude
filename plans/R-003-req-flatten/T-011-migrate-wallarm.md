@@ -43,9 +43,10 @@ closed branch plans and batch reports stay as-is.
       (`.claude/ROADMAP.md`/`.claude/TASKS.md` as root paths,
       `plans/REQ-001`, `plans/batches/`) and fix stragglers
       (pre-checked clean); verify tracked file count under `.claude/`
-      is 40 pre and post; remove the transition clauses from
-      `rules/planning.md` and `rules/project-layout.md` (added by
-      T-008, obsolete once both migrations are done); re-review docs
+      is 40 pre and post; remove the transition clause from
+      `rules/planning.md § Directory conventions` and its pointer in
+      `rules/project-layout.md` (added by T-008, obsolete once both
+      migrations are done); re-review docs
       across all commits, cleanup (stale/temp data), mark this plan
       complete (commit here), final verification (3 migration commits
       on wallarm main).
