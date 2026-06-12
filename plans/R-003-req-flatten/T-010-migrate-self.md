@@ -18,7 +18,7 @@ scope.
       `git mv TASKS.md plans/TASKS.md`; align both index header blurbs
       with post-T-008 `rules/planning.md` wording (R-rooted entry
       format, closure rule pointer). Doc: the indexes themselves.
-- [ ] Backfill-verify `plans/REQ-002.md`: check its one remaining `[ ]`
+- [x] Backfill-verify `plans/REQ-002.md`: check its one remaining `[ ]`
       criterion (scaffold + migration skills produce the new layout)
       against the shipped T-001..T-004 work, tick with one-line
       evidence, then stamp frontmatter `status: done 2026-06-12` per
