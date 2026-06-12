@@ -72,3 +72,27 @@ Everything else is unchanged:
   untouched.
 - "Spec check rejects the same commit twice → halt" still applies
   wherever a spec check runs.
+
+## Models
+
+This table replaces the "Models:" heuristic line in `SKILL.md` (that edit
+is the next commit — `SKILL.md` is not touched here).
+
+| Role | Model (dispatch value) | Effort |
+|---|---|---|
+| Default implementers | Opus 4.8 (`opus`) | session (`effortLevel`) |
+| Mechanical-commit implementers | Sonnet 4.6 (`sonnet`) | session (`effortLevel`) |
+| Probes (live API probing work) | Opus 4.8 (`opus`) | session (`effortLevel`) |
+| Judgment-heavy implementers | Fable 5 (`fable`) | session (`effortLevel`) |
+| Spec-compliance checks (per-commit) | Sonnet 4.6 (`sonnet`) | session (`effortLevel`) |
+| Branch-close review and batch full-diff review | Fable 5 (`fable`) | session (`effortLevel`) |
+
+**Effort note:** effort is session-level and fixed by the `effortLevel`
+setting — it is not controllable per dispatch (see § Effort mechanics).
+The high-effort intent for Opus implementers is satisfied when the session
+runs at `high` or above; below that, routing degrades to model choice only.
+
+**Spec-check disambiguation:** per-commit spec-compliance checks are fast
+mechanical checks (pass/fail against the plan item) and run on `sonnet`.
+Branch-close and batch full-diff reviews require judgment and run on
+`fable`. These two review roles are distinct — do not conflate them.
