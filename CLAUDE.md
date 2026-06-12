@@ -5,7 +5,11 @@
 Two modes:
 
 - **VIBE** (default) — no skill, freestyle. Commit-message style below
-  still applies.
+  still applies. Branch discipline too: never commit to the default
+  branch — switch to a `<prefix>/<slug>` branch (prefix ∈ {feat, fix,
+  refactor, chore}) before the first commit; merging is the user's
+  call. Exception: the `~/.claude` repo itself — config and doc tweaks
+  land on `main` directly.
 - **DEV** — spec-driven: requirements → design → initiatives → tasks →
   branch plans → commits. Entered explicitly via `/dev`. Branching, plan
   hierarchy, and per-branch routine live in the `dev` skill and
