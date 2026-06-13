@@ -25,7 +25,7 @@ code — implementation comes later via the planning chain
 4. **Approaches** — propose 2–3 with trade-offs; lead with your
    recommendation. YAGNI ruthlessly.
 5. **Draft** — next free `R-XXX` id; requirements sections per
-   `~/.claude/rules/planning.md § Templates`. Present it section by
+   `~/.claude/rules/planning-templates.md § Per-initiative`. Present it section by
    section, confirming each.
 6. **Self-check** — placeholders, contradictions, criteria readable two
    ways, scope creep. Fix inline before showing the file.

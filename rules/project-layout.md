@@ -1,3 +1,9 @@
+---
+paths:
+  - "**/plans/**/*.md"
+  - "**/plans/*.md"
+---
+
 # Project layout
 
 Canonical structure for `.claude/` in a project. Other paths inside

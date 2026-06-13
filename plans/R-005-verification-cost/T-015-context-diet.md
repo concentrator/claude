@@ -29,7 +29,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
   Required trigger set per rule: any project's `.claude/plans/**`,
   this repo's `plans/**`, and the rule's own file.
 
-- [ ] Baseline measurement, before any rule edit: with the user, open
+- [x] Baseline measurement, before any rule edit: with the user, open
       a fresh session in this repo and run `/context` before touching
       any file; record in a new
       `plans/R-005-verification-cost/T-015-context-diet.findings.md`
@@ -37,7 +37,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       contribution, and `wc -w` of the three targets (planning.md
       1080, branch-plan.md 1075, project-layout.md 353). Commit the
       findings file only.
-- [ ] Extract `## Templates` from `rules/planning.md` into new
+- [x] Extract `## Templates` from `rules/planning.md` into new
       `rules/planning-templates.md` (`# Planning templates`;
       subsections promoted one heading level, content verbatim) with
       `paths:` frontmatter scoped to the files the templates
@@ -51,7 +51,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       requirements step → `§ Foundational`), verifying `wc -w` caps on
       each edited SKILL.md; finish with a repo-wide grep for
       `§ Templates` — zero references against planning.md remain.
-- [ ] Path-scope the three rules — add `paths:` frontmatter, bodies
+- [x] Path-scope the three rules — add `paths:` frontmatter, bodies
       untouched: each gets `**/plans/**` plus its own file
       (`**/rules/planning.md`, `**/rules/branch-plan.md`,
       `**/rules/project-layout.md`). The single `**/plans/**` covers
@@ -60,7 +60,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       verification shows a gap, add the explicit
       `**/.claude/plans/**` / `plans/**` pair rather than widening
       further.
-- [ ] Load-behavior verification (gates everything after) — fresh
+- [x] Load-behavior verification (gates everything after) — fresh
       sessions with the user: (a) read a file under this repo's
       `plans/` → all three rules load; (b) same under
       `wallarm-api-js/.claude/plans/` → same; (c) a session touching
@@ -71,7 +71,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       that is a blocker — stop per branch-plan.md § Scope discoveries;
       scoping planning rules out of the very sessions that need them
       is the regression this branch must not ship.
-- [ ] Docs + inbound sweep: DESIGN.md — `rules/` component line and
+- [x] Docs + inbound sweep: DESIGN.md — `rules/` component line and
       tree-map (`always-loaded rule files` → path-scoped; add
       `planning-templates.md`; planning.md comment drops "templates");
       README.md `rules/` row likewise; then grep
@@ -81,7 +81,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       `dev`, `finishing-a-branch`, execution skills → branch-plan
       sections intact), fixing any straggler. (This is the DESIGN.md
       commit required by the `architecture-changing` header.)
-- [ ] After measurement: rule loading follows working-tree state, so
+- [x] After measurement: rule loading follows working-tree state, so
       with all rule edits in place this equals the post-final-commit
       baseline — rerun the exact baseline protocol (fresh session in
       this repo, `/context` before touching any file) and record the
@@ -89,6 +89,6 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       the evidence for criterion 5 ("per-dispatch fixed baseline
       measurably reduced; planning rules load only in sessions that
       touch planning artifacts").
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), triage and resolve the findings file, mark
       plan complete, commit.

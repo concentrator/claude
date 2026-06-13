@@ -18,8 +18,8 @@ against `~/.claude/rules/project-layout.md` and report gaps.
 
 Read README + code. Ask user 3–5 clarifying questions (purpose, audience,
 goals, non-goals, success criteria). Write `.claude/REQUIREMENTS.md` with
-`approved: pending` per `~/.claude/rules/planning.md § Templates →
-Foundational`. **Block on user approval** — then update `approved:` to
+`approved: pending` per `~/.claude/rules/planning-templates.md
+§ Foundational`. **Block on user approval** — then update `approved:` to
 today.
 
 ## 3. Design

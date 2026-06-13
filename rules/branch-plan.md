@@ -1,3 +1,9 @@
+---
+paths:
+  - "**/plans/**/*.md"
+  - "**/plans/*.md"
+---
+
 # Branch plan rules
 
 A branch plan is `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md` (dir per
