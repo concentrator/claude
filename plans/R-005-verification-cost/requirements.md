@@ -1,6 +1,7 @@
 ---
 approved: 2026-06-12
 kind: refactor
+status: done 2026-06-14
 ---
 
 # R-005: Trim agentic verification cost
@@ -68,18 +69,25 @@ verification buys. Candidate levers (highest impact first):
 
 ## Acceptance criteria
 
-- [ ] A "verification depth" policy is defined in `delegating-to-agents`:
+- [x] A "verification depth" policy is defined in `delegating-to-agents`:
       which commit classes get a spec check, which model tier per role,
       when branch-close folds into batch-close.
-- [ ] Mechanical/test-only commits skip the spec check by a stated,
+      — `skills/delegating-to-agents/verification-policy.md` (T-012/T-013).
+- [x] Mechanical/test-only commits skip the spec check by a stated,
       checkable rule (not agent judgment).
-- [ ] A batch run under the trimmed routine reports its token cost and
+      — `verification-policy.md §§ Mechanical commits, Spec-check skip`;
+      predicate exercised 11× in B-001.
+- [x] A batch run under the trimmed routine reports its token cost and
       its defect outcomes against the B-002/B-003 baseline in the batch
       report (new "cost" line).
-- [ ] No increase in defects reaching the batch MR vs baseline.
-- [ ] Per-dispatch fixed baseline measurably reduced (`/context`
+      — `plans/R-005-verification-cost/batches/B-001.report.md § Cost`.
+- [x] No increase in defects reaching the batch MR vs baseline.
+      — B-001: 0 spec rejections reached merge (baseline 0).
+- [x] Per-dispatch fixed baseline measurably reduced (`/context`
       before/after recorded); planning rules load only in sessions
       that touch planning artifacts.
+      — T-015: always-on memory 8.7k → 1.4k; path-scoping verified
+      across four fresh-session cases (T-015 findings).
 
 ## Constraints
 

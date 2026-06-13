@@ -19,7 +19,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       projects migrated.
 - [ ] R-004: Parallel batch execution for DEV auto mode — run
       independent member branches concurrently between checkpoints.
-- [ ] R-005: Trim agentic verification cost — verification-depth
+- [x] R-005: Trim agentic verification cost — verification-depth
       policy (spec-check skip for mechanical commits), per-role model
       routing, branch-close folding, slimmer dispatch prompts, context
       diet for always-loaded rules; no defect regression vs the
