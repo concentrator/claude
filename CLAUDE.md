@@ -5,9 +5,13 @@
 Two modes:
 
 - **VIBE** (default) — no skill, freestyle. Commit-message style below
-  still applies.
-- **DEV** — spec-driven: requirements → design → roadmap → tasks → branch
-  plans → commits. Entered explicitly via `/dev`. Branching, plan
+  still applies. Branch discipline too: never commit to the default
+  branch — switch to a `<prefix>/<slug>` branch (prefix ∈ {feat, fix,
+  refactor, chore}) before the first commit; merging is the user's
+  call. Exception: the `~/.claude` repo itself — config and doc tweaks
+  land on `main` directly.
+- **DEV** — spec-driven: requirements → design → initiatives → tasks →
+  branch plans → commits. Entered explicitly via `/dev`. Branching, plan
   hierarchy, and per-branch routine live in the `dev` skill and
   `~/.claude/rules/`.
 
@@ -17,6 +21,15 @@ CLAUDE.md — including a VCS-host CLI (`glab`/`gh`) for the checkpoint
 push + MR; the `delegating-to-agents` pre-flight reads it to prepare
 agent settings deterministically. Push-permission patterns:
 `skills/delegating-to-agents/toolchain.md`.
+
+## Agent toolchain
+
+This repo's own `/dev auto` toolchain (self-hosting: this file is also
+the project CLAUDE.md). No test suite — green means SKILL.md word caps
+(`wc -w`) and grep sweeps per plan item. Rules live in
+`.claude/settings.local.json`: template + `Bash(gh pr create:*)`,
+`Bash(git push -u origin batch/*)` carve-out (deny narrowed to
+default-branch/force pushes).
 
 ## Commit Messages
 
@@ -62,10 +75,10 @@ don't try to guess.
 
 ## Temporary Files
 
-Store branch plans, REQ-XXX, and release plans in `.claude/plans/`
-(layout: `rules/planning.md`). Foundational specs (`REQUIREMENTS.md`,
-`DESIGN.md`) and planning indexes (`ROADMAP.md`, `TASKS.md`) in
-`.claude/`. Never use `docs/` or other project directories for these.
+Store planning artifacts in `.claude/plans/` and foundational specs
+(`REQUIREMENTS.md`, `DESIGN.md`) in `.claude/` (layout:
+`rules/planning.md § Where things live`). Never use `docs/` or other
+project directories for these.
 
 ## Communication
 

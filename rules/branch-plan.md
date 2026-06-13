@@ -1,3 +1,9 @@
+---
+paths:
+  - "**/plans/**/*.md"
+  - "**/plans/*.md"
+---
+
 # Branch plan rules
 
 A branch plan is `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md` (dir per
@@ -32,8 +38,8 @@ any documentation it touches.
 ### No TODOs in code
 
 Never write `TODO`, `FIXME`, or `XXX` comments in code. Every such item
-routes to a plan artifact (branch-plan commit, `TASKS.md`, or `REQ-XXX`)
-at discovery time. See "Scope discoveries" below.
+routes to a plan artifact (branch-plan commit, `TASKS.md`, or an R
+stub) at discovery time. See "Scope discoveries" below.
 
 ## Mid-execution rules
 
@@ -46,7 +52,7 @@ code, the current task's premise is invalidated, a plan item can't be
 interpreted unambiguously, or verification keeps failing after repeated
 fixes:
 - **Stop. Ask the user.** Resolution may require plan extension, new
-  task, new REQ, or aborting the branch. Never inline-fix beyond a true
+  task, new R, or aborting the branch. Never inline-fix beyond a true
   typo in code you're currently writing.
 
 **Non-blocker** — improvement, refactor idea, tangential test gap, code
@@ -80,8 +86,9 @@ mandatory final commit, then hands off to merge/PR.
 5. Request manual testing/verification; suggest automation where applicable.
 6. **Triage `T-XXX-<slug>.findings.md`** — for each `[ ]` item, prompt user:
    - Promote to `T-XXX` (new entry in `TASKS.md`, committed to main now)
-     — only under a fitting open `R-XXX`; none → use the REQ route
-   - Promote to `REQ-XXX` (defer to next planning round)
+     — only under a fitting open `R-XXX`; none → use the R-stub route
+   - Promote to an R stub (`planning.md § Directory conventions`;
+     shaped next planning round)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Mandatory final commit** — the last `[ ]`:
 
@@ -121,18 +128,34 @@ fix via `/dev plan <slug>` first. User approves → stamp
 
 ### Batches
 
-`.claude/plans/batches/B-XXX.md` — ordered checklist, one `[ ]` per task:
+`.claude/plans/R-XXX-<slug>/batches/B-XXX.md` — ordered checklist,
+one `[ ]` per task:
 
     # B-001
     - [ ] T-014 (<slug>)
     - [ ] T-015 (<slug>)
 
-Execution grouping, not a planning level: members must be open tasks
-with agentic-approved plans; `depends-on` must resolve within batch
-order or already-merged work. Soft cap ~25 planned commits total.
-Manual mode may use an open batch as its task queue; auto mode
-requires one. Batch and member-task checkboxes close when the batch
-MR merges to the default branch — not at local merge or checkpoint.
+Execution grouping, not a planning level: a batch is scoped to the R
+whose dir holds it — members must be open tasks of that R with
+agentic-approved plans; `depends-on` must resolve within batch order
+or already-merged work. A cross-initiative need becomes its own R.
+The checkpoint validates exactly that R's acceptance criteria. Soft
+cap ~25 planned commits total. Manual mode may use an open batch as
+its task queue; auto mode requires one.
+
+Batch-close bookkeeping: the close phase marks batch and member-task
+checkboxes as commits on `batch/B-XXX`, **before** the MR — the `[x]`
+reaches the default branch atomically with the merge; reject discards
+the marks with the branch (§ Rails). The R-closure check and
+release-plan marking stay post-merge.
+
+Per-branch close in auto mode: the close review (the `code-reviewer`
+pass) runs only for branches above the small-branch threshold defined
+in the `delegating-to-agents` verification policy — small branches
+defer their first review to the batch-close full-diff pass. The
+mandatory final commit and the tests/lint-green gate before merging
+into `batch/B-XXX` hold for every branch regardless of size. The
+manual-mode § Closing routine above is unchanged by this rule.
 
 ### Rails
 
@@ -155,9 +178,10 @@ MR merges to the default branch — not at local merge or checkpoint.
 | Event | Action |
 |---|---|
 | Blocker (per § Scope discoveries) | Halt, report |
-| NEEDS_CONTEXT unanswerable from REQ/design | Halt, report |
+| NEEDS_CONTEXT unanswerable from the R's `requirements.md`/design | Halt, report |
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
+| Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
 | Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
 | Batch complete | Close phase on `batch/B-XXX`, then checkpoint, wait for user |
 

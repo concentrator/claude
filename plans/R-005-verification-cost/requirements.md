@@ -1,9 +1,9 @@
 ---
-approved: pending
+approved: 2026-06-12
 kind: refactor
 ---
 
-# REQ-006: Trim agentic verification cost
+# R-005: Trim agentic verification cost
 
 ## Motivation
 
@@ -31,14 +31,27 @@ verification buys. Candidate levers (highest impact first):
 
 1. Skip the spec check on test-only / mechanical commits; rely on the
    branch-close review to catch drift (~25–35k per such commit).
-2. Default implementers to Sonnet; reserve top tier for probes,
-   judgment-heavy implementers, and reviews.
+2. Route models per role: implementers → Opus 4.8 (high effort);
+   mechanical commits (per the same deterministic rule as lever 1) →
+   Sonnet 4.6; probes → Opus 4.8; judgment-heavy implementers and all
+   reviews → Fable 5. Verify per-dispatch effort mechanics (effort may
+   be session-level only); encode the table in
+   `delegating-to-agents § Models`.
 3. For small branches, merge the branch-close review into the batch
    review (the batch reviewer re-covers most of it — visible overlap
    in B-003).
 4. Slimmer dispatch prompts: replace the pasted conventions block with
    a pointer to CLAUDE.md sections the agent reads itself (cheaper,
    slightly weaker rails — measure the trade).
+5. Context diet for always-loaded rules: extract on-demand sections
+   into companion files (e.g. `planning.md § Templates` — only
+   `brainstorming`/`writing-plans` consume it), and path-scope the
+   planning rules (`planning.md`, `branch-plan.md`,
+   `project-layout.md`) so non-planning sessions and dispatches skip
+   them. Every dispatch pays a ~28k fixed baseline today (~7.7k of it
+   always-loaded rules, B-002/B-003 measured ~24 dispatches/batch);
+   prompt caching discounts repeats, so weigh savings at cached rates.
+   Measure per-dispatch baseline tokens (`/context`) before/after.
 
 ## Non-goals
 
@@ -64,6 +77,9 @@ verification buys. Candidate levers (highest impact first):
       its defect outcomes against the B-002/B-003 baseline in the batch
       report (new "cost" line).
 - [ ] No increase in defects reaching the batch MR vs baseline.
+- [ ] Per-dispatch fixed baseline measurably reduced (`/context`
+      before/after recorded); planning rules load only in sessions
+      that touch planning artifacts.
 
 ## Constraints
 

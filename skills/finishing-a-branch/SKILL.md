@@ -5,14 +5,14 @@ description: Use when a branch plan is complete and tests pass.
 
 # Finishing a Development Branch
 
-Close out a DEV branch. Invoked by the closing routine
+Close out a DEV branch — invoked by the closing routine
 (`~/.claude/rules/branch-plan.md`) after the mandatory final commit.
 
 ## 1. Verify
 
 - `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`: every `[ ]` is `[x]`;
   findings file triaged.
-- Fresh test + lint run, green. Failing → stop, report, don't proceed.
+- Fresh test + lint green; failing → stop and report.
 
 ## 2. Present options
 
@@ -25,32 +25,34 @@ Exactly four, no elaboration:
 
 ## 3. Execute
 
-**Merge locally** — checkout default branch, pull, merge, rerun tests on
-the result. Green → bookkeeping (§4). Red → stop, report, ask.
+**Merge locally** — checkout default branch, pull, merge, rerun tests
+on the result. Green → §4. Red → stop, report, ask.
 
 **Push + MR/PR** — `git push -u origin <branch>`, create MR/PR
 (`glab`/`gh`: summary + test plan). Bookkeeping is deferred — `T-XXX`
-stays `[ ]` until the MR merges; run §4 then (re-invoke this skill or
-catch it on the next `/dev` from the default branch).
+stays `[ ]` until the MR merges; run §4 then.
 
 **Keep** — report branch name. Nothing closes.
 
 **Discard** — list branch, commits, and plan state; require the user to
 type `discard`. Then checkout default branch, `git branch -D`. `T-XXX`
-stays `[ ]`; ask whether to keep or delete the branch plan file.
+stays `[ ]`; ask whether to keep the plan file.
 
 ## 4. Post-merge bookkeeping (on default branch)
 
-In auto mode this runs only after the batch MR merges to the default
-branch (branch-plan.md § Agentic execution); manual mode unchanged.
+Auto mode: step 1 runs in the batch close phase on `batch/B-XXX`
+(branch-plan.md § Batches); after the batch MR merges, run steps 2–5
+(step 5: batch branch; member refs went at accept).
 
-1. Mark `T-XXX` `[x]` in `.claude/TASKS.md`.
-2. If all tasks under the parent `R-XXX` are now `[x]`, mark `R-XXX`
-   `[x]` in `ROADMAP.md`.
+1. Mark `T-XXX` `[x]` in `.claude/plans/TASKS.md`.
+2. If the parent `R-XXX`'s tasks are all `[x]`, run the closure check
+   (`planning.md § Approval and closure`): verified → mark `R-XXX`
+   `[x]` in `plans/ROADMAP.md`; pending criteria → report, R stays
+   open.
 3. If `.claude/plans/release-<version>.md` lists this branch, mark it
    `[x]`.
 4. Commit plan updates to the default branch (allowed exception),
-   single-line message, e.g. `Close T-014`.
+   e.g. `Close T-014`.
 5. Delete the merged branch (local; remote too if pushed).
 
-Then propose next: an open task from `TASKS.md`, or `/dev plan`.
+Next: an open task from `plans/TASKS.md`, or `/dev plan`.

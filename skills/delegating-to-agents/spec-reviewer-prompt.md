@@ -53,6 +53,11 @@ Task tool (general-purpose):
     - Did they solve the wrong problem?
     - Did they implement the right feature but wrong way?
 
+    **Convention drift (rail-strength sensor):**
+    - Does the commit message follow CLAUDE.md § Commit Messages (single-line, ~50 chars, WHAT not how)?
+    - Were docs updated per project conventions where the commit item required it?
+    - CLAUDE.md is in your context — check against it directly; flag drift even when the implementation is otherwise spec-compliant.
+
     **Verify by reading code, not by trusting report.** Use the Read tool and
     plain `git show <ref>:<path>` — not process/command substitution
     (`diff <(git show ...)`, `$(grep ...)`), which the permission matcher
@@ -60,5 +65,7 @@ Task tool (general-purpose):
 
     Report:
     - ✅ Spec compliant (if everything matches after code inspection)
+    - ⚠️ Convention drift only: [list] — spec otherwise compliant
+      (handling: `verification-policy.md § Spec-check skip`)
     - ❌ Issues found: [list specifically what's missing or extra, with file:line references]
 ```

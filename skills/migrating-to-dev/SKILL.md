@@ -18,8 +18,8 @@ against `~/.claude/rules/project-layout.md` and report gaps.
 
 Read README + code. Ask user 3–5 clarifying questions (purpose, audience,
 goals, non-goals, success criteria). Write `.claude/REQUIREMENTS.md` with
-`approved: pending` per `~/.claude/rules/planning.md § Templates →
-Foundational`. **Block on user approval** — then update `approved:` to
+`approved: pending` per `~/.claude/rules/planning-templates.md
+§ Foundational`. **Block on user approval** — then update `approved:` to
 today.
 
 ## 3. Design
@@ -43,10 +43,10 @@ before changing existing config. If user defers any item, record
 
 ## 6. Backfill plans
 
-Create `.claude/plans/` plus `ROADMAP.md`, `TASKS.md` at the `.claude/`
-root. Ask user about
-ongoing work → roadmap items (R-XXX) and open tasks (T-XXX). Known bugs
-or tech debt → new `REQ-XXX.md` per `~/.claude/rules/planning.md`.
+Create `.claude/plans/` with `ROADMAP.md`, `TASKS.md`. Ask user about
+ongoing work → initiatives (R-XXX) and open tasks (T-XXX). Known bugs
+or tech debt → R stubs per `~/.claude/rules/planning.md
+§ Referential integrity`.
 
 ## 7. Commit
 

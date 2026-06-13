@@ -1,0 +1,30 @@
+# Roadmap
+
+Initiative index. Items: `R-001: description`; each entry owns
+`R-XXX-<slug>/` with its `requirements.md`. A checkbox closes per
+`rules/planning.md § Approval and closure`.
+
+- [x] R-001 (REQ-002): Restructure planning layout — indexes to
+      `.claude/` root, per-roadmap-entry plan dirs, task-id-prefixed
+      branch plans, batch manifests dir; rules, skills, and adopter
+      projects migrated.
+- [x] R-002 (REQ-003): Batch integration flow — `batch/B-XXX` branch,
+      enforced checkpoint report artifact, full-strength batch review,
+      push + MR at accept.
+- [ ] R-003 (REQ-005): Flatten the requirement level into roadmap
+      entries — R-rooted chain with in-dir `requirements.md`, indexes
+      moved to `plans/`, batches scoped under their R-dir, single
+      closure point on verified acceptance criteria, batch-close
+      bookkeeping on the batch branch; rules, skills, and adopter
+      projects migrated.
+- [ ] R-004: Parallel batch execution for DEV auto mode — run
+      independent member branches concurrently between checkpoints.
+- [ ] R-005: Trim agentic verification cost — verification-depth
+      policy (spec-check skip for mechanical commits), per-role model
+      routing, branch-close folding, slimmer dispatch prompts, context
+      diet for always-loaded rules; no defect regression vs the
+      B-002/B-003 baseline.
+
+<!-- R-004's requirements are approved: pending — tasks spawn once
+     approved. Sequence after R-005: concurrency would multiply an
+     unoptimised verification routine. -->

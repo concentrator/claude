@@ -15,7 +15,7 @@ default branch — exception to the no-commit-to-`main` rule.
 The user supplies a description (text file, prompt, or both). Read it, ask
 1–3 clarifying questions if needed. Create `.claude/` if absent, then write
 `.claude/REQUIREMENTS.md` with `approved: pending` frontmatter and sections
-per `~/.claude/rules/planning.md § Templates → Foundational`. **Do not
+per `~/.claude/rules/planning-templates.md § Foundational`. **Do not
 proceed until the user approves** — then update `approved:` to today.
 
 The user's seed file (if any) is **not** committed — `REQUIREMENTS.md` is
@@ -33,8 +33,7 @@ Files:
 - `/init` → project `CLAUDE.md`.
 - `README.md` (verify or stub).
 - `.gitignore` — `.claude/settings.local.json`, secrets, build artifacts.
-- `.claude/plans/` (empty) plus `ROADMAP.md` and `TASKS.md` at the
-  `.claude/` root.
+- `.claude/plans/` with `ROADMAP.md` and `TASKS.md`.
 - Project `CLAUDE.md`: stack, base branch, build/test/lint. Don't restate
   global rules.
 
@@ -63,5 +62,5 @@ branch.
 
 ## 6. Next
 
-Propose: run `/dev plan roadmap` to seed the initial roadmap from
+Propose: run `/dev plan R` to shape the first initiative from
 requirements + design. Do not auto-execute.

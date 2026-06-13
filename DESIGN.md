@@ -7,8 +7,9 @@ relate, and the invariants that keep them coherent.
 
 - **CLAUDE.md** — global operating instructions, loaded every session.
   Maintenance: `rules/claude-md.md`.
-- **rules/** — path/topic-scoped rules (planning, branch-plan,
-  project-layout, skills, claude-md), loaded as memory.
+- **rules/** — path/topic-scoped rules (planning, planning-templates,
+  branch-plan, project-layout, skills, claude-md), loaded as memory; the
+  planning rules load only in sessions that touch plan artifacts.
 - **skills/** — invocable capabilities (workflow + reference). Authoring
   and maintenance: `skills/skill-creator/`, `skills/writing-skills/`,
   `rules/skills.md`.
@@ -23,10 +24,9 @@ relate, and the invariants that keep them coherent.
 
 This repo is consumed as `~/.claude`, so the directory that is `.claude/`
 in a normal project is the repo root here. Foundational DEV files
-(`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`, `ROADMAP.md`,
-`TASKS.md`, `plans/`) sit at the root, not in a nested `.claude/`. The
-nested `.claude/` holds only Claude Code's project settings, whose
-location is fixed by the tool.
+(`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`, `plans/`) sit at
+the root, not in a nested `.claude/`. The nested `.claude/` holds only Claude Code's
+project settings, whose location is fixed by the tool.
 
 ## Tree-map
 
@@ -44,20 +44,23 @@ excluded — see `.gitignore`.
 ├── MAINTENANCE.md                # sanity routine (template + repo-specific)
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
-├── ROADMAP.md                    # planning indexes — see rules/planning.md
-├── TASKS.md
 ├── plans/                        # planning hierarchy
-│   ├── REQ-XXX.md                # per-initiative requirements
-│   ├── batches/                  # B-XXX manifests (lazy)
-│   └── R-XXX-<slug>/             # one dir per roadmap entry (lazy)
+│   ├── ROADMAP.md                # planning indexes — see rules/planning.md
+│   ├── TASKS.md
+│   ├── REQ-XXX.md                # four-level-era requirements (closed: history; open → R stubs on approval)
+│   └── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
+│       ├── requirements.md       # initiative requirements
 │       ├── T-XXX-<slug>.md
-│       └── T-XXX-<slug>.findings.md
-├── rules/                        # always-loaded rule files
-│   ├── branch-plan.md            # branch plan format, agentic rails
+│       ├── T-XXX-<slug>.findings.md
+│       └── batches/              # B-XXX manifests + reports (lazy)
+├── rules/                        # rule files (always-on or path-scoped)
+│   ├── branch-plan.md            # branch plan format, agentic rails (path-scoped)
+│   ├── changelog.md              # CHANGELOG entry rules (path-scoped)
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
 │   ├── js.md                     # JS conventions (path-scoped)
-│   ├── planning.md               # REQ/R/T hierarchy, templates
-│   ├── project-layout.md         # canonical project .claude/ layout
+│   ├── planning.md               # R/T hierarchy (path-scoped)
+│   ├── planning-templates.md     # requirements/release templates (path-scoped)
+│   ├── project-layout.md         # canonical project .claude/ layout (path-scoped)
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/
 │   └── code-reviewer.md          # branch-close quality review agent
@@ -76,6 +79,9 @@ excluded — see `.gitignore`.
     │   ├── SKILL.md
     │   ├── implementer-prompt.md
     │   ├── spec-reviewer-prompt.md
+    │   ├── verification-policy.md
+    │   ├── report-template.md
+    │   ├── toolchain.md
     │   └── auto-permissions.template.json
     ├── dev/SKILL.md              # DEV mode orchestrator
     ├── dispatching-parallel-agents/SKILL.md
@@ -118,8 +124,7 @@ in their own repo.
 
 ## Planning model
 
-Self-development uses the full four-level hierarchy
-(`requirements → roadmap → tasks → branch plan`) per `rules/planning.md`,
+Self-development uses the planning hierarchy per `rules/planning.md`,
 unchanged. The environment is a reference implementation of its own
 conventions; structure is never simplified, only description detail.
 

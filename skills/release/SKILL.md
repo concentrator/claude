@@ -20,7 +20,7 @@ Generic release flow. Projects override via `<project>/.claude/skills/release/SK
 4. **Halt on issues.** Stop on blockers; ask user — fix in follow-up branch, defer, or accept. No auto-resolve.
 5. **Fork release branch.** `git checkout -b release/vX.Y.Z`.
 6. **Finalize CHANGELOG.** Replace `## [Unreleased]` with `## [vX.Y.Z] - <YYYY-MM-DD>`. Drop reverted-change entries.
-7. **Prune roadmap.** Scan `.claude/ROADMAP.md` for entries matching CHANGELOG bullets; propose removal.
+7. **Prune roadmap.** Scan `.claude/plans/ROADMAP.md` for entries matching CHANGELOG bullets; propose removal.
 8. **Release notes.** Use `.claude/release_notes_template.md` if defined, else generate from CHANGELOG diff. Output filepath.
 9. **Commit on release branch.** Single-line message: `Stamp vX.Y.Z release`.
 10. **Hand off.** Output: `git push -u origin release/vX.Y.Z` → PR → merge to default → `git tag -a vX.Y.Z -m "<short>"` + `git push origin vX.Y.Z`.
