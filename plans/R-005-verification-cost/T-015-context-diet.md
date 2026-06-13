@@ -29,7 +29,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
   Required trigger set per rule: any project's `.claude/plans/**`,
   this repo's `plans/**`, and the rule's own file.
 
-- [ ] Baseline measurement, before any rule edit: with the user, open
+- [x] Baseline measurement, before any rule edit: with the user, open
       a fresh session in this repo and run `/context` before touching
       any file; record in a new
       `plans/R-005-verification-cost/T-015-context-diet.findings.md`
