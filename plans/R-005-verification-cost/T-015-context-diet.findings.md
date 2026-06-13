@@ -38,9 +38,30 @@ Path-scopable planning-rule baseline: **7.2k** (3.2 + 1.3 + 2.7).
 
 `planning.md § Templates` = 362 of planning.md's 1080 words (extraction target).
 
-### After (rerun after all rule edits — see plan item 6)
+### After (2026-06-13, all rule edits in place)
 
-_Pending._
+Fresh `~/.claude` session, `/context` before touching any file
+(Messages 8 tokens — genuinely fresh):
+
+| Category | Tokens |
+|---|---|
+| Memory files (always-loaded) | 1.4k |
+
+Memory-files breakdown: CLAUDE.md 1.4k only — `planning.md`,
+`branch-plan.md`, `project-layout.md` no longer always-load.
+
+**Delta vs baseline:** always-on memory **8.7k → 1.4k**, a **~7.2k**
+per-dispatch reduction for any session that does not touch planning
+artifacts (e.g. implementer/test dispatches editing source). At
+uncached rates that is ~7.2k × the non-planning dispatch count per
+batch; prompt caching discounts repeats, so the realized saving sits
+between cached and uncached rates. Planning sessions still load the
+rules on demand (verified above) — no capability lost.
+
+Note on instrument: `/context` → Memory files tallies only always-on
+memory, so this before/after captures exactly the fixed per-dispatch
+baseline that criterion 5 targets. On-demand loads in planning
+sessions are confirmed by the `Loaded rules/…` toast, not this panel.
 
 ## Load-behavior verification
 

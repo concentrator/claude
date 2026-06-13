@@ -81,7 +81,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       `dev`, `finishing-a-branch`, execution skills → branch-plan
       sections intact), fixing any straggler. (This is the DESIGN.md
       commit required by the `architecture-changing` header.)
-- [ ] After measurement: rule loading follows working-tree state, so
+- [x] After measurement: rule loading follows working-tree state, so
       with all rule edits in place this equals the post-final-commit
       baseline — rerun the exact baseline protocol (fresh session in
       this repo, `/context` before touching any file) and record the
