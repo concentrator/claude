@@ -89,7 +89,7 @@ format and closure: `rules/planning.md § Levels`.
       pointers to CLAUDE.md sections the agent reads itself; keep plan
       item text + criteria pasted (rails); record the rail-strength
       trade for checkpoint comparison.
-- [ ] T-015 (R-005) [refactor]: Context diet for always-loaded rules —
+- [x] T-015 (R-005) [refactor]: Context diet for always-loaded rules —
       extract `planning.md § Templates` to a companion file consumed
       by `brainstorming`/`writing-plans`, path-scope `planning.md`,
       `branch-plan.md`, `project-layout.md` to planning-artifact
