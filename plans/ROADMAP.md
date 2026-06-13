@@ -11,7 +11,7 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R-002 (REQ-003): Batch integration flow — `batch/B-XXX` branch,
       enforced checkpoint report artifact, full-strength batch review,
       push + MR at accept.
-- [ ] R-003 (REQ-005): Flatten the requirement level into roadmap
+- [x] R-003 (REQ-005): Flatten the requirement level into roadmap
       entries — R-rooted chain with in-dir `requirements.md`, indexes
       moved to `plans/`, batches scoped under their R-dir, single
       closure point on verified acceptance criteria, batch-close
