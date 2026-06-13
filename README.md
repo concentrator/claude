@@ -11,7 +11,7 @@ project on the machine.
 |---|---|
 | `CLAUDE.md` | Global operating instructions, loaded every session |
 | `settings.json` | Global Claude Code config: permissions, hooks, model, plugins |
-| `rules/` | Always-loaded rules: planning hierarchy, branch plans, project layout, CLAUDE.md/skill maintenance |
+| `rules/` | Memory rules: planning hierarchy + templates, branch plans, project layout (path-scoped to plan sessions), CLAUDE.md/skill maintenance |
 | `skills/` | Invocable capabilities — the DEV workflow engine and supporting skills |
 | `agents/` | Custom agents (e.g. branch-close code reviewer) |
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |

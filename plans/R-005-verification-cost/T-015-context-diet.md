@@ -71,7 +71,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       that is a blocker — stop per branch-plan.md § Scope discoveries;
       scoping planning rules out of the very sessions that need them
       is the regression this branch must not ship.
-- [ ] Docs + inbound sweep: DESIGN.md — `rules/` component line and
+- [x] Docs + inbound sweep: DESIGN.md — `rules/` component line and
       tree-map (`always-loaded rule files` → path-scoped; add
       `planning-templates.md`; planning.md comment drops "templates");
       README.md `rules/` row likewise; then grep

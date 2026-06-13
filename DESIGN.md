@@ -7,8 +7,9 @@ relate, and the invariants that keep them coherent.
 
 - **CLAUDE.md** — global operating instructions, loaded every session.
   Maintenance: `rules/claude-md.md`.
-- **rules/** — path/topic-scoped rules (planning, branch-plan,
-  project-layout, skills, claude-md), loaded as memory.
+- **rules/** — path/topic-scoped rules (planning, planning-templates,
+  branch-plan, project-layout, skills, claude-md), loaded as memory; the
+  planning rules load only in sessions that touch plan artifacts.
 - **skills/** — invocable capabilities (workflow + reference). Authoring
   and maintenance: `skills/skill-creator/`, `skills/writing-skills/`,
   `rules/skills.md`.
@@ -52,13 +53,14 @@ excluded — see `.gitignore`.
 │       ├── T-XXX-<slug>.md
 │       ├── T-XXX-<slug>.findings.md
 │       └── batches/              # B-XXX manifests + reports (lazy)
-├── rules/                        # always-loaded rule files
-│   ├── branch-plan.md            # branch plan format, agentic rails
+├── rules/                        # rule files (always-on or path-scoped)
+│   ├── branch-plan.md            # branch plan format, agentic rails (path-scoped)
 │   ├── changelog.md              # CHANGELOG entry rules (path-scoped)
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
 │   ├── js.md                     # JS conventions (path-scoped)
-│   ├── planning.md               # R/T hierarchy, templates
-│   ├── project-layout.md         # canonical project .claude/ layout
+│   ├── planning.md               # R/T hierarchy (path-scoped)
+│   ├── planning-templates.md     # requirements/release templates (path-scoped)
+│   ├── project-layout.md         # canonical project .claude/ layout (path-scoped)
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/
 │   └── code-reviewer.md          # branch-close quality review agent
