@@ -2,7 +2,6 @@
 paths:
   - "**/plans/**/*.md"
   - "**/plans/*.md"
-  - "**/rules/branch-plan.md"
 ---
 
 # Branch plan rules

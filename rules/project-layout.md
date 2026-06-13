@@ -2,7 +2,6 @@
 paths:
   - "**/plans/**/*.md"
   - "**/plans/*.md"
-  - "**/rules/project-layout.md"
 ---
 
 # Project layout

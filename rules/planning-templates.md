@@ -3,7 +3,6 @@ paths:
   - "**/REQUIREMENTS.md"
   - "**/plans/R-*/requirements.md"
   - "**/plans/release-v*.md"
-  - "**/rules/planning-templates.md"
 ---
 
 # Planning templates
