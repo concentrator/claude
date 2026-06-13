@@ -121,8 +121,9 @@ checkpoint — `branch-plan.md § Batches`).
 
 Plans and requirements are not physically moved when closed. Closed items
 are marked `[x]`. Git history preserves the work. Manual cleanup is
-possible but optional. Legacy `plans/REQ-XXX.md` files from the
-four-level era stay at `plans/` root as read-only history.
+possible but optional. The four-level-era `REQ-XXX` requirement content
+was folded into `REQUIREMENTS.md` as foundational behaviour and the files
+removed; git history preserves the originals.
 
 Exceptions — may be moved to `.claude/plans/archive/` at the user's
 option:
