@@ -37,7 +37,11 @@ evaluated from the plan-item text alone, before dispatch:
 1. **File set ≤ 2, explicitly named** — the item text names at most two
    files to touch (by path or filename). Unnamed, implied, or
    wildcard-described files do not count toward the limit and void the
-   classification.
+   classification. Convention-mandated doc files (e.g. a per-commit
+   `CHANGELOG.md` under `release-routine: yes`) are not exempt: the plan
+   item must name them like any other file, and they count toward the
+   ≤ 2 limit — a commit that also writes a CHANGELOG entry alongside two
+   code files is not mechanical.
 2. **Complete spec** — the item states a testable outcome and contains
    no unresolved design choices. A testable outcome means a reader can
    write a failing check before seeing the implementation. An unresolved
@@ -74,6 +78,10 @@ Everything else is unchanged:
 drift only" is not a rejection — it never counts toward the
 two-rejection halt. The controller fixes the drift directly on the
 member branch and carries the count into the report's Cost section.
+The spec-check sensor is blind on spec-check-skipped (mechanical)
+commits, so convention drift surfaced by the branch-close or batch
+review is counted in the same Cost-line total (report-template.md
+§ Cost) to keep the drift picture complete.
 
 ## Close folding
 
@@ -112,15 +120,25 @@ This table replaces the former "Models:" heuristic line in `SKILL.md`
 | Mechanical-commit implementers | Sonnet 4.6 (`sonnet`) | session (`effortLevel`) |
 | Probes (live API probing work) | Opus 4.8 (`opus`) | session (`effortLevel`) |
 | Judgment-heavy implementers | Fable 5 (`fable`) | session (`effortLevel`) |
-| Spec-compliance checks (per-commit) | Sonnet 4.6 (`sonnet`) | session (`effortLevel`) |
+| Spec-compliance checks (per-commit) | Fable 5 (`fable`) | session (`effortLevel`) |
 | Branch-close review and batch full-diff review | Fable 5 (`fable`) | session (`effortLevel`) |
+
+**Routing:** the controller picks the implementer row deterministically —
+mechanical predicate true → Mechanical-commit row (`sonnet`); plan item
+explicitly tagged `(judgment-heavy)` → Judgment-heavy row (`fable`);
+otherwise the Default implementers row (`opus`). There is no predicate
+for "judgment-heavy": an item reaches that row only by carrying the
+explicit `(judgment-heavy)` tag in its plan-item text, mirroring the
+task `[type]` tag. Absent the tag, items default to Opus.
 
 **Effort note:** effort is session-level and fixed by the `effortLevel`
 setting — it is not controllable per dispatch (see § Effort mechanics).
 The high-effort intent for Opus implementers is satisfied when the session
 runs at `high` or above; below that, routing degrades to model choice only.
 
-**Spec-check disambiguation:** per-commit spec-compliance checks are fast
-mechanical checks (pass/fail against the plan item) and run on `sonnet`.
-Branch-close and batch full-diff reviews require judgment and run on
-`fable`. These two review roles are distinct — do not conflate them.
+**Spec-check disambiguation:** per-commit spec-compliance checks
+(pass/fail against the plan item) and the judgment-heavy branch-close /
+batch full-diff reviews all run on `fable`. They remain distinct roles —
+the per-commit spec check is the only one lever 1 may skip on a
+mechanical commit; the close/batch reviews always run. Do not conflate
+them.

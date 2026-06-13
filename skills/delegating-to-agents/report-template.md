@@ -47,7 +47,10 @@ state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
 - dispatch-prompt sizes (wc -w): implementer-prompt.md <before> → <after>;
   spec-reviewer-prompt.md <before> → <after>
   (lever-4 baseline, pre-T-014: implementer 866, spec-reviewer 312)
-- convention drift flagged by spec checks: <n> (B-002/B-003 baseline: 0)
+- convention drift: <n> by spec-check sensor + <n> by close/batch review
+  = <total> (B-002/B-003 baseline: 0). The sensor is blind on
+  spec-check-skipped commits, so close/batch-review drift is counted too
+  to complete the picture (verification-policy.md § Convention drift outcome)
 - defect outcomes: spec rejections reaching merge: <n>
   (B-002/B-003 baseline: 0 merge-reaching spec rejections);
   review findings surfaced: <n> fixed / <n> queued / <n> dismissed
