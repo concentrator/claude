@@ -44,7 +44,39 @@ _Pending._
 
 ## Load-behavior verification
 
-_Pending — see plan item 4._
+### Round 1 — `**/plans/**` + own-file (2026-06-13) — FAILED (a, b)
+
+| Case | Setup | Memory files in `/context` | Verdict |
+|---|---|---|---|
+| a | `~/.claude`, read `plans/ROADMAP.md` | CLAUDE.md only (1.4k) | ❌ three rules did not load |
+| b | wallarm, read `.claude/plans/ROADMAP.md` | `~/.claude/CLAUDE.md` + project `CLAUDE.md` (4k) | ❌ three rules did not load |
+| c | wallarm, read `eslint.config.js` | `~/.claude/CLAUDE.md` + project `CLAUDE.md` (4k) | ✅ none (but vacuous) |
+| d | `Read ~/.claude/rules/planning.md` by path | (read succeeded) | ✅ explicit read works |
+
+Initial (wrong) diagnosis: that `**/plans/**` matched nothing. The real
+issue was the **instrument**: `/context` → Memory files tallies only
+*always-on* memory (session-start). Dynamically path-loaded rules do
+not appear there even when loaded, so the 1.4k reading was not evidence
+of non-loading. The authoritative signal is the harness `Loaded
+rules/…` toast emitted on the matching read. Whether round-1
+`**/plans/**` also fired the toast is **indeterminate** (not observed);
+round 2 switched to the file-terminated shape, which fires definitively.
+
+### Round 2 — `**/plans/**/*.md` + `**/plans/*.md` + own-file (2026-06-13) — PASS (all)
+
+Signal: the `Loaded rules/…` toast on the matching read (not the
+Memory-files panel).
+
+| Case | Setup | Observed | Verdict |
+|---|---|---|---|
+| a | `~/.claude`, read `plans/ROADMAP.md` | toasts: planning.md, project-layout.md, branch-plan.md | ✅ all three load |
+| b | wallarm, read `.claude/plans/ROADMAP.md` | toasts: `../../.claude/rules/{planning,project-layout,branch-plan}.md` | ✅ all three load (cross-project) |
+| c | wallarm, read `eslint.config.js` | toast: `js.md` only — no planning-rule toasts | ✅ none of the three load |
+| d | `Read ~/.claude/rules/planning.md` by path | file returned | ✅ explicit read works |
+
+Scoping verified: planning rules load on-demand when a plans `.md` is
+touched (any project or this repo), stay out of non-planning sessions,
+and remain explicitly readable.
 
 ## Triage
 

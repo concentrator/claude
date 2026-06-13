@@ -60,7 +60,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       verification shows a gap, add the explicit
       `**/.claude/plans/**` / `plans/**` pair rather than widening
       further.
-- [ ] Load-behavior verification (gates everything after) — fresh
+- [x] Load-behavior verification (gates everything after) — fresh
       sessions with the user: (a) read a file under this repo's
       `plans/` → all three rules load; (b) same under
       `wallarm-api-js/.claude/plans/` → same; (c) a session touching
