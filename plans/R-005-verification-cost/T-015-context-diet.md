@@ -89,6 +89,6 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       the evidence for criterion 5 ("per-dispatch fixed baseline
       measurably reduced; planning rules load only in sessions that
       touch planning artifacts").
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), triage and resolve the findings file, mark
       plan complete, commit.

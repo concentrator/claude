@@ -101,7 +101,20 @@ and remain explicitly readable.
 
 ## Triage
 
-- [ ] `skills/starting-a-project/SKILL.md` is at 307 `wc -w` total
+- [x] `skills/starting-a-project/SKILL.md` is at 307 `wc -w` total
       (~295 body once frontmatter is excluded — under the 300-word cap,
       but near it). This edit reduced the count; flagged as a tangential
-      near-cap observation, not introduced here.
+      near-cap observation, not introduced here. **Won't fix** (under
+      cap, compliant; monitor on next edit) — user decision 2026-06-13.
+
+## Closing-routine decisions
+
+- `/simplify` altitude finding: the three rules (and
+  `planning-templates.md`) originally included their own file in
+  `paths:` per the plan text, but all existing path-scoped rules
+  (`changelog.md`, `js.md`, `skills.md`, `claude-md.md`) scope only to
+  the artifacts they govern, never themselves. Dropped the own-file
+  globs to match precedent (commit "Drop own-file globs to match rule
+  precedent") — user decision 2026-06-13. No effect on the verified
+  load behavior: cases (a)/(b)/(c) relied on the `**/plans/**/*.md`
+  pair, and (d) is an explicit path read.
