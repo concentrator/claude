@@ -48,4 +48,7 @@ _Pending — see plan item 4._
 
 ## Triage
 
-_Pending — branch close._
+- [ ] `skills/starting-a-project/SKILL.md` is at 307 `wc -w` total
+      (~295 body once frontmatter is excluded — under the 300-word cap,
+      but near it). This edit reduced the count; flagged as a tangential
+      near-cap observation, not introduced here.

@@ -37,7 +37,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       contribution, and `wc -w` of the three targets (planning.md
       1080, branch-plan.md 1075, project-layout.md 353). Commit the
       findings file only.
-- [ ] Extract `## Templates` from `rules/planning.md` into new
+- [x] Extract `## Templates` from `rules/planning.md` into new
       `rules/planning-templates.md` (`# Planning templates`;
       subsections promoted one heading level, content verbatim) with
       `paths:` frontmatter scoped to the files the templates
