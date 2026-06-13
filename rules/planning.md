@@ -1,3 +1,10 @@
+---
+paths:
+  - "**/plans/**/*.md"
+  - "**/plans/*.md"
+  - "**/rules/planning.md"
+---
+
 # Planning rules
 
 Three-level hierarchy for DEV mode: `R-XXX → T-XXX → branch plan`.

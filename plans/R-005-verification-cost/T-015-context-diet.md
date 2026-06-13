@@ -51,7 +51,7 @@ Ground truths this plan relies on (grep/read 2026-06-12):
       requirements step → `§ Foundational`), verifying `wc -w` caps on
       each edited SKILL.md; finish with a repo-wide grep for
       `§ Templates` — zero references against planning.md remain.
-- [ ] Path-scope the three rules — add `paths:` frontmatter, bodies
+- [x] Path-scope the three rules — add `paths:` frontmatter, bodies
       untouched: each gets `**/plans/**` plus its own file
       (`**/rules/planning.md`, `**/rules/branch-plan.md`,
       `**/rules/project-layout.md`). The single `**/plans/**` covers
