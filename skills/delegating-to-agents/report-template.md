@@ -63,9 +63,10 @@ previously verified">
 
 ## Prompt friction
 
-<summary of permission_prompts.jsonl grouped by root cause, with
-proposed rail/allowlist fixes; or "log empty — zero prompts". Truncate
-the log after writing this section.>
+<summary of this batch's permission_prompts.jsonl entries (those whose
+`batch` field matches this run's `pre-B-XXX` tag) grouped by root cause,
+with proposed rail/allowlist fixes; or "log empty — zero prompts". The
+log is gitignored scratch — never truncated by the agent.>
 
 ## Judgment calls for checkpoint
 
