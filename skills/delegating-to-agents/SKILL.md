@@ -65,8 +65,8 @@ re-verifying acceptance criteria. No report → no accept. Present:
 - **Accept** → push `batch/B-XXX` to origin + create the MR per
   `toolchain.md`, description from the report (defer = explicit user
   choice; never default branch). Findings triage, delete member
-  refs.
-- **Reject** → delete `batch/B-XXX` (`pre-B-XXX` tag remains);
+  refs + `pre-B-XXX` tag.
+- **Reject** → delete `batch/B-XXX`;
   member refs preserved for salvage.
 - **Halt** → failed item reported, work intact; user resolves,
   re-runs `/dev auto B-XXX`.

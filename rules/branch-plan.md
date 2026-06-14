@@ -171,7 +171,10 @@ manual-mode § Closing routine above is unchanged by this rule.
 - No commit on red tests/lint — no exceptions.
 - Findings triage and push decisions always defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
-  Reject = delete the batch branch; member refs preserved for salvage.
+  Accept = delete the batch's `pre-B-XXX` tag (rollback no longer
+  needed, and lingering tags keep the friction-log hook armed).
+  Reject = delete the batch branch; the `pre-B-XXX` tag and member refs
+  are preserved for salvage.
 
 ### Stop conditions
 
