@@ -31,6 +31,9 @@
       "Bash(awk:*)",
       "Bash(wc:*)",
       "Bash(cat:*)",
+      "Bash(cd:*)",
+      "Bash(echo:*)",
+      "Bash(ls:*)",
 
       "Read(//tmp/**)",
       "Read(//private/tmp/**)",
