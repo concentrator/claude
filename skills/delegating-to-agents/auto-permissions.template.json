@@ -8,6 +8,9 @@
       "Edit(//__PROJECT_DIR__/.claude/plans/**)",
       "Write(//__PROJECT_DIR__/.claude/plans/**)",
 
+      "Read(//__HOME__/.claude/skills/**)",
+      "Read(//__HOME__/.claude/rules/**)",
+
       "Bash(git status:*)",
       "Bash(git diff:*)",
       "Bash(git log:*)",

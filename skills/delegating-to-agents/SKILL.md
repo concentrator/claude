@@ -15,7 +15,7 @@ shell trips the sensitive-file guard).
 
 - Batch exists; member plans `agentic: approved`.
 - Permissions: `.claude/settings.local.json` holds every
-  `auto-permissions.template.json` rule (`__PROJECT_DIR__` → abs path)
+  `auto-permissions.template.json` rule (`__PROJECT_DIR__`/`__HOME__` → abs paths)
   plus the CLAUDE.md `## Agent toolchain` rules, incl. a VCS-host CLI
   (`glab`/`gh`; absent → push-only, manual MR). Missing
   → propose merged file, apply on approval. No toolchain section →
