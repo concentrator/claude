@@ -111,11 +111,16 @@ at 20. Override with stated reason in plan header.
 
 ## Agentic execution
 
-Auto mode (`/dev auto`, engine: `delegating-to-agents`) runs whole
-batches of branches via subagents, integrating them on a dedicated
-batch branch `batch/B-XXX` — the default branch is never modified
-during a run. Manual mode is the default; auto requires every gate
-below.
+The **batch** is the unit of delivery to `main` in both modes: one or
+more tasks that must land together, shipped as a single CI-gated PR
+(`git-workflow.md`). A lone coherent task is a degenerate batch — its
+own branch is the PR. Auto mode (`/dev auto`, engine
+`delegating-to-agents`) runs a batch's members via subagents on a
+dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
+them by hand. Delivery is identical; only verification differs — auto
+runs the checkpoint below, manual uses § Closing routine +
+`finishing-a-branch`. `main` is never touched mid-run; auto requires
+every gate below.
 
 ### `agentic:` stamp
 
@@ -135,19 +140,21 @@ one `[ ]` per task:
     - [ ] T-014 (<slug>)
     - [ ] T-015 (<slug>)
 
-Execution grouping, not a planning level: a batch is scoped to the R
-whose dir holds it — members must be open tasks of that R with
-agentic-approved plans; `depends-on` must resolve within batch order
-or already-merged work. A cross-initiative need becomes its own R.
-The checkpoint validates exactly that R's acceptance criteria. Soft
-cap ~25 planned commits total. Manual mode may use an open batch as
-its task queue; auto mode requires one.
+Delivery grouping, not a planning level: a batch is scoped to the R
+whose dir holds it — members are open tasks of that R; coupled tasks
+(`depends-on`, or any not independently shippable) belong in one batch
+so `main` stays coherent. `depends-on` must resolve within batch order
+or already-merged work. A cross-initiative need becomes its own R. The
+checkpoint validates exactly that R's acceptance criteria. Soft cap
+~25 planned commits total. Auto mode requires a stamped batch; manual
+mode groups coupled tasks into a batch, or ships a lone task as its
+own PR.
 
 Batch-close bookkeeping: the close phase marks batch and member-task
-checkboxes as commits on `batch/B-XXX`, **before** the MR — the `[x]`
-reaches the default branch atomically with the merge; reject discards
-the marks with the branch (§ Rails). The R-closure check and
-release-plan marking stay post-merge.
+checkboxes as commits on `batch/B-XXX`, **before** the PR — the `[x]`
+reaches `main` atomically with the merge; reject discards the marks
+with the branch (§ Rails). The R-closure check and release-plan
+marking ride a separate close-out PR.
 
 Per-branch close in auto mode: the close review (the `code-reviewer`
 pass) runs only for branches above the small-branch threshold defined
@@ -161,13 +168,13 @@ manual-mode § Closing routine above is unchanged by this rule.
 
 - Agents touch only code, plan checkboxes, and findings files —
   never plan content, never the closing decisions.
-- Pre-flight creates `batch/B-XXX` off the default branch and sets the
+- Pre-flight creates `batch/B-XXX` off latest `main` and sets the
   `pre-B-XXX` tag (belt-and-braces). Member branches merge into the
-  batch branch only; the default branch is untouched until the batch
-  MR merges.
-- Agents never push. The only push in the flow is the checkpoint-accept
-  push of the batch branch — never the default branch (mechanics:
-  `delegating-to-agents` checkpoint).
+  batch branch only; `main` is untouched until the batch PR merges.
+- Agents never push. The only delivery is the checkpoint-accept
+  **CI-gated PR** of the batch branch to origin (`batch/B-XXX →
+  origin/main`) — never a push to `main` (mechanics:
+  `delegating-to-agents` checkpoint, `git-workflow.md`).
 - No commit on red tests/lint — no exceptions.
 - Findings triage and push decisions always defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
@@ -186,13 +193,15 @@ manual-mode § Closing routine above is unchanged by this rule.
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
 | Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
-| Batch complete | Close phase on `batch/B-XXX`, then checkpoint, wait for user |
+| Batch complete | Close phase on `batch/B-XXX`, then checkpoint (accept opens the PR), wait for user |
 
-Checkpoint accept is the only point where anything is pushed, and only
-the batch branch (`delegating-to-agents` owns the mechanics).
+Checkpoint accept is the only delivery — a CI-gated PR of the batch
+branch to origin, never a push to `main` (`delegating-to-agents` owns
+the mechanics).
 
 ## Releases
 
 If the project uses releases, completed branches are listed in
 `.claude/plans/release-<version>.md` with `[x]` only after they reach
-the default branch (directly, or via a merged batch MR).
+`main` via a merged PR. Releases are tagged on the trunk
+(`git-workflow.md § Releases`).

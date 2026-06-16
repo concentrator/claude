@@ -46,7 +46,7 @@ Constraints carried from R-006:
       artifacts reach `main` via short-lived doc PRs; `requirements.md`
       vs `ROADMAP`/`TASKS` stay separate commits); point to
       `git-workflow.md` for the push rule.
-- [ ] Rewrite `branch-plan.md § Agentic execution` — batch = the
+- [x] Rewrite `branch-plan.md § Agentic execution` — batch = the
       universal delivery unit (1+ tasks → one CI-gated PR; lone task =
       degenerate batch, its branch is the PR); mode orthogonal (delivery
       uniform, verification differs); TBD batch lifecycle + closing flow
