@@ -7,6 +7,16 @@
       tree-map (alongside the new `maintenance.json`, `scripts/`,
       `.github/`, `.githooks/` entries) in commit 12.
 
+## Scope corrections (applied this branch)
+
+- `check-references.sh` was planned to also flag dead *paths*, but the
+  R-006 AC only requires "expired reference". Dead-path detection is
+  hopelessly false-positive-prone here (lazy dirs `plans/archive/`
+  `commands/`, skill-relative `scripts/...` paths, `.claude/`
+  self-hosting indirection, example docs), so it stays a Tier-2
+  AI-review concern (`MAINTENANCE.md`). The mechanical check does
+  expiry markers only.
+
 ## Notes
 
 - `check-caps.sh` skill-class lists (orchestrators / reference) are

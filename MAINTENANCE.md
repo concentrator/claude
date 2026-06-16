@@ -20,7 +20,8 @@ reviewer reads the diff against the rule set and confirms four concerns:
   across files; the `DESIGN.md` tree-map matches the tree.
 - **Cleanup** — no stray scratch, dead prose, or transient content.
 - **Reference freshness** — no dead paths; no expired time-bound
-  references.
+  references. Mark a time-bound reference `<!-- expires: YYYY-MM-DD -->`;
+  `scripts/ci/check-references.sh` fails once the date is past.
 
 Relationship: `rules/*` define the rules; this Tier-2 review applies
 them to a change and records its verdict in `maintenance.json` (the

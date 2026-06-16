@@ -77,11 +77,12 @@ source of truth, runnable locally, from the workflow, and from the hook;
       in code (scripts/hooks only), excluding rule/skill prose that names
       the tokens (`branch-plan.md`, `skills.md`, this script). Verify:
       dry-run green.
-- [ ] Add `scripts/ci/check-references.sh` + document the expiry syntax
-      in `MAINTENANCE.md` — scan rules/skills/docs for dead path refs and
-      expired `<!-- expires: YYYY-MM-DD -->` markers (fail if today >
-      date). Verify: dry-run green; scratch-test a past date yields
-      non-zero. Touches: scripts/ci/check-references.sh, MAINTENANCE.md.
+- [x] Add `scripts/ci/check-references.sh` + document the expiry syntax
+      in `MAINTENANCE.md` — fail on expired `<!-- expires: YYYY-MM-DD -->`
+      markers (strictly before today). Dead *paths* are a Tier-2
+      AI-review concern, not mechanically checkable here (lazy dirs,
+      skill-relative paths, `.claude/` self-hosting indirection). Verify:
+      dry-run green; past-date scratch yields non-zero.
 - [ ] Add `scripts/ci/check-ledger.sh` — find a `concerns_clear: true`
       entry in `maintenance.json` whose SHA is an ancestor of `HEAD` and
       whose `<sha>..HEAD` diff touches only `maintenance.json`; fail if
