@@ -57,7 +57,7 @@ Constraints carried from R-006:
       pointer (removes the Session-Workflow branching lines, Commit
       Messages, MR/PR Messages, the main-push rule); record the git-rule
       relocation mapping (the R-006 preservation invariant).
-- [ ] Update `DESIGN.md` — branching + delivery architecture for the TBD
+- [x] Update `DESIGN.md` — branching + delivery architecture for the TBD
       model (trunk, PR-only, batch-as-delivery-unit, tag-on-trunk).
 - [ ] Complete the branch: re-review docs across all commits, verify the
       git-rule relocation mapping is complete (every moved rule →
