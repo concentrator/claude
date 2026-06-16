@@ -108,7 +108,7 @@ format and closure: `rules/planning.md § Levels`.
       duplication, rename `Structured Data / API parameters` + add the
       verify-before-stating rule, move the Agent-toolchain rule into
       `rules/claude-md.md`; record the rule-preservation mapping.
-- [ ] T-018 (R-006) [refactor]: dev/SKILL.md ≤300 + skills to TBD
+- [x] T-018 (R-006) [refactor]: dev/SKILL.md ≤300 + skills to TBD
       (after T-016) — DEV opener, drop `## Branching`, merge the
       `R`/`R-XXX` plan step, batch-aware manual mode; `finishing-a-branch`
       mode-aware PR-to-origin (no local `main` merge);
