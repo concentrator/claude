@@ -73,7 +73,7 @@ source of truth, runnable locally, from the workflow, and from the hook;
       integrity per `planning.md` (every `T-XXX` → existing R; branch
       plan `task:`/`depends-on:` resolve; no closed/missing parent).
       Verify: dry-run green against current `plans/`.
-- [ ] Add `scripts/ci/check-todos.sh` — hard-fail on `TODO`/`FIXME`/`XXX`
+- [x] Add `scripts/ci/check-todos.sh` — hard-fail on `TODO`/`FIXME`/`XXX`
       in code (scripts/hooks only), excluding rule/skill prose that names
       the tokens (`branch-plan.md`, `skills.md`, this script). Verify:
       dry-run green.
