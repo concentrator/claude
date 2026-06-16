@@ -69,7 +69,7 @@ source of truth, runnable locally, from the workflow, and from the hook;
       the DESIGN.md tree-map / expected layout, respecting `.gitignore`
       (`git ls-files`). Verify: dry-run green; scratch-test a junk file
       yields non-zero.
-- [ ] Add `scripts/ci/check-plan-integrity.sh` — plan referential
+- [x] Add `scripts/ci/check-plan-integrity.sh` — plan referential
       integrity per `planning.md` (every `T-XXX` → existing R; branch
       plan `task:`/`depends-on:` resolve; no closed/missing parent).
       Verify: dry-run green against current `plans/`.
