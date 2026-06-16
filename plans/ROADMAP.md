@@ -30,6 +30,10 @@ Initiative index. Items: `R-001: description`; each entry owns
       + dev ≤300; mistitle + anti-assumption fixes; self-enforcement via
       `maintenance.md` + `maintenance.json` + GitHub CI + pre-push hook
       (~/.claude reference impl).
+- [ ] R-007: Per-batch complexity level — `normal`/`high` dial over the
+      verification levers (model tier, spec-check skip, close-folding,
+      effort, loop rigor); attaches to R-006's batch unit. Sequence
+      after R-006. (stub — shape via `/dev plan R-007`)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
