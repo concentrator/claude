@@ -1,7 +1,5 @@
 # Git workflow
 
-Git is a service tool, not the work object — one model for every repo.
-
 ## Trunk
 
 - `main` is the single trunk: protected and always releasable. No other
@@ -31,7 +29,7 @@ The delivery unit — one or more coupled tasks shipped as one PR — is the
 
 Single-line, ~50 chars / 6-8 words, subject only. No semicolons joining
 clauses, no body, no multi-line descriptions, no Co-Authored-By tags.
-Convey the WHAT, not the HOW or rationale — the diff has those.
+Convey the WHAT, not the HOW or rationale.
 
 Examples:
 - GOOD: `Fix period chrome over logo`
@@ -72,16 +70,4 @@ project's CI infra.
 
 No code freezes; no "unmerge" to back out not-ready work; no fixing on a
 release branch then down-merging; no big-bang merges; integrate at least
-daily. A clean merge can still hide a semantic conflict — rely on
-checks, not merge-cleanliness.
-
-## References
-
-- Trunk-Based Development — trunkbaseddevelopment.com; DORA —
-  dora.dev/capabilities/trunk-based-development.
-- Releases — trunkbaseddevelopment.com/release-from-trunk; annotated
-  tags — git-scm.com Pro Git (Tagging).
-- Coherence — Fowler: feature-toggles, branch-by-abstraction
-  (martinfowler.com).
-- Host enforcement — GitHub Docs: branch protection / rulesets,
-  auto-merge.
+daily.
