@@ -115,7 +115,7 @@ format and closure: `rules/planning.md § Levels`.
       `delegating-to-agents` checkpoint → PR to origin + TBD batch
       close; `writing-plans`, `starting-a-project`, `migrating-to-dev`;
       `release` → tag-on-trunk.
-- [ ] T-019 (R-006) [feat]: Enforcement layer (after T-016/017/018) —
+- [x] T-019 (R-006) [feat]: Enforcement layer (after T-016/017/018) —
       `maintenance.md` (Tier-2 AI review), `maintenance.json` (ledger),
       `.github/workflows/` (Tier-1 mechanical CI gate), pre-push hook;
       update `DESIGN.md` enforcement architecture.
