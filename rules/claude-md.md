@@ -12,6 +12,7 @@ Rules for any CLAUDE.md (global, project, nested). Apply on every read and edit.
 - **Only persistent facts.** Build/test commands, conventions, architecture, "always do X" rules. If it's a procedure or only matters for one area, move to a skill or `.claude/rules/*.md`.
 - **Project/tech/process specifics only.** The reader is Claude — he already knows languages, frameworks, standard tooling, and common best practices. Skip anything you'd find in an "intro to X" or generic style guide. Keep only what's non-obvious, custom to this project, or contradicts a sensible default.
 - **Every entry must earn its place.** For each instruction ask: what concrete value does it add, would behavior change without it, are we actually relying on it? If the answer is unclear → remove.
+- **Compaction strips rationale, not meaning.** Shrinking the file means cutting framing and justification down to the operative WHAT — not trimming wording to hit `wc -w`. Every surviving rule stays accurate and earns its place.
 - **Concrete and verifiable.** "2-space indent", not "format nicely". "Run `npm test` before commit", not "test changes".
 - **No transient content.** No changelogs, task lists, in-progress notes, dated entries, history.
 - **No secrets.** No tokens, keys, credentials, private URLs.

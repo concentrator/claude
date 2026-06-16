@@ -53,7 +53,7 @@ Decisions carried from `/dev plan all` review:
       Touches: rules/claude-md.md.
 - [x] Add the same anti-rationale rule to `rules/skills.md § Content`.
       Touches: rules/skills.md.
-- [ ] Add the operative-only compaction criterion to `rules/claude-md.md
+- [x] Add the operative-only compaction criterion to `rules/claude-md.md
       § Content`: strip rationale/framing, operative-only — not merely
       `wc -w` ≤ 400. Touches: rules/claude-md.md (verify `wc -l` ≤ 200).
 - [ ] Write the rule-preservation mapping into
