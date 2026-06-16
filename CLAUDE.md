@@ -9,8 +9,7 @@ Two modes:
   branch plans → commits. Entered via `/dev`; plan hierarchy and
   per-branch routine live in the `dev` skill and `~/.claude/rules/`.
 
-Git workflow (both modes): `rules/git-workflow.md`. Agent-toolchain
-declaration rule: `rules/claude-md.md`.
+Git workflow (both modes): `rules/git-workflow.md`.
 
 ## Agent toolchain
 

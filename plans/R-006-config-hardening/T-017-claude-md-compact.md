@@ -60,7 +60,7 @@ Decisions carried from `/dev plan all` review:
       `T-017-claude-md-compact.findings.md` (every CLAUDE.md rule touched
       → kept-in-place / relocated-where / explicitly-dropped), mirroring
       the T-016 mapping-table format. Touches: findings file.
-- [ ] Complete the branch: re-review CLAUDE.md + touched rules across all
+- [x] Complete the branch: re-review CLAUDE.md + touched rules across all
       commits, confirm `wc -w CLAUDE.md` ≤ 400 and `wc -l
       rules/claude-md.md` ≤ 200, grep-sweep moved references for
       staleness, verify the rule-preservation mapping is complete
