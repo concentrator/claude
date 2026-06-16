@@ -51,14 +51,6 @@ Dispatch by tag: `feat`→`adding-a-feature`, `fix`→`fixing-a-bug`,
 Dispatch `delegating-to-agents` on an approved batch (no arg → first
 open; none → refuse). Unattended until checkpoint or halt.
 
-## Branching
-
-Never commit to `main` except plans/requirements/design + scaffold
-(planning.md); batch work reaches the default branch only via the
-batch MR (branch-plan.md § Agentic execution). Branch
-`<prefix>/<slug>`, prefix ∈ {feat, fix, refactor, release}, slug ≤20
-chars. One branch = one task; warn 15 / prompt 20 commits.
-
 ## `/dev release`
 
 Invokes the project's `release` skill (override or global).

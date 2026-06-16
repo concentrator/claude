@@ -26,7 +26,7 @@ Word caps are the green gate: `dev` ≤ 300w body (R-006 criterion),
       first ("DEV mode — strict, spec-driven; manual + auto"); keep the
       VIBE default as a trailing clause, not the opening subject.
       Touches: skills/dev/SKILL.md.
-- [ ] `dev/SKILL.md`: drop the `## Branching` section (duplicates
+- [x] `dev/SKILL.md`: drop the `## Branching` section (duplicates
       `rules/git-workflow.md`); leave only a pointer if one isn't already
       present elsewhere in the file. Touches: skills/dev/SKILL.md.
 - [ ] `dev/SKILL.md`: merge the `R` / `R-XXX` plan-target rows into one
