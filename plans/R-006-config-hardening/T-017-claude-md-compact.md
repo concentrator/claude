@@ -56,7 +56,7 @@ Decisions carried from `/dev plan all` review:
 - [x] Add the operative-only compaction criterion to `rules/claude-md.md
       § Content`: strip rationale/framing, operative-only — not merely
       `wc -w` ≤ 400. Touches: rules/claude-md.md (verify `wc -l` ≤ 200).
-- [ ] Write the rule-preservation mapping into
+- [x] Write the rule-preservation mapping into
       `T-017-claude-md-compact.findings.md` (every CLAUDE.md rule touched
       → kept-in-place / relocated-where / explicitly-dropped), mirroring
       the T-016 mapping-table format. Touches: findings file.
