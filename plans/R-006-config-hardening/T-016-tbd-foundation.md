@@ -30,7 +30,7 @@ Constraints carried from R-006:
   (GitHub branch-protection settings, auto-merge config) belong to
   T-019's infra, not these rules (adopters may be GitLab).
 
-- [ ] Create `rules/git-workflow.md` — consolidate ALL git rules into
+- [x] Create `rules/git-workflow.md` — consolidate ALL git rules into
       one file: branching (short-lived, single-owner, merge within a day
       / two days absolute max, `<prefix>/<slug>`); the single "every
       change reaches `main` via a CI-gated PR; never push to `main`"
