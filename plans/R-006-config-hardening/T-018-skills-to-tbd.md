@@ -59,7 +59,7 @@ Word caps are the green gate: `dev` ≤ 300w body (R-006 criterion),
       review pass) to "deliver via a short-lived doc PR to origin per
       `rules/planning.md § Where plans live in git`." Touches:
       skills/writing-plans/SKILL.md.
-- [ ] `starting-a-project/SKILL.md` + `migrating-to-dev/SKILL.md`: align
+- [x] `starting-a-project/SKILL.md` + `migrating-to-dev/SKILL.md`: align
       git/delivery references to TBD (CI-gated PR gate, drop GitLab-only
       hardcoding); preserve the scaffold/bootstrap exception. Verify both
       bodies within cap. Touches: skills/starting-a-project/SKILL.md,

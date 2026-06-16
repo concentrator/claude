@@ -37,8 +37,8 @@ Propose deletion of any restated global rules.
 ## 5. Quality infrastructure
 
 Check inventory against the baseline: lint configured + a passing smoke
-test + CI workflow (default GitLab CI) running lint + tests on MR. Ask
-before changing existing config. If user defers any item, record
+test + CI running lint + tests on every PR. Ask before changing
+existing config. If user defers any item, record
 `quality-deferred: true` in `CLAUDE.md § Conventions`.
 
 ## 6. Backfill plans
@@ -50,8 +50,8 @@ or tech debt → R stubs per `~/.claude/rules/planning.md
 
 ## 7. Commit
 
-Commit adoption artifacts to default branch (separate commits per
-category for clarity).
+Commit adoption artifacts to the default branch — the bootstrap
+exception (`git-workflow.md`); separate commits per category.
 
 ## 8. Next
 

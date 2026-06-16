@@ -24,8 +24,7 @@ the project's owned spec.
 ## 2. Design
 
 Write `.claude/DESIGN.md` — initial architecture and design decisions.
-**≤1000 words inline**, external refs allowed (diagrams, ADRs). Project
-`CLAUDE.md` holds only always-on essentials.
+**≤1000 words inline**, external refs allowed (diagrams, ADRs).
 
 ## 3. Scaffold
 
@@ -50,10 +49,10 @@ Ask: **extended docs?** Record `extended-docs:` (+ path if yes) in
 
 ## 4. Quality infrastructure
 
-Set up: lint configured for stack + one passing smoke test + CI workflow
-(default GitLab CI) running lint + tests on MR. Document run commands in
-`CLAUDE.md`. Ask before each; if user defers any item, record
-`quality-deferred: true` in `CLAUDE.md § Conventions`.
+Set up: lint for the stack + one passing smoke test + CI running lint +
+tests on every PR. Document run commands in `CLAUDE.md`. Ask before
+each; if the user defers any, record `quality-deferred: true` in
+`CLAUDE.md § Conventions`.
 
 ## 5. Commit
 
