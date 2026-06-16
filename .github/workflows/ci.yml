@@ -8,6 +8,11 @@ on:
 jobs:
   tier1:
     runs-on: ubuntu-latest
+    env:
+      # Load-bearing: check-stray matches UTF-8 tree-map nodes; a non-UTF-8
+      # locale would break the match. Pin it on the runner.
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
     steps:
       - uses: actions/checkout@v4
         with:

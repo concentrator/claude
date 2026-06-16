@@ -15,15 +15,15 @@ task_ts=$(grep -oE 'T-[0-9]{3}' plans/TASKS.md | sort -u)
 
 # Each TASKS task's parent R exists in ROADMAP
 while IFS= read -r line; do
-  t=$(grep -oE 'T-[0-9]{3}' <<<"$line" | head -1)
-  r=$(grep -oE 'R-[0-9]{3}' <<<"$line" | head -1)
+  t=$(grep -oE 'T-[0-9]{3}' <<<"$line" | head -1 || true)
+  r=$(grep -oE 'R-[0-9]{3}' <<<"$line" | head -1 || true)
   [ -n "$r" ] || { report "$t has no parent R in TASKS.md"; continue; }
   has "$r" "$roadmap_rs" || report "$t parent $r not in ROADMAP.md"
 done < <(grep -E '^- \[[ x]\] T-[0-9]{3}' plans/TASKS.md)
 
 # Each branch plan: R-dir exists, task:/depends-on: resolve
 while IFS= read -r f; do
-  rdir=$(echo "$f" | grep -oE 'R-[0-9]{3}')
+  rdir=$(echo "$f" | grep -oE 'R-[0-9]{3}' | head -1 || true)
   has "$rdir" "$roadmap_rs" || report "$f under $rdir not in ROADMAP.md"
   tid=$(sed -n 's/^task: *//p' "$f" | head -1)
   [ -n "$tid" ] && { has "$tid" "$task_ts" || report "$f task: $tid not in TASKS.md"; }

@@ -106,12 +106,13 @@ source of truth, runnable locally, from the workflow, and from the hook;
       hook; add `maintenance.json`, `scripts/ci/`, `.github/`,
       `.githooks/` to the Components list + tree-map; note ~/.claude-only
       scope. Verify `wc -w` ≤ 1000; tree-map matches `git ls-files`.
-- [ ] Content tip: re-review docs across all commits; run
+- [x] Content tip: re-review docs across all commits; run
       `scripts/ci/run-all.sh` green (except the ledger check, stamped
       next); run the 3-gate Tier-2 review over the new files; triage the
       findings file; cleanup; mark the plan complete; commit. This is the
-      tip the ledger certifies.
-- [ ] Ledger stamp: write the `maintenance.json` entry for the content
+      tip the ledger certifies. (Both remaining boxes marked here — the
+      stamp commit touches only `maintenance.json`.)
+- [x] Ledger stamp: write the `maintenance.json` entry for the content
       tip's SHA (`reviewed`, `concerns_clear: true`); this commit touches
       only `maintenance.json`. Confirm `scripts/ci/run-all.sh` green
       including `check-ledger.sh`. Hand off to `finishing-a-branch`.

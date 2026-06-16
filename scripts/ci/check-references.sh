@@ -14,7 +14,7 @@ while IFS= read -r m; do
   [ -z "$m" ] && continue
   d=$(echo "$m" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
   [[ "$d" < "$today" ]] && { echo "EXPIRED: $m (today $today)"; fail=1; }
-done < <(grep -rhoE '<!-- expires: [0-9]{4}-[0-9]{2}-[0-9]{2} -->' $(git ls-files '*.md') 2>/dev/null || true)
+done < <(grep -hoE '<!-- expires: [0-9]{4}-[0-9]{2}-[0-9]{2} -->' $(git ls-files '*.md') 2>/dev/null || true)
 
 (( fail == 0 )) && echo "check-references: OK"
 exit $fail
