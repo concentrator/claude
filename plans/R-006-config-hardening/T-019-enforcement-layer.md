@@ -65,7 +65,7 @@ source of truth, runnable locally, from the workflow, and from the hook;
       `skills/**/SKILL.md` per its class; `description` ≤ 12 words;
       DESIGN.md ≤ 1000w). Exit non-zero listing violators. Verify:
       dry-run green against current tree.
-- [ ] Add `scripts/ci/check-stray.sh` — flag tracked files absent from
+- [x] Add `scripts/ci/check-stray.sh` — flag tracked files absent from
       the DESIGN.md tree-map / expected layout, respecting `.gitignore`
       (`git ls-files`). Verify: dry-run green; scratch-test a junk file
       yields non-zero.
