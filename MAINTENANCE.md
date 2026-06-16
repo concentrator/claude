@@ -1,9 +1,60 @@
 # Maintenance
 
-Keeps `.claude/` and the project root clean and healthy — a periodical
-cleanup + repair routine. The **Routine** section is generic and seeded
-into each project's `.claude/MAINTENANCE.md`; the **This environment**
-section holds targets unique to this repo.
+Keeps `.claude/` and the project root clean and healthy. Two parts: the
+**Tier-2 AI review** gates each change into `main` (per-PR); the
+**Routine** is the time-based cleanup + repair sweep. The Routine
+section is generic and seeded into each project's
+`.claude/MAINTENANCE.md`; the **This environment** section holds targets
+unique to this repo.
+
+## Tier-2 AI review
+
+The per-PR compliance gate for `~/.claude`, complementing the Tier-1
+mechanical CI checks in `scripts/ci/`. Before a PR merges, an AI
+reviewer reads the diff against the rule set and confirms four concerns:
+
+- **Compliance** — each changed file obeys its governing rule
+  (`CLAUDE.md` per `rules/claude-md.md`; `SKILL.md` per `rules/skills.md`;
+  plans per `rules/planning.md`).
+- **Cross-file integrity** — references resolve; no rule duplicated
+  across files; the `DESIGN.md` tree-map matches the tree.
+- **Cleanup** — no stray scratch, dead prose, or transient content.
+- **Reference freshness** — no dead paths; no expired time-bound
+  references. Mark a time-bound reference `<!-- expires: YYYY-MM-DD -->`;
+  `scripts/ci/check-references.sh` fails once the date is past.
+
+Relationship: `rules/*` define the rules; this Tier-2 review applies
+them to a change and records its verdict in `maintenance.json` (the
+ledger, keyed by commit SHA); the Tier-1 gate
+`scripts/ci/check-ledger.sh` refuses any PR whose head SHA lacks a clear
+ledger entry. The Routine below is the time-based sweep; this is the
+per-change gate.
+
+### Ledger (`maintenance.json`)
+
+A model-free JSON object keyed by commit SHA:
+
+    { "<content-tip-sha>": { "reviewed": "YYYY-MM-DD", "concerns_clear": true } }
+
+Protocol: review at the content tip (the last non-ledger commit), then a
+final commit writes the entry for that tip's full SHA, touching only
+`maintenance.json`. `check-ledger.sh` confirms the entry exists with
+`concerns_clear: true`, its SHA is an ancestor of `HEAD`, and the
+`<sha>..HEAD` diff touches only `maintenance.json` — proving the review
+covered exactly the delivered tree.
+
+### Prune dead prose
+
+Part of the Compliance concern: review every rule, instruction, or
+sentence the diff adds or touches against three gates —
+
+1. Accurate and sensible in context?
+2. Valuable in any real scenario?
+3. Would behavior change if it were removed?
+
+Fail any gate → cut it and propose the fix. This catches transplanted
+conversational framing, rationale that belongs in requirements/DESIGN,
+and rules that merely restate a default.
 
 ## Routine
 
@@ -68,6 +119,10 @@ Targets beyond the generic routine:
   as description-triggered, or remove). Truncate the log after review.
 - Skill listing: keep total descriptions within
   `skillListingBudgetFraction`.
+- Pre-push hook: a tracked `.githooks/pre-push` runs the Tier-1 gate
+  (`scripts/ci/run-all.sh`) locally — advisory, bypass with
+  `git push --no-verify`. Enable once per clone:
+  `git config core.hooksPath .githooks`.
 - Verify no skill or rule references removed scripts/log files.
 - Confirm foundational files stay at the repo root (not nested
   `.claude/`), per `DESIGN.md § Self-hosting layout`.

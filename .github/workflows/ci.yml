@@ -1,0 +1,21 @@
+name: CI
+
+# Gates PRs into the default branch. Runs only on pull_request, so it
+# never re-judges the direct-to-main bootstrap commits already in history.
+on:
+  pull_request:
+
+jobs:
+  tier1:
+    runs-on: ubuntu-latest
+    env:
+      # Load-bearing: check-stray matches UTF-8 tree-map nodes; a non-UTF-8
+      # locale would break the match. Pin it on the runner.
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history: check-ledger needs ancestor/diff
+      - name: Tier-1 mechanical checks
+        run: bash scripts/ci/run-all.sh
