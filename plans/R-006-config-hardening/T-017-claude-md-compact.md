@@ -51,7 +51,7 @@ Decisions carried from `/dev plan all` review:
       instructions only; no rationale, framing, or transplanted
       conversational wording (the "why" goes in requirements/DESIGN).
       Touches: rules/claude-md.md.
-- [ ] Add the same anti-rationale rule to `rules/skills.md § Content`.
+- [x] Add the same anti-rationale rule to `rules/skills.md § Content`.
       Touches: rules/skills.md.
 - [ ] Add the operative-only compaction criterion to `rules/claude-md.md
       § Content`: strip rationale/framing, operative-only — not merely
