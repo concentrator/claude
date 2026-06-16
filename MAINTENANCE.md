@@ -29,6 +29,19 @@ ledger, keyed by commit SHA); the Tier-1 gate
 ledger entry. The Routine below is the time-based sweep; this is the
 per-change gate.
 
+### Ledger (`maintenance.json`)
+
+A model-free JSON object keyed by commit SHA:
+
+    { "<content-tip-sha>": { "reviewed": "YYYY-MM-DD", "concerns_clear": true } }
+
+Protocol: review at the content tip (the last non-ledger commit), then a
+final commit writes the entry for that tip's full SHA, touching only
+`maintenance.json`. `check-ledger.sh` confirms the entry exists with
+`concerns_clear: true`, its SHA is an ancestor of `HEAD`, and the
+`<sha>..HEAD` diff touches only `maintenance.json` — proving the review
+covered exactly the delivered tree.
+
 ### Prune dead prose
 
 Part of the Compliance concern: review every rule, instruction, or

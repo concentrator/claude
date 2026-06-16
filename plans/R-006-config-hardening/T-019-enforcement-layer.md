@@ -28,6 +28,12 @@ Decisions carried from `/dev plan all` review:
   `## Tier-2 AI review` section; only `maintenance.json` is a new file.
 - Manual mode (no `agentic:` stamp): the CI/hook/ledger infra is
   self-referential and run-dependent — fails the readiness criteria.
+- Ledger keying (resolved at execution): a commit can't certify its own
+  SHA, so the ledger certifies the **content tip** — review at the last
+  non-ledger commit, then a final stamp commit records that tip's SHA
+  touching only `maintenance.json`; `check-ledger.sh` verifies the entry
+  exists, is an ancestor of `HEAD`, and `<sha>..HEAD` touches only the
+  ledger. Adds a final stamp commit (14).
 
 Open-question resolutions (R-006): reference-expiry marker
 `<!-- expires: YYYY-MM-DD -->` (markdown-invisible, greppable); pre-push
@@ -76,10 +82,11 @@ source of truth, runnable locally, from the workflow, and from the hook;
       expired `<!-- expires: YYYY-MM-DD -->` markers (fail if today >
       date). Verify: dry-run green; scratch-test a past date yields
       non-zero. Touches: scripts/ci/check-references.sh, MAINTENANCE.md.
-- [ ] Add `scripts/ci/check-ledger.sh` — read `maintenance.json`, confirm
-      a `concerns_clear: true` entry for the PR head SHA (`git rev-parse
-      HEAD`); fail if missing/false. Verify: dry-run against seeded head
-      green.
+- [ ] Add `scripts/ci/check-ledger.sh` — find a `concerns_clear: true`
+      entry in `maintenance.json` whose SHA is an ancestor of `HEAD` and
+      whose `<sha>..HEAD` diff touches only `maintenance.json`; fail if
+      none. Verify: scratch fixture entry for the current tip passes;
+      missing entry fails.
 - [ ] Add `.github/workflows/ci.yml` — `on: pull_request` only; run each
       `scripts/ci/*.sh` (via an aggregator `scripts/ci/run-all.sh`),
       failing the PR on any non-zero exit. Read the GitHub Actions schema
@@ -98,8 +105,12 @@ source of truth, runnable locally, from the workflow, and from the hook;
       hook; add `maintenance.json`, `scripts/ci/`, `.github/`,
       `.githooks/` to the Components list + tree-map; note ~/.claude-only
       scope. Verify `wc -w` ≤ 1000; tree-map matches `git ls-files`.
-- [ ] Complete the branch: re-review docs across all commits; run
-      `scripts/ci/run-all.sh` green against the final tree; refresh
-      `maintenance.json` for the final head SHA; run the 3-gate Tier-2
-      review over the new files; triage the findings file; cleanup; mark
-      the plan complete; commit.
+- [ ] Content tip: re-review docs across all commits; run
+      `scripts/ci/run-all.sh` green (except the ledger check, stamped
+      next); run the 3-gate Tier-2 review over the new files; triage the
+      findings file; cleanup; mark the plan complete; commit. This is the
+      tip the ledger certifies.
+- [ ] Ledger stamp: write the `maintenance.json` entry for the content
+      tip's SHA (`reviewed`, `concerns_clear: true`); this commit touches
+      only `maintenance.json`. Confirm `scripts/ci/run-all.sh` green
+      including `check-ledger.sh`. Hand off to `finishing-a-branch`.
