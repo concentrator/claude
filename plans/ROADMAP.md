@@ -24,7 +24,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       routing, branch-close folding, slimmer dispatch prompts, context
       diet for always-loaded rules; no defect regression vs the
       B-002/B-003 baseline.
-- [ ] R-006: Trunk-based, lean, self-enforcing config — adopt TBD
+- [x] R-006: Trunk-based, lean, self-enforcing config — adopt TBD
       (protected `main`, CI-gated PRs, batch as the universal delivery
       unit, tag-on-trunk); git rules → `git-workflow.md`; CLAUDE.md ≤400
       + dev ≤300; mistitle + anti-assumption fixes; self-enforcement via

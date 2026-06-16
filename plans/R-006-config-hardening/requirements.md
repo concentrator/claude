@@ -1,6 +1,7 @@
 ---
 approved: 2026-06-14
 kind: refactor
+status: done 2026-06-16
 ---
 
 # R-006: Trunk-based, lean, self-enforcing config
@@ -126,44 +127,44 @@ form) rather than a bespoke scheme:
 
 ## Acceptance criteria
 
-- [ ] `CLAUDE.md` ≤ 400w; `dev/SKILL.md` ≤ 300w (`wc -w`).
-- [ ] All git rules live in `rules/git-workflow.md`, referenced once in
+- [x] `CLAUDE.md` ≤ 400w; `dev/SKILL.md` ≤ 300w (`wc -w`).
+- [x] All git rules live in `rules/git-workflow.md`, referenced once in
       `CLAUDE.md`; grep finds no git-policy rule duplicated elsewhere.
-- [ ] TBD documented: `main` = protected trunk; every change via a
+- [x] TBD documented: `main` = protected trunk; every change via a
       short-lived branch + CI-gated PR; no long-lived branches; "all
       changes reach `main` via PR" stated once; in ~/.claude enforced at
       origin + pre-push hook + CI.
-- [ ] Coherent-delivery invariant stated with the three techniques;
+- [x] Coherent-delivery invariant stated with the three techniques;
       coupled tasks (`depends-on`) default to one batch.
-- [ ] Batch defined as the universal delivery unit (1+ tasks → one PR);
+- [x] Batch defined as the universal delivery unit (1+ tasks → one PR);
       lone task = degenerate batch; mode orthogonal (delivery uniform,
       verification differs).
-- [ ] Batch closing: members → `batch/B-XXX` (if >1) → CI-gated PR to
+- [x] Batch closing: members → `batch/B-XXX` (if >1) → CI-gated PR to
       origin `main`; bookkeeping on the batch branch; reject deletes the
       branch (marks gone); `pre-B-XXX` deleted on accept.
-- [ ] Manual tasks deliver via their own CI-gated PR to origin (no local
+- [x] Manual tasks deliver via their own CI-gated PR to origin (no local
       `main` merge); `finishing-a-branch` PR target is mode-aware.
-- [ ] Planning artifacts reach `main` only via short-lived doc PRs;
+- [x] Planning artifacts reach `main` only via short-lived doc PRs;
       `requirements.md` vs `ROADMAP`/`TASKS` stay separate commits;
       R-closure + release marks ride a close-out PR.
-- [ ] Releases tag-on-trunk; the `release` skill tags `main` with no
+- [x] Releases tag-on-trunk; the `release` skill tags `main` with no
       release branch; `release-vX.Y.Z.md` retained.
-- [ ] Agent-toolchain declaration rule lives in `rules/claude-md.md`;
+- [x] Agent-toolchain declaration rule lives in `rules/claude-md.md`;
       gone from `CLAUDE.md` prose.
-- [ ] Temp-files duplication removed; a behavior section enforces
+- [x] Temp-files duplication removed; a behavior section enforces
       verify-before-stating.
-- [ ] `dev/SKILL.md` opens with an accurate DEV description; no
+- [x] `dev/SKILL.md` opens with an accurate DEV description; no
       `## Branching`; `R`/`R-XXX` merged into one plan step.
-- [ ] `maintenance.md` defines the Tier-2 AI review; the
+- [x] `maintenance.md` defines the Tier-2 AI review; the
       `rules/*` ↔ `maintenance.md` ↔ `maintenance.json` relationship is
       documented.
-- [ ] GitHub CI hard-fails a PR on: cap violation, stray/unindexed
+- [x] GitHub CI hard-fails a PR on: cap violation, stray/unindexed
       file, plan-integrity break, `TODO`/`FIXME`/`XXX` in code, expired
       reference, or missing `maintenance.json` confirmation for the head
       commit (SHA-keyed).
-- [ ] A rule-preservation mapping is recorded (every prior rule →
+- [x] A rule-preservation mapping is recorded (every prior rule →
       kept / relocated / explicitly dropped).
-- [ ] `DESIGN.md` updated for the TBD model + enforcement architecture.
+- [x] `DESIGN.md` updated for the TBD model + enforcement architecture.
 
 ## Constraints
 
@@ -200,3 +201,43 @@ form) rather than a bespoke scheme:
 - R-005 (context diet — caps / path-scoping this builds on).
 - `skills/delegating-to-agents` (checkpoint + auto-permissions +
   friction-hook patterns — CI / maintenance precedent).
+
+## Closure verification (2026-06-16)
+
+One-line evidence per acceptance criterion (T-016–T-019, all merged):
+
+1. CLAUDE.md 250w, dev body 283w (`wc -w`). [T-017/T-018]
+2. Git rules in `git-workflow.md`, referenced once in CLAUDE.md; grep
+   finds no git-policy rule duplicated in skills. [T-016/T-018]
+3. `git-workflow.md § Trunk`/`§ Enforcement` document the protected
+   trunk, CI-gated-PR-only flow, and origin+hook+CI enforcement. [T-016]
+4. `git-workflow.md § Coherent delivery` states the invariant + three
+   techniques; coupled tasks default to one batch. [T-016]
+5. `branch-plan.md § Agentic execution` defines batch as the universal
+   delivery unit, lone task = degenerate, mode orthogonal. [T-016]
+6. Same § documents the batch lifecycle (members → `batch/B-XXX` → PR;
+   reject deletes branch; `pre-B-XXX` deleted on accept). [T-016]
+7. `finishing-a-branch` delivers via CI-gated PR (no local merge),
+   mode-aware. [T-018]
+8. `planning.md § Where plans live in git` documents doc-PR delivery +
+   separate commits + close-out PR. [T-016]
+9. `release` skill tags trunk, no release branch; `release-vX.Y.Z.md`
+   retained. [T-018]
+10. Agent-toolchain declaration rule in `claude-md.md`, gone from
+    CLAUDE.md prose. [T-017]
+11. Temp-files dup removed; `## Verify before stating` added. [T-017]
+12. dev/SKILL.md opens with DEV; no `## Branching`; `R`/`R-XXX` merged.
+    [T-018]
+13. `MAINTENANCE.md § Tier-2 AI review` defines the review + the
+    `rules/*`↔`MAINTENANCE.md`↔`maintenance.json` relationship. [T-019]
+14. `scripts/ci/*` cover all six gates, each fail-path negative-tested;
+    `run-all` exits non-zero on any; CI green on PR #5 (the job runs
+    `run-all`). [T-019]
+15. Rule-preservation mappings recorded in the T-016 and T-017 findings
+    files. [T-016/T-017]
+16. DESIGN.md has `## Git & delivery model` + `## Self-enforcement`.
+    [T-016/T-019]
+
+Operational follow-up (not an R-006 deliverable): enable origin branch
+protection in GitHub settings (require the `tier1` check, restrict direct
+pushes to `main`) so the documented host-side enforcement is active.
