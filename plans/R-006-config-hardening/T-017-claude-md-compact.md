@@ -29,7 +29,7 @@ Decisions carried from `/dev plan all` review:
 - The anti-rationale rule lands in **both** `rules/claude-md.md` and
   `rules/skills.md`.
 
-- [ ] Rename `## Structured Data / API parameters` → `## Verify before
+- [x] Rename `## Structured Data / API parameters` → `## Verify before
       stating` in CLAUDE.md; fold the read-the-reference-first content
       into it. Wording per T-016 findings: "Before asserting a fact,
       confirm it against an authoritative source you can point to. No

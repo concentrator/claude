@@ -38,12 +38,12 @@ In user-facing writing (CHANGELOG, release notes, docs, code comments, PR
 bodies), don't reference what the reader can't see: gitignored paths,
 internal tickets, prior conversations, agent names.
 
-## Structured Data / API parameters
+## Verify before stating
 
-When constructing schemas, configs, or API payloads: read the authoritative
-reference first. Never approximate from memory — Claude hallucinates field
-names and shapes. If there's no reference - ask for it, or suggest probing, 
-don't try to guess.
+Before asserting a fact, confirm it against an authoritative source you
+can point to. No source → verify it, or say you're unsure; never present
+a guess as confirmed. Schemas, configs, API shapes: read the reference
+first.
 
 ## Temporary Files
 
