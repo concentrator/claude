@@ -59,7 +59,7 @@ Constraints carried from R-006:
       relocation mapping (the R-006 preservation invariant).
 - [x] Update `DESIGN.md` — branching + delivery architecture for the TBD
       model (trunk, PR-only, batch-as-delivery-unit, tag-on-trunk).
-- [ ] Complete the branch: re-review docs across all commits, verify the
+- [x] Complete the branch: re-review docs across all commits, verify the
       git-rule relocation mapping is complete (every moved rule →
       kept/relocated, none dropped silently), cleanup, mark plan
       complete, commit.

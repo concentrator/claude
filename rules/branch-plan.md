@@ -113,7 +113,7 @@ at 20. Override with stated reason in plan header.
 
 The **batch** is the unit of delivery to `main` in both modes: one or
 more tasks that must land together, shipped as a single CI-gated PR
-(`git-workflow.md`). A lone coherent task is a degenerate batch — its
+(`git-workflow.md`). A lone task is a batch of one — its
 own branch is the PR. Auto mode (`/dev auto`, engine
 `delegating-to-agents`) runs a batch's members via subagents on a
 dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
@@ -142,8 +142,7 @@ one `[ ]` per task:
 
 Delivery grouping, not a planning level: a batch is scoped to the R
 whose dir holds it — members are open tasks of that R; coupled tasks
-(`depends-on`, or any not independently shippable) belong in one batch
-so `main` stays coherent. `depends-on` must resolve within batch order
+(`depends-on`, or any not independently shippable) belong in one batch. `depends-on` must resolve within batch order
 or already-merged work. A cross-initiative need becomes its own R. The
 checkpoint validates exactly that R's acceptance criteria. Soft cap
 ~25 planned commits total. Auto mode requires a stamped batch; manual
@@ -169,7 +168,7 @@ manual-mode § Closing routine above is unchanged by this rule.
 - Agents touch only code, plan checkboxes, and findings files —
   never plan content, never the closing decisions.
 - Pre-flight creates `batch/B-XXX` off latest `main` and sets the
-  `pre-B-XXX` tag (belt-and-braces). Member branches merge into the
+  `pre-B-XXX` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch PR merges.
 - Agents never push. The only delivery is the checkpoint-accept
   **CI-gated PR** of the batch branch to origin (`batch/B-XXX →

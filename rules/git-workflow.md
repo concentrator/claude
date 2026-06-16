@@ -54,9 +54,7 @@ how to verify). Scannable, not a wall of text.
 `main` is always releasable; a release tags `main` at the release commit
 with an annotated semver tag (`git tag -a vX.Y.Z -m "X.Y.Z"`), pushed
 explicitly (`git push origin vX.Y.Z`). No release branch — fixes roll
-forward on `main`. (If a stabilization window is ever unavoidable, a
-release branch is short-lived, fix-on-trunk-then-cherry-pick, never
-merged back.)
+forward on `main`.
 
 ## Enforcement
 

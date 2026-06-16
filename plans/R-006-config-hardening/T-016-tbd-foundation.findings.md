@@ -44,4 +44,12 @@ none dropped except the one intentional removal:
 
 ## Triage
 
-_Pending — branch close._
+- R-006 follow-ups (above): carried to T-017 / T-019 planning — within
+  R-006 scope, not new initiatives. Not fixed in T-016.
+- Relocation mapping: recorded above; the focused review confirmed the
+  preservation invariant holds (nothing dropped beyond the two
+  documented intentional removals).
+- Focused-review editorializing fixes applied in the final commit
+  (stabilization-window hedge, `belt-and-braces`, coherence-rationale
+  tail, `batch of one`, CLAUDE.md git pointer). Coherence + preservation
+  reviews: clean.

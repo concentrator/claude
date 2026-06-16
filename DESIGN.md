@@ -136,7 +136,7 @@ no long-lived branches (`rules/git-workflow.md`).
 
 The unit of delivery is the **batch** — one or more tasks that must land
 together to keep `main` coherent, shipped as one PR (a lone task is a
-degenerate batch; coupled tasks integrate on a short-lived `batch/B-XXX`).
+batch of one; coupled tasks integrate on a short-lived `batch/B-XXX`).
 Mode is orthogonal — delivery is uniform, verification differs (auto:
 agentic checkpoint; manual: human PR review). Releases tag the trunk, no
 release branch (`rules/branch-plan.md § Agentic execution`).

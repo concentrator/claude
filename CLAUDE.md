@@ -9,7 +9,7 @@ Two modes:
   branch plans → commits. Entered via `/dev`; plan hierarchy and
   per-branch routine live in the `dev` skill and `~/.claude/rules/`.
 
-Both modes strictly follow defined Git Workflow: `rules/git-workflow.md`.
+Git workflow (both modes): `rules/git-workflow.md`.
 
 Projects run via `/dev auto` declare their build/test/VCS commands as
 `permissions.allow` rules in an `## Agent toolchain` section of the project
