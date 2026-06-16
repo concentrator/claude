@@ -40,7 +40,7 @@ Decisions carried from `/dev plan all` review:
       `rules/planning.md § Where things live`); relocate the unique
       "never use `docs/`" guard into that section. Touches: CLAUDE.md,
       rules/planning.md.
-- [ ] Move the Agent-toolchain *declaration rule* (Session-Workflow
+- [x] Move the Agent-toolchain *declaration rule* (Session-Workflow
       prose, "Projects run via `/dev auto` declare … toolchain") out of
       CLAUDE.md into `rules/claude-md.md`; truncate the `## Agent
       toolchain` self-hosting block to its essential operative

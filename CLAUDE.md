@@ -9,23 +9,15 @@ Two modes:
   branch plans → commits. Entered via `/dev`; plan hierarchy and
   per-branch routine live in the `dev` skill and `~/.claude/rules/`.
 
-Git workflow (both modes): `rules/git-workflow.md`.
-
-Projects run via `/dev auto` declare their build/test/VCS commands as
-`permissions.allow` rules in an `## Agent toolchain` section of the project
-CLAUDE.md — including a VCS-host CLI (`glab`/`gh`) for the checkpoint
-push + MR; the `delegating-to-agents` pre-flight reads it to prepare
-agent settings deterministically. Push-permission patterns:
-`skills/delegating-to-agents/toolchain.md`.
+Git workflow (both modes): `rules/git-workflow.md`. Agent-toolchain
+declaration rule: `rules/claude-md.md`.
 
 ## Agent toolchain
 
-This repo's own `/dev auto` toolchain (self-hosting: this file is also
-the project CLAUDE.md). No test suite — green means SKILL.md word caps
-(`wc -w`) and grep sweeps per plan item. Rules live in
-`.claude/settings.local.json`: template + `Bash(gh pr create:*)`,
-`Bash(git push -u origin batch/*)` carve-out (deny narrowed to
-default-branch/force pushes).
+Self-hosting: this file is also the project CLAUDE.md. No test suite —
+green means SKILL.md word caps (`wc -w`) and grep sweeps. VCS-host CLI:
+`gh`; batch-push carve-out in `.claude/settings.local.json` (deny
+narrowed to default-branch/force pushes). More tools added as defined.
 
 ## Code Comments
 
