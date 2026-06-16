@@ -31,7 +31,8 @@ from a task in `TASKS.md`. Invoked by `/dev plan T-XXX`.
    - `depends-on: T-012` (if cross-task dependency)
 5. **Add mandatory final commit** at the end (per branch-plan.md).
 6. **Confirm with user**, then write to
-   `plans/R-XXX-<slug>/T-XXX-<slug>.md` and commit to `main`.
+   `plans/R-XXX-<slug>/T-XXX-<slug>.md` and deliver via a short-lived
+   doc PR (`planning.md § Where plans live in git`).
 
 ## Soft cap
 
@@ -42,7 +43,7 @@ Override requires stated reason in plan header.
 
 One plan-writer subagent per open task lacking a plan (independent —
 dispatch in parallel), each following this skill. Then a single user
-review pass over all slugs + plans before committing to main.
+review pass over all slugs + plans before delivering them (one doc PR).
 
 ## Out of scope
 

@@ -55,7 +55,7 @@ Word caps are the green gate: `dev` ≤ 300w body (R-006 criterion),
       with `branch-plan.md § Agentic execution` (PR is the one delivery,
       never a push to `main`); net words out to stay ≤ 400w. Verify `wc
       -w`. Touches: skills/delegating-to-agents/SKILL.md.
-- [ ] `writing-plans/SKILL.md`: reword "commit to `main`" (step 6, bulk
+- [x] `writing-plans/SKILL.md`: reword "commit to `main`" (step 6, bulk
       review pass) to "deliver via a short-lived doc PR to origin per
       `rules/planning.md § Where plans live in git`." Touches:
       skills/writing-plans/SKILL.md.
