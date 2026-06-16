@@ -99,7 +99,7 @@ source of truth, runnable locally, from the workflow, and from the hook;
       config core.hooksPath .githooks` note in `MAINTENANCE.md`. Verify:
       run the hook script directly, green. Touches: .githooks/pre-push,
       MAINTENANCE.md.
-- [ ] Update `DESIGN.md` — add `## Self-enforcement`: the two tiers
+- [x] Update `DESIGN.md` — add `## Self-enforcement`: the two tiers
       (Tier-1 mechanical CI via `scripts/ci/*` + `.github/workflows/`;
       Tier-2 AI review via `MAINTENANCE.md`), the SHA-keyed
       `maintenance.json` ledger, the gate list, the advisory pre-push

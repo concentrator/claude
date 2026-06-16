@@ -2,10 +2,10 @@
 
 ## To resolve within this branch (commit 12, DESIGN.md tree-map)
 
-- [ ] `README.md` is tracked at the repo root but absent from the
-      `DESIGN.md` tree-map — `check-stray.sh` flags it. Add it to the
-      tree-map (alongside the new `maintenance.json`, `scripts/`,
-      `.github/`, `.githooks/` entries) in commit 12.
+- [x] `README.md` is tracked at the repo root but absent from the
+      `DESIGN.md` tree-map — `check-stray.sh` flags it. Added to the
+      tree-map (with `maintenance.json`, `scripts/`, `.github/`,
+      `.githooks/`) in commit 12.
 
 ## Scope corrections (applied this branch)
 

@@ -18,7 +18,10 @@ relate, and the invariants that keep them coherent.
   for this repo: `.claude/settings.local.json`.
 - **plans/** — this environment's own planning hierarchy
   (`rules/planning.md`).
-- **MAINTENANCE.md** — `.claude/` and project-root sanity routine.
+- **MAINTENANCE.md** — sanity routine + the Tier-2 AI review
+  (`## Self-enforcement`).
+- **scripts/ci/**, **.github/**, **.githooks/**, **maintenance.json** —
+  the self-enforcement layer (`## Self-enforcement`).
 
 ## Self-hosting layout
 
@@ -39,9 +42,16 @@ excluded — see `.gitignore`.
 ├── CLAUDE.md                     # global instructions, every session
 ├── settings.json                 # global Claude Code config (tracked)
 ├── .gitignore
+├── README.md                     # project readme
 ├── REQUIREMENTS.md               # foundational requirements
 ├── DESIGN.md                     # this file
-├── MAINTENANCE.md                # sanity routine (template + repo-specific)
+├── MAINTENANCE.md                # sanity routine + Tier-2 AI review
+├── maintenance.json              # Tier-2 review ledger (content-tip SHA-keyed)
+├── .github/
+│   └── workflows/ci.yml          # Tier-1 mechanical CI gate (on PRs)
+├── .githooks/
+│   └── pre-push                  # advisory local Tier-1 mirror
+├── scripts/ci/                   # Tier-1 checks + run-all.sh
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
 ├── plans/                        # planning hierarchy
@@ -145,6 +155,26 @@ Standard: Trunk-Based Development / GitHub Flow (trunkbaseddevelopment.com,
 dora.dev); tag-on-trunk releases (Pro Git, git-scm.com); coherence via
 feature flags / branch-by-abstraction (Fowler); host enforcement per
 GitHub Docs.
+
+## Self-enforcement
+
+Two tiers gate every change into `main` (built for `~/.claude` only;
+adopter infra is a later initiative):
+
+- **Tier-1 — mechanical CI.** `scripts/ci/*.sh` (run by
+  `.github/workflows/ci.yml` on `pull_request`, and locally by the
+  advisory `.githooks/pre-push` via `core.hooksPath`) hard-fail a PR on:
+  a cap violation, a stray top-level file, a plan-integrity break, a
+  `TODO`/`FIXME`/`XXX` marker in code, an expired reference, or a
+  missing ledger stamp.
+- **Tier-2 — AI review.** `MAINTENANCE.md § Tier-2 AI review` applies the
+  rule set (compliance, cross-file integrity, cleanup, reference
+  freshness) to the diff and stamps `maintenance.json` — a model-free
+  ledger keyed by content-tip SHA. `check-ledger.sh` (Tier-1) refuses
+  any PR whose delivered tree lacks a clear stamp.
+
+The workflow triggers on `pull_request` only, so it never re-judges the
+direct-to-main bootstrap history.
 
 ## Invariants
 
