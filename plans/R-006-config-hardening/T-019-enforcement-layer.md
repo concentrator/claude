@@ -60,7 +60,7 @@ source of truth, runnable locally, from the workflow, and from the hook;
       "reviewed": "YYYY-MM-DD", "concerns_clear": true } }`; seed with the
       current head. Verify `jq -e .` parses. Touches: maintenance.json,
       MAINTENANCE.md.
-- [ ] Add `scripts/ci/check-caps.sh` — enforce declared caps (CLAUDE.md
+- [x] Add `scripts/ci/check-caps.sh` — enforce declared caps (CLAUDE.md
       ≤ 200 lines AND ≤ 400 words; `dev/SKILL.md` ≤ 300w; every
       `skills/**/SKILL.md` per its class; `description` ≤ 12 words;
       DESIGN.md ≤ 1000w). Exit non-zero listing violators. Verify:
