@@ -83,7 +83,7 @@ source of truth, runnable locally, from the workflow, and from the hook;
       AI-review concern, not mechanically checkable here (lazy dirs,
       skill-relative paths, `.claude/` self-hosting indirection). Verify:
       dry-run green; past-date scratch yields non-zero.
-- [ ] Add `scripts/ci/check-ledger.sh` — find a `concerns_clear: true`
+- [x] Add `scripts/ci/check-ledger.sh` — find a `concerns_clear: true`
       entry in `maintenance.json` whose SHA is an ancestor of `HEAD` and
       whose `<sha>..HEAD` diff touches only `maintenance.json`; fail if
       none. Verify: scratch fixture entry for the current tip passes;
