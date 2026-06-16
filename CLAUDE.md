@@ -4,16 +4,12 @@
 
 Two modes:
 
-- **VIBE** (default) — no skill, freestyle. Commit-message style below
-  still applies. Branch discipline too: never commit to the default
-  branch — switch to a `<prefix>/<slug>` branch (prefix ∈ {feat, fix,
-  refactor, chore}) before the first commit; merging is the user's
-  call. Exception: the `~/.claude` repo itself — config and doc tweaks
-  land on `main` directly.
+- **VIBE** (default) — no skill, freestyle.
 - **DEV** — spec-driven: requirements → design → initiatives → tasks →
-  branch plans → commits. Entered explicitly via `/dev`. Branching, plan
-  hierarchy, and per-branch routine live in the `dev` skill and
-  `~/.claude/rules/`.
+  branch plans → commits. Entered via `/dev`; plan hierarchy and
+  per-branch routine live in the `dev` skill and `~/.claude/rules/`.
+
+Git workflow (both modes): `rules/git-workflow.md`.
 
 Projects run via `/dev auto` declare their build/test/VCS commands as
 `permissions.allow` rules in an `## Agent toolchain` section of the project
@@ -30,30 +26,6 @@ the project CLAUDE.md). No test suite — green means SKILL.md word caps
 `.claude/settings.local.json`: template + `Bash(gh pr create:*)`,
 `Bash(git push -u origin batch/*)` carve-out (deny narrowed to
 default-branch/force pushes).
-
-## Commit Messages
-
-Single-line, ~50 chars / 6-8 words, subject only. No semicolons joining clauses,
-no body, no multi-line descriptions, no Co-Authored-By tags. Convey the WHAT,
-not the HOW or rationale — the diff has those.
-
-Examples:
-- GOOD: `Fix period chrome over logo`
-- GOOD: `Collapse multi-xxl into multi with dense modifier`
-- BAD: `Fix period chrome shadowing the logo; anchor via .container::before`
-- BAD: `Add slide--st03-multi--dense modifier toggled by tenant count for 9+ tenants`
-
-## MR / PR Messages
-
-Unlike commits, an MR carries a body. **Title**: commit-subject style
-(imperative, ~50 chars, WHAT not how). **Body**: a short summary (what
-changed and why — prose or bullets) and a test plan (what was run, or
-how to verify). Scannable, not a wall of text.
-
-- No agent attribution, "Generated with…", or Co-Authored-By trailers.
-- Per Audience visibility below: no gitignored paths, internal ticket
-  IDs, or references to this conversation. Link issues only if the
-  reader can open them.
 
 ## Code Comments
 
