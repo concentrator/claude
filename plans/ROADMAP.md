@@ -38,6 +38,11 @@ Initiative index. Items: `R-001: description`; each entry owns
       (thin index + on-demand companion parts: hits, sessions, rules),
       consolidating the existing Wallarm skills; enforced conventions
       split into a path-scoped rule. (stub — shape via `/dev plan R-008`)
+- [ ] R-009: Adopter-project TBD migration — `migrating-to-dev` gains a
+      mode that migrates an already-DEV, pre-TBD project (PR-only
+      delivery, `.claude/` structure reconcile, tag-on-trunk
+      close/release); `starting-a-project` establishes a protected trunk
+      + PR gate. Grounded in `wallarm-api-js`. (approved 2026-06-16)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
