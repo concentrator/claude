@@ -39,7 +39,7 @@ Each mechanical check is a standalone `scripts/ci/*.sh` script — one
 source of truth, runnable locally, from the workflow, and from the hook;
 "tested" by dry-run against the current tree (noted per item).
 
-- [ ] Add a `## Tier-2 AI review` section to `MAINTENANCE.md` — the
+- [x] Add a `## Tier-2 AI review` section to `MAINTENANCE.md` — the
       review's four concerns (compliance, cross-file integrity, cleanup,
       reference freshness) and the `rules/*` (define) ↔ `MAINTENANCE.md`
       (the AI review) ↔ `maintenance.json` (the ledger it stamps)

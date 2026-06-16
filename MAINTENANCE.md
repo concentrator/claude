@@ -1,9 +1,33 @@
 # Maintenance
 
-Keeps `.claude/` and the project root clean and healthy — a periodical
-cleanup + repair routine. The **Routine** section is generic and seeded
-into each project's `.claude/MAINTENANCE.md`; the **This environment**
-section holds targets unique to this repo.
+Keeps `.claude/` and the project root clean and healthy. Two parts: the
+**Tier-2 AI review** gates each change into `main` (per-PR); the
+**Routine** is the time-based cleanup + repair sweep. The Routine
+section is generic and seeded into each project's
+`.claude/MAINTENANCE.md`; the **This environment** section holds targets
+unique to this repo.
+
+## Tier-2 AI review
+
+The per-PR compliance gate for `~/.claude`, complementing the Tier-1
+mechanical CI checks in `scripts/ci/`. Before a PR merges, an AI
+reviewer reads the diff against the rule set and confirms four concerns:
+
+- **Compliance** — each changed file obeys its governing rule
+  (`CLAUDE.md` per `rules/claude-md.md`; `SKILL.md` per `rules/skills.md`;
+  plans per `rules/planning.md`).
+- **Cross-file integrity** — references resolve; no rule duplicated
+  across files; the `DESIGN.md` tree-map matches the tree.
+- **Cleanup** — no stray scratch, dead prose, or transient content.
+- **Reference freshness** — no dead paths; no expired time-bound
+  references.
+
+Relationship: `rules/*` define the rules; this Tier-2 review applies
+them to a change and records its verdict in `maintenance.json` (the
+ledger, keyed by commit SHA); the Tier-1 gate
+`scripts/ci/check-ledger.sh` refuses any PR whose head SHA lacks a clear
+ledger entry. The Routine below is the time-based sweep; this is the
+per-change gate.
 
 ## Routine
 
