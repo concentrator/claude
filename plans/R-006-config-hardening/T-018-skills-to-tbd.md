@@ -64,7 +64,7 @@ Word caps are the green gate: `dev` ≤ 300w body (R-006 criterion),
       hardcoding); preserve the scaffold/bootstrap exception. Verify both
       bodies within cap. Touches: skills/starting-a-project/SKILL.md,
       skills/migrating-to-dev/SKILL.md.
-- [ ] Complete the branch: re-review docs across all commits, run the
+- [x] Complete the branch: re-review docs across all commits, run the
       green check (every touched SKILL.md `wc -w` within cap; grep sweep
       confirms no git-policy rule duplicated in skills), triage the
       findings file, mark the plan complete, commit; hand off to

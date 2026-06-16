@@ -17,7 +17,7 @@ shell trips the sensitive-file guard).
 - Permissions: `.claude/settings.local.json` holds every
   `auto-permissions.template.json` rule (`__PROJECT_DIR__`/`__HOME__` → abs paths)
   plus the CLAUDE.md `## Agent toolchain` rules, incl. a VCS-host CLI
-  (`glab`/`gh`; absent → push-only, manual MR). Missing
+  (`glab`/`gh`; absent → push-only, manual PR). Missing
   → propose merged file, apply on approval. No toolchain section →
   halt, ask.
 - Default branch, clean tree, tests + lint green.
