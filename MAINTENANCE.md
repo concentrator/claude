@@ -29,6 +29,19 @@ ledger, keyed by commit SHA); the Tier-1 gate
 ledger entry. The Routine below is the time-based sweep; this is the
 per-change gate.
 
+### Prune dead prose
+
+Part of the Compliance concern: review every rule, instruction, or
+sentence the diff adds or touches against three gates —
+
+1. Accurate and sensible in context?
+2. Valuable in any real scenario?
+3. Would behavior change if it were removed?
+
+Fail any gate → cut it and propose the fix. This catches transplanted
+conversational framing, rationale that belongs in requirements/DESIGN,
+and rules that merely restate a default.
+
 ## Routine
 
 Run on the cadence below, or on demand. For each target: detect → report

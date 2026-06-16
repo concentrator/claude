@@ -44,7 +44,7 @@ source of truth, runnable locally, from the workflow, and from the hook;
       reference freshness) and the `rules/*` (define) ↔ `MAINTENANCE.md`
       (the AI review) ↔ `maintenance.json` (the ledger it stamps)
       relationship. Verify caps; grep that all three are cross-linked.
-- [ ] Add the 3-gate "prune dead prose" prompt to that section (per
+- [x] Add the 3-gate "prune dead prose" prompt to that section (per
       T-016 findings): for every sentence — (1) accurate and sensible in
       context? (2) valuable in any real scenario? (3) would behavior
       change if removed? Fail any → cut; propose the fix. Touches:
