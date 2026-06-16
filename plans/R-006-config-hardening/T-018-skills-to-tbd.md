@@ -44,7 +44,7 @@ Word caps are the green gate: `dev` ≤ 300w body (R-006 criterion),
       updates to the default branch (allowed exception)" framing that
       implies a direct push. Verify body ≤ 300w. Touches:
       skills/finishing-a-branch/SKILL.md.
-- [ ] `release/SKILL.md`: convert to tag-on-trunk — remove the
+- [x] `release/SKILL.md`: convert to tag-on-trunk — remove the
       `release/vX.Y.Z` fork branch + push/PR/merge hand-off; finalize
       CHANGELOG via a short-lived doc PR to origin, then tag `main`
       (`git tag -a vX.Y.Z -m "X.Y.Z"` + `git push origin vX.Y.Z`).
