@@ -88,7 +88,7 @@ source of truth, runnable locally, from the workflow, and from the hook;
       whose `<sha>..HEAD` diff touches only `maintenance.json`; fail if
       none. Verify: scratch fixture entry for the current tip passes;
       missing entry fails.
-- [ ] Add `.github/workflows/ci.yml` — `on: pull_request` only; run each
+- [x] Add `.github/workflows/ci.yml` — `on: pull_request` only; run each
       `scripts/ci/*.sh` (via an aggregator `scripts/ci/run-all.sh`),
       failing the PR on any non-zero exit. Read the GitHub Actions schema
       reference before writing; validate with `actionlint` if available.
