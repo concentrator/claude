@@ -47,7 +47,7 @@ Decisions carried from `/dev plan all` review:
       declaration (to grow as tools are defined). Verify the
       `skills/delegating-to-agents/toolchain.md` cross-ref still resolves
       (grep). Touches: CLAUDE.md, rules/claude-md.md.
-- [ ] Add the anti-rationale rule to `rules/claude-md.md`: operative
+- [x] Add the anti-rationale rule to `rules/claude-md.md`: operative
       instructions only; no rationale, framing, or transplanted
       conversational wording (the "why" goes in requirements/DESIGN).
       Touches: rules/claude-md.md.
