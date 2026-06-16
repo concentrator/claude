@@ -11,21 +11,12 @@ Two modes:
 
 Git workflow (both modes): `rules/git-workflow.md`.
 
-Projects run via `/dev auto` declare their build/test/VCS commands as
-`permissions.allow` rules in an `## Agent toolchain` section of the project
-CLAUDE.md — including a VCS-host CLI (`glab`/`gh`) for the checkpoint
-push + MR; the `delegating-to-agents` pre-flight reads it to prepare
-agent settings deterministically. Push-permission patterns:
-`skills/delegating-to-agents/toolchain.md`.
-
 ## Agent toolchain
 
-This repo's own `/dev auto` toolchain (self-hosting: this file is also
-the project CLAUDE.md). No test suite — green means SKILL.md word caps
-(`wc -w`) and grep sweeps per plan item. Rules live in
-`.claude/settings.local.json`: template + `Bash(gh pr create:*)`,
-`Bash(git push -u origin batch/*)` carve-out (deny narrowed to
-default-branch/force pushes).
+Self-hosting: this file is also the project CLAUDE.md. No test suite —
+green means SKILL.md word caps (`wc -w`) and grep sweeps. VCS-host CLI:
+`gh`; batch-push carve-out in `.claude/settings.local.json` (deny
+narrowed to default-branch/force pushes). More tools added as defined.
 
 ## Code Comments
 
@@ -38,19 +29,12 @@ In user-facing writing (CHANGELOG, release notes, docs, code comments, PR
 bodies), don't reference what the reader can't see: gitignored paths,
 internal tickets, prior conversations, agent names.
 
-## Structured Data / API parameters
+## Verify before stating
 
-When constructing schemas, configs, or API payloads: read the authoritative
-reference first. Never approximate from memory — Claude hallucinates field
-names and shapes. If there's no reference - ask for it, or suggest probing, 
-don't try to guess.
-
-## Temporary Files
-
-Store planning artifacts in `.claude/plans/` and foundational specs
-(`REQUIREMENTS.md`, `DESIGN.md`) in `.claude/` (layout:
-`rules/planning.md § Where things live`). Never use `docs/` or other
-project directories for these.
+Before asserting a fact, confirm it against an authoritative source you
+can point to. No source → verify it, or say you're unsure; never present
+a guess as confirmed. Schemas, configs, API shapes: read the reference
+first.
 
 ## Communication
 

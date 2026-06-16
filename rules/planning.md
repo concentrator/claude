@@ -63,6 +63,9 @@ doesn't already cover.
 | `B-XXX.md`, `B-XXX.report.md` (batches) | `.claude/plans/R-XXX-<slug>/batches/` |
 | `release-vX.Y.Z.md` | `.claude/plans/` |
 
+These locations are exclusive — never place plans or specs in `docs/`
+or other project directories.
+
 ## Directory conventions
 
 - One plan directory per roadmap entry: `plans/R-XXX-<slug>/`, created
