@@ -79,10 +79,12 @@ doesn't already cover.
 
 ## Where plans live in git
 
-Requirements, design, roadmap, tasks, branch plans, and release plans
-commit directly to `main` — they are documentation, visible across all
-branches. Explicit exception to the no-commit-to-main rule, alongside
-initial project scaffold.
+Planning artifacts — requirements, design, roadmap, tasks, branch
+plans, release plans — live on `main` so they are visible across all
+branches. They reach `main` the same way as any change: a short-lived
+doc branch + CI-gated PR, never a direct push (`git-workflow.md`). A
+single planning act still commits each artifact type separately —
+`requirements.md` distinct from the `ROADMAP`/`TASKS` index edits.
 
 ## Cross-plan dependencies
 

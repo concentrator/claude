@@ -41,7 +41,7 @@ Constraints carried from R-006:
       anti-patterns (no code freezes, no unmerge, no fix-on-release-
       then-down-merge, no big-bang merges; integrate at least daily).
       References block with the research sources.
-- [ ] Rewrite `planning.md § Where plans live in git` — replace "plans
+- [x] Rewrite `planning.md § Where plans live in git` — replace "plans
       commit directly to `main`" with the trunk/PR model (planning
       artifacts reach `main` via short-lived doc PRs; `requirements.md`
       vs `ROADMAP`/`TASKS` stay separate commits); point to
