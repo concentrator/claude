@@ -22,7 +22,7 @@ Word caps are the green gate: `dev` ≤ 300w body (R-006 criterion),
 `delegating-to-agents` ≤ 400w (at cap — net out), others per
 `rules/skills.md`.
 
-- [ ] `dev/SKILL.md`: rewrite the opener to describe DEV accurately
+- [x] `dev/SKILL.md`: rewrite the opener to describe DEV accurately
       first ("DEV mode — strict, spec-driven; manual + auto"); keep the
       VIBE default as a trailing clause, not the opening subject.
       Touches: skills/dev/SKILL.md.

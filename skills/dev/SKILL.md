@@ -5,9 +5,9 @@ description: Use to enter DEV mode for spec-driven, planned, reviewed work.
 
 # Dev
 
-DEV mode — strict, spec-driven workflow. Default: **VIBE** (no skill,
-freestyle; ad-hoc subagents and `/code-review` only — agentic
-development is DEV-only).
+DEV mode — strict, spec-driven workflow, manual (`/dev code`) or agentic
+(`/dev auto`). Default: **VIBE** — no skill, freestyle; ad-hoc subagents
+and `/code-review` only, agentic development is DEV-only.
 
 ## Surface
 
