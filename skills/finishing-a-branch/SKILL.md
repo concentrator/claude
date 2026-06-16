@@ -16,21 +16,19 @@ Close out a DEV branch — invoked by the closing routine
 
 ## 2. Present options
 
-Exactly four, no elaboration:
+Exactly three, no elaboration:
 
-1. Merge to <default-branch> locally
-2. Push and create MR/PR
-3. Keep the branch as-is
-4. Discard this work
+1. Push and open a CI-gated PR to origin
+2. Keep the branch as-is
+3. Discard this work
 
 ## 3. Execute
 
-**Merge locally** — checkout default branch, pull, merge, rerun tests
-on the result. Green → §4. Red → stop, report, ask.
-
-**Push + MR/PR** — `git push -u origin <branch>`, create MR/PR
-(`glab`/`gh`: summary + test plan). Bookkeeping is deferred — `T-XXX`
-stays `[ ]` until the MR merges; run §4 then.
+**Push + PR** — `git push -u origin <branch>`, open a CI-gated PR to the
+origin default branch (`glab`/`gh`: summary + test plan); no host CLI →
+push and print the PR-creation URL. Delivery is always a PR — never a
+local merge or direct push. Bookkeeping is deferred: `T-XXX` stays `[ ]`
+until the PR merges; run §4 then.
 
 **Keep** — report branch name. Nothing closes.
 

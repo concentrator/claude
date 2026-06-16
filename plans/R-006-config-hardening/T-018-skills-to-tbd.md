@@ -34,7 +34,7 @@ Word caps are the green gate: `dev` ≤ 300w body (R-006 criterion),
       artifact); make `/dev code` prose batch-aware (lone task ships as
       its own PR; coupled tasks group into a batch). Verify body `wc -w`
       ≤ 300. Touches: skills/dev/SKILL.md.
-- [ ] `finishing-a-branch/SKILL.md`: replace the "merge to local main"
+- [x] `finishing-a-branch/SKILL.md`: replace the "merge to local main"
       option with mode-aware CI-gated-PR-to-origin delivery (§2 options,
       §3 execute); reference `rules/git-workflow.md`. Options narrow to
       three (Push+PR / Keep / Discard). Touches:
