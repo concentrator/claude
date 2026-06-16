@@ -103,7 +103,7 @@ format and closure: `rules/planning.md § Levels`.
       unit, TBD lifecycle, closing flow, manual/auto delivery); repoint
       `CLAUDE.md` git refs; update `DESIGN.md` branching architecture.
       Keystone — the rest depend on it.
-- [ ] T-017 (R-006) [refactor]: CLAUDE.md compaction ≤400 (after T-016)
+- [x] T-017 (R-006) [refactor]: CLAUDE.md compaction ≤400 (after T-016)
       — drop the extracted git prose, remove the `Temporary Files`
       duplication, rename `Structured Data / API parameters` + add the
       verify-before-stating rule, move the Agent-toolchain rule into
