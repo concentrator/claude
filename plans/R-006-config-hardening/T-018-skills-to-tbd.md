@@ -50,7 +50,7 @@ Word caps are the green gate: `dev` ≤ 300w body (R-006 criterion),
       (`git tag -a vX.Y.Z -m "X.Y.Z"` + `git push origin vX.Y.Z`).
       Reference `rules/git-workflow.md § Releases — tag-on-trunk`. Verify
       ≤ 300w. Touches: skills/release/SKILL.md.
-- [ ] `delegating-to-agents/SKILL.md`: align checkpoint-accept wording to
+- [x] `delegating-to-agents/SKILL.md`: align checkpoint-accept wording to
       "push `batch/B-XXX` + open CI-gated PR to origin/main", consistent
       with `branch-plan.md § Agentic execution` (PR is the one delivery,
       never a push to `main`); net words out to stay ≤ 400w. Verify `wc

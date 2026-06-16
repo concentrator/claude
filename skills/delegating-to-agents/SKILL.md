@@ -62,8 +62,8 @@ Models + spec-check depth: `verification-policy.md`.
 Write the R's `batches/B-XXX.report.md` per `report-template.md`,
 re-verifying acceptance criteria. No report → no accept. Present:
 
-- **Accept** → push `batch/B-XXX` to origin + create the MR per
-  `toolchain.md`, description from the report (defer = explicit user
+- **Accept** → push `batch/B-XXX` to origin + open the CI-gated PR per
+  `toolchain.md`, description from report (defer = explicit user
   choice; never default branch). Findings triage, delete member
   refs + `pre-B-XXX` tag.
 - **Reject** → delete `batch/B-XXX`;
