@@ -13,10 +13,12 @@ Git workflow (both modes): `rules/git-workflow.md`.
 
 ## Agent toolchain
 
-Self-hosting: this file is also the project CLAUDE.md. No test suite —
-green means SKILL.md word caps (`wc -w`) and grep sweeps. VCS-host CLI:
-`gh`; batch-push carve-out in `.claude/settings.local.json` (deny
-narrowed to default-branch/force pushes). More tools added as defined.
+Self-hosting: this file is also the project CLAUDE.md. Test/lint:
+`bash scripts/ci/run-all.sh` (Tier-1 gate — caps, stray, plan-integrity,
+todos, references, ledger), also run by CI on PRs and the
+`.githooks/pre-push` hook. VCS-host CLI: `gh`; batch-push carve-out in
+`.claude/settings.local.json` (deny narrowed to default-branch/force
+pushes).
 
 ## Code Comments
 

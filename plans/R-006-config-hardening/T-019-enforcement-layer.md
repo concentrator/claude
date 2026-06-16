@@ -116,3 +116,15 @@ source of truth, runnable locally, from the workflow, and from the hook;
       tip's SHA (`reviewed`, `concerns_clear: true`); this commit touches
       only `maintenance.json`. Confirm `scripts/ci/run-all.sh` green
       including `check-ledger.sh`. Hand off to `finishing-a-branch`.
+
+## Scope change (post-completion, folded into PR #5)
+
+T-019 made CLAUDE.md `## Agent toolchain` stale on its own branch (it
+still said "no test suite"). Fixed here per `branch-plan.md § Scope
+changes`.
+
+- [x] Update CLAUDE.md `## Agent toolchain` — declare
+      `bash scripts/ci/run-all.sh` as test/lint (was "no test suite —
+      word caps + grep sweeps"). New content tip.
+- [x] Re-stamp `maintenance.json` for the new content tip (touches only
+      the ledger).
