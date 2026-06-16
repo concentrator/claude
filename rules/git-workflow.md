@@ -7,7 +7,8 @@
 - Every change reaches `main` through a short-lived branch and a
   **CI-gated PR**. Never push to `main`; never merge to `main` locally.
 - Branch name `<prefix>/<slug>`, prefix ∈ {feat, fix, refactor, release,
-  chore}, slug ≤ 20 chars.
+  chore, plan}, slug ≤ 20 chars. `plan/` is for planning/doc branches
+  (initiative create/close, plan edits); the others match the task type.
 - Branches are short-lived and single-owner: merge within a day, two
   days absolute max; keep ≤ 3 active. PR review and merge stay the
   user's call.
