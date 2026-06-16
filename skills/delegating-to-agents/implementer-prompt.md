@@ -34,7 +34,7 @@ Task tool (general-purpose):
        refactor — behavior preserved, baseline stays green
     3. Verify: project's test + lint commands, green
     4. Docs in this same commit per project conventions (see ## Conventions)
-    5. Commit per CLAUDE.md § Commit Messages
+    5. Commit per git-workflow.md § Commit messages
     6. Self-review (see below)
     7. Report back
 
@@ -45,7 +45,8 @@ Task tool (general-purpose):
 
     ## Conventions
 
-    CLAUDE.md is in your context; follow § Commit Messages, § Code Comments,
+    CLAUDE.md and git-workflow.md are in your context; follow
+    git-workflow.md § Commit messages, CLAUDE.md § Code Comments +
     § Audience visibility, and project `## Conventions` (docs/CHANGELOG).
 
     ## Code Organization

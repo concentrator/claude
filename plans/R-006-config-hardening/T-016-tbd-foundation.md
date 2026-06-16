@@ -53,7 +53,7 @@ Constraints carried from R-006:
       (members → `batch/B-XXX` → PR to origin; bookkeeping on the batch
       branch; reject deletes the branch; `pre-B-XXX` deleted on accept);
       manual task = its own PR to origin.
-- [ ] Extract git prose from `CLAUDE.md` → a single `git-workflow.md`
+- [x] Extract git prose from `CLAUDE.md` → a single `git-workflow.md`
       pointer (removes the Session-Workflow branching lines, Commit
       Messages, MR/PR Messages, the main-push rule); record the git-rule
       relocation mapping (the R-006 preservation invariant).

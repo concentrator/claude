@@ -54,7 +54,7 @@ Task tool (general-purpose):
     - Did they implement the right feature but wrong way?
 
     **Convention drift (rail-strength sensor):**
-    - Does the commit message follow CLAUDE.md § Commit Messages (single-line, ~50 chars, WHAT not how)?
+    - Does the commit message follow git-workflow.md § Commit messages (single-line, ~50 chars, WHAT not how)?
     - Were docs updated per project conventions where the commit item required it?
     - CLAUDE.md is in your context — check against it directly; flag drift even when the implementation is otherwise spec-compliant.
 
