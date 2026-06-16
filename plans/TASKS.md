@@ -95,7 +95,7 @@ format and closure: `rules/planning.md § Levels`.
       `branch-plan.md`, `project-layout.md` to planning-artifact
       paths, fix inbound references, record `/context` per-dispatch
       baseline before/after.
-- [ ] T-016 (R-006) [refactor]: TBD foundation — create
+- [x] T-016 (R-006) [refactor]: TBD foundation — create
       `rules/git-workflow.md` (all git rules + the single "every change
       reaches `main` via CI-gated PR; never push to `main`" rule);
       rewrite `planning.md § Where plans live in git` (trunk model) and
