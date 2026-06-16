@@ -34,6 +34,10 @@ Initiative index. Items: `R-001: description`; each entry owns
       verification levers (model tier, spec-check skip, close-folding,
       effort, loop rigor); attaches to R-006's batch unit. Sequence
       after R-006. (stub — shape via `/dev plan R-007`)
+- [ ] R-008: Wallarm reference skill — single global `skills/wallarm/`
+      (thin index + on-demand companion parts: hits, sessions, rules),
+      consolidating the existing Wallarm skills; enforced conventions
+      split into a path-scoped rule. (stub — shape via `/dev plan R-008`)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
