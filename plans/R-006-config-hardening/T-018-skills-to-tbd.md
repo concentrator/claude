@@ -39,7 +39,7 @@ Word caps are the green gate: `dev` ≤ 300w body (R-006 criterion),
       §3 execute); reference `rules/git-workflow.md`. Options narrow to
       three (Push+PR / Keep / Discard). Touches:
       skills/finishing-a-branch/SKILL.md.
-- [ ] `finishing-a-branch/SKILL.md`: align §4 post-merge bookkeeping to
+- [x] `finishing-a-branch/SKILL.md`: align §4 post-merge bookkeeping to
       PR-merge (defer `[x]` until the PR merges); drop the "commit plan
       updates to the default branch (allowed exception)" framing that
       implies a direct push. Verify body ≤ 300w. Touches:
