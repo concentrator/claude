@@ -45,13 +45,6 @@ can point to. No source → verify it, or say you're unsure; never present
 a guess as confirmed. Schemas, configs, API shapes: read the reference
 first.
 
-## Temporary Files
-
-Store planning artifacts in `.claude/plans/` and foundational specs
-(`REQUIREMENTS.md`, `DESIGN.md`) in `.claude/` (layout:
-`rules/planning.md § Where things live`). Never use `docs/` or other
-project directories for these.
-
 ## Communication
 
 - Discuss before making significant changes. Get approval before writing code.

@@ -36,8 +36,10 @@ Decisions carried from `/dev plan all` review:
       source → verify it, or say you're unsure; never present a guess as
       confirmed. Schemas, configs, API shapes: read the reference
       first." Touches: CLAUDE.md.
-- [ ] Remove `## Temporary Files` from CLAUDE.md (duplicate of
-      `rules/planning.md § Where things live`). Touches: CLAUDE.md.
+- [x] Remove `## Temporary Files` from CLAUDE.md (duplicate of
+      `rules/planning.md § Where things live`); relocate the unique
+      "never use `docs/`" guard into that section. Touches: CLAUDE.md,
+      rules/planning.md.
 - [ ] Move the Agent-toolchain *declaration rule* (Session-Workflow
       prose, "Projects run via `/dev auto` declare … toolchain") out of
       CLAUDE.md into `rules/claude-md.md`; truncate the `## Agent
