@@ -119,6 +119,10 @@ Targets beyond the generic routine:
   as description-triggered, or remove). Truncate the log after review.
 - Skill listing: keep total descriptions within
   `skillListingBudgetFraction`.
+- Pre-push hook: a tracked `.githooks/pre-push` runs the Tier-1 gate
+  (`scripts/ci/run-all.sh`) locally — advisory, bypass with
+  `git push --no-verify`. Enable once per clone:
+  `git config core.hooksPath .githooks`.
 - Verify no skill or rule references removed scripts/log files.
 - Confirm foundational files stay at the repo root (not nested
   `.claude/`), per `DESIGN.md § Self-hosting layout`.

@@ -55,11 +55,11 @@ source of truth, runnable locally, from the workflow, and from the hook;
       context? (2) valuable in any real scenario? (3) would behavior
       change if removed? Fail any → cut; propose the fix. Touches:
       MAINTENANCE.md.
-- [ ] Add `maintenance.json` + document its schema in `MAINTENANCE.md` —
-      model-free object keyed by head commit SHA: `{ "<sha>": {
-      "reviewed": "YYYY-MM-DD", "concerns_clear": true } }`; seed with the
-      current head. Verify `jq -e .` parses. Touches: maintenance.json,
-      MAINTENANCE.md.
+- [x] Add `maintenance.json` + document its schema in `MAINTENANCE.md` —
+      model-free object keyed by content-tip SHA: `{ "<sha>": {
+      "reviewed": "YYYY-MM-DD", "concerns_clear": true } }`; seeded `{}`,
+      protocol documented (see Ledger decision). Verify `jq -e .` parses.
+      Touches: maintenance.json, MAINTENANCE.md.
 - [x] Add `scripts/ci/check-caps.sh` — enforce declared caps (CLAUDE.md
       ≤ 200 lines AND ≤ 400 words; `dev/SKILL.md` ≤ 300w; every
       `skills/**/SKILL.md` per its class; `description` ≤ 12 words;
@@ -93,7 +93,7 @@ source of truth, runnable locally, from the workflow, and from the hook;
       failing the PR on any non-zero exit. Read the GitHub Actions schema
       reference before writing; validate with `actionlint` if available.
       True green is run-dependent (first real PR) — see R-006 closure.
-- [ ] Add `.githooks/pre-push` + install note — run `scripts/ci/run-all.sh`
+- [x] Add `.githooks/pre-push` + install note — run `scripts/ci/run-all.sh`
       (fast subset), print the `--no-verify` bypass hint, exit non-zero on
       failure; distribute via tracked `.githooks/` + a one-line `git
       config core.hooksPath .githooks` note in `MAINTENANCE.md`. Verify:
