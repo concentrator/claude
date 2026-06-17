@@ -20,7 +20,7 @@ Not architecture-changing — the DESIGN tree-map swap + `§ Self-enforcement`
 wording is routine upkeep (`branch-plan.md § Architecture-changing`),
 folded into the convert commit.
 
-- [ ] Convert the ledger (atomic commit): delete `maintenance.json`; add
+- [x] Convert the ledger (atomic commit): delete `maintenance.json`; add
       empty `maintenance.jsonl`; add `.gitattributes`
       (`maintenance.jsonl merge=union`); rewrite
       `scripts/ci/check-ledger.sh` to line-search the JSONL (a
@@ -31,13 +31,13 @@ folded into the convert commit.
       wording; retitle `MAINTENANCE.md § Ledger (maintenance.jsonl)` with
       the sha-only JSONL schema + `merge=union` + stamp-is-append
       protocol. Transiently red (empty ledger).
-- [ ] Complete the branch: grep the repo for stray `maintenance.json`
+- [x] Complete the branch: grep the repo for stray `maintenance.json`
       references and fix; re-review; negative-test `check-ledger` (a
       wrong `sha..HEAD` touching a non-ledger file must fail); triage the
       findings file; mark the plan complete (incl. the stamp checkbox —
       the stamp commit touches only the ledger). Still red (content tip,
       unstamped).
-- [ ] Stamp: append the first `maintenance.jsonl` line certifying the
+- [x] Stamp: append the first `maintenance.jsonl` line certifying the
       previous commit (the content tip); touches only the ledger.
       `bash scripts/ci/run-all.sh` green at HEAD; hand off to
       `finishing-a-branch`.
