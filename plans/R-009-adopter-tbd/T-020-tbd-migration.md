@@ -17,7 +17,7 @@ Not architecture-changing — the `DESIGN.md` tree-map entry for the new
 companion is routine bookkeeping, folded into the final commit (per the
 `/dev plan all` review).
 
-- [ ] Add mode detection + routing to `migrating-to-dev/SKILL.md`: detect
+- [x] Add mode detection + routing to `migrating-to-dev/SKILL.md`: detect
       already-DEV (`.claude/plans/ROADMAP.md` present) → TBD-migration mode,
       else fresh (existing sections unchanged); an already-conformant project
       yields a no-op confirmation. Re-check `wc -w` ≤ 300. Touches: SKILL.md.

@@ -5,8 +5,15 @@ description: Use when adopting an existing project into DEV mode.
 
 # Migrating to DEV
 
-Bring an existing codebase into DEV mode. Reverse-engineer requirements +
-design from code, then layer on planning infrastructure.
+Bring an existing project under DEV. Detect mode by state:
+
+- **Fresh** — no `.claude/plans/ROADMAP.md`: reverse-engineer
+  requirements + design from code, then layer planning infrastructure
+  (steps 1–8 below).
+- **Already-DEV, pre-TBD** — `.claude/plans/ROADMAP.md` present: the
+  project has the planning hierarchy but runs the pre-TBD delivery
+  model. Run the TBD migration (`tbd-migration.md`), not steps 1–8. An
+  already-TBD-conformant project → report conformant, no changes.
 
 ## 1. Inventory
 
