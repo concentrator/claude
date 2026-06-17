@@ -27,8 +27,9 @@ Exactly three, no elaboration:
 **Push + PR** — `git push -u origin <branch>`, open a CI-gated PR to
 origin (`glab`/`gh`: summary + test plan); no host CLI → push and print
 the PR-creation URL. Always a PR — never a local merge or direct push.
-Bookkeeping is deferred: `T-XXX` stays `[ ]` until the PR merges; run §4
-then.
+Merge per `git-workflow.md § Trunk`: `plan/` PRs auto-merge on green,
+code PRs await the user's review. Bookkeeping is deferred: `T-XXX` stays
+`[ ]` until the PR merges; run §4 then.
 
 **Keep** — report branch name. Nothing closes.
 
