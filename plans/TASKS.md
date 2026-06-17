@@ -119,7 +119,7 @@ format and closure: `rules/planning.md § Levels`.
       `maintenance.md` (Tier-2 AI review), `maintenance.json` (ledger),
       `.github/workflows/` (Tier-1 mechanical CI gate), pre-push hook;
       update `DESIGN.md` enforcement architecture.
-- [ ] T-020 (R-009) [feat]: `migrating-to-dev` already-DEV TBD-migration
+- [x] T-020 (R-009) [feat]: `migrating-to-dev` already-DEV TBD-migration
       mode — detect already-DEV (`.claude/plans/ROADMAP.md` present) vs
       fresh and route; already-DEV path reports over delivery (flag
       local-merge / direct-to-`main`; go-forward CI-gated-PR + host
@@ -129,6 +129,6 @@ format and closure: `rules/planning.md § Levels`.
       PRs; tag-on-trunk; archive fork-release leftovers); report detail
       in a companion file; advisory — user executes irreversible/host
       steps; no `main` history rewrite.
-- [ ] T-021 (R-009) [feat]: `starting-a-project` — after scaffolding,
+- [x] T-021 (R-009) [feat]: `starting-a-project` — after scaffolding,
       establish `main` as the protected trunk + instruct the PR gate
       (host-neutral), TBD-shaped from commit one; trim to stay ≤300w.
