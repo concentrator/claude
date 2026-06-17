@@ -38,7 +38,7 @@ companion is routine bookkeeping, folded into the final commit (per the
       pointer to `tbd-migration.md`; confirm advisory framing (skill plans/
       reports; user executes irreversible/host steps; no `main` rewrite).
       Re-check `wc -w` ≤ 300. Touches: SKILL.md.
-- [ ] Complete the branch: re-review docs across all commits; add the
+- [x] Complete the branch: re-review docs across all commits; add the
       `tbd-migration.md` line to the `DESIGN.md` tree-map (under
       `migrating-to-dev/`); `bash scripts/ci/run-all.sh` green; triage
       `T-020-tbd-migration.findings.md`; mark plan complete; commit.

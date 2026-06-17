@@ -98,7 +98,9 @@ excluded — see `.gitignore`.
     ├── doing-a-refactor/SKILL.md
     ├── finishing-a-branch/SKILL.md
     ├── fixing-a-bug/SKILL.md
-    ├── migrating-to-dev/SKILL.md
+    ├── migrating-to-dev/
+    │   ├── SKILL.md
+    │   └── tbd-migration.md      # already-DEV → TBD migration report
     ├── receiving-code-review/SKILL.md
     ├── release/SKILL.md
     ├── skill-creator/SKILL.md
