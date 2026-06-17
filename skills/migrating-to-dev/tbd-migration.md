@@ -34,3 +34,14 @@ Diff tracked `.claude/` against `rules/project-layout.md`:
 - **Strays** — tracked files outside the canonical layout.
 
 Propose the moves; the user executes them.
+
+## 3. Close/release
+
+- **Closes** — task / batch / R-closure bookkeeping rides PRs going
+  forward (`branch-plan.md`, `finishing-a-branch`), not direct commits
+  to `main`.
+- **Releases** — convert to tag-on-trunk: no fork-release-branch; tag
+  `main` at the release commit (`git-workflow.md § Releases —
+  tag-on-trunk`; the `release` skill). Flag any fork-release leftovers.
+- **Archive** — move superseded release plans to `plans/archive/`
+  (`planning.md § Archival`).

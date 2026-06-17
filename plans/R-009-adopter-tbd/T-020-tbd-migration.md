@@ -30,7 +30,7 @@ companion is routine bookkeeping, folded into the final commit (per the
       vs `project-layout.md`; non-canonical files (e.g. `source-spec.md`) →
       propose move to `references/` or a recorded exception; flag missing
       expected files (`MAINTENANCE.md`) and strays; propose moves (advisory).
-- [ ] Add the **Close/release** area to the companion: closes ride PRs;
+- [x] Add the **Close/release** area to the companion: closes ride PRs;
       convert the release flow to tag-on-trunk (ref `git-workflow.md
       § Releases — tag-on-trunk`); flag fork-release leftovers; archive
       superseded release plans (`planning.md § Archival`).
