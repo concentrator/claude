@@ -1,0 +1,3 @@
+# Append-only Tier-2 review ledger: union-merge so concurrent PR stamps
+# keep both lines instead of conflicting (built-in git merge driver).
+maintenance.jsonl merge=union

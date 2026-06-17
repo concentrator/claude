@@ -20,7 +20,7 @@ relate, and the invariants that keep them coherent.
   (`rules/planning.md`).
 - **MAINTENANCE.md** — sanity routine + the Tier-2 AI review
   (`## Self-enforcement`).
-- **scripts/ci/**, **.github/**, **.githooks/**, **maintenance.json** —
+- **scripts/ci/**, **.github/**, **.githooks/**, **maintenance.jsonl** —
   the self-enforcement layer (`## Self-enforcement`).
 
 ## Self-hosting layout
@@ -42,11 +42,12 @@ excluded — see `.gitignore`.
 ├── CLAUDE.md                     # global instructions, every session
 ├── settings.json                 # global Claude Code config (tracked)
 ├── .gitignore
+├── .gitattributes                # maintenance.jsonl merge=union (append-only ledger)
 ├── README.md                     # project readme
 ├── REQUIREMENTS.md               # foundational requirements
 ├── DESIGN.md                     # this file
 ├── MAINTENANCE.md                # sanity routine + Tier-2 AI review
-├── maintenance.json              # Tier-2 review ledger (content-tip SHA-keyed)
+├── maintenance.jsonl             # Tier-2 review ledger (append-only, union-merged)
 ├── .github/
 │   └── workflows/ci.yml          # Tier-1 mechanical CI gate (on PRs)
 ├── .githooks/
@@ -171,8 +172,9 @@ adopter infra is a later initiative):
   missing ledger stamp.
 - **Tier-2 — AI review.** `MAINTENANCE.md § Tier-2 AI review` applies the
   rule set (compliance, cross-file integrity, cleanup, reference
-  freshness) to the diff and stamps `maintenance.json` — a model-free
-  ledger keyed by content-tip SHA. `check-ledger.sh` (Tier-1) refuses
+  freshness) to the diff and appends a stamp to `maintenance.jsonl` — an
+  append-only ledger keyed by content-tip SHA (union-merged, so
+  concurrent stamps don't conflict). `check-ledger.sh` (Tier-1) refuses
   any PR whose delivered tree lacks a clear stamp.
 
 The workflow triggers on `pull_request` only, so it never re-judges the
