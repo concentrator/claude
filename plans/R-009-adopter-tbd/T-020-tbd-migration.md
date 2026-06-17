@@ -21,7 +21,7 @@ companion is routine bookkeeping, folded into the final commit (per the
       already-DEV (`.claude/plans/ROADMAP.md` present) → TBD-migration mode,
       else fresh (existing sections unchanged); an already-conformant project
       yields a no-op confirmation. Re-check `wc -w` ≤ 300. Touches: SKILL.md.
-- [ ] Create `skills/migrating-to-dev/tbd-migration.md` + the **Delivery**
+- [x] Create `skills/migrating-to-dev/tbd-migration.md` + the **Delivery**
       area: scan recent `main` for local-merge (`Merge branch … into
       '<default>'`) and direct-to-`main` non-scaffold commits; report the
       pattern; state the go-forward CI-gated-PR rule + host gate by reference
