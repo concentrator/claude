@@ -30,8 +30,8 @@ code — implementation comes later via the planning chain
 6. **Self-check** — placeholders, contradictions, criteria readable two
    ways, scope creep. Fix inline before showing the file.
 7. **User review** — user reads the committed-to-be file; iterate. On
-   explicit approval set `approved: <today>` and commit to main
-   (allowed exception).
+   explicit approval set `approved: <today>` and deliver via a doc PR
+   (`planning.md § Where plans live in git`).
 8. **Next** — propose tasks under the new R (`/dev plan R-XXX`).
    Never auto-execute.
 
