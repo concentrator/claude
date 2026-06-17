@@ -12,14 +12,13 @@ default branch — exception to the no-commit-to-`main` rule.
 
 ## 1. Requirements
 
-The user supplies a description (text file, prompt, or both). Read it, ask
-1–3 clarifying questions if needed. Create `.claude/` if absent, then write
+The user supplies a description; read it, ask 1–3 clarifying questions
+if needed. Create `.claude/` if absent, then write
 `.claude/REQUIREMENTS.md` with `approved: pending` frontmatter and sections
 per `~/.claude/rules/planning-templates.md § Foundational`. **Do not
 proceed until the user approves** — then update `approved:` to today.
 
-The user's seed file (if any) is **not** committed — `REQUIREMENTS.md` is
-the project's owned spec.
+Seed file not committed; `REQUIREMENTS.md` is the owned spec.
 
 ## 2. Design
 
@@ -54,6 +53,10 @@ tests on every PR. Document run commands in `CLAUDE.md`. Ask before
 each; if the user defers any, record `quality-deferred: true` in
 `CLAUDE.md § Conventions`.
 
+Then protect `main` on the host — require PR + passing checks before
+merge, restrict direct push (`gh`/`glab`; `git-workflow.md § Trunk`,
+`§ Enforcement`) — TBD-shaped from commit one.
+
 ## 5. Commit
 
 Commit requirements + design + scaffold + quality config to default
@@ -61,5 +64,4 @@ branch.
 
 ## 6. Next
 
-Propose: run `/dev plan R` to shape the first initiative from
-requirements + design. Do not auto-execute.
+Propose `/dev plan R` to shape the first initiative. Do not auto-execute.
