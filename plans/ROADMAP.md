@@ -43,7 +43,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       delivery, `.claude/` structure reconcile, tag-on-trunk
       close/release); `starting-a-project` establishes a protected trunk
       + PR gate. Grounded in `wallarm-api-js`. (approved 2026-06-16)
-- [ ] R-010: Frictionless planning-PR delivery — merge-friendly ledger
+- [x] R-010: Frictionless planning-PR delivery — merge-friendly ledger
       (`maintenance.jsonl` + `.gitattributes merge=union`, no more
       concurrent-PR conflicts) + `plan/` PRs auto-merge on a green gate
       (native host where available; agent `gh`/`glab` fallback).

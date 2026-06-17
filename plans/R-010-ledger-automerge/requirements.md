@@ -1,6 +1,7 @@
 ---
 approved: 2026-06-17
 kind: feat
+status: done 2026-06-18
 ---
 
 # R-010: Frictionless planning-PR delivery
@@ -55,23 +56,23 @@ session:
 
 ## Acceptance criteria
 
-- [ ] Ledger is append-only `maintenance.jsonl`; `.gitattributes` sets
+- [x] Ledger is append-only `maintenance.jsonl`; `.gitattributes` sets
       `maintenance.jsonl merge=union`.
-- [ ] Two concurrent stamps merge without conflict (union keeps both lines).
-- [ ] `check-ledger.sh` passes iff a `concerns_clear` line's SHA is an
+- [x] Two concurrent stamps merge without conflict (union keeps both lines).
+- [x] `check-ledger.sh` passes iff a `concerns_clear` line's SHA is an
       ancestor of HEAD and `SHA..HEAD` touches only the ledger;
       negative-tested.
-- [ ] `MAINTENANCE.md § Ledger` documents the JSONL format + union + the
+- [x] `MAINTENANCE.md § Ledger` documents the JSONL format + union + the
       stamp-is-append protocol.
-- [ ] `DESIGN.md` tree-map + `check-stray` reflect `maintenance.jsonl` +
+- [x] `DESIGN.md` tree-map + `check-stray` reflect `maintenance.jsonl` +
       `.gitattributes`.
-- [ ] Auto-merge policy documented with the preference order — native host
+- [x] Auto-merge policy documented with the preference order — native host
       auto-merge where available, agent `gh`/`glab` merge as fallback (no
       branch protection); `feat`/`fix`/`refactor` PRs keep user review.
-- [ ] The agent-merge fallback has no branch-protection / native-auto-merge
+- [x] The agent-merge fallback has no branch-protection / native-auto-merge
       dependency, and lapses automatically once native auto-merge is
       available.
-- [ ] The ledger still certifies the delivered content tip (gate preserved).
+- [x] The ledger still certifies the delivered content tip (gate preserved).
 
 ## Constraints
 
@@ -94,3 +95,27 @@ session:
 - This session's PR #10→#11 ledger conflict + #12 close mishap (grounding).
 - `scripts/ci/check-ledger.sh`, `MAINTENANCE.md § Ledger`, `.gitattributes`
   (new), `git-workflow.md § Trunk`/`§ Enforcement`.
+
+## Closure verification (2026-06-18)
+
+One-line evidence per criterion (T-022, T-023 merged):
+
+1. `maintenance.jsonl` is append-only; `.gitattributes` sets
+   `maintenance.jsonl merge=union`. [T-022]
+2. Union is a git built-in driver; the append-only format means
+   concurrent stamps are distinct lines git union-merges — conflict
+   impossible by construction (T-022's stamp appended a 2nd line
+   cleanly). [T-022]
+3. `check-ledger.sh` line-searches the JSONL; positive + two negatives
+   (`concerns_clear:false`; ancestor with non-ledger diff) tested. [T-022]
+4. `MAINTENANCE.md § Ledger (maintenance.jsonl)` documents the JSONL
+   schema + `merge=union` + stamp-is-append. [T-022]
+5. `DESIGN.md` tree-map lists `maintenance.jsonl` + `.gitattributes`;
+   `check-stray` green. [T-022]
+6. `git-workflow.md § Trunk` states the preference order (native gate →
+   agent fallback) + code-PRs-keep-review. [T-023]
+7. The `~/.claude` fallback uses `gh` (no branch protection) and is
+   framed to lapse to native once available; demonstrated by the
+   auto-merged `plan/` PRs this session. [T-023]
+8. `check-ledger` still certifies the delivered content tip (gate
+   semantics preserved, tested). [T-022]
