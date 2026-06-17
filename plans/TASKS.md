@@ -134,7 +134,7 @@ format and closure: `rules/planning.md § Levels`.
       (host-neutral), TBD-shaped from commit one; trim to stay ≤300w.
 - [ ] T-022 (R-010) [refactor]: Merge-friendly ledger — convert
       `maintenance.json` → append-only `maintenance.jsonl` (one JSONL
-      line per stamp: `sha`, `pr`, `reviewed`, `concerns_clear`); add
+      line per stamp: `sha`, `reviewed`, `concerns_clear`); add
       `.gitattributes` (`maintenance.jsonl merge=union`); update
       `check-ledger.sh` to line-search (a `concerns_clear` line whose sha
       is an ancestor of HEAD, `sha..HEAD` touches only the ledger);
