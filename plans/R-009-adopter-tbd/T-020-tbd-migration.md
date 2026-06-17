@@ -26,7 +26,7 @@ companion is routine bookkeeping, folded into the final commit (per the
       '<default>'`) and direct-to-`main` non-scaffold commits; report the
       pattern; state the go-forward CI-gated-PR rule + host gate by reference
       to `git-workflow.md § Trunk`/`§ Enforcement`; no history rewrite.
-- [ ] Add the **Structure** area to the companion: diff tracked `.claude/`
+- [x] Add the **Structure** area to the companion: diff tracked `.claude/`
       vs `project-layout.md`; non-canonical files (e.g. `source-spec.md`) →
       propose move to `references/` or a recorded exception; flag missing
       expected files (`MAINTENANCE.md`) and strays; propose moves (advisory).

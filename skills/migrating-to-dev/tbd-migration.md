@@ -22,3 +22,15 @@ through a short-lived branch + CI-gated PR — never a local merge or a
 direct commit (`git-workflow.md § Trunk`). Enable the host PR gate
 (protected branch + required checks, via `gh`/`glab`; `§ Enforcement`).
 History is migrated forward, never rewritten.
+
+## 2. Structure
+
+Diff tracked `.claude/` against `rules/project-layout.md`:
+
+- **Non-canonical files** — e.g. a `source-spec.md` inside an R-dir.
+  Recommend moving spec/input material to `references/` (its canonical
+  home); the user may instead keep it in place as a recorded exception.
+- **Missing expected files** — e.g. `MAINTENANCE.md`.
+- **Strays** — tracked files outside the canonical layout.
+
+Propose the moves; the user executes them.
