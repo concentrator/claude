@@ -11,7 +11,7 @@ doc PRs — batch/code PRs keep their checkpoint/review (no
 `delegating-to-agents` change). Soft-ordered after T-022 so it rides the
 union ledger, but no hard dependency.
 
-- [ ] Add the auto-merge policy to `git-workflow.md § Trunk`: preference
+- [x] Add the auto-merge policy to `git-workflow.md § Trunk`: preference
       order — (1) native host auto-merge on a green gate where available;
       (2) the operator/agent merges `plan/` PRs as a fallback when the
       host can't gate (no branch protection), confirming the green gate
@@ -21,10 +21,10 @@ union ledger, but no hard dependency.
       to code PRs). Host-neutral (no host hardcode); include the
       `~/.claude` agent-merge mechanic (confirm `tier1` green → `gh pr
       merge`) as the fallback instance.
-- [ ] Reword `finishing-a-branch § 3 Execute` (Push + PR) to reference
+- [x] Reword `finishing-a-branch § 3 Execute` (Push + PR) to reference
       `git-workflow.md § Trunk` for `plan/`-PR auto-merge — net-neutral;
       body stays ≤ 300w (`wc -w`).
-- [ ] Complete the branch: re-review both files for host-neutrality +
+- [x] Complete the branch: re-review both files for host-neutrality +
       consistency, confirm caps, mark the plan complete (incl. the stamp
       checkbox), commit; stamp follows per the ledger protocol; hand off
       to `finishing-a-branch`.

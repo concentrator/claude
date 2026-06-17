@@ -132,7 +132,7 @@ format and closure: `rules/planning.md § Levels`.
 - [x] T-021 (R-009) [feat]: `starting-a-project` — after scaffolding,
       establish `main` as the protected trunk + instruct the PR gate
       (host-neutral), TBD-shaped from commit one; trim to stay ≤300w.
-- [ ] T-022 (R-010) [refactor]: Merge-friendly ledger — convert
+- [x] T-022 (R-010) [refactor]: Merge-friendly ledger — convert
       `maintenance.json` → append-only `maintenance.jsonl` (one JSONL
       line per stamp: `sha`, `reviewed`, `concerns_clear`); add
       `.gitattributes` (`maintenance.jsonl merge=union`); update
@@ -142,7 +142,7 @@ format and closure: `rules/planning.md § Levels`.
       `DESIGN.md` tree-map + `§ Self-enforcement` note; `check-stray`
       accepts the new top-level files. Behavior preserved (still
       certifies the content tip).
-- [ ] T-023 (R-010) [feat]: Auto-merge policy — document in
+- [x] T-023 (R-010) [feat]: Auto-merge policy — document in
       `git-workflow.md § Trunk` the preference order (native host
       auto-merge on a green gate where available; agent `gh`/`glab` merge
       as fallback when no branch protection; `feat`/`fix`/`refactor` PRs
