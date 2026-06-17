@@ -1,6 +1,7 @@
 ---
 approved: 2026-06-16
 kind: feat
+status: done 2026-06-17
 ---
 
 # R-009: Adopter-project TBD migration
@@ -69,23 +70,23 @@ trunk + instruct the PR gate (host-neutral) — TBD-shaped from commit one.
 
 ## Acceptance criteria
 
-- [ ] `migrating-to-dev` detects "fresh" vs "already-DEV, pre-TBD" and routes;
+- [x] `migrating-to-dev` detects "fresh" vs "already-DEV, pre-TBD" and routes;
       fresh behavior unchanged.
-- [ ] Delivery audit reports local-merge and direct-to-`main` non-scaffold
+- [x] Delivery audit reports local-merge and direct-to-`main` non-scaffold
       commits, and states the go-forward CI-gated-PR rule + host gate; no
       `main` history rewritten.
-- [ ] Structure audit diffs `.claude/` against `project-layout.md` and lists
+- [x] Structure audit diffs `.claude/` against `project-layout.md` and lists
       non-canonical files, missing expected files, and strays, with proposed
       moves.
-- [ ] Close/release guidance: closes ride PRs; release flow converted to
+- [x] Close/release guidance: closes ride PRs; release flow converted to
       tag-on-trunk; superseded fork-release plans flagged for archive.
-- [ ] The skill performs no irreversible or host action itself; the user
+- [x] The skill performs no irreversible or host action itself; the user
       executes them.
-- [ ] An already-TBD-conformant project yields a no-op confirmation.
-- [ ] `starting-a-project` establishes a protected trunk + PR gate from day one
+- [x] An already-TBD-conformant project yields a no-op confirmation.
+- [x] `starting-a-project` establishes a protected trunk + PR gate from day one
       (host-neutral).
-- [ ] Host-neutral; the global TBD rules unchanged beyond the `plan/` prefix.
-- [ ] Skill word caps hold (`migrating-to-dev`, `starting-a-project`).
+- [x] Host-neutral; the global TBD rules unchanged beyond the `plan/` prefix.
+- [x] Skill word caps hold (`migrating-to-dev`, `starting-a-project`).
 
 ## Constraints
 
@@ -112,3 +113,26 @@ trunk + instruct the PR gate (host-neutral) — TBD-shaped from commit one.
 - `rules/git-workflow.md § Trunk`, `§ Enforcement`, `§ Releases — tag-on-trunk`.
 - `wallarm-api-js` (grounding: local merges, direct-to-main, `source-spec.md`
   drift, fork-release-branch).
+
+## Closure verification (2026-06-17)
+
+One-line evidence per criterion (T-020, T-021 merged):
+
+1. `migrating-to-dev/SKILL.md` Mode section detects `.claude/plans/ROADMAP.md`
+   → already-DEV vs fresh; fresh sections unchanged. [T-020]
+2. `tbd-migration.md § 1 Delivery` scans `--merges` / `--no-merges
+   --first-parent`; states go-forward CI-gated-PR + host gate; no history
+   rewrite. [T-020]
+3. `tbd-migration.md § 2 Structure` diffs `.claude/` vs `project-layout.md`;
+   non-canonical → `references/` or exception; missing/strays; proposes moves.
+   [T-020]
+4. `tbd-migration.md § 3 Close/release`: closes ride PRs; tag-on-trunk; archive
+   superseded release plans. [T-020]
+5. Advisory framing in the SKILL Mode bullet + companion header (skill
+   plans/reports; user executes irreversible/host steps). [T-020]
+6. SKILL Mode: already-TBD-conformant → "report conformant, no changes". [T-020]
+7. `starting-a-project § 4` establishes a protected trunk + PR gate from day
+   one, host-neutral. [T-021]
+8. Host-neutral (`gh`/`glab`); global TBD rules unchanged (the `plan/` prefix
+   landed separately). [T-020/T-021]
+9. Caps hold: `migrating-to-dev` 297w, `starting-a-project` 296w (≤300). [T-020/T-021]
