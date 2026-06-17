@@ -102,7 +102,9 @@ mandatory final commit, then hands off to merge/PR.
 ## Architecture-changing branches
 
 If header has `architecture-changing: true`, the plan must include a commit
-that updates `DESIGN.md`. Routine branches do not modify `DESIGN.md`.
+that updates `DESIGN.md`. Routine branches do not modify `DESIGN.md` —
+except routine tree-map upkeep (adding a new file to `DESIGN.md § Tree-map`),
+which any branch may fold into its final commit without the flag.
 
 ## Size cap
 
