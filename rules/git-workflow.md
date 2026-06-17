@@ -10,8 +10,14 @@
   chore, plan}, slug ≤ 20 chars. `plan/` is for planning/doc branches
   (initiative create/close, plan edits); the others match the task type.
 - Branches are short-lived and single-owner: merge within a day, two
-  days absolute max; keep ≤ 3 active. PR review and merge stay the
-  user's call.
+  days absolute max; keep ≤ 3 active.
+- **Merge policy.** `feat`/`fix`/`refactor` (code) PRs — review and
+  merge stay the user's call. `plan/` PRs (planning, doc, close-out) —
+  auto-merge on a green gate: native host auto-merge where available
+  (`gh pr merge --auto`, GitLab merge-when-pipeline-succeeds); where the
+  host can't gate (no branch protection), the operator merges once the
+  required checks pass. In `~/.claude` the agent confirms `tier1` green,
+  then `gh pr merge` — this fallback lapses to native once available.
 
 ## Coherent delivery
 
