@@ -34,7 +34,7 @@ companion is routine bookkeeping, folded into the final commit (per the
       convert the release flow to tag-on-trunk (ref `git-workflow.md
       § Releases — tag-on-trunk`); flag fork-release leftovers; archive
       superseded release plans (`planning.md § Archival`).
-- [ ] Wire `SKILL.md` → companion: in the migration-mode branch add the brief
+- [x] Wire `SKILL.md` → companion: in the migration-mode branch add the brief
       pointer to `tbd-migration.md`; confirm advisory framing (skill plans/
       reports; user executes irreversible/host steps; no `main` rewrite).
       Re-check `wc -w` ≤ 300. Touches: SKILL.md.

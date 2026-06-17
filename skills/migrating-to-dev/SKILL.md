@@ -12,8 +12,10 @@ Bring an existing project under DEV. Detect mode by state:
   (steps 1–8 below).
 - **Already-DEV, pre-TBD** — `.claude/plans/ROADMAP.md` present: the
   project has the planning hierarchy but runs the pre-TBD delivery
-  model. Run the TBD migration (`tbd-migration.md`), not steps 1–8. An
-  already-TBD-conformant project → report conformant, no changes.
+  model. Run the TBD migration (`tbd-migration.md`; advisory — it plans
+  and reports, you execute the irreversible/host steps, no `main`
+  rewrite), not steps 1–8. An already-TBD-conformant project → report
+  conformant, no changes.
 
 ## 1. Inventory
 
