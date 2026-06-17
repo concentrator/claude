@@ -24,24 +24,26 @@ reviewer reads the diff against the rule set and confirms four concerns:
   `scripts/ci/check-references.sh` fails once the date is past.
 
 Relationship: `rules/*` define the rules; this Tier-2 review applies
-them to a change and records its verdict in `maintenance.json` (the
-ledger, keyed by commit SHA); the Tier-1 gate
-`scripts/ci/check-ledger.sh` refuses any PR whose head SHA lacks a clear
-ledger entry. The Routine below is the time-based sweep; this is the
-per-change gate.
+them to a change and records its verdict in `maintenance.jsonl` (the
+append-only ledger); the Tier-1 gate `scripts/ci/check-ledger.sh`
+refuses any PR whose head SHA lacks a clear ledger entry. The Routine
+below is the time-based sweep; this is the per-change gate.
 
-### Ledger (`maintenance.json`)
+### Ledger (`maintenance.jsonl`)
 
-A model-free JSON object keyed by commit SHA:
+An append-only JSONL file — one stamp per line, keyed by content-tip SHA:
 
-    { "<content-tip-sha>": { "reviewed": "YYYY-MM-DD", "concerns_clear": true } }
+    {"sha": "<content-tip-sha>", "reviewed": "YYYY-MM-DD", "concerns_clear": true}
+
+`.gitattributes` sets `maintenance.jsonl merge=union`, so concurrent PR
+stamps auto-merge (both lines kept) instead of conflicting.
 
 Protocol: review at the content tip (the last non-ledger commit), then a
-final commit writes the entry for that tip's full SHA, touching only
-`maintenance.json`. `check-ledger.sh` confirms the entry exists with
-`concerns_clear: true`, its SHA is an ancestor of `HEAD`, and the
-`<sha>..HEAD` diff touches only `maintenance.json` — proving the review
-covered exactly the delivered tree.
+final commit **appends** the line for that tip's full SHA, touching only
+`maintenance.jsonl`. `check-ledger.sh` confirms a `concerns_clear` line
+exists whose SHA is an ancestor of `HEAD` and whose `<sha>..HEAD` diff
+touches only `maintenance.jsonl` — proving the review covered exactly the
+delivered tree.
 
 ### Prune dead prose
 
