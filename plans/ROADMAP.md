@@ -48,6 +48,10 @@ Initiative index. Items: `R-001: description`; each entry owns
       concurrent-PR conflicts) + `plan/` PRs auto-merge on a green gate
       (native host where available; agent `gh`/`glab` fallback).
       (approved 2026-06-17)
+- [ ] R-011: Delivery cadence — one branch = one coherent unit of work
+      (topic/session), never one atomic edit; VIBE applies-then-waits and
+      delivers at a work boundary with merge confirmation; topic-switch
+      flagging; DEV inherits the principle. (approved 2026-06-19)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
