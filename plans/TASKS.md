@@ -149,3 +149,13 @@ format and closure: `rules/planning.md § Levels`.
       keep user review) + the agent-merge fallback step (confirm `tier1`
       green → `gh pr merge`); host-neutral; lapses to native when
       available.
+- [ ] T-024 (R-011) [feat]: Delivery cadence rule — concise operative
+      cadence in `CLAUDE.md § Session Workflow` (always-loaded:
+      apply → wait → deliver at a work boundary, confirm merge first;
+      unrelated edit → flag + ask to deliver the current branch first) +
+      the full rule in `git-workflow.md` (one branch = one coherent unit
+      of work, never one atomic edit; no MR-per-change; host-neutral;
+      within short-lived / ≤3-active / merge-within-a-day); DEV inherits
+      the principle (gates unchanged); update the `migrating-to-dev`
+      `tbd-migration.md` companion to deliver structure-reconcile as one
+      MR. One coherent branch (dogfoods R-011).
