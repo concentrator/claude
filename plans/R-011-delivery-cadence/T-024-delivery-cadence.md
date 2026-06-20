@@ -23,7 +23,7 @@ topic-switch prompt lives in the cadence rule, not `finishing-a-branch`
       deliver the current branch first; DEV inherits the principle
       (task/batch + finishing-a-branch / auto-merge gates unchanged);
       within short-lived / ≤3-active / merge-within-a-day. Host-neutral.
-- [ ] Add a concise operative cadence to `CLAUDE.md § Session Workflow`
+- [x] Add a concise operative cadence to `CLAUDE.md § Session Workflow`
       (always-loaded): apply → wait → deliver at a boundary + confirm;
       unrelated edit → flag + ask; pointer to `git-workflow.md` for the
       full rule. Verify `wc -w CLAUDE.md` ≤ 400.
