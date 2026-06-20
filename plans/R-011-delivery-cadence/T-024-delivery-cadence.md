@@ -27,7 +27,7 @@ topic-switch prompt lives in the cadence rule, not `finishing-a-branch`
       (always-loaded): apply → wait → deliver at a boundary + confirm;
       unrelated edit → flag + ask; pointer to `git-workflow.md` for the
       full rule. Verify `wc -w CLAUDE.md` ≤ 400.
-- [ ] Update `skills/migrating-to-dev/tbd-migration.md` — the
+- [x] Update `skills/migrating-to-dev/tbd-migration.md` — the
       structure-reconcile area delivers its fixes as one MR (not one per
       change), per the cadence rule.
 - [ ] Complete the branch: re-review across commits; run

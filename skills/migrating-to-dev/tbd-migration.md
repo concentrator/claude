@@ -33,7 +33,8 @@ Diff tracked `.claude/` against `rules/project-layout.md`:
 - **Missing expected files** — e.g. `MAINTENANCE.md`.
 - **Strays** — tracked files outside the canonical layout.
 
-Propose the moves; the user executes them.
+Propose the moves; the user executes them — delivered as one coherent MR
+(not one per file), per `git-workflow.md § Delivery cadence`.
 
 ## 3. Close/release
 
