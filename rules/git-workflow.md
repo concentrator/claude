@@ -1,5 +1,9 @@
 # Git workflow
 
+**Terminology** — a change request is a **PR** on GitHub, an **MR** on
+GitLab; before git init, default to PR. One term per repo (this repo:
+GitHub → PR).
+
 ## Trunk
 
 - `main` is the single trunk: protected and always releasable. No other
@@ -61,7 +65,7 @@ Examples:
 - BAD: `Fix period chrome shadowing the logo; anchor via .container::before`
 - BAD: `Add slide--st03-multi--dense modifier toggled by tenant count for 9+ tenants`
 
-## MR / PR messages
+## PR messages
 
 **Title** — commit-subject style (imperative, ~50 chars, WHAT not how).
 **Body** — a short summary (what changed + why) + a test plan: the
