@@ -149,7 +149,7 @@ format and closure: `rules/planning.md § Levels`.
       keep user review) + the agent-merge fallback step (confirm `tier1`
       green → `gh pr merge`); host-neutral; lapses to native when
       available.
-- [ ] T-024 (R-011) [feat]: Delivery cadence rule — concise operative
+- [x] T-024 (R-011) [feat]: Delivery cadence rule — concise operative
       cadence in `CLAUDE.md § Session Workflow` (always-loaded:
       apply → wait → deliver at a work boundary, confirm merge first;
       unrelated edit → flag + ask to deliver the current branch first) +

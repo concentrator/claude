@@ -15,7 +15,7 @@ agent follows it reflexively. The CLAUDE.md edit is approval-gated
 topic-switch prompt lives in the cadence rule, not `finishing-a-branch`
 (which stays at its 299/300w cap).
 
-- [ ] Add the delivery-cadence rule to `git-workflow.md` (§ Coherent
+- [x] Add the delivery-cadence rule to `git-workflow.md` (§ Coherent
       delivery, or a new § Delivery cadence): one branch = one coherent
       unit of work (topic/session), never one atomic edit; no
       MR-per-change; VIBE applies → waits → delivers at a work boundary,
@@ -23,14 +23,14 @@ topic-switch prompt lives in the cadence rule, not `finishing-a-branch`
       deliver the current branch first; DEV inherits the principle
       (task/batch + finishing-a-branch / auto-merge gates unchanged);
       within short-lived / ≤3-active / merge-within-a-day. Host-neutral.
-- [ ] Add a concise operative cadence to `CLAUDE.md § Session Workflow`
+- [x] Add a concise operative cadence to `CLAUDE.md § Session Workflow`
       (always-loaded): apply → wait → deliver at a boundary + confirm;
       unrelated edit → flag + ask; pointer to `git-workflow.md` for the
       full rule. Verify `wc -w CLAUDE.md` ≤ 400.
-- [ ] Update `skills/migrating-to-dev/tbd-migration.md` — the
+- [x] Update `skills/migrating-to-dev/tbd-migration.md` — the
       structure-reconcile area delivers its fixes as one MR (not one per
       change), per the cadence rule.
-- [ ] Complete the branch: re-review across commits; run
+- [x] Complete the branch: re-review across commits; run
       `bash scripts/ci/run-all.sh` green; mark the plan complete + T-024
       `[x]` in `TASKS.md` (rides this PR); triage findings; commit. Stamp
       follows per the ledger protocol; hand off to `finishing-a-branch`
