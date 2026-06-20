@@ -15,7 +15,7 @@ agent follows it reflexively. The CLAUDE.md edit is approval-gated
 topic-switch prompt lives in the cadence rule, not `finishing-a-branch`
 (which stays at its 299/300w cap).
 
-- [ ] Add the delivery-cadence rule to `git-workflow.md` (§ Coherent
+- [x] Add the delivery-cadence rule to `git-workflow.md` (§ Coherent
       delivery, or a new § Delivery cadence): one branch = one coherent
       unit of work (topic/session), never one atomic edit; no
       MR-per-change; VIBE applies → waits → delivers at a work boundary,

@@ -32,6 +32,23 @@ half-wired). Keep incomplete work coherent without a long-lived branch:
 The delivery unit — one or more coupled tasks shipped as one PR — is the
 **batch** (`branch-plan.md § Agentic execution`).
 
+## Delivery cadence
+
+One branch = one coherent unit of work (a topic or work-session), never
+one atomic edit. Don't open or merge a PR per change.
+
+VIBE: apply the change, then wait — no reflexive branch → PR → merge.
+Related edits accumulate on the working branch; deliver (open the PR +
+merge) at a work boundary — when the user moves to unrelated work or says
+to wrap up — confirming the merge first. An edit unrelated to the current
+branch's topic → flag it and ask whether to deliver the current branch
+before starting fresh.
+
+DEV inherits the principle: a branch carries its task/batch, and delivery
+timing follows `branch-plan.md § Agentic execution` + `finishing-a-branch`.
+Always within the short-lived / ≤ 3 active / merge-within-a-day bounds
+above.
+
 ## Commit messages
 
 Single-line, ~50 chars / 6-8 words, subject only. No semicolons joining
