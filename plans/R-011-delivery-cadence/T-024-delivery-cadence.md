@@ -30,7 +30,7 @@ topic-switch prompt lives in the cadence rule, not `finishing-a-branch`
 - [x] Update `skills/migrating-to-dev/tbd-migration.md` — the
       structure-reconcile area delivers its fixes as one MR (not one per
       change), per the cadence rule.
-- [ ] Complete the branch: re-review across commits; run
+- [x] Complete the branch: re-review across commits; run
       `bash scripts/ci/run-all.sh` green; mark the plan complete + T-024
       `[x]` in `TASKS.md` (rides this PR); triage findings; commit. Stamp
       follows per the ledger protocol; hand off to `finishing-a-branch`
