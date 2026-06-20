@@ -1,5 +1,9 @@
 # Git workflow
 
+**Terminology** — a change request is a **PR** on GitHub, an **MR** on
+GitLab; before git init, default to PR. One term per repo (this repo:
+GitHub → PR).
+
 ## Trunk
 
 - `main` is the single trunk: protected and always releasable. No other
@@ -61,17 +65,17 @@ Examples:
 - BAD: `Fix period chrome shadowing the logo; anchor via .container::before`
 - BAD: `Add slide--st03-multi--dense modifier toggled by tenant count for 9+ tenants`
 
-## MR / PR messages
+## PR messages
 
-Unlike commits, an MR carries a body. **Title**: commit-subject style
-(imperative, ~50 chars, WHAT not how). **Body**: a short summary (what
-changed and why — prose or bullets) and a test plan (what was run, or
-how to verify). Scannable, not a wall of text.
+**Title** — commit-subject style (imperative, ~50 chars, WHAT not how).
+**Body** — a short summary (what changed + why) + a test plan: the
+checks that matter to verify (manual / non-obvious), not a paste of CI
+output; the standard pipeline (tests + lint) is one line — CI reports the
+detail. Scannable, not a wall of text.
 
 - No agent attribution, "Generated with…", or Co-Authored-By trailers.
-- Per `CLAUDE.md § Audience visibility`: no gitignored paths, internal
-  ticket IDs, or references to the working conversation. Link issues
-  only if the reader can open them.
+- Audience visibility (`CLAUDE.md`): no gitignored paths, internal ticket
+  IDs, or conversation references; link issues only if openable.
 
 ## Releases — tag-on-trunk
 
