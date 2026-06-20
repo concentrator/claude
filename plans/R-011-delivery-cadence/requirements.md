@@ -1,6 +1,7 @@
 ---
 approved: 2026-06-19
 kind: feat
+status: done 2026-06-20
 ---
 
 # R-011: Delivery cadence — coherent units, not atomic MRs
@@ -48,15 +49,15 @@ delivers reflexively — noisy, over-atomic history and premature merges.
 
 ## Acceptance criteria
 
-- [ ] `git-workflow.md` states the coherent-unit rule (one branch = one
+- [x] `git-workflow.md` states the coherent-unit rule (one branch = one
       unit, never one atomic edit; no MR-per-change).
-- [ ] VIBE cadence documented (apply → wait → deliver at a boundary,
+- [x] VIBE cadence documented (apply → wait → deliver at a boundary,
       confirm merge first).
-- [ ] Topic-switch behavior documented (unrelated edit → flag + ask to
+- [x] Topic-switch behavior documented (unrelated edit → flag + ask to
       deliver current branch first).
-- [ ] DEV explicitly inherits the principle without changing its gates.
-- [ ] `tbd-migration` companion delivers structure-reconcile as one MR.
-- [ ] Cadence stays within short-lived / ≤3-active / merge-within-a-day.
+- [x] DEV explicitly inherits the principle without changing its gates.
+- [x] `tbd-migration` companion delivers structure-reconcile as one MR.
+- [x] Cadence stays within short-lived / ≤3-active / merge-within-a-day.
 
 ## Constraints
 
@@ -75,3 +76,23 @@ delivers reflexively — noisy, over-atomic history and premature merges.
 - `git-workflow.md § Trunk` / coherent delivery; `branch-plan.md
   § Agentic execution` (batch = unit of delivery).
 - R-009 (`tbd-migration`, which produced the atomic MRs).
+
+## Closure verification (2026-06-20)
+
+One-line evidence per criterion (T-024 merged):
+
+1. `git-workflow.md § Delivery cadence`: one branch = one coherent unit,
+   never one atomic edit; no PR-per-change. [T-024]
+2. Same section: VIBE apply → wait → deliver at a work boundary, confirm
+   merge first. [T-024]
+3. Same section: an unrelated edit → flag + ask to deliver the current
+   branch first. [T-024]
+4. Same section: DEV inherits the principle; task/batch +
+   finishing-a-branch / auto-merge gates unchanged. [T-024]
+5. `tbd-migration.md § 2 Structure`: moves delivered as one coherent MR
+   (not one per file). [T-024]
+6. Cadence stated as within short-lived / ≤3-active / merge-within-a-day.
+   [T-024]
+
+(`CLAUDE.md § Session Workflow` carries the always-loaded operative
+pointer to the full rule.)
