@@ -56,6 +56,11 @@ Initiative index. Items: `R-001: description`; each entry owns
       not verbatim phrasing; conventional terminology, no coined jargon;
       all output) + consolidate the anti-transplant bullets + a Tier-2
       review gate. (approved 2026-06-23)
+- [ ] R-013: JS file-naming convention — `rules/js.md` defines kebab-case
+      (PascalCase for a class/component file matching its export;
+      tool-mandated names exempt) + a copyable CI kebab-or-PascalCase
+      filename check; no-MAINTENANCE.md behavior documented.
+      (approved 2026-06-23)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
