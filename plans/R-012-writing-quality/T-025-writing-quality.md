@@ -25,7 +25,7 @@ principle + the one-line before/after example fit, else drop the example
       instructions only … never transplant conversational wording"
       bullet to keep only "rationale belongs in requirements/DESIGN" and
       point to `CLAUDE.md § Writing` (no duplication). Verify ≤ 200 lines.
-- [ ] Consolidate `rules/skills.md § Content`: same treatment on the
+- [x] Consolidate `rules/skills.md § Content`: same treatment on the
       matching bullet; point to `CLAUDE.md § Writing`.
 - [ ] Add the Tier-2 gate to `MAINTENANCE.md § Tier-2 AI review`
       (`### Prune dead prose`): flag transplanted/verbatim phrasing and
