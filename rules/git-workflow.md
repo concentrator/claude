@@ -10,14 +10,28 @@ GitHub → PR).
   long-lived branches.
 - Every change reaches `main` through a short-lived branch and a
   **CI-gated PR**. Never push to `main`; never merge to `main` locally.
-- Branch name `<prefix>/<slug>`, prefix ∈ {feat, fix, refactor, release,
-  chore, plan}, slug ≤ 20 chars. `plan/` is for planning/doc branches
-  (initiative create/close, plan edits); the others match the task type.
+- Branch name `<prefix>/<slug>`, kebab-case, slug ≤ 20 chars. Prefix ∈
+  {feat, fix, refactor, release, doc, test, mnt, plan}:
+  - `feat` / `fix` / `refactor` / `release` — code, matching the change
+    type.
+  - `doc` — documentation and operative prose (README, CHANGELOG,
+    comments, `rules/`, `skills/`, `CLAUDE.md`); not planning artifacts.
+  - `test` — test additions or changes (automated or manual harness).
+  - `mnt` — repo maintenance (CI, scripts, hooks, settings, dependencies).
+  - `plan` — planning artifacts (ROADMAP, requirements, tasks, branch
+    plans).
+- Slug: code / `doc` / `test` / `mnt` branches carry no id (it lives in
+  the plan file + PR); `plan/` branches reference the initiative —
+  `plan/r<NNN>-<action>` (R-id, full three digits: `r014`, never `r12`;
+  action e.g. `open` / `tasks` / `close`). A task's branch-plan uses the
+  task id: `plan/t<NNN>-plan`. Multiple initiatives list ids:
+  `plan/r014-r015-tasks`.
 - Branches are short-lived and single-owner: merge within a day, two
   days absolute max; keep ≤ 3 active.
-- **Merge policy.** `feat`/`fix`/`refactor` (code) PRs — review and
-  merge stay the user's call. `plan/` PRs (planning, doc, close-out) —
-  auto-merge on a green gate: native host auto-merge where available
+- **Merge policy.** Only `plan/` PRs (planning artifacts) auto-merge;
+  every other prefix — `feat`/`fix`/`refactor`/`release`/`doc`/`test`/
+  `mnt` — keeps review and merge as the user's call. Auto-merge runs on a
+  green gate: native host auto-merge where available
   (`gh pr merge --auto`, GitLab merge-when-pipeline-succeeds); where the
   host can't gate (no branch protection), the operator merges once the
   required checks pass. In `~/.claude` the agent confirms `tier1` green,

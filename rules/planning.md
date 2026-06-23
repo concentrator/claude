@@ -80,8 +80,8 @@ or other project directories.
   roadmap entry subject, is fixed at creation, and is never renamed on
   roadmap rewording.
 - Branch plans are task-id-prefixed (`T-XXX-<slug>.md`); findings sit
-  beside as `T-XXX-<slug>.findings.md`. Branch names stay
-  `<prefix>/<slug>` — no id in git refs.
+  beside as `T-XXX-<slug>.findings.md`. Branch names: code branches carry
+  no id; `plan/` branches reference the R/T id (`git-workflow.md`).
 - `R-XXX-<slug>/batches/` is created with the R's first batch
   manifest; batches are scoped to that single R (`branch-plan.md
   § Batches`).
