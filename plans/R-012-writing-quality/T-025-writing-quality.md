@@ -14,7 +14,7 @@ approval before that commit. CLAUDE.md has ~122w free (≤400); the
 principle + the one-line before/after example fit, else drop the example
 (keep the principle).
 
-- [ ] Add a `## Writing` rule to `CLAUDE.md` (writing-rule family, near
+- [x] Add a `## Writing` rule to `CLAUDE.md` (writing-rule family, near
       § Verify before stating / § Communication): convey the user's
       intent, not their verbatim phrasing; write in the context's
       conventional terminology; prefer established terms over coined
