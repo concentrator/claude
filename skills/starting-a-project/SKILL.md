@@ -31,7 +31,7 @@ Files:
 - `/init` → project `CLAUDE.md`.
 - `README.md` (verify or stub).
 - `.gitignore` — `.claude/settings.local.json`, secrets, build artifacts.
-- `.claude/plans/` with `ROADMAP.md` and `TASKS.md`.
+- `.claude/plans/` with `ROADMAP.md` (per-R `tasks.md` is lazy).
 - Project `CLAUDE.md`: stack, base branch, build/test/lint. Don't restate
   global rules.
 

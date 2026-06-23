@@ -40,10 +40,10 @@ stays `[ ]`; ask whether to keep the plan file.
 ## 4. Post-merge bookkeeping (on default branch)
 
 Auto mode: step 1 runs in the batch close phase (branch-plan.md
-§ Batches); after the batch PR merges, run steps 2–5 (member refs went
-at accept).
+§ Batches); after the batch PR merges, run steps 2–5.
 
-1. Mark `T-XXX` `[x]` in `.claude/plans/TASKS.md`.
+1. Mark `T-XXX` `[x]` in the parent R's
+   `.claude/plans/R-XXX-<slug>/tasks.md`.
 2. If the parent `R-XXX`'s tasks are all `[x]`, run the closure check
    (`planning.md § Approval and closure`): verified → mark `R-XXX`
    `[x]` in `ROADMAP.md`; pending → R stays open.
