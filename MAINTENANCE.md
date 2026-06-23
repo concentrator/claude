@@ -55,8 +55,10 @@ sentence the diff adds or touches against three gates —
 3. Would behavior change if it were removed?
 
 Fail any gate → cut it and propose the fix. This catches transplanted
-conversational framing, rationale that belongs in requirements/DESIGN,
-and rules that merely restate a default.
+verbatim phrasing, coined or idiosyncratic terms where a standard one
+exists, rationale that belongs in requirements/DESIGN, and rules that
+merely restate a default — replace with the conventional wording
+(`CLAUDE.md § Writing`).
 
 ## Routine
 

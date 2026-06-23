@@ -27,7 +27,7 @@ principle + the one-line before/after example fit, else drop the example
       point to `CLAUDE.md § Writing` (no duplication). Verify ≤ 200 lines.
 - [x] Consolidate `rules/skills.md § Content`: same treatment on the
       matching bullet; point to `CLAUDE.md § Writing`.
-- [ ] Add the Tier-2 gate to `MAINTENANCE.md § Tier-2 AI review`
+- [x] Add the Tier-2 gate to `MAINTENANCE.md § Tier-2 AI review`
       (`### Prune dead prose`): flag transplanted/verbatim phrasing and
       idiosyncratic/coined terms, proposing the conventional wording;
       cross-reference `CLAUDE.md § Writing`. Domain-neutral (no
