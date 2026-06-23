@@ -159,3 +159,18 @@ format and closure: `rules/planning.md § Levels`.
       the principle (gates unchanged); update the `migrating-to-dev`
       `tbd-migration.md` companion to deliver structure-reconcile as one
       MR. One coherent branch (dogfoods R-011).
+- [ ] T-025 (R-012) [feat]: Writing-quality rule — add a global
+      `## Writing` rule to `CLAUDE.md` (convey intent, not verbatim
+      phrasing; the context's conventional terminology; established terms
+      over coined jargon; applies to all output); consolidate the
+      `claude-md.md`/`skills.md` anti-transplant bullets into it (keep
+      only "rationale → requirements/DESIGN", point to `§ Writing`); add
+      a Tier-2 review gate in `MAINTENANCE.md` flagging transplanted
+      phrasing + coined terms. One coherent branch.
+- [ ] T-026 (R-013) [feat]: JS file-naming — add the file-naming
+      convention to `rules/js.md` (kebab-case default; PascalCase for a
+      file whose primary export is a class/component, matching the
+      export; `*.config.js`/dotfiles exempt) + a copyable CI check (each
+      `*.js`/`.mjs`/`.cjs`/`.jsx` filename kebab-or-PascalCase, exempt
+      patterns ignored; PascalCase⇒class-export is review-level) +
+      document the no-`MAINTENANCE.md` behavior. One coherent branch.
