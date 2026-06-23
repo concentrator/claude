@@ -14,7 +14,7 @@ not wired into `run-all.sh` (~no JS here). Not architecture-changing.
       dotfiles exempt. State that the PascalCase ⇒ matching-class-export
       correspondence is review-level (Tier-2 Compliance), not mechanical.
       Go-forward (no renames).
-- [ ] Add the copyable CI-check example to `rules/js.md`: a portable bash
+- [x] Add the copyable CI-check example to `rules/js.md`: a portable bash
       glob over `git ls-files '*.js' '*.mjs' '*.cjs' '*.jsx'` that
       validates the **first dot-delimited segment** of each basename is
       kebab-case or PascalCase — so `next.config.js`→`next`,
