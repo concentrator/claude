@@ -21,7 +21,7 @@ principle + the one-line before/after example fit, else drop the example
       jargon; applies to all output. Include a one-line before/after
       example (the Controller case). **Approval-gated** — show the
       wording, get OK before committing. Verify `wc -w` ≤ 400.
-- [ ] Consolidate `rules/claude-md.md § Content`: reduce the "Operative
+- [x] Consolidate `rules/claude-md.md § Content`: reduce the "Operative
       instructions only … never transplant conversational wording"
       bullet to keep only "rationale belongs in requirements/DESIGN" and
       point to `CLAUDE.md § Writing` (no duplication). Verify ≤ 200 lines.
