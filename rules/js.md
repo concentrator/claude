@@ -44,3 +44,8 @@ done < <(git ls-files '*.js' '*.mjs' '*.cjs' '*.jsx')
 (( fail == 0 )) && echo "check-js-naming: OK"
 exit $fail
 ```
+
+Without CI or `MAINTENANCE.md` the convention still holds — it's a rule
+that applies whenever JS is edited. The check above is wired where the
+project has CI; `migrating-to-dev` / `starting-a-project` seed it during
+adoption. Absent that, the convention is advisory.

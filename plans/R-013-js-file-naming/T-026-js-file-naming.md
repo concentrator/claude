@@ -21,7 +21,7 @@ not wired into `run-all.sh` (~no JS here). Not architecture-changing.
       `foo.test.js`→`foo`, `ClientScope.js`→`ClientScope` all pass with
       no exemption list; dotfiles skipped; rejects camelCase/snake_case/
       mixed. Styled after `scripts/ci/check-stray.sh`. Mark illustrative.
-- [ ] Add the no-`MAINTENANCE.md` note to `rules/js.md`: the convention
+- [x] Add the no-`MAINTENANCE.md` note to `rules/js.md`: the convention
       is a rule (always applies when editing JS); CI enforcement is wired
       where the project has CI / `MAINTENANCE.md`, seeded by the adopter
       flow (`migrating-to-dev` / `starting-a-project`); else advisory.
