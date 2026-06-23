@@ -159,7 +159,7 @@ format and closure: `rules/planning.md § Levels`.
       the principle (gates unchanged); update the `migrating-to-dev`
       `tbd-migration.md` companion to deliver structure-reconcile as one
       MR. One coherent branch (dogfoods R-011).
-- [ ] T-025 (R-012) [feat]: Writing-quality rule — add a global
+- [x] T-025 (R-012) [feat]: Writing-quality rule — add a global
       `## Writing` rule to `CLAUDE.md` (convey intent, not verbatim
       phrasing; the context's conventional terminology; established terms
       over coined jargon; applies to all output); consolidate the

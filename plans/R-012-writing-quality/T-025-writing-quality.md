@@ -32,7 +32,7 @@ principle + the one-line before/after example fit, else drop the example
       idiosyncratic/coined terms, proposing the conventional wording;
       cross-reference `CLAUDE.md § Writing`. Domain-neutral (no
       banned-word list).
-- [ ] Complete the branch: re-review across commits, confirm
+- [x] Complete the branch: re-review across commits, confirm
       cross-references resolve (§ Writing ↔ the two bullets ↔ the gate)
       and nothing is duplicated, `run-all` + caps green; mark the plan
       complete; stamp follows per the ledger protocol; hand off to
