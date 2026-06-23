@@ -25,6 +25,6 @@ not wired into `run-all.sh` (~no JS here). Not architecture-changing.
       is a rule (always applies when editing JS); CI enforcement is wired
       where the project has CI / `MAINTENANCE.md`, seeded by the adopter
       flow (`migrating-to-dev` / `starting-a-project`); else advisory.
-- [ ] Complete the branch: re-review, `check-caps` + `run-all` green,
+- [x] Complete the branch: re-review, `check-caps` + `run-all` green,
       mark the plan complete; stamp follows per the ledger protocol; hand
       off to `finishing-a-branch` (feat → user review + merge).
