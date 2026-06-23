@@ -61,6 +61,11 @@ Initiative index. Items: `R-001: description`; each entry owns
       tool-mandated names exempt) + a copyable CI kebab-or-PascalCase
       filename check; no-MAINTENANCE.md behavior documented.
       (approved 2026-06-23)
+- [ ] R-014: Per-initiative task indexes — deprecate flat `plans/TASKS.md`;
+      each R-dir owns a lazily-created `tasks.md` (global T-ids retained;
+      ROADMAP stays the cross-R index); update rules/skills/check +
+      self-migrate this repo + add the `migrating-to-dev` split step.
+      (approved 2026-06-23)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
