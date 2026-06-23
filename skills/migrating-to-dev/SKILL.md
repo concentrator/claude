@@ -52,9 +52,10 @@ existing config. If user defers any item, record
 
 ## 6. Backfill plans
 
-Create `.claude/plans/` with `ROADMAP.md`, `TASKS.md`. Ask user about
-ongoing work → initiatives (R-XXX) and open tasks (T-XXX). Known bugs
-or tech debt → R stubs per `~/.claude/rules/planning.md
+Create `.claude/plans/` with `ROADMAP.md` (per-R `tasks.md`, created
+lazily). Ask about ongoing work → initiatives (R-XXX) and open tasks
+(T-XXX) in their R's `tasks.md`.
+Known bugs or tech debt → R stubs per `~/.claude/rules/planning.md
 § Referential integrity`.
 
 ## 7. Commit
@@ -64,5 +65,4 @@ exception (`git-workflow.md`); separate commits per category.
 
 ## 8. Next
 
-Propose: pick a `T-XXX` from `TASKS.md` → `/dev plan T-XXX` to start a
-branch plan.
+Propose a `T-XXX` from a per-R `tasks.md` → `/dev plan T-XXX`.
