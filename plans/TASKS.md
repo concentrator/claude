@@ -167,7 +167,7 @@ format and closure: `rules/planning.md § Levels`.
       only "rationale → requirements/DESIGN", point to `§ Writing`); add
       a Tier-2 review gate in `MAINTENANCE.md` flagging transplanted
       phrasing + coined terms. One coherent branch.
-- [ ] T-026 (R-013) [feat]: JS file-naming — add the file-naming
+- [x] T-026 (R-013) [feat]: JS file-naming — add the file-naming
       convention to `rules/js.md` (kebab-case default; PascalCase for a
       file whose primary export is a class/component, matching the
       export; `*.config.js`/dotfiles exempt) + a copyable CI check (each
