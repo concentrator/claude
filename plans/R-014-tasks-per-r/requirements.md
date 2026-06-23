@@ -1,6 +1,7 @@
 ---
 approved: 2026-06-23
 kind: refactor
+status: done 2026-06-23
 ---
 
 # R-014: Per-initiative task indexes
@@ -89,3 +90,27 @@ tasks.md. Global monotonic T-ids are kept, relocated into the owning R's
   `branch-plan.md`.
 - `scripts/ci/check-plan-integrity.sh`.
 - R-009 (`migrating-to-dev` adopter flow — gains the split step).
+
+## Closure verification (2026-06-23)
+
+One-line evidence per criterion (T-027 merged, PR #38):
+
+1. Each R-dir with tasks has a `tasks.md` (same one-line format +
+   checkbox), created lazily; root `plans/TASKS.md` removed — 11 per-R
+   files, flat file gone. [T-027]
+2. `planning.md` / `project-layout.md` / `branch-plan.md` describe per-R
+   `tasks.md`; zero `TASKS.md` references remain in the three files.
+   [T-027]
+3. T-ids stay global + monotonic; next free id = max across per-R
+   `tasks.md` (now T-028), documented in `planning.md § Levels`. [T-027]
+4. `check-plan-integrity.sh` reads every `plans/R-*/tasks.md` and is
+   green on the migrated tree (task→owning R, branch-plan refs, no
+   duplicate ids). [T-027]
+5. `finishing-a-branch` §4 marks `T-XXX [x]` in the parent R's
+   `tasks.md`. [T-027]
+6. `migrating-to-dev` (`tbd-migration.md § 2`) documents the flat
+   `TASKS.md` → per-R split as a structure-reconcile step. [T-027]
+7. All 27 task lines (T-001..T-027, incl. closed) migrated with status
+   preserved; `run-all` green. [T-027]
+8. `DESIGN.md` tree-map updated (per-R `tasks.md`; root node removed).
+   [T-027]
