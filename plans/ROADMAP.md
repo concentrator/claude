@@ -52,7 +52,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       (topic/session), never one atomic edit; VIBE applies-then-waits and
       delivers at a work boundary with merge confirmation; topic-switch
       flagging; DEV inherits the principle. (approved 2026-06-19)
-- [ ] R-012: Writing quality — global `## Writing` rule (convey intent,
+- [x] R-012: Writing quality — global `## Writing` rule (convey intent,
       not verbatim phrasing; conventional terminology, no coined jargon;
       all output) + consolidate the anti-transplant bullets + a Tier-2
       review gate. (approved 2026-06-23)

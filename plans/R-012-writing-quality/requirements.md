@@ -1,6 +1,7 @@
 ---
 approved: 2026-06-23
 kind: feat
+status: done 2026-06-23
 ---
 
 # R-012: Writing quality — idiomatic terminology, no verbatim transplant
@@ -48,15 +49,15 @@ across all output.
 
 ## Acceptance criteria
 
-- [ ] CLAUDE.md has a `## Writing` rule (convey intent not verbatim
+- [x] CLAUDE.md has a `## Writing` rule (convey intent not verbatim
       phrasing; idiomatic, conventional terminology; established terms
       over coined jargon; applies to all output).
-- [ ] `claude-md.md`/`skills.md` anti-transplant bullets consolidated —
+- [x] `claude-md.md`/`skills.md` anti-transplant bullets consolidated —
       retain only "rationale belongs in requirements/DESIGN" and
       reference `CLAUDE.md § Writing` (no duplication).
-- [ ] `MAINTENANCE.md` Tier-2 review gains a gate flagging transplanted
+- [x] `MAINTENANCE.md` Tier-2 review gains a gate flagging transplanted
       phrasing + idiosyncratic/coined terms, proposing standard wording.
-- [ ] CLAUDE.md ≤ 400w; skills within caps.
+- [x] CLAUDE.md ≤ 400w; skills within caps.
 
 ## Constraints
 
@@ -77,3 +78,17 @@ across all output.
 - CLAUDE.md § Code Comments / § Audience visibility / § Verify before
   stating (the writing-rule family).
 - `MAINTENANCE.md § Tier-2 AI review` (the gate).
+
+## Closure verification (2026-06-23)
+
+One-line evidence per criterion (T-025 merged):
+
+1. `CLAUDE.md § Writing`: convey intent not verbatim phrasing; idiomatic
+   conventional terminology; established terms over coined jargon; all
+   output. [T-025]
+2. `claude-md.md`/`skills.md` "operative instructions" bullets keep only
+   "rationale → requirements/DESIGN" and point to `§ Writing`. [T-025]
+3. `MAINTENANCE.md` prune-dead-prose gate flags verbatim phrasing +
+   coined/idiosyncratic terms, proposing the conventional wording. [T-025]
+4. CLAUDE.md 339w (≤400); claude-md.md ≤200 lines; skills within caps.
+   [T-025]
