@@ -4,7 +4,7 @@ Task index for this initiative. Items:
 `T-001 (R-001) [feat|fix|refactor]: description` — format and closure:
 `rules/planning.md § Levels`. Cross-R index: `plans/ROADMAP.md`.
 
-- [ ] T-027 (R-014) [refactor]: Per-initiative task indexes — deprecate
+- [x] T-027 (R-014) [refactor]: Per-initiative task indexes — deprecate
       flat `plans/TASKS.md`; define per-R `tasks.md` (lazy) in
       `planning.md` / `project-layout.md` / `branch-plan.md` + `DESIGN.md`
       tree-map; update `check-plan-integrity.sh` to read per-R `tasks.md`
