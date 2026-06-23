@@ -37,9 +37,9 @@ read or edit.
 - **Concrete paths and commands.** No placeholders, no TBDs.
 - **Every step earns its place.** If skipping a step wouldn't change outcomes,
   delete it.
-- **Operative instructions only.** State the WHAT, not the why. Never transplant
-  conversational wording or justifications from a discussion into the skill —
-  rationale belongs in requirements/DESIGN.
+- **Operative instructions only.** State the WHAT, not the why — rationale
+  belongs in requirements/DESIGN. (Phrasing and terminology:
+  `CLAUDE.md § Writing`.)
 
 ## What doesn't work — avoid
 
