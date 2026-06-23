@@ -32,6 +32,10 @@ Diff tracked `.claude/` against `rules/project-layout.md`:
   home); the user may instead keep it in place as a recorded exception.
 - **Missing expected files** — e.g. `MAINTENANCE.md`.
 - **Strays** — tracked files outside the canonical layout.
+- **Flat `TASKS.md`** — a pre-R-014 single `plans/TASKS.md` task index.
+  Recommend splitting it into per-R `tasks.md` (each task moved to its
+  owning `R-XXX-<slug>/tasks.md`, status preserved), then removing the
+  flat file; T-ids stay global.
 
 Propose the moves; the user executes them — delivered as one coherent PR
 (not one per file), per `git-workflow.md § Delivery cadence`.

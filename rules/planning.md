@@ -18,10 +18,15 @@ doesn't already cover.
    carries the initiative's motivation, goals, and acceptance
    criteria (template: planning-templates.md). Closure: see § Approval
    and closure.
-2. **Tasks** — `.claude/plans/TASKS.md`. Concrete units of work. Items:
+2. **Tasks** — `.claude/plans/R-XXX-<slug>/tasks.md`, one index per
+   initiative, created lazily with the R's first task (an R with no tasks
+   has none). Concrete units of work. Items:
    `T-001 (R-001) [feat]: description` — the tag in brackets
    (`[feat] | [fix] | [refactor]`) declares task type and determines the
    branch prefix. Checkbox closes only when the task's branch is merged.
+   T-ids are global and monotonic; the next free id is the highest T-id
+   across all per-R `tasks.md`, plus one. `ROADMAP.md` is the cross-R
+   index (initiative granularity) — there is no flat global task list.
 3. **Branch plan** — `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`.
    Checkboxes per commit. Header: `task: T-001`. Checkbox closes at
    commit time. See `branch-plan.md`.
@@ -56,8 +61,9 @@ doesn't already cover.
 |---|---|
 | `REQUIREMENTS.md` (foundational) | `.claude/` |
 | `DESIGN.md` | `.claude/` |
-| `ROADMAP.md`, `TASKS.md` | `.claude/plans/` |
+| `ROADMAP.md` | `.claude/plans/` |
 | `requirements.md` (per initiative) | `.claude/plans/R-XXX-<slug>/` |
+| `tasks.md` (per initiative, lazy) | `.claude/plans/R-XXX-<slug>/` |
 | `T-XXX-<slug>.md` (branch plans) | `.claude/plans/R-XXX-<slug>/` |
 | `T-XXX-<slug>.findings.md` | beside its branch plan |
 | `B-XXX.md`, `B-XXX.report.md` (batches) | `.claude/plans/R-XXX-<slug>/batches/` |
@@ -87,7 +93,8 @@ plans, release plans — live on `main` so they are visible across all
 branches. They reach `main` the same way as any change: a short-lived
 doc branch + CI-gated PR, never a direct push (`git-workflow.md`). A
 single planning act still commits each artifact type separately —
-`requirements.md` distinct from the `ROADMAP`/`TASKS` index edits.
+`requirements.md` distinct from the `ROADMAP` / per-R `tasks.md` index
+edits.
 
 ## Cross-plan dependencies
 

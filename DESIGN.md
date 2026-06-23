@@ -56,11 +56,11 @@ excluded — see `.gitignore`.
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
 ├── plans/                        # planning hierarchy
-│   ├── ROADMAP.md                # planning indexes — see rules/planning.md
-│   ├── TASKS.md
+│   ├── ROADMAP.md                # cross-R index — see rules/planning.md
 │   ├── REQ-XXX.md                # four-level-era requirements (closed: history; open → R stubs on approval)
 │   └── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
 │       ├── requirements.md       # initiative requirements
+│       ├── tasks.md              # this initiative's task index (lazy)
 │       ├── T-XXX-<slug>.md
 │       ├── T-XXX-<slug>.findings.md
 │       └── batches/              # B-XXX manifests + reports (lazy)

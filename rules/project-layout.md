@@ -17,10 +17,10 @@ Canonical structure for `.claude/` in a project. Other paths inside
     ├── MAINTENANCE.md            # sanity routine — seeded from template
     ├── plans/                    # planning hierarchy — see planning.md
     │   ├── ROADMAP.md            # initiative index
-    │   ├── TASKS.md              # task index
     │   ├── release-vX.Y.Z.md
     │   ├── R-XXX-<slug>/         # one per roadmap entry (initiative-time)
     │   │   ├── requirements.md   # initiative requirements
+    │   │   ├── tasks.md          # this initiative's task index (lazy)
     │   │   ├── T-XXX-<slug>.md
     │   │   ├── T-XXX-<slug>.findings.md
     │   │   └── batches/          # B-XXX.md + B-XXX.report.md (lazy)
@@ -44,11 +44,12 @@ Canonical structure for `.claude/` in a project. Other paths inside
 - **Required at scaffold**: `REQUIREMENTS.md`, `DESIGN.md`, `plans/`,
   `settings.json`.
 - **Created as workflows need them**: `skills/`, `rules/`, `commands/`,
-  `agents/`, `MAINTENANCE.md`, `plans/ROADMAP.md`, `plans/TASKS.md`.
+  `agents/`, `MAINTENANCE.md`, `plans/ROADMAP.md`.
 - **Initiative-time**: `plans/R-XXX-<slug>/` + `requirements.md`,
   created with the ROADMAP entry (`planning.md § Directory
   conventions`).
 - **Lazy** (created on first use): `adr/`, `references/`,
+  `plans/R-XXX-<slug>/tasks.md` (with the R's first task),
   `plans/R-XXX-<slug>/batches/`, `plans/archive/`,
   `plans/visual-artifacts/` (gitignored — session artifacts, not docs).
 
