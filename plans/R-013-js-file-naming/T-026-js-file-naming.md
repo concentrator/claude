@@ -8,7 +8,7 @@ branch: extend `rules/js.md` with the file-naming convention, a copyable
 shell CI-check example, and the no-MAINTENANCE.md note. Illustrative —
 not wired into `run-all.sh` (~no JS here). Not architecture-changing.
 
-- [ ] Add the file-naming convention to `rules/js.md`: kebab-case
+- [x] Add the file-naming convention to `rules/js.md`: kebab-case
       default (`hit-attack-types.js`); PascalCase when the file's primary
       export is a class/component, matching the export (`ClientScope.js`);
       dotfiles exempt. State that the PascalCase ⇒ matching-class-export
