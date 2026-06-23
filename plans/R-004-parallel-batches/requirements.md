@@ -61,9 +61,10 @@ warrants because every model round-trip is sequential.
 - **Edge cases**:
   - Append-only / registration shared files that independent components
     still both touch (in a route SDK: the central class registry,
-    CHANGELOG, public README, and shared plan files like `TASKS.md` /
-    `ROADMAP.md` checkboxes) collide on merge. These route to the serial
-    integration phase rather than being edited in parallel worktrees.
+    CHANGELOG, public README, and shared plan files like a per-R
+    `tasks.md` / `ROADMAP.md` checkboxes) collide on merge. These route
+    to the serial integration phase rather than being edited in parallel
+    worktrees.
   - Shared **mutable external resources** (e.g. a live test tenant that a
     probe could create/mutate against): not part of currently planned
     work, but a parallel member that mutates shared external state races
