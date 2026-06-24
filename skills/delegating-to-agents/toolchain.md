@@ -1,10 +1,10 @@
-# Checkpoint push + PR mechanics
+# Checkpoint push + MR/PR mechanics
 
 Referenced from SKILL.md. Applies only at checkpoint **accept** —
 nothing pushes mid-batch, and the default branch is never pushed by
 the engine.
 
-## Push + PR
+## Push + MR/PR
 
 ```
 git push -u origin batch/B-XXX
@@ -13,12 +13,12 @@ gh pr create --head batch/B-XXX --base <default> \
 # GitLab: glab mr create --source-branch batch/B-XXX --target-branch <default> ...
 ```
 
-PR description: the report's header block, `## Batch review`, and
+MR/PR description: the report's header block, `## Batch review`, and
 `## Judgment calls` sections — not the full per-branch detail (the
 report file stays in the repo).
 
 No VCS-host CLI in the project toolchain → push the branch, print the
-PR-creation URL/instructions for the user. Never silently skip the
+creation URL/instructions for the user. Never silently skip the
 push; deferring is an explicit user choice at the checkpoint.
 
 ## Permission carve-out for the checkpoint push

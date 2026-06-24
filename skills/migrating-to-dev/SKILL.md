@@ -46,7 +46,7 @@ Propose deletion of any restated global rules.
 ## 5. Quality infrastructure
 
 Check inventory against the baseline: lint configured + a passing smoke
-test + CI running lint + tests on every PR. Ask before changing
+test + CI running lint + tests on every MR/PR. Ask before changing
 existing config. If user defers any item, record
 `quality-deferred: true` in `CLAUDE.md § Conventions`.
 

@@ -17,7 +17,7 @@ shell trips the sensitive-file guard).
 - Permissions: `.claude/settings.local.json` holds every
   `auto-permissions.template.json` rule (`__PROJECT_DIR__`/`__HOME__` → abs paths)
   plus the CLAUDE.md `## Agent toolchain` rules, incl. a VCS-host CLI
-  (`glab`/`gh`; absent → push-only, manual PR). Missing
+  (`glab`/`gh`; absent → push-only, manual MR/PR). Missing
   → propose merged file, apply on approval. No toolchain section →
   halt, ask.
 - Default branch, clean tree, tests + lint green.
@@ -62,7 +62,7 @@ Models + spec-check depth: `verification-policy.md`.
 Write the R's `batches/B-XXX.report.md` per `report-template.md`,
 re-verifying acceptance criteria. No report → no accept. Present:
 
-- **Accept** → push `batch/B-XXX` to origin + open the CI-gated PR per
+- **Accept** → push `batch/B-XXX` to origin + open the CI-gated MR/PR per
   `toolchain.md`, description from report (defer = explicit user
   choice; never default branch). Findings triage, delete member
   refs + `pre-B-XXX` tag.

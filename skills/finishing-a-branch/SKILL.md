@@ -18,18 +18,18 @@ Close out a DEV branch — invoked by the closing routine
 
 Exactly three, no elaboration:
 
-1. Push and open a CI-gated PR to origin
+1. Push and open a CI-gated MR/PR to origin
 2. Keep the branch as-is
 3. Discard this work
 
 ## 3. Execute
 
-**Push + PR** — `git push -u origin <branch>`, open a CI-gated PR to
-origin (`glab`/`gh`: summary + test plan); no host CLI → push and print
-the PR-creation URL. Always a PR — never a local merge or direct push.
-Merge per `git-workflow.md § Trunk`: `plan/` PRs auto-merge on green,
-code PRs await the user's review. Bookkeeping is deferred: `T-XXX` stays
-`[ ]` until the PR merges; run §4 then.
+**Push + MR/PR** — `git push -u origin <branch>`, open a CI-gated MR/PR
+to origin (`glab`/`gh`: summary + test plan); no host CLI → push and
+print the creation URL. Always an MR/PR — never a local merge or direct
+push. Merge per `git-workflow.md § Trunk`: `plan/` changes auto-merge on
+green, code changes await the user's review. Bookkeeping is deferred: `T-XXX`
+stays `[ ]` until it merges; run §4 then.
 
 **Keep** — report branch name. Nothing closes.
 
@@ -40,7 +40,7 @@ stays `[ ]`; ask whether to keep the plan file.
 ## 4. Post-merge bookkeeping (on default branch)
 
 Auto mode: step 1 runs in the batch close phase (branch-plan.md
-§ Batches); after the batch PR merges, run steps 2–5.
+§ Batches); after the batch MR/PR merges, run steps 2–5.
 
 1. Mark `T-XXX` `[x]` in the parent R's
    `.claude/plans/R-XXX-<slug>/tasks.md`.
@@ -49,8 +49,8 @@ Auto mode: step 1 runs in the batch close phase (branch-plan.md
    `[x]` in `ROADMAP.md`; pending → R stays open.
 3. If `.claude/plans/release-<version>.md` lists this branch, mark it
    `[x]`.
-4. Deliver the plan updates via a short-lived close-out doc PR to origin
-   (`planning.md`), e.g. `Close T-014` — never a direct push.
+4. Deliver the plan updates via a short-lived close-out plan MR/PR to
+   origin (`planning.md`), e.g. `Close T-014` — never a direct push.
 5. Delete the merged branch (local; remote too if pushed).
 
 Next: an open task, or `/dev plan`.
