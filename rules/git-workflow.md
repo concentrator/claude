@@ -2,7 +2,9 @@
 
 **Terminology** — a change request is a **PR** on GitHub, an **MR** on
 GitLab; before git init, default to PR. One term per repo (this repo:
-GitHub → PR).
+GitHub → PR). Host-neutral docs reused across repos (skills, shared
+rules) write the dual form **MR/PR**; the agent resolves it to the active
+repo's term per its host.
 
 ## Trunk
 

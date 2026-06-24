@@ -11,15 +11,15 @@ protection, file moves). Never rewrite `main` history — migrate forward.
 Scan recent `main` history for the pre-TBD delivery pattern:
 
 - **Local merges** — `git log --merges --first-parent -30`: a commit
-  like `Merge branch '<x>' into '<default>'` is a *local* merge; a PR
-  merge instead reads `Merge pull request #N` (GitHub) / `See merge
+  like `Merge branch '<x>' into '<default>'` is a *local* merge; an
+  MR/PR merge instead reads `Merge pull request #N` (GitHub) / `See merge
   request !N` (GitLab).
 - **Direct-to-`main`** — `git log --no-merges --first-parent -30`:
   non-scaffold commits made straight on the default branch.
 
 Report the pattern found. Go-forward rule: every change reaches `main`
-through a short-lived branch + CI-gated PR — never a local merge or a
-direct commit (`git-workflow.md § Trunk`). Enable the host PR gate
+through a short-lived branch + CI-gated MR/PR — never a local merge or a
+direct commit (`git-workflow.md § Trunk`). Enable the host MR/PR gate
 (protected branch + required checks, via `gh`/`glab`; `§ Enforcement`).
 History is migrated forward, never rewritten.
 
@@ -37,7 +37,7 @@ Diff tracked `.claude/` against `rules/project-layout.md`:
   owning `R-XXX-<slug>/tasks.md`, status preserved), then removing the
   flat file; T-ids stay global.
 
-Propose the moves; the user executes them — delivered as one coherent PR
+Propose the moves; the user executes them — delivered as one coherent MR/PR
 (not one per file), per `git-workflow.md § Delivery cadence`.
 
 ## 3. Close/release

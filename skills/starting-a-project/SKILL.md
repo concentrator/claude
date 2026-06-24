@@ -49,11 +49,11 @@ Ask: **extended docs?** Record `extended-docs:` (+ path if yes) in
 ## 4. Quality infrastructure
 
 Set up: lint for the stack + one passing smoke test + CI running lint +
-tests on every PR. Document run commands in `CLAUDE.md`. Ask before
+tests on every MR/PR. Document run commands in `CLAUDE.md`. Ask before
 each; if the user defers any, record `quality-deferred: true` in
 `CLAUDE.md § Conventions`.
 
-Then protect `main` on the host — require PR + passing checks before
+Then protect `main` on the host — require MR/PR + passing checks before
 merge, restrict direct push (`gh`/`glab`; `git-workflow.md § Trunk`,
 `§ Enforcement`) — TBD-shaped from commit one.
 
