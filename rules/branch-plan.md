@@ -83,7 +83,12 @@ mandatory final commit, then hands off to merge/PR.
 2. Validate `/simplify` findings against full project context.
 3. Print report; request user approval before applying.
 4. Apply approved fixes as additional commits if needed.
-5. Request manual testing/verification; suggest automation where applicable.
+5. Capture the branch outcome for the close report: a summary against
+   the task's acceptance criteria, and — when the target is data
+   collection or processing — run the work product and collect the
+   results. Surface manual-testing/automation needs. This outcome is
+   presented with the merge options at step 8 (`finishing-a-branch § 2`),
+   never skipped.
 6. **Triage `T-XXX-<slug>.findings.md`** — for each `[ ]` item, prompt user:
    - Promote to `T-XXX` (new entry in the parent R's `tasks.md`,
      committed to main now) — only under a fitting open `R-XXX`; none →
