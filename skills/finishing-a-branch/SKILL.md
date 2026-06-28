@@ -6,7 +6,7 @@ description: Use when a branch plan is complete and tests pass.
 # Finishing a Development Branch
 
 Close out a DEV branch — invoked by the closing routine
-(`~/.claude/rules/branch-plan.md`) after the mandatory final commit.
+(`branch-plan.md`) after the mandatory final commit.
 
 ## 1. Verify
 
@@ -14,43 +14,39 @@ Close out a DEV branch — invoked by the closing routine
   findings file triaged.
 - Fresh test + lint green; failing → stop and report.
 
-## 2. Present options
+## 2. Report outcome and present options
 
-Exactly three, no elaboration:
+One message: (a) **outcome** — what the branch produced vs its
+acceptance criteria; (b) **live test** — always offer a live run, and
+for data-collection/processing branches run the work product and show
+the results; (c) **options**: push and open a CI-gated MR/PR to origin /
+keep as-is / discard.
 
-1. Push and open a CI-gated MR/PR to origin
-2. Keep the branch as-is
-3. Discard this work
+MR/PR opens only on explicit choice — never automatically.
 
 ## 3. Execute
 
 **Push + MR/PR** — `git push -u origin <branch>`, open a CI-gated MR/PR
 to origin (`glab`/`gh`: summary + test plan); no host CLI → push and
-print the creation URL. Always an MR/PR — never a local merge or direct
-push. Merge per `git-workflow.md § Trunk`: `plan/` changes auto-merge on
-green, code changes await the user's review. Bookkeeping is deferred: `T-XXX`
-stays `[ ]` until it merges; run §4 then.
+print the URL. Never a local merge or direct push. Merge per
+`git-workflow.md § Trunk`. `T-XXX` stays `[ ]` until merge; run §4 then.
 
 **Keep** — report branch name. Nothing closes.
 
-**Discard** — list branch, commits, and plan state; require typing
-`discard`. Then checkout default branch, `git branch -D`. `T-XXX`
-stays `[ ]`; ask whether to keep the plan file.
+**Discard** — list branch, commits, plan state; require typing
+`discard`. Then checkout default, `git branch -D`. `T-XXX` stays `[ ]`;
+ask whether to keep the plan.
 
 ## 4. Post-merge bookkeeping (on default branch)
 
-Auto mode: step 1 runs in the batch close phase (branch-plan.md
-§ Batches); after the batch MR/PR merges, run steps 2–5.
+Auto mode: step 1 runs at batch close (branch-plan.md § Batches); run
+steps 2–5 after the batch MR/PR merges.
 
-1. Mark `T-XXX` `[x]` in the parent R's
-   `.claude/plans/R-XXX-<slug>/tasks.md`.
-2. If the parent `R-XXX`'s tasks are all `[x]`, run the closure check
-   (`planning.md § Approval and closure`): verified → mark `R-XXX`
-   `[x]` in `ROADMAP.md`; pending → R stays open.
-3. If `.claude/plans/release-<version>.md` lists this branch, mark it
-   `[x]`.
-4. Deliver the plan updates via a short-lived close-out plan MR/PR to
-   origin (`planning.md`), e.g. `Close T-014` — never a direct push.
+1. Mark `T-XXX` `[x]` in the parent R's `tasks.md`.
+2. If the R's tasks are all `[x]`, run the closure check
+   (`planning.md § Approval and closure`): verified → `R-XXX` `[x]` in
+   `ROADMAP.md`; else R stays open.
+3. If `.claude/plans/release-<version>.md` lists this branch, mark `[x]`.
+4. Deliver the plan updates via a close-out plan MR/PR to origin, e.g.
+   `Close T-014` — never a direct push.
 5. Delete the merged branch (local; remote too if pushed).
-
-Next: an open task, or `/dev plan`.
