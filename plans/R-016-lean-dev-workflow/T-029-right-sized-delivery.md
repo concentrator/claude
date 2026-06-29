@@ -46,18 +46,17 @@ of the policy — offset by trimming if needed.
 - [x] Update `skills/writing-plans/SKILL.md § Soft cap` to reference the
   medium-branch ~20 cap + the governor, consistent with `branch-plan.md`;
   keep ≤300 words.
-- [ ] Verify `scripts/ci/check-plan-integrity.sh` needs no change (it
+- [x] Verify `scripts/ci/check-plan-integrity.sh` needs no change (it
   validates only R/T/dir referential integrity; no task-line grammar
-  changes here) — confirm via the script; edit only if a grep no longer
-  matches.
-- [ ] Self-migration audit (AC7): confirm no open plan carries orphaned
+  changes here) — confirmed via the script; no edit.
+- [x] Self-migration audit (AC7): confirmed no open plan carries orphaned
   3-round / commit-sized artifacts under the new model (repo-wide, only
   T-028/T-029 are open tasks; other open Rs are requirements-only) and no
-  untriaged findings; edit any non-conforming artifact (expected: none).
-- [ ] Invariants verification (AC6): confirm the reworded rules preserve
+  untriaged findings; nothing non-conforming.
+- [x] Invariants verification (AC6): confirmed the reworded rules preserve
   the approval gate, traceability, `main` releasability, and the CI gate
   (the one-line-per-criterion evidence is recorded at R-016 closure, not
   here).
-- [ ] Complete the branch: re-review docs across all commits, cleanup,
+- [x] Complete the branch: re-review docs across all commits, cleanup,
   verify skill word caps (`wc -w`), triage the findings file, mark the
   plan complete, commit.
