@@ -37,7 +37,7 @@ of the policy — offset by trimming if needed.
   soft-cap ~25 → ~30; promote coupled-task grouping to the manual-mode
   default for interdependent work (reconcile with the existing line, no
   duplicate).
-- [ ] Cite the single short-lived / no-big-bang governor in
+- [x] Cite the single short-lived / no-big-bang governor in
   `rules/git-workflow.md § Coherent delivery` / `§ Delivery cadence` so the
   `branch-plan.md` caps reference it rather than restating a number.
 - [ ] Add a one-line pointer in `skills/finishing-a-branch/SKILL.md` to the

@@ -69,6 +69,11 @@ timing follows `branch-plan.md § Agentic execution` + `finishing-a-branch`.
 Always within the short-lived / ≤ 3 active / merge-within-a-day bounds
 above.
 
+**Size is governed by this time bound, not a commit count.**
+`branch-plan.md`'s caps (~20 per branch, ~30 per batch) are subordinate
+proxies — the hard limit is merging within the short-lived window with no
+big-bang merge (§ Anti-patterns).
+
 ## Commit messages
 
 Single-line, ~50 chars / 6-8 words, subject only. No semicolons joining
