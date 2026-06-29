@@ -1,6 +1,7 @@
 ---
 approved: 2026-06-30
 kind: refactor
+status: done 2026-06-30
 ---
 
 # R-016: Lean DEV planning & delivery
@@ -68,27 +69,36 @@ slowing delivery.
 
 ## Acceptance criteria
 
-- [ ] Shaping takes two rounds: `/dev plan R` → approved requirements +
+- [x] Shaping takes two rounds: `/dev plan R` → approved requirements +
   a draft task list (default; deferrable for a large/uncertain R);
   `/dev plan R-XXX` → tasks + branch plans. Approval remains a single
-  explicit checkpoint.
-- [ ] `planning.md`/`writing-plans` define a right-sized-task heuristic
+  explicit checkpoint. — `planning.md § Planning rounds` + the `dev`
+  `/dev plan` table (T-028).
+- [x] `planning.md`/`writing-plans` define a right-sized-task heuristic
   (a multi-commit coherent deliverable) with an example; commit-sized
-  items are branch-plan checklist entries, not tasks.
-- [ ] `branch-plan.md`'s closing routine encodes the close-review policy:
+  items are branch-plan checklist entries, not tasks. — `planning.md
+  § Levels` heuristic + example; `writing-plans` decompose step (T-028).
+- [x] `branch-plan.md`'s closing routine encodes the close-review policy:
   refactor → `/simplify`; single feature/bugfix → `/code-review`;
-  mixed-or->9-commits → both; `≤9 = small`.
-- [ ] The findings-triage rule resolves in-branch findings by default and
-  promotes only cross-component findings; the rule states the test.
-- [ ] Manual mode documents grouping coupled tasks into one branch/batch
-  as the default for interdependent work.
-- [ ] Size caps updated — medium branch ~20, batch soft-cap ~30 —
+  mixed-or->9-commits → both; `≤9 = small`. — `branch-plan.md § Closing
+  routine` step 1 (T-029).
+- [x] The findings-triage rule resolves in-branch findings by default and
+  promotes only cross-component findings; the rule states the test. —
+  `branch-plan.md § Closing routine` step 6 + `§ Scope discoveries`
+  (T-029).
+- [x] Manual mode documents grouping coupled tasks into one branch/batch
+  as the default for interdependent work. — `branch-plan.md § Batches`
+  (T-029).
+- [x] Size caps updated — medium branch ~20, batch soft-cap ~30 —
   subordinate to the ≤2-day / ≤3-active governor; "no big-bang merges"
-  preserved.
-- [ ] Invariants (approval gate, traceability, releasability, CI gate)
-  demonstrably preserved.
-- [ ] This repo's open plans migrated to the new model (no orphaned
-  3-round artifacts).
+  preserved. — `branch-plan.md § Size cap`/`§ Batches` + `git-workflow.md
+  § Delivery cadence` governor (T-029).
+- [x] Invariants (approval gate, traceability, releasability, CI gate)
+  demonstrably preserved. — `§ Approval and closure` + CI gate unchanged;
+  close-review consistency sweep + full gate green (T-029 verification).
+- [x] This repo's open plans migrated to the new model (no orphaned
+  3-round artifacts). — audit: only T-028/T-029 were open; nothing
+  orphaned (T-029).
 
 ## Constraints
 

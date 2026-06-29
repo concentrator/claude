@@ -72,7 +72,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       embedded conventions take precedence (`dev-*` namespaced skills +
       embed-aware global `dev` preserving `/dev`); version-stamped with
       drift detection and re-vendor sync. (approved 2026-06-30)
-- [ ] R-016: Lean DEV planning & delivery — collapse planning to two
+- [x] R-016: Lean DEV planning & delivery — collapse planning to two
       rounds (`/dev plan R` shapes requirements+tasks under one gate,
       deferrable; `/dev plan R-XXX` details tasks+branch-plans);
       right-size tasks to multi-commit deliverables; scale branch-close
