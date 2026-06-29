@@ -29,8 +29,10 @@ trimming). If the heuristic example won't fit `writing-plans`, keep it in
   persist, rounds collapse 3→2.
 - [x] Align `rules/planning.md § Adjusting existing plans` and any "next
   planning round" wording to the two-round model.
-- [ ] Add a deferrable "Draft tasks" subsection to the `kind:` templates
-  in `rules/planning-templates.md § Per-initiative`.
+- [x] Add a deferrable "Draft tasks" subsection to the `kind:` templates
+  in `rules/planning-templates.md § Per-initiative`. (Implemented as a
+  pointer to the alongside `tasks.md`, not an embedded section — see
+  findings.)
 - [ ] Update `skills/dev/SKILL.md` `/dev plan` table: `R` → requirements +
   draft task list (one gate, deferrable); `R-XXX` → tasks + branch plans.
   Verify ≤400-word orchestrator cap.
