@@ -66,6 +66,12 @@ Initiative index. Items: `R-001: description`; each entry owns
       ROADMAP stays the cross-R index); update rules/skills/check +
       self-migrate this repo + add the `migrating-to-dev` split step.
       (approved 2026-06-23)
+- [ ] R-015: Embeddable self-contained DEV toolchain — opt-in vendor of
+      the portable DEV core (skills, rules, generic CLAUDE.md, CI minus
+      ledger) into a project's `.claude/`, path-rewritten and committed;
+      embedded conventions take precedence (`dev-*` namespaced skills +
+      embed-aware global `dev` preserving `/dev`); version-stamped with
+      drift detection and re-vendor sync. (approved 2026-06-30)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
