@@ -18,7 +18,7 @@ repointed to it — so the close policy and caps have one source and
 one-line pointer to `branch-plan.md § Closing routine`, never a duplicate
 of the policy — offset by trimming if needed.
 
-- [ ] Rewrite `rules/branch-plan.md § Closing routine` step 1: replace the
+- [x] Rewrite `rules/branch-plan.md § Closing routine` step 1: replace the
   unconditional `/simplify` with the size-scaled close-review policy —
   refactor → `/simplify`; single feature/bugfix → `/code-review`;
   mixed-purpose or >9 commits → both; define `≤9 commits = small` and the

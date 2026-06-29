@@ -79,8 +79,11 @@ If additional changes are needed after the final commit:
 Triggered when the last non-final `[ ]` is marked `[x]`. Produces the
 mandatory final commit, then hands off to merge/PR.
 
-1. Auto-run `/simplify` (code review with fixes).
-2. Validate `/simplify` findings against full project context.
+1. **Close review, scaled to the branch** (`small` = ≤9 commits):
+   refactor (no behavior change) → `/simplify`; single feature or single
+   bugfix → `/code-review`; mixed-purpose (more than one task tag) or >9
+   commits → both.
+2. Validate the review's findings against full project context.
 3. Print report; request user approval before applying.
 4. Apply approved fixes as additional commits if needed.
 5. Capture the branch outcome for the close report: a summary against
