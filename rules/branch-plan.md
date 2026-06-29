@@ -123,8 +123,11 @@ which any branch may fold into its final commit without the flag.
 
 ## Size cap
 
-One task = one branch. Soft cap: warn at 15 planned commits, prompt to split
-at 20. Override with stated reason in plan header.
+One task = one branch, right-sized at ~20 commits (medium). Soft cap:
+warn past 20, prompt to split past 30. The count is subordinate to the
+short-lived governor — the branch must still merge within ~2 days (≤3
+branches active; no big-bang merges — `git-workflow.md § Delivery
+cadence`). Override with stated reason in plan header.
 
 ## Agentic execution
 

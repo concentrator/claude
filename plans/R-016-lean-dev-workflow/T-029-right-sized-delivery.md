@@ -30,7 +30,7 @@ of the policy — offset by trimming if needed.
   routes as the secondary path.
 - [x] Align `rules/branch-plan.md § Mid-execution rules › Scope
   discoveries` non-blocker text to the in-branch-by-default disposition.
-- [ ] Rewrite `rules/branch-plan.md § Size cap`: medium branch ~20 commits;
+- [x] Rewrite `rules/branch-plan.md § Size cap`: medium branch ~20 commits;
   restate warn-at-15 / split-at-20; subordinate the count to the
   short-lived governor (merge within ~2 days, ≤3 active; no big-bang).
 - [ ] Update `rules/branch-plan.md § Agentic execution › Batches`: batch
