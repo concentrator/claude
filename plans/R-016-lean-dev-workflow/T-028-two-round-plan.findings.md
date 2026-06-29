@@ -1,6 +1,6 @@
 # T-028 findings
 
-- [ ] Commit 4 deviation: the branch plan said add a "Draft tasks"
+- [x] Commit 4 deviation (resolved, won't-fix — correct by design): the branch plan said add a "Draft tasks"
   subsection to the `kind:` templates in `planning-templates.md`.
   Implemented instead as a pointer in `§ Per-initiative` (the shape round
   drafts `tasks.md` alongside `requirements.md`, per `planning.md

@@ -44,7 +44,7 @@ trimming). If the heuristic example won't fit `writing-plans`, keep it in
   tasks + their branch plans (the details round); fold the
   right-sized-task heuristic into the decomposition step. Verify ≤300-word
   cap.
-- [ ] Complete the branch: re-review docs across all commits (round
+- [x] Complete the branch: re-review docs across all commits (round
   terminology aligned; single approval gate stated; AC1/AC2 met), cleanup,
   confirm `bash scripts/ci/run-all.sh` green, triage the findings file,
   mark the plan complete, commit.
