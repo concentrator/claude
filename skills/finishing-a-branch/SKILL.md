@@ -12,15 +12,15 @@ Close out a DEV branch — invoked by the closing routine
 
 - `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`: every `[ ]` is `[x]`;
   findings file triaged.
+- Close review per `branch-plan.md § Closing routine`.
 - Fresh test + lint green; failing → stop and report.
 
 ## 2. Report outcome and present options
 
-One message: (a) **outcome** — what the branch produced vs its
-acceptance criteria; (b) **live test** — always offer a live run, and
-for data-collection/processing branches run the work product and show
-the results; (c) **options**: push and open a CI-gated MR/PR to origin /
-keep as-is / discard.
+One message: (a) **outcome** — what the branch produced vs criteria;
+(b) **live test** — always offer a live run; for
+data tasks run the work product and show results; (c) **options**: push
+and open a CI-gated MR/PR to origin / keep / discard.
 
 MR/PR opens only on explicit choice — never automatically.
 

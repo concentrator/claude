@@ -40,7 +40,7 @@ of the policy — offset by trimming if needed.
 - [x] Cite the single short-lived / no-big-bang governor in
   `rules/git-workflow.md § Coherent delivery` / `§ Delivery cadence` so the
   `branch-plan.md` caps reference it rather than restating a number.
-- [ ] Add a one-line pointer in `skills/finishing-a-branch/SKILL.md` to the
+- [x] Add a one-line pointer in `skills/finishing-a-branch/SKILL.md` to the
   close-review policy in `branch-plan.md § Closing routine` (no
   duplication); keep ≤300 words.
 - [ ] Update `skills/writing-plans/SKILL.md § Soft cap` to reference the
