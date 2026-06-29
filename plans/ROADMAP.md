@@ -72,6 +72,15 @@ Initiative index. Items: `R-001: description`; each entry owns
       embedded conventions take precedence (`dev-*` namespaced skills +
       embed-aware global `dev` preserving `/dev`); version-stamped with
       drift detection and re-vendor sync. (approved 2026-06-30)
+- [ ] R-016: Lean DEV planning & delivery — collapse planning to two
+      rounds (`/dev plan R` shapes requirements+tasks under one gate,
+      deferrable; `/dev plan R-XXX` details tasks+branch-plans);
+      right-size tasks to multi-commit deliverables; scale branch-close
+      review to size (refactor→simplify, feature/bugfix→code-review,
+      mixed-or->9-commits→both); resolve findings in-branch unless
+      cross-component; medium branch ~20 / batch ~30 under the
+      short-lived governor. Sequence before R-015 implementation.
+      (approved 2026-06-30)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
