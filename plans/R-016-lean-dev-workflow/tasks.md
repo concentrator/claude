@@ -11,7 +11,7 @@ so they ship as **one batch**, sequenced T-028 → T-029.
 
 ## Open
 
-- [ ] **T-028 (R-016) [refactor]**: Two-round planning + right-sized-task
+- [ ] T-028 (R-016) [refactor]: Two-round planning + right-sized-task
   heuristic — collapse `/dev plan` from three rounds to two: `/dev plan R`
   *shapes* (requirements **and** a draft task list, deferrable, under one
   approval gate) and `/dev plan R-XXX` *details* (tasks **and** their
@@ -21,7 +21,7 @@ so they ship as **one batch**, sequenced T-028 → T-029.
   `skills/dev` (the `/dev plan` surface + routing), `skills/brainstorming`,
   `skills/writing-plans`, `rules/planning.md`, `rules/planning-templates.md`.
   Preserve the single explicit approval checkpoint. (AC1, AC2)
-- [ ] **T-029 (R-016) [refactor]**: Right-sized delivery — encode the
+- [ ] T-029 (R-016) [refactor]: Right-sized delivery — encode the
   size-scaled close-review policy in `rules/branch-plan.md` (closing
   routine) + `skills/finishing-a-branch`: refactor → `/simplify`; single
   feature/bugfix → `/code-review`; mixed-purpose **or** >9 commits →
