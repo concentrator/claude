@@ -28,7 +28,7 @@ of the policy — offset by trimming if needed.
   R stub only when the finding belongs to a completely different component
   — state that as the explicit test; keep the existing promote/discard
   routes as the secondary path.
-- [ ] Align `rules/branch-plan.md § Mid-execution rules › Scope
+- [x] Align `rules/branch-plan.md § Mid-execution rules › Scope
   discoveries` non-blocker text to the in-branch-by-default disposition.
 - [ ] Rewrite `rules/branch-plan.md § Size cap`: medium branch ~20 commits;
   restate warn-at-15 / split-at-20; subordinate the count to the

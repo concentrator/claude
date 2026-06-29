@@ -57,8 +57,11 @@ fixes:
 
 **Non-blocker** — improvement, refactor idea, tangential test gap, code
 smell, naming inconsistency:
-- Append to the plan's sibling `T-XXX-<slug>.findings.md` as a
-  checklist item (one line + brief context). Continue coding.
+- Within this branch's scope → fix it here as a commit; don't defer
+  in-scope work to a finding.
+- Belongs to a completely different component → append to the plan's
+  sibling `T-XXX-<slug>.findings.md` (one line + brief context), continue
+  coding, and triage at close.
 - Never silently expand scope.
 
 Findings file format:
