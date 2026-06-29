@@ -19,7 +19,7 @@ terminology is consistent at every commit and `run-all` stays green.
 trimming). If the heuristic example won't fit `writing-plans`, keep it in
 `planning.md` and reference it. Run `wc -w` before each skill commit.
 
-- [ ] Add the right-sized-task heuristic to `rules/planning.md § Levels`
+- [x] Add the right-sized-task heuristic to `rules/planning.md § Levels`
   (Tasks bullet): a task is a coherent multi-commit deliverable, not a
   single edit; commit-sized items belong in the branch-plan checklist —
   with one concrete example.

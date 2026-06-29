@@ -27,6 +27,12 @@ doesn't already cover.
    T-ids are global and monotonic; the next free id is the highest T-id
    across all per-R `tasks.md`, plus one. `ROADMAP.md` is the cross-R
    index (initiative granularity) — there is no flat global task list.
+   **Right-size**: a task is a coherent, multi-commit deliverable (a
+   self-contained capability or fix), not a single edit — commit-sized
+   steps live in the branch-plan checklist, not as separate tasks. E.g.
+   "add the size-scaled close-review policy" (the rule + its skill wiring
+   + doc cross-refs) is one task; "fix a typo in a rule" is a commit
+   within a task, never a task of its own.
 3. **Branch plan** — `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`.
    Checkboxes per commit. Header: `task: T-001`. Checkbox closes at
    commit time. See `branch-plan.md`.
