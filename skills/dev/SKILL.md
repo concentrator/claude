@@ -23,15 +23,18 @@ DEV-only.
 
 | Target | Action | Parent required |
 |---|---|---|
-| `R` / `R-XXX` | New initiative (`R`); shape/approve or add tasks to an open `R-XXX` — `brainstorming` | R-XXX open |
-| `T-XXX` | Branch plan via `writing-plans` | T-XXX open |
-| `all` | Plans for all open tasks lacking one (parallel; one review pass) | open tasks |
+| `R` | Shape a new initiative — requirements + draft tasks, one gate (deferrable) — `brainstorming` | — |
+| `R-XXX` | Detail an open initiative — its tasks + their branch plans (also extends requirements) | R-XXX open |
+| `T-XXX` | Branch plan for one task via `writing-plans` | T-XXX open |
+| `all` | Branch plans for all open tasks lacking one (parallel; one review pass) | open tasks |
 | `batch` | Compose `B-XXX.md`; readiness-review + `agentic:` stamps | plans exist |
 | `<slug>` | Adjust branch plan | plan exists |
 | `release` | Release plan (next semver) | ≥1 closed task |
 | (bare) | Ask | — |
 
-Propose next; never auto-execute. See `~/.claude/rules/planning.md`.
+Two rounds — shape (`R`) then detail (`R-XXX`); `T-XXX`/`all` write
+branch plans within detail. Propose next; never auto-execute. See
+`~/.claude/rules/planning.md`.
 
 ## `/dev code [<slug>]`
 

@@ -33,7 +33,7 @@ trimming). If the heuristic example won't fit `writing-plans`, keep it in
   in `rules/planning-templates.md § Per-initiative`. (Implemented as a
   pointer to the alongside `tasks.md`, not an embedded section — see
   findings.)
-- [ ] Update `skills/dev/SKILL.md` `/dev plan` table: `R` → requirements +
+- [x] Update `skills/dev/SKILL.md` `/dev plan` table: `R` → requirements +
   draft task list (one gate, deferrable); `R-XXX` → tasks + branch plans.
   Verify ≤400-word orchestrator cap.
 - [ ] Update `skills/brainstorming/SKILL.md`: `/dev plan R` produces
