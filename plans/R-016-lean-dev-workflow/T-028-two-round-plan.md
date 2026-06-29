@@ -40,7 +40,7 @@ trimming). If the heuristic example won't fit `writing-plans`, keep it in
   requirements + a draft task list under one approval gate (deferrable for
   large/uncertain R); keep the single-checkpoint invariant explicit.
   Verify ≤300-word cap.
-- [ ] Update `skills/writing-plans/SKILL.md`: `/dev plan R-XXX` produces
+- [x] Update `skills/writing-plans/SKILL.md`: `/dev plan R-XXX` produces
   tasks + their branch plans (the details round); fold the
   right-sized-task heuristic into the decomposition step. Verify ≤300-word
   cap.
