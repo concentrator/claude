@@ -33,7 +33,7 @@ of the policy — offset by trimming if needed.
 - [x] Rewrite `rules/branch-plan.md § Size cap`: medium branch ~20 commits;
   restate warn-at-15 / split-at-20; subordinate the count to the
   short-lived governor (merge within ~2 days, ≤3 active; no big-bang).
-- [ ] Update `rules/branch-plan.md § Agentic execution › Batches`: batch
+- [x] Update `rules/branch-plan.md § Agentic execution › Batches`: batch
   soft-cap ~25 → ~30; promote coupled-task grouping to the manual-mode
   default for interdependent work (reconcile with the existing line, no
   duplicate).

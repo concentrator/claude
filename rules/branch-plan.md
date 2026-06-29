@@ -165,9 +165,10 @@ whose dir holds it — members are open tasks of that R; coupled tasks
 (`depends-on`, or any not independently shippable) belong in one batch. `depends-on` must resolve within batch order
 or already-merged work. A cross-initiative need becomes its own R. The
 checkpoint validates exactly that R's acceptance criteria. Soft cap
-~25 planned commits total. Auto mode requires a stamped batch; manual
-mode groups coupled tasks into a batch, or ships a lone task as its
-own PR.
+~30 planned commits total, subordinate to the short-lived governor
+(`git-workflow.md § Delivery cadence`). Auto mode requires a stamped
+batch; manual mode groups coupled (interdependent) tasks into one batch
+by default, or ships a lone task as its own PR.
 
 Batch-close bookkeeping: the close phase marks batch and member-task
 checkboxes as commits on `batch/B-XXX`, **before** the PR — the `[x]`
