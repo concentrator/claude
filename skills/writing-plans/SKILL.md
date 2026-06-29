@@ -40,8 +40,8 @@ round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
 
 ## Soft cap
 
-If decomposition exceeds 15 commits, warn. At 20, prompt to split.
-Override requires stated reason in plan header.
+Warn past ~20 commits, split past 30 — subordinate to the short-lived
+governor (`branch-plan.md § Size cap`). Override requires a stated reason.
 
 ## Bulk mode (`/dev plan all`)
 

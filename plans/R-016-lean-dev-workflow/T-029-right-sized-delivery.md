@@ -43,7 +43,7 @@ of the policy — offset by trimming if needed.
 - [x] Add a one-line pointer in `skills/finishing-a-branch/SKILL.md` to the
   close-review policy in `branch-plan.md § Closing routine` (no
   duplication); keep ≤300 words.
-- [ ] Update `skills/writing-plans/SKILL.md § Soft cap` to reference the
+- [x] Update `skills/writing-plans/SKILL.md § Soft cap` to reference the
   medium-branch ~20 cap + the governor, consistent with `branch-plan.md`;
   keep ≤300 words.
 - [ ] Verify `scripts/ci/check-plan-integrity.sh` needs no change (it
