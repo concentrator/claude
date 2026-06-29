@@ -26,14 +26,16 @@ code — implementation comes later via the planning chain
    recommendation. YAGNI ruthlessly.
 5. **Draft** — next free `R-XXX` id; requirements sections per
    `~/.claude/rules/planning-templates.md § Per-initiative`. Present it section by
-   section, confirming each.
+   section, confirming each. Then a draft task list (`tasks.md`, per
+   `planning.md § Levels`) under the same approval gate — deferrable for a
+   large/uncertain R.
 6. **Self-check** — placeholders, contradictions, criteria readable two
    ways, scope creep. Fix inline before showing the file.
 7. **User review** — user reads the committed-to-be file; iterate. On
    explicit approval set `approved: <today>` and deliver via a plan MR/PR
    (`planning.md § Where plans live in git`).
-8. **Next** — propose tasks under the new R (`/dev plan R-XXX`).
-   Never auto-execute.
+8. **Next** — tasks are drafted here (step 5); propose the detail round
+   `/dev plan R-XXX` for branch plans. Never auto-execute.
 
 ## Rules
 

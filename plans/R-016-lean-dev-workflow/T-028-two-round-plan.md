@@ -19,30 +19,32 @@ terminology is consistent at every commit and `run-all` stays green.
 trimming). If the heuristic example won't fit `writing-plans`, keep it in
 `planning.md` and reference it. Run `wc -w` before each skill commit.
 
-- [ ] Add the right-sized-task heuristic to `rules/planning.md § Levels`
+- [x] Add the right-sized-task heuristic to `rules/planning.md § Levels`
   (Tasks bullet): a task is a coherent multi-commit deliverable, not a
   single edit; commit-sized items belong in the branch-plan checklist —
   with one concrete example.
-- [ ] State the two-round model in `rules/planning.md`: `/dev plan R`
+- [x] State the two-round model in `rules/planning.md`: `/dev plan R`
   shapes (requirements + draft task list, one approval gate, deferrable);
   `/dev plan R-XXX` details (tasks + their branch plans); artifacts
   persist, rounds collapse 3→2.
-- [ ] Align `rules/planning.md § Adjusting existing plans` and any "next
+- [x] Align `rules/planning.md § Adjusting existing plans` and any "next
   planning round" wording to the two-round model.
-- [ ] Add a deferrable "Draft tasks" subsection to the `kind:` templates
-  in `rules/planning-templates.md § Per-initiative`.
-- [ ] Update `skills/dev/SKILL.md` `/dev plan` table: `R` → requirements +
+- [x] Add a deferrable "Draft tasks" subsection to the `kind:` templates
+  in `rules/planning-templates.md § Per-initiative`. (Implemented as a
+  pointer to the alongside `tasks.md`, not an embedded section — see
+  findings.)
+- [x] Update `skills/dev/SKILL.md` `/dev plan` table: `R` → requirements +
   draft task list (one gate, deferrable); `R-XXX` → tasks + branch plans.
   Verify ≤400-word orchestrator cap.
-- [ ] Update `skills/brainstorming/SKILL.md`: `/dev plan R` produces
+- [x] Update `skills/brainstorming/SKILL.md`: `/dev plan R` produces
   requirements + a draft task list under one approval gate (deferrable for
   large/uncertain R); keep the single-checkpoint invariant explicit.
   Verify ≤300-word cap.
-- [ ] Update `skills/writing-plans/SKILL.md`: `/dev plan R-XXX` produces
+- [x] Update `skills/writing-plans/SKILL.md`: `/dev plan R-XXX` produces
   tasks + their branch plans (the details round); fold the
   right-sized-task heuristic into the decomposition step. Verify ≤300-word
   cap.
-- [ ] Complete the branch: re-review docs across all commits (round
+- [x] Complete the branch: re-review docs across all commits (round
   terminology aligned; single approval gate stated; AC1/AC2 met), cleanup,
   confirm `bash scripts/ci/run-all.sh` green, triage the findings file,
   mark the plan complete, commit.

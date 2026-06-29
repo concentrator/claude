@@ -6,7 +6,8 @@ description: Use when generating a branch plan from a task.
 # Writing Plans
 
 Generate a branch plan (`.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`)
-from a task in its initiative's `tasks.md`. Invoked by `/dev plan T-XXX`.
+from a task in its initiative's `tasks.md`. Invoked within the detail
+round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
 
 ## Inputs
 
@@ -23,8 +24,10 @@ from a task in its initiative's `tasks.md`. Invoked by `/dev plan T-XXX`.
 2. **Propose slug.** ≤20 chars, kebab-case, prune redundant words.
    Confirm with user.
 3. **Decompose work** into commit-sized checkboxes. Each `[ ]` = one
-   commit, ~2–5 minutes of focused work. Each item names the change in
-   one sentence and the documentation it touches.
+   commit, ~2–5 minutes of focused work, naming the change in one
+   sentence and the docs it touches. The task itself is right-sized
+   (multi-commit) per `planning.md § Levels`; checkboxes are its
+   commit-sized steps.
 4. **Add header** per `~/.claude/rules/branch-plan.md`:
    - `task: T-014`
    - `type: <inherited from task tag>`
@@ -37,8 +40,8 @@ from a task in its initiative's `tasks.md`. Invoked by `/dev plan T-XXX`.
 
 ## Soft cap
 
-If decomposition exceeds 15 commits, warn. At 20, prompt to split.
-Override requires stated reason in plan header.
+Warn past ~20 commits, split past 30 — subordinate to the short-lived
+governor (`branch-plan.md § Size cap`). Override requires a stated reason.
 
 ## Bulk mode (`/dev plan all`)
 

@@ -33,6 +33,13 @@ In rules, skills, and docs, write it path-qualified wherever bare
 All variants share the frontmatter. Body sections depend on `kind:`.
 The title names the parent R — the file has no id of its own.
 
+Under the shape round (`/dev plan R`, see `planning.md § Planning
+rounds`) a draft `tasks.md` is produced **alongside** this
+`requirements.md` — formatted per `planning.md § Levels`, not embedded
+here — and approved at the same gate. Deferrable: a large or uncertain
+initiative may approve requirements and defer the draft task list to the
+detail round.
+
 Frontmatter:
 
 ```

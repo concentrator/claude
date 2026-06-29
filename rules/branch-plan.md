@@ -57,8 +57,11 @@ fixes:
 
 **Non-blocker** — improvement, refactor idea, tangential test gap, code
 smell, naming inconsistency:
-- Append to the plan's sibling `T-XXX-<slug>.findings.md` as a
-  checklist item (one line + brief context). Continue coding.
+- Within this branch's scope → fix it here as a commit; don't defer
+  in-scope work to a finding.
+- Belongs to a completely different component → append to the plan's
+  sibling `T-XXX-<slug>.findings.md` (one line + brief context), continue
+  coding, and triage at close.
 - Never silently expand scope.
 
 Findings file format:
@@ -79,8 +82,11 @@ If additional changes are needed after the final commit:
 Triggered when the last non-final `[ ]` is marked `[x]`. Produces the
 mandatory final commit, then hands off to merge/PR.
 
-1. Auto-run `/simplify` (code review with fixes).
-2. Validate `/simplify` findings against full project context.
+1. **Close review, scaled to the branch** (`small` = ≤9 commits):
+   refactor (no behavior change) → `/simplify`; single feature or single
+   bugfix → `/code-review`; mixed-purpose (more than one task tag) or >9
+   commits → both.
+2. Validate the review's findings against full project context.
 3. Print report; request user approval before applying.
 4. Apply approved fixes as additional commits if needed.
 5. Capture the branch outcome for the close report: a summary against
@@ -89,12 +95,15 @@ mandatory final commit, then hands off to merge/PR.
    results. Surface manual-testing/automation needs. This outcome is
    presented with the merge options at step 8 (`finishing-a-branch § 2`),
    never skipped.
-6. **Triage `T-XXX-<slug>.findings.md`** — for each `[ ]` item, prompt user:
+6. **Triage `T-XXX-<slug>.findings.md`** — in-scope findings are resolved
+   in this branch (as commits), not deferred; the file should hold only
+   findings belonging to a **completely different component**. For each
+   remaining `[ ]`, prompt user:
    - Promote to `T-XXX` (new entry in the parent R's `tasks.md`,
      committed to main now) — only under a fitting open `R-XXX`; none →
      use the R-stub route
-   - Promote to an R stub (`planning.md § Directory conventions`;
-     shaped next planning round)
+   - Promote to an R stub (`planning.md § Directory conventions`; shaped
+     in a later shape round)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Mandatory final commit** — the last `[ ]`:
 
@@ -114,8 +123,11 @@ which any branch may fold into its final commit without the flag.
 
 ## Size cap
 
-One task = one branch. Soft cap: warn at 15 planned commits, prompt to split
-at 20. Override with stated reason in plan header.
+One task = one branch, right-sized at ~20 commits (medium). Soft cap:
+warn past 20, prompt to split past 30. The count is subordinate to the
+short-lived governor — the branch must still merge within ~2 days (≤3
+branches active; no big-bang merges — `git-workflow.md § Delivery
+cadence`). Override with stated reason in plan header.
 
 ## Agentic execution
 
@@ -153,9 +165,10 @@ whose dir holds it — members are open tasks of that R; coupled tasks
 (`depends-on`, or any not independently shippable) belong in one batch. `depends-on` must resolve within batch order
 or already-merged work. A cross-initiative need becomes its own R. The
 checkpoint validates exactly that R's acceptance criteria. Soft cap
-~25 planned commits total. Auto mode requires a stamped batch; manual
-mode groups coupled tasks into a batch, or ships a lone task as its
-own PR.
+~30 planned commits total, subordinate to the short-lived governor
+(`git-workflow.md § Delivery cadence`). Auto mode requires a stamped
+batch; manual mode groups coupled (interdependent) tasks into one batch
+by default, or ships a lone task as its own PR.
 
 Batch-close bookkeeping: the close phase marks batch and member-task
 checkboxes as commits on `batch/B-XXX`, **before** the PR — the `[x]`

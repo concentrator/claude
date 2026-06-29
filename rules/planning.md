@@ -6,9 +6,9 @@ paths:
 
 # Planning rules
 
-Three-level hierarchy for DEV mode: `R-XXX → T-XXX → branch plan`.
-An initiative is any work foundational `.claude/REQUIREMENTS.md`
-doesn't already cover.
+Three-level hierarchy for DEV mode: `R-XXX → T-XXX → branch plan`,
+planned in two rounds (§ Planning rounds). An initiative is any work
+foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 
 ## Levels
 
@@ -27,9 +27,30 @@ doesn't already cover.
    T-ids are global and monotonic; the next free id is the highest T-id
    across all per-R `tasks.md`, plus one. `ROADMAP.md` is the cross-R
    index (initiative granularity) — there is no flat global task list.
+   **Right-size**: a task is a coherent, multi-commit deliverable (a
+   self-contained capability or fix), not a single edit — commit-sized
+   steps live in the branch-plan checklist, not as separate tasks. E.g.
+   "add the size-scaled close-review policy" (the rule + its skill wiring
+   + doc cross-refs) is one task; "fix a typo in a rule" is a commit
+   within a task, never a task of its own.
 3. **Branch plan** — `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`.
    Checkboxes per commit. Header: `task: T-001`. Checkbox closes at
    commit time. See `branch-plan.md`.
+
+## Planning rounds
+
+The three-level artifact hierarchy above is planned in **two rounds**,
+not three — only the commands that emit the artifacts collapse:
+
+- **Shape** (`/dev plan R`) — produce the initiative's `requirements.md`
+  **and** a draft task list (`tasks.md`) together, approved at one gate.
+  Deferrable: for a large or uncertain initiative, approve requirements
+  and defer the task list to the detail round.
+- **Detail** (`/dev plan R-XXX`) — produce the open R's tasks **and**
+  their branch plans together.
+
+The single approval gate (§ Approval and closure) is unchanged: nothing
+downstream proceeds until `requirements.md` is approved.
 
 ## ID format
 
@@ -52,8 +73,8 @@ doesn't already cover.
 - This applies to findings promotion too: a finding becomes a `T-XXX`
   only under a fitting open `R-XXX`. If none exists, create an R stub
   instead — the initiative act per § Directory conventions, shaped
-  next planning round. Never create a task with a closed, missing, or
-  unrelated parent.
+  in a later shape round (`/dev plan R`). Never create a task with a
+  closed, missing, or unrelated parent.
 
 ## Where things live
 
@@ -102,6 +123,8 @@ A branch plan may declare `depends-on: T-012` in its header. `/dev code`
 refuses to start the branch until the dependency is merged.
 
 ## Adjusting existing plans
+
+After the shape/detail rounds, adjust in place:
 
 - **Initiative requirements** (`plans/R-XXX-<slug>/requirements.md`):
   `/dev plan R-XXX` to extend.
