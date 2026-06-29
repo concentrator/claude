@@ -36,7 +36,7 @@ trimming). If the heuristic example won't fit `writing-plans`, keep it in
 - [x] Update `skills/dev/SKILL.md` `/dev plan` table: `R` → requirements +
   draft task list (one gate, deferrable); `R-XXX` → tasks + branch plans.
   Verify ≤400-word orchestrator cap.
-- [ ] Update `skills/brainstorming/SKILL.md`: `/dev plan R` produces
+- [x] Update `skills/brainstorming/SKILL.md`: `/dev plan R` produces
   requirements + a draft task list under one approval gate (deferrable for
   large/uncertain R); keep the single-checkpoint invariant explicit.
   Verify ≤300-word cap.
