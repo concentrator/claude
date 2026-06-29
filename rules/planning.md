@@ -73,8 +73,8 @@ downstream proceeds until `requirements.md` is approved.
 - This applies to findings promotion too: a finding becomes a `T-XXX`
   only under a fitting open `R-XXX`. If none exists, create an R stub
   instead — the initiative act per § Directory conventions, shaped
-  next planning round. Never create a task with a closed, missing, or
-  unrelated parent.
+  in a later shape round (`/dev plan R`). Never create a task with a
+  closed, missing, or unrelated parent.
 
 ## Where things live
 
@@ -123,6 +123,8 @@ A branch plan may declare `depends-on: T-012` in its header. `/dev code`
 refuses to start the branch until the dependency is merged.
 
 ## Adjusting existing plans
+
+After the shape/detail rounds, adjust in place:
 
 - **Initiative requirements** (`plans/R-XXX-<slug>/requirements.md`):
   `/dev plan R-XXX` to extend.

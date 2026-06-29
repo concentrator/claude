@@ -27,7 +27,7 @@ trimming). If the heuristic example won't fit `writing-plans`, keep it in
   shapes (requirements + draft task list, one approval gate, deferrable);
   `/dev plan R-XXX` details (tasks + their branch plans); artifacts
   persist, rounds collapse 3→2.
-- [ ] Align `rules/planning.md § Adjusting existing plans` and any "next
+- [x] Align `rules/planning.md § Adjusting existing plans` and any "next
   planning round" wording to the two-round model.
 - [ ] Add a deferrable "Draft tasks" subsection to the `kind:` templates
   in `rules/planning-templates.md § Per-initiative`.
