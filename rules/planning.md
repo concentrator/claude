@@ -6,9 +6,9 @@ paths:
 
 # Planning rules
 
-Three-level hierarchy for DEV mode: `R-XXX → T-XXX → branch plan`.
-An initiative is any work foundational `.claude/REQUIREMENTS.md`
-doesn't already cover.
+Three-level hierarchy for DEV mode: `R-XXX → T-XXX → branch plan`,
+planned in two rounds (§ Planning rounds). An initiative is any work
+foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 
 ## Levels
 
@@ -36,6 +36,21 @@ doesn't already cover.
 3. **Branch plan** — `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`.
    Checkboxes per commit. Header: `task: T-001`. Checkbox closes at
    commit time. See `branch-plan.md`.
+
+## Planning rounds
+
+The three-level artifact hierarchy above is planned in **two rounds**,
+not three — only the commands that emit the artifacts collapse:
+
+- **Shape** (`/dev plan R`) — produce the initiative's `requirements.md`
+  **and** a draft task list (`tasks.md`) together, approved at one gate.
+  Deferrable: for a large or uncertain initiative, approve requirements
+  and defer the task list to the detail round.
+- **Detail** (`/dev plan R-XXX`) — produce the open R's tasks **and**
+  their branch plans together.
+
+The single approval gate (§ Approval and closure) is unchanged: nothing
+downstream proceeds until `requirements.md` is approved.
 
 ## ID format
 

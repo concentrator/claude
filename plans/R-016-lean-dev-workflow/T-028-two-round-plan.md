@@ -23,7 +23,7 @@ trimming). If the heuristic example won't fit `writing-plans`, keep it in
   (Tasks bullet): a task is a coherent multi-commit deliverable, not a
   single edit; commit-sized items belong in the branch-plan checklist —
   with one concrete example.
-- [ ] State the two-round model in `rules/planning.md`: `/dev plan R`
+- [x] State the two-round model in `rules/planning.md`: `/dev plan R`
   shapes (requirements + draft task list, one approval gate, deferrable);
   `/dev plan R-XXX` details (tasks + their branch plans); artifacts
   persist, rounds collapse 3→2.
