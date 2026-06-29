@@ -92,12 +92,15 @@ mandatory final commit, then hands off to merge/PR.
    results. Surface manual-testing/automation needs. This outcome is
    presented with the merge options at step 8 (`finishing-a-branch § 2`),
    never skipped.
-6. **Triage `T-XXX-<slug>.findings.md`** — for each `[ ]` item, prompt user:
+6. **Triage `T-XXX-<slug>.findings.md`** — in-scope findings are resolved
+   in this branch (as commits), not deferred; the file should hold only
+   findings belonging to a **completely different component**. For each
+   remaining `[ ]`, prompt user:
    - Promote to `T-XXX` (new entry in the parent R's `tasks.md`,
      committed to main now) — only under a fitting open `R-XXX`; none →
      use the R-stub route
-   - Promote to an R stub (`planning.md § Directory conventions`;
-     shaped next planning round)
+   - Promote to an R stub (`planning.md § Directory conventions`; shaped
+     in a later shape round)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Mandatory final commit** — the last `[ ]`:
 

@@ -23,7 +23,7 @@ of the policy — offset by trimming if needed.
   refactor → `/simplify`; single feature/bugfix → `/code-review`;
   mixed-purpose or >9 commits → both; define `≤9 commits = small` and the
   "mixed-purpose" test (more than one task tag on the branch).
-- [ ] Rewrite `rules/branch-plan.md § Closing routine` step 6 (findings
+- [x] Rewrite `rules/branch-plan.md § Closing routine` step 6 (findings
   triage): resolve findings in-branch by default; promote to a new task /
   R stub only when the finding belongs to a completely different component
   — state that as the explicit test; keep the existing promote/discard
