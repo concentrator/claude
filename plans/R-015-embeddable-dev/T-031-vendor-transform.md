@@ -24,35 +24,37 @@ with the embedded CI subset. TDD via `adding-a-feature`.
 files in the target, never the global skills — no skill-edit approval gate.
 Script + tests are new code.
 
-- [ ] Scaffold `scripts/vendor-toolchain.sh` (arg-parse `<target>` +
+- [x] Scaffold `scripts/vendor-toolchain.sh` (arg-parse `<target>` +
   source ref) and a test harness; failing test asserts a run creates
   `<target>/.claude/`. Implement the scaffold to pass.
-- [ ] Manifest-driven copy + prune: test asserts the portable rules/skills
+- [x] Manifest-driven copy + prune: test asserts the portable rules/skills
   are present and the excluded set (`js.md`, `wallarm-*`, self-hosting) is
   absent; implement the include/exclude copy from the manifest.
-- [ ] Path rewrite: test asserts no `~/.claude/` reference remains except
+- [x] Path rewrite: test asserts no `~/.claude/` reference remains except
   protected ones; implement `~/.claude/…`→`.claude/…` rewrite, protecting
   `__HOME__`/`__PROJECT_DIR__` placeholders and the `writing-skills`
   example.
-- [ ] `dev-*` namespacing: test asserts non-orchestrator skill dirs are
+- [x] `dev-*` namespacing: test asserts non-orchestrator skill dirs are
   `dev-<name>` and cross-refs (incl. `dev`'s dispatch table) resolve to the
   prefixed names; implement rename + ref rewrite.
-- [ ] Generic `CLAUDE.md` backbone: test asserts the emitted `CLAUDE.md`
+- [x] Generic `CLAUDE.md` backbone: test asserts the emitted `CLAUDE.md`
   exists with `@`-imports of the embedded rules and the VIBE/DEV mode
   summary; implement the emit (no self-hosting content).
-- [ ] Genericize `verification-policy.md` (in the copy): test asserts the
+- [x] Genericize `verification-policy.md` (in the copy): test asserts the
   repo's Models table + effort evidence are replaced with an adopter
   model-routing slot; implement.
-- [ ] Version stamp: test asserts a stamp file records the source
+- [x] Version stamp: test asserts a stamp file records the source
   `git describe --tags --always`; implement.
-- [ ] Embedded CI subset: test asserts the 5 checks + a `run-all` without
-  the ledger call are present and run green in the vendored dir; implement
-  the copy + ledger-free `run-all` variant.
-- [ ] End-to-end: vendor into a temp dir, run the embedded gate there,
-  assert green and zero residual `~/.claude/` references.
-- [ ] Document the vendor script (usage + the pinned-source/stamp model) in
+- [x] Embedded CI subset (AC4) — **descoped to T-035** (see findings): the
+  checks assume this repo's self-hosting root layout; adapting them to the
+  adopter `.claude/`-rooted layout (and they need adopter-provided
+  `DESIGN.md`/`plans/` absent at vendor time) is a distinct task.
+- [x] Structural end-to-end: vendor into a temp dir; assert the embedded
+  `.claude/` is well-formed — no residual `~/.claude/`, skills namespaced,
+  backbone + stamp present, and the manifest's portable set complete.
+- [x] Document the vendor script (usage + the pinned-source/stamp model) in
   `README.md` (or `scripts/` usage doc) — doc-before-commit for the
   user-facing surface.
-- [ ] Complete the branch: re-review across all commits, cleanup, confirm
+- [x] Complete the branch: re-review across all commits, cleanup, confirm
   `bash scripts/ci/run-all.sh` green, triage the findings file, mark the
   plan complete, commit.

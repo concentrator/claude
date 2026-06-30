@@ -39,6 +39,22 @@ other project. Because the repo root *is* the `.claude/` directory, the
 foundational files live at the root — see
 `DESIGN.md § Self-hosting layout`.
 
+## Embedding into a project
+
+To give a project a self-contained copy of the DEV toolchain — so a
+contributor without this global `~/.claude` can run `/dev` from the
+project alone — vendor the portable core into its `.claude/`:
+
+    scripts/vendor-toolchain.sh <target-project>
+
+Run it from a checkout of this repo at the version you want to pin. It
+copies the portable rules and skills plus a generic `CLAUDE.md` backbone
+into `<target>/.claude/`, rewrites `~/.claude/…` paths to `.claude/…`,
+namespaces the embedded skills `dev-*` (the `/dev` command is preserved),
+excludes the self-hosting layer, and writes a version stamp
+(`git describe`) for drift detection. The portable set is defined in
+`plans/R-015-embeddable-dev/manifest.md`.
+
 ## Setup on a new machine
 
 1. Clone to `~/.claude`.
