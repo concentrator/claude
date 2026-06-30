@@ -180,6 +180,13 @@ adopter infra is a later initiative):
 The workflow triggers on `pull_request` only, so it never re-judges the
 direct-to-main bootstrap history.
 
+## Embeddable toolchain (R-015)
+
+Opt-in vendor copies the portable core into a project's `.claude/` —
+path-rewritten, `dev-*`-namespaced, self-hosting excluded, version-stamped
+with drift detection. Classification + transform rules:
+`plans/R-015-embeddable-dev/manifest.md`.
+
 ## Invariants
 
 - Every skill is reachable, documented, and non-duplicative.

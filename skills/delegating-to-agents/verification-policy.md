@@ -69,7 +69,7 @@ line and carries the records verbatim into the report's Cost section:
 Everything else is unchanged:
 
 - Non-mechanical commits keep the full spec-check flow.
-- The stop conditions in `rules/branch-plan.md § Stop conditions` are
+- The stop conditions in `~/.claude/rules/branch-plan.md § Stop conditions` are
   untouched.
 - "Spec check rejects the same commit twice → halt" still applies
   wherever a spec check runs.
@@ -107,7 +107,7 @@ cross-branch concerns.
 - Branches above the threshold keep the full per-branch close review.
 
 **Scope:** this rule applies to auto mode only. Manual-mode
-`rules/branch-plan.md § Closing routine` is unaffected.
+`~/.claude/rules/branch-plan.md § Closing routine` is unaffected.
 
 ## Models
 

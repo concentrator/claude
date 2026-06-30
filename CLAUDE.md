@@ -22,7 +22,8 @@ Self-hosting: this file is also the project CLAUDE.md. Test/lint:
 todos, references, ledger), also run by CI on PRs and the
 `.githooks/pre-push` hook. VCS-host CLI: `gh`; batch-push carve-out in
 `.claude/settings.local.json` (deny narrowed to default-branch/force
-pushes).
+pushes). Auto-merge fallback (no native branch protection): confirm
+`tier1` green, then `gh pr merge`; lapses to native once available.
 
 ## Code Comments
 

@@ -23,27 +23,29 @@ cross-references and lifting project-specifics into rules so skills stay
 generic — not renaming or vendoring (that is T-031's transform, applied to
 the copy). The global install is unchanged.
 
-- [ ] Audit and classify every **rule** (`rules/*.md`) as
+- [x] Audit and classify every **rule** (`rules/*.md`) as
   portable-generic / project-specific / global-only; record in
   `manifest.md` with the portable set and the exclusion reasons
   (ledger/maintenance/self-hosting → global-only).
-- [ ] Audit and classify every **skill** (`skills/*/`, incl. companion
+- [x] Audit and classify every **skill** (`skills/*/`, incl. companion
   files) the same way; record in `manifest.md`. Flag any skill whose
   procedure carries project-specifics (candidate for lifting in a later
   commit).
-- [ ] Embed-readiness: normalize skill/rule cross-references so every
+- [x] Embed-readiness: normalize skill/rule cross-references so every
   `~/.claude/...` reference is uniform and mechanically rewritable (no
   relative or stale variants the transform would miss). (`rules/`,
   `skills/` as the audit surfaces)
-- [ ] Embed-readiness: lift any project-specific content the audit flagged
-  out of portable skills into rules, so skills stay generic and
-  namespaceable. (only if the audit finds any; else note none)
-- [ ] Record the embedding architecture in `DESIGN.md`: vendor transform,
-  `dev-*` namespacing + embed-aware `dev` + marker, version stamp + drift,
-  CI subset (no ledger), generic `CLAUDE.md` backbone — and link
-  `manifest.md`. Confirm ≤1000-word inline cap (move detail to the
-  manifest if needed).
-- [ ] Complete the branch: re-review docs across all commits, confirm
+- [x] Embed-readiness: lift project-specific fragments out of portable
+  rules — `git-workflow.md:39` self-hosting clause → `CLAUDE.md § Agent
+  toolchain`; trimmed `branch-plan.md:202` friction-log clause. (The
+  `verification-policy.md` Models table is genericized at transform time
+  per the manifest, not edited globally.)
+- [x] Record the embedding architecture in `DESIGN.md` (§ Embeddable
+  toolchain) — vendor transform, `dev-*` namespacing, self-hosting
+  excluded, version stamp + drift — linking `manifest.md` for the full
+  classification + transform rules (detail kept in the manifest to stay
+  under the 1000-word DESIGN cap; now 994).
+- [x] Complete the branch: re-review docs across all commits, confirm
   `manifest.md` covers every skill/rule with no gaps, cleanup, confirm
-  `bash scripts/ci/run-all.sh` green, triage the findings file, mark the
-  plan complete, commit.
+  `bash scripts/ci/run-all.sh` green, triage the findings file (none
+  arose), mark the plan complete, commit.

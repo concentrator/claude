@@ -199,7 +199,7 @@ manual-mode § Closing routine above is unchanged by this rule.
 - Findings triage and push decisions always defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
   Accept = delete the batch's `pre-B-XXX` tag (rollback no longer
-  needed, and lingering tags keep the friction-log hook armed).
+  needed).
   Reject = delete the batch branch; the `pre-B-XXX` tag and member refs
   are preserved for salvage.
 
