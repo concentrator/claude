@@ -39,7 +39,7 @@ mkdir -p "$DEST"
 # content (their own rules/skills/plans) and CLAUDE.md (handled at emit). ---
 if [ "$embedded" -eq 1 ]; then
   git -C "$SRC" ls-files rules | grep -vE '^rules/js' | while IFS= read -r f; do rm -f "$DEST/$f"; done
-  rm -rf "$DEST/skills/dev" "$DEST"/skills/dev-*
+  rm -rf "$DEST/skills/dev" "$DEST"/skills/dev-* "$DEST/scripts/ci"
   rm -f "$DEST/scripts/dev-embed-check.sh" "$DEST/.dev-toolchain.json"
 fi
 
@@ -112,6 +112,29 @@ fi
 mkdir -p "$DEST/scripts"
 cp "$SRC/scripts/dev-embed-check.sh" "$DEST/scripts/dev-embed-check.sh"
 chmod +x "$DEST/scripts/dev-embed-check.sh"
+
+# --- ship the embedded CI subset: 3 portable checks + a ledger-free,
+# .claude/-rooted run-all (stray/todos are self-hosting/repo-scoped — excluded).
+mkdir -p "$DEST/scripts/ci"
+for c in check-caps check-plan-integrity check-references; do
+  cp "$SRC/scripts/ci/$c.sh" "$DEST/scripts/ci/$c.sh"
+  chmod +x "$DEST/scripts/ci/$c.sh"
+done
+{
+  echo '#!/usr/bin/env bash'
+  echo '# Embedded Tier-1 gate — portable checks, .claude/-rooted, no ledger.'
+  echo 'set -uo pipefail'
+  echo 'cd "$(git rev-parse --show-toplevel)"'
+  echo 'export CLAUDE_ROOT=.claude'
+  echo 'fail=0'
+  echo 'for c in caps plan-integrity references; do'
+  echo '  echo "== check-$c =="'
+  echo '  bash ".claude/scripts/ci/check-$c.sh" || fail=1'
+  echo 'done'
+  echo '(( fail == 0 )) && echo "run-all: ALL OK"'
+  echo 'exit $fail'
+} > "$DEST/scripts/ci/run-all.sh"
+chmod +x "$DEST/scripts/ci/run-all.sh"
 
 # --- genericize repo-specific model routing in the copy (manifest transform) ---
 # Replace the whole `## Models` section (repo model IDs + routing/effort prose)

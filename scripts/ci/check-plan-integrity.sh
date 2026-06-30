@@ -14,7 +14,7 @@ fail=0
 report() { echo "PLAN: $1"; fail=1; }
 has() { grep -qxF "$1" <<<"$2"; }
 
-roadmap_rs=$(grep -oE 'R-[0-9]{3}' "$ROOT/plans/ROADMAP.md" | sort -u)
+roadmap_rs=$(grep -oE 'R-[0-9]{3}' "$ROOT/plans/ROADMAP.md" | sort -u || true)
 
 # Each per-R tasks.md: every task names the owning dir's R (in ROADMAP)
 all_ts=""

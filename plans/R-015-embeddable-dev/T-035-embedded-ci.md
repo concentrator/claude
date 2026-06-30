@@ -25,7 +25,7 @@ rewrite.
   `check-plan-integrity` (`$CLAUDE_ROOT/plans`); confirm `check-references`
   is layout-agnostic. Test: this repo's `run-all` stays green (default
   `CLAUDE_ROOT=.`).
-- [ ] Embedded gate + vendor wiring: a ledger-free `run-all` that sets
+- [x] Embedded gate + vendor wiring: a ledger-free `run-all` that sets
   `CLAUDE_ROOT=.claude` and runs the 3 portable checks; extend
   `vendor-toolchain.sh` to copy the 3 checks + this run-all into
   `<target>/.claude/scripts/ci/`. Test: vendor into a fixture, add minimal
