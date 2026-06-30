@@ -27,6 +27,6 @@ mechanical word-chopping. Propose the prunes with the opt-in at code time
 - [x] `migrating-to-dev`: add the embed opt-in to § 5 Quality
   infrastructure; prune redundant prose to stay ≤300 (propose cuts +
   opt-in for approval). (skill edit)
-- [ ] Complete the branch: confirm the opt-in is present in both skills,
+- [x] Complete the branch: confirm the opt-in is present in both skills,
   default-off behavior unchanged, caps green; re-review, triage findings,
   mark the plan complete, commit.
