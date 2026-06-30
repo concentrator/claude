@@ -15,6 +15,13 @@ target="${1:-}"; shift || true
 SRC="$(git rev-parse --show-toplevel)"
 DEST="$target/.claude"
 
+# Initial vendor only — refuse an already-embedded target (re-running would
+# double-prefix namespaced skills). Update-in-place is re-vendor sync (T-033).
+if [ -e "$DEST/.dev-toolchain.json" ]; then
+  echo "error: $DEST already embeds the toolchain; updates are handled by re-vendor sync (T-033)" >&2
+  exit 1
+fi
+
 mkdir -p "$DEST"
 
 # --- copy the portable core (manifest.md) ---

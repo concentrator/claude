@@ -68,5 +68,13 @@ nrules=$(ls "$D"/rules/*.md 2>/dev/null | wc -l | tr -d ' ')
 nskills=$(ls -d "$D"/skills/*/ 2>/dev/null | wc -l | tr -d ' ')
 [ "$nskills" = "18" ] && pass "18 portable skills present" || die "expected 18 skills, got $nskills"
 
+# --- re-run guard (idempotent update-in-place is deferred to T-033) ---
+if bash "$VENDOR" "$tmp/proj" >/dev/null 2>&1; then
+  die "re-run into embedded target not refused"
+else
+  pass "re-run into embedded target refused"
+fi
+[ ! -e "$D/skills/dev-dev-adding-a-feature" ] && pass "no double-prefix" || die "double-prefixed on re-run"
+
 (( fail == 0 )) && echo "vendor-toolchain.test: OK"
 exit $fail
