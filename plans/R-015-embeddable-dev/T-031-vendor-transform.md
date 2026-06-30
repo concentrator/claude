@@ -45,11 +45,13 @@ Script + tests are new code.
   model-routing slot; implement.
 - [x] Version stamp: test asserts a stamp file records the source
   `git describe --tags --always`; implement.
-- [ ] Embedded CI subset: test asserts the 5 checks + a `run-all` without
-  the ledger call are present and run green in the vendored dir; implement
-  the copy + ledger-free `run-all` variant.
-- [ ] End-to-end: vendor into a temp dir, run the embedded gate there,
-  assert green and zero residual `~/.claude/` references.
+- [x] Embedded CI subset (AC4) — **descoped to T-035** (see findings): the
+  checks assume this repo's self-hosting root layout; adapting them to the
+  adopter `.claude/`-rooted layout (and they need adopter-provided
+  `DESIGN.md`/`plans/` absent at vendor time) is a distinct task.
+- [ ] Structural end-to-end: vendor into a temp dir; assert the embedded
+  `.claude/` is well-formed — no residual `~/.claude/`, skills namespaced,
+  backbone + stamp present, and the manifest's portable set complete.
 - [ ] Document the vendor script (usage + the pinned-source/stamp model) in
   `README.md` (or `scripts/` usage doc) — doc-before-commit for the
   user-facing surface.
