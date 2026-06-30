@@ -7,13 +7,15 @@
 # gitignored project skills (e.g. wallarm-*) are out of scope.
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
+# CLAUDE_ROOT: "." self-hosting (default); ".claude" in an embedded project.
+ROOT="${CLAUDE_ROOT:-.}"
 
 fail=0
 report() { echo "CAP: $1"; fail=1; }
 
-(( $(wc -l < CLAUDE.md) <= 200 )) || report "CLAUDE.md $(wc -l < CLAUDE.md) lines > 200"
-(( $(wc -w < CLAUDE.md) <= 400 )) || report "CLAUDE.md $(wc -w < CLAUDE.md) words > 400"
-(( $(wc -w < DESIGN.md) <= 1000 )) || report "DESIGN.md $(wc -w < DESIGN.md) words > 1000"
+(( $(wc -l < "$ROOT/CLAUDE.md") <= 200 )) || report "CLAUDE.md $(wc -l < "$ROOT/CLAUDE.md") lines > 200"
+(( $(wc -w < "$ROOT/CLAUDE.md") <= 400 )) || report "CLAUDE.md $(wc -w < "$ROOT/CLAUDE.md") words > 400"
+(( $(wc -w < "$ROOT/DESIGN.md") <= 1000 )) || report "DESIGN.md $(wc -w < "$ROOT/DESIGN.md") words > 1000"
 
 orchestrators=" dev delegating-to-agents "
 reference=" writing-skills verification-before-completion receiving-code-review dispatching-parallel-agents test-driven-development systematic-debugging "
@@ -22,14 +24,15 @@ body_words() { awk 'NR==1&&/^---/{f=1;next} f&&/^---/{f=0;next} !f' "$1" | wc -w
 
 while IFS= read -r f; do
   name=$(basename "$(dirname "$f")")
+  key="${name#dev-}"   # embedded skills are dev-prefixed; classify by base name
   cap=300
-  case "$orchestrators" in *" $name "*) cap=400 ;; esac
-  case "$reference"     in *" $name "*) cap=1500 ;; esac
+  case "$orchestrators" in *" $key "*) cap=400 ;; esac
+  case "$reference"     in *" $key "*) cap=1500 ;; esac
   bw=$(body_words "$f")
   (( bw <= cap )) || report "$f body $bw words > $cap"
   dw=$(sed -n 's/^description: //p' "$f" | wc -w)
   (( dw <= 12 )) || report "$f description $dw words > 12"
-done < <(git ls-files skills | grep '/SKILL\.md$')
+done < <(git ls-files "$ROOT/skills" | grep '/SKILL\.md$')
 
 (( fail == 0 )) && echo "check-caps: OK"
 exit $fail

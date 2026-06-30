@@ -19,7 +19,7 @@ layout and ship them in the vendored output.
 unchanged; `.claude` embedded) — one source of truth, not vendor-time
 rewrite.
 
-- [ ] Parameterize the portable checks with `CLAUDE_ROOT`: `check-caps`
+- [x] Parameterize the portable checks with `CLAUDE_ROOT`: `check-caps`
   (root-relative paths for `CLAUDE.md`/`DESIGN.md`/skills + make the
   orchestrator/reference name-lists `dev-`-prefix aware) and
   `check-plan-integrity` (`$CLAUDE_ROOT/plans`); confirm `check-references`
