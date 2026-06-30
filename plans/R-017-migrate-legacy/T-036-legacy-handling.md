@@ -17,7 +17,7 @@ current schema.
 Companion-first so the `SKILL.md` pointer resolves. Commit 2 is a skill
 edit (propose + approval at code time).
 
-- [ ] Add companion `skills/migrating-to-dev/legacy-migration.md` — the
+- [x] Add companion `skills/migrating-to-dev/legacy-migration.md` — the
   guided canonicalization procedure: detect legacy markers (lowercase
   `design.md`/`requirements.md`/`roadmap.md`, four-level `REQ-XXX`, flat
   `tasks.md`); upgrade with per-step approval — rename to uppercase
