@@ -34,7 +34,7 @@ Script + tests are new code.
   protected ones; implement `~/.claude/…`→`.claude/…` rewrite, protecting
   `__HOME__`/`__PROJECT_DIR__` placeholders and the `writing-skills`
   example.
-- [ ] `dev-*` namespacing: test asserts non-orchestrator skill dirs are
+- [x] `dev-*` namespacing: test asserts non-orchestrator skill dirs are
   `dev-<name>` and cross-refs (incl. `dev`'s dispatch table) resolve to the
   prefixed names; implement rename + ref rewrite.
 - [ ] Generic `CLAUDE.md` backbone: test asserts the emitted `CLAUDE.md`

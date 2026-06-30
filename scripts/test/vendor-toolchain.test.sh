@@ -27,12 +27,24 @@ fi
 [ ! -e "$D/skills/wallarm-triggers" ] && pass "excludes wallarm-*"  || die "wallarm-* leaked"
 
 # --- path rewrite: ~/.claude/ -> .claude/ (example file protected) ---
-EXAMPLE='skills/writing-skills/examples/CLAUDE_MD_TESTING.md'
+# post-namespacing location (writing-skills -> dev-writing-skills)
+EXAMPLE='skills/dev-writing-skills/examples/CLAUDE_MD_TESTING.md'
 resid=$(grep -rl '~/\.claude/' "$D" --exclude='CLAUDE_MD_TESTING.md' 2>/dev/null || true)
 [ -z "$resid" ] && pass "no residual ~/.claude refs" \
   || die "residual ~/.claude in: $(echo "$resid" | tr '\n' ' ')"
 grep -q '~/\.claude/' "$D/$EXAMPLE" && pass "example protected from rewrite" \
   || die "example refs were rewritten"
+
+# --- dev-* namespacing (orchestrator `dev` unchanged; `release` guard in rules) ---
+[ -d "$D/skills/dev-finishing-a-branch" ] && pass "skill dir prefixed"        || die "skill not renamed"
+[ ! -e "$D/skills/finishing-a-branch" ]   && pass "old skill name gone"        || die "old skill name remains"
+[ -d "$D/skills/dev" ]                     && pass "orchestrator dev unchanged" || die "dev renamed"
+grep -q 'dev-adding-a-feature' "$D/skills/dev/SKILL.md" && pass "dispatch ref prefixed" || die "dispatch not prefixed"
+grep -q '`dev-release`' "$D/skills/dev/SKILL.md"        && pass "release skill-ref prefixed" || die "release skill-ref not prefixed"
+if grep -q '`release`' "$D/rules/git-workflow.md" && ! grep -q 'dev-release' "$D/rules/git-workflow.md"; then
+  pass "branch-prefix release preserved in rules"
+else die "branch-prefix release corrupted in rules"; fi
+! grep -rq '\.claude/skills/finishing-a-branch' "$D" && pass "no stale skill path refs" || die "stale skill path ref"
 
 (( fail == 0 )) && echo "vendor-toolchain.test: OK"
 exit $fail
