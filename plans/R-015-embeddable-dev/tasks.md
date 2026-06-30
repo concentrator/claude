@@ -39,3 +39,8 @@ detailed once it lands.
   DEV toolchain" opt-in to `starting-a-project` and `migrating-to-dev`,
   invoking the vendor; default behavior unchanged when not opted in. (AC8)
   `depends-on: T-031`
+- [ ] T-035 (R-015) [feat]: Embedded CI subset — adapt the 5 Tier-1 checks
+  (caps, plan-integrity, references, stray, todos) + a ledger-free
+  `run-all` to the adopter `.claude/`-rooted layout (artifacts under
+  `.claude/`, not the repo root), wired into the vendor transform.
+  Split from T-031. (AC4) `depends-on: T-031`

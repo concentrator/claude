@@ -55,6 +55,6 @@ Script + tests are new code.
 - [x] Document the vendor script (usage + the pinned-source/stamp model) in
   `README.md` (or `scripts/` usage doc) — doc-before-commit for the
   user-facing surface.
-- [ ] Complete the branch: re-review across all commits, cleanup, confirm
+- [x] Complete the branch: re-review across all commits, cleanup, confirm
   `bash scripts/ci/run-all.sh` green, triage the findings file, mark the
   plan complete, commit.
