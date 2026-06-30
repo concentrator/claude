@@ -57,5 +57,10 @@ VP="$D/skills/dev-delegating-to-agents/verification-policy.md"
 grep -q 'Adopter slot' "$VP"  && pass "adopter model slot present" || die "no model slot"
 ! grep -q 'B-003' "$VP"        && pass "repo batch evidence removed" || die "B-003 remains"
 
+# --- version stamp / embed marker ---
+STAMP="$D/.dev-toolchain.json"
+[ -f "$STAMP" ]              && pass "version stamp written"        || die "no stamp"
+grep -q '"source"' "$STAMP"  && pass "stamp records source version" || die "stamp missing source"
+
 (( fail == 0 )) && echo "vendor-toolchain.test: OK"
 exit $fail

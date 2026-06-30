@@ -43,7 +43,7 @@ Script + tests are new code.
 - [x] Genericize `verification-policy.md` (in the copy): test asserts the
   repo's Models table + effort evidence are replaced with an adopter
   model-routing slot; implement.
-- [ ] Version stamp: test asserts a stamp file records the source
+- [x] Version stamp: test asserts a stamp file records the source
   `git describe --tags --always`; implement.
 - [ ] Embedded CI subset: test asserts the 5 checks + a `run-all` without
   the ledger call are present and run green in the vendored dir; implement

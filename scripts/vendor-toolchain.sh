@@ -78,3 +78,9 @@ if [ -f "$vp" ]; then
   ' "$vp" > "$vp.tmp" && mv "$vp.tmp" "$vp"
   sed -i.bak 's/B-003/earlier batches/g' "$vp" && rm -f "$vp.bak"
 fi
+
+# --- version stamp / embed marker ---
+# Records the source toolchain version (drift is measured against this by
+# the re-vendor sync, T-033). Its presence marks an embedded project (T-032).
+SRC_VER="$(git -C "$SRC" describe --tags --always 2>/dev/null || echo unknown)"
+printf '{"source":"%s"}\n' "$SRC_VER" > "$DEST/.dev-toolchain.json"
