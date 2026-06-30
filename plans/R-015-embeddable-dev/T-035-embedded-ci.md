@@ -19,21 +19,21 @@ layout and ship them in the vendored output.
 unchanged; `.claude` embedded) — one source of truth, not vendor-time
 rewrite.
 
-- [ ] Parameterize the portable checks with `CLAUDE_ROOT`: `check-caps`
+- [x] Parameterize the portable checks with `CLAUDE_ROOT`: `check-caps`
   (root-relative paths for `CLAUDE.md`/`DESIGN.md`/skills + make the
   orchestrator/reference name-lists `dev-`-prefix aware) and
   `check-plan-integrity` (`$CLAUDE_ROOT/plans`); confirm `check-references`
   is layout-agnostic. Test: this repo's `run-all` stays green (default
   `CLAUDE_ROOT=.`).
-- [ ] Embedded gate + vendor wiring: a ledger-free `run-all` that sets
+- [x] Embedded gate + vendor wiring: a ledger-free `run-all` that sets
   `CLAUDE_ROOT=.claude` and runs the 3 portable checks; extend
   `vendor-toolchain.sh` to copy the 3 checks + this run-all into
   `<target>/.claude/scripts/ci/`. Test: vendor into a fixture, add minimal
   adopter artifacts (`.claude/DESIGN.md`, `.claude/plans/ROADMAP.md`,
   `CLAUDE.md`), run the embedded gate → green; `stray`/`todos`/`ledger`
   absent.
-- [ ] Adjust AC4 in `requirements.md` to the portable subset and record
+- [x] Adjust AC4 in `requirements.md` to the portable subset and record
   the `stray`/`todos` exclusion rationale in `manifest.md`.
-- [ ] Document the embedded gate in `README.md`, then complete the branch:
+- [x] Document the embedded gate in `README.md`, then complete the branch:
   re-review, confirm `bash scripts/ci/run-all.sh` green, triage the
   findings file, mark the plan complete, commit.

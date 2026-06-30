@@ -68,6 +68,10 @@ replaces the managed files (rules, `dev`/`dev-*` skills, check, stamp)
 and leaves the project's own additions and `CLAUDE.md` untouched (a
 refreshed backbone is written to `CLAUDE.md.new` if it changed).
 
+The embedded project also gets a Tier-1 gate at
+`.claude/scripts/ci/run-all.sh` — the portable checks (caps,
+plan-integrity, references), `.claude/`-rooted, without the ledger.
+
 ## Setup on a new machine
 
 1. Clone to `~/.claude`.

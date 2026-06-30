@@ -74,8 +74,11 @@ initiative — this is it.)
 - [ ] The embedded core excludes the self-hosting layer (no
   `maintenance.jsonl`, `MAINTENANCE.md`, ledger check, memory,
   repo-specific skills).
-- [ ] The embedded CI gate runs caps + plan-integrity + references +
-  stray + todos and passes; it does **not** include the ledger check.
+- [ ] The embedded CI gate runs the portable checks — caps +
+  plan-integrity + references (`.claude/`-rooted via `CLAUDE_ROOT`) — and
+  passes; it excludes the ledger and the self-hosting / repo-scoped
+  `stray` and `todos` checks (T-035 audit: those don't port to the
+  adopter layout without per-project config).
 - [ ] In an embedded project, the project's DEV rules and CLAUDE.md take
   precedence over an engineer's global equivalents (verified with an
   engineer who has a global toolchain), and `/dev` routes into the
