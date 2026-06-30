@@ -62,5 +62,11 @@ STAMP="$D/.dev-toolchain.json"
 [ -f "$STAMP" ]              && pass "version stamp written"        || die "no stamp"
 grep -q '"source"' "$STAMP"  && pass "stamp records source version" || die "stamp missing source"
 
+# --- structural completeness (manifest's portable set) ---
+nrules=$(ls "$D"/rules/*.md 2>/dev/null | wc -l | tr -d ' ')
+[ "$nrules" = "8" ]  && pass "8 portable rules present"  || die "expected 8 rules, got $nrules"
+nskills=$(ls -d "$D"/skills/*/ 2>/dev/null | wc -l | tr -d ' ')
+[ "$nskills" = "18" ] && pass "18 portable skills present" || die "expected 18 skills, got $nskills"
+
 (( fail == 0 )) && echo "vendor-toolchain.test: OK"
 exit $fail

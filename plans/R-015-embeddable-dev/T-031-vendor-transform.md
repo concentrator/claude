@@ -49,7 +49,7 @@ Script + tests are new code.
   checks assume this repo's self-hosting root layout; adapting them to the
   adopter `.claude/`-rooted layout (and they need adopter-provided
   `DESIGN.md`/`plans/` absent at vendor time) is a distinct task.
-- [ ] Structural end-to-end: vendor into a temp dir; assert the embedded
+- [x] Structural end-to-end: vendor into a temp dir; assert the embedded
   `.claude/` is well-formed — no residual `~/.claude/`, skills namespaced,
   backbone + stamp present, and the manifest's portable set complete.
 - [ ] Document the vendor script (usage + the pinned-source/stamp model) in
