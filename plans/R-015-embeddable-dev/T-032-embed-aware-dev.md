@@ -27,7 +27,7 @@ needs explicit approval (`skills.md` gate). Commits 2–3 are TDD.
   the embedded `.claude/rules`; add the `<!-- dev-embed-aware -->`
   capability marker. Keep ≤400-word orchestrator cap. (skill edit —
   propose + approval)
-- [ ] Clone-time check script `scripts/dev-embed-check.sh` + test (TDD):
+- [x] Clone-time check script `scripts/dev-embed-check.sh` + test (TDD):
   in an embedded project (marker present), warn when no global
   `~/.claude/skills/dev` exists is acceptable (embedded `dev` serves
   `/dev`); warn when a global `dev` exists but lacks the
