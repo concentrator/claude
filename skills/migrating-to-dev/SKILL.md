@@ -12,9 +12,9 @@ Bring an existing project under DEV. Detect mode by state:
   (steps 1–8 below).
 - **Already-DEV, pre-TBD** — `.claude/plans/ROADMAP.md` present: the
   project has the planning hierarchy but runs the pre-TBD delivery
-  model. Run the TBD migration (`tbd-migration.md`; advisory — it plans
-  and reports, you execute the irreversible/host steps, no `main`
-  rewrite), not steps 1–8. An already-TBD-conformant project → report
+  model. Run the TBD migration (`tbd-migration.md`; advisory — you
+  execute the irreversible/host steps), not steps 1–8. An
+  already-TBD-conformant project → report
   conformant, no changes.
 
 ## 1. Inventory
@@ -25,17 +25,16 @@ against `~/.claude/rules/project-layout.md` and report gaps.
 
 ## 2. Requirements
 
-Read README + code. Ask user 3–5 clarifying questions (purpose, audience,
-goals, non-goals, success criteria). Write `.claude/REQUIREMENTS.md` with
+Read README + code. Ask user 3–5 clarifying questions. Write
+`.claude/REQUIREMENTS.md` with
 `approved: pending` per `~/.claude/rules/planning-templates.md
 § Foundational`. **Block on user approval** — then update `approved:` to
 today.
 
 ## 3. Design
 
-Document module boundaries, data/control flow, architectural decisions
-evident from code. Write `.claude/DESIGN.md` (≤1000 words inline). User
-approves.
+Document module boundaries, data/control flow, architectural decisions.
+Write `.claude/DESIGN.md` (≤1000 words inline). User approves.
 
 ## 4. CLAUDE.md alignment
 
@@ -49,6 +48,9 @@ Check inventory against the baseline: lint configured + a passing smoke
 test + CI running lint + tests on every MR/PR. Ask before changing
 existing config. If user defers any item, record
 `quality-deferred: true` in `CLAUDE.md § Conventions`.
+
+Optionally embed the toolchain (`~/.claude/scripts/vendor-toolchain.sh
+<root>`) for contributors without `~/.claude`.
 
 ## 6. Backfill plans
 

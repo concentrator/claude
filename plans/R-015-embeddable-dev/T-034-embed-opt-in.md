@@ -21,12 +21,12 @@ valuable in any real scenario? would behavior change if removed?) — not
 mechanical word-chopping. Propose the prunes with the opt-in at code time
 (skills gate).
 
-- [ ] `starting-a-project`: add the embed opt-in to § 3 Scaffold; prune
+- [x] `starting-a-project`: add the embed opt-in to § 3 Scaffold; prune
   redundant prose to stay ≤300 (propose cuts + opt-in for approval).
   (skill edit)
-- [ ] `migrating-to-dev`: add the embed opt-in to § 5 Quality
+- [x] `migrating-to-dev`: add the embed opt-in to § 5 Quality
   infrastructure; prune redundant prose to stay ≤300 (propose cuts +
   opt-in for approval). (skill edit)
-- [ ] Complete the branch: confirm the opt-in is present in both skills,
+- [x] Complete the branch: confirm the opt-in is present in both skills,
   default-off behavior unchanged, caps green; re-review, triage findings,
   mark the plan complete, commit.
