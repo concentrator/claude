@@ -21,7 +21,7 @@ valuable in any real scenario? would behavior change if removed?) — not
 mechanical word-chopping. Propose the prunes with the opt-in at code time
 (skills gate).
 
-- [ ] `starting-a-project`: add the embed opt-in to § 3 Scaffold; prune
+- [x] `starting-a-project`: add the embed opt-in to § 3 Scaffold; prune
   redundant prose to stay ≤300 (propose cuts + opt-in for approval).
   (skill edit)
 - [ ] `migrating-to-dev`: add the embed opt-in to § 5 Quality

@@ -5,8 +5,8 @@ description: Use when scaffolding a new project from scratch.
 
 # Starting a Project
 
-One-time setup. Walk top-to-bottom. Scaffold + foundation commits go on the
-default branch — exception to the no-commit-to-`main` rule.
+One-time setup. Scaffold + foundation commits go on the default branch —
+exception to the no-commit-to-`main` rule.
 
 (For an existing codebase, use `migrating-to-dev` instead.)
 
@@ -18,29 +18,31 @@ if needed. Create `.claude/` if absent, then write
 per `~/.claude/rules/planning-templates.md § Foundational`. **Do not
 proceed until the user approves** — then update `approved:` to today.
 
-Seed file not committed; `REQUIREMENTS.md` is the owned spec.
+Seed file not committed; `REQUIREMENTS.md` is the spec.
 
 ## 2. Design
 
-Write `.claude/DESIGN.md` — initial architecture and design decisions.
-**≤1000 words inline**, external refs allowed (diagrams, ADRs).
+Write `.claude/DESIGN.md` — architecture and design decisions.
+**≤1000 words inline**, external refs allowed.
 
 ## 3. Scaffold
 
 Files:
-- `/init` → project `CLAUDE.md`.
+- `/init` → project `CLAUDE.md`: stack, base branch, build/test/lint;
+  don't restate global rules.
 - `README.md` (verify or stub).
 - `.gitignore` — `.claude/settings.local.json`, secrets, build artifacts.
 - `.claude/plans/` with `ROADMAP.md` (per-R `tasks.md` is lazy).
-- Project `CLAUDE.md`: stack, base branch, build/test/lint. Don't restate
-  global rules.
+- Optionally embed the toolchain
+  (`~/.claude/scripts/vendor-toolchain.sh <root>`) for contributors
+  without `~/.claude`.
 
 Full `.claude/` layout: `~/.claude/rules/project-layout.md`.
 
 Ask: **release routine?** Record `release-routine:` in `CLAUDE.md
 § Conventions`. If yes: `CHANGELOG.md`, versioning (default `vX.Y.Z`),
-`.claude/plans/release-v0.1.0.md`. Ask about external publishing
-(npm/PyPI/etc.); record `publish-external:`. If external, override
+`.claude/plans/release-v0.1.0.md`. Ask about external publishing;
+record `publish-external:`. If external, override
 `release` at `<project>/.claude/skills/release/SKILL.md`.
 
 Ask: **extended docs?** Record `extended-docs:` (+ path if yes) in
