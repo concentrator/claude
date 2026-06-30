@@ -55,6 +55,12 @@ excludes the self-hosting layer, and writes a version stamp
 (`git describe`) for drift detection. The portable set is defined in
 `plans/R-015-embeddable-dev/manifest.md`.
 
+A contributor who also has this global `~/.claude` still gets the
+project's pinned version: the global `dev` is embed-aware (it detects
+`.claude/.dev-toolchain.json` and routes `/dev` into the project's
+`dev-*` skills). After cloning, run `.claude/scripts/dev-embed-check.sh`
+to confirm the global `dev` is recent enough.
+
 ## Setup on a new machine
 
 1. Clone to `~/.claude`.

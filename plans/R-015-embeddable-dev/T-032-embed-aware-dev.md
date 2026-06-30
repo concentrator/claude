@@ -38,7 +38,7 @@ needs explicit approval (`skills.md` gate). Commits 2–3 are TDD.
   target's `.claude/scripts/` and note "run after cloning" in the emitted
   `CLAUDE.md` backbone; test the vendored output includes the check and
   the note.
-- [ ] Document the embed-aware behavior + clone-time check in `README.md`
+- [x] Document the embed-aware behavior + clone-time check in `README.md`
   (doc-before-commit), then complete the branch: re-review across commits,
   cleanup, confirm `bash scripts/ci/run-all.sh` green, triage the findings
   file, mark the plan complete, commit.
