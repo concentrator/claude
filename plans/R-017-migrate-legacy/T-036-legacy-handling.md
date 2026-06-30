@@ -30,7 +30,7 @@ edit (propose + approval at code time).
   gap-check in **every** mode, and route the Legacy mode to
   `legacy-migration.md`. Analytical-prune to ≤300 (propose cuts +
   changes for approval).
-- [ ] Complete the branch: confirm an already-canonical project reports
+- [x] Complete the branch: confirm an already-canonical project reports
   conformant (no changes) and the Fresh / Already-DEV-pre-TBD paths are
   intact (inspection); caps green; re-review, triage the findings file,
   mark the plan complete, commit.
