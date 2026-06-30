@@ -33,7 +33,7 @@ needs explicit approval (`skills.md` gate). Commits 2–3 are TDD.
   `/dev`); warn when a global `dev` exists but lacks the
   `<!-- dev-embed-aware -->` marker (stale → update); silent when the
   global `dev` is embed-aware. Test drives each branch with fixture dirs.
-- [ ] Vendor emits the check into embedded `.claude/`: extend
+- [x] Vendor emits the check into embedded `.claude/`: extend
   `scripts/vendor-toolchain.sh` to copy `dev-embed-check.sh` into the
   target's `.claude/scripts/` and note "run after cloning" in the emitted
   `CLAUDE.md` backbone; test the vendored output includes the check and

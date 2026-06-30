@@ -76,5 +76,9 @@ else
 fi
 [ ! -e "$D/skills/dev-dev-adding-a-feature" ] && pass "no double-prefix" || die "double-prefixed on re-run"
 
+# --- embed-host check shipped + noted ---
+[ -f "$D/scripts/dev-embed-check.sh" ] && pass "check script vendored"     || die "no check script"
+grep -q 'dev-embed-check' "$D/CLAUDE.md" && pass "backbone notes the check" || die "backbone missing check note"
+
 (( fail == 0 )) && echo "vendor-toolchain.test: OK"
 exit $fail
