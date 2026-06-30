@@ -35,9 +35,11 @@ the copy). The global install is unchanged.
   `~/.claude/...` reference is uniform and mechanically rewritable (no
   relative or stale variants the transform would miss). (`rules/`,
   `skills/` as the audit surfaces)
-- [ ] Embed-readiness: lift any project-specific content the audit flagged
-  out of portable skills into rules, so skills stay generic and
-  namespaceable. (only if the audit finds any; else note none)
+- [x] Embed-readiness: lift project-specific fragments out of portable
+  rules — `git-workflow.md:39` self-hosting clause → `CLAUDE.md § Agent
+  toolchain`; trimmed `branch-plan.md:202` friction-log clause. (The
+  `verification-policy.md` Models table is genericized at transform time
+  per the manifest, not edited globally.)
 - [ ] Record the embedding architecture in `DESIGN.md`: vendor transform,
   `dev-*` namespacing + embed-aware `dev` + marker, version stamp + drift,
   CI subset (no ledger), generic `CLAUDE.md` backbone — and link

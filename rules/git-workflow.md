@@ -36,8 +36,7 @@ repo's term per its host.
   green gate: native host auto-merge where available
   (`gh pr merge --auto`, GitLab merge-when-pipeline-succeeds); where the
   host can't gate (no branch protection), the operator merges once the
-  required checks pass. In `~/.claude` the agent confirms `tier1` green,
-  then `gh pr merge` — this fallback lapses to native once available.
+  required checks pass.
 
 ## Coherent delivery
 
