@@ -40,11 +40,11 @@ the copy). The global install is unchanged.
   toolchain`; trimmed `branch-plan.md:202` friction-log clause. (The
   `verification-policy.md` Models table is genericized at transform time
   per the manifest, not edited globally.)
-- [ ] Record the embedding architecture in `DESIGN.md`: vendor transform,
-  `dev-*` namespacing + embed-aware `dev` + marker, version stamp + drift,
-  CI subset (no ledger), generic `CLAUDE.md` backbone — and link
-  `manifest.md`. Confirm ≤1000-word inline cap (move detail to the
-  manifest if needed).
+- [x] Record the embedding architecture in `DESIGN.md` (§ Embeddable
+  toolchain) — vendor transform, `dev-*` namespacing, self-hosting
+  excluded, version stamp + drift — linking `manifest.md` for the full
+  classification + transform rules (detail kept in the manifest to stay
+  under the 1000-word DESIGN cap; now 994).
 - [ ] Complete the branch: re-review docs across all commits, confirm
   `manifest.md` covers every skill/rule with no gaps, cleanup, confirm
   `bash scripts/ci/run-all.sh` green, triage the findings file, mark the
