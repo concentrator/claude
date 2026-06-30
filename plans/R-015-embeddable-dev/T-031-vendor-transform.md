@@ -27,7 +27,7 @@ Script + tests are new code.
 - [x] Scaffold `scripts/vendor-toolchain.sh` (arg-parse `<target>` +
   source ref) and a test harness; failing test asserts a run creates
   `<target>/.claude/`. Implement the scaffold to pass.
-- [ ] Manifest-driven copy + prune: test asserts the portable rules/skills
+- [x] Manifest-driven copy + prune: test asserts the portable rules/skills
   are present and the excluded set (`js.md`, `wallarm-*`, self-hosting) is
   absent; implement the include/exclude copy from the manifest.
 - [ ] Path rewrite: test asserts no `~/.claude/` reference remains except

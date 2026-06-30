@@ -12,13 +12,19 @@ die() { echo "not ok - $1"; fail=1; }
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
 
-# --- scaffold: a run creates <target>/.claude/ ---
+# --- run the vendor once into a fresh target ---
+D="$tmp/proj/.claude"
 if bash "$VENDOR" "$tmp/proj" >/dev/null 2>&1; then
-  [ -d "$tmp/proj/.claude" ] && pass "creates <target>/.claude" \
-    || die "no .claude created"
+  [ -d "$D" ] && pass "creates <target>/.claude" || die "no .claude created"
 else
   die "vendor exits nonzero"
 fi
+
+# --- copy + prune (manifest-driven) ---
+[ -f "$D/rules/planning.md" ]   && pass "portable rule copied"      || die "missing rules/planning.md"
+[ -f "$D/skills/dev/SKILL.md" ] && pass "portable skill copied"     || die "missing skills/dev"
+[ ! -e "$D/rules/js.md" ]       && pass "excludes js.md"            || die "js.md leaked"
+[ ! -e "$D/skills/wallarm-triggers" ] && pass "excludes wallarm-*"  || die "wallarm-* leaked"
 
 (( fail == 0 )) && echo "vendor-toolchain.test: OK"
 exit $fail

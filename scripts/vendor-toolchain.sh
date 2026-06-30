@@ -16,3 +16,12 @@ SRC="$(git rev-parse --show-toplevel)"
 DEST="$target/.claude"
 
 mkdir -p "$DEST"
+
+# --- copy the portable core (manifest.md) ---
+# Tracked files only, so untracked wallarm-* skills are excluded inherently;
+# js.md (project-specific) is pruned explicitly.
+EXCLUDE_RE='^rules/js\.md$|^skills/wallarm-'
+git -C "$SRC" ls-files rules skills | grep -vE "$EXCLUDE_RE" | while IFS= read -r f; do
+  mkdir -p "$DEST/$(dirname "$f")"
+  cp "$SRC/$f" "$DEST/$f"
+done
