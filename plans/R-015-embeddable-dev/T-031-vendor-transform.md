@@ -52,7 +52,7 @@ Script + tests are new code.
 - [x] Structural end-to-end: vendor into a temp dir; assert the embedded
   `.claude/` is well-formed — no residual `~/.claude/`, skills namespaced,
   backbone + stamp present, and the manifest's portable set complete.
-- [ ] Document the vendor script (usage + the pinned-source/stamp model) in
+- [x] Document the vendor script (usage + the pinned-source/stamp model) in
   `README.md` (or `scripts/` usage doc) — doc-before-commit for the
   user-facing surface.
 - [ ] Complete the branch: re-review across all commits, cleanup, confirm
