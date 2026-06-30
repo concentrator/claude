@@ -31,7 +31,7 @@ the copy). The global install is unchanged.
   files) the same way; record in `manifest.md`. Flag any skill whose
   procedure carries project-specifics (candidate for lifting in a later
   commit).
-- [ ] Embed-readiness: normalize skill/rule cross-references so every
+- [x] Embed-readiness: normalize skill/rule cross-references so every
   `~/.claude/...` reference is uniform and mechanically rewritable (no
   relative or stale variants the transform would miss). (`rules/`,
   `skills/` as the audit surfaces)

@@ -25,7 +25,7 @@ History is migrated forward, never rewritten.
 
 ## 2. Structure
 
-Diff tracked `.claude/` against `rules/project-layout.md`:
+Diff tracked `.claude/` against `~/.claude/rules/project-layout.md`:
 
 - **Non-canonical files** — e.g. a `source-spec.md` inside an R-dir.
   Recommend moving spec/input material to `references/` (its canonical
