@@ -11,7 +11,7 @@ detailed once it lands.
 
 ## Open
 
-- [ ] T-030 (R-015) [refactor]: Audit & portable-core manifest — classify
+- [x] T-030 (R-015) [refactor]: Audit & portable-core manifest — classify
   every skill and rule (portable-generic / project-specific / global-only);
   make the source embed-ready (uniform `~/.claude/` cross-refs; lift
   project-specifics into rules so skills stay generic/namespaceable);
