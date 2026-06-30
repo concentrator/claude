@@ -31,7 +31,7 @@ detailed once it lands.
   dispatches into the `dev-*` skills, and follows the embedded rules; a
   clone-time check warns on a missing or stale global `dev`. Preserves the
   `/dev` command. (AC5) `depends-on: T-031`
-- [ ] T-033 (R-015) [feat]: Drift detection + re-vendor sync — compare the
+- [x] T-033 (R-015) [feat]: Drift detection + re-vendor sync — compare the
   embedded version stamp against the pinned source, report stale, and
   update the embedded copy in place on re-vendor. (AC6, AC7)
   `depends-on: T-031`
