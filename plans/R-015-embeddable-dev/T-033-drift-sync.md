@@ -26,7 +26,7 @@ All new code / script extension — no skill-edit gate.
   `git describe`, `stale` when it differs, `unknown` when the stamp is
   missing/unreadable. Test drives each via fixture stamps + a stubbed
   `git describe`.
-- [ ] Vendor `--update` mode + test: with `--update`, remove the
+- [x] Vendor `--update` mode + test: with `--update`, remove the
   vendor-managed footprint (8 rules by name, `dev` + `dev-*` skills, check
   script, stamp) and re-vendor; preserve the adopter `CLAUDE.md` (re-emit
   only if byte-identical to a fresh backbone, else leave it and report);
