@@ -19,7 +19,7 @@ detailed once it lands.
   (vendor transform, `dev-*` namespacing, embed-aware `dev` + marker,
   version stamp/drift, CI subset, generic CLAUDE.md backbone) in
   `DESIGN.md`. architecture-changing. (AC9)
-- [ ] T-031 (R-015) [feat]: Vendor transform — script that copies the
+- [x] T-031 (R-015) [feat]: Vendor transform — script that copies the
   manifest's portable core from a pinned source into `<target>/.claude/`,
   rewrites `~/.claude/…`→`.claude/…`, applies `dev-*` namespacing, prunes
   the self-hosting layer, emits the generic DEV `CLAUDE.md` backbone with
