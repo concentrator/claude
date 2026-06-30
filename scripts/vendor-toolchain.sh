@@ -65,3 +65,16 @@ done
     sed -n '1,6p' "$r" | grep -q '^paths:' || echo "@rules/$(basename "$r")"
   done
 } > "$DEST/CLAUDE.md"
+
+# --- genericize repo-specific model routing in the copy (manifest transform) ---
+# Replace the whole `## Models` section (repo model IDs + routing/effort prose)
+# with an adopter slot, and neutralize the `B-003` batch evidence.
+vp="$DEST/skills/dev-delegating-to-agents/verification-policy.md"
+if [ -f "$vp" ]; then
+  awk '
+    /^## Models/ { print; print ""; print "Adopter slot: define a model-per-role routing table (dispatch values + effort) for this project."; skip=1; next }
+    /^## / && skip { skip=0 }
+    !skip { print }
+  ' "$vp" > "$vp.tmp" && mv "$vp.tmp" "$vp"
+  sed -i.bak 's/B-003/earlier batches/g' "$vp" && rm -f "$vp.bak"
+fi

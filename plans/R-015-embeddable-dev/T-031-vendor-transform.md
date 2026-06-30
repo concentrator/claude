@@ -40,7 +40,7 @@ Script + tests are new code.
 - [x] Generic `CLAUDE.md` backbone: test asserts the emitted `CLAUDE.md`
   exists with `@`-imports of the embedded rules and the VIBE/DEV mode
   summary; implement the emit (no self-hosting content).
-- [ ] Genericize `verification-policy.md` (in the copy): test asserts the
+- [x] Genericize `verification-policy.md` (in the copy): test asserts the
   repo's Models table + effort evidence are replaced with an adopter
   model-routing slot; implement.
 - [ ] Version stamp: test asserts a stamp file records the source

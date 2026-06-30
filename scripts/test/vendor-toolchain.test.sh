@@ -51,5 +51,11 @@ else die "branch-prefix release corrupted in rules"; fi
 grep -q '@rules/' "$D/CLAUDE.md" && pass "backbone @-imports rules"   || die "no @-imports"
 grep -qi 'dev' "$D/CLAUDE.md"    && pass "backbone names DEV workflow"|| die "no DEV mention"
 
+# --- genericize verification-policy Models table (in the copy) ---
+VP="$D/skills/dev-delegating-to-agents/verification-policy.md"
+! grep -qE 'Opus 4\.8|Sonnet 4\.6|Fable 5' "$VP" && pass "model IDs genericized" || die "repo model IDs remain"
+grep -q 'Adopter slot' "$VP"  && pass "adopter model slot present" || die "no model slot"
+! grep -q 'B-003' "$VP"        && pass "repo batch evidence removed" || die "B-003 remains"
+
 (( fail == 0 )) && echo "vendor-toolchain.test: OK"
 exit $fail
