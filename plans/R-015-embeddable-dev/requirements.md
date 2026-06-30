@@ -68,30 +68,39 @@ initiative — this is it.)
 - [ ] A fresh clone of an embedded-toolchain project, opened by a
   contributor with **no** global DEV skills/rules, exposes the full
   `/dev` surface and completes a plan→code→finish cycle using only
-  project files.
-- [ ] No `~/.claude/...` reference remains in the embedded copy; every
-  cross-reference resolves inside `<project>/.claude/`.
-- [ ] The embedded core excludes the self-hosting layer (no
+  project files. — **run-dependent**: needs a real Claude Code session in
+  an embedded, no-global clone; pending.
+- [x] No `~/.claude/...` reference remains in the embedded copy; every
+  cross-reference resolves inside `<project>/.claude/`. — vendor rewrite
+  (T-031); `vendor-toolchain.test` "no residual ~/.claude refs" + live run
+  (0 residual).
+- [x] The embedded core excludes the self-hosting layer (no
   `maintenance.jsonl`, `MAINTENANCE.md`, ledger check, memory,
-  repo-specific skills).
-- [ ] The embedded CI gate runs the portable checks — caps +
+  repo-specific skills). — manifest exclusions + tracked-only copy (T-031);
+  tests confirm `js.md`/`wallarm-*` absent.
+- [x] The embedded CI gate runs the portable checks — caps +
   plan-integrity + references (`.claude/`-rooted via `CLAUDE_ROOT`) — and
   passes; it excludes the ledger and the self-hosting / repo-scoped
-  `stray` and `todos` checks (T-035 audit: those don't port to the
-  adopter layout without per-project config).
+  `stray` and `todos` checks. — T-035; `embedded-ci.test` runs the gate
+  green.
 - [ ] In an embedded project, the project's DEV rules and CLAUDE.md take
   precedence over an engineer's global equivalents (verified with an
   engineer who has a global toolchain), and `/dev` routes into the
-  embedded routine.
-- [ ] The vendor writes a version stamp; a drift check reports "stale"
-  when the embedded version lags the pinned source.
-- [ ] Re-running the vendor against a newer source version updates the
-  embedded copy in place.
-- [ ] Embedding is offered as opt-in from both `starting-a-project` and
-  `migrating-to-dev`; default behavior is unchanged when not opted in.
-- [ ] The audit task classifies every skill and rule as
+  embedded routine. — **run-dependent**: mechanism in place (embed-aware
+  `dev` + marker + clone-check, T-032); runtime routing pending a real
+  global-toolchain session.
+- [x] The vendor writes a version stamp; a drift check reports "stale"
+  when the embedded version lags the pinned source. — T-033;
+  `dev-drift-check.test` + live demo (up-to-date/stale/unknown).
+- [x] Re-running the vendor against a newer source version updates the
+  embedded copy in place. — T-033 `--update`; `vendor-update.test`
+  (preserves adopter content, no double-prefix).
+- [x] Embedding is offered as opt-in from both `starting-a-project` and
+  `migrating-to-dev`; default behavior is unchanged when not opted in. —
+  T-034 (opt-in bullets, default off).
+- [x] The audit task classifies every skill and rule as
   portable-generic / project-specific / global-only, and records the
-  manifest of the portable core.
+  manifest of the portable core. — T-030; `manifest.md`.
 
 ## Constraints
 
