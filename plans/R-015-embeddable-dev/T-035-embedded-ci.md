@@ -34,6 +34,6 @@ rewrite.
   absent.
 - [x] Adjust AC4 in `requirements.md` to the portable subset and record
   the `stray`/`todos` exclusion rationale in `manifest.md`.
-- [ ] Document the embedded gate in `README.md`, then complete the branch:
+- [x] Document the embedded gate in `README.md`, then complete the branch:
   re-review, confirm `bash scripts/ci/run-all.sh` green, triage the
   findings file, mark the plan complete, commit.
