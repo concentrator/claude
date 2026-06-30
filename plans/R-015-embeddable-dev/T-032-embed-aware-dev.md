@@ -22,23 +22,23 @@ too old to be embed-aware. `/dev` is preserved for everyone.
 verified by the marker's presence + the ≤400-word orchestrator cap, and it
 needs explicit approval (`skills.md` gate). Commits 2–3 are TDD.
 
-- [ ] Make `skills/dev/SKILL.md` embed-aware: when the project has
+- [x] Make `skills/dev/SKILL.md` embed-aware: when the project has
   `.claude/.dev-toolchain.json`, dispatch to the `dev-*` skills and follow
   the embedded `.claude/rules`; add the `<!-- dev-embed-aware -->`
   capability marker. Keep ≤400-word orchestrator cap. (skill edit —
   propose + approval)
-- [ ] Clone-time check script `scripts/dev-embed-check.sh` + test (TDD):
+- [x] Clone-time check script `scripts/dev-embed-check.sh` + test (TDD):
   in an embedded project (marker present), warn when no global
   `~/.claude/skills/dev` exists is acceptable (embedded `dev` serves
   `/dev`); warn when a global `dev` exists but lacks the
   `<!-- dev-embed-aware -->` marker (stale → update); silent when the
   global `dev` is embed-aware. Test drives each branch with fixture dirs.
-- [ ] Vendor emits the check into embedded `.claude/`: extend
+- [x] Vendor emits the check into embedded `.claude/`: extend
   `scripts/vendor-toolchain.sh` to copy `dev-embed-check.sh` into the
   target's `.claude/scripts/` and note "run after cloning" in the emitted
   `CLAUDE.md` backbone; test the vendored output includes the check and
   the note.
-- [ ] Document the embed-aware behavior + clone-time check in `README.md`
+- [x] Document the embed-aware behavior + clone-time check in `README.md`
   (doc-before-commit), then complete the branch: re-review across commits,
   cleanup, confirm `bash scripts/ci/run-all.sh` green, triage the findings
   file, mark the plan complete, commit.

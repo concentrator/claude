@@ -19,6 +19,13 @@ DEV-only.
 | `/dev auto [B-XXX]` | Agentic execution of an approved batch |
 | `/dev release` | Finalize release |
 
+## Embedded projects
+
+<!-- dev-embed-aware -->
+If the project has `.claude/.dev-toolchain.json` (a vendored toolchain),
+dispatch to the `dev-*` skills and follow the project's `.claude/rules` —
+the embedded copy takes precedence over this global toolchain.
+
 ## `/dev plan <target>`
 
 | Target | Action | Parent required |

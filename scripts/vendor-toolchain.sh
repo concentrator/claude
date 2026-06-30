@@ -71,7 +71,15 @@ done
   for r in "$DEST"/rules/*.md; do
     sed -n '1,6p' "$r" | grep -q '^paths:' || echo "@rules/$(basename "$r")"
   done
+  echo
+  echo "After cloning, run \`.claude/scripts/dev-embed-check.sh\` to confirm"
+  echo "your global \`dev\` (if any) is embed-aware."
 } > "$DEST/CLAUDE.md"
+
+# --- ship the clone-time embed-host check ---
+mkdir -p "$DEST/scripts"
+cp "$SRC/scripts/dev-embed-check.sh" "$DEST/scripts/dev-embed-check.sh"
+chmod +x "$DEST/scripts/dev-embed-check.sh"
 
 # --- genericize repo-specific model routing in the copy (manifest transform) ---
 # Replace the whole `## Models` section (repo model IDs + routing/effort prose)
