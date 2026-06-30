@@ -81,6 +81,14 @@ Initiative index. Items: `R-001: description`; each entry owns
       cross-component; medium branch ~20 / batch ~30 under the
       short-lived governor. Sequence before R-015 implementation.
       (approved 2026-06-30)
+- [ ] R-017: migrating-to-dev legacy/non-canonical detection — mode
+      detection keys on `.claude/plans/ROADMAP.md` presence, which matches
+      a lowercase `roadmap.md` on a case-insensitive filesystem and
+      mis-routes a legacy adoption to the Already-DEV path, skipping the
+      Inventory gap-check; and neither path re-canonicalizes a
+      legacy-schema `.claude/` (lowercase filenames, retired `REQ-XXX`,
+      flat tasks index). Run the inventory regardless of mode; detect and
+      upgrade legacy schemas. (stub — shape via `/dev plan R-017`)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
