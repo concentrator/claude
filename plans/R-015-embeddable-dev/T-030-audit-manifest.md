@@ -27,7 +27,7 @@ the copy). The global install is unchanged.
   portable-generic / project-specific / global-only; record in
   `manifest.md` with the portable set and the exclusion reasons
   (ledger/maintenance/self-hosting → global-only).
-- [ ] Audit and classify every **skill** (`skills/*/`, incl. companion
+- [x] Audit and classify every **skill** (`skills/*/`, incl. companion
   files) the same way; record in `manifest.md`. Flag any skill whose
   procedure carries project-specifics (candidate for lifting in a later
   commit).
