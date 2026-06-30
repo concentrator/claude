@@ -23,7 +23,7 @@ cross-references and lifting project-specifics into rules so skills stay
 generic — not renaming or vendoring (that is T-031's transform, applied to
 the copy). The global install is unchanged.
 
-- [ ] Audit and classify every **rule** (`rules/*.md`) as
+- [x] Audit and classify every **rule** (`rules/*.md`) as
   portable-generic / project-specific / global-only; record in
   `manifest.md` with the portable set and the exclusion reasons
   (ledger/maintenance/self-hosting → global-only).
