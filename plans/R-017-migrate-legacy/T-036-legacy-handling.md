@@ -24,7 +24,7 @@ edit (propose + approval at code time).
   `REQUIREMENTS.md`/`DESIGN.md`/`ROADMAP.md`, convert `REQ-XXX`→R-rooted
   entries, split flat `tasks.md`→per-R `tasks.md`; irreversible/host steps
   stay advisory per the `tbd-migration` discipline.
-- [ ] `skills/migrating-to-dev/SKILL.md`: case-independent legacy
+- [x] `skills/migrating-to-dev/SKILL.md`: case-independent legacy
   detection (lowercase foundational files / `REQ-XXX` / flat tasks → a
   **Legacy/non-canonical** mode, not Already-DEV), run the Inventory
   gap-check in **every** mode, and route the Legacy mode to
