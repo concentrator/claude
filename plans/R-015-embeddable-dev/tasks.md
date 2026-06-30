@@ -26,7 +26,7 @@ detailed once it lands.
   `@`-imports, writes the version stamp, and includes the embedded CI
   subset (caps + plan-integrity + references + stray + todos, no ledger).
   (AC2, AC3, AC4, AC6) `depends-on: T-030`
-- [ ] T-032 (R-015) [feat]: Embed-aware `dev` + clone-time check — the
+- [x] T-032 (R-015) [feat]: Embed-aware `dev` + clone-time check — the
   global `dev` detects an embedded project (the version-stamp marker),
   dispatches into the `dev-*` skills, and follows the embedded rules; a
   clone-time check warns on a missing or stale global `dev`. Preserves the
