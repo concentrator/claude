@@ -32,7 +32,7 @@ rewrite.
   adopter artifacts (`.claude/DESIGN.md`, `.claude/plans/ROADMAP.md`,
   `CLAUDE.md`), run the embedded gate → green; `stray`/`todos`/`ledger`
   absent.
-- [ ] Adjust AC4 in `requirements.md` to the portable subset and record
+- [x] Adjust AC4 in `requirements.md` to the portable subset and record
   the `stray`/`todos` exclusion rationale in `manifest.md`.
 - [ ] Document the embedded gate in `README.md`, then complete the branch:
   re-review, confirm `bash scripts/ci/run-all.sh` green, triage the

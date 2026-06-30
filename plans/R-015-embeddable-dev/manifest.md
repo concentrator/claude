@@ -51,12 +51,13 @@ Companions travel with their skill (all portable): `brainstorming`
 
 ## CI subset
 
-Embedded gate runs caps + plan-integrity + references + stray + todos —
-**no ledger**:
-- Copied: `scripts/ci/check-caps.sh`, `check-plan-integrity.sh`,
-  `check-references.sh`, `check-stray.sh`, `check-todos.sh`.
-- `scripts/ci/run-all.sh` — copied, minus the `check-ledger` call.
-- `scripts/ci/check-ledger.sh` — **excluded** (self-hosting).
+Embedded gate runs the **portable** checks, `.claude/`-rooted via
+`CLAUDE_ROOT` (T-035):
+- Copied: `check-caps.sh`, `check-plan-integrity.sh`, `check-references.sh`.
+- Emitted: a ledger-free `run-all.sh` that sets `CLAUDE_ROOT=.claude`.
+- **Excluded**: `check-ledger.sh` (self-hosting); `check-stray.sh`
+  (validates the repo root against `DESIGN.md`'s tree-map — N/A to an
+  adopter); `check-todos.sh` (scoped to this repo's `scripts/`/`.githooks/`).
 
 ## Scaffolding
 
