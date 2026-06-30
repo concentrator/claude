@@ -45,7 +45,7 @@ the copy). The global install is unchanged.
   excluded, version stamp + drift — linking `manifest.md` for the full
   classification + transform rules (detail kept in the manifest to stay
   under the 1000-word DESIGN cap; now 994).
-- [ ] Complete the branch: re-review docs across all commits, confirm
+- [x] Complete the branch: re-review docs across all commits, confirm
   `manifest.md` covers every skill/rule with no gaps, cleanup, confirm
-  `bash scripts/ci/run-all.sh` green, triage the findings file, mark the
-  plan complete, commit.
+  `bash scripts/ci/run-all.sh` green, triage the findings file (none
+  arose), mark the plan complete, commit.
