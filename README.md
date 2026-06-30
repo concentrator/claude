@@ -72,6 +72,18 @@ The embedded project also gets a Tier-1 gate at
 `.claude/scripts/ci/run-all.sh` — the portable checks (caps,
 plan-integrity, references), `.claude/`-rooted, without the ledger.
 
+To exercise an embedded project as a contributor **without** the global
+toolchain, launch one session with the config dir pointed at an empty
+temp folder — so `~/.claude` skills/rules/CLAUDE.md don't load, but the
+project's `.claude/` still does:
+
+    cd <embedded-project>
+    CLAUDE_CONFIG_DIR=$(mktemp -d) claude
+
+macOS keeps auth in the Keychain, so no re-login; on Linux first copy
+`~/.claude/.credentials.json` into the temp dir. Inside, `/skills` lists
+only the project's `dev-*` skills and `/dev` runs from them.
+
 ## Setup on a new machine
 
 1. Clone to `~/.claude`.
