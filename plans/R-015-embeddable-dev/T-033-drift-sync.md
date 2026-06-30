@@ -21,7 +21,7 @@ without clobbering adopter content. Builds on T-031's stamp + re-run guard.
 
 All new code / script extension — no skill-edit gate.
 
-- [ ] `scripts/dev-drift-check.sh <project>` + test (TDD): reads the
+- [x] `scripts/dev-drift-check.sh <project>` + test (TDD): reads the
   project's stamp `source`; reports `up-to-date` when it equals this repo's
   `git describe`, `stale` when it differs, `unknown` when the stamp is
   missing/unreadable. Test drives each via fixture stamps + a stubbed
