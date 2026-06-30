@@ -35,7 +35,7 @@ detailed once it lands.
   embedded version stamp against the pinned source, report stale, and
   update the embedded copy in place on re-vendor. (AC6, AC7)
   `depends-on: T-031`
-- [ ] T-034 (R-015) [feat]: Opt-in wiring — add the "embed a self-contained
+- [x] T-034 (R-015) [feat]: Opt-in wiring — add the "embed a self-contained
   DEV toolchain" opt-in to `starting-a-project` and `migrating-to-dev`,
   invoking the vendor; default behavior unchanged when not opted in. (AC8)
   `depends-on: T-031`
