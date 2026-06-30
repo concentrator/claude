@@ -88,7 +88,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       Inventory gap-check; and neither path re-canonicalizes a
       legacy-schema `.claude/` (lowercase filenames, retired `REQ-XXX`,
       flat tasks index). Run the inventory regardless of mode; detect and
-      upgrade legacy schemas. (stub — shape via `/dev plan R-017`)
+      guided-canonicalize legacy schemas. (approved 2026-07-01)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
