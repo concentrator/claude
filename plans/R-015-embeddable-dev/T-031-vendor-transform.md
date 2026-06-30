@@ -24,7 +24,7 @@ with the embedded CI subset. TDD via `adding-a-feature`.
 files in the target, never the global skills — no skill-edit approval gate.
 Script + tests are new code.
 
-- [ ] Scaffold `scripts/vendor-toolchain.sh` (arg-parse `<target>` +
+- [x] Scaffold `scripts/vendor-toolchain.sh` (arg-parse `<target>` +
   source ref) and a test harness; failing test asserts a run creates
   `<target>/.claude/`. Implement the scaffold to pass.
 - [ ] Manifest-driven copy + prune: test asserts the portable rules/skills
