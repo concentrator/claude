@@ -2,27 +2,46 @@
 # vendor-toolchain.sh — copy the portable DEV toolchain core into a target
 # project's .claude/, per plans/R-015-embeddable-dev/manifest.md.
 #
-# Usage: vendor-toolchain.sh <target-dir> [--source <ref>]
+# Usage: vendor-toolchain.sh <target-dir> [--update] [--source <ref>]
 #   <target-dir>   project root to embed into (its .claude/ is created)
+#   --update       re-vendor an already-embedded target in place (T-033)
 #   --source <ref> toolchain ref to vendor from (default: current checkout)
 set -euo pipefail
 
-usage() { echo "usage: vendor-toolchain.sh <target-dir> [--source <ref>]" >&2; exit 2; }
+usage() { echo "usage: vendor-toolchain.sh <target-dir> [--update] [--source <ref>]" >&2; exit 2; }
 
-target="${1:-}"; shift || true
-[ -n "${target:-}" ] || usage
+target=""; update=0
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --update) update=1 ;;
+    --source) shift ;;            # reserved; vendor uses the current checkout
+    -*) usage ;;
+    *) target="$1" ;;
+  esac
+  shift
+done
+[ -n "$target" ] || usage
 
 SRC="$(git rev-parse --show-toplevel)"
 DEST="$target/.claude"
 
-# Initial vendor only — refuse an already-embedded target (re-running would
-# double-prefix namespaced skills). Update-in-place is re-vendor sync (T-033).
-if [ -e "$DEST/.dev-toolchain.json" ]; then
-  echo "error: $DEST already embeds the toolchain; updates are handled by re-vendor sync (T-033)" >&2
+# Re-running would double-prefix namespaced skills, so a bare re-run is
+# refused; --update first removes the vendor-managed footprint (below).
+embedded=0; [ -e "$DEST/.dev-toolchain.json" ] && embedded=1
+if [ "$embedded" -eq 1 ] && [ "$update" -eq 0 ]; then
+  echo "error: $DEST already embeds the toolchain; re-vendor with --update" >&2
   exit 1
 fi
 
 mkdir -p "$DEST"
+
+# --- update mode: remove the vendor-managed footprint, preserving adopter
+# content (their own rules/skills/plans) and CLAUDE.md (handled at emit). ---
+if [ "$embedded" -eq 1 ]; then
+  git -C "$SRC" ls-files rules | grep -vE '^rules/js' | while IFS= read -r f; do rm -f "$DEST/$f"; done
+  rm -rf "$DEST/skills/dev" "$DEST"/skills/dev-*
+  rm -f "$DEST/scripts/dev-embed-check.sh" "$DEST/.dev-toolchain.json"
+fi
 
 # --- copy the portable core (manifest.md) ---
 # Tracked files only, so untracked wallarm-* skills are excluded inherently;
@@ -46,8 +65,11 @@ done
 # orchestrator, and repoint references. Path refs are rewritten everywhere;
 # backticked skill-name refs are rewritten too, except ambiguous tokens
 # inside rules/ (`release` is also a branch-prefix token in git-workflow.md).
+# Only the vendored skills (from the source) are namespaced — never an
+# adopter's own skills that may sit alongside them (matters on --update).
 AMBIG=" release "
-for name in $(ls "$DEST/skills" | grep -v '^dev$'); do
+SKILL_NAMES=$(git -C "$SRC" ls-files skills | grep -vE '^skills/wallarm-' | sed -E 's#^skills/([^/]+).*#\1#' | sort -u | grep -v '^dev$')
+for name in $SKILL_NAMES; do
   find "$DEST" -type f ! -name "$PROTECT" -print0 | while IFS= read -r -d '' f; do
     sed -i.bak "s|\.claude/skills/${name}|.claude/skills/dev-${name}|g" "$f" && rm -f "$f.bak"
     case "$f" in "$DEST"/rules/*) [[ "$AMBIG" == *" ${name} "* ]] && continue ;; esac
@@ -56,10 +78,10 @@ for name in $(ls "$DEST/skills" | grep -v '^dev$'); do
   mv "$DEST/skills/$name" "$DEST/skills/dev-$name"
 done
 
-# --- emit a generic DEV CLAUDE.md backbone ---
+# --- emit a generic DEV CLAUDE.md backbone (preserve an existing one) ---
 # @-imports the always-on rules (no `paths:` frontmatter); path-scoped rules
 # (planning, branch-plan, …) load on their own when matching files are edited.
-{
+emit_backbone() {
   echo "# Project conventions"
   echo
   echo "Default mode is **VIBE** (freestyle). \`/dev\` enters spec-driven DEV"
@@ -74,7 +96,17 @@ done
   echo
   echo "After cloning, run \`.claude/scripts/dev-embed-check.sh\` to confirm"
   echo "your global \`dev\` (if any) is embed-aware."
-} > "$DEST/CLAUDE.md"
+}
+if [ -e "$DEST/CLAUDE.md" ]; then
+  emit_backbone > "$DEST/CLAUDE.md.new"
+  if cmp -s "$DEST/CLAUDE.md" "$DEST/CLAUDE.md.new"; then
+    rm -f "$DEST/CLAUDE.md.new"      # identical — nothing to merge
+  else
+    echo "note: existing CLAUDE.md preserved; review $DEST/CLAUDE.md.new for backbone changes" >&2
+  fi
+else
+  emit_backbone > "$DEST/CLAUDE.md"
+fi
 
 # --- ship the clone-time embed-host check ---
 mkdir -p "$DEST/scripts"
