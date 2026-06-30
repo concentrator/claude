@@ -30,7 +30,7 @@ Script + tests are new code.
 - [x] Manifest-driven copy + prune: test asserts the portable rules/skills
   are present and the excluded set (`js.md`, `wallarm-*`, self-hosting) is
   absent; implement the include/exclude copy from the manifest.
-- [ ] Path rewrite: test asserts no `~/.claude/` reference remains except
+- [x] Path rewrite: test asserts no `~/.claude/` reference remains except
   protected ones; implement `~/.claude/…`→`.claude/…` rewrite, protecting
   `__HOME__`/`__PROJECT_DIR__` placeholders and the `writing-skills`
   example.

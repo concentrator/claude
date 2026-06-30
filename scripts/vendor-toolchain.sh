@@ -25,3 +25,10 @@ git -C "$SRC" ls-files rules skills | grep -vE "$EXCLUDE_RE" | while IFS= read -
   mkdir -p "$DEST/$(dirname "$f")"
   cp "$SRC/$f" "$DEST/$f"
 done
+
+# --- path rewrite: ~/.claude/ -> .claude/ (skip the illustrative example) ---
+PROTECT="skills/writing-skills/examples/CLAUDE_MD_TESTING.md"
+find "$DEST" -type f ! -path "$DEST/$PROTECT" -print0 | while IFS= read -r -d '' f; do
+  grep -q '~/\.claude/' "$f" 2>/dev/null || continue
+  sed -i.bak 's|~/\.claude/|.claude/|g' "$f" && rm -f "$f.bak"
+done

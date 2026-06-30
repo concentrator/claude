@@ -26,5 +26,13 @@ fi
 [ ! -e "$D/rules/js.md" ]       && pass "excludes js.md"            || die "js.md leaked"
 [ ! -e "$D/skills/wallarm-triggers" ] && pass "excludes wallarm-*"  || die "wallarm-* leaked"
 
+# --- path rewrite: ~/.claude/ -> .claude/ (example file protected) ---
+EXAMPLE='skills/writing-skills/examples/CLAUDE_MD_TESTING.md'
+resid=$(grep -rl '~/\.claude/' "$D" --exclude='CLAUDE_MD_TESTING.md' 2>/dev/null || true)
+[ -z "$resid" ] && pass "no residual ~/.claude refs" \
+  || die "residual ~/.claude in: $(echo "$resid" | tr '\n' ' ')"
+grep -q '~/\.claude/' "$D/$EXAMPLE" && pass "example protected from rewrite" \
+  || die "example refs were rewritten"
+
 (( fail == 0 )) && echo "vendor-toolchain.test: OK"
 exit $fail
