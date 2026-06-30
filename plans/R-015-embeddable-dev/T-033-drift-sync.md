@@ -33,7 +33,7 @@ All new code / script extension — no skill-edit gate.
   a bare re-run without `--update` is still refused. Test: update succeeds
   with no double-prefix, an adopter-added file under `.claude/` survives,
   a hand-edited `CLAUDE.md` is preserved, bare re-run refused.
-- [ ] Document drift-check + `--update` in `README.md` (doc-before-commit),
+- [x] Document drift-check + `--update` in `README.md` (doc-before-commit),
   then complete the branch: re-review across commits, cleanup, confirm
   `bash scripts/ci/run-all.sh` green, triage the findings file, mark the
   plan complete, commit.

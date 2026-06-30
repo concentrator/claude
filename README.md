@@ -61,6 +61,13 @@ project's pinned version: the global `dev` is embed-aware (it detects
 `dev-*` skills). After cloning, run `.claude/scripts/dev-embed-check.sh`
 to confirm the global `dev` is recent enough.
 
+To check whether an embedded project lags this toolchain, run
+`scripts/dev-drift-check.sh <project>` from here. To update it in place,
+re-vendor with `scripts/vendor-toolchain.sh --update <project>` — it
+replaces the managed files (rules, `dev`/`dev-*` skills, check, stamp)
+and leaves the project's own additions and `CLAUDE.md` untouched (a
+refreshed backbone is written to `CLAUDE.md.new` if it changed).
+
 ## Setup on a new machine
 
 1. Clone to `~/.claude`.
