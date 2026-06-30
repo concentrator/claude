@@ -46,5 +46,10 @@ if grep -q '`release`' "$D/rules/git-workflow.md" && ! grep -q 'dev-release' "$D
 else die "branch-prefix release corrupted in rules"; fi
 ! grep -rq '\.claude/skills/finishing-a-branch' "$D" && pass "no stale skill path refs" || die "stale skill path ref"
 
+# --- generic CLAUDE.md backbone ---
+[ -f "$D/CLAUDE.md" ]            && pass "CLAUDE.md backbone emitted" || die "no CLAUDE.md"
+grep -q '@rules/' "$D/CLAUDE.md" && pass "backbone @-imports rules"   || die "no @-imports"
+grep -qi 'dev' "$D/CLAUDE.md"    && pass "backbone names DEV workflow"|| die "no DEV mention"
+
 (( fail == 0 )) && echo "vendor-toolchain.test: OK"
 exit $fail

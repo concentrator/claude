@@ -48,3 +48,20 @@ for name in $(ls "$DEST/skills" | grep -v '^dev$'); do
   done
   mv "$DEST/skills/$name" "$DEST/skills/dev-$name"
 done
+
+# --- emit a generic DEV CLAUDE.md backbone ---
+# @-imports the always-on rules (no `paths:` frontmatter); path-scoped rules
+# (planning, branch-plan, …) load on their own when matching files are edited.
+{
+  echo "# Project conventions"
+  echo
+  echo "Default mode is **VIBE** (freestyle). \`/dev\` enters spec-driven DEV"
+  echo "mode. Skills live in \`.claude/skills/\` (\`dev-*\`); rules in"
+  echo "\`.claude/rules/\`."
+  echo
+  echo "## Always-on rules"
+  echo
+  for r in "$DEST"/rules/*.md; do
+    sed -n '1,6p' "$r" | grep -q '^paths:' || echo "@rules/$(basename "$r")"
+  done
+} > "$DEST/CLAUDE.md"

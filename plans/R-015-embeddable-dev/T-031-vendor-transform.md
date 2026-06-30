@@ -37,7 +37,7 @@ Script + tests are new code.
 - [x] `dev-*` namespacing: test asserts non-orchestrator skill dirs are
   `dev-<name>` and cross-refs (incl. `dev`'s dispatch table) resolve to the
   prefixed names; implement rename + ref rewrite.
-- [ ] Generic `CLAUDE.md` backbone: test asserts the emitted `CLAUDE.md`
+- [x] Generic `CLAUDE.md` backbone: test asserts the emitted `CLAUDE.md`
   exists with `@`-imports of the embedded rules and the VIBE/DEV mode
   summary; implement the emit (no self-hosting content).
 - [ ] Genericize `verification-policy.md` (in the copy): test asserts the
