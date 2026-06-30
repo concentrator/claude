@@ -22,7 +22,7 @@ too old to be embed-aware. `/dev` is preserved for everyone.
 verified by the marker's presence + the ≤400-word orchestrator cap, and it
 needs explicit approval (`skills.md` gate). Commits 2–3 are TDD.
 
-- [ ] Make `skills/dev/SKILL.md` embed-aware: when the project has
+- [x] Make `skills/dev/SKILL.md` embed-aware: when the project has
   `.claude/.dev-toolchain.json`, dispatch to the `dev-*` skills and follow
   the embedded `.claude/rules`; add the `<!-- dev-embed-aware -->`
   capability marker. Keep ≤400-word orchestrator cap. (skill edit —
