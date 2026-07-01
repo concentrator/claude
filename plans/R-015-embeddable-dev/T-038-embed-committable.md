@@ -24,5 +24,5 @@ contents by `.claude/*`.)
   the vendor to append the needed `!` allowlist entries (green). Verify
   `vendor-toolchain.test` + `bash scripts/ci/run-all.sh`. (closes the
   T-031 test gap: committability was never checked)
-- [ ] Complete the branch: re-review, confirm the gate green, triage the
+- [x] Complete the branch: re-review, confirm the gate green, triage the
   findings file, mark the plan complete, commit.
