@@ -17,20 +17,20 @@ current schema.
 Companion-first so the `SKILL.md` pointer resolves. Commit 2 is a skill
 edit (propose + approval at code time).
 
-- [ ] Add companion `skills/migrating-to-dev/legacy-migration.md` — the
+- [x] Add companion `skills/migrating-to-dev/legacy-migration.md` — the
   guided canonicalization procedure: detect legacy markers (lowercase
   `design.md`/`requirements.md`/`roadmap.md`, four-level `REQ-XXX`, flat
   `tasks.md`); upgrade with per-step approval — rename to uppercase
   `REQUIREMENTS.md`/`DESIGN.md`/`ROADMAP.md`, convert `REQ-XXX`→R-rooted
   entries, split flat `tasks.md`→per-R `tasks.md`; irreversible/host steps
   stay advisory per the `tbd-migration` discipline.
-- [ ] `skills/migrating-to-dev/SKILL.md`: case-independent legacy
+- [x] `skills/migrating-to-dev/SKILL.md`: case-independent legacy
   detection (lowercase foundational files / `REQ-XXX` / flat tasks → a
   **Legacy/non-canonical** mode, not Already-DEV), run the Inventory
   gap-check in **every** mode, and route the Legacy mode to
   `legacy-migration.md`. Analytical-prune to ≤300 (propose cuts +
   changes for approval).
-- [ ] Complete the branch: confirm an already-canonical project reports
+- [x] Complete the branch: confirm an already-canonical project reports
   conformant (no changes) and the Fresh / Already-DEV-pre-TBD paths are
   intact (inspection); caps green; re-review, triage the findings file,
   mark the plan complete, commit.

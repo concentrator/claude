@@ -5,17 +5,17 @@ description: Use when adopting an existing project into DEV mode.
 
 # Migrating to DEV
 
-Bring an existing project under DEV. Detect mode by state:
+Bring an existing project under DEV. Always run § 1 Inventory, then route:
 
-- **Fresh** — no `.claude/plans/ROADMAP.md`: reverse-engineer
-  requirements + design from code, then layer planning infrastructure
-  (steps 1–8 below).
-- **Already-DEV, pre-TBD** — `.claude/plans/ROADMAP.md` present: the
-  project has the planning hierarchy but runs the pre-TBD delivery
-  model. Run the TBD migration (`tbd-migration.md`; advisory — you
-  execute the irreversible/host steps), not steps 1–8. An
-  already-TBD-conformant project → report
-  conformant, no changes.
+- **Legacy / non-canonical** — `.claude/` deviates from
+  `project-layout.md` (lowercase foundational files, `REQ-XXX`, flat
+  `tasks.md`): canonicalize per `legacy-migration.md`, then treat as
+  Already-DEV.
+- **Fresh** — no `.claude/plans/`: reverse-engineer requirements + design
+  from code, then layer planning infrastructure (steps 2–8).
+- **Already-DEV** — canonical R-rooted `ROADMAP.md`: pre-TBD → TBD
+  migration (`tbd-migration.md`; advisory — you execute irreversible/host
+  steps); TBD-conformant → conformant, no changes.
 
 ## 1. Inventory
 
