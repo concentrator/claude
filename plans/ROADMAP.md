@@ -81,7 +81,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       cross-component; medium branch ~20 / batch ~30 under the
       short-lived governor. Sequence before R-015 implementation.
       (approved 2026-06-30)
-- [ ] R-017: migrating-to-dev legacy/non-canonical detection — mode
+- [x] R-017: migrating-to-dev legacy/non-canonical detection — mode
       detection keys on `.claude/plans/ROADMAP.md` presence, which matches
       a lowercase `roadmap.md` on a case-insensitive filesystem and
       mis-routes a legacy adoption to the Already-DEV path, skipping the
