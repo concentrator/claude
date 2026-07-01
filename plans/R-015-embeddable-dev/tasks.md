@@ -44,3 +44,16 @@ detailed once it lands.
   `run-all` to the adopter `.claude/`-rooted layout (artifacts under
   `.claude/`, not the repo root), wired into the vendor transform.
   Split from T-031. (AC4) `depends-on: T-031`
+- [ ] T-037 (R-015) [fix]: Complete `dev-*` namespacing — the vendor
+  renamed dirs + rewrote the dispatch table but left each SKILL.md `name:`
+  unprefixed, so embedded skills collide with the global set by name
+  (shadowed) and dispatch breaks (dir ≠ `name:`). Rewrite the namespaced
+  skills' `name:` → `dev-<name>`; add a test asserting `name:` == dir for
+  every embedded skill. Re-verify AC5. (AC5) `depends-on: T-031`
+- [ ] T-038 (R-015) [fix]: Embed committability — the vendored
+  `.claude/skills/`, `.claude/scripts/`, `.claude/CLAUDE.md`, and the
+  stamp are excluded by a restrictive adopter `.claude/*` gitignore, so a
+  fresh clone lacks them. The vendor ensures its output is trackable (add
+  `.gitignore` allowlist entries for the vendored paths, or write them);
+  add a test that no vendored path is git-ignored. Re-verify AC1 against a
+  real clone. (AC1) `depends-on: T-031`
