@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-01
 kind: bug
+status: done 2026-07-01
 ---
 
 # R-017: migrating-to-dev legacy/non-canonical detection
@@ -44,18 +45,24 @@ canonical layout. Medium — affects adopters with a pre-existing `.claude/`.
 
 ## Acceptance criteria
 
-- [ ] Detection identifies a legacy/non-canonical `.claude/` (lowercase
+- [x] Detection identifies a legacy/non-canonical `.claude/` (lowercase
   foundational files, `REQ-XXX`, flat tasks), not just "ROADMAP.md
-  present," independent of case.
-- [ ] The Inventory gap-check runs in every mode and reports each
-  deviation vs `project-layout.md`.
-- [ ] `migrating-to-dev` canonicalizes a legacy schema with per-step
+  present," independent of case. — `SKILL.md` Legacy mode +
+  `legacy-migration.md` (case-exact `git ls-files`); verified against the
+  wallarm skills repo (all 3 markers → Legacy).
+- [x] The Inventory gap-check runs in every mode and reports each
+  deviation vs `project-layout.md`. — "Always run § 1 Inventory, then
+  route."
+- [x] `migrating-to-dev` canonicalizes a legacy schema with per-step
   approval (uppercase files; `REQ-XXX`→R-rooted; flat→per-R tasks);
-  irreversible steps stay advisory per the existing TBD discipline.
-- [ ] An already-canonical project reports conformant with no changes;
-  the Fresh and Already-DEV-pre-TBD paths still work (regression).
-- [ ] `migrating-to-dev/SKILL.md` stays ≤300 words (canonicalization
-  procedure in a companion file).
+  irreversible steps stay advisory per the existing TBD discipline. —
+  `legacy-migration.md § Canonicalize`.
+- [x] An already-canonical project reports conformant with no changes;
+  the Fresh and Already-DEV-pre-TBD paths still work (regression). —
+  Already-DEV keyed on canonical R-rooted ROADMAP → conformant; Fresh →
+  steps 2–8 (inspection).
+- [x] `migrating-to-dev/SKILL.md` stays ≤300 words (canonicalization
+  procedure in a companion file). — 298/300; check-caps green.
 
 ## Constraints
 
