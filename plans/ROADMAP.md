@@ -89,6 +89,15 @@ Initiative index. Items: `R-001: description`; each entry owns
       legacy-schema `.claude/` (lowercase filenames, retired `REQ-XXX`,
       flat tasks index). Run the inventory regardless of mode; detect and
       guided-canonicalize legacy schemas. (approved 2026-07-01)
+- [ ] R-018: Void the bootstrap-exception contradiction —
+      `migrating-to-dev`/`starting-a-project` cite a "bootstrap exception"
+      and commit direct-to-`main` after protecting it, but
+      `git-workflow.md` defines no such exception and protection refuses
+      the push. Define it narrowly (only the initial `main`-creating
+      commit in a new repo, before protection); reorder
+      `starting-a-project` (scaffold then protect); `migrating-to-dev`
+      delivers adoption artifacts via a branch + MR/PR. (stub — shape via
+      `/dev plan R-018`)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
