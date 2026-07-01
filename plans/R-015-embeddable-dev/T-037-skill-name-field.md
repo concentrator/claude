@@ -20,5 +20,5 @@ rewrite that skill's `name: <name>` → `name: dev-<name>`. The orchestrator
   dir rename (green). Verify `vendor-toolchain.test` + `bash
   scripts/ci/run-all.sh` green. (closes the T-031 test gap: `name:` was
   never checked)
-- [ ] Complete the branch: re-review, confirm the gate green, triage the
+- [x] Complete the branch: re-review, confirm the gate green, triage the
   findings file, mark the plan complete, commit.
