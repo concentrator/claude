@@ -98,6 +98,14 @@ Initiative index. Items: `R-001: description`; each entry owns
       `starting-a-project` (scaffold then protect); `migrating-to-dev`
       delivers adoption artifacts via a branch + MR/PR. (stub — shape via
       `/dev plan R-018`)
+- [ ] R-019: Vendor embed onto a non-empty `.claude/` — the transform
+      assumes a near-empty target. (a) The copy overwrites an adopter's
+      existing same-named rule (it clobbered a project-specific
+      `skills.md` on the wallarm skills embed); (b) the path-rewrite globs
+      all of `DEST`, so it rewrites pre-existing adopter files, including
+      archived history. Preserve adopter files on initial embed (as
+      `--update` preserves `CLAUDE.md`); scope the rewrite to
+      vendored/copied files. (stub — shape via `/dev plan R-019`)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
