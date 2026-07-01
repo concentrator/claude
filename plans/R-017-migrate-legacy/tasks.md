@@ -7,7 +7,7 @@ Acceptance-criterion numbers (AC#) reference `requirements.md`.
 
 ## Open
 
-- [ ] T-036 (R-017) [fix]: legacy/non-canonical handling in
+- [x] T-036 (R-017) [fix]: legacy/non-canonical handling in
   `migrating-to-dev` — case-independent legacy detection (don't treat a
   lowercase/`REQ-XXX`/flat-tasks `.claude/` as current-schema
   Already-DEV), the Inventory gap-check run in every mode, and guided
