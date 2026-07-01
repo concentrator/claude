@@ -18,11 +18,11 @@ idempotent (skip if already allowlisted) so `--update` stays clean. (Git
 permits re-inclusion because `.claude` itself isn't excluded — only its
 contents by `.claude/*`.)
 
-- [ ] Reproduce + fix (TDD): test vendors into a git fixture whose
+- [x] Reproduce + fix (TDD): test vendors into a git fixture whose
   `.gitignore` is `.claude/*` (like the skills repo) and asserts no
   vendored path is `git check-ignore`d after vendoring (red); implement
   the vendor to append the needed `!` allowlist entries (green). Verify
   `vendor-toolchain.test` + `bash scripts/ci/run-all.sh`. (closes the
   T-031 test gap: committability was never checked)
-- [ ] Complete the branch: re-review, confirm the gate green, triage the
+- [x] Complete the branch: re-review, confirm the gate green, triage the
   findings file, mark the plan complete, commit.

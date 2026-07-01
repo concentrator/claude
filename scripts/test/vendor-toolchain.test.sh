@@ -46,6 +46,15 @@ if grep -q '`release`' "$D/rules/git-workflow.md" && ! grep -q 'dev-release' "$D
 else die "branch-prefix release corrupted in rules"; fi
 ! grep -rq '\.claude/skills/finishing-a-branch' "$D" && pass "no stale skill path refs" || die "stale skill path ref"
 
+# --- namespacing: each SKILL.md `name:` matches its directory ---
+mismatch=""
+for d in "$D"/skills/*/; do
+  dir=$(basename "$d")
+  nm=$(sed -n 's/^name: //p' "$d/SKILL.md" | head -1)
+  [ "$dir" = "$nm" ] || mismatch+="$dir(name=$nm) "
+done
+[ -z "$mismatch" ] && pass "skill name: matches dir" || die "name/dir mismatch: $mismatch"
+
 # --- generic CLAUDE.md backbone ---
 [ -f "$D/CLAUDE.md" ]            && pass "CLAUDE.md backbone emitted" || die "no CLAUDE.md"
 grep -q '@rules/' "$D/CLAUDE.md" && pass "backbone @-imports rules"   || die "no @-imports"

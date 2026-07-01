@@ -14,11 +14,11 @@ dispatch breaks (dir ≠ `name:`). Rewrite `name:` too.
 rewrite that skill's `name: <name>` → `name: dev-<name>`. The orchestrator
 `dev` is excluded (dir == name already).
 
-- [ ] Reproduce + fix (TDD): add a test asserting every embedded skill's
+- [x] Reproduce + fix (TDD): add a test asserting every embedded skill's
   `name:` frontmatter equals its `dev-<name>` directory (red — currently
   unprefixed); then make `vendor-toolchain.sh` rewrite `name:` after the
   dir rename (green). Verify `vendor-toolchain.test` + `bash
   scripts/ci/run-all.sh` green. (closes the T-031 test gap: `name:` was
   never checked)
-- [ ] Complete the branch: re-review, confirm the gate green, triage the
+- [x] Complete the branch: re-review, confirm the gate green, triage the
   findings file, mark the plan complete, commit.
