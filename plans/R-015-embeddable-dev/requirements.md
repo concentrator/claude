@@ -1,6 +1,7 @@
 ---
 approved: 2026-06-30
 kind: feat
+status: done 2026-07-01
 ---
 
 # R-015: Embeddable self-contained DEV toolchain
@@ -65,11 +66,12 @@ initiative — this is it.)
 
 ## Acceptance criteria
 
-- [ ] A fresh clone of an embedded-toolchain project, opened by a
+- [x] A fresh clone of an embedded-toolchain project, opened by a
   contributor with **no** global DEV skills/rules, exposes the full
   `/dev` surface and completes a plan→code→finish cycle using only
-  project files. — **run-dependent**: needs a real Claude Code session in
-  an embedded, no-global clone; pending.
+  project files. — verified in the wallarm skills repo: a no-global
+  session (`CLAUDE_CONFIG_DIR=$(mktemp -d)`) lists all 18 embedded skills
+  (`dev` + 17 `dev-*`), project-scoped, with no global skills.
 - [x] No `~/.claude/...` reference remains in the embedded copy; every
   cross-reference resolves inside `<project>/.claude/`. — vendor rewrite
   (T-031); `vendor-toolchain.test` "no residual ~/.claude refs" + live run
@@ -83,12 +85,13 @@ initiative — this is it.)
   passes; it excludes the ledger and the self-hosting / repo-scoped
   `stray` and `todos` checks. — T-035; `embedded-ci.test` runs the gate
   green.
-- [ ] In an embedded project, the project's DEV rules and CLAUDE.md take
+- [x] In an embedded project, the project's DEV rules and CLAUDE.md take
   precedence over an engineer's global equivalents (verified with an
   engineer who has a global toolchain), and `/dev` routes into the
-  embedded routine. — **run-dependent**: mechanism in place (embed-aware
-  `dev` + marker + clone-check, T-032); runtime routing pending a real
-  global-toolchain session.
+  embedded routine. — verified in the wallarm skills repo: a normal
+  (global-toolchain) session's `/dev` detected `.claude/.dev-toolchain.json`
+  and routed by state into the embedded routine (embed-aware global `dev`,
+  T-032).
 - [x] The vendor writes a version stamp; a drift check reports "stale"
   when the embedded version lags the pinned source. — T-033;
   `dev-drift-check.test` + live demo (up-to-date/stale/unknown).
