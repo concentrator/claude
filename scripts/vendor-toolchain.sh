@@ -76,6 +76,10 @@ for name in $SKILL_NAMES; do
     sed -i.bak "s|\`${name}\`|\`dev-${name}\`|g" "$f" && rm -f "$f.bak"
   done
   mv "$DEST/skills/$name" "$DEST/skills/dev-$name"
+  # the `name:` frontmatter must match the new dir (else it collides with a
+  # global same-named skill and dispatch breaks on dir ≠ name)
+  sed -i.bak "s|^name: ${name}\$|name: dev-${name}|" "$DEST/skills/dev-$name/SKILL.md" \
+    && rm -f "$DEST/skills/dev-$name/SKILL.md.bak"
 done
 
 # --- emit a generic DEV CLAUDE.md backbone (preserve an existing one) ---

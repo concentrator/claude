@@ -14,7 +14,7 @@ dispatch breaks (dir ≠ `name:`). Rewrite `name:` too.
 rewrite that skill's `name: <name>` → `name: dev-<name>`. The orchestrator
 `dev` is excluded (dir == name already).
 
-- [ ] Reproduce + fix (TDD): add a test asserting every embedded skill's
+- [x] Reproduce + fix (TDD): add a test asserting every embedded skill's
   `name:` frontmatter equals its `dev-<name>` directory (red — currently
   unprefixed); then make `vendor-toolchain.sh` rewrite `name:` after the
   dir rename (green). Verify `vendor-toolchain.test` + `bash
