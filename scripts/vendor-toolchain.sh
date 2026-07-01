@@ -158,3 +158,15 @@ fi
 # the re-vendor sync, T-033). Its presence marks an embedded project (T-032).
 SRC_VER="$(git -C "$SRC" describe --tags --always 2>/dev/null || echo unknown)"
 printf '{"source":"%s"}\n' "$SRC_VER" > "$DEST/.dev-toolchain.json"
+
+# --- make the vendored output committable ---
+# An adopter's `.claude/*` gitignore allowlist can exclude what we just
+# wrote. For each vendored path the target repo ignores, append a negation
+# to its root .gitignore (idempotent). `.claude` itself isn't excluded, so
+# re-inclusion is permitted.
+gi="$target/.gitignore"
+for p in ".claude/rules/" ".claude/skills/" ".claude/scripts/" ".claude/CLAUDE.md" ".claude/.dev-toolchain.json"; do
+  git -C "$target" check-ignore -q "${p%/}" 2>/dev/null || continue   # not ignored → skip
+  grep -qxF "!$p" "$gi" 2>/dev/null && continue                        # already allowlisted
+  printf '!%s\n' "$p" >> "$gi"
+done
