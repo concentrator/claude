@@ -106,6 +106,15 @@ Initiative index. Items: `R-001: description`; each entry owns
       archived history. Preserve adopter files on initial embed (as
       `--update` preserves `CLAUDE.md`); scope the rewrite to
       vendored/copied files. (stub — shape via `/dev plan R-019`)
+- [ ] R-020: Consolidate branch-close into `branch-plan.md` — fold the
+      `finishing-a-branch` skill into `branch-plan.md § Closing routine`
+      (one on-demand owner; `git-workflow.md` stays pure policy), and
+      restore the manual-verification as a **distinct blocking step**
+      before the merge options (the review→push+MR regression: the verify
+      offer had been bundled into `finishing-a-branch § 2` and glossed).
+      Rewire all `finishing-a-branch` references (4 files), drop the skill,
+      update the vendor/manifest, and re-vendor adopters. (stub — shape
+      via `/dev plan R-020`)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
