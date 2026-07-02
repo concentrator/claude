@@ -68,7 +68,12 @@ classification of every skill and every rule** as *move-to-`dev/`* or
 
 - **New:** `commands/dev.md`, `dev/` (mode files + `companions/`),
   `hooks/dev-branch-guard.sh`, `settings.json` hook registration,
-  `scripts/install-dev.sh`.
+  `scripts/install-dev.sh` (which also bundles the 5 dependency skills).
+- **Bundled dependency skills** stay as skills (VIBE-auto-invocable) and
+  ship with the installer so the toolset is self-contained — see
+  `manifest.md`.
+- **Cleanup:** strip embed/vendor instructions from the `migrate`/`start`
+  mode files; inline the CLAUDE.md-rules slice into `migrate`.
 - **Transform → `dev/` mode files:** rules `planning`, `branch-plan`,
   `planning-templates`, `project-layout`; DEV sub-skills
   (`adding-a-feature`, `fixing-a-bug`, `doing-a-refactor`,
@@ -99,7 +104,11 @@ classification of every skill and every rule** as *move-to-`dev/`* or
   files in a non-DEV project triggers no DEV rule.
 - [ ] Isolated install: cloning to a path **outside `~`** and installing
   the toolset into an empty `CLAUDE_CONFIG_DIR` lets `/dev` run from the
-  command + `dev/` alone, with no `~/.claude` leakage.
+  command + `dev/` + the bundled dependency skills alone, with no
+  `~/.claude` leakage.
+- [ ] The `migrate`/`start` mode files carry **no** embed/vendor
+  instructions (no `vendor-toolchain` refs, no embed opt-in); they
+  describe the install / `.claude/dev/` override model instead.
 - [ ] The branch-guard hook blocks a write/commit on `main`/`master` and
   permits it on a branch (both self-hosted and installed).
 - [ ] git-workflow rationale is available as a `dev/` mode file; the
