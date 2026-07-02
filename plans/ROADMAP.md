@@ -115,6 +115,16 @@ Initiative index. Items: `R-001: description`; each entry owns
       Rewire all `finishing-a-branch` references (4 files), drop the skill,
       update the vendor/manifest, and re-vendor adopters. (stub — shape
       via `/dev plan R-020`)
+- [ ] R-021: Command-driven, isolated DEV toolset — replace the
+      skills+rules architecture with a single `/dev` command that resolves
+      its instruction dir at runtime (`.claude/dev/` → `~/.claude/dev/`)
+      and reads inert mode files on demand; DEV process rules + sub-skills
+      become mode files (fire only inside `/dev`, no global pollution);
+      trunk discipline via a PreToolUse branch-guard hook;
+      `skill-creator`/`writing-skills` stay standalone. Retires R-015
+      embedding (vendor/namespace/drift) and its wallarm embed; global
+      install or per-project `.claude/dev/` override, no vendoring.
+      (approved: pending)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
