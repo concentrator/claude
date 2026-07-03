@@ -91,7 +91,7 @@ downstream tasks lack detail.
 
 Created by `/dev plan release` (requires ≥1 closed task since the last
 release). One checkbox per planned branch; `[x]` only after that branch
-is merged to the default branch (set by `finishing-a-branch`). The
+is merged to the default branch (set by `finish`). The
 `release` skill halts while planned entries remain `[ ]` unless the user
 confirms dropping them.
 

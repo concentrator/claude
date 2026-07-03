@@ -20,12 +20,12 @@ is one revert away.
   dogfood is post-merge in a fresh session** — the rewritten skill loads
   on the next `/dev` invocation. Revert if any flow misbehaves.
 
-- [ ] Rewrite `skills/dev/SKILL.md` into the companion-reading router (per
+- [x] Rewrite `skills/dev/SKILL.md` into the companion-reading router (per
   the approved command→companion map); remove the `<!-- dev-embed-aware -->`
   block. Keep ≤400 words.
-- [ ] Fix deferred cross-refs across `skills/dev/*.md` — rewire remaining
+- [x] Fix deferred cross-refs across `skills/dev/*.md` — rewire remaining
   old skill names (`finishing-a-branch`→`finish`,
   `delegating-to-agents`→`auto`, and any others) and strip residual
   `~/.claude/rules|skills/` prefixes; grep-verify no stale refs remain.
-- [ ] Complete the branch: verify router logic + close review, mark plan
+- [x] Complete the branch: verify router logic + close review, mark plan
   complete, commit. (Runtime dogfood post-merge, fresh session.)

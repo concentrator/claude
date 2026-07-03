@@ -64,7 +64,7 @@ branch's topic → flag it and ask whether to deliver the current branch
 before starting fresh.
 
 DEV inherits the principle: a branch carries its task/batch, and delivery
-timing follows `branch-plan.md § Agentic execution` + `finishing-a-branch`.
+timing follows `branch-plan.md § Agentic execution` + `finish`.
 Always within the short-lived / ≤ 3 active / merge-within-a-day bounds
 above.
 
