@@ -20,6 +20,8 @@ command maps to before acting** — they carry the rules and procedures.
 | `/dev code [<slug>]` | Manual execution on a branch |
 | `/dev auto [B-XXX]` | Agentic execution of an approved batch |
 | `/dev release` | Finalize release |
+| `/dev migrate` | Adopt an existing project into DEV |
+| `/dev start` | Scaffold a new project into DEV |
 
 ## `/dev plan <target>` — read `plan.md` (+ `templates.md` when writing specs)
 
@@ -53,3 +55,12 @@ Unattended until checkpoint or halt.
 ## `/dev release` — read `release.md`
 
 Finalize + tag the release (project `release` override or this companion).
+
+## `/dev migrate` — read `migrate.md`
+
+Adopt an existing project into DEV: inventory, then route (legacy / fresh /
+already-DEV).
+
+## `/dev start` — read `start.md`
+
+Scaffold a new project into DEV from scratch.
