@@ -1,7 +1,8 @@
 # Starting a Project
 
-One-time setup. Scaffold + foundation commits go on the default branch —
-exception to the no-commit-to-`main` rule.
+One-time setup. The **initial** commit creates `main` (the only bootstrap
+step — the branch-guard permits writes on an unborn `main`); protect
+`main`, then do all further work via branches + PRs.
 
 (For an existing codebase, use `migrate` instead.)
 
@@ -55,8 +56,8 @@ merge, restrict direct push (`gh`/`glab`; `git-workflow.md § Trunk`,
 
 ## 5. Commit
 
-Commit requirements + design + scaffold + quality config to default
-branch.
+The initial commit (requirements + design + scaffold + quality config)
+creates `main`; thereafter all work lands via a branch + PR.
 
 ## 6. Next
 

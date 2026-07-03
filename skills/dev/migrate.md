@@ -61,8 +61,9 @@ Known bugs or tech debt → R stubs per `plan.md
 
 ## 7. Commit
 
-Commit adoption artifacts to the default branch — the bootstrap
-exception (`git-workflow.md`); separate commits per category.
+Deliver adoption artifacts via a short-lived branch + PR
+(`git-workflow.md`) — `main` already exists, so no bootstrap exception;
+separate commits per category.
 
 ## 8. Next
 
