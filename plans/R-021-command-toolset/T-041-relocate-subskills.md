@@ -24,11 +24,11 @@ unchanged.
 - **Gate:** companions sit under `skills/dev/` and aren't `SKILL.md`, so
   caps/stray don't flag them (mode-file caps arrive in T-043).
 
-- [ ] `skills/dev/feat.md` from `adding-a-feature` — rewire refs.
-- [ ] `skills/dev/fix.md` from `fixing-a-bug` — rewire refs.
-- [ ] `skills/dev/refactor.md` from `doing-a-refactor` — rewire refs.
-- [ ] `skills/dev/write-plan.md` from `writing-plans` (+ `plan-document-reviewer-prompt` → `skills/dev/companions/`).
-- [ ] `skills/dev/finish.md` from `finishing-a-branch` — rewire refs.
-- [ ] `skills/dev/release.md` from `release` — rewire refs.
-- [ ] `skills/dev/auto.md` from `delegating-to-agents` (+ companions: implementer-prompt, spec-reviewer-prompt, verification-policy, report-template, toolchain, auto-permissions.template.json → `skills/dev/companions/`).
-- [ ] Complete the branch: re-review cross-refs, mark plan complete, commit.
+- [x] `skills/dev/feat.md` from `adding-a-feature` — rewire refs.
+- [x] `skills/dev/fix.md` from `fixing-a-bug` — rewire refs.
+- [x] `skills/dev/refactor.md` from `doing-a-refactor` — rewire refs.
+- [x] `skills/dev/write-plan.md` from `writing-plans` (+ `plan-document-reviewer-prompt` → `skills/dev/companions/`).
+- [x] `skills/dev/finish.md` from `finishing-a-branch` — rewire refs.
+- [x] `skills/dev/release.md` from `release` — rewire refs.
+- [x] `skills/dev/auto.md` from `delegating-to-agents` (+ companions: implementer-prompt, spec-reviewer-prompt, verification-policy, report-template, toolchain, auto-permissions.template.json → `skills/dev/companions/`).
+- [x] Complete the branch: re-review cross-refs, mark plan complete, commit.
