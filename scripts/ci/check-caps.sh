@@ -34,5 +34,12 @@ while IFS= read -r f; do
   (( dw <= 12 )) || report "$f description $dw words > 12"
 done < <(git ls-files "$ROOT/skills" | grep '/SKILL\.md$')
 
+# R-021: skills/dev/ companion mode files (read on demand by the dev router)
+# — reference tier (1500w). SKILL.md handled above; companions/ are exempt.
+while IFS= read -r f; do
+  ww=$(wc -w < "$f")
+  (( ww <= 1500 )) || report "$f $ww words > 1500"
+done < <(git ls-files "$ROOT/skills/dev" | grep -E '(^|/)skills/dev/[^/]+\.md$' | grep -v '/SKILL\.md$')
+
 (( fail == 0 )) && echo "check-caps: OK"
 exit $fail
