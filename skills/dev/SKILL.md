@@ -39,8 +39,9 @@ auto-execute.
 ## `/dev code [<slug>]` — read `branch-plan.md`
 
 On `main`: no arg → next task from the open batch, else ask; `<slug>` →
-verify plan, branch, start. On a branch: continue from first `[ ]`.
-Pre-flight: re-read plan vs code; concerns → `/dev plan <slug>` first.
+verify plan, branch, start. On a branch: continue from first `[ ]`; wrong
+or missing `<slug>` → error. Pre-flight: re-read plan vs code; concerns →
+`/dev plan <slug>` first.
 Dispatch by tag: `feat`→`feat.md`, `fix`→`fix.md`, `refactor`→`refactor.md`.
 Close the branch: `finish.md`.
 
