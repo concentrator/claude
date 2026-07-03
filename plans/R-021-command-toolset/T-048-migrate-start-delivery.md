@@ -18,13 +18,13 @@ decision); make the companions coherent with the hook.
   `git-workflow` rule and reordering `start` (scaffold-then-protect) — is
   **R-018**, not this fix.
 
-- [ ] `skills/dev/migrate.md` § 7 — replace "commit to the default branch
+- [x] `skills/dev/migrate.md` § 7 — replace "commit to the default branch
   (bootstrap exception)" with "deliver adoption artifacts via a short-lived
   branch + PR (`git-workflow.md`)"; `main` already exists, so no exception.
-- [ ] `skills/dev/start.md` — narrow the greenfield wording: the **initial**
+- [x] `skills/dev/start.md` — narrow the greenfield wording: the **initial**
   commit creates `main` (hook fails-open on an unborn `main`), then protect
   `main`, then all further work via branches + PRs. Drop the broad
   "commits on the default branch — exception" claim.
-- [ ] Complete the branch: grep-verify no "bootstrap exception" /
+- [x] Complete the branch: grep-verify no "bootstrap exception" /
   commit-to-`main` language remains in the two companions; mark plan
   complete, commit.
