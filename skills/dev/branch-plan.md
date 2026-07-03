@@ -87,7 +87,7 @@ mandatory final commit, then hands off to merge/PR.
    the task's acceptance criteria, and — when the target is data
    collection or processing — run the work product and collect the
    results. Surface manual-testing/automation needs. This outcome is
-   presented with the merge options at step 8 (`finishing-a-branch § 2`),
+   presented with the merge options at step 8 (`finish § 2`),
    never skipped.
 6. **Triage `T-XXX-<slug>.findings.md`** — in-scope findings are resolved
    in this branch (as commits), not deferred; the file should hold only
@@ -105,7 +105,7 @@ mandatory final commit, then hands off to merge/PR.
    > (stale/temp data), mark plan complete, commit.
 
    Includes the resolved findings file.
-8. Invoke `finishing-a-branch` — present merge/PR/keep/discard
+8. Invoke `finish` — present merge/PR/keep/discard
    options and execute.
 
 ## Architecture-changing branches
@@ -129,11 +129,11 @@ The **batch** is the unit of delivery to `main` in both modes: one or
 more tasks that must land together, shipped as a single CI-gated PR
 (`git-workflow.md`). A lone task is a batch of one — its
 own branch is the PR. Auto mode (`/dev auto`, engine
-`delegating-to-agents`) runs a batch's members via subagents on a
+`auto`) runs a batch's members via subagents on a
 dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
 them by hand. Delivery is identical; only verification differs — auto
 runs the checkpoint below, manual uses § Closing routine +
-`finishing-a-branch`. `main` is never touched mid-run; auto requires
+`finish`. `main` is never touched mid-run; auto requires
 every gate below.
 
 ### `agentic:` stamp
@@ -172,7 +172,7 @@ marking ride a separate close-out PR.
 
 Per-branch close in auto mode: the close review (the `code-reviewer`
 pass) runs only for branches above the small-branch threshold defined
-in the `delegating-to-agents` verification policy — small branches
+in the `auto` verification policy — small branches
 defer their first review to the batch-close full-diff pass. The
 mandatory final commit and the tests/lint-green gate before merging
 into `batch/B-XXX` hold for every branch regardless of size. The
@@ -188,7 +188,7 @@ manual-mode § Closing routine above is unchanged by this rule.
 - Agents never push. The only delivery is the checkpoint-accept
   **CI-gated PR** of the batch branch to origin (`batch/B-XXX →
   origin/main`) — never a push to `main` (mechanics:
-  `delegating-to-agents` checkpoint, `git-workflow.md`).
+  `auto` checkpoint, `git-workflow.md`).
 - No commit on red tests/lint — no exceptions.
 - Findings triage and push decisions always defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
@@ -210,7 +210,7 @@ manual-mode § Closing routine above is unchanged by this rule.
 | Batch complete | Close phase on `batch/B-XXX`, then checkpoint (accept opens the PR), wait for user |
 
 Checkpoint accept is the only delivery — a CI-gated PR of the batch
-branch to origin, never a push to `main` (`delegating-to-agents` owns
+branch to origin, never a push to `main` (`auto` owns
 the mechanics).
 
 ## Releases
