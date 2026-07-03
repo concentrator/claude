@@ -17,3 +17,4 @@ strictly per it.
 - [ ] T-045 (R-021) [refactor]: Remove superseded — delete the relocated DEV rules + sub-skills; keep `skill-creator`, `writing-skills`, `wallarm-*`, personal rules. (Phase C)
 - [ ] T-046 (R-021) [refactor]: Retire R-015 machinery — remove vendor/embed/drift scripts + tests + `CLAUDE_ROOT`; ROADMAP mark R-015 superseded, reconcile R-018/R-019/R-020. (Phase D)
 - [ ] T-047 (R-021) [feat]: Distribution — `scripts/install-dev.sh` copies the toolset (`skills/dev/`, hook + `settings.json` reg, + the 5 bundled dependency skills; idempotent) + README. (Phase E)
+- [ ] T-048 (R-021) [fix]: migrate/start deliver via branch + PR — the branch-guard hook forbids the bootstrap-exception commit-to-main; fix `skills/dev/migrate.md` (branch + PR; main exists) and `skills/dev/start.md` (narrow: initial commit creates main, then protect, then branches). Broader bootstrap-rule cleanup + start reorder stays R-018. (surfaced dogfooding /dev migrate)
