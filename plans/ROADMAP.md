@@ -124,7 +124,29 @@ Initiative index. Items: `R-001: description`; each entry owns
       `skill-creator`/`writing-skills` stay standalone. Retires R-015
       embedding (vendor/namespace/drift) and its wallarm embed; global
       install or per-project `.claude/dev/` override, no vendoring.
-      (approved: pending)
+      (approved 2026-07-03)
+- [ ] R-022: Global config & conventions consolidation — merge the
+      claude-code-mastery global CLAUDE.md template into our CLAUDE.md
+      (dropping the stack sections: TypeScript, Python, Next.js, Docker),
+      redistributing content into rules/commands/skills; add net-new
+      conventions — a secrets-gatekeeper rule + a PreToolUse secrets hook,
+      code-size quality gates (file/function limits) + a CI check, and the
+      new-project scaffolding required-files folded into `starting-a-project`
+      / `project-layout`. CLAUDE.md stays within its cap (redistribute, not
+      accrete). Sequence after R-021 (operates on the command
+      architecture). (stub — shape via `/dev plan R-022`)
+- [ ] R-023: Documentation handbook & doc-first lifecycle — a living
+      per-feature documentation layer (data model, API endpoints, dashboard
+      elements, business rules, edge cases) sitting between `DESIGN.md` and
+      code; the strict Doc→Test→Code→Reconcile→ship-together cycle woven
+      into the execution mode files and `branch-plan` closing routine; a
+      per-project CLAUDE.md lookup table routing to the right doc before
+      coding; audit-first adoption in `migrate` (crawl, PASS/WARN/FAIL/TODO,
+      fix plan, document-what-exists); doc↔code verification via a
+      fresh-agent spec-check (reuse `delegating-to-agents`); a new
+      documentation artifact class in `project-layout`. Quality bar: a
+      fresh Claude reads only the doc and implements correctly. Sequence
+      after R-022. (stub — shape via `/dev plan R-023`)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
