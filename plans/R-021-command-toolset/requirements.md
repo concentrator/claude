@@ -3,7 +3,7 @@ approved: 2026-07-03
 kind: refactor
 ---
 
-# R-021: Command-driven, isolated DEV toolset
+# R-021: Isolated, self-contained DEV toolset
 
 ## Current state
 
@@ -11,150 +11,131 @@ The DEV toolchain is **skills + path-scoped rules** in `~/.claude/`. To
 serve a contributor without a global config, R-015 built **embedding**:
 vendor the portable core into a project's `.claude/`, path-rewrite,
 `dev-*`-namespace the skills, version-stamp, detect drift. That machinery
-exists only to work around not being globally installable and carries
-real cost — the namespace/precedence question, gitignore surgery,
-adopter-file clobbering (R-019), drift-vs-embed upkeep. Separately, the
-path-scoped DEV rules fire in *any* project with matching paths, so a
-global install would leak the workflow into a contributor's unrelated
-work.
+exists only to work around not being globally installable and carries real
+cost — the namespace/precedence question, gitignore surgery, adopter-file
+clobbering (R-019), drift-vs-embed upkeep. Separately, the path-scoped DEV
+rules fire in *any* project with matching paths, so a global install would
+leak the workflow into a contributor's unrelated work.
 
 ## Desired state
 
-- **One command is the sole global surface.** `commands/dev.md` (`/dev`)
-  resolves its instruction dir at runtime — `.claude/dev/` (project
-  override) → `~/.claude/dev/` (global) via a sentinel file — and reads
-  inert mode files on demand.
-- **DEV process rules + sub-skills become inert mode files** under
-  `dev/`. They fire only when `/dev` reads them, so a global install
-  can't pollute other projects.
+- **`dev` stays the skill router.** `skills/dev/SKILL.md` remains the
+  `/dev` entry, slimmed to a router that reads inert **companion mode
+  files** in `skills/dev/` on demand. No command file. (Verified: a skill
+  wins over a same-named command, and commands are being folded into
+  skills — so the entry must be a skill.)
+- **DEV process rules + sub-skills become inert `skills/dev/` companions.**
+  They fire only when the `dev` skill reads them, so a global install can't
+  pollute other projects.
 - **Trunk discipline is a hook, not an always-on rule.** A `PreToolUse`
   branch-guard hook hard-blocks writes on `main`; the git-workflow
-  rationale ships as a `dev/` mode file.
+  rationale ships as a `skills/dev/` companion.
 - **`skill-creator` and `writing-skills` stay standalone skills;** the
-  other general-purpose skills join the toolset as mode files. The exact
-  move/stay split for **every** skill and rule is fixed by a
-  user-approved manifest (§ Transform manifest) — not assumed here.
-- **Distribution without vendoring** — install the toolset globally, or
-  pin per-project via `.claude/dev/`. Embedding (R-015) is retired.
+  move/stay split for every skill and rule is fixed by the approved
+  `manifest.md`.
+- **Distribution without vendoring.** Skill precedence (personal > project)
+  gives it for free: a no-global contributor uses a project's
+  `.claude/skills/dev/`; a global contributor's `~/.claude/skills/dev/`
+  wins. Embedding (R-015) is retired.
 
 ## Transform manifest
 
-Before any skill or rule moves, the detail round (`/dev plan R-021`)
-produces `plans/R-021-command-toolset/manifest.md` — the **authoritative
-classification of every skill and every rule** as *move-to-`dev/`* or
-*stay-global* — and blocks on explicit user approval. Transform tasks
-(T-040–T-042) execute strictly per the approved manifest.
-
-- **Skills:** the full list is enumerated and each entry approved before
-  the move (not moved on the current provisional classification).
-- **Rules:** some rules **stay global-only** (the personal conventions —
-  `git-workflow`, `js`, `skills`, `claude-md`, `changelog` — provisionally;
-  confirmed in the manifest). Only the rules the manifest marks for move
-  become `dev/` mode files.
+`manifest.md` (approved) is the **authoritative classification of every
+skill and every rule** as *move-to-`skills/dev/`* / *stay-global* /
+*bundled*. Transform tasks (T-040–T-042) execute strictly per it; nothing
+moves before it is approved.
 
 ## Invariants (must NOT change)
 
 - **The `/dev` surface and behavior** — same commands (`plan`/`code`/
   `auto`/`release`), same flows, same planning artifacts (R→T→branch) and
-  `plans/` layout.
+  `plans/` layout. `/dev` stays a skill.
 - **Two-round planning + the single approval gate + traceability.**
 - **`main` always releasable; Tier-1 + Tier-2 CI gate every PR.**
-- **The user's personal convention rules** (`git-workflow`, `js`,
-  `skills`, `claude-md`, `changelog`) remain as rules, unchanged for VIBE
-  work.
+- **The user's personal convention rules** (`js`, `skills`, `claude-md`,
+  and the `git-workflow` rule) remain as rules, unchanged for VIBE work.
 - **`skill-creator` / `writing-skills` still auto-invoke.**
 
 ## Scope
 
-- **New:** `commands/dev.md`, `dev/` (mode files + `companions/`),
+- **New:** `skills/dev/` companion mode files (+ `skills/dev/companions/`),
   `hooks/dev-branch-guard.sh`, `settings.json` hook registration,
   `scripts/install-dev.sh` (which also bundles the 5 dependency skills).
-- **Bundled dependency skills** stay as skills (VIBE-auto-invocable) and
-  ship with the installer so the toolset is self-contained — see
-  `manifest.md`.
-- **Cleanup:** strip embed/vendor instructions from the `migrate`/`start`
-  mode files; inline the CLAUDE.md-rules slice into `migrate`.
-- **Transform → `dev/` mode files:** rules `planning`, `branch-plan`,
-  `planning-templates`, `project-layout`; DEV sub-skills
-  (`adding-a-feature`, `fixing-a-bug`, `doing-a-refactor`,
-  `writing-plans`, `finishing-a-branch`, `release`,
-  `delegating-to-agents`); the assigned general skills (`brainstorming`,
-  `test-driven-development`, `systematic-debugging`,
-  `verification-before-completion`, `receiving-code-review`,
-  `dispatching-parallel-agents`) and adoption skills (`migrating-to-dev`,
+- **Router:** slim `skills/dev/SKILL.md` to read the companion mode files.
+- **Transform → `skills/dev/` companions:** the manifest-marked rules
+  (`planning`, `branch-plan`, `planning-templates`, `project-layout`,
+  `changelog`) and DEV/adoption skills (`adding-a-feature`, `fixing-a-bug`,
+  `doing-a-refactor`, `writing-plans`, `finishing-a-branch`, `release`,
+  `delegating-to-agents`, `brainstorming`, `migrating-to-dev`,
   `starting-a-project`); companions travel with them.
+- **Bundled dependency skills** stay as skills (VIBE-auto-invocable) and
+  ship with the installer so the toolset is self-contained.
+- **Cleanup:** strip embed/vendor instructions from the `migrate`/`start`
+  companions; inline the CLAUDE.md-rules slice into `migrate`.
 - **Retire:** `scripts/vendor-toolchain.sh`, `dev-embed-check.sh`,
   `dev-drift-check.sh`, the embed/vendor/drift tests, the `CLAUDE_ROOT`
   parameterization; unwind the wallarm embed (its own repo MR).
-- **CI:** `check-caps` mode-file caps; `check-stray` + `DESIGN.md`
-  tree-map for `dev/`, `commands/`, `hooks/`.
+- **CI:** `check-caps` covers `skills/dev/` companions; `check-stray` +
+  `DESIGN.md` tree-map for `hooks/`.
 - **ROADMAP:** mark R-015 superseded; reconcile R-018/R-019/R-020.
 
 ## Acceptance criteria
 
-- [ ] `/dev` runs via `commands/dev.md`, resolving `$DEV_DIR`
-  (`.claude/dev/` → `~/.claude/dev/`) and reading mode files; every
-  current flow (plan shape/detail, code feat/fix/refactor, auto, release,
-  migrate, start) works through it — dogfood a full cycle on this repo.
-- [ ] A user-approved transform `manifest.md` (every skill + every rule
-  classified move-to-`dev/` vs stay-global) exists before any transform
-  task runs; the executed moves match it exactly.
-- [ ] No DEV process rule fires outside `/dev`: the rules the manifest
-  marks for move no longer live in `~/.claude/rules/`; editing `plans/`
-  files in a non-DEV project triggers no DEV rule.
+- [ ] `/dev` runs via the `dev` skill router, which reads `skills/dev/`
+  companion mode files; every current flow (plan shape/detail, code
+  feat/fix/refactor, auto, release, migrate, start) works through it —
+  dogfood a full cycle on this repo.
+- [ ] A user-approved `manifest.md` exists before any transform; the
+  executed moves match it exactly.
+- [ ] No DEV process rule fires outside `/dev`: the manifest-marked rules
+  no longer live in `~/.claude/rules/` (they are `skills/dev/` companions);
+  editing `plans/` files in a non-DEV project triggers no DEV rule.
 - [ ] Isolated install: cloning to a path **outside `~`** and installing
-  the toolset into an empty `CLAUDE_CONFIG_DIR` lets `/dev` run from the
-  command + `dev/` + the bundled dependency skills alone, with no
-  `~/.claude` leakage.
-- [ ] The `migrate`/`start` mode files carry **no** embed/vendor
-  instructions (no `vendor-toolchain` refs, no embed opt-in); they
-  describe the install / `.claude/dev/` override model instead.
+  the toolset into an empty `CLAUDE_CONFIG_DIR` lets `/dev` run from
+  `skills/dev/` + the bundled skills alone, with no `~/.claude` leakage.
+- [ ] The `migrate`/`start` companions carry **no** embed/vendor
+  instructions; they describe the install / `.claude/skills/dev/` model.
 - [ ] The branch-guard hook blocks a write/commit on `main`/`master` and
-  permits it on a branch (both self-hosted and installed).
-- [ ] git-workflow rationale is available as a `dev/` mode file; the
+  permits it on a branch.
+- [ ] git-workflow rationale is available as a `skills/dev/` companion; the
   installer ships no always-on git rule.
 - [ ] `skill-creator` and `writing-skills` remain standalone skills and
   still auto-invoke; personal convention rules (`js`, `skills`,
-  `claude-md`, `changelog`) unchanged.
-- [ ] Project-override precedence: a project's `.claude/dev/` takes
-  precedence over `~/.claude/dev/`, verified with a divergent test file.
+  `claude-md`) unchanged.
+- [ ] Distribution precedence: a no-global contributor uses a project's
+  `.claude/skills/dev/`; a global `~/.claude/skills/dev/` wins for a global
+  contributor (verified with a divergent test file).
 - [ ] R-015 machinery removed (vendor/embed/drift scripts + tests +
   `CLAUDE_ROOT` gone); Tier-1 gate green without them; the wallarm embed
   unwound in its repo.
-- [ ] CI updated: `check-caps` enforces mode-file caps; `check-stray` +
-  `DESIGN.md` tree-map include `dev/`, `commands/`, `hooks/`; full gate
-  green.
-- [ ] DEV surface/behavior unchanged: `/dev` commands, planning
-  artifacts, and `plans/` layout identical (regression: run an existing
-  flow and compare).
+- [ ] CI updated: `check-caps` covers `skills/dev/` companions; `check-stray`
+  + `DESIGN.md` tree-map include `hooks/`; full gate green.
+- [ ] DEV surface/behavior unchanged: `/dev` commands, planning artifacts,
+  and `plans/` layout identical (regression: run an existing flow).
 
 ## Constraints
 
 - **Self-hosting** — changes the workflow the repo runs on itself:
-  branch-by-abstraction migration, `main` releasable throughout, `/dev`
-  keeps working until cut-over (precedent: R-003, R-014, R-016).
-- **Verify `/dev` command-vs-skill precedence early** — it determines
-  cut-over safety.
-- **No skill or rule moves before `manifest.md` is approved** (§ Transform
-  manifest); transform tasks execute strictly per it. Some rules stay
-  global-only.
+  branch-by-abstraction (copy into `skills/dev/`, rewire the router, then
+  remove originals), `main` releasable throughout, `/dev` keeps working
+  until cut-over (precedent: R-003, R-014, R-016).
 - Stay within trunk-based delivery (`git-workflow.md`).
 - **Supersedes R-015**; the wallarm repo unwind is a separate MR there.
 
 ## Open questions
 
-- git-workflow duplication (personal rule vs toolset mode file): keep
-  both, or drop the always-on rule and rely on hook + mode file for VIBE
-  too? Default keep both — settle in detail.
-- Mode-file granularity/naming (one per current skill vs consolidated) —
-  settle in detail.
-- Installer hook registration idempotency across an existing
-  `settings.json` — detail.
+- git-workflow duplication (personal rule vs `skills/dev/` companion): keep
+  both, or drop the always-on rule and rely on hook + companion for VIBE
+  too? Default keep both.
+- Companion granularity/naming — settle per task.
+- Installer hook-registration idempotency across an existing
+  `settings.json`.
 
 ## References
 
 - **Supersedes R-015** (embeddable-dev). Absorbs part of **R-020**
-  (`finishing-a-branch` → mode file; restore the verify gate). Moots
+  (`finishing-a-branch` → companion; restore the verify gate). Moots
   **R-019** (vendor clobber). Relates **R-018** (bootstrap exception).
-- Reference model: MDD (github.com/TheDecipherist/mdd) — command router +
-  lazy mode files + branch-guard hook.
+- Reference model: MDD (github.com/TheDecipherist/mdd) — router + lazy mode
+  files + branch-guard hook. Entry realized as a **skill** (not a command)
+  per Claude Code precedence (skill wins over same-named command).
