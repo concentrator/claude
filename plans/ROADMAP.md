@@ -115,15 +115,13 @@ Initiative index. Items: `R-001: description`; each entry owns
       Rewire all `finishing-a-branch` references (4 files), drop the skill,
       update the vendor/manifest, and re-vendor adopters. (stub — shape
       via `/dev plan R-020`)
-- [ ] R-021: Command-driven, isolated DEV toolset — replace the
-      skills+rules architecture with a single `/dev` command that resolves
-      its instruction dir at runtime (`.claude/dev/` → `~/.claude/dev/`)
-      and reads inert mode files on demand; DEV process rules + sub-skills
-      become mode files (fire only inside `/dev`, no global pollution);
-      trunk discipline via a PreToolUse branch-guard hook;
-      `skill-creator`/`writing-skills` stay standalone. Retires R-015
-      embedding (vendor/namespace/drift) and its wallarm embed; global
-      install or per-project `.claude/dev/` override, no vendoring.
+- [ ] R-021: Isolated, self-contained DEV toolset — keep `dev` as the
+      `/dev` skill router, relocating DEV process rules + sub-skills into
+      inert `skills/dev/` companion mode files (fire only when `/dev` reads
+      them, no global pollution); trunk discipline via a PreToolUse
+      branch-guard hook; `skill-creator`/`writing-skills` stay standalone.
+      Distribution rides skill precedence (personal > project) — no
+      vendoring, no prefix; retires R-015 embedding and its wallarm embed.
       (approved 2026-07-03)
 - [ ] R-022: Global config & conventions consolidation — merge the
       claude-code-mastery global CLAUDE.md template into our CLAUDE.md
