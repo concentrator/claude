@@ -31,8 +31,9 @@ case "$tool" in
     deny "branch-guard: refusing $tool on '$branch'. Create a working branch first — never edit the trunk (git-workflow)." ;;
   Bash)
     cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // ""')
+    # Word-boundary match so plumbing (git commit-tree/-graph) isn't blocked.
     case "$cmd" in
-      *"git commit"*)
+      *"git commit "* | *"git commit")
         deny "branch-guard: refusing 'git commit' on '$branch'. Create a working branch first (git-workflow)." ;;
     esac ;;
 esac
