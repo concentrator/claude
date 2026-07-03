@@ -23,15 +23,15 @@ until cut-over/removal (T-044/T-045); the companions are **dormant** — the
   `skills/dev/` tree-map refresh happens at cut-over/cleanup, kept compact
   to respect the DESIGN cap.
 
-- [ ] `skills/dev/plan.md` from `rules/planning.md` — strip `paths:`;
+- [x] `skills/dev/plan.md` from `rules/planning.md` — strip `paths:`;
   rewrite refs (branch-plan, templates, layout).
-- [ ] `skills/dev/branch-plan.md` from `rules/branch-plan.md` — strip
+- [x] `skills/dev/branch-plan.md` from `rules/branch-plan.md` — strip
   `paths:`; rewrite refs.
-- [ ] `skills/dev/templates.md` from `rules/planning-templates.md` — strip
+- [x] `skills/dev/templates.md` from `rules/planning-templates.md` — strip
   `paths:`; inline any stay-global ref (e.g. `claude-md`) it needs.
-- [ ] `skills/dev/layout.md` from `rules/project-layout.md` — strip `paths:`.
-- [ ] `skills/dev/changelog.md` from `rules/changelog.md` — strip `paths:`.
-- [ ] `skills/dev/git-workflow.md` — copy of `rules/git-workflow.md` (hybrid
+- [x] `skills/dev/layout.md` from `rules/project-layout.md` — strip `paths:`.
+- [x] `skills/dev/changelog.md` from `rules/changelog.md` — strip `paths:`.
+- [x] `skills/dev/git-workflow.md` — copy of `rules/git-workflow.md` (hybrid
   toolset copy; the global rule stays).
-- [ ] Complete the branch: re-review cross-refs across the companions, mark
+- [x] Complete the branch: re-review cross-refs across the companions, mark
   plan complete, commit.
