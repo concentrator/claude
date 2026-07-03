@@ -24,13 +24,15 @@ happens at cut-over (T-044), once the companions exist.
   model change — commit **only** the hook block, leave the model change as
   the user's local uncommitted state.
 
-- [ ] Add `hooks/dev-branch-guard.sh` — denies `Write`/`Edit`/`NotebookEdit`
+- [x] Add `hooks/dev-branch-guard.sh` — denies `Write`/`Edit`/`NotebookEdit`
   (and Bash `git commit`) when the branch is `main`/`master`, with a clear
   reason; allows everything on a branch and outside a git repo. Executable.
-- [ ] Register the hook in `settings.json` under `hooks.PreToolUse`
+- [x] Register the hook in `settings.json` under `hooks.PreToolUse`
   (matcher `Write|Edit|NotebookEdit`; a `Bash` matcher for `git commit`),
   isolating the pre-existing local model change out of the commit.
-- [ ] Verify by hand: the hook denies a write on `main`/`master` and
-  permits it on a branch (must not brick the workflow).
-- [ ] Complete the branch: add `hooks/` to the `DESIGN.md` tree-map;
+- [x] Verify by hand: the hook denies a write on `main`/`master` and
+  permits it on a branch (must not brick the workflow). — tested via a
+  throwaway repo: deny on main for Write/Edit/commit; allow reads, allow on
+  a branch, allow outside a repo.
+- [x] Complete the branch: add `hooks/` to the `DESIGN.md` tree-map;
   re-review, mark plan complete, commit.
