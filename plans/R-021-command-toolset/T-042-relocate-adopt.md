@@ -20,14 +20,14 @@ Originals stay until cut-over/removal (T-044/T-045); **dormant**.
   `~/.claude/…` prefixes stripped.
 - Companions go to `skills/dev/companions/`.
 
-- [ ] `skills/dev/brainstorm.md` from `brainstorming` (+ `visual-companion.md`
+- [x] `skills/dev/brainstorm.md` from `brainstorming` (+ `visual-companion.md`
   and `scripts/` → `skills/dev/companions/`); rewire refs.
-- [ ] `skills/dev/migrate.md` from `migrating-to-dev` (+ `legacy-migration.md`,
+- [x] `skills/dev/migrate.md` from `migrating-to-dev` (+ `legacy-migration.md`,
   `tbd-migration.md` → `skills/dev/companions/`); **remove** the
   embed/vendor instructions (`vendor-toolchain.sh` ref, embed opt-in) →
   replace with the install / `.claude/skills/dev/` model; **inline** the
   CLAUDE.md size/content slice from `claude-md`; rewire refs.
-- [ ] `skills/dev/start.md` from `starting-a-project`; **remove** the embed
+- [x] `skills/dev/start.md` from `starting-a-project`; **remove** the embed
   opt-in → install/override note; rewire refs.
-- [ ] Complete the branch: confirm **no** `vendor-toolchain`/embed refs
+- [x] Complete the branch: confirm **no** `vendor-toolchain`/embed refs
   remain in migrate/start, re-review refs, mark plan complete, commit.
