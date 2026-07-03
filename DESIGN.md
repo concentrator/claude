@@ -52,6 +52,8 @@ excluded — see `.gitignore`.
 │   └── workflows/ci.yml          # Tier-1 mechanical CI gate (on PRs)
 ├── .githooks/
 │   └── pre-push                  # advisory local Tier-1 mirror
+├── hooks/
+│   └── dev-branch-guard.sh       # PreToolUse branch-guard (no writes on trunk)
 ├── scripts/ci/                   # Tier-1 checks + run-all.sh
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
@@ -138,8 +140,7 @@ in their own repo.
 ## Planning model
 
 Self-development uses the planning hierarchy per `rules/planning.md`,
-unchanged. The environment is a reference implementation of its own
-conventions; structure is never simplified, only description detail.
+unchanged — structure is never simplified, only description detail.
 
 ## Git & delivery model
 
