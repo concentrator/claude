@@ -96,7 +96,7 @@ excluded — see `.gitignore`.
     │   ├── report-template.md
     │   ├── toolchain.md
     │   └── auto-permissions.template.json
-    ├── dev/SKILL.md              # DEV mode orchestrator
+    ├── dev/                      # router + mode-file companions
     ├── dispatching-parallel-agents/SKILL.md
     ├── doing-a-refactor/SKILL.md
     ├── finishing-a-branch/SKILL.md
