@@ -14,11 +14,11 @@ reference material → **1500-word cap** (matches the reference-skill tier;
 the largest, `branch-plan.md`, is ~1462w). `skills/dev/companions/*` are
 sub-references, exempt from the word cap.
 
-- [ ] `check-caps.sh` — cap `skills/dev/*.md` companions at 1500 words
+- [x] `check-caps.sh` — cap `skills/dev/*.md` companions at 1500 words
   (exclude `SKILL.md`, already handled by the skill rule; exclude
   `companions/`). Confirm all current companions pass.
-- [ ] `DESIGN.md` — represent `skills/dev/` compactly as router +
+- [x] `DESIGN.md` — represent `skills/dev/` compactly as router +
   mode-file companions (stay within the DESIGN word cap; full enumeration
   deferred to the T-045 cleanup, when the originals are removed).
-- [ ] Run the full gate with the companions present; confirm green.
-- [ ] Complete the branch: mark plan complete, commit.
+- [x] Run the full gate with the companions present; confirm green.
+- [x] Complete the branch: mark plan complete, commit.
