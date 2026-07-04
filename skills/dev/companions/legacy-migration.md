@@ -1,7 +1,7 @@
 # Legacy / non-canonical canonicalization
 
 Upgrade a pre-existing `.claude/` to the current schema
-(`project-layout.md`). Each step: report → approve → apply. Reversible
+(`layout.md`). Each step: report → approve → apply. Reversible
 file moves apply directly; irreversible/host steps stay advisory (like
 `tbd-migration.md`).
 
@@ -12,7 +12,7 @@ file moves apply directly; irreversible/host steps stay advisory (like
   compare exact case (`git ls-files` is case-exact even on a
   case-insensitive filesystem).
 - Four-level `R-XXX (REQ-XXX)` roadmap entries (`REQ-XXX` is retired —
-  `planning.md § Archival`).
+  `plan.md § Archival`).
 - A flat `plans/tasks.md` instead of per-R `tasks.md`.
 - Cross-references to `~/.claude/rules/...` where an embedded copy is
   intended.

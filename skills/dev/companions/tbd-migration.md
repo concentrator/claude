@@ -49,4 +49,4 @@ Propose the moves; the user executes them — delivered as one coherent MR/PR
   `main` at the release commit (`git-workflow.md § Releases —
   tag-on-trunk`; the `release` skill). Flag any fork-release leftovers.
 - **Archive** — move superseded release plans to `plans/archive/`
-  (`planning.md § Archival`).
+  (`plan.md § Archival`).
