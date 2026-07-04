@@ -57,4 +57,15 @@ else
   rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
 fi
 
+# 5. committability: for a project install, allowlist installed paths that the
+# target repo's .gitignore excludes (idempotent), so they can be committed.
+if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplevel >/dev/null 2>&1; then
+  repo="$(git -C "${target%/.claude}" rev-parse --show-toplevel)"; gi="$repo/.gitignore"
+  for p in ".claude/skills/" ".claude/hooks/" ".claude/settings.json"; do
+    git -C "$repo" check-ignore -q "${p%/}" 2>/dev/null || continue   # not ignored → skip
+    grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
+    printf '!%s\n' "$p" >> "$gi"
+  done
+fi
+
 echo "install-dev: DEV toolset installed into $target ($scope)"

@@ -52,5 +52,18 @@ jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(. == "~/.claude/hooks/dev-b
   && pass "global hook path is ~/.claude/..." || die "global hook path wrong"
 rm -rf "$H"
 
+# --- committability: restrictive .claude/* gitignore → installed paths trackable ---
+G=$(mktemp -d); git -C "$G" init -q
+printf '.claude/*\n' > "$G/.gitignore"
+bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (gitignore fixture) exits nonzero"
+still=""
+for p in .claude/skills .claude/hooks/dev-branch-guard.sh .claude/settings.json; do
+  git -C "$G" check-ignore -q "$p" && still="$still $p"
+done
+[ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"
+bash "$INSTALL" --project "$G" >/dev/null 2>&1
+[ "$(grep -c '^!.claude/hooks/$' "$G/.gitignore")" = "1" ] && pass "gitignore allowlist idempotent" || die "duplicate allowlist entries"
+rm -rf "$G"
+
 (( fail == 0 )) && echo "install-dev.test: OK"
 exit $fail
