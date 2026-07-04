@@ -8,7 +8,7 @@
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
-ROOT="${CLAUDE_ROOT:-.}"   # "." self-hosting (default); ".claude" embedded
+ROOT="."
 
 fail=0
 report() { echo "PLAN: $1"; fail=1; }

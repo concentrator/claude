@@ -7,8 +7,7 @@
 # gitignored project skills (e.g. wallarm-*) are out of scope.
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
-# CLAUDE_ROOT: "." self-hosting (default); ".claude" in an embedded project.
-ROOT="${CLAUDE_ROOT:-.}"
+ROOT="."
 
 fail=0
 report() { echo "CAP: $1"; fail=1; }
@@ -24,7 +23,7 @@ body_words() { awk 'NR==1&&/^---/{f=1;next} f&&/^---/{f=0;next} !f' "$1" | wc -w
 
 while IFS= read -r f; do
   name=$(basename "$(dirname "$f")")
-  key="${name#dev-}"   # embedded skills are dev-prefixed; classify by base name
+  key="$name"
   cap=300
   case "$orchestrators" in *" $key "*) cap=400 ;; esac
   case "$reference"     in *" $key "*) cap=1500 ;; esac
