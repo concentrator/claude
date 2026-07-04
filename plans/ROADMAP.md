@@ -145,6 +145,15 @@ Initiative index. Items: `R-001: description`; each entry owns
       documentation artifact class in `project-layout`. Quality bar: a
       fresh Claude reads only the doc and implements correctly. Sequence
       after R-022. (stub — shape via `/dev plan R-023`)
+- [ ] R-024: DEV confirmation & outcome gates — enforce the interactive
+      boundaries the workflow currently glosses: (a) plan→code —
+      plan-approval must not authorize coding; the plan round delivers,
+      stops, and proposes `/dev code` (never bundles approve-shape with
+      start-code); (b) branch close — after the close review, present the
+      outcome + offer a live test / results collection + the merge options
+      before opening the MR/PR (the regression that opened this effort).
+      Surfaced dogfooding the R-021 cut-over (plan auto-chained straight
+      into code with no stop). (stub — shape via `/dev plan R-024`)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
