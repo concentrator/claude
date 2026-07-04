@@ -55,7 +55,10 @@ excluded — see `.gitignore`.
 │   └── pre-push                  # advisory local Tier-1 mirror
 ├── hooks/
 │   └── dev-branch-guard.sh       # PreToolUse branch-guard (no writes on trunk)
-├── scripts/ci/                   # Tier-1 checks + run-all.sh
+├── scripts/
+│   ├── ci/                       # Tier-1 checks + run-all.sh
+│   ├── install-dev.sh            # toolset installer (global or --project)
+│   └── test/                     # script tests (install-dev.test.sh)
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
 ├── plans/                        # planning hierarchy
