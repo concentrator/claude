@@ -7,17 +7,18 @@ relate, and the invariants that keep them coherent.
 
 - **CLAUDE.md** — global operating instructions, loaded every session.
   Maintenance: `rules/claude-md.md`.
-- **rules/** — path/topic-scoped rules (planning, planning-templates,
-  branch-plan, project-layout, skills, claude-md), loaded as memory; the
-  planning rules load only in sessions that touch plan artifacts.
-- **skills/** — invocable capabilities (workflow + reference). Authoring
-  and maintenance: `skills/skill-creator/`, `skills/writing-skills/`,
-  `rules/skills.md`.
+- **rules/** — personal convention rules (`git-workflow` always-on; `js`,
+  `skills`, `claude-md` path-scoped), loaded as memory. The DEV process
+  rules now live as `skills/dev/` companions.
+- **skills/** — invocable capabilities. `skills/dev/` is the `/dev` router
+  + its inert mode-file companions (the DEV toolset); the rest are
+  standalone reference skills. Authoring: `skills/skill-creator/`,
+  `skills/writing-skills/`, `rules/skills.md`.
 - **commands/**, **agents/** — optional slash commands and custom agents.
 - **settings.json** — global Claude Code config. Project-scoped settings
   for this repo: `.claude/settings.local.json`.
 - **plans/** — this environment's own planning hierarchy
-  (`rules/planning.md`).
+  (`skills/dev/plan.md`).
 - **MAINTENANCE.md** — sanity routine + the Tier-2 AI review
   (`## Self-enforcement`).
 - **scripts/ci/**, **.github/**, **.githooks/**, **maintenance.jsonl** —
@@ -58,7 +59,7 @@ excluded — see `.gitignore`.
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
 ├── plans/                        # planning hierarchy
-│   ├── ROADMAP.md                # cross-R index — see rules/planning.md
+│   ├── ROADMAP.md                # cross-R index — see skills/dev/plan.md
 │   ├── REQ-XXX.md                # four-level-era requirements (closed: history; open → R stubs on approval)
 │   └── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
 │       ├── requirements.md       # initiative requirements
@@ -66,70 +67,27 @@ excluded — see `.gitignore`.
 │       ├── T-XXX-<slug>.md
 │       ├── T-XXX-<slug>.findings.md
 │       └── batches/              # B-XXX manifests + reports (lazy)
-├── rules/                        # rule files (always-on or path-scoped)
-│   ├── branch-plan.md            # branch plan format, agentic rails (path-scoped)
-│   ├── changelog.md              # CHANGELOG entry rules (path-scoped)
+├── rules/                        # personal convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
+│   ├── git-workflow.md           # trunk/branch/commit/PR discipline (always-on)
 │   ├── js.md                     # JS conventions (path-scoped)
-│   ├── planning.md               # R/T hierarchy (path-scoped)
-│   ├── planning-templates.md     # requirements/release templates (path-scoped)
-│   ├── project-layout.md         # canonical project .claude/ layout (path-scoped)
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/
 │   └── code-reviewer.md          # branch-close quality review agent
 └── skills/
-    ├── adding-a-feature/SKILL.md
-    ├── brainstorming/
-    │   ├── SKILL.md
-    │   ├── visual-companion.md
-    │   └── scripts/              # mockup server
-    │       ├── frame-template.html
-    │       ├── helper.js
-    │       ├── server.cjs
-    │       ├── start-server.sh
-    │       └── stop-server.sh
-    ├── delegating-to-agents/     # /dev auto engine
-    │   ├── SKILL.md
-    │   ├── implementer-prompt.md
-    │   ├── spec-reviewer-prompt.md
-    │   ├── verification-policy.md
-    │   ├── report-template.md
-    │   ├── toolchain.md
-    │   └── auto-permissions.template.json
-    ├── dev/                      # router + mode-file companions
-    ├── dispatching-parallel-agents/SKILL.md
-    ├── doing-a-refactor/SKILL.md
-    ├── finishing-a-branch/SKILL.md
-    ├── fixing-a-bug/SKILL.md
-    ├── migrating-to-dev/
-    │   ├── SKILL.md
-    │   └── tbd-migration.md      # already-DEV → TBD migration report
-    ├── receiving-code-review/SKILL.md
-    ├── release/SKILL.md
-    ├── skill-creator/SKILL.md
-    ├── starting-a-project/SKILL.md
-    ├── systematic-debugging/
-    │   ├── SKILL.md
-    │   ├── condition-based-waiting.md
-    │   ├── condition-based-waiting-example.ts
-    │   ├── defense-in-depth.md
-    │   ├── find-polluter.sh
-    │   └── root-cause-tracing.md
-    ├── test-driven-development/
-    │   ├── SKILL.md
-    │   └── testing-anti-patterns.md
+    ├── dev/                      # the /dev router + inert mode-file companions (the DEV toolset)
+    │   ├── SKILL.md              #   the router
+    │   ├── plan.md branch-plan.md templates.md layout.md changelog.md git-workflow.md  # process rules
+    │   ├── feat.md fix.md refactor.md write-plan.md finish.md release.md auto.md        # execution
+    │   ├── brainstorm.md migrate.md start.md   # shape + adoption
+    │   └── companions/           # prompt templates, verification-policy, migration docs, mockup scripts
+    ├── test-driven-development/  # bundled dependency skills (installer ships these) + testing-anti-patterns
+    ├── systematic-debugging/     # + root-cause-tracing, defense-in-depth, condition-based-waiting, find-polluter.sh
     ├── verification-before-completion/SKILL.md
-    ├── writing-plans/
-    │   ├── SKILL.md
-    │   └── plan-document-reviewer-prompt.md
-    └── writing-skills/
-        ├── SKILL.md
-        ├── anthropic-best-practices.md
-        ├── persuasion-principles.md
-        ├── testing-skills-with-subagents.md
-        ├── graphviz-conventions.dot
-        ├── render-graphs.js
-        └── examples/CLAUDE_MD_TESTING.md
+    ├── receiving-code-review/SKILL.md
+    ├── dispatching-parallel-agents/SKILL.md
+    ├── skill-creator/SKILL.md    # personal (skill authoring)
+    └── writing-skills/           # personal + persuasion-principles, anthropic-best-practices, testing-skills-with-subagents, examples/
 ```
 
 Project-specific skills symlinked into `skills/` from external repos
@@ -139,7 +97,7 @@ in their own repo.
 
 ## Planning model
 
-Self-development uses the planning hierarchy per `rules/planning.md`,
+Self-development uses the planning hierarchy per `skills/dev/plan.md`,
 unchanged — structure is never simplified, only description detail.
 
 ## Git & delivery model
@@ -153,7 +111,7 @@ together to keep `main` coherent, shipped as one PR (a lone task is a
 batch of one; coupled tasks integrate on a short-lived `batch/B-XXX`).
 Mode is orthogonal — delivery is uniform, verification differs (auto:
 agentic checkpoint; manual: human PR review). Releases tag the trunk, no
-release branch (`rules/branch-plan.md § Agentic execution`).
+release branch (`skills/dev/branch-plan.md § Agentic execution`).
 
 Standard: Trunk-Based Development / GitHub Flow (trunkbaseddevelopment.com,
 dora.dev); tag-on-trunk releases (Pro Git, git-scm.com); coherence via
@@ -199,4 +157,4 @@ with drift detection. Classification + transform rules:
 ## Decisions
 
 Architecture Decision Records, when needed, live in `adr/` (lazy,
-per `rules/project-layout.md`).
+per `skills/dev/layout.md`).
