@@ -13,7 +13,7 @@ strictly per it.
 - [x] T-041 (R-021) [refactor]: Relocate DEV sub-skills → `skills/dev/` companions (per `manifest.md`) — `feat`, `fix`, `refactor`, `write-plan`, `finish`, `release`, `auto` + companions. (Phase A)
 - [x] T-042 (R-021) [refactor]: Relocate `brainstorming`→`brainstorm.md` + adoption skills (`migrating-to-dev`→`migrate.md`, `starting-a-project`→`start.md`) + companions; strip embed/vendor instructions from migrate/start, inline the CLAUDE.md slice into migrate. (Phase A)
 - [x] T-043 (R-021) [feat]: CI rework — `check-caps` caps `skills/dev/` companions (1500w); DESIGN tree-map note. (Phase A)
-- [ ] T-044 (R-021) [refactor]: Cut over — rewire the `dev` skill router to read the `skills/dev/` companions instead of the standalone skills/rules; dogfood every flow; originals remain as fallback. (Phase B)
+- [x] T-044 (R-021) [refactor]: Cut over — rewire the `dev` skill router to read the `skills/dev/` companions instead of the standalone skills/rules; dogfood every flow; originals remain as fallback. (Phase B)
 - [ ] T-045 (R-021) [refactor]: Remove superseded — delete the relocated DEV rules + sub-skills; keep `skill-creator`, `writing-skills`, `wallarm-*`, personal rules. (Phase C)
 - [ ] T-046 (R-021) [refactor]: Retire R-015 machinery — remove vendor/embed/drift scripts + tests + `CLAUDE_ROOT`; ROADMAP mark R-015 superseded, reconcile R-018/R-019/R-020. (Phase D)
 - [ ] T-047 (R-021) [feat]: Distribution — `scripts/install-dev.sh` copies the toolset (`skills/dev/`, hook + `settings.json` reg, + the 5 bundled dependency skills; idempotent) + README. (Phase E)
