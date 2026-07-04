@@ -47,3 +47,18 @@ foundational files live at the root — see
    run; nothing else to install.
 3. Project-specific skills may be symlinked into `skills/` from their
    own repos; clone those repos to matching paths if needed.
+
+## Installing the toolset elsewhere
+
+To give another machine or project the DEV toolset — the `/dev` router, its
+mode-file companions, the bundled dependency skills, and the branch-guard
+hook — run the installer from a checkout of this repo:
+
+    scripts/install-dev.sh                   # into ~/.claude (global)
+    scripts/install-dev.sh --project <path>  # into <path>/.claude
+
+Global install serves a contributor who wants `/dev` everywhere; the
+`--project` copy serves a repo's no-global contributors (skill precedence
+means a contributor's own global copy still wins). The installer registers
+the branch-guard hook in the target `settings.json` idempotently and never
+ships the personal convention rules. Re-run it to refresh.
