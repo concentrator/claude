@@ -66,12 +66,12 @@ Initiative index. Items: `R-001: description`; each entry owns
       ROADMAP stays the cross-R index); update rules/skills/check +
       self-migrate this repo + add the `migrating-to-dev` split step.
       (approved 2026-06-23)
-- [ ] R-015: Embeddable self-contained DEV toolchain — opt-in vendor of
+- [x] R-015: Embeddable self-contained DEV toolchain — opt-in vendor of
       the portable DEV core (skills, rules, generic CLAUDE.md, CI minus
       ledger) into a project's `.claude/`, path-rewritten and committed;
       embedded conventions take precedence (`dev-*` namespaced skills +
       embed-aware global `dev` preserving `/dev`); version-stamped with
-      drift detection and re-vendor sync. (approved 2026-06-30)
+      drift detection and re-vendor sync. (approved 2026-06-30; superseded by R-021)
 - [x] R-016: Lean DEV planning & delivery — collapse planning to two
       rounds (`/dev plan R` shapes requirements+tasks under one gate,
       deferrable; `/dev plan R-XXX` details tasks+branch-plans);
@@ -96,25 +96,26 @@ Initiative index. Items: `R-001: description`; each entry owns
       the push. Define it narrowly (only the initial `main`-creating
       commit in a new repo, before protection); reorder
       `starting-a-project` (scaffold then protect); `migrating-to-dev`
-      delivers adoption artifacts via a branch + MR/PR. (stub — shape via
-      `/dev plan R-018`)
-- [ ] R-019: Vendor embed onto a non-empty `.claude/` — the transform
+      delivers adoption artifacts via a branch + MR/PR. (R-021/T-048 fixed
+      the migrate/start companions; git-workflow-rule cleanup + start
+      reorder remain — shape via `/dev plan R-018`)
+- [x] R-019: Vendor embed onto a non-empty `.claude/` — the transform
       assumes a near-empty target. (a) The copy overwrites an adopter's
       existing same-named rule (it clobbered a project-specific
       `skills.md` on the wallarm skills embed); (b) the path-rewrite globs
       all of `DEST`, so it rewrites pre-existing adopter files, including
       archived history. Preserve adopter files on initial embed (as
       `--update` preserves `CLAUDE.md`); scope the rewrite to
-      vendored/copied files. (stub — shape via `/dev plan R-019`)
-- [ ] R-020: Consolidate branch-close into `branch-plan.md` — fold the
+      vendored/copied files. (mooted by R-021 — no vendoring)
+- [x] R-020: Consolidate branch-close into `branch-plan.md` — fold the
       `finishing-a-branch` skill into `branch-plan.md § Closing routine`
       (one on-demand owner; `git-workflow.md` stays pure policy), and
       restore the manual-verification as a **distinct blocking step**
       before the merge options (the review→push+MR regression: the verify
       offer had been bundled into `finishing-a-branch § 2` and glossed).
       Rewire all `finishing-a-branch` references (4 files), drop the skill,
-      update the vendor/manifest, and re-vendor adopters. (stub — shape
-      via `/dev plan R-020`)
+      update the vendor/manifest, and re-vendor adopters. (absorbed by
+      R-021: finishing-a-branch → skills/dev/finish.md; verify-gate → R-024)
 - [ ] R-021: Isolated, self-contained DEV toolset — keep `dev` as the
       `/dev` skill router, relocating DEV process rules + sub-skills into
       inert `skills/dev/` companion mode files (fire only when `/dev` reads
