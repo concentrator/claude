@@ -11,7 +11,8 @@
 # rules. Re-runnable.
 set -euo pipefail
 
-SRC="$(git rev-parse --show-toplevel)"
+SRC="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "install-dev: run from a checkout of the toolset repo" >&2; exit 1; }
+command -v jq >/dev/null || { echo "install-dev: jq is required" >&2; exit 1; }
 target="$HOME/.claude"; scope="global"
 while [ $# -gt 0 ]; do
   case "$1" in
@@ -44,12 +45,16 @@ if [ "$scope" = global ]; then cmd="~/.claude/hooks/dev-branch-guard.sh"; else c
 settings="$target/settings.json"
 [ -f "$settings" ] || echo '{}' > "$settings"
 tmp="$(mktemp)"
-jq --arg cmd "$cmd" '
+if jq --arg cmd "$cmd" '
   if ([.hooks.PreToolUse[]?.hooks[]?.command] | any(. == $cmd)) then .
   else .hooks.PreToolUse = ((.hooks.PreToolUse // []) + [
     {matcher: "Write|Edit|NotebookEdit", hooks: [{type: "command", command: $cmd}]},
     {matcher: "Bash", hooks: [{type: "command", command: $cmd}]}
   ]) end
-' "$settings" > "$tmp" && mv "$tmp" "$settings"
+' "$settings" > "$tmp"; then
+  mv "$tmp" "$settings"
+else
+  rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
+fi
 
 echo "install-dev: DEV toolset installed into $target ($scope)"

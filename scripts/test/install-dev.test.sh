@@ -37,5 +37,20 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1
 n=$(jq '[.hooks.PreToolUse[]? | select(any(.hooks[]?.command; test("dev-branch-guard")))] | length' "$P/.claude/settings.json")
 [ "$n" = "2" ] && pass "idempotent (2 matcher blocks, no dupes)" || die "not idempotent: $n branch-guard blocks"
 
+# --- malformed settings.json → install fails loudly, file untouched ---
+Q=$(mktemp -d)
+mkdir -p "$Q/.claude"; printf 'not json{' > "$Q/.claude/settings.json"
+bash "$INSTALL" --project "$Q" >/dev/null 2>&1 && die "install succeeded on malformed settings" || pass "install fails on malformed settings"
+[ "$(cat "$Q/.claude/settings.json")" = 'not json{' ] && pass "malformed settings left intact" || die "malformed settings mutated"
+rm -rf "$Q"
+
+# --- global path (no --project): installs into HOME/.claude with a ~/... hook ---
+H=$(mktemp -d)
+HOME="$H" bash "$INSTALL" >/dev/null 2>&1 || die "global install exits nonzero"
+[ -f "$H/.claude/skills/dev/SKILL.md" ] && pass "global install copies toolset" || die "global install missing toolset"
+jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(. == "~/.claude/hooks/dev-branch-guard.sh")' "$H/.claude/settings.json" >/dev/null \
+  && pass "global hook path is ~/.claude/..." || die "global hook path wrong"
+rm -rf "$H"
+
 (( fail == 0 )) && echo "install-dev.test: OK"
 exit $fail
