@@ -15,7 +15,7 @@ reviewer reads the diff against the rule set and confirms four concerns:
 
 - **Compliance** — each changed file obeys its governing rule
   (`CLAUDE.md` per `rules/claude-md.md`; `SKILL.md` per `rules/skills.md`;
-  plans per `rules/planning.md`).
+  plans per `skills/dev/plan.md`).
 - **Cross-file integrity** — references resolve; no rule duplicated
   across files; the `DESIGN.md` tree-map matches the tree.
 - **Cleanup** — no stray scratch, dead prose, or transient content.

@@ -30,7 +30,7 @@ Rules for any CLAUDE.md (global, project, nested). Apply on every read and edit.
 - Verify line count stays ≤ 200.
 
 ## Agent toolchain declaration
-- Projects run via `/dev auto` declare their build/test/VCS commands as `permissions.allow` rules in an `## Agent toolchain` section of the project CLAUDE.md — including a VCS-host CLI (`gh`/`glab`) for the checkpoint push + PR. The `delegating-to-agents` pre-flight reads it to prepare agent settings deterministically. Push-permission patterns: `skills/delegating-to-agents/toolchain.md`.
+- Projects run via `/dev auto` declare their build/test/VCS commands as `permissions.allow` rules in an `## Agent toolchain` section of the project CLAUDE.md — including a VCS-host CLI (`gh`/`glab`) for the checkpoint push + PR. The `/dev auto` pre-flight reads it to prepare agent settings deterministically. Push-permission patterns: `skills/dev/companions/toolchain.md`.
 
 ## Approval
 - **Never auto-fix CLAUDE.md.** Report violations and propose changes; wait for explicit approval before editing.

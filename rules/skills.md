@@ -19,13 +19,13 @@ read or edit.
 
 - **Body: ≤300 words** (general); **≤150 words** for skills loaded every
   session; **≤400 words** for orchestrators with command/routing tables
-  (e.g. `dev`, `delegating-to-agents`) — tables inflate raw word counts.
+  (e.g. `dev`) — tables inflate raw word counts.
 - **Reference skills** (lookup material, not a workflow): up to ~1500 words inline.
   Beyond that → companion `.md` files alongside `SKILL.md`.
 
 ## Naming and location
 
-- Hyphenated, verb-first or gerund: `receiving-code-review`, `writing-plans`.
+- Hyphenated, verb-first or gerund: `receiving-code-review`, `systematic-debugging`.
 - Global: `~/.claude/skills/<name>/SKILL.md`
 - Project: `<project>/.claude/skills/<name>/SKILL.md`
 

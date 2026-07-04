@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Tier-1 cap check: CLAUDE.md / DESIGN.md / SKILL.md size limits.
-# Caps per rules/claude-md.md, rules/skills.md § Size, project-layout.md.
+# Caps per rules/claude-md.md, rules/skills.md § Size, skills/dev/layout.md.
 # SKILL body = file minus YAML frontmatter (skills.md caps are on body).
 # Skill class lists below mirror skills.md § Size; new skills default to
 # the general 300-word cap. Only git-tracked files are checked, so
@@ -17,7 +17,7 @@ report() { echo "CAP: $1"; fail=1; }
 (( $(wc -w < "$ROOT/CLAUDE.md") <= 400 )) || report "CLAUDE.md $(wc -w < "$ROOT/CLAUDE.md") words > 400"
 (( $(wc -w < "$ROOT/DESIGN.md") <= 1000 )) || report "DESIGN.md $(wc -w < "$ROOT/DESIGN.md") words > 1000"
 
-orchestrators=" dev delegating-to-agents "
+orchestrators=" dev "
 reference=" writing-skills verification-before-completion receiving-code-review dispatching-parallel-agents test-driven-development systematic-debugging "
 
 body_words() { awk 'NR==1&&/^---/{f=1;next} f&&/^---/{f=0;next} !f' "$1" | wc -w; }

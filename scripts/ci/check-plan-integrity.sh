@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Tier-1 plan referential integrity (rules/planning.md):
+# Tier-1 plan referential integrity (skills/dev/plan.md):
 #  - every task in a per-R tasks.md names the R that owns its dir,
 #    and that R exists in ROADMAP.md
 #  - T-ids are unique across all per-R tasks.md (global + monotonic)
