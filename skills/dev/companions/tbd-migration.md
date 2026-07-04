@@ -25,7 +25,7 @@ History is migrated forward, never rewritten.
 
 ## 2. Structure
 
-Diff tracked `.claude/` against `~/.claude/rules/project-layout.md`:
+Diff tracked `.claude/` against `skills/dev/layout.md`:
 
 - **Non-canonical files** — e.g. a `source-spec.md` inside an R-dir.
   Recommend moving spec/input material to `references/` (its canonical
@@ -43,10 +43,10 @@ Propose the moves; the user executes them — delivered as one coherent MR/PR
 ## 3. Close/release
 
 - **Closes** — task / batch / R-closure bookkeeping rides PRs going
-  forward (`branch-plan.md`, `finishing-a-branch`), not direct commits
+  forward (`branch-plan.md`, `finish`), not direct commits
   to `main`.
 - **Releases** — convert to tag-on-trunk: no fork-release-branch; tag
   `main` at the release commit (`git-workflow.md § Releases —
   tag-on-trunk`; the `release` skill). Flag any fork-release leftovers.
 - **Archive** — move superseded release plans to `plans/archive/`
-  (`planning.md § Archival`).
+  (`plan.md § Archival`).

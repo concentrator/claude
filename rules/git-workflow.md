@@ -49,7 +49,7 @@ half-wired). Keep incomplete work coherent without a long-lived branch:
 - **Small batches** — each PR is one increment, shippable as-is.
 
 The delivery unit — one or more coupled tasks shipped as one PR — is the
-**batch** (`branch-plan.md § Agentic execution`).
+**batch** — the DEV delivery grouping.
 
 ## Delivery cadence
 
@@ -64,12 +64,12 @@ branch's topic → flag it and ask whether to deliver the current branch
 before starting fresh.
 
 DEV inherits the principle: a branch carries its task/batch, and delivery
-timing follows `branch-plan.md § Agentic execution` + `finishing-a-branch`.
+timing follows the DEV branch-plan and branch-close routine.
 Always within the short-lived / ≤ 3 active / merge-within-a-day bounds
 above.
 
 **Size is governed by this time bound, not a commit count.**
-`branch-plan.md`'s caps (~20 per branch, ~30 per batch) are subordinate
+The DEV branch/batch caps (~20 per branch, ~30 per batch) are subordinate
 proxies — the hard limit is merging within the short-lived window with no
 big-bang merge (§ Anti-patterns).
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Tier-1: no TODO/FIXME/XXX markers in code (scripts/, .githooks/), per
-# rules/branch-plan.md § No TODOs. Rule/skill prose that names these
+# skills/dev/branch-plan.md § No TODOs. Rule/skill prose that names these
 # tokens is out of scope; the [RT]-XXX plan-id placeholder is not a
 # marker; this script excludes itself.
 set -euo pipefail
