@@ -25,9 +25,9 @@ This is irreversible-ish (no instant fallback). Grep the **kept** files
 rewire to the `skills/dev/` companions (or inline) so nothing dangles. The
 scan gates the deletion.
 
-- [ ] Scan + fix refs: grep kept files for the 5 rules + 10 skills; rewire/inline any reference so none dangle after removal.
-- [ ] Remove the 5 relocated rules from `rules/`.
-- [ ] Remove the 10 relocated skill dirs from `skills/`.
-- [ ] Update `DESIGN.md` tree-map: drop the deleted rules/skills; enumerate the `skills/dev/` companions (words freed by the deletions); stay ≤1000.
-- [ ] Update `CLAUDE.md` if it referenced any removed item.
-- [ ] Complete the branch: full gate green (references, plan-integrity, caps, stray); close review via `/code-review` (deletion — catch dangling refs, not `/simplify`); mark plan complete.
+- [x] Scan + fix refs: grep kept files for the 5 rules + 10 skills; rewire/inline any reference so none dangle after removal.
+- [x] Remove the 5 relocated rules from `rules/`.
+- [x] Remove the 10 relocated skill dirs from `skills/`.
+- [x] Update `DESIGN.md` tree-map: drop the deleted rules/skills; enumerate the `skills/dev/` companions (words freed by the deletions); stay ≤1000.
+- [x] Update `CLAUDE.md` if it referenced any removed item.
+- [x] Complete the branch: full gate green (references, plan-integrity, caps, stray); close review via `/code-review` (deletion — catch dangling refs, not `/simplify`); mark plan complete.
