@@ -116,7 +116,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       Rewire all `finishing-a-branch` references (4 files), drop the skill,
       update the vendor/manifest, and re-vendor adopters. (absorbed by
       R-021: finishing-a-branch → skills/dev/finish.md; verify-gate → R-024)
-- [ ] R-021: Isolated, self-contained DEV toolset — keep `dev` as the
+- [x] R-021: Isolated, self-contained DEV toolset — keep `dev` as the
       `/dev` skill router, relocating DEV process rules + sub-skills into
       inert `skills/dev/` companion mode files (fire only when `/dev` reads
       them, no global pollution); trunk discipline via a PreToolUse
