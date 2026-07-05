@@ -166,6 +166,12 @@ Initiative index. Items: `R-001: description`; each entry owns
       `receiving-code-review` skill, and the `finish` close-review, so it is
       clear what each review covers (the `/simplify` vs code-review clarity
       gap). Sequence after R-022. (stub — shape via `/dev plan R-025`)
+- [ ] R-026: Writing conventions - ban em dashes in every tracked file
+      (code and prose): a shipped convention doc + a Tier-1 check over all
+      files + a one-time sweep of the 1043 existing occurrences to hyphens;
+      plus prose style for `.md` (no AI-tell words, no repetition) as Tier-2
+      review criteria. Ships to adopters via the installer (code-size model)
+      so a team writes consistently. Sequence after R-022. (shaped 2026-07-06)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
