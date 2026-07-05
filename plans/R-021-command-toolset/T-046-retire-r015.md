@@ -19,7 +19,7 @@ marked `[x]`). The wallarm-repo unwind is a linked MR in that repo.
   (`finishing-a-branch`→`finish` companion done; verify-gate → R-024),
   **R-018** remains open (git-workflow bootstrap-rule cleanup + `start`
   reorder; T-048 already fixed the migrate/start companions).
-- [ ] **Wallarm unwind** (separate MR in `~/wallarm_pure/skills`): remove
+- [x] **Wallarm unwind** (separate MR in `~/wallarm_pure/skills`): remove
   its `dev-*` embed (`skills/dev-*`, `.dev-toolchain.json`,
   `dev-embed-check.sh`, embedded `scripts/ci/`, vendored DEV rules),
   preserve the team's own artifacts. Tracked here; executed in that repo.
