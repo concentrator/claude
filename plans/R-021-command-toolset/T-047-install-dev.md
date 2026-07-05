@@ -26,13 +26,13 @@ is the distribution mechanism, and it unblocks the wallarm unwind.
 - **Idempotent:** re-runnable — refreshes the toolset files, preserves
   adopter content; no duplicate hook entries.
 
-- [ ] Test first (TDD): `scripts/test/install-dev.test.sh` — install into a
+- [x] Test first (TDD): `scripts/test/install-dev.test.sh` — install into a
   temp target; assert `skills/dev/` + the 5 bundled skills + the hook
   copied, and `settings.json` has the branch-guard `PreToolUse`
   registration; re-run → no duplication (idempotent); a pre-existing
   unrelated setting/hook survives. (red → implement → green)
-- [ ] Implement `scripts/install-dev.sh` per the design.
-- [ ] README: add an "Installing the toolset" section (global + project).
-- [ ] `DESIGN.md` tree-map: add `scripts/install-dev.sh` + `scripts/test/`.
-- [ ] Complete the branch: full gate green; close review (`/code-review`);
+- [x] Implement `scripts/install-dev.sh` per the design.
+- [x] README: add an "Installing the toolset" section (global + project).
+- [x] `DESIGN.md` tree-map: add `scripts/install-dev.sh` + `scripts/test/`.
+- [x] Complete the branch: full gate green; close review (`/code-review`);
   mark plan complete.
