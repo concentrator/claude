@@ -26,6 +26,7 @@ Canonical structure for `.claude/` in a project. Other paths inside
     │   └── *.md
     ├── commands/                 # project-specific slash commands (optional)
     ├── agents/                   # project-specific agents (optional)
+    ├── hooks/                    # Claude Code hooks (e.g. dev-branch-guard.sh)
     ├── adr/                      # architecture decision records (lazy)
     │   └── NNN-<short-title>.md
     ├── references/               # external docs/specs the agent reads (lazy)
@@ -38,7 +39,8 @@ Canonical structure for `.claude/` in a project. Other paths inside
 - **Required at scaffold**: `REQUIREMENTS.md`, `DESIGN.md`, `plans/`,
   `settings.json`.
 - **Created as workflows need them**: `skills/`, `rules/`, `commands/`,
-  `agents/`, `MAINTENANCE.md`, `plans/ROADMAP.md`.
+  `agents/`, `MAINTENANCE.md`, `plans/ROADMAP.md`; `hooks/` (shipped by
+  the DEV toolset installer — `dev-branch-guard.sh`).
 - **Initiative-time**: `plans/R-XXX-<slug>/` + `requirements.md`,
   created with the ROADMAP entry (`plan.md § Directory
   conventions`).
