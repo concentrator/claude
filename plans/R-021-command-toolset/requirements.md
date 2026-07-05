@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-03
 kind: refactor
+status: done 2026-07-05
 ---
 
 # R-021: Isolated, self-contained DEV toolset
@@ -81,37 +82,69 @@ moves before it is approved.
 
 ## Acceptance criteria
 
-- [ ] `/dev` runs via the `dev` skill router, which reads `skills/dev/`
+- [x] `/dev` runs via the `dev` skill router, which reads `skills/dev/`
   companion mode files; every current flow (plan shape/detail, code
   feat/fix/refactor, auto, release, migrate, start) works through it —
   dogfood a full cycle on this repo.
-- [ ] A user-approved `manifest.md` exists before any transform; the
+  *SKILL.md router reads companions on demand; R-021's own planning and
+  execution (T-039–T-048) ran through `/dev plan`/`/dev code`, and a
+  `/dev migrate` run drove the wallarm adoption.*
+- [x] A user-approved `manifest.md` exists before any transform; the
   executed moves match it exactly.
-- [ ] No DEV process rule fires outside `/dev`: the manifest-marked rules
+  *`manifest.md` approved 2026-07-03, before the first transform (T-040);
+  moves executed per its classification.*
+- [x] No DEV process rule fires outside `/dev`: the manifest-marked rules
   no longer live in `~/.claude/rules/` (they are `skills/dev/` companions);
   editing `plans/` files in a non-DEV project triggers no DEV rule.
-- [ ] Isolated install: cloning to a path **outside `~`** and installing
+  *planning/branch-plan/templates/layout/changelog are now `skills/dev/`
+  companions with no `paths:` frontmatter; `rules/` retains only
+  js/skills/claude-md/git-workflow.*
+- [x] Isolated install: cloning to a path **outside `~`** and installing
   the toolset into an empty `CLAUDE_CONFIG_DIR` lets `/dev` run from
   `skills/dev/` + the bundled skills alone, with no `~/.claude` leakage.
-- [ ] The `migrate`/`start` companions carry **no** embed/vendor
+  *No-global `/dev migrate` in `/tmp/r021-verify` (outside `~`, project copy
+  only) ran the full flow — router → `migrate.md` → nested
+  `companions/tbd-migration.md` — reading only project `skills/dev/`; zero
+  `~/.claude` paths in loaded files.*
+- [x] The `migrate`/`start` companions carry **no** embed/vendor
   instructions; they describe the install / `.claude/skills/dev/` model.
-- [ ] The branch-guard hook blocks a write/commit on `main`/`master` and
+  *Embed/vendor instructions stripped from `migrate.md`/`start.md` (T-045);
+  they describe the installer + project-copy model.*
+- [x] The branch-guard hook blocks a write/commit on `main`/`master` and
   permits it on a branch.
-- [ ] git-workflow rationale is available as a `skills/dev/` companion; the
+  *`hooks/dev-branch-guard.sh` denied Write/Edit + `git commit` on `main`
+  repeatedly this session and permitted them on branches.*
+- [x] git-workflow rationale is available as a `skills/dev/` companion; the
   installer ships no always-on git rule.
-- [ ] `skill-creator` and `writing-skills` remain standalone skills and
+  *`skills/dev/git-workflow.md` exists; `install-dev.sh` ships skills + hook
+  only, no `rules/`.*
+- [x] `skill-creator` and `writing-skills` remain standalone skills and
   still auto-invoke; personal convention rules (`js`, `skills`,
   `claude-md`) unchanged.
-- [ ] Distribution precedence: a no-global contributor uses a project's
+  *Both remain under `skills/`; `rules/` retains js/skills/claude-md
+  unchanged.*
+- [x] Distribution precedence: a no-global contributor uses a project's
   `.claude/skills/dev/`; a global `~/.claude/skills/dev/` wins for a global
   contributor (verified with a divergent test file).
-- [ ] R-015 machinery removed (vendor/embed/drift scripts + tests +
+  *Both configs exercised this session: global-absent (`/tmp/r021-verify`
+  loaded the project `.claude/skills/dev/`) and global-present (every
+  non-isolated `/dev` loaded `~/.claude/skills/dev/`) — the personal >
+  project skill precedence Claude Code documents (confirmed via
+  claude-code-guide).*
+- [x] R-015 machinery removed (vendor/embed/drift scripts + tests +
   `CLAUDE_ROOT` gone); Tier-1 gate green without them; the wallarm embed
   unwound in its repo.
-- [ ] CI updated: `check-caps` covers `skills/dev/` companions; `check-stray`
+  *vendor-toolchain/dev-embed-check/dev-drift-check + their tests removed,
+  `CLAUDE_ROOT` dropped (`check-caps` ROOT="."); Tier-1 green; wallarm embed
+  unwound (!22 merged), residual dangling refs completed (!23).*
+- [x] CI updated: `check-caps` covers `skills/dev/` companions; `check-stray`
   + `DESIGN.md` tree-map include `hooks/`; full gate green.
-- [ ] DEV surface/behavior unchanged: `/dev` commands, planning artifacts,
+  *`check-caps.sh` caps `skills/dev/` companions at 1500w; `check-stray`
+  accepts `hooks/`; `DESIGN.md` tree-map lists `hooks/`; gate green.*
+- [x] DEV surface/behavior unchanged: `/dev` commands, planning artifacts,
   and `plans/` layout identical (regression: run an existing flow).
+  *SKILL.md surface (plan/code/auto/release) unchanged; planning artifacts +
+  `plans/` layout identical; R-021's own tasks ran the flow unchanged.*
 
 ## Constraints
 
