@@ -124,20 +124,24 @@ Initiative index. Items: `R-001: description`; each entry owns
       Distribution rides skill precedence (personal > project) — no
       vendoring, no prefix; retires R-015 embedding and its wallarm embed.
       (approved 2026-07-03)
-- [ ] R-022: Global config & conventions consolidation — merge the
-      claude-code-mastery global CLAUDE.md template into our CLAUDE.md
-      (dropping the stack sections: TypeScript, Python, Next.js, Docker),
-      redistributing content into rules/commands/skills; add net-new
-      conventions — a secrets-gatekeeper rule + a PreToolUse secrets hook,
-      code-size quality gates (file/function limits) + a CI check, and the
-      new-project scaffolding required-files folded into `starting-a-project`
-      / `project-layout`. CLAUDE.md stays within its cap (redistribute, not
-      accrete). Sequence after R-021 (operates on the command
-      architecture). (stub — shape via `/dev plan R-022`)
+- [ ] R-022: Config conventions & guardrails — adopt the non-stack
+      guardrail conventions the claude-code-mastery template embodies (the
+      merge-into-CLAUDE.md premise dissolved on walk-through: no
+      CLAUDE.md-level content beyond a security pointer). Four feat tasks: a
+      secrets gatekeeper (doc + PreToolUse hook, never-commit focus, local
+      `.env` preserved), code-size gates (file>300/function>50 + CI check +
+      override), new-project scaffolding required-files
+      (`start.md`/`layout.md`), and a routine-commands convention (project
+      CLAUDE.md declares host + git/test/lint/build; execution reads them,
+      no probing). Secrets hook + code-size check ship to adopters via
+      `install-dev.sh`. Sequence after R-021. (shaped 2026-07-05)
 - [ ] R-023: Documentation handbook & doc-first lifecycle — a living
       per-feature documentation layer (data model, API endpoints, dashboard
       elements, business rules, edge cases) sitting between `DESIGN.md` and
-      code; the strict Doc→Test→Code→Reconcile→ship-together cycle woven
+      code, with an explicit docs (how our own code works) vs references
+      (external API/code specifics our code uses) boundary — `docs/` is the
+      new half, `layout.md` already scopes `references/` to external inputs;
+      the strict Doc→Test→Code→Reconcile→ship-together cycle woven
       into the execution mode files and `branch-plan` closing routine; a
       per-project CLAUDE.md lookup table routing to the right doc before
       coding; audit-first adoption in `migrate` (crawl, PASS/WARN/FAIL/TODO,
@@ -155,6 +159,13 @@ Initiative index. Items: `R-001: description`; each entry owns
       before opening the MR/PR (the regression that opened this effort).
       Surfaced dogfooding the R-021 cut-over (plan auto-chained straight
       into code with no stop). (stub — shape via `/dev plan R-024`)
+- [ ] R-025: Explicit review checklist — make code review's checks explicit
+      instead of implicit. Adopt a review.md-style checklist (Correctness,
+      Security, Performance, Maintainability) with a severity-tagged output
+      format (CRITICAL/HIGH/MEDIUM/LOW) across `agents/code-reviewer.md`, the
+      `receiving-code-review` skill, and the `finish` close-review, so it is
+      clear what each review covers (the `/simplify` vs code-review clarity
+      gap). Sequence after R-022. (stub — shape via `/dev plan R-025`)
 
 <!-- R-004's requirements are approved: pending — tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
