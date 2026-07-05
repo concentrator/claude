@@ -18,7 +18,7 @@ open; installer ships hook + registration; test coverage).
 - [x] Test-first `scripts/test/secrets-guard.test.sh`: a planted fake key is denied on `Write`/`Edit` to a tracked path and on `git add`/`git commit` of staged content; a gitignored `.env` and clean content pass; fails open on missing `jq` / malformed input. (red)
 - [x] Implement `hooks/dev-secrets-guard.sh` — PreToolUse on `Write|Edit|NotebookEdit` + `Bash`; match secret patterns (private keys, cloud keys, tokens, high-entropy `KEY=`/`SECRET=`) in tracked-path content and the staged diff; emit deny JSON naming the match + override note; fail open.
 - [x] Register the hook in this repo's `settings.json` (`Write|Edit|NotebookEdit` + `Bash` matchers), mirroring the branch-guard.
-- [ ] `install-dev.sh`: copy + chmod `dev-secrets-guard.sh`; register it idempotently in the target `settings.json`.
+- [x] `install-dev.sh`: copy + chmod `dev-secrets-guard.sh`; register it idempotently in the target `settings.json`.
 - [ ] `install-dev.test.sh`: assert the secrets hook is copied + registered (global + project paths).
 - [ ] `DESIGN.md` tree-map + § Self-enforcement: add `hooks/dev-secrets-guard.sh`; add a one-line security pointer to `CLAUDE.md` (never commit secrets → `skills/dev/secrets.md`).
 - [ ] Complete the branch: re-review docs across commits, cleanup, mark plan complete, commit.
