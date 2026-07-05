@@ -54,7 +54,8 @@ excluded — see `.gitignore`.
 ├── .githooks/
 │   └── pre-push                  # advisory local Tier-1 mirror
 ├── hooks/
-│   └── dev-branch-guard.sh       # PreToolUse branch-guard (no writes on trunk)
+│   ├── dev-branch-guard.sh       # PreToolUse branch-guard (no writes on trunk)
+│   └── dev-secrets-guard.sh      # PreToolUse secrets guard (no secrets in tracked files or commits)
 ├── scripts/
 │   ├── ci/                       # Tier-1 checks + run-all.sh
 │   ├── install-dev.sh            # toolset installer (global or --project)
@@ -141,6 +142,10 @@ adopter infra is a later initiative):
 
 The workflow triggers on `pull_request` only, so it never re-judges the
 direct-to-main bootstrap history.
+
+Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
+`dev-secrets-guard`) add a local pre-emptive guard: no writes or commits on
+the trunk, and no secrets into tracked files or commits.
 
 ## Invariants
 
