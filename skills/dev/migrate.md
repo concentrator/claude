@@ -34,8 +34,10 @@ Write `.claude/DESIGN.md` (≤1000 words inline). User approves.
 ## 4. CLAUDE.md alignment
 
 Ensure project `CLAUDE.md` has `## Conventions` (release-routine,
-publish-external, extended-docs) + stack, base branch, build/test/lint.
-Propose deletion of any restated global rules. Keep it within the CLAUDE.md
+publish-external, extended-docs) + stack, base branch, and an `## Agent
+toolchain` section (VCS host + build/test/lint/change-request commands -
+`companions/toolchain.md`); backfill it if absent. Propose deletion of any
+restated global rules. Keep it within the CLAUDE.md
 limits: ≤200 lines; persistent operative facts only (project/tech/process
 specifics); no transient content, secrets, or absolute home paths.
 
