@@ -45,12 +45,7 @@ first.
 
 ## Writing
 
-In every artifact — docs, rules, skills, code comments, PR/commit text,
-plans — convey the user's intent, not their literal phrasing; write in
-clear, idiomatic English using the conventional terminology of the
-context. Prefer established terms over coined jargon. E.g. "operations
-wired by a Controller that owns the sequence" → "a controller
-orchestrates the operations and determines their order."
+@writing.md
 
 ## Communication
 

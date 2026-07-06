@@ -22,9 +22,8 @@ reviewer reads the diff against the rule set and confirms five concerns:
 - **Reference freshness** — no dead paths; no expired time-bound
   references. Mark a time-bound reference `<!-- expires: YYYY-MM-DD -->`;
   `scripts/ci/check-references.sh` fails once the date is past.
-- **Writing** - changed prose follows `skills/dev/writing.md`: no AI-tell
-  words, no repetition. (The no-em-dash rule is Tier-1, enforced by the
-  em-dash gate.)
+- **Writing** - changed prose follows `writing.md`: no AI-tell words, no
+  repetition. (The no-em-dash rule is Tier-1, enforced by the em-dash gate.)
 
 Relationship: `rules/*` define the rules; this Tier-2 review applies
 them to a change and records its verdict in `maintenance.jsonl` (the
