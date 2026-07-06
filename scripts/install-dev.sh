@@ -36,26 +36,31 @@ for s in $BUNDLED; do
   cp -R "$SRC/skills/$s" "$target/skills/$s"
 done
 
-# 3. branch-guard hook
-cp "$SRC/hooks/dev-branch-guard.sh" "$target/hooks/dev-branch-guard.sh"
-chmod +x "$target/hooks/dev-branch-guard.sh"
-
-# 4. register the hook in settings.json (idempotent; preserve everything else)
-if [ "$scope" = global ]; then cmd="~/.claude/hooks/dev-branch-guard.sh"; else cmd=".claude/hooks/dev-branch-guard.sh"; fi
+# 3. hooks: copy + register the branch-guard and the secrets guard
+#    (idempotent; preserve everything else in settings.json)
+if [ "$scope" = global ]; then hp="~/.claude/hooks"; else hp=".claude/hooks"; fi
 settings="$target/settings.json"
 [ -f "$settings" ] || echo '{}' > "$settings"
-tmp="$(mktemp)"
-if jq --arg cmd "$cmd" '
-  if ([.hooks.PreToolUse[]?.hooks[]?.command] | any(. == $cmd)) then .
-  else .hooks.PreToolUse = ((.hooks.PreToolUse // []) + [
-    {matcher: "Write|Edit|NotebookEdit", hooks: [{type: "command", command: $cmd}]},
-    {matcher: "Bash", hooks: [{type: "command", command: $cmd}]}
-  ]) end
-' "$settings" > "$tmp"; then
-  mv "$tmp" "$settings"
-else
-  rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
-fi
+
+register_hook() {   # $1 = hook script basename
+  cp "$SRC/hooks/$1" "$target/hooks/$1"
+  chmod +x "$target/hooks/$1"
+  local cmd="$hp/$1" tmp; tmp="$(mktemp)"
+  if jq --arg cmd "$cmd" '
+    if ([.hooks.PreToolUse[]?.hooks[]?.command] | any(. == $cmd)) then .
+    else .hooks.PreToolUse = ((.hooks.PreToolUse // []) + [
+      {matcher: "Write|Edit|NotebookEdit", hooks: [{type: "command", command: $cmd}]},
+      {matcher: "Bash", hooks: [{type: "command", command: $cmd}]}
+    ]) end
+  ' "$settings" > "$tmp"; then
+    mv "$tmp" "$settings"
+  else
+    rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
+  fi
+}
+
+register_hook dev-branch-guard.sh
+register_hook dev-secrets-guard.sh
 
 # 5. committability: for a project install, allowlist installed paths that the
 # target repo's .gitignore excludes (idempotent), so they can be committed.
