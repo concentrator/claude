@@ -34,10 +34,12 @@ Initiative index. Items: `R-001: description`; each entry owns
       verification levers (model tier, spec-check skip, close-folding,
       effort, loop rigor); attaches to R-006's batch unit. Sequence
       after R-006. (stub — shape via `/dev plan R-007`)
-- [ ] R-008: Wallarm reference skill — single global `skills/wallarm/`
+- [x] R-008: Wallarm reference skill — single global `skills/wallarm/`
       (thin index + on-demand companion parts: hits, sessions, rules),
       consolidating the existing Wallarm skills; enforced conventions
-      split into a path-scoped rule. (stub — shape via `/dev plan R-008`)
+      split into a path-scoped rule. (superseded 2026-07-07 — the Wallarm
+      reference skills live in the `skills/` repo, not a global
+      `~/.claude/skills/wallarm/`)
 - [x] R-009: Adopter-project TBD migration — `migrating-to-dev` gains a
       mode that migrates an already-DEV, pre-TBD project (PR-only
       delivery, `.claude/` structure reconcile, tag-on-trunk
