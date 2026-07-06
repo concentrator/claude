@@ -54,14 +54,13 @@ tests on every MR/PR. Document run commands in `CLAUDE.md`. Ask before
 each; if the user defers any, record `quality-deferred: true` in
 `CLAUDE.md § Conventions`.
 
-Then protect `main` on the host — require MR/PR + passing checks before
-merge, restrict direct push (`gh`/`glab`; `git-workflow.md § Trunk`,
-`§ Enforcement`) — TBD-shaped from commit one.
-
 ## 5. Commit
 
 The initial commit (requirements + design + scaffold + quality config)
-creates `main`; thereafter all work lands via a branch + PR.
+creates `main` - the bootstrap exception (`git-workflow.md § Trunk`). Then
+protect `main` on the host - require MR/PR + passing checks, restrict
+direct push (`gh`/`glab`; `git-workflow.md § Trunk`, `§ Enforcement`),
+TBD-shaped from commit one; thereafter all work lands via a branch + PR.
 
 ## 6. Next
 

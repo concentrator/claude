@@ -12,6 +12,10 @@ repo's term per its host.
   long-lived branches.
 - Every change reaches `main` through a short-lived branch and a
   **CI-gated PR**. Never push to `main`; never merge to `main` locally.
+- **Bootstrap exception:** the single initial commit that *creates* `main`
+  in a new repo, before protection is set, is the one permitted direct
+  commit (`starting-a-project`); every commit after it goes via a branch +
+  CI-gated PR.
 - Branch name `<prefix>/<slug>`, kebab-case, slug ≤ 20 chars. Prefix ∈
   {feat, fix, refactor, release, doc, test, mnt, plan}:
   - `feat` / `fix` / `refactor` / `release` — code, matching the change

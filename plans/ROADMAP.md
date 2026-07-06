@@ -89,7 +89,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       legacy-schema `.claude/` (lowercase filenames, retired `REQ-XXX`,
       flat tasks index). Run the inventory regardless of mode; detect and
       guided-canonicalize legacy schemas. (approved 2026-07-01)
-- [ ] R-018: Void the bootstrap-exception contradiction —
+- [x] R-018: Void the bootstrap-exception contradiction —
       `migrating-to-dev`/`starting-a-project` cite a "bootstrap exception"
       and commit direct-to-`main` after protecting it, but
       `git-workflow.md` defines no such exception and protection refuses
@@ -97,8 +97,9 @@ Initiative index. Items: `R-001: description`; each entry owns
       commit in a new repo, before protection); reorder
       `starting-a-project` (scaffold then protect); `migrating-to-dev`
       delivers adoption artifacts via a branch + MR/PR. (R-021/T-048 fixed
-      the migrate/start companions; git-workflow-rule cleanup + start
-      reorder remain — shape via `/dev plan R-018`)
+      the migrate/start companions; git-workflow.md now defines the
+      bootstrap exception and start.md protects after the main-creating
+      commit — done 2026-07-07)
 - [x] R-019: Vendor embed onto a non-empty `.claude/` — the transform
       assumes a near-empty target. (a) The copy overwrites an adopter's
       existing same-named rule (it clobbered a project-specific
