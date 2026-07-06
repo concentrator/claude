@@ -1,12 +1,14 @@
 ---
 approved: pending
 kind: feat
+status: superseded 2026-07-07
 ---
 
 # R-008: Wallarm reference skill
 
-> Stub — seed captured from a design discussion; shape via
-> `/dev plan R-008`.
+> Superseded 2026-07-07 — never shaped or approved. The Wallarm reference
+> skills live in their own `skills/` repo (`~/wallarm_pure/skills`), so a
+> consolidated global `~/.claude/skills/wallarm/` is not pursued.
 
 ## Motivation
 
