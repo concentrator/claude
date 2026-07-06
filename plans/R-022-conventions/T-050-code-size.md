@@ -20,5 +20,5 @@ test coverage).
 - [x] Seed `scripts/ci/code-size-allow.txt` with existing offenders (audited) so `main` stays green — branch-by-abstraction; each entry carries a reason.
 - [x] `install-dev.sh`: copy `check-code-size.sh` + a template allowlist into the target `scripts/ci/`; document adopter CI wiring in the install output.
 - [x] `install-dev.test.sh`: assert the code-size check is copied into a target (+ committability).
-- [ ] `DESIGN.md`: add `check-code-size.sh` to the tree-map + the § Self-enforcement Tier-1 list.
+- [x] `DESIGN.md`: `check-code-size` + its allowlist named in the § Self-enforcement Tier-1 list (the tree-map `ci/` summary covers the script).
 - [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
