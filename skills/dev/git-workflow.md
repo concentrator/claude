@@ -6,6 +6,11 @@ GitHub → PR). Host-neutral docs reused across repos (skills, shared
 rules) write the dual form **MR/PR**; the agent resolves it to the active
 repo's term per its host.
 
+**Declared commands** - the VCS host and the exact change-request / merge
+commands come from the project CLAUDE.md `## Agent toolchain` section
+(`companions/toolchain.md`); execution runs those declared commands rather
+than probing the host.
+
 ## Trunk
 
 - `main` is the single trunk: protected and always releasable. No other

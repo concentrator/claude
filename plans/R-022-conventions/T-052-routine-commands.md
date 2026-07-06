@@ -20,7 +20,7 @@ read it too, and documents the convention in a shipped companion since
 `claude-md.md` (which defines it for auto) is personal.
 
 - [x] `companions/toolchain.md`: document the `## Agent toolchain` declaration as the shipped convention - VCS host (→ `gh`/`glab`) + change-request / merge / test / lint / build commands, read by both `/dev auto` (permissions) and manual `finish`; `layout.md` baseline notes CLAUDE.md includes it.
-- [ ] `git-workflow.md` companion: state that execution reads the declared `## Agent toolchain` host + commands (host-aware) for change-request / merge rather than probing.
+- [x] `git-workflow.md` companion: state that execution reads the declared `## Agent toolchain` host + commands (host-aware) for change-request / merge rather than probing.
 - [ ] `finish.md`: consume the declared host + change-request/merge command from `## Agent toolchain` (no probing); no declared host → push + print the URL.
 - [ ] `start.md`: scaffold `## Agent toolchain` in the new project CLAUDE.md; `migrate.md § 4`: backfill it when absent.
 - [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
