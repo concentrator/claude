@@ -22,4 +22,4 @@ homing ("companion" -> "dedicated `@import`ed file") reconciles at R-026 close.
 - [x] `MAINTENANCE.md § Tier-2` Writing concern references `writing.md`.
 - [x] `DESIGN.md` tree-map: add top-level `writing.md` (also satisfies check-stray).
 - [x] `install-dev.sh`: ship `writing.md` into the target and append its `@import` to the target CLAUDE.md, idempotent + no clobber; `install-dev.test.sh` covers it (copied + import present, idempotent).
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
