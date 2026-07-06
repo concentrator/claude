@@ -3,14 +3,14 @@ type: refactor
 architecture-changing: true
 depends-on: T-009
 
-# refactor/migrate-self — migrate this repo to the flattened layout (REQ-005)
+# refactor/migrate-self - migrate this repo to the flattened layout (REQ-005)
 
 Manual mode only (no agentic stamp): moves the planning indexes the
 workflow itself reads. No other planning activity while this branch is
 open. Repo root *is* `.claude/` here (self-hosting), so "indexes →
 `plans/`" means root → `plans/`. Per REQ-005 invariants, closed
 REQ-002/REQ-003 and superseded REQ-004 stay at `plans/` root as
-read-only history — stamped, not moved. REQ-005 (open parent of this
+read-only history - stamped, not moved. REQ-005 (open parent of this
 work) and pending REQ-006 also stay put; they are out of this task's
 scope.
 
@@ -24,7 +24,7 @@ scope.
       evidence, then stamp frontmatter `status: done 2026-06-12` per
       the new closure rule. File stays at `plans/` root.
 - [x] Stamp `plans/REQ-003.md` `status: done 2026-06-12` (all criteria
-      already `[x]` with B-002 evidence — verify intact); verify
+      already `[x]` with B-002 evidence - verify intact); verify
       `plans/REQ-004.md` superseded marking (`superseded-by: REQ-005`
       frontmatter + history note) conforms to post-T-008 planning.md;
       adjust the marker only if the rule requires a different form.
@@ -55,7 +55,7 @@ scope.
       covers `requirements.md` + in-dir `batches/`; root-files check
       list matches DESIGN); then grep this repo's docs for stale
       root-index references (`ROADMAP.md`/`TASKS.md` outside `plans/`,
-      `plans/batches/`, `REQ-XXX` template paths) and fix stragglers —
+      `plans/batches/`, `REQ-XXX` template paths) and fix stragglers -
       rules/skills are T-008/T-009 ground, touch only repo docs here.
 - [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), relocate any remaining planning files missed

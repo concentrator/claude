@@ -2,14 +2,14 @@
 
 Bring an existing project under DEV. Always run § 1 Inventory, then route:
 
-- **Legacy / non-canonical** — `.claude/` deviates from
+- **Legacy / non-canonical** - `.claude/` deviates from
   `layout.md` (lowercase foundational files, `REQ-XXX`, flat
   `tasks.md`): canonicalize per `companions/legacy-migration.md`, then treat as
   Already-DEV.
-- **Fresh** — no `.claude/plans/`: reverse-engineer requirements + design
+- **Fresh** - no `.claude/plans/`: reverse-engineer requirements + design
   from code, then layer planning infrastructure (steps 2–8).
-- **Already-DEV** — canonical R-rooted `ROADMAP.md`: pre-TBD → TBD
-  migration (`companions/tbd-migration.md`; advisory — you execute irreversible/host
+- **Already-DEV** - canonical R-rooted `ROADMAP.md`: pre-TBD → TBD
+  migration (`companions/tbd-migration.md`; advisory - you execute irreversible/host
   steps); TBD-conformant → conformant, no changes.
 
 ## 1. Inventory
@@ -23,7 +23,7 @@ against `layout.md` and report gaps.
 Read README + code. Ask user 3–5 clarifying questions. Write
 `.claude/REQUIREMENTS.md` with
 `approved: pending` per `templates.md
-§ Foundational`. **Block on user approval** — then update `approved:` to
+§ Foundational`. **Block on user approval** - then update `approved:` to
 today.
 
 ## 3. Design
@@ -49,7 +49,7 @@ existing config. If user defers any item, record
 `quality-deferred: true` in `CLAUDE.md § Conventions`.
 
 For contributors without a global toolset, install it into their
-`~/.claude/skills/`, or ship a project copy at `.claude/skills/dev/` — skill
+`~/.claude/skills/`, or ship a project copy at `.claude/skills/dev/` - skill
 precedence means a personal copy wins and a project copy serves no-global
 contributors.
 
@@ -64,7 +64,7 @@ Known bugs or tech debt → R stubs per `plan.md
 ## 7. Commit
 
 Deliver adoption artifacts via a short-lived branch + PR
-(`git-workflow.md`) — `main` already exists, so no bootstrap exception;
+(`git-workflow.md`) - `main` already exists, so no bootstrap exception;
 separate commits per category.
 
 ## 8. Next

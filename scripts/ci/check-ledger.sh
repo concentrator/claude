@@ -2,7 +2,7 @@
 # Tier-1 ledger gate (MAINTENANCE.md § Ledger): a Tier-2 review must
 # certify the delivered content. Pass iff maintenance.jsonl holds a
 # `concerns_clear` line whose `.sha` is an ancestor of HEAD and whose
-# `<sha>..HEAD` diff touches only maintenance.jsonl — i.e. the review
+# `<sha>..HEAD` diff touches only maintenance.jsonl - i.e. the review
 # covered exactly the delivered tree (the stamp commit aside).
 # Append-only JSONL (union-merged), so concurrent PR stamps never
 # conflict; this scans every line and passes on the first match.

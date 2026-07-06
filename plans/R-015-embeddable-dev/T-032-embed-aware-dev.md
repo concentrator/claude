@@ -2,7 +2,7 @@ task: T-032
 type: feat
 depends-on: T-031
 
-# feat/embed-aware-dev — embed-aware dev + clone-time check (R-015)
+# feat/embed-aware-dev - embed-aware dev + clone-time check (R-015)
 
 T-032 of `plans/R-015-embeddable-dev/requirements.md` (AC5). Make this
 repo's `dev` orchestrator embed-aware so a contributor with a global
@@ -25,7 +25,7 @@ needs explicit approval (`skills.md` gate). Commits 2–3 are TDD.
 - [x] Make `skills/dev/SKILL.md` embed-aware: when the project has
   `.claude/.dev-toolchain.json`, dispatch to the `dev-*` skills and follow
   the embedded `.claude/rules`; add the `<!-- dev-embed-aware -->`
-  capability marker. Keep ≤400-word orchestrator cap. (skill edit —
+  capability marker. Keep ≤400-word orchestrator cap. (skill edit -
   propose + approval)
 - [x] Clone-time check script `scripts/dev-embed-check.sh` + test (TDD):
   in an embedded project (marker present), warn when no global

@@ -2,11 +2,11 @@
 
 Written by the checkpoint to `plans/R-XXX-<slug>/batches/B-XXX.report.md`
 BEFORE the accept/reject offer. Accept is invalid without it. Fill every
-section; write "none" rather than omitting one — an empty heading reads
+section; write "none" rather than omitting one - an empty heading reads
 as a skipped step.
 
 ```markdown
-# B-XXX report — <one-line batch theme>
+# B-XXX report - <one-line batch theme>
 
 batch-branch: batch/B-XXX
 base: <default branch>@<sha at pre-flight>
@@ -25,7 +25,7 @@ state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
 ## Batch review (full diff vs base, most capable model)
 
 - cross-branch findings: <interactions invisible to per-branch review:
-  semantic conflicts, duplicated helpers, divergent conventions —
+  semantic conflicts, duplicated helpers, divergent conventions -
   each + resolution; findings in folded branches attributed per branch>
 - fixes applied on batch branch: <shas + one-liners, or "none">
 - tests + lint after fixes: <results>
@@ -39,7 +39,7 @@ state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
 ## Cost
 
 - total subagent tokens: <N> (implementer: <n> / spec-check: <n> /
-  reviews: <n> / other: <n> — attribute where logs distinguish roles;
+  reviews: <n> / other: <n> - attribute where logs distinguish roles;
   collapse unattributable into "other")
   B-002/B-003 baseline: ~800–900k subagent tokens / 12 commits
 - spec checks skipped: <count> (<per-commit skip records per
@@ -65,8 +65,8 @@ previously verified">
 
 <summary of this batch's permission_prompts.jsonl entries (those whose
 `batch` field matches this run's `pre-B-XXX` tag) grouped by root cause,
-with proposed rail/allowlist fixes; or "log empty — zero prompts". The
-log is gitignored scratch — never truncated by the agent.>
+with proposed rail/allowlist fixes; or "log empty - zero prompts". The
+log is gitignored scratch - never truncated by the agent.>
 
 ## Judgment calls for checkpoint
 

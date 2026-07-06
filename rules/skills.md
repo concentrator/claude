@@ -12,14 +12,14 @@ read or edit.
 ## Frontmatter
 
 - Required: `name` (matches directory), `description`.
-- **Description: ≤12 words.** Start with "Use when/before/after..." — no workflow
+- **Description: ≤12 words.** Start with "Use when/before/after..." - no workflow
   summary, no "this skill does X".
 
 ## Size
 
 - **Body: ≤300 words** (general); **≤150 words** for skills loaded every
   session; **≤400 words** for orchestrators with command/routing tables
-  (e.g. `dev`) — tables inflate raw word counts.
+  (e.g. `dev`) - tables inflate raw word counts.
 - **Reference skills** (lookup material, not a workflow): up to ~1500 words inline.
   Beyond that → companion `.md` files alongside `SKILL.md`.
 
@@ -33,27 +33,27 @@ read or edit.
 
 - **Imperative voice.** "Check coverage" not "you should check coverage".
 - **Non-obvious procedure only.** Claude already knows languages, frameworks, and
-  standard practice — skip generic guidance.
+  standard practice - skip generic guidance.
 - **Concrete paths and commands.** No placeholders, no TBDs.
 - **Every step earns its place.** If skipping a step wouldn't change outcomes,
   delete it.
-- **Operative instructions only.** State the WHAT, not the why — rationale
+- **Operative instructions only.** State the WHAT, not the why - rationale
   belongs in requirements/DESIGN. (Phrasing and terminology:
   `CLAUDE.md § Writing`.)
 
-## What doesn't work — avoid
+## What doesn't work - avoid
 
 Lessons from the 2026-04 maintenance experiment:
 
 - **No multi-hop handoffs.** A skill invoking another skill that invokes another
-  fails — each hop is a chance to forget. For "every turn" enforcement use a
+  fails - each hop is a chance to forget. For "every turn" enforcement use a
   `Stop` hook, not a skill.
 - **No write-only logs.** If a JSONL or state file isn't queried back, the skill
   writing it is dead weight.
 - **No pure routers.** Skills that just dispatch to other skills (no state,
   no plan generation, no branch management) are dead weight. Orchestrators
-  with real work — generating plans, managing branches, transitioning between
-  phases — are fine.
+  with real work - generating plans, managing branches, transitioning between
+  phases - are fine.
 
 ## On edit
 

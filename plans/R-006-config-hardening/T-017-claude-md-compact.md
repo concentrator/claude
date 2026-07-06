@@ -2,19 +2,19 @@ task: T-017
 type: refactor
 depends-on: T-016
 
-# refactor/claude-md-compact — compact CLAUDE.md, add verify-before-stating (R-006)
+# refactor/claude-md-compact - compact CLAUDE.md, add verify-before-stating (R-006)
 
 T-017 of `plans/R-006-config-hardening/requirements.md`. T-016 already
 extracted the git prose to `rules/git-workflow.md` and left the pointer.
 This task finishes the CLAUDE.md cleanup: removes the temp-files
 duplication, replaces the Structured-Data section with a
 verify-before-stating rule, relocates the Agent-toolchain declaration
-rule, and adds the operative-only authoring rules — all keeping
+rule, and adds the operative-only authoring rules - all keeping
 CLAUDE.md ≤ 400w (`wc -w`) and `rules/claude-md.md` ≤ 200 lines.
 
 Pre-specified wording lives in
 `R-006-config-hardening/T-016-tbd-foundation.findings.md` (the R-006
-follow-ups) — use it verbatim where quoted there.
+follow-ups) - use it verbatim where quoted there.
 
 Not architecture-changing: T-016 (architecture-changing) already updated
 DESIGN.md for the TBD model; T-017 only relocates/renames behavior rules.
@@ -54,7 +54,7 @@ Decisions carried from `/dev plan all` review:
 - [x] Add the same anti-rationale rule to `rules/skills.md § Content`.
       Touches: rules/skills.md.
 - [x] Add the operative-only compaction criterion to `rules/claude-md.md
-      § Content`: strip rationale/framing, operative-only — not merely
+      § Content`: strip rationale/framing, operative-only - not merely
       `wc -w` ≤ 400. Touches: rules/claude-md.md (verify `wc -l` ≤ 200).
 - [x] Write the rule-preservation mapping into
       `T-017-claude-md-compact.findings.md` (every CLAUDE.md rule touched

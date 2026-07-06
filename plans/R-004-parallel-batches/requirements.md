@@ -11,7 +11,7 @@ kind: feat
 serially: branches in batch order, one implementer subagent per commit,
 each gated by a spec-review and (at close) a code-review agent. For a
 batch of branches that ship to **independent components**, this wastes
-wall-clock — the slow, isolated work (implement, live-probe, test, lint,
+wall-clock - the slow, isolated work (implement, live-probe, test, lint,
 review) of branch B sits idle while branch A finishes. Observed: a
 multi-branch refactor batch takes far longer than the underlying work
 warrants because every model round-trip is sequential.
@@ -19,7 +19,7 @@ warrants because every model round-trip is sequential.
 ## Goals
 
 - Run the **expensive, isolated phase** of multiple branches concurrently
-  — implement + probe + test + lint + spec-review + code-review — each in
+  - implement + probe + test + lint + spec-review + code-review - each in
   its own git worktree branched from the default branch.
 - Keep **integration serial**: merges to the local default branch happen
   one at a time at the checkpoint, with the green-gate re-run after each,
@@ -53,7 +53,7 @@ warrants because every model round-trip is sequential.
   the default branch; the main checkout is never the work surface for a
   parallel member.
 - **Integration phase**: as branches complete review, they queue for a
-  serial merge at the checkpoint — merge, re-run green-gate, resolve
+  serial merge at the checkpoint - merge, re-run green-gate, resolve
   shared-file conflicts (see edge cases), proceed to the next.
 - **Halt isolation**: one member going BLOCKED / failing its gate does
   not abort in-flight siblings; their outcomes are collected and reported
@@ -91,7 +91,7 @@ warrants because every model round-trip is sequential.
 
 ## Constraints
 
-- Git worktree isolation is mandatory for any concurrent member — a
+- Git worktree isolation is mandatory for any concurrent member - a
   shared checkout corrupts the index/working tree.
 - Concurrency must be bounded (explicit cap) to respect machine and
   external-API limits.
@@ -100,9 +100,9 @@ warrants because every model round-trip is sequential.
 
 ## Open questions
 
-- How are per-branch file-touch sets declared/derived at plan stage —
+- How are per-branch file-touch sets declared/derived at plan stage -
   authored in the branch plan, or inferred from the commit items?
-- How are shared append-only files handled at integration — automatic
+- How are shared append-only files handled at integration - automatic
   conflict resolution, a dedicated integration commit, or per-file merge
   drivers?
 - Default `concurrency` when `parallel` is declared without a value?
@@ -111,7 +111,7 @@ warrants because every model round-trip is sequential.
 
 ## References
 
-- `~/.claude/skills/delegating-to-agents/SKILL.md` — serial engine to extend.
-- `~/.claude/rules/branch-plan.md § Agentic execution` — batch schema, rails.
-- `~/.claude/skills/dispatching-parallel-agents/SKILL.md` — existing
+- `~/.claude/skills/delegating-to-agents/SKILL.md` - serial engine to extend.
+- `~/.claude/rules/branch-plan.md § Agentic execution` - batch schema, rails.
+- `~/.claude/skills/dispatching-parallel-agents/SKILL.md` - existing
   parallel-agent patterns and worktree isolation.

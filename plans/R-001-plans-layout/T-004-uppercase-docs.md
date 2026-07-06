@@ -2,7 +2,7 @@ task: T-004
 type: refactor
 architecture-changing: true
 
-# refactor/uppercase-docs — uppercase foundational docs (REQ-002 A1)
+# refactor/uppercase-docs - uppercase foundational docs (REQ-002 A1)
 
 References first, then the case-only `git mv` (macOS: always git mv,
 never Finder). Manual mode (renames live index files). History is not
@@ -20,11 +20,11 @@ docs, and open-REQ normative references.
 - [x] Skills batch 2: delegating-to-agents + both prompts,
       finishing-a-branch, release, adding-a-feature, fixing-a-bug,
       doing-a-refactor, agents/code-reviewer.md. (Prompts, the three
-      execution skills, and code-reviewer had no references — verified
+      execution skills, and code-reviewer had no references - verified
       by grep.)
 - [x] Self-references inside the five docs themselves (design.md
       tree-map + components, maintenance.md cross-refs,
-      requirements.md constraints — requirements/roadmap had none;
+      requirements.md constraints - requirements/roadmap had none;
       tasks.md closed-entry texts left as history).
 - [x] `git mv` the five files: requirements.md→REQUIREMENTS.md,
       design.md→DESIGN.md, maintenance.md→MAINTENANCE.md,

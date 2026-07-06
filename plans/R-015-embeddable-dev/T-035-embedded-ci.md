@@ -2,7 +2,7 @@ task: T-035
 type: feat
 depends-on: T-031
 
-# feat/embedded-ci — embedded CI subset (R-015)
+# feat/embedded-ci - embedded CI subset (R-015)
 
 T-035 of `plans/R-015-embeddable-dev/requirements.md` (AC4), split from
 T-031. Adapt the portable Tier-1 checks to the adopter `.claude/`-rooted
@@ -15,8 +15,8 @@ layout and ship them in the vendored output.
   repo's `scripts/`, `.githooks/`). AC4 is adjusted to the portable subset.
 
 **Design decision (approved):** parameterize the source checks with
-`CLAUDE_ROOT` (`.` self-hosting — default, so this repo's gate is
-unchanged; `.claude` embedded) — one source of truth, not vendor-time
+`CLAUDE_ROOT` (`.` self-hosting - default, so this repo's gate is
+unchanged; `.claude` embedded) - one source of truth, not vendor-time
 rewrite.
 
 - [x] Parameterize the portable checks with `CLAUDE_ROOT`: `check-caps`

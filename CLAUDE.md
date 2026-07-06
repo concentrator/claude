@@ -4,8 +4,8 @@
 
 Two modes:
 
-- **VIBE** (default) — no skill, freestyle.
-- **DEV** — spec-driven: requirements → design → initiatives → tasks →
+- **VIBE** (default) - no skill, freestyle.
+- **DEV** - spec-driven: requirements → design → initiatives → tasks →
   branch plans → commits. Entered via `/dev`; plan hierarchy and
   per-branch routine live in the `dev` skill and `~/.claude/rules/`.
 
@@ -18,7 +18,7 @@ VIBE apply then wait, deliver + confirm at a work boundary
 ## Agent toolchain
 
 Self-hosting: this file is also the project CLAUDE.md. Test/lint:
-`bash scripts/ci/run-all.sh` (Tier-1 gate — caps, stray, plan-integrity,
+`bash scripts/ci/run-all.sh` (Tier-1 gate - caps, stray, plan-integrity,
 todos, references, ledger), also run by CI on PRs and the
 `.githooks/pre-push` hook. VCS-host CLI: `gh`; batch-push carve-out in
 `.claude/settings.local.json` (deny narrowed to default-branch/force
@@ -50,7 +50,7 @@ first.
 ## Communication
 
 - Discuss before making significant changes. Get approval before writing code.
-- If the user asks a question, reply and suggest — do not take action until
+- If the user asks a question, reply and suggest - do not take action until
   explicitly instructed.
 - If your reasoning produces "the rule says X, but Y is fine here because…",
   that's rationalization. Name the conflict and ask before deviating. Written

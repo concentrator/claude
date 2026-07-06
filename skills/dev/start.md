@@ -1,7 +1,7 @@
 # Starting a Project
 
 One-time setup. The **initial** commit creates `main` (the only bootstrap
-step — the branch-guard permits writes on an unborn `main`); protect
+step - the branch-guard permits writes on an unborn `main`); protect
 `main`, then do all further work via branches + PRs.
 
 (For an existing codebase, use `migrate` instead.)
@@ -12,13 +12,13 @@ The user supplies a description; read it, ask 1–3 clarifying questions
 if needed. Create `.claude/` if absent, then write
 `.claude/REQUIREMENTS.md` with `approved: pending` frontmatter and sections
 per `templates.md § Foundational`. **Do not
-proceed until the user approves** — then update `approved:` to today.
+proceed until the user approves** - then update `approved:` to today.
 
 Seed file not committed; `REQUIREMENTS.md` is the spec.
 
 ## 2. Design
 
-Write `.claude/DESIGN.md` — architecture and design decisions.
+Write `.claude/DESIGN.md` - architecture and design decisions.
 **≤1000 words inline**, external refs allowed.
 
 ## 3. Scaffold

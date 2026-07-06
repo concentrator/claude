@@ -1,7 +1,7 @@
 task: T-024
 type: feat
 
-# feat/delivery-cadence — coherent-unit delivery cadence (R-011)
+# feat/delivery-cadence - coherent-unit delivery cadence (R-011)
 
 T-024 of `plans/R-011-delivery-cadence/requirements.md`. States the
 delivery-cadence rule so branches/MRs carry a coherent unit of work, not
@@ -11,7 +11,7 @@ architecture-changing (behavior rule; no DESIGN/tree-map change).
 Cadence home (settled): the full rule in `git-workflow.md`; a concise
 operative line in `CLAUDE.md § Session Workflow` (always-loaded) so the
 agent follows it reflexively. The CLAUDE.md edit is approval-gated
-(`rules/claude-md.md`) — within this task's approved scope. The
+(`rules/claude-md.md`) - within this task's approved scope. The
 topic-switch prompt lives in the cadence rule, not `finishing-a-branch`
 (which stays at its 299/300w cap).
 
@@ -27,7 +27,7 @@ topic-switch prompt lives in the cadence rule, not `finishing-a-branch`
       (always-loaded): apply → wait → deliver at a boundary + confirm;
       unrelated edit → flag + ask; pointer to `git-workflow.md` for the
       full rule. Verify `wc -w CLAUDE.md` ≤ 400.
-- [x] Update `skills/migrating-to-dev/tbd-migration.md` — the
+- [x] Update `skills/migrating-to-dev/tbd-migration.md` - the
       structure-reconcile area delivers its fixes as one MR (not one per
       change), per the cadence rule.
 - [x] Complete the branch: re-review across commits; run

@@ -15,7 +15,7 @@ need to embed a self-contained copy of the DEV toolchain into a project's
 `.claude/`, committed to the repo, so anyone can follow the workflow
 without installing or mixing global config. (`DESIGN.md
 § Self-enforcement` already defers "adopter infra" to a later
-initiative — this is it.)
+initiative - this is it.)
 
 ## Goals
 
@@ -56,11 +56,11 @@ initiative — this is it.)
 - Update: re-running the vendor against a newer source version refreshes
   the embedded copy in place; a drift check compares the embedded stamp
   to the source and warns when stale.
-- Edge — contributor *with* a global toolchain: `/dev` runs their global
+- Edge - contributor *with* a global toolchain: `/dev` runs their global
   (embed-aware) `dev`, which dispatches into the embedded `dev-*`
   sub-skills and follows the embedded rules/CLAUDE.md. A clone-time check
   warns if their global `dev` is missing or too old to be embed-aware.
-- Edge — contributor *without* a global toolchain: `/dev` resolves to the
+- Edge - contributor *without* a global toolchain: `/dev` resolves to the
   embedded orchestrator (no collision); embedded skills run directly.
 
 ## Acceptance criteria
@@ -68,43 +68,43 @@ initiative — this is it.)
 - [ ] A fresh clone of an embedded-toolchain project, opened by a
   contributor with **no** global DEV skills/rules, exposes the full
   `/dev` surface and completes a plan→code→finish cycle using only
-  project files. — **NOT met** (reopened): the adopter's `.claude/*`
+  project files. - **NOT met** (reopened): the adopter's `.claude/*`
   gitignore allowlist excludes the vendored `skills/`/`scripts/`/backbone/
-  stamp, so they are untracked — a fresh clone lacks them (the earlier
+  stamp, so they are untracked - a fresh clone lacks them (the earlier
   no-global check read local untracked files, not a clone). Fixed by
   T-038; re-verify against a real `git clone`.
 - [x] No `~/.claude/...` reference remains in the embedded copy; every
-  cross-reference resolves inside `<project>/.claude/`. — vendor rewrite
+  cross-reference resolves inside `<project>/.claude/`. - vendor rewrite
   (T-031); `vendor-toolchain.test` "no residual ~/.claude refs" + live run
   (0 residual).
 - [x] The embedded core excludes the self-hosting layer (no
   `maintenance.jsonl`, `MAINTENANCE.md`, ledger check, memory,
-  repo-specific skills). — manifest exclusions + tracked-only copy (T-031);
+  repo-specific skills). - manifest exclusions + tracked-only copy (T-031);
   tests confirm `js.md`/`wallarm-*` absent.
-- [x] The embedded CI gate runs the portable checks — caps +
-  plan-integrity + references (`.claude/`-rooted via `CLAUDE_ROOT`) — and
+- [x] The embedded CI gate runs the portable checks - caps +
+  plan-integrity + references (`.claude/`-rooted via `CLAUDE_ROOT`) - and
   passes; it excludes the ledger and the self-hosting / repo-scoped
-  `stray` and `todos` checks. — T-035; `embedded-ci.test` runs the gate
+  `stray` and `todos` checks. - T-035; `embedded-ci.test` runs the gate
   green.
 - [ ] In an embedded project, the project's DEV rules and CLAUDE.md take
   precedence over an engineer's global equivalents (verified with an
   engineer who has a global toolchain), and `/dev` routes into the
-  embedded routine. — **NOT met** (reopened): namespacing renamed dirs +
+  embedded routine. - **NOT met** (reopened): namespacing renamed dirs +
   dispatch but left each SKILL.md `name:` unprefixed, so embedded skills
   collide with the global set by name (shadowed; user > project) and
   dispatch breaks (dir ≠ `name:`). Fixed by T-037; re-verify.
 - [x] The vendor writes a version stamp; a drift check reports "stale"
-  when the embedded version lags the pinned source. — T-033;
+  when the embedded version lags the pinned source. - T-033;
   `dev-drift-check.test` + live demo (up-to-date/stale/unknown).
 - [x] Re-running the vendor against a newer source version updates the
-  embedded copy in place. — T-033 `--update`; `vendor-update.test`
+  embedded copy in place. - T-033 `--update`; `vendor-update.test`
   (preserves adopter content, no double-prefix).
 - [x] Embedding is offered as opt-in from both `starting-a-project` and
-  `migrating-to-dev`; default behavior is unchanged when not opted in. —
+  `migrating-to-dev`; default behavior is unchanged when not opted in. -
   T-034 (opt-in bullets, default off).
 - [x] The audit task classifies every skill and rule as
   portable-generic / project-specific / global-only, and records the
-  manifest of the portable core. — T-030; `manifest.md`.
+  manifest of the portable core. - T-030; `manifest.md`.
 
 ## Constraints
 
@@ -114,8 +114,8 @@ initiative — this is it.)
 - Claude Code precedence is fixed: personal (global) skills override
   same-named project skills as a complete override; rules + CLAUDE.md
   load with project precedence (project loads last). The design must work
-  within this — namespace embedded skills, keep `/dev` via an embed-aware
-  global orchestrator — not against it.
+  within this - namespace embedded skills, keep `/dev` via an embed-aware
+  global orchestrator - not against it.
 - Must stay compatible with Claude Code settings/skill/hook schemas.
 
 ## Open questions
@@ -126,7 +126,7 @@ initiative — this is it.)
   on a missing or stale global `dev`. Preserves the `/dev` command. The
   design task settles the marker format and the embed-aware dispatch.
 - Whether any embedded skill genuinely must diverge per-project beyond
-  the namespacing — the audit answers this.
+  the namespacing - the audit answers this.
 
 ## References
 

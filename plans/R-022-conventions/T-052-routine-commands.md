@@ -2,12 +2,12 @@ task: T-052
 type: feat
 depends-on: T-051
 
-# feat/routine-commands — routine-commands convention (R-022)
+# feat/routine-commands - routine-commands convention (R-022)
 
 T-052 of `plans/R-022-conventions/`. A project's CLAUDE.md declares its VCS
 host + exact git/test/lint/build commands; execution reads them (host-aware
 `gh`/`glab`) instead of probing; `migrate` backfills, `start` scaffolds.
-`depends-on: T-051` — both edit `layout.md` / `start.md`; sequence.
+`depends-on: T-051` - both edit `layout.md` / `start.md`; sequence.
 
 Acceptance criteria: see `requirements.md` (project CLAUDE.md declares host
 + commands; `finish` + the `git-workflow` companion read them, no probing;

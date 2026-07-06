@@ -9,12 +9,12 @@ approved: pending
 
 # Project requirements
 
-## Vision           — one paragraph
-## Goals            — top-level (3–7)
-## Non-goals        — explicit out-of-scope
-## Audience         — primary / secondary users
-## Success criteria — how we'll know it worked
-## Constraints      — technical / organizational / time
+## Vision           - one paragraph
+## Goals            - top-level (3–7)
+## Non-goals        - explicit out-of-scope
+## Audience         - primary / secondary users
+## Success criteria - how we'll know it worked
+## Constraints      - technical / organizational / time
 ## Open questions
 ```
 
@@ -24,12 +24,12 @@ In rules, skills, and docs, write it path-qualified wherever bare
 `requirements.md` could be read against root `REQUIREMENTS.md`.
 
 All variants share the frontmatter. Body sections depend on `kind:`.
-The title names the parent R — the file has no id of its own.
+The title names the parent R - the file has no id of its own.
 
 Under the shape round (`/dev plan R`, see `plan.md § Planning
 rounds`) a draft `tasks.md` is produced **alongside** this
-`requirements.md` — formatted per `plan.md § Levels`, not embedded
-here — and approved at the same gate. Deferrable: a large or uncertain
+`requirements.md` - formatted per `plan.md § Levels`, not embedded
+here - and approved at the same gate. Deferrable: a large or uncertain
 initiative may approve requirements and defer the draft task list to the
 detail round.
 
@@ -50,21 +50,21 @@ kind: feat | bug | refactor
 ## Motivation
 ## Goals
 ## Non-goals
-## User experience       — flows, surfaces, edge cases
-## Acceptance criteria   — testable behaviors (checkboxes)
+## User experience       - flows, surfaces, edge cases
+## Acceptance criteria   - testable behaviors (checkboxes)
 ## Constraints
 ## Open questions
-## References            — related R-/T-XXX
+## References            - related R-/T-XXX
 ```
 
 ### `kind: bug`
 
 ```
-## Observed behavior     — what happens now
-## Expected behavior     — what should happen
+## Observed behavior     - what happens now
+## Expected behavior     - what should happen
 ## Reproduction steps
-## Impact                — who/how affected, severity
-## Acceptance criteria   — testable behaviors confirming the fix
+## Impact                - who/how affected, severity
+## Acceptance criteria   - testable behaviors confirming the fix
 ## Constraints
 ## Open questions
 ## References
@@ -73,11 +73,11 @@ kind: feat | bug | refactor
 ### `kind: refactor`
 
 ```
-## Current state         — pain points, motivation
+## Current state         - pain points, motivation
 ## Desired state
-## Invariants            — what must NOT change (behavior, performance)
-## Scope                 — affected modules/files
-## Acceptance criteria   — observable confirmation (tests pass, structure conforms)
+## Invariants            - what must NOT change (behavior, performance)
+## Scope                 - affected modules/files
+## Acceptance criteria   - observable confirmation (tests pass, structure conforms)
 ## Constraints
 ## Open questions
 ## References
@@ -98,11 +98,11 @@ confirms dropping them.
 ```
 # Release vX.Y.Z
 
-## Scope     — one-line theme of the release
+## Scope     - one-line theme of the release
 
-## Branches  — one checkbox per planned branch
+## Branches  - one checkbox per planned branch
 - [ ] feat/<slug> (T-014): description
 - [ ] fix/<slug> (T-015): description
 
-## Notes     — deferred or dropped scope, with reason
+## Notes     - deferred or dropped scope, with reason
 ```

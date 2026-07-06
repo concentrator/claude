@@ -8,8 +8,8 @@ Canonical structure for `.claude/` in a project. Other paths inside
     .claude/
     ├── REQUIREMENTS.md           # foundational requirements
     ├── DESIGN.md                 # architecture and design (≤1000w inline)
-    ├── MAINTENANCE.md            # sanity routine — seeded from template
-    ├── plans/                    # planning hierarchy — see plan.md
+    ├── MAINTENANCE.md            # sanity routine - seeded from template
+    ├── plans/                    # planning hierarchy - see plan.md
     │   ├── ROADMAP.md            # initiative index
     │   ├── release-vX.Y.Z.md
     │   ├── R-XXX-<slug>/         # one per roadmap entry (initiative-time)
@@ -56,14 +56,14 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
   `settings.json`.
 - **Created as workflows need them**: `skills/`, `rules/`, `commands/`,
   `agents/`, `MAINTENANCE.md`, `plans/ROADMAP.md`; `hooks/` (shipped by
-  the DEV toolset installer — `dev-branch-guard.sh`).
+  the DEV toolset installer - `dev-branch-guard.sh`).
 - **Initiative-time**: `plans/R-XXX-<slug>/` + `requirements.md`,
   created with the ROADMAP entry (`plan.md § Directory
   conventions`).
 - **Lazy** (created on first use): `adr/`, `references/`,
   `plans/R-XXX-<slug>/tasks.md` (with the R's first task),
   `plans/R-XXX-<slug>/batches/`, `plans/archive/`,
-  `plans/visual-artifacts/` (gitignored — session artifacts, not docs).
+  `plans/visual-artifacts/` (gitignored - session artifacts, not docs).
 
 ## Disallowed in `.claude/`
 
@@ -76,11 +76,11 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 
 `references/` holds external inputs the agent consults: API specs
 (OpenAPI), third-party docs, domain knowledge, schema files. Any
-format. **Read-only** — the agent never modifies these.
+format. **Read-only** - the agent never modifies these.
 
 ## ADRs
 
-Architecture Decision Records — one file per decision, sequentially
+Architecture Decision Records - one file per decision, sequentially
 numbered. Referenced from `DESIGN.md` where relevant.
 
 Naming: `NNN-<short-title>.md` (e.g. `001-database-choice.md`).

@@ -1,9 +1,9 @@
-# T-019 enforcement-layer — findings
+# T-019 enforcement-layer - findings
 
 ## To resolve within this branch (commit 12, DESIGN.md tree-map)
 
 - [x] `README.md` is tracked at the repo root but absent from the
-      `DESIGN.md` tree-map — `check-stray.sh` flags it. Added to the
+      `DESIGN.md` tree-map - `check-stray.sh` flags it. Added to the
       tree-map (with `maintenance.json`, `scripts/`, `.github/`,
       `.githooks/`) in commit 12.
 
@@ -19,16 +19,16 @@
 
 ## Close review (code-reviewer pass)
 
-- **C1 (critical) fixed** — `check-stray.sh` used a `[├└]` multibyte
+- **C1 (critical) fixed** - `check-stray.sh` used a `[├└]` multibyte
   char class that false-fails under a C/POSIX locale (would block every
   PR). Switched to alternation `(├|└)` (byte-robust) and pinned
   `LANG`/`LC_ALL=C.UTF-8` in `ci.yml`.
-- **I2 (important) fixed** — `check-plan-integrity.sh` `grep | head`
+- **I2 (important) fixed** - `check-plan-integrity.sh` `grep | head`
   substitutions aborted under `set -e`+`pipefail` before their
   diagnostic; added `|| true` so the `report` messages fire.
-- **S4 fixed** — dropped the pointless `grep -r` in `check-references.sh`.
-- **S3** — ledger "content tip" semantics confirmed correct.
-- **S5 / S6 accepted (low-risk, unreachable)** — `xargs` word-splitting
+- **S4 fixed** - dropped the pointless `grep -r` in `check-references.sh`.
+- **S3** - ledger "content tip" semantics confirmed correct.
+- **S5 / S6 accepted (low-risk, unreachable)** - `xargs` word-splitting
   on space-bearing paths and unescaped `${top}` regex chars; no such
   paths exist and the `── ` anchor makes S6 collisions implausible.
   `git ls-files -z` hardening was declined as `grep -z` isn't portable

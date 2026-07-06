@@ -8,10 +8,10 @@ file moves apply directly; irreversible/host steps stay advisory (like
 ## Detect (any of)
 
 - Lowercase foundational files (`design.md` / `requirements.md` /
-  `roadmap.md`) vs `DESIGN.md` / `REQUIREMENTS.md` / `ROADMAP.md` —
+  `roadmap.md`) vs `DESIGN.md` / `REQUIREMENTS.md` / `ROADMAP.md` -
   compare exact case (`git ls-files` is case-exact even on a
   case-insensitive filesystem).
-- Four-level `R-XXX (REQ-XXX)` roadmap entries (`REQ-XXX` is retired —
+- Four-level `R-XXX (REQ-XXX)` roadmap entries (`REQ-XXX` is retired -
   `plan.md § Archival`).
 - A flat `plans/tasks.md` instead of per-R `tasks.md`.
 - Cross-references to `~/.claude/rules/...` where an embedded copy is

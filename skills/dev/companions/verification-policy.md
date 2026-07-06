@@ -16,16 +16,16 @@ exposes a `model` override (`sonnet`/`opus`/`haiku`/`fable`) with no
 effort parameter. Effort is fixed for the whole session by the
 `effortLevel` setting. So when the controller wants a cheaper or deeper
 check for a given dispatch, the only lever it actually controls is which
-model that subagent runs — routing encodes a model per role and inherits
+model that subagent runs - routing encodes a model per role and inherits
 the session effort.
 
 Evidence:
 
-- `agents/code-reviewer.md` frontmatter — keys present: `name`,
+- `agents/code-reviewer.md` frontmatter - keys present: `name`,
   `description`, `model` (value `inherit`). No effort key.
-- `settings.json` — `effortLevel: "high"`: a top-level session/global
+- `settings.json` - `effortLevel: "high"`: a top-level session/global
   setting, not scoped to any dispatch.
-- `implementer-prompt.md` — the Task-tool
+- `implementer-prompt.md` - the Task-tool
   dispatch template passes `description` and `prompt` only; no effort
   field. The Agent tool's sole per-dispatch override is `model`.
 
@@ -34,15 +34,15 @@ Evidence:
 A commit item is **mechanical** if and only if both conditions hold,
 evaluated from the plan-item text alone, before dispatch:
 
-1. **File set ≤ 2, explicitly named** — the item text names at most two
+1. **File set ≤ 2, explicitly named** - the item text names at most two
    files to touch (by path or filename). Unnamed, implied, or
    wildcard-described files do not count toward the limit and void the
    classification. Convention-mandated doc files (e.g. a per-commit
    `CHANGELOG.md` under `release-routine: yes`) are not exempt: the plan
    item must name them like any other file, and they count toward the
-   ≤ 2 limit — a commit that also writes a CHANGELOG entry alongside two
+   ≤ 2 limit - a commit that also writes a CHANGELOG entry alongside two
    code files is not mechanical.
-2. **Complete spec** — the item states a testable outcome and contains
+2. **Complete spec** - the item states a testable outcome and contains
    no unresolved design choices. A testable outcome means a reader can
    write a failing check before seeing the implementation. An unresolved
    design choice is any decision the implementer must make that the item
@@ -52,7 +52,7 @@ evaluated from the plan-item text alone, before dispatch:
 controller checks the "Files changed" line in the report. If the set of
 files the implementer actually touched exceeds the files named in the
 plan item, the mechanical classification is void and the spec check runs
-after all — regardless of how the item read before dispatch.
+after all - regardless of how the item read before dispatch.
 
 ## Spec-check skip
 
@@ -75,7 +75,7 @@ Everything else is unchanged:
   wherever a spec check runs.
 
 **Convention drift outcome:** a spec-check report of "⚠️ Convention
-drift only" is not a rejection — it never counts toward the
+drift only" is not a rejection - it never counts toward the
 two-rejection halt. The controller fixes the drift directly on the
 member branch and carries the count into the report's Cost section.
 The spec-check sensor is blind on spec-check-skipped (mechanical)
@@ -86,20 +86,20 @@ review is counted in the same Cost-line total (report-template.md
 ## Close folding
 
 A branch is **small** iff its committed plan file satisfies both conditions,
-evaluated by reading the plan file at branch close — no agent judgment:
+evaluated by reading the plan file at branch close - no agent judgment:
 
 1. **≤ 3 non-final commit checkboxes** in the plan body.
 2. **No `architecture-changing: true` header.**
 
 **Consequence:** a small branch skips the per-branch `code-reviewer` pass.
 Its first review is the batch full-diff review at batch close (which
-re-covers most of the per-branch pass — ~45–60k tokens saved per folded
+re-covers most of the per-branch pass - ~45–60k tokens saved per folded
 branch; overlap observed in B-003). The controller passes the list of
 folded branches into the batch full-diff review dispatch; the reviewer
 covers their diffs against their own plans (first review), not only
 cross-branch concerns.
 
-**Invariants — unaffected by this rule:**
+**Invariants - unaffected by this rule:**
 
 - The mandatory final commit applies to every branch regardless of size.
 - The tests/lint-green gate before merging into `batch/B-XXX` applies to
@@ -123,7 +123,7 @@ This table replaces the former "Models:" heuristic line in `SKILL.md`
 | Spec-compliance checks (per-commit) | Fable 5 (`fable`) | session (`effortLevel`) |
 | Branch-close review and batch full-diff review | Fable 5 (`fable`) | session (`effortLevel`) |
 
-**Routing:** the controller picks the implementer row deterministically —
+**Routing:** the controller picks the implementer row deterministically -
 mechanical predicate true → Mechanical-commit row (`sonnet`); plan item
 explicitly tagged `(judgment-heavy)` → Judgment-heavy row (`fable`);
 otherwise the Default implementers row (`opus`). There is no predicate
@@ -132,13 +132,13 @@ explicit `(judgment-heavy)` tag in its plan-item text, mirroring the
 task `[type]` tag. Absent the tag, items default to Opus.
 
 **Effort note:** effort is session-level and fixed by the `effortLevel`
-setting — it is not controllable per dispatch (see § Effort mechanics).
+setting - it is not controllable per dispatch (see § Effort mechanics).
 The high-effort intent for Opus implementers is satisfied when the session
 runs at `high` or above; below that, routing degrades to model choice only.
 
 **Spec-check disambiguation:** per-commit spec-compliance checks
 (pass/fail against the plan item) and the judgment-heavy branch-close /
-batch full-diff reviews all run on `fable`. They remain distinct roles —
+batch full-diff reviews all run on `fable`. They remain distinct roles -
 the per-commit spec check is the only one lever 1 may skip on a
 mechanical commit; the close/batch reviews always run. Do not conflate
 them.

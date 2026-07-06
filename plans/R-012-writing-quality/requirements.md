@@ -4,15 +4,15 @@ kind: feat
 status: done 2026-06-23
 ---
 
-# R-012: Writing quality — idiomatic terminology, no verbatim transplant
+# R-012: Writing quality - idiomatic terminology, no verbatim transplant
 
 ## Motivation
 
 The agent transplants the user's verbatim phrasing (a non-native
 speaker) into documentation, producing awkward or nonsensical sentences,
 and coins idiosyncratic jargon ('cohort', 'drain', 'wired', 'owns it')
-where established terms exist — e.g. "A set of operations wired by one
-Controller … Operations don't know the sequence — the Controller owns
+where established terms exist - e.g. "A set of operations wired by one
+Controller … Operations don't know the sequence - the Controller owns
 it." The existing anti-transplant bullet (`claude-md.md`/`skills.md`)
 covers only rationale/wording in rules/skills, not terminology quality
 across all output.
@@ -34,13 +34,13 @@ across all output.
 
 - A full style guide or banned-word list beyond "use conventional terms,
   avoid coined jargon."
-- Changing *what* is documented — only *how* it's phrased.
+- Changing *what* is documented - only *how* it's phrased.
 - Any delivery/enforcement change beyond the one review gate.
 
 ## User experience
 
 - Writing any artifact, the agent expresses the meaning in standard
-  terminology, not the user's verbatim words — e.g. "wired by a
+  terminology, not the user's verbatim words - e.g. "wired by a
   Controller / owns the sequence / don't know the sequence" → "a
   controller orchestrates the operations and determines their order; the
   operations are order-agnostic."
@@ -52,7 +52,7 @@ across all output.
 - [x] CLAUDE.md has a `## Writing` rule (convey intent not verbatim
       phrasing; idiomatic, conventional terminology; established terms
       over coined jargon; applies to all output).
-- [x] `claude-md.md`/`skills.md` anti-transplant bullets consolidated —
+- [x] `claude-md.md`/`skills.md` anti-transplant bullets consolidated -
       retain only "rationale belongs in requirements/DESIGN" and
       reference `CLAUDE.md § Writing` (no duplication).
 - [x] `MAINTENANCE.md` Tier-2 review gains a gate flagging transplanted
@@ -73,7 +73,7 @@ across all output.
 ## References
 
 - This session's wallarm docs ('wired/owns it/don't know the sequence',
-  'cohort', 'drain') — grounding.
+  'cohort', 'drain') - grounding.
 - `claude-md.md § Content`, `skills.md § Content` (existing rule).
 - CLAUDE.md § Code Comments / § Audience visibility / § Verify before
   stating (the writing-rule family).

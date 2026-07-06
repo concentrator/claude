@@ -1,10 +1,10 @@
 # R-011 tasks
 
 Task index for this initiative. Items:
-`T-001 (R-001) [feat|fix|refactor]: description` — format and closure:
+`T-001 (R-001) [feat|fix|refactor]: description` - format and closure:
 `rules/planning.md § Levels`. Cross-R index: `plans/ROADMAP.md`.
 
-- [x] T-024 (R-011) [feat]: Delivery cadence rule — concise operative
+- [x] T-024 (R-011) [feat]: Delivery cadence rule - concise operative
       cadence in `CLAUDE.md § Session Workflow` (always-loaded:
       apply → wait → deliver at a work boundary, confirm merge first;
       unrelated edit → flag + ask to deliver the current branch first) +

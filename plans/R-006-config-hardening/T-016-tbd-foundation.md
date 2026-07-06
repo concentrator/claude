@@ -2,9 +2,9 @@ task: T-016
 type: refactor
 architecture-changing: true
 
-# refactor/tbd-foundation — establish the trunk-based model in rules (R-006)
+# refactor/tbd-foundation - establish the trunk-based model in rules (R-006)
 
-T-016 of `plans/R-006-config-hardening/requirements.md` — the keystone.
+T-016 of `plans/R-006-config-hardening/requirements.md` - the keystone.
 Defines the Trunk-Based Development model in the rule files the rest of
 R-006 builds on: a consolidated `git-workflow.md`, the trunk/PR planning
 model, and batch-as-universal-delivery-unit. Manual mode (refactor); no
@@ -22,7 +22,7 @@ Constraints carried from R-006:
 - These rules describe the **target** model. Hard enforcement (branch
   protection + CI + pre-push hook) lands in T-019; R-006 itself executes
   under current direct-commit mechanics (bootstrap). Keep transition
-  cruft out of the permanent rules — the bootstrap is R-006-operational
+  cruft out of the permanent rules - the bootstrap is R-006-operational
   only.
 - CLAUDE.md compaction to ≤400 is T-017; here only the **git** prose is
   extracted + a pointer added.
@@ -30,7 +30,7 @@ Constraints carried from R-006:
   (GitHub branch-protection settings, auto-merge config) belong to
   T-019's infra, not these rules (adopters may be GitLab).
 
-- [x] Create `rules/git-workflow.md` — consolidate ALL git rules into
+- [x] Create `rules/git-workflow.md` - consolidate ALL git rules into
       one file: branching (short-lived, single-owner, merge within a day
       / two days absolute max, `<prefix>/<slug>`); the single "every
       change reaches `main` via a CI-gated PR; never push to `main`"
@@ -41,12 +41,12 @@ Constraints carried from R-006:
       anti-patterns (no code freezes, no unmerge, no fix-on-release-
       then-down-merge, no big-bang merges; integrate at least daily).
       References block with the research sources.
-- [x] Rewrite `planning.md § Where plans live in git` — replace "plans
+- [x] Rewrite `planning.md § Where plans live in git` - replace "plans
       commit directly to `main`" with the trunk/PR model (planning
       artifacts reach `main` via short-lived doc PRs; `requirements.md`
       vs `ROADMAP`/`TASKS` stay separate commits); point to
       `git-workflow.md` for the push rule.
-- [x] Rewrite `branch-plan.md § Agentic execution` — batch = the
+- [x] Rewrite `branch-plan.md § Agentic execution` - batch = the
       universal delivery unit (1+ tasks → one CI-gated PR; lone task =
       degenerate batch, its branch is the PR); mode orthogonal (delivery
       uniform, verification differs); TBD batch lifecycle + closing flow
@@ -57,7 +57,7 @@ Constraints carried from R-006:
       pointer (removes the Session-Workflow branching lines, Commit
       Messages, MR/PR Messages, the main-push rule); record the git-rule
       relocation mapping (the R-006 preservation invariant).
-- [x] Update `DESIGN.md` — branching + delivery architecture for the TBD
+- [x] Update `DESIGN.md` - branching + delivery architecture for the TBD
       model (trunk, PR-only, batch-as-delivery-unit, tag-on-trunk).
 - [x] Complete the branch: re-review docs across all commits, verify the
       git-rule relocation mapping is complete (every moved rule →

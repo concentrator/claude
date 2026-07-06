@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# dev-branch-guard.sh — PreToolUse hook (R-021).
+# dev-branch-guard.sh - PreToolUse hook (R-021).
 # Refuses repo-mutating tool calls on the trunk (main/master) so all work
 # goes through a branch (git-workflow trunk rule). Reads the tool-call JSON
 # on stdin; emits a PreToolUse "deny" decision when the current branch is
@@ -28,7 +28,7 @@ deny() {
 tool=$(printf '%s' "$input" | jq -r '.tool_name // ""')
 case "$tool" in
   Write | Edit | NotebookEdit)
-    deny "branch-guard: refusing $tool on '$branch'. Create a working branch first — never edit the trunk (git-workflow)." ;;
+    deny "branch-guard: refusing $tool on '$branch'. Create a working branch first - never edit the trunk (git-workflow)." ;;
   Bash)
     cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // ""')
     # Word-boundary match so plumbing (git commit-tree/-graph) isn't blocked.

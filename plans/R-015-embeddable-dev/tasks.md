@@ -1,17 +1,17 @@
 # R-015 tasks
 
 Task index for this initiative. Items:
-`T-001 (R-001) [feat|fix|refactor]: description` — format and closure:
+`T-001 (R-001) [feat|fix|refactor]: description` - format and closure:
 `rules/planning.md § Levels`. Cross-R index: `plans/ROADMAP.md`.
 Acceptance-criterion numbers (AC#) reference `requirements.md`.
 
-R-015 spans several batches — each task is individually coherent and
+R-015 spans several batches - each task is individually coherent and
 sizeable. T-031–T-034 depend on T-030's manifest; their branch plans are
 detailed once it lands.
 
 ## Open
 
-- [x] T-030 (R-015) [refactor]: Audit & portable-core manifest — classify
+- [x] T-030 (R-015) [refactor]: Audit & portable-core manifest - classify
   every skill and rule (portable-generic / project-specific / global-only);
   make the source embed-ready (uniform `~/.claude/` cross-refs; lift
   project-specifics into rules so skills stay generic/namespaceable);
@@ -19,38 +19,38 @@ detailed once it lands.
   (vendor transform, `dev-*` namespacing, embed-aware `dev` + marker,
   version stamp/drift, CI subset, generic CLAUDE.md backbone) in
   `DESIGN.md`. architecture-changing. (AC9)
-- [x] T-031 (R-015) [feat]: Vendor transform — script that copies the
+- [x] T-031 (R-015) [feat]: Vendor transform - script that copies the
   manifest's portable core from a pinned source into `<target>/.claude/`,
   rewrites `~/.claude/…`→`.claude/…`, applies `dev-*` namespacing, prunes
   the self-hosting layer, emits the generic DEV `CLAUDE.md` backbone with
   `@`-imports, writes the version stamp, and includes the embedded CI
   subset (caps + plan-integrity + references + stray + todos, no ledger).
   (AC2, AC3, AC4, AC6) `depends-on: T-030`
-- [x] T-032 (R-015) [feat]: Embed-aware `dev` + clone-time check — the
+- [x] T-032 (R-015) [feat]: Embed-aware `dev` + clone-time check - the
   global `dev` detects an embedded project (the version-stamp marker),
   dispatches into the `dev-*` skills, and follows the embedded rules; a
   clone-time check warns on a missing or stale global `dev`. Preserves the
   `/dev` command. (AC5) `depends-on: T-031`
-- [x] T-033 (R-015) [feat]: Drift detection + re-vendor sync — compare the
+- [x] T-033 (R-015) [feat]: Drift detection + re-vendor sync - compare the
   embedded version stamp against the pinned source, report stale, and
   update the embedded copy in place on re-vendor. (AC6, AC7)
   `depends-on: T-031`
-- [x] T-034 (R-015) [feat]: Opt-in wiring — add the "embed a self-contained
+- [x] T-034 (R-015) [feat]: Opt-in wiring - add the "embed a self-contained
   DEV toolchain" opt-in to `starting-a-project` and `migrating-to-dev`,
   invoking the vendor; default behavior unchanged when not opted in. (AC8)
   `depends-on: T-031`
-- [x] T-035 (R-015) [feat]: Embedded CI subset — adapt the 5 Tier-1 checks
+- [x] T-035 (R-015) [feat]: Embedded CI subset - adapt the 5 Tier-1 checks
   (caps, plan-integrity, references, stray, todos) + a ledger-free
   `run-all` to the adopter `.claude/`-rooted layout (artifacts under
   `.claude/`, not the repo root), wired into the vendor transform.
   Split from T-031. (AC4) `depends-on: T-031`
-- [x] T-037 (R-015) [fix]: Complete `dev-*` namespacing — the vendor
+- [x] T-037 (R-015) [fix]: Complete `dev-*` namespacing - the vendor
   renamed dirs + rewrote the dispatch table but left each SKILL.md `name:`
   unprefixed, so embedded skills collide with the global set by name
   (shadowed) and dispatch breaks (dir ≠ `name:`). Rewrite the namespaced
   skills' `name:` → `dev-<name>`; add a test asserting `name:` == dir for
   every embedded skill. Re-verify AC5. (AC5) `depends-on: T-031`
-- [x] T-038 (R-015) [fix]: Embed committability — the vendored
+- [x] T-038 (R-015) [fix]: Embed committability - the vendored
   `.claude/skills/`, `.claude/scripts/`, `.claude/CLAUDE.md`, and the
   stamp are excluded by a restrictive adopter `.claude/*` gitignore, so a
   fresh clone lacks them. The vendor ensures its output is trackable (add

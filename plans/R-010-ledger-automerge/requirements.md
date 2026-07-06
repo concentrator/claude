@@ -17,7 +17,7 @@ session:
    resolve it by hand).
 2. **Manual close-out merges.** Every `plan/` / close-out PR needs a manual
    merge, though R-006 intended planning doc PRs to be "auto-mergeable on a
-   green gate." Native GitHub auto-merge needs branch protection —
+   green gate." Native GitHub auto-merge needs branch protection -
    unavailable on this free-tier private repo.
 
 ## Goals
@@ -25,7 +25,7 @@ session:
 - **Merge-friendly ledger:** append-only `maintenance.jsonl` (one line per
   stamp, tagged by content-tip SHA + PR) + a `.gitattributes` `merge=union`
   driver, so concurrent stamps auto-merge instead of conflicting.
-- **`plan/` PRs auto-merge on a green gate** — native host auto-merge where
+- **`plan/` PRs auto-merge on a green gate** - native host auto-merge where
   available; the agent merges via `gh`/`glab` as a **fallback** when the
   host can't gate (no branch protection). `feat`/`fix`/`refactor` PRs keep
   human review + merge.
@@ -36,8 +36,8 @@ session:
 
 - Enabling branch protection / native auto-merge itself (blocked on
   free-tier private; out of scope).
-- Auto-merging code PRs — `feat`/`fix`/`refactor` stay user-reviewed.
-- Pruning the ledger log — unbounded append accepted (tiny audit trail).
+- Auto-merging code PRs - `feat`/`fix`/`refactor` stay user-reviewed.
+- Pruning the ledger log - unbounded append accepted (tiny audit trail).
 - Changing what the ledger certifies (still content-tip review).
 
 ## User experience
@@ -66,7 +66,7 @@ session:
       stamp-is-append protocol.
 - [x] `DESIGN.md` tree-map + `check-stray` reflect `maintenance.jsonl` +
       `.gitattributes`.
-- [x] Auto-merge policy documented with the preference order — native host
+- [x] Auto-merge policy documented with the preference order - native host
       auto-merge where available, agent `gh`/`glab` merge as fallback (no
       branch protection); `feat`/`fix`/`refactor` PRs keep user review.
 - [x] The agent-merge fallback has no branch-protection / native-auto-merge
@@ -103,7 +103,7 @@ One-line evidence per criterion (T-022, T-023 merged):
 1. `maintenance.jsonl` is append-only; `.gitattributes` sets
    `maintenance.jsonl merge=union`. [T-022]
 2. Union is a git built-in driver; the append-only format means
-   concurrent stamps are distinct lines git union-merges — conflict
+   concurrent stamps are distinct lines git union-merges - conflict
    impossible by construction (T-022's stamp appended a 2nd line
    cleanly). [T-022]
 3. `check-ledger.sh` line-searches the JSONL; positive + two negatives

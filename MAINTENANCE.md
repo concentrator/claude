@@ -13,13 +13,13 @@ The per-PR compliance gate for `~/.claude`, complementing the Tier-1
 mechanical CI checks in `scripts/ci/`. Before a PR merges, an AI
 reviewer reads the diff against the rule set and confirms five concerns:
 
-- **Compliance** — each changed file obeys its governing rule
+- **Compliance** - each changed file obeys its governing rule
   (`CLAUDE.md` per `rules/claude-md.md`; `SKILL.md` per `rules/skills.md`;
   plans per `skills/dev/plan.md`).
-- **Cross-file integrity** — references resolve; no rule duplicated
+- **Cross-file integrity** - references resolve; no rule duplicated
   across files; the `DESIGN.md` tree-map matches the tree.
-- **Cleanup** — no stray scratch, dead prose, or transient content.
-- **Reference freshness** — no dead paths; no expired time-bound
+- **Cleanup** - no stray scratch, dead prose, or transient content.
+- **Reference freshness** - no dead paths; no expired time-bound
   references. Mark a time-bound reference `<!-- expires: YYYY-MM-DD -->`;
   `scripts/ci/check-references.sh` fails once the date is past.
 - **Writing** - changed prose follows `writing.md`: no AI-tell words, no
@@ -33,7 +33,7 @@ below is the time-based sweep; this is the per-change gate.
 
 ### Ledger (`maintenance.jsonl`)
 
-An append-only JSONL file — one stamp per line, keyed by content-tip SHA:
+An append-only JSONL file - one stamp per line, keyed by content-tip SHA:
 
     {"sha": "<content-tip-sha>", "reviewed": "YYYY-MM-DD", "concerns_clear": true}
 
@@ -44,13 +44,13 @@ Protocol: review at the content tip (the last non-ledger commit), then a
 final commit **appends** the line for that tip's full SHA, touching only
 `maintenance.jsonl`. `check-ledger.sh` confirms a `concerns_clear` line
 exists whose SHA is an ancestor of `HEAD` and whose `<sha>..HEAD` diff
-touches only `maintenance.jsonl` — proving the review covered exactly the
+touches only `maintenance.jsonl` - proving the review covered exactly the
 delivered tree.
 
 ### Prune dead prose
 
 Part of the Compliance concern: review every rule, instruction, or
-sentence the diff adds or touches against three gates —
+sentence the diff adds or touches against three gates -
 
 1. Accurate and sensible in context?
 2. Valuable in any real scenario?
@@ -59,7 +59,7 @@ sentence the diff adds or touches against three gates —
 Fail any gate → cut it and propose the fix. This catches transplanted
 verbatim phrasing, coined or idiosyncratic terms where a standard one
 exists, rationale that belongs in requirements/DESIGN, and rules that
-merely restate a default — replace with the conventional wording
+merely restate a default - replace with the conventional wording
 (`CLAUDE.md § Writing`).
 
 ## Routine
@@ -70,7 +70,7 @@ contradictions instead of acting on them.
 
 ### Targets and thresholds
 
-Initial defaults — tune per project.
+Initial defaults - tune per project.
 
 | Target | Check | Cadence / threshold |
 |---|---|---|
@@ -100,12 +100,12 @@ project):
 
 1. Group entries by command; collapse variants into one prefix rule
    (`Bash(go test -v ...)`, `Bash(go vet ...)` → `Bash(go:*)`).
-   Generalize only the prefix actually recurring — not `Bash(*)`.
+   Generalize only the prefix actually recurring - not `Bash(*)`.
 2. Drop spent one-offs: exact commands with literal paths, session
    scratch (`/tmp/*.sh`), finished migrations/renames.
-3. Drop entries embedding secrets/tokens — always; rotate if leaked.
+3. Drop entries embedding secrets/tokens - always; rotate if leaked.
 4. Drop rules that defeat the allowlist (`Bash(bash *)`,
-   `Bash(env)`-style secret dumps) — re-approve narrowly instead.
+   `Bash(env)`-style secret dumps) - re-approve narrowly instead.
 5. Rule covered by a broader tier (global ⊃ project ⊃ local) → keep
    the broad one, delete the shadowed.
 6. Recurring prompts the list misses → `/fewer-permission-prompts`
@@ -126,7 +126,7 @@ Targets beyond the generic routine:
 - Skill listing: keep total descriptions within
   `skillListingBudgetFraction`.
 - Pre-push hook: a tracked `.githooks/pre-push` runs the Tier-1 gate
-  (`scripts/ci/run-all.sh`) locally — advisory, bypass with
+  (`scripts/ci/run-all.sh`) locally - advisory, bypass with
   `git push --no-verify`. Enable once per clone:
   `git config core.hooksPath .githooks`.
 - Verify no skill or rule references removed scripts/log files.

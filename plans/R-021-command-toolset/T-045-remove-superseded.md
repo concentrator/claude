@@ -1,9 +1,9 @@
 task: T-045
 type: refactor
 
-# refactor/remove-superseded — drop the relocated originals (R-021)
+# refactor/remove-superseded - drop the relocated originals (R-021)
 
-T-045 of `plans/R-021-command-toolset/`. **Phase C — where the isolation
+T-045 of `plans/R-021-command-toolset/`. **Phase C - where the isolation
 takes effect.** The router now reads `skills/dev/` companions (T-044,
 validated by a full migrate run), so remove the superseded originals.
 
@@ -17,7 +17,7 @@ validated by a full migrate run), so remove the superseded originals.
 `dispatching-parallel-agents`); `skill-creator`, `writing-skills`,
 `wallarm-*`; personal rules (`git-workflow`, `js`, `skills`, `claude-md`).
 
-## Safety — scan for dangling refs BEFORE deleting
+## Safety - scan for dangling refs BEFORE deleting
 
 This is irreversible-ish (no instant fallback). Grep the **kept** files
 (CLAUDE.md, kept rules, bundled skills, `skills/dev/` router + companions,
@@ -30,4 +30,4 @@ scan gates the deletion.
 - [x] Remove the 10 relocated skill dirs from `skills/`.
 - [x] Update `DESIGN.md` tree-map: drop the deleted rules/skills; enumerate the `skills/dev/` companions (words freed by the deletions); stay ≤1000.
 - [x] Update `CLAUDE.md` if it referenced any removed item.
-- [x] Complete the branch: full gate green (references, plan-integrity, caps, stray); close review via `/code-review` (deletion — catch dangling refs, not `/simplify`); mark plan complete.
+- [x] Complete the branch: full gate green (references, plan-integrity, caps, stray); close review via `/code-review` (deletion - catch dangling refs, not `/simplify`); mark plan complete.

@@ -1,10 +1,10 @@
 # R-010 tasks
 
 Task index for this initiative. Items:
-`T-001 (R-001) [feat|fix|refactor]: description` — format and closure:
+`T-001 (R-001) [feat|fix|refactor]: description` - format and closure:
 `rules/planning.md § Levels`. Cross-R index: `plans/ROADMAP.md`.
 
-- [x] T-022 (R-010) [refactor]: Merge-friendly ledger — convert
+- [x] T-022 (R-010) [refactor]: Merge-friendly ledger - convert
       `maintenance.json` → append-only `maintenance.jsonl` (one JSONL
       line per stamp: `sha`, `reviewed`, `concerns_clear`); add
       `.gitattributes` (`maintenance.jsonl merge=union`); update
@@ -14,7 +14,7 @@ Task index for this initiative. Items:
       `DESIGN.md` tree-map + `§ Self-enforcement` note; `check-stray`
       accepts the new top-level files. Behavior preserved (still
       certifies the content tip).
-- [x] T-023 (R-010) [feat]: Auto-merge policy — document in
+- [x] T-023 (R-010) [feat]: Auto-merge policy - document in
       `git-workflow.md § Trunk` the preference order (native host
       auto-merge on a green gate where available; agent `gh`/`glab` merge
       as fallback when no branch protection; `feat`/`fix`/`refactor` PRs

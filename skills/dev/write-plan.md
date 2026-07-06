@@ -35,20 +35,20 @@ round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
 
 ## Soft cap
 
-Warn past ~20 commits, split past 30 — subordinate to the short-lived
+Warn past ~20 commits, split past 30 - subordinate to the short-lived
 governor (`branch-plan.md § Size cap`). Override requires a stated reason.
 
 ## Bulk mode (`/dev plan all`)
 
-One plan-writer subagent per open task lacking a plan (independent —
+One plan-writer subagent per open task lacking a plan (independent -
 dispatch in parallel), each following this skill. Then a single user
 review pass over all slugs + plans before delivering them (one plan MR/PR).
 
 ## Out of scope
 
-- Per-commit implementation — the execution skill (`feat`,
+- Per-commit implementation - the execution skill (`feat`,
   `fix`, `refactor`) handles iteration.
-- Initiative / task creation — separate `/dev plan` targets.
+- Initiative / task creation - separate `/dev plan` targets.
 
 See `branch-plan.md` for plan structure and execution
 rules.

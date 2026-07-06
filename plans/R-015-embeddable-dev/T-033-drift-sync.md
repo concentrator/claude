@@ -2,7 +2,7 @@ task: T-033
 type: feat
 depends-on: T-031
 
-# feat/drift-sync — drift detection + re-vendor sync (R-015)
+# feat/drift-sync - drift detection + re-vendor sync (R-015)
 
 T-033 of `plans/R-015-embeddable-dev/requirements.md` (AC6, AC7). A
 source-side drift check that reports when an embedded copy lags the
@@ -12,14 +12,14 @@ without clobbering adopter content. Builds on T-031's stamp + re-run guard.
 **Design decisions (approved):**
 - **Drift check is source-side.** `scripts/dev-drift-check.sh <project>`
   reads `<project>/.claude/.dev-toolchain.json` `source` and compares it to
-  this repo's current `git describe` — up-to-date / stale / unknown.
-- **Update replaces the managed footprint by name** — the 8 vendored
-  rules, `dev` + `dev-*` skills, the check script, the stamp — leaving
+  this repo's current `git describe` - up-to-date / stale / unknown.
+- **Update replaces the managed footprint by name** - the 8 vendored
+  rules, `dev` + `dev-*` skills, the check script, the stamp - leaving
   adopter-added rules/skills/plans untouched. The adopter's `CLAUDE.md` is
   **not overwritten**; update re-emits it only if untouched, else reports
   "backbone template changed; merge manually."
 
-All new code / script extension — no skill-edit gate.
+All new code / script extension - no skill-edit gate.
 
 - [x] `scripts/dev-drift-check.sh <project>` + test (TDD): reads the
   project's stamp `source`; reports `up-to-date` when it equals this repo's

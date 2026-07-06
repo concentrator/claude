@@ -1,14 +1,14 @@
 task: T-025
 type: feat
 
-# feat/writing-quality — global Writing rule + consolidation + Tier-2 gate (R-012)
+# feat/writing-quality - global Writing rule + consolidation + Tier-2 gate (R-012)
 
 T-025 of `plans/R-012-writing-quality/requirements.md`. One coherent
 branch: add a global `## Writing` rule to CLAUDE.md, consolidate the
 `claude-md.md`/`skills.md` anti-transplant bullets into it (no
 duplication), and add a Tier-2 review gate. Not architecture-changing.
 
-The CLAUDE.md edit is approval-gated (`rules/claude-md.md § Approval`) —
+The CLAUDE.md edit is approval-gated (`rules/claude-md.md § Approval`) -
 the executor shows the exact `## Writing` wording and gets explicit
 approval before that commit. CLAUDE.md has ~122w free (≤400); the
 principle + the one-line before/after example fit, else drop the example
@@ -19,7 +19,7 @@ principle + the one-line before/after example fit, else drop the example
       intent, not their verbatim phrasing; write in the context's
       conventional terminology; prefer established terms over coined
       jargon; applies to all output. Include a one-line before/after
-      example (the Controller case). **Approval-gated** — show the
+      example (the Controller case). **Approval-gated** - show the
       wording, get OK before committing. Verify `wc -w` ≤ 400.
 - [x] Consolidate `rules/claude-md.md § Content`: reduce the "Operative
       instructions only … never transplant conversational wording"
