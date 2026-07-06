@@ -96,9 +96,9 @@ excluded - see `.gitignore`.
 ```
 
 Project-specific skills symlinked into `skills/` from external repos
-(currently the two wallarm-* ones from `~/wallarm_pure/skills`) are not
-part of this configuration: gitignored, excluded from the map, versioned
-in their own repo.
+(the `wallarm-*` ones from `~/wallarm_pure/skills`, gitignored via
+`skills/wallarm-*`) are not part of this configuration: excluded from the
+map, versioned in their own repo.
 
 ## Planning model
 
