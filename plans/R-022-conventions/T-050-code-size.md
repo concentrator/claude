@@ -21,4 +21,6 @@ test coverage).
 - [x] `install-dev.sh`: copy `check-code-size.sh` + a template allowlist into the target `scripts/ci/`; document adopter CI wiring in the install output.
 - [x] `install-dev.test.sh`: assert the code-size check is copied into a target (+ committability).
 - [x] `DESIGN.md`: `check-code-size` + its allowlist named in the § Self-enforcement Tier-1 list (the tree-map `ci/` summary covers the script).
+- [x] Close-review hardening, tests first: fixtures for the shell-function misses (trailing comment on opener, `function name() {`, `function name {`, indented close), a no-trailing-newline file at the 300/301 boundary, and an allowlist whose last line lacks a newline — red.
+- [ ] Harden `check-code-size.sh` — green: broaden the opener (accept `function` prefix, optional `()`, trailing content) + close at the opener's indent + flag an unclosed opener at EOF (CRITICAL); count lines with `awk NR` (HIGH + LOW padding); read the allowlist with `|| [ -n "$p" ]` (MEDIUM); document the heredoc-brace residual.
 - [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
