@@ -27,8 +27,8 @@ Ask: what does the skill do? When should it trigger? Collect concrete usage exam
 ### 2. Plan
 
 Classify:
-- **Standalone** — single SKILL.md
-- **With references** — lean SKILL.md + detailed docs in `references/`
+- **Standalone** - single SKILL.md
+- **With references** - lean SKILL.md + detailed docs in `references/`
 
 ### 3. Write
 
@@ -48,7 +48,7 @@ Use the skill on a real task. Note failures or unclear steps. Fix and re-test. S
 Use `writing-skills` (the pressure-tested methodology) instead when the skill must:
 
 - Enforce discipline under pressure (TDD, verification, "no shortcuts")
-- Resist rationalization — agents will try to skip steps
+- Resist rationalization - agents will try to skip steps
 - Be pressure-tested with subagents (RED-GREEN-REFACTOR)
 - Carry companion files / heavy reference (>100 lines)
 

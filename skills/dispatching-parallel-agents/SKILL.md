@@ -8,7 +8,7 @@ tags: reference
 
 ## Overview
 
-You delegate tasks to specialized agents with isolated context. By precisely crafting their instructions and context, you ensure they stay focused and succeed at their task. They should never inherit your session's context or history — you construct exactly what they need. This also preserves your own context for coordination work.
+You delegate tasks to specialized agents with isolated context. By precisely crafting their instructions and context, you ensure they stay focused and succeed at their task. They should never inherit your session's context or history - you construct exactly what they need. This also preserves your own context for coordination work.
 
 When you have multiple unrelated failures (different test files, different subsystems, different bugs), investigating them sequentially wastes time. Each investigation is independent and can happen in parallel.
 
@@ -74,7 +74,7 @@ Task("Fix tool-approval-race-conditions.test.ts failures")
 // All three run concurrently
 ```
 
-**Choose `subagent_type` by task shape — wrong choice silently produces no edits:**
+**Choose `subagent_type` by task shape - wrong choice silently produces no edits:**
 
 | Task | subagent_type |
 |---|---|
@@ -83,7 +83,7 @@ Task("Fix tool-approval-race-conditions.test.ts failures")
 | Code review against a plan or coding standard | `code-reviewer` |
 | Other specialised types (statusline-setup, claude-code-guide) | per agent description |
 
-`Explore` returns excerpts and analysis only — it cannot Edit/Write/Bash. Dispatching it for an editing task wastes the round trip; the agent reports what *should* change, not what it changed. If the task description contains verbs like "migrate", "fix", "implement", "rewrite", "apply", "run", "commit" — pick `general-purpose`.
+`Explore` returns excerpts and analysis only - it cannot Edit/Write/Bash. Dispatching it for an editing task wastes the round trip; the agent reports what *should* change, not what it changed. If the task description contains verbs like "migrate", "fix", "implement", "rewrite", "apply", "run", "commit" - pick `general-purpose`.
 
 ### 4. Review and Integrate
 

@@ -104,11 +104,11 @@ LLMs respond to the same persuasion principles as humans. Understanding this psy
 
 ### 6. Reciprocity
 
-Avoid — feels manipulative, other principles are more effective.
+Avoid - feels manipulative, other principles are more effective.
 
 ### 7. Liking
 
-Avoid — conflicts with honest feedback culture, creates sycophancy.
+Avoid - conflicts with honest feedback culture, creates sycophancy.
 
 ## Principle Combinations by Skill Type
 

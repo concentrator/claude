@@ -27,7 +27,7 @@ Don't test:
 - Skills without rules to violate
 - Skills agents have no incentive to bypass
 
-## Common Excuses for Skipping Testing — Reject All
+## Common Excuses for Skipping Testing - Reject All
 
 | Excuse | Reality |
 |--------|---------|
