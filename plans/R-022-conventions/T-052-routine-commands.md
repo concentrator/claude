@@ -23,4 +23,4 @@ read it too, and documents the convention in a shipped companion since
 - [x] `git-workflow.md` companion: state that execution reads the declared `## Agent toolchain` host + commands (host-aware) for change-request / merge rather than probing.
 - [x] `finish.md`: consume the declared host + change-request/merge command from `## Agent toolchain` (no probing); no declared host → push + print the URL.
 - [x] `start.md`: scaffold `## Agent toolchain` in the new project CLAUDE.md; `migrate.md § 4`: backfill it when absent.
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit. (close-review MEDIUM 1 aligned; MEDIUM 2 `requirements.md` § Commands → ## Agent toolchain deferred to the R-022 close-out.)
