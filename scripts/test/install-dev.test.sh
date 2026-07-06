@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Tests scripts/install-dev.sh — installs the DEV toolset into a target
+# Tests scripts/install-dev.sh - installs the DEV toolset into a target
 # .claude. Run: bash scripts/test/install-dev.test.sh
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"

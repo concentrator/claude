@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# install-dev.sh — install the DEV toolset into a target .claude.
+# install-dev.sh - install the DEV toolset into a target .claude.
 #
 # Usage:
 #   install-dev.sh                 install into ~/.claude (global)

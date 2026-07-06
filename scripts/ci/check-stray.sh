@@ -5,7 +5,7 @@
 # scratch is exempt. The `^(├|└)── ` anchor matches first-level tree
 # nodes only (nested entries are indented), avoiding prose substring
 # false-negatives. Alternation (not a `[├└]` class) keeps the multibyte
-# match byte-robust across locales — a `[...]` class of multibyte chars
+# match byte-robust across locales - a `[...]` class of multibyte chars
 # misbehaves under a C/POSIX locale.
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"

@@ -2,7 +2,7 @@
 # Tier-1 reference freshness: fail on expired `<!-- expires: YYYY-MM-DD -->`
 # markers (strictly before today) across tracked markdown.
 # Dead *paths* are a Tier-2 AI-review concern (MAINTENANCE.md), not a
-# mechanical check — lazy dirs, skill-relative paths, and the
+# mechanical check - lazy dirs, skill-relative paths, and the
 # self-hosting `.claude/` indirection make path resolution a judgment
 # call that produces false positives in CI.
 set -euo pipefail
