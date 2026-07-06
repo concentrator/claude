@@ -23,16 +23,19 @@ Write `.claude/DESIGN.md` — architecture and design decisions.
 
 ## 3. Scaffold
 
-Files:
+Baseline files (`layout.md § Baseline files`):
 - `/init` → project `CLAUDE.md`: stack, base branch, build/test/lint;
   don't restate global rules.
 - `README.md` (verify or stub).
-- `.gitignore` — `.claude/settings.local.json`, secrets, build artifacts.
+- `.gitignore` - seed from `companions/gitignore.template` (ignores `.env`,
+  `.claude/settings.local.json`, build output); extend per stack.
+- `.env.example` (if the project uses env vars) - seed from
+  `companions/env-example.template`; keep `.env` gitignored, never commit it.
 - `.claude/plans/` with `ROADMAP.md` (per-R `tasks.md` is lazy).
 - For contributors without a global toolset, ship a project copy at
   `.claude/skills/dev/` (or have them install it into `~/.claude/skills/`).
 
-Full `.claude/` layout: `layout.md`.
+Full `.claude/` layout + baseline set: `layout.md`.
 
 Ask: **release routine?** Record `release-routine:` in `CLAUDE.md
 § Conventions`. If yes: `CHANGELOG.md`, versioning (default `vX.Y.Z`),

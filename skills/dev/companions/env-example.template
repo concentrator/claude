@@ -1,0 +1,5 @@
+# Copy to .env and fill in real values. Never commit .env.
+# One KEY=value per line; keep .env gitignored.
+
+# DATABASE_URL=
+# API_KEY=

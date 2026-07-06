@@ -1,0 +1,19 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Claude Code local
+.claude/settings.local.json
+CLAUDE.local.md
+
+# Dependencies and build output (extend per stack)
+node_modules/
+dist/
+build/
+
+# OS and editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
