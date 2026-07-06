@@ -7,7 +7,8 @@
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
 # branch-guard + secrets-guard hooks (registered in the target settings.json),
-# and the code-size check. Does NOT ship the user's personal convention rules.
+# the code-size check, and the writing conventions (@imported by CLAUDE.md).
+# Does NOT ship the user's personal convention rules.
 # Idempotent + re-runnable.
 set -euo pipefail
 
@@ -75,11 +76,17 @@ if [ ! -f "$target/scripts/ci/code-size-allow.txt" ]; then
 EOF
 fi
 
-# 5. committability: for a project install, allowlist installed paths that the
+# 5. writing conventions: ship writing.md + @import it from the target CLAUDE.md
+#    (append-only + idempotent; never clobbers an existing CLAUDE.md).
+cp "$SRC/writing.md" "$target/writing.md"
+claudemd="$target/CLAUDE.md"
+grep -qxF '@writing.md' "$claudemd" 2>/dev/null || printf '\n@writing.md\n' >> "$claudemd"
+
+# 6. committability: for a project install, allowlist installed paths that the
 # target repo's .gitignore excludes (idempotent), so they can be committed.
 if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplevel >/dev/null 2>&1; then
   repo="$(git -C "${target%/.claude}" rev-parse --show-toplevel)"; gi="$repo/.gitignore"
-  for p in ".claude/skills/" ".claude/hooks/" ".claude/scripts/" ".claude/settings.json"; do
+  for p in ".claude/skills/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/CLAUDE.md" ".claude/settings.json"; do
     git -C "$repo" check-ignore -q "${p%/}" 2>/dev/null || continue   # not ignored → skip
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"

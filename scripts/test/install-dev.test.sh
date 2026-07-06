@@ -25,6 +25,8 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -x "$P/.claude/hooks/dev-secrets-guard.sh" ]     && pass "secrets hook copied + exec" || die "no secrets hook"
 [ -x "$P/.claude/scripts/ci/check-code-size.sh" ]  && pass "code-size check copied + exec" || die "no code-size check"
 [ -f "$P/.claude/scripts/ci/code-size-allow.txt" ] && pass "code-size allowlist template" || die "no code-size allowlist"
+[ -f "$P/.claude/writing.md" ]                     && pass "writing.md copied" || die "no writing.md"
+grep -qxF '@writing.md' "$P/.claude/CLAUDE.md" 2>/dev/null && pass "writing.md imported in CLAUDE.md" || die "writing.md not imported"
 
 # --- NOT shipped: personal convention rules ---
 [ ! -e "$P/.claude/rules/git-workflow.md" ] && pass "personal rules not shipped" || die "personal rule shipped"
@@ -41,6 +43,7 @@ jq -e '.hooks.PostToolUse[0].matcher == "Skill"' "$P/.claude/settings.json" >/de
 bash "$INSTALL" --project "$P" >/dev/null 2>&1
 n=$(jq '[.hooks.PreToolUse[]? | select(any(.hooks[]?.command; test("dev-branch-guard")))] | length' "$P/.claude/settings.json")
 [ "$n" = "2" ] && pass "idempotent (2 matcher blocks, no dupes)" || die "not idempotent: $n branch-guard blocks"
+[ "$(grep -c '^@writing.md$' "$P/.claude/CLAUDE.md")" = "1" ] && pass "writing import idempotent" || die "writing import duplicated"
 
 # --- malformed settings.json → install fails loudly, file untouched ---
 Q=$(mktemp -d)
@@ -62,7 +65,7 @@ G=$(mktemp -d); git -C "$G" init -q
 printf '.claude/*\n' > "$G/.gitignore"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (gitignore fixture) exits nonzero"
 still=""
-for p in .claude/skills .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/settings.json; do
+for p in .claude/skills .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/writing.md .claude/settings.json; do
   git -C "$G" check-ignore -q "$p" && still="$still $p"
 done
 [ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"
