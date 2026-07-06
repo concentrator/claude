@@ -9,12 +9,18 @@ host + exact git/test/lint/build commands; execution reads them (host-aware
 `gh`/`glab`) instead of probing; `migrate` backfills, `start` scaffolds.
 `depends-on: T-051` — both edit `layout.md` / `start.md`; sequence.
 
-Acceptance criteria: see `requirements.md` (project CLAUDE.md § Commands
-declares host + commands; `finish` + the `git-workflow` companion read
-them, no probing; `migrate` backfills).
+Acceptance criteria: see `requirements.md` (project CLAUDE.md declares host
++ commands; `finish` + the `git-workflow` companion read them, no probing;
+`migrate` backfills).
 
-- [ ] `layout.md`: define the project CLAUDE.md § Commands convention — declared VCS host (→ `gh`/`glab`) + exact open-change-request / merge / test / lint / build commands (extend the required project CLAUDE.md sections from T-051).
-- [ ] `git-workflow.md` companion: state that execution reads the declared § Commands (host-aware) for change-request / merge operations rather than probing.
-- [ ] `finish.md`: consume the declared § Commands for the change-request + merge step (no host probing).
-- [ ] `migrate.md`: backfill § Commands when absent (CLAUDE.md-alignment step); `start.md`: scaffold § Commands in the new project CLAUDE.md.
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+**Reconciled (pre-flight):** reuse the existing `## Agent toolchain` section
+as the single declared-commands home (not a new `§ Commands`) - it already
+declares build/test/VCS commands for `/dev auto`. T-052 makes manual `finish`
+read it too, and documents the convention in a shipped companion since
+`claude-md.md` (which defines it for auto) is personal.
+
+- [x] `companions/toolchain.md`: document the `## Agent toolchain` declaration as the shipped convention - VCS host (→ `gh`/`glab`) + change-request / merge / test / lint / build commands, read by both `/dev auto` (permissions) and manual `finish`; `layout.md` baseline notes CLAUDE.md includes it.
+- [x] `git-workflow.md` companion: state that execution reads the declared `## Agent toolchain` host + commands (host-aware) for change-request / merge rather than probing.
+- [x] `finish.md`: consume the declared host + change-request/merge command from `## Agent toolchain` (no probing); no declared host → push + print the URL.
+- [x] `start.md`: scaffold `## Agent toolchain` in the new project CLAUDE.md; `migrate.md § 4`: backfill it when absent.
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit. (close-review MEDIUM 1 aligned; MEDIUM 2 `requirements.md` § Commands → ## Agent toolchain deferred to the R-022 close-out.)
