@@ -34,16 +34,22 @@ declared host → push and print the URL. Never a local merge or direct push. Me
 `discard`. Then checkout default, `git branch -D`. `T-XXX` stays `[ ]`;
 ask whether to keep the plan.
 
-## 4. Post-merge bookkeeping (on default branch)
+## 4. Post-merge bookkeeping (after the branch merges)
 
-Auto mode: step 1 runs at batch close (branch-plan.md § Batches); run
-steps 2–5 after the batch MR/PR merges.
+Do this on a close-out branch, not the default branch (the branch-guard
+refuses commits there):
 
-1. Mark `T-XXX` `[x]` in the parent R's `tasks.md`.
-2. If the R's tasks are all `[x]`, run the closure check
+1. Sync the default branch (`git checkout <default>`, `git pull`), then
+   create a close-out plan branch (`plan/t<NNN>-close`).
+2. Mark `T-XXX` `[x]` in the parent R's `tasks.md`.
+3. If the R's tasks are all `[x]`, run the closure check
    (`plan.md § Approval and closure`): verified → `R-XXX` `[x]` in
    `ROADMAP.md`; else R stays open.
-3. If `.claude/plans/release-<version>.md` lists this branch, mark `[x]`.
-4. Deliver the plan updates via a close-out plan MR/PR to origin, e.g.
-   `Close T-014` — never a direct push.
-5. Delete the merged branch (local; remote too if pushed).
+4. If `.claude/plans/release-<version>.md` lists this branch, mark `[x]`.
+5. Deliver the plan updates via the close-out plan MR/PR to origin, e.g.
+   `Close T-014` - never a direct push.
+6. Delete the merged branch (local; remote too if pushed).
+
+Auto mode marks member tasks at batch close on `batch/B-XXX`
+(branch-plan.md § Batches); steps 3–6 run as this close-out PR after the
+batch merges.
