@@ -52,7 +52,7 @@ while IFS= read -r f; do
           if ($0 ~ /\{.*\}/) next             # one-liner function (open + close on the line)
           inf = 1; start = NR
           indent = $0; sub(/[^ \t].*/, "", indent)
-          name = $0; sub(/[ \t]*\{.*/, "", name); sub(/^[ \t]+/, "", name)
+          name = $0; sub(/[ \t]*\{.*/, "", name); sub(/^[ \t]+/, "", name); sub(/^function[ \t]+/, "", name)
           next
         }
         inf && NR > start && $0 ~ ("^" indent "\\}([ \t].*)?$") { emit(NR) }
