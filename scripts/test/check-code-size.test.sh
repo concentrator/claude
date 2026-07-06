@@ -54,6 +54,10 @@ check_in "$d" && die "indented function not caught" || pass "indented function c
 d=$(mkrepo); { yes 'echo x' | head -300; printf 'echo last'; } > "$d/big.sh"; git -C "$d" add -A
 check_in "$d" && die "no-newline 301-line file not caught" || pass "no-newline file caught"; rm -rf "$d"
 
+# 11b. one-liner function with a trailing comment -> not flagged
+d=$(mkrepo); { echo 'ol() { echo hi; }  # helper'; yes 'echo x' | head -10; } > "$d/f.sh"; git -C "$d" add -A
+check_in "$d" && pass "one-liner with trailing comment not flagged" || die "one-liner mis-detected"; rm -rf "$d"
+
 # 11. allowlist whose last line has no trailing newline -> exemption still honored
 d=$(mkrepo); yes 'echo x' | head -400 > "$d/big.sh"
 printf 'big.sh' > "$d/scripts/ci/code-size-allow.txt"   # no trailing newline
