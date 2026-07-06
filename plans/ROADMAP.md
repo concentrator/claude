@@ -124,7 +124,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       Distribution rides skill precedence (personal > project) — no
       vendoring, no prefix; retires R-015 embedding and its wallarm embed.
       (approved 2026-07-03)
-- [ ] R-022: Config conventions & guardrails — adopt the non-stack
+- [x] R-022: Config conventions & guardrails — adopt the non-stack
       guardrail conventions the claude-code-mastery template embodies (the
       merge-into-CLAUDE.md premise dissolved on walk-through: no
       CLAUDE.md-level content beyond a security pointer). Four feat tasks: a
