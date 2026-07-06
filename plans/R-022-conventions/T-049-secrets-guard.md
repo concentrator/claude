@@ -24,5 +24,5 @@ open; installer ships hook + registration; test coverage).
 - [x] Close-review hardening, tests first: expand `secrets-guard.test.sh` for the bypasses/gaps (C1 `commit -am`, C2 compound `add && commit`, H1 `github_pat_`, M2 spaced assignment, L4 commit-message, missing-jq fail-open) — red.
 - [x] Harden `dev-secrets-guard.sh` — green: `-a`-aware commit scan + independent add/commit scans + scan the command string (C1/C2/L4); add `github_pat_` + widen generic separator to `{1,10}` (H1/M2); untracked add-scan limited to regular non-symlink files, size-capped (H2); path falls back to `notebook_path` (L3).
 - [x] Document accepted detection boundaries in `skills/dev/secrets.md`: override is unauthenticated (M1), arbitrary base64/high-entropy blobs and multi-line/split secrets are out of scope (M3/M4), commit-message scan is best-effort (L4).
-- [ ] Reconcile `DESIGN.md § Self-enforcement` "adopter infra is a later initiative" caveat (findings L2); clear the findings file.
+- [x] Reconcile `DESIGN.md § Self-enforcement` "adopter infra is a later initiative" caveat (findings L2); clear the findings file.
 - [ ] Complete the branch: re-review docs across commits, cleanup, mark plan complete, commit.

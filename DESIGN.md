@@ -124,8 +124,8 @@ GitHub Docs.
 
 ## Self-enforcement
 
-Two tiers gate every change into `main` (built for `~/.claude` only;
-adopter infra is a later initiative):
+Two tiers gate every change into `main` (the CI tiers are built for
+`~/.claude`; the PreToolUse hooks ship to adopters via `install-dev.sh`):
 
 - **Tier-1 — mechanical CI.** `scripts/ci/*.sh` (run by
   `.github/workflows/ci.yml` on `pull_request`, and locally by the
