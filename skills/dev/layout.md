@@ -34,6 +34,21 @@ Canonical structure for `.claude/` in a project. Other paths inside
     ├── settings.json             # Claude Code shared config
     └── settings.local.json       # Claude Code local (gitignored)
 
+## Baseline files (project root)
+
+Scaffolded at the project root, alongside `.claude/`:
+
+| File | When | Purpose |
+|---|---|---|
+| `README.md` | required | overview + how to run |
+| `CLAUDE.md` | required | stack, base branch, build/test/lint, conventions |
+| `.gitignore` | required | must ignore `.env` and `.claude/settings.local.json` |
+| `.env.example` | if the project uses env vars | placeholder vars; commit this, never `.env` |
+
+`.env` itself is never committed (kept gitignored). Stack-specific files
+(`.dockerignore`, lockfiles) are added per project, not part of the baseline.
+`start.md` scaffolds these from the seed templates in `companions/`.
+
 ## Creation policy
 
 - **Required at scaffold**: `REQUIREMENTS.md`, `DESIGN.md`, `plans/`,
