@@ -11,7 +11,7 @@ unique to this repo.
 
 The per-PR compliance gate for `~/.claude`, complementing the Tier-1
 mechanical CI checks in `scripts/ci/`. Before a PR merges, an AI
-reviewer reads the diff against the rule set and confirms four concerns:
+reviewer reads the diff against the rule set and confirms five concerns:
 
 - **Compliance** — each changed file obeys its governing rule
   (`CLAUDE.md` per `rules/claude-md.md`; `SKILL.md` per `rules/skills.md`;
@@ -22,6 +22,9 @@ reviewer reads the diff against the rule set and confirms four concerns:
 - **Reference freshness** — no dead paths; no expired time-bound
   references. Mark a time-bound reference `<!-- expires: YYYY-MM-DD -->`;
   `scripts/ci/check-references.sh` fails once the date is past.
+- **Writing** - changed prose follows `skills/dev/writing.md`: no AI-tell
+  words, no repetition. (The no-em-dash rule is Tier-1, enforced by the
+  em-dash gate.)
 
 Relationship: `rules/*` define the rules; this Tier-2 review applies
 them to a change and records its verdict in `maintenance.jsonl` (the
