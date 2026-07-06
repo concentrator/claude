@@ -45,3 +45,17 @@ line:
     example_key = "AKIA................"   # secrets-guard: allow
 
 Use it sparingly, only for content that is provably not a real credential.
+
+## Limits
+
+The hook is a pre-emptive guard, not a complete scanner. Known boundaries:
+
+- The `secrets-guard: allow` marker is unauthenticated - anyone can add it,
+  so use it only for content that is provably not a live credential.
+- Arbitrary high-entropy or base64 blobs with no recognized prefix and no
+  `secret` / `token` / `key` name are not detected; name your secret fields.
+- A secret split across an existing file and an edit's new value is not seen
+  in isolation; the git commit scan is the backstop.
+- The commit-message scan is best-effort (a substring check on the command).
+
+For defence in depth, pair this with a CI secrets scan over the full diff.
