@@ -47,7 +47,8 @@ Scaffolded at the project root, alongside `.claude/`:
 
 `.env` itself is never committed (kept gitignored). Stack-specific files
 (`.dockerignore`, lockfiles) are added per project, not part of the baseline.
-`start.md` scaffolds these from the seed templates in `companions/`.
+`start.md` scaffolds these - `.gitignore` and `.env.example` from the seed
+templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 
 ## Creation policy
 
