@@ -41,7 +41,7 @@ Scaffolded at the project root, alongside `.claude/`:
 | File | When | Purpose |
 |---|---|---|
 | `README.md` | required | overview + how to run |
-| `CLAUDE.md` | required | stack, base branch, build/test/lint, conventions |
+| `CLAUDE.md` | required | stack, base branch, `## Agent toolchain` (host + build/test/lint), conventions |
 | `.gitignore` | required | must ignore `.env` and `.claude/settings.local.json` |
 | `.env.example` | if the project uses env vars | placeholder vars; commit this, never `.env` |
 

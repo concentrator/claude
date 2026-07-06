@@ -4,6 +4,20 @@ Referenced from SKILL.md. Applies only at checkpoint **accept** —
 nothing pushes mid-batch, and the default branch is never pushed by
 the engine.
 
+## Declared commands (`## Agent toolchain`)
+
+A project's `CLAUDE.md` declares its routine commands in an `## Agent
+toolchain` section - the VCS host (→ `gh`/`glab`) and the exact
+change-request / merge / test / lint / build commands. It is the single
+source both modes read:
+
+- `/dev auto` uses it for `permissions.allow` (the pre-flight gate below).
+- Manual `finish` reads the host + change-request/merge command from it and
+  runs the declared command instead of probing the host.
+
+Declare it once. If it is absent, `finish` falls back to pushing the branch
+and printing the URL, and `migrate` backfills the section.
+
 ## Push + MR/PR
 
 ```
