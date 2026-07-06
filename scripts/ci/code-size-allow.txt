@@ -1,0 +1,5 @@
+# check-code-size.sh exemptions: one tracked path per line; text after `#` is
+# the reason. Exempts a path from both the file-size and function-size checks.
+# Keep this list short and each entry justified; prefer refactoring to adding.
+
+skills/dev/companions/scripts/server.cjs  # pre-existing mockup websocket server (354 lines); refactor tracked separately

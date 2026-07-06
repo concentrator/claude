@@ -5,10 +5,10 @@
 #   install-dev.sh                 install into ~/.claude (global)
 #   install-dev.sh --project <p>   install into <p>/.claude (project copy)
 #
-# Copies the /dev router + its companions, the bundled dependency skills,
-# and the branch-guard hook, then registers the hook in the target
-# settings.json (idempotent). Does NOT ship the user's personal convention
-# rules. Re-runnable.
+# Copies the /dev router + its companions, the bundled dependency skills, the
+# branch-guard + secrets-guard hooks (registered in the target settings.json),
+# and the code-size check. Does NOT ship the user's personal convention rules.
+# Idempotent + re-runnable.
 set -euo pipefail
 
 SRC="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "install-dev: run from a checkout of the toolset repo" >&2; exit 1; }
@@ -62,11 +62,24 @@ register_hook() {   # $1 = hook script basename
 register_hook dev-branch-guard.sh
 register_hook dev-secrets-guard.sh
 
+# 4. code-size check + a template allowlist (adopters wire it into their CI).
+#    Ship a fresh allowlist only when absent, so re-install never clobbers an
+#    adopter's own exemptions.
+mkdir -p "$target/scripts/ci"
+cp "$SRC/scripts/ci/check-code-size.sh" "$target/scripts/ci/check-code-size.sh"
+chmod +x "$target/scripts/ci/check-code-size.sh"
+if [ ! -f "$target/scripts/ci/code-size-allow.txt" ]; then
+  cat > "$target/scripts/ci/code-size-allow.txt" <<'EOF'
+# check-code-size.sh exemptions: one tracked path per line; text after `#` is
+# the reason. Exempts a path from both the file-size and function-size checks.
+EOF
+fi
+
 # 5. committability: for a project install, allowlist installed paths that the
 # target repo's .gitignore excludes (idempotent), so they can be committed.
 if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplevel >/dev/null 2>&1; then
   repo="$(git -C "${target%/.claude}" rev-parse --show-toplevel)"; gi="$repo/.gitignore"
-  for p in ".claude/skills/" ".claude/hooks/" ".claude/settings.json"; do
+  for p in ".claude/skills/" ".claude/hooks/" ".claude/scripts/" ".claude/settings.json"; do
     git -C "$repo" check-ignore -q "${p%/}" 2>/dev/null || continue   # not ignored → skip
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"
@@ -74,3 +87,4 @@ if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplev
 fi
 
 echo "install-dev: DEV toolset installed into $target ($scope)"
+echo "install-dev: code-size gate at $target/scripts/ci/check-code-size.sh (wire it into your CI)"

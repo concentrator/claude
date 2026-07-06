@@ -131,7 +131,8 @@ Two tiers gate every change into `main` (the CI tiers are built for
   `.github/workflows/ci.yml` on `pull_request`, and locally by the
   advisory `.githooks/pre-push` via `core.hooksPath`) hard-fail a PR on:
   a cap violation, a stray top-level file, a plan-integrity break, a
-  `TODO`/`FIXME`/`XXX` marker in code, an expired reference, or a
+  `TODO`/`FIXME`/`XXX` marker in code, an expired reference, an oversized
+  code file or function (`check-code-size`, with an allowlist), or a
   missing ledger stamp.
 - **Tier-2 — AI review.** `MAINTENANCE.md § Tier-2 AI review` applies the
   rule set (compliance, cross-file integrity, cleanup, reference

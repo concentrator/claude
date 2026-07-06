@@ -23,6 +23,8 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -d "$P/.claude/skills/test-driven-development" ] && pass "bundled skill copied" || die "no bundled skill"
 [ -x "$P/.claude/hooks/dev-branch-guard.sh" ]      && pass "hook copied + exec"   || die "no/again hook"
 [ -x "$P/.claude/hooks/dev-secrets-guard.sh" ]     && pass "secrets hook copied + exec" || die "no secrets hook"
+[ -x "$P/.claude/scripts/ci/check-code-size.sh" ]  && pass "code-size check copied + exec" || die "no code-size check"
+[ -f "$P/.claude/scripts/ci/code-size-allow.txt" ] && pass "code-size allowlist template" || die "no code-size allowlist"
 
 # --- NOT shipped: personal convention rules ---
 [ ! -e "$P/.claude/rules/git-workflow.md" ] && pass "personal rules not shipped" || die "personal rule shipped"
@@ -60,7 +62,7 @@ G=$(mktemp -d); git -C "$G" init -q
 printf '.claude/*\n' > "$G/.gitignore"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (gitignore fixture) exits nonzero"
 still=""
-for p in .claude/skills .claude/hooks/dev-branch-guard.sh .claude/settings.json; do
+for p in .claude/skills .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/settings.json; do
   git -C "$G" check-ignore -q "$p" && still="$still $p"
 done
 [ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"
