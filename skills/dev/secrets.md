@@ -28,7 +28,8 @@ error it allows the action rather than blocking legitimate work.
 
 - PEM private keys (`-----BEGIN ... PRIVATE KEY-----`)
 - AWS access key ids (`AKIA` followed by 16 uppercase/digit chars)
-- GitHub tokens (`ghp_` / `gho_` / `ghs_` / `ghr_` followed by 36 chars)
+- GitHub tokens (`ghp_` / `gho_` / `ghs_` / `ghr_` + 36 chars; and
+  `github_pat_` fine-grained)
 - Slack tokens (`xox[baprs]-...`)
 - Google API keys (`AIza` followed by 35 chars)
 - Generic high-entropy assignments: a `key` / `secret` / `token` /
