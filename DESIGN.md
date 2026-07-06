@@ -5,23 +5,23 @@ relate, and the invariants that keep them coherent.
 
 ## Components
 
-- **CLAUDE.md** — global operating instructions, loaded every session.
+- **CLAUDE.md** - global operating instructions, loaded every session.
   Maintenance: `rules/claude-md.md`.
-- **rules/** — personal convention rules (`git-workflow` always-on; `js`,
+- **rules/** - personal convention rules (`git-workflow` always-on; `js`,
   `skills`, `claude-md` path-scoped), loaded as memory. The DEV process
   rules now live as `skills/dev/` companions.
-- **skills/** — invocable capabilities. `skills/dev/` is the `/dev` router
+- **skills/** - invocable capabilities. `skills/dev/` is the `/dev` router
   + its inert mode-file companions (the DEV toolset); the rest are
   standalone reference skills. Authoring: `skills/skill-creator/`,
   `skills/writing-skills/`, `rules/skills.md`.
-- **commands/**, **agents/** — optional slash commands and custom agents.
-- **settings.json** — global Claude Code config. Project-scoped settings
+- **commands/**, **agents/** - optional slash commands and custom agents.
+- **settings.json** - global Claude Code config. Project-scoped settings
   for this repo: `.claude/settings.local.json`.
-- **plans/** — this environment's own planning hierarchy
+- **plans/** - this environment's own planning hierarchy
   (`skills/dev/plan.md`).
-- **MAINTENANCE.md** — sanity routine + the Tier-2 AI review
+- **MAINTENANCE.md** - sanity routine + the Tier-2 AI review
   (`## Self-enforcement`).
-- **scripts/ci/**, **.github/**, **.githooks/**, **maintenance.jsonl** —
+- **scripts/ci/**, **.github/**, **.githooks/**, **maintenance.jsonl** -
   the self-enforcement layer (`## Self-enforcement`).
 
 ## Self-hosting layout
@@ -36,7 +36,7 @@ project settings, whose location is fixed by the tool.
 
 All configuration dirs and files. Harness-managed state (`projects/`,
 `cache/`, `shell-snapshots/`, `plugins/`, logs, …) is gitignored and
-excluded — see `.gitignore`.
+excluded - see `.gitignore`.
 
 ```
 ~/.claude/
@@ -64,7 +64,7 @@ excluded — see `.gitignore`.
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
 ├── plans/                        # planning hierarchy
-│   ├── ROADMAP.md                # cross-R index — see skills/dev/plan.md
+│   ├── ROADMAP.md                # cross-R index - see skills/dev/plan.md
 │   ├── REQ-XXX.md                # four-level-era requirements (closed: history; open → R stubs on approval)
 │   └── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
 │       ├── requirements.md       # initiative requirements
@@ -103,7 +103,7 @@ in their own repo.
 ## Planning model
 
 Self-development uses the planning hierarchy per `skills/dev/plan.md`,
-unchanged — structure is never simplified, only description detail.
+unchanged - structure is never simplified, only description detail.
 
 ## Git & delivery model
 
@@ -111,10 +111,10 @@ Trunk-based development: `main` is the protected, always-releasable
 trunk; every change lands via a short-lived branch and a CI-gated PR,
 no long-lived branches (`rules/git-workflow.md`).
 
-The unit of delivery is the **batch** — one or more tasks that must land
+The unit of delivery is the **batch** - one or more tasks that must land
 together to keep `main` coherent, shipped as one PR (a lone task is a
 batch of one; coupled tasks integrate on a short-lived `batch/B-XXX`).
-Mode is orthogonal — delivery is uniform, verification differs (auto:
+Mode is orthogonal - delivery is uniform, verification differs (auto:
 agentic checkpoint; manual: human PR review). Releases tag the trunk, no
 release branch (`skills/dev/branch-plan.md § Agentic execution`).
 
@@ -128,16 +128,16 @@ GitHub Docs.
 Two tiers gate every change into `main` (the CI tiers are built for
 `~/.claude`; the PreToolUse hooks ship to adopters via `install-dev.sh`):
 
-- **Tier-1 — mechanical CI.** `scripts/ci/*.sh` (run by
+- **Tier-1 - mechanical CI.** `scripts/ci/*.sh` (run by
   `.github/workflows/ci.yml` on `pull_request`, and locally by the
   advisory `.githooks/pre-push` via `core.hooksPath`) hard-fail a PR on:
   a cap violation, a stray top-level file, a plan-integrity break, a
   `TODO`/`FIXME`/`XXX` marker in code, an expired reference, an oversized
   code file or function (`check-code-size`, with an allowlist), or a
   missing ledger stamp.
-- **Tier-2 — AI review.** `MAINTENANCE.md § Tier-2 AI review` applies the
+- **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies the
   rule set (compliance, cross-file integrity, cleanup, reference
-  freshness) to the diff and appends a stamp to `maintenance.jsonl` — an
+  freshness) to the diff and appends a stamp to `maintenance.jsonl` - an
   append-only ledger keyed by content-tip SHA (union-merged, so
   concurrent stamps don't conflict). `check-ledger.sh` (Tier-1) refuses
   any PR whose delivered tree lacks a clear stamp.

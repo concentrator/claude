@@ -7,7 +7,7 @@ approved: 2026-06-11
 ## Vision
 
 `~/.claude` is a portable, version-controlled Claude Code environment
-configuration — the skills, rules, commands, hooks, and settings the DEV
+configuration - the skills, rules, commands, hooks, and settings the DEV
 workflow runs on. It is not a product project; it is the toolset itself,
 self-managed by the same `/dev` discipline it provides, so it stays a
 working reference implementation of its own conventions.
@@ -26,8 +26,8 @@ working reference implementation of its own conventions.
 
 ## Planning discipline
 
-DEV-mode work flows through a traceable hierarchy — **initiative
-(R-XXX) → task (T-XXX) → branch plan → commits** — so every change
+DEV-mode work flows through a traceable hierarchy - **initiative
+(R-XXX) → task (T-XXX) → branch plan → commits** - so every change
 traces back to a motivating requirement. The environment must:
 
 - Keep one directory per initiative (`plans/R-XXX-<slug>/`) holding its
@@ -61,7 +61,7 @@ touching the default branch:
 - The batch close phase reviews the full batch diff on the most capable
   model, applies fixes on the batch branch, re-runs tests + lint, and
   checks docs coherence.
-- A written checkpoint report (`B-XXX.report.md` — per-branch + batch
+- A written checkpoint report (`B-XXX.report.md` - per-branch + batch
   sections, cost and defect outcomes) is mandatory; accept is invalid
   without it.
 - Accept pushes only the batch branch and opens an MR. Pushing the
@@ -83,7 +83,7 @@ Mechanics: `rules/branch-plan.md § Agentic execution`,
 
 ## Success criteria
 
-- Production-ready tools — every skill/rule/command works as documented.
+- Production-ready tools - every skill/rule/command works as documented.
 - Structure compliant with Anthropic's recommendations.
 - No dead, unused, or broken skills.
 - No logical dead-ends and no endless loops in any workflow.
