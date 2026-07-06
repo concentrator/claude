@@ -41,6 +41,7 @@ excluded — see `.gitignore`.
 ```
 ~/.claude/
 ├── CLAUDE.md                     # global instructions, every session
+├── writing.md                    # writing conventions (@imported by CLAUDE.md)
 ├── settings.json                 # global Claude Code config (tracked)
 ├── .gitignore
 ├── .gitattributes                # maintenance.jsonl merge=union (append-only ledger)

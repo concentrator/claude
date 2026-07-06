@@ -3,15 +3,23 @@ type: feat
 
 # feat/writing-conv - writing-conventions doc (R-026)
 
-T-053 of `plans/R-026-writing-conventions/`. A shipped convention doc stating
-the three writing rules: no em dashes (any tracked file, hard-enforced by the
-T-055 check), plus write-like-a-human and no-repetition (prose, Tier-2
-review). The doc describes the em-dash rule in words (never the literal
-character), so it does not trip its own gate.
+T-053 of `plans/R-026-writing-conventions/`. The writing conventions live in a
+single dedicated top-level `writing.md`, `@import`ed by CLAUDE.md so they load
+every session (not a `/dev` companion). This single-sources them: the global
+`~/.claude/CLAUDE.md` imports it (active in every project), and `install-dev.sh`
+ships the file + appends the import to an adopter's CLAUDE.md (committed,
+team-wide). Reshaped from a shipped companion after confirming `@import` is the
+idiomatic team-shared, always-loaded pattern (`CLAUDE.local.md` is gitignored /
+per-user). The doc names the em dash as `U+2014`, never the literal character,
+so it does not trip its own gate.
 
-Acceptance criteria: see `requirements.md` (a shipped convention doc states
-the three rules; AI-tells + repetition recorded as Tier-2 review criteria).
+Acceptance criteria: see `requirements.md` (a shipped, always-loaded convention
+doc states the rules; AI-tells + repetition recorded as Tier-2 criteria). The
+homing ("companion" -> "dedicated `@import`ed file") reconciles at R-026 close.
 
-- [ ] Write `skills/dev/writing.md` (shipped companion): no em dashes - use a hyphen; applies to every tracked file, code included, gate-enforced by `check-no-em-dash`. Write like a human - avoid the AI-tell words ("delve", "leverage", "seamless", "robust", "comprehensive", "streamline") and filler. No repetition - do not restate a point already made. Mark the prose rules as Tier-2 (judgment), the em-dash rule as hard. Refer to the em dash by name / `U+2014`, never the literal character.
-- [ ] Wire the prose clauses into `MAINTENANCE.md § Tier-2` review criteria (AI-tell words + no-repetition on changed prose).
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] Move the writing conventions into a dedicated top-level `writing.md`, merging the existing `CLAUDE.md § Writing` content in: convey-intent/terminology, no em dashes (all files, hard), write-like-a-human, no repetition. Not a `/dev` companion; remove `skills/dev/writing.md`.
+- [x] `CLAUDE.md § Writing` -> `@writing.md` (single source, always-loaded; drops the inline duplication).
+- [x] `MAINTENANCE.md § Tier-2` Writing concern references `writing.md`.
+- [x] `DESIGN.md` tree-map: add top-level `writing.md` (also satisfies check-stray).
+- [x] `install-dev.sh`: ship `writing.md` into the target and append its `@import` to the target CLAUDE.md, idempotent + no clobber; `install-dev.test.sh` covers it (copied + import present, idempotent).
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
