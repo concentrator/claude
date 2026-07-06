@@ -21,9 +21,11 @@ MR/PR opens only on explicit choice — never automatically.
 
 ## 3. Execute
 
-**Push + MR/PR** — `git push -u origin <branch>`, open a CI-gated MR/PR
-to origin (`glab`/`gh`: summary + test plan); no host CLI → push and
-print the URL. Never a local merge or direct push. Merge per
+**Push + MR/PR** — `git push -u origin <branch>`, then open a CI-gated
+MR/PR to origin using the host + change-request command declared in
+CLAUDE.md `## Agent toolchain` (`companions/toolchain.md`), e.g. `gh pr
+create` / `glab mr create` (summary + test plan); no declared host → push
+and print the URL. Never a local merge or direct push. Merge per
 `git-workflow.md § Trunk`. `T-XXX` stays `[ ]` until merge; run §4 then.
 
 **Keep** — report branch name. Nothing closes.
