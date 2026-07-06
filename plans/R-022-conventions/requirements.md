@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-05
 kind: feat
+status: done 2026-07-07
 ---
 
 # R-022: Config conventions & guardrails
@@ -71,7 +72,7 @@ routine commands explicitly.
   paths; runs in `run-all.sh` + the pre-push mirror.
 - **Scaffolding** — `/dev start` creates the required baseline files (per
   `layout.md`); `layout.md` names the required set.
-- **Routine-commands** — a project's CLAUDE.md § Commands declares the VCS
+- **Routine-commands** — a project's CLAUDE.md `## Agent toolchain` declares the VCS
   host (→ `gh`/`glab`) and the exact open-change-request / merge / test /
   lint / build commands; `finish` and the `git-workflow` companion use those
   declared commands rather than probing; `start`/`migrate` scaffold or
@@ -82,33 +83,52 @@ routine commands explicitly.
 
 ## Acceptance criteria
 
-- [ ] Secrets convention doc exists and ships with the toolset (never-commit
+- [x] Secrets convention doc exists and ships with the toolset (never-commit
   rule, gitignored-`.env` workflow, `.env.example`, override handling).
-- [ ] The secrets hook denies a `Write`/`Edit` introducing a secret-pattern
+  *`skills/dev/secrets.md` (companion, installer-copied) covers all four (T-049).*
+- [x] The secrets hook denies a `Write`/`Edit` introducing a secret-pattern
   string into a tracked path and denies `git add`/`git commit` on matching
   staged content; it permits a local gitignored `.env` and clean content;
-  it fails open on error. *(verified: planted fake key blocked on write +
-  on commit; a gitignored `.env` and a normal edit pass.)*
-- [ ] The code-size check hard-fails on a file > 300 lines or a function >
+  it fails open on error.
+  *`hooks/dev-secrets-guard.sh`; `secrets-guard.test.sh` (15 assertions) +
+  live demo confirm write/commit/`-am`/compound-add denials, `.env` + clean
+  allows, fail-open on missing jq / malformed (T-049).*
+- [x] The code-size check hard-fails on a file > 300 lines or a function >
   50 lines and passes within limits; a documented override exempts a named
-  path; it runs in `run-all.sh` + pre-push. *(verified: oversized fixture
-  fails; allowlisted path passes.)*
-- [ ] `/dev start` scaffolds the required baseline files per `layout.md`,
+  path; it runs in `run-all.sh` + pre-push.
+  *`scripts/ci/check-code-size.sh` + `code-size-allow.txt`;
+  `check-code-size.test.sh` (12 assertions) + live demo; wired into
+  `run-all.sh`, pre-push inherits (T-050).*
+- [x] `/dev start` scaffolds the required baseline files per `layout.md`,
   and `layout.md` names the required set.
-- [ ] A project's CLAUDE.md § Commands declares host + git/test/lint/build
-  commands; `finish` + the `git-workflow` companion read them (host-aware
-  `gh`/`glab`) rather than probing; `migrate` backfills the section when
-  absent. *(verified: a project with a declared § Commands drives finish's
-  change-request/merge without probing.)*
-- [ ] `install-dev.sh` installs the secrets hook (settings.json-registered)
+  *`layout.md § Baseline files` + `start.md § 3` + `companions/gitignore`/
+  `env-example` seed templates (T-051).*
+- [x] A project's CLAUDE.md `## Agent toolchain` section declares host +
+  git/test/lint/build commands; `finish` + the `git-workflow` companion
+  read them (host-aware `gh`/`glab`) rather than probing; `migrate`
+  backfills the section when absent.
+  *Reconciled from a new `§ Commands` to the existing `## Agent toolchain`
+  (one declaration, no fork): `companions/toolchain.md` defines it;
+  `finish.md § 3` runs the declared change-request command; `git-workflow.md`
+  states read-not-probe; `start.md` scaffolds, `migrate.md § 4` backfills
+  (T-052).*
+- [x] `install-dev.sh` installs the secrets hook (settings.json-registered)
   + the code-size check into a target `.claude/`; `install-dev.test.sh`
   covers both.
-- [ ] `CLAUDE.md` gains at most a one-line security pointer and stays within
+  *`register_hook dev-secrets-guard` + code-size copy + template allowlist;
+  `install-dev.test.sh` asserts both copied/registered + committability
+  (T-049/T-050).*
+- [x] `CLAUDE.md` gains at most a one-line security pointer and stays within
   cap (≤200 lines / ≤400 words).
-- [ ] Full Tier-1 gate green (incl. the code-size check) + Tier-2 ledger
+  *Pointer skipped by decision (the hook enforces + `secrets.md` documents);
+  `CLAUDE.md` unchanged at 357w / 62L.*
+- [x] Full Tier-1 gate green (incl. the code-size check) + Tier-2 ledger
   stamp; existing checks unaffected.
-- [ ] The mastery walk-through decision record (Appendix) is present — every
+  *`run-all.sh` green throughout (caps, code-size, stray, plan-integrity,
+  todos, references, ledger); every task branch stamped.*
+- [x] The mastery walk-through decision record (Appendix) is present — every
   template section is incorporated, redistributed, or dropped-with-reason.
+  *See the Appendix table (7 sections).*
 
 ## Constraints
 
@@ -129,7 +149,7 @@ routine commands explicitly.
 - Secret-pattern set + entropy threshold / false-positive rate — tune in
   detail.
 - Routine-commands: how much of `pr.md`'s explicit git flow to fold into
-  `finish` vs leave to the declared § Commands — settle in detail.
+  `finish` vs leave to the declared `## Agent toolchain` — settle in detail.
 
 ## References
 
