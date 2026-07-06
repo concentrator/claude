@@ -34,9 +34,8 @@ stats-cache.json
 # Plugins (marketplace-managed)
 plugins/
 
-# Project-specific skills, symlinked from external repos
-skills/wallarm-api-tf-rules
-skills/wallarm-tf-usage
+# Project-specific skills, symlinked from external repos (versioned there)
+skills/wallarm-*
 
 # OS
 .DS_Store
