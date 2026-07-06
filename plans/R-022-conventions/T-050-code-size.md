@@ -18,7 +18,7 @@ test coverage).
 - [x] Implement `scripts/ci/check-code-size.sh`: count lines per tracked file (>300); heuristic function length (>50) for shell (reliable; js/other are file-size only, documented); read an override allowlist (`scripts/ci/code-size-allow.txt`); report + fail. (green)
 - [x] Wire into `scripts/ci/run-all.sh` (the `.githooks/pre-push` mirror inherits it).
 - [x] Seed `scripts/ci/code-size-allow.txt` with existing offenders (audited) so `main` stays green — branch-by-abstraction; each entry carries a reason.
-- [ ] `install-dev.sh`: copy `check-code-size.sh` (+ allowlist seed) into the target `scripts/ci/`; document adopter CI wiring in the install output / README.
-- [ ] `install-dev.test.sh`: assert the code-size check is copied into a target.
+- [x] `install-dev.sh`: copy `check-code-size.sh` + a template allowlist into the target `scripts/ci/`; document adopter CI wiring in the install output.
+- [x] `install-dev.test.sh`: assert the code-size check is copied into a target (+ committability).
 - [ ] `DESIGN.md`: add `check-code-size.sh` to the tree-map + the § Self-enforcement Tier-1 list.
 - [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
