@@ -13,9 +13,9 @@ clears the tree for the T-055 gate.
 Acceptance criteria: see `requirements.md` (no em dash remains in any tracked
 file: 1043 to 0).
 
-- [ ] Sweep `rules/`, `CLAUDE.md`, and top-level docs (`REQUIREMENTS.md`, `DESIGN.md`, `README.md`, `MAINTENANCE.md`) - `sed` replacing `U+2014` with `-` on each tracked file in scope; verify caps still pass (word counts unchanged).
-- [ ] Sweep `skills/dev/` (SKILL.md + companions).
-- [ ] Sweep the other `skills/` (writing-skills, test-driven-development, systematic-debugging, verification-before-completion, receiving-code-review, dispatching-parallel-agents).
-- [ ] Sweep `plans/` (ROADMAP + every `R-XXX-<slug>/`).
-- [ ] Sweep `scripts/` + `hooks/` (em dashes in code comments).
-- [ ] Verify zero em dashes remain (`git grep -l` for `U+2014` returns nothing); spot-check tables and code fences survived; mark plan complete, commit.
+- [x] Sweep `rules/`, `CLAUDE.md`, and top-level docs (`REQUIREMENTS.md`, `DESIGN.md`, `README.md`, `MAINTENANCE.md`) - `perl -CSD` replacing `U+2014` with `-` on each tracked file in scope; caps still pass (word counts unchanged).
+- [x] Sweep `skills/dev/` (SKILL.md + companions).
+- [x] Sweep the other `skills/` (writing-skills, test-driven-development, systematic-debugging, verification-before-completion, receiving-code-review, dispatching-parallel-agents).
+- [x] Sweep `plans/` (ROADMAP + every `R-XXX-<slug>/`).
+- [x] Sweep `scripts/` + `hooks/` (em dashes in code comments).
+- [x] Verify zero em dashes remain (`git grep` for `U+2014` returns nothing); `agents/` straggler caught + swept here; tables and arrows (`→`) survived; mark plan complete, commit.
