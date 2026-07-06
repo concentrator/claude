@@ -6,7 +6,7 @@ status: superseded 2026-07-07
 
 # R-008: Wallarm reference skill
 
-> Superseded 2026-07-07 — never shaped or approved. The Wallarm reference
+> Superseded 2026-07-07 - never shaped or approved. The Wallarm reference
 > skills live in their own `skills/` repo (`~/wallarm_pure/skills`), so a
 > consolidated global `~/.claude/skills/wallarm/` is not pursued.
 
@@ -23,7 +23,7 @@ without paying for the whole thing in context.
 - A single global reference skill `~/.claude/skills/wallarm/` as the one
   source of truth: a thin `SKILL.md` index/router + companion files per
   domain part (`hits.md`, `sessions.md`, `rules.md`, …).
-- **On-demand, lazy loading** — only the `SKILL.md` description sits in
+- **On-demand, lazy loading** - only the `SKILL.md` description sits in
   context; the model reads the relevant companion per task, so a project
   pulls only the part it needs (low context cost, R-005 ethos).
 - Global placement → automatically shared across all local Wallarm
@@ -38,7 +38,7 @@ without paying for the whole thing in context.
 
 ## Non-goals
 
-- Cross-machine / teammate distribution (plugin + marketplace) — defer
+- Cross-machine / teammate distribution (plugin + marketplace) - defer
   unless a non-local consumer appears.
 - Runtime tooling; this is reference + conventions only.
 
@@ -77,7 +77,7 @@ and routes to the parts.
 
 ## Open questions
 
-- Which parts/domains to seed first (hits, sessions, rules — others?).
+- Which parts/domains to seed first (hits, sessions, rules - others?).
 - Exact migration of the two existing TF skills (merge vs deprecate +
   redirect).
 - Plugin packaging if/when a non-local consumer appears.

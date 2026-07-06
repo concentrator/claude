@@ -9,7 +9,7 @@ that the router reads on demand. No command file; no top-level `dev/`.
 
 ## Skills (25)
 
-**→ skill router** (`skills/dev/SKILL.md` — unchanged entry, slimmed to a router)
+**→ skill router** (`skills/dev/SKILL.md` - unchanged entry, slimmed to a router)
 - `dev`
 
 **→ `skills/dev/` companion mode files** (relocated; short names below)
@@ -35,7 +35,7 @@ that the router reads on demand. No command file; no top-level `dev/`.
   `changelog`
 
 **→ hybrid**
-- `git-workflow` — stays a personal global rule **and** ships as
+- `git-workflow` - stays a personal global rule **and** ships as
   `skills/dev/git-workflow.md` + the branch-guard hook.
 
 **→ stay global-only**
@@ -60,7 +60,7 @@ Companions travel with their mode file (`auto.md` ← verification-policy +
 prompt templates; `migrate.md` ← legacy-migration, tbd-migration), under
 `skills/dev/companions/`. The bundled skills keep their own companions.
 
-## Distribution (skill precedence — no vendoring, no prefix)
+## Distribution (skill precedence - no vendoring, no prefix)
 
 Skill resolution (personal `~/.claude/skills/` > project `.claude/skills/`)
 gives the desired behavior natively:
@@ -71,7 +71,7 @@ gives the desired behavior natively:
 
 ## Cleanup
 
-- **`migrate.md` / `start.md`** — remove all embed/vendor instructions
+- **`migrate.md` / `start.md`** - remove all embed/vendor instructions
   (the `vendor-toolchain.sh` reference and the R-015 embed opt-in) and
   replace with the new model: install into `~/.claude/skills/` or ship
   `.claude/skills/dev/` in the project.

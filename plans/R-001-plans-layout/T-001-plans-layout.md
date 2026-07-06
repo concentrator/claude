@@ -2,12 +2,12 @@ task: T-001
 type: refactor
 architecture-changing: true
 
-# refactor/plans-layout — define the new planning layout (REQ-002)
+# refactor/plans-layout - define the new planning layout (REQ-002)
 
 Normative definition only: rules + skills describe the new layout.
 File migrations are T-002 (this repo) and T-003 (wallarm-api-js).
 
-- [x] planning.md: new Where-things-live table + naming conventions —
+- [x] planning.md: new Where-things-live table + naming conventions -
       `roadmap.md`/`tasks.md` at `.claude/` root; `plans/R-XXX-<slug>/`
       dirs (created lazily by writing-plans on first child plan; slug
       fixed at creation, no rename on roadmap rewording);
@@ -26,7 +26,7 @@ File migrations are T-002 (this repo) and T-003 (wallarm-api-js).
       paths in pre-flight and per-branch flow.
 - [x] finishing-a-branch, release, brainstorming skills: path updates
       (REQ stays `plans/REQ-XXX.md`, release plans stay `plans/`);
-      brainstorming needed no change — REQ path unchanged.
+      brainstorming needed no change - REQ path unchanged.
 - [x] starting-a-project + migrating-to-dev skills: scaffold and
       adoption produce the new layout (incl. indexes at `.claude/` root).
 - [x] design.md (§ Self-hosting layout + tree-map) and maintenance.md

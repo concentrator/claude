@@ -1,13 +1,13 @@
 task: T-041
 type: refactor
 
-# refactor/relocate-subskills — DEV sub-skills → skills/dev/ companions (R-021)
+# refactor/relocate-subskills - DEV sub-skills → skills/dev/ companions (R-021)
 
 T-041 of `plans/R-021-command-toolset/`, per `manifest.md`. Copy the 7 DEV
 sub-skills into `skills/dev/` as inert companion mode files (short names;
 SKILL frontmatter stripped), carrying their companions to
 `skills/dev/companions/`. Originals stay in `skills/` until cut-over/removal
-(T-044/T-045); **dormant** — the router doesn't read them yet, so `/dev` is
+(T-044/T-045); **dormant** - the router doesn't read them yet, so `/dev` is
 unchanged.
 
 ## Notes
@@ -24,11 +24,11 @@ unchanged.
 - **Gate:** companions sit under `skills/dev/` and aren't `SKILL.md`, so
   caps/stray don't flag them (mode-file caps arrive in T-043).
 
-- [x] `skills/dev/feat.md` from `adding-a-feature` — rewire refs.
-- [x] `skills/dev/fix.md` from `fixing-a-bug` — rewire refs.
-- [x] `skills/dev/refactor.md` from `doing-a-refactor` — rewire refs.
+- [x] `skills/dev/feat.md` from `adding-a-feature` - rewire refs.
+- [x] `skills/dev/fix.md` from `fixing-a-bug` - rewire refs.
+- [x] `skills/dev/refactor.md` from `doing-a-refactor` - rewire refs.
 - [x] `skills/dev/write-plan.md` from `writing-plans` (+ `plan-document-reviewer-prompt` → `skills/dev/companions/`).
-- [x] `skills/dev/finish.md` from `finishing-a-branch` — rewire refs.
-- [x] `skills/dev/release.md` from `release` — rewire refs.
+- [x] `skills/dev/finish.md` from `finishing-a-branch` - rewire refs.
+- [x] `skills/dev/release.md` from `release` - rewire refs.
 - [x] `skills/dev/auto.md` from `delegating-to-agents` (+ companions: implementer-prompt, spec-reviewer-prompt, verification-policy, report-template, toolchain, auto-permissions.template.json → `skills/dev/companions/`).
 - [x] Complete the branch: re-review cross-refs, mark plan complete, commit.

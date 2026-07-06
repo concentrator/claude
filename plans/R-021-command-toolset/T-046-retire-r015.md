@@ -1,7 +1,7 @@
 task: T-046
 type: refactor
 
-# refactor/retire-r015 — remove the embedding machinery (R-021)
+# refactor/retire-r015 - remove the embedding machinery (R-021)
 
 T-046 of `plans/R-021-command-toolset/`. **Phase D.** R-021's skill-router
 + install model replaces R-015 embedding, so retire the vendor/embed/drift
@@ -14,7 +14,7 @@ marked `[x]`). The wallarm-repo unwind is a linked MR in that repo.
   `check-plan-integrity.sh` (revert to self-hosting `.`; CI never ran the
   vendor tests, so no gate impact).
 - [x] Remove the `DESIGN.md § Embeddable toolchain (R-015)` section.
-- [x] ROADMAP: mark **R-015 `[x]`** (superseded by R-021); reconcile —
+- [x] ROADMAP: mark **R-015 `[x]`** (superseded by R-021); reconcile -
   **R-019** mooted (no vendoring), **R-020** partially absorbed
   (`finishing-a-branch`→`finish` companion done; verify-gate → R-024),
   **R-018** remains open (git-workflow bootstrap-rule cleanup + `start`

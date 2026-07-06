@@ -4,22 +4,22 @@ kind: feat
 status: done 2026-06-20
 ---
 
-# R-011: Delivery cadence — coherent units, not atomic MRs
+# R-011: Delivery cadence - coherent units, not atomic MRs
 
 ## Motivation
 
-Branches/MRs are being created and merged per atomic edit — the
+Branches/MRs are being created and merged per atomic edit - the
 wallarm-api-js TBD migration delivered three one-change MRs (source-spec
 move, toolchain note, MAINTENANCE seed) that were really one coherent
 unit. The rules imply coherence ("coherent delivery", "batch = unit of
 delivery", "small batches") but state no delivery *cadence*, so the agent
-delivers reflexively — noisy, over-atomic history and premature merges.
+delivers reflexively - noisy, over-atomic history and premature merges.
 
 ## Goals
 
 - One branch = one coherent unit of work (topic/session), never one
   atomic edit; no MR-per-change.
-- VIBE cadence: apply changes, then wait — no reflexive branch→MR→merge;
+- VIBE cadence: apply changes, then wait - no reflexive branch→MR→merge;
   deliver at a work boundary, confirming the merge first.
 - Topic-switch detection: an edit unrelated to the current branch's topic
   → the agent flags it and asks whether to deliver the current branch
@@ -43,7 +43,7 @@ delivers reflexively — noisy, over-atomic history and premature merges.
   up"), the agent asks "merge the current branch first?" and delivers on
   confirmation.
 - **Unrelated edit mid-branch:** agent flags "this is unrelated to
-  <current topic> — merge the current branch first, then start fresh?"
+  <current topic> - merge the current branch first, then start fresh?"
 - **DEV:** delivery unchanged; the principle reinforces that a branch
   carries its task/batch, not stray edits.
 
@@ -67,7 +67,7 @@ delivers reflexively — noisy, over-atomic history and premature merges.
 
 ## Open questions
 
-- VIBE cadence text home — `CLAUDE.md § Session Workflow` vs
+- VIBE cadence text home - `CLAUDE.md § Session Workflow` vs
   `git-workflow.md` (lean git-workflow + a CLAUDE pointer if needed)?
 
 ## References

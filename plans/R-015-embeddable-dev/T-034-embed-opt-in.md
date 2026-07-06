@@ -2,7 +2,7 @@ task: T-034
 type: feat
 depends-on: T-031
 
-# feat/embed-opt-in — wire embedding into scaffold/adoption (R-015)
+# feat/embed-opt-in - wire embedding into scaffold/adoption (R-015)
 
 T-034 of `plans/R-015-embeddable-dev/requirements.md` (AC8). Offer the
 "embed a self-contained DEV toolchain" opt-in from `starting-a-project`
@@ -15,9 +15,9 @@ detail already lives in `README.md § Embedding` + the manifest, so the
 skill additions stay to ~15 words each.
 
 **Trim approach (both skills sit at the 300-word cap).** Make room by
-**pruning genuinely redundant statements** — each candidate cut tested
+**pruning genuinely redundant statements** - each candidate cut tested
 against the three gates (`MAINTENANCE.md § Prune dead prose`: accurate?
-valuable in any real scenario? would behavior change if removed?) — not
+valuable in any real scenario? would behavior change if removed?) - not
 mechanical word-chopping. Propose the prunes with the opt-in at code time
 (skills gate).
 

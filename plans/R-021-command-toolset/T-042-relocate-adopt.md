@@ -1,11 +1,11 @@
 task: T-042
 type: refactor
 
-# refactor/relocate-adopt — brainstorm + adoption skills → skills/dev/ (R-021)
+# refactor/relocate-adopt - brainstorm + adoption skills → skills/dev/ (R-021)
 
 T-042 of `plans/R-021-command-toolset/`, per `manifest.md`. Copy
-`brainstorming` + the adoption skills into `skills/dev/` companions, and —
-uniquely for this task — **strip the embed/vendor instructions** from
+`brainstorming` + the adoption skills into `skills/dev/` companions, and -
+uniquely for this task - **strip the embed/vendor instructions** from
 migrate/start and **inline the CLAUDE.md-rules slice** into migrate.
 Originals stay until cut-over/removal (T-044/T-045); **dormant**.
 
@@ -13,7 +13,7 @@ Originals stay until cut-over/removal (T-044/T-045); **dormant**.
 
 - `brainstorm.md` is a **verbatim** relocation (fidelity-checkable).
   `migrate.md` and `start.md` are relocations **with edits** (embed removal
-  + inline), so they won't be byte-identical to their sources — verify by
+  + inline), so they won't be byte-identical to their sources - verify by
   reading, not just diffing.
 - Ref rewiring per `manifest.md`: rule refs → the T-040 companions;
   sub-skill refs → short names; bundled-skill refs stay as skill refs;

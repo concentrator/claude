@@ -1,7 +1,7 @@
 task: T-044
 type: refactor
 
-# refactor/cut-over — /dev router reads skills/dev/ companions (R-021)
+# refactor/cut-over - /dev router reads skills/dev/ companions (R-021)
 
 T-044 of `plans/R-021-command-toolset/`. **Phase B.** Rewire the `dev`
 skill (`skills/dev/SKILL.md`) from dispatching to standalone skills +
@@ -17,13 +17,13 @@ is one revert away.
   siblings in `skills/dev/`.
 - **Verification splits:** pre-merge = router-logic review (every flow
   mapped to a companion, refs consistent) + close review; the **runtime
-  dogfood is post-merge in a fresh session** — the rewritten skill loads
+  dogfood is post-merge in a fresh session** - the rewritten skill loads
   on the next `/dev` invocation. Revert if any flow misbehaves.
 
 - [x] Rewrite `skills/dev/SKILL.md` into the companion-reading router (per
   the approved command→companion map); remove the `<!-- dev-embed-aware -->`
   block. Keep ≤400 words.
-- [x] Fix deferred cross-refs across `skills/dev/*.md` — rewire remaining
+- [x] Fix deferred cross-refs across `skills/dev/*.md` - rewire remaining
   old skill names (`finishing-a-branch`→`finish`,
   `delegating-to-agents`→`auto`, and any others) and strip residual
   `~/.claude/rules|skills/` prefixes; grep-verify no stale refs remain.

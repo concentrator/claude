@@ -13,7 +13,7 @@ serve a contributor without a global config, R-015 built **embedding**:
 vendor the portable core into a project's `.claude/`, path-rewrite,
 `dev-*`-namespace the skills, version-stamp, detect drift. That machinery
 exists only to work around not being globally installable and carries real
-cost — the namespace/precedence question, gitignore surgery, adopter-file
+cost - the namespace/precedence question, gitignore surgery, adopter-file
 clobbering (R-019), drift-vs-embed upkeep. Separately, the path-scoped DEV
 rules fire in *any* project with matching paths, so a global install would
 leak the workflow into a contributor's unrelated work.
@@ -24,7 +24,7 @@ leak the workflow into a contributor's unrelated work.
   `/dev` entry, slimmed to a router that reads inert **companion mode
   files** in `skills/dev/` on demand. No command file. (Verified: a skill
   wins over a same-named command, and commands are being folded into
-  skills — so the entry must be a skill.)
+  skills - so the entry must be a skill.)
 - **DEV process rules + sub-skills become inert `skills/dev/` companions.**
   They fire only when the `dev` skill reads them, so a global install can't
   pollute other projects.
@@ -48,7 +48,7 @@ moves before it is approved.
 
 ## Invariants (must NOT change)
 
-- **The `/dev` surface and behavior** — same commands (`plan`/`code`/
+- **The `/dev` surface and behavior** - same commands (`plan`/`code`/
   `auto`/`release`), same flows, same planning artifacts (R→T→branch) and
   `plans/` layout. `/dev` stays a skill.
 - **Two-round planning + the single approval gate + traceability.**
@@ -84,7 +84,7 @@ moves before it is approved.
 
 - [x] `/dev` runs via the `dev` skill router, which reads `skills/dev/`
   companion mode files; every current flow (plan shape/detail, code
-  feat/fix/refactor, auto, release, migrate, start) works through it —
+  feat/fix/refactor, auto, release, migrate, start) works through it -
   dogfood a full cycle on this repo.
   *SKILL.md router reads companions on demand; R-021's own planning and
   execution (T-039–T-048) ran through `/dev plan`/`/dev code`, and a
@@ -103,8 +103,8 @@ moves before it is approved.
   the toolset into an empty `CLAUDE_CONFIG_DIR` lets `/dev` run from
   `skills/dev/` + the bundled skills alone, with no `~/.claude` leakage.
   *No-global `/dev migrate` in `/tmp/r021-verify` (outside `~`, project copy
-  only) ran the full flow — router → `migrate.md` → nested
-  `companions/tbd-migration.md` — reading only project `skills/dev/`; zero
+  only) ran the full flow - router → `migrate.md` → nested
+  `companions/tbd-migration.md` - reading only project `skills/dev/`; zero
   `~/.claude` paths in loaded files.*
 - [x] The `migrate`/`start` companions carry **no** embed/vendor
   instructions; they describe the install / `.claude/skills/dev/` model.
@@ -128,7 +128,7 @@ moves before it is approved.
   contributor (verified with a divergent test file).
   *Both configs exercised this session: global-absent (`/tmp/r021-verify`
   loaded the project `.claude/skills/dev/`) and global-present (every
-  non-isolated `/dev` loaded `~/.claude/skills/dev/`) — the personal >
+  non-isolated `/dev` loaded `~/.claude/skills/dev/`) - the personal >
   project skill precedence Claude Code documents (confirmed via
   claude-code-guide).*
 - [x] R-015 machinery removed (vendor/embed/drift scripts + tests +
@@ -148,7 +148,7 @@ moves before it is approved.
 
 ## Constraints
 
-- **Self-hosting** — changes the workflow the repo runs on itself:
+- **Self-hosting** - changes the workflow the repo runs on itself:
   branch-by-abstraction (copy into `skills/dev/`, rewire the router, then
   remove originals), `main` releasable throughout, `/dev` keeps working
   until cut-over (precedent: R-003, R-014, R-016).
@@ -160,7 +160,7 @@ moves before it is approved.
 - git-workflow duplication (personal rule vs `skills/dev/` companion): keep
   both, or drop the always-on rule and rely on hook + companion for VIBE
   too? Default keep both.
-- Companion granularity/naming — settle per task.
+- Companion granularity/naming - settle per task.
 - Installer hook-registration idempotency across an existing
   `settings.json`.
 
@@ -169,6 +169,6 @@ moves before it is approved.
 - **Supersedes R-015** (embeddable-dev). Absorbs part of **R-020**
   (`finishing-a-branch` → companion; restore the verify gate). Moots
   **R-019** (vendor clobber). Relates **R-018** (bootstrap exception).
-- Reference model: MDD (github.com/TheDecipherist/mdd) — router + lazy mode
+- Reference model: MDD (github.com/TheDecipherist/mdd) - router + lazy mode
   files + branch-guard hook. Entry realized as a **skill** (not a command)
   per Claude Code precedence (skill wins over same-named command).

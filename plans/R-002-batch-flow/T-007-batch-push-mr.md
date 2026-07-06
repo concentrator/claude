@@ -2,7 +2,7 @@ task: T-007
 type: feat
 depends-on: T-006
 
-# feat/batch-push-mr — push + MR at checkpoint accept (REQ-003)
+# feat/batch-push-mr - push + MR at checkpoint accept (REQ-003)
 
 - [x] SKILL.md checkpoint Accept: push `batch/B-XXX` to origin + create
       the MR via `glab`/`gh` (description sourced from
@@ -13,11 +13,11 @@ depends-on: T-006
       checkpoint falls back to push + manual MR instruction, never a
       silent skip.
 - [x] `skills/delegating-to-agents/toolchain.md` (companion): deny-rule
-      carve-out guidance — deny beats allow, so adopters either narrow
+      carve-out guidance - deny beats allow, so adopters either narrow
       the deny and allow `Bash(git push origin batch/*)`, or keep the
       deny and approve the single checkpoint push manually; example
       `settings.local.json` snippets. (The JSON template cannot carry
-      comments — guidance lives here.)
+      comments - guidance lives here.)
 - [x] CLAUDE.md `## Agent toolchain` paragraph: reference the VCS-CLI
       requirement and the carve-out guidance.
 - [x] Complete the branch: re-review docs across all commits, cleanup,

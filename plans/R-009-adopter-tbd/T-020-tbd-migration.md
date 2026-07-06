@@ -1,19 +1,19 @@
 task: T-020
 type: feat
 
-# feat/tbd-migration — already-DEV TBD-migration mode for migrating-to-dev (R-009)
+# feat/tbd-migration - already-DEV TBD-migration mode for migrating-to-dev (R-009)
 
 T-020 of `plans/R-009-adopter-tbd/requirements.md`. Adds an "already-DEV,
 pre-TBD" migration mode to `migrating-to-dev`: detect (`.claude/plans/ROADMAP.md`
 present) and route; the migration path produces a TBD-migration report over
 delivery / structure / close-release, with detail in a companion file
-(SKILL.md is near its 300w cap). Advisory throughout — the skill plans and
+(SKILL.md is near its 300w cap). Advisory throughout - the skill plans and
 reports; the user executes all irreversible/host steps; no `main` history
 rewrite. Fresh-mode behavior is unchanged.
 
 Settled decisions: already-DEV signal = `.claude/plans/ROADMAP.md` present;
 non-canonical files → propose `references/` + allow a recorded exception.
-Not architecture-changing — the `DESIGN.md` tree-map entry for the new
+Not architecture-changing - the `DESIGN.md` tree-map entry for the new
 companion is routine bookkeeping, folded into the final commit (per the
 `/dev plan all` review).
 
@@ -32,7 +32,7 @@ companion is routine bookkeeping, folded into the final commit (per the
       expected files (`MAINTENANCE.md`) and strays; propose moves (advisory).
 - [x] Add the **Close/release** area to the companion: closes ride PRs;
       convert the release flow to tag-on-trunk (ref `git-workflow.md
-      § Releases — tag-on-trunk`); flag fork-release leftovers; archive
+      § Releases - tag-on-trunk`); flag fork-release leftovers; archive
       superseded release plans (`planning.md § Archival`).
 - [x] Wire `SKILL.md` → companion: in the migration-mode branch add the brief
       pointer to `tbd-migration.md`; confirm advisory framing (skill plans/

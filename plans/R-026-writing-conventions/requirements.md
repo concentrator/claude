@@ -66,7 +66,7 @@ no-global contributors inconsistent.
 
 ## Constraints
 
-- Sweep transform: a spaced em dash (`" — "`) becomes a spaced hyphen
+- Sweep transform: a spaced em dash (`" - "`) becomes a spaced hyphen
   (`" - "`); verify no bare em dash survives anywhere, code fences
   included (no exemption).
 - Trunk-based delivery: the sweep lands before the gate so `main` is never

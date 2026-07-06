@@ -1,7 +1,7 @@
 task: T-008
 type: refactor
 
-# refactor/flatten-rules — define the flattened layout in rules (REQ-005)
+# refactor/flatten-rules - define the flattened layout in rules (REQ-005)
 
 Normative definition only: the three rule files describe the R-rooted
 layout. Skills follow in T-009; this repo's file migration is T-010,
@@ -24,7 +24,7 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       legacy paths resolve until T-010/T-011 close (clause removed
       by T-011, the last migration).
 - [x] planning.md § Referential integrity: tasks root at an open
-      R-XXX; findings promotion rewritten — no fitting open R →
+      R-XXX; findings promotion rewritten - no fitting open R →
       create an R stub (ROADMAP entry + dir + requirements draft),
       replacing "promote to REQ-XXX".
 - [x] planning.md § Approval + new R-closure rule: `approved:` gate
@@ -41,16 +41,16 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       R-XXX`; archival notes legacy REQ files stay at `plans/` root
       read-only; `requirements.md` always path-qualified against
       root `REQUIREMENTS.md`.
-- [x] branch-plan.md § Agentic execution — Batches: manifest and
+- [x] branch-plan.md § Agentic execution - Batches: manifest and
       report move to `plans/R-XXX-<slug>/batches/B-XXX[.report].md`,
-      global `plans/batches/` removed; single-R scope rule — batch
+      global `plans/batches/` removed; single-R scope rule - batch
       members are tasks of exactly one R, so the checkpoint
       validates exactly that R's acceptance criteria; soft cap and
       `depends-on` resolution unchanged.
 - [x] branch-plan.md batch-close bookkeeping: the close phase marks
       batch + member-task checkboxes on `batch/B-XXX` before the MR
       (no post-merge direct-to-`main` closure commit; "closes on MR
-      merge" holds — the `[x]` lands atomically with the merge;
+      merge" holds - the `[x]` lands atomically with the merge;
       reject deletes the branch and the premature marks); genuinely
       post-merge steps (R-closure verification, release-plan
       marking) stay post-merge.
@@ -58,7 +58,7 @@ REQ-002/003/004 stay at `plans/` root as read-only history.
       triage gets the R-stub route, § Scope discoveries blocker text
       ("new REQ" → "new R"), NEEDS_CONTEXT stop condition reads
       "unanswerable from the R's requirements.md/design".
-- [x] project-layout.md: canonical tree and creation policy updated —
+- [x] project-layout.md: canonical tree and creation policy updated -
       indexes under `plans/`, R-dirs with `requirements.md` +
       `batches/`, `plans/REQ-XXX.md` and global `plans/batches/`
       dropped from the tree; R-dirs become initiative-time, in-dir

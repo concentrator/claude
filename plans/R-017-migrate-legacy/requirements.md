@@ -13,7 +13,7 @@ status: done 2026-07-01
 flat `tasks.md`) detects "Already-DEV" via the case-insensitive presence
 of `.claude/plans/ROADMAP.md` (a lowercase `roadmap.md` matches on macOS),
 runs the TBD/archival path, and **skips the Inventory gap-check** (steps
-1–8) — so the stale schema is neither reported nor upgraded. (Seen
+1–8) - so the stale schema is neither reported nor upgraded. (Seen
 adopting the wallarm skills repo.)
 
 ## Expected behavior
@@ -41,32 +41,32 @@ adopting the wallarm skills repo.)
 
 Re-migrating or adopting a legacy/hand-rolled `.claude/` silently leaves
 it non-canonical; downstream tooling and embedding (R-015) assume the
-canonical layout. Medium — affects adopters with a pre-existing `.claude/`.
+canonical layout. Medium - affects adopters with a pre-existing `.claude/`.
 
 ## Acceptance criteria
 
 - [x] Detection identifies a legacy/non-canonical `.claude/` (lowercase
   foundational files, `REQ-XXX`, flat tasks), not just "ROADMAP.md
-  present," independent of case. — `SKILL.md` Legacy mode +
+  present," independent of case. - `SKILL.md` Legacy mode +
   `legacy-migration.md` (case-exact `git ls-files`); verified against the
   wallarm skills repo (all 3 markers → Legacy).
 - [x] The Inventory gap-check runs in every mode and reports each
-  deviation vs `project-layout.md`. — "Always run § 1 Inventory, then
+  deviation vs `project-layout.md`. - "Always run § 1 Inventory, then
   route."
 - [x] `migrating-to-dev` canonicalizes a legacy schema with per-step
   approval (uppercase files; `REQ-XXX`→R-rooted; flat→per-R tasks);
-  irreversible steps stay advisory per the existing TBD discipline. —
+  irreversible steps stay advisory per the existing TBD discipline. -
   `legacy-migration.md § Canonicalize`.
 - [x] An already-canonical project reports conformant with no changes;
-  the Fresh and Already-DEV-pre-TBD paths still work (regression). —
+  the Fresh and Already-DEV-pre-TBD paths still work (regression). -
   Already-DEV keyed on canonical R-rooted ROADMAP → conformant; Fresh →
   steps 2–8 (inspection).
 - [x] `migrating-to-dev/SKILL.md` stays ≤300 words (canonicalization
-  procedure in a companion file). — 298/300; check-caps green.
+  procedure in a companion file). - 298/300; check-caps green.
 
 ## Constraints
 
-- `skills/migrating-to-dev/SKILL.md` is at 293/300 — the canonicalization
+- `skills/migrating-to-dev/SKILL.md` is at 293/300 - the canonicalization
   procedure lives in a companion file.
 - Advisory for irreversible/host steps (existing `tbd-migration` discipline).
 

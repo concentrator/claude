@@ -5,7 +5,7 @@ kind: feat
 
 # R-007: Per-batch complexity level
 
-> Stub — seed captured during R-006 brainstorming; shape via
+> Stub - seed captured during R-006 brainstorming; shape via
 > `/dev plan R-007`.
 
 ## Motivation
@@ -16,12 +16,12 @@ optimized default, without dialing every commit individually.
 
 ## Goals
 
-- A per-batch **complexity level**, set in the batch manifest — two
+- A per-batch **complexity level**, set in the batch manifest - two
   levels only (YAGNI): **normal** (default) and **high**.
 - The level is a master dial over the R-005 verification levers:
   - **normal** = the optimized routine (mechanical spec-check skip on,
     close-folding on, per-role model routing).
-  - **high** = rigor restored — no mechanical skip, no close-folding,
+  - **high** = rigor restored - no mechanical skip, no close-folding,
     top model across roles, session effort raised, stricter loop rules
     (lower halt threshold, optional multi-vote verify).
 - Composes with R-006's batch-as-universal-delivery-unit (complexity is

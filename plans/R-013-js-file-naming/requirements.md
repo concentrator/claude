@@ -10,7 +10,7 @@ status: done 2026-06-23
 
 `rules/js.md` defines JS style (quotes, indent) but no file-naming
 convention, so JS filenames drift. Establish one and make it
-CI-validatable — without depending on a repo having `MAINTENANCE.md`.
+CI-validatable - without depending on a repo having `MAINTENANCE.md`.
 
 ## Goals
 
@@ -24,7 +24,7 @@ CI-validatable — without depending on a repo having `MAINTENANCE.md`.
   matching class export" correspondence is review-level, not mechanical.
 - Document the no-`MAINTENANCE.md` behavior: the convention is a rule
   (always applies when editing JS); CI enforcement is added where the
-  project has CI / `MAINTENANCE.md` — seeded by `migrating-to-dev` /
+  project has CI / `MAINTENANCE.md` - seeded by `migrating-to-dev` /
   `starting-a-project`. Without it, the convention holds advisorily.
 
 ## Non-goals
@@ -39,7 +39,7 @@ CI-validatable — without depending on a repo having `MAINTENANCE.md`.
 
 ## User experience
 
-- Editing JS, files are named kebab-case — or PascalCase for a
+- Editing JS, files are named kebab-case - or PascalCase for a
   class/component file matching its export; tool-mandated names left
   as-is.
 - A project with CI copies the `rules/js.md` example to validate
@@ -71,18 +71,18 @@ CI-validatable — without depending on a repo having `MAINTENANCE.md`.
   parser.
 - Mostly adopter-facing; `~/.claude` has ~no JS, so the check is
   illustrative here.
-- `rules/js.md` is path-scoped (`**/*.js` etc.) — loads when editing JS.
+- `rules/js.md` is path-scoped (`**/*.js` etc.) - loads when editing JS.
 
 ## Open questions
 
 - CI example as shell (filename glob) or a tiny node script? (Lean shell
-  — portable, matches the `scripts/ci/` style.)
+  - portable, matches the `scripts/ci/` style.)
 
 ## References
 
 - `rules/js.md` (the rule extended).
 - The common "filename matches its primary export" convention (e.g.
-  Airbnb JS style guide) — the established basis.
+  Airbnb JS style guide) - the established basis.
 - `MAINTENANCE.md § Tier-2 AI review` (where a project wires the check +
   the review-level export-correspondence check).
 - R-009 adopter flow (`migrating-to-dev` / `starting-a-project` seed
@@ -97,7 +97,7 @@ One-line evidence per criterion (T-026 merged):
    exempt. [T-026]
 2. `js.md` copyable shell check validates the first dot-delimited segment
    as kebab-or-PascalCase; rejects camelCase/snake_case/mixed (ran
-   against the repo's JS — passes). [T-026]
+   against the repo's JS - passes). [T-026]
 3. The example states the PascalCase ⇒ class-export correspondence is
    review-level, not mechanical. [T-026]
 4. `js.md` documents the no-`MAINTENANCE.md` behavior (convention always

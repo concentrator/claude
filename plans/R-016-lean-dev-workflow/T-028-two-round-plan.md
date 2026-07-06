@@ -1,7 +1,7 @@
 task: T-028
 type: refactor
 
-# refactor/two-round-plan — two-round planning + right-sized tasks (R-016)
+# refactor/two-round-plan - two-round planning + right-sized tasks (R-016)
 
 T-028 of `plans/R-016-lean-dev-workflow/requirements.md` (AC1, AC2). One
 coherent branch: collapse `/dev plan` from three rounds to two and add
@@ -11,7 +11,7 @@ the planning rounds collapse.
 **Sequencing principle.** Rules first (`planning.md`,
 `planning-templates.md` describe the target two-round model + heuristic),
 then the `/dev plan` surface (`dev`) and the two affected skills
-(`brainstorming`, `writing-plans`) are repointed to match — so round
+(`brainstorming`, `writing-plans`) are repointed to match - so round
 terminology is consistent at every commit and `run-all` stays green.
 
 **Word-cap watch.** `brainstorming` and `writing-plans` sit near the
@@ -21,7 +21,7 @@ trimming). If the heuristic example won't fit `writing-plans`, keep it in
 
 - [x] Add the right-sized-task heuristic to `rules/planning.md § Levels`
   (Tasks bullet): a task is a coherent multi-commit deliverable, not a
-  single edit; commit-sized items belong in the branch-plan checklist —
+  single edit; commit-sized items belong in the branch-plan checklist -
   with one concrete example.
 - [x] State the two-round model in `rules/planning.md`: `/dev plan R`
   shapes (requirements + draft task list, one approval gate, deferrable);
@@ -31,7 +31,7 @@ trimming). If the heuristic example won't fit `writing-plans`, keep it in
   planning round" wording to the two-round model.
 - [x] Add a deferrable "Draft tasks" subsection to the `kind:` templates
   in `rules/planning-templates.md § Per-initiative`. (Implemented as a
-  pointer to the alongside `tasks.md`, not an embedded section — see
+  pointer to the alongside `tasks.md`, not an embedded section - see
   findings.)
 - [x] Update `skills/dev/SKILL.md` `/dev plan` table: `R` → requirements +
   draft task list (one gate, deferrable); `R-XXX` → tasks + branch plans.

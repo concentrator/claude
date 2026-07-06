@@ -2,7 +2,7 @@ task: T-029
 type: refactor
 depends-on: T-028
 
-# refactor/right-sized-delivery — size-scaled close + caps (R-016)
+# refactor/right-sized-delivery - size-scaled close + caps (R-016)
 
 T-029 of `plans/R-016-lean-dev-workflow/requirements.md` (AC3–AC7). Builds
 the right-sized-delivery layer on T-028's two-round planning: size-scaled
@@ -11,22 +11,22 @@ under the short-lived governor. Ships in the same batch, after T-028.
 
 **Sequencing principle.** `branch-plan.md` (the canonical home) is reworded
 first, then the `git-workflow.md` cross-reference, then the skills are
-repointed to it — so the close policy and caps have one source and
+repointed to it - so the close policy and caps have one source and
 `run-all` stays green at every commit.
 
 **Word-cap watch.** `finishing-a-branch` is at ~297/300 words; it gets a
 one-line pointer to `branch-plan.md § Closing routine`, never a duplicate
-of the policy — offset by trimming if needed.
+of the policy - offset by trimming if needed.
 
 - [x] Rewrite `rules/branch-plan.md § Closing routine` step 1: replace the
-  unconditional `/simplify` with the size-scaled close-review policy —
+  unconditional `/simplify` with the size-scaled close-review policy -
   refactor → `/simplify`; single feature/bugfix → `/code-review`;
   mixed-purpose or >9 commits → both; define `≤9 commits = small` and the
   "mixed-purpose" test (more than one task tag on the branch).
 - [x] Rewrite `rules/branch-plan.md § Closing routine` step 6 (findings
   triage): resolve findings in-branch by default; promote to a new task /
   R stub only when the finding belongs to a completely different component
-  — state that as the explicit test; keep the existing promote/discard
+  - state that as the explicit test; keep the existing promote/discard
   routes as the secondary path.
 - [x] Align `rules/branch-plan.md § Mid-execution rules › Scope
   discoveries` non-blocker text to the in-branch-by-default disposition.
@@ -48,7 +48,7 @@ of the policy — offset by trimming if needed.
   keep ≤300 words.
 - [x] Verify `scripts/ci/check-plan-integrity.sh` needs no change (it
   validates only R/T/dir referential integrity; no task-line grammar
-  changes here) — confirmed via the script; no edit.
+  changes here) - confirmed via the script; no edit.
 - [x] Self-migration audit (AC7): confirmed no open plan carries orphaned
   3-round / commit-sized artifacts under the new model (repo-wide, only
   T-028/T-029 are open tasks; other open Rs are requirements-only) and no

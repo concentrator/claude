@@ -6,10 +6,10 @@ and the transform/readiness notes. Source of truth for what is portable;
 linked from `DESIGN.md`.
 
 Classes:
-- **portable-generic** — a DEV-workflow skill/rule any adopting project
+- **portable-generic** - a DEV-workflow skill/rule any adopting project
   needs; copied into the embedded core.
-- **project-specific** — tied to this repo's domain/stack; excluded.
-- **global-only / self-hosting** — the enforcement/maintenance layer;
+- **project-specific** - tied to this repo's domain/stack; excluded.
+- **global-only / self-hosting** - the enforcement/maintenance layer;
   excluded.
 
 ## Rules
@@ -56,15 +56,15 @@ Embedded gate runs the **portable** checks, `.claude/`-rooted via
 - Copied: `check-caps.sh`, `check-plan-integrity.sh`, `check-references.sh`.
 - Emitted: a ledger-free `run-all.sh` that sets `CLAUDE_ROOT=.claude`.
 - **Excluded**: `check-ledger.sh` (self-hosting); `check-stray.sh`
-  (validates the repo root against `DESIGN.md`'s tree-map — N/A to an
+  (validates the repo root against `DESIGN.md`'s tree-map - N/A to an
   adopter); `check-todos.sh` (scoped to this repo's `scripts/`/`.githooks/`).
 
 ## Scaffolding
 
-- Generic DEV `CLAUDE.md` backbone — authored by T-031 (VIBE/DEV modes +
+- Generic DEV `CLAUDE.md` backbone - authored by T-031 (VIBE/DEV modes +
   `@`-imports of the embedded rules); this repo's own `CLAUDE.md` is not
   copied (self-hosting content).
-- `settings.json` baseline — minimal; this repo's `settings.local.json`
+- `settings.json` baseline - minimal; this repo's `settings.local.json`
   is not copied.
 
 ## Excluded (not vendored)
@@ -73,7 +73,7 @@ Embedded gate runs the **portable** checks, `.claude/`-rooted via
 - Self-hosting: `MAINTENANCE.md`, `maintenance.jsonl`,
   `scripts/ci/check-ledger.sh`, the ledger CI/hook wiring, the auto-memory.
 - Instance docs: this repo's `REQUIREMENTS.md`, `DESIGN.md`, `ROADMAP.md`,
-  `plans/` — the adopter writes its own.
+  `plans/` - the adopter writes its own.
 
 ## Transform rules (T-031)
 
@@ -89,7 +89,7 @@ Embedded gate runs the **portable** checks, `.claude/`-rooted via
    repo's Models table + effort/`B-003` evidence with a generic
    model-routing slot the adopter fills.
 
-## Embed-readiness (global-source fixes — done in T-030)
+## Embed-readiness (global-source fixes - done in T-030)
 
 - Normalize 3 bare `rules/X.md` refs that don't resolve from a skill's
   location → `~/.claude/rules/…`: `delegating-to-agents/verification-policy.md`
@@ -100,4 +100,4 @@ Embedded gate runs the **portable** checks, `.claude/`-rooted via
 - Trim `branch-plan.md` line 202 friction-log-hook clause (repo maintenance
   detail) from the generic rule.
 - Bare sibling-rule refs inside `rules/` resolve rules-relative both
-  globally and embedded — left as-is.
+  globally and embedded - left as-is.

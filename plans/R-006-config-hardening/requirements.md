@@ -18,7 +18,7 @@ status: done 2026-06-16
   commits land directly on `main`. The branching model is implicit and
   inconsistent, and partially reinvents Git Flow's long-lived `develop`.
 - `## Temporary Files` is mistitled (it describes persistent
-  planning-file locations — a dup of `planning.md § Where things live`,
+  planning-file locations - a dup of `planning.md § Where things live`,
   nothing about `tmp/`). `## Structured Data / API parameters` does not
   curb Claude's assume-then-state tendency.
 - `## Agent toolchain` is low-signal / misplaced (SKILL caps are
@@ -36,7 +36,7 @@ Anchor the whole git side to **Trunk-Based Development** (GitHub-Flow
 form) rather than a bespoke scheme:
 
 - `main` is the **protected, always-releasable trunk**. Every change
-  reaches it through a **short-lived branch + CI-gated PR** — never a
+  reaches it through a **short-lived branch + CI-gated PR** - never a
   raw push, never a local merge. No long-lived branches exist. In
   ~/.claude this is enforced three ways: origin branch protection
   (hard), a pre-push hook (fast local feedback), and the CI gate.
@@ -48,10 +48,10 @@ form) rather than a bespoke scheme:
   (land dormant, wire up last).
 - **Batch = the universal delivery unit:** 1+ tasks that must land
   together, shipped as exactly one CI-gated PR. A lone coherent task is
-  a degenerate batch — its task branch *is* the PR (no integration
+  a degenerate batch - its task branch *is* the PR (no integration
   branch). Coupled tasks integrate on a short-lived `batch/B-XXX` →
   one PR. **Mode is orthogonal:** delivery is uniform (integration
-  branch → one PR); only *verification* differs — auto runs the agentic
+  branch → one PR); only *verification* differs - auto runs the agentic
   checkpoint (report + amortized top-model review + accept/reject),
   manual uses human PR review. `depends-on` / "not independently
   functional" at planning drives batch membership.
@@ -73,12 +73,12 @@ form) rather than a bespoke scheme:
   PR" rule), referenced once near the top of `CLAUDE.md`. No git rule
   stated twice.
 - **Releases: tag-on-trunk.** `main` is always releasable; a release
-  tags `main` at a chosen commit — no release branch. `release-vX.Y.Z.md`
+  tags `main` at a chosen commit - no release branch. `release-vX.Y.Z.md`
   plan + per-batch checkboxes remain.
-- `CLAUDE.md` ≤ 400w — only global content (AI-behavior tuning +
+- `CLAUDE.md` ≤ 400w - only global content (AI-behavior tuning +
   project-relevant rules) + the git-workflow pointer; specifics in
   `rules/*`.
-- `dev/SKILL.md` ≤ 300w — accurate DEV opener (strict, spec-driven,
+- `dev/SKILL.md` ≤ 300w - accurate DEV opener (strict, spec-driven,
   manual + auto), no `## Branching`, `R`/`R-XXX` merged into one plan
   step (still separate commits per artifact), batch-aware manual mode.
 - Mistitled sections fixed: temp-files dup removed; a renamed behavior
@@ -93,7 +93,7 @@ form) rather than a bespoke scheme:
 
 ## Invariants
 
-- No behavioral rule loses meaning in the compaction/extraction — every
+- No behavioral rule loses meaning in the compaction/extraction - every
   rule in `CLAUDE.md` / `dev` / `planning.md` / `branch-plan.md`
   survives (relocated), unless dropping it is an explicit, listed
   decision. A rule-preservation mapping is recorded.
@@ -102,7 +102,7 @@ form) rather than a bespoke scheme:
   delivery is via PR, not direct push/local merge.
 - The agentic verification model (checkpoint, report, adversarial
   review, verification-policy tiers) is preserved; batch reject-safety
-  preserved — rejecting deletes the un-merged `batch/B-XXX` with its
+  preserved - rejecting deletes the un-merged `batch/B-XXX` with its
   premature marks.
 - R-005 path-scoped rule loading and the word caps are unaffected.
 - `main` is releasable (coherent) after every merge.
@@ -176,7 +176,7 @@ form) rather than a bespoke scheme:
   on commit SHA (not a host-specific MR id).
 - Skill word caps hold (`dev` ≤ 300, others per `skills.md`);
   compaction must net words out.
-- Releases are tag-on-trunk only — no release branch.
+- Releases are tag-on-trunk only - no release branch.
 
 ## Open questions
 
@@ -190,7 +190,7 @@ form) rather than a bespoke scheme:
 
 ## References
 
-- Trunk-Based Development / GitHub Flow / GitLab Flow — the production
+- Trunk-Based Development / GitHub Flow / GitLab Flow - the production
   standard this anchors to; Git Flow (long-lived `develop`) is the
   pattern deliberately *not* used.
 - This session's user input (R-006 seed).
@@ -198,9 +198,9 @@ form) rather than a bespoke scheme:
   changed), `§ Where things live`.
 - `rules/branch-plan.md § Agentic execution` (the batch model, now
   generalized to the universal delivery unit).
-- R-005 (context diet — caps / path-scoping this builds on).
+- R-005 (context diet - caps / path-scoping this builds on).
 - `skills/delegating-to-agents` (checkpoint + auto-permissions +
-  friction-hook patterns — CI / maintenance precedent).
+  friction-hook patterns - CI / maintenance precedent).
 
 ## Closure verification (2026-06-16)
 

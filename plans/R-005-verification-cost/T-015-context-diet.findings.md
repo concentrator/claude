@@ -1,4 +1,4 @@
-# T-015 context-diet — findings
+# T-015 context-diet - findings
 
 ## Measurements
 
@@ -41,13 +41,13 @@ Path-scopable planning-rule baseline: **7.2k** (3.2 + 1.3 + 2.7).
 ### After (2026-06-13, all rule edits in place)
 
 Fresh `~/.claude` session, `/context` before touching any file
-(Messages 8 tokens — genuinely fresh):
+(Messages 8 tokens - genuinely fresh):
 
 | Category | Tokens |
 |---|---|
 | Memory files (always-loaded) | 1.4k |
 
-Memory-files breakdown: CLAUDE.md 1.4k only — `planning.md`,
+Memory-files breakdown: CLAUDE.md 1.4k only - `planning.md`,
 `branch-plan.md`, `project-layout.md` no longer always-load.
 
 **Delta vs baseline:** always-on memory **8.7k → 1.4k**, a **~7.2k**
@@ -56,7 +56,7 @@ artifacts (e.g. implementer/test dispatches editing source). At
 uncached rates that is ~7.2k × the non-planning dispatch count per
 batch; prompt caching discounts repeats, so the realized saving sits
 between cached and uncached rates. Planning sessions still load the
-rules on demand (verified above) — no capability lost.
+rules on demand (verified above) - no capability lost.
 
 Note on instrument: `/context` → Memory files tallies only always-on
 memory, so this before/after captures exactly the fixed per-dispatch
@@ -65,7 +65,7 @@ sessions are confirmed by the `Loaded rules/…` toast, not this panel.
 
 ## Load-behavior verification
 
-### Round 1 — `**/plans/**` + own-file (2026-06-13) — FAILED (a, b)
+### Round 1 - `**/plans/**` + own-file (2026-06-13) - FAILED (a, b)
 
 | Case | Setup | Memory files in `/context` | Verdict |
 |---|---|---|---|
@@ -83,7 +83,7 @@ rules/…` toast emitted on the matching read. Whether round-1
 `**/plans/**` also fired the toast is **indeterminate** (not observed);
 round 2 switched to the file-terminated shape, which fires definitively.
 
-### Round 2 — `**/plans/**/*.md` + `**/plans/*.md` + own-file (2026-06-13) — PASS (all)
+### Round 2 - `**/plans/**/*.md` + `**/plans/*.md` + own-file (2026-06-13) - PASS (all)
 
 Signal: the `Loaded rules/…` toast on the matching read (not the
 Memory-files panel).
@@ -92,7 +92,7 @@ Memory-files panel).
 |---|---|---|---|
 | a | `~/.claude`, read `plans/ROADMAP.md` | toasts: planning.md, project-layout.md, branch-plan.md | ✅ all three load |
 | b | wallarm, read `.claude/plans/ROADMAP.md` | toasts: `../../.claude/rules/{planning,project-layout,branch-plan}.md` | ✅ all three load (cross-project) |
-| c | wallarm, read `eslint.config.js` | toast: `js.md` only — no planning-rule toasts | ✅ none of the three load |
+| c | wallarm, read `eslint.config.js` | toast: `js.md` only - no planning-rule toasts | ✅ none of the three load |
 | d | `Read ~/.claude/rules/planning.md` by path | file returned | ✅ explicit read works |
 
 Scoping verified: planning rules load on-demand when a plans `.md` is
@@ -102,10 +102,10 @@ and remain explicitly readable.
 ## Triage
 
 - [x] `skills/starting-a-project/SKILL.md` is at 307 `wc -w` total
-      (~295 body once frontmatter is excluded — under the 300-word cap,
+      (~295 body once frontmatter is excluded - under the 300-word cap,
       but near it). This edit reduced the count; flagged as a tangential
       near-cap observation, not introduced here. **Won't fix** (under
-      cap, compliant; monitor on next edit) — user decision 2026-06-13.
+      cap, compliant; monitor on next edit) - user decision 2026-06-13.
 
 ## Closing-routine decisions
 
@@ -115,6 +115,6 @@ and remain explicitly readable.
   (`changelog.md`, `js.md`, `skills.md`, `claude-md.md`) scope only to
   the artifacts they govern, never themselves. Dropped the own-file
   globs to match precedent (commit "Drop own-file globs to match rule
-  precedent") — user decision 2026-06-13. No effect on the verified
+  precedent") - user decision 2026-06-13. No effect on the verified
   load behavior: cases (a)/(b)/(c) relied on the `**/plans/**/*.md`
   pair, and (d) is an explicit path read.

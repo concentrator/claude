@@ -2,7 +2,7 @@ task: T-031
 type: feat
 depends-on: T-030
 
-# feat/vendor-transform — embed the portable DEV core (R-015)
+# feat/vendor-transform - embed the portable DEV core (R-015)
 
 T-031 of `plans/R-015-embeddable-dev/requirements.md` (AC2, AC3, AC4,
 AC6-stamp). A `scripts/vendor-toolchain.sh` that copies the portable core
@@ -11,17 +11,17 @@ path-rewritten, `dev-*`-namespaced, self-hosting excluded, version-stamped,
 with the embedded CI subset. TDD via `adding-a-feature`.
 
 **Design decisions (approved):**
-- **Namespacing** — the orchestrator stays `dev`; all other 17 embedded
+- **Namespacing** - the orchestrator stays `dev`; all other 17 embedded
   skills get a `dev-<full-name>` prefix with cross-refs rewritten (incl.
   the `dev` dispatch table). Mechanical, no name-mapping. The embed-aware
   global `dev` (T-032) routes into these `dev-*` project skills.
-- **Pinned source** — the script runs from a checkout of the toolchain
+- **Pinned source** - the script runs from a checkout of the toolchain
   repo at the desired ref; it copies from that tree and stamps
   `git describe --tags --always`. Drift (T-033) compares the stamp to the
   source's current `git describe`.
 
 **Scope note.** The genericization (commit 6) operates on the *copied*
-files in the target, never the global skills — no skill-edit approval gate.
+files in the target, never the global skills - no skill-edit approval gate.
 Script + tests are new code.
 
 - [x] Scaffold `scripts/vendor-toolchain.sh` (arg-parse `<target>` +
@@ -45,15 +45,15 @@ Script + tests are new code.
   model-routing slot; implement.
 - [x] Version stamp: test asserts a stamp file records the source
   `git describe --tags --always`; implement.
-- [x] Embedded CI subset (AC4) — **descoped to T-035** (see findings): the
+- [x] Embedded CI subset (AC4) - **descoped to T-035** (see findings): the
   checks assume this repo's self-hosting root layout; adapting them to the
   adopter `.claude/`-rooted layout (and they need adopter-provided
   `DESIGN.md`/`plans/` absent at vendor time) is a distinct task.
 - [x] Structural end-to-end: vendor into a temp dir; assert the embedded
-  `.claude/` is well-formed — no residual `~/.claude/`, skills namespaced,
+  `.claude/` is well-formed - no residual `~/.claude/`, skills namespaced,
   backbone + stamp present, and the manifest's portable set complete.
 - [x] Document the vendor script (usage + the pinned-source/stamp model) in
-  `README.md` (or `scripts/` usage doc) — doc-before-commit for the
+  `README.md` (or `scripts/` usage doc) - doc-before-commit for the
   user-facing surface.
 - [x] Complete the branch: re-review across all commits, cleanup, confirm
   `bash scripts/ci/run-all.sh` green, triage the findings file, mark the
