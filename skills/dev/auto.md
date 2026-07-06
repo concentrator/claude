@@ -25,7 +25,7 @@ shell trips the sensitive-file guard).
    - Dispatch a fresh implementer (`companions/implementer-prompt.md`) with full
      item text + parent-chain context (the R's `requirements.md`
      criteria, `DESIGN.md` excerpts; conventions via its own CLAUDE.md)
-     — never have it read plan files.
+     - never have it read plan files.
    - DONE → spec check. DONE_WITH_CONCERNS → resolve first.
      NEEDS_CONTEXT → answer once from requirements/design,
      re-dispatch; unanswerable → halt. BLOCKED → halt.

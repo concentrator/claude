@@ -9,11 +9,11 @@ Generic release flow. Projects override via `<project>/.claude/skills/release/SK
 
 ## Procedure
 
-1. **Verify branch merges.** If `.claude/plans/release-<version>.md` exists, check each branch entry against `git log <default-branch>` — mark `[x]` for branches with merge commits; flag any planned branches not yet merged. Halt if planned branches remain unmerged unless user confirms drop.
+1. **Verify branch merges.** If `.claude/plans/release-<version>.md` exists, check each branch entry against `git log <default-branch>` - mark `[x]` for branches with merge commits; flag any planned branches not yet merged. Halt if planned branches remain unmerged unless user confirms drop.
 2. **Diff scope.** `git log $(git describe --abbrev=0 --tags)..HEAD --oneline` + stat. Report accumulated changes.
 3. **Multi-branch code review.** Delegate to `code-reviewer` agent with diff + `[Unreleased]` CHANGELOG.
-4. **Halt on issues.** Stop on blockers; ask user — fix in follow-up branch, defer, or accept. No auto-resolve.
-5. **Cut a short-lived branch.** `git checkout -b release/vX.Y.Z` — a doc branch for the CHANGELOG/notes, delivered by MR/PR (no long-lived release line).
+4. **Halt on issues.** Stop on blockers; ask user - fix in follow-up branch, defer, or accept. No auto-resolve.
+5. **Cut a short-lived branch.** `git checkout -b release/vX.Y.Z` - a doc branch for the CHANGELOG/notes, delivered by MR/PR (no long-lived release line).
 6. **Finalize CHANGELOG.** Replace `## [Unreleased]` with `## [vX.Y.Z] - <YYYY-MM-DD>`. Drop reverted-change entries.
 7. **Prune roadmap.** Scan `.claude/plans/ROADMAP.md` for entries matching CHANGELOG bullets; propose removal.
 8. **Release notes.** Use `.claude/release_notes_template.md` if defined, else generate from CHANGELOG diff. Output filepath.
@@ -24,6 +24,6 @@ Generic release flow. Projects override via `<project>/.claude/skills/release/SK
 
 ## Rules
 
-- Never edit `CHANGELOG.md` on the default branch directly — use the short-lived release MR/PR.
+- Never edit `CHANGELOG.md` on the default branch directly - use the short-lived release MR/PR.
 - Never auto-tag, push, or amend published commits.
 - Block on code-review issues; user decides ship vs fix.

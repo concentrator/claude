@@ -56,16 +56,16 @@ Task tool (general-purpose):
     **Convention drift (rail-strength sensor):**
     - Does the commit message follow git-workflow.md § Commit messages (single-line, ~50 chars, WHAT not how)?
     - Were docs updated per project conventions where the commit item required it?
-    - CLAUDE.md is in your context — check against it directly; flag drift even when the implementation is otherwise spec-compliant.
+    - CLAUDE.md is in your context - check against it directly; flag drift even when the implementation is otherwise spec-compliant.
 
     **Verify by reading code, not by trusting report.** Use the Read tool and
-    plain `git show <ref>:<path>` — not process/command substitution
+    plain `git show <ref>:<path>` - not process/command substitution
     (`diff <(git show ...)`, `$(grep ...)`), which the permission matcher
     can't allowlist and which stalls the run on a prompt.
 
     Report:
     - ✅ Spec compliant (if everything matches after code inspection)
-    - ⚠️ Convention drift only: [list] — spec otherwise compliant
+    - ⚠️ Convention drift only: [list] - spec otherwise compliant
       (handling: `verification-policy.md § Spec-check skip`)
     - ❌ Issues found: [list specifically what's missing or extra, with file:line references]
 ```

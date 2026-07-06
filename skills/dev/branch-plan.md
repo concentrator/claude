@@ -1,17 +1,17 @@
 # Branch plan rules
 
 A branch plan is `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md` (dir per
-parent roadmap entry — `plan.md § Directory conventions`). One
+parent roadmap entry - `plan.md § Directory conventions`). One
 branch = one task. The plan must be complete and committed to `main`
 **before** the branch is created.
 
 ## Header
 
     task: T-014
-    type: feat                      # required — inherited from task tag; determines branch prefix
-    architecture-changing: true     # optional — triggers DESIGN.md update commit
-    depends-on: T-012               # optional — blocks `/dev code` until merged
-    agentic: approved 2026-06-10    # optional — eligible for auto mode; absent = manual-only
+    type: feat                      # required - inherited from task tag; determines branch prefix
+    architecture-changing: true     # optional - triggers DESIGN.md update commit
+    depends-on: T-012               # optional - blocks `/dev code` until merged
+    agentic: approved 2026-06-10    # optional - eligible for auto mode; absent = manual-only
 
 The `type:` value is inherited from the parent task's tag in its R's
 `tasks.md` (e.g. `T-014 (R-001) [feat]:`). Branch prefix matches.
@@ -41,7 +41,7 @@ R stub) at discovery time. See "Scope discoveries" below.
 
 Anything you notice mid-execution that wasn't in the plan.
 
-**Blocker** — proceeding would produce wrong, unsafe, or contradictory
+**Blocker** - proceeding would produce wrong, unsafe, or contradictory
 code, the current task's premise is invalidated, a plan item can't be
 interpreted unambiguously, or verification keeps failing after repeated
 fixes:
@@ -49,7 +49,7 @@ fixes:
   task, new R, or aborting the branch. Never inline-fix beyond a true
   typo in code you're currently writing.
 
-**Non-blocker** — improvement, refactor idea, tangential test gap, code
+**Non-blocker** - improvement, refactor idea, tangential test gap, code
 smell, naming inconsistency:
 - Within this branch's scope → fix it here as a commit; don't defer
   in-scope work to a finding.
@@ -63,7 +63,7 @@ Findings file format:
     - [ ] Logging in `auth/refresh.ts:42` missing trace ID (tangential)
     - [ ] `validateToken` lacks test for expired-but-recent case (test gap)
 
-Triaged at branch close — see closing routine.
+Triaged at branch close - see closing routine.
 
 ### Scope changes mid-branch
 
@@ -84,34 +84,34 @@ mandatory final commit, then hands off to merge/PR.
 3. Print report; request user approval before applying.
 4. Apply approved fixes as additional commits if needed.
 5. Capture the branch outcome for the close report: a summary against
-   the task's acceptance criteria, and — when the target is data
-   collection or processing — run the work product and collect the
+   the task's acceptance criteria, and - when the target is data
+   collection or processing - run the work product and collect the
    results. Surface manual-testing/automation needs. This outcome is
    presented with the merge options at step 8 (`finish § 2`),
    never skipped.
-6. **Triage `T-XXX-<slug>.findings.md`** — in-scope findings are resolved
+6. **Triage `T-XXX-<slug>.findings.md`** - in-scope findings are resolved
    in this branch (as commits), not deferred; the file should hold only
    findings belonging to a **completely different component**. For each
    remaining `[ ]`, prompt user:
    - Promote to `T-XXX` (new entry in the parent R's `tasks.md`,
-     committed to main now) — only under a fitting open `R-XXX`; none →
+     committed to main now) - only under a fitting open `R-XXX`; none →
      use the R-stub route
    - Promote to an R stub (`plan.md § Directory conventions`; shaped
      in a later shape round)
    - Discard (mark `[x]` with reason: "won't fix")
-7. **Mandatory final commit** — the last `[ ]`:
+7. **Mandatory final commit** - the last `[ ]`:
 
    > Complete the branch: re-review docs across all commits, cleanup
    > (stale/temp data), mark plan complete, commit.
 
    Includes the resolved findings file.
-8. Invoke `finish` — present merge/PR/keep/discard
+8. Invoke `finish` - present merge/PR/keep/discard
    options and execute.
 
 ## Architecture-changing branches
 
 If header has `architecture-changing: true`, the plan must include a commit
-that updates `DESIGN.md`. Routine branches do not modify `DESIGN.md` —
+that updates `DESIGN.md`. Routine branches do not modify `DESIGN.md` -
 except routine tree-map upkeep (adding a new file to `DESIGN.md § Tree-map`),
 which any branch may fold into its final commit without the flag.
 
@@ -119,19 +119,19 @@ which any branch may fold into its final commit without the flag.
 
 One task = one branch, right-sized at ~20 commits (medium). Soft cap:
 warn past 20, prompt to split past 30. The count is subordinate to the
-short-lived governor — the branch must still merge within ~2 days (≤3
-branches active; no big-bang merges — `git-workflow.md § Delivery
+short-lived governor - the branch must still merge within ~2 days (≤3
+branches active; no big-bang merges - `git-workflow.md § Delivery
 cadence`). Override with stated reason in plan header.
 
 ## Agentic execution
 
 The **batch** is the unit of delivery to `main` in both modes: one or
 more tasks that must land together, shipped as a single CI-gated PR
-(`git-workflow.md`). A lone task is a batch of one — its
+(`git-workflow.md`). A lone task is a batch of one - its
 own branch is the PR. Auto mode (`/dev auto`, engine
 `auto`) runs a batch's members via subagents on a
 dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
-them by hand. Delivery is identical; only verification differs — auto
+them by hand. Delivery is identical; only verification differs - auto
 runs the checkpoint below, manual uses § Closing routine +
 `finish`. `main` is never touched mid-run; auto requires
 every gate below.
@@ -147,7 +147,7 @@ fix via `/dev plan <slug>` first. User approves → stamp
 
 ### Batches
 
-`.claude/plans/R-XXX-<slug>/batches/B-XXX.md` — ordered checklist,
+`.claude/plans/R-XXX-<slug>/batches/B-XXX.md` - ordered checklist,
 one `[ ]` per task:
 
     # B-001
@@ -155,7 +155,7 @@ one `[ ]` per task:
     - [ ] T-015 (<slug>)
 
 Delivery grouping, not a planning level: a batch is scoped to the R
-whose dir holds it — members are open tasks of that R; coupled tasks
+whose dir holds it - members are open tasks of that R; coupled tasks
 (`depends-on`, or any not independently shippable) belong in one batch. `depends-on` must resolve within batch order
 or already-merged work. A cross-initiative need becomes its own R. The
 checkpoint validates exactly that R's acceptance criteria. Soft cap
@@ -165,14 +165,14 @@ batch; manual mode groups coupled (interdependent) tasks into one batch
 by default, or ships a lone task as its own PR.
 
 Batch-close bookkeeping: the close phase marks batch and member-task
-checkboxes as commits on `batch/B-XXX`, **before** the PR — the `[x]`
+checkboxes as commits on `batch/B-XXX`, **before** the PR - the `[x]`
 reaches `main` atomically with the merge; reject discards the marks
 with the branch (§ Rails). The R-closure check and release-plan
 marking ride a separate close-out PR.
 
 Per-branch close in auto mode: the close review (the `code-reviewer`
 pass) runs only for branches above the small-branch threshold defined
-in the `auto` verification policy — small branches
+in the `auto` verification policy - small branches
 defer their first review to the batch-close full-diff pass. The
 mandatory final commit and the tests/lint-green gate before merging
 into `batch/B-XXX` hold for every branch regardless of size. The
@@ -180,16 +180,16 @@ manual-mode § Closing routine above is unchanged by this rule.
 
 ### Rails
 
-- Agents touch only code, plan checkboxes, and findings files —
+- Agents touch only code, plan checkboxes, and findings files -
   never plan content, never the closing decisions.
 - Pre-flight creates `batch/B-XXX` off latest `main` and sets the
   `pre-B-XXX` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch PR merges.
 - Agents never push. The only delivery is the checkpoint-accept
   **CI-gated PR** of the batch branch to origin (`batch/B-XXX →
-  origin/main`) — never a push to `main` (mechanics:
+  origin/main`) - never a push to `main` (mechanics:
   `auto` checkpoint, `git-workflow.md`).
-- No commit on red tests/lint — no exceptions.
+- No commit on red tests/lint - no exceptions.
 - Findings triage and push decisions always defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
   Accept = delete the batch's `pre-B-XXX` tag (rollback no longer
@@ -209,7 +209,7 @@ manual-mode § Closing routine above is unchanged by this rule.
 | Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
 | Batch complete | Close phase on `batch/B-XXX`, then checkpoint (accept opens the PR), wait for user |
 
-Checkpoint accept is the only delivery — a CI-gated PR of the batch
+Checkpoint accept is the only delivery - a CI-gated PR of the batch
 branch to origin, never a push to `main` (`auto` owns
 the mechanics).
 

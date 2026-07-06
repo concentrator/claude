@@ -30,8 +30,8 @@ Task tool (general-purpose):
 
     Once you're clear on requirements:
     1. Implement exactly what the commit item specifies
-    2. Tests per branch type: feat/fix — strict TDD (failing test first);
-       refactor — behavior preserved, baseline stays green
+    2. Tests per branch type: feat/fix - strict TDD (failing test first);
+       refactor - behavior preserved, baseline stays green
     3. Verify: project's test + lint commands, green
     4. Docs in this same commit per project conventions (see ## Conventions)
     5. Commit per git-workflow.md § Commit messages
@@ -53,7 +53,7 @@ Task tool (general-purpose):
 
     - Follow the file structure defined in the plan. If a file you're
       creating grows beyond the plan's intent, stop and report
-      DONE_WITH_CONCERNS — don't split files on your own.
+      DONE_WITH_CONCERNS - don't split files on your own.
     - Don't restructure things outside your task; note concerns about
       large/tangled existing files in your report.
 
@@ -61,15 +61,15 @@ Task tool (general-purpose):
 
     When you need a throwaway script (API probe, one-off check), create the
     file with the Write tool, then run it. Never write it via a shell heredoc
-    (`cat > file <<EOF`) — heredocs embedding JS/JSON (`${...}`, quotes) trip
+    (`cat > file <<EOF`) - heredocs embedding JS/JSON (`${...}`, quotes) trip
     the harness obfuscation guard and stall the run on a permission prompt.
     Put scratch files in /tmp, not the repo tree.
 
     Load env the flag way: `node --env-file=.env /tmp/probe.mjs`. Do NOT
-    prefix with `set -a && source .env && ...` or similar — the prefix makes
+    prefix with `set -a && source .env && ...` or similar - the prefix makes
     it a compound command the `Bash(node:*)` rule can't match, and it prompts.
 
-    Leave scratch files in place when done — do not `rm` them. Glob
+    Leave scratch files in place when done - do not `rm` them. Glob
     deletes are rejected by the sandbox, an `rm` segment turns an
     otherwise-allowed compound command into a prompt, and bulk-clearing
     shared /tmp is destructive. /tmp is ephemeral; cleanup is not your job.
@@ -77,7 +77,7 @@ Task tool (general-purpose):
     ## Plan & Findings Files
 
     Read or edit files under `.claude/` (plan checkboxes, `T-XXX-<slug>.findings.md`)
-    only with the Read/Edit/Write tools — never `sed`/`cat`/`grep`/`awk`.
+    only with the Read/Edit/Write tools - never `sed`/`cat`/`grep`/`awk`.
     Edit-class shell on `.claude/` paths stalls on a sensitive-file prompt that
     no permission rule clears.
 
