@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-06
 kind: feat
+status: done 2026-07-07
 ---
 
 # R-026: Writing conventions (em-dash ban + prose style)
@@ -52,17 +53,30 @@ no-global contributors inconsistent.
 
 ## Acceptance criteria
 
-- [ ] A shipped convention doc states the three rules (em-dash ban =
+- [x] A shipped convention doc states the three rules (em-dash ban =
   hard/all-files; AI-tells + repetition = Tier-2/prose).
-- [ ] No em dash remains in any tracked file (sweep complete: 1043 to 0).
-- [ ] A Tier-1 check hard-fails on an introduced em dash in any tracked
+  *Reconciled homing: not a `/dev` companion but a dedicated top-level
+  `writing.md`, `@import`ed by CLAUDE.md (always-loaded, single-sourced) and
+  shipped by `install-dev.sh` with the import appended to the target
+  CLAUDE.md. States all four rules (convey-intent + the three) (T-053).*
+- [x] No em dash remains in any tracked file (sweep complete: 1043 to 0).
+  *`git grep` for U+2014 returns nothing tree-wide; `perl -CSD` sweep by
+  area, arrows/en-dashes/tables preserved (T-054).*
+- [x] A Tier-1 check hard-fails on an introduced em dash in any tracked
   file and passes on the clean tree; it runs in `run-all.sh` + pre-push.
-  *(verified: a planted em dash in a `.md` and in a `.sh` both fail; the
-  clean tree passes.)*
-- [ ] `install-dev.sh` ships the em-dash check into a target; adopter CI
+  *`check-no-em-dash.sh` (runtime-built char, no self-flag; binary-skip);
+  `check-no-em-dash.test.sh` 4 cases; wired in `run-all.sh`, pre-push
+  inherits (T-055).*
+- [x] `install-dev.sh` ships the em-dash check into a target; adopter CI
   wiring is documented; `install-dev.test.sh` covers it.
-- [ ] AI-tell words + repetition are recorded as Tier-2 review criteria.
-- [ ] Full Tier-1 gate green (incl. the new check) + Tier-2 ledger stamp.
+  *Installer copies `check-no-em-dash.sh` + prints the CI-wiring note;
+  `install-dev.test.sh` asserts it copied + executable (T-055).*
+- [x] AI-tell words + repetition are recorded as Tier-2 review criteria.
+  *`MAINTENANCE.md § Tier-2` gained a "Writing" concern pointing at
+  `writing.md` (em dashes are Tier-1) (T-053).*
+- [x] Full Tier-1 gate green (incl. the new check) + Tier-2 ledger stamp.
+  *`run-all.sh` green throughout (now includes `no-em-dash`); every branch
+  stamped.*
 
 ## Constraints
 
