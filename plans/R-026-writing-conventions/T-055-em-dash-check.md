@@ -20,4 +20,4 @@ pre-push; installer ships it + test coverage).
 - [x] Wire into `scripts/ci/run-all.sh` (the `.githooks/pre-push` mirror inherits it).
 - [x] `install-dev.sh`: ship `check-no-em-dash.sh` into the target `scripts/ci/`; `install-dev.test.sh`: assert it is copied.
 - [x] `DESIGN.md`: add `check-no-em-dash` to the § Self-enforcement Tier-1 list (the tree-map `ci/` summary covers the script).
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
