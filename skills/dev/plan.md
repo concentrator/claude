@@ -46,6 +46,11 @@ not three - only the commands that emit the artifacts collapse:
 The single approval gate (§ Approval and closure) is unchanged: nothing
 downstream proceeds until `requirements.md` is approved.
 
+**Approval authorizes planning, not code.** Approving a plan delivers its
+PR and stops: shape-approval authorizes the detail round; detail-approval
+authorizes nothing to run. A plan round never starts implementation - it
+ends by proposing `/dev code <slug>`, which the user invokes explicitly.
+
 ## ID format
 
 - Initiatives (roadmap): `R-001`, `R-002`, ...
