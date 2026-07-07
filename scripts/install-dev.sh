@@ -63,12 +63,13 @@ register_hook() {   # $1 = hook script basename
 register_hook dev-branch-guard.sh
 register_hook dev-secrets-guard.sh
 
-# 4. code-size check + a template allowlist (adopters wire it into their CI).
-#    Ship a fresh allowlist only when absent, so re-install never clobbers an
-#    adopter's own exemptions.
+# 4. shipped Tier-1 checks (adopters wire them into their CI): code-size (with
+#    a template allowlist, shipped only when absent so re-install never
+#    clobbers an adopter's exemptions) and no-em-dash.
 mkdir -p "$target/scripts/ci"
 cp "$SRC/scripts/ci/check-code-size.sh" "$target/scripts/ci/check-code-size.sh"
-chmod +x "$target/scripts/ci/check-code-size.sh"
+cp "$SRC/scripts/ci/check-no-em-dash.sh" "$target/scripts/ci/check-no-em-dash.sh"
+chmod +x "$target/scripts/ci/check-code-size.sh" "$target/scripts/ci/check-no-em-dash.sh"
 if [ ! -f "$target/scripts/ci/code-size-allow.txt" ]; then
   cat > "$target/scripts/ci/code-size-allow.txt" <<'EOF'
 # check-code-size.sh exemptions: one tracked path per line; text after `#` is
@@ -94,4 +95,4 @@ if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplev
 fi
 
 echo "install-dev: DEV toolset installed into $target ($scope)"
-echo "install-dev: code-size gate at $target/scripts/ci/check-code-size.sh (wire it into your CI)"
+echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh) - wire them into your CI"
