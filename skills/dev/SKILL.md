@@ -35,8 +35,8 @@ command maps to before acting** - they carry the rules and procedures.
 | `release` | Release plan (next semver) | `release.md` |
 | (bare) | Ask | - |
 
-Two rounds - shape (`R`) then detail (`R-XXX`). Propose next; never
-auto-execute.
+Two rounds - shape (`R`) then detail (`R-XXX`); each proposes `/dev code`
+next, never auto-starts it.
 
 ## `/dev code [<slug>]` - read `branch-plan.md`
 
