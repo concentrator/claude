@@ -19,5 +19,5 @@ pre-push; installer ships it + test coverage).
 - [x] Implement `scripts/ci/check-no-em-dash.sh`: scan tracked text files (`git grep -I` to skip binary) for the em-dash character; report file:line + fail. (green)
 - [x] Wire into `scripts/ci/run-all.sh` (the `.githooks/pre-push` mirror inherits it).
 - [x] `install-dev.sh`: ship `check-no-em-dash.sh` into the target `scripts/ci/`; `install-dev.test.sh`: assert it is copied.
-- [ ] `DESIGN.md`: add `check-no-em-dash` to the tree-map + the § Self-enforcement Tier-1 list.
+- [x] `DESIGN.md`: add `check-no-em-dash` to the § Self-enforcement Tier-1 list (the tree-map `ci/` summary covers the script).
 - [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
