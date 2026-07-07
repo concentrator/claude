@@ -147,7 +147,11 @@ direct-to-main bootstrap history.
 
 Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
 `dev-secrets-guard`) add a local pre-emptive guard: no writes or commits on
-the trunk, and no secrets into tracked files or commits.
+the trunk, and no secrets into tracked files or commits. The branch-guard
+judges the real target rather than the session cwd branch - it allows a
+gitignored-path write, a compound `checkout -b && commit`, and a
+`git -C <branch-repo> commit`, while a commit that actually lands on the
+trunk is still refused.
 
 ## Invariants
 
