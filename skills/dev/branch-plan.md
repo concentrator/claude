@@ -86,9 +86,9 @@ mandatory final commit, then hands off to merge/PR.
 5. Capture the branch outcome for the close report: a summary against
    the task's acceptance criteria, and - when the target is data
    collection or processing - run the work product and collect the
-   results. Surface manual-testing/automation needs. This outcome is
-   presented with the merge options at step 8 (`finish § 2`),
-   never skipped.
+   results. Surface manual-testing/automation needs. This outcome and the
+   verify are presented as a distinct step before the merge options at step
+   8 (`finish § 2`), never skipped.
 6. **Triage `T-XXX-<slug>.findings.md`** - in-scope findings are resolved
    in this branch (as commits), not deferred; the file should hold only
    findings belonging to a **completely different component**. For each
