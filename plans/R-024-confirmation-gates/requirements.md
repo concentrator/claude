@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-07
 kind: feat
+status: done 2026-07-08
 ---
 
 # R-024: DEV confirmation and outcome gates
@@ -56,18 +57,31 @@ docs and makes the guard precise.
 
 ## Acceptance criteria
 
-- [ ] `plan.md` + `SKILL.md` state that approving a plan does not authorize
+- [x] `plan.md` + `SKILL.md` state that approving a plan does not authorize
   coding; the plan round stops and proposes `/dev code` (no auto-chain).
-- [ ] `finish.md § 2` presents the outcome, then a distinct verify step, then
+  *`plan.md § Planning rounds` ("Approval authorizes planning, not code") +
+  `SKILL.md` surface ("each proposes `/dev code` next, never auto-starts it")
+  (T-056).*
+- [x] `finish.md § 2` presents the outcome, then a distinct verify step, then
   the merge options; the MR/PR opens only on explicit choice; the verify is
   not bundled or glossed.
-- [ ] The branch-guard permits a compound `git checkout -b X && ... && git
+  *`finish.md § 2` is three ordered steps (outcome / verify / options), the
+  verify "present this and wait; do not roll it into the options"; MR/PR
+  explicit-only preserved; `branch-plan.md` step 5 aligned (T-057).*
+- [x] The branch-guard permits a compound `git checkout -b X && ... && git
   commit`, a `git -C <other-repo> commit` while cwd is on main, and a Write
   to a gitignored path on main, while still denying a real direct write or
   commit on the trunk; it fails open on error.
-- [ ] A new `scripts/test/dev-branch-guard.test.sh` covers the three
+  *`hooks/dev-branch-guard.sh` judges the real target (gitignore exemption,
+  target-repo resolution, compound branch-create); denies real direct-main
+  and `git -c ... commit`; fails open (T-058).*
+- [x] A new `scripts/test/dev-branch-guard.test.sh` covers the three
   previously-false-blocked patterns, the true-positive, and fail-open.
-- [ ] Full Tier-1 gate green + Tier-2 ledger stamp.
+  *`dev-branch-guard.test.sh` (17 assertions) covers the three patterns, the
+  true-positives, five adversarial regressions, and fail-open (T-058).*
+- [x] Full Tier-1 gate green + Tier-2 ledger stamp.
+  *Each of #137/#139/#141 merged on a green Tier-1 gate with a
+  `concerns_clear` ledger stamp.*
 
 ## Constraints
 

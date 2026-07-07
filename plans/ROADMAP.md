@@ -153,7 +153,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       documentation artifact class in `project-layout`. Quality bar: a
       fresh Claude reads only the doc and implements correctly. Sequence
       after R-022. (stub - shape via `/dev plan R-023`)
-- [ ] R-024: DEV confirmation and outcome gates - enforce two interactive
+- [x] R-024: DEV confirmation and outcome gates - enforce two interactive
       boundaries plus make the guard precise: (a) plan->code - approving a
       plan never auto-starts coding; the plan round stops and proposes
       `/dev code`; (b) branch close - `finish` presents outcome, then a
@@ -161,7 +161,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       (un-bundles the R-020 verify leftover); (c) branch-guard precision -
       stop false-blocking compound `checkout && commit`, cross-repo
       `git -C`, and gitignored-path writes on main. Ledger-conflict friction
-      is a separate fix. Surfaced dogfooding R-021. (shaped 2026-07-07)
+      is a separate fix. Surfaced dogfooding R-021. (done 2026-07-08)
 - [ ] R-025: Explicit review checklist - make code review's checks explicit
       instead of implicit. Adopt a review.md-style checklist (Correctness,
       Security, Performance, Maintainability) with a severity-tagged output
