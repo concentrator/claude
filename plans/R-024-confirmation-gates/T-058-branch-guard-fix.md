@@ -15,8 +15,8 @@ Acceptance criteria: see `requirements.md` (guard permits the three
 patterns, still denies a real direct-main write/commit, fails open; a test
 covers them).
 
-- [ ] Test-first `scripts/test/dev-branch-guard.test.sh`: the three previously-false-blocked patterns are allowed, a real direct-main Write and `git commit` are denied, and malformed input / no-repo fail open. (red)
-- [ ] Implement the gitignored-path exemption: a `Write`/`Edit`/`NotebookEdit` whose target path is gitignored (`git check-ignore`) is allowed on main. (green slice)
-- [ ] Implement the cross-repo + compound-command fixes: judge `git -C <path>` by <path>'s branch; allow a `git commit` in a command that first creates/switches a branch (`git checkout -b` / `git switch -c`). (green slice)
-- [ ] Verify `install-dev.test.sh` still passes (the hook ships unchanged in shape); note the refined behavior in `DESIGN.md` only if materially changed.
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] Test-first `scripts/test/dev-branch-guard.test.sh`: the three previously-false-blocked patterns are allowed, a real direct-main Write and `git commit` are denied, and malformed input / no-repo fail open. (red)
+- [x] Implement the gitignored-path exemption: a `Write`/`Edit`/`NotebookEdit` whose target path is gitignored (`git check-ignore`) is allowed on main. (green slice)
+- [x] Implement the cross-repo + compound-command fixes: judge `git -C <path>` by <path>'s branch; allow a `git commit` in a command that first creates/switches a branch (`git checkout -b` / `git switch -c`). (green slice)
+- [x] Verify `install-dev.test.sh` still passes (the hook ships unchanged in shape); note the refined behavior in `DESIGN.md` only if materially changed.
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.

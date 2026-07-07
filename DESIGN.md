@@ -147,7 +147,8 @@ direct-to-main bootstrap history.
 
 Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
 `dev-secrets-guard`) add a local pre-emptive guard: no writes or commits on
-the trunk, and no secrets into tracked files or commits.
+the trunk, and no secrets into tracked files or commits. The branch-guard
+judges the real target, not the cwd branch.
 
 ## Invariants
 
