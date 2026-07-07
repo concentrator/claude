@@ -71,6 +71,28 @@ j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git commit -m x"}}')
 [ "$(run "$j")" = allow ] && pass "plain commit on a branch allowed" || die "commit on branch denied"
 cd "$M"; rm -rf "$BC"
 
+# --- adversarial: commit-detection and compound bypasses (close review) ---
+# git -c <config> commit on main must be denied (global option before commit).
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git -c user.email=x commit -m y"}}')
+[ "$(run "$j")" = deny ] && pass "git -c <config> commit on main denied" || die "git -c ... commit bypassed"
+
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git -c core.hooksPath=/dev/null commit -m x"}}')
+[ "$(run "$j")" = deny ] && pass "git -c hooksPath commit on main denied" || die "hooksPath bypass"
+
+# checkout -b as text inside an echo must not exempt a real trunk commit.
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"echo git checkout -b fake; git commit -m x"}}')
+[ "$(run "$j")" = deny ] && pass "echo-text checkout -b does not exempt commit" || die "echo-text compound bypass"
+
+# Creating a trunk-named branch is not a valid off-trunk escape.
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git checkout -b master && git commit -m x"}}')
+[ "$(run "$j")" = deny ] && pass "checkout -b master then commit denied" || die "trunk-named branch exempted"
+
+# Multiple git -C: the commit's own target repo (main) is judged, not the first -C.
+B2=$(new_branch)
+j=$(jq -nc --arg b "$B2" --arg m "$M" '{tool_name:"Bash",tool_input:{command:("git -C " + $b + " add . && git -C " + $m + " commit -m x")}}')
+[ "$(run "$j")" = deny ] && pass "multi -C judges the commit target repo" || die "multi -C judged wrong repo"
+rm -rf "$B2"
+
 # --- fail open ---
 [ "$(printf 'not json{' | bash "$HOOK" 2>/dev/null | grep -q '"permissionDecision":"deny"' && echo deny || echo allow)" = allow ] \
   && pass "malformed input fails open" || die "malformed input did not fail open"

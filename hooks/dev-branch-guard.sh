@@ -8,6 +8,12 @@
 # substring: a gitignored-path write, a compound `checkout -b && commit`, and
 # a `git -C <branch-repo> commit` are all allowed; a `git -C <main-repo>
 # commit` from a branch cwd is still denied. Fails open.
+#
+# This is a best-effort local tripwire against an accidental trunk mutation,
+# not a boundary against a crafted evasion - the real gate is host branch
+# protection + CI (git-workflow.md § Enforcement). It reads an arbitrary
+# shell command by heuristic, so residual gaps (e.g. a quoted `-C "a b"`
+# path) fail open toward that gate.
 set -uo pipefail
 
 input=$(cat)
@@ -35,26 +41,28 @@ case "$tool" in
     deny "branch-guard: refusing $tool on '$branch'. Create a working branch first - never edit the trunk (git-workflow)." ;;
   Bash)
     cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // ""')
-    # Only guard commands that actually commit. Match `git commit` and
-    # `git -C <path> commit`, with a boundary so plumbing (git commit-tree/
-    # -graph) is left alone.
-    committing=0
-    case "$cmd" in
-      *"git commit "* | *"git commit") committing=1 ;;
-    esac
-    if [[ "$cmd" =~ git[[:space:]]+-C[[:space:]]+[^[:space:]]+[[:space:]]+commit([[:space:]]|$) ]]; then committing=1; fi
-    [ "$committing" = 1 ] || exit 0
+    # Only guard commands that actually commit. Match a `git` invocation whose
+    # subcommand is `commit`, allowing global options (-c key=val, -C path,
+    # --flag) in between. The boundary after `commit` leaves plumbing (git
+    # commit-tree / commit-graph) alone.
+    if ! [[ "$cmd" =~ (^|[^[:alnum:]-])git([[:space:]]+-[^[:space:]]+([[:space:]]+[^[:space:]-][^[:space:]]*)?)*[[:space:]]+commit([[:space:]]|$) ]]; then
+      exit 0
+    fi
 
-    # Compound: if the command creates/switches to a branch before the commit,
-    # the commit lands off the trunk - allow.
+    # Everything up to the first `commit` - a branch created/switched here
+    # first means the commit lands off the trunk.
     before="${cmd%%commit*}"
-    case "$before" in
-      *"git checkout -b "* | *"git switch -c "*) exit 0 ;;
-    esac
+    # Treat `checkout -b` / `switch -c` as a branch-create only when it is an
+    # actual command head (start, or after a shell separator) and names a
+    # non-trunk branch - not text inside an echo or a commit message.
+    if [[ "$before" =~ (^|[;\&|]+)[[:space:]]*git[[:space:]]+(checkout[[:space:]]+-b|switch[[:space:]]+-c)[[:space:]]+([^[:space:]]+) ]]; then
+      is_trunk "${BASH_REMATCH[3]}" || exit 0
+    fi
 
-    # Judge the repo the commit targets: honor an explicit `git -C <path>`.
+    # Judge the repo the commit targets: the `-C <path>` bound to the commit
+    # (the last one before it, via a greedy prefix), else the cwd repo.
     dir="."
-    if [[ "$cmd" =~ git[[:space:]]+-C[[:space:]]+([^[:space:]]+) ]]; then dir="${BASH_REMATCH[1]}"; fi
+    if [[ "$before" =~ .*git[[:space:]]+-C[[:space:]]+([^[:space:]]+) ]]; then dir="${BASH_REMATCH[1]}"; fi
     branch=$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
     is_trunk "$branch" && deny "branch-guard: refusing 'git commit' on '$branch'. Create a working branch first (git-workflow)." ;;
 esac
