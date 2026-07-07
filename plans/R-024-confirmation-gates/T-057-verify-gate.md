@@ -13,5 +13,5 @@ Acceptance criteria: see `requirements.md` (finish.md § 2 presents outcome,
 then a distinct verify step, then merge options; PR opens only on explicit
 choice; verify not bundled or glossed).
 
-- [ ] `finish.md § 2`: restructure into distinct steps - (i) present the outcome vs the task's ACs and the verify step (offer a live run; for data tasks run the work product and show results), then (ii) present the merge / keep / discard options. Keep "MR/PR opens only on explicit choice."
+- [x] `finish.md § 2`: restructure into distinct steps - (i) present the outcome vs the task's ACs and the verify step (offer a live run; for data tasks run the work product and show results), then (ii) present the merge / keep / discard options. Keep "MR/PR opens only on explicit choice."
 - [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.

@@ -10,12 +10,18 @@ Close out a DEV branch - invoked by the closing routine
 - Close review per `branch-plan.md § Closing routine`.
 - Fresh test + lint green; failing → stop and report.
 
-## 2. Report outcome and present options
+## 2. Report outcome, verify, then present options
 
-One message: (a) **outcome** - what the branch produced vs criteria;
-(b) **live test** - always offer a live run; for
-data tasks run the work product and show results; (c) **options**: push
-and open a CI-gated MR/PR to origin / keep / discard.
+Three ordered steps - the verify is a distinct, blocking step, never folded
+into the options or glossed past:
+
+1. **Outcome** - what the branch produced vs the task's acceptance
+   criteria.
+2. **Verify** - always offer a live run; for data tasks, run the work
+   product and show the results. Present this and wait; do not roll it into
+   the options.
+3. **Options** - only then present delivery: push and open a CI-gated MR/PR
+   to origin / keep / discard.
 
 MR/PR opens only on explicit choice - never automatically.
 
