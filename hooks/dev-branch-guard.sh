@@ -28,6 +28,9 @@ deny() {
 tool=$(printf '%s' "$input" | jq -r '.tool_name // ""')
 case "$tool" in
   Write | Edit | NotebookEdit)
+    # A write to a gitignored path never touches the tracked trunk - allow it.
+    path=$(printf '%s' "$input" | jq -r '.tool_input.file_path // .tool_input.notebook_path // ""')
+    if [ -n "$path" ] && git check-ignore -q -- "$path" 2>/dev/null; then exit 0; fi
     deny "branch-guard: refusing $tool on '$branch'. Create a working branch first - never edit the trunk (git-workflow)." ;;
   Bash)
     cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // ""')
