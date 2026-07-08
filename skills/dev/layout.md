@@ -31,6 +31,8 @@ Canonical structure for `.claude/` in a project. Other paths inside
     │   └── NNN-<short-title>.md
     ├── references/               # external docs/specs the agent reads (lazy)
     │   └── *                     # any format
+    ├── docs/                     # internal own-code feature docs, kept current (lazy)
+    │   └── *.md
     ├── settings.json             # Claude Code shared config
     └── settings.local.json       # Claude Code local (gitignored)
 
@@ -60,7 +62,7 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 - **Initiative-time**: `plans/R-XXX-<slug>/` + `requirements.md`,
   created with the ROADMAP entry (`plan.md § Directory
   conventions`).
-- **Lazy** (created on first use): `adr/`, `references/`,
+- **Lazy** (created on first use): `adr/`, `references/`, `docs/`,
   `plans/R-XXX-<slug>/tasks.md` (with the R's first task),
   `plans/R-XXX-<slug>/batches/`, `plans/archive/`,
   `plans/visual-artifacts/` (gitignored - session artifacts, not docs).
