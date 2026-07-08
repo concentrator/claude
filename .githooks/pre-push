@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Advisory pre-push gate (git-workflow.md § Enforcement): mirrors the
-# Tier-1 mechanical checks locally. Bypass with `git push --no-verify`.
-# The authoritative gate is origin branch protection + the CI workflow;
-# this hook is fast local feedback only.
-exec bash "$(git rev-parse --show-toplevel)/scripts/ci/run-all.sh"
+# Tier-1 mechanical checks and the test suites locally. Bypass with
+# `git push --no-verify`. The authoritative gate is origin branch protection
+# + the CI workflow; this hook is fast local feedback only.
+root="$(git rev-parse --show-toplevel)"
+bash "$root/scripts/ci/run-all.sh" && exec bash "$root/scripts/test/run-all.sh"

@@ -17,3 +17,5 @@ jobs:
       - uses: actions/checkout@v4  # shallow clone: no check needs history
       - name: Tier-1 mechanical checks
         run: bash scripts/ci/run-all.sh
+      - name: Test suites
+        run: bash scripts/test/run-all.sh
