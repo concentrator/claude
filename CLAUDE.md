@@ -18,8 +18,8 @@ VIBE apply then wait, deliver + confirm at a work boundary
 ## Agent toolchain
 
 Self-hosting: this file is also the project CLAUDE.md. Test/lint:
-`bash scripts/ci/run-all.sh` (Tier-1 gate - caps, stray, plan-integrity,
-todos, references, ledger), also run by CI on PRs and the
+`bash scripts/ci/run-all.sh` (Tier-1 gate - caps, code-size, no-em-dash,
+stray, plan-integrity, todos, references), also run by CI on PRs and the
 `.githooks/pre-push` hook. VCS-host CLI: `gh`; batch-push carve-out in
 `.claude/settings.local.json` (deny narrowed to default-branch/force
 pushes). Auto-merge fallback (no native branch protection): confirm

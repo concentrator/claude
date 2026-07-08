@@ -184,14 +184,12 @@ Initiative index. Items: `R-001: description`; each entry owns
       drop `maintenance.jsonl` + `merge=union`, no migration. Self-hosting
       only. Fixes the R-024 non-goal. (shaped 2026-07-08)
 
-- [ ] R-028: Self-enforcement layer hygiene - two gaps in the CI/ledger
-      machinery. (a) CI runs the `check-*` gates but never the
-      `scripts/test/*.test.sh` suites, so a regression in a gate's or hook's
-      own logic ships unnoticed - add a `scripts/test/run-all.sh` wired into
-      `ci.yml` (blocking) + pre-push. (b) `maintenance.d/` accumulates a
-      dead-sha stamp per squash-merge - a `MAINTENANCE.md` Routine target +
-      helper prune stamps no longer ancestors of `main` (on demand,
-      review-before-delete). Surfaced closing R-027. (shaped 2026-07-08)
+- [ ] R-028: Self-enforcement layer hygiene - CI runs the `check-*` gates
+      but never the `scripts/test/*.test.sh` suites, so a regression in a
+      gate's or hook's own logic ships unnoticed. Add a
+      `scripts/test/run-all.sh` wired into `ci.yml` (blocking) + pre-push.
+      Surfaced closing R-027. (T-061 ledger-prune dropped - R-029 retires
+      the ledger.) (shaped 2026-07-08)
 
 - [ ] R-029: Retire the Tier-2 ledger - the `concerns_clear` stamp
       (`maintenance.d/<sha>.json`) gated by `check-ledger.sh` is a weak,

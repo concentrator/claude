@@ -21,8 +21,8 @@ relate, and the invariants that keep them coherent.
   (`skills/dev/plan.md`).
 - **MAINTENANCE.md** - sanity routine + the Tier-2 AI review
   (`## Self-enforcement`).
-- **scripts/ci/**, **.github/**, **.githooks/**, **maintenance.d/** -
-  the self-enforcement layer (`## Self-enforcement`).
+- **scripts/ci/**, **.github/**, **.githooks/** - the self-enforcement
+  layer (`## Self-enforcement`).
 
 ## Self-hosting layout
 
@@ -48,7 +48,6 @@ excluded - see `.gitignore`.
 ├── REQUIREMENTS.md               # foundational requirements
 ├── DESIGN.md                     # this file
 ├── MAINTENANCE.md                # sanity routine + Tier-2 AI review
-├── maintenance.d/                # Tier-2 review ledger (per-commit stamp files)
 ├── .github/
 │   └── workflows/ci.yml          # Tier-1 mechanical CI gate (on PRs)
 ├── .githooks/
@@ -132,15 +131,12 @@ Two tiers gate every change into `main` (the CI tiers are built for
   advisory `.githooks/pre-push` via `core.hooksPath`) hard-fail a PR on:
   a cap violation, a stray top-level file, a plan-integrity break, a
   `TODO`/`FIXME`/`XXX` marker in code, an expired reference, an oversized
-  code file or function (`check-code-size`, with an allowlist), an em dash
-  (`check-no-em-dash`), or a missing ledger stamp.
+  code file or function (`check-code-size`, with an allowlist), or an em
+  dash (`check-no-em-dash`).
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies the
-  rule set (compliance, cross-file integrity, cleanup, reference
-  freshness) to the diff and writes a stamp file `maintenance.d/<sha>.json`
-  - a per-commit ledger keyed by content-tip SHA (one file per stamp, so
-  concurrent stamps land on distinct paths and never conflict).
-  `check-ledger.sh` (Tier-1) refuses any PR whose delivered tree lacks a
-  clear stamp.
+  rule set (compliance, cross-file integrity, cleanup, reference freshness,
+  writing) to the diff as a mandatory step in the branch-close routine
+  (`skills/dev/branch-plan.md § Closing routine`).
 
 The workflow triggers on `pull_request` only, so it never re-judges the
 direct-to-main bootstrap history.

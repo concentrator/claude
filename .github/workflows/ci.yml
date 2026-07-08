@@ -14,8 +14,6 @@ jobs:
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # full history: check-ledger needs ancestor/diff
+      - uses: actions/checkout@v4  # shallow clone: no check needs history
       - name: Tier-1 mechanical checks
         run: bash scripts/ci/run-all.sh
