@@ -184,7 +184,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       drop `maintenance.jsonl` + `merge=union`, no migration. Self-hosting
       only. Fixes the R-024 non-goal. (shaped 2026-07-08)
 
-- [ ] R-028: Self-enforcement layer hygiene - CI runs the `check-*` gates
+- [x] R-028: Self-enforcement layer hygiene - CI runs the `check-*` gates
       but never the `scripts/test/*.test.sh` suites, so a regression in a
       gate's or hook's own logic ships unnoticed. Add a
       `scripts/test/run-all.sh` wired into `ci.yml` (blocking) + pre-push.

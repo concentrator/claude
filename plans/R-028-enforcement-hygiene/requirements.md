@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-08
 kind: feat
+status: done 2026-07-08
 ---
 
 # R-028: Self-enforcement layer hygiene
@@ -31,11 +32,17 @@ unnoticed.
 
 ## Acceptance criteria
 
-- [ ] `scripts/test/run-all.sh` runs every `scripts/test/*.test.sh`,
+- [x] `scripts/test/run-all.sh` runs every `scripts/test/*.test.sh`,
   aggregates results, and fails if any suite fails; green when all pass.
-- [ ] `ci.yml` runs the test suite as a required check on PRs; the pre-push
+  *Aggregator mirrors `scripts/ci/run-all.sh` (nullglob loop, aggregate);
+  runs all 5 suites (T-060).*
+- [x] `ci.yml` runs the test suite as a required check on PRs; the pre-push
   hook mirrors it.
-- [ ] Full Tier-1 gate green + the new test-suite check green.
+  *A "Test suites" step in the `tier1` job; pre-push runs mechanical then
+  suites (T-060).*
+- [x] Full Tier-1 gate green + the new test-suite check green.
+  *#154 merged on a green gate; the 5 suites passed on ubuntu/`C.UTF-8`
+  (their first run outside macOS) (T-060).*
 
 ## Constraints
 
