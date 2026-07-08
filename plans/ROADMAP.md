@@ -193,6 +193,14 @@ Initiative index. Items: `R-001: description`; each entry owns
       helper prune stamps no longer ancestors of `main` (on demand,
       review-before-delete). Surfaced closing R-027. (shaped 2026-07-08)
 
+- [ ] R-029: Retire the Tier-2 ledger - the `concerns_clear` stamp
+      (`maintenance.d/<sha>.json`) gated by `check-ledger.sh` is a weak,
+      self-attested forcing function (the authoring agent writes its own
+      stamp), duplicates a SHA git already tracks, and generated its own
+      upkeep (R-027, R-028's prune). Delete the gate + store + stamp step;
+      keep the five-concern Tier-2 review as a mandatory branch-close step.
+      Reduces R-028 to T-060. (shaped 2026-07-08)
+
 <!-- R-004's requirements are approved: pending - tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
      unoptimised verification routine. -->
