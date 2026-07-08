@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-08
 kind: feat
+status: done 2026-07-09
 ---
 
 # R-023: Feature documentation layer (docs/)
@@ -51,19 +52,26 @@ Deferred - spin into stubs only if the lean core proves useful:
 
 ## Acceptance criteria
 
-- [ ] `layout.md` defines the `.claude/docs/` artifact class: location,
+- [x] `layout.md` defines the `.claude/docs/` artifact class: location,
   purpose, the docs (internal) vs references (external, read-only) boundary,
   what a feature doc contains, and the granularity-is-a-recorded-convention
   rule (`CLAUDE.md § Conventions`).
-- [ ] Planning reads the relevant docs; the closing routine writes (new
+  *`layout.md` tree + Creation policy (lazy) + a `§ Docs` with the boundary
+  and the granularity-convention rule (T-063).*
+- [x] Planning reads the relevant docs; the closing routine writes (new
   feature) or reconciles (fix/refactor) the feature doc to match shipped
   code - a hard step before delivery. The mode files note docs are read at
   plan and written/reconciled at close, not per-commit.
-- [ ] A feature-doc template/checklist defines a doc's shape (behavior, data
+  *`write-plan.md` reads the doc at plan; `branch-plan.md § Closing routine`
+  step 7 is a distinct reconcile step; `feat`/`fix`/`refactor` note the
+  lifecycle (T-064).*
+- [x] A feature-doc template/checklist defines a doc's shape (behavior, data
   model, interfaces, business rules, edge cases) at the "fresh agent
   implements correctly" bar.
-- [ ] Ships to adopters (it lives in `layout.md` + the mode files, already
+  *Inline template in `layout.md § Docs`, mirroring the ADR template (T-063).*
+- [x] Ships to adopters (it lives in `layout.md` + the mode files, already
   distributed).
+  *All changes are in globally-distributed `skills/dev/` files.*
 
 ## Constraints
 

@@ -138,7 +138,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       CLAUDE.md declares host + git/test/lint/build; execution reads them,
       no probing). Secrets hook + code-size check ship to adopters via
       `install-dev.sh`. Sequence after R-021. (shaped 2026-07-05)
-- [ ] R-023: Feature documentation layer (docs/) - a `.claude/docs/`
+- [x] R-023: Feature documentation layer (docs/) - a `.claude/docs/`
       artifact class for per-feature docs on how our own code works (data
       model, interfaces, business rules, edge cases), sitting between
       `DESIGN.md` and code; sibling to the external `references/`
