@@ -22,4 +22,4 @@ new scheme).
 - [x] Update `MAINTENANCE.md § Ledger`: the stamp protocol writes `maintenance.d/<content-tip-sha>.json` (one JSON object), not an append to `maintenance.jsonl`; drop the `merge=union` explanation.
 - [x] Transition: delete `maintenance.jsonl` and `.gitattributes` (it held only the union driver). The delivery ledger stamp, run at close, creates the first `maintenance.d/<sha>.json`. (Done before the DESIGN update so `check-stray` stays green mid-branch.)
 - [x] Update `DESIGN.md` (architecture): tree-map (`maintenance.jsonl` node -> `maintenance.d/`, drop the removed `.gitattributes` node), the infrastructure-group line, and the ledger-mechanism prose (per-commit store, no union driver).
-- [ ] Complete the branch: re-review docs across all commits, cleanup, mark plan complete, commit.
+- [x] Complete the branch: re-review docs across all commits, cleanup, mark plan complete, commit.
