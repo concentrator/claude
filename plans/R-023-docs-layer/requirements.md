@@ -21,9 +21,13 @@ self-documenting prose.
 - Define a `.claude/docs/` artifact class: per-feature docs on how our own
   code works, sitting between `DESIGN.md` and code. Sibling to
   `.claude/references/` (external, read-only); `docs/` is internal and kept
-  current.
-- A doc-first step in the execution cycle: write or update the feature's doc
-  before implementing, and reconcile doc against code at branch close.
+  current. The granularity model (feature / page / section / block) is a
+  per-project choice recorded in `CLAUDE.md § Conventions` and applied
+  consistently.
+- A doc lifecycle: read the relevant docs at plan time (doc-informed
+  planning), then a hard reconcile at branch close - a new feature writes
+  the doc for what shipped, a fix/refactor reconciles the existing doc. TDD
+  stays the code-level spec; the doc is not written before each code piece.
 - Quality bar: a fresh agent reads only the doc and implements the feature
   correctly.
 
@@ -38,18 +42,23 @@ Deferred - spin into stubs only if the lean core proves useful:
 
 ## User experience
 
-- Building a feature: write or update `.claude/docs/<feature>.md` (intended
-  behavior) first, implement against it, reconcile at close.
-- Modifying a feature: read its doc first - the source of truth for
-  behavior, kept current with the code.
+- Planning: read the relevant `.claude/docs/` to inform the plan (nothing to
+  read yet for a brand-new feature).
+- Building / modifying: implement with TDD; at branch close, write the doc
+  (new feature) or reconcile it (fix/refactor) so it matches shipped code.
+- Reading later: the doc is the current source of truth for the feature's
+  behavior.
 
 ## Acceptance criteria
 
 - [ ] `layout.md` defines the `.claude/docs/` artifact class: location,
   purpose, the docs (internal) vs references (external, read-only) boundary,
-  and what a feature doc contains.
-- [ ] The execution mode files (`feat`/`fix`/`refactor`) include a doc-first
-  step; the closing routine reconciles doc against code before delivery.
+  what a feature doc contains, and the granularity-is-a-recorded-convention
+  rule (`CLAUDE.md § Conventions`).
+- [ ] Planning reads the relevant docs; the closing routine writes (new
+  feature) or reconciles (fix/refactor) the feature doc to match shipped
+  code - a hard step before delivery. The mode files note docs are read at
+  plan and written/reconciled at close, not per-commit.
 - [ ] A feature-doc template/checklist defines a doc's shape (behavior, data
   model, interfaces, business rules, edge cases) at the "fresh agent
   implements correctly" bar.
@@ -65,9 +74,9 @@ Deferred - spin into stubs only if the lean core proves useful:
 
 ## Open questions
 
-- Granularity: one doc per feature vs per module/area. Settle in detail.
-- Strictness: doc mandatory before code, or write-alongside with a reconcile
-  gate at close. Settle in detail.
+None - granularity (per-project, recorded in `CLAUDE.md § Conventions`) and
+lifecycle (read at plan, write/reconcile at close) settled in the detail
+round.
 
 ## References
 
