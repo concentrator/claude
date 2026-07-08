@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-08
 kind: refactor
+status: done 2026-07-08
 ---
 
 # R-029: Retire the Tier-2 ledger
@@ -41,14 +42,22 @@ removed. No per-PR stamp commit; no ledger to conflict or accumulate.
 
 ## Acceptance criteria
 
-- [ ] `check-ledger.sh`, its test, and `maintenance.d/` are gone;
+- [x] `check-ledger.sh`, its test, and `maintenance.d/` are gone;
   `run-all.sh` runs no ledger check; the Tier-1 gate passes with no stamp.
-- [ ] No PR requires a stamp commit (close/delivery no longer stamps).
-- [ ] The branch-close routine names the Tier-2 five-concern review as a
+  *All three deleted; `run-all.sh` loop is 7 checks; gate green (T-062).*
+- [x] No PR requires a stamp commit (close/delivery no longer stamps).
+  *#151 and this close-out carry no stamp - the first stampless PRs (T-062).*
+- [x] The branch-close routine names the Tier-2 five-concern review as a
   mandatory step; `MAINTENANCE.md` documents it there (no ledger).
-- [ ] `DESIGN.md` self-enforcement section + tree-map reflect the removal.
-- [ ] R-028 reduced to T-060; T-061 dropped.
-- [ ] Full Tier-1 gate green.
+  *`branch-plan.md § Closing routine` step 1 names it; `MAINTENANCE.md`
+  § Tier-2 reframed to a close-routine review, § Ledger removed (T-062).*
+- [x] `DESIGN.md` self-enforcement section + tree-map reflect the removal.
+  *Tier-2 prose reworded, `maintenance.d/` dropped from tree-map + infra
+  line; `ci.yml` shallow-cloned (T-062).*
+- [x] R-028 reduced to T-060; T-061 dropped.
+  *R-028 requirements/tasks/ROADMAP trimmed to the test-runner (T-062).*
+- [x] Full Tier-1 gate green.
+  *#151 merged on a green 7-check gate with no stamp.*
 
 ## Constraints
 
