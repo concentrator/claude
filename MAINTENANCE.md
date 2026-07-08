@@ -26,26 +26,27 @@ reviewer reads the diff against the rule set and confirms five concerns:
   repetition. (The no-em-dash rule is Tier-1, enforced by the em-dash gate.)
 
 Relationship: `rules/*` define the rules; this Tier-2 review applies
-them to a change and records its verdict in `maintenance.jsonl` (the
-append-only ledger); the Tier-1 gate `scripts/ci/check-ledger.sh`
+them to a change and records its verdict in the per-commit ledger store
+`maintenance.d/`; the Tier-1 gate `scripts/ci/check-ledger.sh`
 refuses any PR whose head SHA lacks a clear ledger entry. The Routine
 below is the time-based sweep; this is the per-change gate.
 
-### Ledger (`maintenance.jsonl`)
+### Ledger (`maintenance.d/`)
 
-An append-only JSONL file - one stamp per line, keyed by content-tip SHA:
+A directory with one stamp file per delivered tip, named by its content-tip
+SHA - `maintenance.d/<content-tip-sha>.json`, holding one JSON object:
 
     {"sha": "<content-tip-sha>", "reviewed": "YYYY-MM-DD", "concerns_clear": true}
 
-`.gitattributes` sets `maintenance.jsonl merge=union`, so concurrent PR
-stamps auto-merge (both lines kept) instead of conflicting.
+One file per stamp, so concurrent PR stamps land on distinct paths and never
+conflict - no merge driver needed.
 
 Protocol: review at the content tip (the last non-ledger commit), then a
-final commit **appends** the line for that tip's full SHA, touching only
-`maintenance.jsonl`. `check-ledger.sh` confirms a `concerns_clear` line
-exists whose SHA is an ancestor of `HEAD` and whose `<sha>..HEAD` diff
-touches only `maintenance.jsonl` - proving the review covered exactly the
-delivered tree.
+final commit **writes** `maintenance.d/<tip-sha>.json` for that tip's full
+SHA, touching only `maintenance.d/`. `check-ledger.sh` confirms a
+`concerns_clear` stamp exists whose SHA is an ancestor of `HEAD` and whose
+`<sha>..HEAD` diff touches only `maintenance.d/` - proving the review
+covered exactly the delivered tree.
 
 ### Prune dead prose
 
