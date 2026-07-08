@@ -175,7 +175,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       plus prose style for `.md` (no AI-tell words, no repetition) as Tier-2
       review criteria. Ships to adopters via the installer (code-size model)
       so a team writes consistently. Sequence after R-022. (shaped 2026-07-06)
-- [ ] R-027: Conflict-free Tier-2 ledger - concurrent PRs conflict on the
+- [x] R-027: Conflict-free Tier-2 ledger - concurrent PRs conflict on the
       single appended `maintenance.jsonl` because the host's server-side
       merge ignores the `merge=union` driver. Replace it with a per-commit
       stamp store (`maintenance.d/<content-tip-sha>.json`): each PR writes
