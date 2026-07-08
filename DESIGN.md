@@ -21,7 +21,7 @@ relate, and the invariants that keep them coherent.
   (`skills/dev/plan.md`).
 - **MAINTENANCE.md** - sanity routine + the Tier-2 AI review
   (`## Self-enforcement`).
-- **scripts/ci/**, **.github/**, **.githooks/**, **maintenance.jsonl** -
+- **scripts/ci/**, **.github/**, **.githooks/**, **maintenance.d/** -
   the self-enforcement layer (`## Self-enforcement`).
 
 ## Self-hosting layout
@@ -44,12 +44,11 @@ excluded - see `.gitignore`.
 ├── writing.md                    # writing conventions (@imported by CLAUDE.md)
 ├── settings.json                 # global Claude Code config (tracked)
 ├── .gitignore
-├── .gitattributes                # maintenance.jsonl merge=union (append-only ledger)
 ├── README.md                     # project readme
 ├── REQUIREMENTS.md               # foundational requirements
 ├── DESIGN.md                     # this file
 ├── MAINTENANCE.md                # sanity routine + Tier-2 AI review
-├── maintenance.jsonl             # Tier-2 review ledger (append-only, union-merged)
+├── maintenance.d/                # Tier-2 review ledger (per-commit stamp files)
 ├── .github/
 │   └── workflows/ci.yml          # Tier-1 mechanical CI gate (on PRs)
 ├── .githooks/
@@ -137,10 +136,11 @@ Two tiers gate every change into `main` (the CI tiers are built for
   (`check-no-em-dash`), or a missing ledger stamp.
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies the
   rule set (compliance, cross-file integrity, cleanup, reference
-  freshness) to the diff and appends a stamp to `maintenance.jsonl` - an
-  append-only ledger keyed by content-tip SHA (union-merged, so
-  concurrent stamps don't conflict). `check-ledger.sh` (Tier-1) refuses
-  any PR whose delivered tree lacks a clear stamp.
+  freshness) to the diff and writes a stamp file `maintenance.d/<sha>.json`
+  - a per-commit ledger keyed by content-tip SHA (one file per stamp, so
+  concurrent stamps land on distinct paths and never conflict).
+  `check-ledger.sh` (Tier-1) refuses any PR whose delivered tree lacks a
+  clear stamp.
 
 The workflow triggers on `pull_request` only, so it never re-judges the
 direct-to-main bootstrap history.
