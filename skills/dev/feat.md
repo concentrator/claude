@@ -9,7 +9,7 @@ Strict TDD iteration for one feature task from its branch plan
 2. **Green** - minimal implementation to make the test pass.
 3. **Refactor** - clean up code and tests; coverage stays green.
 4. **Verify** - run project's test + lint commands. Green.
-5. **Docs** - per project `CLAUDE.md § Conventions`: if `release-routine: yes`, add `CHANGELOG.md ## [Unreleased]` entry; if change exposes new public surface, update `README.md`; if `extended-docs: yes`, update per conventions. Update in *this* commit, not later.
+5. **Docs** - per project `CLAUDE.md § Conventions`: if `release-routine: yes`, add `CHANGELOG.md ## [Unreleased]` entry; if change exposes new public surface, update `README.md`; if `extended-docs: yes`, update per conventions. Update in *this* commit, not later. The feature's `.claude/docs/` doc is read at plan and reconciled at branch close (`branch-plan.md § Closing routine`), not per-commit.
 6. **Commit** - single-line message. Mark `[x]` in branch plan immediately after committing.
 
 ## Code reuse
