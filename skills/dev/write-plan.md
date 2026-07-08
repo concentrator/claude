@@ -11,11 +11,14 @@ round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
 - Task tag: `[feat] | [fix] | [refactor]`
 - Parent chain for context: T-XXX → R-XXX
 - Project `CLAUDE.md` (build/test/lint), `.claude/DESIGN.md` (architecture)
+- The changed feature's `.claude/docs/` doc, if it exists (`layout.md § Docs`)
+  - plan against the current documented behavior
 
 ## Steps
 
 1. **Resolve chain.** Read task line; walk back T → R. Read
-   `plans/R-XXX-<slug>/requirements.md` for acceptance criteria.
+   `plans/R-XXX-<slug>/requirements.md` for acceptance criteria, and the
+   changed feature's `.claude/docs/` doc (if any) for its current behavior.
 2. **Propose slug.** ≤20 chars, kebab-case, prune redundant words.
    Confirm with user.
 3. **Decompose work** into commit-sized checkboxes. Each `[ ]` = one
