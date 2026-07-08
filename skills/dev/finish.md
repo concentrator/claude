@@ -32,7 +32,10 @@ MR/PR to origin by running the change-request command declared in CLAUDE.md
 `## Agent toolchain` (`companions/toolchain.md`) - `gh pr create` / `glab
 mr create` when the project only names the host (summary + test plan); no
 declared host → push and print the URL. Never a local merge or direct push. Merge per
-`git-workflow.md § Trunk`. `T-XXX` stays `[ ]` until merge; run §4 then.
+`git-workflow.md § Trunk`. After opening it, **stay on the branch** - do not
+switch to the default branch while the MR/PR is open, so the reviewer sees
+the branch's files; the switch to default is §4, after merge. `T-XXX` stays
+`[ ]` until merge; run §4 then.
 
 **Keep** - report branch name. Nothing closes.
 
