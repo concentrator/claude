@@ -80,6 +80,19 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 (OpenAPI), third-party docs, domain knowledge, schema files. Any
 format. **Read-only** - the agent never modifies these.
 
+## Docs
+
+`docs/` holds internal documentation of how our own code works: per-feature
+docs (data model, interfaces, business rules, edge cases) sitting between
+`DESIGN.md` (architecture) and the code (line-level). The bar: a fresh agent
+reads only the doc and implements the feature correctly. Distinct from
+`references/` - `references/` is external and read-only, `docs/` is internal
+and kept current with the code.
+
+The granularity model - a doc per feature, page, section, or block - is a
+per-project choice. Pick the one that fits the project, record it in
+`CLAUDE.md § Conventions`, and apply it consistently.
+
 ## ADRs
 
 Architecture Decision Records - one file per decision, sequentially
