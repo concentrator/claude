@@ -17,9 +17,10 @@ for f in maintenance.d/*.json; do
   [ -n "$sha" ] && [ "$sha" != "null" ] || continue
   git cat-file -e "${sha}^{commit}" 2>/dev/null || continue
   git merge-base --is-ancestor "$sha" HEAD 2>/dev/null || continue
-  changed=$(git diff --name-only "$sha" HEAD)
-  # Pass iff the sha..HEAD diff touches only the ledger store.
-  if [ -z "$changed" ] || ! printf '%s\n' "$changed" | grep -qvE '^maintenance\.d/'; then
+  changed=$(git diff --name-only "$sha" HEAD) || continue
+  # Pass iff the sha..HEAD diff touches only well-formed stamp files - a bare
+  # `maintenance.d/` prefix would let unreviewed content ride in under the dir.
+  if [ -z "$changed" ] || ! printf '%s\n' "$changed" | grep -qvE '^maintenance\.d/[0-9a-f]{40,64}\.json$'; then
     ok=1; break
   fi
 done

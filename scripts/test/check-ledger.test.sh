@@ -56,5 +56,13 @@ n=$(ls "$R"/maintenance.d/*.json | wc -l | tr -d ' ')
 [ "$(run "$R")" = pass ] && pass "newest stamp certifies HEAD among many" || die "multi-stamp did not pass"
 rm -rf "$R"
 
+# 5. A non-stamp file parked under maintenance.d/ after a valid stamp fails -
+# only well-formed <sha>.json stamps count as ledger, not arbitrary content.
+R=$(new_repo); tip=$(content_commit "$R" work); stamp "$R" "$tip"
+printf 'payload\n' > "$R/maintenance.d/evil.sh"
+git -C "$R" add "maintenance.d/evil.sh"; git -C "$R" commit -qm "sneak" >/dev/null
+[ "$(run "$R")" = fail ] && pass "unreviewed non-stamp under maintenance.d/ fails" || die "non-stamp content passed the gate"
+rm -rf "$R"
+
 (( fail == 0 )) && echo "check-ledger.test: OK"
 exit $fail
