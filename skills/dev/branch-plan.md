@@ -31,9 +31,9 @@ any documentation it touches.
 
 ### No TODOs in code
 
-Never write `TODO`, `FIXME`, or `XXX` comments in code. Every such item
-routes to a plan artifact (branch-plan commit, the R's `tasks.md`, or an
-R stub) at discovery time. See "Scope discoveries" below.
+Never write `TODO`/`FIXME`/`XXX` in code. Route each to a plan artifact
+(branch-plan commit, the R's `tasks.md`, or an R stub) at discovery. See
+"Scope discoveries" below.
 
 ## Mid-execution rules
 
@@ -58,12 +58,8 @@ smell, naming inconsistency:
   coding, and triage at close.
 - Never silently expand scope.
 
-Findings file format:
-
-    - [ ] Logging in `auth/refresh.ts:42` missing trace ID (tangential)
-    - [ ] `validateToken` lacks test for expired-but-recent case (test gap)
-
-Triaged at branch close - see closing routine.
+Findings file: a checkbox list, one line + brief context each; triaged at
+branch close.
 
 ### Scope changes mid-branch
 
@@ -102,12 +98,14 @@ mandatory final commit, then hands off to merge/PR.
    - Promote to an R stub (`plan.md § Directory conventions`; shaped
      in a later shape round)
    - Discard (mark `[x]` with reason: "won't fix")
-7. **Mandatory final commit** - the last `[ ]`:
+7. **Reconcile the feature doc** - write (new feature) or update
+   (fix/refactor) the `.claude/docs/` doc to match the shipped code. Then
+   the **mandatory final commit** - the last `[ ]`:
 
    > Complete the branch: re-review docs across all commits, cleanup
    > (stale/temp data), mark plan complete, commit.
 
-   Includes the resolved findings file.
+   Includes the resolved findings file and the reconciled doc.
 8. Invoke `finish` - present merge/PR/keep/discard
    options and execute.
 
