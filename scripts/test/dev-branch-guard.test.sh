@@ -56,6 +56,10 @@ j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git checkout -b feat/x && ech
 j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git switch -c feat/y && git commit -m wip"}}')
 [ "$(run "$j")" = allow ] && pass "switch -c then commit allowed" || die "compound switch -c && commit denied"
 
+# Flags between checkout/switch and -b/-c must not defeat the branch-create.
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git checkout -q -b feat/z && git commit -m wip"}}')
+[ "$(run "$j")" = allow ] && pass "checkout -q -b then commit allowed" || die "flags before -b defeated the compound detection"
+
 # --- false-positive 3: cross-repo git -C targeting a branch is allowed ---
 B=$(new_branch)
 j=$(jq -nc --arg d "$B" '{tool_name:"Bash",tool_input:{command:("git -C " + $d + " commit -m x")}}')
