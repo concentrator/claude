@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-08
 kind: bug
+status: done 2026-07-08
 ---
 
 # R-027: Conflict-free Tier-2 ledger
@@ -37,18 +38,29 @@ low-to-medium - a workaround exists, but it recurs.
 
 ## Acceptance criteria
 
-- [ ] Two stamps created on independent branches and merged in sequence
+- [x] Two stamps created on independent branches and merged in sequence
   produce no conflict on any ledger path - each stamp lands on its own file.
-- [ ] `check-ledger.sh` passes iff a `concerns_clear` stamp certifies HEAD's
+  *Each stamp is `maintenance.d/<sha>.json`; distinct content tips give
+  distinct paths. `check-ledger.test.sh` "two stamps live on separate files"
+  + this close-out is the second stamp coexisting with #146's (T-059).*
+- [x] `check-ledger.sh` passes iff a `concerns_clear` stamp certifies HEAD's
   content tip - the same guarantee as today (the stamp's sha is an ancestor
   of HEAD; `sha..HEAD` touches only ledger paths) - now reading the
   per-commit store.
-- [ ] `MAINTENANCE.md` documents the per-commit stamp file (path + one JSON
+  *Rewritten to scan `maintenance.d/*.json`, scope-restricted to well-formed
+  `<sha>.json`; `check-ledger.test.sh` 6/6 (valid/missing/stale/multi/
+  non-stamp-content) (T-059).*
+- [x] `MAINTENANCE.md` documents the per-commit stamp file (path + one JSON
   object) replacing the append-to-`maintenance.jsonl` step.
-- [ ] The transition removes `maintenance.jsonl` and the `merge=union`
+  *`MAINTENANCE.md § Ledger` rewritten to the `maintenance.d/<tip-sha>.json`
+  protocol (T-059).*
+- [x] The transition removes `maintenance.jsonl` and the `merge=union`
   `.gitattributes` line; the transition PR's own `maintenance.d/<sha>.json`
   stamp certifies its content tip and `check-ledger` passes on it.
-- [ ] Full Tier-1 gate green + a stamp under the new scheme.
+  *#146 deleted both and stamped its own tip; its green CI is the end-to-end
+  proof over the new store (T-059).*
+- [x] Full Tier-1 gate green + a stamp under the new scheme.
+  *#146 merged on a green Tier-1 gate with the first `maintenance.d/` stamp.*
 
 ## Constraints
 
