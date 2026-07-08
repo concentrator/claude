@@ -93,6 +93,25 @@ The granularity model - a doc per feature, page, section, or block - is a
 per-project choice. Pick the one that fits the project, record it in
 `CLAUDE.md § Conventions`, and apply it consistently.
 
+Template (omit sections that do not apply):
+
+    # <Feature>
+
+    ## Behavior
+    What it does, from the user's / caller's view.
+
+    ## Data model
+    Entities, fields, types, relationships, invariants.
+
+    ## Interfaces
+    Endpoints / functions / events - inputs, outputs, errors.
+
+    ## Business rules
+    The rules governing behavior, and why it works this way.
+
+    ## Edge cases
+    Boundaries, failure modes, and how each is handled.
+
 ## ADRs
 
 Architecture Decision Records - one file per decision, sequentially
