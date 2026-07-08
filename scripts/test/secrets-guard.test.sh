@@ -62,6 +62,17 @@ j=$(jq -nc --arg c "gh=$FAKE_PAT" '{tool_name:"Write",tool_input:{file_path:"z.s
 j=$(jq -nc --arg c "password        $GENERIC_VAL" '{tool_name:"Write",tool_input:{file_path:"w.sh",content:$c}}')
 [ "$(run "$j")" = deny ] && pass "spaced assignment denied" || die "M2: spaced assignment missed"
 
+# A low-entropy word-slug next to a trigger word is NOT a secret (no digit),
+# e.g. a doc/table cell. Markdown is still scanned; only the value heuristic
+# is tightened. Assembled from a var so this source carries no matchable literal.
+slug="wallarm-api-token"
+j=$(jq -nc --arg c "| Token | $slug |" '{tool_name:"Write",tool_input:{file_path:"docs/taxonomy.md",content:$c}}')
+[ "$(run "$j")" = allow ] && pass "kebab slug next to trigger word allowed" || die "kebab slug false-positive"
+
+# A real high-entropy value next to a trigger word is still denied in .md.
+j=$(jq -nc --arg c "token: $GENERIC_VAL" '{tool_name:"Write",tool_input:{file_path:"notes.md",content:$c}}')
+[ "$(run "$j")" = deny ] && pass "entropy value in .md still denied" || die "real token in .md missed"
+
 # --- git add / commit ---
 # staged secret, plain commit
 gd=$(new_repo); cd "$gd"
