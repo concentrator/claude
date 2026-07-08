@@ -193,6 +193,15 @@ Initiative index. Items: `R-001: description`; each entry owns
       keep the five-concern Tier-2 review as a mandatory branch-close step.
       Reduces R-028 to T-060. (shaped 2026-07-08)
 
+- [ ] R-030: Docs-layer routing & adoption - two gaps that keep R-023's
+      docs layer from scaling. A CLAUDE.md doc-lookup table routes to the
+      right `.claude/docs/` file before coding; a `migrate` docs-adoption
+      step audits existing code for coverage (fresh-agent spec-check ->
+      PASS/WARN/FAIL/TODO + a docs backlog), builds a prioritized subset now
+      with the rest backfilled on-touch, and corrects the workflow to
+      doc-first. Realizes the three pieces R-023 deferred. Sequence after
+      R-023. (shaped 2026-07-08)
+
 <!-- R-004's requirements are approved: pending - tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
      unoptimised verification routine. -->
