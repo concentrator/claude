@@ -138,21 +138,15 @@ Initiative index. Items: `R-001: description`; each entry owns
       CLAUDE.md declares host + git/test/lint/build; execution reads them,
       no probing). Secrets hook + code-size check ship to adopters via
       `install-dev.sh`. Sequence after R-021. (shaped 2026-07-05)
-- [ ] R-023: Documentation handbook & doc-first lifecycle - a living
-      per-feature documentation layer (data model, API endpoints, dashboard
-      elements, business rules, edge cases) sitting between `DESIGN.md` and
-      code, with an explicit docs (how our own code works) vs references
-      (external API/code specifics our code uses) boundary - `docs/` is the
-      new half, `layout.md` already scopes `references/` to external inputs;
-      the strict Doc→Test→Code→Reconcile→ship-together cycle woven
-      into the execution mode files and `branch-plan` closing routine; a
-      per-project CLAUDE.md lookup table routing to the right doc before
-      coding; audit-first adoption in `migrate` (crawl, PASS/WARN/FAIL/TODO,
-      fix plan, document-what-exists); doc↔code verification via a
-      fresh-agent spec-check (reuse `delegating-to-agents`); a new
-      documentation artifact class in `project-layout`. Quality bar: a
-      fresh Claude reads only the doc and implements correctly. Sequence
-      after R-022. (stub - shape via `/dev plan R-023`)
+- [ ] R-023: Feature documentation layer (docs/) - a `.claude/docs/`
+      artifact class for per-feature docs on how our own code works (data
+      model, interfaces, business rules, edge cases), sitting between
+      `DESIGN.md` and code; sibling to the external `references/`
+      (`layout.md`). A doc-first step in the execution cycle + a doc-to-code
+      reconcile at branch close. Quality bar: a fresh agent reads only the
+      doc and implements correctly. Shaped lean; the lookup table, migrate
+      audit, and fresh-agent verification are deferred to future stubs.
+      (shaped 2026-07-08)
 - [x] R-024: DEV confirmation and outcome gates - enforce two interactive
       boundaries plus make the guard precise: (a) plan->code - approving a
       plan never auto-starts coding; the plan round stops and proposes
