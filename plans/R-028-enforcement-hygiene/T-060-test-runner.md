@@ -13,7 +13,7 @@ Acceptance criteria: see `requirements.md` (`run-all.sh` runs every
 `*.test.sh` and fails if any fails; `ci.yml` runs it as a required check;
 pre-push mirrors it; Tier-1 gate + the new test check green).
 
-- [ ] Add `scripts/test/run-all.sh`: loop `scripts/test/*.test.sh`, run each, aggregate, fail if any fails - mirroring `scripts/ci/run-all.sh` (no parallelism, no self-run).
-- [ ] Run all five suites under a clean `bash`; fix any CI-portability break (the suites have only run on macOS - they must be green on ubuntu / `C.UTF-8` before becoming blocking).
-- [ ] Wire it in: a "Test suites" step in the `tier1` job of `.github/workflows/ci.yml`, and a line in `.githooks/pre-push` running the full suite after the mechanical gate.
+- [x] Add `scripts/test/run-all.sh`: loop `scripts/test/*.test.sh`, run each, aggregate, fail if any fails - mirroring `scripts/ci/run-all.sh` (no parallelism, no self-run).
+- [x] Run all five suites under a clean `bash`; fix any CI-portability break (the suites have only run on macOS - they must be green on ubuntu / `C.UTF-8` before becoming blocking).
+- [x] Wire it in: a "Test suites" step in the `tier1` job of `.github/workflows/ci.yml`, and a line in `.githooks/pre-push` running the full suite after the mechanical gate.
 - [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
