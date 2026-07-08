@@ -31,6 +31,8 @@ Canonical structure for `.claude/` in a project. Other paths inside
     │   └── NNN-<short-title>.md
     ├── references/               # external docs/specs the agent reads (lazy)
     │   └── *                     # any format
+    ├── docs/                     # internal own-code feature docs, kept current (lazy)
+    │   └── *.md
     ├── settings.json             # Claude Code shared config
     └── settings.local.json       # Claude Code local (gitignored)
 
@@ -60,7 +62,7 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 - **Initiative-time**: `plans/R-XXX-<slug>/` + `requirements.md`,
   created with the ROADMAP entry (`plan.md § Directory
   conventions`).
-- **Lazy** (created on first use): `adr/`, `references/`,
+- **Lazy** (created on first use): `adr/`, `references/`, `docs/`,
   `plans/R-XXX-<slug>/tasks.md` (with the R's first task),
   `plans/R-XXX-<slug>/batches/`, `plans/archive/`,
   `plans/visual-artifacts/` (gitignored - session artifacts, not docs).
@@ -77,6 +79,38 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 `references/` holds external inputs the agent consults: API specs
 (OpenAPI), third-party docs, domain knowledge, schema files. Any
 format. **Read-only** - the agent never modifies these.
+
+## Docs
+
+`docs/` holds internal documentation of how our own code works: per-feature
+docs (data model, interfaces, business rules, edge cases) sitting between
+`DESIGN.md` (architecture) and the code (line-level). The bar: a fresh agent
+reads only the doc and implements the feature correctly. Distinct from
+`references/` - `references/` is external and read-only, `docs/` is internal
+and kept current with the code.
+
+The granularity model - a doc per feature, page, section, or block - is a
+per-project choice. Pick the one that fits the project, record it in
+`CLAUDE.md § Conventions`, and apply it consistently.
+
+Template (omit sections that do not apply):
+
+    # <Feature>
+
+    ## Behavior
+    What it does, from the user's / caller's view.
+
+    ## Data model
+    Entities, fields, types, relationships, invariants.
+
+    ## Interfaces
+    Endpoints / functions / events - inputs, outputs, errors.
+
+    ## Business rules
+    The rules governing behavior, and why it works this way.
+
+    ## Edge cases
+    Boundaries, failure modes, and how each is handled.
 
 ## ADRs
 
