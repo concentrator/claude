@@ -14,7 +14,7 @@ Acceptance criteria: see `requirements.md` (layout.md defines location,
 purpose, boundary, doc contents, and the granularity-convention rule; a
 feature-doc template defines the doc's shape).
 
-- [ ] `layout.md`: add `.claude/docs/` to the Layout tree (beside `references/`, "internal own-code feature docs, kept current") and to Creation policy § Lazy.
-- [ ] `layout.md`: add a `§ Docs` section - purpose (internal own-code feature docs between `DESIGN.md` and code), the docs (internal, kept current) vs references (external, read-only) boundary, and the rule that the granularity model (feature / page / section / block) is a per-project choice recorded in `CLAUDE.md § Conventions` and applied consistently.
-- [ ] `layout.md § Docs`: add an inline feature-doc template (mirroring the ADR template) - sections for behavior, data model, interfaces, business rules, edge cases - at the bar where a fresh agent reads only the doc and implements correctly.
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] `layout.md`: add `.claude/docs/` to the Layout tree (beside `references/`, "internal own-code feature docs, kept current") and to Creation policy § Lazy.
+- [x] `layout.md`: add a `§ Docs` section - purpose (internal own-code feature docs between `DESIGN.md` and code), the docs (internal, kept current) vs references (external, read-only) boundary, and the rule that the granularity model (feature / page / section / block) is a per-project choice recorded in `CLAUDE.md § Conventions` and applied consistently.
+- [x] `layout.md § Docs`: add an inline feature-doc template (mirroring the ADR template) - sections for behavior, data model, interfaces, business rules, edge cases - at the bar where a fresh agent reads only the doc and implements correctly.
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
