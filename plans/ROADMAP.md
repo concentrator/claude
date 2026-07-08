@@ -191,7 +191,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       Surfaced closing R-027. (T-061 ledger-prune dropped - R-029 retires
       the ledger.) (shaped 2026-07-08)
 
-- [ ] R-029: Retire the Tier-2 ledger - the `concerns_clear` stamp
+- [x] R-029: Retire the Tier-2 ledger - the `concerns_clear` stamp
       (`maintenance.d/<sha>.json`) gated by `check-ledger.sh` is a weak,
       self-attested forcing function (the authoring agent writes its own
       stamp), duplicates a SHA git already tracks, and generated its own
