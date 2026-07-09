@@ -47,6 +47,9 @@ record `publish-external:`. If external, override
 Ask: **extended docs?** Record `extended-docs:` (+ path if yes) in
 `CLAUDE.md § Conventions`. If yes: create directory with placeholder.
 
+If the project will keep `.claude/docs/` feature docs (`layout.md § Docs`),
+record a one-line pointer to `.claude/docs/index.md` in `§ Conventions`.
+
 ## 4. Quality infrastructure
 
 Set up: lint for the stack + one passing smoke test + CI running lint +

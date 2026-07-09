@@ -13,6 +13,6 @@ Acceptance criteria: see `requirements.md` (docs index convention defined -
 catalog in `.claude/docs/`, a one-line `CLAUDE.md § Conventions` pointer, how
 maintained, how the agent routes with it before coding).
 
-- [ ] `layout.md § Docs`: define the docs index - a catalog in `.claude/docs/` (one entry per doc: path + a one-line "covers X"), consulted before coding to find the feature's doc, kept current as docs are added.
-- [ ] The `CLAUDE.md` pointer: `layout.md § Docs` states project `CLAUDE.md § Conventions` carries a one-line reference to the index; note that `start.md` seeds it and `migrate.md § 4` (CLAUDE.md alignment) backfills it.
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] `layout.md § Docs`: define the docs index - a catalog in `.claude/docs/` (one entry per doc: path + a one-line "covers X"), consulted before coding to find the feature's doc, kept current as docs are added.
+- [x] The `CLAUDE.md` pointer: `layout.md § Docs` states project `CLAUDE.md § Conventions` carries a one-line reference to the index; note that `start.md` seeds it and `migrate.md § 4` (CLAUDE.md alignment) backfills it.
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
