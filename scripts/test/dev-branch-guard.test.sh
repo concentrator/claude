@@ -60,6 +60,15 @@ j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git switch -c feat/y && git c
 j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git checkout -q -b feat/z && git commit -m wip"}}')
 [ "$(run "$j")" = allow ] && pass "checkout -q -b then commit allowed" || die "flags before -b defeated the compound detection"
 
+# Newline-separated commands: a checkout -b on a later line is still a head.
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"echo start\ngit checkout -b feat/nl\ngit commit -m wip"}}')
+[ "$(run "$j")" = allow ] && pass "newline-separated checkout -b then commit allowed" || die "newline before checkout -b defeated the compound detection"
+
+# ...but a checkout -b that is echo text (not a command head) still denies,
+# even across a newline.
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"echo git checkout -b fake\ngit commit -m x"}}')
+[ "$(run "$j")" = deny ] && pass "newline echo-text checkout -b still denies" || die "newline echo-text bypass"
+
 # --- false-positive 3: cross-repo git -C targeting a branch is allowed ---
 B=$(new_branch)
 j=$(jq -nc --arg d "$B" '{tool_name:"Bash",tool_input:{command:("git -C " + $d + " commit -m x")}}')

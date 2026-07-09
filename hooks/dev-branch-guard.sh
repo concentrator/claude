@@ -52,6 +52,7 @@ case "$tool" in
     # Everything up to the first `commit` - a branch created/switched here
     # first means the commit lands off the trunk.
     before="${cmd%%commit*}"
+    before="${before//$'\n'/;}"   # newlines separate commands too, like ;&|
     # Treat `checkout -b` / `switch -c` as a branch-create only when it is an
     # actual command head (start, or after a shell separator) and names a
     # non-trunk branch - not text inside an echo or a commit message. Flags
