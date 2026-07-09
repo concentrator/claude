@@ -13,6 +13,6 @@ Acceptance criteria: see `requirements.md` (companion holds the procedure;
 `migrate § 7` is a pointer; audit grades existing docs for drift; workflow
 correction records the docs conventions).
 
-- [ ] Create `companions/docs-adoption.md`: the audit (whole-project at the project's granularity; grade existing docs doc-vs-code with `dispatching-parallel-agents`, WARN on drift, reuse as input; missing = FAIL/TODO; register code issues as fixable tasks) -> user-prioritized build (ask which matter; always runs; prior docs feed new; add to `.claude/docs/index.md`) -> workflow correction (doc-first cycle + index pointer + record the granularity model and index pointer in `CLAUDE.md § Conventions` if absent). Framed to run standalone on any project.
-- [ ] Replace `migrate § 7` body with a pointer: "run the docs-adoption procedure (`companions/docs-adoption.md`)". Confirm fresh-adoption behavior is unchanged.
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] Create `companions/docs-adoption.md`: the audit (whole-project at the project's granularity; grade existing docs doc-vs-code with `dispatching-parallel-agents`, WARN on drift, reuse as input; missing = FAIL/TODO; register code issues as fixable tasks) -> user-prioritized build (ask which matter; always runs; prior docs feed new; add to `.claude/docs/index.md`) -> workflow correction (doc-first cycle + index pointer + record the granularity model and index pointer in `CLAUDE.md § Conventions` if absent). Framed to run standalone on any project.
+- [x] Replace `migrate § 7` body with a pointer: "run the docs-adoption procedure (`companions/docs-adoption.md`)". Confirm fresh-adoption behavior is unchanged.
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
