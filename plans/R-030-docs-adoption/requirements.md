@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-08
 kind: feat
+status: done 2026-07-09
 ---
 
 # R-030: Docs-layer routing & adoption
@@ -46,19 +47,24 @@ greenfield features and never reaches existing code.
 
 ## Acceptance criteria
 
-- [ ] A docs index convention is defined: a catalog in `.claude/docs/`, a
+- [x] A docs index convention is defined: a catalog in `.claude/docs/`, a
   one-line `CLAUDE.md § Conventions` pointer to it, how it is maintained, and
   how the agent routes with it before coding.
-- [ ] `migrate` gains a docs-adoption step: a whole-project audit at the
+  *`layout.md § Docs` defines `.claude/docs/index.md` + the pointer;
+  `start.md` seeds it, `migrate.md § 4` backfills it (T-065).*
+- [x] `migrate` gains a docs-adoption step: a whole-project audit at the
   project's docs-granularity (grade existing docs PASS / WARN / FAIL / TODO
   and reuse them as build input), a docs backlog, code issues registered as
   fixable tasks, a user-prioritized build now (always performed) with the
   rest on-touch, and workflow correction (doc-first cycle + index wired in).
-- [ ] The audit reuses the `dispatching-parallel-agents` fresh-agent
+  *`migrate.md § 7 Docs adoption` (T-066).*
+- [x] The audit reuses the `dispatching-parallel-agents` fresh-agent
   spec-check on existing docs (a missing doc is FAIL/TODO, needs no agent) -
   the verification piece deferred from R-023, applied here.
-- [ ] Ships to adopters (`migrate.md` + the index/pointer convention, already
+  *Cited in `migrate.md § 7` audit phase (T-066).*
+- [x] Ships to adopters (`migrate.md` + the index/pointer convention, already
   distributed).
+  *All changes in globally-distributed `skills/dev/` files.*
 
 ## Constraints
 
