@@ -17,14 +17,17 @@ greenfield features and never reaches existing code.
 
 ## Goals
 
-- A CLAUDE.md doc-lookup table: a per-project index mapping feature/area to
-  its `.claude/docs/<...>` path, consulted before coding. Kept current as
-  docs are added.
-- A `migrate` docs-adoption step: audit all features for doc coverage
-  (fresh-agent spec-check grading PASS / WARN / FAIL / TODO), produce a
-  report + a docs backlog (tasks / R-stubs), build docs now for a prioritized
-  subset with the rest backfilled on-touch, then correct the workflow (wire
-  the doc-first cycle + the lookup table into the project).
+- A docs index: a catalog in `.claude/docs/` mapping feature/area to its
+  doc, consulted before coding to find the right one; project `CLAUDE.md
+  § Conventions` carries a one-line pointer to it (keeping CLAUDE.md lean).
+  Kept current as docs are added.
+- A `migrate` docs-adoption step: audit the whole project at its
+  docs-granularity - grade and reuse any existing docs as build input
+  (fresh-agent spec-check, PASS / WARN / FAIL / TODO), backlog the gaps, and
+  register any code issues found while probing as fixable tasks. Then build
+  `.claude/docs/` for a subset the user prioritizes (build always occurs,
+  even from zero docs), the rest on-touch. Then correct the workflow (wire
+  the doc-first cycle + the index into the project).
 
 ## Non-goals
 
@@ -34,41 +37,43 @@ greenfield features and never reaches existing code.
 
 ## User experience
 
-- Steady state: before coding a feature, consult the CLAUDE.md lookup table
-  and open the doc.
-- Adoption: the `migrate` docs step reports coverage, builds the critical
-  docs, seeds the backlog, and leaves the project on the doc-first cycle with
-  a populated lookup table.
+- Steady state: before coding a feature, follow the `CLAUDE.md` pointer to
+  the docs index and open the feature's doc.
+- Adoption: the `migrate` docs step reports coverage, files code issues as
+  tasks, builds the user-prioritized docs (reusing any prior docs), seeds the
+  backlog, and leaves the project on the doc-first cycle with a populated
+  index.
 
 ## Acceptance criteria
 
-- [ ] A CLAUDE.md doc-lookup table convention is defined: format, placement
-  in the project CLAUDE.md, how it is maintained, and how the agent routes
-  with it before coding.
-- [ ] `migrate` gains a docs-adoption step: audit (fresh-agent spec-check per
-  feature into a PASS / WARN / FAIL / TODO report), a docs backlog, a
-  prioritized build now with the rest deferred on-touch, and workflow
-  correction (doc-first cycle + lookup table wired in).
+- [ ] A docs index convention is defined: a catalog in `.claude/docs/`, a
+  one-line `CLAUDE.md § Conventions` pointer to it, how it is maintained, and
+  how the agent routes with it before coding.
+- [ ] `migrate` gains a docs-adoption step: a whole-project audit at the
+  project's docs-granularity (grade existing docs PASS / WARN / FAIL / TODO
+  and reuse them as build input), a docs backlog, code issues registered as
+  fixable tasks, a user-prioritized build now (always performed) with the
+  rest on-touch, and workflow correction (doc-first cycle + index wired in).
 - [ ] The audit reuses the `dispatching-parallel-agents` fresh-agent
-  spec-check (the verification piece deferred from R-023, applied here).
-- [ ] Ships to adopters (`migrate.md` + the CLAUDE.md convention, already
+  spec-check on existing docs (a missing doc is FAIL/TODO, needs no agent) -
+  the verification piece deferred from R-023, applied here.
+- [ ] Ships to adopters (`migrate.md` + the index/pointer convention, already
   distributed).
 
 ## Constraints
 
 - Depends on R-023's core (the `docs/` artifact + doc-first cycle) being
   merged - sequence after R-023.
-- Audit complete, build staged and prioritized.
+- Audit is whole-project; build is staged and user-prioritized.
+- A "feature" is the project's recorded docs-granularity unit (R-023); the
+  audit works at that granularity.
 - Self-hosting; trunk-based delivery (`git-workflow.md`).
 
 ## Open questions
 
-- Prioritization heuristic for "build now" - churn, criticality, or
-  entrypoints. Settle in detail.
-- Lookup-table format: a markdown table in CLAUDE.md vs a separate index
-  file referenced by CLAUDE.md. Settle in detail.
-- How a "feature" is identified in an arbitrary codebase (audit
-  granularity). Settle in detail.
+None - prioritization (ask the user which features matter most), lookup
+format (a catalog in `.claude/docs/` + a one-line `CLAUDE.md` pointer), and
+feature identity (the project's docs-granularity unit) settled in detail.
 
 ## References
 
