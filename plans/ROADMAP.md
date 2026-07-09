@@ -201,6 +201,12 @@ Initiative index. Items: `R-001: description`; each entry owns
       with the rest backfilled on-touch, and corrects the workflow to
       doc-first. Realizes the three pieces R-023 deferred. Sequence after
       R-023. (shaped 2026-07-08)
+- [ ] R-031: Standalone `/dev docs` command - R-030 put docs
+      audit/build/correction in `migrate § 7`, reachable only on migrate's
+      Fresh route, so already-DEV projects can't adopt or refresh the docs
+      layer. Extract the procedure to `companions/docs-adoption.md` (migrate
+      § 7 points to it) and add `/dev docs`, which runs it on the current
+      project, re-runnable to refresh. Extends R-030. (shaped 2026-07-10)
 
 <!-- R-004's requirements are approved: pending - tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
