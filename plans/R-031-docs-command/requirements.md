@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-10
 kind: feat
+status: done 2026-07-10
 ---
 
 # R-031: Standalone /dev docs command
@@ -42,17 +43,25 @@ standalone `/dev docs` entry.
 
 ## Acceptance criteria
 
-- [ ] `companions/docs-adoption.md` holds the audit / build / correction
+- [x] `companions/docs-adoption.md` holds the audit / build / correction
   procedure; `migrate § 7` is a pointer to it (fresh-adoption behavior
   unchanged).
-- [ ] `/dev docs` is in `SKILL.md § Surface` + the router; a `docs.md` mode
+  *`companions/docs-adoption.md` created; `migrate § 7` is a 4-line pointer
+  (T-067).*
+- [x] `/dev docs` is in `SKILL.md § Surface` + the router; a `docs.md` mode
   file runs the companion on the current project.
-- [ ] `/dev docs` works on an already-DEV project (re-runnable refresh), not
+  *`SKILL.md` surface row + `## /dev docs` section; `docs.md` runs the
+  companion (T-068).*
+- [x] `/dev docs` works on an already-DEV project (re-runnable refresh), not
   just fresh adoption.
-- [ ] The audit grades existing docs doc-vs-code (WARN on drift) and offers a
+  *`docs.md` runs standalone on any project; refresh mode when docs exist
+  (T-068).*
+- [x] The audit grades existing docs doc-vs-code (WARN on drift) and offers a
   rebuild; workflow correction records the docs conventions (granularity +
   index pointer) in `CLAUDE.md § Conventions` if absent.
-- [ ] Ships to adopters (`skills/dev/` files, already distributed).
+  *In `companions/docs-adoption.md` audit + correct-workflow phases (T-067).*
+- [x] Ships to adopters (`skills/dev/` files, already distributed).
+  *All changes in globally-distributed `skills/dev/`.*
 
 ## Constraints
 
