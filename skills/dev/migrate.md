@@ -62,12 +62,37 @@ lazily). Ask about ongoing work → initiatives (R-XXX) and open tasks
 Known bugs or tech debt → R stubs per `plan.md
 § Referential integrity`.
 
-## 7. Commit
+## 7. Docs adoption
+
+If the project keeps `.claude/docs/` feature docs (`layout.md § Docs`), bring
+them onto the doc-first convention.
+
+**Audit** the whole project at its docs-granularity. Per feature: an existing
+doc → grade it against the code with a fresh-agent spec-check
+(`dispatching-parallel-agents`) as PASS / WARN / FAIL / TODO, and keep it as
+input when the doc is (re)built; no doc → FAIL/TODO (no agent needed).
+Register any code issues found while probing (bugs, inconsistencies, debt) as
+fixable tasks - a `T-XXX` under a fitting open `R-XXX`, else an R stub (per
+§ 6 / `plan.md § Referential integrity`). Record the coverage report; the
+gaps are the docs backlog.
+
+**Build** `.claude/docs/` for the features the user prioritizes - ask which
+matter most (entrypoints and high-churn areas are good candidates). The build
+always runs, even from zero docs; the rest stay on the backlog, backfilled
+on-touch by the doc-first cycle. Reuse any graded existing docs as input, and
+add each built doc to `.claude/docs/index.md`.
+
+**Correct the workflow** so future work maintains the docs: the
+`.claude/docs/index.md` pointer in `CLAUDE.md § Conventions` (§ 4) and the
+read-at-plan / reconcile-at-close lifecycle (`branch-plan.md`,
+`write-plan.md`) that ship with DEV.
+
+## 8. Commit
 
 Deliver adoption artifacts via a short-lived branch + PR
 (`git-workflow.md`) - `main` already exists, so no bootstrap exception;
 separate commits per category.
 
-## 8. Next
+## 9. Next
 
 Propose a `T-XXX` from a per-R `tasks.md` → `/dev plan T-XXX`.
