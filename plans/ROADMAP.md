@@ -193,7 +193,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       keep the five-concern Tier-2 review as a mandatory branch-close step.
       Reduces R-028 to T-060. (shaped 2026-07-08)
 
-- [ ] R-030: Docs-layer routing & adoption - two gaps that keep R-023's
+- [x] R-030: Docs-layer routing & adoption - two gaps that keep R-023's
       docs layer from scaling. A CLAUDE.md doc-lookup table routes to the
       right `.claude/docs/` file before coding; a `migrate` docs-adoption
       step audits existing code for coverage (fresh-agent spec-check ->
