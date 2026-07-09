@@ -14,6 +14,6 @@ Acceptance criteria: see `requirements.md` (`/dev docs` in `SKILL.md
 § Surface` + router; a `docs.md` runs the companion; works on an already-DEV
 project as a re-runnable refresh).
 
-- [ ] `docs.md` mode file: `/dev docs` runs `companions/docs-adoption.md` on the current project - whole-project, on-demand, re-runnable; a refresh when docs already exist (audit for drift, rebuild the user-picked stale ones).
-- [ ] `SKILL.md`: add `/dev docs` to the § Surface table + a `## /dev docs` section mapping it to `docs.md` (the router dispatch). Trim ~20 words elsewhere to stay within the <=400-word orchestrator cap; propose the diff for approval first (`rules/skills.md § Approval`).
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] `docs.md` mode file: `/dev docs` runs `companions/docs-adoption.md` on the current project - whole-project, on-demand, re-runnable; a refresh when docs already exist (audit for drift, rebuild the user-picked stale ones).
+- [x] `SKILL.md`: add `/dev docs` to the § Surface table + a `## /dev docs` section mapping it to `docs.md` (the router dispatch). Trim ~20 words elsewhere to stay within the <=400-word orchestrator cap; propose the diff for approval first (`rules/skills.md § Approval`).
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.

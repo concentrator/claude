@@ -8,8 +8,8 @@ description: Use to enter DEV mode for spec-driven, planned, reviewed work.
 DEV mode - strict, spec-driven, manual (`/dev code`) or agentic (`/dev
 auto`). Default: **VIBE** - freestyle, no skill.
 
-The mode files live beside this file in `skills/dev/`. **Read the ones a
-command maps to before acting** - they carry the rules and procedures.
+The mode files live beside this file in `skills/dev/`. **Read the one a
+command maps to before acting.**
 
 ## Surface
 
@@ -22,6 +22,7 @@ command maps to before acting** - they carry the rules and procedures.
 | `/dev release` | Finalize release |
 | `/dev migrate` | Adopt an existing project into DEV |
 | `/dev start` | Scaffold a new project into DEV |
+| `/dev docs` | Audit / build / refresh the docs layer |
 
 ## `/dev plan <target>` - read `plan.md` (+ `templates.md` when writing specs)
 
@@ -49,7 +50,7 @@ Close the branch: `finish.md`.
 
 ## `/dev auto [B-XXX]` - read `auto.md`
 
-Run an approved batch via subagents (no arg → first open; none → refuse).
+Run an approved batch via subagents (no arg → first open).
 Unattended until checkpoint or halt.
 
 ## `/dev release` - read `release.md`
@@ -58,9 +59,12 @@ Finalize + tag the release (project `release` override or this companion).
 
 ## `/dev migrate` - read `migrate.md`
 
-Adopt an existing project into DEV: inventory, then route (legacy / fresh /
-already-DEV).
+Adopt an existing project into DEV: inventory, then route.
 
 ## `/dev start` - read `start.md`
 
-Scaffold a new project into DEV from scratch.
+Scaffold a new project into DEV.
+
+## `/dev docs` - read `docs.md`
+
+Audit / build / refresh the docs layer on the current project.
