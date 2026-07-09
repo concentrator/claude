@@ -95,7 +95,10 @@ per-project choice. Pick the one that fits the project, record it in
 
 `.claude/docs/index.md` catalogs the docs - one line per doc, its path and
 what it covers - consulted before coding to find the feature's doc, and
-updated whenever a doc is added.
+updated whenever a doc is added. Project `CLAUDE.md § Conventions` carries a
+one-line pointer to the index, so it is discoverable from the always-loaded
+file without bloating it (`start.md` seeds the pointer, `migrate.md`
+backfills it).
 
 Template (omit sections that do not apply):
 
