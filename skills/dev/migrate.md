@@ -7,7 +7,7 @@ Bring an existing project under DEV. Always run § 1 Inventory, then route:
   `tasks.md`): canonicalize per `companions/legacy-migration.md`, then treat as
   Already-DEV.
 - **Fresh** - no `.claude/plans/`: reverse-engineer requirements + design
-  from code, then layer planning infrastructure (steps 2–8).
+  from code, then layer planning infrastructure (steps 2–9).
 - **Already-DEV** - canonical R-rooted `ROADMAP.md`: pre-TBD → TBD
   migration (`companions/tbd-migration.md`; advisory - you execute irreversible/host
   steps); TBD-conformant → conformant, no changes.
