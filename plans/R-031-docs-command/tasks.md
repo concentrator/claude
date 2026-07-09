@@ -5,4 +5,4 @@ Tasks for R-031 (`plans/R-031-docs-command/requirements.md`) - a standalone
 `skills/dev/plan.md § Levels`.
 
 - [x] T-067 (R-031) [refactor]: extract `migrate § 7` docs-adoption into `companions/docs-adoption.md`; `migrate § 7` points to it (no behavior change)
-- [ ] T-068 (R-031) [feat]: add `/dev docs` - `SKILL.md` surface + router + a `docs.md` mode file running the companion on the current project (depends-on T-067)
+- [x] T-068 (R-031) [feat]: add `/dev docs` - `SKILL.md` surface + router + a `docs.md` mode file running the companion on the current project (depends-on T-067)
