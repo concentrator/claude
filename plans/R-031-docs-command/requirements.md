@@ -19,6 +19,12 @@ standalone `/dev docs` entry.
 - Add `/dev docs`: runs audit -> user-prioritized build -> workflow
   correction on the current project, independent of migrate, re-runnable to
   refresh docs as code drifts.
+- Audit existing docs for drift: where a doc is already present, the audit
+  grades it doc-vs-code (WARN on mismatch) and offers a rebuild - the refresh
+  path for an already-documented project.
+- Ensure the docs conventions are recorded: workflow correction seeds the
+  granularity model and the `.claude/docs/index.md` pointer in
+  `CLAUDE.md § Conventions` if absent.
 
 ## Non-goals
 
@@ -43,6 +49,9 @@ standalone `/dev docs` entry.
   file runs the companion on the current project.
 - [ ] `/dev docs` works on an already-DEV project (re-runnable refresh), not
   just fresh adoption.
+- [ ] The audit grades existing docs doc-vs-code (WARN on drift) and offers a
+  rebuild; workflow correction records the docs conventions (granularity +
+  index pointer) in `CLAUDE.md § Conventions` if absent.
 - [ ] Ships to adopters (`skills/dev/` files, already distributed).
 
 ## Constraints
