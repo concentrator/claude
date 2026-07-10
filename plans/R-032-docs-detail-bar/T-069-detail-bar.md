@@ -13,6 +13,6 @@ Acceptance criteria: see `requirements.md` (template forces full input
 surface, provenance markers, real examples with output, sharpened quality
 bar; project-local extension noted).
 
-- [ ] `layout.md § Docs`: rework the template's interfaces section into a full-input-surface parameter table - columns name, type/shape, required, default, allowed values, constraints, failure behavior, and provenance (verified / from-spec / unverified) - covering every input, wired or not; add a note that an explicit "unverified" replaces silence.
-- [ ] `layout.md § Docs`: require real tested examples (executed, shown with output, cite the source such as a test run or recorded transcript, secrets as placeholders, never invented); sharpen the quality bar to "compose a correct working invocation with the full input set from the doc + references alone - if it needs the source, the doc fails"; note a project may extend the bar via `.claude/rules/feature-docs.md`.
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] `layout.md § Docs`: rework the template's interfaces section into a full-input-surface parameter table - columns name, type/shape, required, default, allowed values, constraints, failure behavior, and provenance (verified / from-spec / unverified) - covering every input, wired or not; add a note that an explicit "unverified" replaces silence.
+- [x] `layout.md § Docs`: require real tested examples (executed, shown with output, cite the source such as a test run or recorded transcript, secrets as placeholders, never invented); sharpen the quality bar to "compose a correct working invocation with the full input set from the doc + references alone - if it needs the source, the doc fails"; note a project may extend the bar via `.claude/rules/feature-docs.md`.
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
