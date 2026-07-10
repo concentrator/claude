@@ -12,5 +12,5 @@ where present. Depends on T-069 (the strengthened bar).
 Acceptance criteria: see `requirements.md` (audit grades to the bar with WARN
 on drift; build produces to it; project-local rule honored).
 
-- [ ] `companions/docs-adoption.md`: the audit grades existing docs against the strengthened bar - a doc missing the full input surface, provenance markers, or real tested examples is WARN (drift), a rebuild candidate; the build produces docs to that bar. Where a project has a `.claude/rules/feature-docs.md`, grade against it (its bar supersedes the global default).
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] `companions/docs-adoption.md`: the audit grades existing docs against the strengthened bar - a doc missing the full input surface, provenance markers, or real tested examples is WARN (drift), a rebuild candidate; the build produces docs to that bar. Where a project has a `.claude/rules/feature-docs.md`, grade against it (its bar supersedes the global default).
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
