@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-10
 kind: feat
+status: done 2026-07-10
 ---
 
 # R-032: Strengthen the feature-doc detail bar
@@ -53,16 +54,22 @@ first-pass doc reaches the bar without each project reinventing it.
 
 ## Acceptance criteria
 
-- [ ] `layout.md § Docs` template forces the full input surface
+- [x] `layout.md § Docs` template forces the full input surface
   (type/default/allowed/constraints/failure per input, wired or not),
   provenance markers, real tested examples with output, and the sharpened
   quality bar.
-- [ ] `companions/docs-adoption.md` audit grades against these dimensions
+  *`layout.md § Docs` interfaces table + Examples section + reworded bar
+  (T-069).*
+- [x] `companions/docs-adoption.md` audit grades against these dimensions
   (WARN on drift); the build produces to them.
-- [ ] The convention notes a project may extend it via a
+  *Companion audit grades to the bar; build produces to it (T-070).*
+- [x] The convention notes a project may extend it via a
   `.claude/rules/feature-docs.md`; the audit honors the project's bar.
-- [ ] `layout.md` stays within its cap; changes ship to adopters
+  *`layout.md § Docs` extension note + companion "its bar supersedes the
+  default" (T-069/T-070).*
+- [x] `layout.md` stays within its cap; changes ship to adopters
   (`skills/dev/` files).
+  *`layout.md` 845/1500; all changes in globally-distributed `skills/dev/`.*
 
 ## Constraints
 
