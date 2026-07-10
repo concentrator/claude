@@ -111,7 +111,14 @@ Template (omit sections that do not apply):
     Entities, fields, types, relationships, invariants.
 
     ## Interfaces
-    Endpoints / functions / events - inputs, outputs, errors.
+    Each method / endpoint / event, and its outputs and errors. For every
+    input it accepts - wired through the code or not - one row:
+
+    | input | type/shape | req? | default | allowed values | constraints | on invalid/missing | provenance |
+    |-------|-----------|------|---------|----------------|-------------|--------------------|------------|
+
+    provenance is verified (ran it) / from-spec / unverified. State
+    "unverified" explicitly - never drop an input in silence.
 
     ## Business rules
     The rules governing behavior, and why it works this way.
