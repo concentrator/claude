@@ -207,7 +207,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       layer. Extract the procedure to `companions/docs-adoption.md` (migrate
       § 7 points to it) and add `/dev docs`, which runs it on the current
       project, re-runnable to refresh. Extends R-030. (shaped 2026-07-10)
-- [ ] R-032: Strengthen the feature-doc detail bar - R-023's global template
+- [x] R-032: Strengthen the feature-doc detail bar - R-023's global template
       names sections but doesn't force detail; building real docs in
       wallarm-api-js needed a stronger project-local convention. Fold the
       domain-neutral strengthenings into `layout.md § Docs` (full input
