@@ -84,10 +84,11 @@ format. **Read-only** - the agent never modifies these.
 
 `docs/` holds internal documentation of how our own code works: per-feature
 docs (data model, interfaces, business rules, edge cases) sitting between
-`DESIGN.md` (architecture) and the code (line-level). The bar: a fresh agent
-reads only the doc and implements the feature correctly. Distinct from
-`references/` - `references/` is external and read-only, `docs/` is internal
-and kept current with the code.
+`DESIGN.md` (architecture) and the code (line-level). The bar: from the doc
+and its references alone, a fresh agent composes a correct, working
+invocation with the full input set - if answering needs the source, the doc
+fails. Distinct from `references/` - `references/` is external and read-only,
+`docs/` is internal and kept current with the code.
 
 The granularity model - a doc per feature, page, section, or block - is a
 per-project choice. Pick the one that fits the project, record it in
@@ -111,13 +112,28 @@ Template (omit sections that do not apply):
     Entities, fields, types, relationships, invariants.
 
     ## Interfaces
-    Endpoints / functions / events - inputs, outputs, errors.
+    Each method / endpoint / event, and its outputs and errors. For every
+    input it accepts - wired through the code or not - one row:
+
+    | input | type/shape | req? | default | allowed values | constraints | on invalid/missing | provenance |
+    |-------|-----------|------|---------|----------------|-------------|--------------------|------------|
+
+    provenance is verified (ran it) / from-spec / unverified. State
+    "unverified" explicitly - never drop an input in silence.
 
     ## Business rules
     The rules governing behavior, and why it works this way.
 
     ## Edge cases
     Boundaries, failure modes, and how each is handled.
+
+    ## Examples
+    Real, executed calls shown with their output. Cite the source (a test run
+    or recorded transcript); secrets as placeholders; never invented.
+
+A project may raise the bar with its own `.claude/rules/feature-docs.md` -
+domain specifics and extra required content; the docs audit grades against it
+where present.
 
 ## ADRs
 
