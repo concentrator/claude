@@ -87,7 +87,8 @@ docs (data model, interfaces, business rules, edge cases) sitting between
 `DESIGN.md` (architecture) and the code (line-level). Feature docs are the
 Reference application of the global documentation framework
 (`companions/documentation.md` - Diataxis typing, reference discipline,
-detail bar, content quality, provenance). The bar: from the doc
+detail bar, content quality, provenance); the template below is their
+concrete skeleton. The bar: from the doc
 and its references alone, a fresh agent composes a correct, working
 invocation with the full input set - if answering needs the source, the doc
 fails. Distinct from `references/` - `references/` is external and read-only,
