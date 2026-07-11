@@ -58,9 +58,6 @@ smell, naming inconsistency:
   coding, and triage at close.
 - Never silently expand scope.
 
-Findings file: a checkbox list, one line + brief context each; triaged at
-branch close.
-
 ### Scope changes mid-branch
 
 If additional changes are needed after the final commit:
@@ -89,9 +86,8 @@ mandatory final commit, then hands off to merge/PR.
    verify are presented as a distinct step before the merge options at step
    8 (`finish § 2`), never skipped.
 6. **Triage `T-XXX-<slug>.findings.md`** - in-scope findings are resolved
-   in this branch (as commits), not deferred; the file should hold only
-   findings belonging to a **completely different component**. For each
-   remaining `[ ]`, prompt user:
+   in this branch (as commits), not deferred (routing:
+   § Scope discoveries). For each remaining `[ ]`, prompt user:
    - Promote to `T-XXX` (new entry in the parent R's `tasks.md`,
      committed to main now) - only under a fitting open `R-XXX`; none →
      use the R-stub route
@@ -99,7 +95,10 @@ mandatory final commit, then hands off to merge/PR.
      in a later shape round)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Reconcile the feature doc** - write (new feature) or update
-   (fix/refactor) the `.claude/docs/` doc to match the shipped code. Then
+   (fix/refactor) the `.claude/docs/` doc to match the shipped code, then
+   complete it - and every doc the branch ships, re-review edits
+   included - through the verification gate
+   (`companions/documentation.md § Verification gate`) before delivery. Then
    the **mandatory final commit** - the last `[ ]`:
 
    > Complete the branch: re-review docs across all commits, cleanup

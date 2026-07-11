@@ -12,7 +12,7 @@ drift, rebuild the stale ones the user picks).
    granularity model lives in `CLAUDE.md § Conventions`. If the project has no
    docs layer yet, this bootstraps it.
 2. **Run** `companions/docs-adoption.md`: audit -> user-prioritized build ->
-   workflow correction.
+   verification gate -> workflow correction.
 3. **Deliver.** The new or updated docs, the `.claude/docs/index.md` entries,
    and any recorded conventions go via a short-lived branch + PR
    (`git-workflow.md`). Issues surfaced by the audit become tasks / R-stubs
