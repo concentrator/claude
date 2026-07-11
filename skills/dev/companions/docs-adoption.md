@@ -7,16 +7,18 @@ adoption or as a re-runnable refresh of an already-documented project.
 ## Audit
 
 Audit the whole project at its docs-granularity (`layout.md § Docs`; the
-model is recorded in `CLAUDE.md § Conventions`). Grade against the bar -
-`layout.md § Docs` (full input surface, provenance markers, real tested
-examples, the working-invocation quality bar), and a project's
-`.claude/rules/feature-docs.md` where present (its bar supersedes the
-default). Per feature:
+model is recorded in `CLAUDE.md § Conventions`). Grade against the
+framework (`documentation.md`, applied to features per `layout.md § Docs`)
+on two axes - **code-drift** and **convention-conformance** (the right
+Diataxis type, the Reference skeleton, the detail bar); a project's
+`.claude/rules/feature-docs.md` where present supersedes the default bar.
+Per feature:
 
-- an existing doc → grade it against the code and the bar with a fresh-agent
-  spec-check (`dispatching-parallel-agents`): PASS (meets the bar, current),
-  WARN (drifted from the code, or below the bar - missing inputs, provenance,
-  or real examples), FAIL/TODO; keep it as input when the doc is rebuilt;
+- an existing doc → grade it against the code and the framework with a
+  fresh-agent spec-check (`dispatching-parallel-agents`): PASS (conformant
+  and current), WARN (code-drifted, below the detail bar, or built to a
+  prior convention - a re-align candidate), FAIL/TODO; keep it as input
+  when the doc is rebuilt;
 - no doc → FAIL/TODO (no agent needed).
 
 Register any code issues found while probing (bugs, inconsistencies, debt) as
@@ -26,13 +28,15 @@ docs and the WARN (drifted) ones are the backlog.
 
 ## Build
 
-Build or rebuild `.claude/docs/` to the bar (`layout.md § Docs`) for the
-features the user prioritizes - ask which matter most (entrypoints and
+Build or rebuild `.claude/docs/` to the framework (`documentation.md`, per
+the `layout.md § Docs` mapping) for the features the user prioritizes - ask which matter most (entrypoints and
 high-churn areas are good candidates). The build always runs, even from zero
 docs; the rest stay on the backlog, backfilled on-touch by the doc-first
 cycle. Reuse graded existing docs as input, and add each doc to
-`.claude/docs/index.md`. A built or refreshed doc is complete only after
-the verification gate (`documentation.md § Verification gate`).
+`.claude/docs/index.md`. Re-aligning a WARN doc restructures it to its
+Diataxis type and skeleton and fills the detail bar. A built, refreshed,
+or re-aligned doc is complete only after the verification gate
+(`documentation.md § Verification gate`).
 
 ## Correct the workflow
 
