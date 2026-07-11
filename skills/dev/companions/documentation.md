@@ -24,7 +24,7 @@ Procedures belong in a How-to; do not put steps in a Reference.
 - **Describe, don't instruct.** State facts and structure, not actions.
 - **Complete and accurate for its scope**, structured for lookup (tables,
   fixed section order).
-- **Mirror reality.** Only verified facts.
+- **Mirror reality.** Only verified facts (§ Verification gate).
 - **One doc per specific subject.** Narrow and 100% relevant beats broad
   and diluted; duplication across sibling docs is accepted.
 - **Split by variant when the structure differs.** Two variants with
@@ -86,6 +86,24 @@ Omit a section only when the subject genuinely has nothing for it.
 - **Right content, right place**: exclude test/environment artifacts;
   include the real parameters.
 - **DRY**: a shared fact lives in one doc; others cross-reference it.
+
+## Verification gate
+
+No doc is complete until an **independent agent** - never the author -
+has verified every factual claim against ground truth: the live system
+for observable facts, the authoritative source (source code, `--help`,
+config files, vendor docs) otherwise.
+
+- Per-claim verdict: **VERIFIED** (confirmed live), **DOCS**
+  (authoritative source cited), **WRONG**, or **UNPROVEN**. A claim with
+  no evidence is UNPROVEN, never VERIFIED.
+- Every WRONG is corrected before completion.
+- Every UNPROVEN is resolved to VERIFIED/DOCS, or explicitly marked in
+  the doc as unverified / expert-needed - never asserted as fact.
+- Scope the review to what is independently checkable; split a large doc
+  across parallel reviewers by section (`dispatching-parallel-agents`).
+- Artifact-free: the branch/PR history records that the review ran; no
+  separate stamp or ledger is kept.
 
 ## Evidence and provenance
 
