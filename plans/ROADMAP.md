@@ -214,6 +214,14 @@ Initiative index. Items: `R-001: description`; each entry owns
       surface, provenance markers, real tested examples, sharpened quality
       bar) and align `companions/docs-adoption.md`; note project-local
       extension via `.claude/rules/feature-docs.md`. (shaped 2026-07-10)
+- [ ] R-033: Standardize documentation conventions (Diataxis) - adopt a
+      global, standard-grounded documentation framework (Diataxis typing,
+      reference skeleton, generalized detail bar, diagrams, content quality,
+      provenance; formatting defers to `writing.md`) with an
+      independent-agent per-claim verification gate as the docs completion
+      gate. The feature-docs layer folds in as the Reference application;
+      supersedes/subsumes R-023/030/031/032. Grounded in a field-built
+      framework (`plans/documentation-conventions.md`). (shaped 2026-07-11)
 
 <!-- R-004's requirements are approved: pending - tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
