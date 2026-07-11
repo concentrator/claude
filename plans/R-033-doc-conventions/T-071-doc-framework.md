@@ -19,4 +19,5 @@ adopters).
 - [x] Close-review fix: drop the companion's mispointing cross-reference and repeated `writing.md` delegation.
 - [x] Close-review fix: state in `layout.md § Docs` that the template below stays the feature-doc skeleton (T-073 folds it).
 - [x] Close-review fix: repoint plan-set references to the absorbed source (`requirements.md`, T-072, ROADMAP).
+- [x] Record the live-verify gaps (Elements/Parameters tiebreak, entity-vs-flow rule, Formatting scope) as a T-073 plan item.
 - [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
