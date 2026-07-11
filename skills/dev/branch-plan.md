@@ -76,9 +76,7 @@ mandatory final commit, then hands off to merge/PR.
    refactor (no behavior change) → `/simplify`; single feature or single
    bugfix → `/code-review`; mixed-purpose (more than one task tag) or >9
    commits → both. Also run the **Tier-2 compliance review**
-   (`MAINTENANCE.md § Tier-2 AI review`): confirm the five concerns -
-   compliance, cross-file integrity, cleanup, reference freshness, writing -
-   over the diff.
+   (`MAINTENANCE.md § Tier-2 AI review`) over the diff.
 2. Validate the review's findings against full project context.
 3. Print report; request user approval before applying.
 4. Apply approved fixes as additional commits if needed.
@@ -89,9 +87,8 @@ mandatory final commit, then hands off to merge/PR.
    verify are presented as a distinct step before the merge options at step
    8 (`finish § 2`), never skipped.
 6. **Triage `T-XXX-<slug>.findings.md`** - in-scope findings are resolved
-   in this branch (as commits), not deferred; the file should hold only
-   findings belonging to a **completely different component**. For each
-   remaining `[ ]`, prompt user:
+   in this branch (as commits), not deferred (routing:
+   § Scope discoveries). For each remaining `[ ]`, prompt user:
    - Promote to `T-XXX` (new entry in the parent R's `tasks.md`,
      committed to main now) - only under a fitting open `R-XXX`; none →
      use the R-stub route
@@ -99,7 +96,10 @@ mandatory final commit, then hands off to merge/PR.
      in a later shape round)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Reconcile the feature doc** - write (new feature) or update
-   (fix/refactor) the `.claude/docs/` doc to match the shipped code. Then
+   (fix/refactor) the `.claude/docs/` doc to match the shipped code, then
+   complete it through the verification gate
+   (`companions/documentation.md § Verification gate`) - any doc the
+   branch ships passes the gate before delivery. Then
    the **mandatory final commit** - the last `[ ]`:
 
    > Complete the branch: re-review docs across all commits, cleanup

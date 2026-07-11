@@ -11,8 +11,10 @@ drift, rebuild the stale ones the user picks).
 1. **Pre-flight.** `.claude/docs/` is the docs home (`layout.md § Docs`); the
    granularity model lives in `CLAUDE.md § Conventions`. If the project has no
    docs layer yet, this bootstraps it.
-2. **Run** `companions/docs-adoption.md`: audit -> user-prioritized build ->
-   workflow correction.
+2. **Run** `companions/docs-adoption.md`: audit -> user-prioritized build
+   (each doc completes through the verification gate,
+   `companions/documentation.md § Verification gate`) -> workflow
+   correction.
 3. **Deliver.** The new or updated docs, the `.claude/docs/index.md` entries,
    and any recorded conventions go via a short-lived branch + PR
    (`git-workflow.md`). Issues surfaced by the audit become tasks / R-stubs

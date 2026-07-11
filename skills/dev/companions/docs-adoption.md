@@ -31,7 +31,8 @@ features the user prioritizes - ask which matter most (entrypoints and
 high-churn areas are good candidates). The build always runs, even from zero
 docs; the rest stay on the backlog, backfilled on-touch by the doc-first
 cycle. Reuse graded existing docs as input, and add each doc to
-`.claude/docs/index.md`.
+`.claude/docs/index.md`. A built or refreshed doc is complete only after
+the verification gate (`documentation.md § Verification gate`).
 
 ## Correct the workflow
 
