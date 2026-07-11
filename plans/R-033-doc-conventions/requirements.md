@@ -41,6 +41,12 @@ as the docs completion gate. One framework, the existing layer folds in.
   `layout.md § Docs` template becomes the Reference skeleton; the R-032 detail
   bar folds into the generalized one; `companions/docs-adoption.md`,
   `docs.md` (`/dev docs`), and `migrate` use the framework and the gate.
+- **Convention alignment**: the audit grades existing docs for conformance to
+  the current framework, not just code-drift. A doc built to a prior
+  convention is convention-drifted (WARN); `/dev docs` (and `migrate`) offer
+  to align it - restructure to the right Diataxis type + skeleton, fill the
+  detail bar - and re-verify it through the gate. Projects with full or
+  partial docs under the old convention get a clean upgrade path.
 
 ## Non-goals
 
@@ -76,6 +82,9 @@ as the docs completion gate. One framework, the existing layer folds in.
   `layout.md § Docs` uses the skeleton, the detail bar folds in, the audit
   becomes the verification gate; no duplicate or contradictory doc convention
   remains.
+- [ ] The audit grades convention-conformance as well as code-drift: a doc
+  built to a prior convention is WARN, and `/dev docs` (and `migrate`) offer
+  to align it to the framework and re-verify it through the gate.
 - [ ] The loose `plans/documentation-conventions.md` source is absorbed into
   the convention and removed.
 - [ ] Full Tier-1 gate green; changes ship via `skills/dev/`.
