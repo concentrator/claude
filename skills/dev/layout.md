@@ -87,8 +87,8 @@ docs (data model, interfaces, business rules, edge cases) sitting between
 `DESIGN.md` (architecture) and the code (line-level). Feature docs are the
 Reference application of the global documentation framework
 (`companions/documentation.md` - Diataxis typing, reference discipline,
-detail bar, content quality, provenance); the template below is their
-concrete skeleton. The bar: from the doc
+detail bar, content quality, provenance, verification gate); the mapping
+below applies its Reference skeleton to a feature. The bar: from the doc
 and its references alone, a fresh agent composes a correct, working
 invocation with the full input set - if answering needs the source, the doc
 fails. Distinct from `references/` - `references/` is external and read-only,
@@ -105,35 +105,30 @@ one-line pointer to the index, so it is discoverable from the always-loaded
 file without bloating it (`start.md` seeds the pointer, `migrate.md`
 backfills it).
 
-Template (omit sections that do not apply):
+The Reference skeleton (`companions/documentation.md § Reference
+skeleton`) applied to a feature:
 
-    # <Feature>
+| Section | Holds for a feature |
+|---|---|
+| 1. Overview | What it does, from the user's / caller's view |
+| 2. Model | Entities, fields, types, relationships, invariants; one entity or flow diagram |
+| 3. Elements | The feature's components -> responsibility |
+| 4. Behavior | Business rules and why; edge cases, failure modes, and how each is handled |
+| 5. Parameters | Each method / endpoint / event: its outputs, errors, and every input it accepts |
+| 6. Reference data | Domain lookups: codes, limits, fixed values |
+| 7. References | Sibling docs and the feature's `references/` inputs |
 
-    ## Behavior
-    What it does, from the user's / caller's view.
-
-    ## Data model
-    Entities, fields, types, relationships, invariants.
-
-    ## Interfaces
-    Each method / endpoint / event, and its outputs and errors. For every
-    input it accepts - wired through the code or not - one row:
+§ Parameters is the feature's detail bar: every input - wired through the
+code or not - one row:
 
     | input | type/shape | req? | default | allowed values | constraints | on invalid/missing | provenance |
     |-------|-----------|------|---------|----------------|-------------|--------------------|------------|
 
-    provenance is verified (ran it) / from-spec / unverified. State
-    "unverified" explicitly - never drop an input in silence.
-
-    ## Business rules
-    The rules governing behavior, and why it works this way.
-
-    ## Edge cases
-    Boundaries, failure modes, and how each is handled.
-
-    ## Examples
-    Real, executed calls shown with their output. Cite the source (a test run
-    or recorded transcript); secrets as placeholders; never invented.
+provenance is verified (ran it) / from-spec / unverified, per the
+framework's provenance ladder; state "unverified" explicitly - never drop
+an input in silence. Real, executed examples (cite a test run or recorded
+transcript; secrets as placeholders; never invented) ride the section they
+illustrate.
 
 A project may raise the bar with its own `.claude/rules/feature-docs.md` -
 domain specifics and extra required content; the docs audit grades against it
