@@ -5,7 +5,8 @@ depends-on: T-071
 # feat/verify-gate - the docs verification gate (R-033)
 
 T-072 of `plans/R-033-doc-conventions/`. Define the independent-agent
-verification gate (source section 8) in the framework companion and wire it
+verification gate (spec: `requirements.md § Goals`) in the framework
+companion and wire it
 as the docs completion gate. Settled: artifact-free (VC history is the
 record, no committed stamp - R-029); reuse `dispatching-parallel-agents` for
 parallel reviewers. Depends on T-071 (the framework companion).
