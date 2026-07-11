@@ -58,9 +58,6 @@ smell, naming inconsistency:
   coding, and triage at close.
 - Never silently expand scope.
 
-Findings file: a checkbox list, one line + brief context each; triaged at
-branch close.
-
 ### Scope changes mid-branch
 
 If additional changes are needed after the final commit:
@@ -76,7 +73,9 @@ mandatory final commit, then hands off to merge/PR.
    refactor (no behavior change) → `/simplify`; single feature or single
    bugfix → `/code-review`; mixed-purpose (more than one task tag) or >9
    commits → both. Also run the **Tier-2 compliance review**
-   (`MAINTENANCE.md § Tier-2 AI review`) over the diff.
+   (`MAINTENANCE.md § Tier-2 AI review`): confirm the five concerns -
+   compliance, cross-file integrity, cleanup, reference freshness, writing -
+   over the diff.
 2. Validate the review's findings against full project context.
 3. Print report; request user approval before applying.
 4. Apply approved fixes as additional commits if needed.
@@ -97,9 +96,9 @@ mandatory final commit, then hands off to merge/PR.
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Reconcile the feature doc** - write (new feature) or update
    (fix/refactor) the `.claude/docs/` doc to match the shipped code, then
-   complete it through the verification gate
-   (`companions/documentation.md § Verification gate`) - any doc the
-   branch ships passes the gate before delivery. Then
+   complete it - and every doc the branch ships, re-review edits
+   included - through the verification gate
+   (`companions/documentation.md § Verification gate`) before delivery. Then
    the **mandatory final commit** - the last `[ ]`:
 
    > Complete the branch: re-review docs across all commits, cleanup
