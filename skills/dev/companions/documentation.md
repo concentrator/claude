@@ -89,7 +89,8 @@ Omit a section only when the subject genuinely has nothing for it.
 
 ## Verification gate
 
-No doc is complete until an **independent agent** - never the author -
+No new or touched doc is complete until an **independent agent** - never
+the author -
 has verified every factual claim against ground truth: the live system
 for observable facts, the authoritative source (source code, `--help`,
 config files, vendor docs) otherwise.
@@ -100,9 +101,9 @@ config files, vendor docs) otherwise.
 - Every WRONG is corrected before completion.
 - Every UNPROVEN is resolved to VERIFIED/DOCS, or explicitly marked in
   the doc as unverified / expert-needed - never asserted as fact.
-- Scope the review to what is independently checkable; split a large doc
-  across parallel reviewers by section (`dispatching-parallel-agents`).
-- Artifact-free: the branch/PR history records that the review ran; no
+- A claim that cannot be independently checked is UNPROVEN; split a large
+  doc across parallel reviewers by section (`dispatching-parallel-agents`).
+- Artifact-free: version-control history records that the review ran; no
   separate stamp or ledger is kept.
 
 ## Evidence and provenance
