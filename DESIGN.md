@@ -83,7 +83,7 @@ excluded - see `.gitignore`.
     │   ├── plan.md branch-plan.md templates.md layout.md changelog.md git-workflow.md  # process rules
     │   ├── feat.md fix.md refactor.md write-plan.md finish.md release.md auto.md        # execution
     │   ├── brainstorm.md migrate.md start.md   # shape + adoption
-    │   └── companions/           # prompt templates, verification-policy, migration docs, mockup scripts
+    │   └── companions/           # documentation framework, prompt templates, verification-policy, migration docs, mockup scripts
     ├── test-driven-development/  # bundled dependency skills (installer ships these) + testing-anti-patterns
     ├── systematic-debugging/     # + root-cause-tracing, defense-in-depth, condition-based-waiting, find-polluter.sh
     ├── verification-before-completion/SKILL.md
