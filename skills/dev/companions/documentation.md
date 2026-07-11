@@ -24,7 +24,7 @@ Procedures belong in a How-to; do not put steps in a Reference.
 - **Describe, don't instruct.** State facts and structure, not actions.
 - **Complete and accurate for its scope**, structured for lookup (tables,
   fixed section order).
-- **Mirror reality.** Only verified facts (§ Evidence and provenance).
+- **Mirror reality.** Only verified facts.
 - **One doc per specific subject.** Narrow and 100% relevant beats broad
   and diluted; duplication across sibling docs is accepted.
 - **Split by variant when the structure differs.** Two variants with
@@ -65,8 +65,6 @@ Omit a section only when the subject genuinely has nothing for it.
 - Render inline (mermaid), in-repo; no external assets or hosted images.
 
 ## Formatting
-
-Prose style per `writing.md`. Structure:
 
 - Lookups and comparisons -> tables, not prose.
 - Enumerations -> lists, never inline comma-runs.
