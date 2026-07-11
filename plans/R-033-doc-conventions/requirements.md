@@ -112,8 +112,10 @@ as the docs completion gate. One framework, the existing layer folds in.
 
 ## References
 
-- `plans/documentation-conventions.md` - the source framework (Diataxis +
-  sections 1-9), to be generalized and absorbed.
+- The source framework (Diataxis + sections 1-9), formerly
+  `plans/documentation-conventions.md` - generalized and absorbed into
+  `skills/dev/companions/documentation.md` by T-071; the verification-gate
+  spec is restated in § Goals.
 - Supersedes/subsumes the docs system R-023 (template + lifecycle), R-030
   (audit/adoption), R-031 (`/dev docs`), R-032 (detail bar). Relates R-025
   (code review). Grounded in Diataxis.

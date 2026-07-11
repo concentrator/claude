@@ -17,6 +17,7 @@ old-convention docs are WARN and offered for alignment + re-verification; no
 duplicate convention).
 
 - [ ] `layout.md § Docs`: the feature-doc template becomes the framework's Reference skeleton; the R-032 detail bar folds into the generalized detail bar; point to `companions/documentation.md`. Remove content now duplicated by the companion.
+- [ ] Close the T-071 verify gaps in `companions/documentation.md`: state the Elements vs Parameters tiebreak (Elements = components, Parameters = the subject's knobs/inputs), give a decision rule for entity vs flow diagrams, and scope § Formatting as spanning all four Diataxis types (its step rules apply to How-to/Tutorial, not Reference).
 - [ ] `companions/docs-adoption.md`: the audit grades **convention-conformance** (Diataxis type + skeleton + detail bar) as well as code-drift - a doc built to a prior convention is WARN, a re-align candidate; the build/refresh produces to the framework and completes through the verification gate (T-072).
 - [ ] `docs.md` (`/dev docs`): surface the align-existing offer - on a project with docs under a prior convention, offer to restructure them to the framework and re-verify; reconcile the wording with the framework (no stale references to the old template).
 - [ ] Complete the branch: re-review docs across all commits, cleanup, mark plan complete, commit.
