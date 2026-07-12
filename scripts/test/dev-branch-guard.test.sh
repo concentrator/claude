@@ -59,6 +59,22 @@ j=$(jq -nc --arg p "$F/outside.md" '{tool_name:"Write",tool_input:{file_path:$p,
 [ "$(run "$j")" = allow ] && pass "Write to a path outside the repo on main allowed" || die "foreign-path Write denied"
 rm -rf "$F"
 
+# In-repo paths check-ignore reports as 128 must still deny: a write through
+# a tracked-symlinked dir or a ../ re-entry lands on this trunk. A symlink
+# pointing outside the repo does not, and stays allowed.
+mkdir -p realdir; ln -s realdir linkdir
+j=$(jq -nc '{tool_name:"Write",tool_input:{file_path:"linkdir/f.md",content:"x"}}')
+[ "$(run "$j")" = deny ] && pass "Write via in-repo symlinked dir on main denied" || die "symlinked-dir Write allowed"
+
+j=$(jq -nc --arg p "../$(basename "$M")/tracked.sh" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = deny ] && pass "Write via ../ re-entry on main denied" || die "dot-dot re-entry Write allowed"
+
+OUTD=$(mktemp -d)
+ln -s "$OUTD" outlink
+j=$(jq -nc '{tool_name:"Write",tool_input:{file_path:"outlink/f.md",content:"x"}}')
+[ "$(run "$j")" = allow ] && pass "Write via symlink pointing outside allowed" || die "outward-symlink Write denied"
+rm -rf "$OUTD"
+
 # --- false-positive 2: compound branch-create then commit is allowed ---
 j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git checkout -b feat/x && echo hi > f && git commit -am wip"}}')
 [ "$(run "$j")" = allow ] && pass "checkout -b then commit allowed" || die "compound checkout -b && commit denied"
