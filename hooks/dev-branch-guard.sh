@@ -36,11 +36,26 @@ case "$tool" in
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
     [ -n "$branch" ] || exit 0
     is_trunk "$branch" || exit 0   # on a working branch → allow
-    # Only a path inside this repo and not gitignored can land on its
-    # trunk: check-ignore exits 0 = ignored, 1 = in-repo not ignored,
-    # 128 = outside the repo or error. Deny only on 1 (fail open otherwise).
+    # Only a path inside this repo's working tree and not gitignored can
+    # land on its trunk. Judge where the write really lands: resolve the
+    # target physically (symlinks and dots; nearest existing ancestor +
+    # not-yet-existing tail) and compare against the resolved toplevel -
+    # so a symlinked-dir or ../-re-entry path is still caught, and a
+    # genuinely foreign path is allowed. check-ignore then runs on the
+    # resolved path (never "beyond a symbolic link"); non-1 exits (ignored,
+    # or a git error) fail open.
     path=$(printf '%s' "$input" | jq -r '.tool_input.file_path // .tool_input.notebook_path // ""')
     if [ -n "$path" ]; then
+      case "$path" in /*) ;; *) path=$PWD/$path ;; esac
+      tail=
+      while [ ! -d "$path" ] && [ "$path" != / ]; do
+        tail=/$(basename -- "$path")$tail
+        path=$(dirname -- "$path")
+      done
+      path=$(cd "$path" 2>/dev/null && pwd -P)$tail
+      top=$(cd "$(git rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null && pwd -P)
+      [ -n "$top" ] || exit 0                          # fail open
+      case "$path" in "$top"/*) ;; *) exit 0 ;; esac   # outside this repo → allow
       git check-ignore -q -- "$path" 2>/dev/null
       [ $? -eq 1 ] || exit 0
     fi
