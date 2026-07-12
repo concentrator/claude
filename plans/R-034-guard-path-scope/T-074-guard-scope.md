@@ -14,6 +14,8 @@ Acceptance criteria: see `requirements.md` (foreign path allowed on a trunk
 cwd; ignored-inside stays allowed, non-ignored-inside stays denied; errors
 fail open; test coverage; suites + Tier-1 green).
 
-- [ ] Test-first in `scripts/test/dev-branch-guard.test.sh`: a Write from a trunk-cwd repo to an absolute path outside it is allowed (red today); ignored-inside-repo allowed and non-ignored-inside-repo denied stay covered. Run the suite; the new case fails for the right reason.
-- [ ] Fix `hooks/dev-branch-guard.sh`: branch on the `check-ignore` exit code - deny only on 1; update the header comment's gitignored-path phrasing to path-scope. Suite green.
-- [ ] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
+- [x] Test-first in `scripts/test/dev-branch-guard.test.sh`: a Write from a trunk-cwd repo to an absolute path outside it is allowed (red today); ignored-inside-repo allowed and non-ignored-inside-repo denied stay covered. Run the suite; the new case fails for the right reason.
+- [x] Fix `hooks/dev-branch-guard.sh`: branch on the `check-ignore` exit code - deny only on 1; update the header comment's gitignored-path phrasing to path-scope. Suite green.
+- [x] Close-review red tests: a tracked-symlinked-dir write and a `../` re-entry write on main must deny (both 128 in check-ignore, inside the repo); a symlink pointing outside must allow.
+- [x] Close-review fix: judge location by physical resolution (nearest existing ancestor + tail, `pwd -P`) against the resolved toplevel, then check-ignore on the resolved path; exit-code inference dropped.
+- [x] Complete the branch: re-review docs, cleanup, mark plan complete, commit.
