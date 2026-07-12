@@ -44,8 +44,7 @@ Procedures belong in a How-to; do not put steps in a Reference.
 | 7. References | Cross-links to sibling docs |
 
 Omit a section only when the subject genuinely has nothing for it.
-Tiebreak: Elements holds the subject's components, Parameters its knobs
-and inputs - a flag or field is a Parameter, the component it configures
+Tiebreak: a flag or field is a Parameter; the component it configures is
 an Element.
 
 ## Detail bar
@@ -64,20 +63,17 @@ an Element.
 
 ## Diagrams
 
-- Infrastructure: C4 model. Features: entity diagram when the subject is
-  state and relationships, flow diagram when it is a process; both when
-  it is genuinely both.
+- C4 model for infrastructure and system context; otherwise an entity
+  diagram when the subject is state and relationships, a flow diagram
+  when it is a process, both when genuinely both.
 - Render inline (mermaid), in-repo; no external assets or hosted images.
 
 ## Formatting
 
-Applies across all four types; the type's shape wins - the step rules
-below serve Tutorials and How-tos, never a Reference.
-
 - Lookups and comparisons -> tables, not prose.
 - Enumerations -> lists, never inline comma-runs.
-- Steps -> numbered, imperative, deterministic; no "maybe / consider"
-  without a decision rule.
+- Steps (Tutorials / How-tos) -> numbered, imperative, deterministic; no
+  "maybe / consider" without a decision rule.
 - Fenced code blocks; uniform terminology throughout.
 
 ## Content quality
