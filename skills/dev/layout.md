@@ -86,9 +86,7 @@ format. **Read-only** - the agent never modifies these.
 docs (data model, interfaces, business rules, edge cases) sitting between
 `DESIGN.md` (architecture) and the code (line-level). Feature docs are the
 Reference application of the global documentation framework
-(`companions/documentation.md` - Diataxis typing, reference discipline,
-detail bar, content quality, provenance, verification gate); the mapping
-below applies its Reference skeleton to a feature. The bar: from the doc
+(`companions/documentation.md`). The bar: from the doc
 and its references alone, a fresh agent composes a correct, working
 invocation with the full input set - if answering needs the source, the doc
 fails. Distinct from `references/` - `references/` is external and read-only,
@@ -105,13 +103,12 @@ one-line pointer to the index, so it is discoverable from the always-loaded
 file without bloating it (`start.md` seeds the pointer, `migrate.md`
 backfills it).
 
-The Reference skeleton (`companions/documentation.md § Reference
-skeleton`) applied to a feature:
+The framework's Reference skeleton applied to a feature:
 
 | Section | Holds for a feature |
 |---|---|
 | 1. Overview | What it does, from the user's / caller's view |
-| 2. Model | Entities, fields, types, relationships, invariants; one entity or flow diagram |
+| 2. Model | Entities, fields, types, relationships, invariants |
 | 3. Elements | The feature's components -> responsibility |
 | 4. Behavior | Business rules and why; edge cases, failure modes, and how each is handled |
 | 5. Parameters | Each method / endpoint / event: its outputs, errors, and every input it accepts |
@@ -124,11 +121,8 @@ code or not - one row:
     | input | type/shape | req? | default | allowed values | constraints | on invalid/missing | provenance |
     |-------|-----------|------|---------|----------------|-------------|--------------------|------------|
 
-provenance is verified (ran it) / from-spec / unverified, per the
-framework's provenance ladder; state "unverified" explicitly - never drop
-an input in silence. Real, executed examples (cite a test run or recorded
-transcript; secrets as placeholders; never invented) ride the section they
-illustrate.
+provenance is verified (ran it) / from-spec / unverified; state
+"unverified" explicitly - never drop an input in silence.
 
 A project may raise the bar with its own `.claude/rules/feature-docs.md` -
 domain specifics and extra required content; the docs audit grades against it

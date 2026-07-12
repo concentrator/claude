@@ -94,6 +94,9 @@ below serve Tutorials and How-tos, never a Reference.
 - **Right content, right place**: exclude test/environment artifacts;
   include the real parameters.
 - **DRY**: a shared fact lives in one doc; others cross-reference it.
+- **Real examples**: an example is an executed call or case shown with its
+  output, cited (a test run or recorded transcript); secrets as
+  placeholders; never invented. It sits in the section it illustrates.
 
 ## Verification gate
 
