@@ -44,6 +44,8 @@ Procedures belong in a How-to; do not put steps in a Reference.
 | 7. References | Cross-links to sibling docs |
 
 Omit a section only when the subject genuinely has nothing for it.
+Tiebreak: a flag or field is a Parameter; the component it configures is
+an Element.
 
 ## Detail bar
 
@@ -61,15 +63,17 @@ Omit a section only when the subject genuinely has nothing for it.
 
 ## Diagrams
 
-- Infrastructure: C4 model. Features: entity or flow diagram.
+- C4 model for infrastructure and system context; otherwise an entity
+  diagram when the subject is state and relationships, a flow diagram
+  when it is a process, both when genuinely both.
 - Render inline (mermaid), in-repo; no external assets or hosted images.
 
 ## Formatting
 
 - Lookups and comparisons -> tables, not prose.
 - Enumerations -> lists, never inline comma-runs.
-- Steps -> numbered, imperative, deterministic; no "maybe / consider"
-  without a decision rule.
+- Steps (Tutorials / How-tos) -> numbered, imperative, deterministic; no
+  "maybe / consider" without a decision rule.
 - Fenced code blocks; uniform terminology throughout.
 
 ## Content quality
@@ -86,6 +90,9 @@ Omit a section only when the subject genuinely has nothing for it.
 - **Right content, right place**: exclude test/environment artifacts;
   include the real parameters.
 - **DRY**: a shared fact lives in one doc; others cross-reference it.
+- **Real examples**: an example is an executed call or case shown with its
+  output, cited (a test run or recorded transcript); secrets as
+  placeholders; never invented. It sits in the section it illustrates.
 
 ## Verification gate
 
