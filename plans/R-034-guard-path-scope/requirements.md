@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-12
 kind: bug
+status: done 2026-07-12
 ---
 
 # R-034: Branch-guard scope - foreign-path writes
@@ -38,13 +39,19 @@ target, not the session cwd branch").
 
 ## Acceptance criteria
 
-- [ ] A `Write`/`Edit`/`NotebookEdit` to a path outside the cwd repo is
-  allowed when the cwd repo is on a trunk branch.
-- [ ] A write to a gitignored path inside the repo stays allowed; a write
-  to a non-ignored path inside the repo on a trunk stays denied.
-- [ ] `check-ignore` failures other than "not ignored" fail open.
-- [ ] `scripts/test/dev-branch-guard.test.sh` covers the foreign-path
-  case; the full test suite and Tier-1 gate are green.
+- [x] A `Write`/`Edit`/`NotebookEdit` to a path outside the cwd repo is
+  allowed when the cwd repo is on a trunk branch. Evidence: foreign-path
+  test case + live memory-path repro allowed (T-074, PR #195).
+- [x] A write to a gitignored path inside the repo stays allowed; a write
+  to a non-ignored path inside the repo on a trunk stays denied. Evidence:
+  pre-existing suite cases green; close review added symlinked-dir and
+  `../`-re-entry deny pins (in-repo paths misreported as 128).
+- [x] `check-ignore` failures other than "not ignored" fail open.
+  Evidence: hook allows on non-1 exits for in-repo paths; resolution
+  failure and no-toplevel paths exit 0 (allow).
+- [x] `scripts/test/dev-branch-guard.test.sh` covers the foreign-path
+  case; the full test suite and Tier-1 gate are green. Evidence: 4 new
+  cases; `test/run-all` + `tier1` green on PR #195.
 
 ## Constraints
 
