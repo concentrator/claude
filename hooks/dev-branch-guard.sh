@@ -5,9 +5,10 @@
 # tool-call JSON on stdin; emits a PreToolUse "deny" decision when the write
 # or commit actually targets the trunk. Silent (allow) otherwise, and outside
 # any git repo. Judges the real target, not the session cwd branch plus a
-# substring: a gitignored-path write, a compound `checkout -b && commit`, and
-# a `git -C <branch-repo> commit` are all allowed; a `git -C <main-repo>
-# commit` from a branch cwd is still denied. Fails open.
+# substring: a write to a gitignored or outside-the-repo path, a compound
+# `checkout -b && commit`, and a `git -C <branch-repo> commit` are all
+# allowed; a `git -C <main-repo> commit` from a branch cwd is still denied.
+# Fails open.
 #
 # This is a best-effort local tripwire against an accidental trunk mutation,
 # not a boundary against a crafted evasion - the real gate is host branch
@@ -35,9 +36,14 @@ case "$tool" in
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
     [ -n "$branch" ] || exit 0
     is_trunk "$branch" || exit 0   # on a working branch → allow
-    # A write to a gitignored path never touches the tracked trunk - allow it.
+    # Only a path inside this repo and not gitignored can land on its
+    # trunk: check-ignore exits 0 = ignored, 1 = in-repo not ignored,
+    # 128 = outside the repo or error. Deny only on 1 (fail open otherwise).
     path=$(printf '%s' "$input" | jq -r '.tool_input.file_path // .tool_input.notebook_path // ""')
-    if [ -n "$path" ] && git check-ignore -q -- "$path" 2>/dev/null; then exit 0; fi
+    if [ -n "$path" ]; then
+      git check-ignore -q -- "$path" 2>/dev/null
+      [ $? -eq 1 ] || exit 0
+    fi
     deny "branch-guard: refusing $tool on '$branch'. Create a working branch first - never edit the trunk (git-workflow)." ;;
   Bash)
     cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // ""')
