@@ -223,7 +223,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       supersedes/subsumes R-023/030/031/032. Grounded in a field-built
       framework, absorbed into `skills/dev/companions/documentation.md`
       (verification gate: T-072). (shaped 2026-07-11)
-- [ ] R-034: Branch-guard scope - foreign-path writes - the guard falsely
+- [x] R-034: Branch-guard scope - foreign-path writes - the guard falsely
       denies a write to a path outside the cwd repo when that repo sits on
       a trunk branch (`check-ignore` exits 128, the T-058 carve-out never
       fires). Deny only paths inside the repo and not ignored; keep
