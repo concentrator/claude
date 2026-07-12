@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-11
 kind: feat
+status: done 2026-07-12
 ---
 
 # R-033: Standardize documentation conventions (Diataxis)
@@ -70,24 +71,36 @@ as the docs completion gate. One framework, the existing layer folds in.
 
 ## Acceptance criteria
 
-- [ ] A global documentation convention exists (Diataxis typing, reference
+- [x] A global documentation convention exists (Diataxis typing, reference
   discipline, Reference skeleton, generalized detail bar, diagrams, content
   quality, provenance; formatting defers to `writing.md`); it ships to
-  adopters.
-- [ ] The verification gate is defined - independent agent, per-claim
+  adopters. Evidence: `skills/dev/companions/documentation.md` (T-071,
+  PR #187), part of the shipped `skills/dev/` toolset.
+- [x] The verification gate is defined - independent agent, per-claim
   VERIFIED/DOCS/WRONG/UNPROVEN, no self-certify, UNPROVEN handling, parallel
   split - and wired as the docs completion gate in the branch-close routine,
-  `/dev docs`, and `migrate` (via the companion).
-- [ ] The feature-docs layer is reworked as the Reference application:
+  `/dev docs`, and `migrate` (via the companion). Evidence:
+  `documentation.md § Verification gate`; wiring in `branch-plan.md
+  § Closing routine` 7, `docs.md` 2, `docs-adoption.md § Build` (run by
+  `migrate`) - T-072, PR #189; gate dogfooded on T-072 (7/7) and T-073
+  (16/16), 0 WRONG.
+- [x] The feature-docs layer is reworked as the Reference application:
   `layout.md § Docs` uses the skeleton, the detail bar folds in, the audit
   becomes the verification gate; no duplicate or contradictory doc convention
-  remains.
-- [ ] The audit grades convention-conformance as well as code-drift: a doc
+  remains. Evidence: skeleton-to-feature mapping + § Parameters detail bar
+  in `layout.md § Docs`; single-home rules confirmed by the T-073 close
+  review + gate pass (T-073, PR #191).
+- [x] The audit grades convention-conformance as well as code-drift: a doc
   built to a prior convention is WARN, and `/dev docs` (and `migrate`) offer
-  to align it to the framework and re-verify it through the gate.
-- [ ] The loose `plans/documentation-conventions.md` source is absorbed into
-  the convention and removed.
-- [ ] Full Tier-1 gate green; changes ship via `skills/dev/`.
+  to align it to the framework and re-verify it through the gate. Evidence:
+  `docs-adoption.md § Audit` (two axes, WARN = fails either) and `§ Build`
+  (re-align offer + gate) - T-073, PR #191.
+- [x] The loose `plans/documentation-conventions.md` source is absorbed into
+  the convention and removed. Evidence: deleted in T-071 (PR #187); no
+  operative reference remains.
+- [x] Full Tier-1 gate green; changes ship via `skills/dev/`. Evidence:
+  `tier1` check green on PRs #187, #189, #191; all changes under
+  `skills/dev/`.
 
 ## Constraints
 
