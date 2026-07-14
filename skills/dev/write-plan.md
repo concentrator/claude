@@ -13,6 +13,11 @@ round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
 - Project `CLAUDE.md` (build/test/lint), `.claude/DESIGN.md` (architecture)
 - The changed feature's `.claude/docs/` doc, if it exists (`layout.md § Docs`)
   - plan against the current documented behavior
+- Probe findings for the surfaces the task touches - wire formats,
+  response envelopes, schemas established by shape/detail-round probing,
+  wherever recorded (the R's `requirements.md`, `references/`, or the
+  session transcript). Required whenever commit items carry wire-level
+  detail.
 
 ## Steps
 
@@ -25,7 +30,11 @@ round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
    commit, ~2–5 minutes of focused work, naming the change in one
    sentence and the docs it touches. The task itself is right-sized
    (multi-commit) per `plan.md § Levels`; checkboxes are its
-   commit-sized steps.
+   commit-sized steps. A wire-level detail in a commit item (response
+   envelope, field names, pagination keys, accepted shapes) cites the
+   probe findings, never the repo's idiom or a `DESIGN.md` convention -
+   the house shape does not predict an external surface. A wire detail
+   the plan depends on with no probe behind it → probe first, then plan.
 4. **Add header** per `branch-plan.md`:
    - `task: T-014`
    - `type: <inherited from task tag>`
