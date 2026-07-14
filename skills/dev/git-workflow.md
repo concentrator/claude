@@ -30,7 +30,9 @@ than probing the host.
   - `test` - test additions or changes (automated or manual harness).
   - `mnt` - repo maintenance (CI, scripts, hooks, settings, dependencies).
   - `plan` - planning artifacts (ROADMAP, requirements, tasks, branch
-    plans).
+    plans). Does not apply when `.claude/` is gitignored - the artifacts
+    never enter git, so plan edits happen in the working tree, no branch
+    (`companions/untracked-claude.md`).
 - Slug: code / `doc` / `test` / `mnt` branches carry no id (it lives in
   the plan file + PR); `plan/` branches reference the initiative -
   `plan/r<NNN>-<action>` (R-id, full three digits: `r014`, never `r12`;

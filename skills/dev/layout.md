@@ -44,7 +44,7 @@ Scaffolded at the project root, alongside `.claude/`:
 |---|---|---|
 | `README.md` | required | overview + how to run |
 | `CLAUDE.md` | required | stack, base branch, `## Agent toolchain` (host + build/test/lint), conventions |
-| `.gitignore` | required | must ignore `.env` and `.claude/settings.local.json` |
+| `.gitignore` | required | must ignore `.env` and `.claude/settings.local.json`; under untracked mode (`companions/untracked-claude.md`) ignores all of `.claude/` and `CLAUDE.md` |
 | `.env.example` | if the project uses env vars | placeholder vars; commit this, never `.env` |
 
 `.env` itself is never committed (kept gitignored). Stack-specific files
