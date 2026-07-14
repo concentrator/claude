@@ -18,6 +18,11 @@ Check existing: `CLAUDE.md`, `README.md`, `CHANGELOG.md`, language/stack,
 build/test/lint commands, CI config, open branches, `docs/`. Cross-check
 against `layout.md` and report gaps.
 
+Run `git check-ignore -q .claude`: if it exits 0, `.claude/` is
+gitignored - activate untracked mode (`companions/untracked-claude.md`)
+for the rest of the migration. Record `dev-artifacts: untracked` in
+`CLAUDE.md § Conventions` and skip the plan-artifact commit steps below.
+
 ## 2. Requirements
 
 Read README + code. Ask user 3–5 clarifying questions. Write
@@ -72,7 +77,9 @@ and workflow correction - to bring them onto the doc-first convention.
 
 Deliver adoption artifacts via a short-lived branch + PR
 (`git-workflow.md`) - `main` already exists, so no bootstrap exception;
-separate commits per category.
+separate commits per category. Under untracked mode
+(`companions/untracked-claude.md`), the `.claude/` artifacts are not
+committed - only code and quality config land via the PR.
 
 ## 9. Next
 

@@ -45,8 +45,11 @@ ask whether to keep the plan.
 
 ## 4. Post-merge bookkeeping (after the branch merges)
 
-Do this on a close-out branch, not the default branch (the branch-guard
-refuses commits there):
+Under untracked mode (`companions/untracked-claude.md`), do steps 2–4 in
+the working tree and skip steps 1 and 5 - the plan files are gitignored,
+so there is no close-out branch or PR; step 6 (delete the merged code
+branch) still applies. Otherwise do this on a close-out branch, not the
+default branch (the branch-guard refuses commits there):
 
 1. Sync the default branch (`git checkout <default>`, `git pull`), then
    create a close-out plan branch (`plan/t<NNN>-close`).
