@@ -30,7 +30,11 @@ round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
    commit, ~2–5 minutes of focused work, naming the change in one
    sentence and the docs it touches. The task itself is right-sized
    (multi-commit) per `plan.md § Levels`; checkboxes are its
-   commit-sized steps. A wire-level detail in a commit item (response
+   commit-sized steps. For a `[feat]` / `[fix]` task, each checkbox is
+   one behavior slice carrying its test and its implementation together -
+   the execution cadence commits a whole red→green→refactor pass as one
+   commit (`feat.md`, `fix.md`) - so "write tests" is never its own
+   commit item. A wire-level detail in a commit item (response
    envelope, field names, pagination keys, accepted shapes) cites the
    probe findings, never the repo's idiom or a `DESIGN.md` convention -
    the house shape does not predict an external surface. A wire detail
