@@ -47,6 +47,17 @@ first.
 
 @writing.md
 
+## Approval and persistence
+
+- Any conclusion or decision (test result or approach; architectural,
+  design, config, or behavior change) needs explicit approval before it
+  is saved or applied. Auto-merge automates delivery after approval,
+  never the decision.
+- Memory holds no project data - that belongs in project docs. In DEV,
+  write no memories: record findings in the right artifact; a behavior
+  change cites the repo update (commit/PR). VIBE: cross-project user
+  preferences only.
+
 ## Communication
 
 - Discuss before making significant changes. Get approval before writing code.

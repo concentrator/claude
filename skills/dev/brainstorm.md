@@ -41,3 +41,8 @@ code - implementation comes later via the planning chain
 - Stay at requirement altitude: behavior, surfaces, edge cases,
   acceptance criteria. Architecture belongs in `DESIGN.md`; commit
   decomposition belongs to branch planning.
+- Anchor the design to the named, time-proven standard for the problem;
+  surface it and the alternatives, map the needs onto it, deviate only
+  with a stated reason. A draft growing custom branching, state
+  machines, or protocols → ask "what's the production standard here?"
+  and offer authoritative references before locking the decision.
