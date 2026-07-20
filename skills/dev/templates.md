@@ -1,5 +1,10 @@
 # Planning templates
 
+Requirement docs at every level state desired behavior - forward-looking,
+present-tense, normative - never a history of shipped work. The R/T plan
+hierarchy records who did what when; `REQUIREMENTS.md` records what must
+remain true, unlinked from initiative ids.
+
 ## Foundational `.claude/REQUIREMENTS.md`
 
 ```
