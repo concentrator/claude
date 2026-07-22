@@ -32,8 +32,8 @@ any documentation it touches.
 ### No TODOs in code
 
 Never write `TODO`/`FIXME`/`XXX` in code. Route each to a plan artifact
-(branch-plan commit, the R's `tasks.md`, or an R stub) at discovery. See
-"Scope discoveries" below.
+(branch-plan commit, the R's `tasks.md`, or an R stub) at discovery
+(§ Scope discoveries).
 
 ## Mid-execution rules
 
@@ -66,8 +66,8 @@ If additional changes are needed after the final commit:
 
 ## Closing routine
 
-Triggered when the last non-final `[ ]` is marked `[x]`. Produces the
-mandatory final commit, then hands off to merge/PR.
+Runs when the last non-final `[ ]` turns `[x]`; ends in the mandatory
+final commit and the merge/PR hand-off.
 
 1. **Close review, scaled to the branch** (`small` = ≤9 commits):
    refactor (no behavior change) → `/simplify`; single feature or single
@@ -82,9 +82,8 @@ mandatory final commit, then hands off to merge/PR.
 5. Capture the branch outcome for the close report: a summary against
    the task's acceptance criteria, and - when the target is data
    collection or processing - run the work product and collect the
-   results. Surface manual-testing/automation needs. This outcome and the
-   verify are presented as a distinct step before the merge options at step
-   8 (`finish § 2`), never skipped.
+   results. Surface manual-testing/automation needs (presentation order:
+   `finish § 2`).
 6. **Triage `T-XXX-<slug>.findings.md`** - in-scope findings are resolved
    in this branch (as commits), not deferred (routing:
    § Scope discoveries). For each remaining `[ ]`, prompt user:
@@ -104,7 +103,11 @@ mandatory final commit, then hands off to merge/PR.
    > Complete the branch: re-review docs across all commits, cleanup
    > (stale/temp data), mark plan complete, commit.
 
-   Includes the resolved findings file and the reconciled doc.
+   Includes the resolved findings file, the reconciled doc, and the
+   bookkeeping marks - the task `[x]` in the parent `tasks.md`; closing
+   the R's last open task → also the closure check (`plan.md § Approval
+   and closure`), ROADMAP `[x]`, release mark. Marks land with the
+   merge; a rejected branch discards them.
 8. Invoke `finish` - present merge/PR/keep/discard
    options and execute.
 
@@ -128,8 +131,7 @@ cadence`). Override with stated reason in plan header.
 The **batch** is the unit of delivery to `main` in both modes: one or
 more tasks that must land together, shipped as a single CI-gated PR
 (`git-workflow.md`). A lone task is a batch of one - its
-own branch is the PR. Auto mode (`/dev auto`, engine
-`auto`) runs a batch's members via subagents on a
+own branch is the PR. Auto mode (`/dev auto`) runs a batch's members via subagents on a
 dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
 them by hand. Delivery is identical; only verification differs - auto
 runs the checkpoint below, manual uses § Closing routine +
@@ -161,14 +163,13 @@ or already-merged work. A cross-initiative need becomes its own R. The
 checkpoint validates exactly that R's acceptance criteria. Soft cap
 ~30 planned commits total, subordinate to the short-lived governor
 (`git-workflow.md § Delivery cadence`). Auto mode requires a stamped
-batch; manual mode groups coupled (interdependent) tasks into one batch
-by default, or ships a lone task as its own PR.
+batch; manual mode ships a lone task as its own PR.
 
 Batch-close bookkeeping: the close phase marks batch and member-task
-checkboxes as commits on `batch/B-XXX`, **before** the PR - the `[x]`
-reaches `main` atomically with the merge; reject discards the marks
-with the branch (§ Rails). The R-closure check and release-plan
-marking ride a separate close-out PR.
+checkboxes as commits on `batch/B-XXX` before the PR - atomic with the
+merge, per § Closing routine; reject discards the marks (§ Rails). The
+R-closure check and release marking ride the post-checkpoint close-out
+PR.
 
 Per-branch close in auto mode: the close review (the `code-reviewer`
 pass) runs only for branches above the small-branch threshold defined
@@ -209,13 +210,9 @@ manual-mode § Closing routine above is unchanged by this rule.
 | Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
 | Batch complete | Close phase on `batch/B-XXX`, then checkpoint (accept opens the PR), wait for user |
 
-Checkpoint accept is the only delivery - a CI-gated PR of the batch
-branch to origin, never a push to `main` (`auto` owns
-the mechanics).
-
 ## Releases
 
 If the project uses releases, completed branches are listed in
-`.claude/plans/release-<version>.md` with `[x]` only after they reach
-`main` via a merged PR. Releases are tagged on the trunk
+`.claude/plans/release-<version>.md`; the `[x]` rides the final commit
+and reaches `main` with the merge. Releases are tagged on the trunk
 (`git-workflow.md § Releases`).
