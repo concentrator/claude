@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-22
 kind: refactor
+status: done 2026-07-22
 ---
 
 # R-035: Atomic branch-close bookkeeping
@@ -45,16 +46,25 @@ wording). The change removes instructions; `branch-plan.md` (at its
 
 ## Acceptance criteria
 
-- [ ] `finish.md`: bookkeeping rides the branch's mandatory final commit;
+- [x] `finish.md`: bookkeeping rides the branch's mandatory final commit;
   post-merge is sync + branch deletion; a close-out PR only for
-  run-dependent closure criteria.
-- [ ] `branch-plan.md`: closing routine and § Releases state atomic
-  marking; the file is net smaller than before the change.
-- [ ] `plan.md § Approval and closure` timing is consistent; no reference
+  run-dependent closure criteria. Evidence: `finish.md` §§ 1/4 (this
+  branch); §4 is two steps + the scoped exceptions.
+- [x] `branch-plan.md`: closing routine and § Releases state atomic
+  marking; the file is net smaller than before the change. Evidence:
+  step 7 carries the marks; 1493 words vs 1498 pre-change.
+- [x] `plan.md § Approval and closure` timing is consistent; no reference
   to a per-task close-out PR remains outside the run-dependent case.
-- [ ] Manual and auto mode share one atomic-marking semantics, stated
-  once and referenced (DRY).
-- [ ] Full Tier-1 gate green; ships via `skills/dev/`.
+  Evidence: `grep -rn "t<NNN>-close" skills/dev/` empty; racing/late
+  closures fall back to a follow-up plan PR.
+- [x] Manual and auto mode share one atomic-marking semantics, stated
+  once and referenced (DRY). Evidence: step 7 is the single enumeration;
+  `finish.md`, `untracked-claude.md`, § Batches, § Releases reference it
+  (close review removed the diverged copies).
+- [x] Full Tier-1 gate green; ships via `skills/dev/`. Evidence: gate
+  green on every commit; all changes under `skills/dev/`. This branch
+  itself closes T-075 and R-035 in its final commit - the first run of
+  the new flow.
 
 ## Constraints
 
