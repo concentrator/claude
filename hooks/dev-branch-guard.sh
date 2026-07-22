@@ -111,31 +111,39 @@ case "$tool" in
     deny "branch-guard: refusing $tool on '$branch'. Create a working branch first - never edit the trunk (git-workflow)." ;;
   Bash)
     cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // ""')
-    # Only guard commands that actually commit. Match a `git` invocation whose
-    # subcommand is `commit`, allowing global options (-c key=val, -C path,
-    # --flag) in between. The boundary after `commit` leaves plumbing (git
-    # commit-tree / commit-graph) alone.
-    if ! [[ "$cmd" =~ (^|[^[:alnum:]-])git([[:space:]]+-[^[:space:]]+([[:space:]]+[^[:space:]-][^[:space:]]*)?)*[[:space:]]+commit([[:space:]]|$) ]]; then
-      exit 0
-    fi
+    # Global-option skipper (-c key=val, -C path, --flag) shared by the
+    # commit detector and the branch-create exemption. Quote characters
+    # end the match, so a quoted value cannot smuggle tokens into either
+    # pattern.
+    opt="([[:space:]]+-[^[:space:]\"']+([[:space:]]+[^[:space:]\"'-][^[:space:]\"']*)?)*"
+    # Only guard commands that actually commit. The boundary after
+    # `commit` leaves plumbing (git commit-tree / commit-graph) alone.
+    crx="(^|[^[:alnum:]-])git${opt}[[:space:]]+commit([[:space:]]|\$)"
+    [[ "$cmd" =~ $crx ]] || exit 0
 
     # Everything up to the first `commit` - a branch created/switched here
     # first means the commit lands off the trunk.
     before="${cmd%%commit*}"
     before="${before//$'\n'/;}"   # newlines separate commands too, like ;&|
-    # Treat `checkout -b` / `switch -c` as a branch-create only when it is an
-    # actual command head (start, or after a shell separator) and names a
-    # non-trunk branch - not text inside an echo or a commit message. Global
-    # options may sit between `git` and the verb (`git -C <path> checkout`),
-    # and flags between the verb and -b/-c (e.g. `checkout -q -b`).
-    if [[ "$before" =~ (^|[;\&|]+)[[:space:]]*git([[:space:]]+-[^[:space:]]+([[:space:]]+[^[:space:]-][^[:space:]]*)?)*[[:space:]]+(checkout|switch)([[:space:]]+-[^[:space:]]+)*[[:space:]]+(-b|-c)[[:space:]]+([^[:space:]]+) ]]; then
-      is_trunk "${BASH_REMATCH[7]}" || exit 0
-    fi
 
     # Judge the repo the commit targets: the `-C <path>` bound to the commit
     # (the last one before it, via a greedy prefix), else the cwd repo.
     dir="."
     if [[ "$before" =~ .*git[[:space:]]+-C[[:space:]]+([^[:space:]]+) ]]; then dir="${BASH_REMATCH[1]}"; fi
+
+    # Treat `checkout -b` / `switch -c` as a branch-create only when it is
+    # an actual command head (start, or after a shell separator), names a
+    # non-trunk branch, and happened in the SAME repo the commit targets -
+    # a branch created elsewhere does not cover this commit.
+    xrx="(^|[;&|]+)[[:space:]]*git${opt}[[:space:]]+(checkout|switch)([[:space:]]+-[^[:space:]]+)*[[:space:]]+(-b|-c)[[:space:]]+([^[:space:]]+)"
+    if [[ "$before" =~ $xrx ]] && ! is_trunk "${BASH_REMATCH[7]}"; then
+      codir="."
+      [[ "${BASH_REMATCH[0]}" =~ -C[[:space:]]+([^[:space:]]+) ]] && codir="${BASH_REMATCH[1]}"
+      cotop=$(git -C "$codir" rev-parse --show-toplevel 2>/dev/null)
+      citop=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null)
+      [ -n "$cotop" ] && [ "$cotop" = "$citop" ] && exit 0
+    fi
+
     branch=$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
     is_trunk "$branch" && deny "branch-guard: refusing 'git commit' on '$branch'. Create a working branch first (git-workflow)." ;;
 esac

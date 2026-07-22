@@ -135,7 +135,19 @@ j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git -c core.editor=vi checkou
 
 j=$(jq -nc --arg d "$M3" '{tool_name:"Bash",tool_input:{command:("git -C " + $d + " checkout -b master && git -C " + $d + " commit -m x")}}')
 [ "$(run "$j")" = deny ] && pass "-C checkout -b master then commit denied" || die "-C trunk-named branch exempted"
-rm -rf "$M3"
+
+# Close-review pins: the exemption is tied to the commit's repo, and a
+# quoted option value cannot fake a branch-create.
+M5=$(new_main)
+j=$(jq -nc --arg a "$M3" --arg b "$M5" '{tool_name:"Bash",tool_input:{command:("git -C " + $a + " checkout -b feat/x && git -C " + $b + " commit -m x")}}')
+[ "$(run "$j")" = deny ] && pass "cross-repo checkout does not exempt commit" || die "cross-repo exemption leak"
+
+j=$(jq -nc --arg b "$M5" '{tool_name:"Bash",tool_input:{command:("git checkout -b feat/y && git -C " + $b + " commit -m x")}}')
+[ "$(run "$j")" = deny ] && pass "cwd checkout does not exempt cross-repo commit" || die "cwd exemption covered a foreign commit"
+
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git -c foo.bar=\"git checkout -b evil\" status; git commit -m x"}}')
+[ "$(run "$j")" = deny ] && pass "quoted option text does not exempt" || die "quoted checkout -b faked the exemption"
+rm -rf "$M3" "$M5"
 
 # Newline-separated commands: a checkout -b on a later line is still a head.
 j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"echo start\ngit checkout -b feat/nl\ngit commit -m wip"}}')
