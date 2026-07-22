@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-22
 kind: bug
+status: done 2026-07-22
 ---
 
 # R-036: Branch-guard target scope - judge the owning repo
@@ -42,18 +43,23 @@ only. Severity low-medium.
 
 ## Acceptance criteria
 
-- [ ] A `Write`/`Edit`/`NotebookEdit` to a tracked-side path of any repo
-  on a trunk branch is denied, regardless of the session cwd.
-- [ ] Still allowed: a target gitignored in its owning repo, a target
+- [x] A `Write`/`Edit`/`NotebookEdit` to a tracked-side path of any repo
+  on a trunk branch is denied, regardless of the session cwd. Evidence:
+  cross-repo deny pin + same-verdict-from-any-cwd pin; live repro against
+  a `main` worktree of `~/.claude` denied from a foreign cwd.
+- [x] Still allowed: a target gitignored in its owning repo, a target
   whose owning repo is on a working branch, a target with no owning repo;
-  errors fail open.
-- [ ] All existing guard test pins stay green (R-034's foreign-path allow
-  case targets a repo-less dir and remains an allow).
-- [ ] New pins cover the three cross-repo shapes: tracked-on-trunk deny,
-  ignored-in-owner allow, owner-on-branch allow.
-- [ ] R-034's unconditional foreign-allow is recorded as narrowed by this
-  R (ROADMAP note).
-- [ ] Full test suite and Tier-1 gate green.
+  errors fail open. Evidence: pins for all three shapes green; memory-dir
+  and tmp-scratchpad live checks allow.
+- [x] All existing guard test pins stay green. Evidence: full suite OK
+  (32 cases).
+- [x] New pins cover the cross-repo shapes. Evidence: three R-036 pins
+  plus five close-review pins (dot-dot, cwd-independence, .git-internal,
+  unborn nested init, outward file symlink).
+- [x] R-034's unconditional foreign-allow recorded as narrowed. Evidence:
+  ROADMAP R-034 entry note (landed with the shape PR #204).
+- [x] Full test suite and Tier-1 gate green. Evidence: `test/run-all` and
+  `scripts/ci/run-all.sh` green on every commit.
 
 ## Constraints
 

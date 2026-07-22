@@ -233,7 +233,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       (as auto mode already does), replacing the per-task close-out PR;
       post-merge shrinks to sync + delete. Close-out PR only for
       run-dependent closure criteria. (shaped 2026-07-22)
-- [ ] R-036: Branch-guard target scope - judge writes by the target
+- [x] R-036: Branch-guard target scope - judge writes by the target
       path's owning repo, not the session cwd: trunk + tracked-side
       targets deny from any cwd; ignored / branch / no-repo targets stay
       allowed. Narrows R-034's unconditional foreign-path allow.

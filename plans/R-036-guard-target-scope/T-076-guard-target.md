@@ -18,6 +18,7 @@ ignored / branch / no-repo allows; existing pins green; three new pins;
 ROADMAP narrowing note - already landed with the shape PR; suites +
 Tier-1 green).
 
-- [ ] Behavior slice (tests + hook, one commit): rework the Write-arm judgment in `hooks/dev-branch-guard.sh` - resolve the target physically (existing mechanics), derive its owning repo from the nearest existing ancestor, deny when the owner's HEAD is a trunk and `git -C <owner> check-ignore` exits 1, allow otherwise; pins in `scripts/test/dev-branch-guard.test.sh` for cross-repo tracked-on-trunk (deny), ignored-in-owner (allow), owner-on-branch (allow), plus all existing pins green.
-- [ ] Update the hook header comment to the target-repo semantics; live repro: the settings.json write from a foreign cwd denies while `~/.claude` is on `main`, the memory-dir write still allows.
-- [ ] Complete the branch: re-review docs across all commits, cleanup, mark plan complete + bookkeeping marks, commit.
+- [x] Behavior slice (tests + hook, one commit): rework the Write-arm judgment in `hooks/dev-branch-guard.sh` - resolve the target physically (existing mechanics), derive its owning repo from the nearest existing ancestor, deny when the owner's HEAD is a trunk and `git -C <owner> check-ignore` exits 1, allow otherwise; pins in `scripts/test/dev-branch-guard.test.sh` for cross-repo tracked-on-trunk (deny), ignored-in-owner (allow), owner-on-branch (allow), plus all existing pins green.
+- [x] Update the hook header comment to the target-repo semantics; live repro: the settings.json write from a foreign cwd denies while `~/.claude` is on `main`, the memory-dir write still allows.
+- [x] Close-review slice: fold `./..` in the unresolved tail (re-walk), follow a final-component symlink, climb an unborn-HEAD owner to the enclosing repo, capture the toplevel before resolving (no `cd ""` cwd fallback); five pins added. Dismissed per spec: submodule-on-trunk denies; committed nested repos stay a documented limitation (fail-open toward the host gate).
+- [x] Complete the branch: re-review docs across all commits, cleanup, mark plan complete + bookkeeping marks, commit.
