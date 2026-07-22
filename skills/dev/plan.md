@@ -148,11 +148,13 @@ An R entry closes (`[x]` in ROADMAP) only when **both** hold:
   `status: done YYYY-MM-DD` in that file's frontmatter.
 
 The check runs on the branch completing the R's last open task, in its
-mandatory final commit (`branch-plan.md § Closing routine`) - the
-closure lands with that branch's merge. Run-dependent criteria
-(verifiable only by a later event) keep the R open; the relevant event
-re-triggers verification, and that closure ships via its own plan MR/PR
-(e.g. a batch checkpoint - `branch-plan.md § Batches`).
+mandatory final commit (`branch-plan.md § Closing routine`), judged
+against `tasks.md` re-read from `main` - the closure lands with that
+branch's merge. A closure the final commit could not run - concurrent
+branches racing past the check, or run-dependent criteria (verifiable
+only by a later event) - keeps the R open and ships later via its own
+plan MR/PR once verified (e.g. a batch checkpoint -
+`branch-plan.md § Batches`).
 
 ## Archival
 
