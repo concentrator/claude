@@ -228,6 +228,11 @@ Initiative index. Items: `R-001: description`; each entry owns
       a trunk branch (`check-ignore` exits 128, the T-058 carve-out never
       fires). Deny only paths inside the repo and not ignored; keep
       fail-open. (shaped 2026-07-12)
+- [ ] R-035: Atomic branch-close bookkeeping - task/R marks ride the
+      branch's mandatory final commit and reach `main` with the merge
+      (as auto mode already does), replacing the per-task close-out PR;
+      post-merge shrinks to sync + delete. Close-out PR only for
+      run-dependent closure criteria. (shaped 2026-07-22)
 
 <!-- R-004's requirements are approved: pending - tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
