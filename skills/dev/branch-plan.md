@@ -214,6 +214,6 @@ manual-mode § Closing routine above is unchanged by this rule.
 ## Releases
 
 If the project uses releases, completed branches are listed in
-`.claude/plans/release-<version>.md`; the `[x]` is one of the closing
+`.claude/plans/release-vX.Y.Z.md`; the `[x]` is one of the closing
 routine's marks (§ Closing routine; auto mode: § Batches). Releases are
 tagged on the trunk (`git-workflow.md § Releases`).

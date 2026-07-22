@@ -47,7 +47,9 @@ ask whether to keep the plan.
 
 ## 4. Post-merge (after the branch merges)
 
-1. Sync the default branch (`git checkout <default>`, `git pull`).
+1. Sync the default branch (`git checkout <default>`, `git pull`); the
+   R's tasks now all `[x]` with no closure recorded → ship the closure
+   via a plan PR (`plan.md § Approval and closure`).
 2. Delete the merged branch (local; remote too if pushed).
 
 Bookkeeping landed with the merge (`branch-plan.md § Closing routine`);
