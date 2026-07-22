@@ -43,17 +43,62 @@ case "$tool" in
     path=$(printf '%s' "$input" | jq -r '.tool_input.file_path // .tool_input.notebook_path // ""')
     if [ -n "$path" ]; then
       case "$path" in /*) ;; *) path=$PWD/$path ;; esac
-      tail=
-      while [ ! -d "$path" ] && [ "$path" != / ]; do
-        tail=/$(basename -- "$path")$tail
-        path=$(dirname -- "$path")
+      # Physical target: walk to the nearest existing ancestor, resolve it
+      # (pwd -P), keep the not-yet-existing tail. A ./.. component left in
+      # the tail is folded lexically - nonexistent components cannot be
+      # symlinks - and the walk re-runs on the folded path, so
+      # `ghost/../repo/file` is judged by where it really lands.
+      pass=0
+      while :; do
+        p=$path tail=
+        while [ ! -d "$p" ] && [ "$p" != / ]; do
+          tail=/$(basename -- "$p")$tail
+          p=$(dirname -- "$p")
+        done
+        anc=$(cd "$p" 2>/dev/null && pwd -P)
+        [ -n "$anc" ] || exit 0                     # unresolvable → fail open
+        [ "$anc" = / ] && anc=
+        target=$anc$tail
+        [ -n "$target" ] || target=/
+        case "${tail}/" in
+          */../*|*/./*)
+            folded= rest=$target/
+            while [ -n "$rest" ]; do
+              comp=${rest%%/*}; rest=${rest#*/}
+              case "$comp" in ''|'.') ;; '..') folded=${folded%/*} ;; *) folded=$folded/$comp ;; esac
+            done
+            path=${folded:-/}
+            pass=$((pass+1)); [ "$pass" -lt 3 ] || exit 0
+            continue ;;
+        esac
+        break
       done
-      anc=$(cd "$path" 2>/dev/null && pwd -P)
-      [ -n "$anc" ] || exit 0                       # unresolvable → fail open
-      target=$anc$tail
-      top=$(cd "$(git -C "$anc" rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null && pwd -P)
-      [ -n "$top" ] || exit 0                       # no owning repo → allow
-      branch=$(git -C "$top" rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
+      # Follow a final-component symlink (bounded) - the write lands at
+      # its destination, not at the link's name.
+      hops=0
+      while [ -L "$target" ] && [ "$hops" -lt 8 ]; do
+        link=$(readlink -- "$target") || break
+        case "$link" in /*) t=$link ;; *) t=${target%/*}/$link ;; esac
+        d=$(cd "$(dirname -- "$t")" 2>/dev/null && pwd -P) || d=
+        [ -n "$d" ] || break
+        target=$d/$(basename -- "$t")
+        hops=$((hops+1))
+      done
+      # Owning repo of the target; an owner with an unborn HEAD (fresh
+      # `git init`, no commits) climbs to the enclosing repo - an
+      # accidental nested init must not disable the guard for
+      # outer-tracked files.
+      jdir=$(dirname -- "$target")
+      [ -d "$jdir" ] || jdir=${anc:-/}
+      while :; do
+        top=$(git -C "$jdir" rev-parse --show-toplevel 2>/dev/null)
+        [ -n "$top" ] || exit 0                     # no owning repo → allow
+        top=$(cd "$top" 2>/dev/null && pwd -P)
+        [ -n "$top" ] || exit 0
+        branch=$(git -C "$top" rev-parse --abbrev-ref HEAD 2>/dev/null) && break
+        [ "$top" != / ] || exit 0
+        jdir=$(dirname -- "$top")                   # unborn → climb
+      done
       is_trunk "$branch" || exit 0                  # owner on a working branch → allow
       git -C "$top" check-ignore -q -- "$target" 2>/dev/null
       [ $? -eq 1 ] || exit 0                        # ignored or error → allow
