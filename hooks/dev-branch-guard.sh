@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# dev-branch-guard.sh - PreToolUse hook (R-021, refined R-024).
+# dev-branch-guard.sh - PreToolUse hook (R-021, refined R-024/R-034/R-036).
 # Refuses repo-mutating tool calls that would land on the trunk (main/master)
 # so all work goes through a branch (git-workflow trunk rule). Reads the
 # tool-call JSON on stdin; emits a PreToolUse "deny" decision when the write
-# or commit actually targets the trunk. Silent (allow) otherwise, and outside
-# any git repo. Judges the real target, not the session cwd branch plus a
-# substring: a write to a gitignored or outside-the-repo path, a compound
-# `checkout -b && commit`, and a `git -C <branch-repo> commit` are all
-# allowed; a `git -C <main-repo> commit` from a branch cwd is still denied.
-# Fails open.
+# or commit actually targets a trunk. Silent (allow) otherwise. Judges the
+# real target, never the session cwd: a write is judged by the repo owning
+# the (physically resolved) target path - tracked-side on a trunk denies
+# from any cwd; gitignored, repo-less, or working-branch targets allow. A
+# commit is judged by its repo (`git -C <path>`, else cwd); a compound
+# `checkout -b && commit` is allowed. Fails open.
 #
 # This is a best-effort local tripwire against an accidental trunk mutation,
 # not a boundary against a crafted evasion - the real gate is host branch
