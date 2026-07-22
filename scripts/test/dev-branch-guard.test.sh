@@ -75,6 +75,22 @@ j=$(jq -nc '{tool_name:"Write",tool_input:{file_path:"outlink/f.md",content:"x"}
 [ "$(run "$j")" = allow ] && pass "Write via symlink pointing outside allowed" || die "outward-symlink Write denied"
 rm -rf "$OUTD"
 
+# --- R-036: the target's owning repo is judged, not the session cwd ---
+# From a cwd on a working branch, a tracked-side write into a second repo
+# on main must deny; ignored-in-owner and owner-on-branch targets allow.
+M2=$(new_main)
+BC0=$(new_branch); cd "$BC0"
+j=$(jq -nc --arg p "$M2/tracked.sh" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = deny ] && pass "cross-repo write to tracked file on main denied" || die "cross-repo trunk write allowed"
+
+j=$(jq -nc --arg p "$M2/.env" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = allow ] && pass "cross-repo write to ignored path allowed" || die "cross-repo ignored write denied"
+
+B0=$(new_branch)
+j=$(jq -nc --arg p "$B0/tracked.sh" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = allow ] && pass "cross-repo write to branch repo allowed" || die "cross-repo branch write denied"
+cd "$M"; rm -rf "$M2" "$BC0" "$B0"
+
 # --- false-positive 2: compound branch-create then commit is allowed ---
 j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git checkout -b feat/x && echo hi > f && git commit -am wip"}}')
 [ "$(run "$j")" = allow ] && pass "checkout -b then commit allowed" || die "compound checkout -b && commit denied"
