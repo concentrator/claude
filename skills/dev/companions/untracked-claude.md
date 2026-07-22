@@ -27,10 +27,10 @@ git, so a `plan/` branch and its MR/PR would carry nothing:
 - **`plan/` branches - skipped.** Edit `REQUIREMENTS.md`, `DESIGN.md`,
   `ROADMAP.md`, `tasks.md`, task files, and branch plans directly in the
   working tree. No branch, no MR/PR for planning artifacts.
-- **Bookkeeping marks - working tree only.** The closing routine's final
-  commit can't carry the gitignored marks (`branch-plan.md § Closing
-  routine`); make them directly in the working tree at close - task
-  `[x]`, R-closure check, ROADMAP.
+- **Bookkeeping marks - working tree, post-merge.** The final commit
+  can't carry gitignored marks; once the branch merges (`finish § 4`),
+  make the closing routine's marks (`branch-plan.md § Closing routine`)
+  directly in the working tree.
 - **`migrate.md § 8` / `start.md § 5` - written, not committed.**
   Adoption / scaffold artifacts land in the working tree only; the
   initial or adoption commit carries code and quality config, not the

@@ -7,9 +7,9 @@ Close out a DEV branch - invoked by the closing routine
 
 - `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`: every `[ ]` is `[x]`;
   findings file triaged.
-- Bookkeeping marks present in the final commit (task `[x]`; last open
-  task of the R → closure check, ROADMAP, release mark -
-  `branch-plan.md § Closing routine`).
+- Bookkeeping marks present in the final commit (`branch-plan.md
+  § Closing routine`; untracked mode defers them to §4 -
+  `companions/untracked-claude.md`).
 - Close review per `branch-plan.md § Closing routine`.
 - Fresh test + lint green; failing → stop and report.
 
@@ -50,11 +50,7 @@ ask whether to keep the plan.
 1. Sync the default branch (`git checkout <default>`, `git pull`).
 2. Delete the merged branch (local; remote too if pushed).
 
-The bookkeeping marks landed with the merge - they ride the mandatory
-final commit (`branch-plan.md § Closing routine`); under untracked mode
-(`companions/untracked-claude.md`) they were made in the working tree at
-close. Exception: an R whose closure criteria are run-dependent
-(`plan.md § Approval and closure`) closes later via its own plan MR/PR,
-when the awaited event verifies them. Auto mode: the batch's R-closure
-and release marks ride the post-checkpoint close-out PR
-(branch-plan.md § Batches).
+Bookkeeping landed with the merge (`branch-plan.md § Closing routine`);
+untracked mode makes the marks now, in the working tree
+(`companions/untracked-claude.md`). Exception: run-dependent R closure
+ships later via its own plan MR/PR (`plan.md § Approval and closure`).
