@@ -39,13 +39,10 @@
       "Read(//tmp/**)",
       "Read(//private/tmp/**)",
       "Edit(//tmp/**)",
-      "Edit(//private/tmp/**)",
-      "Write(//tmp/**)",
-      "Write(//private/tmp/**)"
+      "Edit(//private/tmp/**)"
     ],
     "defaultMode": "default"
   },
-  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -101,6 +98,7 @@
   },
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
+  "skipWorkflowUsageWarning": true,
   "editorMode": "normal",
   "preferredNotifChannel": "auto",
   "autoCompactEnabled": true,
