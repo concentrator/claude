@@ -125,10 +125,11 @@ case "$tool" in
     before="${before//$'\n'/;}"   # newlines separate commands too, like ;&|
     # Treat `checkout -b` / `switch -c` as a branch-create only when it is an
     # actual command head (start, or after a shell separator) and names a
-    # non-trunk branch - not text inside an echo or a commit message. Flags
-    # may sit between the verb and -b/-c (e.g. `checkout -q -b`).
-    if [[ "$before" =~ (^|[;\&|]+)[[:space:]]*git[[:space:]]+(checkout|switch)([[:space:]]+-[^[:space:]]+)*[[:space:]]+(-b|-c)[[:space:]]+([^[:space:]]+) ]]; then
-      is_trunk "${BASH_REMATCH[5]}" || exit 0
+    # non-trunk branch - not text inside an echo or a commit message. Global
+    # options may sit between `git` and the verb (`git -C <path> checkout`),
+    # and flags between the verb and -b/-c (e.g. `checkout -q -b`).
+    if [[ "$before" =~ (^|[;\&|]+)[[:space:]]*git([[:space:]]+-[^[:space:]]+([[:space:]]+[^[:space:]-][^[:space:]]*)?)*[[:space:]]+(checkout|switch)([[:space:]]+-[^[:space:]]+)*[[:space:]]+(-b|-c)[[:space:]]+([^[:space:]]+) ]]; then
+      is_trunk "${BASH_REMATCH[7]}" || exit 0
     fi
 
     # Judge the repo the commit targets: the `-C <path>` bound to the commit
