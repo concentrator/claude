@@ -105,9 +105,10 @@ final commit and the merge/PR hand-off.
 
    Includes the resolved findings file, the reconciled doc, and the
    bookkeeping marks - the task `[x]` in the parent `tasks.md`; closing
-   the R's last open task → also the closure check (`plan.md § Approval
-   and closure`), ROADMAP `[x]`, release mark. Marks land with the
-   merge; a rejected branch discards them.
+   the R's last open task → run the closure check (`plan.md § Approval
+   and closure`); verified → ROADMAP `[x]` and release mark. Marks land
+   with the merge; a rejected branch discards them. (Auto mode: member
+   marks land at batch close - § Batches.)
 8. Invoke `finish` - present merge/PR/keep/discard
    options and execute.
 
@@ -163,13 +164,13 @@ or already-merged work. A cross-initiative need becomes its own R. The
 checkpoint validates exactly that R's acceptance criteria. Soft cap
 ~30 planned commits total, subordinate to the short-lived governor
 (`git-workflow.md § Delivery cadence`). Auto mode requires a stamped
-batch; manual mode ships a lone task as its own PR.
+batch.
 
 Batch-close bookkeeping: the close phase marks batch and member-task
-checkboxes as commits on `batch/B-XXX` before the PR - atomic with the
-merge, per § Closing routine; reject discards the marks (§ Rails). The
-R-closure check and release marking ride the post-checkpoint close-out
-PR.
+checkboxes as commits on `batch/B-XXX` before the PR - the marks reach
+`main` with the merge; reject discards them (§ Rails). The R-closure
+check and release marking ride a close-out plan PR
+(`plan/r<NNN>-close`) opened after the batch PR merges.
 
 Per-branch close in auto mode: the close review (the `code-reviewer`
 pass) runs only for branches above the small-branch threshold defined
@@ -213,6 +214,6 @@ manual-mode § Closing routine above is unchanged by this rule.
 ## Releases
 
 If the project uses releases, completed branches are listed in
-`.claude/plans/release-<version>.md`; the `[x]` rides the final commit
-and reaches `main` with the merge. Releases are tagged on the trunk
-(`git-workflow.md § Releases`).
+`.claude/plans/release-<version>.md`; the `[x]` is one of the closing
+routine's marks (§ Closing routine; auto mode: § Batches). Releases are
+tagged on the trunk (`git-workflow.md § Releases`).
