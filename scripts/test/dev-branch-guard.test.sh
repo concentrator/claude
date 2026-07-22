@@ -3,8 +3,10 @@
 # true-positives (a Write and a `git commit` on main are denied), the three
 # false-positives R-024/T-058 fixes (a gitignored-path Write on main, a
 # compound `checkout -b && commit`, and a cross-repo `git -C <branch> commit`
-# are all allowed), the foreign-path case R-034 fixes (a Write to a path
-# outside the cwd repo is allowed), the cross-repo correctness case
+# are all allowed), the foreign-path case R-034 fixes (a repo-less target is
+# allowed), the target-owner judgment R-036 adds (tracked-on-trunk targets
+# deny from any cwd; dot-dot / symlink / nested-init shapes; ignored and
+# branch-repo targets allow), the cross-repo correctness case
 # (`git -C <main>` from a branch cwd is denied), and fail-open on malformed
 # input / outside a repo.
 # Run: bash scripts/test/dev-branch-guard.test.sh
@@ -74,6 +76,43 @@ ln -s "$OUTD" outlink
 j=$(jq -nc '{tool_name:"Write",tool_input:{file_path:"outlink/f.md",content:"x"}}')
 [ "$(run "$j")" = allow ] && pass "Write via symlink pointing outside allowed" || die "outward-symlink Write denied"
 rm -rf "$OUTD"
+
+# --- R-036: the target's owning repo is judged, not the session cwd ---
+# From a cwd on a working branch, a tracked-side write into a second repo
+# on main must deny; ignored-in-owner and owner-on-branch targets allow.
+M2=$(new_main)
+BC0=$(new_branch); cd "$BC0"
+j=$(jq -nc --arg p "$M2/tracked.sh" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = deny ] && pass "cross-repo write to tracked file on main denied" || die "cross-repo trunk write allowed"
+
+j=$(jq -nc --arg p "$M2/.env" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = allow ] && pass "cross-repo write to ignored path allowed" || die "cross-repo ignored write denied"
+
+B0=$(new_branch)
+j=$(jq -nc --arg p "$B0/tracked.sh" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = allow ] && pass "cross-repo write to branch repo allowed" || die "cross-repo branch write denied"
+
+# Close-review pins: dot-dot through a missing segment, cwd-independence,
+# .git internals, an unborn nested init, and a file symlink pointing out.
+j=$(jq -nc --arg p "$M2/ghost/../tracked.sh" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = deny ] && pass "dot-dot through missing segment denied" || die "ghost/.. write allowed"
+
+j=$(jq -nc --arg p "$M2/tracked.sh" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+v1=$(run "$j"); cd "$M"; v2=$(run "$j")
+[ "$v1" = "$v2" ] && [ "$v1" = deny ] && pass "same verdict from any cwd" || die "verdict depends on cwd ($v1 vs $v2)"
+
+j=$(jq -nc --arg p "$M2/.git/info/exclude" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = allow ] && pass "write inside .git allowed" || die ".git-internal write denied"
+
+git -c init.defaultBranch=main -C "$M2" init -q vendor
+j=$(jq -nc --arg p "$M2/vendor/newfile" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = deny ] && pass "unborn nested init still guarded by outer" || die "nested git init disabled the guard"
+
+OUTF=$(mktemp -d); ln -s "$OUTF/note.md" "$M2/outfile"
+j=$(jq -nc --arg p "$M2/outfile" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = allow ] && pass "file symlink pointing outside allowed" || die "outward file symlink denied"
+rm -rf "$OUTF"
+cd "$M"; rm -rf "$M2" "$BC0" "$B0"
 
 # --- false-positive 2: compound branch-create then commit is allowed ---
 j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git checkout -b feat/x && echo hi > f && git commit -am wip"}}')

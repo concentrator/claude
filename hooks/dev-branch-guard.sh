@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-# dev-branch-guard.sh - PreToolUse hook (R-021, refined R-024).
+# dev-branch-guard.sh - PreToolUse hook (R-021, refined R-024/R-034/R-036).
 # Refuses repo-mutating tool calls that would land on the trunk (main/master)
 # so all work goes through a branch (git-workflow trunk rule). Reads the
 # tool-call JSON on stdin; emits a PreToolUse "deny" decision when the write
-# or commit actually targets the trunk. Silent (allow) otherwise, and outside
-# any git repo. Judges the real target, not the session cwd branch plus a
-# substring: a write to a gitignored or outside-the-repo path, a compound
-# `checkout -b && commit`, and a `git -C <branch-repo> commit` are all
-# allowed; a `git -C <main-repo> commit` from a branch cwd is still denied.
-# Fails open.
+# or commit actually targets a trunk. Silent (allow) otherwise. Judges the
+# real target, never the session cwd: a write is judged by the repo owning
+# the (physically resolved) target path - tracked-side on a trunk denies
+# from any cwd; gitignored, repo-less, or working-branch targets allow. A
+# commit is judged by its repo (`git -C <path>`, else cwd); a compound
+# `checkout -b && commit` is allowed. Fails open.
 #
 # This is a best-effort local tripwire against an accidental trunk mutation,
 # not a boundary against a crafted evasion - the real gate is host branch
@@ -32,33 +32,82 @@ is_trunk() { case "$1" in main | master) return 0 ;; *) return 1 ;; esac; }
 tool=$(printf '%s' "$input" | jq -r '.tool_name // ""')
 case "$tool" in
   Write | Edit | NotebookEdit)
-    # A file mutation targets the cwd repo's working tree.
-    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
-    [ -n "$branch" ] || exit 0
-    is_trunk "$branch" || exit 0   # on a working branch → allow
-    # Only a path inside this repo's working tree and not gitignored can
-    # land on its trunk. Judge where the write really lands: resolve the
-    # target physically (symlinks and dots; nearest existing ancestor +
-    # not-yet-existing tail) and compare against the resolved toplevel -
-    # so a symlinked-dir or ../-re-entry path is still caught, and a
-    # genuinely foreign path is allowed. check-ignore then runs on the
-    # resolved path (never "beyond a symbolic link"); non-1 exits (ignored,
-    # or a git error) fail open.
+    # A file mutation is judged by the repo that OWNS the target path -
+    # the session cwd is irrelevant (R-036). Resolve the target
+    # physically (symlinks and dots; nearest existing ancestor +
+    # not-yet-existing tail), find the owning repo from that ancestor,
+    # and deny only what can land on a trunk: the owner's HEAD is a
+    # trunk and the path is tracked-side there (check-ignore exit 1).
+    # Ignored paths, a working-branch owner, no owner, and errors all
+    # allow (fail open).
     path=$(printf '%s' "$input" | jq -r '.tool_input.file_path // .tool_input.notebook_path // ""')
     if [ -n "$path" ]; then
       case "$path" in /*) ;; *) path=$PWD/$path ;; esac
-      tail=
-      while [ ! -d "$path" ] && [ "$path" != / ]; do
-        tail=/$(basename -- "$path")$tail
-        path=$(dirname -- "$path")
+      # Physical target: walk to the nearest existing ancestor, resolve it
+      # (pwd -P), keep the not-yet-existing tail. A ./.. component left in
+      # the tail is folded lexically - nonexistent components cannot be
+      # symlinks - and the walk re-runs on the folded path, so
+      # `ghost/../repo/file` is judged by where it really lands.
+      pass=0
+      while :; do
+        p=$path tail=
+        while [ ! -d "$p" ] && [ "$p" != / ]; do
+          tail=/$(basename -- "$p")$tail
+          p=$(dirname -- "$p")
+        done
+        anc=$(cd "$p" 2>/dev/null && pwd -P)
+        [ -n "$anc" ] || exit 0                     # unresolvable → fail open
+        [ "$anc" = / ] && anc=
+        target=$anc$tail
+        [ -n "$target" ] || target=/
+        case "${tail}/" in
+          */../*|*/./*)
+            folded= rest=$target/
+            while [ -n "$rest" ]; do
+              comp=${rest%%/*}; rest=${rest#*/}
+              case "$comp" in ''|'.') ;; '..') folded=${folded%/*} ;; *) folded=$folded/$comp ;; esac
+            done
+            path=${folded:-/}
+            pass=$((pass+1)); [ "$pass" -lt 3 ] || exit 0
+            continue ;;
+        esac
+        break
       done
-      path=$(cd "$path" 2>/dev/null && pwd -P)$tail
-      top=$(cd "$(git rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null && pwd -P)
-      [ -n "$top" ] || exit 0                          # fail open
-      case "$path" in "$top"/*) ;; *) exit 0 ;; esac   # outside this repo → allow
-      git check-ignore -q -- "$path" 2>/dev/null
-      [ $? -eq 1 ] || exit 0
+      # Follow a final-component symlink (bounded) - the write lands at
+      # its destination, not at the link's name.
+      hops=0
+      while [ -L "$target" ] && [ "$hops" -lt 8 ]; do
+        link=$(readlink -- "$target") || break
+        case "$link" in /*) t=$link ;; *) t=${target%/*}/$link ;; esac
+        d=$(cd "$(dirname -- "$t")" 2>/dev/null && pwd -P) || d=
+        [ -n "$d" ] || break
+        target=$d/$(basename -- "$t")
+        hops=$((hops+1))
+      done
+      # Owning repo of the target; an owner with an unborn HEAD (fresh
+      # `git init`, no commits) climbs to the enclosing repo - an
+      # accidental nested init must not disable the guard for
+      # outer-tracked files.
+      jdir=$(dirname -- "$target")
+      [ -d "$jdir" ] || jdir=${anc:-/}
+      while :; do
+        top=$(git -C "$jdir" rev-parse --show-toplevel 2>/dev/null)
+        [ -n "$top" ] || exit 0                     # no owning repo → allow
+        top=$(cd "$top" 2>/dev/null && pwd -P)
+        [ -n "$top" ] || exit 0
+        branch=$(git -C "$top" rev-parse --abbrev-ref HEAD 2>/dev/null) && break
+        [ "$top" != / ] || exit 0
+        jdir=$(dirname -- "$top")                   # unborn → climb
+      done
+      is_trunk "$branch" || exit 0                  # owner on a working branch → allow
+      git -C "$top" check-ignore -q -- "$target" 2>/dev/null
+      [ $? -eq 1 ] || exit 0                        # ignored or error → allow
+      deny "branch-guard: refusing $tool into '$top' on '$branch'. Create a working branch there first - never edit the trunk (git-workflow)."
     fi
+    # No path in the call: keep the conservative cwd-repo judgment.
+    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
+    [ -n "$branch" ] || exit 0
+    is_trunk "$branch" || exit 0
     deny "branch-guard: refusing $tool on '$branch'. Create a working branch first - never edit the trunk (git-workflow)." ;;
   Bash)
     cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // ""')
