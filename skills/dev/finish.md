@@ -7,6 +7,9 @@ Close out a DEV branch - invoked by the closing routine
 
 - `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`: every `[ ]` is `[x]`;
   findings file triaged.
+- Bookkeeping marks present in the final commit (task `[x]`; last open
+  task of the R → closure check, ROADMAP, release mark -
+  `branch-plan.md § Closing routine`).
 - Close review per `branch-plan.md § Closing routine`.
 - Fresh test + lint green; failing → stop and report.
 
@@ -34,8 +37,7 @@ mr create` when the project only names the host (summary + test plan); no
 declared host → push and print the URL. Never a local merge or direct push. Merge per
 `git-workflow.md § Trunk`. After opening it, **stay on the branch** - do not
 switch to the default branch while the MR/PR is open, so the reviewer sees
-the branch's files; the switch to default is §4, after merge. `T-XXX` stays
-`[ ]` until merge; run §4 then.
+the branch's files; the switch to default is §4, after merge.
 
 **Keep** - report branch name. Nothing closes.
 
@@ -43,25 +45,16 @@ the branch's files; the switch to default is §4, after merge. `T-XXX` stays
 `discard`. Then checkout default, `git branch -D`. `T-XXX` stays `[ ]`;
 ask whether to keep the plan.
 
-## 4. Post-merge bookkeeping (after the branch merges)
+## 4. Post-merge (after the branch merges)
 
-Under untracked mode (`companions/untracked-claude.md`), do steps 2–4 in
-the working tree and skip steps 1 and 5 - the plan files are gitignored,
-so there is no close-out branch or PR; step 6 (delete the merged code
-branch) still applies. Otherwise do this on a close-out branch, not the
-default branch (the branch-guard refuses commits there):
+1. Sync the default branch (`git checkout <default>`, `git pull`).
+2. Delete the merged branch (local; remote too if pushed).
 
-1. Sync the default branch (`git checkout <default>`, `git pull`), then
-   create a close-out plan branch (`plan/t<NNN>-close`).
-2. Mark `T-XXX` `[x]` in the parent R's `tasks.md`.
-3. If the R's tasks are all `[x]`, run the closure check
-   (`plan.md § Approval and closure`): verified → `R-XXX` `[x]` in
-   `ROADMAP.md`; else R stays open.
-4. If `.claude/plans/release-<version>.md` lists this branch, mark `[x]`.
-5. Deliver the plan updates via the close-out plan MR/PR to origin, e.g.
-   `Close T-014` - never a direct push.
-6. Delete the merged branch (local; remote too if pushed).
-
-Auto mode marks member tasks at batch close on `batch/B-XXX`
-(branch-plan.md § Batches); steps 3–6 run as this close-out PR after the
-batch merges.
+The bookkeeping marks landed with the merge - they ride the mandatory
+final commit (`branch-plan.md § Closing routine`); under untracked mode
+(`companions/untracked-claude.md`) they were made in the working tree at
+close. Exception: an R whose closure criteria are run-dependent
+(`plan.md § Approval and closure`) closes later via its own plan MR/PR,
+when the awaited event verifies them. Auto mode: the batch's R-closure
+and release marks ride the post-checkpoint close-out PR
+(branch-plan.md § Batches).
