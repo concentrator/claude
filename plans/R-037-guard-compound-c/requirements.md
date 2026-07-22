@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-22
 kind: bug
+status: done 2026-07-22
 ---
 
 # R-037: Branch-guard compound detection - options before checkout
@@ -39,12 +40,16 @@ severity; the deny is conservative, not unsafe.
 
 ## Acceptance criteria
 
-- [ ] `git -C <repo> checkout -b <branch> && git -C <repo> commit` is
-  allowed; the `-c key=val` form likewise.
-- [ ] Still denied: creating a trunk-named branch, echo-text
+- [x] `git -C <repo> checkout -b <branch> && git -C <repo> commit` is
+  allowed; the `-c key=val` form likewise. Evidence: two allow pins
+  green (T-077, same-repo tie).
+- [x] Still denied: creating a trunk-named branch, echo-text
   `checkout -b` fakes, and a plain `git -C <main-repo> commit`.
-- [ ] All existing pins green; new pins for the exempted and adversarial
-  `-C` shapes; suite + Tier-1 green.
+  Evidence: existing pins green; close review added cross-repo and
+  quoted-option-fake deny pins.
+- [x] All existing pins green; new pins for the exempted and adversarial
+  `-C` shapes; suite + Tier-1 green. Evidence: 38-case suite OK,
+  `test/run-all` and Tier-1 green on every commit.
 
 ## Constraints
 
