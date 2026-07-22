@@ -238,6 +238,11 @@ Initiative index. Items: `R-001: description`; each entry owns
       targets deny from any cwd; ignored / branch / no-repo targets stay
       allowed. Narrows R-034's unconditional foreign-path allow.
       (shaped 2026-07-22)
+- [ ] R-037: Branch-guard compound detection - the branch-create
+      exemption misses `git -C <path> checkout -b` (global options
+      between `git` and the verb), falsely denying branch-and-commit
+      one-liners; mirror the commit-regex option group.
+      (shaped 2026-07-22)
 
 <!-- R-004's requirements are approved: pending - tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
