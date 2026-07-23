@@ -16,5 +16,6 @@ Acceptance criteria: see `requirements.md` (`-C`/`-c` compound forms
 exempted; trunk-named, echo-text, and plain `-C <main> commit` shapes
 still denied; all pins + Tier-1 green).
 
-- [ ] Behavior slice (pins + regex, one commit): `git -C <repo> checkout -b feat/x && git -C <repo> commit` and the `git -c key=val checkout -b` form → allow; `git -C <repo> checkout -b master && git -C <repo> commit` → deny; `echo git -C x checkout -b fake; git commit` on a trunk cwd → deny; all existing pins green.
-- [ ] Complete the branch: re-review docs across all commits, cleanup, mark plan complete + bookkeeping marks, commit.
+- [x] Behavior slice (pins + regex, one commit): `git -C <repo> checkout -b feat/x && git -C <repo> commit` and the `git -c key=val checkout -b` form → allow; `git -C <repo> checkout -b master && git -C <repo> commit` → deny; `echo git -C x checkout -b fake; git commit` on a trunk cwd → deny; all existing pins green.
+- [x] Close-review slice: tie the exemption to the commit's repo (same resolved toplevel, else fall through - also closes the pre-existing cwd-checkout/cross-repo-commit shape), exclude quote chars from the shared option fragment (a quoted value cannot fake a branch-create), hoist the fragment into one variable; three deny pins added.
+- [x] Complete the branch: re-review docs across all commits, cleanup, mark plan complete + bookkeeping marks, commit.

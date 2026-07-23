@@ -125,6 +125,30 @@ j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git switch -c feat/y && git c
 j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git checkout -q -b feat/z && git commit -m wip"}}')
 [ "$(run "$j")" = allow ] && pass "checkout -q -b then commit allowed" || die "flags before -b defeated the compound detection"
 
+# Global options before checkout must not defeat the branch-create (R-037).
+M3=$(new_main)
+j=$(jq -nc --arg d "$M3" '{tool_name:"Bash",tool_input:{command:("git -C " + $d + " checkout -b feat/cc && git -C " + $d + " commit -m x")}}')
+[ "$(run "$j")" = allow ] && pass "git -C checkout -b then -C commit allowed" || die "-C before checkout defeated the exemption"
+
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git -c core.editor=vi checkout -b feat/cv && git commit -m x"}}')
+[ "$(run "$j")" = allow ] && pass "git -c opt checkout -b then commit allowed" || die "-c before checkout defeated the exemption"
+
+j=$(jq -nc --arg d "$M3" '{tool_name:"Bash",tool_input:{command:("git -C " + $d + " checkout -b master && git -C " + $d + " commit -m x")}}')
+[ "$(run "$j")" = deny ] && pass "-C checkout -b master then commit denied" || die "-C trunk-named branch exempted"
+
+# Close-review pins: the exemption is tied to the commit's repo, and a
+# quoted option value cannot fake a branch-create.
+M5=$(new_main)
+j=$(jq -nc --arg a "$M3" --arg b "$M5" '{tool_name:"Bash",tool_input:{command:("git -C " + $a + " checkout -b feat/x && git -C " + $b + " commit -m x")}}')
+[ "$(run "$j")" = deny ] && pass "cross-repo checkout does not exempt commit" || die "cross-repo exemption leak"
+
+j=$(jq -nc --arg b "$M5" '{tool_name:"Bash",tool_input:{command:("git checkout -b feat/y && git -C " + $b + " commit -m x")}}')
+[ "$(run "$j")" = deny ] && pass "cwd checkout does not exempt cross-repo commit" || die "cwd exemption covered a foreign commit"
+
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git -c foo.bar=\"git checkout -b evil\" status; git commit -m x"}}')
+[ "$(run "$j")" = deny ] && pass "quoted option text does not exempt" || die "quoted checkout -b faked the exemption"
+rm -rf "$M3" "$M5"
+
 # Newline-separated commands: a checkout -b on a later line is still a head.
 j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"echo start\ngit checkout -b feat/nl\ngit commit -m wip"}}')
 [ "$(run "$j")" = allow ] && pass "newline-separated checkout -b then commit allowed" || die "newline before checkout -b defeated the compound detection"
