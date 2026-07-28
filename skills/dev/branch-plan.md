@@ -67,7 +67,7 @@ If additional changes are needed after the final commit:
 ## Closing routine
 
 Runs when the last non-final `[ ]` turns `[x]`; ends in the mandatory
-final commit and the merge/PR hand-off.
+final commit and the delivery hand-off (`finish`).
 
 1. **Close review, scaled to the branch** (`small` = ≤9 commits):
    refactor (no behavior change) → `/simplify`; single feature or single
@@ -109,8 +109,7 @@ final commit and the merge/PR hand-off.
    and closure`); verified → ROADMAP `[x]` and release mark. Marks land
    with the merge; a rejected branch discards them. (Auto mode: member
    marks land at batch close - § Batches.)
-8. Invoke `finish` - present merge/PR/keep/discard
-   options and execute.
+8. Invoke `finish` - present the delivery options and execute.
 
 ## Architecture-changing branches
 
@@ -130,9 +129,9 @@ cadence`). Override with stated reason in plan header.
 ## Agentic execution
 
 The **batch** is the unit of delivery to `main` in both modes: one or
-more tasks that must land together, shipped as a single CI-gated PR
+more tasks that must land together, shipped as a single CI-gated MR/PR
 (`git-workflow.md`). A lone task is a batch of one - its
-own branch is the PR. Auto mode (`/dev auto`) runs a batch's members via subagents on a
+own branch is the MR/PR. Auto mode (`/dev auto`) runs a batch's members via subagents on a
 dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
 them by hand. Delivery is identical; only verification differs - auto
 runs the checkpoint below, manual uses § Closing routine +
@@ -167,10 +166,10 @@ checkpoint validates exactly that R's acceptance criteria. Soft cap
 batch.
 
 Batch-close bookkeeping: the close phase marks batch and member-task
-checkboxes as commits on `batch/B-XXX` before the PR - the marks reach
+checkboxes as commits on `batch/B-XXX` before the MR/PR - the marks reach
 `main` with the merge; reject discards them (§ Rails). The R-closure
-check and release marking ride a close-out plan PR
-(`plan/r<NNN>-close`) opened after the batch PR merges.
+check and release marking ride a close-out plan MR/PR
+(`plan/r<NNN>-close`) opened after the batch MR/PR merges.
 
 Per-branch close in auto mode: the close review (the `code-reviewer`
 pass) runs only for branches above the small-branch threshold defined
@@ -186,9 +185,9 @@ manual-mode § Closing routine above is unchanged by this rule.
   never plan content, never the closing decisions.
 - Pre-flight creates `batch/B-XXX` off latest `main` and sets the
   `pre-B-XXX` tag (rollback anchor). Member branches merge into the
-  batch branch only; `main` is untouched until the batch PR merges.
+  batch branch only; `main` is untouched until the batch MR/PR merges.
 - Agents never push. The only delivery is the checkpoint-accept
-  **CI-gated PR** of the batch branch to origin (`batch/B-XXX →
+  **CI-gated MR/PR** of the batch branch to origin (`batch/B-XXX →
   origin/main`) - never a push to `main` (mechanics:
   `auto` checkpoint, `git-workflow.md`).
 - No commit on red tests/lint - no exceptions.
@@ -209,7 +208,7 @@ manual-mode § Closing routine above is unchanged by this rule.
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
 | Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
-| Batch complete | Close phase on `batch/B-XXX`, then checkpoint (accept opens the PR), wait for user |
+| Batch complete | Close phase on `batch/B-XXX`, then checkpoint (accept opens the MR/PR), wait for user |
 
 ## Releases
 

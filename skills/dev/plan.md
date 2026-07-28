@@ -47,7 +47,7 @@ The single approval gate (§ Approval and closure) is unchanged: nothing
 downstream proceeds until `requirements.md` is approved.
 
 **Approval authorizes planning, not code.** Approving a plan delivers its
-PR and stops: shape-approval authorizes the detail round; detail-approval
+MR/PR and stops: shape-approval authorizes the detail round; detail-approval
 authorizes nothing to run. A plan round never starts implementation - it
 ends by proposing `/dev code <slug>`, which the user invokes explicitly.
 
@@ -111,7 +111,7 @@ or other project directories.
 Planning artifacts - requirements, design, roadmap, tasks, branch
 plans, release plans - live on `main` so they are visible across all
 branches. They reach `main` the same way as any change: a short-lived
-doc branch + CI-gated PR, never a direct push (`git-workflow.md`). A
+doc branch + CI-gated MR/PR, never a direct push (`git-workflow.md`). A
 single planning act still commits each artifact type separately -
 `requirements.md` distinct from the `ROADMAP` / per-R `tasks.md` index
 edits.
