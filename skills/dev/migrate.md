@@ -75,11 +75,11 @@ and workflow correction - to bring them onto the doc-first convention.
 
 ## 8. Commit
 
-Deliver adoption artifacts via a short-lived branch + PR
+Deliver adoption artifacts via a short-lived branch + MR/PR
 (`git-workflow.md`) - `main` already exists, so no bootstrap exception;
 separate commits per category. Under untracked mode
 (`companions/untracked-claude.md`), the `.claude/` artifacts are not
-committed - only code and quality config land via the PR.
+committed - only code and quality config land via the MR/PR.
 
 ## 9. Next
 

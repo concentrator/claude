@@ -14,6 +14,6 @@ then rebuild or re-align the ones the user picks).
 2. **Run** `companions/docs-adoption.md`: audit -> user-prioritized build /
    re-align -> verification gate -> workflow correction.
 3. **Deliver.** The new or updated docs, the `.claude/docs/index.md` entries,
-   and any recorded conventions go via a short-lived branch + PR
+   and any recorded conventions go via a short-lived branch + MR/PR
    (`git-workflow.md`). Issues surfaced by the audit become tasks / R-stubs
    per the procedure.

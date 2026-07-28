@@ -1,8 +1,8 @@
 # Git workflow
 
 **Terminology** - a change request is a **PR** on GitHub, an **MR** on
-GitLab; before git init, default to PR. One term per repo (this repo:
-GitHub → PR). Host-neutral docs reused across repos (skills, shared
+GitLab; before git init, default to PR. One term per repo, per its
+host. Host-neutral docs reused across repos (skills, shared
 rules) write the dual form **MR/PR**; the agent resolves it to the active
 repo's term per its host.
 
@@ -16,11 +16,11 @@ than probing the host.
 - `main` is the single trunk: protected and always releasable. No other
   long-lived branches.
 - Every change reaches `main` through a short-lived branch and a
-  **CI-gated PR**. Never push to `main`; never merge to `main` locally.
+  **CI-gated MR/PR**. Never push to `main`; never merge to `main` locally.
 - **Bootstrap exception:** the single initial commit that *creates* `main`
   in a new repo, before protection is set, is the one permitted direct
   commit (`start.md`); every commit after it goes via a branch + CI-gated
-  PR.
+  MR/PR.
 - Branch name `<prefix>/<slug>`, kebab-case, slug ≤ 20 chars. Prefix ∈
   {feat, fix, refactor, release, doc, test, mnt, plan}:
   - `feat` / `fix` / `refactor` / `release` - code, matching the change
@@ -34,14 +34,14 @@ than probing the host.
     never enter git, so plan edits happen in the working tree, no branch
     (`companions/untracked-claude.md`).
 - Slug: code / `doc` / `test` / `mnt` branches carry no id (it lives in
-  the plan file + PR); `plan/` branches reference the initiative -
+  the plan file + MR/PR); `plan/` branches reference the initiative -
   `plan/r<NNN>-<action>` (R-id, full three digits: `r014`, never `r12`;
   action e.g. `open` / `tasks` / `close`). A task's branch-plan uses the
   task id: `plan/t<NNN>-plan`. Multiple initiatives list ids:
   `plan/r014-r015-tasks`.
 - Branches are short-lived and single-owner: merge within a day, two
   days absolute max; keep ≤ 3 active.
-- **Merge policy.** Only `plan/` PRs (planning artifacts) auto-merge;
+- **Merge policy.** Only `plan/` MR/PRs (planning artifacts) auto-merge;
   every other prefix - `feat`/`fix`/`refactor`/`release`/`doc`/`test`/
   `mnt` - keeps review and merge as the user's call. Auto-merge runs on a
   green gate: native host auto-merge where available
@@ -51,24 +51,24 @@ than probing the host.
 
 ## Coherent delivery
 
-Every PR leaves `main` releasable (builds, checks pass, nothing
+Every MR/PR leaves `main` releasable (builds, checks pass, nothing
 half-wired). Keep incomplete work coherent without a long-lived branch:
 
 - **Feature flag** - land dormant code, switch on when complete.
 - **Branch by abstraction** - migrate behind an abstraction, drop the
   old path last.
-- **Small batches** - each PR is one increment, shippable as-is.
+- **Small batches** - each MR/PR is one increment, shippable as-is.
 
-The delivery unit - one or more coupled tasks shipped as one PR - is the
+The delivery unit - one or more coupled tasks shipped as one MR/PR - is the
 **batch** (`branch-plan.md § Agentic execution`).
 
 ## Delivery cadence
 
 One branch = one coherent unit of work (a topic or work-session), never
-one atomic edit. Don't open or merge a PR per change.
+one atomic edit. Don't open or merge an MR/PR per change.
 
-VIBE: apply the change, then wait - no reflexive branch → PR → merge.
-Related edits accumulate on the working branch; deliver (open the PR +
+VIBE: apply the change, then wait - no reflexive branch → MR/PR → merge.
+Related edits accumulate on the working branch; deliver (open the MR/PR +
 merge) at a work boundary - when the user moves to unrelated work or says
 to wrap up - confirming the merge first. An edit unrelated to the current
 branch's topic → flag it and ask whether to deliver the current branch
@@ -96,7 +96,7 @@ Examples:
 - BAD: `Fix period chrome shadowing the logo; anchor via .container::before`
 - BAD: `Add slide--st03-multi--dense modifier toggled by tenant count for 9+ tenants`
 
-## PR messages
+## MR/PR messages
 
 **Title** - commit-subject style (imperative, ~50 chars, WHAT not how).
 **Body** - a short summary (what changed + why) + a test plan: the
@@ -117,7 +117,7 @@ forward on `main`.
 
 ## Enforcement
 
-`main` protection is enforced by the host (require PR, require passing
+`main` protection is enforced by the host (require MR/PR, require passing
 status checks, require up-to-date branch, restrict direct push) plus
 CI; a local pre-push hook gives fast feedback but is advisory and
 bypassable - never the gate. Host-specific setup lives with the

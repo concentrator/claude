@@ -66,7 +66,7 @@ tree and root `CLAUDE.md` are gitignored, so the commit carries scaffold
 and quality config only, not the DEV artifacts. Then
 protect `main` on the host - require MR/PR + passing checks, restrict
 direct push (`gh`/`glab`; `git-workflow.md § Trunk`, `§ Enforcement`),
-TBD-shaped from commit one; thereafter all work lands via a branch + PR.
+TBD-shaped from commit one; thereafter all work lands via a branch + MR/PR.
 
 ## 6. Next
 
