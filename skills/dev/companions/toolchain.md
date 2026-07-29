@@ -8,8 +8,8 @@ the engine.
 
 A project's `CLAUDE.md` declares its routine commands in an `## Agent
 toolchain` section - the VCS host (→ `gh`/`glab`) and the exact
-change-request / merge / test / lint / build commands. It is the single
-source both modes read:
+change-request / merge / state-check / test / lint / build commands. It
+is the single source both modes read:
 
 - `/dev auto` uses it for `permissions.allow` (the pre-flight gate below).
 - Manual `finish` reads the host + change-request/merge command from it and
@@ -17,6 +17,22 @@ source both modes read:
 
 Declare it once. If it is absent, `finish` falls back to pushing the branch
 and printing the URL, and `migrate` backfills the section.
+
+## State check
+
+MR/PR state (open / merged, checks / pipeline) is read via the declared
+state-check command only - one structured call, never text-parsed host
+output (`view | grep` pipelines). Canonical forms:
+
+```
+gh pr view <n> --json state,mergedAt,statusCheckRollup
+# GitLab: glab mr view <iid> --output json
+```
+
+Both return the same conceptual triple - state, merged-at,
+checks/pipeline - so prose can say "the declared state-check"
+host-agnostically. The read-only allows ship in
+`auto-permissions.template.json`.
 
 ## Push + MR/PR
 
