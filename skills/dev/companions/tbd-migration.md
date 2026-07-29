@@ -2,9 +2,9 @@
 
 For an already-DEV, pre-TBD project - invoked from `SKILL.md` when
 `.claude/plans/ROADMAP.md` is present. Produce a report over the three
-areas below. **Advisory throughout:** the skill plans and reports; the
-user executes every irreversible / host step (branch deletes,
-protection, file moves). Never rewrite `main` history - migrate forward.
+areas below. **Approval-gated throughout:** the agent executes each step only after
+the user approves it (`migrate.md`); host-side settings (protection)
+stay the user's. Never rewrite `main` history - migrate forward.
 
 ## 1. Delivery
 
@@ -32,7 +32,7 @@ Diff tracked `.claude/` against `skills/dev/layout.md`:
   home); the user may instead keep it in place as a recorded exception.
 - **Missing expected files** - e.g. `MAINTENANCE.md`.
 - **Strays** - tracked files outside the canonical layout.
-- **Flat `TASKS.md`** - a pre-R-014 single `plans/TASKS.md` task index.
+- **Flat task index** - a pre-R-014 single `plans/tasks.md`.
   Recommend splitting it into per-R `tasks.md` (each task moved to its
   owning `R-XXX-<slug>/tasks.md`, status preserved), then removing the
   flat file; T-ids stay global.
@@ -48,5 +48,5 @@ Propose the moves; the user executes them - delivered as one coherent MR/PR
 - **Releases** - convert to tag-on-trunk: no fork-release-branch; tag
   `main` at the release commit (`git-workflow.md § Releases -
   tag-on-trunk`; the `release` skill). Flag any fork-release leftovers.
-- **Archive** - move superseded release plans to `plans/archive/`
-  (`plan.md § Archival`).
+- **Archive** - offer moving superseded release plans to
+  `plans/archive/` - at the user's option (`plan.md § Archival`).
