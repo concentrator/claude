@@ -93,8 +93,8 @@ evaluated by reading the plan file at branch close - no agent judgment:
 
 **Consequence:** a small branch skips the per-branch `code-reviewer` pass.
 Its first review is the batch full-diff review at batch close (which
-re-covers most of the per-branch pass - ~45–60k tokens saved per folded
-branch; overlap observed in B-003). The controller passes the list of
+re-covers most of the per-branch pass, saving the bulk of a per-branch
+review's tokens per folded branch). The controller passes the list of
 folded branches into the batch full-diff review dispatch; the reviewer
 covers their diffs against their own plans (first review), not only
 cross-branch concerns.

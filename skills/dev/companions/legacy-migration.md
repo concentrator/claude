@@ -1,9 +1,8 @@
 # Legacy / non-canonical canonicalization
 
 Upgrade a pre-existing `.claude/` to the current schema
-(`layout.md`). Each step: report → approve → apply. Reversible
-file moves apply directly; irreversible/host steps stay advisory (like
-`tbd-migration.md`).
+(`layout.md`). Each step: report → approve → apply
+(`tbd-migration.md` model); host-side settings stay the user's.
 
 ## Detect (any of)
 

@@ -82,8 +82,7 @@ final commit and the delivery hand-off (`finish`).
 5. Capture the branch outcome for the close report: a summary against
    the task's acceptance criteria, and - when the target is data
    collection or processing - run the work product and collect the
-   results. Surface manual-testing/automation needs (presentation order:
-   `finish § 2`).
+   results. Surface manual-testing/automation needs (`finish § 2`).
 6. **Triage `T-XXX-<slug>.findings.md`** - in-scope findings are resolved
    in this branch (as commits), not deferred (routing:
    § Scope discoveries). For each remaining `[ ]`, prompt user:
@@ -104,9 +103,10 @@ final commit and the delivery hand-off (`finish`).
    > (stale/temp data), mark plan complete, commit.
 
    Includes the resolved findings file, the reconciled doc, and the
-   bookkeeping marks - the task `[x]` in the parent `tasks.md`; closing
-   the R's last open task → run the closure check (`plan.md § Approval
-   and closure`); verified → ROADMAP `[x]` and release mark. Marks land
+   bookkeeping marks - the task `[x]` in the parent `tasks.md` and the
+   release-plan mark when listed; closing the R's last open task → run
+   the closure check (`plan.md § Approval and closure`); verified →
+   ROADMAP `[x]`. Marks land
    with the merge; a rejected branch discards them. (Auto mode: member
    marks land at batch close - § Batches.)
 8. Invoke `finish` - present the delivery options and execute.

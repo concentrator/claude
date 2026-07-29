@@ -37,7 +37,7 @@ Diff tracked `.claude/` against `skills/dev/layout.md`:
   owning `R-XXX-<slug>/tasks.md`, status preserved), then removing the
   flat file; T-ids stay global.
 
-Propose the moves; the user executes them - delivered as one coherent MR/PR
+The user approves the moves; the agent executes them - one coherent MR/PR
 (not one per file), per `git-workflow.md § Delivery cadence`.
 
 ## 3. Close/release

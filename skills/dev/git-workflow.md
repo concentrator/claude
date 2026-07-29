@@ -27,7 +27,8 @@ declared commands rather than probing the host - MR/PR state included.
     type.
   - `doc` - documentation and operative prose (README, CHANGELOG,
     comments, `rules/`, `skills/`, `CLAUDE.md`); not planning artifacts.
-  - `batch` - auto-mode delivery branches (`batch/B-XXX`, engine-managed).
+  - `batch` - auto-mode delivery branches (engine-managed; fixed id
+    form `batch/B-XXX`, exempt from the slug rule).
   - `test` - test additions or changes (automated or manual harness).
   - `mnt` - repo maintenance (CI, scripts, hooks, settings, dependencies).
   - `plan` - planning artifacts (ROADMAP, requirements, tasks, branch
@@ -44,7 +45,8 @@ declared commands rather than probing the host - MR/PR state included.
   days absolute max; keep ≤ 3 active.
 - **Merge policy.** Only `plan/` MR/PRs (planning artifacts) auto-merge;
   every other prefix - `feat`/`fix`/`refactor`/`release`/`doc`/`test`/
-  `mnt` - keeps review and merge as the user's call. Auto-merge runs on a
+  `mnt`, and `batch` via its checkpoint accept - keeps review and merge
+  as the user's call. Auto-merge runs on a
   green gate: native host auto-merge where available
   (`gh pr merge --auto`, GitLab merge-when-pipeline-succeeds); where the
   host can't gate (no branch protection), the operator merges once the

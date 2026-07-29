@@ -9,8 +9,8 @@ Bring an existing project under DEV. Always run § 1 Inventory, then route:
 - **Fresh** - no `.claude/plans/`: reverse-engineer requirements + design
   from code, then layer planning infrastructure (steps 2–9).
 - **Already-DEV** - canonical R-rooted `ROADMAP.md`: pre-TBD → TBD
-  migration (`companions/tbd-migration.md`; advisory - you execute irreversible/host
-  steps); TBD-conformant → conformant, no changes.
+  migration (`companions/tbd-migration.md`; approval-gated - the agent executes each
+  approved step; host-side settings stay the user's); TBD-conformant → conformant, no changes.
 
 ## 1. Inventory
 

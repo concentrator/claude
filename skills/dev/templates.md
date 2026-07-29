@@ -96,8 +96,8 @@ downstream tasks lack detail.
 
 Created by `/dev plan release` (requires ≥1 closed task since the last
 release). One checkbox per planned branch; the `[x]` is a closing-routine
-bookkeeping mark riding the branch's final commit
-(`branch-plan.md § Closing routine`). The
+bookkeeping mark (`branch-plan.md § Closing routine`; auto and untracked
+modes place marks per § Batches / `finish § 4`). The
 `release` skill halts while planned entries remain `[ ]` unless the user
 confirms dropping them.
 
