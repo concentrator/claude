@@ -111,7 +111,7 @@ or other project directories.
 Planning artifacts - requirements, design, roadmap, tasks, branch
 plans, release plans - live on `main` so they are visible across all
 branches. They reach `main` the same way as any change: a short-lived
-doc branch + CI-gated MR/PR, never a direct push (`git-workflow.md`). A
+plan branch + CI-gated MR/PR, never a direct push (`git-workflow.md`). A
 single planning act still commits each artifact type separately -
 `requirements.md` distinct from the `ROADMAP` / per-R `tasks.md` index
 edits.

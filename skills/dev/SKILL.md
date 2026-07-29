@@ -16,7 +16,7 @@ command maps to before acting.**
 | Command | Purpose |
 |---|---|
 | `/dev` | Route by state (ask if ambiguous) |
-| `/dev plan [<target>]` | Planning (doc PRs) |
+| `/dev plan [<target>]` | Planning (plan MR/PRs) |
 | `/dev code [<slug>]` | Manual execution on a branch |
 | `/dev auto [B-XXX]` | Agentic execution of an approved batch |
 | `/dev release` | Finalize release |
