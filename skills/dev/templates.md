@@ -95,8 +95,9 @@ downstream tasks lack detail.
 ## Release plan `release-vX.Y.Z.md`
 
 Created by `/dev plan release` (requires ≥1 closed task since the last
-release). One checkbox per planned branch; `[x]` only after that branch
-is merged to the default branch (set by `finish`). The
+release). One checkbox per planned branch; the `[x]` is a closing-routine
+bookkeeping mark riding the branch's final commit
+(`branch-plan.md § Closing routine`). The
 `release` skill halts while planned entries remain `[ ]` unless the user
 confirms dropping them.
 
