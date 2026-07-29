@@ -248,6 +248,12 @@ Initiative index. Items: `R-001: description`; each entry owns
       `glab mr view --output json`), forced via the declared-commands
       rule; ends improvised view+grep pipelines and their permission
       prompts. (shaped 2026-07-30)
+- [ ] R-039: Single-home the /dev system - a precedence-ordered dedup
+      audit found 15 contradictions and 8 duplication clusters across
+      30 files (~15% removable); resolve contradictions toward named
+      winners, then one owner per rule with pointers, twins
+      single-sourced, execution files as cadence deltas.
+      (shaped 2026-07-30)
 
 <!-- R-004's requirements are approved: pending - tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
