@@ -9,7 +9,8 @@ Two modes:
   branch plans → commits. Entered via `/dev`; plan hierarchy and
   per-branch routine live in the `dev` skill and `~/.claude/rules/`.
 
-Git workflow (both modes): `rules/git-workflow.md`.
+Git workflow (both modes): `skills/dev/git-workflow.md`
+(repo pin: `rules/git-workflow.md`).
 
 Delivery cadence: one branch = one coherent unit, not a per-edit PR; in
 VIBE apply then wait, deliver + confirm at a work boundary
