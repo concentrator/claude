@@ -45,7 +45,6 @@ done < <(git ls-files '*.js' '*.mjs' '*.cjs' '*.jsx')
 exit $fail
 ```
 
-Without CI or `MAINTENANCE.md` the convention still holds - it's a rule
-that applies whenever JS is edited. The check above is wired where the
-project has CI; `/dev migrate` / `/dev start` seed it during
-adoption. Absent that, the convention is advisory.
+The check above is wired where the project has CI; `/dev migrate` /
+`/dev start` seed it during adoption. Without it the convention is
+advisory - applied on edit, reviewed at Tier-2.
