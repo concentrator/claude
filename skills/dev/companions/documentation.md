@@ -26,7 +26,8 @@ Procedures belong in a How-to; do not put steps in a Reference.
   fixed section order).
 - **Mirror reality.** Only verified facts (§ Verification gate).
 - **One doc per specific subject.** Narrow and 100% relevant beats broad
-  and diluted; duplication across sibling docs is accepted.
+  and diluted; a variant split may repeat structure, but a shared fact
+  still lives in one doc (§ Content quality).
 - **Split by variant when the structure differs.** Two variants with
   genuinely different architecture get separate docs, not one doc
   straddling both with conditionals.

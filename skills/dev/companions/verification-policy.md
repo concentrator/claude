@@ -111,9 +111,6 @@ cross-branch concerns.
 
 ## Models
 
-This table replaces the former "Models:" heuristic line in `SKILL.md`
-(now a pointer here).
-
 | Role | Model (dispatch value) | Effort |
 |---|---|---|
 | Default implementers | Opus 4.8 (`opus`) | session (`effortLevel`) |

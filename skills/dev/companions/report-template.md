@@ -41,18 +41,18 @@ state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
 - total subagent tokens: <N> (implementer: <n> / spec-check: <n> /
   reviews: <n> / other: <n> - attribute where logs distinguish roles;
   collapse unattributable into "other")
-  B-002/B-003 baseline: ~800–900k subagent tokens / 12 commits
+  prior-batch baseline: <tokens> / <commits>
 - spec checks skipped: <count> (<per-commit skip records per
   verification-policy.md § Spec-check skip, or "none">)
 - dispatch-prompt sizes (wc -w): implementer-prompt.md <before> → <after>;
   spec-reviewer-prompt.md <before> → <after>
-  (lever-4 baseline, pre-T-014: implementer 866, spec-reviewer 312)
+  (prior-batch baseline: <implementer> / <spec-reviewer>)
 - convention drift: <n> by spec-check sensor + <n> by close/batch review
-  = <total> (B-002/B-003 baseline: 0). The sensor is blind on
+  = <total> (prior-batch baseline: <n>). The sensor is blind on
   spec-check-skipped commits, so close/batch-review drift is counted too
   to complete the picture (verification-policy.md § Convention drift outcome)
 - defect outcomes: spec rejections reaching merge: <n>
-  (B-002/B-003 baseline: 0 merge-reaching spec rejections);
+  (prior-batch baseline: <n> merge-reaching spec rejections);
   review findings surfaced: <n> fixed / <n> queued / <n> dismissed
 
 ## R acceptance criteria
