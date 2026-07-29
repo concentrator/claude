@@ -69,6 +69,10 @@ Initial defaults - tune per project.
 
 ### Repair
 
+Governed files (CLAUDE.md, `rules/`, skills) are never auto-edited -
+propose the repair and await approval (`claude-md.md` / `skills.md`
+§ Approval). Elsewhere:
+
 - Broken JSON / invalid settings → fix or revert.
 - Dead reference (missing skill, renamed path) → update or remove.
 - Orphaned findings/plan files for merged work → archive or delete.
