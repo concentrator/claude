@@ -9,8 +9,7 @@ repo's term per its host.
 **Declared commands** - the VCS host and the exact change-request /
 merge / state-check commands come from the project CLAUDE.md `## Agent
 toolchain` section (`companions/toolchain.md`); execution runs those
-declared commands rather than probing the host - MR/PR state included,
-never a text-parsed `view | grep`.
+declared commands rather than probing the host - MR/PR state included.
 
 ## Trunk
 

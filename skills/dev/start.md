@@ -25,8 +25,9 @@ Write `.claude/DESIGN.md` - architecture and design decisions.
 
 Baseline files (`layout.md § Baseline files`):
 - `/init` → project `CLAUDE.md`: stack, base branch, and an `## Agent
-  toolchain` section (VCS host + build/test/lint/change-request commands -
-  `companions/toolchain.md`); don't restate global rules.
+  toolchain` section (VCS host + build/test/lint/change-request/
+  state-check commands - `companions/toolchain.md`); don't restate
+  global rules.
 - `README.md` (verify or stub).
 - `.gitignore` - seed from `companions/gitignore.template` (ignores `.env`,
   `.claude/settings.local.json`, build output); extend per stack.

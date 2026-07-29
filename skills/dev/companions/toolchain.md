@@ -1,8 +1,9 @@
 # Checkpoint push + MR/PR mechanics
 
-Referenced from SKILL.md. Applies only at checkpoint **accept** -
-nothing pushes mid-batch, and the default branch is never pushed by
-the engine.
+Referenced from SKILL.md and `finish`. § Declared commands and
+§ State check apply everywhere; § Push and the carve-out below apply
+only at checkpoint **accept** - nothing pushes mid-batch, and the
+default branch is never pushed by the engine.
 
 ## Declared commands (`## Agent toolchain`)
 
@@ -12,8 +13,9 @@ change-request / merge / state-check / test / lint / build commands. It
 is the single source both modes read:
 
 - `/dev auto` uses it for `permissions.allow` (the pre-flight gate below).
-- Manual `finish` reads the host + change-request/merge command from it and
-  runs the declared command instead of probing the host.
+- Manual `finish` reads the host + change-request / merge / state-check
+  commands from it and runs the declared commands instead of probing
+  the host.
 
 Declare it once. If it is absent, `finish` falls back to pushing the branch
 and printing the URL, and `migrate` backfills the section.
@@ -29,10 +31,9 @@ gh pr view <n> --json state,mergedAt,statusCheckRollup
 # GitLab: glab mr view <iid> --output json
 ```
 
-Both return the same conceptual triple - state, merged-at,
-checks/pipeline - so prose can say "the declared state-check"
-host-agnostically. The read-only allows ship in
-`auto-permissions.template.json`.
+Both forms return state, merged-at, and checks/pipeline. The declared
+command is the canonical form above - flag shapes like `--web` are
+outside it. The view allows ship in `auto-permissions.template.json`.
 
 ## Push + MR/PR
 
