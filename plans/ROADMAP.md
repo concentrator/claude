@@ -243,7 +243,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       between `git` and the verb), falsely denying branch-and-commit
       one-liners; mirror the commit-regex option group.
       (shaped 2026-07-22)
-- [ ] R-038: Declared state-check command - one declared, allowlisted,
+- [x] R-038: Declared state-check command - one declared, allowlisted,
       JSON-emitting MR/PR state check per host (`gh pr view --json` /
       `glab mr view --output json`), forced via the declared-commands
       rule; ends improvised view+grep pipelines and their permission
