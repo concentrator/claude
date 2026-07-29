@@ -17,11 +17,12 @@ repo's term per its host.
   commit (`start.md`); every commit after it goes via a branch +
   CI-gated PR.
 - Branch name `<prefix>/<slug>`, kebab-case, slug ≤ 20 chars. Prefix ∈
-  {feat, fix, refactor, release, doc, test, mnt, plan}:
+  {feat, fix, refactor, release, doc, test, mnt, plan, batch}:
   - `feat` / `fix` / `refactor` / `release` - code, matching the change
     type.
   - `doc` - documentation and operative prose (README, CHANGELOG,
     comments, `rules/`, `skills/`, `CLAUDE.md`); not planning artifacts.
+  - `batch` - auto-mode delivery branches (`batch/B-XXX`, engine-managed).
   - `test` - test additions or changes (automated or manual harness).
   - `mnt` - repo maintenance (CI, scripts, hooks, settings, dependencies).
   - `plan` - planning artifacts (ROADMAP, requirements, tasks, branch

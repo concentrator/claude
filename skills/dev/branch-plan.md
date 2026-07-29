@@ -60,9 +60,9 @@ smell, naming inconsistency:
 
 ### Scope changes mid-branch
 
-If additional changes are needed after the final commit:
-- Update the plan (add new checkboxes).
-- Add a new final commit at the end with the same closing structure.
+Additional changes needed after the final commit → adjust the plan via
+`/dev plan <slug>` (`plan.md § Adjusting existing plans`): new
+checkboxes plus a new final commit with the same closing structure.
 
 ## Closing routine
 
