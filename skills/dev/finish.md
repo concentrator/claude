@@ -47,6 +47,9 @@ ask whether to keep the plan.
 
 ## 4. Post-merge (after the branch merges)
 
+Detect the merge via the declared state-check command
+(`companions/toolchain.md § State check`), then:
+
 1. Sync the default branch (`git checkout <default>`, `git pull`); the
    R's tasks now all `[x]` with no closure recorded → ship the closure
    via a plan MR/PR (`plan.md § Approval and closure`).
