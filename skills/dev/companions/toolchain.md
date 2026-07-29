@@ -1,22 +1,39 @@
 # Checkpoint push + MR/PR mechanics
 
-Referenced from SKILL.md. Applies only at checkpoint **accept** -
-nothing pushes mid-batch, and the default branch is never pushed by
-the engine.
+Referenced from SKILL.md and `finish`. § Declared commands and
+§ State check apply everywhere; § Push and the carve-out below apply
+only at checkpoint **accept** - nothing pushes mid-batch, and the
+default branch is never pushed by the engine.
 
 ## Declared commands (`## Agent toolchain`)
 
 A project's `CLAUDE.md` declares its routine commands in an `## Agent
 toolchain` section - the VCS host (→ `gh`/`glab`) and the exact
-change-request / merge / test / lint / build commands. It is the single
-source both modes read:
+change-request / merge / state-check / test / lint / build commands. It
+is the single source both modes read:
 
 - `/dev auto` uses it for `permissions.allow` (the pre-flight gate below).
-- Manual `finish` reads the host + change-request/merge command from it and
-  runs the declared command instead of probing the host.
+- Manual `finish` reads the host + change-request / merge / state-check
+  commands from it and runs the declared commands instead of probing
+  the host.
 
 Declare it once. If it is absent, `finish` falls back to pushing the branch
 and printing the URL, and `migrate` backfills the section.
+
+## State check
+
+MR/PR state (open / merged, checks / pipeline) is read via the declared
+state-check command only - one structured call, never text-parsed host
+output (`view | grep` pipelines). Canonical forms:
+
+```
+gh pr view <n> --json state,mergedAt,statusCheckRollup
+# GitLab: glab mr view <iid> --output json
+```
+
+Both forms return state, merged-at, and checks/pipeline. The declared
+command is the canonical form above - flag shapes like `--web` are
+outside it. The view allows ship in `auto-permissions.template.json`.
 
 ## Push + MR/PR
 

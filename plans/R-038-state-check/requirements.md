@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-30
 kind: feat
+status: done 2026-07-30
 ---
 
 # R-038: Declared state-check command
@@ -40,15 +41,22 @@ state-check" host-agnostically.
 
 ## Acceptance criteria
 
-- [ ] `companions/toolchain.md` declares the state-check command with
-  both host forms; `## Agent toolchain` sections carry it.
-- [ ] The Declared-commands rule (skill `git-workflow.md`,
-  `toolchain.md`) explicitly covers state checks; `finish.md` merge-state
-  detection references the declared command.
-- [ ] `companions/auto-permissions.template.json` and the global
-  `settings.json` allow `Bash(gh pr view:*)`, `Bash(gh pr checks:*)`,
-  `Bash(glab mr view:*)`; no api-command allows.
-- [ ] Full Tier-1 gate green; ships via `skills/dev/`.
+- [x] `companions/toolchain.md` declares the state-check command with
+  both host forms; `## Agent toolchain` sections carry it. Evidence:
+  § State check + every enumeration (`toolchain.md`, `migrate.md`,
+  `start.md`, this repo's `CLAUDE.md`) updated; gh form live-verified
+  against PR #213 (MERGED / mergedAt / SUCCESS in one call).
+- [x] The Declared-commands rule explicitly covers state checks;
+  `finish.md` § 4 detects via the declared command with a no-host
+  fallback. Evidence: this branch's diff.
+- [x] Allows shipped, read-only view forms only: `Bash(gh pr view:*)` +
+  `Bash(glab mr view:*)` in the template, `Bash(glab mr view:*)` in the
+  global settings (gh already covered by the broader `Bash(gh pr:*)`,
+  kept per user decision; `gh pr checks` dropped by close review - it
+  contradicted the single-call rule); no api allows. Evidence: both JSON
+  files validated.
+- [x] Full Tier-1 gate green; ships via `skills/dev/`. Evidence: gate
+  green on every commit.
 
 ## Constraints
 

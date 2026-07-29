@@ -13,6 +13,7 @@
       "Bash(sort:*)",
       "Bash(echo:*)",
       "Bash(jq:*)",
+      "Bash(glab mr view:*)",
       "Bash(mkdir:*)",
       "Bash(chmod +x:*)",
       "Bash(bash -n:*)",

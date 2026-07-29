@@ -24,6 +24,9 @@
       "Bash(git restore:*)",
       "Bash(git tag:*)",
 
+      "Bash(gh pr view:*)",
+      "Bash(glab mr view:*)",
+
       "Bash(sed:*)",
       "Bash(grep:*)",
       "Bash(head:*)",
