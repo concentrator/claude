@@ -32,28 +32,20 @@ read or edit.
 ## Content
 
 - **Imperative voice.** "Check coverage" not "you should check coverage".
-- **Non-obvious procedure only.** Claude already knows languages, frameworks, and
-  standard practice - skip generic guidance.
 - **Concrete paths and commands.** No placeholders, no TBDs.
-- **Every step earns its place.** If skipping a step wouldn't change outcomes,
-  delete it.
-- **Operative instructions only.** State the WHAT, not the why - rationale
-  belongs in requirements/DESIGN. (Phrasing and terminology:
-  `CLAUDE.md § Writing`.)
+- Content tests per `rules/claude-md.md § Content` (non-obvious only,
+  earns its place, operative WHAT).
 
 ## What doesn't work - avoid
 
-Lessons from the 2026-04 maintenance experiment:
-
-- **No multi-hop handoffs.** A skill invoking another skill that invokes another
-  fails - each hop is a chance to forget. For "every turn" enforcement use a
-  `Stop` hook, not a skill.
+- **No multi-hop handoffs.** A skill invoking another skill that invokes
+  another fails. For "every turn" enforcement use a `Stop` hook, not a
+  skill.
 - **No write-only logs.** If a JSONL or state file isn't queried back, the skill
   writing it is dead weight.
-- **No pure routers.** Skills that just dispatch to other skills (no state,
-  no plan generation, no branch management) are dead weight. Orchestrators
-  with real work - generating plans, managing branches, transitioning between
-  phases - are fine.
+- **No pure routers.** Dispatch-only skills are dead weight;
+  orchestrators with real work (plans, branches, phase transitions) are
+  fine.
 
 ## On edit
 

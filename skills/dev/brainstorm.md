@@ -1,10 +1,8 @@
 # Brainstorming
 
-Collaborative dialogue that turns an idea into an initiative: ROADMAP
-entry + `plans/R-XXX-<slug>/` dir + its `requirements.md`, one act.
-The discovery method behind `/dev plan R`. Output is a spec, never
-code - implementation comes later via the planning chain
-(R → T → branch plan).
+Collaborative dialogue that turns an idea into an initiative - the one
+act of `plan.md § Directory conventions`. The discovery method behind
+`/dev plan R`.
 
 ## Process
 
@@ -21,20 +19,18 @@ code - implementation comes later via the planning chain
    recommendation. YAGNI ruthlessly.
 5. **Draft** - next free `R-XXX` id; requirements sections per
    `templates.md § Per-initiative`. Present it section by
-   section, confirming each. Then a draft task list (`tasks.md`, per
-   `plan.md § Levels`) under the same approval gate - deferrable for a
-   large/uncertain R.
+   section, confirming each. Then the draft task list
+   (`plan.md § Planning rounds`).
 6. **Self-check** - placeholders, contradictions, criteria readable two
    ways, scope creep. Fix inline before showing the file.
-7. **User review** - user reads the committed-to-be file; iterate. On
-   explicit approval set `approved: <today>` and deliver via a plan MR/PR
-   (`plan.md § Where plans live in git`).
-8. **Next** - tasks are drafted here (step 5); propose the detail round
-   `/dev plan R-XXX` for branch plans. Never auto-execute.
+7. **User review** - user reads the committed-to-be file; iterate.
+   Approval stamp + delivery: `plan.md § Approval and closure`,
+   `§ Where plans live in git`.
+8. **Next** - propose the detail round `/dev plan R-XXX` for branch
+   plans (gate rules: `plan.md § Planning rounds`).
 
 ## Rules
 
-- One question per message.
 - No code, no scaffolding, no implementation skill - regardless of
   perceived simplicity. A small idea still gets an initiative; its
   requirements can be short.

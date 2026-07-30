@@ -43,9 +43,8 @@ publish-external, extended-docs, and a `.claude/docs/index.md` pointer if
 `.claude/docs/` is used) + stack, base branch, and an `## Agent
 toolchain` section (VCS host + build/test/lint/change-request/
 state-check commands - `companions/toolchain.md`); backfill it if absent. Propose deletion of any
-restated global rules. Keep it within the CLAUDE.md
-limits: ≤200 lines; persistent operative facts only (project/tech/process
-specifics); no transient content, secrets, or absolute home paths.
+restated global rules. Keep it within the `rules/claude-md.md` limits
+(§ Content, § Size and structure).
 
 ## 5. Quality infrastructure
 

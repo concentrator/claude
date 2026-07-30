@@ -9,29 +9,29 @@ Canonical structure for `.claude/` in a project. Other paths inside
     ├── REQUIREMENTS.md           # foundational requirements
     ├── DESIGN.md                 # architecture and design (≤1000w inline)
     ├── MAINTENANCE.md            # sanity routine - seeded from template
-    ├── plans/                    # planning hierarchy - see plan.md
-    │   ├── ROADMAP.md            # initiative index
+    ├── plans/                    # planning hierarchy - plan.md § Where things live
+    │   ├── ROADMAP.md
     │   ├── release-vX.Y.Z.md
-    │   ├── R-XXX-<slug>/         # one per roadmap entry (initiative-time)
-    │   │   ├── requirements.md   # initiative requirements
-    │   │   ├── tasks.md          # this initiative's task index (lazy)
+    │   ├── R-XXX-<slug>/         # one per roadmap entry
+    │   │   ├── requirements.md
+    │   │   ├── tasks.md
     │   │   ├── T-XXX-<slug>.md
     │   │   ├── T-XXX-<slug>.findings.md
-    │   │   └── batches/          # B-XXX.md + B-XXX.report.md (lazy)
-    │   ├── archive/              # optional: shipped releases, pre-DEV legacy
-    │   └── visual-artifacts/     # brainstorming mockups (lazy, gitignored)
+    │   │   └── batches/
+    │   ├── archive/
+    │   └── visual-artifacts/
     ├── skills/                   # project skill overrides
     │   └── <name>/SKILL.md
     ├── rules/                    # project-scoped rules (paths: scoped)
     │   └── *.md
     ├── commands/                 # project-specific slash commands (optional)
     ├── agents/                   # project-specific agents (optional)
-    ├── hooks/                    # Claude Code hooks (e.g. dev-branch-guard.sh)
-    ├── adr/                      # architecture decision records (lazy)
+    ├── hooks/                    # Claude Code hooks
+    ├── adr/                      # architecture decision records
     │   └── NNN-<short-title>.md
-    ├── references/               # external docs/specs the agent reads (lazy)
+    ├── references/               # external docs/specs (read-only, § References)
     │   └── *                     # any format
-    ├── docs/                     # internal own-code feature docs, kept current (lazy)
+    ├── docs/                     # internal feature docs (§ Docs)
     │   └── *.md
     ├── settings.json             # Claude Code shared config
     └── settings.local.json       # Claude Code local (gitignored)
@@ -47,8 +47,8 @@ Scaffolded at the project root, alongside `.claude/`:
 | `.gitignore` | required | must ignore `.env` and `.claude/settings.local.json`; under untracked mode (`companions/untracked-claude.md`) ignores all of `.claude/` and `CLAUDE.md` |
 | `.env.example` | if the project uses env vars | placeholder vars; commit this, never `.env` |
 
-`.env` itself is never committed (kept gitignored). Stack-specific files
-(`.dockerignore`, lockfiles) are added per project, not part of the baseline.
+Stack-specific files (`.dockerignore`, lockfiles) are added per
+project, not part of the baseline.
 `start.md` scaffolds these - `.gitignore` and `.env.example` from the seed
 templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 
@@ -59,13 +59,12 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 - **Created as workflows need them**: `skills/`, `rules/`, `commands/`,
   `agents/`, `MAINTENANCE.md`, `plans/ROADMAP.md`; `hooks/` (shipped by
   the DEV toolset installer - `dev-branch-guard.sh`).
-- **Initiative-time**: `plans/R-XXX-<slug>/` + `requirements.md`,
-  created with the ROADMAP entry (`plan.md § Directory
-  conventions`).
+- **Initiative-time**: `plans/R-XXX-<slug>/` + `requirements.md`
+  (`plan.md § Directory conventions`).
 - **Lazy** (created on first use): `adr/`, `references/`, `docs/`,
-  `plans/R-XXX-<slug>/tasks.md` (with the R's first task),
-  `plans/R-XXX-<slug>/batches/`, `plans/archive/`,
-  `plans/visual-artifacts/` (gitignored - session artifacts, not docs).
+  `plans/R-XXX-<slug>/tasks.md` and `batches/` (`plan.md § Levels`,
+  `§ Directory conventions`), `plans/archive/`,
+  `plans/visual-artifacts/` (gitignored session artifacts).
 
 ## Disallowed in `.claude/`
 
@@ -78,7 +77,8 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 
 `references/` holds external inputs the agent consults: API specs
 (OpenAPI), third-party docs, domain knowledge, schema files. Any
-format. **Read-only** - the agent never modifies these.
+format. **Read-only** - the agent never modifies these; `docs/` below
+is the internal, kept-current counterpart.
 
 ## Docs
 
@@ -89,8 +89,7 @@ Reference application of the global documentation framework
 (`companions/documentation.md`). The bar: from the doc
 and its references alone, a fresh agent composes a correct, working
 invocation with the full input set - if answering needs the source, the doc
-fails. Distinct from `references/` - `references/` is external and read-only,
-`docs/` is internal and kept current with the code.
+fails.
 
 The granularity model - a doc per feature, page, section, or block - is a
 per-project choice. Pick the one that fits the project, record it in

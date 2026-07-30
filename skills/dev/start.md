@@ -1,41 +1,31 @@
 # Starting a Project
 
-One-time setup. The **initial** commit creates `main` (the only bootstrap
-step - the branch-guard permits writes on an unborn `main`); protect
-`main`, then do all further work via branches + PRs.
-
-(For an existing codebase, use `migrate` instead.)
+One-time setup for a new project (existing codebase → `migrate`).
+Bootstrap and protection mechanics live in § 5 Commit.
 
 ## 1. Requirements
 
-The user supplies a description; read it, ask 1–3 clarifying questions
-if needed. Create `.claude/` if absent, then write
-`.claude/REQUIREMENTS.md` with `approved: pending` frontmatter and sections
-per `templates.md § Foundational`. **Do not
-proceed until the user approves** - then update `approved:` to today.
-
-Seed file not committed; `REQUIREMENTS.md` is the spec.
+The user supplies a description; ask 1–3 clarifying questions, create
+`.claude/` if absent, then write `.claude/REQUIREMENTS.md` per
+`templates.md § Foundational` and **block on user approval**
+(`approved:` gate as `migrate.md § 2`). Seed file not committed;
+`REQUIREMENTS.md` is the spec.
 
 ## 2. Design
 
-Write `.claude/DESIGN.md` - architecture and design decisions.
-**≤1000 words inline**, external refs allowed.
+As `migrate.md § 3` (architecture and design decisions, from the
+user's description rather than existing code).
 
 ## 3. Scaffold
 
 Baseline files (`layout.md § Baseline files`):
-- `/init` → project `CLAUDE.md`: stack, base branch, and an `## Agent
-  toolchain` section (VCS host + build/test/lint/change-request/
-  state-check commands - `companions/toolchain.md`); don't restate
-  global rules.
+- `/init` → project `CLAUDE.md` incl. `## Conventions` and `## Agent
+  toolchain`, spec per `migrate.md § 4`.
 - `README.md` (verify or stub).
-- `.gitignore` - seed from `companions/gitignore.template` (ignores `.env`,
-  `.claude/settings.local.json`, build output); extend per stack.
-- `.env.example` (if the project uses env vars) - seed from
-  `companions/env-example.template`; keep `.env` gitignored, never commit it.
-- `.claude/plans/` with `ROADMAP.md` (per-R `tasks.md` is lazy).
-- For contributors without a global toolset, ship a project copy at
-  `.claude/skills/dev/` (or have them install it into `~/.claude/skills/`).
+- `.gitignore` / `.env.example` - seed from the `companions/*.template`
+  files; contents per `layout.md § Baseline files`.
+- `.claude/plans/` with `ROADMAP.md`.
+- Toolset for no-global contributors: per `migrate.md § 5`.
 
 Full `.claude/` layout + baseline set: `layout.md`.
 
@@ -53,10 +43,9 @@ record a one-line pointer to `.claude/docs/index.md` in `§ Conventions`.
 
 ## 4. Quality infrastructure
 
-Set up: lint for the stack + one passing smoke test + CI running lint +
-tests on every MR/PR. Document run commands in `CLAUDE.md`. Ask before
-each; if the user defers any, record `quality-deferred: true` in
-`CLAUDE.md § Conventions`.
+Set up the `migrate.md § 5` baseline (lint + smoke test + CI on every
+MR/PR; deferral key included), asking before each item. Document run
+commands in `CLAUDE.md`.
 
 ## 5. Commit
 

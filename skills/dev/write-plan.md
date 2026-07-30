@@ -13,24 +13,22 @@ round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
 - Project `CLAUDE.md` (build/test/lint), `.claude/DESIGN.md` (architecture)
 - The changed feature's `.claude/docs/` doc, if it exists (`layout.md § Docs`)
   - plan against the current documented behavior
-- Probe findings for the surfaces the task touches - wire formats,
-  response envelopes, schemas established by shape/detail-round probing,
-  wherever recorded (the R's `requirements.md`, `references/`, or the
-  session transcript). Required whenever commit items carry wire-level
-  detail.
+- Probe findings for the surfaces the task touches (rule: step 3
+  below).
 
 ## Steps
 
 1. **Resolve chain.** Read task line; walk back T → R. Read
    `plans/R-XXX-<slug>/requirements.md` for acceptance criteria, and the
    changed feature's `.claude/docs/` doc (if any) for its current behavior.
-2. **Propose slug.** ≤20 chars, kebab-case, prune redundant words.
-   Confirm with user.
+2. **Propose slug** (`git-workflow.md § Trunk` rules); confirm with
+   user.
 3. **Decompose work** into commit-sized checkboxes. Each `[ ]` = one
    commit, ~2–5 minutes of focused work, naming the change in one
-   sentence and the docs it touches. The task itself is right-sized
-   (multi-commit) per `plan.md § Levels`; checkboxes are its
-   commit-sized steps. For a `[feat]` / `[fix]` task, each checkbox is
+   sentence and the docs it touches (task right-sizing:
+   `plan.md § Levels`). Probe findings live in the R's
+   `requirements.md`, `references/`, or the session transcript. For a
+   `[feat]` / `[fix]` task, each checkbox is
    one behavior slice carrying its test and its implementation together -
    the execution cadence commits a whole red→green→refactor pass as one
    commit (`feat.md`, `fix.md`) - so "write tests" is never its own
@@ -51,8 +49,7 @@ round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
 
 ## Soft cap
 
-Warn past ~20 commits, split past 30 - subordinate to the short-lived
-governor (`branch-plan.md § Size cap`). Override requires a stated reason.
+Per `branch-plan.md § Size cap` (warn/split thresholds live there).
 
 ## Bulk mode (`/dev plan all`)
 
@@ -65,6 +62,3 @@ review pass over all slugs + plans before delivering them (one plan MR/PR).
 - Per-commit implementation - the execution skill (`feat`,
   `fix`, `refactor`) handles iteration.
 - Initiative / task creation - separate `/dev plan` targets.
-
-See `branch-plan.md` for plan structure and execution
-rules.

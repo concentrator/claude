@@ -22,13 +22,7 @@ review the diff against the rule set and confirm five concerns:
 - **Reference freshness** - no dead paths; no expired time-bound
   references. Mark a time-bound reference `<!-- expires: YYYY-MM-DD -->`;
   `scripts/ci/check-references.sh` fails once the date is past.
-- **Writing** - changed prose follows `writing.md`: no AI-tell words, no
-  repetition. (The no-em-dash rule is Tier-1, enforced by the em-dash gate.)
-
-Relationship: `rules/*` define the rules; this Tier-2 review applies
-them to a change at branch close (`skills/dev/branch-plan.md § Closing
-routine`). The Routine below is the time-based sweep; this is the
-per-change review.
+- **Writing** - changed prose follows `writing.md`.
 
 ### Prune dead prose
 
@@ -39,11 +33,8 @@ sentence the diff adds or touches against three gates -
 2. Valuable in any real scenario?
 3. Would behavior change if it were removed?
 
-Fail any gate → cut it and propose the fix. This catches transplanted
-verbatim phrasing, coined or idiosyncratic terms where a standard one
-exists, rationale that belongs in requirements/DESIGN, and rules that
-merely restate a default - replace with the conventional wording
-(`CLAUDE.md § Writing`).
+Fail any gate → cut it and propose the fix (underlying content tests:
+`rules/claude-md.md § Content`).
 
 ## Routine
 
@@ -64,7 +55,7 @@ Initial defaults - tune per project.
 | skills/ | dead, unused, broken, or duplicate skills | monthly |
 | rules/ & CLAUDE.md | stale paths / dead references | on edit + monthly |
 | repo root & `.claude/` | stray temp / build artifacts | weekly |
-| sizes | CLAUDE.md ≤ 200 lines; SKILL.md within word caps | on edit |
+| sizes | caps per `claude-md.md § Size and structure` / `skills.md § Size` | on edit |
 | file counts | flag unexpected growth in `plans/`, skills/ | monthly |
 
 ### Repair
@@ -76,7 +67,8 @@ propose the repair and await approval (`claude-md.md` / `skills.md`
 - Broken JSON / invalid settings → fix or revert.
 - Dead reference (missing skill, renamed path) → update or remove.
 - Orphaned findings/plan files for merged work → archive or delete.
-- Duplicate rule across files → keep one, delete the other.
+- Duplicate rule across files → single-home (`claude-md.md § Size and
+  structure`).
 
 ### Generalize allow rules
 

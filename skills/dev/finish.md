@@ -21,8 +21,7 @@ into the options or glossed past:
 1. **Outcome** - what the branch produced vs the task's acceptance
    criteria.
 2. **Verify** - always offer a live run; for data tasks, run the work
-   product and show the results. Present this and wait; do not roll it into
-   the options.
+   product and show the results. Present this and wait.
 3. **Options** - only then present delivery: push and open a CI-gated MR/PR
    to origin / keep / discard.
 
@@ -31,11 +30,9 @@ MR/PR opens only on explicit choice - never automatically.
 ## 3. Execute
 
 **Push + MR/PR** - `git push -u origin <branch>`, then open a CI-gated
-MR/PR to origin by running the change-request command declared in CLAUDE.md
-`## Agent toolchain` (`companions/toolchain.md`) - `gh pr create` / `glab
-mr create` when the project only names the host (summary + test plan); no
-declared host → push and print the URL. Never a local merge or direct push. Merge per
-`git-workflow.md § Trunk`. After opening it, **stay on the branch** - do not
+MR/PR via the declared change-request command (`companions/toolchain.md
+§ Declared commands`; no declared host → push and print the URL). Merge
+per `git-workflow.md § Trunk`. After opening it, **stay on the branch** - do not
 switch to the default branch while the MR/PR is open, so the reviewer sees
 the branch's files; the switch to default is §4, after merge.
 
@@ -58,5 +55,5 @@ the merge with the user), then:
 
 Bookkeeping landed with the merge (`branch-plan.md § Closing routine`);
 untracked mode makes the marks now, in the working tree
-(`companions/untracked-claude.md`). Exception: run-dependent R closure
-ships later via its own plan MR/PR (`plan.md § Approval and closure`).
+(`companions/untracked-claude.md`); late closures:
+`plan.md § Approval and closure`.
