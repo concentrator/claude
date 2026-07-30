@@ -1,7 +1,7 @@
 # Docs adoption procedure
 
-The docs-adoption procedure behind `/dev docs` and `migrate § 7`
-(framing and re-run semantics: `docs.md`).
+Runs the docs-adoption behind `/dev docs` and `migrate § 7`; framing
+and re-run semantics: `docs.md`.
 
 ## Audit
 

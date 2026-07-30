@@ -18,8 +18,9 @@ Check existing: `CLAUDE.md`, `README.md`, `CHANGELOG.md`, language/stack,
 build/test/lint commands, CI config, open branches, `docs/`. Cross-check
 against `layout.md` and report gaps.
 
-`.claude/` gitignored → activate untracked mode for the rest of the
-migration (detection, flag, and deltas: `companions/untracked-claude.md`).
+`git check-ignore -q .claude` exits 0 → activate untracked mode for
+the rest of the migration (flag + deltas:
+`companions/untracked-claude.md`).
 
 ## 2. Requirements
 

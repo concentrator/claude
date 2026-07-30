@@ -7,7 +7,8 @@ Browser-based visual brainstorming companion for showing mockups, diagrams, and 
 Decide per-question, not per-session. The test: **would the user understand this better by seeing it than reading it?**
 
 **Browser** when the content itself is visual: UI mockups, architecture
-diagrams, side-by-side visual comparisons, look-and-feel questions.
+diagrams, flows / state machines, side-by-side visual comparisons,
+look-and-feel questions.
 **Terminal** when the answer is words: scope, conceptual A/B/C choices,
 tradeoff lists, technical decisions.
 
@@ -17,7 +18,7 @@ A question *about* a UI topic is not automatically a visual question. "What kind
 
 The server watches a directory for HTML files and serves the newest one to the browser. You write HTML content to `screen_dir`, the user sees it in their browser and can click to select options. Selections are recorded to `state_dir/events` that you read on your next turn.
 
-**Write content fragments by default** (§ Writing Content Fragments); a file starting with `<!DOCTYPE` or `<html` is served as-is for full-control pages.
+**Write content fragments by default** (§ Writing Content Fragments); a file starting with `<!DOCTYPE` or `<html` is served as-is for full-control pages (only the helper script is injected).
 
 ## Starting a Session
 
@@ -85,7 +86,7 @@ Use `--url-host` to control what hostname is printed in the returned URL JSON.
    - Use semantic filenames: `platform.html`, `visual-style.html`, `layout.html`
    - **Never reuse filenames** - each screen gets a fresh file
    - Use Write tool - **never use cat/heredoc** (dumps noise into terminal)
-   - Server automatically serves the newest file
+   - Server automatically serves the newest file (by modification time)
 
 2. **Tell user what to expect and end your turn:**
    - Remind them of the URL (every step, not just first)

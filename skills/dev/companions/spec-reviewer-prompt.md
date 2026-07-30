@@ -20,9 +20,8 @@ Task tool (general-purpose):
 
     ## CRITICAL: Do Not Trust the Report
 
-    The implementer's report may be incomplete, inaccurate, or optimistic.
-    Verify everything independently from the actual code - never from
-    their claims.
+    The implementer's report may be incomplete, inaccurate, or
+    optimistic.
 
     ## Your Job
 

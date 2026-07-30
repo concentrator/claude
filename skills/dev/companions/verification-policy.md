@@ -14,7 +14,9 @@ field: an agent definition's frontmatter carries `model:` (and `name:`,
 `description:`) but no effort key, and the Task/Agent dispatch surface
 exposes a `model` override (`sonnet`/`opus`/`haiku`/`fable`) with no
 effort parameter. Effort is fixed for the whole session by the
-`effortLevel` setting. So when the controller wants a cheaper or deeper
+`effortLevel` setting; the high-effort intent for Opus implementers is
+met when the session runs at `high` or above - below that, routing
+degrades to model choice only. So when the controller wants a cheaper or deeper
 check for a given dispatch, the only lever it actually controls is which
 model that subagent runs - routing encodes a model per role and inherits
 the session effort.
