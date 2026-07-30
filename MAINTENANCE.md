@@ -55,7 +55,7 @@ Initial defaults - tune per project.
 | skills/ | dead, unused, broken, or duplicate skills | monthly |
 | rules/ & CLAUDE.md | stale paths / dead references | on edit + monthly |
 | repo root & `.claude/` | stray temp / build artifacts | weekly |
-| sizes | caps per `claude-md.md` / `skills.md` § Size | on edit |
+| sizes | caps per `claude-md.md § Size and structure` / `skills.md § Size` | on edit |
 | file counts | flag unexpected growth in `plans/`, skills/ | monthly |
 
 ### Repair

@@ -19,7 +19,7 @@ Canonical structure for `.claude/` in a project. Other paths inside
     │   │   ├── T-XXX-<slug>.findings.md
     │   │   └── batches/
     │   ├── archive/
-    │   └── visual-artifacts/     # gitignored
+    │   └── visual-artifacts/
     ├── skills/                   # project skill overrides
     │   └── <name>/SKILL.md
     ├── rules/                    # project-scoped rules (paths: scoped)
@@ -47,8 +47,8 @@ Scaffolded at the project root, alongside `.claude/`:
 | `.gitignore` | required | must ignore `.env` and `.claude/settings.local.json`; under untracked mode (`companions/untracked-claude.md`) ignores all of `.claude/` and `CLAUDE.md` |
 | `.env.example` | if the project uses env vars | placeholder vars; commit this, never `.env` |
 
-Stack-specific files
-(`.dockerignore`, lockfiles) are added per project, not part of the baseline.
+Stack-specific files (`.dockerignore`, lockfiles) are added per
+project, not part of the baseline.
 `start.md` scaffolds these - `.gitignore` and `.env.example` from the seed
 templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 

@@ -59,8 +59,9 @@ Write the R's `batches/B-XXX.report.md` per `companions/report-template.md`,
 re-verifying acceptance criteria. No report → no accept. Present:
 
 - **Accept** → push `batch/B-XXX` to origin + open the CI-gated MR/PR per
-  `companions/toolchain.md`, description from report. Findings triage;
-  ref cleanup per `branch-plan.md § Rails`.
+  `companions/toolchain.md`, description from report (defer = explicit
+  user choice). Findings triage; ref cleanup per `branch-plan.md
+  § Rails`.
 - **Reject** → ref handling per `branch-plan.md § Rails`.
 - **Halt** → failed item reported, work intact; user resolves,
   re-runs `/dev auto B-XXX`.

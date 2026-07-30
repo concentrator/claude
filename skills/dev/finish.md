@@ -55,4 +55,5 @@ the merge with the user), then:
 
 Bookkeeping landed with the merge (`branch-plan.md § Closing routine`);
 untracked mode makes the marks now, in the working tree
-(`companions/untracked-claude.md`); late closures per step 1.
+(`companions/untracked-claude.md`); late closures:
+`plan.md § Approval and closure`.

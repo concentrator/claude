@@ -13,7 +13,8 @@ first as a separate task.
 2. **DRY / purity check** - duplicated functionality removed? Side
    effects isolated?
 
-Finish every pass per `branch-plan.md § Commit cadence`. If a step
+Finish every pass per `branch-plan.md § Commit cadence`. Docs delta:
+README / extended docs only when public surface changed. If a step
 breaks tests and the fix isn't immediate, revert and try smaller.
 
 Scope discoveries: `branch-plan.md § Scope discoveries`.

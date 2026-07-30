@@ -107,7 +107,8 @@ unchanged - structure is never simplified, only description detail.
 
 Trunk-based development: `main` is the protected, always-releasable
 trunk; every change lands via a short-lived branch and a CI-gated PR,
-no long-lived branches (`rules/git-workflow.md`).
+no long-lived branches (`skills/dev/git-workflow.md`; repo pin:
+`rules/git-workflow.md`).
 
 The unit of delivery is the **batch** - one or more tasks that must land
 together to keep `main` coherent, shipped as one PR (a lone task is a

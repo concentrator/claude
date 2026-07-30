@@ -33,7 +33,7 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 
 ## Planning rounds
 
-Only the commands that emit the artifacts collapse:
+Two rounds; each command emits multiple artifact levels at once:
 
 - **Shape** (`/dev plan R`) - produce the initiative's `requirements.md`
   **and** a draft task list (`tasks.md`) together, approved at one gate.

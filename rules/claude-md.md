@@ -16,7 +16,7 @@ Rules for any CLAUDE.md (global, project, nested). Apply on every read and edit.
 - **No transient content.** No changelogs, task lists, in-progress notes, dated entries, history.
 - **No secrets.** No tokens, keys, credentials, private URLs.
 - **No absolute home paths** (`/Users/...`, `/home/...`). Use `~/` or repo-relative.
-- **Operative instructions only.** State the WHAT, not the why - rationale belongs in requirements/DESIGN. Compaction cuts framing to the operative WHAT, never meaning. (Phrasing: `CLAUDE.md § Writing`.)
+- **Operative instructions only.** State the WHAT, not the why - rationale belongs in requirements/DESIGN; compaction cuts framing, never meaning. (Phrasing: `CLAUDE.md § Writing`.)
 
 ## Size and structure
 - **Max 200 lines.** Over budget → split via `@path/to/file` import or move narrow rules to `.claude/rules/*.md` with `paths:` frontmatter.

@@ -22,9 +22,9 @@ any documentation it touches.
 
 ### Doc-before-commit
 
-- Update related documentation **before** committing code that needs it.
-- If the doc depends on a later commit, insert a placeholder + sub-task,
-  and replace in the commit that completes the doc.
+A doc that depends on a later commit gets a placeholder + sub-task,
+replaced in the commit that completes it; everything else updates in
+the same commit as its code (§ Commit cadence).
 
 ### Commit cadence (all types)
 
@@ -32,7 +32,8 @@ Each pass from `feat.md` / `fix.md` / `refactor.md` ends the same way:
 
 1. **Verify** - project test + lint commands green.
 2. **Docs** - per project `CLAUDE.md § Conventions`, in *this* commit:
-   `release-routine: yes` → CHANGELOG entry (`changelog.md`); new public
+   `release-routine: yes` → CHANGELOG `## [Unreleased]` entry
+   (`changelog.md`); new public
    surface → `README.md`; `extended-docs: yes` → per conventions
    (feature `.claude/docs/` docs reconcile at close - § Closing routine).
 3. **Commit** - single-line message; mark the plan `[x]` immediately.
@@ -134,9 +135,8 @@ reason in plan header.
 ## Agentic execution
 
 The **batch** - one or more coupled tasks shipped as a single CI-gated
-MR/PR - is the unit of delivery to `main` in both modes. A lone task is
-a batch of one - its
-own branch is the MR/PR. Auto mode (`/dev auto`) runs a batch's members via subagents on a
+MR/PR - is the unit of delivery to `main` in both modes. A lone task
+is a batch of one - its own branch is the MR/PR. Auto mode (`/dev auto`) runs a batch's members via subagents on a
 dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
 them by hand. Delivery is identical; only verification differs - auto
 runs the checkpoint below, manual uses § Closing routine +
@@ -165,13 +165,12 @@ whose dir holds it - members are open tasks of that R (coupling: any tasks
 not independently shippable). `depends-on` must resolve within batch
 order or already-merged work. A cross-initiative need becomes its own R. The
 checkpoint validates exactly that R's acceptance criteria. Soft cap
-~30 planned commits total, subordinate to the short-lived governor
-(`git-workflow.md § Delivery cadence`). Auto mode requires a stamped
+~30 planned commits total (§ Size cap governor). Auto mode requires a stamped
 batch.
 
 Batch-close bookkeeping: the close phase marks batch and member-task
 checkboxes as commits on `batch/B-XXX` before the MR/PR - marks land
-per § Closing routine; reject discards them (§ Rails). The R-closure
+per § Closing routine; reject: § Rails. The R-closure
 check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) opened after the batch MR/PR merges.
 
@@ -196,8 +195,8 @@ manual-mode § Closing routine above is unchanged by this rule.
 - No commit on red tests/lint - no exceptions.
 - Findings triage and push decisions always defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
-  Accept = delete the batch's `pre-B-XXX` tag (rollback no longer
-  needed).
+  Accept = delete the batch's `pre-B-XXX` tag and the member branch
+  refs.
   Reject = delete the batch branch; the `pre-B-XXX` tag and member refs
   are preserved for salvage.
 

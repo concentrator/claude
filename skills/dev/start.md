@@ -6,9 +6,10 @@ Bootstrap and protection mechanics live in § 5 Commit.
 ## 1. Requirements
 
 The user supplies a description; ask 1–3 clarifying questions, create
-`.claude/` if absent, then write and gate `.claude/REQUIREMENTS.md`
-exactly as `migrate.md § 2`. Seed file not committed; `REQUIREMENTS.md`
-is the spec.
+`.claude/` if absent, then write `.claude/REQUIREMENTS.md` per
+`templates.md § Foundational` and **block on user approval**
+(`approved:` gate as `migrate.md § 2`). Seed file not committed;
+`REQUIREMENTS.md` is the spec.
 
 ## 2. Design
 
@@ -43,7 +44,8 @@ record a one-line pointer to `.claude/docs/index.md` in `§ Conventions`.
 ## 4. Quality infrastructure
 
 Set up the `migrate.md § 5` baseline (lint + smoke test + CI on every
-MR/PR; deferral key included). Document run commands in `CLAUDE.md`.
+MR/PR; deferral key included), asking before each item. Document run
+commands in `CLAUDE.md`.
 
 ## 5. Commit
 

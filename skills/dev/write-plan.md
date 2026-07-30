@@ -26,7 +26,9 @@ round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
 3. **Decompose work** into commit-sized checkboxes. Each `[ ]` = one
    commit, ~2–5 minutes of focused work, naming the change in one
    sentence and the docs it touches (task right-sizing:
-   `plan.md § Levels`). For a `[feat]` / `[fix]` task, each checkbox is
+   `plan.md § Levels`). Probe findings live in the R's
+   `requirements.md`, `references/`, or the session transcript. For a
+   `[feat]` / `[fix]` task, each checkbox is
    one behavior slice carrying its test and its implementation together -
    the execution cadence commits a whole red→green→refactor pass as one
    commit (`feat.md`, `fix.md`) - so "write tests" is never its own
@@ -60,5 +62,3 @@ review pass over all slugs + plans before delivering them (one plan MR/PR).
 - Per-commit implementation - the execution skill (`feat`,
   `fix`, `refactor`) handles iteration.
 - Initiative / task creation - separate `/dev plan` targets.
-
-

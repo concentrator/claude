@@ -14,7 +14,7 @@ the one a command maps to before acting.**
 | Command | Read | Purpose |
 |---|---|---|
 | `/dev` | - | Route by state (ask if ambiguous) |
-| `/dev plan [<target>]` | `plan.md` (+ `templates.md` for specs) | Planning (plan MR/PRs) - targets below |
+| `/dev plan [<target>]` | per target table below | Planning (plan MR/PRs) |
 | `/dev code [<slug>]` | `branch-plan.md` | Manual execution on a branch - rules below |
 | `/dev auto [B-XXX]` | `auto.md` | Run an approved batch via subagents (no arg → first open); unattended until checkpoint or halt |
 | `/dev release` | `release.md` | Finalize + tag the release (project `release` override or this companion) |
