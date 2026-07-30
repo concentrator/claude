@@ -26,6 +26,19 @@ any documentation it touches.
 - If the doc depends on a later commit, insert a placeholder + sub-task,
   and replace in the commit that completes the doc.
 
+### Commit cadence (all types)
+
+Each pass from `feat.md` / `fix.md` / `refactor.md` ends the same way:
+
+1. **Verify** - project test + lint commands green.
+2. **Docs** - per project `CLAUDE.md § Conventions`, in *this* commit:
+   `release-routine: yes` → CHANGELOG entry (`changelog.md`); new public
+   surface → `README.md`; `extended-docs: yes` → per conventions
+   (feature `.claude/docs/` docs reconcile at close - § Closing routine).
+3. **Commit** - single-line message; mark the plan `[x]` immediately.
+
+Open `[ ]` items → next pass; last non-final `[x]` → § Closing routine.
+
 ### No TODOs in code
 
 Never write `TODO`/`FIXME`/`XXX` in code. Route each to a plan artifact
@@ -128,8 +141,7 @@ own branch is the MR/PR. Auto mode (`/dev auto`) runs a batch's members via suba
 dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
 them by hand. Delivery is identical; only verification differs - auto
 runs the checkpoint below, manual uses § Closing routine +
-`finish`. `main` is never touched mid-run; auto requires
-every gate below.
+`finish`. Auto requires every gate below.
 
 ### `agentic:` stamp
 

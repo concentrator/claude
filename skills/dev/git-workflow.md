@@ -108,8 +108,8 @@ output; the standard pipeline (tests + lint) is one line - CI reports the
 detail. Scannable, not a wall of text.
 
 - No agent attribution, "Generated with…", or Co-Authored-By trailers.
-- Audience visibility (`CLAUDE.md`): no gitignored paths, internal ticket
-  IDs, or conversation references; link issues only if openable.
+- Audience visibility per `CLAUDE.md § Audience visibility`; link
+  issues only if openable.
 
 ## Releases - tag-on-trunk
 

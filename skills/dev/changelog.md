@@ -8,11 +8,11 @@ README / JSDoc / the diff. A reader scans the changelog for *what*
 moved and opens the docs for *how*.
 
 - Group under the project's standard headings (e.g. Added / Changed /
-  Breaking / Removed / Internal), newest on top.
+  Breaking / Removed / Internal), newest on top; public-surface changes
+  under the kind headings, internal-only under `### Internal`.
 - Breaking entries: state the change and a one-line migration, not a
   paragraph of behavior analysis.
-- Per the Audience-visibility rule: no gitignored paths,
-  internal ticket IDs, or references to a conversation.
+- Audience visibility per `CLAUDE.md § Audience visibility`.
 
 GOOD: `` `SecurityIssues.get` - args now `(clientId, id)`; unknown id returns `null`. ``
 BAD:  a paragraph on the 404-catch, payload shape, and no-alias rationale.
