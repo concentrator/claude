@@ -27,18 +27,18 @@ shell trips the sensitive-file guard).
      criteria, `DESIGN.md` excerpts; conventions via its own CLAUDE.md)
      - never have it read plan files.
    - DONE → spec check. DONE_WITH_CONCERNS → resolve first.
-     NEEDS_CONTEXT → answer once from requirements/design,
-     re-dispatch; unanswerable → halt. BLOCKED → halt.
+     NEEDS_CONTEXT → answer once from requirements/design, re-dispatch.
+     Halt triggers: `branch-plan.md § Stop conditions`.
    - Spec check (`companions/spec-reviewer-prompt.md`): exactly the item; skipped
-     for mechanical commits per `companions/verification-policy.md`. Reject → fix
-     → recheck; second → halt.
+     for mechanical commits per `companions/verification-policy.md`.
+     Reject → fix → recheck.
    - Mark `[x]` after the commit lands.
 3. Close agentically: `code-reviewer` (branch diff vs plan; skipped
    for small branches per `companions/verification-policy.md`); mechanical fixes
    applied, judgment calls queued. Mandatory final commit (docs
    re-review, cleanup, plan complete). Tests + lint green → merge
    into `batch/B-XXX`; red → halt.
-4. Never push mid-batch; keep branch refs until checkpoint.
+4. Rails hold throughout (`branch-plan.md § Rails`).
 
 ## Batch close
 
@@ -48,7 +48,8 @@ shell trips the sensitive-file guard).
 2. Fixes land as batch-branch commits; queue judgment calls.
 3. Re-run tests + lint; red → halt. Docs coherence pass
    (CHANGELOG/README across member branches).
-4. Mark batch + member-task checkboxes; commit on `batch/B-XXX`.
+4. Mark batch + member-task checkboxes; commit on `batch/B-XXX`
+   (`branch-plan.md § Batches`).
 
 Models + spec-check depth: `companions/verification-policy.md`.
 
@@ -58,10 +59,8 @@ Write the R's `batches/B-XXX.report.md` per `companions/report-template.md`,
 re-verifying acceptance criteria. No report → no accept. Present:
 
 - **Accept** → push `batch/B-XXX` to origin + open the CI-gated MR/PR per
-  `companions/toolchain.md`, description from report (defer = explicit user
-  choice; never default branch). Findings triage, delete member
-  refs + `pre-B-XXX` tag.
-- **Reject** → delete `batch/B-XXX`;
-  member refs preserved for salvage.
+  `companions/toolchain.md`, description from report. Findings triage;
+  ref cleanup per `branch-plan.md § Rails`.
+- **Reject** → ref handling per `branch-plan.md § Rails`.
 - **Halt** → failed item reported, work intact; user resolves,
   re-runs `/dev auto B-XXX`.

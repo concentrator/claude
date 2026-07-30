@@ -89,10 +89,9 @@ final commit and the delivery hand-off (`finish`).
 2. Validate the review's findings against full project context.
 3. Print report; request user approval before applying.
 4. Apply approved fixes as additional commits if needed.
-5. Capture the branch outcome for the close report: a summary against
-   the task's acceptance criteria, and - when the target is data
-   collection or processing - run the work product and collect the
-   results. Surface manual-testing/automation needs (`finish § 2`).
+5. Capture the branch outcome: a summary against the task's acceptance
+   criteria; surface manual-testing/automation needs (presentation +
+   data-task run: `finish § 2`).
 6. **Triage `T-XXX-<slug>.findings.md`** - in-scope findings are resolved
    in this branch (as commits), not deferred (routing:
    § Scope discoveries). For each remaining `[ ]`, prompt user:
