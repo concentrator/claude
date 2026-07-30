@@ -1,7 +1,7 @@
 # Batch report template
 
 Written by the checkpoint to `plans/R-XXX-<slug>/batches/B-XXX.report.md`
-BEFORE the accept/reject offer. Accept is invalid without it. Fill every
+(timing + no-report-no-accept: `auto.md § Checkpoint`). Fill every
 section; write "none" rather than omitting one - an empty heading reads
 as a skipped step.
 

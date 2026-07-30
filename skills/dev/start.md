@@ -50,10 +50,8 @@ commands in `CLAUDE.md`.
 ## 5. Commit
 
 The initial commit (requirements + design + scaffold + quality config)
-creates `main` - the bootstrap exception (`git-workflow.md § Trunk`).
-Under untracked mode (`companions/untracked-claude.md`), the `.claude/`
-tree and root `CLAUDE.md` are gitignored, so the commit carries scaffold
-and quality config only, not the DEV artifacts. Then
+creates `main` - the bootstrap exception (`git-workflow.md § Trunk`;
+untracked mode deltas: `companions/untracked-claude.md`). Then
 protect `main` on the host - require MR/PR + passing checks, restrict
 direct push (`gh`/`glab`; `git-workflow.md § Trunk`, `§ Enforcement`),
 TBD-shaped from commit one; thereafter all work lands via a branch + MR/PR.

@@ -14,7 +14,9 @@ field: an agent definition's frontmatter carries `model:` (and `name:`,
 `description:`) but no effort key, and the Task/Agent dispatch surface
 exposes a `model` override (`sonnet`/`opus`/`haiku`/`fable`) with no
 effort parameter. Effort is fixed for the whole session by the
-`effortLevel` setting. So when the controller wants a cheaper or deeper
+`effortLevel` setting; the high-effort intent for Opus implementers is
+met when the session runs at `high` or above - below that, routing
+degrades to model choice only. So when the controller wants a cheaper or deeper
 check for a given dispatch, the only lever it actually controls is which
 model that subagent runs - routing encodes a model per role and inherits
 the session effort.
@@ -99,26 +101,25 @@ folded branches into the batch full-diff review dispatch; the reviewer
 covers their diffs against their own plans (first review), not only
 cross-branch concerns.
 
-**Invariants - unaffected by this rule:**
-
-- The mandatory final commit applies to every branch regardless of size.
-- The tests/lint-green gate before merging into `batch/B-XXX` applies to
-  every branch regardless of size.
-- Branches above the threshold keep the full per-branch close review.
+**Invariants** - unaffected, per `branch-plan.md § Agentic execution`:
+the final commit and the green gate hold for every branch; branches
+above the threshold keep the full per-branch review.
 
 **Scope:** this rule applies to auto mode only. Manual-mode
 `skills/dev/branch-plan.md § Closing routine` is unaffected.
 
 ## Models
 
-| Role | Model (dispatch value) | Effort |
-|---|---|---|
-| Default implementers | Opus 4.8 (`opus`) | session (`effortLevel`) |
-| Mechanical-commit implementers | Sonnet 4.6 (`sonnet`) | session (`effortLevel`) |
-| Probes (live API probing work) | Opus 4.8 (`opus`) | session (`effortLevel`) |
-| Judgment-heavy implementers | Fable 5 (`fable`) | session (`effortLevel`) |
-| Spec-compliance checks (per-commit) | Fable 5 (`fable`) | session (`effortLevel`) |
-| Branch-close review and batch full-diff review | Fable 5 (`fable`) | session (`effortLevel`) |
+| Role | Model (dispatch value) |
+|---|---|
+| Default implementers | Opus 4.8 (`opus`) |
+| Mechanical-commit implementers | Sonnet 4.6 (`sonnet`) |
+| Probes (live API probing work) | Opus 4.8 (`opus`) |
+| Judgment-heavy implementers | Fable 5 (`fable`) |
+| Spec-compliance checks (per-commit) | Fable 5 (`fable`) |
+| Branch-close review and batch full-diff review | Fable 5 (`fable`) |
+
+Effort: every role runs at the session `effortLevel` (§ Effort mechanics).
 
 **Routing:** the controller picks the implementer row deterministically -
 mechanical predicate true → Mechanical-commit row (`sonnet`); plan item
@@ -127,11 +128,6 @@ otherwise the Default implementers row (`opus`). There is no predicate
 for "judgment-heavy": an item reaches that row only by carrying the
 explicit `(judgment-heavy)` tag in its plan-item text, mirroring the
 task `[type]` tag. Absent the tag, items default to Opus.
-
-**Effort note:** effort is session-level and fixed by the `effortLevel`
-setting - it is not controllable per dispatch (see § Effort mechanics).
-The high-effort intent for Opus implementers is satisfied when the session
-runs at `high` or above; below that, routing degrades to model choice only.
 
 **Spec-check disambiguation:** per-commit spec-compliance checks
 (pass/fail against the plan item) and the judgment-heavy branch-close /

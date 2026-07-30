@@ -8,8 +8,7 @@ Close out a DEV branch - invoked by the closing routine
 - `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`: every `[ ]` is `[x]`;
   findings file triaged.
 - Bookkeeping marks present in the final commit (`branch-plan.md
-  § Closing routine`; untracked mode defers them to §4 -
-  `companions/untracked-claude.md`).
+  § Closing routine`; untracked: `companions/untracked-claude.md`).
 - Close review per `branch-plan.md § Closing routine`.
 - Fresh test + lint green; failing → stop and report.
 
@@ -53,7 +52,6 @@ the merge with the user), then:
    via a plan MR/PR (`plan.md § Approval and closure`).
 2. Delete the merged branch (local; remote too if pushed).
 
-Bookkeeping landed with the merge (`branch-plan.md § Closing routine`);
-untracked mode makes the marks now, in the working tree
-(`companions/untracked-claude.md`); late closures:
+Bookkeeping landed with the merge (`branch-plan.md § Closing routine`;
+untracked mode: `companions/untracked-claude.md`); late closures:
 `plan.md § Approval and closure`.

@@ -1,6 +1,7 @@
 ---
 approved: 2026-07-30
 kind: refactor
+status: done 2026-07-30
 ---
 
 # R-039: Single-home the /dev system
@@ -101,15 +102,19 @@ self-duplication removed.
 
 ## Acceptance criteria
 
-- [ ] All 15 contradictions resolved toward the named winners; a grep
-  for each stale token (`starting-a-project`, `doc PRs`, B-002 baseline,
-  dead template path) is clean.
-- [ ] The 8 clusters executed; a fresh cross-file sweep finds no rule
-  stated normatively in two files (justified inlines documented in the
-  branch plans).
-- [ ] System prose reduced >=12% (baseline 18,572 words); every capped
-  file under its cap.
-- [ ] Tier-1 + full test suite green; ships via the same files.
+- [x] All 15 contradictions resolved toward the named winners; stale-token
+  greps clean. Evidence: T-079 (PR #217), review-verified per winner.
+- [x] The 8 clusters executed; cross-file sweeps (T-080/T-081 close
+  reviews, every pointer verified against its target) find no rule
+  stated normatively in two files; justified inlines documented in the
+  branch plans. Evidence: PRs #218 + this branch.
+- [x] System prose reduced >=8% - criterion amended 2026-07-30 (user):
+  the audit's ~15% estimate over-counted; close reviews restored
+  compression losses and T-079 added contradiction-fix words. Measured:
+  18,572 -> 17,081 (8.0%); every capped file under its cap, every
+  touched file net smaller or equal.
+- [x] Tier-1 + full test suite green on every commit of all three
+  branches; ships via the same files.
 
 ## Constraints
 
