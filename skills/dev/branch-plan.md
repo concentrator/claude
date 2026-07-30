@@ -13,9 +13,6 @@ branch = one task. The plan must be complete and committed to `main`
     depends-on: T-012               # optional - blocks `/dev code` until merged
     agentic: approved 2026-06-10    # optional - eligible for auto mode; absent = manual-only
 
-The `type:` value is inherited from the parent task's tag in its R's
-`tasks.md` (e.g. `T-014 (R-001) [feat]:`). Branch prefix matches.
-
 ## Body
 
 A checkbox list. Each `[ ]` = one commit. Each item names the change and
@@ -86,11 +83,8 @@ final commit and the delivery hand-off (`finish`).
 6. **Triage `T-XXX-<slug>.findings.md`** - in-scope findings are resolved
    in this branch (as commits), not deferred (routing:
    § Scope discoveries). For each remaining `[ ]`, prompt user:
-   - Promote to `T-XXX` (new entry in the parent R's `tasks.md`,
-     committed to main now) - only under a fitting open `R-XXX`; none →
-     use the R-stub route
-   - Promote to an R stub (`plan.md § Directory conventions`; shaped
-     in a later shape round)
+   - Promote to `T-XXX` or an R stub (`plan.md § Referential
+     integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Reconcile the feature doc** - write (new feature) or update
    (fix/refactor) the `.claude/docs/` doc to match the shipped code, then
@@ -121,16 +115,15 @@ which any branch may fold into its final commit without the flag.
 ## Size cap
 
 One task = one branch, right-sized at ~20 commits (medium). Soft cap:
-warn past 20, prompt to split past 30. The count is subordinate to the
-short-lived governor - the branch must still merge within ~2 days (≤3
-branches active; no big-bang merges - `git-workflow.md § Delivery
-cadence`). Override with stated reason in plan header.
+warn past 20, prompt to split past 30 - subordinate to the short-lived
+governor (`git-workflow.md § Delivery cadence`). Override with stated
+reason in plan header.
 
 ## Agentic execution
 
-The **batch** is the unit of delivery to `main` in both modes: one or
-more tasks that must land together, shipped as a single CI-gated MR/PR
-(`git-workflow.md`). A lone task is a batch of one - its
+The **batch** - one or more coupled tasks shipped as a single CI-gated
+MR/PR - is the unit of delivery to `main` in both modes. A lone task is
+a batch of one - its
 own branch is the MR/PR. Auto mode (`/dev auto`) runs a batch's members via subagents on a
 dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
 them by hand. Delivery is identical; only verification differs - auto
@@ -157,17 +150,17 @@ one `[ ]` per task:
     - [ ] T-015 (<slug>)
 
 Delivery grouping, not a planning level: a batch is scoped to the R
-whose dir holds it - members are open tasks of that R; coupled tasks
-(`depends-on`, or any not independently shippable) belong in one batch. `depends-on` must resolve within batch order
-or already-merged work. A cross-initiative need becomes its own R. The
+whose dir holds it - members are open tasks of that R (coupling: any tasks
+not independently shippable). `depends-on` must resolve within batch
+order or already-merged work. A cross-initiative need becomes its own R. The
 checkpoint validates exactly that R's acceptance criteria. Soft cap
 ~30 planned commits total, subordinate to the short-lived governor
 (`git-workflow.md § Delivery cadence`). Auto mode requires a stamped
 batch.
 
 Batch-close bookkeeping: the close phase marks batch and member-task
-checkboxes as commits on `batch/B-XXX` before the MR/PR - the marks reach
-`main` with the merge; reject discards them (§ Rails). The R-closure
+checkboxes as commits on `batch/B-XXX` before the MR/PR - marks land
+per § Closing routine; reject discards them (§ Rails). The R-closure
 check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) opened after the batch MR/PR merges.
 
@@ -186,10 +179,9 @@ manual-mode § Closing routine above is unchanged by this rule.
 - Pre-flight creates `batch/B-XXX` off latest `main` and sets the
   `pre-B-XXX` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.
-- Agents never push. The only delivery is the checkpoint-accept
-  **CI-gated MR/PR** of the batch branch to origin (`batch/B-XXX →
-  origin/main`) - never a push to `main` (mechanics:
-  `auto` checkpoint, `git-workflow.md`).
+- Agents never push; the only delivery is the checkpoint-accept
+  **CI-gated MR/PR** of the batch branch to origin (mechanics: `auto`
+  checkpoint).
 - No commit on red tests/lint - no exceptions.
 - Findings triage and push decisions always defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
