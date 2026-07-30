@@ -1,8 +1,7 @@
 # Docs adoption procedure
 
-Bring a project's `.claude/docs/` feature docs onto the doc-first convention.
-Run during a `migrate` adoption, or standalone via `/dev docs` - on a fresh
-adoption or as a re-runnable refresh of an already-documented project.
+The docs-adoption procedure behind `/dev docs` and `migrate § 7`
+(framing and re-run semantics: `docs.md`).
 
 ## Audit
 
@@ -20,8 +19,7 @@ Diataxis type, the Reference skeleton, the detail bar); a project's
   FAIL/TODO; keep it as input when the doc is rebuilt;
 - no doc → FAIL/TODO (no agent needed).
 
-Register any code issues found while probing (bugs, inconsistencies, debt) as
-fixable tasks - a `T-XXX` under a fitting open `R-XXX`, else an R stub
+Register code issues found while probing as tasks or R stubs
 (`plan.md § Referential integrity`). Record the coverage report; the missing
 docs and the WARN ones are the backlog.
 
