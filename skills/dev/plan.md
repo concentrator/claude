@@ -33,8 +33,7 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 
 ## Planning rounds
 
-The three-level artifact hierarchy above is planned in **two rounds**,
-not three - only the commands that emit the artifacts collapse:
+Only the commands that emit the artifacts collapse:
 
 - **Shape** (`/dev plan R`) - produce the initiative's `requirements.md`
   **and** a draft task list (`tasks.md`) together, approved at one gate.
@@ -43,10 +42,8 @@ not three - only the commands that emit the artifacts collapse:
 - **Detail** (`/dev plan R-XXX`) - produce the open R's tasks **and**
   their branch plans together.
 
-The single approval gate (§ Approval and closure) is unchanged: nothing
-downstream proceeds until `requirements.md` is approved.
-
-**Approval authorizes planning, not code.** Approving a plan delivers its
+**Approval authorizes planning, not code** (gate: § Approval and
+closure). Approving a plan delivers its
 MR/PR and stops: shape-approval authorizes the detail round; detail-approval
 authorizes nothing to run. A plan round never starts implementation - it
 ends by proposing `/dev code <slug>`, which the user invokes explicitly.
@@ -63,8 +60,7 @@ ends by proposing `/dev code <slug>`, which the user invokes explicitly.
 
 ## Referential integrity
 
-- Roadmap items are the chain root; each owns exactly one
-  `R-XXX-<slug>/` dir with its `requirements.md`.
+- Roadmap items are the chain root (dir act: § Directory conventions).
 - Tasks reference exactly one parent roadmap item.
 - Branch plans reference exactly one parent task (via header).
 - Each parent must be **open** (`[ ]`) at the time the child is created.
@@ -99,9 +95,8 @@ or other project directories.
   dir + `requirements.md` (`approved: pending`). Slug derives from the
   roadmap entry subject, is fixed at creation, and is never renamed on
   roadmap rewording.
-- Branch plans are task-id-prefixed (`T-XXX-<slug>.md`); findings sit
-  beside as `T-XXX-<slug>.findings.md`. Branch names: code branches carry
-  no id; `plan/` branches reference the R/T id (`git-workflow.md`).
+- Findings sit beside their branch plan (§ Where things live). Branch
+  naming: `git-workflow.md § Trunk`.
 - `R-XXX-<slug>/batches/` is created with the R's first batch
   manifest; batches are scoped to that single R (`branch-plan.md
   § Batches`).
@@ -110,9 +105,8 @@ or other project directories.
 
 Planning artifacts - requirements, design, roadmap, tasks, branch
 plans, release plans - live on `main` so they are visible across all
-branches. They reach `main` the same way as any change: a short-lived
-plan branch + CI-gated MR/PR, never a direct push (`git-workflow.md`). A
-single planning act still commits each artifact type separately -
+branches, reaching it via a plan branch + MR/PR like any change
+(`git-workflow.md § Trunk`). A single planning act still commits each artifact type separately -
 `requirements.md` distinct from the `ROADMAP` / per-R `tasks.md` index
 edits.
 
@@ -160,9 +154,8 @@ plan MR/PR once verified (e.g. a batch checkpoint -
 
 Plans and requirements are not physically moved when closed. Closed items
 are marked `[x]`. Git history preserves the work. Manual cleanup is
-possible but optional. The four-level-era `REQ-XXX` requirement content
-was folded into `REQUIREMENTS.md` as foundational behaviour and the files
-removed; git history preserves the originals.
+possible but optional. Legacy `REQ-XXX` content: folded into foundational
+`REQUIREMENTS.md`, files removed (§ ID format).
 
 Exceptions - may be moved to `.claude/plans/archive/` at the user's
 option:
