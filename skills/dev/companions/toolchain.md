@@ -13,12 +13,10 @@ change-request / merge / state-check / test / lint / build commands. It
 is the single source both modes read:
 
 - `/dev auto` uses it for `permissions.allow` (the pre-flight gate below).
-- Manual `finish` reads the host + change-request / merge / state-check
-  commands from it and runs the declared commands instead of probing
-  the host.
+- Manual `finish` runs the declared commands instead of probing the host.
 
-Declare it once. If it is absent, `finish` falls back to pushing the branch
-and printing the URL, and `migrate` backfills the section.
+Declare it once; `migrate` backfills it if absent (absent-host fallback:
+`finish § 3`).
 
 ## State check
 
