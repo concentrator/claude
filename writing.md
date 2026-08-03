@@ -31,3 +31,12 @@ it is.
 Do not restate a point already made in the same document. Introductions and
 conclusions are the usual offenders - if the opening makes an argument, the
 body goes deeper rather than echoing it.
+
+## One home per number
+
+A derived value - a count, total, or remaining-budget figure - is stated
+in at most one authoritative place; everything else references it. Never
+annotate data with its own count - the data is the count. Never copy a
+measured or computed value into static prose - cite the test, script, or
+findings file that produces it. Fixed constraints (limits, versions,
+ports) are facts, not tallies: state them where they bind.

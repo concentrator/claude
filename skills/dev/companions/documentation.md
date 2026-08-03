@@ -82,15 +82,18 @@ an Element.
 - **Self-sufficient**: everything needed to act, no live access or
   external search. Bar: a fresh reader with only this doc handles the
   hardest in-scope case.
-- **Exact, not vague**: concrete values (versions, names, paths, limits);
-  never "check the docs" in place of the fact.
+- **Exact, not vague**: concrete values (versions, names, paths,
+  limits) - identities and constraints; derived tallies per
+  `writing.md § One home per number`. Never "check the docs" in place
+  of the fact.
 - **Actionable over referential**: give the command or value, not a link
   to scrape.
 - **Justify or drop**: each requirement states why, or is removed.
 - **No dead ends**: no empty, stale, or broken links.
 - **Right content, right place**: exclude test/environment artifacts;
   include the real parameters.
-- **DRY**: a shared fact lives in one doc; others cross-reference it.
+- **DRY**: a shared fact lives in one doc; others cross-reference it
+  (numbers especially - `writing.md § One home per number`).
 - **Real examples**: an example is an executed call or case shown with its
   output, cited (a test run or recorded transcript); secrets as
   placeholders; never invented. It sits in the section it illustrates.
