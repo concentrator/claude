@@ -71,7 +71,9 @@ one atomic edit. Don't open or merge an MR/PR per change.
 VIBE: apply the change, then wait - no reflexive branch → MR/PR → merge.
 Related edits accumulate on the working branch; deliver (open the MR/PR +
 merge) at a work boundary - when the user moves to unrelated work or says
-to wrap up - confirming the merge first. An edit unrelated to the current
+to wrap up - confirming the merge first. A work boundary also settles
+findings: list any unsaved ones with a proposed destination each and get
+approval in one batch (`writing.md § One home per finding`). An edit unrelated to the current
 branch's topic → flag it and ask whether to deliver the current branch
 before starting fresh.
 

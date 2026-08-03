@@ -59,10 +59,6 @@ first.
   write no memories: record findings in the right artifact; a behavior
   change cites the repo update (commit/PR). VIBE: cross-project user
   preferences only.
-- A finding never rides along inside another file's edit: no history or
-  annotation notes in data or code files, no status notes parked in index
-  docs. At a work boundary, list unsaved findings with a proposed
-  destination each and get approval in one batch.
 
 ## Communication
 

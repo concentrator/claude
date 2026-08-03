@@ -32,6 +32,14 @@ Do not restate a point already made in the same document. Introductions and
 conclusions are the usual offenders - if the opening makes an argument, the
 body goes deeper rather than echoing it.
 
+## One home per finding
+
+A finding - a measurement, a decision, change history - lives in its owning
+artifact (task entry, findings file, commit/MR message), never inline in a
+file the change happens to touch: no history or annotation fields in data
+or code files, no status notes parked in index docs. Cite the owning
+artifact instead.
+
 ## One home per number
 
 A derived value - a count, total, or remaining-budget figure - is stated
