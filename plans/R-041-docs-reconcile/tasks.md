@@ -6,7 +6,7 @@ closes only when the task's branch merges. Task ids are composite
 
 ## Open
 
-- [ ] **R041-T001 [doc]**: archive the stock - create `plans/archive/`,
+- [x] **R041-T001 [doc]**: archive the stock - create `plans/archive/`,
   move every closed initiative's directory whole and closed tasks'
   artifacts out of the open initiatives (`plan.md § Archival`);
   promote first any fact a living doc still cites. Includes verifying
