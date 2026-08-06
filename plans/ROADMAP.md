@@ -2,7 +2,7 @@
 
 Initiative index. Items: `R-001: description`; each entry owns
 `R-XXX-<slug>/` with its `requirements.md`. A checkbox closes per
-`rules/planning.md § Approval and closure`.
+`skills/dev/plan.md § Approval and closure`.
 
 - [x] R-001: Restructure planning layout - indexes at `.claude/` root,
       per-roadmap-entry plan dirs, task-id-prefixed branch plans, batch
@@ -116,7 +116,3 @@ Initiative index. Items: `R-001: description`; each entry owns
       the present, verify `check-plan-integrity` across the move, and
       add the accretion check to the Tier-1 suite. Mirrors the
       adopter-side reconcile pattern.
-
-<!-- R-004's requirements are approved: pending - tasks spawn once
-     approved. Sequence after R-005: concurrency would multiply an
-     unoptimised verification routine. -->
