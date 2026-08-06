@@ -108,6 +108,18 @@ above the threshold keep the full per-branch review.
 **Scope:** this rule applies to auto mode only. Manual-mode
 `skills/dev/branch-plan.md § Closing routine` is unaffected.
 
+## Comprehension check
+
+Part of the readiness review (`branch-plan.md § agentic: stamp`). A
+stamped plan is implemented by a cold-context agent, so test it on one:
+dispatch a fresh subagent with exactly the implementer's inputs - the
+commit-item text plus parent-chain context, never the plan file or the
+planning conversation - and ask what it would build and what is
+ambiguous or assumed. A question the inputs cannot answer is a plan
+gap, not a reader fault: fix via `/dev plan <slug>` before stamping.
+This catches `NEEDS_CONTEXT` halts at planning time, when the user is
+present and the fix is cheap.
+
 ## Models
 
 | Role | Model (dispatch value) |
