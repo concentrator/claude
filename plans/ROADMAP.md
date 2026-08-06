@@ -254,6 +254,13 @@ Initiative index. Items: `R-001: description`; each entry owns
       winners, then one owner per rule with pointers, twins
       single-sourced, execution files as cadence deltas.
       (shaped 2026-07-30)
+- [ ] R-040: Supervisor-orchestrated autonomous DEV - a local
+      supervisor agent, in its own context, orchestrates planned-task
+      execution running in sessions on a remote machine: reviews and
+      merges MRs within declared capability bounds, verifies task/doc
+      correctness at boundaries, and runs the `/dev auto` cadence; the
+      user syncs with the supervisor periodically and resolves raised
+      issues. Stub - shape later.
 
 <!-- R-004's requirements are approved: pending - tasks spawn once
      approved. Sequence after R-005: concurrency would multiply an
