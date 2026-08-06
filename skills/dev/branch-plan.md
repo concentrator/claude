@@ -147,8 +147,9 @@ runs the checkpoint below, manual uses § Closing routine +
 A plan becomes auto-eligible via a **readiness review** (run by
 `/dev plan batch` for unstamped plans): each commit item must be
 unambiguous, have a testable outcome, depend only on earlier items,
-and need no design judgment beyond the plan's text. Items failing →
-fix via `/dev plan <slug>` first. User approves → stamp
+and need no design judgment beyond the plan's text - backed by a
+cold-reader check (`companions/verification-policy.md § Comprehension
+check`). Items failing → fix via `/dev plan <slug>` first. User approves → stamp
 `agentic: approved YYYY-MM-DD`.
 
 ### Batches

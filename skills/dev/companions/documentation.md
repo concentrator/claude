@@ -114,6 +114,11 @@ config files, vendor docs) otherwise.
   the doc as unverified / expert-needed - never asserted as fact.
 - A claim that cannot be independently checked is UNPROVEN; split a large
   doc across parallel reviewers by section (`dispatching-parallel-agents`).
+- Comprehension pass, same reviewer: answer from the doc alone - what is
+  ambiguous, what context does the doc assume the reader already has,
+  and where does it contradict itself. Findings are fixed like WRONG
+  claims: the verdicts check that the doc is true, this checks that it
+  is usable cold.
 - Artifact-free: version-control history records that the review ran; no
   separate stamp or ledger is kept.
 
