@@ -7,7 +7,7 @@ kind: feat
 
 ## Motivation
 
-`/dev auto` (engine: `delegating-to-agents`) runs a batch strictly
+`/dev auto` (engine: `skills/dev/auto.md`) runs a batch strictly
 serially: branches in batch order, one implementer subagent per commit,
 each gated by a spec-review and (at close) a code-review agent. For a
 batch of branches that ship to **independent components**, this wastes
@@ -111,7 +111,7 @@ warrants because every model round-trip is sequential.
 
 ## References
 
-- `~/.claude/skills/delegating-to-agents/SKILL.md` - serial engine to extend.
-- `~/.claude/rules/branch-plan.md § Agentic execution` - batch schema, rails.
-- `~/.claude/skills/dispatching-parallel-agents/SKILL.md` - existing
+- `skills/dev/auto.md` - the serial engine to extend.
+- `skills/dev/branch-plan.md § Agentic execution` - batch schema, rails.
+- `skills/dispatching-parallel-agents/SKILL.md` - existing
   parallel-agent patterns and worktree isolation.

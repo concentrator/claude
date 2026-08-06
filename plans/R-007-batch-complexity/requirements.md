@@ -35,9 +35,9 @@ optimized default, without dialing every commit individually.
 
 ## Constraints
 
-- Depends on R-006 (defines the batch as the delivery unit the level
-  attaches to); sequence after it.
-- Lives in `verification-policy.md` (R-005's domain).
+- Attaches to the batch delivery unit (R-006).
+- Lives in `skills/dev/companions/verification-policy.md` (R-005's
+  domain).
 
 ## Open questions
 
@@ -47,5 +47,4 @@ optimized default, without dialing every commit individually.
 
 ## References
 
-- R-005 (the levers this dials), R-006 (the batch unit), this session's
-  brainstorming.
+- R-005 (the levers this dials), R-006 (the batch unit).
