@@ -23,7 +23,7 @@ closes only when the task's branch merges. Task ids are composite
   artifacts; `archive/` exempt. Exact patterns tuned on the compacted
   corpus. `depends-on: R041-T002`
 
-- [ ] **R041-T004 [mnt]**: composite-id support in
+- [x] **R041-T004 [mnt]**: composite-id support in
   `check-plan-integrity` - parse `R###-T###` task entries (owner prefix
   must match the dir's R), include them in the known-task set, resolve
   `task:`/`depends-on:` composite references exactly (no substring
