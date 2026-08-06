@@ -15,11 +15,16 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 2. **Tasks** - `.claude/plans/R-XXX-<slug>/tasks.md`, one index per
    initiative, created lazily with the R's first task (an R with no tasks
    has none). Concrete units of work. Items:
-   `T-001 (R-001) [feat]: description` - the tag in brackets
+   `R001-T001 [feat]: description` - the tag in brackets
    (`[feat] | [fix] | [refactor]`) declares task type and determines the
    branch prefix. Checkbox closes only when the task's branch is merged.
-   T-ids are global and monotonic; the next free id is the highest T-id
-   across all per-R `tasks.md`, plus one. `ROADMAP.md` is the cross-R
+   Task ids are composite (`R<NNN>-T<NNN>`) with the T counter scoped to
+   the initiative: the next free id is the highest in this R's
+   `tasks.md`, plus one - no cross-R lookup. The id itself routes: the
+   task's artifacts live in `plans/R-<NNN>-<slug>/`, or the same path
+   under `archive/`. Legacy bare `T-XXX` ids (the retired global
+   counter) stay valid and are never renumbered; they drain out through
+   archival. `ROADMAP.md` is the cross-R
    index (initiative granularity) - there is no flat global task list.
    **Right-size**: a task is a coherent, multi-commit deliverable (a
    self-contained capability or fix), not a single edit - commit-sized
@@ -27,8 +32,9 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
    "add the size-scaled close-review policy" (the rule + its skill wiring
    + doc cross-refs) is one task; "fix a typo in a rule" is a commit
    within a task, never a task of its own.
-3. **Branch plan** - `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`.
-   Checkboxes per commit. Header: `task: T-001`. Checkbox closes at
+3. **Branch plan** - `.claude/plans/R-XXX-<slug>/<task-id>-<slug>.md`
+   (e.g. `R008-T001-ip-verify.md`; legacy `T-XXX-<slug>.md`).
+   Checkboxes per commit. Header: `task: R008-T001`. Checkbox closes at
    commit time. See `branch-plan.md`.
 
 ## Planning rounds
@@ -51,10 +57,14 @@ ends by proposing `/dev code <slug>`, which the user invokes explicitly.
 ## ID format
 
 - Initiatives (roadmap): `R-001`, `R-002`, ...
-- Tasks: `T-001`, `T-002`, ...
+- Tasks: `R001-T001`, `R001-T002`, ... - composite, T counter scoped to
+  the initiative. A task moving to another initiative closes under its
+  old id with a one-line tombstone naming the new id; ids are never
+  renumbered. Legacy bare `T-XXX` (retired global counter): valid,
+  frozen, never reissued.
 - Batches: `B-001`, `B-002`, ... (execution grouping, not a level -
   see `branch-plan.md § Agentic execution`)
-- One-indexed, three digits, monotonic.
+- One-indexed, three digits, monotonic within their scope.
 - `REQ-XXX` is retired: requirement content carries its parent's
   R-XXX id (legacy files: § Archival).
 
@@ -70,6 +80,10 @@ ends by proposing `/dev code <slug>`, which the user invokes explicitly.
   instead - the initiative act per § Directory conventions, shaped
   in a later shape round (`/dev plan R`). Never create a task with a
   closed, missing, or unrelated parent.
+- Only a discovery that blocks the current task's goal becomes a task
+  immediately. Anything else is an unnumbered backlog line in the owning
+  R's `tasks.md`, promoted to a task - or dropped - at that R's next
+  shape/detail round.
 
 ## Where things live
 
@@ -152,19 +166,21 @@ plan MR/PR once verified (e.g. a batch checkpoint -
 
 ## Archival
 
-Plans and requirements are not physically moved when closed. Closed items
-are marked `[x]`. Git history preserves the work. Manual cleanup is
-possible but optional. Legacy `REQ-XXX` content: folded into foundational
-`REQUIREMENTS.md`, files removed (§ ID format).
+Closing archives, in two steps. **Promote**: any durable fact the
+task's artifacts established moves to its permanent home - component
+behavior to docs, external-system facts to references, binding limits
+to where they bind. **Archive**: the branch plan and findings then move
+to `.claude/plans/archive/R-XXX-<slug>/`; the `tasks.md` line stays as
+the index. When an initiative closes, its whole directory moves under
+`archive/`. A living doc never cites `archive/` for operative content -
+if it needs a fact from there, promotion missed it; move the fact.
+(Closure-evidence stamps citing archived findings are historical
+pointers, not operative content.)
 
-Exceptions - may be moved to `.claude/plans/archive/` at the user's
-option:
-
-- Release plans (`release-vX.Y.Z.md`) after the release ships (offered
-  by the `release` skill).
-- Pre-DEV legacy artifacts: completed plan files predating the
-  project's DEV adoption, with no `task:` chain. Closed DEV plans stay
-  in their `R-XXX-<slug>/` dirs.
+Also archived, at the user's option: release plans after the release
+ships (offered by the `release` skill) and pre-DEV legacy artifacts
+(completed plan files with no `task:` chain). Legacy `REQ-XXX` content:
+folded into foundational `REQUIREMENTS.md`, files removed (§ ID format).
 
 ## Templates
 
