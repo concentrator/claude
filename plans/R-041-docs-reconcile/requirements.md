@@ -8,10 +8,10 @@ kind: chore
 ## Motivation
 
 This repo authored the docs-lifecycle conventions (`plan.md § Archival`,
-`writing.md § State the present`, composite task ids) and has not
-applied them to itself: 36 of 40 initiatives are closed yet every R-dir
-sits in `plans/`, and `ROADMAP.md` entries carry supersession markers
-and dated status suffixes. The corpus every `/dev` session greps is
+`writing.md § State the present`, composite task ids) without applying
+them to itself: nearly all initiatives were closed yet every R-dir sat
+in `plans/`, `ROADMAP.md` entries carried supersession markers and
+dated status suffixes, and the corpus every `/dev` session grepped was
 mostly closed work. Mirrors the adopter-side reconcile (attack-checker
 R-020), scoped to what this repo has - no `.claude/docs/` layer.
 

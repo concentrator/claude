@@ -12,7 +12,7 @@ closes only when the task's branch merges. Task ids are composite
   promote first any fact a living doc still cites. Includes verifying
   `check-plan-integrity` resolves archived paths - extend the check in
   the same branch if the move breaks it.
-- [ ] **R041-T002 [doc]**: compaction pass - `ROADMAP.md` (closed
+- [x] **R041-T002 [doc]**: compaction pass - `ROADMAP.md` (closed
   entries compressed to one-line index items; supersession markers and
   dated suffixes removed) and the open initiatives'
   `requirements.md`/`tasks.md` rewritten to state the present

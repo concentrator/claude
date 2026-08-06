@@ -2,258 +2,107 @@
 
 Initiative index. Items: `R-001: description`; each entry owns
 `R-XXX-<slug>/` with its `requirements.md`. A checkbox closes per
-`rules/planning.md § Approval and closure`.
+`skills/dev/plan.md § Approval and closure`.
 
-- [x] R-001: Restructure planning layout - indexes to
-      `.claude/` root, per-roadmap-entry plan dirs, task-id-prefixed
-      branch plans, batch manifests dir; rules, skills, and adopter
-      projects migrated.
-- [x] R-002: Batch integration flow - `batch/B-XXX` branch,
-      enforced checkpoint report artifact, full-strength batch review,
-      push + MR at accept.
-- [x] R-003: Flatten the requirement level into roadmap
-      entries - R-rooted chain with in-dir `requirements.md`, indexes
-      moved to `plans/`, batches scoped under their R-dir, single
-      closure point on verified acceptance criteria, batch-close
-      bookkeeping on the batch branch; rules, skills, and adopter
-      projects migrated.
+- [x] R-001: Restructure planning layout - indexes at `.claude/` root,
+      per-roadmap-entry plan dirs, task-id-prefixed branch plans, batch
+      manifests dir.
+- [x] R-002: Batch integration flow - `batch/B-XXX` branch, enforced
+      checkpoint report, full-strength batch review, push + MR at accept.
+- [x] R-003: Flatten the requirement level into roadmap entries -
+      R-rooted chain with in-dir `requirements.md`, single closure point
+      on verified acceptance criteria.
 - [ ] R-004: Parallel batch execution for DEV auto mode - run
       independent member branches concurrently between checkpoints.
-- [x] R-005: Trim agentic verification cost - verification-depth
-      policy (spec-check skip for mechanical commits), per-role model
-      routing, branch-close folding, slimmer dispatch prompts, context
-      diet for always-loaded rules; no defect regression vs the
-      B-002/B-003 baseline.
-- [x] R-006: Trunk-based, lean, self-enforcing config - adopt TBD
-      (protected `main`, CI-gated PRs, batch as the universal delivery
-      unit, tag-on-trunk); git rules → `git-workflow.md`; CLAUDE.md ≤400
-      + dev ≤300; mistitle + anti-assumption fixes; self-enforcement via
-      `maintenance.md` + `maintenance.json` + GitHub CI + pre-push hook
-      (~/.claude reference impl).
+- [x] R-005: Trim agentic verification cost - verification-depth policy,
+      per-role model routing, branch-close folding, slimmer dispatch
+      prompts, context diet for always-loaded rules.
+- [x] R-006: Trunk-based, lean, self-enforcing config - protected
+      `main`, CI-gated PRs, batch as the delivery unit, tag-on-trunk,
+      CI + pre-push self-enforcement.
 - [ ] R-007: Per-batch complexity level - `normal`/`high` dial over the
       verification levers (model tier, spec-check skip, close-folding,
-      effort, loop rigor); attaches to R-006's batch unit. Sequence
-      after R-006. (stub - shape via `/dev plan R-007`)
-- [x] R-008: Wallarm reference skill - single global `skills/wallarm/`
-      (thin index + on-demand companion parts: hits, sessions, rules),
-      consolidating the existing Wallarm skills; enforced conventions
-      split into a path-scoped rule. (superseded 2026-07-07 - the Wallarm
-      reference skills live in the `skills/` repo, not a global
-      `~/.claude/skills/wallarm/`)
-- [x] R-009: Adopter-project TBD migration - `migrating-to-dev` gains a
-      mode that migrates an already-DEV, pre-TBD project (PR-only
-      delivery, `.claude/` structure reconcile, tag-on-trunk
-      close/release); `starting-a-project` establishes a protected trunk
-      + PR gate. Grounded in `wallarm-api-js`. (approved 2026-06-16)
-- [x] R-010: Frictionless planning-PR delivery - merge-friendly ledger
-      (`maintenance.jsonl` + `.gitattributes merge=union`, no more
-      concurrent-PR conflicts) + `plan/` PRs auto-merge on a green gate
-      (native host where available; agent `gh`/`glab` fallback).
-      (approved 2026-06-17)
-- [x] R-011: Delivery cadence - one branch = one coherent unit of work
-      (topic/session), never one atomic edit; VIBE applies-then-waits and
-      delivers at a work boundary with merge confirmation; topic-switch
-      flagging; DEV inherits the principle. (approved 2026-06-19)
-- [x] R-012: Writing quality - global `## Writing` rule (convey intent,
-      not verbatim phrasing; conventional terminology, no coined jargon;
-      all output) + consolidate the anti-transplant bullets + a Tier-2
-      review gate. (approved 2026-06-23)
-- [x] R-013: JS file-naming convention - `rules/js.md` defines kebab-case
-      (PascalCase for a class/component file matching its export;
-      tool-mandated names exempt) + a copyable CI kebab-or-PascalCase
-      filename check; no-MAINTENANCE.md behavior documented.
-      (approved 2026-06-23)
-- [x] R-014: Per-initiative task indexes - deprecate flat `plans/TASKS.md`;
-      each R-dir owns a lazily-created `tasks.md` (global T-ids retained;
-      ROADMAP stays the cross-R index); update rules/skills/check +
-      self-migrate this repo + add the `migrating-to-dev` split step.
-      (approved 2026-06-23)
-- [x] R-015: Embeddable self-contained DEV toolchain - opt-in vendor of
-      the portable DEV core (skills, rules, generic CLAUDE.md, CI minus
-      ledger) into a project's `.claude/`, path-rewritten and committed;
-      embedded conventions take precedence (`dev-*` namespaced skills +
-      embed-aware global `dev` preserving `/dev`); version-stamped with
-      drift detection and re-vendor sync. (approved 2026-06-30; superseded by R-021)
-- [x] R-016: Lean DEV planning & delivery - collapse planning to two
-      rounds (`/dev plan R` shapes requirements+tasks under one gate,
-      deferrable; `/dev plan R-XXX` details tasks+branch-plans);
-      right-size tasks to multi-commit deliverables; scale branch-close
-      review to size (refactor→simplify, feature/bugfix→code-review,
-      mixed-or->9-commits→both); resolve findings in-branch unless
-      cross-component; medium branch ~20 / batch ~30 under the
-      short-lived governor. Sequence before R-015 implementation.
-      (approved 2026-06-30)
-- [x] R-017: migrating-to-dev legacy/non-canonical detection - mode
-      detection keys on `.claude/plans/ROADMAP.md` presence, which matches
-      a lowercase `roadmap.md` on a case-insensitive filesystem and
-      mis-routes a legacy adoption to the Already-DEV path, skipping the
-      Inventory gap-check; and neither path re-canonicalizes a
-      legacy-schema `.claude/` (lowercase filenames, retired `REQ-XXX`,
-      flat tasks index). Run the inventory regardless of mode; detect and
-      guided-canonicalize legacy schemas. (approved 2026-07-01)
-- [x] R-018: Void the bootstrap-exception contradiction -
-      `migrating-to-dev`/`starting-a-project` cite a "bootstrap exception"
-      and commit direct-to-`main` after protecting it, but
-      `git-workflow.md` defines no such exception and protection refuses
-      the push. Define it narrowly (only the initial `main`-creating
-      commit in a new repo, before protection); reorder
-      `starting-a-project` (scaffold then protect); `migrating-to-dev`
-      delivers adoption artifacts via a branch + MR/PR. (R-021/T-048 fixed
-      the migrate/start companions; git-workflow.md now defines the
-      bootstrap exception and start.md protects after the main-creating
-      commit - done 2026-07-07)
-- [x] R-019: Vendor embed onto a non-empty `.claude/` - the transform
-      assumes a near-empty target. (a) The copy overwrites an adopter's
-      existing same-named rule (it clobbered a project-specific
-      `skills.md` on the wallarm skills embed); (b) the path-rewrite globs
-      all of `DEST`, so it rewrites pre-existing adopter files, including
-      archived history. Preserve adopter files on initial embed (as
-      `--update` preserves `CLAUDE.md`); scope the rewrite to
-      vendored/copied files. (mooted by R-021 - no vendoring)
-- [x] R-020: Consolidate branch-close into `branch-plan.md` - fold the
-      `finishing-a-branch` skill into `branch-plan.md § Closing routine`
-      (one on-demand owner; `git-workflow.md` stays pure policy), and
-      restore the manual-verification as a **distinct blocking step**
-      before the merge options (the review→push+MR regression: the verify
-      offer had been bundled into `finishing-a-branch § 2` and glossed).
-      Rewire all `finishing-a-branch` references (4 files), drop the skill,
-      update the vendor/manifest, and re-vendor adopters. (absorbed by
-      R-021: finishing-a-branch → skills/dev/finish.md; verify-gate → R-024)
-- [x] R-021: Isolated, self-contained DEV toolset - keep `dev` as the
-      `/dev` skill router, relocating DEV process rules + sub-skills into
-      inert `skills/dev/` companion mode files (fire only when `/dev` reads
-      them, no global pollution); trunk discipline via a PreToolUse
-      branch-guard hook; `skill-creator`/`writing-skills` stay standalone.
-      Distribution rides skill precedence (personal > project) - no
-      vendoring, no prefix; retires R-015 embedding and its wallarm embed.
-      (approved 2026-07-03)
-- [x] R-022: Config conventions & guardrails - adopt the non-stack
-      guardrail conventions the claude-code-mastery template embodies (the
-      merge-into-CLAUDE.md premise dissolved on walk-through: no
-      CLAUDE.md-level content beyond a security pointer). Four feat tasks: a
-      secrets gatekeeper (doc + PreToolUse hook, never-commit focus, local
-      `.env` preserved), code-size gates (file>300/function>50 + CI check +
-      override), new-project scaffolding required-files
-      (`start.md`/`layout.md`), and a routine-commands convention (project
-      CLAUDE.md declares host + git/test/lint/build; execution reads them,
-      no probing). Secrets hook + code-size check ship to adopters via
-      `install-dev.sh`. Sequence after R-021. (shaped 2026-07-05)
-- [x] R-023: Feature documentation layer (docs/) - a `.claude/docs/`
-      artifact class for per-feature docs on how our own code works (data
-      model, interfaces, business rules, edge cases), sitting between
-      `DESIGN.md` and code; sibling to the external `references/`
-      (`layout.md`). A doc-first step in the execution cycle + a doc-to-code
-      reconcile at branch close. Quality bar: a fresh agent reads only the
-      doc and implements correctly. Shaped lean; the lookup table, migrate
-      audit, and fresh-agent verification are deferred to future stubs.
-      (shaped 2026-07-08)
-- [x] R-024: DEV confirmation and outcome gates - enforce two interactive
-      boundaries plus make the guard precise: (a) plan->code - approving a
-      plan never auto-starts coding; the plan round stops and proposes
-      `/dev code`; (b) branch close - `finish` presents outcome, then a
-      distinct verify step, then merge options before opening the MR/PR
-      (un-bundles the R-020 verify leftover); (c) branch-guard precision -
-      stop false-blocking compound `checkout && commit`, cross-repo
-      `git -C`, and gitignored-path writes on main. Ledger-conflict friction
-      is a separate fix. Surfaced dogfooding R-021. (done 2026-07-08)
-- [ ] R-025: Explicit review checklist - make code review's checks explicit
-      instead of implicit. Adopt a review.md-style checklist (Correctness,
-      Security, Performance, Maintainability) with a severity-tagged output
-      format (CRITICAL/HIGH/MEDIUM/LOW) across `agents/code-reviewer.md`, the
-      `receiving-code-review` skill, and the `finish` close-review, so it is
-      clear what each review covers (the `/simplify` vs code-review clarity
-      gap). Sequence after R-022. (stub - shape via `/dev plan R-025`)
-- [x] R-026: Writing conventions - ban em dashes in every tracked file
-      (code and prose): a shipped convention doc + a Tier-1 check over all
-      files + a one-time sweep of the 1043 existing occurrences to hyphens;
-      plus prose style for `.md` (no AI-tell words, no repetition) as Tier-2
-      review criteria. Ships to adopters via the installer (code-size model)
-      so a team writes consistently. Sequence after R-022. (shaped 2026-07-06)
-- [x] R-027: Conflict-free Tier-2 ledger - concurrent PRs conflict on the
-      single appended `maintenance.jsonl` because the host's server-side
-      merge ignores the `merge=union` driver. Replace it with a per-commit
-      stamp store (`maintenance.d/<content-tip-sha>.json`): each PR writes
-      its own file, so concurrent stamps never touch the same path.
-      `check-ledger` scans the store with the same content-tip guarantee;
-      drop `maintenance.jsonl` + `merge=union`, no migration. Self-hosting
-      only. Fixes the R-024 non-goal. (shaped 2026-07-08)
-
-- [x] R-028: Self-enforcement layer hygiene - CI runs the `check-*` gates
-      but never the `scripts/test/*.test.sh` suites, so a regression in a
-      gate's or hook's own logic ships unnoticed. Add a
-      `scripts/test/run-all.sh` wired into `ci.yml` (blocking) + pre-push.
-      Surfaced closing R-027. (T-061 ledger-prune dropped - R-029 retires
-      the ledger.) (shaped 2026-07-08)
-
-- [x] R-029: Retire the Tier-2 ledger - the `concerns_clear` stamp
-      (`maintenance.d/<sha>.json`) gated by `check-ledger.sh` is a weak,
-      self-attested forcing function (the authoring agent writes its own
-      stamp), duplicates a SHA git already tracks, and generated its own
-      upkeep (R-027, R-028's prune). Delete the gate + store + stamp step;
-      keep the five-concern Tier-2 review as a mandatory branch-close step.
-      Reduces R-028 to T-060. (shaped 2026-07-08)
-
-- [x] R-030: Docs-layer routing & adoption - two gaps that keep R-023's
-      docs layer from scaling. A CLAUDE.md doc-lookup table routes to the
-      right `.claude/docs/` file before coding; a `migrate` docs-adoption
-      step audits existing code for coverage (fresh-agent spec-check ->
-      PASS/WARN/FAIL/TODO + a docs backlog), builds a prioritized subset now
-      with the rest backfilled on-touch, and corrects the workflow to
-      doc-first. Realizes the three pieces R-023 deferred. Sequence after
-      R-023. (shaped 2026-07-08)
-- [x] R-031: Standalone `/dev docs` command - R-030 put docs
-      audit/build/correction in `migrate § 7`, reachable only on migrate's
-      Fresh route, so already-DEV projects can't adopt or refresh the docs
-      layer. Extract the procedure to `companions/docs-adoption.md` (migrate
-      § 7 points to it) and add `/dev docs`, which runs it on the current
-      project, re-runnable to refresh. Extends R-030. (shaped 2026-07-10)
-- [x] R-032: Strengthen the feature-doc detail bar - R-023's global template
-      names sections but doesn't force detail; building real docs in
-      wallarm-api-js needed a stronger project-local convention. Fold the
-      domain-neutral strengthenings into `layout.md § Docs` (full input
-      surface, provenance markers, real tested examples, sharpened quality
-      bar) and align `companions/docs-adoption.md`; note project-local
-      extension via `.claude/rules/feature-docs.md`. (shaped 2026-07-10)
-- [x] R-033: Standardize documentation conventions (Diataxis) - adopt a
-      global, standard-grounded documentation framework (Diataxis typing,
-      reference skeleton, generalized detail bar, diagrams, content quality,
-      provenance; formatting defers to `writing.md`) with an
-      independent-agent per-claim verification gate as the docs completion
-      gate. The feature-docs layer folds in as the Reference application;
-      supersedes/subsumes R-023/030/031/032. Grounded in a field-built
-      framework, absorbed into `skills/dev/companions/documentation.md`
-      (verification gate: T-072). (shaped 2026-07-11)
-- [x] R-034: Branch-guard scope - foreign-path writes - the guard falsely
-      denies a write to a path outside the cwd repo when that repo sits on
-      a trunk branch (`check-ignore` exits 128, the T-058 carve-out never
-      fires). Deny only paths inside the repo and not ignored; keep
-      fail-open. (shaped 2026-07-12; foreign-path allow narrowed by R-036)
+      effort, loop rigor); attaches to R-006's batch unit.
+      (stub - shape via `/dev plan R-007`)
+- [x] R-008: Wallarm reference skill - superseded: the Wallarm reference
+      skills live in the `skills/` repo, not `~/.claude/skills/`.
+- [x] R-009: Adopter-project TBD migration - already-DEV pre-TBD
+      projects migrate to PR-only delivery; `start` establishes a
+      protected trunk.
+- [x] R-010: Frictionless planning-PR delivery - `plan/` MR/PRs
+      auto-merge on a green gate (native host or agent fallback).
+- [x] R-011: Delivery cadence - one branch = one coherent unit of work;
+      VIBE applies-then-waits and delivers at a work boundary.
+- [x] R-012: Writing quality - global convey-intent writing rule +
+      Tier-2 review gate.
+- [x] R-013: JS file-naming convention - `rules/js.md` kebab-case
+      (PascalCase for class files) + a copyable CI filename check.
+- [x] R-014: Per-initiative task indexes - each R-dir owns a
+      lazily-created `tasks.md`; ROADMAP stays the cross-R index.
+- [x] R-015: Embeddable self-contained DEV toolchain - superseded by
+      R-021 (no vendoring).
+- [x] R-016: Lean DEV planning & delivery - two planning rounds,
+      right-sized multi-commit tasks, size-scaled close review.
+- [x] R-017: migrating-to-dev legacy detection - inventory runs
+      regardless of mode; legacy schemas detected and
+      guided-canonicalized.
+- [x] R-018: Bootstrap exception defined narrowly - only the initial
+      `main`-creating commit before protection; `start` protects after
+      it; migration delivers via branch + MR/PR.
+- [x] R-019: Vendor embed onto a non-empty `.claude/` - mooted by R-021
+      (no vendoring).
+- [x] R-020: Consolidate branch-close into `branch-plan.md` - absorbed
+      by R-021 (`finish.md`) and R-024 (verify gate).
+- [x] R-021: Isolated, self-contained DEV toolset - the `/dev` router
+      over inert `skills/dev/` mode files; trunk discipline via the
+      branch-guard hook; distribution via skill precedence, no
+      vendoring.
+- [x] R-022: Config conventions & guardrails - secrets gatekeeper hook,
+      code-size gates, scaffold required-files, routine-commands
+      convention.
+- [x] R-023: Feature documentation layer - `.claude/docs/` per-feature
+      docs between `DESIGN.md` and code; doc-first execution step +
+      doc-to-code reconcile at close.
+- [x] R-024: DEV confirmation and outcome gates - plan approval never
+      auto-starts code; `finish` verifies before merge options; precise
+      branch guard.
+- [ ] R-025: Explicit review checklist - a review.md-style checklist
+      (Correctness, Security, Performance, Maintainability) with
+      severity-tagged output across the reviewer agent, the
+      `receiving-code-review` skill, and the `finish` close-review.
+      (stub - shape via `/dev plan R-025`)
+- [x] R-026: Writing conventions - em dashes banned in every tracked
+      file (Tier-1 check + one-time sweep); prose style as Tier-2
+      review criteria.
+- [x] R-027: Conflict-free Tier-2 ledger - per-commit stamp store
+      replaced the appended ledger; retired with the ledger by R-029.
+- [x] R-028: Self-enforcement layer hygiene - `scripts/test/run-all.sh`
+      wired into CI and pre-push, blocking.
+- [x] R-029: Retire the Tier-2 ledger - gate, store, and stamp step
+      deleted; the five-concern Tier-2 review stays a branch-close step.
+- [x] R-030: Docs-layer routing & adoption - CLAUDE.md doc-lookup
+      routing + the migrate docs-adoption audit.
+- [x] R-031: Standalone `/dev docs` command - docs audit/build/refresh
+      runnable on any project (`companions/docs-adoption.md`).
+- [x] R-032: Feature-doc detail bar - full input surface, provenance
+      markers, tested examples (`layout.md § Docs`).
+- [x] R-033: Documentation conventions (Diataxis) - global framework +
+      independent-agent per-claim verification gate
+      (`companions/documentation.md`); supersedes R-023/R-030/R-031/
+      R-032.
+- [x] R-034: Branch-guard foreign-path scope - deny only paths inside
+      the owning repo and not ignored; fail-open.
 - [x] R-035: Atomic branch-close bookkeeping - task/R marks ride the
-      branch's mandatory final commit and reach `main` with the merge
-      (as auto mode already does), replacing the per-task close-out PR;
-      post-merge shrinks to sync + delete. Close-out PR only for
-      run-dependent closure criteria. (shaped 2026-07-22)
-- [x] R-036: Branch-guard target scope - judge writes by the target
-      path's owning repo, not the session cwd: trunk + tracked-side
-      targets deny from any cwd; ignored / branch / no-repo targets stay
-      allowed. Narrows R-034's unconditional foreign-path allow.
-      (shaped 2026-07-22)
+      final commit and land with the merge; close-out PR only for
+      run-dependent criteria.
+- [x] R-036: Branch-guard target scope - writes judged by the target
+      path's owning repo, not the session cwd.
 - [x] R-037: Branch-guard compound detection - the branch-create
-      exemption misses `git -C <path> checkout -b` (global options
-      between `git` and the verb), falsely denying branch-and-commit
-      one-liners; mirror the commit-regex option group.
-      (shaped 2026-07-22)
-- [x] R-038: Declared state-check command - one declared, allowlisted,
-      JSON-emitting MR/PR state check per host (`gh pr view --json` /
-      `glab mr view --output json`), forced via the declared-commands
-      rule; ends improvised view+grep pipelines and their permission
-      prompts. (shaped 2026-07-30)
-- [x] R-039: Single-home the /dev system - a precedence-ordered dedup
-      audit found 15 contradictions and 8 duplication clusters across
-      30 files (~15% removable); resolve contradictions toward named
-      winners, then one owner per rule with pointers, twins
-      single-sourced, execution files as cadence deltas.
-      (shaped 2026-07-30)
+      exemption covers `git -C` option groups.
+- [x] R-038: Declared state-check command - one allowlisted,
+      JSON-emitting MR/PR state check per host.
+- [x] R-039: Single-home the /dev system - one owner per rule with
+      pointers; twins single-sourced; execution files as cadence deltas.
 - [ ] R-040: Supervisor-orchestrated autonomous DEV - a local
       supervisor agent, in its own context, orchestrates planned-task
       execution running in sessions on a remote machine: reviews and
@@ -267,7 +116,3 @@ Initiative index. Items: `R-001: description`; each entry owns
       the present, verify `check-plan-integrity` across the move, and
       add the accretion check to the Tier-1 suite. Mirrors the
       adopter-side reconcile pattern.
-
-<!-- R-004's requirements are approved: pending - tasks spawn once
-     approved. Sequence after R-005: concurrency would multiply an
-     unoptimised verification routine. -->
