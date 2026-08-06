@@ -29,7 +29,7 @@ while IFS= read -r f; do
     [ "$r" = "$owner" ] || report "$t in $f names $r but its dir is $owner"
     all_ts+="$t"$'\n'
   done < <(grep -E '^- \[[ x]\] T-[0-9]{3}' "$f")
-done < <(git ls-files "$ROOT/plans/R-*/tasks.md")
+done < <(git ls-files "$ROOT/plans/R-*/tasks.md" "$ROOT/plans/archive/R-*/tasks.md")
 
 task_ts=$(printf '%s' "$all_ts" | grep -E 'T-[0-9]{3}' | sort -u || true)
 
