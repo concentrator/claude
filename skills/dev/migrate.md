@@ -11,6 +11,13 @@ Bring an existing project under DEV. Always run § 1 Inventory, then route:
 - **Already-DEV** - canonical R-rooted `ROADMAP.md`: pre-TBD → TBD
   migration (`companions/tbd-migration.md`; approval-gated - the agent executes each
   approved step; host-side settings stay the user's); TBD-conformant → conformant, no changes.
+  Either way, check the id/archival schema: a project on the legacy global
+  T-id scheme adopts composite ids for NEW tasks (`plan.md § ID format`;
+  legacy ids frozen, never renumbered) by stating the convention in each
+  open `tasks.md` header. Draining the stock - archive closed work,
+  compact living docs, gate accretion (`plan.md § Archival`,
+  `writing.md § State the present`) - is proposed as a docs-reconcile
+  initiative, never done inline during migration.
 
 ## 1. Inventory
 
@@ -61,7 +68,7 @@ contributors.
 
 Create `.claude/plans/` with `ROADMAP.md` (per-R `tasks.md`, created
 lazily). Ask about ongoing work → initiatives (R-XXX) and open tasks
-(T-XXX) in their R's `tasks.md`.
+(composite ids, `plan.md § ID format`) in their R's `tasks.md`.
 Known bugs or tech debt → R stubs per `plan.md
 § Referential integrity`.
 
@@ -80,4 +87,4 @@ separate commits per category (untracked mode deltas:
 
 ## 9. Next
 
-Propose a `T-XXX` from a per-R `tasks.md` → `/dev plan T-XXX`.
+Propose a task from a per-R `tasks.md` → `/dev plan <task-id>`.
