@@ -22,3 +22,9 @@ closes only when the task's branch merges. Task ids are composite
   `settled`/`corrected` + date, dated amendment headers) in living plan
   artifacts; `archive/` exempt. Exact patterns tuned on the compacted
   corpus. `depends-on: R041-T002`
+
+## Backlog
+
+- `check-plan-integrity` skips composite-id task entries: its task-line
+  pattern matches only bare `T-XXX` items, so `R###-T###` entries and
+  their branch plans go unvalidated.
