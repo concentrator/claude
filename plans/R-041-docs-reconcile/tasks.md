@@ -23,8 +23,10 @@ closes only when the task's branch merges. Task ids are composite
   artifacts; `archive/` exempt. Exact patterns tuned on the compacted
   corpus. `depends-on: R041-T002`
 
-## Backlog
-
-- `check-plan-integrity` skips composite-id task entries: its task-line
-  pattern matches only bare `T-XXX` items, so `R###-T###` entries and
-  their branch plans go unvalidated.
+- [x] **R041-T004 [mnt]**: composite-id support in
+  `check-plan-integrity` - parse `R###-T###` task entries (owner prefix
+  must match the dir's R), include them in the known-task set, resolve
+  `task:`/`depends-on:` composite references exactly (no substring
+  fallback), and glob composite-named branch plans. Promoted from
+  backlog when it blocked R041-T002's plan: the check is blind to all
+  new-scheme artifacts.

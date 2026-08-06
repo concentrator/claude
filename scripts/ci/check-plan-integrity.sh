@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # Tier-1 plan referential integrity (skills/dev/plan.md):
-#  - every task in a per-R tasks.md names the R that owns its dir,
+#  - every task in a per-R tasks.md names the R that owns its dir
+#    (legacy `T-XXX (R-XXX)` tag or composite `R###-T###` prefix),
 #    and that R exists in ROADMAP.md
-#  - T-ids are unique across all per-R tasks.md (global + monotonic)
+#  - task ids are unique across all tasks.md (legacy global T-XXX ids
+#    frozen; composite ids unique by their initiative-scoped counter)
 #  - every branch plan's `task:` / `depends-on:` resolve to a known task
 #  - every branch plan sits under an R-dir that exists in ROADMAP.md
 set -euo pipefail
@@ -29,6 +31,12 @@ while IFS= read -r f; do
     [ "$r" = "$owner" ] || report "$t in $f names $r but its dir is $owner"
     all_ts+="$t"$'\n'
   done < <(grep -E '^- \[[ x]\] T-[0-9]{3}' "$f")
+  while IFS= read -r line; do
+    cid=$(grep -oE 'R[0-9]{3}-T[0-9]{3}' <<<"$line" | head -1)
+    cr="R-${cid:1:3}"
+    [ "$cr" = "$owner" ] || report "$cid in $f but its dir is $owner"
+    all_ts+="$cid"$'\n'
+  done < <(grep -E '^- \[[ x]\] (\*\*)?R[0-9]{3}-T[0-9]{3}' "$f")
 done < <(git ls-files "$ROOT/plans/R-*/tasks.md" "$ROOT/plans/archive/R-*/tasks.md")
 
 task_ts=$(printf '%s' "$all_ts" | grep -E 'T-[0-9]{3}' | sort -u || true)
@@ -43,10 +51,14 @@ while IFS= read -r f; do
   has "$rdir" "$roadmap_rs" || report "$f under $rdir not in ROADMAP.md"
   tid=$(sed -n 's/^task: *//p' "$f" | head -1)
   [ -n "$tid" ] && { has "$tid" "$task_ts" || report "$f task: $tid not in any tasks.md"; }
-  for dep in $(sed -n 's/^depends-on: *//p' "$f" | grep -oE 'T-[0-9]{3}'); do
+  deps=$(sed -n 's/^depends-on: *//p' "$f")
+  for dep in $(grep -oE 'R[0-9]{3}-T[0-9]{3}' <<<"$deps"); do
     has "$dep" "$task_ts" || report "$f depends-on $dep not in any tasks.md"
   done
-done < <(git ls-files "$ROOT/plans" | grep -E '/T-[0-9]{3}-[^/]+\.md$' | grep -v '\.findings\.md$')
+  for dep in $(sed -E 's/R[0-9]{3}-T[0-9]{3}//g' <<<"$deps" | grep -oE 'T-[0-9]{3}'); do
+    has "$dep" "$task_ts" || report "$f depends-on $dep not in any tasks.md"
+  done
+done < <(git ls-files "$ROOT/plans" | grep -E '/(T-[0-9]{3}|R[0-9]{3}-T[0-9]{3})-[^/]+\.md$' | grep -v '\.findings\.md$')
 
 (( fail == 0 )) && echo "check-plan-integrity: OK"
 exit $fail
