@@ -37,7 +37,8 @@ declared commands rather than probing the host - MR/PR state included.
   the plan file + MR/PR); `plan/` branches reference the initiative -
   `plan/r<NNN>-<action>` (R-id, full three digits: `r014`, never `r12`;
   action e.g. `open` / `tasks` / `close`). A task's branch-plan uses the
-  task id: `plan/t<NNN>-plan`. Multiple initiatives list ids:
+  task id: `plan/r<NNN>-t<NNN>-plan` (legacy global ids:
+  `plan/t<NNN>-plan`). Multiple initiatives list ids:
   `plan/r014-r015-tasks`.
 - Branches are short-lived and single-owner: merge within a day, two
   days absolute max; keep ≤ 3 active.

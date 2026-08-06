@@ -32,6 +32,17 @@ Do not restate a point already made in the same document. Introductions and
 conclusions are the usual offenders - if the opening makes an argument, the
 body goes deeper rather than echoing it.
 
+## State the present
+
+A living document reads as if written today. No amendment blocks, dated
+corrections, supersession markers, or refutation history: an approved
+change replaces the text it amends - the old wording, its date, and the
+rationale live in the commit and MR/PR. Approval attaches to the
+decision, not its wording, so rewriting prose around an unchanged
+decision needs no re-approval. A measurement's job ends when the
+decision it fed lands - it stays in its dated findings file and is
+archived with its task. `archive/` directories are exempt.
+
 ## One home per finding
 
 A finding - a measurement, a decision, change history - lives in its owning

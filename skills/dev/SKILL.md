@@ -28,7 +28,7 @@ the one a command maps to before acting.**
 |---|---|---|
 | `R` | Shape a new initiative (requirements + draft tasks, one gate) | `brainstorm.md` |
 | `R-XXX` | Detail an open initiative (tasks + branch plans) | `plan.md` |
-| `T-XXX` / `all` | Branch plan(s) for open task(s) | `write-plan.md` |
+| `<task-id>` / `all` | Branch plan(s) for open task(s) | `write-plan.md` |
 | `batch` | Compose `B-XXX.md`; readiness review + `agentic:` stamps | `branch-plan.md` |
 | `<slug>` | Adjust an existing branch plan | `branch-plan.md` |
 | `release` | Release plan (next semver) | `release.md` |

@@ -2,11 +2,11 @@
 
 Generate a branch plan (`.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md`)
 from a task in its initiative's `tasks.md`. Invoked within the detail
-round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
+round (`/dev plan R-XXX`), or per task via `/dev plan <task-id>` / `all`.
 
 ## Inputs
 
-- Task ID (e.g. `T-014`) from the parent R's
+- Task ID (e.g. `R008-T001`; legacy `T-014`) from the parent R's
   `.claude/plans/R-XXX-<slug>/tasks.md`
 - Task tag: `[feat] | [fix] | [refactor]`
 - Parent chain for context: T-XXX → R-XXX
@@ -38,7 +38,7 @@ round (`/dev plan R-XXX`), or per task via `/dev plan T-XXX` / `all`.
    the house shape does not predict an external surface. A wire detail
    the plan depends on with no probe behind it → probe first, then plan.
 4. **Add header** per `branch-plan.md`:
-   - `task: T-014`
+   - `task: R008-T001`
    - `type: <inherited from task tag>`
    - `architecture-changing: true` (only if it touches design)
    - `depends-on: T-012` (if cross-task dependency)
