@@ -39,10 +39,10 @@ while IFS= read -r f; do
   done < <(grep -E '^- \[[ x]\] (\*\*)?R[0-9]{3}-T[0-9]{3}' "$f")
 done < <(git ls-files "$ROOT/plans/R-*/tasks.md" "$ROOT/plans/archive/R-*/tasks.md")
 
-task_ts=$(printf '%s' "$all_ts" | grep -E 'T-[0-9]{3}' | sort -u || true)
+task_ts=$(printf '%s' "$all_ts" | grep -E '^(T-[0-9]{3}|R[0-9]{3}-T[0-9]{3})$' | sort -u || true)
 
 # T-ids unique across all tasks.md (global ids, no R-scoped reuse)
-dups=$(printf '%s' "$all_ts" | grep -E 'T-[0-9]{3}' | sort | uniq -d || true)
+dups=$(printf '%s' "$all_ts" | grep -E '^(T-[0-9]{3}|R[0-9]{3}-T[0-9]{3})$' | sort | uniq -d || true)
 [ -z "$dups" ] || report "duplicate T-id(s) across tasks.md: $(echo $dups)"
 
 # Each branch plan: R-dir exists, task:/depends-on: resolve to a task
