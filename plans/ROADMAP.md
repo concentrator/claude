@@ -110,7 +110,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       correctness at boundaries, and runs the `/dev auto` cadence; the
       user syncs with the supervisor periodically and resolves raised
       issues. Stub - shape later.
-- [ ] R-041: Docs reconcile (this repo) - apply the docs lifecycle to
+- [x] R-041: Docs reconcile (this repo) - apply the docs lifecycle to
       the repo that authored it: archive the closed initiatives out of
       `plans/`, compact `ROADMAP.md` and open plan artifacts to state
       the present, verify `check-plan-integrity` across the move, and
