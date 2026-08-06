@@ -17,7 +17,7 @@ closes only when the task's branch merges. Task ids are composite
   dated suffixes removed) and the open initiatives'
   `requirements.md`/`tasks.md` rewritten to state the present
   (`writing.md § State the present`). `depends-on: R041-T001`
-- [ ] **R041-T003 [mnt]**: accretion check in the Tier-1 suite - fail
+- [x] **R041-T003 [mnt]**: accretion check in the Tier-1 suite - fail
   on supersession/amendment markers (`SUPERSEDED`, `RETRACTED`,
   `settled`/`corrected` + date, dated amendment headers) in living plan
   artifacts; `archive/` exempt. Exact patterns tuned on the compacted

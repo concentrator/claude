@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-06
 kind: chore
+status: done 2026-08-06
 ---
 
 # R-041: Docs reconcile (this repo)
@@ -37,13 +38,19 @@ R-020), scoped to what this repo has - no `.claude/docs/` layer.
 
 ## Acceptance criteria
 
-- [ ] `plans/` holds only open work: closed initiatives' directories and
+- [x] `plans/` holds only open work: closed initiatives' directories and
   closed tasks' artifacts sit under `plans/archive/`; no living doc
-  cites `archive/` for operative content.
-- [ ] Tier-1 (`check-plan-integrity` included) green after the move.
-- [ ] `ROADMAP.md` and open plan artifacts carry no supersession markers
-  or dated amendment notes.
-- [ ] The accretion check runs in the Tier-1 suite and is green.
+  cites `archive/` for operative content. Verified: PR #227 (33 dirs
+  moved, zero living citations found pre-move).
+- [x] Tier-1 (`check-plan-integrity` included) green after the move.
+  Verified: PR #227/#228/#230 pipelines - the check extended for
+  archived paths and composite ids.
+- [x] `ROADMAP.md` and open plan artifacts carry no supersession markers
+  or dated amendment notes. Verified: PR #231 grep proof +
+  `check-accretion` green on the compacted corpus.
+- [x] The accretion check runs in the Tier-1 suite and is green.
+  Verified: wired into `scripts/ci/run-all.sh`; self-test
+  `scripts/test/check-accretion.test.sh` covers five cases.
 
 ## References
 
