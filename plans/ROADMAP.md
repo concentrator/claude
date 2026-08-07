@@ -103,12 +103,13 @@ Initiative index. Items: `R-001: description`; each entry owns
       JSON-emitting MR/PR state check per host.
 - [x] R-039: Single-home the /dev system - one owner per rule with
       pointers; twins single-sourced; execution files as cadence deltas.
-- [ ] R-040: Supervisor-orchestrated autonomous DEV - a local
-      supervisor agent drives execution sessions on a remote machine
-      over SSH (headless Claude Code): dispatches planned work,
-      verifies boundaries with existing gates, merges green
-      pre-approved work within declared capability bounds
-      (batch-scoped delivery default), escalates the rest; the user
+- [ ] R-040: Supervisor-orchestrated autonomous DEV - one repo-less
+      local supervisor agent over a declared portfolio drives one
+      worker session per project on a remote machine over SSH
+      (headless Claude Code): dispatches planned work, verifies
+      boundaries with existing gates, merges green pre-approved work
+      within declared per-project bounds (batch-scoped delivery
+      default, host-label signature), escalates the rest; the user
       resolves escalations at periodic syncs.
 - [ ] R-042: Planning-round PoCs - a shape/detail round may run a
       time-boxed throwaway spike in a worktree to ground an unproven

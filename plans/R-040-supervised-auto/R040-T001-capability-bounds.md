@@ -13,9 +13,13 @@ Branch: `doc/capability-bounds`.
       batch-scoped-delivery default (green `plan/` MRs; green
       batch/member MRs whose checkpoint report verifies acceptance
       criteria), the always-escalate list (releases; changes to
-      `CLAUDE.md`, `rules/`, `skills/`; red gates; off-plan work), and
-      the absence rule: no declaration = read-only supervisor, every
-      merge escalates.
+      `CLAUDE.md`, `rules/`, `skills/`; red gates; off-plan work), the
+      absence rule (no declaration = read-only supervisor, every merge
+      escalates), the optional per-project `.claude/supervisor.md`
+      operating-instructions file referenced from the declaration, and
+      the merge-signature convention: a `supervised` host label plus a
+      bound-naming merge comment - metadata only, never commit or
+      MR/PR prose.
 - [ ] `git-workflow.md § Merge policy`: a one-line delegation pointer
       to the companion (cap-aware - the file must stay within its
       1500-word cap; the clause body lives in the companion, exactly
