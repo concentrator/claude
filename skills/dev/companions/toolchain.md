@@ -18,6 +18,40 @@ is the single source both modes read:
 Declare it once; `migrate` backfills it if absent (absent-host fallback:
 `finish § 3`).
 
+## Supervisor bounds (`## Agent toolchain`)
+
+A project delegating delivery to a supervisor (`/dev supervise`,
+R-040) declares its bounds in the same `## Agent toolchain` section -
+the single home for merge authority:
+
+```
+- Supervisor bounds: batch-scoped delivery; instructions: .claude/supervisor.md
+```
+
+No declaration = a read-only supervisor: it reports and escalates,
+merges nothing. The default grant, **batch-scoped delivery**, allows
+exactly two merge classes:
+
+- green `plan/` MR/PRs;
+- green batch/member MR/PRs whose checkpoint report verifies the
+  task's acceptance criteria - the approved plan is the decision, the
+  supervisor automates its delivery.
+
+Always escalated, under any grant: releases; changes to `CLAUDE.md`,
+`rules/`, or `skills/`; red gates; off-plan work. Host gates
+(protected trunk, required checks) stay the hard floor - no admin
+merges.
+
+Operating instructions beyond authority - project quirks, escalation
+additions, never-touch areas - live in the optional
+`.claude/supervisor.md` the declaration references; authority never
+moves there.
+
+**Merge signature.** Every supervisor merge carries a `supervised`
+label plus a merge comment naming the bound applied - host metadata
+only, never commit or MR/PR prose (`git-workflow.md § MR/PR messages`
+governs prose and is unchanged by supervision).
+
 ## State check
 
 MR/PR state (open / merged, checks / pipeline) is read via the declared
