@@ -104,12 +104,16 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R-039: Single-home the /dev system - one owner per rule with
       pointers; twins single-sourced; execution files as cadence deltas.
 - [ ] R-040: Supervisor-orchestrated autonomous DEV - a local
-      supervisor agent, in its own context, orchestrates planned-task
-      execution running in sessions on a remote machine: reviews and
-      merges MRs within declared capability bounds, verifies task/doc
-      correctness at boundaries, and runs the `/dev auto` cadence; the
-      user syncs with the supervisor periodically and resolves raised
-      issues. Stub - shape later.
+      supervisor agent drives execution sessions on a remote machine
+      over SSH (headless Claude Code): dispatches planned work,
+      verifies boundaries with existing gates, merges green
+      pre-approved work within declared capability bounds
+      (batch-scoped delivery default), escalates the rest; the user
+      resolves escalations at periodic syncs.
+- [ ] R-042: Planning-round PoCs - a shape/detail round may run a
+      time-boxed throwaway spike in a worktree to ground an unproven
+      assumption; findings recorded like probe findings, spike code
+      always discarded.
 - [x] R-041: Docs reconcile (this repo) - apply the docs lifecycle to
       the repo that authored it: archive the closed initiatives out of
       `plans/`, compact `ROADMAP.md` and open plan artifacts to state
