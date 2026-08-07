@@ -1,5 +1,5 @@
 ---
-approved: 2026-08-07
+approved: 2026-08-08
 kind: feat
 ---
 
@@ -20,17 +20,24 @@ hard floor.
 
 ## Goals
 
-- **Supervisor role**: an agent on the local machine, in its own
-  context, driving execution sessions on a remote machine over SSH
-  (headless Claude Code). It dispatches planned work, monitors
-  progress, and collects outcomes; it never implements.
+- **Supervisor role**: one repo-less agent on the local machine, in
+  its own context, supervising a declared portfolio of projects
+  (`~/.claude/supervisor/portfolio.md` - per project: path, host,
+  worker SSH target; config only, never state). It drives one worker
+  session per project on the remote machine over SSH (headless Claude
+  Code); workers carry all repo identity and do all in-repo work; the
+  supervisor dispatches, monitors, and collects outcomes - it never
+  implements.
 - **Delegated delivery within declared bounds** - default: merge green
   `plan/` MRs and green batch/member MRs whose checkpoint report
   verifies the acceptance criteria (the approved plan is the decision;
   the supervisor automates its delivery). Escalate: releases,
   convention changes (`CLAUDE.md`, `rules/`, `skills/`), red gates,
   off-plan work. Bounds are declared per project and readable by the
-  supervisor; per-repo overrides allowed.
+  supervisor; per-repo overrides allowed. Every supervisor merge
+  carries a host signature - a `supervised` label plus a merge comment
+  naming the bound applied - in host metadata, never in commit or
+  MR/PR prose.
 - **Boundary verification by existing gates**: before accepting or
   merging, the supervisor runs what already exists - Tier-1 suites,
   the closure check, promote-then-archive, the comprehension check.
@@ -52,9 +59,15 @@ hard floor.
 
 ## User experience
 
-- `/dev supervise [scope]` starts the loop over the open batch/tasks
-  of a project; the supervisor runs until scope is delivered or
-  escalation empties its queue.
+- `/dev supervise [project] [scope]` - bare inside a repo supervises
+  that project; started repo-less, every portfolio project. Scope
+  selects pre-approved work (`B-XXX`, a task id, `R-XXX`; bare = the
+  open batch, else stamped open tasks) and never authorizes work. The
+  loop runs until scope is delivered or only escalations remain.
+- Per-project surfaces: merge authority lives only in the project's
+  `CLAUDE.md § Agent toolchain` bounds declaration; operating
+  instructions (project quirks, escalation additions) live in an
+  optional `.claude/supervisor.md` referenced from it.
 - A user sync is a conversation: "status" yields per-initiative state
   (merged / in-flight / halted / escalated, with MR links) read from
   artifacts; resolving an escalation resumes the affected work.
@@ -72,6 +85,12 @@ hard floor.
       zero quality logic of its own.
 - [ ] Every merge is a normal green-gated MR merge - host protections
       untouched throughout the pilot.
+- [ ] The supervisor runs repo-less over the portfolio: adding a
+      project is one portfolio entry plus that project's own
+      declarations; supervising two projects is one loop, not two
+      sessions.
+- [ ] Every supervisor merge is distinguishable on the host (label +
+      comment) with commit and MR/PR prose untouched.
 - [ ] Pilot: one real batch in an adopter project delivered end to end
       supervised, the user present only at sync points.
 
