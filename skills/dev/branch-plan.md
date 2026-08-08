@@ -154,12 +154,15 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
 
 ### Batches
 
-`.claude/plans/R-XXX-<slug>/batches/B-XXX.md` - ordered checklist,
-one `[ ]` per task:
+`.claude/plans/R-XXX-<slug>/batches/B-XXX.md` - ordered member list:
 
     # B-001
-    - [ ] T-014 (<slug>)
-    - [ ] T-015 (<slug>)
+    - T-014 (<slug>)
+    - T-015 (<slug>)
+
+Composition only (members, order, mode) - never status: task state has
+one home, the R's `tasks.md`. A batch is open iff a member task is
+still `[ ]` there and no `B-XXX.report.md` exists.
 
 Delivery grouping, not a planning level: a batch is scoped to the R
 whose dir holds it - members are open tasks of that R (coupling: any tasks
@@ -169,7 +172,7 @@ checkpoint validates exactly that R's acceptance criteria. Soft cap
 ~30 planned commits total (§ Size cap governor). Auto mode requires a stamped
 batch.
 
-Batch-close bookkeeping: the close phase marks batch and member-task
+Batch-close bookkeeping: the close phase marks member-task
 checkboxes as commits on `batch/B-XXX` before the MR/PR - marks land
 per § Closing routine; reject: § Rails. The R-closure
 check and release marking ride a close-out plan MR/PR
