@@ -37,6 +37,10 @@ act of `plan.md § Directory conventions`. The discovery method behind
 - Stay at requirement altitude: behavior, surfaces, edge cases,
   acceptance criteria. Architecture belongs in `DESIGN.md`; commit
   decomposition belongs to branch planning.
+- Acceptance criteria state properties verifiable at close, never
+  snapshot counts - the work changes the corpus the criteria measure.
+  Enumerations are shaping-time evidence; the criterion cites the
+  check that verifies the property.
 - Anchor the design to the named, time-proven standard for the problem;
   surface it and the alternatives, map the needs onto it, deviate only
   with a stated reason. A draft growing custom branching, state
