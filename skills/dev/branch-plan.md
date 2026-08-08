@@ -16,9 +16,8 @@ branch = one task. The plan must be complete and committed to `main`
 ## Body
 
 A checkbox list. Each `[ ]` = one commit. Each item names the change and
-any documentation it touches. Marks record what happened - never tick
-a commit that didn't land; a superseded plan keeps its boxes as they
-ended.
+any documentation it touches. Marks record what happened, never
+intent - a commit that didn't land stays `[ ]`.
 
 ## Per-commit rules
 
@@ -79,8 +78,8 @@ checkboxes plus a new final commit.
 
 ## Closing routine
 
-Runs when the last non-final `[ ]` turns `[x]`; ends in the mandatory
-final commit and the delivery hand-off (`finish`).
+Runs when the last non-final `[ ]` turns `[x]`; ends in the final
+commit and the hand-off (`finish`).
 
 1. **Close review, scaled to the branch** (`small` = ≤9 commits):
    refactor (no behavior change) → `/simplify`; single feature or single
@@ -142,7 +141,7 @@ is a batch of one - its own branch is the MR/PR. Auto mode (`/dev auto`) runs a 
 dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
 them by hand. Delivery is identical; only verification differs - auto
 runs the checkpoint below, manual uses § Closing routine +
-`finish`. Auto requires every gate below.
+`finish`.
 
 ### `agentic:` stamp
 
