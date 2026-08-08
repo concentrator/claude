@@ -171,8 +171,12 @@ task's artifacts established moves to its permanent home - component
 behavior to docs, external-system facts to references, binding limits
 to where they bind. **Archive**: the branch plan and findings then move
 to `.claude/plans/archive/R-XXX-<slug>/`; the `tasks.md` line stays as
-the index. When an initiative closes, its whole directory moves under
-`archive/`. A living doc never cites `archive/` for operative content -
+the index. Findings follow their consumers, not the task's checkbox: a
+closed task's findings still cited as evidence by open tasks stay
+beside them until the last consumer closes; a living doc citing them
+operatively means that fact's promotion is due at the citation. When
+an initiative closes, its whole directory moves under `archive/` - the
+backstop for retained findings. A living doc never cites `archive/` for operative content -
 if it needs a fact from there, promotion missed it; move the fact.
 (Closure-evidence stamps citing archived findings are historical
 pointers, not operative content.)
