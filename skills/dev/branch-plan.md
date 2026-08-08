@@ -160,9 +160,9 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
     - T-014 (<slug>)
     - T-015 (<slug>)
 
-Composition only (members, order, mode) - never status: task state has
-one home, the R's `tasks.md`. A batch is open iff a member task is
-still `[ ]` there and no `B-XXX.report.md` exists.
+Composition only (members, order, mode), never status - task state's
+one home is the R's `tasks.md`. Open iff a member task is `[ ]` there
+and no `B-XXX.report.md` exists.
 
 Delivery grouping, not a planning level: a batch is scoped to the R
 whose dir holds it - members are open tasks of that R (coupling: any tasks
