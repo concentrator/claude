@@ -17,6 +17,7 @@ the one a command maps to before acting.**
 | `/dev plan [<target>]` | per target table below | Planning (plan MR/PRs) |
 | `/dev code [<slug>]` | `branch-plan.md` | Manual execution on a branch - rules below |
 | `/dev auto [B-XXX]` | `auto.md` | Run an approved batch via subagents (no arg → first open); unattended until checkpoint or halt |
+| `/dev supervise [project] [scope]` | `supervise.md` | Supervise scoped delivery: dispatch, verify, merge within declared bounds |
 | `/dev release` | `release.md` | Finalize + tag the release (project `release` override or this companion) |
 | `/dev migrate` | `migrate.md` | Adopt an existing project into DEV: inventory, then route |
 | `/dev start` | `start.md` | Scaffold a new project into DEV |

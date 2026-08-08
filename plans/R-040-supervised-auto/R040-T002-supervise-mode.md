@@ -8,7 +8,7 @@ depends-on: R040-T001
 
 Branch: `feat/supervise-mode`.
 
-- [ ] `skills/dev/supervise.md`: the operating loop - resolve the
+- [x] `skills/dev/supervise.md`: the operating loop - resolve the
       project set (bare inside a repo: that project; repo-less: every
       `~/.claude/supervisor/portfolio.md` entry - path, host, worker
       transport (`local` default / `ssh <target>`, remote lands in
@@ -28,8 +28,8 @@ Branch: `feat/supervise-mode`.
       Sync report format: per-initiative state (merged / in-flight /
       halted / escalated) with MR links, derived from artifacts at
       ask time.
-- [ ] `SKILL.md` router: the `/dev supervise [scope]` row (cap-aware -
+- [x] `SKILL.md` router: the `/dev supervise [scope]` row (cap-aware -
       the dev orchestrator body stays within its 400-word cap; the
       row points at `supervise.md`).
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
