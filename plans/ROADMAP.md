@@ -104,13 +104,14 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R-039: Single-home the /dev system - one owner per rule with
       pointers; twins single-sourced; execution files as cadence deltas.
 - [ ] R-040: Supervisor-orchestrated autonomous DEV - one repo-less
-      local supervisor agent over a declared portfolio drives one
-      worker session per project on a remote machine over SSH
-      (headless Claude Code): dispatches planned work, verifies
-      boundaries with existing gates, merges green pre-approved work
-      within declared per-project bounds (batch-scoped delivery
-      default, host-label signature), escalates the rest; the user
-      resolves escalations at periodic syncs.
+      supervisor agent over a declared portfolio drives one headless
+      Claude Code worker session per project under a per-project
+      transport (`local` beside the supervisor by default, `ssh` to a
+      remote machine): dispatches planned work, verifies boundaries
+      with existing gates, merges green pre-approved work within
+      declared per-project bounds (batch-scoped delivery default,
+      host-label signature), escalates the rest; the user resolves
+      escalations at periodic syncs.
 - [ ] R-042: Planning-round PoCs - a shape/detail round may run a
       time-boxed throwaway spike in a worktree to ground an unproven
       assumption; findings recorded like probe findings, spike code

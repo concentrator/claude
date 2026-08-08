@@ -11,7 +11,8 @@ Branch: `feat/supervise-mode`.
 - [ ] `skills/dev/supervise.md`: the operating loop - resolve the
       project set (bare inside a repo: that project; repo-less: every
       `~/.claude/supervisor/portfolio.md` entry - path, host, worker
-      target per project, config only) and the scope within each (the
+      transport (`local` default / `ssh <target>`, remote lands in
+      R040-T003) per project, config only) and the scope within each (the
       open batch, else open tasks with stamped plans; explicit
       `B-XXX` / task id / `R-XXX` selects);
       dispatch a member via the `/dev auto` engine in a session;

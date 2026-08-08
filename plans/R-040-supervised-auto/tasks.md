@@ -14,11 +14,12 @@ composite (`R040-T###`, counter scoped to this initiative).
 - [ ] **R040-T002 [feat]**: supervisor mode (`/dev supervise` +
   `skills/dev/supervise.md`) - the operating loop: dispatch, monitor,
   boundary verification via existing gates, merge-or-escalate, sync
-  reporting from artifacts. Local sessions first.
-  `depends-on: R040-T001`
-- [ ] **R040-T003 [feat]**: SSH remote transport - launch and drive
-  headless Claude Code sessions on the remote machine under declared
-  permissions; the session-lifetime decision lands here.
+  reporting from artifacts. Local transport (the default); remote is
+  R040-T003. `depends-on: R040-T001`
+- [ ] **R040-T003 [feat]**: remote transport - `ssh <target>` worker
+  sessions on the remote machine under declared permissions, plus the
+  per-project `transport:` switch in the portfolio (`local` default);
+  the session-lifetime decision lands here.
   `depends-on: R040-T002`
 - [ ] **R040-T004 [test]**: supervised pilot - one real batch in an
   adopter project end to end, user only at sync points; findings feed
