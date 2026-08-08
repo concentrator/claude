@@ -16,7 +16,8 @@ branch = one task. The plan must be complete and committed to `main`
 ## Body
 
 A checkbox list. Each `[ ]` = one commit. Each item names the change and
-any documentation it touches.
+any documentation it touches. Marks record what happened, never
+intent - a commit that didn't land stays `[ ]`.
 
 ## Per-commit rules
 
@@ -50,7 +51,7 @@ Never write `TODO`/`FIXME`/`XXX` in code. Route each to a plan artifact
 
 ### Scope discoveries
 
-Anything you notice mid-execution that wasn't in the plan.
+Noticed mid-execution, not in the plan.
 
 **Blocker** - proceeding would produce wrong, unsafe, or contradictory
 code, the current task's premise is invalidated, a plan item can't be
@@ -73,12 +74,12 @@ smell, naming inconsistency:
 
 Additional changes needed after the final commit → adjust the plan via
 `/dev plan <slug>` (`plan.md § Adjusting existing plans`): new
-checkboxes plus a new final commit with the same closing structure.
+checkboxes plus a new final commit.
 
 ## Closing routine
 
-Runs when the last non-final `[ ]` turns `[x]`; ends in the mandatory
-final commit and the delivery hand-off (`finish`).
+Runs when the last non-final `[ ]` turns `[x]`; ends in the final
+commit and the hand-off (`finish`).
 
 1. **Close review, scaled to the branch** (`small` = ≤9 commits):
    refactor (no behavior change) → `/simplify`; single feature or single
@@ -127,7 +128,7 @@ which any branch may fold into its final commit without the flag.
 
 ## Size cap
 
-One task = one branch, right-sized at ~20 commits (medium). Soft cap:
+One task = one branch, ~20 commits (medium). Soft cap:
 warn past 20, prompt to split past 30 - subordinate to the short-lived
 governor (`git-workflow.md § Delivery cadence`). Override with stated
 reason in plan header.
@@ -140,7 +141,7 @@ is a batch of one - its own branch is the MR/PR. Auto mode (`/dev auto`) runs a 
 dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
 them by hand. Delivery is identical; only verification differs - auto
 runs the checkpoint below, manual uses § Closing routine +
-`finish`. Auto requires every gate below.
+`finish`.
 
 ### `agentic:` stamp
 
