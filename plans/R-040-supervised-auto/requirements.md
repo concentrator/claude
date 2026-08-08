@@ -20,14 +20,16 @@ hard floor.
 
 ## Goals
 
-- **Supervisor role**: one repo-less agent on the local machine, in
-  its own context, supervising a declared portfolio of projects
+- **Supervisor role**: one repo-less, machine-agnostic agent in its
+  own context, supervising a declared portfolio of projects
   (`~/.claude/supervisor/portfolio.md` - per project: path, host,
-  worker SSH target; config only, never state). It drives one worker
-  session per project on the remote machine over SSH (headless Claude
-  Code); workers carry all repo identity and do all in-repo work; the
-  supervisor dispatches, monitors, and collects outcomes - it never
-  implements.
+  worker transport; config only, never state). It drives one headless
+  Claude Code worker session per project under that project's declared
+  transport - `local` (beside the supervisor, wherever it runs;
+  default) or `ssh <target>` (a remote machine); switching is a
+  one-line portfolio edit. Workers carry all repo identity and do all
+  in-repo work; the supervisor dispatches, monitors, and collects
+  outcomes - it never implements.
 - **Delegated delivery within declared bounds** - default: merge green
   `plan/` MRs and green batch/member MRs whose checkpoint report
   verifies the acceptance criteria (the approved plan is the decision;
@@ -54,7 +56,8 @@ hard floor.
   merges).
 - Self-expansion: the supervisor never edits its own bounds or the
   conventions governing it - those changes always escalate.
-- Cloud-vendor execution environments - SSH to owned machines only.
+- Cloud-vendor execution environments - the remote transport is SSH
+  to owned machines only.
 - Parallelism within a batch (R-004; compose later).
 
 ## User experience
@@ -77,8 +80,10 @@ hard floor.
 - [ ] A per-project capability-bounds declaration exists; the
       supervisor refuses any action outside it and escalates instead.
 - [ ] The supervisor runs a full batch lifecycle unattended on a
-      remote session: dispatch, monitor, checkpoint verification
-      (report + criteria + gates), merge within bounds.
+      worker session: dispatch, monitor, checkpoint verification
+      (report + criteria + gates), merge within bounds - under either
+      transport; switching a project's transport is a one-line
+      portfolio change.
 - [ ] Escalations queue with context sufficient to resolve without
       reading raw transcripts; a sync empties the queue.
 - [ ] Every boundary check is an existing gate; the supervisor adds
@@ -92,13 +97,15 @@ hard floor.
 - [ ] Every supervisor merge is distinguishable on the host (label +
       comment) with commit and MR/PR prose untouched.
 - [ ] Pilot: one real batch in an adopter project delivered end to end
-      supervised, the user present only at sync points.
+      supervised over the remote transport (local is exercised by
+      development itself), the user present only at sync points.
 
 ## Constraints
 
-- Remote sessions run headless Claude Code under the project's
+- Worker sessions run headless Claude Code under the project's
   declared permissions (`companions/auto-permissions.template.json` +
-  `CLAUDE.md § Agent toolchain`), exactly as `/dev auto` pre-flights.
+  `CLAUDE.md § Agent toolchain`), exactly as `/dev auto` pre-flights -
+  under either transport.
 - The supervisor's context stays implementation-free (reports and
   states, not diffs by default) so one supervisor spans many sessions.
 - Depends on R-042 for plan quality; benefits from R-004, does not
