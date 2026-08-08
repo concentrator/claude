@@ -10,8 +10,9 @@ admin merges).
 
 1. **Projects** - bare inside a repo: that project. Repo-less: every
    entry in `~/.claude/supervisor/portfolio.md` (per project: path,
-   host, worker transport - `local` default; `ssh <target>` ships with
-   R040-T003). The portfolio is config only - never write state there.
+   VCS host, worker transport - `local`, the default and only built
+   transport; `ssh <target>` is R040-T003's scope). The portfolio is
+   config only - never write state there.
 2. **Bounds** - read each project's `CLAUDE.md § Agent toolchain`
    declaration (`companions/toolchain.md § Supervisor bounds`) and its
    `.claude/supervisor.md` instructions when referenced. No

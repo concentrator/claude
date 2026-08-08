@@ -11,7 +11,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   `git-workflow.md § Merge policy` with the delegation clause and its
   escalation list (releases, convention changes, red gates, off-plan
   work).
-- [ ] **R040-T002 [feat]**: supervisor mode (`/dev supervise` +
+- [x] **R040-T002 [feat]**: supervisor mode (`/dev supervise` +
   `skills/dev/supervise.md`) - the operating loop: dispatch, monitor,
   boundary verification via existing gates, merge-or-escalate, sync
   reporting from artifacts. Local transport (the default); remote is
