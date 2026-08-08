@@ -20,9 +20,9 @@ Declare it once; `migrate` backfills it if absent (absent-host fallback:
 
 ## Supervisor bounds (`## Agent toolchain`)
 
-A project delegating delivery to a supervisor (`/dev supervise`,
-R-040) declares its bounds in the same `## Agent toolchain` section -
-the single home for merge authority:
+A project delegating delivery to a supervisor (R-040) declares its
+bounds in the same `## Agent toolchain` section - the single home for
+merge authority:
 
 ```
 - Supervisor bounds: batch-scoped delivery; instructions: .claude/supervisor.md

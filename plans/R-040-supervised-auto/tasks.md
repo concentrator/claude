@@ -6,7 +6,7 @@ composite (`R040-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R040-T001 [doc]**: capability-bounds declaration - format,
+- [x] **R040-T001 [doc]**: capability-bounds declaration - format,
   per-project home, and the batch-scoped-delivery default; extends
   `git-workflow.md § Merge policy` with the delegation clause and its
   escalation list (releases, convention changes, red gates, off-plan
