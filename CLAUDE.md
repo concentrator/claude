@@ -62,6 +62,7 @@ first.
 
 ## Communication
 
+- Replies: decision first, rationale ≤3 lines, depth on request.
 - Discuss before making significant changes. Get approval before writing code.
 - If the user asks a question, reply and suggest - do not take action until
   explicitly instructed.
