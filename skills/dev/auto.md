@@ -8,7 +8,10 @@ shell trips the sensitive-file guard).
 
 ## Pre-flight
 
-- Batch exists; member plans `agentic: approved`.
+- Batch exists; member plans `agentic: approved`. No-arg resolution:
+  the first manifest with a member task still `[ ]` in its R's
+  `tasks.md` and no `B-XXX.report.md` - manifest text never carries
+  status (`branch-plan.md § Batches`).
 - Permissions: `.claude/settings.local.json` holds every
   `companions/auto-permissions.template.json` rule (`__PROJECT_DIR__`/`__HOME__` → abs paths)
   plus the CLAUDE.md `## Agent toolchain` rules, incl. a VCS-host CLI
@@ -20,7 +23,9 @@ shell trips the sensitive-file guard).
 
 ## Per branch, batch order
 
-1. Branch per plan (prefix from `type:`).
+1. Member's task already `[x]` in `tasks.md` → skip, note for the
+   checkpoint, never re-implement. Else branch per plan (prefix from
+   `type:`).
 2. Per commit checkbox:
    - Dispatch a fresh implementer (`companions/implementer-prompt.md`) with full
      item text + parent-chain context (the R's `requirements.md`
@@ -48,7 +53,7 @@ shell trips the sensitive-file guard).
 2. Fixes land as batch-branch commits; queue judgment calls.
 3. Re-run tests + lint; red → halt. Docs coherence pass
    (CHANGELOG/README across member branches).
-4. Mark batch + member-task checkboxes; commit on `batch/B-XXX`
+4. Mark member-task checkboxes; commit on `batch/B-XXX`
    (`branch-plan.md § Batches`).
 
 Models + spec-check depth: `companions/verification-policy.md`.
