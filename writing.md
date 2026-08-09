@@ -59,3 +59,8 @@ annotate data with its own count - the data is the count. Never copy a
 measured or computed value into static prose - cite the test, script, or
 findings file that produces it. Fixed constraints (limits, versions,
 ports) are facts, not tallies: state them where they bind.
+
+A number is born in its final form: binding → config or code,
+recurring → its class's one table or a test that computes it, one-shot
+decision evidence → the deciding artifact, dying with it. Nothing is
+written planning to move it later.
