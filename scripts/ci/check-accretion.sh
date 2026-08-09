@@ -5,7 +5,8 @@
 # an undated terminal outcome ("mooted by R-021") is present state, a dated
 # one ("superseded 2026-07-07") is hand-rolled version control that belongs
 # to git history. plans/archive/ is frozen history and exempt, as are the
-# frontmatter fields plan.md mandates (`approved:`, `status: done`).
+# frontmatter fields the plan artifacts mandate (`approved:`,
+# `status: done`, `agentic: approved`).
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
@@ -13,7 +14,7 @@ fail=0
 PAT='(superseded|retracted|settled|corrected|approved|shaped|done|absorbed|mooted|retired|updated|added) 20[0-9]{2}'
 
 while IFS= read -r f; do
-  hits=$(grep -inE "$PAT" "$f" | grep -vE '^[0-9]+:(approved|status):' || true)
+  hits=$(grep -inE "$PAT" "$f" | grep -vE '^[0-9]+:(approved|status|agentic):' || true)
   if [ -n "$hits" ]; then
     while IFS= read -r h; do echo "ACCRETION: $f:$h"; done <<<"$hits"
     fail=1

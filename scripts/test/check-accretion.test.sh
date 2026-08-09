@@ -23,9 +23,9 @@ printf -- 'superseded 2026-07-07 by R-021\n' > "$d/plans/archive/R-001-x/tasks.m
 git -C "$d" add -A
 check_in "$d" && pass "archive exempt" || die "archive wrongly flagged"; rm -rf "$d"
 
-# 3. mandated frontmatter fields -> exempt, pass
+# 3. mandated frontmatter fields (incl. the agentic stamp) -> exempt, pass
 d=$(mkrepo); mkdir -p "$d/plans/R-001-x"
-printf -- '---\napproved: 2026-08-06\nkind: chore\nstatus: done 2026-08-06\n---\n\n# R-001\n' \
+printf -- '---\napproved: 2026-08-06\nkind: chore\nstatus: done 2026-08-06\nagentic: approved 2026-08-09\n---\n\n# R-001\n' \
   > "$d/plans/R-001-x/requirements.md"
 git -C "$d" add -A
 check_in "$d" && pass "frontmatter exempt" || die "frontmatter wrongly flagged"; rm -rf "$d"
