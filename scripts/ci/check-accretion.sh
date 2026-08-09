@@ -11,7 +11,7 @@ set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 fail=0
-PAT='(superseded|retracted|settled|corrected|approved|shaped|done|absorbed|mooted|retired|updated|added) 20[0-9]{2}'
+PAT='(superseded|retracted|settled|corrected|approved|shaped|done|absorbed|mooted|retired|updated|added|amended|re-?baselined) 20[0-9]{2}'
 
 while IFS= read -r f; do
   hits=$(grep -inE "$PAT" "$f" | grep -vE '^[0-9]+:(approved|status|agentic):' || true)
