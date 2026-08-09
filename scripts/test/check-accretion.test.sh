@@ -41,5 +41,11 @@ printf -- 'Node figures corrected 2026-08-01 - read before reusing.\n' > "$d/pla
 git -C "$d" add -A
 check_in "$d" && die "dated amendment not caught" || pass "dated amendment caught"; rm -rf "$d"
 
+# 6. amended / re-baselined vocabulary (adopter-demonstrated) -> fail
+d=$(mkrepo); printf -- 'Amended 2026-07-12: operator UI scope.\nRe-baselined 2026-06-30 to the vision.\n' > "$d/plans/ROADMAP.md"
+git -C "$d" add -A
+out=$(cd "$d" && bash "$CHECK" 2>&1); c=$(grep -c ACCRETION <<<"$out" || true)
+[ "$c" = "2" ] && pass "amended + re-baselined caught" || die "amended/re-baselined missed ($c of 2)"; rm -rf "$d"
+
 (( fail == 0 )) && echo "check-accretion.test: OK"
 exit $fail
