@@ -5,7 +5,7 @@ type: doc
 
 # R045-T001 - the declared artifacts root
 
-- [ ] `plan.md`: split `§ Where things live` into guarded config
+- [x] `plan.md`: split `§ Where things live` into guarded config
       (`.claude/`) and root-resolved artifacts (`<root>/plans/...`);
       state the resolution rule - the project `CLAUDE.md § Agent
       toolchain` declaration, absence resolving to `dev/`, this repo
