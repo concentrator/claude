@@ -127,6 +127,11 @@ Initiative index. Items: `R-001: description`; each entry owns
       the present, verify `check-plan-integrity` across the move, and
       add the accretion check to the Tier-1 suite. Mirrors the
       adopter-side reconcile pattern.
+- [ ] R-045: DEV artifacts root - planning artifacts move out of the
+      guarded `.claude/` tree to a declared root (default `dev/`), so a
+      headless worker can write plans, findings, and batch reports;
+      config that instructs agents stays in `.claude/`. `migrate`
+      carries existing adopters over.
 - [ ] R-044: Batch rollback-anchor identity - the `pre-B-XXX` rollback
       tag carries its initiative (`pre-R042-B-001`), so per-initiative
       batch ids stop colliding in git's flat tag namespace; a gate
