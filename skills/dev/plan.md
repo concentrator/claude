@@ -48,6 +48,14 @@ Two rounds; each command emits multiple artifact levels at once:
 - **Detail** (`/dev plan R-XXX`) - produce the open R's tasks **and**
   their branch plans together.
 
+**Spike** (either round) - when a task's approach carries an unproven
+assumption, run a throwaway spike in a worktree. Time box: declared when
+proposed, default one hour; exceeding it stops the spike and reports.
+Findings land where probe findings already live: shape round in the R's
+`requirements.md`; detail round as citations in the branch plan
+(`write-plan.md § Steps`, step 3). Spike code is always discarded -
+never merged, never cited as implementation.
+
 **Approval authorizes planning, not code** (gate: § Approval and
 closure). Approving a plan delivers its
 MR/PR and stops: shape-approval authorizes the detail round; detail-approval
