@@ -47,5 +47,27 @@ git -C "$d" add -A
 out=$(cd "$d" && bash "$CHECK" 2>&1); c=$(grep -c ACCRETION <<<"$out" || true)
 [ "$c" = "2" ] && pass "amended + re-baselined caught" || die "amended/re-baselined missed ($c of 2)"; rm -rf "$d"
 
+# 7. bounded punctuation separator -> fail
+d=$(mkrepo); printf -- 'Superseded: 2026-07-07 by the new flow.\n' > "$d/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && die "colon separator not caught" || pass "colon separator caught"; rm -rf "$d"
+
+# 8. resolved / shipped vocabulary -> fail with 2 hits
+d=$(mkrepo); printf -- 'Resolved 2026-08-05 by the operator.\nv0.1.0 shipped 2026-06-01.\n' > "$d/plans/ROADMAP.md"
+git -C "$d" add -A
+out=$(cd "$d" && bash "$CHECK" 2>&1); c=$(grep -c ACCRETION <<<"$out" || true)
+[ "$c" = "2" ] && pass "resolved + shipped caught" || die "resolved/shipped missed ($c of 2)"; rm -rf "$d"
+
+# 9. sentence terminator does not bridge -> pass
+d=$(mkrepo); printf -- 'Harvest is done. 2026 corpus follows.\n' > "$d/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && pass "terminator stays clean" || die "terminator wrongly bridged"; rm -rf "$d"
+
+# 10. exempt field's trailing clause is scanned -> fail
+d=$(mkrepo); mkdir -p "$d/plans/R-001-x"
+printf -- '---\nstatus: done 2026-08-09; re-baselined 2026-05-05\n---\n' > "$d/plans/R-001-x/requirements.md"
+git -C "$d" add -A
+check_in "$d" && die "exempt-line remainder not scanned" || pass "exempt-line remainder scanned"; rm -rf "$d"
+
 (( fail == 0 )) && echo "check-accretion.test: OK"
 exit $fail
