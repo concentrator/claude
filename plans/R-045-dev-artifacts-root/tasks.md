@@ -14,8 +14,9 @@ composite (`R045-T###`, counter scoped to this initiative).
   writes the inventory beside this task: the adopter path set that
   `migrate` will move, and every DEV system-source reference that must
   be rewritten to match. Remaining commits work that list across
-  `skills/`, `rules/`, and `scripts/`, gates included. Nothing in this
-  repo relocates.
+  `skills/`, `rules/`, and `scripts/`, gates included. `start.md`
+  scaffolds rather than describes, so its paths are a behavior change,
+  not a text substitution. Nothing in this repo relocates.
 - [ ] **R045-T003 [feat]**: the adoption path - `migrate` moves a
   `.claude/`-layout project onto its declared root, reporting the moves
   and rewrites before applying them.
