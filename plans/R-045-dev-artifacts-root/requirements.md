@@ -58,6 +58,8 @@ write.
   declaration resolves to `dev/`.
 - Skills resolve artifact paths against the declared root rather than a
   fixed `.claude/` prefix.
+- `start` scaffolds a new project onto the declared root, so a fresh
+  project never needs the adoption path.
 - `migrate` on a `.claude/`-layout project reports the paths it will
   move and the references it will rewrite before touching anything.
 - A headless worker writes plans, findings, and reports without an
@@ -70,6 +72,8 @@ write.
 - [ ] The declared root is honoured, and its absence resolves to `dev/`
 - [ ] Paths under `.claude/` are unchanged and still refuse headless
       edits
+- [ ] A project scaffolded by `start` runs auto mode with no adoption
+      step
 - [ ] `migrate` moves a `.claude/`-layout project and leaves no stale
       reference
 - [ ] The move inventory exists, and each entry is either carried out
