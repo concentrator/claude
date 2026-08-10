@@ -37,7 +37,7 @@ case.
 
 ## Tree-map
 
-All configuration dirs and files. Harness-managed state (`projects/`,
+All configuration and artifact dirs and files. Harness-managed state (`projects/`,
 `cache/`, `shell-snapshots/`, `plugins/`, logs, …) is gitignored and
 excluded - see `.gitignore`.
 
