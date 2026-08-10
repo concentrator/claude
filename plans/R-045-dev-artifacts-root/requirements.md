@@ -50,6 +50,9 @@ write.
   relocation helps; its workers run from a worktree.
 - Changing the planning hierarchy, ids, or file formats. Only locations
   move.
+- Relocating `references/` and `adr/`. Both are agent-written, but
+  neither is written during a batch, so neither blocks auto mode; they
+  stay under `.claude/`.
 
 ## User experience
 
@@ -86,12 +89,6 @@ write.
 - `check-plan-integrity` and `check-references` resolve the declared
   root.
 - The vendor transform carries the root through to embedded copies.
-
-## Open questions
-
-- Do `references/` and `adr/` move with the work products or stay?
-  Both are agent-written, but neither is written during a batch, so
-  neither blocks auto mode.
 
 ## References
 
