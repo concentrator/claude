@@ -16,6 +16,8 @@ Delivery cadence: one branch = one coherent unit, not a per-edit PR; in
 VIBE apply then wait, deliver + confirm at a work boundary
 (`git-workflow.md § Delivery cadence`).
 
+@delegation.md
+
 ## Agent toolchain
 
 Self-hosting: this file is also the project CLAUDE.md. Test/lint:
