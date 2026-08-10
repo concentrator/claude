@@ -127,3 +127,8 @@ Initiative index. Items: `R-001: description`; each entry owns
       the present, verify `check-plan-integrity` across the move, and
       add the accretion check to the Tier-1 suite. Mirrors the
       adopter-side reconcile pattern.
+- [ ] R-044: Batch rollback-anchor identity - the `pre-B-XXX` rollback
+      tag carries its initiative (`pre-R042-B-001`), so per-initiative
+      batch ids stop colliding in git's flat tag namespace; a gate
+      catches an anchor that outlived its batch, enforcing locally and
+      skipping where tags are not visible.
