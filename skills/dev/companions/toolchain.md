@@ -18,6 +18,20 @@ is the single source both modes read:
 Declare it once; `migrate` backfills it if absent (absent-host fallback:
 `finish § 3`).
 
+## Artifacts root (`## Agent toolchain`)
+
+The same section declares where DEV artifacts live, as a
+repo-relative directory:
+
+```
+- DEV artifacts root: dev/
+```
+
+Resolution - including the default when the declaration is absent -
+lives in `plan.md § Where things live`; `layout.md` draws the config
+and artifacts trees. Skills resolve artifact paths against the
+declared root and never guess it.
+
 ## Supervisor bounds (`## Agent toolchain`)
 
 A project delegating delivery to a supervisor (R-040) declares its

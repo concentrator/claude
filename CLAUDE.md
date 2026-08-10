@@ -12,15 +12,15 @@ Two modes:
 Git workflow (both modes): `skills/dev/git-workflow.md`
 (repo pin: `rules/git-workflow.md`).
 
-Delivery cadence: one branch = one coherent unit, not a per-edit PR; in
-VIBE apply then wait, deliver + confirm at a work boundary
+Delivery cadence: one branch = one coherent unit, not a per-edit PR
 (`git-workflow.md § Delivery cadence`).
 
 @delegation.md
 
 ## Agent toolchain
 
-Self-hosting: this file is also the project CLAUDE.md. Test/lint:
+Self-hosting: this file is also the project CLAUDE.md. DEV artifacts
+root: `.` (`DESIGN.md § Self-hosting layout`). Test/lint:
 `bash scripts/ci/run-all.sh` (the Tier-1 gate), also run by CI on PRs and the
 `.githooks/pre-push` hook. Supervisor bounds: batch-scoped delivery
 (`skills/dev/companions/toolchain.md § Supervisor bounds`).
