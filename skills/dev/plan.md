@@ -6,14 +6,14 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 
 ## Levels
 
-1. **Roadmap** - `<root>/plans/ROADMAP.md` (root: § Where things
+1. **Roadmap** - `plans/ROADMAP.md` (root-relative: § Where things
    live). Initiative index -
    business-level features over time. Items: `R-001: description`.
    Each entry owns `plans/R-XXX-<slug>/`, whose `requirements.md`
    carries the initiative's motivation, goals, and acceptance
    criteria (template: templates.md). Closure: see § Approval
    and closure.
-2. **Tasks** - `<root>/plans/R-XXX-<slug>/tasks.md`, one index per
+2. **Tasks** - `plans/R-XXX-<slug>/tasks.md`, one index per
    initiative, created lazily with the R's first task (an R with no tasks
    has none). Concrete units of work. Items:
    `R001-T001 [feat]: description` - the tag in brackets
@@ -33,7 +33,7 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
    "add the size-scaled close-review policy" (the rule + its skill wiring
    + doc cross-refs) is one task; "fix a typo in a rule" is a commit
    within a task, never a task of its own.
-3. **Branch plan** - `<root>/plans/R-XXX-<slug>/<task-id>-<slug>.md`
+3. **Branch plan** - `plans/R-XXX-<slug>/<task-id>-<slug>.md`
    (e.g. `R008-T001-ip-verify.md`; legacy `T-XXX-<slug>.md`).
    Checkboxes per commit. Header: `task: R008-T001`. Checkbox closes at
    commit time. See `branch-plan.md`.
@@ -88,19 +88,16 @@ ends by proposing `/dev code <slug>`, which the user invokes explicitly.
 
 ## Where things live
 
-Artifact paths resolve against the project's **artifacts root**: the
-`DEV artifacts root:` declaration in `CLAUDE.md § Agent toolchain`
-(syntax: `companions/toolchain.md § Artifacts root`); no declaration
-resolves to `dev/`. `<root>/` in path tables and root-relative
-artifact paths elsewhere mean that directory. Guarded config is not
-an artifact - it stays under `.claude/`:
-
-| File | Location |
-|---|---|
-| `REQUIREMENTS.md` (foundational) | `.claude/` |
-| `DESIGN.md` | `.claude/` |
-
-Agent-authored artifacts follow the root:
+Artifact paths resolve against the project's **artifacts root**: a
+repo-relative directory declared on its own line as `DEV artifacts
+root:` in `CLAUDE.md § Agent toolchain` (syntax:
+`companions/toolchain.md § Artifacts root`); when the declaration is
+absent, the root is `dev/`. Skills never guess the root. `<root>/`
+marks it in path tables and tree drawings; bare artifact paths in
+prose (`plans/...`, `docs/...`) are root-relative. Guarded config -
+what instructs agents - is not an artifact: it stays under
+`.claude/`, foundational `REQUIREMENTS.md` and `DESIGN.md` included
+(`layout.md § Config layout`).
 
 | File | Location |
 |---|---|
@@ -112,8 +109,8 @@ Agent-authored artifacts follow the root:
 | `B-XXX.md`, `B-XXX.report.md` (batches) | `<root>/plans/R-XXX-<slug>/batches/` |
 | `release-vX.Y.Z.md` | `<root>/plans/` |
 
-These locations are exclusive - never place plans or specs in the
-docs layer (`<root>/docs/`) or other project directories.
+These locations are exclusive - never place plans or specs in
+`docs/` or other project directories.
 
 ## Directory conventions
 
@@ -183,7 +180,7 @@ Closing archives, in two steps. **Promote**: any durable fact the
 task's artifacts established moves to its permanent home - component
 behavior to docs, external-system facts to references, binding limits
 to where they bind. **Archive**: the branch plan and findings then move
-to `<root>/plans/archive/R-XXX-<slug>/`; the `tasks.md` line stays as
+to `plans/archive/R-XXX-<slug>/`; the `tasks.md` line stays as
 the index. Findings follow their consumers, not the task's checkbox: a
 closed task's findings still cited as evidence by open tasks stay
 beside them until the last consumer closes; a living doc citing them

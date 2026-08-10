@@ -2,12 +2,14 @@
 
 Canonical project structure, two trees: guarded config under
 `.claude/`, agent-authored DEV artifacts under the declared artifacts
-root - `<root>/`, resolved per `plan.md § Where things live`. Other
-paths inside either tree need explicit justification.
+root, written `<root>/` - the `DEV artifacts root:` line in project
+`CLAUDE.md § Agent toolchain` (rule and default: `plan.md § Where
+things live`). Other paths inside either tree need explicit
+justification.
 
 ## Config layout (`.claude/`)
 
-What instructs agents; guarded, never batch-written.
+What instructs agents.
 
     .claude/
     ├── REQUIREMENTS.md           # foundational requirements
@@ -29,7 +31,7 @@ What instructs agents; guarded, never batch-written.
 
 ## Artifacts layout (`<root>/`)
 
-What agents author every run; edited without interactive guards.
+What agents author.
 
     <root>/
     ├── plans/                    # planning hierarchy - plan.md § Where things live
@@ -66,8 +68,9 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 
 - **Required at scaffold**: `.claude/REQUIREMENTS.md`,
   `.claude/DESIGN.md`, `.claude/settings.json`, `<root>/plans/`.
-- **Created as workflows need them**: `.claude/` `skills/`, `rules/`,
-  `commands/`, `agents/`, `MAINTENANCE.md`; `<root>/plans/ROADMAP.md`;
+- **Created as workflows need them**: `.claude/skills/`,
+  `.claude/rules/`, `.claude/commands/`, `.claude/agents/`,
+  `.claude/MAINTENANCE.md`; `<root>/plans/ROADMAP.md`;
   `.claude/hooks/` (shipped by the DEV toolset installer -
   `dev-branch-guard.sh`).
 - **Initiative-time**: `<root>/plans/R-XXX-<slug>/` + `requirements.md`
@@ -81,7 +84,7 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 ## Disallowed in both trees
 
 - Generated/build artifacts
-- Cache files (use platform conventions outside them)
+- Cache files (use platform conventions outside both trees)
 - Secrets, credentials
 - Temporary scratch outside the structures above
 
@@ -107,7 +110,7 @@ The granularity model - a doc per feature, page, section, or block - is a
 per-project choice. Pick the one that fits the project, record it in
 `CLAUDE.md § Conventions`, and apply it consistently.
 
-`<root>/docs/index.md` catalogs the docs - one line per doc, its path and
+`docs/index.md` (root-relative) catalogs the docs - one line per doc, its path and
 what it covers - consulted before coding to find the feature's doc, and
 updated whenever a doc is added. Project `CLAUDE.md § Conventions` carries a
 one-line pointer to the index, so it is discoverable from the always-loaded

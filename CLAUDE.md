@@ -19,8 +19,9 @@ Delivery cadence: one branch = one coherent unit, not a per-edit PR
 
 ## Agent toolchain
 
-Self-hosting: this file is also the project CLAUDE.md. DEV artifacts
-root: `.` (`DESIGN.md § Self-hosting layout`). Test/lint:
+- DEV artifacts root: .
+
+Self-hosting: this file is also the project CLAUDE.md. Test/lint:
 `bash scripts/ci/run-all.sh` (the Tier-1 gate), also run by CI on PRs and the
 `.githooks/pre-push` hook. Supervisor bounds: batch-scoped delivery
 (`skills/dev/companions/toolchain.md § Supervisor bounds`).
