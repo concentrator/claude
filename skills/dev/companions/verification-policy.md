@@ -108,6 +108,15 @@ above the threshold keep the full per-branch review.
 **Scope:** this rule applies to auto mode only. Manual-mode
 `skills/dev/branch-plan.md § Closing routine` is unaffected.
 
+## Verification modality
+
+Verification follows the claim, not the artifact: an observable claim's
+ground truth is a live run (`documentation.md`'s `VERIFIED`), a claim
+about source is checked against source (`DOCS`). A live run does not
+relax independence - whoever authored the thing does not also certify
+that its run passed, and that holds beyond docs: code, plans, and
+gates alike.
+
 ## Verifier isolation
 
 A verifier probing repo-touching behavior (git, hooks, filesystem

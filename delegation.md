@@ -15,15 +15,5 @@ session that needs one spawns it rather than pausing to confirm.
 
 Not pre-authorised: a fan-out a single `grep` would answer, and any
 delegation whose token cost the task does not justify. Breadth is the
-test, not convenience.
-
-## Verification modality
-
-Verification follows the claim, not the artifact. Where a claim is
-observable, ground truth is a live run rather than a reading of source -
-`documentation.md`'s `VERIFIED` verdict, as against `DOCS` for a claim
-checked against source, `--help`, config files, or vendor docs.
-
-A live run does not relax the independence requirement. Whoever authored
-the thing does not also certify that its run passed; the actor who
-verifies is someone else, human or agent.
+test, not convenience. Verifier conduct is bounded by
+`skills/dev/companions/verification-policy.md § Verifier isolation`.
