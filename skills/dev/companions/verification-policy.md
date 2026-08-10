@@ -108,6 +108,16 @@ above the threshold keep the full per-branch review.
 **Scope:** this rule applies to auto mode only. Manual-mode
 `skills/dev/branch-plan.md § Closing routine` is unaffected.
 
+## Verifier isolation
+
+A verifier probing repo-touching behavior (git, hooks, filesystem
+mutation) works in a throwaway repo with a scrubbed git environment -
+`GIT_DIR`, `GIT_WORK_TREE`, `GIT_INDEX_FILE` unset - never against the
+live repo: those variables override cwd and are inherited, so a
+cwd-isolated fixture is not isolated. Destructive git (`reset --hard`,
+`clean`, ref deletion) is never a verifier's to run, cleanup of its
+own mess included - a verifier that needs cleanup stops and reports.
+
 ## Comprehension check
 
 Part of the readiness review (`branch-plan.md § agentic: stamp`). A
