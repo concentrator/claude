@@ -11,7 +11,7 @@ file it describes, never against the R's § Current state list.
 - [x] `README.md § Contents`: `hooks/`, `scripts/`, and the
       `@import`ed `writing.md` + `delegation.md`; the `plans/` row gains
       `archive/`; every row checked against the tracked root.
-- [ ] `README.md § Workflow`: the full command surface read from
+- [x] `README.md § Workflow`: the full command surface read from
       `SKILL.md § Surface`, the two planning rounds, and the composite
       id chain (`R-XXX → R<NNN>-T<NNN> → branch`).
 - [ ] `README.md`: new § Artifacts root - the declaration, the `dev/`

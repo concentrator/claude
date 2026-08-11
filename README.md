@@ -29,11 +29,20 @@ Two modes, defined in `CLAUDE.md`:
 
 - **VIBE** (default) - freestyle, no ceremony.
 - **DEV** - entered via `/dev`: initiatives (requirements) → tasks →
-  branch plans → commits. Every level traceable
-  (`R-XXX → T-XXX → branch`). Execution is manual
-  (`/dev code`, one branch at a time) or agentic (`/dev auto`, a batch
-  of branches run by subagents between checkpoints, on permission
-  rails). See `skills/dev/plan.md` and `skills/dev/branch-plan.md`.
+  branch plans → commits, every level traceable
+  (`R-XXX → R<NNN>-T<NNN> → branch`). Task ids are composite, with the
+  task counter scoped to its initiative, so the id routes to the
+  artifacts: `R046-T002` lives in `plans/R-046-<slug>/`.
+
+Planning takes two rounds: `/dev plan R` shapes an initiative,
+`/dev plan R-XXX` details its tasks and branch plans. Execution is
+manual (`/dev code`, one branch at a time), agentic (`/dev auto`, a
+batch of branches run by subagents between checkpoints, on permission
+rails), or supervised (`/dev supervise`, scoped delivery within declared
+bounds). `/dev start`, `/dev migrate`, `/dev docs`, and `/dev release`
+cover scaffolding a new project, adopting an existing one, the `docs/`
+layer, and tagging a release. Command surface and mode files:
+`skills/dev/SKILL.md`.
 
 ## Self-hosting
 
