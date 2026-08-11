@@ -19,7 +19,9 @@ composite (`R046-T###`, counter scoped to this initiative).
 - [ ] **R046-T003 [doc]**: canon consistency - the retired bare id form
   out of `plan.md § Levels` and its § Where things live table,
   `branch-plan.md`, `finish.md`, and `templates.md`; `templates.md`'s
-  `kind:` enum aligned with the branch taxonomy.
+  `kind:` enum and `write-plan.md`'s tag list aligned with the branch
+  taxonomy; `SKILL.md`'s `/dev code` dispatch covers `doc`, `test`, and
+  `mnt`.
 - [ ] **R046-T004 [refactor]**: declaration syntax gets its own
   companion - the three `§ Agent toolchain` keys move out of
   `companions/toolchain.md`, which keeps push and MR mechanics; all
