@@ -78,9 +78,10 @@ Task tool (general-purpose):
 
     Edit plan checkboxes and `T-XXX-<slug>.findings.md` (under the artifacts
     root - `plan.md § Where things live`) only with the Read/Edit/Write
-    tools - never `sed`/`cat`/`grep`/`awk`. Never touch `.claude/` paths:
-    that is config, and edit-class shell there stalls on a sensitive-file
-    prompt that no permission rule clears.
+    tools - never `sed`/`cat`/`grep`/`awk`. Never write config - settings,
+    hooks, skills, rules, `CLAUDE.md` - wherever it lives; edit-class shell
+    on guarded `.claude/` paths stalls on a sensitive-file prompt that no
+    permission rule clears.
 
     ## When You're in Over Your Head
 

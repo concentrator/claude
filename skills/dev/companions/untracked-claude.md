@@ -10,10 +10,11 @@ machinery is bypassed. Everything else in the workflow is unchanged.
 ## Detection
 
 Active when `.claude/` is gitignored: `git check-ignore -q .claude`
-exits 0; an untracked project gitignores its artifacts root the same
-way (§ What changes). Check this at the start of `migrate` (§ 1
-Inventory) and whenever
-plan bookkeeping is about to open a `plan/` branch.
+exits 0. Then verify the artifacts root is gitignored too
+(`git check-ignore -q <root>`); if it is not, add it to `.gitignore`
+before any plan write. Check this at the start of `migrate` (§ 1
+Inventory) and whenever plan bookkeeping is about to open a `plan/`
+branch.
 
 ## Flag
 
