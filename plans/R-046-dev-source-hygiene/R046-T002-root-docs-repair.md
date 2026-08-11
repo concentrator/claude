@@ -8,7 +8,7 @@ type: doc
 Branch: `doc/root-docs-repair`. Each edit verifies against the source
 file it describes, never against the R's § Current state list.
 
-- [ ] `README.md § Contents`: `hooks/`, `scripts/`, and the
+- [x] `README.md § Contents`: `hooks/`, `scripts/`, and the
       `@import`ed `writing.md` + `delegation.md`; the `plans/` row gains
       `archive/`; every row checked against the tracked root.
 - [ ] `README.md § Workflow`: the full command surface read from

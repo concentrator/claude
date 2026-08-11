@@ -1,23 +1,27 @@
 # Claude Code Environment
 
 Portable, version-controlled Claude Code configuration: the
-instructions, rules, skills, agents, and settings behind a spec-driven
-development workflow. Cloned as `~/.claude`, it applies to every
-project on the machine.
+instructions, rules, skills, agents, hooks, and settings behind a
+spec-driven development workflow. Cloned as `~/.claude`, it applies to
+every project on the machine.
 
 ## Contents
 
 | Path | Role |
 |---|---|
 | `CLAUDE.md` | Global operating instructions, loaded every session |
+| `writing.md`, `delegation.md` | Conventions `@import`ed by `CLAUDE.md`, so they load every session: prose rules, subagent pre-authorisation |
 | `settings.json` | Global Claude Code config: permissions, hooks, model, plugins |
 | `rules/` | Personal convention rules: git discipline, JS style, CLAUDE.md/skill maintenance (path-scoped) |
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); plus reference skills |
 | `agents/` | Custom agents (e.g. branch-close code reviewer) |
+| `hooks/` | PreToolUse guards: no writes on the trunk, no secrets into tracked files or commits |
+| `scripts/` | `ci/` the Tier-1 mechanical gate (`run-all.sh`), `install-dev.sh`, `test/` the script tests |
+| `.github/`, `.githooks/`, `.gitignore` | The CI gate on pull requests, its advisory local pre-push mirror, and the ignore rules for harness state |
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
 | `DESIGN.md` | Architecture, full tree-map, self-hosting layout |
-| `MAINTENANCE.md` | Sanity routine: cleanup, repair, allow-list hygiene, skill audits |
-| `plans/` | This repo's own planning artifacts - indexes and per-initiative `R-XXX-<slug>/` dirs (layout: `skills/dev/plan.md`) |
+| `MAINTENANCE.md` | The Tier-2 review concerns, plus the sanity routine: cleanup, repair, allow-list hygiene, skill audits |
+| `plans/` | This repo's own planning artifacts: the roadmap index, per-initiative `R-XXX-<slug>/` dirs, and `archive/` for closed initiatives |
 
 ## Workflow
 
