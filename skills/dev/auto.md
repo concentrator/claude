@@ -15,7 +15,8 @@ sensitive-file guard).
   status (`branch-plan.md § Batches`).
 - Permissions: `.claude/settings.local.json` holds every
   `companions/auto-permissions.template.json` rule (`__PROJECT_DIR__`/`__HOME__`
-  → abs paths; `__ARTIFACTS_ROOT__` → the normalized root, the whole
+  → abs paths without their leading slash - the rules carry the `//`
+  prefix; `__ARTIFACTS_ROOT__` → the normalized root, the whole
   `__ARTIFACTS_ROOT__/` segment collapsing for a repo-root value -
   `plan.md § Where things live`)
   plus the CLAUDE.md `## Agent toolchain` rules, incl. a VCS-host CLI
