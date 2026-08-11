@@ -39,5 +39,5 @@ Branch: `doc/doc-sync-rule`.
       `DESIGN.md § Self-enforcement` (the accretion gate, added by
       `6631f83`, never reached the Tier-1 list) to R046-T002, which owns
       that file.
-- [ ] Complete the branch: re-review the added commits, mark plan
+- [x] Complete the branch: re-review the added commits, mark plan
       complete, commit.
