@@ -55,7 +55,7 @@ Worked by this branch unless marked deferred.
   adoption; relocation is `migrate`'s route (R045-T003)
 - [x] `skills/dev/companions/untracked-claude.md` - detection
   predicate and `.gitignore` recipe cover the artifacts root
-- [ ] `agents/code-reviewer.md` - plan-dir path; stale
+- [x] `agents/code-reviewer.md` - plan-dir path; stale
   `plans/batches/B-XXX.md` (batches are per-R)
 - [ ] `skills/dev/companions/auto-permissions.template.json` -
   `Read/Edit/Write(//__PROJECT_DIR__/.claude/plans/**)` globs resolve
