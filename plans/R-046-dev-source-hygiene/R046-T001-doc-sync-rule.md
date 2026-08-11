@@ -18,7 +18,7 @@ Branch: `doc/doc-sync-rule`.
       the `scripts/ci/` and `hooks/` sets, planning-layout and id or
       naming conventions, and any moved or renamed file (inbound
       references).
-- [ ] `MAINTENANCE.md § Routine`: the stale-reference row covers the
+- [x] `MAINTENANCE.md § Routine`: the stale-reference row covers the
       root docs (`README.md`, `REQUIREMENTS.md`, `DESIGN.md`) alongside
       `rules/` and `CLAUDE.md`.
 - [ ] `branch-plan.md § Closing routine`: cite the concern set in

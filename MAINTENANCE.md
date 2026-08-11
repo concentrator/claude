@@ -58,7 +58,7 @@ Initial defaults - tune per project.
 | `plans/visual-artifacts/` | gitignored scratch left behind | clear when stale |
 | `settings.local.json` | allow-list mess: one-off / dead / overlapping rules | weekly |
 | skills/ | dead, unused, broken, or duplicate skills | monthly |
-| rules/ & CLAUDE.md | stale paths / dead references | on edit + monthly |
+| rules/, CLAUDE.md, foundational docs & README | stale paths / dead references | on edit + monthly |
 | repo root & `.claude/` | stray temp / build artifacts | weekly |
 | sizes | caps per `claude-md.md § Size and structure` / `skills.md § Size` | on edit |
 | file counts | flag unexpected growth in `plans/`, skills/ | monthly |
