@@ -32,9 +32,10 @@ Worked by this branch unless marked deferred.
 - [x] `skills/dev/docs.md` - `.claude/docs/`, `.claude/docs/index.md`
 - [x] `skills/dev/release.md` - release-plan paths, ROADMAP path,
   archive path
-- [x] `skills/dev/auto.md` - no change: bare artifact paths are
-  root-relative under the convention
-  (`.claude/settings.local.json` stays: config)
+- [x] `skills/dev/auto.md` - tool-choice rule restated over plan
+  files vs `.claude/` config; pre-flight documents
+  `__ARTIFACTS_ROOT__`; other bare artifact paths already
+  root-relative (`.claude/settings.local.json` stays: config)
 - [x] `skills/dev/supervise.md` - no change: bare artifact paths
   (`.claude/supervisor.md` stays: config)
 - [x] `skills/dev/SKILL.md`, `brainstorm.md`, `changelog.md`,
@@ -57,7 +58,7 @@ Worked by this branch unless marked deferred.
   predicate and `.gitignore` recipe cover the artifacts root
 - [x] `agents/code-reviewer.md` - plan-dir path; stale
   `plans/batches/B-XXX.md` (batches are per-R)
-- [ ] `skills/dev/companions/auto-permissions.template.json` -
+- [x] `skills/dev/companions/auto-permissions.template.json` -
   `Read/Edit/Write(//__PROJECT_DIR__/.claude/plans/**)` globs resolve
   the declared root (logic)
 - [ ] `skills/dev/companions/scripts/start-server.sh` - `SESSION_DIR`
