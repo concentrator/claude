@@ -21,10 +21,4 @@ composite (`R045-T###`, counter scoped to this initiative).
   `.claude/`-layout project onto its declared root, reporting the moves
   and rewrites before applying them.
 
-Backlog: `companions/toolchain.md` hosts three `§ Agent toolchain`
-declaration keys in a push-mechanics doc; consider a companion owning
-declaration syntax as such (from R045-T001 findings).
-
-Backlog: `scripts/ci/check-plan-integrity.sh` lacks a dedicated
-script test - its root-seam behavior is covered only by the accretion
-suite's resolver cases (from R045-T002 findings).
+Backlog carried to R-046 at close.

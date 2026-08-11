@@ -132,6 +132,9 @@ Initiative index. Items: `R-001: description`; each entry owns
       headless worker can write plans, findings, and batch reports;
       config that instructs agents stays in `.claude/`. `migrate`
       carries existing adopters over.
+- [ ] R-046: DEV system-source hygiene - re-home the `§ Agent
+      toolchain` declaration syntax out of the push-mechanics
+      companion; add a dedicated `check-plan-integrity` script test.
 - [ ] R-044: Batch rollback-anchor identity - the `pre-B-XXX` rollback
       tag carries its initiative (`pre-R042-B-001`), so per-initiative
       batch ids stop colliding in git's flat tag namespace; a gate
