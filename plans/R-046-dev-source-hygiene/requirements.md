@@ -65,8 +65,8 @@ declaration keys in a file titled for push and MR mechanics, and
 
 `MAINTENANCE.md`, `README.md`, `DESIGN.md`, `REQUIREMENTS.md`,
 `skills/dev/plan.md`, `branch-plan.md`, `finish.md`, `templates.md`,
-`companions/toolchain.md` and its inbound references, plus a new
-`scripts/test/check-plan-integrity.test.sh`.
+`write-plan.md`, `SKILL.md`, `companions/toolchain.md` and its inbound
+references, plus a new `scripts/test/check-plan-integrity.test.sh`.
 
 ## Acceptance criteria
 
@@ -84,8 +84,10 @@ declaration keys in a file titled for push and MR mechanics, and
       and `DESIGN.md` reference it without restating the list.
 - [ ] The change-to-doc pair table sits in `MAINTENANCE.md § This
       environment` and covers every trigger named in § Current state.
-- [ ] `templates.md`'s `kind:` values match the branch taxonomy in
-      `git-workflow.md § Trunk`.
+- [ ] `templates.md`'s `kind:` values and `write-plan.md`'s task-tag
+      list match the branch taxonomy in `git-workflow.md § Trunk`, and
+      `SKILL.md § /dev code` declares an execution route for every tag
+      a task can carry.
 - [ ] The `§ Agent toolchain` declaration keys are read from a
       companion whose title names declaration syntax; `toolchain.md`
       keeps push and MR mechanics only; every inbound reference
