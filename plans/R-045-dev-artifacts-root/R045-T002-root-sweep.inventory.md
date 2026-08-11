@@ -71,8 +71,10 @@ Worked by this branch unless marked deferred.
   check-accretion.test.sh` - same seam + fixture paths
 - [x] `scripts/ci/check-references.sh` - header comment amended (no
   behavior change by design: path checking stays a Tier-2 concern)
-- [ ] Vendor transform (R-015 embed path) - carry the declaration
-  through to embedded copies; adjust its test
+- [x] Vendor transform (R-015 embed path) - mooted: vendoring was
+  retired by R-021 (archived `T-046-retire-r015.md`); `install-dev.sh`
+  ships the already-root-resolved skill files and touches no artifact
+  path. The stale R-045 requirements constraint is amended at R-close.
 - Deferred: `skills/dev/migrate.md` and its routing predicate - owned
   by R045-T003, which builds the adoption path around them
 - Deferred: this repo's own `DESIGN.md`/`README.md`/`REQUIREMENTS.md`/

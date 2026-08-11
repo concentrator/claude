@@ -38,7 +38,7 @@ depends-on: R045-T001
       (defaulted seam, repo root here); `check-accretion.sh` and its
       test fixtures follow; amend the `check-references.sh` header
       comment.
-- [ ] Vendor transform (R-015 embed path): carry the declaration
-      through to embedded copies; adjust its test.
+- [x] Vendor transform (R-015 embed path): mooted - vendoring retired
+      by R-021; nothing to carry (inventory entry has the detail).
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
