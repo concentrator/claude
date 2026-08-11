@@ -17,7 +17,7 @@ composite (`R045-T###`, counter scoped to this initiative).
   `skills/`, `rules/`, and `scripts/`, gates included. `start.md`
   scaffolds rather than describes, so its paths are a behavior change,
   not a text substitution. Nothing in this repo relocates.
-- [ ] **R045-T003 [feat]**: the adoption path - `migrate` moves a
+- [x] **R045-T003 [feat]**: the adoption path - `migrate` moves a
   `.claude/`-layout project onto its declared root, reporting the moves
   and rewrites before applying them.
 

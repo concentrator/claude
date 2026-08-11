@@ -2,11 +2,9 @@
   "permissions": {
     "allow": [
       "Edit(//__PROJECT_DIR__/**)",
-      "Write(//__PROJECT_DIR__/**)",
 
       "Read(//__PROJECT_DIR__/__ARTIFACTS_ROOT__/plans/**)",
       "Edit(//__PROJECT_DIR__/__ARTIFACTS_ROOT__/plans/**)",
-      "Write(//__PROJECT_DIR__/__ARTIFACTS_ROOT__/plans/**)",
 
       "Read(//__HOME__/.claude/skills/**)",
       "Read(//__HOME__/.claude/rules/**)",
@@ -41,9 +39,7 @@
       "Read(//tmp/**)",
       "Read(//private/tmp/**)",
       "Edit(//tmp/**)",
-      "Edit(//private/tmp/**)",
-      "Write(//tmp/**)",
-      "Write(//private/tmp/**)"
+      "Edit(//private/tmp/**)"
     ],
     "deny": [
       "Bash(git push:*)"

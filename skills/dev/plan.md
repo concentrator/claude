@@ -89,7 +89,8 @@ ends by proposing `/dev code <slug>`, which the user invokes explicitly.
 ## Where things live
 
 Artifact paths resolve against the project's **artifacts root**: a
-repo-relative directory declared on its own line as `DEV artifacts
+repo-relative directory outside `.claude/`, declared on its own line
+as `DEV artifacts
 root:` in `CLAUDE.md § Agent toolchain` (syntax:
 `companions/toolchain.md § Artifacts root`); when the declaration is
 absent, the root is `dev/`. `./` (or `.`) resolves to the repo root;
