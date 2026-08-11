@@ -122,9 +122,9 @@ Targets beyond the generic routine:
 
 ### Doc-sync pairs
 
-Which change obliges which doc, for the Doc sync concern
-(§ Tier-2 AI review). The left column is what the branch changed; the
-right is what it updates before delivery.
+Targets for the Doc sync concern (§ Tier-2 AI review). The left column
+is what the branch changed; the right is what it updates before
+delivery.
 
 | Changed | Also update |
 |---|---|

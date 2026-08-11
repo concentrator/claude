@@ -29,5 +29,5 @@ Branch: `doc/doc-sync-rule`.
       restating it, so adding the doc-sync concern does not leave a
       second, short list behind (close-review finding, in-scope per
       `branch-plan.md § Scope discoveries`).
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
