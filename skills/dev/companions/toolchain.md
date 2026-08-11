@@ -21,7 +21,9 @@ Declare it once; `migrate` backfills it if absent (absent-host fallback:
 ## Artifacts root (`## Agent toolchain`)
 
 The same section declares where DEV artifacts live, as a
-repo-relative directory on its own line:
+repo-relative directory on its own line, in exactly this form (a
+near-miss line - indented, or missing the dash - is ignored and the
+default applies):
 
 ```
 - DEV artifacts root: <dir>/

@@ -10,7 +10,7 @@ composite (`R045-T###`, counter scoped to this initiative).
   `plan.md` path table state an artifacts root rather than a fixed
   `.claude/` prefix; `CLAUDE.md § Agent toolchain` gains the
   declaration; absence resolves to `dev/`.
-- [ ] **R045-T002 [refactor]**: inventory, then sweep. The first commit
+- [x] **R045-T002 [refactor]**: inventory, then sweep. The first commit
   writes the inventory beside this task: the adopter path set that
   `migrate` will move, and every DEV system-source reference that must
   be rewritten to match. Remaining commits work that list across
@@ -24,3 +24,7 @@ composite (`R045-T###`, counter scoped to this initiative).
 Backlog: `companions/toolchain.md` hosts three `§ Agent toolchain`
 declaration keys in a push-mechanics doc; consider a companion owning
 declaration syntax as such (from R045-T001 findings).
+
+Backlog: `scripts/ci/check-plan-integrity.sh` lacks a dedicated
+script test - its root-seam behavior is covered only by the accretion
+suite's resolver cases (from R045-T002 findings).

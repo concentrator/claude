@@ -40,5 +40,5 @@ depends-on: R045-T001
       comment.
 - [x] Vendor transform (R-015 embed path): mooted - vendoring retired
       by R-021; nothing to carry (inventory entry has the detail).
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
