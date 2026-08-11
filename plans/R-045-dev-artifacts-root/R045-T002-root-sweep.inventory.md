@@ -29,14 +29,14 @@ Worked by this branch unless marked deferred.
 - [x] `skills/dev/write-plan.md` - branch-plan path, `.claude/docs/`
   (twice)
 - [x] `skills/dev/finish.md` - branch-plan path in § 1
-- [ ] `skills/dev/docs.md` - `.claude/docs/`, `.claude/docs/index.md`
-- [ ] `skills/dev/release.md` - release-plan paths, ROADMAP path,
+- [x] `skills/dev/docs.md` - `.claude/docs/`, `.claude/docs/index.md`
+- [x] `skills/dev/release.md` - release-plan paths, ROADMAP path,
   archive path
-- [ ] `skills/dev/auto.md` - report/batch artifact wording
+- [x] `skills/dev/auto.md` - report/batch artifact wording
   (`.claude/settings.local.json` stays: config)
-- [ ] `skills/dev/supervise.md` - artifact wording
+- [x] `skills/dev/supervise.md` - artifact wording
   (`.claude/supervisor.md` stays: config)
-- [ ] `skills/dev/SKILL.md`, `brainstorm.md`, `changelog.md`,
+- [x] `skills/dev/SKILL.md`, `brainstorm.md`, `changelog.md`,
   `git-workflow.md` - artifact filename mentions
 - [ ] `skills/dev/companions/documentation.md` - `.claude/docs/`
 - [ ] `skills/dev/companions/docs-adoption.md` - `.claude/docs/`,

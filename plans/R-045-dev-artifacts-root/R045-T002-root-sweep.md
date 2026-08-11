@@ -6,12 +6,12 @@ depends-on: R045-T001
 
 # R045-T002 - sweep the system source onto the declared root
 
-- [ ] Write the inventory beside this plan
+- [x] Write the inventory beside this plan
       (`R045-T002-root-sweep.inventory.md`): the adopter path set
       `migrate` will move, and every DEV system-source reference that
       must be rewritten, each entry carried out or deferred with a
       stated reason.
-- [ ] Core execution docs resolve artifact paths against the root:
+- [x] Core execution docs resolve artifact paths against the root:
       `branch-plan.md`, `write-plan.md`, `finish.md`.
 - [ ] Mode and surface docs: `docs.md`, `release.md`, `auto.md`,
       `supervise.md`, `SKILL.md`, `brainstorm.md`, `changelog.md`,
