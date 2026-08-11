@@ -26,7 +26,10 @@ review the diff against the rule set and confirm the concerns below:
   doc documenting it, in the same branch. The concern covers docs the
   diff does not touch: staleness a change induces elsewhere has no other
   owner, since every other concern reads only changed files. Which
-  change obliges which doc: § This environment.
+  change obliges which doc is a per-project table, kept with the
+  project's own targets (here: § This environment › Doc-sync pairs); a
+  project without one still owes the concern, judged against its own
+  docs.
 - **Writing** - changed prose follows `writing.md`.
 
 ### Prune dead prose
@@ -126,10 +129,10 @@ right is what it updates before delivery.
 | Changed | Also update |
 |---|---|
 | A `/dev` command added, renamed, or removed | `README.md § Workflow`, `DESIGN.md` tree-map |
-| A `skills/dev/` mode file or companion added, renamed, or removed | `DESIGN.md` tree-map |
+| A `skills/dev/` mode file or companion added, renamed, or removed | `SKILL.md`'s router table, `DESIGN.md` tree-map |
 | A tracked root file or directory added or removed | `README.md § Contents`, `DESIGN.md` tree-map |
-| What `install-dev.sh` copies or registers | `README.md § Installing the toolset elsewhere` |
-| A `scripts/ci/` check added or removed | `DESIGN.md § Self-enforcement`, `CLAUDE.md`'s gate line |
-| A `hooks/` guard added or removed | `DESIGN.md § Self-enforcement`, `README.md § Contents` |
-| Planning layout, the artifacts root, or an id or naming convention | `README.md`, `REQUIREMENTS.md § Planning discipline`, `DESIGN.md`, `skills/dev/plan.md`, `layout.md` |
+| What `install-dev.sh` copies or registers | `README.md § Installing the toolset elsewhere`, `scripts/test/install-dev.test.sh` (it asserts the copied set) |
+| A `scripts/ci/` check added or removed | `scripts/ci/run-all.sh` (its loop is what registers a check), `DESIGN.md § Self-enforcement` |
+| A `hooks/` guard added or removed | `DESIGN.md` tree-map (`check-stray.sh` reads it) and § Self-enforcement, `README.md § Contents` |
+| Planning layout, the artifacts root, or an id or naming convention | `README.md`, `REQUIREMENTS.md § Planning discipline`, `DESIGN.md`, `skills/dev/plan.md`, `skills/dev/layout.md` |
 | Any file moved or renamed | Every inbound reference (grep the tracked tree) |
