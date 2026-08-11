@@ -3,7 +3,8 @@
 The global convention for every doc - feature docs, specs, rules, knowledge
 entries. Grounded in Diataxis (diataxis.fr). Prose style is `writing.md`
 (always loaded); this file governs typing, structure, and content. Feature
-docs (`.claude/docs/`) are its Reference application (`layout.md § Docs`).
+docs (`docs/`, root-relative) are its Reference application
+(`layout.md § Docs`).
 
 ## Diataxis typing
 

@@ -3,8 +3,9 @@
 Engine behind `/dev auto`: runs an approved batch via subagents
 between checkpoints. Rules: `branch-plan.md`.
 
-Touch `.claude/` files only via Read/Edit/Write tools (edit-class
-shell trips the sensitive-file guard).
+Touch plan and findings files only via Read/Edit/Write tools; never
+touch `.claude/` config (edit-class shell there trips the
+sensitive-file guard).
 
 ## Pre-flight
 
@@ -13,7 +14,10 @@ shell trips the sensitive-file guard).
   `tasks.md` and no `B-XXX.report.md` - manifest text never carries
   status (`branch-plan.md § Batches`).
 - Permissions: `.claude/settings.local.json` holds every
-  `companions/auto-permissions.template.json` rule (`__PROJECT_DIR__`/`__HOME__` → abs paths)
+  `companions/auto-permissions.template.json` rule (`__PROJECT_DIR__`/`__HOME__`
+  → abs paths; `__ARTIFACTS_ROOT__` → the normalized root, the whole
+  `__ARTIFACTS_ROOT__/` segment collapsing for a repo-root value -
+  `plan.md § Where things live`)
   plus the CLAUDE.md `## Agent toolchain` rules, incl. a VCS-host CLI
   (`glab`/`gh`; absent → push-only, manual MR/PR). Missing
   → propose merged file, apply on approval. No toolchain section →

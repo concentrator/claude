@@ -10,7 +10,9 @@ pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 
 check_in() { ( cd "$1" && bash "$CHECK" >/dev/null 2>&1 ); }
-mkrepo()   { local d; d=$(mktemp -d); git -C "$d" init -q; mkdir -p "$d/plans"; printf '%s' "$d"; }
+# Fixtures declare `./` so the gate scans their root-level plans/
+# (absent declaration resolves to dev/ - scripts/ci/resolve-root.sh).
+mkrepo()   { local d; d=$(mktemp -d); git -C "$d" init -q; mkdir -p "$d/plans"; printf -- '- DEV artifacts root: ./\n' > "$d/CLAUDE.md"; printf '%s' "$d"; }
 
 # 1. dated status suffix in a living plan -> fail
 d=$(mkrepo); printf -- '- [x] R-001: thing. (approved 2026-06-16)\n' > "$d/plans/ROADMAP.md"
@@ -68,6 +70,43 @@ d=$(mkrepo); mkdir -p "$d/plans/R-001-x"
 printf -- '---\nstatus: done 2026-08-09; re-baselined 2026-05-05\n---\n' > "$d/plans/R-001-x/requirements.md"
 git -C "$d" add -A
 check_in "$d" && die "exempt-line remainder not scanned" || pass "exempt-line remainder scanned"; rm -rf "$d"
+
+# 11. declared-root seam: absent declaration resolves to dev/ - a
+# violation under dev/plans/ is caught, the same text outside it is not
+d=$(mktemp -d); git -C "$d" init -q; mkdir -p "$d/plans" "$d/dev/plans"
+printf -- 'Superseded: 2026-07-07 outside the root.\n' > "$d/plans/ROADMAP.md"
+printf -- 'clean\n' > "$d/dev/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && pass "outside-root text exempt under default root" || die "outside-root text wrongly flagged"
+printf -- 'Superseded: 2026-07-07 in the root.\n' > "$d/dev/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && die "default-root violation not caught" || pass "default-root violation caught"; rm -rf "$d"
+
+# 12. trailing whitespace in the declaration is trimmed, gate still bites
+d=$(mktemp -d); git -C "$d" init -q; mkdir -p "$d/plans"
+printf -- '- DEV artifacts root: ./ \n' > "$d/CLAUDE.md"
+printf -- 'Superseded: 2026-07-07 by the new flow.\n' > "$d/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && die "trailing-space declaration disabled the gate" || pass "trailing-space declaration trimmed"; rm -rf "$d"
+
+# 13. ./-prefixed nested root: archive stays exempt, live files still scanned
+d=$(mktemp -d); git -C "$d" init -q; mkdir -p "$d/sub/plans/archive/R-001-x"
+printf -- '- DEV artifacts root: ./sub/\n' > "$d/CLAUDE.md"
+printf -- 'superseded 2026-07-07 by R-021\n' > "$d/sub/plans/archive/R-001-x/tasks.md"
+printf -- 'clean\n' > "$d/sub/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && pass "./-prefixed root: archive exempt" || die "./-prefixed root wrongly flagged archive"
+printf -- 'Superseded: 2026-07-07 live.\n' > "$d/sub/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && die "./-prefixed root violation not caught" || pass "./-prefixed root violation caught"; rm -rf "$d"
+
+# 14. no tracked plan files under the resolved root -> loud failure, not OK
+d=$(mktemp -d); git -C "$d" init -q
+printf -- '- DEV artifacts root: ./\n' > "$d/CLAUDE.md"
+git -C "$d" add -A
+out=$(cd "$d" && bash "$CHECK" 2>&1); rc=$?
+[ $rc -ne 0 ] && grep -q 'no tracked plan files' <<<"$out" \
+  && pass "empty resolution fails loudly" || die "empty resolution passed vacuously"; rm -rf "$d"
 
 (( fail == 0 )) && echo "check-accretion.test: OK"
 exit $fail

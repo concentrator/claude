@@ -4,9 +4,9 @@
       "Edit(//__PROJECT_DIR__/**)",
       "Write(//__PROJECT_DIR__/**)",
 
-      "Read(//__PROJECT_DIR__/.claude/plans/**)",
-      "Edit(//__PROJECT_DIR__/.claude/plans/**)",
-      "Write(//__PROJECT_DIR__/.claude/plans/**)",
+      "Read(//__PROJECT_DIR__/__ARTIFACTS_ROOT__/plans/**)",
+      "Edit(//__PROJECT_DIR__/__ARTIFACTS_ROOT__/plans/**)",
+      "Write(//__PROJECT_DIR__/__ARTIFACTS_ROOT__/plans/**)",
 
       "Read(//__HOME__/.claude/skills/**)",
       "Read(//__HOME__/.claude/rules/**)",

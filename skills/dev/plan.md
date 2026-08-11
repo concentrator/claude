@@ -92,9 +92,13 @@ Artifact paths resolve against the project's **artifacts root**: a
 repo-relative directory declared on its own line as `DEV artifacts
 root:` in `CLAUDE.md § Agent toolchain` (syntax:
 `companions/toolchain.md § Artifacts root`); when the declaration is
-absent, the root is `dev/`. Skills never guess the root. `<root>/`
-marks it in path tables and tree drawings; bare artifact paths in
-prose (`plans/...`, `docs/...`) are root-relative. Guarded config -
+absent, the root is `dev/`. `./` (or `.`) resolves to the repo root;
+a trailing slash is insignificant. Skills never guess the root.
+`<root>/` marks it in path tables and tree drawings; bare artifact
+paths in prose (`plans/...`, `docs/...`) are root-relative; in a
+materialized path (a `.gitignore` entry, a permission glob, a session
+dir) `<root>/` stands for the resolved value - for the repo root the
+segment collapses entirely. Guarded config -
 what instructs agents - is not an artifact: it stays under
 `.claude/`, foundational `REQUIREMENTS.md` and `DESIGN.md` included
 (`layout.md § Config layout`).
