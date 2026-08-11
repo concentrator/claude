@@ -44,12 +44,22 @@ cover scaffolding a new project, adopting an existing one, the `docs/`
 layer, and tagging a release. Command surface and mode files:
 `skills/dev/SKILL.md`.
 
+## Artifacts root
+
+Two trees: guarded config - what instructs agents - under `.claude/`,
+and agent-authored artifacts (`plans/`, `docs/`) under the **artifacts
+root** a project declares as `DEV artifacts root:` in
+`CLAUDE.md § Agent toolchain`. Absent a declaration the root is `dev/`.
+Structure: `skills/dev/layout.md`; path resolution:
+`skills/dev/plan.md § Where things live`.
+
 ## Self-hosting
 
 This repo manages itself with the same DEV discipline it provides:
 changes to the environment flow through `plans/` initiatives like any
 other project. Because the repo root *is* the `.claude/` directory, the
-foundational files live at the root - see
+foundational files live at the root and the declared artifacts root is
+the repo root, so `plans/` sits beside them - see
 `DESIGN.md § Self-hosting layout`.
 
 ## Setup on a new machine

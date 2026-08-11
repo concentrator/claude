@@ -14,7 +14,7 @@ file it describes, never against the R's § Current state list.
 - [x] `README.md § Workflow`: the full command surface read from
       `SKILL.md § Surface`, the two planning rounds, and the composite
       id chain (`R-XXX → R<NNN>-T<NNN> → branch`).
-- [ ] `README.md`: new § Artifacts root - the declaration, the `dev/`
+- [x] `README.md`: new § Artifacts root - the declaration, the `dev/`
       default, and pointers to `layout.md` and
       `plan.md § Where things live`; § Self-hosting states why the root
       resolves to the repo root here.
