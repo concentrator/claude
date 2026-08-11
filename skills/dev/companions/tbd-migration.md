@@ -1,7 +1,8 @@
 # TBD migration report
 
 For an already-DEV, pre-TBD project - invoked from `SKILL.md` when
-`.claude/plans/ROADMAP.md` is present. Produce a report over the three
+the artifacts root's `plans/ROADMAP.md` is present (root:
+`plan.md § Where things live`). Produce a report over the three
 areas below. **Approval-gated throughout:** the agent executes each step only after
 the user approves it (`migrate.md`); host-side settings (protection)
 stay the user's. Never rewrite `main` history - migrate forward.
@@ -25,10 +26,11 @@ History is migrated forward, never rewritten.
 
 ## 2. Structure
 
-Diff tracked `.claude/` against `skills/dev/layout.md`:
+Diff the tracked `.claude/` and artifacts trees against
+`skills/dev/layout.md`:
 
 - **Non-canonical files** - e.g. a `source-spec.md` inside an R-dir.
-  Recommend moving spec/input material to `references/` (its canonical
+  Recommend moving spec/input material to `.claude/references/` (its canonical
   home); the user may instead keep it in place as a recorded exception.
 - **Missing expected files** - e.g. `MAINTENANCE.md`.
 - **Strays** - tracked files outside the canonical layout.

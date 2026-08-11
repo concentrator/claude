@@ -13,14 +13,14 @@ depends-on: R045-T001
       stated reason.
 - [x] Core execution docs resolve artifact paths against the root:
       `branch-plan.md`, `write-plan.md`, `finish.md`.
-- [ ] Mode and surface docs: `docs.md`, `release.md`, `auto.md`,
+- [x] Mode and surface docs: `docs.md`, `release.md`, `auto.md`,
       `supervise.md`, `SKILL.md`, `brainstorm.md`, `changelog.md`,
       `git-workflow.md`.
-- [ ] Companion prose: `documentation.md`, `docs-adoption.md`,
+- [x] Companion prose: `documentation.md`, `docs-adoption.md`,
       `report-template.md`, `templates.md`, `visual-companion.md`,
       `implementer-prompt.md` (its `.claude/`-prefixed edit rule
       restated over the artifacts root), `toolchain.md`.
-- [ ] Migration companions made root-aware: `tbd-migration.md` (its
+- [x] Migration companions made root-aware: `tbd-migration.md` (its
       `.claude/plans/ROADMAP.md` trigger predicate),
       `legacy-migration.md`, `untracked-claude.md` (detection predicate
       and gitignore recipe cover the artifacts root).

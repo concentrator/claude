@@ -48,11 +48,12 @@ Worked by this branch unless marked deferred.
   `.gitignore` advice
 - [x] `skills/dev/companions/implementer-prompt.md` - edit-permission
   rule restated over the artifacts root
-- [ ] `skills/dev/companions/tbd-migration.md` - ROADMAP trigger
-  predicate, archive path, structural-diff wording
-- [ ] `skills/dev/companions/legacy-migration.md` - flat tasks split
-  and branch-plan relocation paths
-- [ ] `skills/dev/companions/untracked-claude.md` - detection
+- [x] `skills/dev/companions/tbd-migration.md` - ROADMAP trigger
+  predicate, structural-diff wording, references home
+- [x] `skills/dev/companions/legacy-migration.md` - no change: it
+  canonicalizes the legacy `.claude/`-resident stock before any root
+  adoption; relocation is `migrate`'s route (R045-T003)
+- [x] `skills/dev/companions/untracked-claude.md` - detection
   predicate and `.gitignore` recipe cover the artifacts root
 - [ ] `agents/code-reviewer.md` - plan-dir path; stale
   `plans/batches/B-XXX.md` (batches are per-R)

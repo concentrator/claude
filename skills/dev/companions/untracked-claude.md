@@ -1,7 +1,8 @@
 # Untracked .claude mode
 
 A DEV project may keep all Claude-related files out of version control -
-the whole `.claude/` tree plus the root `CLAUDE.md`, gitignored. This is a
+the whole `.claude/` tree, the root `CLAUDE.md`, and the DEV artifacts
+root (`plan.md § Where things live`), gitignored. This is a
 valid configuration (e.g. a shared repo where DEV tooling stays personal).
 Planning artifacts then live only in the working tree, so the plan-VCS
 machinery is bypassed. Everything else in the workflow is unchanged.
@@ -9,7 +10,9 @@ machinery is bypassed. Everything else in the workflow is unchanged.
 ## Detection
 
 Active when `.claude/` is gitignored: `git check-ignore -q .claude`
-exits 0. Check this at the start of `migrate` (§ 1 Inventory) and whenever
+exits 0; an untracked project gitignores its artifacts root the same
+way (§ What changes). Check this at the start of `migrate` (§ 1
+Inventory) and whenever
 plan bookkeeping is about to open a `plan/` branch.
 
 ## Flag
@@ -34,8 +37,9 @@ git, so a `plan/` branch and its MR/PR would carry nothing:
 - **`migrate.md § 8` / `start.md § 5` - written, not committed.**
   Adoption / scaffold artifacts land in the working tree only; the
   initial or adoption commit carries code and quality config, not the
-  `.claude/` tree.
-- **`.gitignore`** ignores all of `.claude/` and root `CLAUDE.md` (this
+  `.claude/` tree or the artifacts root.
+- **`.gitignore`** ignores all of `.claude/`, root `CLAUDE.md`, and
+  the artifacts root (this
   inverts the `layout.md § Baseline` default, which ignores only `.env`
   and `.claude/settings.local.json`).
 - **Contributor skill copy** (`start.md § 3`, `migrate.md § 5`) does not
