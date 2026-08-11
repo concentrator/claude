@@ -31,3 +31,26 @@ Inventory, then report - touching nothing:
   must be gitignored too (`untracked-claude.md § Detection`).
 
 Present the full report; **block on user approval**.
+
+## 2. Execute
+
+On a `plan/` branch (untracked mode: working tree only,
+`untracked-claude.md § What changes`):
+
+1. **Move** - `git mv .claude/plans <root>/plans` and
+   `git mv .claude/docs <root>/docs`, creating parent dirs as needed
+   and skipping trees the project does not have. `git mv` preserves
+   history.
+2. **Rewrite** - apply the approved rewrite set, then re-grep for
+   `.claude/plans` and `.claude/docs` to confirm zero stale
+   references.
+3. **Declare** - backfill the `DEV artifacts root:` line in
+   `CLAUDE.md § Agent toolchain` (`companions/toolchain.md
+   § Artifacts root`). Write it even when the answer is the default:
+   the migration is the project's explicit adoption act.
+4. **Close the gaps** - the `.gitignore` follow-ups from § 1.
+5. **Deliver** - via a branch + MR/PR (`git-workflow.md § Trunk`).
+
+Verify before delivery: `migrate.md` now classifies the project as
+Already-DEV, and a plan-artifact write under `<root>/plans/` succeeds
+without an interactive prompt.

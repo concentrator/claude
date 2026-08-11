@@ -6,11 +6,11 @@ depends-on: R045-T002
 
 # R045-T003 - the adoption path onto the declared root
 
-- [ ] `companions/root-migration.md`, the move plan: inventory the
+- [x] `companions/root-migration.md`, the move plan: inventory the
       project's `.claude/`-resident artifacts (`plans/`, `docs/`) and
       every in-project reference to them, and report the full move and
       rewrite list before touching anything.
-- [ ] `companions/root-migration.md`, execution: `git mv` onto the
+- [x] `companions/root-migration.md`, execution: `git mv` onto the
       declared root, rewrite the listed references, backfill the
       `CLAUDE.md § Agent toolchain` declaration, deliver via MR/PR.
 - [ ] `migrate.md`: root-aware routing - the "Fresh - no
