@@ -6,7 +6,7 @@ composite (`R046-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R046-T001 [doc]**: the doc-sync obligation - a review concern in
+- [x] **R046-T001 [doc]**: the doc-sync obligation - a review concern in
   `MAINTENANCE.md § Tier-2 AI review` for staleness a change induces in
   files it does not touch, the repo's change-to-doc pair table in
   § This environment, and the root docs added to the Routine's
