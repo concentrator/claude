@@ -21,7 +21,7 @@ Branch: `doc/doc-sync-rule`.
 - [x] `MAINTENANCE.md § Routine`: the stale-reference row covers the
       root docs (`README.md`, `REQUIREMENTS.md`, `DESIGN.md`) alongside
       `rules/` and `CLAUDE.md`.
-- [ ] `branch-plan.md § Closing routine`: cite the concern set in
+- [x] `branch-plan.md § Closing routine`: cite the concern set in
       `MAINTENANCE.md § Tier-2 AI review` rather than restating it with
       a count, so the set has one home
       (`writing.md § One home per number`).

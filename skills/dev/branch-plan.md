@@ -84,10 +84,9 @@ commit and the hand-off (`finish`).
 1. **Close review, scaled to the branch** (`small` = ≤9 commits):
    refactor (no behavior change) → `/simplify`; single feature or single
    bugfix → `/code-review`; mixed-purpose (more than one task tag) or >9
-   commits → both. Also run the **Tier-2 compliance review**
-   (`MAINTENANCE.md § Tier-2 AI review`): confirm the five concerns -
-   compliance, cross-file integrity, cleanup, reference freshness, writing -
-   over the diff.
+   commits → both. Also run the **Tier-2 compliance review**: confirm
+   every concern listed in `MAINTENANCE.md § Tier-2 AI review` over the
+   diff.
 2. Validate the review's findings against full project context.
 3. Print report; request user approval before applying.
 4. Apply approved fixes as additional commits if needed.
