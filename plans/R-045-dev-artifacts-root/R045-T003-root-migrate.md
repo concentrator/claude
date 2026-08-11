@@ -13,7 +13,7 @@ depends-on: R045-T002
 - [x] `companions/root-migration.md`, execution: `git mv` onto the
       declared root, rewrite the listed references, backfill the
       `CLAUDE.md § Agent toolchain` declaration, deliver via MR/PR.
-- [ ] `migrate.md`: root-aware routing - the "Fresh - no
+- [x] `migrate.md`: root-aware routing - the "Fresh - no
       `.claude/plans/`" classifier probes the declared root too, and a
       `.claude/`-layout project routes through `root-migration.md`.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
