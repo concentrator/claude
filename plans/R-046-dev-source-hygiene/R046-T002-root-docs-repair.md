@@ -18,7 +18,7 @@ file it describes, never against the R's § Current state list.
       default, and pointers to `layout.md` and
       `plan.md § Where things live`; § Self-hosting states why the root
       resolves to the repo root here.
-- [ ] `README.md`: the `core.hooksPath` setup step, and the installer
+- [x] `README.md`: the `core.hooksPath` setup step, and the installer
       paragraph checked against `install-dev.sh` - both hooks, the
       code-size check, the writing conventions.
 - [ ] `DESIGN.md § Tree-map`: the missing `skills/dev/` mode files,

@@ -68,14 +68,18 @@ the repo root, so `plans/` sits beside them - see
 2. Start any Claude Code session - marketplace plugins re-download and
    local state (caches, `*.local.json` overrides) recreates on first
    run; nothing else to install.
-3. Project-specific skills may be symlinked into `skills/` from their
+3. Arm the advisory local gate: `git config core.hooksPath .githooks`,
+   once per clone, so `.githooks/pre-push` runs the Tier-1 checks before
+   a push leaves the machine.
+4. Project-specific skills may be symlinked into `skills/` from their
    own repos; clone those repos to matching paths if needed.
 
 ## Installing the toolset elsewhere
 
 To give another machine or project the DEV toolset - the `/dev` router, its
-mode-file companions, the bundled dependency skills, and the branch-guard
-hook - run the installer from a checkout of this repo:
+mode-file companions, the bundled dependency skills, the writing
+conventions, the code-size check, and the two PreToolUse guards - run the
+installer from a checkout of this repo:
 
     scripts/install-dev.sh                   # into ~/.claude (global)
     scripts/install-dev.sh --project <path>  # into <path>/.claude
@@ -83,5 +87,6 @@ hook - run the installer from a checkout of this repo:
 Global install serves a contributor who wants `/dev` everywhere; the
 `--project` copy serves a repo's no-global contributors (skill precedence
 means a contributor's own global copy still wins). The installer registers
-the branch-guard hook in the target `settings.json` idempotently and never
-ships the personal convention rules. Re-run it to refresh.
+the branch-guard and secrets-guard hooks in the target `settings.json`
+idempotently and never ships the personal convention rules. Re-run it to
+refresh.
