@@ -32,21 +32,21 @@ Worked by this branch unless marked deferred.
 - [x] `skills/dev/docs.md` - `.claude/docs/`, `.claude/docs/index.md`
 - [x] `skills/dev/release.md` - release-plan paths, ROADMAP path,
   archive path
-- [x] `skills/dev/auto.md` - report/batch artifact wording
+- [x] `skills/dev/auto.md` - no change: bare artifact paths are
+  root-relative under the convention
   (`.claude/settings.local.json` stays: config)
-- [x] `skills/dev/supervise.md` - artifact wording
+- [x] `skills/dev/supervise.md` - no change: bare artifact paths
   (`.claude/supervisor.md` stays: config)
 - [x] `skills/dev/SKILL.md`, `brainstorm.md`, `changelog.md`,
-  `git-workflow.md` - artifact filename mentions
-- [ ] `skills/dev/companions/documentation.md` - `.claude/docs/`
-- [ ] `skills/dev/companions/docs-adoption.md` - `.claude/docs/`,
+  `git-workflow.md` - no change: bare artifact filenames only
+- [x] `skills/dev/companions/documentation.md` - `.claude/docs/`
+- [x] `skills/dev/companions/docs-adoption.md` - `.claude/docs/`,
   index path (`.claude/rules/feature-docs.md` stays: config)
-- [ ] `skills/dev/companions/report-template.md` - report path
-- [ ] `skills/dev/templates.md` - per-initiative requirements path,
-  release-plan filename (`.claude/REQUIREMENTS.md` stays: config)
-- [ ] `skills/dev/companions/visual-companion.md` - session-dir paths,
+- [x] `skills/dev/companions/report-template.md` - no change: bare root-relative path
+- [x] `skills/dev/templates.md` - no change: bare root-relative paths (`.claude/REQUIREMENTS.md` stays: config)
+- [x] `skills/dev/companions/visual-companion.md` - session-dir paths,
   `.gitignore` advice
-- [ ] `skills/dev/companions/implementer-prompt.md` - edit-permission
+- [x] `skills/dev/companions/implementer-prompt.md` - edit-permission
   rule restated over the artifacts root
 - [ ] `skills/dev/companions/tbd-migration.md` - ROADMAP trigger
   predicate, archive path, structural-diff wording

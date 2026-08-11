@@ -27,15 +27,15 @@ The server watches a directory for HTML files and serves the newest one to the b
 scripts/start-server.sh --project-dir /path/to/project
 
 # Returns: {"type":"server-started","port":52341,"url":"http://localhost:52341",
-#           "screen_dir":"/path/to/project/.claude/plans/visual-artifacts/12345-1706000000/content",
-#           "state_dir":"/path/to/project/.claude/plans/visual-artifacts/12345-1706000000/state"}
+#           "screen_dir":"/path/to/project/<root>/plans/visual-artifacts/12345-1706000000/content",
+#           "state_dir":"/path/to/project/<root>/plans/visual-artifacts/12345-1706000000/state"}
 ```
 
 Save `screen_dir` and `state_dir` from the response. Tell user to open the URL.
 
-**Finding connection info:** the server writes its startup JSON to `$STATE_DIR/server-info` - read it whenever stdout wasn't captured. With `--project-dir`, the session dir is under `<project>/.claude/plans/visual-artifacts/`.
+**Finding connection info:** the server writes its startup JSON to `$STATE_DIR/server-info` - read it whenever stdout wasn't captured. With `--project-dir`, the session dir is under `<project>/<root>/plans/visual-artifacts/`.
 
-**Note:** Pass the project root as `--project-dir` so mockups persist in `.claude/plans/visual-artifacts/` and survive server restarts. Without it, files go to `/tmp` and get cleaned up. Remind the user to add `.claude/plans/visual-artifacts/` to `.gitignore` if it's not already there.
+**Note:** Pass the project root as `--project-dir` so mockups persist in `<root>/plans/visual-artifacts/` and survive server restarts. Without it, files go to `/tmp` and get cleaned up. Remind the user to add `<root>/plans/visual-artifacts/` to `.gitignore` if it's not already there.
 
 **Launching the server by platform:**
 
@@ -258,7 +258,7 @@ If `$STATE_DIR/events` doesn't exist, the user didn't interact with the browser 
 scripts/stop-server.sh $SESSION_DIR
 ```
 
-If the session used `--project-dir`, mockup files persist in `.claude/plans/visual-artifacts/` for later reference. Only `/tmp` sessions get deleted on stop.
+If the session used `--project-dir`, mockup files persist in `<root>/plans/visual-artifacts/` for later reference. Only `/tmp` sessions get deleted on stop.
 
 ## Reference
 
