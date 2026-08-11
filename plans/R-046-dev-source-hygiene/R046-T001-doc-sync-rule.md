@@ -35,7 +35,7 @@ Branch: `doc/doc-sync-rule`.
       convention, not only `plan.md` and `layout.md` - a dry run of the
       table against `d232338` (the commit that adopted composite ids)
       reached three of the five docs that drifted.
-- [ ] Route the drift the same dry run found in
+- [x] Route the drift the same dry run found in
       `DESIGN.md § Self-enforcement` (the accretion gate, added by
       `6631f83`, never reached the Tier-1 list) to R046-T002, which owns
       that file.
