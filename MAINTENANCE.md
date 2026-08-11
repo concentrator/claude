@@ -116,3 +116,20 @@ Targets beyond the generic routine:
 - Verify no skill or rule references removed scripts/log files.
 - Confirm foundational files stay at the repo root (not nested
   `.claude/`), per `DESIGN.md § Self-hosting layout`.
+
+### Doc-sync pairs
+
+Which change obliges which doc, for the Doc sync concern
+(§ Tier-2 AI review). The left column is what the branch changed; the
+right is what it updates before delivery.
+
+| Changed | Also update |
+|---|---|
+| A `/dev` command added, renamed, or removed | `README.md § Workflow`, `DESIGN.md` tree-map |
+| A `skills/dev/` mode file or companion added, renamed, or removed | `DESIGN.md` tree-map |
+| A tracked root file or directory added or removed | `README.md § Contents`, `DESIGN.md` tree-map |
+| What `install-dev.sh` copies or registers | `README.md § Installing the toolset elsewhere` |
+| A `scripts/ci/` check added or removed | `DESIGN.md § Self-enforcement`, `CLAUDE.md`'s gate line |
+| A `hooks/` guard added or removed | `DESIGN.md § Self-enforcement`, `README.md § Contents` |
+| Planning layout, the artifacts root, or an id or naming convention | `README.md`, `REQUIREMENTS.md § Planning discipline`, `DESIGN.md`, `skills/dev/plan.md`, `layout.md` |
+| Any file moved or renamed | Every inbound reference (grep the tracked tree) |

@@ -12,7 +12,7 @@ Branch: `doc/doc-sync-rule`.
       documented surface updates the doc documenting it in the same
       branch, and staleness the change induces in files the diff does
       not touch is in scope for the review.
-- [ ] `MAINTENANCE.md § This environment`: the change-to-doc pair table.
+- [x] `MAINTENANCE.md § This environment`: the change-to-doc pair table.
       Triggers: the `/dev` command surface, the `skills/dev/` file set,
       tracked root entries, what `install-dev.sh` copies and registers,
       the `scripts/ci/` and `hooks/` sets, planning-layout and id or
