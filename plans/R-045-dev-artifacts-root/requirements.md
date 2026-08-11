@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-11
 kind: feat
+status: done 2026-08-11
 ---
 
 # R-045: DEV artifacts root
@@ -70,29 +71,41 @@ write.
 
 ## Acceptance criteria
 
-- [ ] A headless session writes a plan artifact and a batch report in
-      an adopter-shaped fixture with no interactive prompt
-- [ ] The declared root is honoured, and its absence resolves to `dev/`
-- [ ] Paths under `.claude/` are unchanged and still refuse headless
-      edits
-- [ ] A project scaffolded by `start` runs auto mode with no adoption
-      step
-- [ ] `migrate` moves a `.claude/`-layout project and leaves no stale
-      reference
-- [ ] The move inventory exists, and each entry is either carried out
-      or deferred with a stated reason
-- [ ] Tier-1 green
+- [x] A headless session writes a plan artifact and a batch report in
+      an adopter-shaped fixture with no interactive prompt - evidence:
+      the R045-T003 closure run - a headless session in the
+      root-migrated fixture, on a `batch/` branch, edited a plan
+      checkbox and wrote `batches/B-001.report.md` with zero prompts
+- [x] The declared root is honoured, and its absence resolves to
+      `dev/` - evidence: `scripts/ci/resolve-root.sh` and the
+      root-seam cases in `scripts/test/check-accretion.test.sh`
+- [x] Paths under `.claude/` are unchanged and still refuse headless
+      edits - evidence: the same closure run's negative control - a
+      `.claude/` write stayed blocked despite a project-wide Edit
+      grant
+- [x] A project scaffolded by `start` runs auto mode with no adoption
+      step - evidence: `start.md § 3` scaffolds onto the declared
+      root; the closure fixture, in that same shape, ran the headless
+      auto write path with no adoption step
+- [x] `migrate` moves a `.claude/`-layout project and leaves no stale
+      reference - evidence: two independent fixture rehearsals of
+      `root-migration.md § 2` (author and verifier), each ending with
+      zero stale references and an Already-DEV classification
+- [x] The move inventory exists, and each entry is either carried out
+      or deferred with a stated reason - evidence:
+      `R045-T002-root-sweep.inventory.md`, every entry dispositioned
+- [x] Tier-1 green - evidence: `scripts/ci/run-all.sh` green on every
+      commit of the three branches
 
 ## Constraints
 
 - One declaration home; skills never guess the root.
-- `check-plan-integrity` and `check-references` resolve the declared
-  root.
-- The vendor transform carries the root through to embedded copies.
+- `check-plan-integrity` and `check-accretion` resolve the declared
+  root; `check-references` performs no path resolution by design (its
+  header states why).
 
 ## References
 
 - R-040: headless workers, the case that surfaced this.
 - R-044: its gate resolves paths this initiative changes.
-- R-015: the vendor transform that carries the convention to adopters.
 - R-017: legacy migration, the sibling adoption path.

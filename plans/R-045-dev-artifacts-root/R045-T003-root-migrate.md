@@ -16,7 +16,7 @@ depends-on: R045-T002
 - [x] `migrate.md`: root-aware routing - the "Fresh - no
       `.claude/plans/`" classifier probes the declared root too, and a
       `.claude/`-layout project routes through `root-migration.md`.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit; closing R-045's
       last open task, run the R-closure check with per-criterion
       evidence, including the headless artifact write in an

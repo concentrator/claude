@@ -127,7 +127,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       the present, verify `check-plan-integrity` across the move, and
       add the accretion check to the Tier-1 suite. Mirrors the
       adopter-side reconcile pattern.
-- [ ] R-045: DEV artifacts root - planning artifacts move out of the
+- [x] R-045: DEV artifacts root - planning artifacts move out of the
       guarded `.claude/` tree to a declared root (default `dev/`), so a
       headless worker can write plans, findings, and batch reports;
       config that instructs agents stays in `.claude/`. `migrate`
