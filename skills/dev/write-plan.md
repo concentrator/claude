@@ -1,8 +1,8 @@
 # Writing Plans
 
 Generate a branch plan (`plans/R-XXX-<slug>/T-XXX-<slug>.md`,
-root-relative: `plan.md § Where things live`)
-from a task in its initiative's `tasks.md`. Invoked within the detail
+root-relative) from a task in its initiative's `tasks.md`. Invoked
+within the detail
 round (`/dev plan R-XXX`), or per task via `/dev plan <task-id>` / `all`.
 
 ## Inputs

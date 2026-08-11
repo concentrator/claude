@@ -1,8 +1,8 @@
 # TBD migration report
 
 For an already-DEV, pre-TBD project - invoked from `SKILL.md` when
-the artifacts root's `plans/ROADMAP.md` is present (root:
-`plan.md § Where things live`). Produce a report over the three
+`plans/ROADMAP.md` (root-relative) is present. Produce a report over
+the three
 areas below. **Approval-gated throughout:** the agent executes each step only after
 the user approves it (`migrate.md`); host-side settings (protection)
 stay the user's. Never rewrite `main` history - migrate forward.

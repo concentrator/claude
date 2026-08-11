@@ -1,7 +1,7 @@
 # Dev docs
 
-Bring the current project's `docs/` feature docs (root-relative:
-`plan.md § Where things live`) onto the doc-first
+Bring the current project's `docs/` feature docs (root-relative)
+onto the doc-first
 convention, or refresh them. Invoked by `/dev docs` (`SKILL.md`). The same
 procedure `migrate` runs on first adoption, here run standalone on any
 project and re-runnable: where docs already exist it is a refresh (audit,

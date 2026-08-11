@@ -5,9 +5,8 @@ Close out a DEV branch - invoked by the closing routine
 
 ## 1. Verify
 
-- `plans/R-XXX-<slug>/T-XXX-<slug>.md` (root-relative: `plan.md
-  § Where things live`): every `[ ]` is `[x]`;
-  findings file triaged.
+- `plans/R-XXX-<slug>/T-XXX-<slug>.md` (root-relative): every `[ ]`
+  is `[x]`; findings file triaged.
 - Bookkeeping marks present in the final commit (`branch-plan.md
   § Closing routine`; untracked: `companions/untracked-claude.md`).
 - Close review per `branch-plan.md § Closing routine`.

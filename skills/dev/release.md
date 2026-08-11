@@ -9,7 +9,7 @@ Generic release flow. Projects override via `<project>/.claude/skills/release/SK
 
 ## Procedure
 
-1. **Verify branch merges.** If `plans/release-<version>.md` exists (root-relative: `plan.md § Where things live`), check each branch entry against `git log <default-branch>` - confirm the `[x]` marks match merged branches (the marks ride each branch's final commit, `branch-plan.md § Closing routine`; verify, never set); flag any planned branches not yet merged. Halt if planned branches remain unmerged unless user confirms drop.
+1. **Verify branch merges.** If `plans/release-<version>.md` exists (root-relative), check each branch entry against `git log <default-branch>` - confirm the `[x]` marks match merged branches (the marks ride each branch's final commit, `branch-plan.md § Closing routine`; verify, never set); flag any planned branches not yet merged. Halt if planned branches remain unmerged unless user confirms drop.
 2. **Diff scope.** `git log $(git describe --abbrev=0 --tags)..HEAD --oneline` + stat. Report accumulated changes.
 3. **Multi-branch code review.** Delegate to `code-reviewer` agent with diff + `[Unreleased]` CHANGELOG.
 4. **Halt on issues.** Stop on blockers; ask user - fix in follow-up branch, defer, or accept. No auto-resolve.

@@ -22,8 +22,6 @@ Stays under `.claude/` (config, guarded): `REQUIREMENTS.md`,
 
 ## System-source rewrites
 
-Worked by this branch unless marked deferred.
-
 - [x] `skills/dev/branch-plan.md` - branch-plan path, `.claude/docs/`
   (twice), batches path, release-plan path
 - [x] `skills/dev/write-plan.md` - branch-plan path, `.claude/docs/`
@@ -40,6 +38,8 @@ Worked by this branch unless marked deferred.
   (`.claude/supervisor.md` stays: config)
 - [x] `skills/dev/SKILL.md`, `brainstorm.md`, `changelog.md`,
   `git-workflow.md` - no change: bare artifact filenames only
+- [x] `skills/dev/companions/toolchain.md` - no change: already
+  root-aware from R045-T001 (§ Artifacts root)
 - [x] `skills/dev/companions/documentation.md` - `.claude/docs/`
 - [x] `skills/dev/companions/docs-adoption.md` - `.claude/docs/`,
   index path (`.claude/rules/feature-docs.md` stays: config)

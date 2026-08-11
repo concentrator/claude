@@ -23,7 +23,7 @@ Baseline files (`layout.md § Baseline files`):
   toolchain`, spec per `migrate.md § 4`. Ask: **artifacts root?**
   Record the answer as the `DEV artifacts root:` declaration
   (`companions/toolchain.md § Artifacts root`); no preference → omit
-  the line and the default applies (`plan.md § Where things live`).
+  the line and the default applies.
 - `README.md` (verify or stub).
 - `.gitignore` / `.env.example` - seed from the `companions/*.template`
   files; contents per `layout.md § Baseline files`.
@@ -42,8 +42,7 @@ Ask: **extended docs?** Record `extended-docs:` (+ path if yes) in
 `CLAUDE.md § Conventions`. If yes: create directory with placeholder.
 
 If the project will keep `<root>/docs/` feature docs (`layout.md § Docs`),
-record a one-line pointer to the root's `docs/index.md` in
-`§ Conventions`.
+record a one-line pointer to `<root>/docs/index.md` in `§ Conventions`.
 
 ## 4. Quality infrastructure
 

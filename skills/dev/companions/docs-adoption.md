@@ -25,8 +25,8 @@ docs and the WARN ones are the backlog.
 
 ## Build
 
-Build or rebuild `docs/` (root-relative: `plan.md § Where things
-live`) to the framework for the features the
+Build or rebuild `docs/` (root-relative) to the framework for the
+features the
 user prioritizes - ask which matter most (entrypoints and high-churn areas
 are good candidates), and offer re-alignment for the WARN docs:
 restructure onto the framework, then re-verify. The build always runs,

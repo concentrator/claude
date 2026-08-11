@@ -1,8 +1,7 @@
 # Branch plan rules
 
 A branch plan is `plans/R-XXX-<slug>/T-XXX-<slug>.md` (root-relative;
-dir per
-parent roadmap entry - `plan.md § Directory conventions`). One
+dir per parent roadmap entry - `plan.md § Directory conventions`). One
 branch = one task. The plan must be complete and committed to `main`
 **before** the branch is created.
 

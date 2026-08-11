@@ -33,7 +33,7 @@ scripts/start-server.sh --project-dir /path/to/project
 
 Save `screen_dir` and `state_dir` from the response. Tell user to open the URL.
 
-**Finding connection info:** the server writes its startup JSON to `$STATE_DIR/server-info` - read it whenever stdout wasn't captured. With `--project-dir`, the session dir is under `<project>/<root>/plans/visual-artifacts/`.
+**Finding connection info:** the server writes its startup JSON to `$STATE_DIR/server-info` - read it whenever stdout wasn't captured. With `--project-dir`, the session dir is under `<project>/<root>/plans/visual-artifacts/` (`<root>`: the DEV artifacts root - `plan.md § Where things live`).
 
 **Note:** Pass the project root as `--project-dir` so mockups persist in `<root>/plans/visual-artifacts/` and survive server restarts. Without it, files go to `/tmp` and get cleaned up. Remind the user to add `<root>/plans/visual-artifacts/` to `.gitignore` if it's not already there.
 
