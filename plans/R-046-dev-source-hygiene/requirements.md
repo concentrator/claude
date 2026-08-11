@@ -88,6 +88,8 @@ references, plus a new `scripts/test/check-plan-integrity.test.sh`.
       list match the branch taxonomy in `git-workflow.md § Trunk`, and
       `SKILL.md § /dev code` declares an execution route for every tag
       a task can carry.
+- [ ] `plan.md § Archival` admits one reading of when a task's
+      artifacts move, matching practice: at initiative close.
 - [ ] The `§ Agent toolchain` declaration keys are read from a
       companion whose title names declaration syntax; `toolchain.md`
       keeps push and MR mechanics only; every inbound reference
