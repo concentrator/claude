@@ -24,11 +24,11 @@ Stays under `.claude/` (config, guarded): `REQUIREMENTS.md`,
 
 Worked by this branch unless marked deferred.
 
-- [ ] `skills/dev/branch-plan.md` - branch-plan path, `.claude/docs/`
+- [x] `skills/dev/branch-plan.md` - branch-plan path, `.claude/docs/`
   (twice), batches path, release-plan path
-- [ ] `skills/dev/write-plan.md` - branch-plan path, `.claude/docs/`
+- [x] `skills/dev/write-plan.md` - branch-plan path, `.claude/docs/`
   (twice)
-- [ ] `skills/dev/finish.md` - branch-plan path in § 1
+- [x] `skills/dev/finish.md` - branch-plan path in § 1
 - [ ] `skills/dev/docs.md` - `.claude/docs/`, `.claude/docs/index.md`
 - [ ] `skills/dev/release.md` - release-plan paths, ROADMAP path,
   archive path

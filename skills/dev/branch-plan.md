@@ -1,6 +1,7 @@
 # Branch plan rules
 
-A branch plan is `.claude/plans/R-XXX-<slug>/T-XXX-<slug>.md` (dir per
+A branch plan is `plans/R-XXX-<slug>/T-XXX-<slug>.md` (root-relative;
+dir per
 parent roadmap entry - `plan.md § Directory conventions`). One
 branch = one task. The plan must be complete and committed to `main`
 **before** the branch is created.
@@ -36,7 +37,7 @@ Each pass from `feat.md` / `fix.md` / `refactor.md` ends the same way:
    `release-routine: yes` → CHANGELOG `## [Unreleased]` entry
    (`changelog.md`); new public
    surface → `README.md`; `extended-docs: yes` → per conventions
-   (feature `.claude/docs/` docs reconcile at close - § Closing routine).
+   (feature `docs/` docs reconcile at close - § Closing routine).
 3. **Commit** - single-line message; mark the plan `[x]` immediately.
 
 Open `[ ]` items → next pass; last non-final `[x]` → § Closing routine.
@@ -101,7 +102,7 @@ commit and the hand-off (`finish`).
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Reconcile the feature doc** - write (new feature) or update
-   (fix/refactor) the `.claude/docs/` doc to match the shipped code, then
+   (fix/refactor) the `docs/` doc to match the shipped code, then
    complete it - and every doc the branch ships, re-review edits
    included - through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
@@ -155,7 +156,7 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
 
 ### Batches
 
-`.claude/plans/R-XXX-<slug>/batches/B-XXX.md` - ordered member list:
+`plans/R-XXX-<slug>/batches/B-XXX.md` - ordered member list:
 
     # B-001
     - T-014 (<slug>)
@@ -220,6 +221,6 @@ manual-mode § Closing routine above is unchanged by this rule.
 ## Releases
 
 If the project uses releases, completed branches are listed in
-`.claude/plans/release-vX.Y.Z.md`; the `[x]` is one of the closing
+`plans/release-vX.Y.Z.md`; the `[x]` is one of the closing
 routine's marks (§ Closing routine; auto mode: § Batches). Releases are
 tagged on the trunk (`git-workflow.md § Releases`).
