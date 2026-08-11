@@ -11,7 +11,7 @@ unique to this repo.
 
 A mandatory compliance review for `~/.claude`, complementing the Tier-1
 mechanical CI checks in `scripts/ci/`. At branch close, before delivery,
-review the diff against the rule set and confirm five concerns:
+review the diff against the rule set and confirm the concerns below:
 
 - **Compliance** - each changed file obeys its governing rule
   (`CLAUDE.md` per `rules/claude-md.md`; `SKILL.md` per `rules/skills.md`;
@@ -22,6 +22,11 @@ review the diff against the rule set and confirm five concerns:
 - **Reference freshness** - no dead paths; no expired time-bound
   references. Mark a time-bound reference `<!-- expires: YYYY-MM-DD -->`;
   `scripts/ci/check-references.sh` fails once the date is past.
+- **Doc sync** - a change that alters a documented surface updates the
+  doc documenting it, in the same branch. The concern covers docs the
+  diff does not touch: staleness a change induces elsewhere has no other
+  owner, since every other concern reads only changed files. Which
+  change obliges which doc: § This environment.
 - **Writing** - changed prose follows `writing.md`.
 
 ### Prune dead prose

@@ -7,7 +7,7 @@ type: doc
 
 Branch: `doc/doc-sync-rule`.
 
-- [ ] `MAINTENANCE.md § Tier-2 AI review`: the doc-sync concern, written
+- [x] `MAINTENANCE.md § Tier-2 AI review`: the doc-sync concern, written
       generic so it seeds into adopter projects - a change that alters a
       documented surface updates the doc documenting it in the same
       branch, and staleness the change induces in files the diff does
