@@ -25,5 +25,9 @@ Branch: `doc/doc-sync-rule`.
       `MAINTENANCE.md § Tier-2 AI review` rather than restating it with
       a count, so the set has one home
       (`writing.md § One home per number`).
+- [x] `DESIGN.md § Self-enforcement`: cite the concern set rather than
+      restating it, so adding the doc-sync concern does not leave a
+      second, short list behind (close-review finding, in-scope per
+      `branch-plan.md § Scope discoveries`).
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
