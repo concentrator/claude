@@ -6,8 +6,11 @@
 # Each session gets its own directory to avoid conflicts.
 #
 # Options:
-#   --project-dir <path>  Store session files under <path>/.claude/plans/visual-artifacts/
-#                         instead of /tmp. Files persist after server stops.
+#   --project-dir <path>  Store session files under the project's DEV
+#                         artifacts root: <path>/<root>/plans/visual-artifacts/
+#                         (root from the "DEV artifacts root:" line in
+#                         <path>/CLAUDE.md, default dev/) instead of /tmp.
+#                         Files persist after server stops.
 #   --host <bind-host>    Host/interface to bind (default: 127.0.0.1).
 #                         Use 0.0.0.0 in remote/containerized environments.
 #   --url-host <host>     Hostname shown in returned URL JSON.
@@ -78,7 +81,13 @@ fi
 SESSION_ID="$$-$(date +%s)"
 
 if [[ -n "$PROJECT_DIR" ]]; then
-  SESSION_DIR="${PROJECT_DIR}/.claude/plans/visual-artifacts/${SESSION_ID}"
+  # Resolve the DEV artifacts root from the project CLAUDE.md declaration;
+  # absent resolves to dev/ (skills/dev/plan.md § Where things live).
+  ROOT="$(sed -n 's/^- DEV artifacts root: *//p' "${PROJECT_DIR}/CLAUDE.md" 2>/dev/null | head -n1)"
+  ROOT="${ROOT:-dev/}"
+  ROOT="${ROOT%/}"
+  [[ "$ROOT" == "." ]] && ROOT=""
+  SESSION_DIR="${PROJECT_DIR}${ROOT:+/$ROOT}/plans/visual-artifacts/${SESSION_ID}"
 else
   SESSION_DIR="/tmp/brainstorm-${SESSION_ID}"
 fi

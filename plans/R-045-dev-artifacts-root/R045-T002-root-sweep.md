@@ -24,12 +24,12 @@ depends-on: R045-T001
       `.claude/plans/ROADMAP.md` trigger predicate),
       `legacy-migration.md`, `untracked-claude.md` (detection predicate
       and gitignore recipe cover the artifacts root).
-- [ ] `agents/code-reviewer.md`: root-resolved paths; fix the stale
+- [x] `agents/code-reviewer.md`: root-resolved paths; fix the stale
       `plans/batches/B-XXX.md` reference (batches are per-R).
-- [ ] `companions/auto-permissions.template.json`: grant globs resolve
+- [x] `companions/auto-permissions.template.json`: grant globs resolve
       the declared root so headless grants match the artifacts they
       pre-authorize.
-- [ ] `companions/scripts/start-server.sh` and `stop-server.sh`:
+- [x] `companions/scripts/start-server.sh` and `stop-server.sh`:
       `SESSION_DIR` under the declared root.
 - [ ] `start.md` scaffolds onto the declared root: ask for and record
       the declaration; `plans/` + `ROADMAP.md`, `release-v0.1.0.md`,

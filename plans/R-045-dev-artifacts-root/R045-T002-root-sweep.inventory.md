@@ -61,7 +61,7 @@ Worked by this branch unless marked deferred.
 - [x] `skills/dev/companions/auto-permissions.template.json` -
   `Read/Edit/Write(//__PROJECT_DIR__/.claude/plans/**)` globs resolve
   the declared root (logic)
-- [ ] `skills/dev/companions/scripts/start-server.sh` - `SESSION_DIR`
+- [x] `skills/dev/companions/scripts/start-server.sh` - `SESSION_DIR`
   under the declared root (logic); `stop-server.sh` comment
 - [ ] `skills/dev/start.md` - scaffold onto the declared root; ask +
   record the declaration (behavior change, not text substitution)
