@@ -21,7 +21,7 @@ file it describes, never against the R's § Current state list.
 - [x] `README.md`: the `core.hooksPath` setup step, and the installer
       paragraph checked against `install-dev.sh` - both hooks, the
       code-size check, the writing conventions.
-- [ ] `DESIGN.md § Tree-map`: the missing `skills/dev/` mode files,
+- [x] `DESIGN.md § Tree-map`: the missing `skills/dev/` mode files,
       `plans/archive/`, and the `scripts/test/` contents, checked
       against `git ls-files`.
 - [ ] `DESIGN.md`: the tree-map's plan-file nodes carry the composite

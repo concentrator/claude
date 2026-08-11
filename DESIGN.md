@@ -14,11 +14,8 @@ relate, and the invariants that keep them coherent.
   + its inert mode-file companions (the DEV toolset); the rest are
   standalone reference skills. Authoring: `skills/skill-creator/`,
   `skills/writing-skills/`, `rules/skills.md`.
-- **commands/**, **agents/** - optional slash commands and custom agents.
 - **settings.json** - global Claude Code config. Project-scoped settings
   for this repo: `.claude/settings.local.json`.
-- **plans/** - this environment's own planning hierarchy
-  (`skills/dev/plan.md`).
 - **MAINTENANCE.md** - sanity routine + the Tier-2 AI review
   (`## Self-enforcement`).
 - **scripts/ci/**, **.github/**, **.githooks/** - the self-enforcement
@@ -62,18 +59,18 @@ excluded - see `.gitignore`.
 ├── scripts/
 │   ├── ci/                       # Tier-1 checks + run-all.sh
 │   ├── install-dev.sh            # toolset installer (global or --project)
-│   └── test/                     # script tests (install-dev.test.sh)
+│   └── test/                     # script tests + run-all.sh
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
 ├── plans/                        # planning hierarchy
 │   ├── ROADMAP.md                # cross-R index - see skills/dev/plan.md
-│   ├── REQ-XXX.md                # four-level-era requirements (closed: history; open → R stubs on approval)
-│   └── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
-│       ├── requirements.md       # initiative requirements
-│       ├── tasks.md              # this initiative's task index (lazy)
-│       ├── T-XXX-<slug>.md
-│       ├── T-XXX-<slug>.findings.md
-│       └── batches/              # B-XXX manifests + reports (lazy)
+│   ├── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
+│   │   ├── requirements.md       # initiative requirements
+│   │   ├── tasks.md              # this initiative's task index (lazy)
+│   │   ├── R<NNN>-T<NNN>-<slug>.md
+│   │   ├── R<NNN>-T<NNN>-<slug>.findings.md
+│   │   └── batches/              # B-XXX manifests + reports (lazy)
+│   └── archive/                  # closed initiatives, frozen history
 ├── rules/                        # personal convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
 │   ├── git-workflow.md           # trunk/branch/commit/PR discipline (always-on)
@@ -86,6 +83,7 @@ excluded - see `.gitignore`.
     │   ├── SKILL.md              #   the router
     │   ├── plan.md branch-plan.md templates.md layout.md changelog.md git-workflow.md  # process rules
     │   ├── feat.md fix.md refactor.md write-plan.md finish.md release.md auto.md        # execution
+    │   ├── supervise.md secrets.md docs.md     # supervised delivery, secrets policy, docs layer
     │   ├── brainstorm.md migrate.md start.md   # shape + adoption
     │   └── companions/           # documentation framework, prompt templates, verification-policy, migration docs, mockup scripts
     ├── test-driven-development/  # bundled dependency skills (installer ships these) + testing-anti-patterns
