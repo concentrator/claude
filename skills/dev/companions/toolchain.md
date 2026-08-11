@@ -1,9 +1,9 @@
 # Checkpoint push + MR/PR mechanics
 
-Referenced from SKILL.md and `finish`. § Declared commands and
-§ State check apply everywhere; § Push and the carve-out below apply
-only at checkpoint **accept** - nothing pushes mid-batch, and the
-default branch is never pushed by the engine.
+Referenced from SKILL.md and `finish`. § Declared commands,
+§ Artifacts root, and § State check apply everywhere; § Push and the
+carve-out below apply only at checkpoint **accept** - nothing pushes
+mid-batch, and the default branch is never pushed by the engine.
 
 ## Declared commands (`## Agent toolchain`)
 
@@ -17,6 +17,19 @@ is the single source both modes read:
 
 Declare it once; `migrate` backfills it if absent (absent-host fallback:
 `finish § 3`).
+
+## Artifacts root (`## Agent toolchain`)
+
+The same section declares where DEV artifacts live, as a
+repo-relative directory on its own line:
+
+```
+- DEV artifacts root: <dir>/
+```
+
+Resolution, including the absent-declaration default, lives in
+`plan.md § Where things live`; `layout.md` draws the config and
+artifacts trees.
 
 ## Supervisor bounds (`## Agent toolchain`)
 

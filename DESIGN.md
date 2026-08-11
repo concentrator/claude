@@ -28,13 +28,16 @@ relate, and the invariants that keep them coherent.
 
 This repo is consumed as `~/.claude`, so the directory that is `.claude/`
 in a normal project is the repo root here. Foundational DEV files
-(`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`, `plans/`) sit at
+(`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`) sit at
 the root, not in a nested `.claude/`. The nested `.claude/` holds only Claude Code's
-project settings, whose location is fixed by the tool.
+project settings, whose location is fixed by the tool. The artifacts
+root declared in `CLAUDE.md § Agent toolchain` is the repo root, so
+artifacts resolve under the same rule as adopters, not as a special
+case.
 
 ## Tree-map
 
-All configuration dirs and files. Harness-managed state (`projects/`,
+All configuration and artifact dirs and files. Harness-managed state (`projects/`,
 `cache/`, `shell-snapshots/`, `plugins/`, logs, …) is gitignored and
 excluded - see `.gitignore`.
 

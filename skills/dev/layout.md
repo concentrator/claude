@@ -1,25 +1,20 @@
 # Project layout
 
-Canonical structure for `.claude/` in a project. Other paths inside
-`.claude/` need explicit justification.
+Canonical project structure, two trees: guarded config under
+`.claude/`, agent-authored DEV artifacts under the declared artifacts
+root, written `<root>/` - the `DEV artifacts root:` line in project
+`CLAUDE.md § Agent toolchain` (rule and default: `plan.md § Where
+things live`). Other paths inside either tree need explicit
+justification.
 
-## Layout
+## Config layout (`.claude/`)
+
+What instructs agents.
 
     .claude/
     ├── REQUIREMENTS.md           # foundational requirements
     ├── DESIGN.md                 # architecture and design (≤1000w inline)
     ├── MAINTENANCE.md            # sanity routine - seeded from template
-    ├── plans/                    # planning hierarchy - plan.md § Where things live
-    │   ├── ROADMAP.md
-    │   ├── release-vX.Y.Z.md
-    │   ├── R-XXX-<slug>/         # one per roadmap entry
-    │   │   ├── requirements.md
-    │   │   ├── tasks.md
-    │   │   ├── T-XXX-<slug>.md
-    │   │   ├── T-XXX-<slug>.findings.md
-    │   │   └── batches/
-    │   ├── archive/
-    │   └── visual-artifacts/
     ├── skills/                   # project skill overrides
     │   └── <name>/SKILL.md
     ├── rules/                    # project-scoped rules (paths: scoped)
@@ -31,10 +26,27 @@ Canonical structure for `.claude/` in a project. Other paths inside
     │   └── NNN-<short-title>.md
     ├── references/               # external docs/specs (read-only, § References)
     │   └── *                     # any format
-    ├── docs/                     # internal feature docs (§ Docs)
-    │   └── *.md
     ├── settings.json             # Claude Code shared config
     └── settings.local.json       # Claude Code local (gitignored)
+
+## Artifacts layout (`<root>/`)
+
+What agents author.
+
+    <root>/
+    ├── plans/                    # planning hierarchy - plan.md § Where things live
+    │   ├── ROADMAP.md
+    │   ├── release-vX.Y.Z.md
+    │   ├── R-XXX-<slug>/         # one per roadmap entry
+    │   │   ├── requirements.md
+    │   │   ├── tasks.md
+    │   │   ├── T-XXX-<slug>.md
+    │   │   ├── T-XXX-<slug>.findings.md
+    │   │   └── batches/
+    │   ├── archive/
+    │   └── visual-artifacts/
+    └── docs/                     # internal feature docs (§ Docs)
+        └── *.md
 
 ## Baseline files (project root)
 
@@ -43,7 +55,7 @@ Scaffolded at the project root, alongside `.claude/`:
 | File | When | Purpose |
 |---|---|---|
 | `README.md` | required | overview + how to run |
-| `CLAUDE.md` | required | stack, base branch, `## Agent toolchain` (host + build/test/lint), conventions |
+| `CLAUDE.md` | required | stack, base branch, `## Agent toolchain` (host + build/test/lint + artifacts root), conventions |
 | `.gitignore` | required | must ignore `.env` and `.claude/settings.local.json`; under untracked mode (`companions/untracked-claude.md`) ignores all of `.claude/` and `CLAUDE.md` |
 | `.env.example` | if the project uses env vars | placeholder vars; commit this, never `.env` |
 
@@ -54,22 +66,25 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 
 ## Creation policy
 
-- **Required at scaffold**: `REQUIREMENTS.md`, `DESIGN.md`, `plans/`,
-  `settings.json`.
-- **Created as workflows need them**: `skills/`, `rules/`, `commands/`,
-  `agents/`, `MAINTENANCE.md`, `plans/ROADMAP.md`; `hooks/` (shipped by
-  the DEV toolset installer - `dev-branch-guard.sh`).
-- **Initiative-time**: `plans/R-XXX-<slug>/` + `requirements.md`
+- **Required at scaffold**: `.claude/REQUIREMENTS.md`,
+  `.claude/DESIGN.md`, `.claude/settings.json`, `<root>/plans/`.
+- **Created as workflows need them**: `.claude/skills/`,
+  `.claude/rules/`, `.claude/commands/`, `.claude/agents/`,
+  `.claude/MAINTENANCE.md`; `<root>/plans/ROADMAP.md`;
+  `.claude/hooks/` (shipped by the DEV toolset installer -
+  `dev-branch-guard.sh`).
+- **Initiative-time**: `<root>/plans/R-XXX-<slug>/` + `requirements.md`
   (`plan.md § Directory conventions`).
-- **Lazy** (created on first use): `adr/`, `references/`, `docs/`,
-  `plans/R-XXX-<slug>/tasks.md` and `batches/` (`plan.md § Levels`,
-  `§ Directory conventions`), `plans/archive/`,
-  `plans/visual-artifacts/` (gitignored session artifacts).
+- **Lazy** (created on first use): `.claude/adr/`,
+  `.claude/references/`, `<root>/docs/`,
+  `<root>/plans/R-XXX-<slug>/tasks.md` and `batches/` (`plan.md
+  § Levels`, `§ Directory conventions`), `<root>/plans/archive/`,
+  `<root>/plans/visual-artifacts/` (gitignored session artifacts).
 
-## Disallowed in `.claude/`
+## Disallowed in both trees
 
 - Generated/build artifacts
-- Cache files (use platform conventions outside `.claude/`)
+- Cache files (use platform conventions outside both trees)
 - Secrets, credentials
 - Temporary scratch outside the structures above
 
@@ -95,7 +110,7 @@ The granularity model - a doc per feature, page, section, or block - is a
 per-project choice. Pick the one that fits the project, record it in
 `CLAUDE.md § Conventions`, and apply it consistently.
 
-`.claude/docs/index.md` catalogs the docs - one line per doc, its path and
+`docs/index.md` (root-relative) catalogs the docs - one line per doc, its path and
 what it covers - consulted before coding to find the feature's doc, and
 updated whenever a doc is added. Project `CLAUDE.md § Conventions` carries a
 one-line pointer to the index, so it is discoverable from the always-loaded

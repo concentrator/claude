@@ -6,7 +6,7 @@ composite (`R045-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R045-T001 [doc]**: the declared root - `layout.md` and the
+- [x] **R045-T001 [doc]**: the declared root - `layout.md` and the
   `plan.md` path table state an artifacts root rather than a fixed
   `.claude/` prefix; `CLAUDE.md § Agent toolchain` gains the
   declaration; absence resolves to `dev/`.
@@ -20,3 +20,7 @@ composite (`R045-T###`, counter scoped to this initiative).
 - [ ] **R045-T003 [feat]**: the adoption path - `migrate` moves a
   `.claude/`-layout project onto its declared root, reporting the moves
   and rewrites before applying them.
+
+Backlog: `companions/toolchain.md` hosts three `§ Agent toolchain`
+declaration keys in a push-mechanics doc; consider a companion owning
+declaration syntax as such (from R045-T001 findings).
