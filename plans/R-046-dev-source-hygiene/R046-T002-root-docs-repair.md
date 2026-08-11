@@ -30,7 +30,7 @@ file it describes, never against the R's § Current state list.
       and the list never learned it (found by dry-running the doc-sync
       pairs in R046-T001). The § Self-enforcement Tier-2 restatement is
       already gone, fixed in that task.
-- [ ] `REQUIREMENTS.md § Planning discipline`: the three dead `rules/`
+- [x] `REQUIREMENTS.md § Planning discipline`: the three dead `rules/`
       pointers repointed to their `skills/dev/` homes; the id chain in
       composite form.
 - [ ] Complete the branch: re-review docs across all commits, cleanup

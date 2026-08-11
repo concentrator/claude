@@ -27,16 +27,17 @@ working reference implementation of its own conventions.
 ## Planning discipline
 
 DEV-mode work flows through a traceable hierarchy - **initiative
-(R-XXX) → task (T-XXX) → branch plan → commits** - so every change
-traces back to a motivating requirement. The environment must:
+(R-XXX) → task (R<NNN>-T<NNN>) → branch plan → commits** - so every
+change traces back to a motivating requirement. The environment must:
 
 - Keep one directory per initiative (`plans/R-XXX-<slug>/`) holding its
   `requirements.md`, task index (`tasks.md`), branch plans
-  (`T-XXX-<slug>.md`), findings, and batch manifests; the cross-initiative
+  (`<task-id>-<slug>.md`), findings, and batch manifests; the cross-initiative
   index (`ROADMAP.md`) lives at `plans/`; foundational docs at the repo
   root.
 - Name branch-plan files by task id (sortable, instant file→task
-  mapping); git branches stay `<prefix>/<slug>` with no id.
+  mapping), the id scoped to its initiative so it routes to the
+  artifacts; git branches stay `<prefix>/<slug>` with no id.
 - Gate every initiative on explicit approval (`approved:` in its
   requirements frontmatter) before any downstream work begins.
 - Close an initiative at a single point: all child tasks `[x]` **and**
@@ -47,8 +48,8 @@ traces back to a motivating requirement. The environment must:
 - Route work lacking a fitting open initiative into a new R stub rather
   than orphaning it.
 
-Mechanics: `rules/planning.md`, `rules/branch-plan.md`,
-`rules/project-layout.md`.
+Mechanics: `skills/dev/plan.md`, `skills/dev/branch-plan.md`,
+`skills/dev/layout.md`.
 
 ## Agentic execution
 
@@ -72,8 +73,8 @@ touching the default branch:
   close review is the net), small branches fold their review into the
   batch review, and models route per role.
 
-Mechanics: `rules/branch-plan.md § Agentic execution`,
-`skills/delegating-to-agents/`.
+Mechanics: `skills/dev/branch-plan.md § Agentic execution`,
+`skills/dispatching-parallel-agents/`.
 
 ## Audience
 
