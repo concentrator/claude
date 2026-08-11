@@ -63,7 +63,7 @@ Worked by this branch unless marked deferred.
   the declared root (logic)
 - [x] `skills/dev/companions/scripts/start-server.sh` - `SESSION_DIR`
   under the declared root (logic); `stop-server.sh` comment
-- [ ] `skills/dev/start.md` - scaffold onto the declared root; ask +
+- [x] `skills/dev/start.md` - scaffold onto the declared root; ask +
   record the declaration (behavior change, not text substitution)
 - [ ] `scripts/ci/check-plan-integrity.sh` - resolve the declared
   root (logic; this repo declares `./`)

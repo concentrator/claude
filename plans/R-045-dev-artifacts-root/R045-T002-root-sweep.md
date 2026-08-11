@@ -31,7 +31,7 @@ depends-on: R045-T001
       pre-authorize.
 - [x] `companions/scripts/start-server.sh` and `stop-server.sh`:
       `SESSION_DIR` under the declared root.
-- [ ] `start.md` scaffolds onto the declared root: ask for and record
+- [x] `start.md` scaffolds onto the declared root: ask for and record
       the declaration; `plans/` + `ROADMAP.md`, `release-v0.1.0.md`,
       and the docs-index pointer follow it.
 - [ ] Gates: `check-plan-integrity.sh` resolves the declared root
