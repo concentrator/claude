@@ -12,7 +12,10 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$(git rev-parse --show-toplevel)"
 
-P="$(bash "$SCRIPT_DIR/resolve-root.sh")"
+ROOT="$(bash "$SCRIPT_DIR/resolve-root.sh")"
+P="${ROOT:+$ROOT/}plans"
+[[ -f "$P/ROADMAP.md" ]] \
+  || { echo "PLAN: $P/ROADMAP.md not found (resolved artifacts root: '${ROOT:-.}')"; exit 1; }
 
 fail=0
 report() { echo "PLAN: $1"; fail=1; }
@@ -24,7 +27,7 @@ roadmap_rs=$(grep -oE 'R-[0-9]{3}' "$P/ROADMAP.md" | sort -u || true)
 all_ts=""
 while IFS= read -r f; do
   [ -n "$f" ] || continue
-  owner=$(grep -oE 'R-[0-9]{3}' <<<"$f" | head -1)
+  owner=$(grep -oE 'R-[0-9]{3}' <<<"${f#"$P"/}" | head -1)
   has "$owner" "$roadmap_rs" || report "$f under $owner not in ROADMAP.md"
   while IFS= read -r line; do
     t=$(grep -oE 'T-[0-9]{3}' <<<"$line" | head -1 || true)
@@ -49,7 +52,7 @@ dups=$(printf '%s' "$all_ts" | grep -E '^(T-[0-9]{3}|R[0-9]{3}-T[0-9]{3})$' | so
 
 # Each branch plan: R-dir exists, task:/depends-on: resolve to a task
 while IFS= read -r f; do
-  rdir=$(echo "$f" | grep -oE 'R-[0-9]{3}' | head -1 || true)
+  rdir=$(grep -oE 'R-[0-9]{3}' <<<"${f#"$P"/}" | head -1 || true)
   has "$rdir" "$roadmap_rs" || report "$f under $rdir not in ROADMAP.md"
   tid=$(sed -n 's/^task: *//p' "$f" | head -1)
   [ -n "$tid" ] && { has "$tid" "$task_ts" || report "$f task: $tid not in any tasks.md"; }

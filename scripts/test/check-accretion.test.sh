@@ -82,5 +82,31 @@ printf -- 'Superseded: 2026-07-07 in the root.\n' > "$d/dev/plans/ROADMAP.md"
 git -C "$d" add -A
 check_in "$d" && die "default-root violation not caught" || pass "default-root violation caught"; rm -rf "$d"
 
+# 12. trailing whitespace in the declaration is trimmed, gate still bites
+d=$(mktemp -d); git -C "$d" init -q; mkdir -p "$d/plans"
+printf -- '- DEV artifacts root: ./ \n' > "$d/CLAUDE.md"
+printf -- 'Superseded: 2026-07-07 by the new flow.\n' > "$d/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && die "trailing-space declaration disabled the gate" || pass "trailing-space declaration trimmed"; rm -rf "$d"
+
+# 13. ./-prefixed nested root: archive stays exempt, live files still scanned
+d=$(mktemp -d); git -C "$d" init -q; mkdir -p "$d/sub/plans/archive/R-001-x"
+printf -- '- DEV artifacts root: ./sub/\n' > "$d/CLAUDE.md"
+printf -- 'superseded 2026-07-07 by R-021\n' > "$d/sub/plans/archive/R-001-x/tasks.md"
+printf -- 'clean\n' > "$d/sub/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && pass "./-prefixed root: archive exempt" || die "./-prefixed root wrongly flagged archive"
+printf -- 'Superseded: 2026-07-07 live.\n' > "$d/sub/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && die "./-prefixed root violation not caught" || pass "./-prefixed root violation caught"; rm -rf "$d"
+
+# 14. no tracked plan files under the resolved root -> loud failure, not OK
+d=$(mktemp -d); git -C "$d" init -q
+printf -- '- DEV artifacts root: ./\n' > "$d/CLAUDE.md"
+git -C "$d" add -A
+out=$(cd "$d" && bash "$CHECK" 2>&1); rc=$?
+[ $rc -ne 0 ] && grep -q 'no tracked plan files' <<<"$out" \
+  && pass "empty resolution fails loudly" || die "empty resolution passed vacuously"; rm -rf "$d"
+
 (( fail == 0 )) && echo "check-accretion.test: OK"
 exit $fail
