@@ -24,7 +24,7 @@ file it describes, never against the R's § Current state list.
 - [x] `DESIGN.md § Tree-map`: the missing `skills/dev/` mode files,
       `plans/archive/`, and the `scripts/test/` contents, checked
       against `git ls-files`.
-- [ ] `DESIGN.md`: the tree-map's plan-file nodes carry the composite
+- [x] `DESIGN.md`: the tree-map's plan-file nodes carry the composite
       form, and § Self-enforcement's Tier-1 list names the accretion
       gate - `run-all.sh` has run `check-accretion.sh` since `6631f83`
       and the list never learned it (found by dry-running the doc-sync
