@@ -65,11 +65,11 @@ Worked by this branch unless marked deferred.
   under the declared root (logic); `stop-server.sh` comment
 - [x] `skills/dev/start.md` - scaffold onto the declared root; ask +
   record the declaration (behavior change, not text substitution)
-- [ ] `scripts/ci/check-plan-integrity.sh` - resolve the declared
+- [x] `scripts/ci/check-plan-integrity.sh` - resolve the declared
   root (logic; this repo declares `./`)
-- [ ] `scripts/ci/check-accretion.sh` + `scripts/test/
+- [x] `scripts/ci/check-accretion.sh` + `scripts/test/
   check-accretion.test.sh` - same seam + fixture paths
-- [ ] `scripts/ci/check-references.sh` - header comment amended (no
+- [x] `scripts/ci/check-references.sh` - header comment amended (no
   behavior change by design: path checking stays a Tier-2 concern)
 - [ ] Vendor transform (R-015 embed path) - carry the declaration
   through to embedded copies; adjust its test

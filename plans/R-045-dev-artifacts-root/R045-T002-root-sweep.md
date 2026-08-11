@@ -34,7 +34,7 @@ depends-on: R045-T001
 - [x] `start.md` scaffolds onto the declared root: ask for and record
       the declaration; `plans/` + `ROADMAP.md`, `release-v0.1.0.md`,
       and the docs-index pointer follow it.
-- [ ] Gates: `check-plan-integrity.sh` resolves the declared root
+- [x] Gates: `check-plan-integrity.sh` resolves the declared root
       (defaulted seam, repo root here); `check-accretion.sh` and its
       test fixtures follow; amend the `check-references.sh` header
       comment.

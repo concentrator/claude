@@ -7,16 +7,18 @@
 #    frozen; composite ids unique by their initiative-scoped counter)
 #  - every branch plan's `task:` / `depends-on:` resolve to a known task
 #  - every branch plan sits under an R-dir that exists in ROADMAP.md
+# Plan paths resolve against the declared artifacts root (resolve-root.sh).
 set -euo pipefail
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$(git rev-parse --show-toplevel)"
 
-ROOT="."
+P="$(bash "$SCRIPT_DIR/resolve-root.sh")"
 
 fail=0
 report() { echo "PLAN: $1"; fail=1; }
 has() { grep -qxF "$1" <<<"$2"; }
 
-roadmap_rs=$(grep -oE 'R-[0-9]{3}' "$ROOT/plans/ROADMAP.md" | sort -u || true)
+roadmap_rs=$(grep -oE 'R-[0-9]{3}' "$P/ROADMAP.md" | sort -u || true)
 
 # Each per-R tasks.md: every task names the owning dir's R (in ROADMAP)
 all_ts=""
@@ -37,7 +39,7 @@ while IFS= read -r f; do
     [ "$cr" = "$owner" ] || report "$cid in $f but its dir is $owner"
     all_ts+="$cid"$'\n'
   done < <(grep -E '^- \[[ x]\] (\*\*)?R[0-9]{3}-T[0-9]{3}' "$f")
-done < <(git ls-files "$ROOT/plans/R-*/tasks.md" "$ROOT/plans/archive/R-*/tasks.md")
+done < <(git ls-files "$P/R-*/tasks.md" "$P/archive/R-*/tasks.md")
 
 task_ts=$(printf '%s' "$all_ts" | grep -E '^(T-[0-9]{3}|R[0-9]{3}-T[0-9]{3})$' | sort -u || true)
 
@@ -58,7 +60,7 @@ while IFS= read -r f; do
   for dep in $(sed -E 's/R[0-9]{3}-T[0-9]{3}//g' <<<"$deps" | grep -oE 'T-[0-9]{3}'); do
     has "$dep" "$task_ts" || report "$f depends-on $dep not in any tasks.md"
   done
-done < <(git ls-files "$ROOT/plans" | grep -E '/(T-[0-9]{3}|R[0-9]{3}-T[0-9]{3})-[^/]+\.md$' | grep -v '\.findings\.md$')
+done < <(git ls-files "$P" | grep -E '/(T-[0-9]{3}|R[0-9]{3}-T[0-9]{3})-[^/]+\.md$' | grep -v '\.findings\.md$')
 
 (( fail == 0 )) && echo "check-plan-integrity: OK"
 exit $fail
