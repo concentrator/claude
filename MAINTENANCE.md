@@ -11,7 +11,7 @@ unique to this repo.
 
 A mandatory compliance review for `~/.claude`, complementing the Tier-1
 mechanical CI checks in `scripts/ci/`. At branch close, before delivery,
-review the diff against the rule set and confirm five concerns:
+review the diff against the rule set and confirm the concerns below:
 
 - **Compliance** - each changed file obeys its governing rule
   (`CLAUDE.md` per `rules/claude-md.md`; `SKILL.md` per `rules/skills.md`;
@@ -22,6 +22,14 @@ review the diff against the rule set and confirm five concerns:
 - **Reference freshness** - no dead paths; no expired time-bound
   references. Mark a time-bound reference `<!-- expires: YYYY-MM-DD -->`;
   `scripts/ci/check-references.sh` fails once the date is past.
+- **Doc sync** - a change that alters a documented surface updates the
+  doc documenting it, in the same branch. The concern covers docs the
+  diff does not touch: staleness a change induces elsewhere has no other
+  owner, since every other concern reads only changed files. Which
+  change obliges which doc is a per-project table, kept with the
+  project's own targets (here: § This environment › Doc-sync pairs); a
+  project without one still owes the concern, judged against its own
+  docs.
 - **Writing** - changed prose follows `writing.md`.
 
 ### Prune dead prose
@@ -53,7 +61,7 @@ Initial defaults - tune per project.
 | `plans/visual-artifacts/` | gitignored scratch left behind | clear when stale |
 | `settings.local.json` | allow-list mess: one-off / dead / overlapping rules | weekly |
 | skills/ | dead, unused, broken, or duplicate skills | monthly |
-| rules/ & CLAUDE.md | stale paths / dead references | on edit + monthly |
+| rules/, CLAUDE.md, foundational docs & README | stale paths / dead references | on edit + monthly |
 | repo root & `.claude/` | stray temp / build artifacts | weekly |
 | sizes | caps per `claude-md.md § Size and structure` / `skills.md § Size` | on edit |
 | file counts | flag unexpected growth in `plans/`, skills/ | monthly |
@@ -111,3 +119,20 @@ Targets beyond the generic routine:
 - Verify no skill or rule references removed scripts/log files.
 - Confirm foundational files stay at the repo root (not nested
   `.claude/`), per `DESIGN.md § Self-hosting layout`.
+
+### Doc-sync pairs
+
+Targets for the Doc sync concern (§ Tier-2 AI review). The left column
+is what the branch changed; the right is what it updates before
+delivery.
+
+| Changed | Also update |
+|---|---|
+| A `/dev` command added, renamed, or removed | `README.md § Workflow`, `DESIGN.md` tree-map |
+| A `skills/dev/` mode file or companion added, renamed, or removed | `SKILL.md`'s router table, `DESIGN.md` tree-map |
+| A tracked root file or directory added or removed | `README.md § Contents`, `DESIGN.md` tree-map |
+| What `install-dev.sh` copies or registers | `README.md § Installing the toolset elsewhere`, `scripts/test/install-dev.test.sh` (it asserts the copied set) |
+| A `scripts/ci/` check added or removed | `scripts/ci/run-all.sh` (its loop is what registers a check), `DESIGN.md § Self-enforcement` |
+| A `hooks/` guard added or removed | `DESIGN.md` tree-map (`check-stray.sh` reads it) and § Self-enforcement, `README.md § Contents` |
+| Planning layout, the artifacts root, or an id or naming convention | `README.md`, `REQUIREMENTS.md § Planning discipline`, `DESIGN.md`, and every `skills/dev/` file stating the convention (`plan.md`, `layout.md`, `branch-plan.md`, `write-plan.md`, `finish.md`, `templates.md`) |
+| Any file moved or renamed | Every inbound reference (grep the tracked tree) |

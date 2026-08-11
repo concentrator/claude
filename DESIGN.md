@@ -138,10 +138,10 @@ Two tiers gate every change into `main` (the CI tiers are built for
   `TODO`/`FIXME`/`XXX` marker in code, an expired reference, an oversized
   code file or function (`check-code-size`, with an allowlist), or an em
   dash (`check-no-em-dash`).
-- **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies the
-  rule set (compliance, cross-file integrity, cleanup, reference freshness,
-  writing) to the diff as a mandatory step in the branch-close routine
-  (`skills/dev/branch-plan.md § Closing routine`).
+- **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
+  concern set to the diff as a mandatory step in the branch-close routine
+  (`skills/dev/branch-plan.md § Closing routine`). The concerns are
+  enumerated there and nowhere else.
 
 The workflow triggers on `pull_request` only, so it never re-judges the
 direct-to-main bootstrap history.

@@ -24,9 +24,12 @@ file it describes, never against the R's § Current state list.
 - [ ] `DESIGN.md § Tree-map`: the missing `skills/dev/` mode files,
       `plans/archive/`, and the `scripts/test/` contents, checked
       against `git ls-files`.
-- [ ] `DESIGN.md`: § Self-enforcement cites the Tier-2 concern set
-      instead of restating it; tree-map plan-file nodes carry the
-      composite form.
+- [ ] `DESIGN.md`: the tree-map's plan-file nodes carry the composite
+      form, and § Self-enforcement's Tier-1 list names the accretion
+      gate - `run-all.sh` has run `check-accretion.sh` since `6631f83`
+      and the list never learned it (found by dry-running the doc-sync
+      pairs in R046-T001). The § Self-enforcement Tier-2 restatement is
+      already gone, fixed in that task.
 - [ ] `REQUIREMENTS.md § Planning discipline`: the three dead `rules/`
       pointers repointed to their `skills/dev/` homes; the id chain in
       composite form.
