@@ -9,13 +9,17 @@ route. Artifact paths resolve against the declared artifacts root
   `layout.md` (lowercase foundational files, `REQ-XXX`, flat
   `tasks.md`): canonicalize per `companions/legacy-migration.md`, then
   route as `.claude/`-layout.
-- **`.claude/`-layout** - canonical artifacts still under
-  `.claude/plans/` (and `.claude/docs/`): relocate onto the declared
-  root per `companions/root-migration.md` (report the moves and
-  rewrites, apply on approval), then treat as Already-DEV.
-- **Fresh** - no artifacts tree at all: neither `<root>/plans/` nor
-  `.claude/plans/`. Reverse-engineer requirements + design
-  from code, then layer planning infrastructure (steps 2–9).
+- **`.claude/`-layout** - anything canonical still under
+  `.claude/plans/` or `.claude/docs/`, whether or not the root tree
+  also exists (a both-trees state is a partial migration; a root-side
+  destination that already exists is a collision `root-migration.md
+  § 1` reports): relocate onto the declared root per
+  `companions/root-migration.md` (report the moves and rewrites,
+  apply on approval), then treat as Already-DEV. This class takes
+  precedence over Already-DEV.
+- **Fresh** - no artifacts anywhere: no `plans/` or `docs/` under
+  either the root or `.claude/`. Reverse-engineer requirements +
+  design from code, then layer planning infrastructure (steps 2–9).
 - **Already-DEV** - canonical R-rooted `<root>/plans/ROADMAP.md`: pre-TBD → TBD
   migration (`companions/tbd-migration.md`; approval-gated - the agent executes each
   approved step; host-side settings stay the user's); TBD-conformant → conformant, no changes.

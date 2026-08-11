@@ -8,9 +8,13 @@ reported move list.
 
 ## 1. Move plan
 
-Resolve the target root: the `CLAUDE.md § Agent toolchain`
-declaration if present, else ask the user (no preference → the
-default); keep the answer for the § 2 backfill.
+Resolve the target root: the `- DEV artifacts root:` line in
+`CLAUDE.md § Agent toolchain` if present (syntax:
+`companions/toolchain.md § Artifacts root`), else ask the user (no
+preference → the default `dev/`; resolution: `plan.md § Where things
+live`). A root inside `.claude/` is invalid - the move exists to
+leave the guarded tree; report and stop. Keep the answer for the § 2
+backfill.
 
 Inventory, then report - touching nothing:
 
@@ -22,26 +26,39 @@ Inventory, then report - touching nothing:
   `DESIGN.md`, `MAINTENANCE.md`, `settings*.json`, `skills/`,
   `rules/`, `commands/`, `agents/`, `hooks/`, `references/`, `adr/`.
 - **Rewrite set** - every in-project reference to a moved path: grep
-  the tracked tree (project `CLAUDE.md`, README, docs, project rules
-  and skills, CI config, `.gitignore`) for `.claude/plans` and
-  `.claude/docs`; list each hit with its replacement.
+  the whole working tree, tracked or not (in untracked mode the
+  reference carriers - project `CLAUDE.md`, settings, project rules -
+  are gitignored), for `.claude/plans` and `.claude/docs`; list each
+  hit with its replacement.
+- **Collisions** - a destination that already exists (`<root>/plans/`
+  or `<root>/docs/`: a partial earlier migration, or a top-level
+  `docs/` under a `./` root). Report each; § 2 refuses to move onto
+  it - merge, rename, or abort is the user's call.
 - **Gaps** - a missing `DEV artifacts root:` declaration; a
   `.gitignore` entry for `<root>/plans/visual-artifacts/` where the
-  project uses the visual companion; untracked mode, where the root
-  must be gitignored too (`untracked-claude.md § Detection`).
+  moved tree contains `plans/visual-artifacts/`; untracked mode,
+  where the root must be gitignored too (`untracked-claude.md
+  § Detection`).
 
 Present the full report; **block on user approval**.
 
 ## 2. Execute
 
-On a `plan/` branch (untracked mode: working tree only,
-`untracked-claude.md § What changes`):
+On a short-lived `mnt/` branch - the diff exceeds planning artifacts
+(README, CI, `CLAUDE.md` rewrites), so merge stays the user's call
+(`git-workflow.md § Trunk`). Untracked mode: the moved artifacts stay
+working-tree-only (`untracked-claude.md § What changes`); only
+tracked-file rewrites ride the branch.
 
-1. **Move** - `git mv .claude/plans <root>/plans` and
+1. **Move** - the destination must not exist (§ 1 Collisions; if it
+   does, stop and resolve with the user). Tracked:
+   `git mv .claude/plans <root>/plans` and
    `git mv .claude/docs <root>/docs`, creating parent dirs as needed
-   and skipping trees the project does not have. `git mv` preserves
-   history.
-2. **Rewrite** - apply the approved rewrite set, then re-grep for
+   and skipping trees the project does not have - `git mv` preserves
+   history. Untracked mode: plain `mv` - the tree has no history to
+   preserve.
+2. **Rewrite** - apply the approved rewrite set, then re-grep the
+   whole working tree (tracked and gitignored files alike) for
    `.claude/plans` and `.claude/docs` to confirm zero stale
    references.
 3. **Declare** - backfill the `DEV artifacts root:` line in
@@ -49,7 +66,8 @@ On a `plan/` branch (untracked mode: working tree only,
    § Artifacts root`). Write it even when the answer is the default:
    the migration is the project's explicit adoption act.
 4. **Close the gaps** - the `.gitignore` follow-ups from § 1.
-5. **Deliver** - via a branch + MR/PR (`git-workflow.md § Trunk`).
+5. **Deliver** - the `mnt/` branch's MR/PR (`git-workflow.md
+   § Trunk`).
 
 Verify before delivery: `migrate.md` now classifies the project as
 Already-DEV, and a plan-artifact write under `<root>/plans/` succeeds
