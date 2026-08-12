@@ -1,16 +1,16 @@
 # Branch plan rules
 
-A branch plan is `plans/R-XXX-<slug>/T-XXX-<slug>.md` (root-relative;
+A branch plan is `plans/R-XXX-<slug>/<task-id>-<slug>.md` (root-relative;
 dir per parent roadmap entry - `plan.md § Directory conventions`). One
 branch = one task. The plan must be complete and committed to `main`
 **before** the branch is created.
 
 ## Header
 
-    task: T-014
+    task: R008-T001
     type: feat                      # required - inherited from task tag; determines branch prefix
     architecture-changing: true     # optional - triggers DESIGN.md update commit
-    depends-on: T-012               # optional - blocks `/dev code` until merged
+    depends-on: R008-T002           # optional - blocks `/dev code` until merged
     agentic: approved 2026-06-10    # optional - eligible for auto mode; absent = manual-only
 
 ## Body
@@ -66,7 +66,7 @@ smell, naming inconsistency:
 - Within this branch's scope → fix it here as a commit; don't defer
   in-scope work to a finding.
 - Belongs to a completely different component → append to the plan's
-  sibling `T-XXX-<slug>.findings.md` (one line + brief context), continue
+  sibling `<task-id>-<slug>.findings.md` (one line + brief context), continue
   coding, and triage at close.
 - Never silently expand scope.
 
@@ -93,10 +93,10 @@ commit and the hand-off (`finish`).
 5. Capture the branch outcome: a summary against the task's acceptance
    criteria; surface manual-testing/automation needs (presentation +
    data-task run: `finish § 2`).
-6. **Triage `T-XXX-<slug>.findings.md`** - in-scope findings are resolved
+6. **Triage `<task-id>-<slug>.findings.md`** - in-scope findings are resolved
    in this branch (as commits), not deferred (routing:
    § Scope discoveries). For each remaining `[ ]`, prompt user:
-   - Promote to `T-XXX` or an R stub (`plan.md § Referential
+   - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Reconcile the feature doc** - write (new feature) or update
@@ -157,8 +157,8 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
 `plans/R-XXX-<slug>/batches/B-XXX.md` - ordered member list:
 
     # B-001
-    - T-014 (<slug>)
-    - T-015 (<slug>)
+    - R008-T001 (<slug>)
+    - R008-T002 (<slug>)
 
 Composition only (members, order, mode), never status - task state's
 one home is the R's `tasks.md`. Open iff a member task is `[ ]` there
@@ -213,7 +213,7 @@ manual-mode § Closing routine above is unchanged by this rule.
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
-| Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
+| Non-blocker discovery | `<task-id>-<slug>.findings.md`, continue |
 | Batch complete | Close phase on `batch/B-XXX`, then checkpoint (accept opens the MR/PR), wait for user |
 
 ## Releases

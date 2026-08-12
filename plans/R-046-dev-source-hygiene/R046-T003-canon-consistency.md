@@ -12,7 +12,7 @@ convention, never an artifact filename or an existing id.
 - [x] `plan.md § Levels` and its § Where things live table: the chain
       and the artifact filenames in composite form, leaving the legacy
       sentence as the one place that names the retired form.
-- [ ] `branch-plan.md`: the header example, the findings-file
+- [x] `branch-plan.md`: the header example, the findings-file
       references, and the § Closing routine triage item in composite
       form.
 - [ ] `finish.md § 1` and `templates.md § References`: composite form.
