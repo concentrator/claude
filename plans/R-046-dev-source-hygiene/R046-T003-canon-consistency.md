@@ -56,7 +56,7 @@ convention, never an artifact filename or an existing id.
       commits, `§ Commit cadence` covering all six tags, archival
       settling on promotion (`plan.md`, `MAINTENANCE.md`), and the
       dependency examples matching batch order.
-- [ ] Mark and commit `R046-T003 [x]` in the R's `tasks.md` - the
+- [x] Mark and commit `R046-T003 [x]` in the R's `tasks.md` - the
       checkbox this branch introduces, which its own plan owed.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.

@@ -16,7 +16,7 @@ composite (`R046-T###`, counter scoped to this initiative).
   surface, § Contents, artifacts root, installer paragraph), the
   `DESIGN.md` tree-map, and `REQUIREMENTS.md`'s dead `rules/` pointers,
   including the id form in these three files.
-- [ ] **R046-T003 [doc]**: canon consistency - the retired bare id form
+- [x] **R046-T003 [doc]**: canon consistency - the retired bare id form
   out of `plan.md § Levels` and its § Where things live table,
   `branch-plan.md`, `finish.md`, and `templates.md`; `templates.md`'s
   `kind:` enum and `write-plan.md`'s tag list aligned with the branch
