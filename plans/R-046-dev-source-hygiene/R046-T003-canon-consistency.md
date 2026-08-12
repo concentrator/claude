@@ -51,5 +51,12 @@ convention, never an artifact filename or an existing id.
       orthogonal and stays. `finish.md § 4` instructed the per-task move
       and now matches: a closing task promotes, the files move at
       initiative close.
+- [x] Apply the close-review fixes: the index mark scoped to manual mode
+      and stating its commit, `finish.md § 1` looking in the closing
+      commits, `§ Commit cadence` covering all six tags, archival
+      settling on promotion (`plan.md`, `MAINTENANCE.md`), and the
+      dependency examples matching batch order.
+- [ ] Mark and commit `R046-T003 [x]` in the R's `tasks.md` - the
+      checkbox this branch introduces, which its own plan owed.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
