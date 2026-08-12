@@ -21,7 +21,8 @@ composite (`R046-T###`, counter scoped to this initiative).
   `branch-plan.md`, `finish.md`, and `templates.md`; `templates.md`'s
   `kind:` enum and `write-plan.md`'s tag list aligned with the branch
   taxonomy; `SKILL.md`'s `/dev code` dispatch covers `doc`, `test`, and
-  `mnt`; `plan.md § Archival` admits one reading of when artifacts move.
+  `mnt`; `plan.md § Archival` admits one reading of when artifacts move;
+  the branch-plan template carries the index mark as a checkbox.
 - [ ] **R046-T004 [refactor]**: declaration syntax gets its own
   companion - the three `§ Agent toolchain` keys move out of
   `companions/toolchain.md`, which keeps push and MR mechanics; all
