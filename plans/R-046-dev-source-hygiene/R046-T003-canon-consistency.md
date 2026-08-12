@@ -16,6 +16,11 @@ convention, never an artifact filename or an existing id.
       references, and the § Closing routine triage item in composite
       form.
 - [ ] `finish.md § 1` and `templates.md § References`: composite form.
+- [ ] `layout.md`'s artifacts tree: composite form. No task owned this
+      file until now, though `MAINTENANCE.md § Doc-sync pairs` names it
+      for a naming-convention change, and `README.md` plus
+      `REQUIREMENTS.md` cite it for the mechanics (close-review finding
+      on R046-T002).
 - [ ] `templates.md`'s `kind:` enum and `write-plan.md § Inputs`' tag
       list aligned with the branch taxonomy in
       `git-workflow.md § Trunk` - resolves the R's open question.

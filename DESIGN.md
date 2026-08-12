@@ -5,24 +5,17 @@ relate, and the invariants that keep them coherent.
 
 ## Components
 
+What each part contributes; the inventory itself is § Tree-map.
+
 - **CLAUDE.md** - global operating instructions, loaded every session.
   Maintenance: `rules/claude-md.md`.
-- **rules/** - personal convention rules (`git-workflow` always-on; `js`,
-  `skills`, `claude-md` path-scoped), loaded as memory. The DEV process
-  rules now live as `skills/dev/` companions.
+- **rules/** - personal convention rules loaded as memory, `git-workflow`
+  always-on and the rest path-scoped. The DEV process rules live as
+  `skills/dev/` companions, not here.
 - **skills/** - invocable capabilities. `skills/dev/` is the `/dev` router
   + its inert mode-file companions (the DEV toolset); the rest are
   standalone reference skills. Authoring: `skills/skill-creator/`,
   `skills/writing-skills/`, `rules/skills.md`.
-- **commands/**, **agents/** - optional slash commands and custom agents.
-- **settings.json** - global Claude Code config. Project-scoped settings
-  for this repo: `.claude/settings.local.json`.
-- **plans/** - this environment's own planning hierarchy
-  (`skills/dev/plan.md`).
-- **MAINTENANCE.md** - sanity routine + the Tier-2 AI review
-  (`## Self-enforcement`).
-- **scripts/ci/**, **.github/**, **.githooks/** - the self-enforcement
-  layer (`## Self-enforcement`).
 
 ## Self-hosting layout
 
@@ -62,18 +55,18 @@ excluded - see `.gitignore`.
 ├── scripts/
 │   ├── ci/                       # Tier-1 checks + run-all.sh
 │   ├── install-dev.sh            # toolset installer (global or --project)
-│   └── test/                     # script tests (install-dev.test.sh)
+│   └── test/                     # script tests + run-all.sh
 ├── .claude/
 │   └── settings.local.json       # project-tier local settings (gitignored)
 ├── plans/                        # planning hierarchy
 │   ├── ROADMAP.md                # cross-R index - see skills/dev/plan.md
-│   ├── REQ-XXX.md                # four-level-era requirements (closed: history; open → R stubs on approval)
-│   └── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
-│       ├── requirements.md       # initiative requirements
-│       ├── tasks.md              # this initiative's task index (lazy)
-│       ├── T-XXX-<slug>.md
-│       ├── T-XXX-<slug>.findings.md
-│       └── batches/              # B-XXX manifests + reports (lazy)
+│   ├── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
+│   │   ├── requirements.md       # initiative requirements
+│   │   ├── tasks.md              # this initiative's task index (lazy)
+│   │   ├── R<NNN>-T<NNN>-<slug>.md
+│   │   ├── R<NNN>-T<NNN>-<slug>.findings.md
+│   │   └── batches/              # B-XXX manifests + reports (lazy)
+│   └── archive/                  # closed initiatives, frozen history
 ├── rules/                        # personal convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
 │   ├── git-workflow.md           # trunk/branch/commit/PR discipline (always-on)
@@ -86,6 +79,7 @@ excluded - see `.gitignore`.
     │   ├── SKILL.md              #   the router
     │   ├── plan.md branch-plan.md templates.md layout.md changelog.md git-workflow.md  # process rules
     │   ├── feat.md fix.md refactor.md write-plan.md finish.md release.md auto.md        # execution
+    │   ├── supervise.md secrets.md docs.md     # supervised delivery, secrets policy, docs layer
     │   ├── brainstorm.md migrate.md start.md   # shape + adoption
     │   └── companions/           # documentation framework, prompt templates, verification-policy, migration docs, mockup scripts
     ├── test-driven-development/  # bundled dependency skills (installer ships these) + testing-anti-patterns
@@ -98,9 +92,8 @@ excluded - see `.gitignore`.
 ```
 
 Project-specific skills symlinked into `skills/` from external repos
-(the `wallarm-*` ones from `~/wallarm_pure/skills`, gitignored via
-`skills/wallarm-*`) are not part of this configuration: excluded from the
-map, versioned in their own repo.
+(gitignored via `skills/wallarm-*`) are versioned in their own repo, so
+the map excludes them.
 
 ## Planning model
 
@@ -131,13 +124,16 @@ GitHub Docs.
 Two tiers gate every change into `main` (the CI tiers are built for
 `~/.claude`; the PreToolUse hooks ship to adopters via `install-dev.sh`):
 
-- **Tier-1 - mechanical CI.** `scripts/ci/*.sh` (run by
-  `.github/workflows/ci.yml` on `pull_request`, and locally by the
-  advisory `.githooks/pre-push` via `core.hooksPath`) hard-fail a PR on:
+- **Tier-1 - mechanical CI.** `scripts/ci/*.sh`, and the script tests in
+  `scripts/test/`, run together in `.github/workflows/ci.yml` on
+  `pull_request` and locally in the advisory `.githooks/pre-push` via
+  `core.hooksPath`; either failing blocks the push or the merge. The
+  checks hard-fail a PR on:
   a cap violation, a stray top-level file, a plan-integrity break, a
-  `TODO`/`FIXME`/`XXX` marker in code, an expired reference, an oversized
-  code file or function (`check-code-size`, with an allowlist), or an em
-  dash (`check-no-em-dash`).
+  `TODO`/`FIXME`/`XXX` marker in code, an expired reference, a dated
+  accretion marker (`check-accretion`), an oversized code file or
+  function (`check-code-size`, with an allowlist), or an em dash
+  (`check-no-em-dash`).
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
   concern set to the diff as a mandatory step in the branch-close routine
   (`skills/dev/branch-plan.md § Closing routine`). The concerns are
@@ -156,8 +152,7 @@ judges the real target, not the cwd branch.
 - Every skill is reachable, documented, and non-duplicative.
 - No workflow contains a dead-end or an unbounded loop.
 - Rules and CLAUDE.md reference only existing paths.
-- Serial DEV behaviors stay behaviorally unchanged unless a REQ changes
-  them.
+- Serial DEV behaviors stay unchanged unless an initiative changes them.
 
 ## Decisions
 
