@@ -78,8 +78,8 @@ the repo root, so `plans/` sits beside them - see
 
 To give another machine or project the DEV toolset - the `/dev` router, its
 mode-file companions, the bundled dependency skills, the writing
-conventions, the code-size check, and the two PreToolUse guards - run the
-installer from a checkout of this repo:
+conventions, the code-size and em-dash checks, and the two PreToolUse
+guards - run the installer from a checkout of this repo:
 
     scripts/install-dev.sh                   # into ~/.claude (global)
     scripts/install-dev.sh --project <path>  # into <path>/.claude
@@ -90,3 +90,10 @@ means a contributor's own global copy still wins). The installer registers
 the branch-guard and secrets-guard hooks in the target `settings.json`
 idempotently and never ships the personal convention rules. Re-run it to
 refresh.
+
+It also writes outside the target `.claude/`, append-only in both cases:
+an `@writing.md` import added to the target `CLAUDE.md`, and - for
+`--project` - a `!`-allowlist line in the repo's root `.gitignore` for
+each installed path that repo ignores, so the toolset stays committable.
+The copied checks are yours to wire into CI; the installer ships them
+without registering them.
