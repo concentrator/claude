@@ -70,8 +70,8 @@ the repo root, so `plans/` sits beside them - see
    local state (caches, `*.local.json` overrides) recreates on first
    run; nothing else to install.
 3. Arm the advisory local gate: `git config core.hooksPath .githooks`,
-   once per clone, so `.githooks/pre-push` runs the Tier-1 checks before
-   a push leaves the machine.
+   once per clone, so `.githooks/pre-push` runs the Tier-1 checks and the
+   test suites before a push leaves the machine.
 4. Project-specific skills may be symlinked into `skills/` from their
    own repos; clone those repos to matching paths if needed.
 

@@ -124,9 +124,11 @@ GitHub Docs.
 Two tiers gate every change into `main` (the CI tiers are built for
 `~/.claude`; the PreToolUse hooks ship to adopters via `install-dev.sh`):
 
-- **Tier-1 - mechanical CI.** `scripts/ci/*.sh` (run by
-  `.github/workflows/ci.yml` on `pull_request`, and locally by the
-  advisory `.githooks/pre-push` via `core.hooksPath`) hard-fail a PR on:
+- **Tier-1 - mechanical CI.** `scripts/ci/*.sh`, and the script tests in
+  `scripts/test/`, run together in `.github/workflows/ci.yml` on
+  `pull_request` and locally in the advisory `.githooks/pre-push` via
+  `core.hooksPath`; either failing blocks the push or the merge. The
+  checks hard-fail a PR on:
   a cap violation, a stray top-level file, a plan-integrity break, a
   `TODO`/`FIXME`/`XXX` marker in code, an expired reference, a dated
   accretion marker (`check-accretion`), an oversized code file or
