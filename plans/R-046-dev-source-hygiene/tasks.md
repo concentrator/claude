@@ -12,7 +12,7 @@ composite (`R046-T###`, counter scoped to this initiative).
   § This environment, and the root docs added to the Routine's
   stale-reference row. Single-homes the concern set: `branch-plan.md`
   and `DESIGN.md` cite it instead of restating the count.
-- [ ] **R046-T002 [doc]**: root-doc repair - `README.md` (command
+- [x] **R046-T002 [doc]**: root-doc repair - `README.md` (command
   surface, § Contents, artifacts root, installer paragraph), the
   `DESIGN.md` tree-map, and `REQUIREMENTS.md`'s dead `rules/` pointers,
   including the id form in these three files.
