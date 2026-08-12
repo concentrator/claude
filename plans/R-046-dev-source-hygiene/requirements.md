@@ -65,8 +65,9 @@ declaration keys in a file titled for push and MR mechanics, and
 
 `MAINTENANCE.md`, `README.md`, `DESIGN.md`, `REQUIREMENTS.md`,
 `skills/dev/plan.md`, `branch-plan.md`, `finish.md`, `templates.md`,
-`write-plan.md`, `SKILL.md`, `companions/toolchain.md` and its inbound
-references, plus a new `scripts/test/check-plan-integrity.test.sh`.
+`write-plan.md`, `SKILL.md`, `layout.md`, `companions/toolchain.md` and
+its inbound references, plus a new
+`scripts/test/check-plan-integrity.test.sh`.
 
 ## Acceptance criteria
 
