@@ -40,8 +40,8 @@ What agents author.
     │   ├── R-XXX-<slug>/         # one per roadmap entry
     │   │   ├── requirements.md
     │   │   ├── tasks.md
-    │   │   ├── T-XXX-<slug>.md
-    │   │   ├── T-XXX-<slug>.findings.md
+    │   │   ├── <task-id>-<slug>.md
+    │   │   ├── <task-id>-<slug>.findings.md
     │   │   └── batches/
     │   ├── archive/
     │   └── visual-artifacts/

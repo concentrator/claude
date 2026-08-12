@@ -76,7 +76,7 @@ Task tool (general-purpose):
 
     ## Plan & Findings Files
 
-    Edit plan checkboxes and `T-XXX-<slug>.findings.md` (under the artifacts
+    Edit plan checkboxes and `<task-id>-<slug>.findings.md` (under the artifacts
     root - `plan.md § Where things live`) only with the Read/Edit/Write
     tools - never `sed`/`cat`/`grep`/`awk`. Never write config - settings,
     hooks, skills, rules, `CLAUDE.md` - wherever it lives; edit-class shell

@@ -14,7 +14,7 @@ state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
 
 ## Branches
 
-### <prefix>/<slug> (T-XXX)
+### <prefix>/<slug> (<task-id>)
 - commits: <n> (<first sha>..<last sha>)
 - tests: <command + summary line, e.g. "npm test: 124 pass / 0 fail">
 - spec checks: <n> passed, <n> rejected→fixed

@@ -17,7 +17,10 @@ convention, never an artifact filename or an existing id.
       form.
 - [x] `finish.md § 1` and `templates.md § References`: composite form,
       the release-plan example included.
-- [ ] `layout.md`'s artifacts tree: composite form. No task owned this
+- [x] `companions/implementer-prompt.md` and `companions/report-template.md`
+      carried the bare form too - outside the R's § Scope, but the
+      criterion sweeps every living doc, so they are fixed here.
+- [x] `layout.md`'s artifacts tree: composite form. No task owned this
       file until now, though `MAINTENANCE.md § Doc-sync pairs` names it
       for a naming-convention change, and `README.md` plus
       `REQUIREMENTS.md` cite it for the mechanics (close-review finding
