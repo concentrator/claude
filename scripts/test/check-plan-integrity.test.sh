@@ -21,8 +21,7 @@ mkrepo() {
   mkdir -p "$d/plans"; printf -- '- DEV artifacts root: ./\n' > "$d/CLAUDE.md"
   printf '%s' "$d"
 }
-roadmap() { printf -- '- [ ] R-%s: thing.\n' "$@" > "$1/plans/ROADMAP.md"; }
-add()     { git -C "$1" add -A; }
+add() { git -C "$1" add -A; }   # the check reads git ls-files, not the worktree
 
 # 1. a well-formed initiative: composite task id, resolving branch plan
 d=$(mkrepo); mkdir -p "$d/plans/R-001-x"
