@@ -27,7 +27,7 @@ composite (`R046-T###`, counter scoped to this initiative).
   companion - the three `§ Agent toolchain` keys move out of
   `companions/toolchain.md`, which keeps push and MR mechanics; all
   inbound references repointed.
-- [ ] **R046-T005 [test]**: `scripts/test/check-plan-integrity.test.sh`
+- [x] **R046-T005 [test]**: `scripts/test/check-plan-integrity.test.sh`
   covering the root-seam behaviors, wired into `scripts/test/run-all.sh`.
 
 ## Backlog

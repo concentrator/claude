@@ -34,5 +34,6 @@ Branch: `test/plan-integrity-test`.
       left the gate reporting violations while exiting 0 and the whole
       suite still green - the pattern `check-accretion.test.sh` had and
       this suite first lacked.
+- [x] Mark and commit `R046-T005 [x]` in the R's `tasks.md`.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
