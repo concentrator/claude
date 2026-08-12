@@ -182,17 +182,18 @@ plan MR/PR once verified (e.g. a batch checkpoint -
 
 ## Archival
 
-Closing archives, in two steps. **Promote**: any durable fact the
+Archival runs at **initiative** close, in two steps; a closing task
+promotes but never moves files. **Promote**: any durable fact the
 task's artifacts established moves to its permanent home - component
 behavior to docs, external-system facts to references, binding limits
-to where they bind. **Archive**: the branch plan and findings then move
-to `plans/archive/R-XXX-<slug>/`; the `tasks.md` line stays as
-the index. Findings follow their consumers, not the task's checkbox: a
+to where they bind. **Archive**: when the initiative closes, its whole
+directory moves to `plans/archive/R-XXX-<slug>/`, branch plans and
+findings with it; the `tasks.md` lines stay as the index. Findings
+follow their consumers, not the task's checkbox: a
 closed task's findings still cited as evidence by open tasks stay
 beside them until the last consumer closes; a living doc citing them
-operatively means that fact's promotion is due at the citation. When
-an initiative closes, its whole directory moves under `archive/` - the
-backstop for retained findings. A living doc never cites `archive/` for operative content -
+operatively means that fact's promotion is due at the citation.
+A living doc never cites `archive/` for operative content -
 if it needs a fact from there, promotion missed it; move the fact.
 (Closure-evidence stamps citing archived findings are historical
 pointers, not operative content.)

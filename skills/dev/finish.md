@@ -50,8 +50,9 @@ the merge with the user), then:
 1. Sync the default branch (`git checkout <default>`, `git pull`); the
    R's tasks now all `[x]` with no closure recorded → ship the closure
    via a plan MR/PR (`plan.md § Approval and closure`).
-2. Promote-then-archive the closed task's artifacts per
-   `plan.md § Archival` - on the same plan MR/PR when one ships.
+2. Promote any durable fact the closed task's artifacts established
+   (`plan.md § Archival`); the files move only when the initiative
+   closes, and that move ships on the closure's plan MR/PR.
 3. Delete the merged branch (local; remote too if pushed).
 
 Bookkeeping landed with the merge (`branch-plan.md § Closing routine`;

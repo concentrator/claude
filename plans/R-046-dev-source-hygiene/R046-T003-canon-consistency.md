@@ -43,11 +43,13 @@ convention, never an artifact filename or an existing id.
       items are actually defined: `branch-plan.md § Closing routine`
       states both items and `write-plan.md § Steps` emits them. The
       duplicated marks clause in that step's prose is gone.
-- [ ] `plan.md § Archival`: state the trigger unambiguously - artifacts
+- [x] `plan.md § Archival`: state the trigger unambiguously - artifacts
       archive when the initiative closes, not per task. The text pairs
       "Closing archives, in two steps" with a whole-directory move at
       initiative close, so it reads both ways; practice is
       initiative-close. The findings-follow-their-consumers rule is
-      orthogonal and stays.
+      orthogonal and stays. `finish.md § 4` instructed the per-task move
+      and now matches: a closing task promotes, the files move at
+      initiative close.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
