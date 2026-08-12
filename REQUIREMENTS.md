@@ -7,7 +7,7 @@ approved: 2026-06-11
 ## Vision
 
 `~/.claude` is a portable, version-controlled Claude Code environment
-configuration - the skills, rules, commands, hooks, and settings the DEV
+configuration - the skills, rules, agents, hooks, and settings the DEV
 workflow runs on. It is not a product project; it is the toolset itself,
 self-managed by the same `/dev` discipline it provides, so it stays a
 working reference implementation of its own conventions.
