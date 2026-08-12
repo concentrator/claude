@@ -29,6 +29,12 @@ convention, never an artifact filename or an existing id.
       tag has a declared execution route. `SKILL.md` is governed
       (`rules/skills.md § Approval`): propose the wording and wait for
       approval before writing, and keep the body within its cap.
+- [ ] `templates.md`'s branch-plan template carries the `tasks.md` index
+      mark as its own checkbox beside the final commit, so a closing
+      branch cannot silently skip it. Both closures shipped under this
+      initiative missed the mark and needed a follow-up plan PR;
+      `finish.md § 1` verifies the mark exists but nothing puts it in the
+      plan where each commit would surface it.
 - [ ] `plan.md § Archival`: state the trigger unambiguously - artifacts
       archive when the initiative closes, not per task. The text pairs
       "Closing archives, in two steps" with a whole-directory move at
