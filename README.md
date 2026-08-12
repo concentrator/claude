@@ -33,7 +33,8 @@ Two modes, defined in `CLAUDE.md`:
   branch plans → commits, every level traceable
   (`R-XXX → R<NNN>-T<NNN> → branch`). Task ids are composite, with the
   task counter scoped to its initiative, so the id routes to the
-  artifacts: `R046-T002` lives in `plans/R-046-<slug>/`.
+  artifacts: `R045-T001` lives in `plans/R-045-<slug>/`, or the same path
+  under `archive/` once the initiative closes.
 
 Planning takes two rounds: `/dev plan R` shapes an initiative,
 `/dev plan R-XXX` details its tasks and branch plans. Execution is
