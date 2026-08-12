@@ -9,7 +9,7 @@ Branch: `doc/canon-consistency`. Legacy bare ids stay valid, frozen,
 and never renumbered: these commits change prose that states the
 convention, never an artifact filename or an existing id.
 
-- [ ] `plan.md § Levels` and its § Where things live table: the chain
+- [x] `plan.md § Levels` and its § Where things live table: the chain
       and the artifact filenames in composite form, leaving the legacy
       sentence as the one place that names the retired form.
 - [ ] `branch-plan.md`: the header example, the findings-file

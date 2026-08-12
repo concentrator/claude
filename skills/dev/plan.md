@@ -1,6 +1,6 @@
 # Planning rules
 
-Three-level hierarchy for DEV mode: `R-XXX → T-XXX → branch plan`,
+Three-level hierarchy for DEV mode: `R-XXX → R<NNN>-T<NNN> → branch plan`,
 planned in two rounds (§ Planning rounds). An initiative is any work
 foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 
@@ -76,7 +76,7 @@ ends by proposing `/dev code <slug>`, which the user invokes explicitly.
 - Branch plans reference exactly one parent task (via header).
 - Each parent must be **open** (`[ ]`) at the time the child is created.
 - Commits inside a branch plan need no external refs.
-- This applies to findings promotion too: a finding becomes a `T-XXX`
+- This applies to findings promotion too: a finding becomes a task
   only under a fitting open `R-XXX`. If none exists, create an R stub
   instead - the initiative act per § Directory conventions, shaped
   in a later shape round (`/dev plan R`). Never create a task with a
@@ -109,8 +109,8 @@ what instructs agents - is not an artifact: it stays under
 | `ROADMAP.md` | `<root>/plans/` |
 | `requirements.md` (per initiative) | `<root>/plans/R-XXX-<slug>/` |
 | `tasks.md` (per initiative, lazy) | `<root>/plans/R-XXX-<slug>/` |
-| `T-XXX-<slug>.md` (branch plans) | `<root>/plans/R-XXX-<slug>/` |
-| `T-XXX-<slug>.findings.md` | beside its branch plan |
+| `<task-id>-<slug>.md` (branch plans) | `<root>/plans/R-XXX-<slug>/` |
+| `<task-id>-<slug>.findings.md` | beside its branch plan |
 | `B-XXX.md`, `B-XXX.report.md` (batches) | `<root>/plans/R-XXX-<slug>/batches/` |
 | `release-vX.Y.Z.md` | `<root>/plans/` |
 
