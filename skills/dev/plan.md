@@ -1,6 +1,6 @@
 # Planning rules
 
-Three-level hierarchy for DEV mode: `R-XXX → T-XXX → branch plan`,
+Three-level hierarchy for DEV mode: `R-XXX → R<NNN>-T<NNN> → branch plan`,
 planned in two rounds (§ Planning rounds). An initiative is any work
 foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 
@@ -17,8 +17,9 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
    initiative, created lazily with the R's first task (an R with no tasks
    has none). Concrete units of work. Items:
    `R001-T001 [feat]: description` - the tag in brackets
-   (`[feat] | [fix] | [refactor]`) declares task type and determines the
-   branch prefix. Checkbox closes only when the task's branch is merged.
+   (`[feat] | [fix] | [refactor] | [doc] | [test] | [mnt]`) declares task
+   type and determines the branch prefix (`git-workflow.md § Trunk`).
+   Checkbox closes only when the task's branch is merged.
    Task ids are composite (`R<NNN>-T<NNN>`) with the T counter scoped to
    the initiative: the next free id is the highest in this R's
    `tasks.md`, plus one - no cross-R lookup. The id itself routes: the
@@ -76,7 +77,7 @@ ends by proposing `/dev code <slug>`, which the user invokes explicitly.
 - Branch plans reference exactly one parent task (via header).
 - Each parent must be **open** (`[ ]`) at the time the child is created.
 - Commits inside a branch plan need no external refs.
-- This applies to findings promotion too: a finding becomes a `T-XXX`
+- This applies to findings promotion too: a finding becomes a task
   only under a fitting open `R-XXX`. If none exists, create an R stub
   instead - the initiative act per § Directory conventions, shaped
   in a later shape round (`/dev plan R`). Never create a task with a
@@ -109,8 +110,8 @@ what instructs agents - is not an artifact: it stays under
 | `ROADMAP.md` | `<root>/plans/` |
 | `requirements.md` (per initiative) | `<root>/plans/R-XXX-<slug>/` |
 | `tasks.md` (per initiative, lazy) | `<root>/plans/R-XXX-<slug>/` |
-| `T-XXX-<slug>.md` (branch plans) | `<root>/plans/R-XXX-<slug>/` |
-| `T-XXX-<slug>.findings.md` | beside its branch plan |
+| `<task-id>-<slug>.md` (branch plans) | `<root>/plans/R-XXX-<slug>/` |
+| `<task-id>-<slug>.findings.md` | beside its branch plan |
 | `B-XXX.md`, `B-XXX.report.md` (batches) | `<root>/plans/R-XXX-<slug>/batches/` |
 | `release-vX.Y.Z.md` | `<root>/plans/` |
 
@@ -141,7 +142,7 @@ edits.
 
 ## Cross-plan dependencies
 
-A branch plan may declare `depends-on: T-012` in its header. `/dev code`
+A branch plan may declare `depends-on: R008-T001` in its header. `/dev code`
 refuses to start the branch until the dependency is merged.
 
 ## Adjusting existing plans
@@ -181,17 +182,17 @@ plan MR/PR once verified (e.g. a batch checkpoint -
 
 ## Archival
 
-Closing archives, in two steps. **Promote**: any durable fact the
+Archival runs at **initiative** close, in two steps; a closing task
+promotes but never moves files. **Promote**: any durable fact the
 task's artifacts established moves to its permanent home - component
 behavior to docs, external-system facts to references, binding limits
-to where they bind. **Archive**: the branch plan and findings then move
-to `plans/archive/R-XXX-<slug>/`; the `tasks.md` line stays as
-the index. Findings follow their consumers, not the task's checkbox: a
-closed task's findings still cited as evidence by open tasks stay
-beside them until the last consumer closes; a living doc citing them
-operatively means that fact's promotion is due at the citation. When
-an initiative closes, its whole directory moves under `archive/` - the
-backstop for retained findings. A living doc never cites `archive/` for operative content -
+to where they bind. Promotion is what a closing task owes: a finding
+another initiative's open task still cites is promoted before its own R
+closes, so nothing operative is left behind in the move. **Archive**:
+when the initiative closes, its whole directory moves to
+`plans/archive/R-XXX-<slug>/` - requirements, task index, branch plans,
+and findings together.
+A living doc never cites `archive/` for operative content -
 if it needs a fact from there, promotion missed it; move the fact.
 (Closure-evidence stamps citing archived findings are historical
 pointers, not operative content.)

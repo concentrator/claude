@@ -5,9 +5,9 @@ Close out a DEV branch - invoked by the closing routine
 
 ## 1. Verify
 
-- `plans/R-XXX-<slug>/T-XXX-<slug>.md` (root-relative): every `[ ]`
+- `plans/R-XXX-<slug>/<task-id>-<slug>.md` (root-relative): every `[ ]`
   is `[x]`; findings file triaged.
-- Bookkeeping marks present in the final commit (`branch-plan.md
+- Bookkeeping marks landed in the closing commits (`branch-plan.md
   § Closing routine`; untracked: `companions/untracked-claude.md`).
 - Close review per `branch-plan.md § Closing routine`.
 - Fresh test + lint green; failing → stop and report.
@@ -38,7 +38,7 @@ the branch's files; the switch to default is §4, after merge.
 **Keep** - report branch name. Nothing closes.
 
 **Discard** - list branch, commits, plan state; require typing
-`discard`. Then checkout default, `git branch -D`. `T-XXX` stays `[ ]`;
+`discard`. Then checkout default, `git branch -D`. The task stays `[ ]`;
 ask whether to keep the plan.
 
 ## 4. Post-merge (after the branch merges)
@@ -50,8 +50,9 @@ the merge with the user), then:
 1. Sync the default branch (`git checkout <default>`, `git pull`); the
    R's tasks now all `[x]` with no closure recorded → ship the closure
    via a plan MR/PR (`plan.md § Approval and closure`).
-2. Promote-then-archive the closed task's artifacts per
-   `plan.md § Archival` - on the same plan MR/PR when one ships.
+2. Promote any durable fact the closed task's artifacts established
+   (`plan.md § Archival`); the files move only when the initiative
+   closes, and that move ships on the closure's plan MR/PR.
 3. Delete the merged branch (local; remote too if pushed).
 
 Bookkeeping landed with the merge (`branch-plan.md § Closing routine`;

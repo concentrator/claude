@@ -1,16 +1,16 @@
 # Branch plan rules
 
-A branch plan is `plans/R-XXX-<slug>/T-XXX-<slug>.md` (root-relative;
+A branch plan is `plans/R-XXX-<slug>/<task-id>-<slug>.md` (root-relative;
 dir per parent roadmap entry - `plan.md § Directory conventions`). One
 branch = one task. The plan must be complete and committed to `main`
 **before** the branch is created.
 
 ## Header
 
-    task: T-014
+    task: R008-T002
     type: feat                      # required - inherited from task tag; determines branch prefix
     architecture-changing: true     # optional - triggers DESIGN.md update commit
-    depends-on: T-012               # optional - blocks `/dev code` until merged
+    depends-on: R008-T001           # optional - blocks `/dev code` until merged
     agentic: approved 2026-06-10    # optional - eligible for auto mode; absent = manual-only
 
 ## Body
@@ -29,7 +29,8 @@ the same commit as its code (§ Commit cadence).
 
 ### Commit cadence (all types)
 
-Each pass from `feat.md` / `fix.md` / `refactor.md` ends the same way:
+Every execution pass ends the same way; `feat`/`fix`/`refactor` add
+their mode file's loop, `doc`/`test`/`mnt` run this alone:
 
 1. **Verify** - project test + lint commands green.
 2. **Docs** - per project `CLAUDE.md § Conventions`, in *this* commit:
@@ -66,7 +67,7 @@ smell, naming inconsistency:
 - Within this branch's scope → fix it here as a commit; don't defer
   in-scope work to a finding.
 - Belongs to a completely different component → append to the plan's
-  sibling `T-XXX-<slug>.findings.md` (one line + brief context), continue
+  sibling `<task-id>-<slug>.findings.md` (one line + brief context), continue
   coding, and triage at close.
 - Never silently expand scope.
 
@@ -93,10 +94,10 @@ commit and the hand-off (`finish`).
 5. Capture the branch outcome: a summary against the task's acceptance
    criteria; surface manual-testing/automation needs (presentation +
    data-task run: `finish § 2`).
-6. **Triage `T-XXX-<slug>.findings.md`** - in-scope findings are resolved
+6. **Triage `<task-id>-<slug>.findings.md`** - in-scope findings are resolved
    in this branch (as commits), not deferred (routing:
    § Scope discoveries). For each remaining `[ ]`, prompt user:
-   - Promote to `T-XXX` or an R stub (`plan.md § Referential
+   - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Reconcile the feature doc** - write (new feature) or update
@@ -104,18 +105,18 @@ commit and the hand-off (`finish`).
    complete it - and every doc the branch ships, re-review edits
    included - through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
-   the **mandatory final commit** - the last `[ ]`:
+   the **mandatory final two items** of every plan:
 
+   > Mark and commit the task `[x]` in the R's `tasks.md`, plus any
+   > release-plan entry. (Auto-mode members: § Batches.)
+   >
    > Complete the branch: re-review docs across all commits, cleanup
    > (stale/temp data), mark plan complete, commit.
 
-   Includes the resolved findings file, the reconciled doc, and the
-   bookkeeping marks - the task `[x]` in the parent `tasks.md` and the
-   release-plan mark when listed; closing the R's last open task → run
-   the closure check (`plan.md § Approval and closure`); verified →
-   ROADMAP `[x]`. Marks land
-   with the merge; a rejected branch discards them. (Auto mode: member
-   marks land at batch close - § Batches.)
+   The commit includes the resolved findings file and the reconciled
+   doc; closing the R's last open task → run the closure check
+   (`plan.md § Approval and closure`); verified → ROADMAP `[x]`. Marks
+   land with the merge; a rejected branch discards them.
 8. Invoke `finish` - present the delivery options and execute.
 
 ## Architecture-changing branches
@@ -136,11 +137,11 @@ reason in plan header.
 
 The **batch** - one or more coupled tasks shipped as a single CI-gated
 MR/PR - is the unit of delivery to `main` in both modes. A lone task
-is a batch of one - its own branch is the MR/PR. Auto mode (`/dev auto`) runs a batch's members via subagents on a
-dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
-them by hand. Delivery is identical; only verification differs - auto
-runs the checkpoint below, manual uses § Closing routine +
-`finish`.
+is a batch of one - its own branch is the MR/PR. Auto mode (`/dev auto`)
+runs a batch's members via subagents on a dedicated `batch/B-XXX`
+branch; manual mode (`/dev code`) implements them by hand. Only
+verification differs: auto runs the checkpoint below, manual uses
+§ Closing routine + `finish`.
 
 ### `agentic:` stamp
 
@@ -157,8 +158,8 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
 `plans/R-XXX-<slug>/batches/B-XXX.md` - ordered member list:
 
     # B-001
-    - T-014 (<slug>)
-    - T-015 (<slug>)
+    - R008-T001 (<slug>)
+    - R008-T002 (<slug>)
 
 Composition only (members, order, mode), never status - task state's
 one home is the R's `tasks.md`. Open iff a member task is `[ ]` there
@@ -213,7 +214,7 @@ manual-mode § Closing routine above is unchanged by this rule.
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
-| Non-blocker discovery | `T-XXX-<slug>.findings.md`, continue |
+| Non-blocker discovery | `<task-id>-<slug>.findings.md`, continue |
 | Batch complete | Close phase on `batch/B-XXX`, then checkpoint (accept opens the MR/PR), wait for user |
 
 ## Releases
