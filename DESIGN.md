@@ -5,21 +5,17 @@ relate, and the invariants that keep them coherent.
 
 ## Components
 
+What each part contributes; the inventory itself is § Tree-map.
+
 - **CLAUDE.md** - global operating instructions, loaded every session.
   Maintenance: `rules/claude-md.md`.
-- **rules/** - personal convention rules (`git-workflow` always-on; `js`,
-  `skills`, `claude-md` path-scoped), loaded as memory. The DEV process
-  rules now live as `skills/dev/` companions.
+- **rules/** - personal convention rules loaded as memory, `git-workflow`
+  always-on and the rest path-scoped. The DEV process rules live as
+  `skills/dev/` companions, not here.
 - **skills/** - invocable capabilities. `skills/dev/` is the `/dev` router
   + its inert mode-file companions (the DEV toolset); the rest are
   standalone reference skills. Authoring: `skills/skill-creator/`,
   `skills/writing-skills/`, `rules/skills.md`.
-- **settings.json** - global Claude Code config. Project-scoped settings
-  for this repo: `.claude/settings.local.json`.
-- **MAINTENANCE.md** - sanity routine + the Tier-2 AI review
-  (`## Self-enforcement`).
-- **scripts/ci/**, **.github/**, **.githooks/** - the self-enforcement
-  layer (`## Self-enforcement`).
 
 ## Self-hosting layout
 
@@ -96,9 +92,8 @@ excluded - see `.gitignore`.
 ```
 
 Project-specific skills symlinked into `skills/` from external repos
-(the `wallarm-*` ones from `~/wallarm_pure/skills`, gitignored via
-`skills/wallarm-*`) are not part of this configuration: excluded from the
-map, versioned in their own repo.
+(gitignored via `skills/wallarm-*`) are versioned in their own repo, so
+the map excludes them.
 
 ## Planning model
 
@@ -155,8 +150,7 @@ judges the real target, not the cwd branch.
 - Every skill is reachable, documented, and non-duplicative.
 - No workflow contains a dead-end or an unbounded loop.
 - Rules and CLAUDE.md reference only existing paths.
-- Serial DEV behaviors stay behaviorally unchanged unless a REQ changes
-  them.
+- Serial DEV behaviors stay unchanged unless an initiative changes them.
 
 ## Decisions
 
