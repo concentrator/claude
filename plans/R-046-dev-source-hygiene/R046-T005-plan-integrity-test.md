@@ -10,8 +10,8 @@ Branch: `test/plan-integrity-test`.
 - [x] `scripts/test/check-plan-integrity.test.sh`: the fixture harness
       modeled on `check-accretion.test.sh` (temporary repo, declared
       root, pass and fail assertions), covering the happy path - plus
-      the legacy bare-id form and each violation class the check
-      reports.
+      the legacy bare-id form and one case per report site the check
+      carries.
 - [x] The root-seam cases the accretion suite only reaches indirectly:
       nested-root attribution (a root dir named like an R-dir stays
       attributable to the inner R, and still reports a real mismatch),
@@ -21,10 +21,18 @@ Branch: `test/plan-integrity-test`.
       checkboxes.
 - [x] Wired into `scripts/test/run-all.sh`: the aggregator globs
       `scripts/test/*.test.sh`, so the filename is the wiring; verified
-      by the full suite naming all seven and reporting green.
-- [x] Each case verified against a mutated copy of the check (`CHECK` is
-      overridable for this): breaking root attribution, the ROADMAP
-      guard, duplicate detection, or task resolution each fails exactly
-      the cases that guard it, so no case passes vacuously.
+      by the aggregator naming this suite among the ones it runs and
+      reporting green.
+- [x] Coverage measured, not assumed: every one of the check's report
+      sites, its `report()` fail flag, and the ROADMAP guard were each
+      mutated away in turn against a copy beside `resolve-root.sh`, and
+      each mutation failed the case that guards it. Four sites had no
+      case until the close review measured what the first mutation run
+      had not - it re-tested only the sites already covered.
+- [x] Every violation case asserts a nonzero exit as well as the report
+      text (`fails_with`). Without it, dropping `report()`'s fail flag
+      left the gate reporting violations while exiting 0 and the whole
+      suite still green - the pattern `check-accretion.test.sh` had and
+      this suite first lacked.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
