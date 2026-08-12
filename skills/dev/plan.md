@@ -142,7 +142,7 @@ edits.
 
 ## Cross-plan dependencies
 
-A branch plan may declare `depends-on: R008-T002` in its header. `/dev code`
+A branch plan may declare `depends-on: R008-T001` in its header. `/dev code`
 refuses to start the branch until the dependency is merged.
 
 ## Adjusting existing plans
@@ -186,13 +186,12 @@ Archival runs at **initiative** close, in two steps; a closing task
 promotes but never moves files. **Promote**: any durable fact the
 task's artifacts established moves to its permanent home - component
 behavior to docs, external-system facts to references, binding limits
-to where they bind. **Archive**: when the initiative closes, its whole
-directory moves to `plans/archive/R-XXX-<slug>/`, branch plans and
-findings with it; the `tasks.md` lines stay as the index. Findings
-follow their consumers, not the task's checkbox: a
-closed task's findings still cited as evidence by open tasks stay
-beside them until the last consumer closes; a living doc citing them
-operatively means that fact's promotion is due at the citation.
+to where they bind. Promotion is what a closing task owes: a finding
+another initiative's open task still cites is promoted before its own R
+closes, so nothing operative is left behind in the move. **Archive**:
+when the initiative closes, its whole directory moves to
+`plans/archive/R-XXX-<slug>/` - requirements, task index, branch plans,
+and findings together.
 A living doc never cites `archive/` for operative content -
 if it needs a fact from there, promotion missed it; move the fact.
 (Closure-evidence stamps citing archived findings are historical

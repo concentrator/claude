@@ -74,7 +74,9 @@ propose the repair and await approval (`claude-md.md` / `skills.md`
 
 - Broken JSON / invalid settings → fix or revert.
 - Dead reference (missing skill, renamed path) → update or remove.
-- Orphaned findings/plan files for merged work → archive or delete.
+- Findings/plan files for merged work → promote their durable facts;
+  the files archive with their initiative, never per task
+  (`skills/dev/plan.md § Archival`).
 - Duplicate rule across files → single-home (`claude-md.md § Size and
   structure`).
 

@@ -39,10 +39,10 @@ round (`/dev plan R-XXX`), or per task via `/dev plan <task-id>` / `all`.
    the house shape does not predict an external surface. A wire detail
    the plan depends on with no probe behind it → probe first, then plan.
 4. **Add header** per `branch-plan.md`:
-   - `task: R008-T001`
+   - `task: R008-T002`
    - `type: <inherited from task tag>`
    - `architecture-changing: true` (only if it touches design)
-   - `depends-on: R008-T002` (if cross-task dependency)
+   - `depends-on: R008-T001` (if cross-task dependency)
 5. **Add the mandatory final items** at the end - the index mark then
    the completion commit (per `branch-plan.md § Closing routine`).
 6. **Confirm with user**, then write to
