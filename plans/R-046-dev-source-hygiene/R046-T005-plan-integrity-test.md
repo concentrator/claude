@@ -7,9 +7,11 @@ type: test
 
 Branch: `test/plan-integrity-test`.
 
-- [ ] `scripts/test/check-plan-integrity.test.sh`: the fixture harness
+- [x] `scripts/test/check-plan-integrity.test.sh`: the fixture harness
       modeled on `check-accretion.test.sh` (temporary repo, declared
-      root, pass and fail assertions), covering the happy path.
+      root, pass and fail assertions), covering the happy path - plus
+      the legacy bare-id form and each violation class the check
+      reports.
 - [ ] The root-seam cases the accretion suite only reaches indirectly:
       nested-root attribution and the missing-ROADMAP guard.
 - [ ] Wired into `scripts/test/run-all.sh`, with the full suite green.
