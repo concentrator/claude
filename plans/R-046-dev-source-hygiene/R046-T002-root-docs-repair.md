@@ -33,5 +33,17 @@ file it describes, never against the R's § Current state list.
 - [x] `REQUIREMENTS.md § Planning discipline`: the three dead `rules/`
       pointers repointed to their `skills/dev/` homes; the id chain in
       composite form.
+- [x] Trim `DESIGN.md` (user-requested): § Components keeps what the
+      tree-map does not state and cedes the inventory to it, the symlink
+      note loses a local path, and § Invariants drops the retired `REQ`
+      term. Creates the cap headroom the close-review fixes need.
+- [x] Apply the close-review fixes: the installer's full payload and its
+      writes outside `.claude/`, the branch guard's commit denial, a
+      `README.md` row for the tracked-root criterion, the gate running
+      tests as well as checks (`README.md` and `DESIGN.md`), a settled
+      example for the id routing, and `commands` out of
+      `REQUIREMENTS.md § Vision`.
+- [x] Route the uncovered `layout.md` to R046-T003 and add it to the R's
+      § Scope - no task owned the file the new pointers rely on.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
