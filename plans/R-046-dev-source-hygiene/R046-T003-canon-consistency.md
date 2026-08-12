@@ -32,7 +32,7 @@ convention, never an artifact filename or an existing id.
       initiatives use the `refactor` body shape rather than gaining
       section sets of their own. `plan.md § Levels` carried the same
       partial tag list and is aligned too.
-- [ ] `SKILL.md § /dev code`: the dispatch line covers `doc`, `test`,
+- [x] `SKILL.md § /dev code`: the dispatch line covers `doc`, `test`,
       and `mnt` tags alongside `feat`/`fix`/`refactor`, so every task
       tag has a declared execution route. `SKILL.md` is governed
       (`rules/skills.md § Approval`): propose the wording and wait for
