@@ -9,7 +9,7 @@ round (`/dev plan R-XXX`), or per task via `/dev plan <task-id>` / `all`.
 
 - Task ID (e.g. `R008-T001`; legacy `T-014`) from the parent R's
   `plans/R-XXX-<slug>/tasks.md`
-- Task tag: `[feat] | [fix] | [refactor]`
+- Task tag: `[feat] | [fix] | [refactor] | [doc] | [test] | [mnt]`
 - Parent chain for context: task → initiative
 - Project `CLAUDE.md` (build/test/lint), `.claude/DESIGN.md` (architecture)
 - The changed feature's `docs/` doc, if it exists (`layout.md § Docs`)

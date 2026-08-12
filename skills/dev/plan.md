@@ -17,8 +17,9 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
    initiative, created lazily with the R's first task (an R with no tasks
    has none). Concrete units of work. Items:
    `R001-T001 [feat]: description` - the tag in brackets
-   (`[feat] | [fix] | [refactor]`) declares task type and determines the
-   branch prefix. Checkbox closes only when the task's branch is merged.
+   (`[feat] | [fix] | [refactor] | [doc] | [test] | [mnt]`) declares task
+   type and determines the branch prefix (`git-workflow.md § Trunk`).
+   Checkbox closes only when the task's branch is merged.
    Task ids are composite (`R<NNN>-T<NNN>`) with the T counter scoped to
    the initiative: the next free id is the highest in this R's
    `tasks.md`, plus one - no cross-R lookup. The id itself routes: the
