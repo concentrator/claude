@@ -89,6 +89,8 @@ its inbound references, plus a new
       list match the branch taxonomy in `git-workflow.md § Trunk`, and
       `SKILL.md § /dev code` declares an execution route for every tag
       a task can carry.
+- [ ] The branch-plan template carries the `tasks.md` index mark as a
+      checkbox, so a closing branch cannot complete without it.
 - [ ] `plan.md § Archival` admits one reading of when a task's
       artifacts move, matching practice: at initiative close.
 - [ ] The `§ Agent toolchain` declaration keys are read from a
