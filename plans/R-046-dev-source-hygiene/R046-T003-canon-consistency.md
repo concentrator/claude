@@ -22,9 +22,13 @@ convention, never an artifact filename or an existing id.
       for a naming-convention change, and `README.md` plus
       `REQUIREMENTS.md` cite it for the mechanics (close-review finding
       on R046-T002).
-- [ ] `templates.md`'s `kind:` enum and `write-plan.md § Inputs`' tag
+- [x] `templates.md`'s `kind:` enum and `write-plan.md § Inputs`' tag
       list aligned with the branch taxonomy in
-      `git-workflow.md § Trunk` - resolves the R's open question.
+      `git-workflow.md § Trunk` - resolves the R's open question:
+      the enum extends to the six task tags, and `doc`/`test`/`mnt`
+      initiatives use the `refactor` body shape rather than gaining
+      section sets of their own. `plan.md § Levels` carried the same
+      partial tag list and is aligned too.
 - [ ] `SKILL.md § /dev code`: the dispatch line covers `doc`, `test`,
       and `mnt` tags alongside `feat`/`fix`/`refactor`, so every task
       tag has a declared execution route. `SKILL.md` is governed

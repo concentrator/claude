@@ -39,7 +39,7 @@ Frontmatter:
 ```
 ---
 approved: pending
-kind: feat | bug | refactor
+kind: feat | bug | refactor | doc | test | mnt
 ---
 
 # R-001: <short title>
@@ -83,6 +83,9 @@ kind: feat | bug | refactor
 ## Open questions
 ## References
 ```
+
+`doc`, `test`, and `mnt` initiatives use the `refactor` body shape; the
+three shapes above are the only ones.
 
 The **Acceptance criteria** section is load-bearing across all kinds:
 source for manual / automated tests, and the fallback reference when
