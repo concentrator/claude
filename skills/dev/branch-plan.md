@@ -7,10 +7,10 @@ branch = one task. The plan must be complete and committed to `main`
 
 ## Header
 
-    task: R008-T001
+    task: R008-T002
     type: feat                      # required - inherited from task tag; determines branch prefix
     architecture-changing: true     # optional - triggers DESIGN.md update commit
-    depends-on: R008-T002           # optional - blocks `/dev code` until merged
+    depends-on: R008-T001           # optional - blocks `/dev code` until merged
     agentic: approved 2026-06-10    # optional - eligible for auto mode; absent = manual-only
 
 ## Body
@@ -29,7 +29,8 @@ the same commit as its code (§ Commit cadence).
 
 ### Commit cadence (all types)
 
-Each pass from `feat.md` / `fix.md` / `refactor.md` ends the same way:
+Every execution pass ends the same way; `feat`/`fix`/`refactor` add
+their mode file's loop, `doc`/`test`/`mnt` run this alone:
 
 1. **Verify** - project test + lint commands green.
 2. **Docs** - per project `CLAUDE.md § Conventions`, in *this* commit:
@@ -104,11 +105,10 @@ commit and the hand-off (`finish`).
    complete it - and every doc the branch ships, re-review edits
    included - through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
-   the **mandatory final two items** - the last `[ ]`s every plan
-   carries:
+   the **mandatory final two items** of every plan:
 
-   > Mark the task `[x]` in the R's `tasks.md`, plus its release-plan
-   > entry when listed.
+   > Mark and commit the task `[x]` in the R's `tasks.md`, plus any
+   > release-plan entry. (Auto-mode members: § Batches.)
    >
    > Complete the branch: re-review docs across all commits, cleanup
    > (stale/temp data), mark plan complete, commit.
@@ -116,8 +116,7 @@ commit and the hand-off (`finish`).
    The commit includes the resolved findings file and the reconciled
    doc; closing the R's last open task → run the closure check
    (`plan.md § Approval and closure`); verified → ROADMAP `[x]`. Marks
-   land with the merge; a rejected branch discards them. (Auto mode:
-   member marks land at batch close - § Batches.)
+   land with the merge; a rejected branch discards them.
 8. Invoke `finish` - present the delivery options and execute.
 
 ## Architecture-changing branches
@@ -138,11 +137,11 @@ reason in plan header.
 
 The **batch** - one or more coupled tasks shipped as a single CI-gated
 MR/PR - is the unit of delivery to `main` in both modes. A lone task
-is a batch of one - its own branch is the MR/PR. Auto mode (`/dev auto`) runs a batch's members via subagents on a
-dedicated `batch/B-XXX` branch; manual mode (`/dev code`) implements
-them by hand. Delivery is identical; only verification differs - auto
-runs the checkpoint below, manual uses § Closing routine +
-`finish`.
+is a batch of one - its own branch is the MR/PR. Auto mode (`/dev auto`)
+runs a batch's members via subagents on a dedicated `batch/B-XXX`
+branch; manual mode (`/dev code`) implements them by hand. Only
+verification differs: auto runs the checkpoint below, manual uses
+§ Closing routine + `finish`.
 
 ### `agentic:` stamp
 

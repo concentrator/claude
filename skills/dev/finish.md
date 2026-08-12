@@ -7,7 +7,7 @@ Close out a DEV branch - invoked by the closing routine
 
 - `plans/R-XXX-<slug>/<task-id>-<slug>.md` (root-relative): every `[ ]`
   is `[x]`; findings file triaged.
-- Bookkeeping marks present in the final commit (`branch-plan.md
+- Bookkeeping marks landed in the closing commits (`branch-plan.md
   § Closing routine`; untracked: `companions/untracked-claude.md`).
 - Close review per `branch-plan.md § Closing routine`.
 - Fresh test + lint green; failing → stop and report.
