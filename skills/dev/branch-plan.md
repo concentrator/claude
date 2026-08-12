@@ -104,18 +104,20 @@ commit and the hand-off (`finish`).
    complete it - and every doc the branch ships, re-review edits
    included - through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
-   the **mandatory final commit** - the last `[ ]`:
+   the **mandatory final two items** - the last `[ ]`s every plan
+   carries:
 
+   > Mark the task `[x]` in the R's `tasks.md`, plus its release-plan
+   > entry when listed.
+   >
    > Complete the branch: re-review docs across all commits, cleanup
    > (stale/temp data), mark plan complete, commit.
 
-   Includes the resolved findings file, the reconciled doc, and the
-   bookkeeping marks - the task `[x]` in the parent `tasks.md` and the
-   release-plan mark when listed; closing the R's last open task → run
-   the closure check (`plan.md § Approval and closure`); verified →
-   ROADMAP `[x]`. Marks land
-   with the merge; a rejected branch discards them. (Auto mode: member
-   marks land at batch close - § Batches.)
+   The commit includes the resolved findings file and the reconciled
+   doc; closing the R's last open task → run the closure check
+   (`plan.md § Approval and closure`); verified → ROADMAP `[x]`. Marks
+   land with the merge; a rejected branch discards them. (Auto mode:
+   member marks land at batch close - § Batches.)
 8. Invoke `finish` - present the delivery options and execute.
 
 ## Architecture-changing branches

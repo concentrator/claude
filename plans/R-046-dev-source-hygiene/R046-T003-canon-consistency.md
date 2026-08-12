@@ -37,12 +37,12 @@ convention, never an artifact filename or an existing id.
       tag has a declared execution route. `SKILL.md` is governed
       (`rules/skills.md § Approval`): propose the wording and wait for
       approval before writing, and keep the body within its cap.
-- [ ] `templates.md`'s branch-plan template carries the `tasks.md` index
-      mark as its own checkbox beside the final commit, so a closing
-      branch cannot silently skip it. Both closures shipped under this
-      initiative missed the mark and needed a follow-up plan PR;
-      `finish.md § 1` verifies the mark exists but nothing puts it in the
-      plan where each commit would surface it.
+- [x] The `tasks.md` index mark becomes its own checkbox every plan
+      carries, so a closing branch cannot silently skip it. `templates.md`
+      holds no branch-plan template, so the fix landed where the final
+      items are actually defined: `branch-plan.md § Closing routine`
+      states both items and `write-plan.md § Steps` emits them. The
+      duplicated marks clause in that step's prose is gone.
 - [ ] `plan.md § Archival`: state the trigger unambiguously - artifacts
       archive when the initiative closes, not per task. The text pairs
       "Closing archives, in two steps" with a whole-directory move at
