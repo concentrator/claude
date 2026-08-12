@@ -1,6 +1,6 @@
 # Writing Plans
 
-Generate a branch plan (`plans/R-XXX-<slug>/T-XXX-<slug>.md`,
+Generate a branch plan (`plans/R-XXX-<slug>/<task-id>-<slug>.md`,
 root-relative) from a task in its initiative's `tasks.md`. Invoked
 within the detail
 round (`/dev plan R-XXX`), or per task via `/dev plan <task-id>` / `all`.
@@ -10,7 +10,7 @@ round (`/dev plan R-XXX`), or per task via `/dev plan <task-id>` / `all`.
 - Task ID (e.g. `R008-T001`; legacy `T-014`) from the parent R's
   `plans/R-XXX-<slug>/tasks.md`
 - Task tag: `[feat] | [fix] | [refactor]`
-- Parent chain for context: T-XXX → R-XXX
+- Parent chain for context: task → initiative
 - Project `CLAUDE.md` (build/test/lint), `.claude/DESIGN.md` (architecture)
 - The changed feature's `docs/` doc, if it exists (`layout.md § Docs`)
   - plan against the current documented behavior
@@ -42,10 +42,10 @@ round (`/dev plan R-XXX`), or per task via `/dev plan <task-id>` / `all`.
    - `task: R008-T001`
    - `type: <inherited from task tag>`
    - `architecture-changing: true` (only if it touches design)
-   - `depends-on: T-012` (if cross-task dependency)
+   - `depends-on: R008-T002` (if cross-task dependency)
 5. **Add mandatory final commit** at the end (per branch-plan.md).
 6. **Confirm with user**, then write to
-   `plans/R-XXX-<slug>/T-XXX-<slug>.md` and deliver via a short-lived
+   `plans/R-XXX-<slug>/<task-id>-<slug>.md` and deliver via a short-lived
    plan MR/PR (`plan.md § Where plans live in git`).
 
 ## Soft cap

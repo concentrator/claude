@@ -141,7 +141,7 @@ edits.
 
 ## Cross-plan dependencies
 
-A branch plan may declare `depends-on: T-012` in its header. `/dev code`
+A branch plan may declare `depends-on: R008-T002` in its header. `/dev code`
 refuses to start the branch until the dependency is merged.
 
 ## Adjusting existing plans
