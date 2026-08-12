@@ -55,7 +55,7 @@ kind: feat | bug | refactor
 ## Acceptance criteria   - testable behaviors (checkboxes)
 ## Constraints
 ## Open questions
-## References            - related R-/T-XXX
+## References            - related initiative and task ids
 ```
 
 ### `kind: bug`
@@ -103,8 +103,8 @@ confirms dropping them.
 ## Scope     - one-line theme of the release
 
 ## Branches  - one checkbox per planned branch
-- [ ] feat/<slug> (T-014): description
-- [ ] fix/<slug> (T-015): description
+- [ ] feat/<slug> (R008-T001): description
+- [ ] fix/<slug> (R008-T002): description
 
 ## Notes     - deferred or dropped scope, with reason
 ```

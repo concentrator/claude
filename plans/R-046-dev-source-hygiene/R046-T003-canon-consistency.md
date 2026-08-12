@@ -15,7 +15,8 @@ convention, never an artifact filename or an existing id.
 - [x] `branch-plan.md`: the header example, the findings-file
       references, and the § Closing routine triage item in composite
       form.
-- [ ] `finish.md § 1` and `templates.md § References`: composite form.
+- [x] `finish.md § 1` and `templates.md § References`: composite form,
+      the release-plan example included.
 - [ ] `layout.md`'s artifacts tree: composite form. No task owned this
       file until now, though `MAINTENANCE.md § Doc-sync pairs` names it
       for a naming-convention change, and `README.md` plus

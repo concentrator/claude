@@ -5,7 +5,7 @@ Close out a DEV branch - invoked by the closing routine
 
 ## 1. Verify
 
-- `plans/R-XXX-<slug>/T-XXX-<slug>.md` (root-relative): every `[ ]`
+- `plans/R-XXX-<slug>/<task-id>-<slug>.md` (root-relative): every `[ ]`
   is `[x]`; findings file triaged.
 - Bookkeeping marks present in the final commit (`branch-plan.md
   § Closing routine`; untracked: `companions/untracked-claude.md`).
@@ -38,7 +38,7 @@ the branch's files; the switch to default is §4, after merge.
 **Keep** - report branch name. Nothing closes.
 
 **Discard** - list branch, commits, plan state; require typing
-`discard`. Then checkout default, `git branch -D`. `T-XXX` stays `[ ]`;
+`discard`. Then checkout default, `git branch -D`. The task stays `[ ]`;
 ask whether to keep the plan.
 
 ## 4. Post-merge (after the branch merges)
