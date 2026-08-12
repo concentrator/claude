@@ -35,5 +35,5 @@ Branch: `test/plan-integrity-test`.
       suite still green - the pattern `check-accretion.test.sh` had and
       this suite first lacked.
 - [x] Mark and commit `R046-T005 [x]` in the R's `tasks.md`.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
