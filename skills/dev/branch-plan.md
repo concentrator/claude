@@ -1,17 +1,17 @@
 # Branch plan rules
 
 A branch plan is `plans/R-XXX-<slug>/<task-id>-<slug>.md` (root-relative;
-dir per parent roadmap entry - `plan.md § Directory conventions`). One
+dir per roadmap entry - `plan.md § Directory conventions`). One
 branch = one task. The plan must be complete and committed to `main`
 **before** the branch is created.
 
 ## Header
 
     task: R008-T002
-    type: feat                      # required - inherited from task tag; determines branch prefix
+    type: feat                      # required - from task tag; sets branch prefix
     architecture-changing: true     # optional - triggers DESIGN.md update commit
     depends-on: R008-T001           # optional - blocks `/dev code` until merged
-    agentic: approved 2026-06-10    # optional - eligible for auto mode; absent = manual-only
+    agentic: approved 2026-06-10    # optional - auto-eligible; absent = manual-only
 
 ## Body
 
@@ -37,7 +37,7 @@ their mode file's loop, `doc`/`test`/`mnt` run this alone:
    `release-routine: yes` → CHANGELOG `## [Unreleased]` entry
    (`changelog.md`); new public
    surface → `README.md`; `extended-docs: yes` → per conventions
-   (feature `docs/` docs reconcile at close - § Closing routine).
+   (feature `docs/` docs reconcile at close).
 3. **Commit** - single-line message; mark the plan `[x]` immediately.
 
 Open `[ ]` items → next pass; last non-final `[x]` → § Closing routine.
@@ -60,20 +60,20 @@ interpreted unambiguously, or verification keeps failing after repeated
 fixes:
 - **Stop. Ask the user.** Resolution may require plan extension, new
   task, new R, or aborting the branch. Never inline-fix beyond a true
-  typo in code you're currently writing.
+  typo in code you're writing.
 
 **Non-blocker** - improvement, refactor idea, tangential test gap, code
 smell, naming inconsistency:
 - Within this branch's scope → fix it here as a commit; don't defer
   in-scope work to a finding.
-- Belongs to a completely different component → append to the plan's
+- Belongs to a different component → append to the plan's
   sibling `<task-id>-<slug>.findings.md` (one line + brief context), continue
   coding, and triage at close.
 - Never silently expand scope.
 
 ### Scope changes mid-branch
 
-Additional changes needed after the final commit → adjust the plan via
+Changes needed after the final commit → adjust the plan via
 `/dev plan <slug>` (`plan.md § Adjusting existing plans`): new
 checkboxes plus a new final commit.
 
@@ -83,8 +83,17 @@ Runs when the last non-final `[ ]` turns `[x]`; ends in the final
 commit and the hand-off (`finish`).
 
 1. **Close review, scaled to the branch** (`small` = ≤9 commits):
-   refactor (no behavior change) → `/simplify`; single feature or single
-   bugfix → `/code-review`; mixed-purpose (more than one task tag) or >9
+
+   | The diff changes | Review |
+   |---|---|
+   | code, behavior preserved | `/simplify` |
+   | code, behavior added or fixed | `/code-review` |
+   | prose, rules, docs, plans | `/code-review` |
+   | data or config | `/code-review` |
+   | more than one row | both |
+
+   Bookkeeping (plan marks, CHANGELOG) keys no row. The size governor
+   overrides: mixed-purpose (more than one task tag) or >9
    commits → both. Also run the **Tier-2 compliance review**: confirm
    every concern listed in `MAINTENANCE.md § Tier-2 AI review` over the
    diff.
@@ -100,8 +109,8 @@ commit and the hand-off (`finish`).
    - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
-7. **Reconcile the feature doc** - write (new feature) or update
-   (fix/refactor) the `docs/` doc to match the shipped code, then
+7. **Reconcile the feature doc** - write or update the `docs/` doc
+   to match the shipped code, then
    complete it - and every doc the branch ships, re-review edits
    included - through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
@@ -128,9 +137,9 @@ which any branch may fold into its final commit without the flag.
 
 ## Size cap
 
-One task = one branch, ~20 commits (medium). Soft cap:
-warn past 20, prompt to split past 30 - subordinate to the short-lived
-governor (`git-workflow.md § Delivery cadence`). Override with stated
+A branch runs ~20 commits (medium): warn past 20, prompt to
+split past 30 - subordinate to the short-lived governor
+(`git-workflow.md § Delivery cadence`). Override with stated
 reason in plan header.
 
 ## Agentic execution
@@ -138,8 +147,8 @@ reason in plan header.
 The **batch** - one or more coupled tasks shipped as a single CI-gated
 MR/PR - is the unit of delivery to `main` in both modes. A lone task
 is a batch of one - its own branch is the MR/PR. Auto mode (`/dev auto`)
-runs a batch's members via subagents on a dedicated `batch/B-XXX`
-branch; manual mode (`/dev code`) implements them by hand. Only
+runs the members via subagents on a `batch/B-XXX` branch;
+manual mode (`/dev code`) implements them by hand. Only
 verification differs: auto runs the checkpoint below, manual uses
 § Closing routine + `finish`.
 
@@ -166,10 +175,10 @@ one home is the R's `tasks.md`. Open iff a member task is `[ ]` there
 and no `B-XXX.report.md` exists.
 
 Delivery grouping, not a planning level: a batch is scoped to the R
-whose dir holds it - members are open tasks of that R (coupling: any tasks
-not independently shippable). `depends-on` must resolve within batch
+whose dir holds it - members are its open tasks (coupling: tasks not
+independently shippable). `depends-on` must resolve within batch
 order or already-merged work. A cross-initiative need becomes its own R. The
-checkpoint validates exactly that R's acceptance criteria. Soft cap
+checkpoint validates that R's acceptance criteria. Soft cap
 ~30 planned commits total (§ Size cap governor). Auto mode requires a stamped
 batch.
 
@@ -180,8 +189,8 @@ check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) opened after the batch MR/PR merges.
 
 Per-branch close in auto mode: the close review (the `code-reviewer`
-pass) runs only for branches above the small-branch threshold defined
-in the `auto` verification policy - small branches
+pass) runs only for branches above the small-branch threshold in
+the `auto` verification policy - small branches
 defer their first review to the batch-close full-diff pass. The
 mandatory final commit and the tests/lint-green gate before merging
 into `batch/B-XXX` hold for every branch regardless of size. The
@@ -198,10 +207,9 @@ manual-mode § Closing routine above is unchanged by this rule.
   **CI-gated MR/PR** of the batch branch to origin (mechanics: `auto`
   checkpoint).
 - No commit on red tests/lint - no exceptions.
-- Findings triage and push decisions always defer to the checkpoint.
+- Findings triage and push decisions defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
-  Accept = delete the batch's `pre-B-XXX` tag and the member branch
-  refs.
+  Accept = delete the `pre-B-XXX` tag and member branch refs.
   Reject = delete the batch branch; the `pre-B-XXX` tag and member refs
   are preserved for salvage.
 
@@ -221,5 +229,5 @@ manual-mode § Closing routine above is unchanged by this rule.
 
 If the project uses releases, completed branches are listed in
 `plans/release-vX.Y.Z.md`; the `[x]` is one of the closing
-routine's marks (§ Closing routine; auto mode: § Batches). Releases are
+routine's marks (auto mode: § Batches). Releases are
 tagged on the trunk (`git-workflow.md § Releases`).
