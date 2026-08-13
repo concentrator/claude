@@ -1,6 +1,6 @@
 # Checkpoint push + MR/PR mechanics
 
-Referenced from SKILL.md and `finish`. § State check applies
+Read by `finish`, `auto`, and `declarations.md`. § State check applies
 everywhere; § Push and the carve-out below apply only at checkpoint
 **accept** - nothing pushes mid-batch, and the default branch is never
 pushed by the engine. The `CLAUDE.md § Agent toolchain` keys these

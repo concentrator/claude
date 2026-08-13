@@ -28,6 +28,11 @@ Branch: `refactor/declaration-companion`.
       declaration-syntax pointer beside its push-permission one. That
       rule file is governed too (`MAINTENANCE.md § Repair`), which the
       plan had not anticipated.
+- [x] `DESIGN.md`'s tree-map names declaration syntax among the
+      companions - the doc-sync pair table's "companion added" row.
+- [x] Close-review fix: `toolchain.md`'s header named `SKILL.md` as a
+      reader, which never referenced it; it now names the actual readers
+      (`finish`, `auto`, `declarations.md`).
 - [ ] Mark and commit `R046-T004 [x]` in the R's `tasks.md` - the item
       every plan carries since R046-T003; this plan predates it.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
