@@ -101,8 +101,8 @@ commit and the hand-off (`finish`).
 3. Print report; request user approval before applying.
 4. Apply approved fixes as additional commits if needed.
 5. Capture the branch outcome: a summary against the task's acceptance
-   criteria; surface manual-testing/automation needs (presentation +
-   data-task run: `finish § 2`).
+   criteria; surface manual-testing/automation needs (verify per diff
+   content: `finish § 2`).
 6. **Triage `<task-id>-<slug>.findings.md`** - in-scope findings are resolved
    in this branch (as commits), not deferred (routing:
    § Scope discoveries). For each remaining `[ ]`, prompt user:
