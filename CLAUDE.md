@@ -20,16 +20,18 @@ Delivery cadence: one branch = one coherent unit, not a per-edit PR
 ## Agent toolchain
 
 - DEV artifacts root: ./
-
-Self-hosting: this file is also the project CLAUDE.md. Test/lint:
-`bash scripts/ci/run-all.sh` (the Tier-1 gate), also run by CI on PRs and the
-`.githooks/pre-push` hook. Supervisor bounds: batch-scoped delivery
-(`skills/dev/companions/declarations.md § Supervisor bounds`).
-VCS-host CLI: `gh`; state-check:
-`gh pr view <n> --json state,mergedAt,statusCheckRollup`; batch-push carve-out in
-`.claude/settings.local.json` (deny narrowed to default-branch/force
-pushes). Merge gate: `main` is protected - a PR + a green `tier1` check
-required (`enforce_admins` on), so `gh pr merge` merges only on green.
+- Self-hosting: this file is also the project CLAUDE.md.
+- Test/lint: `bash scripts/ci/run-all.sh` (the Tier-1 gate), also run
+  by CI on PRs and the `.githooks/pre-push` hook.
+- Supervisor bounds: batch-scoped delivery
+  (`skills/dev/companions/declarations.md § Supervisor bounds`).
+- VCS-host CLI: `gh`; state-check:
+  `gh pr view <n> --json state,mergedAt,statusCheckRollup`.
+- Batch-push carve-out: `.claude/settings.local.json` (deny narrowed
+  to default-branch/force pushes).
+- Merge gate: `main` is protected - a PR + a green `tier1` check
+  required (`enforce_admins` on), so `gh pr merge` merges only on
+  green.
 
 ## Code Comments
 
