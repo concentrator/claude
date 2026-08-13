@@ -19,8 +19,11 @@ into the options or glossed past:
 
 1. **Outcome** - what the branch produced vs the task's acceptance
    criteria.
-2. **Verify** - always offer a live run; for data tasks, run the work
-   product and show the results. Present this and wait.
+2. **Verify** - offer the action the diff content calls for: code →
+   run it live; rules or process prose → dry-run the changed rule
+   against a real case; tests → the suite run is the verification;
+   data or config → run the work product and show the results. Present
+   this and wait.
 3. **Options** - only then present delivery: push and open a CI-gated MR/PR
    to origin / keep / discard.
 
