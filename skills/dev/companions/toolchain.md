@@ -1,9 +1,9 @@
 # Checkpoint push + MR/PR mechanics
 
 Read by `finish`, `auto`, and `declarations.md`. § State check applies
-everywhere; § Push and the carve-out below apply only at checkpoint
-**accept** - nothing pushes mid-batch, and the default branch is never
-pushed by the engine. The `CLAUDE.md § Agent toolchain` keys these
+everywhere. The batch-accept restriction binds the auto-mode engine: it
+pushes only at checkpoint **accept**, nothing mid-batch, and never the
+default branch. Manual `finish` pushes its own branch (`finish.md § 3`). The `CLAUDE.md § Agent toolchain` keys these
 mechanics consume - declared commands, artifacts root, supervisor
 bounds - are defined in `declarations.md`.
 
