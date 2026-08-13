@@ -22,8 +22,8 @@ into the options or glossed past:
 2. **Verify** - offer the action the diff content calls for: code →
    run it live; rules or process prose → dry-run the changed rule
    against a real case; tests → the suite run is the verification;
-   data → run the work product and show the results. Present this and
-   wait.
+   data or config → run the work product and show the results. Present
+   this and wait.
 3. **Options** - only then present delivery: push and open a CI-gated MR/PR
    to origin / keep / discard.
 
