@@ -32,9 +32,4 @@ composite (`R046-T###`, counter scoped to this initiative).
 
 ## Backlog
 
-Unnumbered until this R's next round (`plan.md § Referential integrity`).
-
-- `branch-plan.md § Closing routine` step 1 dispatches close review by
-  `refactor` / `feature` / `bugfix` only, so a `doc`, `test`, or `mnt`
-  branch has no declared route - the gap R046-T003 closed for the
-  execution dispatch in `SKILL.md`, still open for the close-review one.
+Backlog carried to R-047 at close.
