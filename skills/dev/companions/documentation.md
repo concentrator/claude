@@ -105,7 +105,11 @@ No new or touched doc is complete until an **independent agent** - never
 the author -
 has verified every factual claim against ground truth: the live system
 for observable facts, the authoritative source (source code, `--help`,
-config files, vendor docs) otherwise.
+config files, vendor docs) otherwise. What clears the gate depends on
+the prose class: for rules, skills, and planning prose, an independent
+close review - a non-author agent checking the changed claims against
+their sources (`branch-plan.md § Closing routine`); for `docs/` feature
+docs, the dedicated per-claim pass:
 
 - Per-claim verdict: **VERIFIED** (confirmed live), **DOCS**
   (authoritative source cited), **WRONG**, or **UNPROVEN**. A claim with
@@ -120,8 +124,9 @@ config files, vendor docs) otherwise.
   and where does it contradict itself. Findings are fixed like WRONG
   claims: the verdicts check that the doc is true, this checks that it
   is usable cold.
-- Artifact-free: version-control history records that the review ran; no
-  separate stamp or ledger is kept.
+
+Either path is artifact-free: version-control history records that the
+review ran; no separate stamp or ledger is kept.
 
 ## Evidence and provenance
 
