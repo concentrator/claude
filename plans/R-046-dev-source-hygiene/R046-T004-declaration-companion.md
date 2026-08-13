@@ -7,13 +7,15 @@ type: refactor
 
 Branch: `refactor/declaration-companion`.
 
-- [ ] New `companions/declarations.md`: the three
+- [x] New `companions/declarations.md`: the three
       `CLAUDE.md § Agent toolchain` keys - declared commands, supervisor
       bounds, artifacts root - moved from `toolchain.md`, one section
       each, wording unchanged.
-- [ ] `companions/toolchain.md` keeps push, MR/PR, and state-check
+- [x] `companions/toolchain.md` keeps push, MR/PR, and state-check
       mechanics; the moved sections become a pointer to the new
-      companion.
+      companion. Shipped in the same commit as the item above: a move
+      split across two commits would duplicate the content in between,
+      against `writing.md § One home per finding`.
 - [ ] Repoint every inbound reference found by grep. `CLAUDE.md` is
       governed (`rules/claude-md.md § Approval`): propose its
       `§ Agent toolchain` edit and wait for approval rather than
