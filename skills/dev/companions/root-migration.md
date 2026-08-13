@@ -10,7 +10,7 @@ reported move list.
 
 Resolve the target root: the `- DEV artifacts root:` line in
 `CLAUDE.md § Agent toolchain` if present (syntax:
-`companions/toolchain.md § Artifacts root`), else ask the user (no
+`companions/declarations.md § Artifacts root`), else ask the user (no
 preference → the default `dev/`; resolution: `plan.md § Where things
 live`). A root inside `.claude/` is invalid - the move exists to
 leave the guarded tree; report and stop. Keep the answer for the § 2
@@ -62,7 +62,7 @@ tracked-file rewrites ride the branch.
    `.claude/plans` and `.claude/docs` to confirm zero stale
    references.
 3. **Declare** - backfill the `DEV artifacts root:` line in
-   `CLAUDE.md § Agent toolchain` (`companions/toolchain.md
+   `CLAUDE.md § Agent toolchain` (`companions/declarations.md
    § Artifacts root`). Write it even when the answer is the default:
    the migration is the project's explicit adoption act.
 4. **Close the gaps** - the `.gitignore` follow-ups from § 1.

@@ -93,7 +93,7 @@ Artifact paths resolve against the project's **artifacts root**: a
 repo-relative directory outside `.claude/`, declared on its own line
 as `DEV artifacts
 root:` in `CLAUDE.md § Agent toolchain` (syntax:
-`companions/toolchain.md § Artifacts root`); when the declaration is
+`companions/declarations.md § Artifacts root`); when the declaration is
 absent, the root is `dev/`. `./` (or `.`) resolves to the repo root;
 a trailing slash is insignificant. Skills never guess the root.
 `<root>/` marks it in path tables and tree drawings; bare artifact

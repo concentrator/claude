@@ -14,7 +14,7 @@ admin merges).
    transport; `ssh <target>` is R040-T003's scope). The portfolio is
    config only - never write state there.
 2. **Bounds** - read each project's `CLAUDE.md § Agent toolchain`
-   declaration (`companions/toolchain.md § Supervisor bounds`) and its
+   declaration (`companions/declarations.md § Supervisor bounds`) and its
    `.claude/supervisor.md` instructions when referenced. No
    declaration → read-only: report and escalate, merge nothing.
 3. **Scope** - an explicit `B-XXX` / task id / `R-XXX` argument; bare =
@@ -58,7 +58,7 @@ cannot settle is an escalation, not a call.
 Within bounds - green `plan/` MR/PRs; green batch/member MR/PRs whose
 report verifies the criteria - merge via the declared command and
 apply the signature: the `supervised` label plus a merge comment
-naming the bound (`companions/toolchain.md § Supervisor bounds`).
+naming the bound (`companions/declarations.md § Supervisor bounds`).
 Everything else escalates: releases, convention changes, red gates,
 off-plan work, gate-unsettleable judgments.
 
