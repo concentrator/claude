@@ -132,7 +132,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       headless worker can write plans, findings, and batch reports;
       config that instructs agents stays in `.claude/`. `migrate`
       carries existing adopters over.
-- [ ] R-046: DEV system-source hygiene - the toolset's own docs state
+- [x] R-046: DEV system-source hygiene - the toolset's own docs state
       the conventions it runs on, and a doc-sync review concern owns the
       staleness a change induces in files it does not touch; re-home the
       `§ Agent toolchain` declaration syntax out of the push-mechanics

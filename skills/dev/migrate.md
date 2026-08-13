@@ -61,7 +61,7 @@ publish-external, extended-docs, and a `<root>/docs/index.md` pointer if
 the docs layer is used) + stack, base branch, and an `## Agent
 toolchain` section (VCS host + build/test/lint/change-request/
 state-check commands, the artifacts-root declaration -
-`companions/toolchain.md`); backfill it if absent. Propose deletion of any
+`companions/declarations.md`); backfill it if absent. Propose deletion of any
 restated global rules. Keep it within the `rules/claude-md.md` limits
 (§ Content, § Size and structure).
 

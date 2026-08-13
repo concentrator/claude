@@ -81,7 +81,7 @@ excluded - see `.gitignore`.
     │   ├── feat.md fix.md refactor.md write-plan.md finish.md release.md auto.md        # execution
     │   ├── supervise.md secrets.md docs.md     # supervised delivery, secrets policy, docs layer
     │   ├── brainstorm.md migrate.md start.md   # shape + adoption
-    │   └── companions/           # documentation framework, prompt templates, verification-policy, migration docs, mockup scripts
+    │   └── companions/           # declaration syntax, documentation framework, prompt templates, verification-policy, migration docs, mockup scripts
     ├── test-driven-development/  # bundled dependency skills (installer ships these) + testing-anti-patterns
     ├── systematic-debugging/     # + root-cause-tracing, defense-in-depth, condition-based-waiting, find-polluter.sh
     ├── verification-before-completion/SKILL.md

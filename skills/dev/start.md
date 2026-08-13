@@ -22,7 +22,7 @@ Baseline files (`layout.md § Baseline files`):
 - `/init` → project `CLAUDE.md` incl. `## Conventions` and `## Agent
   toolchain`, spec per `migrate.md § 4`. Ask: **artifacts root?**
   Record the answer as the `DEV artifacts root:` declaration
-  (`companions/toolchain.md § Artifacts root`); no preference → omit
+  (`companions/declarations.md § Artifacts root`); no preference → omit
   the line and the default applies.
 - `README.md` (verify or stub).
 - `.gitignore` / `.env.example` - seed from the `companions/*.template`

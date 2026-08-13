@@ -29,7 +29,7 @@ MR/PR opens only on explicit choice - never automatically.
 ## 3. Execute
 
 **Push + MR/PR** - `git push -u origin <branch>`, then open a CI-gated
-MR/PR via the declared change-request command (`companions/toolchain.md
+MR/PR via the declared change-request command (`companions/declarations.md
 § Declared commands`; no declared host → push and print the URL). Merge
 per `git-workflow.md § Trunk`. After opening it, **stay on the branch** - do not
 switch to the default branch while the MR/PR is open, so the reviewer sees

@@ -8,7 +8,7 @@ repo's term per its host.
 
 **Declared commands** - the VCS host and the exact change-request /
 merge / state-check commands come from the project CLAUDE.md `## Agent
-toolchain` section (`companions/toolchain.md`); execution runs those
+toolchain` section (`companions/declarations.md`); execution runs those
 declared commands rather than probing the host - MR/PR state included.
 
 ## Trunk
@@ -46,7 +46,7 @@ declared commands rather than probing the host - MR/PR state included.
   every other prefix - `feat`/`fix`/`refactor`/`release`/`doc`/`test`/
   `mnt`, and `batch` via its checkpoint accept - keeps review and merge
   as the user's call, delegable to a supervisor within a project's
-  declared bounds (`companions/toolchain.md § Supervisor bounds`). Auto-merge runs on a
+  declared bounds (`companions/declarations.md § Supervisor bounds`). Auto-merge runs on a
   green gate: native host auto-merge where available
   (`gh pr merge --auto`, GitLab merge-when-pipeline-succeeds); where the
   host can't gate (no branch protection), the operator merges once the
