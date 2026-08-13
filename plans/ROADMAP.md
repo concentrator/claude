@@ -137,10 +137,10 @@ Initiative index. Items: `R-001: description`; each entry owns
       staleness a change induces in files it does not touch; re-home the
       `§ Agent toolchain` declaration syntax out of the push-mechanics
       companion; add a dedicated `check-plan-integrity` script test.
-- [ ] R-047: Close-review dispatch for every task tag - a `doc`, `test`,
-      or `mnt` branch has no declared close-review route, the gap R-046
-      closed for the execution dispatch. (stub - shape via
-      `/dev plan R`)
+- [ ] R-047: Close-review dispatch for every task tag - the close review
+      dispatches on what the diff contains rather than the task tag, so
+      no tag can be unrouted; the gap R-046 closed for the execution
+      dispatch.
 - [ ] R-044: Batch rollback-anchor identity - the `pre-B-XXX` rollback
       tag carries its initiative (`pre-R042-B-001`), so per-initiative
       batch ids stop colliding in git's flat tag namespace; a gate
