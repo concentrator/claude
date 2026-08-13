@@ -12,7 +12,7 @@ composite (`R047-T###`, counter scoped to this initiative).
   verification gate stating what clears it per prose class in
   `documentation.md`, and `delegation.md`'s fan-out clause citing the
   content rule. Walked against R-046's five branches plus this one.
-- [ ] **R047-T002 [doc]**: close-mechanics seams - `finish.md § 2`
+- [x] **R047-T002 [doc]**: close-mechanics seams - `finish.md § 2`
   names a verify action per diff content (code, prose, test, data),
   and `toolchain.md`'s push-scoping header names whom the batch-accept
   restriction binds so it stops contradicting `finish.md § 3`.
