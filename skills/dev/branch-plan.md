@@ -90,7 +90,7 @@ commit and the hand-off (`finish`).
    | code, behavior added or fixed | `/code-review` |
    | prose, rules, docs, plans | `/code-review` |
    | data or config | `/code-review` |
-   | both code and prose | both |
+   | more than one row | both |
 
    Bookkeeping (plan marks, CHANGELOG) keys no row. The size governor
    overrides: mixed-purpose (more than one task tag) or >9
