@@ -33,7 +33,7 @@ Branch: `refactor/declaration-companion`.
 - [x] Close-review fix: `toolchain.md`'s header named `SKILL.md` as a
       reader, which never referenced it; it now names the actual readers
       (`finish`, `auto`, `declarations.md`).
-- [ ] Mark and commit `R046-T004 [x]` in the R's `tasks.md` - the item
+- [x] Mark and commit `R046-T004 [x]` in the R's `tasks.md` - the item
       every plan carries since R046-T003; this plan predates it.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
