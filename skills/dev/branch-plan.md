@@ -1,7 +1,7 @@
 # Branch plan rules
 
 A branch plan is `plans/R-XXX-<slug>/<task-id>-<slug>.md` (root-relative;
-dir per parent roadmap entry - `plan.md § Directory conventions`). One
+dir per roadmap entry - `plan.md § Directory conventions`). One
 branch = one task. The plan must be complete and committed to `main`
 **before** the branch is created.
 
@@ -11,7 +11,7 @@ branch = one task. The plan must be complete and committed to `main`
     type: feat                      # required - from task tag; sets branch prefix
     architecture-changing: true     # optional - triggers DESIGN.md update commit
     depends-on: R008-T001           # optional - blocks `/dev code` until merged
-    agentic: approved 2026-06-10    # optional - eligible for auto mode; absent = manual-only
+    agentic: approved 2026-06-10    # optional - auto-eligible; absent = manual-only
 
 ## Body
 
@@ -37,7 +37,7 @@ their mode file's loop, `doc`/`test`/`mnt` run this alone:
    `release-routine: yes` → CHANGELOG `## [Unreleased]` entry
    (`changelog.md`); new public
    surface → `README.md`; `extended-docs: yes` → per conventions
-   (feature `docs/` docs reconcile at close - § Closing routine).
+   (feature `docs/` docs reconcile at close).
 3. **Commit** - single-line message; mark the plan `[x]` immediately.
 
 Open `[ ]` items → next pass; last non-final `[x]` → § Closing routine.
@@ -82,17 +82,18 @@ checkboxes plus a new final commit.
 Runs when the last non-final `[ ]` turns `[x]`; ends in the final
 commit and the hand-off (`finish`).
 
-1. **Close review, scaled to the branch** (`small` = ≤9 commits),
-   dispatched on diff content:
+1. **Close review, scaled to the branch** (`small` = ≤9 commits):
 
    | The diff changes | Review |
    |---|---|
    | code, behavior preserved | `/simplify` |
    | code, behavior added or fixed | `/code-review` |
    | prose, rules, docs, plans | `/code-review` |
+   | data or config | `/code-review` |
    | both code and prose | both |
 
-   Mixed-purpose (more than one task tag) or >9
+   Bookkeeping (plan marks, CHANGELOG) keys no row. The size governor
+   overrides: mixed-purpose (more than one task tag) or >9
    commits → both. Also run the **Tier-2 compliance review**: confirm
    every concern listed in `MAINTENANCE.md § Tier-2 AI review` over the
    diff.
@@ -108,8 +109,8 @@ commit and the hand-off (`finish`).
    - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
-7. **Reconcile the feature doc** - write (new feature) or update
-   (fix/refactor) the `docs/` doc to match the shipped code, then
+7. **Reconcile the feature doc** - write or update the `docs/` doc
+   to match the shipped code, then
    complete it - and every doc the branch ships, re-review edits
    included - through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
@@ -177,7 +178,7 @@ Delivery grouping, not a planning level: a batch is scoped to the R
 whose dir holds it - members are its open tasks (coupling: tasks not
 independently shippable). `depends-on` must resolve within batch
 order or already-merged work. A cross-initiative need becomes its own R. The
-checkpoint validates exactly that R's acceptance criteria. Soft cap
+checkpoint validates that R's acceptance criteria. Soft cap
 ~30 planned commits total (§ Size cap governor). Auto mode requires a stamped
 batch.
 
@@ -188,8 +189,8 @@ check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) opened after the batch MR/PR merges.
 
 Per-branch close in auto mode: the close review (the `code-reviewer`
-pass) runs only for branches above the small-branch threshold defined
-in the `auto` verification policy - small branches
+pass) runs only for branches above the small-branch threshold in
+the `auto` verification policy - small branches
 defer their first review to the batch-close full-diff pass. The
 mandatory final commit and the tests/lint-green gate before merging
 into `batch/B-XXX` hold for every branch regardless of size. The
@@ -206,7 +207,7 @@ manual-mode § Closing routine above is unchanged by this rule.
   **CI-gated MR/PR** of the batch branch to origin (mechanics: `auto`
   checkpoint).
 - No commit on red tests/lint - no exceptions.
-- Findings triage and push decisions always defer to the checkpoint.
+- Findings triage and push decisions defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
   Accept = delete the `pre-B-XXX` tag and member branch refs.
   Reject = delete the batch branch; the `pre-B-XXX` tag and member refs
