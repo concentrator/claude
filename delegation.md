@@ -8,8 +8,10 @@ session that needs one spawns it rather than pausing to confirm.
   requires an independent verifier, never the author. Self-verification
   does not clear the gate, so a doc the author also verified is unverified.
 - **Close-review fan-out.** `/simplify` and `/code-review` dispatch
-  parallel reviewers by design. Run them as written rather than reviewing
-  the diff single-handed and noting the deviation.
+  parallel reviewers by design; the close review is routed by diff
+  content (`skills/dev/branch-plan.md § Closing routine`). Run the
+  routed review as written rather than reviewing the diff single-handed
+  and noting the deviation.
 - **Genuinely wide searches.** Sweeping many files, directories, or naming
   conventions where only the conclusion is wanted, not the file dumps.
 
