@@ -24,7 +24,7 @@ Delivery cadence: one branch = one coherent unit, not a per-edit PR
 Self-hosting: this file is also the project CLAUDE.md. Test/lint:
 `bash scripts/ci/run-all.sh` (the Tier-1 gate), also run by CI on PRs and the
 `.githooks/pre-push` hook. Supervisor bounds: batch-scoped delivery
-(`skills/dev/companions/toolchain.md § Supervisor bounds`).
+(`skills/dev/companions/declarations.md § Supervisor bounds`).
 VCS-host CLI: `gh`; state-check:
 `gh pr view <n> --json state,mergedAt,statusCheckRollup`; batch-push carve-out in
 `.claude/settings.local.json` (deny narrowed to default-branch/force

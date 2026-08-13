@@ -16,10 +16,19 @@ Branch: `refactor/declaration-companion`.
       companion. Shipped in the same commit as the item above: a move
       split across two commits would duplicate the content in between,
       against `writing.md § One home per finding`.
-- [ ] Repoint every inbound reference found by grep. `CLAUDE.md` is
-      governed (`rules/claude-md.md § Approval`): propose its
-      `§ Agent toolchain` edit and wait for approval rather than
-      editing it silently. Both companions stay within their caps and
-      the gate is green in this commit.
+- [x] Repoint every inbound reference found by grep - `git-workflow.md`,
+      `supervise.md`, `plan.md`, `start.md`, `root-migration.md`,
+      `finish.md`, `migrate.md`. `auto.md` and `finish.md § 4` keep
+      pointing at `toolchain.md`: they cite push and state-check
+      mechanics, which stayed. R-040's completed branch plans keep their
+      citations - marks and plan text record what happened
+      (`plan.md § Adjusting existing plans`).
+- [x] Governed files, approved before editing: `CLAUDE.md § Agent
+      toolchain` repointed, and `rules/claude-md.md` gained a
+      declaration-syntax pointer beside its push-permission one. That
+      rule file is governed too (`MAINTENANCE.md § Repair`), which the
+      plan had not anticipated.
+- [ ] Mark and commit `R046-T004 [x]` in the R's `tasks.md` - the item
+      every plan carries since R046-T003; this plan predates it.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
