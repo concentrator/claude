@@ -35,5 +35,8 @@ Branch: `refactor/declaration-companion`.
       (`finish`, `auto`, `declarations.md`).
 - [x] Mark and commit `R046-T004 [x]` in the R's `tasks.md` - the item
       every plan carries since R046-T003; this plan predates it.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
-      (stale/temp data), mark plan complete, commit.
+- [x] Complete the branch: re-review docs across all commits, cleanup
+      (stale/temp data), mark plan complete, commit. This closes the R's
+      last open task, so the commit carries the initiative closure -
+      every criterion verified with evidence, `status: done`, ROADMAP
+      `[x]` (`plan.md § Approval and closure`).

@@ -1,5 +1,6 @@
 ---
 approved: 2026-08-11
+status: done 2026-08-13
 kind: mnt
 ---
 
@@ -71,35 +72,68 @@ its inbound references, plus a new
 
 ## Acceptance criteria
 
-- [ ] No living markdown presents the retired bare form as current:
+- [x] No living markdown presents the retired bare form as current:
       `grep -rn "T-XXX" --include="*.md" .` outside `plans/archive/`
       returns only occurrences explicitly labeled legacy.
-- [ ] `README.md` matches its sources, each checked at close: every
+      Evidence: the sweep returns only this file's two lines - the
+      § Current state description and this criterion's own command.
+- [x] `README.md` matches its sources, each checked at close: every
       command in `SKILL.md § Surface` appears, every tracked root entry
       appears in § Contents, and the installer paragraph matches what
       `install-dev.sh` copies and registers.
-- [ ] The `DESIGN.md` tree-map matches the tree for tracked paths.
-- [ ] No living document cites a `rules/` path that does not exist.
-- [ ] `MAINTENANCE.md` names doc sync as a review concern, and the
+      Evidence: both loops (commands from `SKILL.md`, root entries from
+      `git ls-files`) report nothing missing; the installer paragraph was
+      rewritten against `install-dev.sh` and its two out-of-`.claude/`
+      writes named.
+- [x] The `DESIGN.md` tree-map matches the tree for tracked paths.
+      Evidence: no tracked top-level dir or `skills/dev/` mode file is
+      absent from the map, and `check-stray.sh` - which derives the
+      allowed top-level set from it - is green.
+- [x] No living document cites a `rules/` path that does not exist.
+      Evidence: every `rules/*.md` citation outside `plans/archive/`
+      resolves to a file.
+- [x] `MAINTENANCE.md` names doc sync as a review concern, and the
       concern set is enumerated in exactly one file: `branch-plan.md`
       and `DESIGN.md` reference it without restating the list.
-- [ ] The change-to-doc pair table sits in `MAINTENANCE.md § This
+      Evidence: the concern list string appears in no file but
+      `MAINTENANCE.md`.
+- [x] The change-to-doc pair table sits in `MAINTENANCE.md § This
       environment` and covers every trigger named in § Current state.
-- [ ] `templates.md`'s `kind:` values and `write-plan.md`'s task-tag
+      Evidence: eight trigger rows under § Doc-sync pairs; the table
+      caught three drifts in this initiative's own branches (the
+      accretion gate, `layout.md`, the added companion).
+- [x] `templates.md`'s `kind:` values and `write-plan.md`'s task-tag
       list match the branch taxonomy in `git-workflow.md § Trunk`, and
       `SKILL.md § /dev code` declares an execution route for every tag
       a task can carry.
-- [ ] The branch-plan template carries the `tasks.md` index mark as a
-      checkbox, so a closing branch cannot complete without it.
-- [ ] `plan.md § Archival` admits one reading of when a task's
+      Evidence: both enums read `feat | bug/fix | refactor | doc | test
+      | mnt`, and the dispatch line routes `doc`/`test`/`mnt` to
+      `branch-plan.md § Commit cadence`, which is now tag-agnostic.
+- [x] The `tasks.md` index mark is a checkbox every plan carries, so a
+      closing branch cannot complete without it.
+      Evidence: `branch-plan.md § Closing routine` states it as the
+      first of two mandatory final items, and `write-plan.md` emits it.
+      It landed there rather than in `templates.md`, which holds no
+      branch-plan template; R046-T004 and R046-T005 both closed with the
+      mark in the branch.
+- [x] `plan.md § Archival` admits one reading of when a task's
       artifacts move, matching practice: at initiative close.
-- [ ] The `§ Agent toolchain` declaration keys are read from a
+      Evidence: § Archival opens "Archival runs at **initiative**
+      close"; `finish.md § 4` and `MAINTENANCE.md`'s repair line, which
+      both instructed a per-task move, now agree.
+- [x] The `§ Agent toolchain` declaration keys are read from a
       companion whose title names declaration syntax; `toolchain.md`
       keeps push and MR mechanics only; every inbound reference
       resolves.
-- [ ] `scripts/test/check-plan-integrity.test.sh` covers the root-seam
+      Evidence: `declarations.md` holds the three keys, `toolchain.md`
+      holds § State check / § Push + MR/PR / § Permission carve-out, and
+      every repointed citation lands on a real heading.
+- [x] `scripts/test/check-plan-integrity.test.sh` covers the root-seam
       behaviors (nested-root attribution, the missing-ROADMAP guard)
       and passes under `scripts/test/run-all.sh`.
+      Evidence: 17 cases green, one per report site; every report site,
+      the `report()` fail flag, and the ROADMAP guard were mutated away
+      in turn and each mutation failed the case guarding it.
 
 ## Constraints
 
@@ -117,9 +151,9 @@ its inbound references, plus a new
 
 ## Open questions
 
-- `kind:` values: extend the enum to the full branch taxonomy, or
-  restrict it to three kinds and re-stamp the outliers? Decided in
-  R046-T003.
+None. The `kind:` question was settled in R046-T003: the enum extends
+to the six task tags, and `doc`/`test`/`mnt` initiatives use the
+`refactor` body shape.
 
 ## References
 
