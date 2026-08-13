@@ -103,13 +103,14 @@ an Element.
 
 No new or touched doc is complete until an **independent agent** - never
 the author -
-has verified every factual claim against ground truth: the live system
+has verified the claims in scope against ground truth: the live system
 for observable facts, the authoritative source (source code, `--help`,
-config files, vendor docs) otherwise. What clears the gate depends on
-the prose class: for rules, skills, and planning prose, an independent
-close review - a non-author agent checking the changed claims against
-their sources (`branch-plan.md § Closing routine`); for `docs/` feature
-docs, the dedicated per-claim pass:
+config files, vendor docs) otherwise. The prose class sets the scope
+and the clearing review: rules, skills, and planning prose - the
+changed claims, checked against their sources by the close review
+(`branch-plan.md § Closing routine`; auto mode: the batch-close
+full-diff pass); `docs/` feature docs - every claim, via the dedicated
+per-claim pass:
 
 - Per-claim verdict: **VERIFIED** (confirmed live), **DOCS**
   (authoritative source cited), **WRONG**, or **UNPROVEN**. A claim with
