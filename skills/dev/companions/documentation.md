@@ -109,8 +109,8 @@ config files, vendor docs) otherwise. The prose class sets the scope
 and the clearing review: rules, skills, and planning prose - the
 changed claims, checked against their sources by the close review
 (`branch-plan.md § Closing routine`; auto mode: the batch-close
-full-diff pass); `docs/` feature docs - every claim, via the dedicated
-per-claim pass:
+full-diff pass; reviewer mandate: `agents/code-reviewer.md`); `docs/`
+feature docs - every claim, via the dedicated per-claim pass:
 
 - Per-claim verdict: **VERIFIED** (confirmed live), **DOCS**
   (authoritative source cited), **WRONG**, or **UNPROVEN**. A claim with
