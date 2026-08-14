@@ -29,7 +29,11 @@ route. Artifact paths resolve against the declared artifacts root
   open `tasks.md` header. Draining the stock - archive closed work,
   compact living docs, gate accretion (`plan.md § Archival`,
   `writing.md § State the present`) - is proposed as a docs-reconcile
-  initiative, never done inline during migration.
+  initiative, never done inline during migration. The accretion gate
+  in that proposal reuses the shipped
+  `.claude/scripts/ci/check-accretion.sh` (placed by
+  `install-dev.sh --project`) - tune its `MARKERS` list, never
+  rewrite the check.
 
 ## 1. Inventory
 

@@ -4,7 +4,9 @@
 # plans/**/*.md only, so this test source never trips it).
 # Run: bash scripts/test/check-accretion.test.sh
 set -uo pipefail
-CHECK="$(git rev-parse --show-toplevel)/scripts/ci/check-accretion.sh"
+# Sibling ci/ dir, not the repo root - this pair is vendored by install-dev.sh.
+CHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")/../ci" && pwd)/check-accretion.sh"
+[ -f "$CHECK" ] || { echo "not ok - $CHECK not found"; exit 1; }
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
