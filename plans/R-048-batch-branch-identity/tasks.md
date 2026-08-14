@@ -12,7 +12,7 @@ composite (`R048-T###`, counter scoped to this initiative).
   `git-workflow.md § Trunk`, `agents/code-reviewer.md`, `DESIGN.md`,
   and foundational `REQUIREMENTS.md` state `batch/R<NNN>-B-<MMM>` in
   place of the flat form, plus the delete-after-merge rail.
-- [ ] **R048-T002 [feat]**: the gate covers branch refs -
+- [x] **R048-T002 [feat]**: the gate covers branch refs -
   `check-batch-tags.sh` fails a `batch/*` ref whose report is on the
   trunk and any flat or malformed `batch/*` ref as unresolvable, with
   test cases; the live `batch/B-001` is renamed to `batch/R042-B-001`
