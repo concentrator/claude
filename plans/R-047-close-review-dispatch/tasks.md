@@ -16,7 +16,7 @@ composite (`R047-T###`, counter scoped to this initiative).
   names a verify action per diff content (code, prose, test, data),
   and `toolchain.md`'s push-scoping header names whom the batch-accept
   restriction binds so it stops contradicting `finish.md § 3`.
-- [ ] **R047-T003 [doc]**: prose-review mandate - the verification
+- [x] **R047-T003 [doc]**: prose-review mandate - the verification
   gate's rules-prose path names review behavior a repo-tracked reviewer
   definition specifies: checking the changed claims against their
   sources (`agents/code-reviewer.md` or the closing routine's step
