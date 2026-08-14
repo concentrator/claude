@@ -12,7 +12,7 @@ composite (`R043-T###`, counter scoped to this initiative).
   (`supersedes`, `delivered`, `restored`, `revised`, `deferred`,
   `complete`); self-test asserts bare-year pass, full-date fail,
   non-ASCII filename scanned, new verbs caught.
-- [ ] **R043-T002 [feat]**: vendor the gate set - `install-dev.sh`
+- [x] **R043-T002 [feat]**: vendor the gate set - `install-dev.sh`
   copies `check-accretion.sh`, `check-batch-tags.sh`, their
   self-tests, and `resolve-root.sh` (its test asserts the set);
   `start.md` scaffolds them into a new project's CI; `migrate.md`'s
