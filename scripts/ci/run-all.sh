@@ -6,12 +6,20 @@ cd "$(git rev-parse --show-toplevel)"
 
 fail=0
 failed=""
+skipped=""
 for c in caps code-size no-em-dash stray plan-integrity accretion todos references batch-tags; do
   echo "== check-$c =="
-  bash "scripts/ci/check-$c.sh" || { fail=1; failed="$failed $c"; }
+  out="$(bash "scripts/ci/check-$c.sh")" || { fail=1; failed="$failed $c"; }
+  printf '%s\n' "$out"
+  case "$out" in *"check-$c: SKIP"*) skipped="$skipped $c" ;; esac
 done
 
 # The verdict is always the LAST line, both ways - a truncated or
-# tail-ed reading can never mistake a failing run for a green one.
-if (( fail == 0 )); then echo "run-all: ALL OK"; else echo "run-all: FAILED -$failed"; fi
+# tail-ed reading can never mistake a failing run for a green one, and
+# a skipped check is named rather than folded into a blanket OK.
+if (( fail == 0 )); then
+  echo "run-all: ALL OK${skipped:+ (skipped:$skipped)}"
+else
+  echo "run-all: FAILED -$failed"
+fi
 exit $fail
