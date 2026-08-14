@@ -8,7 +8,7 @@ as a skipped step.
 ```markdown
 # B-XXX report - <one-line batch theme>
 
-batch-branch: batch/B-XXX
+batch-branch: batch/R<NNN>-B-XXX
 base: <default branch>@<sha at pre-flight>
 state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
 

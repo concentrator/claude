@@ -56,9 +56,9 @@ Mechanics: `skills/dev/plan.md`, `skills/dev/branch-plan.md`,
 `/dev auto` runs a batch of approved branches through subagents without
 touching the default branch:
 
-- A batch integration branch `batch/B-XXX` is cut off the default branch
-  at pre-flight; member branches merge into it; the default branch
-  advances only when the batch MR merges.
+- A batch integration branch `batch/R<NNN>-B-XXX` is cut off the
+  default branch at pre-flight; member branches merge into it; the
+  default branch advances only when the batch MR merges.
 - The batch close phase reviews the full batch diff on the most capable
   model, applies fixes on the batch branch, re-runs tests + lint, and
   checks docs coherence.

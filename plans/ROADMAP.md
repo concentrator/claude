@@ -7,7 +7,7 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R-001: Restructure planning layout - indexes at `.claude/` root,
       per-roadmap-entry plan dirs, task-id-prefixed branch plans, batch
       manifests dir.
-- [x] R-002: Batch integration flow - `batch/B-XXX` branch, enforced
+- [x] R-002: Batch integration flow - batch integration branch, enforced
       checkpoint report, full-strength batch review, push + MR at accept.
 - [x] R-003: Flatten the requirement level into roadmap entries -
       R-rooted chain with in-dir `requirements.md`, single closure point

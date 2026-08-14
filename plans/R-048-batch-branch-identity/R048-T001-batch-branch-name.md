@@ -7,7 +7,7 @@ type: doc
 
 Branch: `doc/batch-branch-name`.
 
-- [ ] The composite branch form `batch/R<NNN>-B-<MMM>` (e.g.
+- [x] The composite branch form `batch/R<NNN>-B-<MMM>` (e.g.
       `batch/R042-B-001`) replaces flat `batch/B-XXX` at every living
       mention: `auto.md` (pre-flight, close, checkpoint-accept),
       `branch-plan.md § Agentic execution/§ Batches/§ Rails`,
@@ -17,10 +17,15 @@ Branch: `doc/batch-branch-name`.
       `DESIGN.md § Git & delivery model`, and foundational
       `REQUIREMENTS.md` - like-for-like token swaps within each file's
       word cap.
-- [ ] The lifecycle rail: `branch-plan.md § Rails` and `auto.md`
+- [x] The lifecycle rail: `branch-plan.md § Rails` and `auto.md`
       checkpoint-accept state the batch branch is deleted, local and
       origin, after its MR/PR merges; freeing words elsewhere in the
       section if the cap requires it.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Close-review fixes: the origin-side delete is assigned to
+      post-merge cleanup (`§ Rails`, `auto.md` checkpoint), ROADMAP's
+      R-002 entry drops the flat literal, and the stretched wraps are
+      reflowed; the placeholder-spelling convergence is routed to
+      R048-T002 via the findings file.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.

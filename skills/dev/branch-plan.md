@@ -147,7 +147,7 @@ reason in plan header.
 The **batch** - one or more coupled tasks shipped as a single CI-gated
 MR/PR - is the unit of delivery to `main` in both modes. A lone task
 is a batch of one - its own branch is the MR/PR. Auto mode (`/dev auto`)
-runs the members via subagents on a `batch/B-XXX` branch;
+runs the members via subagents on a `batch/R<NNN>-B-XXX` branch;
 manual mode (`/dev code`) implements them by hand. Only
 verification differs: auto runs the checkpoint below, manual uses
 § Closing routine + `finish`.
@@ -183,8 +183,8 @@ checkpoint validates that R's acceptance criteria. Soft cap
 batch.
 
 Batch-close bookkeeping: the close phase marks member-task
-checkboxes as commits on `batch/B-XXX` before the MR/PR - marks land
-per § Closing routine; reject: § Rails. The R-closure
+checkboxes as commits on `batch/R<NNN>-B-XXX` before the MR/PR -
+marks land per § Closing routine; reject: § Rails. The R-closure
 check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) opened after the batch MR/PR merges.
 
@@ -193,14 +193,13 @@ pass) runs only for branches above the small-branch threshold in
 the `auto` verification policy - small branches
 defer their first review to the batch-close full-diff pass. The
 mandatory final commit and the tests/lint-green gate before merging
-into `batch/B-XXX` hold for every branch regardless of size. The
-manual-mode § Closing routine above is unchanged by this rule.
+into `batch/R<NNN>-B-XXX` hold for every branch regardless of size.
 
 ### Rails
 
 - Agents touch only code, plan checkboxes, and findings files -
   never plan content, never the closing decisions.
-- Pre-flight creates `batch/B-XXX` off latest `main` and sets the
+- Pre-flight creates `batch/R<NNN>-B-XXX` off latest `main` and sets the
   `pre-R<NNN>-B-XXX` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.
 - Agents never push; the only delivery is the checkpoint-accept
@@ -209,9 +208,10 @@ manual-mode § Closing routine above is unchanged by this rule.
 - No commit on red tests/lint - no exceptions.
 - Findings triage and push decisions defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
-  Accept = delete the `pre-R<NNN>-B-XXX` tag and member branch refs.
-  Reject = delete the batch branch; the `pre-R<NNN>-B-XXX` tag and
-  member refs are preserved for salvage.
+  Accept = delete the `pre-R<NNN>-B-XXX` tag and member branch refs;
+  the batch branch is deleted, local and origin, by post-merge
+  cleanup. Reject = delete the batch branch; tag and member refs are
+  preserved for salvage.
 
 ### Stop conditions
 
@@ -223,7 +223,7 @@ manual-mode § Closing routine above is unchanged by this rule.
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
 | Non-blocker discovery | `<task-id>-<slug>.findings.md`, continue |
-| Batch complete | Close phase on `batch/B-XXX`, then checkpoint (accept opens the MR/PR), wait for user |
+| Batch complete | Close phase on `batch/R<NNN>-B-XXX`, then checkpoint (accept opens the MR/PR), wait for user |
 
 ## Releases
 

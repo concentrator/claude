@@ -6,7 +6,7 @@ composite (`R048-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R048-T001 [doc]**: the composite branch form and lifecycle
+- [x] **R048-T001 [doc]**: the composite branch form and lifecycle
   rail - `auto.md`, `branch-plan.md § Batches` and `§ Rails`,
   `companions/toolchain.md`, `companions/report-template.md`,
   `git-workflow.md § Trunk`, `agents/code-reviewer.md`, `DESIGN.md`,
