@@ -30,7 +30,11 @@ One headless worker session per project, under that project's declared
 transport and permissions - the pre-flight is `auto.md`'s. The worker
 runs the `/dev auto` engine on the scoped batch (a lone task is a
 batch of one). The supervisor passes ids only; workers read plans from
-their repo - the supervisor never relays content.
+their repo - the supervisor never relays content. Workers never stall
+on permission prompts: the session starts under guaranteed prompt
+acceptance (the declared permissions cover every tool the plan needs)
+or the supervisor accepts the worker's edit prompts; a prompt neither
+pre-accepted nor supervisor-acceptable halts the member and escalates.
 
 ## Monitor
 
@@ -38,6 +42,17 @@ Follow the worker to checkpoint or halt. Collect the checkpoint report
 path and MR/PR references - never diffs or transcripts; the
 supervisor's context stays report-level so one supervisor spans many
 sessions.
+
+## Question resolution
+
+A worker halting on an implementation question - a NEEDS_CONTEXT, a
+choice between offered options, a spec ambiguity - gets the
+supervisor's resolution on the plan's and requirements' terms, the
+best option advised where possible, and the member resumes. The
+question arrives with the excerpt needed to answer it, never a diff or
+transcript. A question touching project design or architecture is
+never answered - it escalates. The worker records each received answer
+in the report's `## Supervisor decisions` section as it lands.
 
 ## Boundary verification - existing gates only
 
@@ -50,8 +65,10 @@ At a checkpoint, before any merge:
 4. A batch closing an R carries the closure and archival marks
    (`plan.md § Approval and closure`, `§ Archival`).
 
-The supervisor adds no quality logic of its own. A judgment the gates
-cannot settle is an escalation, not a call.
+Checkpoint boundary checks are existing gates only. The report's
+queued judgment calls split by decision level: implementation-level
+calls are the supervisor's to resolve, recorded in `## Supervisor
+decisions`; design-level calls escalate.
 
 ## Merge or escalate
 
@@ -60,7 +77,7 @@ report verifies the criteria - merge via the declared command and
 apply the signature: the `supervised` label plus a merge comment
 naming the bound (`companions/declarations.md § Supervisor bounds`).
 Everything else escalates: releases, convention changes, red gates,
-off-plan work, gate-unsettleable judgments.
+off-plan work, design and architectural decisions.
 
 Escalations are existing artifacts read back - halted members, the
 reports' queued judgment calls, refused merges - never a parallel
