@@ -21,11 +21,11 @@ composite (`R040-T###`, counter scoped to this initiative).
   per-project `transport:` switch in the portfolio (`local` default);
   the session-lifetime decision lands here.
   `depends-on: R040-T002`
-- [ ] **R040-T004 [test]**: supervised pilot - one real batch in an
-  adopter project end to end, user only at sync points; findings feed
-  a fix round before the initiative closes. The pilot exercises the
-  quality-acceptance layer and the decision ledger.
-  `depends-on: R040-T003, R040-T005`
+- [ ] **R040-T004 [test]**: supervised pilot, stage 1 (local) - the
+  attack-checker plans/docs migration batch, planned and stamped in
+  that repo, dispatched and delivered supervised on the same machine;
+  exercises question resolution, the decision ledger, and the prompt
+  constraint. `depends-on: R040-T005`
 - [x] **R040-T005 [doc]**: the quality-acceptance amendment -
   `supervise.md` gains the question-resolution step (the supervisor
   answers a worker's implementation questions and the run continues;
@@ -36,3 +36,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   `companions/report-template.md` gains the supervisor-decisions
   field; the worker-prompt constraint (guaranteed acceptance or
   supervisor-accepted edits) lands beside the transport rules.
+- [ ] **R040-T006 [test]**: supervised pilot, stage 2 (local) - one
+  real task's batch in attack-checker end to end on the same machine,
+  user only at sync points; findings feed a fix round before the
+  initiative closes. `depends-on: R040-T004`
