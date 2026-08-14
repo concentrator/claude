@@ -55,5 +55,22 @@ out=$(out_in "$d"); rc=$?
   && pass "clean tree passes with OK" || die "clean tree not OK: $out"
 rm -rf "$d"
 
+# 5. $CI set -> skip line and exit 0 even over a stale anchor, never OK
+d=$(mkrepo); mkdir -p "$d/plans/R-042-pocs/batches"
+printf 'report\n' > "$d/plans/R-042-pocs/batches/B-001.report.md"
+git -C "$d" tag pre-R042-B-001
+out=$( ( cd "$d" && env CI=1 bash "$CHECK" 2>&1 ) ); rc=$?
+[ $rc -eq 0 ] && grep -q 'check-batch-tags: SKIP (tags not visible)' <<<"$out" \
+  && ! grep -q 'check-batch-tags: OK' <<<"$out" \
+  && pass "CI env skips loudly" || die "CI env did not skip: $out"; rm -rf "$d"
+
+# 6. shallow clone -> the same skip line, exit 0
+src=$(mkrepo); d=$(mktemp -d); rm -rf "$d"
+git clone -q --depth 1 "file://$src" "$d"
+out=$(out_in "$d"); rc=$?
+[ $rc -eq 0 ] && grep -q 'check-batch-tags: SKIP (tags not visible)' <<<"$out" \
+  && pass "shallow clone skips loudly" || die "shallow clone did not skip: $out"
+rm -rf "$src" "$d"
+
 (( fail == 0 )) && echo "check-batch-tags.test: OK"
 exit $fail

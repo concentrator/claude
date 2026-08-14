@@ -10,6 +10,13 @@ set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$(git rev-parse --show-toplevel)"
 
+# Anchors are local-only (§ Rails: never pushed); a CI runner or shallow
+# clone cannot see them, so report the blindness rather than a hollow OK.
+if [ -n "${CI:-}" ] || [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
+  echo "check-batch-tags: SKIP (tags not visible)"
+  exit 0
+fi
+
 ROOT="$(bash "$SCRIPT_DIR/resolve-root.sh")" \
   || { echo "BATCH-TAGS: resolve-root.sh failed"; exit 1; }
 P="${ROOT:+$ROOT/}plans"
