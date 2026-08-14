@@ -40,10 +40,22 @@ hard floor.
   carries a host signature - a `supervised` label plus a merge comment
   naming the bound applied - in host metadata, never in commit or
   MR/PR prose.
-- **Boundary verification by existing gates**: before accepting or
-  merging, the supervisor runs what already exists - Tier-1 suites,
-  the closure check, promote-then-archive, the comprehension check.
-  It reuses gates, never invents its own quality logic.
+- **Quality acceptance layer**: checkpoint acceptance is the existing
+  gates - Tier-1 suites, the closure check, promote-then-archive, the
+  comprehension check, CI - plus a supervisor-commissioned independent
+  review of the batch MR/PR diff. Findings triage by decision level:
+  implementation-level findings the supervisor resolves itself;
+  design-affecting findings escalate. Host gates stay the hard floor -
+  the layer adds acceptance control above them, never replaces or
+  bypasses them.
+- **Decision authority split**: implementation-level judgments - code
+  shape, naming, test details, review-finding triage within the plan's
+  stated behavior - are the supervisor's to make without approval, and
+  every such decision is recorded in the final report with its
+  rationale. Design and architectural decisions - component
+  boundaries, schemas, API shapes, `DESIGN.md`-level structure,
+  plan-content changes - are never made without confirmation: they
+  escalate.
 - **Escalation surface**: raised issues queue with actionable context;
   the user syncs periodically and resolves them; unraised work
   proceeds. Status is derived from existing artifacts (batch reports,
@@ -86,8 +98,14 @@ hard floor.
       portfolio change.
 - [ ] Escalations queue with context sufficient to resolve without
       reading raw transcripts; a sync empties the queue.
-- [ ] Every boundary check is an existing gate; the supervisor adds
-      zero quality logic of its own.
+- [ ] Checkpoint acceptance includes an independent quality review of
+      the batch diff; implementation-level findings are resolved by
+      the supervisor and each decision appears in the final report;
+      design-affecting findings escalate unresolved.
+- [ ] A design or architectural decision never lands supervised
+      without confirmation.
+- [ ] No worker session stalls on a permission prompt: prompts are
+      pre-accepted by the declared mode or accepted by the supervisor.
 - [ ] Every merge is a normal green-gated MR merge - host protections
       untouched throughout the pilot.
 - [ ] The supervisor runs repo-less over the portfolio: adding a
@@ -107,7 +125,15 @@ hard floor.
   `CLAUDE.md § Agent toolchain`), exactly as `/dev auto` pre-flights -
   under either transport.
 - The supervisor's context stays implementation-free (reports and
-  states, not diffs by default) so one supervisor spans many sessions.
+  states, not diffs by default) so one supervisor spans many sessions;
+  the commissioned quality review runs in its own agent, returning
+  findings, not diffs.
+- Worker sessions never stall on permission prompts: either the
+  session starts in a mode with guaranteed prompt acceptance (the
+  declared auto-permissions grant covers every tool the plan needs) or
+  the supervisor accepts the worker's edit prompts itself; a prompt
+  neither pre-accepted nor supervisor-acceptable halts the member and
+  escalates.
 - Depends on R-042 for plan quality; benefits from R-004, does not
   require it.
 

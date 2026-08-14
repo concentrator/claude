@@ -23,5 +23,14 @@ composite (`R040-T###`, counter scoped to this initiative).
   `depends-on: R040-T002`
 - [ ] **R040-T004 [test]**: supervised pilot - one real batch in an
   adopter project end to end, user only at sync points; findings feed
-  a fix round before the initiative closes.
-  `depends-on: R040-T003`
+  a fix round before the initiative closes. The pilot exercises the
+  quality-acceptance layer and the decision ledger.
+  `depends-on: R040-T003, R040-T005`
+- [ ] **R040-T005 [doc]**: the quality-acceptance amendment -
+  `supervise.md` gains the commissioned review step, the
+  implementation-vs-design decision split, and the decision ledger;
+  `companions/declarations.md § Supervisor bounds` adds design and
+  architectural decisions to the always-escalated list;
+  `companions/report-template.md` gains the supervisor-decisions
+  field; the worker-prompt constraint (guaranteed acceptance or
+  supervisor-accepted edits) lands beside the transport rules.
