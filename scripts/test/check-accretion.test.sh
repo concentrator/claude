@@ -112,7 +112,17 @@ git -C "$d" add -A
 out=$(cd "$d" && bash "$CHECK" 2>&1); c=$(grep -c ACCRETION <<<"$out" || true)
 [ "$c" = "2" ] && pass "supersedes + deferred caught" || die "recall verbs missed ($c of 2)"; rm -rf "$d"
 
-# 16. no tracked plan files under the resolved root -> loud failure, not OK
+# 16. non-ASCII filename (git quotes it under default core.quotePath) ->
+# still scanned: a violation inside is caught, and the same name under
+# archive/ stays exempt
+d=$(mkrepo); printf -- 'Superseded: 2026-07-07 by the new flow.\n' > "$d/plans/план.md"
+git -C "$d" add -A
+check_in "$d" && die "quoted filename silently skipped" || pass "quoted filename scanned"
+mkdir -p "$d/plans/archive"; git -C "$d" mv plans/план.md plans/archive/план.md
+check_in "$d" && pass "quoted archive filename exempt" \
+  || die "quoted archive filename wrongly flagged"; rm -rf "$d"
+
+# 17. no tracked plan files under the resolved root -> loud failure, not OK
 d=$(mktemp -d); git -C "$d" init -q
 printf -- '- DEV artifacts root: ./\n' > "$d/CLAUDE.md"
 git -C "$d" add -A

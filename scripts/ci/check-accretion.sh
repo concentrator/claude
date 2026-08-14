@@ -19,7 +19,9 @@ cd "$(git rev-parse --show-toplevel)"
 ROOT="$(bash "$SCRIPT_DIR/resolve-root.sh")" \
   || { echo "ACCRETION: resolve-root.sh failed"; exit 1; }
 P="${ROOT:+$ROOT/}plans"
-files=$(git ls-files "$P/*.md")
+# quotePath off: a non-ASCII filename must arrive verbatim, not quoted,
+# or the read below silently skips it.
+files=$(git -c core.quotePath=false ls-files "$P/*.md")
 [ -n "$files" ] || { echo "ACCRETION: no tracked plan files under '$P'"; exit 1; }
 fail=0
 PAT='(supersede[sd]|retracted|settled|corrected|approved|shaped|done|absorbed|mooted|retired|updated|added|amended|re-?baselined|resolved|shipped|delivered|restored|revised|deferred|complete)[[:space:]:,(-]{1,3}20[0-9]{2}-[0-9]{2}-[0-9]{2}'
