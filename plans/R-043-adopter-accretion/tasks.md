@@ -6,7 +6,7 @@ composite (`R043-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R043-T001 [fix]**: harden the reference - `check-accretion.sh`
+- [x] **R043-T001 [fix]**: harden the reference - `check-accretion.sh`
   requires a full `YYYY-MM-DD` after the marker verb, lists files with
   `core.quotePath=false`, and gains the six recall verbs
   (`supersedes`, `delivered`, `restored`, `revised`, `deferred`,
