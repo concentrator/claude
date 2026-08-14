@@ -66,7 +66,7 @@ out_in "$d" >/dev/null && pass "uncommitted report passes" \
 d=$(mkrepo); mkdir -p "$d/plans/R-042-pocs/batches"
 printf -- '# B-001\n' > "$d/plans/R-042-pocs/batches/B-001.md"
 commit_in "$d" manifest; git -C "$d" tag pre-R042-B-001
-git -C "$d" checkout -q -b batch/B-001
+git -C "$d" checkout -q -b batch/R042-B-001
 printf 'report\n' > "$d/plans/R-042-pocs/batches/B-001.report.md"
 commit_in "$d" report
 out_in "$d" >/dev/null && pass "batch-branch report passes" \
@@ -111,7 +111,43 @@ out=$( ( cd "$d" && env CI=false bash "$CHECK" 2>&1 ) ); rc=$?
 [ $rc -ne 0 ] && pass "CI=false still enforces" \
   || die "CI=false wrongly skipped: $out"; rm -rf "$d"
 
-# 12. shallow clone -> the same skip line, exit 0
+# 12. batch branch whose report the trunk carries -> fail, naming
+#     branch and report
+d=$(mkrepo); mkdir -p "$d/plans/R-042-pocs/batches"
+printf 'report\n' > "$d/plans/R-042-pocs/batches/B-001.report.md"
+commit_in "$d" report; git -C "$d" branch batch/R042-B-001
+out=$(out_in "$d"); rc=$?
+[ $rc -ne 0 ] && grep -q 'batch/R042-B-001' <<<"$out" \
+  && grep -q 'B-001\.report\.md' <<<"$out" \
+  && pass "stale batch branch caught" \
+  || die "stale batch branch missed: $out"; rm -rf "$d"
+
+# 13. live batch branch - manifest on the trunk, no report -> pass
+d=$(mkrepo); mkdir -p "$d/plans/R-042-pocs/batches"
+printf -- '# B-001\n' > "$d/plans/R-042-pocs/batches/B-001.md"
+commit_in "$d" manifest; git -C "$d" branch batch/R042-B-001
+out_in "$d" >/dev/null && pass "live batch branch passes" \
+  || die "live batch branch wrongly flagged"; rm -rf "$d"
+
+# 14. flat and malformed batch branches -> unresolvable, fail
+d=$(mkrepo); git -C "$d" branch batch/B-001; git -C "$d" branch batch/R42-B-1
+out=$(out_in "$d"); rc=$?
+[ $rc -ne 0 ] && grep -q 'batch/B-001' <<<"$out" \
+  && grep -q 'batch/R42-B-1' <<<"$out" \
+  && pass "flat and malformed batch branches caught" \
+  || die "flat/malformed batch branches not caught: $out"; rm -rf "$d"
+
+# 15. stale remote-tracking batch ref in a full clone -> fail
+src=$(mkrepo); mkdir -p "$src/plans/R-042-pocs/batches"
+printf 'report\n' > "$src/plans/R-042-pocs/batches/B-001.report.md"
+commit_in "$src" report; git -C "$src" branch batch/R042-B-001
+d=$(mktemp -d); git clone -q "file://$src" "$d"
+out=$(out_in "$d"); rc=$?
+[ $rc -ne 0 ] && grep -q 'batch/R042-B-001' <<<"$out" \
+  && pass "remote-tracking batch ref caught" \
+  || die "remote-tracking batch ref missed: $out"; rm -rf "$src" "$d"
+
+# 16. shallow clone -> the same skip line, exit 0
 src=$(mkrepo); d=$(mktemp -d)
 git clone -q --depth 1 "file://$src" "$d"
 out=$(out_in "$d"); rc=$?
