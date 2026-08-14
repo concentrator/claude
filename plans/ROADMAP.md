@@ -117,10 +117,11 @@ Initiative index. Items: `R-001: description`; each entry owns
       assumption; findings recorded like probe findings, spike code
       always discarded.
 - [ ] R-043: Ship the accretion check to adopters - the reference
-      `check-accretion.sh` + self-test become a copyable adopter check
-      (the R-026 em-dash model), offered by `start` scaffolding and
-      the `migrate` reconcile proposal; marker list is the only
-      per-project tuning. Stub - shape later.
+      `check-accretion.sh` + self-test, hardened with aikido's audit
+      findings, become a copyable adopter check (the R-026 em-dash
+      model) vendored by `install-dev.sh` and offered by `start`
+      scaffolding and the `migrate` reconcile proposal; marker list is
+      the only per-project tuning.
 - [x] R-041: Docs reconcile (this repo) - apply the docs lifecycle to
       the repo that authored it: archive the closed initiatives out of
       `plans/`, compact `ROADMAP.md` and open plan artifacts to state
