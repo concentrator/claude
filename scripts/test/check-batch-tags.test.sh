@@ -6,7 +6,9 @@
 # gate's own environment never skips them.
 # Run: bash scripts/test/check-batch-tags.test.sh
 set -uo pipefail
-CHECK="$(git rev-parse --show-toplevel)/scripts/ci/check-batch-tags.sh"
+# The check sits in the sibling ci/ dir - resolved relative to this
+# file, so the copied pair works from any install location.
+CHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")/../ci" && pwd)/check-batch-tags.sh"
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
