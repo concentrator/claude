@@ -137,7 +137,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       staleness a change induces in files it does not touch; re-home the
       `§ Agent toolchain` declaration syntax out of the push-mechanics
       companion; add a dedicated `check-plan-integrity` script test.
-- [ ] R-047: Branch-close routing - the final round over the recurring
+- [x] R-047: Branch-close routing - the final round over the recurring
       close-time gaps: the close review dispatches on what the diff
       contains rather than the task tag, the verification gate states
       what clears it per prose class, `finish § 2` names a verify action
