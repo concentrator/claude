@@ -41,5 +41,5 @@ Branch: `doc/supervisor-quality`.
       within declared permissions; `auto.md`'s halt names the
       operator; the escalation list is single-homed.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
