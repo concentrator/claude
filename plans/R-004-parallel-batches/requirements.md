@@ -86,8 +86,8 @@ warrants because every model round-trip is sequential.
       to serial integration) and no contended mutable external resource.
 - [ ] A single member's halt/failure does not abort siblings; all
       outcomes surface at the checkpoint.
-- [ ] `pre-R<NNN>-B-XXX` rollback restores the pre-batch state regardless of how
-      many members completed.
+- [ ] `pre-R<NNN>-B-XXX` rollback restores the pre-batch state
+      regardless of how many members completed.
 
 ## Constraints
 
