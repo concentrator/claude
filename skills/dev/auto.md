@@ -75,5 +75,5 @@ re-verifying acceptance criteria. No report → no accept. Present:
   § Rails` - after the MR/PR merges, post-merge cleanup deletes the
   batch branch, local and origin.
 - **Reject** → ref handling per `branch-plan.md § Rails`.
-- **Halt** → failed item reported, work intact; user resolves,
-  re-runs `/dev auto B-XXX`.
+- **Halt** → failed item reported, work intact; the operator - user,
+  or supervisor within bounds - resolves, re-runs `/dev auto B-XXX`.

@@ -30,7 +30,13 @@ One headless worker session per project, under that project's declared
 transport and permissions - the pre-flight is `auto.md`'s. The worker
 runs the `/dev auto` engine on the scoped batch (a lone task is a
 batch of one). The supervisor passes ids only; workers read plans from
-their repo - the supervisor never relays content.
+their repo - the supervisor never relays content; its ledgered
+question answers are the one exception. Workers never stall on
+permission prompts: the session starts under guaranteed prompt
+acceptance (the declared permissions cover every tool the plan needs)
+or the supervisor accepts the worker's edit prompts - edits inside
+the worker's repo within the declared permissions only; any other
+prompt halts the member and escalates.
 
 ## Monitor
 
@@ -38,6 +44,20 @@ Follow the worker to checkpoint or halt. Collect the checkpoint report
 path and MR/PR references - never diffs or transcripts; the
 supervisor's context stays report-level so one supervisor spans many
 sessions.
+
+## Question resolution
+
+Within a declared grant, a worker halting on an implementation
+question - a NEEDS_CONTEXT, a choice between offered options, a spec
+ambiguity - gets the supervisor's resolution on the plan's and
+requirements' terms, the best option advised where possible, and the
+member resumes. The question arrives with the excerpt needed to
+answer it, never a diff or transcript. The decision split and its
+fail-safe are the bounds home's (`companions/declarations.md
+§ Supervisor bounds`): a design-touching or unclassifiable question is
+never answered - it escalates. The worker carries each received
+answer into the report's `## Supervisor decisions` section when the
+checkpoint writes it.
 
 ## Boundary verification - existing gates only
 
@@ -50,8 +70,11 @@ At a checkpoint, before any merge:
 4. A batch closing an R carries the closure and archival marks
    (`plan.md § Approval and closure`, `§ Archival`).
 
-The supervisor adds no quality logic of its own. A judgment the gates
-cannot settle is an escalation, not a call.
+Checkpoint boundary checks are existing gates only. The report's
+queued judgment calls split by decision level (`companions/
+declarations.md § Supervisor bounds`): implementation-level calls are
+the supervisor's to resolve, carried into `## Supervisor decisions`
+by the worker's checkpoint fixup; design-level calls escalate.
 
 ## Merge or escalate
 
@@ -59,8 +82,9 @@ Within bounds - green `plan/` MR/PRs; green batch/member MR/PRs whose
 report verifies the criteria - merge via the declared command and
 apply the signature: the `supervised` label plus a merge comment
 naming the bound (`companions/declarations.md § Supervisor bounds`).
-Everything else escalates: releases, convention changes, red gates,
-off-plan work, gate-unsettleable judgments.
+Everything else escalates - the always-escalated classes per
+`companions/declarations.md § Supervisor bounds`, and anything the
+grant does not name.
 
 Escalations are existing artifacts read back - halted members, the
 reports' queued judgment calls, refused merges - never a parallel
