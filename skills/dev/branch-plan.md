@@ -201,7 +201,7 @@ manual-mode § Closing routine above is unchanged by this rule.
 - Agents touch only code, plan checkboxes, and findings files -
   never plan content, never the closing decisions.
 - Pre-flight creates `batch/B-XXX` off latest `main` and sets the
-  `pre-B-XXX` tag (rollback anchor). Member branches merge into the
+  `pre-R<NNN>-B-XXX` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.
 - Agents never push; the only delivery is the checkpoint-accept
   **CI-gated MR/PR** of the batch branch to origin (mechanics: `auto`
@@ -209,9 +209,9 @@ manual-mode § Closing routine above is unchanged by this rule.
 - No commit on red tests/lint - no exceptions.
 - Findings triage and push decisions defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
-  Accept = delete the `pre-B-XXX` tag and member branch refs.
-  Reject = delete the batch branch; the `pre-B-XXX` tag and member refs
-  are preserved for salvage.
+  Accept = delete the `pre-R<NNN>-B-XXX` tag and member branch refs.
+  Reject = delete the batch branch; the `pre-R<NNN>-B-XXX` tag and
+  member refs are preserved for salvage.
 
 ### Stop conditions
 
