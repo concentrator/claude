@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-14
 kind: feat
+status: done 2026-08-14
 ---
 
 # R-048: Batch branch identity
@@ -50,15 +51,22 @@ flat. Promoted from R044-T001's close review.
 
 ## Acceptance criteria
 
-- [ ] A batch branch's name identifies its initiative, and two
-      initiatives can hold first-batch branches at once
-- [ ] A `batch/*` ref whose batch report is on the trunk fails the
-      local gate; a live batch branch passes
-- [ ] A flat or malformed `batch/*` ref fails as unresolvable
-- [ ] The rails state creation, push-at-accept, and delete-after-merge
-      for the batch branch, and no living doc shows the flat
-      `batch/B-XXX`
-- [ ] Tier-1 green
+- [x] A batch branch's name identifies its initiative, and two
+      initiatives can hold first-batch branches at once (composite
+      `batch/R<NNN>-B-XXX` across the living docs, PR #293; names are
+      initiative-scoped by construction)
+- [x] A `batch/*` ref whose batch report is on the trunk fails the
+      local gate; a live batch branch passes (test cases "stale batch
+      branch caught", "remote-tracking batch ref caught with prune
+      remedy", "live batch branch passes")
+- [x] A flat or malformed `batch/*` ref fails as unresolvable (test
+      case "flat, malformed, nested batch branches caught")
+- [x] The rails state creation, push-at-accept, and delete-after-merge
+      for the batch branch (`branch-plan.md § Rails`, `auto.md`
+      checkpoint, PR #293); tracked-tree grep finds `batch/B-XXX` only
+      in this R's own artifacts and ROADMAP entry
+- [x] Tier-1 green (local `run-all: ALL OK`; the delivery PR merges
+      only on a green `tier1` check)
 
 ## Constraints
 
