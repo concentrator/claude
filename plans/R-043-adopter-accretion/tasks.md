@@ -4,7 +4,16 @@ This initiative's task index. The tag sets the branch prefix; a
 checkbox closes only when the task's branch merges. Task ids are
 composite (`R043-T###`, counter scoped to this initiative).
 
-## Backlog
+## Open
 
-- Also vendor `scripts/ci/check-batch-tags.sh` (shipped by R-044) in
-  `install-dev.sh`, alongside the accretion check.
+- [ ] **R043-T001 [fix]**: harden the reference - `check-accretion.sh`
+  requires a full `YYYY-MM-DD` after the marker verb, lists files with
+  `core.quotePath=false`, and gains the six recall verbs
+  (`supersedes`, `delivered`, `restored`, `revised`, `deferred`,
+  `complete`); self-test asserts bare-year pass, full-date fail,
+  non-ASCII filename scanned, new verbs caught.
+- [ ] **R043-T002 [feat]**: vendor the gate set - `install-dev.sh`
+  copies `check-accretion.sh`, `check-batch-tags.sh`, their
+  self-tests, and `resolve-root.sh` (its test asserts the set);
+  `start.md` scaffolds them into a new project's CI; `migrate.md`'s
+  reconcile proposal names the reference copy.
