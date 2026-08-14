@@ -117,9 +117,12 @@ hard floor.
       sessions.
 - [ ] Every supervisor merge is distinguishable on the host (label +
       comment) with commit and MR/PR prose untouched.
-- [ ] Pilot: one real batch in an adopter project delivered end to end
-      supervised over the remote transport (local is exercised by
-      development itself), the user present only at sync points.
+- [ ] Pilot, two local stages in the same adopter project
+      (attack-checker), the user present only at sync points: first
+      its plans/docs migration batch - planned and stamped in that
+      repo, delivered supervised; then one real task's batch. Both
+      stages exercise question resolution, the decision ledger, and
+      the prompt constraint.
 
 ## Constraints
 
