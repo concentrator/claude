@@ -21,6 +21,11 @@ Branch: `doc/batch-branch-name`.
       checkpoint-accept state the batch branch is deleted, local and
       origin, after its MR/PR merges; freeing words elsewhere in the
       section if the cap requires it.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Close-review fixes: the origin-side delete is assigned to
+      post-merge cleanup (`§ Rails`, `auto.md` checkpoint), ROADMAP's
+      R-002 entry drops the flat literal, and the stretched wraps are
+      reflowed; the placeholder-spelling convergence is routed to
+      R048-T002 via the findings file.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
