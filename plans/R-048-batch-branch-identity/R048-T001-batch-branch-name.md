@@ -7,7 +7,7 @@ type: doc
 
 Branch: `doc/batch-branch-name`.
 
-- [ ] The composite branch form `batch/R<NNN>-B-<MMM>` (e.g.
+- [x] The composite branch form `batch/R<NNN>-B-<MMM>` (e.g.
       `batch/R042-B-001`) replaces flat `batch/B-XXX` at every living
       mention: `auto.md` (pre-flight, close, checkpoint-accept),
       `branch-plan.md § Agentic execution/§ Batches/§ Rails`,
@@ -17,7 +17,7 @@ Branch: `doc/batch-branch-name`.
       `DESIGN.md § Git & delivery model`, and foundational
       `REQUIREMENTS.md` - like-for-like token swaps within each file's
       word cap.
-- [ ] The lifecycle rail: `branch-plan.md § Rails` and `auto.md`
+- [x] The lifecycle rail: `branch-plan.md § Rails` and `auto.md`
       checkpoint-accept state the batch branch is deleted, local and
       origin, after its MR/PR merges; freeing words elsewhere in the
       section if the cap requires it.
