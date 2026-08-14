@@ -143,7 +143,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       what clears it per prose class, `finish § 2` names a verify action
       per diff content, and the push-scoping contradiction between
       `toolchain.md` and `finish § 3` is resolved.
-- [ ] R-044: Batch rollback-anchor identity - the `pre-B-XXX` rollback
+- [x] R-044: Batch rollback-anchor identity - the `pre-B-XXX` rollback
       tag carries its initiative (`pre-R042-B-001`), so per-initiative
       batch ids stop colliding in git's flat tag namespace; a gate
       catches an anchor that outlived its batch, enforcing locally and
