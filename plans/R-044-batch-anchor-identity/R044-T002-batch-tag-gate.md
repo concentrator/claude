@@ -20,8 +20,14 @@ Branch: `feat/batch-tag-gate`.
       skip line both ways.
 - [x] Legacy form: any flat `pre-B-*` tag fails as unresolvable (no
       initiative to check a report against); test asserts.
-- [x] Doc sync: `DESIGN.md § Self-enforcement` and tree-map entries for
-      the check and its test.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Doc sync: the `DESIGN.md § Self-enforcement` entry; the
+      tree-map's aggregated `scripts/ci/` and `scripts/test/` lines
+      already cover the check and its test.
+- [x] Close-review fixes: the gate judges the trunk's tree (reject,
+      halt, and the accept push hold tag + report legitimately), any
+      malformed or initiative-less `pre-*` tag fails as unresolvable,
+      `$CI` is tested for truthiness, the repo-root `cd` is guarded,
+      and `run-all.sh` names skipped checks in its verdict.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
