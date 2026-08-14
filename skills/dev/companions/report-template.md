@@ -71,12 +71,15 @@ log is gitignored scratch - never truncated by the agent.>
 
 ## Supervisor decisions
 
-<implementation questions resolved by the supervisor during the run,
-each with the chosen option and rationale, recorded as answers land;
-or "none" - unsupervised runs or no questions asked>
+<implementation questions and queued calls resolved by the
+supervisor, each with the chosen option and rationale - answers
+carried in by the worker at checkpoint; or "none" - unsupervised runs
+or no questions asked>
 
 ## Judgment calls for checkpoint
 
-<numbered list of decisions deferred to the user, each with options
-and a recommendation; or "none">
+<numbered list of deferred decisions, each tagged implementation or
+design, with options and a recommendation; implementation-tagged
+calls a supervisor may resolve into `## Supervisor decisions`,
+design-tagged await the user; or "none">
 ```

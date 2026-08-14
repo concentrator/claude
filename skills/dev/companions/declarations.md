@@ -45,13 +45,22 @@ merge authority:
 ```
 
 No declaration = a read-only supervisor: it reports and escalates,
-merges nothing. The default grant, **batch-scoped delivery**, allows
-exactly two merge classes:
+answers nothing, merges nothing. The default grant, **batch-scoped
+delivery**, allows two merge classes and one decision class:
 
 - green `plan/` MR/PRs;
 - green batch/member MR/PRs whose checkpoint report verifies the
   task's acceptance criteria - the approved plan is the decision, the
-  supervisor automates its delivery.
+  supervisor automates its delivery;
+- implementation-level resolutions of worker questions and queued
+  judgment calls, each ledgered in the report's supervisor-decisions
+  section.
+
+The decision split: implementation-level is code shape, naming, test
+details, finding triage within the plan's stated behavior;
+design-level is component boundaries, schemas, API shapes,
+`DESIGN.md`-level structure, plan content. A call the split cannot
+classify escalates.
 
 Always escalated, under any grant: releases; changes to `CLAUDE.md`,
 `rules/`, or `skills/`; red gates; off-plan work; design and

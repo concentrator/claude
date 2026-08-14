@@ -31,6 +31,15 @@ Branch: `doc/supervisor-quality`.
       (implementation questions resolved by the supervisor, each with
       the chosen option and rationale, recorded by the worker as
       answers land; "none" when unsupervised or no questions arose).
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Close-review fixes: the decision split and its
+      escalate-when-unclassifiable fail-safe are defined once in the
+      bounds home and cited from the loop; the grant explicitly
+      includes ledgered question resolution and read-only answers
+      nothing; answers are carried into the report at checkpoint (it
+      does not exist mid-run); judgment calls carry decision-level
+      tags; supervisor-acceptable prompts are bounded to in-repo edits
+      within declared permissions; `auto.md`'s halt names the
+      operator; the escalation list is single-homed.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
