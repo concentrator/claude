@@ -47,7 +47,10 @@ record a one-line pointer to `<root>/docs/index.md` in `§ Conventions`.
 ## 4. Quality infrastructure
 
 Set up the `migrate.md § 5` baseline (lint + smoke test + CI on every
-MR/PR; deferral key included), asking before each item. Document run
+MR/PR; deferral key included), asking before each item. Offer the
+shipped Tier-1 checks - code-size, no-em-dash, accretion, batch-tags,
+placed by `install-dev.sh` in `.claude/scripts/ci/` with self-tests in
+`.claude/scripts/test/` - wired into that CI. Document run
 commands in `CLAUDE.md`.
 
 ## 5. Commit

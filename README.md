@@ -80,7 +80,8 @@ the repo root, so `plans/` sits beside them - see
 
 To give another machine or project the DEV toolset - the `/dev` router, its
 mode-file companions, the bundled dependency skills, the writing
-conventions, the code-size and em-dash checks, and the two PreToolUse
+conventions, the Tier-1 checks (code-size, em-dash, accretion,
+batch-tags, with self-tests), and the two PreToolUse
 guards - run the installer from a checkout of this repo:
 
     scripts/install-dev.sh                   # into ~/.claude (global)
