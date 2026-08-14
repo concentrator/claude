@@ -134,8 +134,8 @@ Two tiers gate every change into `main` (the CI tiers are built for
   `TODO`/`FIXME`/`XXX` marker in code, an expired reference, a dated
   accretion marker (`check-accretion`), an oversized code file or
   function (`check-code-size`, with an allowlist), an em dash
-  (`check-no-em-dash`), or a stale or unresolvable batch ref, tag or
-  branch (`check-batch-tags`, local-only: skips where refs are
+  (`check-no-em-dash`), or a stale or unresolvable batch ref (tag or
+  branch) (`check-batch-tags`, local-only: skips where refs are
   hidden).
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
   concern set to the diff as a mandatory step in the branch-close routine
