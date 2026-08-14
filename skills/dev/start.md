@@ -48,10 +48,11 @@ record a one-line pointer to `<root>/docs/index.md` in `§ Conventions`.
 
 Set up the `migrate.md § 5` baseline (lint + smoke test + CI on every
 MR/PR; deferral key included), asking before each item. Offer the
-shipped Tier-1 checks - code-size, no-em-dash, accretion, batch-tags,
-placed by `install-dev.sh` in `.claude/scripts/ci/` with self-tests in
-`.claude/scripts/test/` - wired into that CI. Document run
-commands in `CLAUDE.md`.
+shipped Tier-1 checks `install-dev.sh --project` placed under
+`.claude/scripts/` (checks in `ci/`, self-tests in `test/`), wired
+into that CI; the batch-tags gate enforces via a local pre-push
+hook - its CI run only reports a skip. Document run commands in
+`CLAUDE.md`.
 
 ## 5. Commit
 

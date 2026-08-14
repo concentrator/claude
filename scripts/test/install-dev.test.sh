@@ -28,11 +28,41 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -f "$P/.claude/scripts/ci/code-size-allow.txt" ] && pass "code-size allowlist template" || die "no code-size allowlist"
 [ -x "$P/.claude/scripts/ci/check-accretion.sh" ]  && pass "accretion check copied + exec" || die "no accretion check"
 [ -x "$P/.claude/scripts/ci/check-batch-tags.sh" ] && pass "batch-tags check copied + exec" || die "no batch-tags check"
-[ -x "$P/.claude/scripts/ci/resolve-root.sh" ]     && pass "resolve-root copied + exec" || die "no resolve-root"
-[ -x "$P/.claude/scripts/test/check-accretion.test.sh" ]  && pass "accretion self-test copied" || die "no accretion self-test"
-[ -x "$P/.claude/scripts/test/check-batch-tags.test.sh" ] && pass "batch-tags self-test copied" || die "no batch-tags self-test"
-( cd "$P" && bash .claude/scripts/test/check-accretion.test.sh >/dev/null 2>&1 ) \
-  && pass "copied accretion self-test passes unmodified" || die "copied accretion self-test fails"
+[ -f "$P/.claude/scripts/ci/resolve-root.sh" ]     && pass "resolve-root copied" || die "no resolve-root"
+[ -f "$P/.claude/scripts/test/check-accretion.test.sh" ]  && pass "accretion self-test copied" || die "no accretion self-test"
+[ -f "$P/.claude/scripts/test/check-batch-tags.test.sh" ] && pass "batch-tags self-test copied" || die "no batch-tags self-test"
+grep -q 'BASH_SOURCE' "$P/.claude/scripts/test/check-accretion.test.sh" \
+  && grep -q 'BASH_SOURCE' "$P/.claude/scripts/test/check-batch-tags.test.sh" \
+  && pass "copied self-tests resolve their check relatively" \
+  || die "copied self-test pinned to the repo root"
+
+# --- copied gates bite from the install location (exercises the sibling
+# resolve-root.sh seam) ---
+R=$(mktemp -d); git -C "$R" init -q -b main
+printf -- '- DEV artifacts root: ./\n' > "$R/CLAUDE.md"; mkdir -p "$R/plans"
+printf -- 'Superseded: 2026-07-07 by the new flow.\n' > "$R/plans/ROADMAP.md"
+git -C "$R" add -A
+out=$( cd "$R" && env -u CI bash "$P/.claude/scripts/ci/check-accretion.sh" 2>&1 ); rc=$?
+[ $rc -ne 0 ] && grep -q 'ACCRETION:' <<<"$out" \
+  && pass "copied accretion gate bites from install location" \
+  || die "copied accretion gate did not bite: $out"
+git -C "$R" -c user.email=t@t -c user.name=t commit -qm init
+mkdir -p "$R/plans/R-042-x/batches"; printf 'r\n' > "$R/plans/R-042-x/batches/B-001.report.md"
+git -C "$R" add -A; git -C "$R" -c user.email=t@t -c user.name=t commit -qm report
+git -C "$R" tag pre-R042-B-001
+out=$( cd "$R" && env -u CI bash "$P/.claude/scripts/ci/check-batch-tags.sh" 2>&1 ); rc=$?
+[ $rc -ne 0 ] && grep -q 'BATCH-TAGS:' <<<"$out" \
+  && pass "copied batch-tags gate bites from install location" \
+  || die "copied batch-tags gate did not bite: $out"
+rm -rf "$R"
+
+# --- a tuned MARKERS list survives re-install ---
+T=$(mktemp); sed "s/^MARKERS=.*/MARKERS='justonemarker'/" \
+  "$P/.claude/scripts/ci/check-accretion.sh" > "$T" \
+  && mv "$T" "$P/.claude/scripts/ci/check-accretion.sh"
+bash "$INSTALL" --project "$P" >/dev/null 2>&1
+grep -q "^MARKERS='justonemarker'" "$P/.claude/scripts/ci/check-accretion.sh" \
+  && pass "tuned MARKERS survives re-install" || die "re-install clobbered MARKERS"
 [ -f "$P/.claude/writing.md" ]                     && pass "writing.md copied" || die "no writing.md"
 grep -qxF '@writing.md' "$P/.claude/CLAUDE.md" 2>/dev/null && pass "writing.md imported in CLAUDE.md" || die "writing.md not imported"
 

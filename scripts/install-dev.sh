@@ -7,7 +7,8 @@
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
 # branch-guard + secrets-guard hooks (registered in the target settings.json),
-# the code-size check, and the writing conventions (@imported by CLAUDE.md).
+# the shipped Tier-1 checks with their self-tests, and the writing
+# conventions (@imported by CLAUDE.md).
 # Does NOT ship the user's personal convention rules.
 # Idempotent + re-runnable.
 set -euo pipefail
@@ -63,20 +64,33 @@ register_hook() {   # $1 = hook script basename
 register_hook dev-branch-guard.sh
 register_hook dev-secrets-guard.sh
 
-# 4. shipped Tier-1 checks (adopters wire them into their CI): code-size (with
-#    a template allowlist, shipped only when absent so re-install never
-#    clobbers an adopter's exemptions), no-em-dash, accretion, and batch-tags -
-#    the latter two with their self-tests and the shared resolve-root.sh.
+# 4. shipped Tier-1 checks - the ones with no dependency on this repo's
+#    own layout; adopters wire them into their CI (the batch-tags gate
+#    enforces locally, e.g. a pre-push hook - its CI run reports a
+#    skip). The accretion and batch-tags pair ship their self-tests:
+#    both are tuned per project (the MARKERS list, the ref namespaces)
+#    and the self-test is how an adopter validates that edit. Adopter
+#    tuning survives a re-run: the code-size allowlist is written only
+#    when absent, and an existing MARKERS line is carried across the
+#    accretion-check copy.
 mkdir -p "$target/scripts/ci" "$target/scripts/test"
-for c in check-code-size.sh check-no-em-dash.sh check-accretion.sh \
-         check-batch-tags.sh resolve-root.sh; do
-  cp "$SRC/scripts/ci/$c" "$target/scripts/ci/$c"
-  chmod +x "$target/scripts/ci/$c"
+markers=""
+[ -f "$target/scripts/ci/check-accretion.sh" ] \
+  && markers="$(grep -m1 '^MARKERS=' "$target/scripts/ci/check-accretion.sh" || true)"
+for f in ci/check-code-size.sh ci/check-no-em-dash.sh ci/check-accretion.sh \
+         ci/check-batch-tags.sh ci/resolve-root.sh \
+         test/check-accretion.test.sh test/check-batch-tags.test.sh; do
+  cp "$SRC/scripts/$f" "$target/scripts/$f"
 done
-for t in check-accretion.test.sh check-batch-tags.test.sh; do
-  cp "$SRC/scripts/test/$t" "$target/scripts/test/$t"
-  chmod +x "$target/scripts/test/$t"
-done
+chmod +x "$target"/scripts/ci/check-*.sh
+if [ -n "$markers" ]; then
+  tmp="$(mktemp)"
+  while IFS= read -r line; do
+    case "$line" in MARKERS=*) printf '%s\n' "$markers" ;; *) printf '%s\n' "$line" ;; esac
+  done < "$target/scripts/ci/check-accretion.sh" > "$tmp"
+  mv "$tmp" "$target/scripts/ci/check-accretion.sh"
+  chmod +x "$target/scripts/ci/check-accretion.sh"
+fi
 if [ ! -f "$target/scripts/ci/code-size-allow.txt" ]; then
   cat > "$target/scripts/ci/code-size-allow.txt" <<'EOF'
 # check-code-size.sh exemptions: one tracked path per line; text after `#` is
@@ -102,4 +116,5 @@ if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplev
 fi
 
 echo "install-dev: DEV toolset installed into $target ($scope)"
-echo "install-dev: Tier-1 checks in $target/scripts/ci/ (code-size, no-em-dash, accretion, batch-tags) - wire them and the self-tests in $target/scripts/test/ into your CI"
+echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh, check-accretion.sh, check-batch-tags.sh)"
+echo "install-dev: self-tests in $target/scripts/test/ - wire checks and self-tests into your CI"
