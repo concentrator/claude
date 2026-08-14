@@ -100,7 +100,19 @@ printf -- 'Superseded: 2026-07-07 live.\n' > "$d/sub/plans/ROADMAP.md"
 git -C "$d" add -A
 check_in "$d" && die "./-prefixed root violation not caught" || pass "./-prefixed root violation caught"; rm -rf "$d"
 
-# 14. no tracked plan files under the resolved root -> loud failure, not OK
+# 14. a marker verb with a bare year and no full date -> not a dated
+# marker (a year alone reads as a count, a key length, an id), pass
+d=$(mkrepo); printf -- 'Roadmap approved 2026 targets next.\n' > "$d/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && pass "bare year passes" || die "bare year wrongly flagged"; rm -rf "$d"
+
+# 15. recall verbs with full dates -> fail with 2 hits
+d=$(mkrepo); printf -- 'Supersedes 2026-07-07 the old flow.\nDeferred 2026-03-02 to the next round.\n' > "$d/plans/ROADMAP.md"
+git -C "$d" add -A
+out=$(cd "$d" && bash "$CHECK" 2>&1); c=$(grep -c ACCRETION <<<"$out" || true)
+[ "$c" = "2" ] && pass "supersedes + deferred caught" || die "recall verbs missed ($c of 2)"; rm -rf "$d"
+
+# 16. no tracked plan files under the resolved root -> loud failure, not OK
 d=$(mktemp -d); git -C "$d" init -q
 printf -- '- DEV artifacts root: ./\n' > "$d/CLAUDE.md"
 git -C "$d" add -A

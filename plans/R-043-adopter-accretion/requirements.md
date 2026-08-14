@@ -56,7 +56,8 @@ adopters.
 - [ ] A marker with a bare year and no full date passes; the same
       marker with `YYYY-MM-DD` fails (test asserts both ways)
 - [ ] A plan file with a non-ASCII name is scanned, not skipped
-- [ ] The recall verbs fire: `supersedes 2026-01-01` is caught
+- [ ] The recall verbs fire: a `supersedes` marker followed by a full
+      date is caught
 - [ ] `install-dev.sh` copies the accretion and batch-tags checks,
       their self-tests, and `resolve-root.sh`; its test asserts the
       copied set
