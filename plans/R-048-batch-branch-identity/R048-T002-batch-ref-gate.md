@@ -19,6 +19,13 @@ Branch: `feat/batch-ref-gate`.
       branch refs; comment header updated. On landing, rename the live
       ref: `git branch -m batch/B-001 batch/R042-B-001` (local action,
       no tracked change - noted here so the gate goes green).
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
-      (stale/temp data), mark plan complete, commit.
+- [x] Close-review fixes: one full-refname enumeration so nested
+      `batch/` refs cannot escape, root-prefix-free tree patterns, the
+      prune remedy on remote-tracking verdicts, the expected-form
+      template in the unresolvable message, ref-accurate skip wording
+      and headers, and deduplicated test fixtures.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: re-review docs across all commits, cleanup
+      (stale/temp data), mark plan complete, commit. Closing the R's
+      last task, the closure check rode this commit: criteria
+      evidenced in `requirements.md`, ROADMAP `[x]`.
