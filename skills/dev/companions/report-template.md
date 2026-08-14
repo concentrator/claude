@@ -69,6 +69,12 @@ root cause, with proposed rail/allowlist fixes; or "log empty - zero
 prompts". The
 log is gitignored scratch - never truncated by the agent.>
 
+## Supervisor decisions
+
+<implementation questions resolved by the supervisor during the run,
+each with the chosen option and rationale, recorded as answers land;
+or "none" - unsupervised runs or no questions asked>
+
 ## Judgment calls for checkpoint
 
 <numbered list of decisions deferred to the user, each with options

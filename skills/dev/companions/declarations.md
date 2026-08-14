@@ -54,7 +54,8 @@ exactly two merge classes:
   supervisor automates its delivery.
 
 Always escalated, under any grant: releases; changes to `CLAUDE.md`,
-`rules/`, or `skills/`; red gates; off-plan work. Host gates
+`rules/`, or `skills/`; red gates; off-plan work; design and
+architectural decisions. Host gates
 (protected trunk, required checks) stay the hard floor - no admin
 merges.
 
