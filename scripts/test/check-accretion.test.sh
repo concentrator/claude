@@ -10,6 +10,7 @@ pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 
 check_in() { ( cd "$1" && bash "$CHECK" >/dev/null 2>&1 ); }
+hits_in() { ( cd "$1" && bash "$CHECK" 2>&1 ) | grep -c ACCRETION || true; }
 # Fixtures declare `./` so the gate scans their root-level plans/
 # (absent declaration resolves to dev/ - scripts/ci/resolve-root.sh).
 mkrepo()   { local d; d=$(mktemp -d); git -C "$d" init -q; mkdir -p "$d/plans"; printf -- '- DEV artifacts root: ./\n' > "$d/CLAUDE.md"; printf '%s' "$d"; }
@@ -46,7 +47,7 @@ check_in "$d" && die "dated amendment not caught" || pass "dated amendment caugh
 # 6. amended / re-baselined vocabulary (adopter-demonstrated) -> fail
 d=$(mkrepo); printf -- 'Amended 2026-07-12: operator UI scope.\nRe-baselined 2026-06-30 to the vision.\n' > "$d/plans/ROADMAP.md"
 git -C "$d" add -A
-out=$(cd "$d" && bash "$CHECK" 2>&1); c=$(grep -c ACCRETION <<<"$out" || true)
+c=$(hits_in "$d")
 [ "$c" = "2" ] && pass "amended + re-baselined caught" || die "amended/re-baselined missed ($c of 2)"; rm -rf "$d"
 
 # 7. bounded punctuation separator -> fail
@@ -57,11 +58,11 @@ check_in "$d" && die "colon separator not caught" || pass "colon separator caugh
 # 8. resolved / shipped vocabulary -> fail with 2 hits
 d=$(mkrepo); printf -- 'Resolved 2026-08-05 by the operator.\nv0.1.0 shipped 2026-06-01.\n' > "$d/plans/ROADMAP.md"
 git -C "$d" add -A
-out=$(cd "$d" && bash "$CHECK" 2>&1); c=$(grep -c ACCRETION <<<"$out" || true)
+c=$(hits_in "$d")
 [ "$c" = "2" ] && pass "resolved + shipped caught" || die "resolved/shipped missed ($c of 2)"; rm -rf "$d"
 
 # 9. sentence terminator does not bridge -> pass
-d=$(mkrepo); printf -- 'Harvest is done. 2026 corpus follows.\n' > "$d/plans/ROADMAP.md"
+d=$(mkrepo); printf -- 'Harvest is done. 2026-07-07 corpus follows.\n' > "$d/plans/ROADMAP.md"
 git -C "$d" add -A
 check_in "$d" && pass "terminator stays clean" || die "terminator wrongly bridged"; rm -rf "$d"
 
@@ -100,17 +101,19 @@ printf -- 'Superseded: 2026-07-07 live.\n' > "$d/sub/plans/ROADMAP.md"
 git -C "$d" add -A
 check_in "$d" && die "./-prefixed root violation not caught" || pass "./-prefixed root violation caught"; rm -rf "$d"
 
-# 14. a marker verb with a bare year and no full date -> not a dated
-# marker (a year alone reads as a count, a key length, an id), pass
-d=$(mkrepo); printf -- 'Roadmap approved 2026 targets next.\n' > "$d/plans/ROADMAP.md"
+# 14. marker verb + bare year (no full date), and a verb embedded in a
+# larger word (incomplete, undelivered) -> pass
+d=$(mkrepo); printf -- 'Roadmap approved 2026 targets next.\nStill incomplete 2026-07-07 rows remain.\nThe undelivered 2026-07-07 items wait.\n' > "$d/plans/ROADMAP.md"
 git -C "$d" add -A
-check_in "$d" && pass "bare year passes" || die "bare year wrongly flagged"; rm -rf "$d"
+check_in "$d" && pass "bare year and embedded verbs pass" \
+  || die "bare year or embedded verb wrongly flagged"; rm -rf "$d"
 
-# 15. recall verbs with full dates -> fail with 2 hits
-d=$(mkrepo); printf -- 'Supersedes 2026-07-07 the old flow.\nDeferred 2026-03-02 to the next round.\n' > "$d/plans/ROADMAP.md"
+# 15. recall verbs with full dates, past tense included -> fail with 3 hits
+d=$(mkrepo); printf -- 'Supersedes 2026-07-07 the old flow.\nDeferred 2026-03-02 to the next round.\nCompleted 2026-03-03 by ops.\n' > "$d/plans/ROADMAP.md"
 git -C "$d" add -A
-out=$(cd "$d" && bash "$CHECK" 2>&1); c=$(grep -c ACCRETION <<<"$out" || true)
-[ "$c" = "2" ] && pass "supersedes + deferred caught" || die "recall verbs missed ($c of 2)"; rm -rf "$d"
+c=$(hits_in "$d")
+[ "$c" = "3" ] && pass "supersedes + deferred + completed caught" \
+  || die "recall verbs missed ($c of 3)"; rm -rf "$d"
 
 # 16. non-ASCII filename (git quotes it under default core.quotePath) ->
 # still scanned: a violation inside is caught, and the same name under
