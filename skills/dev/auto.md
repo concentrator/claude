@@ -72,7 +72,8 @@ re-verifying acceptance criteria. No report → no accept. Present:
 - **Accept** → push `batch/R<NNN>-B-XXX` to origin + open the CI-gated
   MR/PR per `companions/toolchain.md`, description from report (defer = explicit
   user choice). Findings triage; ref cleanup per `branch-plan.md
-  § Rails`.
+  § Rails` - the batch branch goes, local and origin, once the MR/PR
+  merges.
 - **Reject** → ref handling per `branch-plan.md § Rails`.
 - **Halt** → failed item reported, work intact; user resolves,
   re-runs `/dev auto B-XXX`.

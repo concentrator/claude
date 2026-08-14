@@ -193,8 +193,7 @@ pass) runs only for branches above the small-branch threshold in
 the `auto` verification policy - small branches
 defer their first review to the batch-close full-diff pass. The
 mandatory final commit and the tests/lint-green gate before merging
-into `batch/R<NNN>-B-XXX` hold for every branch regardless of size. The
-manual-mode § Closing routine above is unchanged by this rule.
+into `batch/R<NNN>-B-XXX` hold for every branch regardless of size.
 
 ### Rails
 
@@ -209,9 +208,10 @@ manual-mode § Closing routine above is unchanged by this rule.
 - No commit on red tests/lint - no exceptions.
 - Findings triage and push decisions defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
-  Accept = delete the `pre-R<NNN>-B-XXX` tag and member branch refs.
-  Reject = delete the batch branch; the `pre-R<NNN>-B-XXX` tag and
-  member refs are preserved for salvage.
+  Accept = delete the `pre-R<NNN>-B-XXX` tag and member branch refs;
+  the batch branch is deleted, local and origin, once its MR/PR
+  merges. Reject = delete the batch branch; tag and member refs are
+  preserved for salvage.
 
 ### Stop conditions
 
