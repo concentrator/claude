@@ -40,14 +40,16 @@ hard floor.
   carries a host signature - a `supervised` label plus a merge comment
   naming the bound applied - in host metadata, never in commit or
   MR/PR prose.
-- **Quality acceptance layer**: checkpoint acceptance is the existing
-  gates - Tier-1 suites, the closure check, promote-then-archive, the
-  comprehension check, CI - plus a supervisor-commissioned independent
-  review of the batch MR/PR diff. Findings triage by decision level:
-  implementation-level findings the supervisor resolves itself;
-  design-affecting findings escalate. Host gates stay the hard floor -
-  the layer adds acceptance control above them, never replaces or
-  bypasses them.
+- **Quality acceptance layer**: the supervisor is the worker's first
+  responder. A worker halting on an implementation question - a
+  NEEDS_CONTEXT, a choice between offered options, a spec ambiguity -
+  gets a rational resolution on the plan's and requirements' terms,
+  with the best option advised where possible, and execution continues
+  without user involvement. A question touching project design or
+  architecture is never answered - it escalates. Checkpoint boundary
+  checks stay existing gates only - Tier-1 suites, the closure check,
+  promote-then-archive, the comprehension check, CI; host gates remain
+  the hard floor.
 - **Decision authority split**: implementation-level judgments - code
   shape, naming, test details, review-finding triage within the plan's
   stated behavior - are the supervisor's to make without approval, and
@@ -98,10 +100,11 @@ hard floor.
       portfolio change.
 - [ ] Escalations queue with context sufficient to resolve without
       reading raw transcripts; a sync empties the queue.
-- [ ] Checkpoint acceptance includes an independent quality review of
-      the batch diff; implementation-level findings are resolved by
-      the supervisor and each decision appears in the final report;
-      design-affecting findings escalate unresolved.
+- [ ] A worker's implementation question is resolved by the
+      supervisor and the run continues; every resolution appears in
+      the final report; a design-touching question escalates
+      unanswered.
+- [ ] Every checkpoint boundary check is an existing gate.
 - [ ] A design or architectural decision never lands supervised
       without confirmation.
 - [ ] No worker session stalls on a permission prompt: prompts are
@@ -126,8 +129,8 @@ hard floor.
   under either transport.
 - The supervisor's context stays implementation-free (reports and
   states, not diffs by default) so one supervisor spans many sessions;
-  the commissioned quality review runs in its own agent, returning
-  findings, not diffs.
+  a worker's question arrives with the excerpt needed to answer it,
+  never the whole diff or transcript.
 - Worker sessions never stall on permission prompts: either the
   session starts in a mode with guaranteed prompt acceptance (the
   declared auto-permissions grant covers every tool the plan needs) or
