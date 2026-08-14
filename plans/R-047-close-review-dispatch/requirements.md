@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-13
 kind: doc
+status: done 2026-08-14
 ---
 
 # R-047: Branch-close routing
@@ -82,27 +83,43 @@ it by name.
 
 ## Acceptance criteria
 
-- [ ] `branch-plan.md § Closing routine` dispatches on diff content,
+- [x] `branch-plan.md § Closing routine` dispatches on diff content,
       with a route for every kind of change a branch can ship and no
       task tag named as the key.
-- [ ] Walking the new table against six real branches - R-046's five
+      Evidence: `branch-plan.md:85-97` - five content rows plus the
+      governor override; no tag appears.
+- [x] Walking the new table against six real branches - R-046's five
       and this initiative's own - yields exactly one route each, and
       the four that had none now resolve.
-- [ ] `documentation.md § Verification gate` names what clears it for
+      Evidence: walk at R047-T001 close (PR #282) - six branches, one
+      route each, all `/code-review`.
+- [x] `documentation.md § Verification gate` names what clears it for
       each prose class; the practice R-046's branches ran - an
       independent close review checking claims against sources - reads
       as satisfying it for rules and planning prose, and `docs/` docs
       still require the per-claim verdicts.
-- [ ] `finish.md § 2` names a verify action for code, prose, test, and
+      Evidence: `documentation.md:104-114` - per-class scope and
+      clearing review; per-claim pass retained for `docs/`.
+- [x] `finish.md § 2` names a verify action for code, prose, test, and
       data diffs; no branch class is left to improvise.
-- [ ] `toolchain.md`'s push-scoping sentence and `finish.md § 3` are
+      Evidence: `finish.md:22-27` - code, prose, tests, data or
+      config each named.
+- [x] `toolchain.md`'s push-scoping sentence and `finish.md § 3` are
       both true at once, each naming whom its restriction binds.
-- [ ] Every living doc mentioning the close-review dispatch states the
+      Evidence: `toolchain.md:4-8` binds the engine's accept push and
+      names manual `finish`'s own-branch push.
+- [x] Every living doc mentioning the close-review dispatch states the
       content rule or cites it; none restates a competing mapping -
       `delegation.md § Close-review fan-out` included.
-- [ ] The size governor and the Tier-2 line are word-for-word
+      Evidence: repo sweeps at T001 and T002 close found no competing
+      mapping; `delegation.md` cites the content rule.
+- [x] The size governor and the Tier-2 line are word-for-word
       unchanged, shown by the diff touching neither.
-- [ ] `branch-plan.md` passes `check-caps.sh`.
+      Evidence: T001's independent verifier byte-compared both against
+      `main` - wording identical; only line position moved, as the
+      governor sat mid-sentence in the replaced text.
+- [x] `branch-plan.md` passes `check-caps.sh`.
+      Evidence: 1499/1500 words; `tier1` green on PRs #282 and #283.
 
 ## Constraints
 

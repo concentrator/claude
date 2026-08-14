@@ -10,6 +10,8 @@ The dispatcher will provide the plan path (typically a branch plan under `plans/
 
 **Batch mode**: when dispatched with a batch manifest (`plans/R-XXX-<slug>/batches/B-XXX.md`) and the full `batch/B-XXX` vs default diff, review at the batch level: verify each member branch against its own plan briefly, then focus on what per-branch reviews cannot see - cross-branch semantic conflicts, duplicated helpers introduced independently, convention drift between branches, and doc coherence (CHANGELOG/README reading as one consistent block). Categorize findings the same way; mark each as per-branch or cross-branch.
 
+**Prose diffs**: when the reviewed diff changes rules, skills, or planning prose, check each changed factual claim against its ground truth per the verification gate (`skills/dev/companions/documentation.md § Verification gate`) - its source-selection and independence conditions apply as written there; report a mismatch as Critical. `docs/` feature docs take the gate's dedicated per-claim pass instead.
+
 When reviewing completed work, you will:
 
 1. **Plan Alignment Analysis**:
