@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-11
 kind: feat
+status: done 2026-08-14
 ---
 
 # R-044: Batch rollback-anchor identity
@@ -51,13 +52,21 @@ nothing verifies it.
 
 ## Acceptance criteria
 
-- [ ] An anchor's name identifies the initiative of the batch it
+- [x] An anchor's name identifies the initiative of the batch it
       anchors, and two initiatives can hold first-batch anchors at once
-- [ ] A tag whose batch has a report fails the gate locally
-- [ ] The gate reports a skip, not an OK, when no tags are visible
-- [ ] `auto.md` and `branch-plan.md` state the composite form, and no
-      doc still shows the flat `pre-B-XXX`
-- [ ] Tier-1 green
+      (composite `pre-R<NNN>-B-<MMM>` at pre-flight and accept, PR #288;
+      names are initiative-scoped by construction)
+- [x] A tag whose batch has a report fails the gate locally
+      (`check-batch-tags.sh` judges the trunk's tree; test cases "stale
+      anchor caught" and "archived-report anchor caught", PR #289)
+- [x] The gate reports a skip, not an OK, when no tags are visible
+      (SKIP line under truthy `$CI` or a shallow clone, named in the
+      `run-all.sh` verdict; skip test cases, PR #289)
+- [x] `auto.md` and `branch-plan.md` state the composite form, and no
+      doc still shows the flat `pre-B-XXX` (PR #288; tracked-tree grep
+      finds `pre-B-` only in this R's own artifacts and ROADMAP entry)
+- [x] Tier-1 green (`tier1` check green on PR #289; local
+      `run-all: ALL OK`)
 
 ## Constraints
 
