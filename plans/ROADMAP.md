@@ -149,6 +149,10 @@ Initiative index. Items: `R-001: description`; each entry owns
       batch ids stop colliding in git's flat tag namespace; a gate
       catches an anchor that outlived its batch, enforcing locally and
       skipping where tags are not visible.
+- [ ] R-049: Vendored-gate hygiene - the quoted-filename sweep of the
+      sibling `git ls-files` checks (NUL-delimited enumeration) and a
+      copyable runner for the vendored gate set; promoted from
+      R-043's close reviews. (stub - shape via `/dev plan R-049`)
 - [x] R-048: Batch branch identity - `batch/B-XXX` refs carry the same
       per-initiative collision the R-044 anchor rename fixed, and the
       branch is pushed at accept; promoted from R044-T001's close
