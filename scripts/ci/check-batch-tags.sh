@@ -22,6 +22,15 @@ ROOT="$(bash "$SCRIPT_DIR/resolve-root.sh")" \
 P="${ROOT:+$ROOT/}plans"
 
 fail=0
+
+# A flat pre-B-* tag names no initiative, so no report can prove its
+# batch open or closed - unresolvable, always a failure.
+while IFS= read -r tag; do
+  [ -n "$tag" ] || continue
+  echo "BATCH-TAGS: $tag has no initiative - unresolvable; rename to pre-R<NNN>-${tag#pre-}"
+  fail=1
+done < <(git tag -l 'pre-B-*')
+
 while IFS= read -r tag; do
   [ -n "$tag" ] || continue
   nnn="${tag:5:3}"; mmm="${tag: -3}"

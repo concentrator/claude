@@ -72,5 +72,14 @@ out=$(out_in "$d"); rc=$?
   && pass "shallow clone skips loudly" || die "shallow clone did not skip: $out"
 rm -rf "$src" "$d"
 
+# 7. legacy flat pre-B-* tag -> unresolvable, fail even with no report
+d=$(mkrepo); mkdir -p "$d/plans/R-042-pocs/batches"
+printf -- '# B-001\n' > "$d/plans/R-042-pocs/batches/B-001.md"
+git -C "$d" tag pre-B-001
+out=$(out_in "$d"); rc=$?
+[ $rc -ne 0 ] && grep -q 'pre-B-001' <<<"$out" \
+  && pass "legacy flat tag caught" || die "legacy flat tag not caught: $out"
+rm -rf "$d"
+
 (( fail == 0 )) && echo "check-batch-tags.test: OK"
 exit $fail
