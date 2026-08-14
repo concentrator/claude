@@ -7,7 +7,7 @@ type: doc
 
 Branch: `doc/supervisor-quality`.
 
-- [ ] `supervise.md`: a `## Question resolution` step between Monitor
+- [x] `supervise.md`: a `## Question resolution` step between Monitor
       and Boundary verification - a worker halting on an
       implementation question (a NEEDS_CONTEXT, a choice between
       offered options, a spec ambiguity) gets the supervisor's
@@ -25,7 +25,7 @@ Branch: `doc/supervisor-quality`.
       workers start under guaranteed prompt acceptance or the
       supervisor accepts edit prompts; a prompt neither pre-accepted
       nor supervisor-acceptable halts the member and escalates.
-- [ ] `companions/declarations.md § Supervisor bounds`: the
+- [x] `companions/declarations.md § Supervisor bounds`: the
       always-escalated list gains design and architectural decisions;
       `companions/report-template.md` gains `## Supervisor decisions`
       (implementation questions resolved by the supervisor, each with

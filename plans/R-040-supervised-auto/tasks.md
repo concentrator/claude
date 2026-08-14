@@ -26,7 +26,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   a fix round before the initiative closes. The pilot exercises the
   quality-acceptance layer and the decision ledger.
   `depends-on: R040-T003, R040-T005`
-- [ ] **R040-T005 [doc]**: the quality-acceptance amendment -
+- [x] **R040-T005 [doc]**: the quality-acceptance amendment -
   `supervise.md` gains the question-resolution step (the supervisor
   answers a worker's implementation questions and the run continues;
   design-touching questions escalate), the implementation-vs-design
