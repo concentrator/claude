@@ -116,7 +116,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       time-boxed throwaway spike in a worktree to ground an unproven
       assumption; findings recorded like probe findings, spike code
       always discarded.
-- [ ] R-043: Ship the accretion check to adopters - the reference
+- [x] R-043: Ship the accretion check to adopters - the reference
       `check-accretion.sh` + self-test, hardened with aikido's audit
       findings, become a copyable adopter check (the R-026 em-dash
       model) vendored by `install-dev.sh` and offered by `start`

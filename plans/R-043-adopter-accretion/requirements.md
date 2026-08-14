@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-14
 kind: feat
+status: done 2026-08-15
 ---
 
 # R-043: Ship the accretion check to adopters
@@ -53,20 +54,28 @@ adopters.
 
 ## Acceptance criteria
 
-- [ ] A marker with a bare year and no full date passes; the same
-      marker with `YYYY-MM-DD` fails (test asserts both ways)
-- [ ] A plan file with a non-ASCII name is scanned, not skipped
-- [ ] The recall verbs fire: a `supersedes` marker followed by a full
-      date is caught
-- [ ] `install-dev.sh` copies the accretion and batch-tags checks,
+- [x] A marker with a bare year and no full date passes; the same
+      marker with `YYYY-MM-DD` fails (test cases "bare year and
+      embedded verbs pass" and the full-date fail cases, PR #298)
+- [x] A plan file with a non-ASCII name is scanned, not skipped (test
+      cases "quoted filename scanned" / "quoted archive filename
+      exempt", PR #298)
+- [x] The recall verbs fire: a `supersedes` marker followed by a full
+      date is caught (test case "supersedes + deferred + completed
+      caught", PR #298)
+- [x] `install-dev.sh` copies the accretion and batch-tags checks,
       their self-tests, and `resolve-root.sh`; its test asserts the
-      copied set
-- [ ] `start.md` scaffolds the checks into a new project's CI;
+      copied set and that a tuned `MARKERS` line survives re-install
+- [x] `start.md` scaffolds the checks into a new project's CI;
       `migrate.md`'s reconcile proposal names the reference copy
       instead of describing the check from scratch
-- [ ] A copied check passes its self-test unmodified; tuning the
-      marker list is a one-line edit
-- [ ] Tier-1 green
+- [x] A copied check passes its self-test unmodified (both copied
+      self-tests ran green from a fresh `--project` install at close;
+      the installer test permanently asserts the copied gates bite
+      from the install location); tuning the marker list is a
+      one-line edit (the named `MARKERS` variable)
+- [x] Tier-1 green (`tier1` on the delivery PRs; local
+      `run-all: ALL OK`)
 
 ## References
 

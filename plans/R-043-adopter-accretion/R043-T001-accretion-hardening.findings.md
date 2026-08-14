@@ -1,6 +1,6 @@
 # R043-T001 findings
 
-- [x] Promoted to the R-043 backlog: the `core.quotePath` silent-skip
+- [x] Promoted to the R-049 stub: the `core.quotePath` silent-skip
   fixed here in
   `check-accretion.sh` has the same shape in the other checks that
   walk `git ls-files` output per file (`check-caps.sh`,
