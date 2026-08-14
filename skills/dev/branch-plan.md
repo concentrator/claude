@@ -209,8 +209,8 @@ into `batch/R<NNN>-B-XXX` hold for every branch regardless of size.
 - Findings triage and push decisions defer to the checkpoint.
 - Branch refs are kept until the user validates the checkpoint.
   Accept = delete the `pre-R<NNN>-B-XXX` tag and member branch refs;
-  the batch branch is deleted, local and origin, once its MR/PR
-  merges. Reject = delete the batch branch; tag and member refs are
+  the batch branch is deleted, local and origin, by post-merge
+  cleanup. Reject = delete the batch branch; tag and member refs are
   preserved for salvage.
 
 ### Stop conditions

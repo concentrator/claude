@@ -58,8 +58,8 @@ it. Two working patterns:
    allow covers exactly the checkpoint command.
 
 2. **Keep the blanket deny** - checkpoint asks, the user approves the
-   single `git push -u origin batch/R<NNN>-B-XXX` manually per batch. Zero
-   config; one prompt per batch by design.
+   single `git push -u origin batch/R<NNN>-B-XXX` manually per batch.
+   Zero config; one prompt per batch by design.
 
 The pre-flight permission gate checks which pattern is in place and
 reports it; it never weakens a deny rule on its own.
