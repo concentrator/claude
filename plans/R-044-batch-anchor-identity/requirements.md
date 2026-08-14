@@ -37,6 +37,8 @@ nothing verifies it.
   the `/dev auto` argument. The tag is the only global namespace.
 - Retiring the anchor in favour of `git merge-base`.
 - Migrating existing anchors: none remain.
+- Vendoring the check for adopters - rides R-043 (backlog line in its
+  `tasks.md`).
 
 ## User experience
 
@@ -65,8 +67,7 @@ nothing verifies it.
 
 ## Open questions
 
-- Does the adopter-vendored copy need this check, and if so does it
-  ride R-043's adopter-check work rather than shipping separately?
+None.
 
 ## References
 
