@@ -6,7 +6,7 @@ composite (`R043-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R043-T001 [fix]**: harden the reference - `check-accretion.sh`
+- [x] **R043-T001 [fix]**: harden the reference - `check-accretion.sh`
   requires a full `YYYY-MM-DD` after the marker verb, lists files with
   `core.quotePath=false`, and gains the six recall verbs
   (`supersedes`, `delivered`, `restored`, `revised`, `deferred`,
@@ -17,3 +17,12 @@ composite (`R043-T###`, counter scoped to this initiative).
   self-tests, and `resolve-root.sh` (its test asserts the set);
   `start.md` scaffolds them into a new project's CI; `migrate.md`'s
   reconcile proposal names the reference copy.
+
+## Backlog
+
+- Sweep the sibling checks that walk `git ls-files` output per file
+  (`check-caps.sh`, `check-code-size.sh`, `check-plan-integrity.sh`,
+  `check-stray.sh`) for the quoted-filename silent-skip fixed in
+  R043-T001; the deeper shared form is NUL-delimited enumeration
+  (`git ls-files -z`). `check-code-size.sh` is already vendored, so
+  its copy reaches adopters as-is.
