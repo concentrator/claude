@@ -109,7 +109,8 @@ no long-lived branches (`skills/dev/git-workflow.md`; repo pin:
 
 The unit of delivery is the **batch** - one or more tasks that must land
 together to keep `main` coherent, shipped as one PR (a lone task is a
-batch of one; coupled tasks integrate on a short-lived `batch/B-XXX`).
+batch of one; coupled tasks integrate on a short-lived
+`batch/R<NNN>-B-XXX`).
 Mode is orthogonal - delivery is uniform, verification differs (auto:
 agentic checkpoint; manual: human PR review). Releases tag the trunk, no
 release branch (`skills/dev/branch-plan.md § Agentic execution`).

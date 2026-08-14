@@ -26,10 +26,10 @@ outside it. The view allows ship in `auto-permissions.template.json`.
 ## Push + MR/PR
 
 ```
-git push -u origin batch/B-XXX
-gh pr create --head batch/B-XXX --base <default> \
+git push -u origin batch/R<NNN>-B-XXX
+gh pr create --head batch/R<NNN>-B-XXX --base <default> \
   --title "B-XXX: <batch theme>" --body-file <report excerpt>
-# GitLab: glab mr create --source-branch batch/B-XXX --target-branch <default> ...
+# GitLab: glab mr create --source-branch batch/R<NNN>-B-XXX --target-branch <default> ...
 ```
 
 MR/PR description: the report's header block, `## Batch review`, and
@@ -58,7 +58,7 @@ it. Two working patterns:
    allow covers exactly the checkpoint command.
 
 2. **Keep the blanket deny** - checkpoint asks, the user approves the
-   single `git push -u origin batch/B-XXX` manually per batch. Zero
+   single `git push -u origin batch/R<NNN>-B-XXX` manually per batch. Zero
    config; one prompt per batch by design.
 
 The pre-flight permission gate checks which pattern is in place and

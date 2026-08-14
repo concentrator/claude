@@ -28,7 +28,7 @@ declared commands rather than probing the host - MR/PR state included.
   - `doc` - documentation and operative prose (README, CHANGELOG,
     comments, `rules/`, `skills/`, `CLAUDE.md`); not planning artifacts.
   - `batch` - auto-mode delivery branches (engine-managed; fixed id
-    form `batch/B-XXX`, exempt from the slug rule).
+    form `batch/R<NNN>-B-XXX`, exempt from the slug rule).
   - `test` - test additions or changes (automated or manual harness).
   - `mnt` - repo maintenance (CI, scripts, hooks, settings, dependencies).
   - `plan` - planning artifacts (ROADMAP, requirements, tasks, branch
