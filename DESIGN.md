@@ -132,8 +132,10 @@ Two tiers gate every change into `main` (the CI tiers are built for
   a cap violation, a stray top-level file, a plan-integrity break, a
   `TODO`/`FIXME`/`XXX` marker in code, an expired reference, a dated
   accretion marker (`check-accretion`), an oversized code file or
-  function (`check-code-size`, with an allowlist), or an em dash
-  (`check-no-em-dash`).
+  function (`check-code-size`, with an allowlist), an em dash
+  (`check-no-em-dash`), or a stale or unresolvable batch anchor
+  (`check-batch-tags`, local-only: reports a skip where tags are
+  hidden).
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
   concern set to the diff as a mandatory step in the branch-close routine
   (`skills/dev/branch-plan.md § Closing routine`). The concerns are
