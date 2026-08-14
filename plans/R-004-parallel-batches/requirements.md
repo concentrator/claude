@@ -29,7 +29,7 @@ warrants because every model round-trip is sequential.
 - Add a plan-stage **safety gate** that verifies parallel members are
   actually independent (disjoint file-touch sets and no contended shared
   resources), rather than trusting "different components".
-- Preserve every existing safety rail: `pre-B-XXX` rollback tag,
+- Preserve every existing safety rail: `pre-R<NNN>-B-XXX` rollback tag,
   no-commit-on-red, never-push, findings/triage deferred to checkpoint.
 
 ## Non-goals
@@ -86,8 +86,8 @@ warrants because every model round-trip is sequential.
       to serial integration) and no contended mutable external resource.
 - [ ] A single member's halt/failure does not abort siblings; all
       outcomes surface at the checkpoint.
-- [ ] `pre-B-XXX` rollback restores the pre-batch state regardless of how
-      many members completed.
+- [ ] `pre-R<NNN>-B-XXX` rollback restores the pre-batch state
+      regardless of how many members completed.
 
 ## Constraints
 

@@ -24,7 +24,8 @@ sensitive-file guard).
   → propose merged file, apply on approval. No toolchain section →
   halt, ask.
 - Default branch, clean tree, tests + lint green.
-- Tag `pre-B-XXX`; create `batch/B-XXX` off default.
+- Tag `pre-R<NNN>-B-XXX` (e.g. `pre-R042-B-001`); create `batch/B-XXX`
+  off default.
 
 ## Per branch, batch order
 
