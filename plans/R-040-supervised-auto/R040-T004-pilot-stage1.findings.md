@@ -52,3 +52,40 @@ R-040 closes (R040-T006).
   dispatching; the user's worker had started before the merge, so it
   prompted against the old allowlist. Pre-flighting the permission
   merge belongs before the worker starts, whoever starts it.
+
+## 2026-08-15 - headless, not the permission mode, bounds the envelope
+
+- `.claude/` is a harness-protected path: the safety check runs before
+  settings are evaluated, so no `permissions.allow` rule pre-clears an
+  edit there. The rest of the guard's behavior splits on whether the
+  session can prompt at all, not on which permission mode it declares.
+- Measured, CLI 2.1.233, same three protected files or an isolated
+  equivalent:
+  - headless (`-p`) + `acceptEdits`: denied - the B-001 worker halted
+    on it;
+  - headless (`-p`) + `dontAsk`: denied ("running in don't ask mode"),
+    while the same edit on an ordinary file in that repo succeeds;
+  - interactive + `acceptEdits`: the nine edits landed with no prompt
+    shown to the user at all.
+- So a headless session resolves any decision that would need a prompt
+  into a denial, and the protected-path check is one such decision;
+  an interactive session in `acceptEdits` clears it silently. The
+  earlier reading - that the guard needs a human approval - was wrong:
+  what it needs is a prompt-capable session. `dontAsk` remains the
+  safe unattended mode for everything else, auto-denying rather than
+  auto-allowing and honoring deny rules.
+- B-001 hit this wall: nine `.claude/plans|docs` references in
+  `.claude/DESIGN.md`, `.claude/PIPELINE.md`, and
+  `.claude/references/vectors-glob-semantics.md` are inside the plan's
+  sweep and outside its exemption list, so R-023 AC 2 fails without
+  them. The headless worker halted with the move and sweep staged and
+  intact (279 paths, project gates green) rather than routing around
+  the guard, which `auto.md` forbids; an interactive worker over the
+  same staged tree finished the sweep unattended.
+- Consequence for the adopter: R-023 keeps `DESIGN.md`, `PIPELINE.md`,
+  and `references/` under `.claude/` by design, so any later run that
+  must edit them has to be interactive. A supervisor driving headless
+  workers cannot deliver such an item at all - it holds no keyboard in
+  a worker's session, and applying the edits itself would breach
+  `supervise.md`'s never-implements rule. Transport choice is
+  therefore a delivery constraint, not just a cost question.
