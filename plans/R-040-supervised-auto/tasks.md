@@ -49,6 +49,31 @@ follow-ups - real supervised delivery, but manual `/dev code` branches
 rather than the batch stage 2 calls for, so they are evidence toward
 T006 without closing it.
 
+- **The supervisor must never run git in a worker's working tree.**
+  The most damaging defect of the pilot, and the supervisor caused it
+  twice in one run. `supervise.md` says the supervisor never
+  implements, but says nothing about the working tree, and the local
+  transport puts supervisor and worker in the same checkout by
+  default.
+  - Creating a plan branch there cut it from the worker's branch tip
+    rather than `main`, because HEAD was the worker's branch. Merging
+    that plan MR/PR carried fourteen unreviewed member commits onto
+    `main`, bypassing the per-branch close review, the batch full-diff
+    review, the per-claim verification gate and the report. The
+    verification gate then found 29 false claims and 12 provenance
+    overstatements that eight passing spec checks and every green
+    project gate had missed - two of them operator-facing, including
+    one that misroutes a query to a hard-coded client id.
+  - Switching that tree's branch mid-run, while eight verifier
+    subagents were reading files from it, could have had them silently
+    verify different content than they reported on. It did not, but
+    only because the branches happened to hold identical bytes.
+  The rule belongs in `supervise.md` as an absolute: read-only
+  inspection via explicit refs, never a command that moves HEAD or
+  creates a branch. Where the supervisor genuinely needs to author
+  plan artifacts in an adopter repo, it needs its own worktree or a
+  wait-for-idle protocol - and `git switch -c <name> origin/main`
+  rather than a bare `-c`, which inherits whatever HEAD is.
 - **The unit of a check has to match the unit of the thing checked.**
   One error recurred three times in R-023: a narration exemption drawn
   per file when the thing exempted was an entry, twice over, then a
