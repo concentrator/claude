@@ -34,6 +34,17 @@ R-040 closes (R040-T006).
   as an escalation - the declared class working as designed, but
   avoidable. Worker-side fix: absolute paths instead of `cd`
   compounds for reads.
+- Pilot rule (user-set, 2026-08-15): an unexpected worker block the
+  supervisor cannot clear - a modal prompt outside the acceptable
+  classes, or any second block of the same kind - is not relayed
+  keystroke-by-keystroke: stop the worker immediately, fix the cause,
+  restart it over the intact refs, proceed. First application: the
+  interactive worker (started under the pre-merge allowlist, so every
+  uncovered call raised a modal dialog) was stopped on its second
+  block with zero commits and a clean tree; the restart went headless
+  under the merged allowlist, where an uncovered call is an
+  auto-denial the worker routes around rather than a stall.
+  Candidate for `supervise.md` in the R040-T006 fix round.
 - The adopter repo's `settings.local.json` predated the template: the
   auto-permissions rules, the checkpoint-push carve-out, and three
   plan-required commands (`mkdir`, `git mv`, `git grep`) were missing.
