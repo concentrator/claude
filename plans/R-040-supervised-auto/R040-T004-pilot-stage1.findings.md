@@ -53,6 +53,32 @@ R-040 closes (R040-T006).
   prompted against the old allowlist. Pre-flighting the permission
   merge belongs before the worker starts, whoever starts it.
 
+## 2026-08-15 - boundary check 4 misreads where R closure lands
+
+- `supervise.md § Boundary verification` item 4 reads "A batch closing
+  an R carries the closure and archival marks", citing `plan.md`. Read
+  literally by a supervisor, it demands the closing marks inside the
+  batch - which is wrong for every batch. `branch-plan.md § Batches`
+  routes them elsewhere: "The R-closure check and release marking ride
+  a close-out plan MR/PR (`plan/r<NNN>-close`) opened after the batch
+  MR/PR merges."
+- The supervisor acted on the literal reading during B-001 and pressed
+  the worker to run R-023's closure and archival in the member branch.
+  The worker refused, cited § Batches and the run-dependent escape
+  hatch in `plan.md § Approval and closure`, and was right: R-023's
+  AC 3 is "CI green on the MR", which the commit that creates the MR
+  cannot verify. Nothing landed wrong - the check cost one exchange
+  and the worker held the line.
+- Fix direction for R040-T006: item 4 should verify that a batch
+  closing an R has its close-out plan MR/PR queued, not that the batch
+  carries the marks. As written it invites a supervisor to demand
+  work the rails forbid, and only a worker willing to argue back
+  prevents it.
+- Second-order note worth keeping: the worker's rule citation, not the
+  supervisor's judgment, was what corrected this. A supervisor that
+  treats worker pushback as an obstacle rather than evidence would
+  have forced the error through.
+
 ## 2026-08-15 - headless, not the permission mode, bounds the envelope
 
 - `.claude/` is a harness-protected path: the safety check runs before
