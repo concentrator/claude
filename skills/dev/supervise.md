@@ -76,8 +76,14 @@ At a checkpoint, before any merge:
 2. The report verifies each member's acceptance criteria.
 3. Project gates are green: declared test/lint plus CI on the MR/PR
    (declared state-check command).
-4. A batch closing an R carries the closure and archival marks
-   (`plan.md § Approval and closure`, `§ Archival`).
+4. A batch closing an R does **not** carry the closure and archival
+   marks - they ride a close-out plan MR/PR (`plan/r<NNN>-close`)
+   opened after the batch MR/PR merges (`branch-plan.md § Batches`).
+   Verify that the batch left them alone and that the close-out is
+   queued; a batch stamping `status: done` has closed on an unverified
+   criterion, since CI-green criteria are only verifiable on the MR/PR
+   the batch itself creates (`plan.md § Approval and closure`,
+   `§ Archival`).
 
 Checkpoint boundary checks are existing gates only. The report's
 queued judgment calls split by decision level (`companions/
