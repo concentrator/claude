@@ -65,6 +65,21 @@ T006 without closing it.
   recorded in the MR comment, but the text should either name the
   class or exclude it rather than leaving a supervisor to reason it
   out per merge.
+- **A doc can redefine the vocabulary it is judged by.** Needs
+  re-homing: this is a documentation-framework defect, not a
+  supervisor one, and R-032 and R-033 which own the provenance column
+  and the conventions are both closed, so it is parked here rather
+  than lost. `layout.md:138` defines the detail-bar column as
+  "verified (ran it) / from-spec / unverified". A doc realigned under
+  attack-checker T-085 stated in its own `§ Parameters` preamble that
+  "`provenance: verified` means a cited test ... or a cited line of
+  shipped source", then marked four cells `verified` on source reading
+  alone - fully compliant with the standard it had just rewritten. A
+  stale mark is a false claim; a redefined vocabulary makes the claim
+  unfalsifiable and defeats any reviewer checking compliance rather
+  than definitions. The fix is a line in `layout.md § Docs` forbidding
+  a doc from restating or narrowing the provenance definitions, and a
+  verification-gate step that reads the preamble before the table.
 - **`verification-policy.md § Models` has no capacity fallback.** The
   table pins spec checks and both reviews to Fable 5 with no second
   choice, so every rate limit becomes a user escalation rather than a
