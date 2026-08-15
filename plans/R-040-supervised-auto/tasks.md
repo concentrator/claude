@@ -49,6 +49,28 @@ follow-ups - real supervised delivery, but manual `/dev code` branches
 rather than the batch stage 2 calls for, so they are evidence toward
 T006 without closing it.
 
+- **The batch ref's position detects the breach above, for free.** A
+  `batch/R<NNN>-B-XXX` still pointing at its `pre-R<NNN>-B-XXX` anchor
+  while the member work is finished means the delivery went somewhere
+  else - the member branch never merged into it. That was exactly true
+  throughout stage 2 and nobody looked. One `git log -1` at checkpoint
+  turns the worst failure of this pilot into a detected one, so it
+  belongs in `supervise.md § Boundary verification` beside the report
+  and gate checks.
+- **Authority is what stops the next layer from checking.** The
+  worker's own corrections were wrong twice in stage 2 - a cited line
+  range that pointed at prose rather than the table it named, and a
+  replacement text asserting two templates are shared at every
+  grouping level when one level keys on joined raw forms. Both were
+  caught by fixer agents that executed the case instead of applying
+  the instruction they were handed, and both would have shipped had
+  they deferred. What made them check was a dispatch instruction to
+  verify before applying and to report back a correction they judged
+  wrong. Every layer here produced errors - implementers, reviewers,
+  the worker, the supervisor - and the ones that survived longest were
+  those issued with the most authority. The instruction that licenses
+  a downstream agent to refuse its own dispatcher is not politeness;
+  it is the only thing catching this class.
 - **The supervisor must never run git in a worker's working tree.**
   The most damaging defect of the pilot, and the supervisor caused it
   twice in one run. `supervise.md` says the supervisor never
