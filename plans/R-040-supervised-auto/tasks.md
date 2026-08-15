@@ -65,6 +65,20 @@ T006 without closing it.
   recorded in the MR comment, but the text should either name the
   class or exclude it rather than leaving a supervisor to reason it
   out per merge.
+- **`verification-policy.md § Models` has no capacity fallback.** The
+  table pins spec checks and both reviews to Fable 5 with no second
+  choice, so every rate limit becomes a user escalation rather than a
+  documented degrade path. It has now happened on both pilot batches,
+  and the supervisor cannot resolve it either way: substituting a
+  model unilaterally defies a written rule, while halting stops
+  delivery on a capacity event that has nothing to do with the work.
+  The second escalation was the larger call - R-023's items were
+  mechanical and pinned by deterministic gates, while R-020's are
+  judgment-heavy doc authoring where the gates prove nothing about
+  whether a claim is true, so the rationale that justified the first
+  deviation does not transfer. A fallback belongs in the table, with
+  the substitution recorded automatically rather than negotiated per
+  batch.
 - **The push carve-out is batch-shaped.** `companions/toolchain.md`
   narrows the deny to allow `git push -u origin batch/*`, which stalls
   any manual task branch at push time - discovered mid-run, pre-flighted
