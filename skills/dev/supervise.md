@@ -26,6 +26,15 @@ admin merges).
 
 ## Dispatch
 
+**Adopt before dispatch.** A worker may already exist - started by the
+user or a previous supervisor session. Before launching one, check, in
+order: local peer sessions rooted in the project's path; a running
+worker process on the scope; the scope's `pre-R<NNN>-B-XXX` tag or
+`batch/R<NNN>-B-XXX` branch present with no `B-XXX.report.md`. Any hit
+means a worker is (or was) on the batch: adopt it - status ping, then
+monitor - or, if it is dead, resume `/dev auto B-XXX` in a new session
+over its intact refs. Never run two workers on one project.
+
 One headless worker session per project, under that project's declared
 transport and permissions - the pre-flight is `auto.md`'s. The worker
 runs the `/dev auto` engine on the scoped batch (a lone task is a
