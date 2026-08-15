@@ -135,8 +135,21 @@ code or not - one row:
     | input | type/shape | req? | default | allowed values | constraints | on invalid/missing | provenance |
     |-------|-----------|------|---------|----------------|-------------|--------------------|------------|
 
-provenance is verified (ran it) / from-spec / unverified; state
-"unverified" explicitly - never drop an input in silence.
+provenance is verified (ran it) / from-spec / unverified / mixed;
+state "unverified" explicitly - never drop an input in silence.
+`mixed` is for a row whose claims differ in strength - part executed,
+part read from source - and it names which part is which rather than
+rounding the row to its strongest or weakest claim. A doc may not
+restate or narrow these definitions in its own preamble: a local
+redefinition makes a false mark unfalsifiable, since a reviewer
+checking the table against the doc's own wording finds compliance.
+Cite this line instead.
+
+`verified` means the behaviour was executed and the execution could
+have failed. A run whose inputs cannot distinguish the documented
+behaviour from its fallback is a demonstration, not a verification -
+choose inputs that would have produced a different result had the
+claim been wrong.
 
 A project may raise the bar with its own `.claude/rules/feature-docs.md` -
 domain specifics and extra required content; the docs audit grades against it
