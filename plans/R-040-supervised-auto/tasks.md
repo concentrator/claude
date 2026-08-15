@@ -21,7 +21,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   per-project `transport:` switch in the portfolio (`local` default);
   the session-lifetime decision lands here.
   `depends-on: R040-T002`
-- [ ] **R040-T004 [test]**: supervised pilot, stage 1 (local) - the
+- [x] **R040-T004 [test]**: supervised pilot, stage 1 (local) - the
   attack-checker plans/docs migration batch, planned and stamped in
   that repo, dispatched and delivered supervised on the same machine;
   exercises question resolution, the decision ledger, and the prompt
@@ -40,3 +40,33 @@ composite (`R040-T###`, counter scoped to this initiative).
   real task's batch in attack-checker end to end on the same machine,
   user only at sync points; findings feed a fix round before the
   initiative closes. `depends-on: R040-T004`
+
+## Backlog
+
+Unnumbered until R-040's next planning round (`plan.md § Referential
+integrity`). Observed while supervising attack-checker's R-023
+follow-ups - real supervised delivery, but manual `/dev code` branches
+rather than the batch stage 2 calls for, so they are evidence toward
+T006 without closing it.
+
+- **The unit of a check has to match the unit of the thing checked.**
+  One error recurred three times in R-023: a narration exemption drawn
+  per file when the thing exempted was an entry, twice over, then a
+  site count taken per line when the thing counted was an occurrence.
+  Each passed its own verification and each hid live breakage. A
+  supervisor reviewing a verify step should ask what unit it counts
+  before trusting that it is green.
+- **`supervise.md` describes only `/dev auto` workers.** `§ Dispatch`
+  has the worker run the auto engine on a stamped batch, and the merge
+  classes in `companions/declarations.md § Supervisor bounds` name
+  batch/member and `plan/` MR/PRs. Four merges in this run were manual
+  task branches carrying neither a batch report nor a `plan/` prefix.
+  They were merged under the grant's stated rationale with the reading
+  recorded in the MR comment, but the text should either name the
+  class or exclude it rather than leaving a supervisor to reason it
+  out per merge.
+- **The push carve-out is batch-shaped.** `companions/toolchain.md`
+  narrows the deny to allow `git push -u origin batch/*`, which stalls
+  any manual task branch at push time - discovered mid-run, pre-flighted
+  by widening the adopter's allowlist to the task-branch prefixes. The
+  template should cover the prefixes a project actually uses.
