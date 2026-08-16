@@ -117,6 +117,24 @@ relax independence - whoever authored the thing does not also certify
 that its run passed, and that holds beyond docs: code, plans, and
 gates alike.
 
+**A run must be able to fail.** An execution whose inputs cannot
+distinguish the claimed behavior from its fallback is a demonstration,
+not a verification, and it certifies nothing. Choose inputs that would
+have produced a different result had the claim been wrong: a cell
+claiming a cache carries certain keys is not verified by a
+hand-written cache containing them, and a default-valued config proves
+nothing about a row describing the default. Where the discriminating
+run is impossible, say so and mark the claim from-spec rather than
+running something easier and calling it verified.
+
+**A check must count the unit it claims to check.** An exemption drawn
+per file does not exempt an entry; a count taken per line does not
+count occurrences; a grep that skips a file reports the same silence
+as a grep that found nothing. Each of those passes its own execution
+while answering a question other than the one asked, so state the unit
+before trusting a green result, and prove a new check bites by making
+it fail on a known instance first.
+
 ## Verifier isolation
 
 A verifier probing repo-touching behavior (git, hooks, filesystem
