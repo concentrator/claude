@@ -25,6 +25,16 @@ Claude Code both authenticate by SSO in a browser. The skill marks them
 human-in-the-loop with a verification command each, rather than
 pretending to automate them.
 
+**Tailscale is here for egress**, so the worker can reach the internal
+GitLab - not as the host's access path. Establish what it buys **from
+the VM**, before the clone step depends on it: with the tailnet down,
+does `gl.wallarm.com` resolve, and do HTTPS and SSH answer? That
+single test says whether Tailscale is required for the clone or merely
+present, and it has to run on the VM - an operator laptop cannot
+answer it, because a workstation's own tailnet state is not reliably
+observable from a shell on it, and a reachability result there
+attributes to the public internet what may have travelled the tunnel.
+
 **Secrets never pass through the agent.** Tokens live in a gitignored
 `~/.claude/.env` (ignored as of the baseline fix); the script reads
 them, never echoes them, and never takes one as an argument. Anything
@@ -51,13 +61,25 @@ missing is reported as absent, never printed.
       listening socket. Debian 13 ships `exim4` bound to 25 for cron
       mail - purge it, nothing here sends mail. **SSH**: key-only
       (`PasswordAuthentication no`), `PermitRootLogin no`, and assert
-      it rather than trusting the image default. **Reachability**: the
-      box is reached over Tailscale, so close public ingress at the
-      **VPC** firewall - a GCP project's default rules allow 22 from
-      anywhere, and removing that is worth more than any host-level
-      control. Verify from outside the tailnet that 22 no longer
-      answers. **Then** add `nftables` default-deny inbound, permitting
-      loopback, established, and `tailscale0` only: partly redundant
+      it rather than trusting the image default. **Reachability** is a
+      separate decision from Tailscale, which is installed here for
+      egress to the internal GitLab, not as the way in. Restricting
+      ingress is still worth doing and costs nothing to combine with
+      it, because Tailscale is outbound-initiated and NAT-traverses -
+      it needs no inbound rule, so every public ingress port can close
+      without breaking the tailnet. Do it at the **VPC** firewall,
+      where it is worth more than any host control: tag the instance
+      and add a higher-priority deny for tcp:22 from `0.0.0.0/0`
+      against that tag, rather than deleting a network-wide
+      `default-allow-ssh` that other instances may rely on. Establish
+      the break-glass **first** - serial console access
+      (`serial-port-enable=TRUE`) and an allow for Google's IAP range
+      so `gcloud compute ssh --tunnel-through-iap` works independently
+      of `tailscaled`'s health; a tailnet-only box whose Tailscale
+      fails to start after reboot has no way in. Confirm the IAP range
+      from Google's current documentation, not from memory. **Then**
+      add `nftables` default-deny inbound, permitting loopback,
+      established, `tailscale0` and the IAP range: partly redundant
       with a correct VPC rule, which is the point - it is the layer
       that survives someone loosening the other. **Patching**:
       `unattended-upgrades` for security updates, since a long-lived
