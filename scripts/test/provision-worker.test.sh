@@ -5,6 +5,8 @@
 # Run: bash scripts/test/provision-worker.test.sh
 set -uo pipefail
 SCRIPT="$(git rev-parse --show-toplevel)/scripts/provision-worker.sh"
+# VM-side subcommands live in the counterpart script, split by execution context.
+VMSCRIPT="$(git rev-parse --show-toplevel)/scripts/worker-setup.sh"
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
@@ -121,7 +123,7 @@ rm -rf "$r"
 
 # --- baseline: host preparation, composed on the VM --------------------------
 
-baseline() { env PATH=/usr/bin:/bin "$@" bash "$SCRIPT" baseline --dry-run 2>&1; }
+baseline() { env PATH=/usr/bin:/bin "$@" bash "$VMSCRIPT" baseline --dry-run 2>&1; }
 
 # 10. dry run names every package and change the host needs
 out=$(baseline)
@@ -143,7 +145,7 @@ cat > "$r/bin/apt-get" <<EOF
 printf '%s\\n' "\$*" >> "$r/calls"
 EOF
 chmod +x "$r/bin/apt-get"
-env PATH="$r/bin:/usr/bin:/bin" bash "$SCRIPT" baseline --dry-run >/dev/null 2>&1
+env PATH="$r/bin:/usr/bin:/bin" bash "$VMSCRIPT" baseline --dry-run >/dev/null 2>&1
 [ ! -s "$r/calls" ] && pass "baseline dry run installs nothing" \
   || die "baseline dry run called apt: $(cat "$r/calls")"
 rm -rf "$r"
@@ -162,7 +164,7 @@ rm -f "$mi"
 
 # --- harden: host surface, and the firewall that must not lock us out -------
 
-harden()   { env PATH=/usr/bin:/bin "$@" bash "$SCRIPT" harden --dry-run 2>&1; }
+harden()   { env PATH=/usr/bin:/bin "$@" bash "$VMSCRIPT" harden --dry-run 2>&1; }
 firewall() { env PATH=/usr/bin:/bin "$@" bash "$SCRIPT" firewall --dry-run 2>&1; }
 
 # 14. harden names each surface the inventory actually found on the host
@@ -178,7 +180,7 @@ done
 r=$(mktemp -d); mkdir -p "$r/bin"
 printf '#!/usr/bin/env bash\nprintf "%%s\\n" "$*" >> %s/calls\n' "$r" > "$r/bin/apt-get"
 chmod +x "$r/bin/apt-get"
-env PATH="$r/bin:/usr/bin:/bin" bash "$SCRIPT" harden --dry-run >/dev/null 2>&1
+env PATH="$r/bin:/usr/bin:/bin" bash "$VMSCRIPT" harden --dry-run >/dev/null 2>&1
 [ ! -s "$r/calls" ] && pass "harden dry run changes nothing" || die "harden dry run ran apt"
 rm -rf "$r"
 
@@ -204,5 +206,28 @@ deny_p=$(grep -o 'priority=[0-9]*' <<<"$out" | tail -1 | cut -d= -f2)
 [ ! -s "$r/calls" ] && pass "firewall dry run creates nothing" \
   || die "firewall dry run called gcloud: $(cat "$r/calls")"
 rm -rf "$r"
+
+# --- keys: one per forge, generated on the VM --------------------------------
+
+keys() { env PATH=/usr/bin:/bin "$@" bash "$VMSCRIPT" keys --dry-run 2>&1; }
+
+# 19. dry run names both forges, the algorithm, and the config it writes
+out=$(keys)
+miss=""
+for f in "ed25519" "github.com" "gl.wallarm.com" "~/.ssh/config" "no passphrase"; do
+  grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
+done
+[ -z "$miss" ] && pass "keys dry run names both forges" || die "keys missing:$miss"
+
+# 20. separate keys per forge - one key reused across both means revoking
+#     access to either revokes both
+grep -q 'id_ed25519_github' <<<"$out" && grep -q 'id_ed25519_gitlab' <<<"$out" \
+  && pass "a distinct key per forge" || die "keys not separated: $out"
+
+# 21. dry run writes nothing
+h=$(mktemp -d)
+env PATH=/usr/bin:/bin HOME="$h" bash "$VMSCRIPT" keys --dry-run >/dev/null 2>&1
+[ ! -e "$h/.ssh" ] && pass "keys dry run writes nothing" || die "keys dry run wrote to ~/.ssh"
+rm -rf "$h"
 
 exit $fail

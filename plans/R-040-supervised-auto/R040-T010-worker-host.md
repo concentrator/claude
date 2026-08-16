@@ -149,7 +149,7 @@ missing is reported as absent, never printed.
       single-purpose worker). Acceptance is the inventory re-run -
       `ss -tulpn` shows nothing on a public interface that the item
       does not name.
-- [ ] SSH keys, one per host. Generate separate ed25519 keys for GitHub
+- [x] SSH keys, one per host. Generate separate ed25519 keys for GitHub
       and GitLab with no passphrase (a worker cannot answer a prompt),
       write a matching `~/.ssh/config` stanza per host, and print the
       public halves for the operator to install. Verify each with
