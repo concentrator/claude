@@ -267,6 +267,18 @@ claude_install() {
   command -v claude >/dev/null 2>&1 || curl -fsSL https://claude.ai/install.sh | bash
   local c; c=$(command -v claude 2>/dev/null || echo "$HOME/.local/bin/claude")
   [ -x "$c" ] || { printf 'claude-install: not found after install\n' >&2; return 1; }
+
+  # The installer puts claude in ~/.local/bin and adds it to an interactive
+  # profile. Debian's ~/.bashrc returns before that on a non-interactive shell,
+  # which is precisely how a supervisor dispatches (`ssh host command`), so the
+  # binary would be invisible exactly where it is needed. Export it above the
+  # interactivity guard.
+  if ! grep -q 'claude-worker PATH' "$HOME/.bashrc" 2>/dev/null; then
+    printf '%s\n%s\n' '# claude-worker PATH - before the non-interactive guard below' \
+      'case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) PATH="$HOME/.local/bin:$PATH" ;; esac' \
+      | cat - "$HOME/.bashrc" > "$HOME/.bashrc.new" && mv "$HOME/.bashrc.new" "$HOME/.bashrc"
+  fi
+
   printf 'claude: %s (%s)\n' "$c" "$("$c" --version 2>&1 | head -1)"
   printf 'claude: authenticate by running `claude` once and completing SSO\n'
 }

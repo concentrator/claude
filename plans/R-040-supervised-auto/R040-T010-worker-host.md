@@ -176,7 +176,7 @@ missing is reported as absent, never printed.
       `gl.wallarm.com` resolve and answer? That is the test the plan has
       deferred since it could not be run from a laptop, and its answer
       decides whether the clone step depends on the tailnet at all.
-- [ ] Install the Claude Code client and start its authentication. Same
+- [x] Install the Claude Code client and start its authentication. Same
       shape: install, then an SSO handoff the operator completes in a
       browser. Verify with `claude --version` **from a non-interactive
       shell** - the gcloud trap applies identically here, where an installer
