@@ -1,6 +1,6 @@
 # R040-T010 findings
 
-- [ ] **Tailscale is not required for the worker to reach the GitLab.** The
+- [x] **Tailscale is not required for the worker to reach the GitLab.** The
       plan installed it on the stated premise that it provides egress to an
       internal GitLab. Measured on the VM once the tunnel was authenticated:
       with the tailnet **up**, `gl.wallarm.com` resolves to `34.39.72.42` and
@@ -17,8 +17,11 @@
       services, or for a future project whose host is genuinely private. It
       is a reason to stop describing it as the GitLab's access path, which
       `supervise.md` and this task's own preamble both do.
-      Needs the operator's decision: keep it installed for future use, or
-      drop it from the worker's provisioning as unnecessary weight.
+      Operator decision: removed. Purged from the host and dropped from the
+      provisioning script, and `gl.wallarm.com` still answers on 22 with the
+      package gone - so the result holds under removal, not merely under
+      `tailscale down`. If a future project's host is genuinely private, this
+      comes back as its own item rather than as an assumption.
 
 - [x] First contact with any new remote needs a retry, not a verdict. The
       first IAP connection after instance creation failed with exit 255

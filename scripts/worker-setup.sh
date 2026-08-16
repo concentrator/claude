@@ -68,7 +68,7 @@ harden() {
     "apt-get purge -y exim4* (listens on 127.0.0.1:25 for cron mail; nothing here sends mail)"
     "disable LLMNR in systemd-resolved (0.0.0.0:5355, the only all-interface listener besides sshd)"
     "sshd: PasswordAuthentication no, PermitRootLogin no, asserted not assumed"
-    "apt-get install -y nftables, default-deny inbound except loopback, established, tailscale0 and IAP"
+    "apt-get install -y nftables, default-deny inbound except loopback, established and SSH"
     "apt-get install -y unattended-upgrades for security patches"
     "re-run ss -tulpn: nothing public may remain that this list does not name"
   )
@@ -111,47 +111,7 @@ NFT
   set +e
   printf 'harden: done\n'
 }
-# Runs ON the VM. Installs Tailscale and starts login, then stops: `tailscale
-# up` cannot complete unattended, it emits an SSO URL a human opens. The run
-# pauses there by design rather than reporting a success it has not reached.
-tailscale_install() {
-  local dry=0
-  [ "${1:-}" = "--dry-run" ] && dry=1
-  if [ "$dry" -eq 1 ]; then
-    printf 'tailscale-install would:\n'
-    printf '  - add the tailscale apt repository and install tailscale\n'
-    printf '  - systemctl enable --now tailscaled so it survives reboot\n'
-    printf '  - run tailscale up, print the SSO URL, and PAUSE for the operator\n'
-    printf '    to open it in a browser; this step cannot finish unattended\n'
-    printf '  - tailscale-status then reports whether a tailnet address exists\n'
-    return 0
-  fi
-
-  if ! command -v tailscale >/dev/null 2>&1; then
-    curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg \
-      | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
-    curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list \
-      | sudo tee /etc/apt/sources.list.d/tailscale.list >/dev/null
-    sudo apt-get update -qq && sudo apt-get install -y -qq tailscale
-  fi
-  sudo systemctl enable --now tailscaled >/dev/null 2>&1
-
-  if tailscale status >/dev/null 2>&1; then
-    printf 'tailscale: already authenticated - %s\n' "$(tailscale ip -4 2>/dev/null | head -1)"
-    return 0
-  fi
-  printf 'tailscale: starting login, open the URL below in a browser\n'
-  sudo timeout 45 tailscale up 2>&1 | grep -Eo 'https://login\.tailscale\.com[^ ]*' | head -1
-  printf 'tailscale: PAUSED - run tailscale-status once you have authenticated\n'
-}
-
-tailscale_status() {
-  local ip; ip=$(tailscale ip -4 2>/dev/null | head -1)
-  [ -n "$ip" ] && printf 'tailscale: up, tailnet address %s\n' "$ip" \
-    || { printf 'tailscale: no tailnet address yet\n' >&2; return 1; }
-}
-
-# Runs ON the VM. Same shape as Tailscale: install, then an SSO handoff.
+# Runs ON the VM. Install, then an SSO handoff the operator completes.
 claude_install() {
   local dry=0
   [ "${1:-}" = "--dry-run" ] && dry=1
@@ -189,10 +149,8 @@ main() {
   case "${1:-}" in
     baseline)          shift; baseline "$@" ;;
     harden)            shift; harden "$@" ;;
-    tailscale-install) shift; tailscale_install "$@" ;;
-    tailscale-status)  tailscale_status ;;
     claude-install)    shift; claude_install "$@" ;;
-    *) printf 'usage: worker-setup.sh baseline | harden | tailscale-install | claude-install [--dry-run] | tailscale-status\n' >&2; return 2 ;;
+    *) printf 'usage: worker-setup.sh baseline | harden | claude-install [--dry-run]\n' >&2; return 2 ;;
   esac
 }
 

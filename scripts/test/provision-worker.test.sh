@@ -209,23 +209,9 @@ deny_p=$(grep -o 'priority=[0-9]*' <<<"$out" | tail -1 | cut -d= -f2)
   || die "firewall dry run called gcloud: $(cat "$r/calls")"
 rm -rf "$r"
 
-# --- tailscale + claude: install, then hand the SSO step back ---------------
+# --- claude install: the SSO handoff and the PATH trap ----------------------
 
-ts() { env PATH=/usr/bin:/bin "$@" bash "$VMSCRIPT" tailscale-install --dry-run 2>&1; }
 cc() { env PATH=/usr/bin:/bin "$@" bash "$VMSCRIPT" claude-install --dry-run 2>&1; }
-
-# 25. tailscale install names the repo, the boot-persistence, and the handoff
-out=$(ts)
-miss=""
-for f in "tailscale" "systemctl enable" "tailscale up" "browser"; do
-  grep -qiF -- "$f" <<<"$out" || miss="$miss [$f]"
-done
-[ -z "$miss" ] && pass "tailscale install names repo, boot and handoff" || die "tailscale missing:$miss"
-
-# 26. it must not claim completion it cannot reach - SSO needs a human, so the
-#     dry run has to say the run pauses rather than finishes
-grep -qiE 'operator|pause|stop|hand' <<<"$out" && pass "tailscale defers to the operator" \
-  || die "tailscale implies unattended completion: $out"
 
 # 27. claude install verifies from a non-interactive shell, the context that
 #     caught gcloud out
@@ -233,11 +219,10 @@ out=$(cc)
 grep -qiF 'non-interactive' <<<"$out" && grep -qF 'claude --version' <<<"$out" \
   && pass "claude verified non-interactively" || die "claude verify weak: $out"
 
-# 28. neither dry run installs anything
+# 28. the dry run installs nothing
 r=$(mktemp -d); mkdir -p "$r/bin"
 printf '#!/usr/bin/env bash\nprintf "%%s\\n" "$*" >> %s/calls\n' "$r" > "$r/bin/apt-get"
 chmod +x "$r/bin/apt-get"
-env PATH="$r/bin:/usr/bin:/bin" bash "$VMSCRIPT" tailscale-install --dry-run >/dev/null 2>&1
 env PATH="$r/bin:/usr/bin:/bin" bash "$VMSCRIPT" claude-install --dry-run >/dev/null 2>&1
 [ ! -s "$r/calls" ] && pass "install dry runs change nothing" || die "dry run ran apt"
 rm -rf "$r"
