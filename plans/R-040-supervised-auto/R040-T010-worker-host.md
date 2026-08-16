@@ -38,8 +38,11 @@ missing is reported as absent, never printed.
       dated artifacts (findings files, `approved:` and `status:` stamps)
       drift a day in UTC. Create a swapfile sized to RAM - on a 2 GB box
       a long-lived session meeting the OOM killer mid-batch is the
-      failure mode. Idempotent: prove it by running twice and showing
-      the second run changes nothing.
+      failure mode. Create `/opt/wallarm` as the projects root and chown
+      it to the worker user - it needs root to create and the worker
+      must own it, so it belongs here rather than in the clone step
+      where sudo would be a surprise. Idempotent: prove it by running
+      twice and showing the second run changes nothing.
 - [ ] SSH keys, one per host. Generate separate ed25519 keys for GitHub
       and GitLab with no passphrase (a worker cannot answer a prompt),
       write a matching `~/.ssh/config` stanza per host, and print the
@@ -63,11 +66,13 @@ missing is reported as absent, never printed.
       omits personal convention rules. Restore
       `git config core.hooksPath .githooks`, which clone does not carry,
       and prove the pre-push hook fires rather than assuming it.
-- [ ] Clone a target project with its sibling repos adjacent, then
-      `npm ci` and run its declared gate. Adjacency is a hard
-      requirement, not a convenience: `attack-checker`'s `package.json`
-      names `"wallarm-api-js": "file:../wallarm-api-js"`, so `npm ci`
-      fails outright if the sibling is absent. Running the project's own
+- [ ] Clone a target project into `/opt/wallarm` with its sibling repos
+      adjacent, then `npm ci` and run its declared gate. Adjacency is a
+      hard requirement, not a convenience: `attack-checker`'s
+      `package.json` names `"wallarm-api-js": "file:../wallarm-api-js"`,
+      so `npm ci` fails outright if the sibling is absent - under this
+      root that resolves to `/opt/wallarm/attack-checker` beside
+      `/opt/wallarm/wallarm-api-js`. Running the project's own
       gate is the acceptance evidence - a host that cannot execute the
       gate cannot deliver a batch, and finding that out here is cheaper
       than finding it at a checkpoint.
@@ -76,10 +81,14 @@ missing is reported as absent, never printed.
       allowlist at all - and that file is exactly what keeps a worker
       from stalling on a permission prompt. Provision it from a
       template carrying the auto-permissions rules plus the project's
-      declared toolchain commands. Verify by running a command the
-      allowlist covers and observing no prompt; an unprompted success
-      is the only evidence that distinguishes a placed file from a
-      missing one.
+      declared toolchain commands. The template is already
+      path-parameterized - `companions/auto-permissions.template.json`
+      uses `__PROJECT_DIR__` and `__HOME__` - so substitution yields
+      `/opt/wallarm/<project>` paths with no hand-editing; a rule
+      carrying a laptop path is the defect to watch for. Verify by
+      running a command the allowlist covers and observing no prompt;
+      an unprompted success is the only evidence that distinguishes a
+      placed file from a missing one.
 - [ ] `skills/worker-host/SKILL.md`, wrapping the sequence. States the
       order, which steps the script performs and which the operator
       must do in a browser (Tailscale, Claude Code), and the

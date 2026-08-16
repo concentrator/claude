@@ -27,7 +27,8 @@ composite (`R040-T###`, counter scoped to this initiative).
   timezone; SSH keys for both hosts; `glab` and `gh` authenticated
   from a gitignored `.env`; this repo cloned as the worker's
   `~/.claude` with `core.hooksPath` restored; target projects cloned
-  with their sibling repos adjacent and their gates proven to run; and
+  into `/opt/wallarm` with their sibling repos adjacent and their gates
+  proven to run; and
   each project's `settings.local.json` placed, since it is gitignored
   and does not travel with a clone. Tailscale and Claude Code
   authenticate by SSO and stay human-in-the-loop. Supports both
