@@ -6,6 +6,19 @@ existing gates, merge or escalate. The supervisor never implements,
 never edits plans or its own bounds, and never bypasses host gates (no
 admin merges).
 
+**Never run git in a worker's working tree.** Absolute, not a caution:
+a caution did not prevent this, and the damage is silent when it
+happens. Under the local transport the supervisor and its worker share
+one checkout, so any command that moves HEAD, creates a branch, stages,
+stashes or checks out there acts on whatever the worker left. Inspect
+read-only through explicit refs - `git -C <repo> show <ref>:<path>`,
+`git -C <repo> log <ref>` - and nothing else. When the supervisor must
+author plan artifacts in an adopter repo, it takes its own worktree or
+waits for the worker to report idle, and cuts branches as
+`git switch -c <name> origin/main`; the bare `-c` form inherits the
+current HEAD, which is how a plan branch acquires a worker's unmerged
+commits and carries them to trunk on merge.
+
 ## Resolve
 
 1. **Projects** - bare inside a repo: that project. Repo-less: every
