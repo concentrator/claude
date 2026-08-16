@@ -105,4 +105,29 @@ grep -qiE 'adjacent|sibling|file:\.\.' <<<"$out" && pass "adjacency stated as a 
 grep -qiE 'gate|npm test|lint' <<<"$out" && pass "gate run is the acceptance" \
   || die "no gate verification planned: $out"
 
+# --- settings: the allowlist that does not travel with a clone --------------
+
+setl() { env PATH=/usr/bin:/bin "$@" bash "$WSSCRIPT" settings --dry-run 2>&1; }
+
+# 13. names the template, the substitutions and the target
+out=$(setl)
+miss=""
+for f in "auto-permissions.template.json" "__PROJECT_DIR__" "__HOME__" \
+         "__ARTIFACTS_ROOT__" ".claude/settings.local.json"; do
+  grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
+done
+[ -z "$miss" ] && pass "settings names template, substitutions and target" || die "settings missing:$miss"
+
+# 14. the push carve-out must cover task-branch prefixes, not just batch/* -
+#     batch-only stalls every manual /dev code branch at push time
+grep -qF -- 'git push -u origin doc/*' <<<"$out" && pass "carve-out covers task branches" \
+  || die "push carve-out is batch-shaped: $out"
+
+# 15. dry run writes no settings file
+h=$(mktemp -d); mkdir -p "$h/proj/.claude"
+env PATH=/usr/bin:/bin HOME="$h" WORKER_PROJECT_DIR="$h/proj" bash "$WSSCRIPT" settings --dry-run >/dev/null 2>&1
+[ ! -f "$h/proj/.claude/settings.local.json" ] && pass "settings dry run writes nothing" \
+  || die "dry run wrote settings.local.json"
+rm -rf "$h"
+
 exit $fail

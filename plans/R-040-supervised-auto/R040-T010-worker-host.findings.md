@@ -30,3 +30,40 @@
       accepted; the second printed both identities. Both are the same shape,
       and `verify_iap` already retries three times for this reason - worth
       the same treatment anywhere a first connection gates a later step.
+
+- [ ] **`settings.local.json` contributes less than the plan assumed, and its
+      acceptance test could not be made to discriminate.** The plan calls it
+      "exactly what keeps a worker from stalling". On this host it mostly is
+      not: the config repo's own `~/.claude/settings.json`, which arrives with
+      the config clone, already grants `Bash(git:*)`, `grep`, `sed`, `jq`,
+      `mkdir` and more, and the project's tracked `.claude/settings.json` adds
+      npm, node and glab. Three attempts to prove the local file was doing
+      work all failed: `npm run lint` is granted by the project's own
+      settings; an `Edit` in the repo is refused by the branch guard because
+      the checkout sits on `main`, denied identically with and without the
+      file; and `git switch -c` succeeds either way under the global
+      `Bash(git:*)`.
+      What the local file does add here is the **deny** pair - it narrows the
+      template's blanket `Bash(git push:*)` deny to default-branch and force
+      pushes - plus project-scoped `Read`/`Edit` paths. Deny beats allow
+      across tiers, so those rules are load-bearing even where the allows are
+      redundant. A test proving that would have to attempt a push to `main`,
+      which is not worth staging on a live repo to satisfy a check.
+      Two things follow. The item's stated acceptance - "run a command the
+      allowlist covers and observe no prompt" - cannot distinguish a placed
+      file from a missing one on a host whose global config is this broad, so
+      it is not the evidence it claims to be. And the global grant deserves
+      review on its own: `Bash(git:*)` in the shared config is wider than the
+      per-project templates assume, which is why the narrower local deny
+      matters more than any allow.
+
+- [x] **An untrusted workspace silently drops allow entries.** Running Claude
+      in the freshly cloned project printed "Ignoring 8 permissions.allow
+      entries from .claude/settings.json: this workspace has not been
+      trusted". Those entries are dropped, not queued - on an unattended
+      worker that reads as a permission failure nobody can answer. The flag
+      lives in `~/.claude.json` under `projects[<dir>].hasTrustDialogAccepted`,
+      outside the project, so it arrives with neither the clone nor the
+      settings file. `settings` now sets it, and the warning is gone on
+      re-run. This one did discriminate: the message was present before and
+      absent after.

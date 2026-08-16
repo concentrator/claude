@@ -201,7 +201,7 @@ missing is reported as absent, never printed.
       gate is the acceptance evidence - a host that cannot execute the
       gate cannot deliver a batch, and finding that out here is cheaper
       than finding it at a checkpoint.
-- [ ] Place each project's `.claude/settings.local.json`. It is
+- [x] Place each project's `.claude/settings.local.json`. It is
       gitignored (`*.local.json`), so a fresh clone arrives with no
       allowlist at all - and that file is exactly what keeps a worker
       from stalling on a permission prompt. Provision it from a
