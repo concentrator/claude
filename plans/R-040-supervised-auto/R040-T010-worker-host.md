@@ -65,7 +65,7 @@ missing is reported as absent, never printed.
       answering is the check; absolute-path invocation then works for
       auth and config too, which live under `~/.config/gcloud` and
       never depended on `PATH`.
-- [ ] Deploy the instance, from the operator's machine. A
+- [x] Deploy the instance, from the operator's machine. A
       `gcloud compute instances create` wrapper, values as variables
       with these defaults, each verified against the project rather
       than assumed:

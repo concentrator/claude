@@ -69,4 +69,54 @@ out=$(preflight WORKER_SDK_ROOTS="$r")
   && pass "broken SDK fails despite being present" || die "broken SDK passed: $out"
 rm -rf "$r"
 
+# --- deploy: command assembly (no GCP contact) -------------------------------
+
+# A fake SDK whose gcloud records every invocation, so a case can assert both
+# what was assembled and whether anything ran at all.
+mkrecorder() {
+  local d; d=$(mktemp -d); mkdir -p "$d/bin"
+  cat > "$d/bin/gcloud" <<EOF
+#!/usr/bin/env bash
+[ "\${1:-}" = version ] && { echo "Google Cloud SDK 580.0.0"; exit 0; }
+printf '%s\n' "\$*" >> "$d/calls"
+exit 0
+EOF
+  chmod +x "$d/bin/gcloud"; printf '%s' "$d"
+}
+
+deploy() { env PATH=/usr/bin:/bin "$@" bash "$SCRIPT" deploy --dry-run 2>&1; }
+
+# 6. dry run assembles every verified parameter
+r=$(mkrecorder)
+out=$(deploy WORKER_SDK_ROOTS="$r")
+miss=""
+for f in "--project=poc-cloud-nodes" "--zone=europe-west2-a" \
+         "--machine-type=e2-standard-4" "--image-family=debian-13" \
+         "--image-project=debian-cloud" "--boot-disk-size=30GB" \
+         "--boot-disk-type=pd-balanced" "--no-service-account" "--no-scopes" \
+         "--tags=claude-worker" "serial-port-enable=TRUE" "enable-oslogin=TRUE"; do
+  grep -qF -- "$f" <<<"$out" || miss="$miss $f"
+done
+[ -z "$miss" ] && pass "dry run assembles the verified parameters" \
+  || die "dry run missing:$miss"
+
+# 7. dry run never invokes gcloud for the create - it prints only
+[ ! -s "$r/calls" ] && pass "dry run runs no create" \
+  || die "dry run invoked gcloud: $(cat "$r/calls")"
+rm -rf "$r"
+
+# 8. never provisions Spot or preemptible - a preempted worker loses its run
+r=$(mkrecorder)
+out=$(deploy WORKER_SDK_ROOTS="$r")
+grep -qiE 'spot|preemptible' <<<"$out" \
+  && die "dry run offers a preemptible instance" || pass "no Spot or preemptible"
+rm -rf "$r"
+
+# 9. overrides win over the defaults
+r=$(mkrecorder)
+out=$(deploy WORKER_SDK_ROOTS="$r" WORKER_ZONE=europe-west2-c WORKER_NAME=w2)
+grep -qF -- "--zone=europe-west2-c" <<<"$out" && grep -qF -- " w2 " <<<" $out " \
+  && pass "overrides win over defaults" || die "overrides ignored: $out"
+rm -rf "$r"
+
 exit $fail
