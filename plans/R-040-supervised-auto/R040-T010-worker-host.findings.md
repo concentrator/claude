@@ -67,3 +67,23 @@
       settings file. `settings` now sets it, and the warning is gone on
       re-run. This one did discriminate: the message was present before and
       absent after.
+
+- [x] **`glab auth status` is the wrong unit to verify with.** It checks every
+      configured GitLab instance and fails if any one does, so on this worker
+      it reported "could not authenticate to one or more of the configured
+      GitLab instances" while real calls to `gl.wallarm.com` succeeded - a
+      false negative that cost a debugging round. Replaced with
+      `glab api user --hostname gl.wallarm.com`, which is scoped to the
+      instance in question and returns the identity, so it also catches a
+      token that authenticates as the wrong account. Same shape as every
+      other unit mismatch this initiative has produced: the check answered a
+      broader question than the one asked.
+
+- [x] **An item marked done without being run was the one that did not work.**
+      `forge-cli` was written, tested against fakes, and marked `[x]` on the
+      strength of that, because `.env` was not yet on the host. Neither CLI
+      was installed. It was the only item in this task not executed against
+      the real host, and the only one that turned out to be broken - the
+      function also refused to install anything when `.env` was absent,
+      conflating installation with authentication, so it would never have
+      worked on a fresh box. Caught by the operator, not by the plan.

@@ -5,13 +5,15 @@
 # Run: bash scripts/test/worker-workspace.test.sh
 set -uo pipefail
 WSSCRIPT="$(git rev-parse --show-toplevel)/scripts/worker-workspace.sh"
+# Credentials live in their own script - the surface a mistake leaks.
+CRSCRIPT="$(git rev-parse --show-toplevel)/scripts/worker-credentials.sh"
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 
 # --- keys: one per forge, generated on the VM --------------------------------
 
-keys() { env PATH=/usr/bin:/bin "$@" bash "$WSSCRIPT" keys --dry-run 2>&1; }
+keys() { env PATH=/usr/bin:/bin "$@" bash "$CRSCRIPT" keys --dry-run 2>&1; }
 
 # 19. dry run names both forges, the algorithm, and the config it writes
 out=$(keys)
@@ -28,13 +30,13 @@ grep -q 'id_ed25519_github' <<<"$out" && grep -q 'id_ed25519_gitlab' <<<"$out" \
 
 # 21. dry run writes nothing
 h=$(mktemp -d)
-env PATH=/usr/bin:/bin HOME="$h" bash "$WSSCRIPT" keys --dry-run >/dev/null 2>&1
+env PATH=/usr/bin:/bin HOME="$h" bash "$CRSCRIPT" keys --dry-run >/dev/null 2>&1
 [ ! -e "$h/.ssh" ] && pass "keys dry run writes nothing" || die "keys dry run wrote to ~/.ssh"
 rm -rf "$h"
 
 # --- forge CLIs: installed on the VM, authenticated from a gitignored .env ---
 
-forge() { env PATH=/usr/bin:/bin "$@" bash "$WSSCRIPT" forge-cli --dry-run 2>&1; }
+forge() { env PATH=/usr/bin:/bin "$@" bash "$CRSCRIPT" forge-cli --dry-run 2>&1; }
 
 # 22. dry run names both CLIs and where the tokens come from
 out=$(forge)
@@ -48,14 +50,14 @@ done
 #     not echo them, since this output lands in transcripts and shell history
 h=$(mktemp -d); mkdir -p "$h/.claude"
 printf 'GITLAB_TOKEN=fixtureleakcanary\nGITHUB_TOKEN=fixtureleakcanary\n' > "$h/.claude/.env"
-out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$WSSCRIPT" forge-cli --dry-run 2>&1)
+out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$CRSCRIPT" forge-cli --dry-run 2>&1)
 grep -q 'fixtureleakcanary' <<<"$out" && die "forge-cli echoed a token value" \
   || pass "token values never printed"
 
 # 24. a missing GitHub token is reported, not fatal - a worker delivering only
 #     GitLab work never needs one
 printf 'GITLAB_TOKEN=fixtureleakcanary\n' > "$h/.claude/.env"
-out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$WSSCRIPT" forge-cli --dry-run 2>&1)
+out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$CRSCRIPT" forge-cli --dry-run 2>&1)
 [ $? -eq 0 ] && grep -qi 'github' <<<"$out" \
   && pass "absent GitHub token reported, not fatal" || die "missing token mishandled: $out"
 rm -rf "$h"
