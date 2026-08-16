@@ -164,6 +164,25 @@ missing is reported as absent, never printed.
       `gh auth status`. Missing `GITHUB_TOKEN` is not an error - a
       worker delivering only GitLab projects never needs it - so report
       it as absent and continue, naming what it would unlock.
+- [x] Install Tailscale and start its authentication. From the official
+      repository, `systemctl enable tailscaled` so it survives reboot, then
+      `tailscale up` - which cannot complete unattended: it emits an SSO URL
+      the operator opens in a browser. Surface that URL and stop; do not
+      pretend to have finished. A separate check reports whether the node has
+      a tailnet address yet, so the operator can resume the run once they
+      have clicked through.
+      Then settle what Tailscale actually buys, which no earlier item could:
+      from the VM, with the tailnet up and again with it down, does
+      `gl.wallarm.com` resolve and answer? That is the test the plan has
+      deferred since it could not be run from a laptop, and its answer
+      decides whether the clone step depends on the tailnet at all.
+- [ ] Install the Claude Code client and start its authentication. Same
+      shape: install, then an SSO handoff the operator completes in a
+      browser. Verify with `claude --version` **from a non-interactive
+      shell** - the gcloud trap applies identically here, where an installer
+      that only edits an interactive rc leaves the binary invisible to the
+      context a supervisor dispatches into, and the failure reads as "not
+      installed" rather than "not on this PATH".
 - [ ] Clone this repo as the worker's `~/.claude`. It carries
       `CLAUDE.md`, `rules/`, `skills/`, `agents/`, `hooks/` and
       `settings.json` while ignoring all harness state, so the worker

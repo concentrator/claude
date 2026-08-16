@@ -209,14 +209,79 @@ forge_cli() {
   fi
 }
 
+# Runs ON the VM. Installs Tailscale and starts login, then stops: `tailscale
+# up` cannot complete unattended, it emits an SSO URL a human opens. The run
+# pauses there by design rather than reporting a success it has not reached.
+tailscale_install() {
+  local dry=0
+  [ "${1:-}" = "--dry-run" ] && dry=1
+  if [ "$dry" -eq 1 ]; then
+    printf 'tailscale-install would:\n'
+    printf '  - add the tailscale apt repository and install tailscale\n'
+    printf '  - systemctl enable --now tailscaled so it survives reboot\n'
+    printf '  - run tailscale up, print the SSO URL, and PAUSE for the operator\n'
+    printf '    to open it in a browser; this step cannot finish unattended\n'
+    printf '  - tailscale-status then reports whether a tailnet address exists\n'
+    return 0
+  fi
+
+  if ! command -v tailscale >/dev/null 2>&1; then
+    curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.noarmor.gpg \
+      | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg >/dev/null
+    curl -fsSL https://pkgs.tailscale.com/stable/debian/trixie.tailscale-keyring.list \
+      | sudo tee /etc/apt/sources.list.d/tailscale.list >/dev/null
+    sudo apt-get update -qq && sudo apt-get install -y -qq tailscale
+  fi
+  sudo systemctl enable --now tailscaled >/dev/null 2>&1
+
+  if tailscale status >/dev/null 2>&1; then
+    printf 'tailscale: already authenticated - %s\n' "$(tailscale ip -4 2>/dev/null | head -1)"
+    return 0
+  fi
+  printf 'tailscale: starting login, open the URL below in a browser\n'
+  sudo timeout 45 tailscale up 2>&1 | grep -Eo 'https://login\.tailscale\.com[^ ]*' | head -1
+  printf 'tailscale: PAUSED - run tailscale-status once you have authenticated\n'
+}
+
+tailscale_status() {
+  local ip; ip=$(tailscale ip -4 2>/dev/null | head -1)
+  [ -n "$ip" ] && printf 'tailscale: up, tailnet address %s\n' "$ip" \
+    || { printf 'tailscale: no tailnet address yet\n' >&2; return 1; }
+}
+
+# Runs ON the VM. Same shape as Tailscale: install, then an SSO handoff.
+claude_install() {
+  local dry=0
+  [ "${1:-}" = "--dry-run" ] && dry=1
+  if [ "$dry" -eq 1 ]; then
+    printf 'claude-install would:\n'
+    printf '  - install the Claude Code client\n'
+    printf '  - verify with claude --version from a non-interactive shell, the\n'
+    printf '    context a supervisor dispatches into; an installer that edits\n'
+    printf '    only an interactive rc leaves it invisible there, and the\n'
+    printf '    failure reads as "not installed" rather than "not on PATH"\n'
+    printf '  - start SSO login and PAUSE for the operator to complete it\n'
+    return 0
+  fi
+
+  command -v claude >/dev/null 2>&1 || curl -fsSL https://claude.ai/install.sh | bash
+  local c; c=$(command -v claude 2>/dev/null || echo "$HOME/.local/bin/claude")
+  [ -x "$c" ] || { printf 'claude-install: not found after install\n' >&2; return 1; }
+  printf 'claude: %s (%s)\n' "$c" "$("$c" --version 2>&1 | head -1)"
+  printf 'claude: authenticate by running `claude` once and completing SSO\n'
+}
+
 main() {
   case "${1:-}" in
+    tailscale-install) shift; tailscale_install "$@" ;;
+    tailscale-status)  tailscale_status ;;
+    claude-install)    shift; claude_install "$@" ;;
     forge-cli)   shift; forge_cli "$@" ;;
     baseline)    shift; baseline "$@" ;;
     harden)      shift; harden "$@" ;;
     keys)        shift; keys "$@" ;;
     keys-verify) keys_verify ;;
-    *) printf 'usage: worker-setup.sh baseline | harden | keys | forge-cli [--dry-run] | keys-verify\n' >&2; return 2 ;;
+    *) printf 'usage: worker-setup.sh baseline|harden|keys|forge-cli|tailscale-install|claude-install [--dry-run] | keys-verify | tailscale-status\n' >&2; return 2 ;;
   esac
 }
 
