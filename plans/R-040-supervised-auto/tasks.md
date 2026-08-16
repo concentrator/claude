@@ -40,7 +40,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   real task's batch in attack-checker end to end on the same machine,
   user only at sync points; findings feed a fix round before the
   initiative closes. `depends-on: R040-T004`
-- [ ] **R040-T007 [fix]**: supervisor operational discipline in
+- [x] **R040-T007 [fix]**: supervisor operational discipline in
   `supervise.md` - the supervisor never runs a git command that moves
   HEAD or creates a branch in a worker's working tree, and
   `§ Boundary verification` gains the batch-ref check, which detects

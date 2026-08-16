@@ -27,7 +27,7 @@ never implements and never edits plans, and says nothing at all about
 the working tree - while the local transport puts supervisor and worker
 in the same checkout by default.
 
-- [ ] State the worktree rule as an absolute, not a caution. The
+- [x] State the worktree rule as an absolute, not a caution. The
       supervisor performs read-only inspection through explicit refs
       (`git -C <repo> show <ref>:<path>`, `git -C <repo> log`) and never
       runs a command that moves HEAD, creates a branch, stages, stashes
@@ -38,13 +38,13 @@ in the same checkout by default.
       inherits whatever HEAD happens to be. Say why in one line: a
       caution did not stop this, and the failure is silent at the time
       it happens.
-- [ ] Add the batch-ref check to `§ Boundary verification`. A
+- [x] Add the batch-ref check to `§ Boundary verification`. A
       `batch/R<NNN>-B-XXX` still pointing at its `pre-R<NNN>-B-XXX`
       anchor while the member work is complete means the member branch
       never merged into it, so delivery went somewhere else. That was
       true throughout stage 2 and nobody looked. It costs one
       `git log -1` and it catches the failure above, so it belongs
       beside the report and gate checks rather than in prose.
-- [ ] Complete the branch: `bash scripts/ci/run-all.sh` green, then mark
+- [x] Complete the branch: `bash scripts/ci/run-all.sh` green, then mark
       this plan's checkboxes and commit. Closure is checkbox-only.
       R040-T007 does not close R-040.
