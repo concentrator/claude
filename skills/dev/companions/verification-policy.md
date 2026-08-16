@@ -117,6 +117,24 @@ relax independence - whoever authored the thing does not also certify
 that its run passed, and that holds beyond docs: code, plans, and
 gates alike.
 
+**A run must be able to fail.** An execution whose inputs cannot
+distinguish the claimed behavior from its fallback is a demonstration,
+not a verification, and it certifies nothing. Choose inputs that would
+have produced a different result had the claim been wrong: a cell
+claiming a cache carries certain keys is not verified by a
+hand-written cache containing them, and a default-valued config proves
+nothing about a row describing the default. Where the discriminating
+run is impossible, say so and mark the claim from-spec rather than
+running something easier and calling it verified.
+
+**A check must count the unit it claims to check.** An exemption drawn
+per file does not exempt an entry; a count taken per line does not
+count occurrences; a grep that skips a file reports the same silence
+as a grep that found nothing. Each of those passes its own execution
+while answering a question other than the one asked, so state the unit
+before trusting a green result, and prove a new check bites by making
+it fail on a known instance first.
+
 ## Verifier isolation
 
 A verifier probing repo-touching behavior (git, hooks, filesystem
@@ -151,6 +169,22 @@ present and the fix is cheap.
 | Branch-close review and batch full-diff review | Fable 5 (`fable`) |
 
 Effort: every role runs at the session `effortLevel` (§ Effort mechanics).
+
+**Capacity fallback.** A pinned model can be rate-limited, which is not
+a fact about the work. When a dispatch fails on capacity, fall back one
+row - `fable` roles to `opus`, `opus` roles to `sonnet` - and record the
+substitution in the batch report or branch findings: pinned model,
+substitute, reason. It is a documented degrade, not a decision to
+negotiate per batch, and not grounds to halt delivery.
+
+The record states what the substitution costs, because that differs by
+work. Where acceptance is independently pinned by deterministic gates,
+a review only has to catch plan-versus-diff divergence and the
+substitution is cheap. Where the gates cannot see the claim being made -
+authored prose, a documented behaviour, anything a green suite would
+pass either way - the reviewer's judgment is the whole check and the
+substitution is the larger call. Do not carry a rationale from one to
+the other; they are different bets.
 
 **Routing:** the controller picks the implementer row deterministically -
 mechanical predicate true → Mechanical-commit row (`sonnet`); plan item

@@ -58,7 +58,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   task branch at push time. Name the manual-branch class or exclude
   it, but stop leaving a supervisor to reason it out per merge.
   `depends-on: R040-T006`
-- [ ] **R040-T009 [doc]**: verification that can fail - the pilot's
+- [x] **R040-T009 [doc]**: verification that can fail - the pilot's
   central result, spread across four texts. `verification-policy.md
   § Models` gains a capacity fallback so a rate limit degrades on a
   documented path instead of escalating; the same file gains the
