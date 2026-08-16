@@ -6,6 +6,19 @@ existing gates, merge or escalate. The supervisor never implements,
 never edits plans or its own bounds, and never bypasses host gates (no
 admin merges).
 
+**Never run git in a worker's working tree.** Absolute, not a caution:
+a caution did not prevent this, and the damage is silent when it
+happens. Under the local transport the supervisor and its worker share
+one checkout, so any command that moves HEAD, creates a branch, stages,
+stashes or checks out there acts on whatever the worker left. Inspect
+read-only through explicit refs - `git -C <repo> show <ref>:<path>`,
+`git -C <repo> log <ref>` - and nothing else. When the supervisor must
+author plan artifacts in an adopter repo, it takes its own worktree or
+waits for the worker to report idle, and cuts branches as
+`git switch -c <name> origin/main`; the bare `-c` form inherits the
+current HEAD, which is how a plan branch acquires a worker's unmerged
+commits and carries them to trunk on merge.
+
 ## Resolve
 
 1. **Projects** - bare inside a repo: that project. Repo-less: every
@@ -74,9 +87,15 @@ At a checkpoint, before any merge:
 
 1. `B-XXX.report.md` exists - no report, no accept (`auto.md`).
 2. The report verifies each member's acceptance criteria.
-3. Project gates are green: declared test/lint plus CI on the MR/PR
+3. `batch/R<NNN>-B-XXX` has moved off `pre-R<NNN>-B-XXX`. One
+   `git log -1` on each. Still equal while the member work is
+   complete means no member branch ever merged in, so the work
+   travelled some other route - and every gate that route skipped is
+   unrun. Check it before the gates below, because a green pipeline on
+   the wrong branch proves nothing about what reached trunk.
+4. Project gates are green: declared test/lint plus CI on the MR/PR
    (declared state-check command).
-4. A batch closing an R does **not** carry the closure and archival
+5. A batch closing an R does **not** carry the closure and archival
    marks - they ride a close-out plan MR/PR (`plan/r<NNN>-close`)
    opened after the batch MR/PR merges (`branch-plan.md § Batches`).
    Verify that the batch left them alone and that the close-out is
