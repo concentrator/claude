@@ -112,9 +112,19 @@ changed claims, checked against their sources by the close review
 `agents/code-reviewer.md`; auto mode: the batch-close full-diff pass);
 `docs/` feature docs - every claim, via the dedicated per-claim pass:
 
+- Read the doc's `§ Parameters` preamble before its table. A doc that
+  restates or narrows the provenance vocabulary has rewritten the
+  standard it is about to be judged against, and every cell will then
+  measure as compliant - one realigned doc defined `verified` as "a
+  cited test or a cited line of shipped source" and marked four cells
+  verified on source reading alone. The definitions are
+  `layout.md § Docs`'s and a doc may not restate them; a doc that does
+  is WRONG at the preamble before any cell is checked.
 - Per-claim verdict: **VERIFIED** (confirmed live), **DOCS**
   (authoritative source cited), **WRONG**, or **UNPROVEN**. A claim with
-  no evidence is UNPROVEN, never VERIFIED.
+  no evidence is UNPROVEN, never VERIFIED. VERIFIED needs a run that
+  could have failed: inputs value-identical to the fallback demonstrate
+  nothing (`verification-policy.md § Verification modality`).
 - Every WRONG is corrected before completion.
 - Every UNPROVEN is resolved to VERIFIED/DOCS, or explicitly marked in
   the doc as unverified / expert-needed - never asserted as fact.
