@@ -87,9 +87,15 @@ At a checkpoint, before any merge:
 
 1. `B-XXX.report.md` exists - no report, no accept (`auto.md`).
 2. The report verifies each member's acceptance criteria.
-3. Project gates are green: declared test/lint plus CI on the MR/PR
+3. `batch/R<NNN>-B-XXX` has moved off `pre-R<NNN>-B-XXX`. One
+   `git log -1` on each. Still equal while the member work is
+   complete means no member branch ever merged in, so the work
+   travelled some other route - and every gate that route skipped is
+   unrun. Check it before the gates below, because a green pipeline on
+   the wrong branch proves nothing about what reached trunk.
+4. Project gates are green: declared test/lint plus CI on the MR/PR
    (declared state-check command).
-4. A batch closing an R does **not** carry the closure and archival
+5. A batch closing an R does **not** carry the closure and archival
    marks - they ride a close-out plan MR/PR (`plan/r<NNN>-close`)
    opened after the batch MR/PR merges (`branch-plan.md § Batches`).
    Verify that the batch left them alone and that the close-out is
