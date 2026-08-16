@@ -83,4 +83,26 @@ h=$(mktemp -d); mkdir -p "$h/.claude"
 env PATH=/usr/bin:/bin HOME="$h" bash "$WSSCRIPT" config-clone --dry-run >/dev/null 2>&1
 [ ! -d "$h/.claude/.git" ] && pass "config-clone dry run creates no repo" || die "dry run made a repo"
 
+# --- project clone: into /opt/wallarm, siblings adjacent --------------------
+
+proj() { env PATH=/usr/bin:/bin "$@" bash "$WSSCRIPT" project-clone --dry-run 2>&1; }
+
+# 10. names the root, the project and the sibling it cannot build without
+out=$(proj)
+miss=""
+for f in "/opt/wallarm" "attack-checker" "wallarm-api-js" "npm ci"; do
+  grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
+done
+[ -z "$miss" ] && pass "project-clone names root, project and sibling" || die "project-clone missing:$miss"
+
+# 11. the sibling is not optional - file:../wallarm-api-js means npm ci fails
+#     outright without it, so the dry run must say so rather than list it as
+#     one repo among several
+grep -qiE 'adjacent|sibling|file:\.\.' <<<"$out" && pass "adjacency stated as a requirement" \
+  || die "adjacency not explained: $out"
+
+# 12. running the project's own gate is the acceptance, not the clone
+grep -qiE 'gate|npm test|lint' <<<"$out" && pass "gate run is the acceptance" \
+  || die "no gate verification planned: $out"
+
 exit $fail

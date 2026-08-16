@@ -191,7 +191,7 @@ missing is reported as absent, never printed.
       omits personal convention rules. Restore
       `git config core.hooksPath .githooks`, which clone does not carry,
       and prove the pre-push hook fires rather than assuming it.
-- [ ] Clone a target project into `/opt/wallarm` with its sibling repos
+- [x] Clone a target project into `/opt/wallarm` with its sibling repos
       adjacent, then `npm ci` and run its declared gate. Adjacency is a
       hard requirement, not a convenience: `attack-checker`'s
       `package.json` names `"wallarm-api-js": "file:../wallarm-api-js"`,

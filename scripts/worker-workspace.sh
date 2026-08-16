@@ -153,13 +153,58 @@ config_clone() {
     "$d" "$(git -C "$d" rev-parse --short HEAD)" "$hp"
 }
 
+# Runs ON the VM. Clones a project and the siblings it cannot build without,
+# into /opt/wallarm. Adjacency is a hard requirement rather than a
+# convenience: attack-checker's package.json names
+# "wallarm-api-js": "file:../wallarm-api-js", so npm ci fails outright if the
+# sibling is absent. Acceptance is the project's own gate running green - a
+# host that cannot execute the gate cannot deliver a batch, and finding that
+# out here costs less than finding it at a checkpoint.
+project_clone() {
+  local dry=0
+  [ "${1:-}" = "--dry-run" ] && dry=1
+  local root="${WORKER_PROJECTS_ROOT:-/opt/wallarm}"
+  local host="${WORKER_FORGE_HOST:-gl.wallarm.com}"
+  local proj="${WORKER_PROJECT_REPO:-support/attack-checker}"
+  local sib="${WORKER_SIBLING_REPO:-support/wallarm-api-js}"
+
+  if [ "$dry" -eq 1 ]; then
+    printf 'project-clone would:\n'
+    printf '  - clone git@%s:%s.git into %s/attack-checker\n' "$host" "$proj" "$root"
+    printf '  - clone git@%s:%s.git into %s/wallarm-api-js, adjacent - the\n' "$host" "$sib" "$root"
+    printf '    dependency is file:../wallarm-api-js, so npm ci fails without it\n'
+    printf '  - npm ci in the project\n'
+    printf '  - run the project gate (npm test, npm run lint) as the acceptance\n'
+    return 0
+  fi
+
+  mkdir -p "$root" || return 1
+  local name
+  for pair in "$proj" "$sib"; do
+    name=$(basename "$pair")
+    if [ -d "$root/$name/.git" ]; then
+      git -C "$root/$name" fetch -q origin 2>/dev/null
+    else
+      git clone -q "git@$host:$pair.git" "$root/$name" || { printf 'project-clone: clone failed for %s\n' "$pair" >&2; return 1; }
+    fi
+  done
+
+  ( cd "$root/$(basename "$proj")" && npm ci --silent ) || { printf 'project-clone: npm ci failed\n' >&2; return 1; }
+  printf 'project-clone: cloned, now running the project gate\n'
+  ( cd "$root/$(basename "$proj")" && npm test >/dev/null 2>&1 ) \
+    && printf 'project-clone: npm test green\n' || { printf 'project-clone: npm test FAILED\n' >&2; return 1; }
+  ( cd "$root/$(basename "$proj")" && npm run lint >/dev/null 2>&1 ) \
+    && printf 'project-clone: npm run lint clean\n' || { printf 'project-clone: lint FAILED\n' >&2; return 1; }
+}
+
 main() {
   case "${1:-}" in
+    project-clone) shift; project_clone "$@" ;;
     keys)         shift; keys "$@" ;;
     keys-verify)  keys_verify ;;
     forge-cli)    shift; forge_cli "$@" ;;
     config-clone) shift; config_clone "$@" ;;
-    *) printf 'usage: worker-workspace.sh keys | forge-cli | config-clone [--dry-run] | keys-verify\n' >&2; return 2 ;;
+    *) printf 'usage: worker-workspace.sh keys | forge-cli | config-clone | project-clone [--dry-run] | keys-verify\n' >&2; return 2 ;;
   esac
 }
 
