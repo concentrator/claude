@@ -97,7 +97,7 @@ missing is reported as absent, never printed.
       independently of Tailscale and of any later firewall change, so
       it is verified first rather than assumed, and nothing in the
       hardening step closes a door until it has answered.
-- [ ] `scripts/provision-worker.sh`, OS baseline. Debian 13: Node >= 22
+- [x] `scripts/provision-worker.sh`, OS baseline. Debian 13: Node >= 22
       from NodeSource (the distro package is older than
       `attack-checker`'s `engines` demands, so every gate fails without
       this), plus `jq`, `tmux`, `git`, `curl`, `ca-certificates`. Set

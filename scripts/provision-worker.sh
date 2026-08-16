@@ -93,11 +93,63 @@ deploy() {
   "$g" "${args[@]}" || return 1
 }
 
+# Runs ON the VM, not the operator's machine. Idempotent: every step is
+# guarded on its own outcome, so a second run changes nothing. Node comes from
+# NodeSource because trixie ships one older than the >=22 the projects
+# require, and a gate that cannot run is indistinguishable from a gate that
+# passes.
+baseline() {
+  local dry=0
+  [ "${1:-}" = "--dry-run" ] && dry=1
+
+  local mem_kb swap_mb
+  mem_kb=$(awk '/MemTotal/{print $2}' "${WORKER_MEMINFO:-/proc/meminfo}" 2>/dev/null || echo 0)
+  swap_mb=$(( mem_kb / 1024 ))
+  # OOM insurance for ~1 GB sessions, not hibernation: swap-equals-RAM put a
+  # 16 GB file on a 30 GB disk and left 11 GB for clones and node_modules.
+  [ "$swap_mb" -gt 4096 ] && swap_mb=4096
+  [ "$swap_mb" -lt 1024 ] && swap_mb=2048
+
+  local steps=(
+    "apt-get update"
+    "apt-get install -y jq tmux git curl ca-certificates"
+    "install Node >= 22 from NodeSource (deb.nodesource.com; trixie's nodejs is older)"
+    "timedatectl set-timezone ${WORKER_TZ:-Europe/London}"
+    "create /swapfile of ${swap_mb} MB if /proc/swaps lists none"
+    "mkdir -p /opt/wallarm and chown it to ${WORKER_USER:-$USER}"
+  )
+
+  if [ "$dry" -eq 1 ]; then
+    printf 'baseline would:\n'
+    printf '  - %s\n' "${steps[@]}"
+    return 0
+  fi
+
+  set -e
+  sudo apt-get update -qq
+  sudo apt-get install -y -qq jq tmux git curl ca-certificates
+  if ! command -v node >/dev/null 2>&1 || [ "$(node -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0)" -lt 22 ]; then
+    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+    sudo apt-get install -y -qq nodejs
+  fi
+  sudo timedatectl set-timezone "${WORKER_TZ:-Europe/London}"
+  if ! grep -q '/swapfile' /proc/swaps 2>/dev/null; then
+    sudo fallocate -l "${swap_mb}M" /swapfile
+    sudo chmod 600 /swapfile && sudo mkswap -q /swapfile && sudo swapon /swapfile
+    grep -q '/swapfile' /etc/fstab || echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab >/dev/null
+  fi
+  sudo mkdir -p /opt/wallarm
+  sudo chown "${WORKER_USER:-$USER}:$(id -gn "${WORKER_USER:-$USER}")" /opt/wallarm
+  set +e
+  printf 'baseline: done\n'
+}
+
 main() {
   case "${1:-}" in
     preflight) preflight ;;
     deploy)    shift; deploy "$@" ;;
-    *) printf 'usage: provision-worker.sh preflight | deploy [--dry-run]\n' >&2; return 2 ;;
+    baseline)  shift; baseline "$@" ;;
+    *) printf 'usage: provision-worker.sh preflight | deploy [--dry-run] | baseline [--dry-run]\n' >&2; return 2 ;;
   esac
 }
 

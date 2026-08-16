@@ -119,4 +119,45 @@ grep -qF -- "--zone=europe-west2-c" <<<"$out" && grep -qF -- " w2 " <<<" $out " 
   && pass "overrides win over defaults" || die "overrides ignored: $out"
 rm -rf "$r"
 
+# --- baseline: host preparation, composed on the VM --------------------------
+
+baseline() { env PATH=/usr/bin:/bin "$@" bash "$SCRIPT" baseline --dry-run 2>&1; }
+
+# 10. dry run names every package and change the host needs
+out=$(baseline)
+miss=""
+for f in "nodejs" "jq" "tmux" "git" "swapfile" "timedatectl" "/opt/wallarm"; do
+  grep -qF -- "$f" <<<"$out" || miss="$miss $f"
+done
+[ -z "$miss" ] && pass "baseline dry run names each change" || die "baseline missing:$miss"
+
+# 11. Node comes from NodeSource, not the distro - trixie ships one older than
+#     the >=22 the projects require
+grep -qi 'nodesource' <<<"$out" && pass "node installs from NodeSource" \
+  || die "no NodeSource in baseline: $out"
+
+# 12. dry run mutates nothing
+r=$(mktemp -d); mkdir -p "$r/bin"
+cat > "$r/bin/apt-get" <<EOF
+#!/usr/bin/env bash
+printf '%s\\n' "\$*" >> "$r/calls"
+EOF
+chmod +x "$r/bin/apt-get"
+env PATH="$r/bin:/usr/bin:/bin" bash "$SCRIPT" baseline --dry-run >/dev/null 2>&1
+[ ! -s "$r/calls" ] && pass "baseline dry run installs nothing" \
+  || die "baseline dry run called apt: $(cat "$r/calls")"
+rm -rf "$r"
+
+# 13. swap tracks memory but is capped - it is OOM insurance for ~1 GB
+#     sessions, not hibernation space, and an uncapped rule ate 16 GB of a
+#     30 GB disk on the real host
+mi=$(mktemp)
+printf 'MemTotal:        2097152 kB\n' > "$mi"; small=$(baseline WORKER_MEMINFO="$mi")
+printf 'MemTotal:       16777216 kB\n' > "$mi"; large=$(baseline WORKER_MEMINFO="$mi")
+grep -q '2048 MB' <<<"$small" && pass "swap tracks memory below the cap" \
+  || die "small host swap wrong: $(grep -o '[0-9]* MB' <<<"$small")"
+grep -q '4096 MB' <<<"$large" && pass "swap is capped on a large host" \
+  || die "large host swap uncapped: $(grep -o '[0-9]* MB' <<<"$large")"
+rm -f "$mi"
+
 exit $fail
