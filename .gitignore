@@ -40,3 +40,8 @@ skills/wallarm-*
 # OS
 .DS_Store
 supervisor/
+
+# Secrets - baseline requirement (layout.md § Baseline files)
+.env
+.env.*
+!.env.example
