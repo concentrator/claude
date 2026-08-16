@@ -21,9 +21,14 @@ composite (`R040-T###`, counter scoped to this initiative).
   per-project `transport:` switch in the portfolio (`local` default);
   the session-lifetime decision lands here.
   `depends-on: R040-T002, R040-T010`
-- [ ] **R040-T010 [feat]**: worker-host provisioning - a skill plus an
-  idempotent script that takes a bare Debian 13 VM to a state where a
-  worker session can run a batch: Node >= 22, `jq`, `tmux`, swap and
+- [ ] **R040-T010 [feat]**: worker-host deployment and provisioning - a
+  skill plus an idempotent script that creates a Debian 13 VM and takes
+  it to a state where a worker session can run a batch. Two execution
+  contexts: `gcloud compute instances create` runs on the operator's
+  machine, everything after runs on the VM. The instance carries an
+  external IP for egress with ingress denied, a firewall tag, and
+  serial-console metadata; IAP tunnel access is proven at creation time
+  as the break-glass everything later depends on. Then: Node >= 22, `jq`, `tmux`, swap and
   timezone; hardening before any credential lands (listening-socket
   inventory, `exim4` purged, key-only SSH, public ingress closed at the
   VPC so the box is reachable only over Tailscale, `nftables`

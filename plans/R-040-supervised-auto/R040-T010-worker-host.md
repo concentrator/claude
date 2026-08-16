@@ -6,10 +6,17 @@ depends-on: R040-T002
 
 Branch: `feat/worker-host`.
 
-Take a bare Debian 13 VM to a state where a worker session can run a
-batch unattended. Two artifacts: `scripts/provision-worker.sh` for the
-mechanical, idempotent parts, and `skills/worker-host/SKILL.md` for the
-sequence a human drives, including the steps that cannot be scripted.
+Create a worker host and take it to a state where a worker session can
+run a batch unattended. Two artifacts: `scripts/provision-worker.sh`
+for the mechanical, idempotent parts, and `skills/worker-host/SKILL.md`
+for the sequence a human drives, including the steps that cannot be
+scripted.
+
+**Two execution contexts, and the skill must not blur them.** Creating
+the instance runs on the operator's machine under their `gcloud`
+credentials; everything after runs on the VM. A step that assumes the
+wrong one fails confusingly - `gcloud` is not installed on the worker
+and does not need to be.
 
 **Measured sizing, so the skill states requirements rather than
 guesses.** A fresh Claude Code session peaks at 437 MB resident; sessions
@@ -40,6 +47,56 @@ attributes to the public internet what may have travelled the tunnel.
 them, never echoes them, and never takes one as an argument. Anything
 missing is reported as absent, never printed.
 
+- [ ] Preflight `gcloud` from a **non-interactive** shell, since that
+      is where the deploy step runs. Resolve the SDK rather than
+      trusting `PATH`: `command -v gcloud`, then `$CLOUDSDK_ROOT_DIR`,
+      then the standard roots (`~/google-cloud-sdk`,
+      `/opt/homebrew/share/google-cloud-sdk`,
+      `/usr/lib/google-cloud-sdk`), and fail naming what was searched.
+      A working install is routinely invisible here - the SDK's
+      `path.*.inc` is typically sourced from `.zshrc`, which loads for
+      interactive shells only, so the operator's own `gcloud` works
+      while an agent's does not.
+      Then **verify the resolved binary runs**, because presence is
+      not health and a stale copy can sit at a standard root: an SDK
+      predating Python 3.12 dies on `ModuleNotFoundError: No module
+      named 'imp'` against a current interpreter, while a current one
+      carries `bundled-python3-unix` and is immune. `gcloud version`
+      answering is the check; absolute-path invocation then works for
+      auth and config too, which live under `~/.config/gcloud` and
+      never depended on `PATH`.
+- [ ] Deploy the instance, from the operator's machine. A
+      `gcloud compute instances create` wrapper, values as variables
+      with these defaults, each verified against the project rather
+      than assumed:
+      `--project=poc-cloud-nodes`, `--zone=europe-west2-a`
+      (`gl.wallarm.com` at `34.39.72.42` sits in `34.39.0.0/17`, scope
+      `europe-west2`, per Google's published ranges - same region keeps
+      git round-trips short; the `default` network already has a
+      `10.154.0.0/20` subnet there, while every existing instance in
+      this project is in `us-central1`);
+      `--machine-type=e2-standard-4` (4 vCPU / 16 GB, confirmed
+      available in that zone - sized for three concurrent workers at
+      roughly 1 GB per session plus gates; `e2-medium` suffices for
+      one to two, and resizing is a stop-and-start);
+      `--image-family=debian-13 --image-project=debian-cloud`;
+      `--boot-disk-size=30GB --boot-disk-type=pd-balanced` (clones,
+      `node_modules` and transcripts; `pd-standard` starves on IOPS
+      during `npm ci`);
+      `--no-service-account --no-scopes` - the worker calls Anthropic,
+      GitHub and GitLab, none of them GCP APIs, and IAP authenticates
+      the client rather than the instance, so a machine holding forge
+      credentials gets no ambient Google identity;
+      `--tags=claude-worker` for the firewall rules to target;
+      `--metadata=serial-port-enable=TRUE,enable-oslogin=TRUE`;
+      an ephemeral external IP for egress; and explicitly **not**
+      Spot or preemptible, since a preempted worker loses its run.
+      **Acceptance is the break-glass, proven at creation time**:
+      `gcloud compute ssh --tunnel-through-iap` connects before
+      anything else is configured. That is the one path that must work
+      independently of Tailscale and of any later firewall change, so
+      it is verified first rather than assumed, and nothing in the
+      hardening step closes a door until it has answered.
 - [ ] `scripts/provision-worker.sh`, OS baseline. Debian 13: Node >= 22
       from NodeSource (the distro package is older than
       `attack-checker`'s `engines` demands, so every gate fails without
@@ -72,12 +129,14 @@ missing is reported as absent, never printed.
       and add a higher-priority deny for tcp:22 from `0.0.0.0/0`
       against that tag, rather than deleting a network-wide
       `default-allow-ssh` that other instances may rely on. Establish
-      the break-glass **first** - serial console access
-      (`serial-port-enable=TRUE`) and an allow for Google's IAP range
-      so `gcloud compute ssh --tunnel-through-iap` works independently
-      of `tailscaled`'s health; a tailnet-only box whose Tailscale
-      fails to start after reboot has no way in. Confirm the IAP range
-      from Google's current documentation, not from memory. **Then**
+      the break-glass **first** - the deploy step already proved IAP
+      connects and set `serial-port-enable=TRUE`, so this step adds the
+      firewall allow for Google's IAP range and re-verifies the tunnel
+      after each rule change rather than at the end. A tailnet-only box
+      whose Tailscale fails to start after reboot has no way in, and a
+      deny rule applied before the allow is tested produces exactly
+      that. Confirm the IAP range from Google's current documentation,
+      not from memory. **Then**
       add `nftables` default-deny inbound, permitting loopback,
       established, `tailscale0` and the IAP range: partly redundant
       with a correct VPC rule, which is the point - it is the layer
