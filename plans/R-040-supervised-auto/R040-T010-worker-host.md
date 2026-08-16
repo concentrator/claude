@@ -43,6 +43,31 @@ missing is reported as absent, never printed.
       must own it, so it belongs here rather than in the clone step
       where sudo would be a surprise. Idempotent: prove it by running
       twice and showing the second run changes nothing.
+- [ ] Harden the host, before any credential reaches it. This box will
+      hold SSH keys for two forges, two API tokens and a Claude Code
+      session; a compromise is push access to every repository the
+      operator owns, so the posture here is the repositories' posture.
+      **Inventory first**: `ss -tulpn` and justify or remove every
+      listening socket. Debian 13 ships `exim4` bound to 25 for cron
+      mail - purge it, nothing here sends mail. **SSH**: key-only
+      (`PasswordAuthentication no`), `PermitRootLogin no`, and assert
+      it rather than trusting the image default. **Reachability**: the
+      box is reached over Tailscale, so close public ingress at the
+      **VPC** firewall - a GCP project's default rules allow 22 from
+      anywhere, and removing that is worth more than any host-level
+      control. Verify from outside the tailnet that 22 no longer
+      answers. **Then** add `nftables` default-deny inbound, permitting
+      loopback, established, and `tailscale0` only: partly redundant
+      with a correct VPC rule, which is the point - it is the layer
+      that survives someone loosening the other. **Patching**:
+      `unattended-upgrades` for security updates, since a long-lived
+      box nobody logs into rots quietly.
+      Deliberately excluded, so it is a decision rather than an
+      oversight: `fail2ban` (pointless once SSH is not publicly
+      reachable) and benchmark-scale hardening (wrong cost for a
+      single-purpose worker). Acceptance is the inventory re-run -
+      `ss -tulpn` shows nothing on a public interface that the item
+      does not name.
 - [ ] SSH keys, one per host. Generate separate ed25519 keys for GitHub
       and GitLab with no passphrase (a worker cannot answer a prompt),
       write a matching `~/.ssh/config` stanza per host, and print the
