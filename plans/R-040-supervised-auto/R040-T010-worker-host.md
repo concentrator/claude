@@ -1,0 +1,97 @@
+---
+task: R040-T010
+type: feat
+depends-on: R040-T002
+---
+
+Branch: `feat/worker-host`.
+
+Take a bare Debian 13 VM to a state where a worker session can run a
+batch unattended. Two artifacts: `scripts/provision-worker.sh` for the
+mechanical, idempotent parts, and `skills/worker-host/SKILL.md` for the
+sequence a human drives, including the steps that cannot be scripted.
+
+**Measured sizing, so the skill states requirements rather than
+guesses.** A fresh Claude Code session peaks at 437 MB resident; sessions
+run for a day or two reach 827-943 MB, growing with transcript length.
+Subagents run in-process, so dispatching implementers grows that one
+number rather than adding processes. A project's full suite peaks near
+70 MB and uses about 2.5 cores' worth for a few seconds. One worker
+therefore wants 2 GB and 2 vCPU as a floor, 4 GB comfortably; the
+supervisor need not live on the host at all, being repo-less by design.
+
+**What cannot be scripted, and must be stated as such**: Tailscale and
+Claude Code both authenticate by SSO in a browser. The skill marks them
+human-in-the-loop with a verification command each, rather than
+pretending to automate them.
+
+**Secrets never pass through the agent.** Tokens live in a gitignored
+`~/.claude/.env` (ignored as of the baseline fix); the script reads
+them, never echoes them, and never takes one as an argument. Anything
+missing is reported as absent, never printed.
+
+- [ ] `scripts/provision-worker.sh`, OS baseline. Debian 13: Node >= 22
+      from NodeSource (the distro package is older than
+      `attack-checker`'s `engines` demands, so every gate fails without
+      this), plus `jq`, `tmux`, `git`, `curl`, `ca-certificates`. Set
+      the timezone from a variable defaulting to the operator's, since
+      dated artifacts (findings files, `approved:` and `status:` stamps)
+      drift a day in UTC. Create a swapfile sized to RAM - on a 2 GB box
+      a long-lived session meeting the OOM killer mid-batch is the
+      failure mode. Idempotent: prove it by running twice and showing
+      the second run changes nothing.
+- [ ] SSH keys, one per host. Generate separate ed25519 keys for GitHub
+      and GitLab with no passphrase (a worker cannot answer a prompt),
+      write a matching `~/.ssh/config` stanza per host, and print the
+      public halves for the operator to install. Verify each with
+      `ssh -T` and report the identity the host reports back - a key
+      that authenticates as the wrong account is the failure worth
+      catching here.
+- [ ] `glab` and `gh` installed and authenticated. Both are API-layer
+      only: git traffic runs over the SSH keys above, so these are
+      needed for MR/PR create, view and merge. Read `GITLAB_TOKEN` and
+      `GITHUB_TOKEN` from `~/.claude/.env`; authenticate non-
+      interactively; verify with `glab auth status` and
+      `gh auth status`. Missing `GITHUB_TOKEN` is not an error - a
+      worker delivering only GitLab projects never needs it - so report
+      it as absent and continue, naming what it would unlock.
+- [ ] Clone this repo as the worker's `~/.claude`. It carries
+      `CLAUDE.md`, `rules/`, `skills/`, `agents/`, `hooks/` and
+      `settings.json` while ignoring all harness state, so the worker
+      gets identical config to the operator's machine. Do not use
+      `install-dev.sh`: that targets adopter projects and deliberately
+      omits personal convention rules. Restore
+      `git config core.hooksPath .githooks`, which clone does not carry,
+      and prove the pre-push hook fires rather than assuming it.
+- [ ] Clone a target project with its sibling repos adjacent, then
+      `npm ci` and run its declared gate. Adjacency is a hard
+      requirement, not a convenience: `attack-checker`'s `package.json`
+      names `"wallarm-api-js": "file:../wallarm-api-js"`, so `npm ci`
+      fails outright if the sibling is absent. Running the project's own
+      gate is the acceptance evidence - a host that cannot execute the
+      gate cannot deliver a batch, and finding that out here is cheaper
+      than finding it at a checkpoint.
+- [ ] Place each project's `.claude/settings.local.json`. It is
+      gitignored (`*.local.json`), so a fresh clone arrives with no
+      allowlist at all - and that file is exactly what keeps a worker
+      from stalling on a permission prompt. Provision it from a
+      template carrying the auto-permissions rules plus the project's
+      declared toolchain commands. Verify by running a command the
+      allowlist covers and observing no prompt; an unprompted success
+      is the only evidence that distinguishes a placed file from a
+      missing one.
+- [ ] `skills/worker-host/SKILL.md`, wrapping the sequence. States the
+      order, which steps the script performs and which the operator
+      must do in a browser (Tailscale, Claude Code), and the
+      verification for each. Documents both session modes: `tmux` for
+      interactive work, and a headless launch path beside it - with the
+      limitation stated plainly, that a headless session is denied edits
+      under any `.claude/` path, so tasks touching guarded config
+      cannot be delivered headless. Note that the script is supervisor
+      infrastructure and stays out of `install-dev.sh`'s payload.
+- [ ] Mark `R040-T010` `[x]` in this R's `tasks.md`. The entry stays
+      under `## Open`; the mark takes effect at merge.
+- [ ] Complete the branch: `bash scripts/ci/run-all.sh` green, then mark
+      this plan's remaining checkboxes `[x]` and commit. Closure is
+      checkbox-only - no dated status prose. R040-T010 does not close
+      R-040; T003 depends on it and remains open.

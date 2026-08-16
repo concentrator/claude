@@ -20,7 +20,20 @@ composite (`R040-T###`, counter scoped to this initiative).
   sessions on the remote machine under declared permissions, plus the
   per-project `transport:` switch in the portfolio (`local` default);
   the session-lifetime decision lands here.
-  `depends-on: R040-T002`
+  `depends-on: R040-T002, R040-T010`
+- [ ] **R040-T010 [feat]**: worker-host provisioning - a skill plus an
+  idempotent script that takes a bare Debian 13 VM to a state where a
+  worker session can run a batch: Node >= 22, `jq`, `tmux`, swap and
+  timezone; SSH keys for both hosts; `glab` and `gh` authenticated
+  from a gitignored `.env`; this repo cloned as the worker's
+  `~/.claude` with `core.hooksPath` restored; target projects cloned
+  with their sibling repos adjacent and their gates proven to run; and
+  each project's `settings.local.json` placed, since it is gitignored
+  and does not travel with a clone. Tailscale and Claude Code
+  authenticate by SSO and stay human-in-the-loop. Supports both
+  session modes - tmux for interactive, a headless launch path beside
+  it - and states the headless protected-path limitation rather than
+  leaving it to be rediscovered. `depends-on: R040-T002`
 - [x] **R040-T004 [test]**: supervised pilot, stage 1 (local) - the
   attack-checker plans/docs migration batch, planned and stamped in
   that repo, dispatched and delivered supervised on the same machine;
