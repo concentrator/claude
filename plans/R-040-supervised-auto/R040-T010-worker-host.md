@@ -47,7 +47,7 @@ attributes to the public internet what may have travelled the tunnel.
 them, never echoes them, and never takes one as an argument. Anything
 missing is reported as absent, never printed.
 
-- [ ] Preflight `gcloud` from a **non-interactive** shell, since that
+- [x] Preflight `gcloud` from a **non-interactive** shell, since that
       is where the deploy step runs. Resolve the SDK rather than
       trusting `PATH`: `command -v gcloud`, then `$CLOUDSDK_ROOT_DIR`,
       then the standard roots (`~/google-cloud-sdk`,
