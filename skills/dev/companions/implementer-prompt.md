@@ -83,6 +83,18 @@ Task tool (general-purpose):
     on guarded `.claude/` paths stalls on a sensitive-file prompt that no
     permission rule clears.
 
+    ## Corrections Handed to You
+
+    A correction you are given - from a reviewer, the controller, or the
+    dispatch itself - is a claim, not an instruction. Verify it against the
+    source before applying it, at the specific line or behavior it names. If
+    it is wrong, say so and do not apply it; reporting back a correction you
+    judge wrong is expected work, not obstruction.
+
+    This is not hypothetical caution. Corrections arrive with authority, and
+    authority is exactly what stops the next reader from checking - which is
+    why a wrong one, applied deferentially, outlives the error it replaced.
+
     ## When You're in Over Your Head
 
     It is always OK to stop and say "this is too hard for me." Bad work is worse than
