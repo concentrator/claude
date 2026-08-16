@@ -50,12 +50,24 @@ it. Two working patterns:
    `.claude/settings.local.json`:
 
    ```json
-   "allow": ["Bash(git push -u origin batch/*)", "Bash(glab mr create:*)"],
+   "allow": ["Bash(git push -u origin batch/*)",
+             "Bash(git push -u origin doc/*)",
+             "Bash(git push -u origin feat/*)",
+             "Bash(git push -u origin fix/*)",
+             "Bash(git push -u origin refactor/*)",
+             "Bash(git push -u origin mnt/*)",
+             "Bash(git push -u origin test/*)",
+             "Bash(git push -u origin plan/*)",
+             "Bash(glab mr create:*)"],
    "deny":  ["Bash(git push origin <default>:*)", "Bash(git push --force:*)"]
    ```
 
    The deny shrinks from all-push to default-branch/force push; the
-   allow covers exactly the checkpoint command.
+   allow covers the push of any task branch, not only a batch. Cover
+   the prefixes the project actually uses (`git-workflow.md § Trunk`) -
+   `batch/*` alone stalls every manual `/dev code` branch at push time,
+   which is a prompt in the one place a supervised run cannot answer
+   one.
 
 2. **Keep the blanket deny** - checkpoint asks, the user approves the
    single `git push -u origin batch/R<NNN>-B-XXX` manually per batch.

@@ -51,7 +51,19 @@ over its intact refs. Never run two workers on one project.
 One headless worker session per project, under that project's declared
 transport and permissions - the pre-flight is `auto.md`'s. The worker
 runs the `/dev auto` engine on the scoped batch (a lone task is a
-batch of one). The supervisor passes ids only; workers read plans from
+batch of one).
+
+**When the scope is not a batch.** `§ Resolve` admits open tasks with
+stamped plans, and a task without a batch manifest is delivered
+manually: the worker runs `/dev code <slug>` and closes per
+`finish.md`, not the auto engine. Everything else here holds
+unchanged - ids only, questions to the supervisor, no merge by the
+worker. What differs is the evidence at the checkpoint: there is no
+`B-XXX.report.md`, so `finish.md § 1`'s verify set stands in its place
+(every plan checkbox `[x]`, findings file triaged, bookkeeping marks
+landed, close review run, tests and lint green). Verify that set from
+artifacts exactly as a report would be verified; a manual branch
+missing it is no more mergeable than a batch missing its report. The supervisor passes ids only; workers read plans from
 their repo - the supervisor never relays content; its ledgered
 question answers are the one exception. Workers never stall on
 permission prompts: the session starts under guaranteed prompt

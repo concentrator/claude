@@ -46,12 +46,19 @@ merge authority:
 
 No declaration = a read-only supervisor: it reports and escalates,
 answers nothing, merges nothing. The default grant, **batch-scoped
-delivery**, allows two merge classes and one decision class:
+delivery**, allows three merge classes and one decision class:
 
 - green `plan/` MR/PRs;
 - green batch/member MR/PRs whose checkpoint report verifies the
   task's acceptance criteria - the approved plan is the decision, the
   supervisor automates its delivery;
+- green task-branch MR/PRs from manual `/dev code` delivery, where
+  `finish.md § 1`'s verify set stands in for the checkpoint report:
+  every plan checkbox `[x]`, findings file triaged, bookkeeping marks
+  landed, close review run, tests and lint green. Same rationale, same
+  bar - the evidence is assembled from the branch's own artifacts
+  instead of a report, and its absence refuses the merge exactly as a
+  missing report does;
 - implementation-level resolutions of worker questions and queued
   judgment calls, each ledgered in the report's supervisor-decisions
   section.
