@@ -183,7 +183,7 @@ missing is reported as absent, never printed.
       that only edits an interactive rc leaves the binary invisible to the
       context a supervisor dispatches into, and the failure reads as "not
       installed" rather than "not on this PATH".
-- [ ] Clone this repo as the worker's `~/.claude`. It carries
+- [x] Clone this repo as the worker's `~/.claude`. It carries
       `CLAUDE.md`, `rules/`, `skills/`, `agents/`, `hooks/` and
       `settings.json` while ignoring all harness state, so the worker
       gets identical config to the operator's machine. Do not use

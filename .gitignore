@@ -48,3 +48,7 @@ supervisor/
 
 # Python bytecode from importing scripts/*.py
 __pycache__/
+
+# Claude Code credentials and local state (worker hosts make this dir a repo)
+.credentials.json
+downloads/
