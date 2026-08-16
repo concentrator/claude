@@ -230,4 +230,32 @@ env PATH=/usr/bin:/bin HOME="$h" bash "$VMSCRIPT" keys --dry-run >/dev/null 2>&1
 [ ! -e "$h/.ssh" ] && pass "keys dry run writes nothing" || die "keys dry run wrote to ~/.ssh"
 rm -rf "$h"
 
+# --- forge CLIs: installed on the VM, authenticated from a gitignored .env ---
+
+forge() { env PATH=/usr/bin:/bin "$@" bash "$VMSCRIPT" forge-cli --dry-run 2>&1; }
+
+# 22. dry run names both CLIs and where the tokens come from
+out=$(forge)
+miss=""
+for f in "glab" "gh" ".env" "GITLAB_TOKEN" "GITHUB_TOKEN"; do
+  grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
+done
+[ -z "$miss" ] && pass "forge-cli names both CLIs and the token source" || die "forge missing:$miss"
+
+# 23. a token value never appears in output - the script reads secrets but must
+#     not echo them, since this output lands in transcripts and shell history
+h=$(mktemp -d); mkdir -p "$h/.claude"
+printf 'GITLAB_TOKEN=fixtureleakcanary\nGITHUB_TOKEN=fixtureleakcanary\n' > "$h/.claude/.env"
+out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$VMSCRIPT" forge-cli --dry-run 2>&1)
+grep -q 'fixtureleakcanary' <<<"$out" && die "forge-cli echoed a token value" \
+  || pass "token values never printed"
+
+# 24. a missing GitHub token is reported, not fatal - a worker delivering only
+#     GitLab work never needs one
+printf 'GITLAB_TOKEN=fixtureleakcanary\n' > "$h/.claude/.env"
+out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$VMSCRIPT" forge-cli --dry-run 2>&1)
+[ $? -eq 0 ] && grep -qi 'github' <<<"$out" \
+  && pass "absent GitHub token reported, not fatal" || die "missing token mishandled: $out"
+rm -rf "$h"
+
 exit $fail

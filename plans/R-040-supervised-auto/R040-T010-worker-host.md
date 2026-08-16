@@ -156,7 +156,7 @@ missing is reported as absent, never printed.
       `ssh -T` and report the identity the host reports back - a key
       that authenticates as the wrong account is the failure worth
       catching here.
-- [ ] `glab` and `gh` installed and authenticated. Both are API-layer
+- [x] `glab` and `gh` installed and authenticated. Both are API-layer
       only: git traffic runs over the SSH keys above, so these are
       needed for MR/PR create, view and merge. Read `GITLAB_TOKEN` and
       `GITHUB_TOKEN` from `~/.claude/.env`; authenticate non-

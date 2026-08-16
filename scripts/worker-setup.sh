@@ -161,13 +161,62 @@ keys_verify() {
   done
 }
 
+# Runs ON the VM. Both CLIs are API-layer only: git traffic rides the SSH keys
+# above, so these exist for MR/PR create, view and merge. Tokens come from
+# ~/.claude/.env, which is gitignored and therefore does not arrive with the
+# config clone - the operator places it. Values are read, never echoed: this
+# output reaches transcripts and shell history.
+forge_cli() {
+  local dry=0
+  [ "${1:-}" = "--dry-run" ] && dry=1
+  local envf="$HOME/.claude/.env"
+
+  local have_gl=no have_gh=no
+  if [ -f "$envf" ]; then
+    grep -q '^GITLAB_TOKEN=' "$envf" && have_gl=yes
+    grep -q '^GITHUB_TOKEN=' "$envf" && have_gh=yes
+  fi
+
+  if [ "$dry" -eq 1 ]; then
+    printf 'forge-cli would:\n'
+    printf '  - install glab and gh (API layer only; git itself rides the SSH keys)\n'
+    printf '  - read GITLAB_TOKEN and GITHUB_TOKEN from %s (values never printed)\n' "$envf"
+    printf '  - glab auth login --stdin, then verify with glab auth status\n'
+    printf '  - gh auth login --with-token, then verify with gh auth status\n'
+    printf '  - token present: GITLAB_TOKEN=%s GITHUB_TOKEN=%s\n' "$have_gl" "$have_gh"
+    [ "$have_gh" = no ] && printf '  - note: no GITHUB_TOKEN. Not fatal - a worker delivering only GitLab\n    work never needs one; it gates gh pr create and merge.\n'
+    return 0
+  fi
+
+  [ -f "$envf" ] || { printf 'forge-cli: no %s - place it before authenticating\n' "$envf" >&2; return 1; }
+  set -a; . "$envf"; set +a
+
+  command -v glab >/dev/null 2>&1 || {
+    curl -fsSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository | sudo bash
+    sudo apt-get install -y -qq glab
+  }
+  command -v gh >/dev/null 2>&1 || sudo apt-get install -y -qq gh
+
+  if [ -n "${GITLAB_TOKEN:-}" ]; then
+    printf '%s' "$GITLAB_TOKEN" | glab auth login --hostname gl.wallarm.com --stdin >/dev/null 2>&1
+    glab auth status >/dev/null 2>&1 && printf 'glab: authenticated\n' || printf 'glab: NOT authenticated\n' >&2
+  fi
+  if [ -n "${GITHUB_TOKEN:-}" ]; then
+    printf '%s' "$GITHUB_TOKEN" | gh auth login --with-token >/dev/null 2>&1
+    gh auth status >/dev/null 2>&1 && printf 'gh: authenticated\n' || printf 'gh: NOT authenticated\n' >&2
+  else
+    printf 'gh: no GITHUB_TOKEN, skipped (only needed for toolset PRs)\n'
+  fi
+}
+
 main() {
   case "${1:-}" in
+    forge-cli)   shift; forge_cli "$@" ;;
     baseline)    shift; baseline "$@" ;;
     harden)      shift; harden "$@" ;;
     keys)        shift; keys "$@" ;;
     keys-verify) keys_verify ;;
-    *) printf 'usage: worker-setup.sh baseline | harden | keys [--dry-run] | keys-verify\n' >&2; return 2 ;;
+    *) printf 'usage: worker-setup.sh baseline | harden | keys | forge-cli [--dry-run] | keys-verify\n' >&2; return 2 ;;
   esac
 }
 
