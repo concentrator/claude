@@ -144,12 +144,120 @@ baseline() {
   printf 'baseline: done\n'
 }
 
+# Runs ON the VM. Targets are what the inventory actually found, not a
+# generic checklist: `ss -tulpn` on a fresh trixie image reported LLMNR on
+# 0.0.0.0:5355 (exposed on every interface) and exim4 on 127.0.0.1:25
+# (localhost only) - the opposite severity to what was assumed before looking.
+harden() {
+  local dry=0
+  [ "${1:-}" = "--dry-run" ] && dry=1
+
+  local steps=(
+    "apt-get purge -y exim4* (listens on 127.0.0.1:25 for cron mail; nothing here sends mail)"
+    "disable LLMNR in systemd-resolved (0.0.0.0:5355, the only all-interface listener besides sshd)"
+    "sshd: PasswordAuthentication no, PermitRootLogin no, asserted not assumed"
+    "apt-get install -y nftables, default-deny inbound except loopback, established, tailscale0 and IAP"
+    "apt-get install -y unattended-upgrades for security patches"
+    "re-run ss -tulpn: nothing public may remain that this list does not name"
+  )
+
+  if [ "$dry" -eq 1 ]; then
+    printf 'harden would:\n'; printf '  - %s\n' "${steps[@]}"; return 0
+  fi
+
+  set -e
+  sudo apt-get purge -y -qq 'exim4*' >/dev/null 2>&1 || true
+  sudo mkdir -p /etc/systemd/resolved.conf.d
+  printf '[Resolve]\nLLMNR=no\nMulticastDNS=no\n' | sudo tee /etc/systemd/resolved.conf.d/no-llmnr.conf >/dev/null
+  sudo systemctl restart systemd-resolved
+  sudo mkdir -p /etc/ssh/sshd_config.d
+  printf 'PasswordAuthentication no\nPermitRootLogin no\n' | sudo tee /etc/ssh/sshd_config.d/60-harden.conf >/dev/null
+  sudo systemctl reload ssh 2>/dev/null || sudo systemctl reload sshd
+  sudo apt-get install -y -qq unattended-upgrades nftables >/dev/null
+  # Host layer denies inbound except loopback, established and tcp:22. It does
+  # not restrict who may reach 22 - the VPC rules do that, and duplicating the
+  # source list here is how a remote box locks its operator out. This layer
+  # exists to survive someone loosening the VPC rule, not to replace it.
+  sudo tee /etc/nftables.conf >/dev/null <<'NFT'
+#!/usr/sbin/nft -f
+flush ruleset
+table inet filter {
+  chain input {
+    type filter hook input priority 0; policy drop;
+    iif lo accept
+    ct state established,related accept
+    ct state invalid drop
+    ip protocol icmp accept
+    tcp dport 22 accept
+  }
+  chain forward { type filter hook forward priority 0; policy drop; }
+  chain output  { type filter hook output  priority 0; policy accept; }
+}
+NFT
+  sudo nft -f /etc/nftables.conf
+  sudo systemctl enable --now nftables >/dev/null 2>&1
+  set +e
+  printf 'harden: done\n'
+}
+
+# Runs on the OPERATOR's machine. Order is the whole point: the IAP allow is
+# created and proven before the deny exists, and it outranks the deny by
+# priority number, because in GCP the lower number wins. The shared
+# default-allow-ssh is never touched - it carries 0.0.0.0/0 with no target
+# tags, so every other instance in the project, including two GKE clusters,
+# depends on it.
+firewall() {
+  local dry=0
+  [ "${1:-}" = "--dry-run" ] && dry=1
+  local g; g=$(resolve_gcloud) || return 1
+  local proj="${WORKER_PROJECT:-poc-cloud-nodes}"
+
+  local allow=( compute firewall-rules create claude-worker-allow-iap
+    --project="$proj" --direction=INGRESS --action=ALLOW --rules=tcp:22
+    --source-ranges=35.235.240.0/20 --target-tags=claude-worker --priority=900 )
+  local deny=( compute firewall-rules create claude-worker-deny-public-ssh
+    --project="$proj" --direction=INGRESS --action=DENY --rules=tcp:22
+    --source-ranges=0.0.0.0/0 --target-tags=claude-worker --priority=1000 )
+
+  if [ "$dry" -eq 1 ]; then
+    printf '%s %s\n' "$g" "${allow[*]}"
+    printf '%s %s\n' "$g" "${deny[*]}"
+    return 0
+  fi
+
+  # Create the allow, prove the tunnel through it, and only then deny the
+  # public. Verifying between the two is what makes this recoverable: if the
+  # IAP range were wrong, the check fails while 0.0.0.0/0 still admits us.
+  "$g" "${allow[@]}" || return 1
+  verify_iap "$g" || { printf 'firewall: IAP unverified after allow - deny NOT created\n' >&2; return 1; }
+  printf 'firewall: IAP verified through the allow rule\n'
+
+  "$g" "${deny[@]}" || return 1
+  verify_iap "$g" || { printf 'firewall: IAP BROKE after deny - use the serial console\n' >&2; return 1; }
+  printf 'firewall: public SSH denied, IAP still verified\n'
+}
+
+# One trivial command over the tunnel. First connections can fail while the
+# key propagates, so a single failure is not a verdict.
+verify_iap() {
+  local g="$1" i
+  for i in 1 2 3; do
+    "$g" compute ssh "${WORKER_NAME:-claude-worker}" \
+      --zone="${WORKER_ZONE:-europe-west2-a}" --project="${WORKER_PROJECT:-poc-cloud-nodes}" \
+      --tunnel-through-iap --quiet --command='true' >/dev/null 2>&1 && return 0
+    sleep 5
+  done
+  return 1
+}
+
 main() {
   case "${1:-}" in
     preflight) preflight ;;
     deploy)    shift; deploy "$@" ;;
     baseline)  shift; baseline "$@" ;;
-    *) printf 'usage: provision-worker.sh preflight | deploy [--dry-run] | baseline [--dry-run]\n' >&2; return 2 ;;
+    harden)    shift; harden "$@" ;;
+    firewall)  shift; firewall "$@" ;;
+    *) printf 'usage: provision-worker.sh preflight | deploy | baseline | harden | firewall [--dry-run]\n' >&2; return 2 ;;
   esac
 }
 

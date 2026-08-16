@@ -110,7 +110,7 @@ missing is reported as absent, never printed.
       must own it, so it belongs here rather than in the clone step
       where sudo would be a surprise. Idempotent: prove it by running
       twice and showing the second run changes nothing.
-- [ ] Harden the host, before any credential reaches it. This box will
+- [x] Harden the host, before any credential reaches it. This box will
       hold SSH keys for two forges, two API tokens and a Claude Code
       session; a compromise is push access to every repository the
       operator owns, so the posture here is the repositories' posture.

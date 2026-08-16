@@ -160,4 +160,49 @@ grep -q '4096 MB' <<<"$large" && pass "swap is capped on a large host" \
   || die "large host swap uncapped: $(grep -o '[0-9]* MB' <<<"$large")"
 rm -f "$mi"
 
+# --- harden: host surface, and the firewall that must not lock us out -------
+
+harden()   { env PATH=/usr/bin:/bin "$@" bash "$SCRIPT" harden --dry-run 2>&1; }
+firewall() { env PATH=/usr/bin:/bin "$@" bash "$SCRIPT" firewall --dry-run 2>&1; }
+
+# 14. harden names each surface the inventory actually found on the host
+out=$(harden)
+miss=""
+for f in "exim4" "5355" "PasswordAuthentication no" "PermitRootLogin no" \
+         "nftables" "unattended-upgrades"; do
+  grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
+done
+[ -z "$miss" ] && pass "harden names each found surface" || die "harden missing:$miss"
+
+# 15. harden dry run mutates nothing
+r=$(mktemp -d); mkdir -p "$r/bin"
+printf '#!/usr/bin/env bash\nprintf "%%s\\n" "$*" >> %s/calls\n' "$r" > "$r/bin/apt-get"
+chmod +x "$r/bin/apt-get"
+env PATH="$r/bin:/usr/bin:/bin" bash "$SCRIPT" harden --dry-run >/dev/null 2>&1
+[ ! -s "$r/calls" ] && pass "harden dry run changes nothing" || die "harden dry run ran apt"
+rm -rf "$r"
+
+# 16. firewall composes a tagged allow and a tagged deny, never touching the
+#     shared default-allow-ssh other instances in the project depend on
+r=$(mkrecorder); out=$(firewall WORKER_SDK_ROOTS="$r")
+grep -q 'target-tags=claude-worker' <<<"$out" \
+  && grep -q '35.235.240.0/20' <<<"$out" \
+  && grep -qE 'action=DENY|--action DENY|deny' <<<"$out" \
+  && ! grep -q 'firewall-rules delete' <<<"$out" \
+  && pass "firewall composes tagged allow and deny" || die "firewall composition wrong: $out"
+
+# 17. the IAP allow must outrank the deny. Lower number wins in GCP, so an
+#     allow numbered above the deny locks the operator out of their own box -
+#     the one ordering error this whole item exists to avoid.
+allow_p=$(grep -o 'priority=[0-9]*' <<<"$out" | head -1 | cut -d= -f2)
+deny_p=$(grep -o 'priority=[0-9]*' <<<"$out" | tail -1 | cut -d= -f2)
+[ -n "$allow_p" ] && [ -n "$deny_p" ] && [ "$allow_p" -lt "$deny_p" ] \
+  && pass "IAP allow outranks the deny" \
+  || die "priority order unsafe: allow=$allow_p deny=$deny_p"
+
+# 18. firewall dry run creates nothing
+[ ! -s "$r/calls" ] && pass "firewall dry run creates nothing" \
+  || die "firewall dry run called gcloud: $(cat "$r/calls")"
+rm -rf "$r"
+
 exit $fail
