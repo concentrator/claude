@@ -49,7 +49,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   branch tip as base and carried fourteen unreviewed commits to
   `main`, while the batch ref sat at its anchor the whole time saying
   so. `depends-on: R040-T006`
-- [ ] **R040-T008 [doc]**: supervision beyond `/dev auto` - three
+- [x] **R040-T008 [doc]**: supervision beyond `/dev auto` - three
   symptoms of one assumption. `supervise.md § Dispatch` describes only
   a worker running the auto engine on a stamped batch; the merge
   classes in `companions/declarations.md § Supervisor bounds` name
