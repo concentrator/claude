@@ -152,6 +152,22 @@ present and the fix is cheap.
 
 Effort: every role runs at the session `effortLevel` (§ Effort mechanics).
 
+**Capacity fallback.** A pinned model can be rate-limited, which is not
+a fact about the work. When a dispatch fails on capacity, fall back one
+row - `fable` roles to `opus`, `opus` roles to `sonnet` - and record the
+substitution in the batch report or branch findings: pinned model,
+substitute, reason. It is a documented degrade, not a decision to
+negotiate per batch, and not grounds to halt delivery.
+
+The record states what the substitution costs, because that differs by
+work. Where acceptance is independently pinned by deterministic gates,
+a review only has to catch plan-versus-diff divergence and the
+substitution is cheap. Where the gates cannot see the claim being made -
+authored prose, a documented behaviour, anything a green suite would
+pass either way - the reviewer's judgment is the whole check and the
+substitution is the larger call. Do not carry a rationale from one to
+the other; they are different bets.
+
 **Routing:** the controller picks the implementer row deterministically -
 mechanical predicate true → Mechanical-commit row (`sonnet`); plan item
 explicitly tagged `(judgment-heavy)` → Judgment-heavy row (`fable`);
