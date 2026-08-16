@@ -24,10 +24,14 @@ composite (`R040-T###`, counter scoped to this initiative).
 - [ ] **R040-T010 [feat]**: worker-host provisioning - a skill plus an
   idempotent script that takes a bare Debian 13 VM to a state where a
   worker session can run a batch: Node >= 22, `jq`, `tmux`, swap and
-  timezone; SSH keys for both hosts; `glab` and `gh` authenticated
+  timezone; hardening before any credential lands (listening-socket
+  inventory, `exim4` purged, key-only SSH, public ingress closed at the
+  VPC so the box is reachable only over Tailscale, `nftables`
+  default-deny, unattended security upgrades); SSH keys for both hosts; `glab` and `gh` authenticated
   from a gitignored `.env`; this repo cloned as the worker's
   `~/.claude` with `core.hooksPath` restored; target projects cloned
-  with their sibling repos adjacent and their gates proven to run; and
+  into `/opt/wallarm` with their sibling repos adjacent and their gates
+  proven to run; and
   each project's `settings.local.json` placed, since it is gitignored
   and does not travel with a clone. Tailscale and Claude Code
   authenticate by SSO and stay human-in-the-loop. Supports both
