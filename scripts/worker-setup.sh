@@ -53,8 +53,22 @@ baseline() {
   fi
   sudo mkdir -p /opt/wallarm
   sudo chown "${WORKER_USER:-$USER}:$(id -gn "${WORKER_USER:-$USER}")" /opt/wallarm
+
+  shell_comfort
   set +e
   printf 'baseline: done\n'
+}
+
+# Operator comfort on a box reached only over a tunnel. Appended, not
+# prepended: an alias is expanded only in interactive shells, unlike the PATH
+# and token exports that must sit above the non-interactive guard.
+shell_comfort() {
+  # Guard on our own marker, not on "alias ll=" - Debian ships that exact
+  # string commented out, so a generic grep reports success and adds nothing.
+  grep -q "claude-worker convenience" "$HOME/.bashrc" 2>/dev/null \
+    || printf '\n# claude-worker convenience\nalias ll="ls -lah"\n' >> "$HOME/.bashrc"
+  grep -q '^set mouse=r' "$HOME/.vimrc" 2>/dev/null \
+    || printf 'set mouse=r\n' >> "$HOME/.vimrc"
 }
 # Runs ON the VM. Targets are what the inventory actually found, not a
 # generic checklist: `ss -tulpn` on a fresh trixie image reported LLMNR on

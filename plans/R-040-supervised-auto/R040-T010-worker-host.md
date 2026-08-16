@@ -214,7 +214,7 @@ missing is reported as absent, never printed.
       running a command the allowlist covers and observing no prompt;
       an unprompted success is the only evidence that distinguishes a
       placed file from a missing one.
-- [ ] `skills/worker-host/SKILL.md`, wrapping the sequence. States the
+- [x] `skills/worker-host/SKILL.md`, wrapping the sequence. States the
       order, which steps the script performs and which the operator
       must do in a browser (Tailscale, Claude Code), and the
       verification for each. Documents both session modes: `tmux` for
