@@ -12,7 +12,7 @@ composite (`R050-T###`, counter scoped to this initiative).
   the baseline and makes the criteria below checkable on demand.
 - [ ] **R050-T002 [mnt]**: set `autoCompactWindow` in `settings.json`, and
   record the context budget in `DESIGN.md § Self-enforcement` beside the
-  two existing tiers. `depends-on: R050-T001`
+  two existing tiers. `depends-on: R050-T001, R050-T007`
 - [ ] **R050-T003 [feat]**: `hooks/dev-context-governor.sh` - advisory
   threshold notes on `PostToolBatch` for the main loop and for subagents
   (keyed on `agent_id`), and a new-unit note on `UserPromptSubmit`;
@@ -32,3 +32,7 @@ composite (`R050-T###`, counter scoped to this initiative).
   plus its test and a threshold calibrated against the corpus. Runs
   last; the trim candidate if the initiative runs long.
   `depends-on: R050-T001`
+- [ ] **R050-T007 [doc]**: `DESIGN.md` headroom for the initiative -
+  the file sits two words under its cap while T002, T003 and T006 each
+  need room in it. Trims restatement of facts owned elsewhere (R-039),
+  targeting 920 words. Runs first; T002 waits on it.
