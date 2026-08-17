@@ -45,3 +45,6 @@ supervisor/
 .env
 .env.*
 !.env.example
+
+# Python bytecode from importing scripts/*.py
+__pycache__/

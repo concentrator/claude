@@ -6,7 +6,7 @@ composite (`R050-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R050-T001 [feat]**: context-cost measurement tool plus its
+- [x] **R050-T001 [feat]**: context-cost measurement tool plus its
   `scripts/test/` case. Reports per-session billed context and its
   attribution by source from the transcript's usage records. Establishes
   the baseline and makes the criteria below checkable on demand.
