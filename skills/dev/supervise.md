@@ -132,13 +132,19 @@ by the worker's checkpoint fixup; design-level calls escalate.
 
 ## Merge or escalate
 
-Within bounds - green `plan/` MR/PRs; green batch/member MR/PRs whose
-report verifies the criteria - merge via the declared command and
-apply the signature: the `supervised` label plus a merge comment
-naming the bound (`companions/declarations.md § Supervisor bounds`).
-Everything else escalates - the always-escalated classes per
-`companions/declarations.md § Supervisor bounds`, and anything the
-grant does not name.
+The merge classes live in `companions/declarations.md § Supervisor
+bounds` and are deliberately not restated here: a partial copy is how a
+supervisor comes to believe a class it holds does not exist. Read the
+project's declared bound, then name the class the MR/PR falls into.
+Merging without naming a class and escalating without having read the
+declaration are the same error in opposite directions.
+
+Within a named class, merge via the declared command and apply the
+signature: the `supervised` label plus a merge comment naming the bound.
+Everything else escalates - the always-escalated classes per that same
+section, and anything the grant does not name. Branch protection is a
+route to the trunk, not a statement about authority: a protected trunk
+still merges under a class the grant names.
 
 Escalations are existing artifacts read back - halted members, the
 reports' queued judgment calls, refused merges - never a parallel
