@@ -34,7 +34,7 @@ USER = "user_turn"
 PREFIX = "static_prefix"
 SHRINK = "shrinkage"
 
-Call = collections.namedtuple("Call", "context output tool reset")
+Call = collections.namedtuple("Call", "context output tools reset")
 
 
 def billed(usage):
@@ -46,23 +46,27 @@ def billed(usage):
     ))
 
 
-def tool_of(message):
-    """The tool this assistant turn issued, or None if it ended the turn."""
-    for block in message.get("content") or []:
-        if isinstance(block, dict) and block.get("type") == "tool_use":
-            return block.get("name")
-    return None
+def tools_in(message):
+    """Names of the tools this record's content blocks invoke."""
+    return [block.get("name") for block in message.get("content") or []
+            if isinstance(block, dict) and block.get("type") == "tool_use"]
 
 
 def read_calls(path):
     """One Call per billed API call, in transcript order.
 
-    Skips every record that is not an assistant turn carrying usage: user
-    turns, tool results, and the assistant records the harness writes with
-    no usage block. A line that does not parse is skipped rather than
-    aborting the run, since a transcript being appended to can end mid-write.
+    The harness writes a separate record for each content block of one
+    assistant response, every copy repeating that response's identical usage
+    object, so records are grouped by message id. Counting records instead
+    would inflate every figure by the number of blocks per response.
+
+    Compaction is marked on a user record rather than an assistant one, so
+    the flag is read before the assistant filter and applied to the next
+    call. A line that does not parse is skipped rather than aborting the
+    run, since a transcript being appended to can end mid-write.
     """
-    calls = []
+    groups = {}
+    pending_reset = False
     with open(path, errors="replace") as handle:
         for line in handle:
             line = line.strip()
@@ -72,30 +76,34 @@ def read_calls(path):
                 record = json.loads(line)
             except ValueError:
                 continue
+            if record.get("isCompactSummary"):
+                pending_reset = True
             message = record.get("message")
             if record.get("type") != "assistant" or not isinstance(message, dict):
                 continue
             usage = message.get("usage")
             if not isinstance(usage, dict):
                 continue
-            calls.append(Call(
-                context=billed(usage),
-                output=usage.get("output_tokens", 0) or 0,
-                tool=tool_of(message),
-                reset=bool(record.get("isCompactSummary")),
-            ))
-    return calls
+            key = message.get("id") or f"anon:{len(groups)}"
+            if key not in groups:
+                groups[key] = {"usage": usage, "tools": [], "reset": pending_reset}
+                pending_reset = False
+            groups[key]["tools"].extend(tools_in(message))
+    return [Call(context=billed(g["usage"]),
+                 output=g["usage"].get("output_tokens", 0) or 0,
+                 tools=tuple(g["tools"]),
+                 reset=g["reset"]) for g in groups.values()]
 
 
 def segments(calls):
     """Index ranges between context resets, as half-open (start, end) pairs.
 
-    A reset is the harness's own isCompactSummary marker, or an unmarked
-    drop past a tenth of the preceding context. The fallback covers rewinds
-    and resumed sessions, which carry no marker. It is safe because the two
-    populations do not overlap: a real reset discards most of the window,
-    while the shrinkage from thinking blocks falling out at a turn boundary
-    is orders of magnitude smaller.
+    A reset is a compaction the harness marked, or an unmarked drop past a
+    tenth of the preceding context. The fallback covers rewinds and resumed
+    sessions, which carry no marker. It is safe because the two populations
+    do not overlap: a real reset discards most of the window, while the
+    shrinkage from thinking blocks falling out at a turn boundary is orders
+    of magnitude smaller.
     """
     start = 0
     for i in range(1, len(calls)):
@@ -104,6 +112,13 @@ def segments(calls):
             start = i
     if calls:
         yield start, len(calls)
+
+
+def split(total, parts):
+    """Integer split that preserves the sum: the first `total % parts` shares
+    take one extra token, so rounding never loses or invents one."""
+    base, extra = divmod(total, parts)
+    return [base + (1 if i < extra else 0) for i in range(parts)]
 
 
 def attribute(calls):
@@ -128,9 +143,16 @@ def attribute(calls):
             keep = min(calls[j].output, delta)
             turns[MODEL] += keep * remaining
             added[MODEL] += keep
-            source = f"result:{calls[j].tool}" if calls[j].tool else USER
-            turns[source] += (delta - keep) * remaining
-            added[source] += delta - keep
+            tools = calls[j].tools
+            if not tools:
+                turns[USER] += (delta - keep) * remaining
+                added[USER] += delta - keep
+                continue
+            # One response can issue several tools, and the record does not
+            # say how large each result was, so the payload splits evenly.
+            for tool, share in zip(tools, split(delta - keep, len(tools))):
+                turns[f"result:{tool}"] += share * remaining
+                added[f"result:{tool}"] += share
     return added, turns
 
 
@@ -188,9 +210,29 @@ def projects_root():
 
 
 def recent_sessions(count):
-    """The count most recently written session transcripts, newest first."""
-    paths = glob.glob(os.path.join(projects_root(), "*", "*.jsonl"))
-    return sorted(paths, key=os.path.getmtime, reverse=True)[:count]
+    """The count most recently written session transcripts, newest first.
+
+    A file rotated away between the glob and the stat is skipped, so a long
+    scan is not aborted by a session ending underneath it.
+    """
+    stamped = []
+    for path in glob.glob(os.path.join(projects_root(), "*", "*.jsonl")):
+        try:
+            stamped.append((os.path.getmtime(path), path))
+        except OSError:
+            continue
+    return [path for _, path in sorted(stamped, reverse=True)[:count]]
+
+
+def dedupe(paths):
+    """Same session named twice reports once, keeping the form first given."""
+    seen, unique = set(), []
+    for path in paths:
+        key = os.path.abspath(path)
+        if key not in seen:
+            seen.add(key)
+            unique.append(path)
+    return unique
 
 
 def parse_args(argv):
@@ -201,13 +243,15 @@ def parse_args(argv):
     parser.add_argument("--last", type=int, metavar="N",
                         help="report the N most recently written sessions")
     args = parser.parse_args(argv)
+    if args.last is not None and args.last < 1:
+        parser.error("--last needs a count of at least 1")
     paths = recent_sessions(args.last) if args.last else []
     single = args.session or args.path
     if single:
         paths.append(single)
     if not paths:
         parser.error("give a transcript path, --session PATH, or --last N")
-    return paths
+    return dedupe(paths)
 
 
 def main(argv):

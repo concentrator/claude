@@ -83,30 +83,10 @@ for want in "src static_prefix: added=100 turns=300" \
     || die "missing '$want' in: $out"
 done
 
-# Fixture B isolates the compaction marker. Contexts 100 / 150 / 145 / 160:
-# the 145 carries isCompactSummary but is only a 3% drop, so the 10%
-# fallback cannot fire and only the marker can start the second segment.
-# Segment 1 base 100 x 2 = 200, model_output 10, result:Bash 40  -> 250
-# Segment 2 base 145 x 2 = 290, model_output 5,  user_turn   10  -> 305
-# attributed 555, billed 100 + 150 + 145 + 160 = 555
-{
-  asst_tool 100 0 0 10 Bash
-  asst 0 0 150 20
-  printf '{"type":"assistant","isCompactSummary":true,"message":{"role":"assistant","usage":{"input_tokens":0,"cache_creation_input_tokens":0,"cache_read_input_tokens":145,"output_tokens":5}}}\n'
-  asst 0 0 160 5
-} > "$d/b.jsonl"
-
-out=$(python3 "$TOOL" "$d/b.jsonl" 2>&1)
-for want in "src static_prefix: added=245 turns=490" "attributed: 555" \
-            "billed_context: 555"; do
-  grep -qF -- "$want" <<<"$out" && pass "marker segments: $want" \
-    || die "missing '$want' in: $out"
-done
-
-# Fixture C is fixture B without the marker, so the 3% drop stays inside one
-# segment. Context that leaves mid-segment is not re-read by the calls that
-# follow, so its contribution is negative; dropping it instead would inflate
-# the total, which is how this case was found on real data.
+# A drop too small to be a reset, and unmarked, stays inside one segment.
+# Context that leaves mid-segment is not re-read by the calls that follow, so
+# its contribution is negative; dropping the term instead inflates the total,
+# which is how this case was found on real data.
 #   base 100 x 4 = 400
 #   call 1: delta 50,  keep 10 x 3 = 30, injected 40 x 3 = 120 to Bash
 #   call 2: delta -5 held over 2 calls -> shrinkage -10
@@ -184,6 +164,81 @@ out=$(python3 "$TOOL" --session "$d/m.jsonl" 2>&1)
 grep -qF -- "calls: 2" <<<"$out" && grep -qF -- "billed_context: 300" <<<"$out" \
   && pass "malformed line skipped, run completes" \
   || die "malformed line derailed the run: $out"
+
+# The harness writes one record per content block of a single assistant
+# response, each repeating that response's identical usage object. Counting
+# records instead of responses inflates every figure. Fixture D is fixture A
+# re-expressed in that real shape: the same three API calls, but the first
+# arrives as two records sharing one message id. Every figure must match
+# fixture A exactly.
+#   $1 id, $2 input, $3 cache_creation, $4 cache_read, $5 output, $6 blocks
+asst_id() {
+  printf '{"type":"assistant","message":{"id":"%s","role":"assistant","content":[%s],"usage":{"input_tokens":%s,"cache_creation_input_tokens":%s,"cache_read_input_tokens":%s,"output_tokens":%s}}}\n' \
+    "$1" "$6" "$2" "$3" "$4" "$5"
+}
+tool_block() { printf '{"type":"tool_use","name":"%s","input":{}}' "$1"; }
+
+{
+  asst_id m1 100 0 0 10 '{"type":"text","text":"on it"}'
+  asst_id m1 100 0 0 10 "$(tool_block Bash)"
+  asst_id m2 0 0 150 20 "$(tool_block Read)"
+  asst_id m3 0 0 400 5 '{"type":"text","text":"done"}'
+} > "$d/e.jsonl"
+
+out=$(python3 "$TOOL" --session "$d/e.jsonl" 2>&1)
+for want in "calls: 3" "billed_context: 650" "output_tokens: 35" \
+            "src result:Bash: added=40 turns=80" \
+            "src result:Read: added=230 turns=230" "attributed: 650"; do
+  grep -qF -- "$want" <<<"$out" && pass "split records collapse to one call: $want" \
+    || die "missing '$want' in: $out"
+done
+
+# One response can issue several tools, so its injected result payload splits
+# across them rather than landing on whichever block came first. The split is
+# integer and keeps the sum exact: 41 across two tools is 21 and 20.
+#   base 100 x 2 = 200; delta 41, no output retained -> Bash 21, Grep 20
+#   attributed 241, billed 100 + 141 = 241
+{
+  asst_id p1 100 0 0 0 "$(tool_block Bash)"
+  asst_id p1 100 0 0 0 "$(tool_block Grep)"
+  asst_id p2 0 0 141 0 '{"type":"text","text":"done"}'
+} > "$d/f.jsonl"
+
+out=$(python3 "$TOOL" --session "$d/f.jsonl" 2>&1)
+for want in "calls: 2" "src result:Bash: added=21 turns=21" \
+            "src result:Grep: added=20 turns=20" "attributed: 241"; do
+  grep -qF -- "$want" <<<"$out" && pass "parallel tools share the payload: $want" \
+    || die "missing '$want' in: $out"
+done
+
+# Compaction is marked on a user record, not an assistant one, so a reset is
+# read from a record class the call scan otherwise discards. Same arithmetic
+# as the marker fixture above, in the shape the harness actually writes.
+{
+  asst_id q1 100 0 0 10 "$(tool_block Bash)"
+  asst_id q2 0 0 150 20 '{"type":"text","text":"x"}'
+  printf '{"type":"user","isCompactSummary":true,"message":{"role":"user","content":"summary"}}\n'
+  asst_id q3 0 0 145 5 '{"type":"text","text":"y"}'
+  asst_id q4 0 0 160 5 '{"type":"text","text":"z"}'
+} > "$d/g.jsonl"
+
+out=$(python3 "$TOOL" --session "$d/g.jsonl" 2>&1)
+for want in "src static_prefix: added=245 turns=490" "attributed: 555" \
+            "billed_context: 555"; do
+  grep -qF -- "$want" <<<"$out" && pass "user-record compaction segments: $want" \
+    || die "missing '$want' in: $out"
+done
+
+# --last must reject counts it cannot honour rather than silently reporting
+# a slice of everything, and must not report a session twice.
+for n in 0 -1; do
+  python3 "$TOOL" --last "$n" >/dev/null 2>&1 \
+    && die "--last $n was accepted" || pass "--last $n rejected"
+done
+out=$(CLAUDE_CONFIG_DIR="$d/cfg" python3 "$TOOL" --last 2 "$d/cfg/projects/p1/new.jsonl" 2>&1)
+[ "$(grep -c '^== new ==' <<<"$out")" = 1 ] \
+  && pass "a session named twice is reported once" \
+  || die "duplicate session reported twice: $out"
 
 # The identity is the tool's own runtime check, so prove it fires. A mutant
 # that drops the retained-output term must both report a mismatch and exit
