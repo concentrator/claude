@@ -43,7 +43,7 @@ excluded - see `.gitignore`.
 ├── .gitignore
 ├── README.md
 ├── REQUIREMENTS.md               # foundational requirements
-├── DESIGN.md                     # this file
+├── DESIGN.md
 ├── MAINTENANCE.md                # sanity routine + Tier-2 AI review
 ├── .github/
 │   └── workflows/ci.yml          # Tier-1 mechanical CI gate (on PRs)
@@ -58,7 +58,7 @@ excluded - see `.gitignore`.
 │   ├── install-dev.sh            # toolset installer (global or --project)
 │   └── test/                     # script tests + run-all.sh
 ├── .claude/
-│   └── settings.local.json       # project-tier local settings (gitignored)
+│   └── settings.local.json       # project-tier, gitignored
 ├── plans/                        # planning hierarchy
 │   ├── ROADMAP.md                # cross-R index - see skills/dev/plan.md
 │   ├── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
@@ -76,7 +76,7 @@ excluded - see `.gitignore`.
 ├── agents/
 │   └── code-reviewer.md          # branch-close quality review agent
 └── skills/
-    ├── dev/                      # the /dev router + inert mode-file companions (the DEV toolset)
+    ├── dev/                      # the DEV toolset
     │   ├── SKILL.md              #   the router
     │   ├── plan.md branch-plan.md templates.md layout.md changelog.md git-workflow.md  # process rules
     │   ├── feat.md fix.md refactor.md write-plan.md finish.md release.md auto.md        # execution
@@ -103,18 +103,13 @@ unchanged - structure is never simplified, only description detail.
 
 ## Git & delivery model
 
-Trunk-based development: `main` is the protected, always-releasable
-trunk; every change lands via a short-lived branch and a CI-gated PR,
-no long-lived branches (`skills/dev/git-workflow.md`; repo pin:
+Trunk-based development, per `skills/dev/git-workflow.md` (repo pin:
 `rules/git-workflow.md`).
 
-The unit of delivery is the **batch** - one or more tasks that must land
-together to keep `main` coherent, shipped as one PR (a lone task is a
-batch of one; coupled tasks integrate on a short-lived
-`batch/R<NNN>-B-XXX`). Mode is orthogonal - delivery is uniform,
-verification differs (auto: agentic checkpoint; manual: human PR
-review). Releases tag the trunk, no release branch
-(`skills/dev/branch-plan.md § Agentic execution`).
+The unit of delivery is the batch, and mode is orthogonal to it:
+delivery is uniform, verification differs
+(`skills/dev/branch-plan.md § Agentic execution`). Releases tag the trunk
+(`skills/dev/git-workflow.md § Releases`).
 
 Standard: Trunk-Based Development / GitHub Flow (trunkbaseddevelopment.com,
 dora.dev); tag-on-trunk releases (Pro Git, git-scm.com); coherence via
@@ -148,8 +143,7 @@ direct-to-main bootstrap history.
 
 Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
 `dev-secrets-guard`) add a local pre-emptive guard: no writes or commits on
-the trunk, and no secrets into tracked files or commits. The branch-guard
-judges the real target, not the cwd branch.
+the trunk, and no secrets into tracked files or commits.
 
 ## Invariants
 
