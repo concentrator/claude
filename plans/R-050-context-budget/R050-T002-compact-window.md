@@ -24,11 +24,15 @@ stays open past this branch's merge until it is
       existing `autoCompactEnabled`. Verification here is the Tier-1
       gate plus a settings parse, not the context observation, which
       the branch cannot yet make.
-- [ ] `DESIGN.md § Self-enforcement`: record the context budget beside
-      the two existing tiers - what the window is, that it is the
-      enforcement while the R-050 hooks stay advisory, and that
-      compaction is safe against plan state because the plan file on
-      disk is the record (`branch-plan.md § Body`).
+- [ ] `DESIGN.md`: a sibling `## Context budget` section, following the
+      one-section-per-concern pattern of `## Planning model` and
+      `## Git & delivery model`. `§ Self-enforcement` is the wrong home:
+      it opens "Two tiers gate every change into `main`", and a bound on
+      a running session gates no change. State what the control is, and
+      that the harness enforces it while this initiative's hooks
+      observe. The compaction-safety derivation stays in
+      `requirements.md`, which owns it and whose cited source carries
+      only its premise; the number stays in `settings.json`.
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
