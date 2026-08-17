@@ -92,3 +92,17 @@ composite (`R040-T###`, counter scoped to this initiative).
   its own vocabulary passes a compliance check; and the dispatch
   prompts state that an agent verifies before applying a correction
   and reports back one it judges wrong. `depends-on: R040-T006`
+- [ ] **R040-T011 [feat]**: a file channel between operator and
+  supervisor - the exchange is keystrokes typed into a terminal pane
+  today, which cost the pilot three ways: an escalation printed to
+  scrollback sat unread for roughly an hour, a blocked supervisor reads
+  identically to a thinking one, and the auto-mode classifier twice
+  refused the injection on a pattern it had allowed repeatedly. Replace
+  the operator-facing half with three files per scope - append-only
+  `inbox` and `outbox` carrying id-stamped records, plus a single-line
+  `status` overwritten in place - so an escalation is durable and
+  greppable and "is anything waiting on me" is one read. Not a mail
+  system: no transport, no daemon, appended with `>>`. The
+  supervisor-to-worker half stays keystrokes, since a TUI session only
+  acts when handed a turn and that channel did not fail.
+  `depends-on: R040-T002`
