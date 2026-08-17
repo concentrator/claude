@@ -103,17 +103,11 @@ unchanged - structure is never simplified, only description detail.
 
 ## Git & delivery model
 
-Trunk-based development: `main` is the protected, always-releasable
-trunk; every change lands via a short-lived branch and a CI-gated PR,
-no long-lived branches (`skills/dev/git-workflow.md`; repo pin:
+Trunk-based development, per `skills/dev/git-workflow.md` (repo pin:
 `rules/git-workflow.md`).
 
-The unit of delivery is the **batch** - one or more tasks that must land
-together to keep `main` coherent, shipped as one PR (a lone task is a
-batch of one; coupled tasks integrate on a short-lived
-`batch/R<NNN>-B-XXX`). Mode is orthogonal - delivery is uniform,
-verification differs (auto: agentic checkpoint; manual: human PR
-review). Releases tag the trunk, no release branch
+The unit of delivery is the **batch**, and mode is orthogonal to it:
+delivery is uniform, verification differs
 (`skills/dev/branch-plan.md § Agentic execution`).
 
 Standard: Trunk-Based Development / GitHub Flow (trunkbaseddevelopment.com,
@@ -148,8 +142,7 @@ direct-to-main bootstrap history.
 
 Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
 `dev-secrets-guard`) add a local pre-emptive guard: no writes or commits on
-the trunk, and no secrets into tracked files or commits. The branch-guard
-judges the real target, not the cwd branch.
+the trunk, and no secrets into tracked files or commits.
 
 ## Invariants
 
