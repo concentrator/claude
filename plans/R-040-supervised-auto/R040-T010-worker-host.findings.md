@@ -87,3 +87,22 @@
       function also refused to install anything when `.env` was absent,
       conflating installation with authentication, so it would never have
       worked on a fresh box. Caught by the operator, not by the plan.
+
+- [ ] **The documentation gate's per-claim scope may be disproportionate
+      for a targeted-edit branch.** `companions/documentation.md
+      § Verification gate` clears rules, skills and planning prose on the
+      changed claims, but requires `docs/` feature docs to clear on every
+      claim. A supervised sweep that made targeted line edits across
+      fourteen feature docs therefore owes a per-claim pass over all
+      fourteen, including the claims it never touched.
+      The operator ruled that the written scope stands for that branch, so
+      the pass runs. Whether the rule should distinguish a targeted-edit
+      branch from a new or rewritten doc is deliberately a separate
+      question: amending a gate in order to pass it is not a decision to
+      take under delivery pressure.
+      The same run supplies evidence both ways. For the wider scope:
+      independent passes over that branch caught four defects the author
+      had shipped, two of them false statements about the system, so the
+      cost bought something. Against it: most of the fourteen docs took a
+      single line of provenance edit. Needs its own task before
+      `documentation.md` is amended.
