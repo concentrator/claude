@@ -1,5 +1,5 @@
 ---
-approved: pending
+approved: 2026-08-17
 kind: feat
 ---
 
