@@ -1,7 +1,7 @@
 ---
 task: R050-T002
 type: mnt
-depends-on: R050-T001
+depends-on: R050-T001, R050-T007
 ---
 
 # R050-T002 - compaction window
