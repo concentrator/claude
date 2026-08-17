@@ -27,6 +27,8 @@ composite (`R050-T###`, counter scoped to this initiative).
   and an explicit file list in `companions/implementer-prompt.md`, with a
   cross-reference to the governor's subagent tier.
   `depends-on: R050-T003`
-- [ ] **R050-T006 [feat]**: shell-composite budget - `rules/shell.md`
-  plus an advisory `hooks/dev-shell-budget.sh` and its test. Runs last;
-  the trim candidate if the initiative runs long.
+- [ ] **R050-T006 [feat]**: shell-composite budget - an advisory
+  `hooks/dev-shell-budget.sh` carrying the convention in its message,
+  plus its test and a threshold calibrated against the corpus. Runs
+  last; the trim candidate if the initiative runs long.
+  `depends-on: R050-T001`
