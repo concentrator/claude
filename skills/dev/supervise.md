@@ -48,10 +48,14 @@ means a worker is (or was) on the batch: adopt it - status ping, then
 monitor - or, if it is dead, resume `/dev auto B-XXX` in a new session
 over its intact refs. Never run two workers on one project.
 
-One headless worker session per project, under that project's declared
-transport and permissions - the pre-flight is `auto.md`'s. The worker
-runs the `/dev auto` engine on the scoped batch (a lone task is a
-batch of one).
+One interactive worker session per project, under that project's
+declared transport and permissions - the pre-flight is `auto.md`'s.
+Headless does not serve: it cannot edit protected `.claude/` paths and
+has no way to answer a prompt, so a blocked headless worker is a dead
+one. Which mode each role runs in, and how the two reach each other,
+is per variant in `companions/supervisor-runbook.md`. The worker runs
+the `/dev auto` engine on the scoped batch (a lone task is a batch of
+one).
 
 **When the scope is not a batch.** `§ Resolve` admits open tasks with
 stamped plans, and a task without a batch manifest is delivered
@@ -65,12 +69,16 @@ landed, close review run, tests and lint green). Verify that set from
 artifacts exactly as a report would be verified; a manual branch
 missing it is no more mergeable than a batch missing its report. The supervisor passes ids only; workers read plans from
 their repo - the supervisor never relays content; its ledgered
-question answers are the one exception. Workers never stall on
-permission prompts: the session starts under guaranteed prompt
-acceptance (the declared permissions cover every tool the plan needs)
-or the supervisor accepts the worker's edit prompts - edits inside
-the worker's repo within the declared permissions only; any other
-prompt halts the member and escalates.
+question answers are the one exception. A worker does stall on permission
+prompts, and no declaration prevents it: Bash rules match a command
+prefix, and a compound command - a loop, a pipeline, a `case` - offers
+none to match, so it escalates however wide the allowlist is. Clearing
+those prompts is the supervisor's work, which is why the supervisor
+runs in a mode that never blocks it
+(`companions/supervisor-runbook.md`). The supervisor accepts the
+worker's edit prompts - edits inside the worker's repo within the
+declared permissions only; any other prompt halts the member and
+escalates.
 
 ## Monitor
 
