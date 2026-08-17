@@ -32,7 +32,7 @@ composite (`R050-T###`, counter scoped to this initiative).
   plus its test and a threshold calibrated against the corpus. Runs
   last; the trim candidate if the initiative runs long.
   `depends-on: R050-T001`
-- [ ] **R050-T007 [doc]**: `DESIGN.md` headroom for the initiative -
+- [x] **R050-T007 [doc]**: `DESIGN.md` headroom for the initiative -
   the file sits two words under its cap while T002, T003 and T006 each
   need room in it. Trims restatement of facts owned elsewhere (R-039),
   targeting 920 words. Runs first; T002 waits on it.
