@@ -20,7 +20,7 @@ with no other home stays however long it is.
 | Sentence | Owner | Verdict |
 |---|---|---|
 | Two tiers gate every change; CI built here, hooks ship to adopters | none - the layering is the architecture | keep |
-| Tier-1 mechanics: where the checks run and what blocks | none - `scripts/test/run-all.sh` names its callers but not the gating design | keep |
+| Tier-1 mechanics: where the checks run and what blocks | none - `scripts/ci/run-all.sh` is the gate but documents its callers, not the gating design | keep |
 | Tier-1 check enumeration | `scripts/ci/run-all.sh` registers them, but `MAINTENANCE.md § Doc-sync pairs` names this section as a required target when a check changes | keep - a declared home, not an accident |
 | Tier-2 concern set, enumerated there and nowhere else | `MAINTENANCE.md § Tier-2 AI review`; the sentence is itself a single-home declaration | keep |
 | `pull_request` trigger never re-judges bootstrap history | the workflow holds the trigger, not the rationale | keep |
@@ -31,12 +31,14 @@ with no other home stays however long it is.
 
 `§ Components`, `§ Self-hosting layout` and `§ Invariants` are already
 pointer-shaped or hold facts with no other home. `§ Tree-map` is an
-inventory; its comments were trimmed under the tree-map upkeep carve-out
-in R050-T001 and are not revisited here.
+inventory. Its comments were trimmed once under the tree-map upkeep
+carve-out in R050-T001; the close review took two more that restated
+their own filename.
 
 ## Outcome
 
-Three trims, 102 words replaced by pointers, landing `DESIGN.md` at 925.
+Three trims, 102 words replaced by pointers, plus two dead tree-map
+comments cut at close review. `DESIGN.md` lands at 920, the target.
 
 ## Headroom verification
 
@@ -47,11 +49,9 @@ were applied as a scratch edit and measured together:
 - T003's `dev-context-governor.sh` tree-map line and hook mention
 - T006's `dev-shell-budget.sh` tree-map line and hook mention
 
-With all three present `DESIGN.md` measures 992 words and `check-caps`
-passes, leaving 8 words of margin. The scratch was reverted; the drafts
-are illustrative, and each task writes its own wording.
+With all three present `check-caps` passes. The scratch was reverted.
 
-The branch stops at 925 rather than the 920 the plan named. The five
-words are not worth the cut: the candidates left are tree-map comments
-that carry information, and the verification above already establishes
-what 920 was a proxy for.
+The drafts came to 67 words against the 80 the plan budgets, so this
+check alone does not clear the budget: it measures one wording, not the
+worst case. The 920 target is what covers the gap, and the branch meets
+it, leaving 80 words for T002, T003 and T006 to spend as they see fit.

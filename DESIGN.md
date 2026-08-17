@@ -43,7 +43,7 @@ excluded - see `.gitignore`.
 ├── .gitignore
 ├── README.md
 ├── REQUIREMENTS.md               # foundational requirements
-├── DESIGN.md                     # this file
+├── DESIGN.md
 ├── MAINTENANCE.md                # sanity routine + Tier-2 AI review
 ├── .github/
 │   └── workflows/ci.yml          # Tier-1 mechanical CI gate (on PRs)
@@ -58,7 +58,7 @@ excluded - see `.gitignore`.
 │   ├── install-dev.sh            # toolset installer (global or --project)
 │   └── test/                     # script tests + run-all.sh
 ├── .claude/
-│   └── settings.local.json       # project-tier local settings (gitignored)
+│   └── settings.local.json       # project-tier, gitignored
 ├── plans/                        # planning hierarchy
 │   ├── ROADMAP.md                # cross-R index - see skills/dev/plan.md
 │   ├── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
@@ -106,7 +106,7 @@ unchanged - structure is never simplified, only description detail.
 Trunk-based development, per `skills/dev/git-workflow.md` (repo pin:
 `rules/git-workflow.md`).
 
-The unit of delivery is the **batch**, and mode is orthogonal to it:
+The unit of delivery is the batch, and mode is orthogonal to it:
 delivery is uniform, verification differs
 (`skills/dev/branch-plan.md § Agentic execution`).
 
