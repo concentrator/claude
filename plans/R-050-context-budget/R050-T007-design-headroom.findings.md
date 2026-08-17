@@ -36,7 +36,22 @@ in R050-T001 and are not revisited here.
 
 ## Outcome
 
-Three trims, 102 words replaced by 31 words of pointer, saving 71. That
-lands `DESIGN.md` at 927. Whether 927 leaves enough room for T002, T003
-and T006 is settled by the scratch check in this branch's third commit,
-not by this estimate.
+Three trims, 102 words replaced by pointers, landing `DESIGN.md` at 925.
+
+## Headroom verification
+
+The estimate is not the acceptance. Drafts of all three pending entries
+were applied as a scratch edit and measured together:
+
+- T002's context-budget paragraph in `§ Self-enforcement`
+- T003's `dev-context-governor.sh` tree-map line and hook mention
+- T006's `dev-shell-budget.sh` tree-map line and hook mention
+
+With all three present `DESIGN.md` measures 992 words and `check-caps`
+passes, leaving 8 words of margin. The scratch was reverted; the drafts
+are illustrative, and each task writes its own wording.
+
+The branch stops at 925 rather than the 920 the plan named. The five
+words are not worth the cut: the candidates left are tree-map comments
+that carry information, and the verification above already establishes
+what 920 was a proxy for.
