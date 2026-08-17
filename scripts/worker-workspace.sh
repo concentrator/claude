@@ -121,6 +121,8 @@ settings() {
     printf '    carve-out: git push -u origin doc/* feat/* fix/* refactor/*\n'
     printf '    mnt/* test/* plan/* batch/* - batch-only stalls manual branches\n'
     printf '  - write %s (gitignored, so it never arrives with a clone)\n' "$out"
+    printf '  - trust the workspace and dismiss the auto-mode setup dialog in\n'
+    printf '    ~/.claude.json, neither of which arrives with a clone\n'
     printf '  - verify by running a command the allowlist covers, unprompted\n'
     return 0
   fi
@@ -140,19 +142,32 @@ settings() {
 
   jq -e . "$out" >/dev/null 2>&1 || { printf 'settings: %s is not valid JSON\n' "$out" >&2; return 1; }
 
-  # An untrusted workspace has its allow entries IGNORED - Claude Code reports
-  # "this workspace has not been trusted" and drops them, which on a worker
-  # reads as a permission prompt nobody can answer. The trust flag lives in
-  # ~/.claude.json, outside the project, so it never arrives with a clone
-  # either. Accepting it here is what the operator would otherwise do by
-  # opening an interactive session on the box.
-  local cj="$HOME/.claude.json"
-  [ -f "$cj" ] || printf '{}' > "$cj"
-  local tmp; tmp=$(mktemp)
-  jq --arg p "$pd" '.projects[$p].hasTrustDialogAccepted = true' "$cj" > "$tmp" && mv "$tmp" "$cj"
+  workspace_state "$pd" || return 1
 
   printf 'settings: %s written, %s allow rules, workspace trusted\n' \
     "$out" "$(jq '.permissions.allow | length' "$out")"
+}
+
+# Runs ON the VM. The two pieces of state that live in ~/.claude.json, outside
+# the project, and so arrive with neither the clone nor the settings file.
+#
+# An untrusted workspace has its allow entries IGNORED - Claude Code reports
+# "this workspace has not been trusted" and drops them, which on a worker reads
+# as a permission prompt nobody can answer.
+#
+# The auto-mode setup dialog is the other. A fresh auto-mode session offers to
+# scan the repo, recent sessions, shell history and other repositories, and the
+# offer sits over the pane until answered - which stalled a supervisor mid-run
+# for the better part of an hour, showing a dialog rather than an error.
+# Dismissing it costs nothing, because auto mode needs no setup to function, and
+# it leaves opting into the scan a deliberate act.
+workspace_state() {
+  local pd="$1"
+  local cj="$HOME/.claude.json"
+  [ -f "$cj" ] || printf '{}' > "$cj"
+  local tmp; tmp=$(mktemp)
+  jq --arg p "$pd" '.projects[$p].hasTrustDialogAccepted = true
+      | .autoModeEnvSetup.dismissed = true' "$cj" > "$tmp" && mv "$tmp" "$cj"
 }
 
 main() {

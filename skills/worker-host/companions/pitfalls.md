@@ -26,3 +26,12 @@ Each of these cost a debugging round on a real host.
 - **Sibling repositories are not optional.** `attack-checker` depends on
   `file:../wallarm-api-js`, so `npm ci` fails outright unless both sit
   adjacent under `/opt/wallarm`.
+
+- **The auto-mode setup dialog blocks a session it appears over.** A fresh
+  auto-mode session offers to scan the repo, recent sessions, shell
+  history and other repositories, and waits. On a supervisor that reads
+  as a stall with no cause, because the pane shows a dialog rather than
+  an error. `settings` dismisses it by setting
+  `autoModeEnvSetup.dismissed` in `~/.claude.json`. Auto mode needs no
+  setup to function, so nothing is lost by dismissing it; opting into the
+  scan stays the operator's deliberate choice.

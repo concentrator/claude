@@ -88,6 +88,23 @@
       conflating installation with authentication, so it would never have
       worked on a fresh box. Caught by the operator, not by the plan.
 
+- [x] **A dialog nobody provisioned away stalled the supervised run.** A
+      fresh auto-mode session offers to scan the repo, recent sessions,
+      shell history and other repositories, and the offer waits over the
+      pane. The supervisor sat behind it for the better part of an hour
+      while its own report said it was working, because a dialog is not an
+      error and nothing surfaced it.
+      Two things follow. `settings` now sets `autoModeEnvSetup.dismissed`
+      in `~/.claude.json` alongside the trust flag, verified as the key the
+      dialog itself writes when dismissed, so it cannot appear during a
+      run; auto mode needs no setup to function, so dismissing costs
+      nothing and opting into the scan stays deliberate.
+      The larger point is not the dialog. A supervisor that is blocked and
+      a supervisor that is thinking look identical from outside, and the
+      only reason this was caught is that the operator happened to read the
+      pane. That is the case for a durable status channel rather than a
+      terminal pane, which is `R040-T011`.
+
 - [ ] **The documentation gate's per-claim scope may be disproportionate
       for a targeted-edit branch.** `companions/documentation.md
       § Verification gate` clears rules, skills and planning prose on the
