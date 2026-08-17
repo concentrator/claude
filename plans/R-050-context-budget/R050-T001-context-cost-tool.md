@@ -14,7 +14,7 @@ not gate, so it lives at `scripts/context-cost.py` rather than
 `scripts/ci/`. Its test follows the repo's `pass`/`die` shell
 convention like every other entry in `scripts/test/`.
 
-- [ ] `scripts/context-cost.py` session totals: read a transcript
+- [x] `scripts/context-cost.py` session totals: read a transcript
       JSONL, and for every assistant record carrying `usage`, sum
       billed context as `input_tokens + cache_creation_input_tokens +
       cache_read_input_tokens`. Report API calls, total billed context,
