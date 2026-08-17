@@ -127,6 +127,29 @@ for want in "src shrinkage: added=-5 turns=-10" \
     || die "missing '$want' in: $out"
 done
 
+# Subagents cost real tokens but spend them under their own context, so they
+# roll up beside the session rather than into it. The harness writes them in
+# a directory named for the session, beside the session's own transcript.
+#   main      contexts 100 + 200 = 300
+#   subagents contexts  50 +  70 = 120 across two files
+mkdir -p "$d/s3/subagents"
+{ asst 100 0 0 5; asst 0 0 200 5; } > "$d/s3.jsonl"
+asst 50 0 0 1 > "$d/s3/subagents/a.jsonl"
+asst 70 0 0 1 > "$d/s3/subagents/b.jsonl"
+
+out=$(python3 "$TOOL" "$d/s3.jsonl" 2>&1)
+grep -qF -- "subagents: count=2 calls=2 billed_context=120" <<<"$out" \
+  && pass "rolls up both subagents" || die "no subagent rollup in: $out"
+grep -qF -- "billed_context: 300" <<<"$out" \
+  && pass "subagent tokens stay out of the main-loop total" \
+  || die "main total absorbed subagent tokens: $out"
+
+# A session with no subagent directory is the common case, not an error.
+out=$(python3 "$TOOL" "$d/s1.jsonl" 2>&1)
+grep -qF -- "subagents: count=0 calls=0 billed_context=0" <<<"$out" \
+  && pass "session without subagents reports an empty rollup" \
+  || die "missing empty rollup in: $out"
+
 # The identity is the tool's own runtime check, so prove it fires. A mutant
 # that drops the retained-output term must both report a mismatch and exit
 # nonzero; a tool that reports without failing would pass every case above.

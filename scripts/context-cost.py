@@ -16,7 +16,9 @@ billed total, which the tool checks on every run.
 Usage: python3 scripts/context-cost.py <transcript.jsonl>
 """
 import collections
+import glob
 import json
+import os
 import sys
 
 MODEL = "model_output"
@@ -124,6 +126,16 @@ def attribute(calls):
     return added, turns
 
 
+def subagent_paths(path):
+    """Transcripts of the subagents this session dispatched.
+
+    The harness writes them under a directory named for the session, beside
+    the session's own transcript.
+    """
+    return sorted(glob.glob(os.path.join(path.removesuffix(".jsonl"),
+                                         "subagents", "*.jsonl")))
+
+
 def rank(sorted_values, quantile):
     """Nearest-rank quantile. At 0.5 over an even count this is the upper
     median, which is the conservative side for a cost figure."""
@@ -139,6 +151,12 @@ def report(path, calls):
     print(f"calls: {len(calls)}")
     print(f"billed_context: {total}")
     print(f"output_tokens: {sum(call.output for call in calls)}")
+    # Subagents spend their tokens under their own context, so they roll up
+    # beside the session's figures rather than into them.
+    paths = subagent_paths(path)
+    sub = [call for sub_path in paths for call in read_calls(sub_path)]
+    print(f"subagents: count={len(paths)} calls={len(sub)} "
+          f"billed_context={sum(call.context for call in sub)}")
     if not calls:
         return total, total
     contexts = sorted(call.context for call in calls)
