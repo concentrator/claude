@@ -23,7 +23,7 @@ convention like every other entry in `scripts/test/`.
       transcript asserts each reported figure against hand-computed
       values, and asserts a transcript with no `usage` records reports
       zero calls rather than failing.
-- [ ] Source attribution: walk the calls in order, segment at any point
+- [x] Source attribution: walk the calls in order, segment at any point
       where context drops (a compaction or a clear), and within each
       segment attribute the growth between consecutive calls to the
       model's own output, to a user turn, or to the named tool whose
@@ -33,13 +33,13 @@ convention like every other entry in `scripts/test/`.
       bites by failing it on a doctored fixture whose attribution is
       short by a known amount (`companions/verification-policy.md
       § Verification modality`).
-- [ ] Subagent rollup: fold `<session-id>/subagents/*.jsonl` into their
+- [x] Subagent rollup: fold `<session-id>/subagents/*.jsonl` into their
       parent session, reported as a separate line rather than merged
       into the main-loop figures, since their cost is incurred under a
       different context. The test asserts a fixture subagent's tokens
       appear in the rollup, are excluded from the main-loop total, and
       that a session directory with no subagents still reports.
-- [ ] CLI surface and usage: `--session <path>` for one transcript,
+- [x] CLI surface and usage: `--session <path>` for one transcript,
       `--last N` for the N most recent across all projects, default
       output the per-session table. Usage documented in the script's
       header comment. The test asserts `--last` bounds the set, an

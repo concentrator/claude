@@ -13,8 +13,16 @@ paid for 990 times; the same token added at call 990 is paid for 10.
 That product is reported as token-turns, and it sums exactly to the
 billed total, which the tool checks on every run.
 
-Usage: python3 scripts/context-cost.py <transcript.jsonl>
+Usage:
+    python3 scripts/context-cost.py <transcript.jsonl>
+    python3 scripts/context-cost.py --session <transcript.jsonl>
+    python3 scripts/context-cost.py --last 10
+
+--last reads the transcripts under CLAUDE_CONFIG_DIR/projects, defaulting
+to the config directory this script lives in. Exit status is nonzero if any
+session fails its identity check or cannot be read.
 """
+import argparse
 import collections
 import glob
 import json
@@ -171,16 +179,51 @@ def report(path, calls):
     return total, attributed
 
 
+def projects_root():
+    """Where the harness keeps transcripts, honouring CLAUDE_CONFIG_DIR so a
+    test can point the tool at a throwaway tree."""
+    config = os.environ.get("CLAUDE_CONFIG_DIR") or os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(config, "projects")
+
+
+def recent_sessions(count):
+    """The count most recently written session transcripts, newest first."""
+    paths = glob.glob(os.path.join(projects_root(), "*", "*.jsonl"))
+    return sorted(paths, key=os.path.getmtime, reverse=True)[:count]
+
+
+def parse_args(argv):
+    parser = argparse.ArgumentParser(
+        description="Report the context cost of Claude Code sessions.")
+    parser.add_argument("path", nargs="?", help="transcript to report")
+    parser.add_argument("--session", help="transcript to report")
+    parser.add_argument("--last", type=int, metavar="N",
+                        help="report the N most recently written sessions")
+    args = parser.parse_args(argv)
+    paths = recent_sessions(args.last) if args.last else []
+    single = args.session or args.path
+    if single:
+        paths.append(single)
+    if not paths:
+        parser.error("give a transcript path, --session PATH, or --last N")
+    return paths
+
+
 def main(argv):
-    if len(argv) != 2:
-        print("usage: context-cost.py <transcript.jsonl>", file=sys.stderr)
-        return 2
-    total, attributed = report(argv[1], read_calls(argv[1]))
-    if attributed != total:
-        print(f"identity check failed: attributed {attributed} != billed {total}",
-              file=sys.stderr)
-        return 1
-    return 0
+    status = 0
+    for path in parse_args(argv[1:]):
+        try:
+            total, attributed = report(path, read_calls(path))
+        except OSError as error:
+            print(f"cannot read {path}: {error.strerror}", file=sys.stderr)
+            status = 1
+            continue
+        if attributed != total:
+            print(f"identity check failed for {path}: "
+                  f"attributed {attributed} != billed {total}", file=sys.stderr)
+            status = 1
+    return status
 
 
 if __name__ == "__main__":

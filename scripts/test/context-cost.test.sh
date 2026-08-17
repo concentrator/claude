@@ -150,6 +150,41 @@ grep -qF -- "subagents: count=0 calls=0 billed_context=0" <<<"$out" \
   && pass "session without subagents reports an empty rollup" \
   || die "missing empty rollup in: $out"
 
+# --last N reports the N most recently written sessions across every
+# project, newest first. CLAUDE_CONFIG_DIR points the tool at a throwaway
+# projects tree so the case does not depend on the real one.
+mkdir -p "$d/cfg/projects/p1" "$d/cfg/projects/p2"
+asst 10 0 0 1 > "$d/cfg/projects/p1/old.jsonl"
+asst 20 0 0 1 > "$d/cfg/projects/p2/mid.jsonl"
+asst 30 0 0 1 > "$d/cfg/projects/p1/new.jsonl"
+touch -t 202601010000 "$d/cfg/projects/p1/old.jsonl"
+touch -t 202602010000 "$d/cfg/projects/p2/mid.jsonl"
+touch -t 202603010000 "$d/cfg/projects/p1/new.jsonl"
+
+out=$(CLAUDE_CONFIG_DIR="$d/cfg" python3 "$TOOL" --last 2 2>&1)
+[ "$(grep -c '^== ' <<<"$out")" = 2 ] && pass "--last bounds the set to 2" \
+  || die "--last did not report exactly 2 sessions: $out"
+grep -qF -- "== new ==" <<<"$out" && grep -qF -- "== mid ==" <<<"$out" \
+  && ! grep -qF -- "== old ==" <<<"$out" \
+  && pass "--last takes the most recent, not the first found" \
+  || die "--last picked the wrong sessions: $out"
+
+# An unreadable path is the likeliest operator error, so it must name the
+# path rather than surface a traceback.
+python3 "$TOOL" --session "$d/nope.jsonl" >/dev/null 2>&1 \
+  && die "unreadable path exited zero" || pass "unreadable path exits nonzero"
+out=$(python3 "$TOOL" --session "$d/nope.jsonl" 2>&1)
+grep -qF -- "$d/nope.jsonl" <<<"$out" && pass "unreadable path is named" \
+  || die "error did not name the path: $out"
+
+# A transcript being appended to can end mid-write, so a line that does not
+# parse is skipped rather than aborting a run over thousands of sessions.
+{ asst 100 0 0 5; printf 'not json at all\n'; asst 0 0 200 5; } > "$d/m.jsonl"
+out=$(python3 "$TOOL" --session "$d/m.jsonl" 2>&1)
+grep -qF -- "calls: 2" <<<"$out" && grep -qF -- "billed_context: 300" <<<"$out" \
+  && pass "malformed line skipped, run completes" \
+  || die "malformed line derailed the run: $out"
+
 # The identity is the tool's own runtime check, so prove it fires. A mutant
 # that drops the retained-output term must both report a mismatch and exit
 # nonzero; a tool that reports without failing would pass every case above.
