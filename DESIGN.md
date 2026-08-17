@@ -76,7 +76,7 @@ excluded - see `.gitignore`.
 ├── agents/
 │   └── code-reviewer.md          # branch-close quality review agent
 └── skills/
-    ├── dev/                      # the /dev router + inert mode-file companions (the DEV toolset)
+    ├── dev/                      # the DEV toolset
     │   ├── SKILL.md              #   the router
     │   ├── plan.md branch-plan.md templates.md layout.md changelog.md git-workflow.md  # process rules
     │   ├── feat.md fix.md refactor.md write-plan.md finish.md release.md auto.md        # execution
@@ -108,7 +108,8 @@ Trunk-based development, per `skills/dev/git-workflow.md` (repo pin:
 
 The unit of delivery is the batch, and mode is orthogonal to it:
 delivery is uniform, verification differs
-(`skills/dev/branch-plan.md § Agentic execution`).
+(`skills/dev/branch-plan.md § Agentic execution`). Releases tag the trunk
+(`skills/dev/git-workflow.md § Releases`).
 
 Standard: Trunk-Based Development / GitHub Flow (trunkbaseddevelopment.com,
 dora.dev); tag-on-trunk releases (Pro Git, git-scm.com); coherence via

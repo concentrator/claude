@@ -27,13 +27,21 @@ with no other home stays however long it is.
 | PreToolUse hooks add a pre-emptive guard | none - a third guard layer is architecture | keep |
 | The branch guard judges the real target, not the cwd branch (10 words) | `hooks/dev-branch-guard.sh` header states it with the full rule | trim |
 
+The first pass over `§ Git & delivery model` dropped the release strategy
+with the batch mechanics, leaving no pointer to it. `finish.md § 2`'s
+dry-run caught that a reader of `DESIGN.md` alone could no longer reach it,
+so a pointer to `skills/dev/git-workflow.md § Releases` was restored. Its
+cost is paid by the tree-map comment for `skills/dev/`, which repeated
+`§ Components` word for word.
+
 ## Sections not audited
 
 `§ Components`, `§ Self-hosting layout` and `§ Invariants` are already
 pointer-shaped or hold facts with no other home. `§ Tree-map` is an
 inventory. Its comments were trimmed once under the tree-map upkeep
 carve-out in R050-T001; the close review took two more that restated
-their own filename.
+their own filename, and the verify step a third that repeated
+`§ Components`.
 
 ## Outcome
 
