@@ -89,11 +89,11 @@ happened, so a compacted session recovers by re-reading the plan.
       requires an explicit file list, and a stamped plan still clears
       `companions/verification-policy.md § Comprehension check`
       afterwards.
-- [ ] `rules/shell.md` exists; the shell hook warns on a composite over
-      its budget and stays silent on a legitimate compound command. The
-      test proves the check bites by failing it on a known instance
-      first (`companions/verification-policy.md § Verification
-      modality`).
+- [ ] The shell hook carries the convention in its advisory text, warns
+      on a composite over its budget, and stays silent on a legitimate
+      compound command. The test proves the check bites by failing it on
+      a known instance first (`companions/verification-policy.md
+      § Verification modality`).
 - [ ] Tier-1 green: `bash scripts/ci/run-all.sh`.
 
 ## Constraints
@@ -110,9 +110,6 @@ happened, so a compacted session recovers by re-reading the plan.
 
 ## Open questions
 
-- Script language for the measurement tool. `scripts/` is shell today,
-  and the work is arithmetic over JSONL usage records. Resolve in the
-  detail round.
 - Whether the shipped window value holds. Land it, re-measure with the
   tool, and adjust with the number as the evidence.
 
