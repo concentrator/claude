@@ -11,8 +11,8 @@ composite (`R050-T###`, counter scoped to this initiative).
   attribution by source from the transcript's usage records. Establishes
   the baseline and makes the criteria below checkable on demand.
 - [ ] **R050-T002 [mnt]**: set `autoCompactWindow` in `settings.json`, and
-  record the context budget in `DESIGN.md § Self-enforcement` beside the
-  two existing tiers. `depends-on: R050-T001, R050-T007`
+  record it in a new `DESIGN.md § Context budget` section.
+  `depends-on: R050-T001, R050-T007`
 - [ ] **R050-T003 [feat]**: `hooks/dev-context-governor.sh` - advisory
   threshold notes on `PostToolBatch` for the main loop and for subagents
   (keyed on `agent_id`), and a new-unit note on `UserPromptSubmit`;
@@ -36,3 +36,8 @@ composite (`R050-T###`, counter scoped to this initiative).
   the file sits two words under its cap while T002, T003 and T006 each
   need room in it. Trims restatement of facts owned elsewhere (R-039),
   targeting 920 words. Runs first; T002 waits on it.
+- [ ] **R050-T008 [feat]**: gate the context budget - a Tier-1 check
+  asserting `autoCompactEnabled` and a present, in-range
+  `autoCompactWindow`. The enforcement is one unguarded line today, and
+  every hook here is advisory, so it could stop binding silently.
+  `depends-on: R050-T002`
