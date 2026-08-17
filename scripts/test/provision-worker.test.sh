@@ -227,6 +227,4 @@ env PATH="$r/bin:/usr/bin:/bin" bash "$VMSCRIPT" claude-install --dry-run >/dev/
 [ ! -s "$r/calls" ] && pass "install dry runs change nothing" || die "dry run ran apt"
 rm -rf "$r"
 
-rm -rf "$h"
-
 exit $fail
