@@ -41,7 +41,7 @@ excluded - see `.gitignore`.
 ├── writing.md                    # writing conventions (@imported by CLAUDE.md)
 ├── settings.json                 # global Claude Code config (tracked)
 ├── .gitignore
-├── README.md                     # project readme
+├── README.md
 ├── REQUIREMENTS.md               # foundational requirements
 ├── DESIGN.md                     # this file
 ├── MAINTENANCE.md                # sanity routine + Tier-2 AI review
@@ -51,9 +51,10 @@ excluded - see `.gitignore`.
 │   └── pre-push                  # advisory local Tier-1 mirror
 ├── hooks/
 │   ├── dev-branch-guard.sh       # PreToolUse branch-guard (no writes on trunk)
-│   └── dev-secrets-guard.sh      # PreToolUse secrets guard (no secrets in tracked files or commits)
+│   └── dev-secrets-guard.sh      # PreToolUse secrets guard
 ├── scripts/
 │   ├── ci/                       # Tier-1 checks + run-all.sh
+│   ├── context-cost.py           # session context cost + attribution
 │   ├── install-dev.sh            # toolset installer (global or --project)
 │   └── test/                     # script tests + run-all.sh
 ├── .claude/

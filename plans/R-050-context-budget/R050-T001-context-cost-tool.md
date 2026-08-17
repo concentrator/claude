@@ -46,8 +46,8 @@ convention like every other entry in `scripts/test/`.
       unreadable path exits non-zero with a message naming the path,
       and a malformed JSONL line is skipped rather than aborting the
       run.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: add `scripts/context-cost.py` to
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: add `scripts/context-cost.py` to
       `DESIGN.md § Tree-map` (routine upkeep, no
       `architecture-changing` flag per `branch-plan.md
       § Architecture-changing branches`), re-review docs across all
