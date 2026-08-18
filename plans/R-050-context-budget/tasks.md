@@ -10,7 +10,7 @@ composite (`R050-T###`, counter scoped to this initiative).
   `scripts/test/` case. Reports per-session billed context and its
   attribution by source from the transcript's usage records. Establishes
   the baseline and makes the criteria below checkable on demand.
-- [ ] **R050-T002 [mnt]**: set `autoCompactWindow` in `settings.json`, and
+- [x] **R050-T002 [mnt]**: set `autoCompactWindow` in `settings.json`, and
   record it in a new `DESIGN.md § Context budget` section.
   `depends-on: R050-T001, R050-T007`
 - [ ] **R050-T003 [feat]**: `hooks/dev-context-governor.sh` - advisory
