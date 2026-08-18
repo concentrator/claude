@@ -8,6 +8,11 @@
 #   worktree - which is how one suite run rewrote a branch, planted refs and
 #   set core.bare on the developer's own repository while reporting ALL OK.
 #
+#   The damage is not only mutation. A test that resolves its own subject
+#   through git (`git rev-parse --show-toplevel`) measures another
+#   repository's script when GIT_DIR and GIT_WORK_TREE both leak, reporting
+#   on code it was never pointed at.
+#
 # The scrub is `unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE` at file scope, so
 # every fixture in a file inherits it. This file proves the mechanism on both
 # invocation paths, and § Coverage requires it of any test that uses git.
@@ -27,20 +32,19 @@ die()  { echo "not ok - $1"; fail=1; }
 
 tmproot=$(mktemp -d); trap 'rm -rf "$tmproot"' EXIT
 
-# Stands in for the developer's own repository: what a leak would damage. Left
-# with an unstaged edit, so a leaked `git add` is visible in its index.
+# Stands in for the developer's own repository: what a leak would damage. Its
+# index holds a staged path, so the component cases can prove an index leak.
 mkhost() {
   local h; h=$(mktemp -d "$tmproot/host.XXXXXX")
   git -C "$h" init -q -b main
   printf 'committed\n' > "$h/hostfile"
   git -C "$h" add -A
   git -C "$h" -c user.email=t@t -c user.name=t commit -q -m base
-  printf 'unstaged\n' > "$h/hostfile"
   printf '%s' "$h"
 }
 
-# Everything a leak would alter: refs, local config, HEAD, the index, and any
-# file the leak creates inside the git dir (a redirected GIT_INDEX_FILE).
+# Every component a leak could alter. The component cases below carry one leak
+# per line, so no line is decoration.
 snap() {
   git -C "$1" show-ref -d 2>/dev/null
   git -C "$1" config --local --list 2>/dev/null | sort
@@ -49,11 +53,12 @@ snap() {
   ( cd "$1/.git" 2>/dev/null && find . -type f | sort )
 }
 
-# The three variables a caller could leak. GIT_INDEX_FILE points off the
-# default path, so its scrub is proved rather than assumed.
-host_env() {
-  printf 'GIT_DIR=%s/.git GIT_WORK_TREE=%s GIT_INDEX_FILE=%s/.git/leaked-index' \
-    "$1" "$1" "$1"
+# Runs a command under the three variables a caller could leak. GIT_INDEX_FILE
+# points off the default path, so a leaked write lands where snap() sees it.
+with_host_env() {
+  local h=$1; shift
+  env GIT_DIR="$h/.git" GIT_WORK_TREE="$h" GIT_INDEX_FILE="$h/.git/leaked-index" \
+    "$@"
 }
 
 # What a fixture-creating test does: build a repo, stage in it, branch in it.
@@ -89,8 +94,8 @@ run_case() {
   local h w marker before after m=absent c=same
   h=$(mkhost); w=$(mkwork "$1"); marker=$w/probe-ran
   before=$(snap "$h")
-  ( cd "$w" && env $(host_env "$h") ISO_MARKER="$marker" \
-      bash scripts/test/run-all.sh ) >/dev/null 2>&1
+  ( cd "$w" && ISO_MARKER="$marker" \
+      with_host_env "$h" bash scripts/test/run-all.sh ) >/dev/null 2>&1
   after=$(snap "$h")
   [ -f "$marker" ] && m=present
   [ "$before" = "$after" ] || c=changed
@@ -128,7 +133,7 @@ direct_case() {
   h=$(mkhost); p=$tmproot/direct.$1.test.sh
   { [ "$1" = scrubbed ] && printf '%s\n' "$SCRUB"; probe_body; } > "$p"
   before=$(snap "$h")
-  env $(host_env "$h") bash "$p" >/dev/null 2>&1
+  with_host_env "$h" bash "$p" >/dev/null 2>&1
   after=$(snap "$h")
   [ "$before" = "$after" ] && printf same || printf changed
 }
@@ -143,7 +148,9 @@ d=$(direct_case bare)
 
 # --- Coverage --------------------------------------------------------------
 
-# Any test that mentions git must scrub, whatever idiom builds its fixture.
+# Any test that mentions git must scrub, whatever idiom builds its fixture. The
+# match is whole-line: this file quotes the scrub in its own header, and a
+# decorative mention must not satisfy the gate.
 # The match is deliberately loose - it catches a prose mention too - because
 # over-inclusion costs a redundant unset while under-inclusion costs a leak.
 # Echoes the offenders, so one function serves the suite and its negative case.
@@ -152,7 +159,7 @@ scan() {
   for f in "$1"/*.test.sh; do
     [ -e "$f" ] || continue
     grep -qE '(^|[^[:alnum:]-])git[[:space:]]' "$f" || continue
-    grep -qF -- "$SCRUB" "$f" || missing="$missing $(basename "$f")"
+    grep -qxF -- "$SCRUB" "$f" || missing="$missing $(basename "$f")"
   done
   printf '%s' "$missing"
 }
@@ -166,11 +173,47 @@ neg=$tmproot/neg; mkdir -p "$neg"
 { printf 'set -uo pipefail\n'; probe_body; } > "$neg/unscrubbed.test.sh"
 { printf '%s\n' "$SCRUB"; probe_body; } > "$neg/scrubbed.test.sh"
 printf 'echo nothing to see\n' > "$neg/gitless.test.sh"
+# The scrub named in a comment, which an unanchored match would have accepted.
+{ printf '# handled elsewhere: %s\n' "$SCRUB"; probe_body; } > "$neg/decorative.test.sh"
 m=$(scan "$neg")
-if [ "$m" = " unscrubbed.test.sh" ]; then
-  pass "the scan names an unscrubbed test and passes the other two"
+if [ "$m" = " decorative.test.sh unscrubbed.test.sh" ]; then
+  pass "the scan names the unscrubbed and the decorative, passes the other two"
 else
-  die "the scan reported '$m'; wanted ' unscrubbed.test.sh'"
+  die "the scan reported '$m'; wanted ' decorative.test.sh unscrubbed.test.sh'"
 fi
+
+# --- Components ------------------------------------------------------------
+
+# An index-only leak: no ref moves and no file appears, so ls-files is the only
+# line of snap() that can see it.
+index_case() {
+  local h p before after
+  h=$(mkhost); p=$tmproot/index.$1.test.sh
+  { [ "$1" = scrubbed ] && printf '%s\n' "$SCRUB"
+    printf 'set -uo pipefail\nd=$(mktemp -d)\ngit -C "$d" init -q\n'
+    printf 'git -C "$d" rm --cached hostfile 2>/dev/null || true\nrm -rf "$d"\n'
+  } > "$p"
+  before=$(snap "$h")
+  env GIT_DIR="$h/.git" bash "$p" >/dev/null 2>&1
+  after=$(snap "$h")
+  [ "$before" = "$after" ] && printf same || printf changed
+}
+
+[ "$(index_case scrubbed)" = same ] \
+  && pass "a scrubbed test leaves the host index alone" \
+  || die "a scrubbed test altered the host index"
+[ "$(index_case bare)" = changed ] \
+  && pass "an index-only leak is caught" \
+  || die "an index-only leak went unnoticed - snap does not read the index"
+
+# A scrub that forgets GIT_INDEX_FILE: the write lands on the redirected path,
+# so only the git-dir listing moves.
+partial=$tmproot/partial.test.sh
+{ printf 'unset GIT_DIR GIT_WORK_TREE\n'; probe_body; } > "$partial"
+h=$(mkhost); before=$(snap "$h")
+with_host_env "$h" bash "$partial" >/dev/null 2>&1
+[ "$before" != "$(snap "$h")" ] \
+  && pass "a scrub missing GIT_INDEX_FILE is caught in the git dir" \
+  || die "a redirected GIT_INDEX_FILE write went unnoticed"
 
 exit $fail

@@ -16,3 +16,9 @@ composite (`R051-T###`, counter scoped to this initiative).
 - [ ] **R051-T003 [mnt]**: re-vendor the shipped tests and assert in
   `install-dev.test.sh` that the shipped copy scrubs, so the fix cannot
   be vendored away. `depends-on: R051-T001`
+- [ ] **R051-T004 [test]**: `GIT_CONFIG_PARAMETERS` and the
+  `GIT_CONFIG_COUNT`/`KEY`/`VALUE` triple survive the scrub and set config
+  in every fixture, so a test asserting on branch names, `core.*` or hook
+  paths measures under configuration it did not choose. Decide whether
+  `companions/verification-policy.md § Verifier isolation` widens beyond
+  the three names it lists. `depends-on: R051-T001`
