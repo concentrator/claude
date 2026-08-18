@@ -4,6 +4,12 @@
 # regression in a gate's or hook's own logic is caught. Run by
 # .github/workflows/ci.yml and the .githooks/pre-push hook.
 set -uo pipefail
+# Isolate every test from an inherited git environment. `git -C` sets the
+# working directory but does not override GIT_DIR, so a fixture built with
+# -C alone still operates on whatever repo GIT_DIR names - git exports it,
+# absolute, to a hook running in a linked worktree. This must precede the
+# cd below, which resolves the toplevel through the same variable.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 cd "$(git rev-parse --show-toplevel)"
 shopt -s nullglob
 

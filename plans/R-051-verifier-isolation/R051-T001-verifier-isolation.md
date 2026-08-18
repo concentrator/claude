@@ -19,7 +19,7 @@ variable exported to a hook beyond the harmless `GIT_EDITOR`,
 Two slices, each carrying the assertion that proves it. The assertions
 share one file, since both ask the same question of two invocation paths.
 
-- [ ] Runner path: `scripts/test/isolation.test.sh` asserts that a
+- [x] Runner path: `scripts/test/isolation.test.sh` asserts that a
       fixture-creating test invoked through `scripts/test/run-all.sh`
       leaves a throwaway host repository's refs and config unchanged with
       an absolute `GIT_DIR` exported, and `run-all.sh` unsets `GIT_DIR`,
