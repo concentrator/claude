@@ -35,15 +35,18 @@ limit arrives long after the cost does.
   whole window.
 - Make the delivery unit the session unit, so context dies with the
   work it served.
-- Remove context-resident waste that outlives its usefulness: inline
-  heredocs and banner chains, doc reloads inside a unit, subagents that
-  run long.
+- Remove context-resident waste that outlives its usefulness: doc
+  reloads inside a delivery unit.
 - Make the effect checkable on demand rather than by impression.
 
 ## Non-goals
 
 - A custom context manager. `autoCompactWindow` is the enforcement;
-  this initiative's own code is advisory and observational.
+  this initiative's own code is observational.
+- Advisory budget hooks (a context governor, a shell-composite
+  budget, a subagent dispatch budget): trimmed under R-053's
+  proportionality rule - the window enforces, a hook layer over it
+  costs more than it saves.
 - Changing verification depth, model routing, or reasoning effort.
   R-005 and `companions/verification-policy.md` own those.
 - Shipping the hooks to adopters. `install-dev.sh` is untouched; rule
@@ -60,10 +63,7 @@ The delivery unit and the session boundary coincide, per mode:
 | `/dev supervise`, worker | batch | the same checkpoint |
 | `/dev supervise`, supervisor | declared scope | unchanged: the supervisor spans sessions, per `supervise.md § Monitor` |
 
-Auto-compaction fires at the configured window. The governor hook notes
-a threshold crossing and never blocks. Opening a new unit inside a
-session that still holds the previous one produces a note, not a
-refusal.
+Auto-compaction fires at the configured window.
 
 Compaction is safe against plan state because the plan file on disk is
 the record: `branch-plan.md § Body` holds that marks record what
@@ -78,35 +78,17 @@ happened, so a compacted session recovers by re-reading the plan.
       source attribution whose total equals the billed total it
       measured, and its `scripts/test/` case fails on a known-bad
       input.
-- [ ] The governor hook emits advisory output at each threshold and
-      emits no decision field on any path; its test asserts the
-      emission and the absence.
 - [ ] Every mode file names its delivery unit and its session boundary,
       and no two contradict each other (single home, R-039). The
       supervisor's spanning behaviour is stated where `supervise.md
       § Monitor` implies it today.
-- [ ] `companions/implementer-prompt.md` states a tool-call budget and
-      requires an explicit file list, and a stamped plan still clears
-      `companions/verification-policy.md § Comprehension check`
-      afterwards.
-- [ ] The shell hook carries the convention in its advisory text, warns
-      on a composite over its budget, and stays silent on a legitimate
-      compound command. The test proves the check bites by failing it on
-      a known instance first (`companions/verification-policy.md
-      § Verification modality`).
 - [ ] Tier-1 green: `bash scripts/ci/run-all.sh`.
 
 ## Constraints
 
-- Advisory only. No hook in this initiative blocks a tool call or the
-  agentic loop: a headless `/dev auto` worker must never stall on a
-  governor decision with no operator present.
-- Hooks stay in `~/.claude`. `install-dev.sh` and the adopter hook set
-  are out of scope.
-- The hook schema supplies what the design needs: `PostToolBatch`,
-  `UserPromptSubmit`, and `PreToolUse` each carry `transcript_path`,
-  and `PostToolBatch` carries `agent_id` when it fires inside a
-  subagent, which is how the subagent tier is keyed.
+- `autoCompactWindow` is the only enforcement; everything else the
+  initiative ships is observational or doc text.
+- `install-dev.sh` and the adopter hook set are out of scope.
 
 ## Open questions
 

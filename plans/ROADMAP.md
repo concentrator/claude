@@ -149,10 +149,11 @@ Initiative index. Items: `R-001: description`; each entry owns
       batch ids stop colliding in git's flat tag namespace; a gate
       catches an anchor that outlived its batch, enforcing locally and
       skipping where tags are not visible.
-- [ ] R-049: Vendored-gate hygiene - the quoted-filename sweep of the
+- [x] R-049: Vendored-gate hygiene - the quoted-filename sweep of the
       sibling `git ls-files` checks (NUL-delimited enumeration) and a
       copyable runner for the vendored gate set; promoted from
-      R-043's close reviews. (stub - shape via `/dev plan R-049`)
+      R-043's close reviews. Won't fix: machinery polish that fails
+      the R-053 proportionality test - no observed failure.
 - [x] R-048: Batch branch identity - `batch/B-XXX` refs carry the same
       per-initiative collision the R-044 anchor rename fixed, and the
       branch is pushed at accept; promoted from R044-T001's close
@@ -164,7 +165,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       composites, doc reloads inside a unit, long-running subagents. A
       tracked measurement tool makes the effect checkable. Sibling of
       R-005, which took the verification half of the same goal.
-- [ ] R-051: Verifier isolation - fixture git commands in
+- [x] R-051: Verifier isolation - fixture git commands in
       `scripts/test/` operate on the host repo whenever `GIT_DIR` is
       absolute, because `git -C` does not override it. One run rewrote a
       branch, planted five refs and set `core.bare` while the suite
@@ -178,5 +179,13 @@ Initiative index. Items: `R-001: description`; each entry owns
       planning flow writes before it branches, and a commit into a
       disposable fixture repo is attributed to the session repo because
       the commit path still resolves from the cwd that R-036 removed from
-      the write path. Ambient branch state replaces the remembered check;
-      the guard learns to tell a fixture from a project.
+      the write path. Scope is the cheapest reliable fix for the two
+      misfires, bounded by R-053's proportionality rule: no new
+      subsystem, no state file. Supervise mode and worktrees stay as
+      they are - supervisor plus worker on a remote host is the target
+      model. (stub - shape via `/dev plan R-052`)
+- [ ] R-053: Proportional engineering - a planning rule, not a gate:
+      one observed failure earns one fix and one test; deeper proofs
+      are reserved for the guards that protect real work; hardening
+      against a hazard that has never fired needs explicit approval.
+      The existing test suite is trimmed to the same standard.

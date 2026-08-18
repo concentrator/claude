@@ -13,25 +13,28 @@ composite (`R050-T###`, counter scoped to this initiative).
 - [x] **R050-T002 [mnt]**: set `autoCompactWindow` in `settings.json`, and
   record it in a new `DESIGN.md § Context budget` section.
   `depends-on: R050-T001, R050-T007`
-- [ ] **R050-T003 [feat]**: `hooks/dev-context-governor.sh` - advisory
+- [x] **R050-T003 [feat]**: `hooks/dev-context-governor.sh` - advisory
   threshold notes on `PostToolBatch` for the main loop and for subagents
   (keyed on `agent_id`), and a new-unit note on `UserPromptSubmit`;
   `settings.json` registration and a script test.
-  `depends-on: R050-T001`
+  `depends-on: R050-T001` Won't fix: the window is the enforcement;
+  an advisory layer over it fails the R-053 proportionality test.
 - [ ] **R050-T004 [doc]**: session boundary and doc-load discipline - the
   delivery unit per mode into `branch-plan.md`, `finish.md`, `auto.md`
   and `supervise.md`; one doc-load phase per unit, sectional reads over
   whole-file reads, and reports and findings read at triage rather than
   during execution.
-- [ ] **R050-T005 [doc]**: subagent dispatch budget - a tool-call budget
+- [x] **R050-T005 [doc]**: subagent dispatch budget - a tool-call budget
   and an explicit file list in `companions/implementer-prompt.md`, with a
   cross-reference to the governor's subagent tier.
-  `depends-on: R050-T003`
-- [ ] **R050-T006 [feat]**: shell-composite budget - an advisory
+  `depends-on: R050-T003` Won't fix: built on the dropped governor
+  tier; same proportionality call.
+- [x] **R050-T006 [feat]**: shell-composite budget - an advisory
   `hooks/dev-shell-budget.sh` carrying the convention in its message,
   plus its test and a threshold calibrated against the corpus. Runs
   last; the trim candidate if the initiative runs long.
-  `depends-on: R050-T001`
+  `depends-on: R050-T001` Won't fix: trimmed as its own plan
+  predicted - the hook would cost more to keep than it saves.
 - [x] **R050-T007 [doc]**: `DESIGN.md` headroom for the initiative -
   the file sits two words under its cap while T002, T003 and T006 each
   need room in it. Trims restatement of facts owned elsewhere (R-039),
