@@ -26,13 +26,13 @@ central claim a run that can fail
 Word budget: the Tier-1 enumeration entry costs `DESIGN.md` roughly
 eight words, inside the headroom R050-T007 established.
 
-- [ ] `scripts/ci/check-settings.sh`: assert `settings.json` parses,
+- [x] `scripts/ci/check-settings.sh`: assert `settings.json` parses,
       `autoCompactEnabled` is `true`, and `autoCompactWindow` is present
       and within the documented 100000 to 1000000. Report the failing
       condition by name rather than a bare exit code, matching the other
       checks. Register it in `scripts/ci/run-all.sh`, whose loop is what
       makes a check part of the gate.
-- [ ] `scripts/test/check-settings.test.sh`: a case per assertion,
+- [x] `scripts/test/check-settings.test.sh`: a case per assertion,
       each proved to bite by running the real check against a fixture
       that violates exactly that condition - key absent, key out of
       range, `autoCompactEnabled` false, malformed JSON - plus a
