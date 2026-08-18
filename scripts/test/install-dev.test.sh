@@ -58,6 +58,35 @@ out=$( cd "$R" && env -u CI bash "$P/.claude/scripts/ci/check-batch-tags.sh" 2>&
   || die "copied batch-tags gate did not bite: $out"
 rm -rf "$R"
 
+# --- the vendored self-tests carry T001's scrub, and it holds from the install
+# location: a leaked git environment must not reach the adopter's own repo ---
+SCRUB='unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE'
+miss=
+for t in check-accretion check-batch-tags; do
+  grep -qxF -- "$SCRUB" "$P/.claude/scripts/test/$t.test.sh" || miss="$miss $t"
+done
+[ -z "$miss" ] && pass "vendored self-tests carry the isolation scrub" \
+  || die "vendored self-tests missing the scrub:$miss"
+
+# A stand-in adopter repo, left with an unstaged edit so a leaked `add` shows
+# in its index as well as its refs.
+H=$(mktemp -d); git -C "$H" init -q -b main
+printf 'committed\n' > "$H/hostfile"; git -C "$H" add -A
+git -C "$H" -c user.email=t@t -c user.name=t commit -q -m base
+printf 'unstaged\n' > "$H/hostfile"
+hsnap() {
+  git -C "$H" show-ref -d 2>/dev/null
+  git -C "$H" config --local --list 2>/dev/null | sort
+  git -C "$H" ls-files -s 2>/dev/null
+}
+before=$(hsnap)
+env GIT_DIR="$H/.git" GIT_WORK_TREE="$H" GIT_INDEX_FILE="$H/.git/index" \
+  bash "$P/.claude/scripts/test/check-batch-tags.test.sh" >/dev/null 2>&1
+[ "$before" = "$(hsnap)" ] \
+  && pass "a vendored self-test leaves a leaked host repo alone" \
+  || die "a vendored self-test mutated the leaked host repo"
+rm -rf "$H"
+
 # --- a tuned MARKERS list survives re-install ---
 T=$(mktemp); sed "s/^MARKERS=.*/MARKERS='justonemarker'/" \
   "$P/.claude/scripts/ci/check-accretion.sh" > "$T" \

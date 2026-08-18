@@ -16,10 +16,10 @@ and cannot be dropped from it later.
 
 The set of files shipped does not change, only their contents.
 
-- [ ] Confirm the shipped copies carry T001's scrub, and adjust
+- [x] Confirm the shipped copies carry T001's scrub, and adjust
       `install-dev.sh` if it rewrites or filters any part of the test
       bodies on the way.
-- [ ] `scripts/test/install-dev.test.sh`: assert the copied tests scrub
+- [x] `scripts/test/install-dev.test.sh`: assert the copied tests scrub
       the three variables, beside the existing assertions that the copied
       gates bite from their install location. Without it a later edit can
       vendor the fix away and no case notices.
