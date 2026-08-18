@@ -6,6 +6,8 @@
 # without blocking fails the suite.
 # Run: bash scripts/test/check-plan-integrity.test.sh
 set -uo pipefail
+# Never inherit a git environment - see scripts/test/isolation.test.sh.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 # Overridable so a mutated copy can be run against these cases, confirming
 # each report site has a case that fails when it breaks. The copy must sit
 # beside a copy of resolve-root.sh: the check resolves that sibling from its

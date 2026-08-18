@@ -56,7 +56,7 @@ these three variables to be unset; no test does it.
       `GIT_INDEX_FILE` before invoking any test, and a case proves a test
       run through it stays isolated with an absolute `GIT_DIR` in the
       environment.
-- [ ] Every fixture-creating test unsets the three itself, and a case
+- [ ] Every test that uses git unsets the three itself, and a case
       proves direct invocation stays isolated under the same condition.
 - [ ] A full-suite run with an absolute `GIT_DIR` set leaves the host
       repository's refs, config and index unchanged, compared before and

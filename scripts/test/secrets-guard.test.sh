@@ -6,6 +6,8 @@
 # missing jq. Fixture secrets are assembled at runtime so no matchable literal
 # lives in this tracked source. Run: bash scripts/test/secrets-guard.test.sh
 set -uo pipefail
+# Never inherit a git environment - see scripts/test/isolation.test.sh.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 HOOK="$(git rev-parse --show-toplevel)/hooks/dev-secrets-guard.sh"
 fail=0
 pass() { echo "ok - $1"; }

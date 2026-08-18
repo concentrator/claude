@@ -4,6 +4,8 @@
 # never contains a literal one that the gate would then flag. Each case runs
 # the real check in a throwaway git repo. Run: bash scripts/test/check-no-em-dash.test.sh
 set -uo pipefail
+# Never inherit a git environment - see scripts/test/isolation.test.sh.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 CHECK="$(git rev-parse --show-toplevel)/scripts/ci/check-no-em-dash.sh"
 fail=0
 pass() { echo "ok - $1"; }
