@@ -3,6 +3,9 @@
 # code, with a per-path override allowlist. Each case runs the real check in a
 # throwaway git repo. Run: bash scripts/test/check-code-size.test.sh
 set -uo pipefail
+# Fixtures here are isolated by `git -C`, which does not override GIT_DIR.
+# Scrubbed at file scope so every fixture in this file inherits it.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 CHECK="$(git rev-parse --show-toplevel)/scripts/ci/check-code-size.sh"
 fail=0
 pass() { echo "ok - $1"; }

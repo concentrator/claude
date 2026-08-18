@@ -11,6 +11,9 @@
 # input / outside a repo.
 # Run: bash scripts/test/dev-branch-guard.test.sh
 set -uo pipefail
+# Fixtures here are isolated by `git -C`, which does not override GIT_DIR.
+# Scrubbed at file scope so every fixture in this file inherits it.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 HOOK="$(git rev-parse --show-toplevel)/hooks/dev-branch-guard.sh"
 fail=0
 pass() { echo "ok - $1"; }

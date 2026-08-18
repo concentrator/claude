@@ -6,6 +6,9 @@
 # gate's own environment never skips them.
 # Run: bash scripts/test/check-batch-tags.test.sh
 set -uo pipefail
+# Fixtures here are isolated by `git -C`, which does not override GIT_DIR.
+# Scrubbed at file scope so every fixture in this file inherits it.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 # Sibling ci/ dir, not the repo root - this pair is vendored by install-dev.sh.
 CHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")/../ci" && pwd)/check-batch-tags.sh"
 [ -f "$CHECK" ] || { echo "not ok - $CHECK not found"; exit 1; }

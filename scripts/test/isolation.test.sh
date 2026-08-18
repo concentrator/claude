@@ -95,4 +95,56 @@ else
   die "mutant runner does not parse"
 fi
 
+# --- Direct path -----------------------------------------------------------
+# A test invoked without the runner carries its own scrub. Written as a pair so
+# the bare variant proves the scrubbed one is doing the work.
+direct_case() {
+  local h p before after
+  h=$(mkhost); p=$tmproot/direct.$1.test.sh
+  {
+    [ "$1" = scrubbed ] && printf 'unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE\n'
+    cat <<'DIRECT'
+set -uo pipefail
+d=$(mktemp -d)
+git -C "$d" init -q
+git -C "$d" branch leaked-direct 2>/dev/null || true
+rm -rf "$d"
+DIRECT
+  } > "$p"
+  before=$(snap "$h")
+  GIT_DIR="$h/.git" bash "$p" >/dev/null 2>&1
+  after=$(snap "$h")
+  [ "$before" = "$after" ] && printf same || printf changed
+}
+
+d=$(direct_case scrubbed)
+if [ "$d" = same ]; then
+  pass "a scrubbed test invoked directly leaves the host repo alone"
+else
+  die "a scrubbed test invoked directly mutated the host repo ($d)"
+fi
+
+d=$(direct_case bare)
+if [ "$d" = changed ]; then
+  pass "an unscrubbed test invoked directly leaks to the host ($d)"
+else
+  die "an unscrubbed test did not leak - the case proves nothing ($d)"
+fi
+
+# --- Coverage --------------------------------------------------------------
+# Keyed on what a test does, not on a list of names, so a new fixture-creating
+# test must scrub or this goes red.
+missing=
+for f in "$root"/scripts/test/*.test.sh; do
+  grep -q 'mktemp -d' "$f" || continue
+  grep -qE '(^|[^[:alnum:]-])git[[:space:]]' "$f" || continue
+  grep -q '^unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE$' "$f" \
+    || missing="$missing $(basename "$f")"
+done
+if [ -z "$missing" ]; then
+  pass "every fixture-creating test scrubs the git environment"
+else
+  die "fixture-creating tests without a scrub:$missing"
+fi
+
 exit $fail

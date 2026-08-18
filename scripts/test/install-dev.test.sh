@@ -2,6 +2,9 @@
 # Tests scripts/install-dev.sh - installs the DEV toolset into a target
 # .claude. Run: bash scripts/test/install-dev.test.sh
 set -uo pipefail
+# Fixtures here are isolated by `git -C`, which does not override GIT_DIR.
+# Scrubbed at file scope so every fixture in this file inherits it.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 cd "$(git rev-parse --show-toplevel)"
 
 INSTALL="$PWD/scripts/install-dev.sh"

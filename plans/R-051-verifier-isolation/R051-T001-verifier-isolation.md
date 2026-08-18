@@ -25,7 +25,7 @@ share one file, since both ask the same question of two invocation paths.
       an absolute `GIT_DIR` exported, and `run-all.sh` unsets `GIT_DIR`,
       `GIT_WORK_TREE` and `GIT_INDEX_FILE` before invoking any test. The
       case must fail with the unset removed.
-- [ ] Direct path: the same assertion for a test invoked directly rather
+- [x] Direct path: the same assertion for a test invoked directly rather
       than through the runner, and each fixture-creating test unsets the
       three itself: `check-accretion`, `check-batch-tags`,
       `check-code-size`, `check-no-em-dash`, `check-plan-integrity`,
