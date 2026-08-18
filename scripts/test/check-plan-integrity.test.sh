@@ -6,8 +6,7 @@
 # without blocking fails the suite.
 # Run: bash scripts/test/check-plan-integrity.test.sh
 set -uo pipefail
-# Fixtures here are isolated by `git -C`, which does not override GIT_DIR.
-# Scrubbed at file scope so every fixture in this file inherits it.
+# Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 # Overridable so a mutated copy can be run against these cases, confirming
 # each report site has a case that fails when it breaks. The copy must sit

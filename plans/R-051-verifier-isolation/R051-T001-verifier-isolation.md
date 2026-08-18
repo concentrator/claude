@@ -29,8 +29,8 @@ share one file, since both ask the same question of two invocation paths.
       than through the runner, and each fixture-creating test unsets the
       three itself: `check-accretion`, `check-batch-tags`,
       `check-code-size`, `check-no-em-dash`, `check-plan-integrity`,
-      `check-settings`, `dev-branch-guard`, `secrets-guard`,
-      `install-dev`. Scrub where the fixture is built rather than at each
+      `check-settings`, `context-cost`, `dev-branch-guard`,
+      `secrets-guard`, `install-dev`. Scrub where the fixture is built rather than at each
       call site, so a new fixture in an existing test inherits it.
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
