@@ -33,6 +33,6 @@ stays open past this branch's merge until it is
       observe. The compaction-safety derivation stays in
       `requirements.md`, which owns it and whose cited source carries
       only its premise; the number stays in `settings.json`.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
