@@ -92,3 +92,18 @@ composite (`R040-T###`, counter scoped to this initiative).
   its own vocabulary passes a compliance check; and the dispatch
   prompts state that an agent verifies before applying a correction
   and reports back one it judges wrong. `depends-on: R040-T006`
+- [ ] **R040-T011 [feat]**: the agent channel - the pilot drove sibling
+  sessions by typing into a terminal pane and paid three ways: an
+  escalation printed to scrollback sat unread for roughly an hour, a
+  blocked supervisor read identically to a thinking one, and the
+  classifier twice refused the injection on a pattern it had allowed
+  repeatedly. Scoped originally as three files per scope; measurement
+  replaced most of that with configuration, because `SendMessage`
+  already carries messages between sessions and **wakes an idle peer**
+  rather than only queueing for one already taking turns. What remains:
+  start the supervisor under `--remote-control` (the settings key is
+  user-scope only, so it cannot be provisioned where `~/.claude` is the
+  tracked config repo), commit `isolatePeerMachines`, decide whether the
+  operator's own session joins, and correct the keystroke claim this
+  initiative wrote into three documents.
+  `depends-on: R040-T002`
