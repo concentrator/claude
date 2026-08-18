@@ -145,6 +145,12 @@ Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
 `dev-secrets-guard`) add a local pre-emptive guard: no writes or commits on
 the trunk, and no secrets into tracked files or commits.
 
+## Context budget
+
+`autoCompactWindow` caps the working context, so cost stops tracking
+session length. Enforcement is the harness's: the gates above judge
+changes, not sessions.
+
 ## Invariants
 
 - Every skill is reachable, documented, and non-duplicative.

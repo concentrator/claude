@@ -20,11 +20,11 @@ after the change. The criterion is therefore verified later, and R-050
 stays open past this branch's merge until it is
 (`plan.md § Approval and closure`).
 
-- [ ] `settings.json`: set `autoCompactWindow` to 200000 beside the
+- [x] `settings.json`: set `autoCompactWindow` to 200000 beside the
       existing `autoCompactEnabled`. Verification here is the Tier-1
       gate plus a settings parse, not the context observation, which
       the branch cannot yet make.
-- [ ] `DESIGN.md`: a sibling `## Context budget` section, following the
+- [x] `DESIGN.md`: a sibling `## Context budget` section, following the
       one-section-per-concern pattern of `## Planning model` and
       `## Git & delivery model`. `§ Self-enforcement` is the wrong home:
       it opens "Two tiers gate every change into `main`", and a bound on
