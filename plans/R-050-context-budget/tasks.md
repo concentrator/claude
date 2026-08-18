@@ -36,7 +36,7 @@ composite (`R050-T###`, counter scoped to this initiative).
   the file sits two words under its cap while T002, T003 and T006 each
   need room in it. Trims restatement of facts owned elsewhere (R-039),
   targeting 920 words. Runs first; T002 waits on it.
-- [ ] **R050-T008 [feat]**: gate the context budget - a Tier-1 check
+- [x] **R050-T008 [feat]**: gate the context budget - a Tier-1 check
   asserting `autoCompactEnabled` and a present, in-range
   `autoCompactWindow`. The enforcement is one unguarded line today, and
   every hook here is advisory, so it could stop binding silently.
