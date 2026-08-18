@@ -164,3 +164,12 @@ Initiative index. Items: `R-001: description`; each entry owns
       composites, doc reloads inside a unit, long-running subagents. A
       tracked measurement tool makes the effect checkable. Sibling of
       R-005, which took the verification half of the same goal.
+- [ ] R-051: Verifier isolation - fixture git commands in
+      `scripts/test/` operate on the host repo whenever `GIT_DIR` is
+      absolute, because `git -C` does not override it. One run rewrote a
+      branch, planted five refs and set `core.bare` while the suite
+      reported ALL OK; `install-dev.sh` ships one of these tests, so
+      adopters carry the same trap.
+      `companions/verification-policy.md § Verifier isolation` already
+      requires the scrub that no test performs.
+
