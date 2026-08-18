@@ -80,8 +80,12 @@ hsnap() {
   git -C "$H" ls-files -s 2>/dev/null
 }
 before=$(hsnap)
-env GIT_DIR="$H/.git" GIT_WORK_TREE="$H" GIT_INDEX_FILE="$H/.git/index" \
-  bash "$P/.claude/scripts/test/check-batch-tags.test.sh" >/dev/null 2>&1
+# From a throwaway cwd: a leaking copy captures git's "nothing to commit" on
+# stdout as a fixture path and mkdir's it relative to wherever it is run.
+W=$(mktemp -d)
+( cd "$W" && env GIT_DIR="$H/.git" GIT_WORK_TREE="$H" GIT_INDEX_FILE="$H/.git/index" \
+    bash "$P/.claude/scripts/test/check-batch-tags.test.sh" ) >/dev/null 2>&1
+rm -rf "$W"
 [ "$before" = "$(hsnap)" ] \
   && pass "a vendored self-test leaves a leaked host repo alone" \
   || die "a vendored self-test mutated the leaked host repo"
