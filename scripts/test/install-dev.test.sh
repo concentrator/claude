@@ -2,6 +2,8 @@
 # Tests scripts/install-dev.sh - installs the DEV toolset into a target
 # .claude. Run: bash scripts/test/install-dev.test.sh
 set -uo pipefail
+# Never inherit a git environment - see scripts/test/isolation.test.sh.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 cd "$(git rev-parse --show-toplevel)"
 
 INSTALL="$PWD/scripts/install-dev.sh"
