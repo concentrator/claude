@@ -42,6 +42,6 @@ eight words, inside the headroom R050-T007 established.
 - [x] `DESIGN.md § Self-enforcement`: add the check to the Tier-1
       enumeration, required by `MAINTENANCE.md § Doc-sync pairs` when a
       `scripts/ci/` check is added.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
