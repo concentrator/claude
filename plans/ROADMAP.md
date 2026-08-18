@@ -173,3 +173,10 @@ Initiative index. Items: `R-001: description`; each entry owns
       `companions/verification-policy.md § Verifier isolation` already
       requires the scrub that no test performs.
 
+- [ ] R-052: Branch discipline and commit target resolution - the branch
+      guard fires in nearly every session from two unrelated causes: the
+      planning flow writes before it branches, and a commit into a
+      disposable fixture repo is attributed to the session repo because
+      the commit path still resolves from the cwd that R-036 removed from
+      the write path. Ambient branch state replaces the remembered check;
+      the guard learns to tell a fixture from a project.
