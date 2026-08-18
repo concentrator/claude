@@ -28,11 +28,11 @@ invocation context.
 not override `GIT_DIR`, so a fixture isolated by `-C` alone is not
 isolated.
 
-Git exports `GIT_DIR` to hooks. From a primary checkout it is the
-relative `.git`, which resolves against the `-C` directory and lands in
-the fixture by luck; from a linked worktree it is absolute, which does
-not. So `.githooks/pre-push` reproduces this from a worktree and nowhere
-else.
+Git exports `GIT_DIR` to a hook only when the hook runs in a linked
+worktree, and then as an absolute path to that worktree's gitdir. From a
+primary checkout it is not exported at all, so nothing overrides `-C` and
+the fixtures are isolated. That is why `.githooks/pre-push` reproduces
+this from a worktree and nowhere else.
 
 ## Impact
 
@@ -75,8 +75,7 @@ these three variables to be unset; no test does it.
 
 ## Open questions
 
-- Whether `env -i` or `GIT_CEILING_DIRECTORIES` is a better instrument
-  than unsetting three named variables. Resolve in the detail round.
+None.
 
 ## References
 
