@@ -35,6 +35,6 @@ share one file, since both ask the same question of two invocation paths.
       `check-settings`, `context-cost`, `dev-branch-guard`,
       `secrets-guard`, `install-dev`. Scrub at file scope rather than at
       each call site, so a new fixture in an existing test inherits it.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.

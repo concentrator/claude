@@ -6,7 +6,7 @@ composite (`R051-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R051-T001 [test]**: scrub `GIT_DIR`, `GIT_WORK_TREE` and
+- [x] **R051-T001 [test]**: scrub `GIT_DIR`, `GIT_WORK_TREE` and
   `GIT_INDEX_FILE` in `scripts/test/run-all.sh` and in every
   fixture-creating test, with a case proving isolation under an absolute
   `GIT_DIR` both through the runner and by direct invocation.
