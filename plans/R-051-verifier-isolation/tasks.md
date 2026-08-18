@@ -13,7 +13,7 @@ composite (`R051-T###`, counter scoped to this initiative).
 - [ ] **R051-T002 [test]**: a whole-suite isolation assertion comparing
   host refs, config and index before and after a run, proved to bite by
   running it against an unfixed copy. `depends-on: R051-T001`
-- [ ] **R051-T003 [mnt]**: re-vendor the shipped tests and assert in
+- [x] **R051-T003 [mnt]**: re-vendor the shipped tests and assert in
   `install-dev.test.sh` that the shipped copy scrubs, so the fix cannot
   be vendored away. `depends-on: R051-T001`
 - [ ] **R051-T004 [test]**: `GIT_CONFIG_PARAMETERS` and the

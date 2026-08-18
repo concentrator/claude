@@ -58,6 +58,51 @@ out=$( cd "$R" && env -u CI bash "$P/.claude/scripts/ci/check-batch-tags.sh" 2>&
   || die "copied batch-tags gate did not bite: $out"
 rm -rf "$R"
 
+# --- the vendored self-tests carry T001's scrub, and it holds from the install
+# location: a leaked git environment must not reach the adopter's own repo ---
+SCRUB='unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE'
+miss=
+for t in check-accretion check-batch-tags; do
+  grep -qxF -- "$SCRUB" "$P/.claude/scripts/test/$t.test.sh" || miss="$miss $t"
+done
+[ -z "$miss" ] && pass "vendored self-tests carry the isolation scrub" \
+  || die "vendored self-tests missing the scrub:$miss"
+
+# A stand-in adopter repo, left with an unstaged edit so a leaked `add` shows
+# in its index as well as its refs.
+VH=$(mktemp -d); git -C "$VH" init -q -b main
+printf 'committed\n' > "$VH/hostfile"; git -C "$VH" add -A
+git -C "$VH" -c user.email=t@t -c user.name=t commit -q -m base
+printf 'unstaged\n' > "$VH/hostfile"
+# The five components a leak can move; mirrors scripts/test/isolation.test.sh.
+hsnap() {
+  git -C "$VH" show-ref -d 2>/dev/null
+  git -C "$VH" config --local --list 2>/dev/null | sort
+  git -C "$VH" symbolic-ref -q HEAD 2>/dev/null
+  git -C "$VH" ls-files -s 2>/dev/null
+  ( cd "$VH/.git" 2>/dev/null && find . -type f | sort )
+}
+for t in check-accretion check-batch-tags; do
+  before=$(hsnap)
+  # From a throwaway cwd: a leaking copy captures git's "nothing to commit" on
+  # stdout as a fixture path and mkdir's it relative to where it was invoked.
+  W=$(mktemp -d)
+  out=$( cd "$W" && env GIT_DIR="$VH/.git" GIT_WORK_TREE="$VH" \
+           GIT_INDEX_FILE="$VH/.git/index" \
+           bash "$P/.claude/scripts/test/$t.test.sh" 2>&1 ); rc=$?
+  rm -rf "$W"
+  # A mutated host is proof of a leak whatever the exit status - a leaking copy
+  # usually fails too. Only a clean host has to prove the run happened at all.
+  if [ "$before" != "$(hsnap)" ]; then
+    die "vendored $t mutated the leaked host repo"
+  elif [ $rc -ne 0 ] || ! grep -q "$t.test: OK" <<<"$out"; then
+    die "vendored $t did not run under a leaked environment (rc=$rc)"
+  else
+    pass "vendored $t leaves a leaked host repo alone"
+  fi
+done
+rm -rf "$VH"
+
 # --- a tuned MARKERS list survives re-install ---
 T=$(mktemp); sed "s/^MARKERS=.*/MARKERS='justonemarker'/" \
   "$P/.claude/scripts/ci/check-accretion.sh" > "$T" \
