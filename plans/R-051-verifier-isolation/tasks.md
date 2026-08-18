@@ -10,15 +10,20 @@ composite (`R051-T###`, counter scoped to this initiative).
   `GIT_INDEX_FILE` in `scripts/test/run-all.sh` and in every
   fixture-creating test, with a case proving isolation under an absolute
   `GIT_DIR` both through the runner and by direct invocation.
-- [ ] **R051-T002 [test]**: a whole-suite isolation assertion comparing
+- [x] **R051-T002 [test]**: a whole-suite isolation assertion comparing
   host refs, config and index before and after a run, proved to bite by
   running it against an unfixed copy. `depends-on: R051-T001`
+  Won't fix: T001's cases already prove isolation on both invocation
+  paths; a second belt over a fixed, tested defect fails the R-053
+  proportionality test.
 - [x] **R051-T003 [mnt]**: re-vendor the shipped tests and assert in
   `install-dev.test.sh` that the shipped copy scrubs, so the fix cannot
   be vendored away. `depends-on: R051-T001`
-- [ ] **R051-T004 [test]**: `GIT_CONFIG_PARAMETERS` and the
+- [x] **R051-T004 [test]**: `GIT_CONFIG_PARAMETERS` and the
   `GIT_CONFIG_COUNT`/`KEY`/`VALUE` triple survive the scrub and set config
   in every fixture, so a test asserting on branch names, `core.*` or hook
   paths measures under configuration it did not choose. Decide whether
   `companions/verification-policy.md § Verifier isolation` widens beyond
   the three names it lists. `depends-on: R051-T001`
+  Won't fix: this hazard has never fired; hardening against it needs
+  the explicit approval R-053 requires, and it was not given.

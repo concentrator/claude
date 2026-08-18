@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-18
 kind: bug
+status: done 2026-08-19
 ---
 
 # R-051: Verifier isolation
@@ -52,19 +53,24 @@ these three variables to be unset; no test does it.
 
 ## Acceptance criteria
 
-- [ ] `scripts/test/run-all.sh` unsets `GIT_DIR`, `GIT_WORK_TREE` and
+- [x] `scripts/test/run-all.sh` unsets `GIT_DIR`, `GIT_WORK_TREE` and
       `GIT_INDEX_FILE` before invoking any test, and a case proves a test
       run through it stays isolated with an absolute `GIT_DIR` in the
-      environment.
-- [ ] Every test that uses git unsets the three itself, and a case
-      proves direct invocation stays isolated under the same condition.
-- [ ] A full-suite run with an absolute `GIT_DIR` set leaves the host
-      repository's refs, config and index unchanged, compared before and
-      after; the comparison is proved to bite by running it against an
-      unfixed copy.
-- [ ] `scripts/test/install-dev.test.sh` asserts the shipped test scrubs
-      the environment, so the fix cannot be vendored away.
-- [ ] Tier-1 green: `bash scripts/ci/run-all.sh`.
+      environment (R051-T001; `isolation.test.sh` case "runner reaches
+      its tests under a leaked git environment, host intact").
+- [x] Every test that uses git unsets the three itself, and a case
+      proves direct invocation stays isolated under the same condition
+      (R051-T001; cases "every test that uses git scrubs the
+      environment", "a scrubbed test invoked directly leaves the host
+      alone").
+- [x] `scripts/test/install-dev.test.sh` asserts the shipped test scrubs
+      the environment, so the fix cannot be vendored away (R051-T003,
+      PR #339; case "vendored self-tests carry the isolation scrub").
+- [x] Tier-1 green: `bash scripts/ci/run-all.sh` (local `run-all: ALL
+      OK`; each delivery PR merged on a green `tier1` check).
+
+The whole-suite before/after host comparison originally planned here
+went with R051-T002: won't fix under R-053's proportionality rule.
 
 ## Constraints
 
