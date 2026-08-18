@@ -39,7 +39,7 @@ eight words, inside the headroom R050-T007 established.
       well-formed fixture that passes. Follow the `pass`/`die` and
       overridable-`CHECK` convention the sibling tests use, so a mutated
       copy can be run against these cases.
-- [ ] `DESIGN.md § Self-enforcement`: add the check to the Tier-1
+- [x] `DESIGN.md § Self-enforcement`: add the check to the Tier-1
       enumeration, required by `MAINTENANCE.md § Doc-sync pairs` when a
       `scripts/ci/` check is added.
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
