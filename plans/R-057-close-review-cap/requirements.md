@@ -1,5 +1,5 @@
 ---
-approved: pending
+approved: 2026-08-19
 kind: mnt
 ---
 
@@ -79,6 +79,6 @@ None.
 ## References
 
 R-053 (proportionality: the observed failure is the eight-agent
-review of a small branch); R-056 (session `effortLevel`, the other
-half of review cost); `skills/dev/branch-plan.md § Closing routine`;
+review of a small branch); `skills/dev/branch-plan.md § Closing
+routine`;
 `delegation.md`; `agents/code-reviewer.md`.
