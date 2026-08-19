@@ -11,7 +11,7 @@ composite (`R052-T###`, counter scoped to this initiative).
   that actually occur, implement it in `hooks/dev-branch-guard.sh`, add
   guard cases proved to fail against the pre-fix hook, and correct the
   header's stated resolution rule.
-- [ ] **R052-T002 [feat]**: ambient branch state - a hook putting the
+- [x] **R052-T002 [feat]**: ambient branch state - a hook putting the
   current branch and working-tree state in front of every session in
   both modes, its per-turn context cost sized against R-050's budget.
 - [ ] **R052-T003 [doc]**: the DEV planning flow creates its branch

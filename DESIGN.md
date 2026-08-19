@@ -51,6 +51,7 @@ excluded - see `.gitignore`.
 │   └── pre-push                  # advisory local Tier-1 mirror
 ├── hooks/
 │   ├── dev-branch-guard.sh       # PreToolUse branch-guard (no writes on trunk)
+│   ├── dev-branch-state.sh       # UserPromptSubmit ambient branch/tree state
 │   └── dev-secrets-guard.sh      # PreToolUse secrets guard
 ├── scripts/
 │   ├── ci/                       # Tier-1 checks + run-all.sh
@@ -143,7 +144,9 @@ direct-to-main bootstrap history.
 
 Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
 `dev-secrets-guard`) add a local pre-emptive guard: no writes or commits on
-the trunk, and no secrets into tracked files or commits.
+the trunk, and no secrets into tracked files or commits. A UserPromptSubmit
+hook (`dev-branch-state`) keeps the current branch and working-tree state
+in front of the session, so the trunk rule is followed rather than tripped.
 
 ## Context budget
 

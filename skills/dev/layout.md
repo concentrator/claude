@@ -71,8 +71,7 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 - **Created as workflows need them**: `.claude/skills/`,
   `.claude/rules/`, `.claude/commands/`, `.claude/agents/`,
   `.claude/MAINTENANCE.md`; `<root>/plans/ROADMAP.md`;
-  `.claude/hooks/` (shipped by the DEV toolset installer -
-  `dev-branch-guard.sh`).
+  `.claude/hooks/` (shipped by the DEV toolset installer).
 - **Initiative-time**: `<root>/plans/R-XXX-<slug>/` + `requirements.md`
   (`plan.md § Directory conventions`).
 - **Lazy** (created on first use): `.claude/adr/`,
