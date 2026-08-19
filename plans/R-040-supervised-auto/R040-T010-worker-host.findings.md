@@ -31,7 +31,7 @@
       and `verify_iap` already retries three times for this reason - worth
       the same treatment anywhere a first connection gates a later step.
 
-- [ ] **`settings.local.json` contributes less than the plan assumed, and its
+- [x] **`settings.local.json` contributes less than the plan assumed, and its
       acceptance test could not be made to discriminate.** The plan calls it
       "exactly what keeps a worker from stalling". On this host it mostly is
       not: the config repo's own `~/.claude/settings.json`, which arrives with
@@ -55,7 +55,7 @@
       it is not the evidence it claims to be. And the global grant deserves
       review on its own: `Bash(git:*)` in the shared config is wider than the
       per-project templates assume, which is why the narrower local deny
-      matters more than any allow.
+      matters more than any allow. Routed to `R040-T012`.
 
 - [x] **An untrusted workspace silently drops allow entries.** Running Claude
       in the freshly cloned project printed "Ignoring 8 permissions.allow
@@ -105,7 +105,7 @@
       pane. That is the case for a durable status channel rather than a
       terminal pane, which is `R040-T011`.
 
-- [ ] **The documentation gate's per-claim scope may be disproportionate
+- [x] **The documentation gate's per-claim scope may be disproportionate
       for a targeted-edit branch.** `companions/documentation.md
       § Verification gate` clears rules, skills and planning prose on the
       changed claims, but requires `docs/` feature docs to clear on every
@@ -122,4 +122,4 @@
       had shipped, two of them false statements about the system, so the
       cost bought something. Against it: most of the fourteen docs took a
       single line of provenance edit. Needs its own task before
-      `documentation.md` is amended.
+      `documentation.md` is amended. Routed to `R040-T013`.

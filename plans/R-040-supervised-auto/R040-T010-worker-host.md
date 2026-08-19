@@ -223,9 +223,9 @@ missing is reported as absent, never printed.
       under any `.claude/` path, so tasks touching guarded config
       cannot be delivered headless. Note that the script is supervisor
       infrastructure and stays out of `install-dev.sh`'s payload.
-- [ ] Mark `R040-T010` `[x]` in this R's `tasks.md`. The entry stays
+- [x] Mark `R040-T010` `[x]` in this R's `tasks.md`. The entry stays
       under `## Open`; the mark takes effect at merge.
-- [ ] Complete the branch: `bash scripts/ci/run-all.sh` green, then mark
+- [x] Complete the branch: `bash scripts/ci/run-all.sh` green, then mark
       this plan's remaining checkboxes `[x]` and commit. Closure is
       checkbox-only - no dated status prose. R040-T010 does not close
       R-040; T003 depends on it and remains open.
