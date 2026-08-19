@@ -60,8 +60,8 @@ ends by proposing `/dev code <slug>`, which the user invokes explicitly.
 
 One observed failure earns one fix and one test. Deeper proofs -
 mutant cases, unfixed-copy comparisons, vendored-copy assertions - are
-reserved for `dev-secrets-guard` and `dev-branch-guard`, the guards
-that protect real work. Hardening against a hazard that has never
+reserved for `dev-secrets-guard` and
+`dev-branch-guard`. Hardening against a hazard that has never
 fired needs explicit user approval. A shape round asks what can be
 deleted before it adds.
 
