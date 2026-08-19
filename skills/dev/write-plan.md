@@ -57,8 +57,10 @@ Per `branch-plan.md § Size cap` (warn/split thresholds live there).
 ## Bulk mode (`/dev plan all`)
 
 One plan-writer subagent per open task lacking a plan (independent -
-dispatch in parallel), each following this skill. Then a single user
-review pass over all slugs + plans before delivering them (one plan MR/PR).
+dispatch in parallel), each following this skill; the dispatcher
+creates the one plan branch before dispatch, so step 6's branch act
+is not the writers'. Then a single user review pass over all slugs +
+plans before delivering them (one plan MR/PR).
 
 ## Out of scope
 
