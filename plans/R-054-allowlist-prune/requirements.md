@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-19
 kind: mnt
+status: done 2026-08-19
 ---
 
 # R-054: Prune the local permission allowlist
@@ -46,14 +47,25 @@ initiative's plan artifacts.
 
 ## Acceptance criteria
 
-- [ ] Every remaining allow entry names a recurring tool class or a
+- [x] Every remaining allow entry names a recurring tool class or a
       path scope; none embeds a session-specific path (scratchpad,
       `/tmp` script) or a literal one-file edit command.
-- [ ] No allow entry grants arbitrary command execution (`bash`,
+      Evidence: grep for scratchpad, `/tmp` scripts and in-place
+      edit literals matches nothing (2026-08-19).
+- [x] No allow entry grants arbitrary command execution (`bash`,
       `bash -c`, `cd`, `claude`, container-run wildcards, or an
       equivalent).
-- [ ] The deny block and the model override are unchanged.
-- [ ] The file is valid JSON and a session loads it without error.
+      Evidence: grep for `bash -c`, bare `bash`, `cd`, `claude`,
+      `docker`, `node -e` matches nothing; `bash` survives only
+      scoped to `scripts/ci/`, `scripts/test/`, `.githooks/pre-push`
+      (2026-08-19).
+- [x] The deny block and the model override are unchanged.
+      Evidence: `jq` extraction of `.permissions.deny` and `.model`
+      diffs empty against the pre-prune copy (2026-08-19).
+- [x] The file is valid JSON and a session loads it without error.
+      Evidence: `jq -e .` exits 0 on the applied file; the running
+      session wrote it via allowed tools without a settings error
+      (2026-08-19).
 
 ## Constraints
 
