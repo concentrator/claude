@@ -41,6 +41,8 @@ act of `plan.md § Directory conventions`. The discovery method behind
   snapshot counts - the work changes the corpus the criteria measure.
   Enumerations are shaping-time evidence; the criterion cites the
   check that verifies the property.
+- Proportion the draft to the observed failure
+  (`plan.md § Proportionality`): ask what can be deleted before adding.
 - Anchor the design to the named, time-proven standard for the problem;
   surface it and the alternatives, map the needs onto it, deviate only
   with a stated reason. A draft growing custom branching, state
