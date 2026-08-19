@@ -3,8 +3,8 @@
 # ambient git state - the current branch plus working-tree counts - so a
 # session knows where a write or commit would land without asking (the
 # __git_ps1 idea: ambient display, not a remembered check). Display only,
-# never a decision. Silent outside a git repo; on any error it prints
-# nothing (fail open).
+# never a decision. Silent outside a git repo; a failed status read
+# degrades to "clean" (fail open).
 set -uo pipefail
 
 cat >/dev/null 2>&1 || true   # the prompt JSON on stdin is not used

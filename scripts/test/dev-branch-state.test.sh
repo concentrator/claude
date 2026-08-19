@@ -34,7 +34,7 @@ printf 'dirty\n' > "$D/tracked.sh"
 printf 'new\n' > "$D/extra.md"
 cd "$D"
 out=$(run)
-[ "$(printf '%s' "$out" | wc -l | tr -d ' ')" -le 1 ] && pass "output is one line" || die "output exceeds one line"
+[ "$(printf '%s\n' "$out" | wc -l | tr -d ' ')" -eq 1 ] && pass "output is one line" || die "output exceeds one line"
 case "$out" in *work*"1 changed"*"1 untracked"*) pass "branch and counts reported" ;; *) die "expected branch+counts, got: $out" ;; esac
 
 # Clean tree: the line says so instead of zero counts.
