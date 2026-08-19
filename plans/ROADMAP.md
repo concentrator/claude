@@ -207,3 +207,11 @@ Initiative index. Items: `R-001: description`; each entry owns
       fresh clone keeps them; the local file keeps the model override
       and one-offs; the tracked user-global `settings.json` switches
       `defaultMode` to `acceptEdits`.
+- [ ] R-057: Cap the close review - the routed close review becomes
+      the repo's `code-reviewer` agent (one reviewer, a second
+      verifier only on a Critical finding) in place of the built-in
+      `/code-review`, which turns manual-only: the flow may suggest
+      it, never run it; subagents never invoke it or spawn further
+      subagents; a low-priority targeted reviewer set (security,
+      maintainability/style, performance) is defined for later
+      routing.
