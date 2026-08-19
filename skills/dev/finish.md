@@ -50,13 +50,16 @@ Detect the merge via the declared state-check command
 (`companions/toolchain.md § State check`; no declared host → confirm
 the merge with the user), then:
 
-1. Sync the default branch (`git checkout <default>`, `git pull`); the
-   R's tasks now all `[x]` with no closure recorded → ship the closure
-   via a plan MR/PR (`plan.md § Approval and closure`).
+1. Sync the default branch (`git checkout <default>`, `git pull`).
 2. Promote any durable fact the closed task's artifacts established
-   (`plan.md § Archival`); the files move only when the initiative
-   closes, and that move ships on the closure's plan MR/PR.
-3. Delete the merged branch (local; remote too if pushed).
+   (`plan.md § Archival`).
+3. The merge closed the initiative - its ROADMAP entry turned `[x]`
+   with it, or the R's tasks are now all `[x]` with no closure
+   recorded → open a plan MR/PR carrying the archive move of the R's
+   directory to `plans/archive/` (`plan.md § Archival`) and, when the
+   branch did not record it, the closure (`plan.md § Approval and
+   closure`). The move never rides a task branch.
+4. Delete the merged branch (local; remote too if pushed).
 
 Bookkeeping landed with the merge (`branch-plan.md § Closing routine`;
 untracked mode: `companions/untracked-claude.md`); late closures:
