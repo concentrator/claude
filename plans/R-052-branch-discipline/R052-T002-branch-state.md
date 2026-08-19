@@ -15,7 +15,7 @@ type: feat
 - [x] Ship it: `install-dev.sh` copies and registers the hook,
   `scripts/test/install-dev.test.sh` asserts the copied set,
   `README.md § Installing the toolset elsewhere` updated
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry
 - [ ] Complete the branch: re-review docs across all commits, cleanup
   (stale/temp data), mark plan complete, commit
