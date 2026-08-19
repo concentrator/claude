@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-19
 kind: bug
+status: done 2026-08-19
 ---
 
 # R-055: Archive an initiative when it closes
@@ -40,14 +41,22 @@ closure path always opens `plan/r<NNN>-close`.
 
 ## Acceptance criteria
 
-- [ ] `finish.md § 4` opens the closure plan MR/PR whenever the merge
+- [x] `finish.md § 4` opens the closure plan MR/PR whenever the merge
   closed the initiative: it carries the closure records when the
   branch did not, and the archive move always.
-- [ ] The promotion check precedes the move in that step, citing
+  Evidence: `finish.md § 4.3` states the trigger and both payloads;
+  landed via PR #354.
+- [x] The promotion check precedes the move in that step, citing
   `plan.md § Archival` as the rule's owner.
-- [ ] Every ROADMAP `[x]` initiative's directory lives under
+  Evidence: `finish.md § 4` step 2 (promote, per `plan.md § Archival`)
+  runs before step 3's archive move.
+- [x] Every ROADMAP `[x]` initiative's directory lives under
   `plans/archive/` (today that means moving R-049 and R-054), moved
   via plan MR/PR with `bash scripts/ci/run-all.sh` green.
+  Evidence: a sweep of `plans/R-*/` against ROADMAP marks leaves only
+  open initiatives outside `archive/`; the moves ride this closure
+  plan branch with the gate green. R-055's own move follows the merge
+  via `finish.md § 4`.
 
 ## Constraints
 

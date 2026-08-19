@@ -11,6 +11,6 @@ composite (`R055-T###`, counter scoped to this initiative).
   carrying the closure records when the branch did not and the
   archive move always, with the promotion check first.
 
-- [ ] **R055-T002 [mnt]**: archive the backlog - promotion check,
+- [x] **R055-T002 [mnt]**: archive the backlog - promotion check,
   then `git mv` the R-049 and R-054 directories to `plans/archive/`,
   delivered via plan MR/PR per the fixed flow.
