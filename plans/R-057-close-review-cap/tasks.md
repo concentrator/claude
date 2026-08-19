@@ -10,7 +10,10 @@ composite (`R057-T###`, counter scoped to this initiative).
   capped `code-reviewer` agent - repoint the table rows, state the
   cap (one reviewer, a verifier only on Critical) and the manual-only
   `/code-review` escalation, pin `model: fable` plus an effort key
-  and the no-subagents rule in `agents/code-reviewer.md`, replace the
+  and reviewer conduct rules in `agents/code-reviewer.md` - no
+  subagents, and read-only toward the repo: no writes, no branch
+  switching (a dispatched reviewer ran `git checkout main` and
+  switched the session working tree) - and replace the
   `delegation.md` close-review bullet with the subagent prohibition,
   and update `verification-policy.md § Effort mechanics`.
 
