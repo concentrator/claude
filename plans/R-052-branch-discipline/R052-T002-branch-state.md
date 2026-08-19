@@ -3,7 +3,7 @@ type: feat
 
 # R052-T002 - Ambient branch state
 
-- [ ] Findings: choose the injection point (UserPromptSubmit vs
+- [x] Findings: choose the injection point (UserPromptSubmit vs
   SessionStart plus a refresh) and size its per-turn context cost
   against R-050's budget concern; present the decision for approval
   and record it with the measurement in the findings file
