@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# dev-branch-guard.sh - PreToolUse hook (R-021, refined R-024/R-034/R-036).
+# dev-branch-guard.sh - PreToolUse hook (R-021, refined R-024/R-034/R-036/
+# R-052).
 # Refuses repo-mutating tool calls that would land on the trunk (main/master)
 # so all work goes through a branch (git-workflow trunk rule). Reads the
 # tool-call JSON on stdin; emits a PreToolUse "deny" decision when the write
@@ -7,8 +8,10 @@
 # real target, never the session cwd: a write is judged by the repo owning
 # the (physically resolved) target path - tracked-side on a trunk denies
 # from any cwd; gitignored, repo-less, or working-branch targets allow. A
-# commit is judged by its repo (`git -C <path>`, else cwd); a compound
-# `checkout -b && commit` is allowed. Fails open.
+# commit is judged by the repo it targets - the last literal `cd` or
+# `git -C <path>` before it, else the cwd; a repo the same command creates
+# (`git init`) and a compound `checkout -b && commit` are allowed. Fails
+# open.
 #
 # This is a best-effort local tripwire against an accidental trunk mutation,
 # not a boundary against a crafted evasion - the real gate is host branch
@@ -126,22 +129,56 @@ case "$tool" in
     before="${cmd%%commit*}"
     before="${before//$'\n'/;}"   # newlines separate commands too, like ;&|
 
-    # Judge the repo the commit targets: the `-C <path>` bound to the commit
-    # (the last one before it, via a greedy prefix), else the cwd repo.
-    dir="."
-    if [[ "$before" =~ .*git[[:space:]]+-C[[:space:]]+([^[:space:]]+) ]]; then dir="${BASH_REMATCH[1]}"; fi
+    # A repo this same command creates is not project work: a command-head
+    # `git init` before the commit allows (R-052). It is the only signal
+    # readable from the call text when the fixture path is a runtime
+    # variable.
+    irx="(^|[;&|]+)[[:space:]]*git${opt}[[:space:]]+init([[:space:];&|]|\$)"
+    [[ "$before" =~ $irx ]] && exit 0
+
+    # Judge the repo the commit targets: the later of the last `git -C
+    # <path>` and the last command-head `cd <path>` before it (both via a
+    # greedy prefix), else the cwd repo. A cd target with expansion
+    # characters cannot be read from the call text - fail open.
+    Crx="^(.*)git[[:space:]]+-C[[:space:]]+([^[:space:]]+)"
+    cdrx="^(.*)(^|[;&|])[[:space:]]*cd[[:space:]]+([^;&|[:space:]]+)"
+    dir="." cpos=-1 dpos=-1 cval= dval=
+    if [[ "$before" =~ $Crx ]]; then cpos=${#BASH_REMATCH[1]} cval="${BASH_REMATCH[2]}"; fi
+    if [[ "$before" =~ $cdrx ]]; then dpos=${#BASH_REMATCH[1]} dval="${BASH_REMATCH[3]}"; fi
+    if (( dpos > cpos )); then
+      case "$dval" in *[\$\`\"\']*) exit 0 ;; esac
+      dir="$dval"
+    elif (( cpos >= 0 )); then
+      dir="$cval"
+    fi
 
     # Treat `checkout -b` / `switch -c` as a branch-create only when it is
     # an actual command head (start, or after a shell separator), names a
     # non-trunk branch, and happened in the SAME repo the commit targets -
-    # a branch created elsewhere does not cover this commit.
-    xrx="(^|[;&|]+)[[:space:]]*git${opt}[[:space:]]+(checkout|switch)([[:space:]]+-[^[:space:]]+)*[[:space:]]+(-b|-c)[[:space:]]+([^[:space:]]+)"
-    if [[ "$before" =~ $xrx ]] && ! is_trunk "${BASH_REMATCH[7]}"; then
-      codir="."
-      [[ "${BASH_REMATCH[0]}" =~ -C[[:space:]]+([^[:space:]]+) ]] && codir="${BASH_REMATCH[1]}"
-      cotop=$(git -C "$codir" rev-parse --show-toplevel 2>/dev/null)
-      citop=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null)
-      [ -n "$cotop" ] && [ "$cotop" = "$citop" ] && exit 0
+    # a branch created elsewhere does not cover this commit. The checkout's
+    # own repo comes from its `-C`, else the last cd before it, else the
+    # cwd; a cd target only expansion could resolve forfeits the exemption
+    # rather than guessing.
+    xrx="^(.*)(^|[;&|]+)[[:space:]]*git${opt}[[:space:]]+(checkout|switch)([[:space:]]+-[^[:space:]]+)*[[:space:]]+(-b|-c)[[:space:]]+([^[:space:]]+)"
+    if [[ "$before" =~ $xrx ]]; then
+      xpre="${BASH_REMATCH[1]}"
+      xseg="${BASH_REMATCH[0]:${#xpre}}"
+      xbr="${BASH_REMATCH[8]}"
+      if ! is_trunk "$xbr"; then
+        codir=
+        if [[ "$xseg" =~ -C[[:space:]]+([^[:space:]]+) ]]; then
+          codir="${BASH_REMATCH[1]}"
+        elif [[ "$xpre" =~ $cdrx ]]; then
+          case "${BASH_REMATCH[3]}" in *[\$\`\"\']*) ;; *) codir="${BASH_REMATCH[3]}" ;; esac
+        else
+          codir="."
+        fi
+        if [ -n "$codir" ]; then
+          cotop=$(git -C "$codir" rev-parse --show-toplevel 2>/dev/null)
+          citop=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null)
+          [ -n "$cotop" ] && [ "$cotop" = "$citop" ] && exit 0
+        fi
+      fi
     fi
 
     branch=$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0

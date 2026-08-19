@@ -6,7 +6,7 @@ composite (`R052-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R052-T001 [fix]**: commit-path target resolution - settle which
+- [x] **R052-T001 [fix]**: commit-path target resolution - settle which
   signal marks a repo as non-project work against the command shapes
   that actually occur, implement it in `hooks/dev-branch-guard.sh`, add
   guard cases proved to fail against the pre-fix hook, and correct the

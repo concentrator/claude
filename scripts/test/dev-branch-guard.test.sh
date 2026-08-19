@@ -7,8 +7,10 @@
 # allowed), the target-owner judgment R-036 adds (tracked-on-trunk targets
 # deny from any cwd; dot-dot / symlink / nested-init shapes; ignored and
 # branch-repo targets allow), the cross-repo correctness case
-# (`git -C <main>` from a branch cwd is denied), and fail-open on malformed
-# input / outside a repo.
+# (`git -C <main>` from a branch cwd is denied), the commit-target cases
+# R-052 adds (an in-command `cd` moves the judged repo; a same-command
+# `git init` marks non-project work; unresolvable cd targets fail open),
+# and fail-open on malformed input / outside a repo.
 # Run: bash scripts/test/dev-branch-guard.test.sh
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
@@ -174,6 +176,45 @@ j=$(jq -nc --arg d "$M" '{tool_name:"Bash",tool_input:{command:("git -C " + $d +
 j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git commit -m x"}}')
 [ "$(run "$j")" = allow ] && pass "plain commit on a branch allowed" || die "commit on branch denied"
 cd "$M"; rm -rf "$BC"
+
+# --- R-052: the commit is judged where an in-command cd lands it, and a
+# repo created by the same command is not project work ---
+# Same-command `git init` allows: the fixture's runtime path is invisible
+# to the hook, so the created-here signal is the only readable one.
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"t=$(mktemp -d) && cd \"$t\" && git init -q . && git commit -q --allow-empty -m init"}}')
+[ "$(run "$j")" = allow ] && pass "same-command git init then commit allowed" || die "created-here fixture commit denied"
+
+# echo text naming git init is not a created-here signal.
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"echo git init; git commit -m x"}}')
+[ "$(run "$j")" = deny ] && pass "echo-text git init does not exempt" || die "echo-text init bypass"
+
+# cd into a branch repo: the commit is judged there, not at the cwd.
+B4=$(new_branch); M6=$(new_main)
+j=$(jq -nc --arg d "$B4" '{tool_name:"Bash",tool_input:{command:("cd " + $d + " && git commit -m x")}}')
+[ "$(run "$j")" = allow ] && pass "cd <branch-repo> then commit allowed from main cwd" || die "cd-target branch commit denied"
+
+# cd into a main repo from a branch cwd: trunk is denied from any cwd.
+BC2=$(new_branch); cd "$BC2"
+j=$(jq -nc --arg d "$M6" '{tool_name:"Bash",tool_input:{command:("cd " + $d + " && git commit -m x")}}')
+[ "$(run "$j")" = deny ] && pass "cd <main-repo> then commit denied from branch cwd" || die "cd-target trunk commit allowed"
+cd "$M"; rm -rf "$BC2"
+
+# The last cd outranks an earlier git -C.
+j=$(jq -nc --arg b "$B4" --arg m "$M6" '{tool_name:"Bash",tool_input:{command:("git -C " + $b + " add . ; cd " + $m + " ; git commit -m x")}}')
+[ "$(run "$j")" = deny ] && pass "last cd outranks an earlier -C" || die "stale -C judged instead of the cd target"
+
+# cd then checkout -b then commit: the branch-create covers the commit.
+j=$(jq -nc --arg m "$M6" '{tool_name:"Bash",tool_input:{command:("cd " + $m + "\ngit checkout -b plan/x 2>&1 | tail -1\ngit commit -q -m y")}}')
+[ "$(run "$j")" = allow ] && pass "cd then checkout -b then commit allowed" || die "cd compound branch-create denied"
+
+# A cd target the call text cannot resolve fails open.
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"cd \"$t\" && git commit -m x"}}')
+[ "$(run "$j")" = allow ] && pass "unresolvable cd target fails open" || die "variable cd target denied"
+
+# echo text naming cd does not move the target.
+j=$(jq -nc --arg d "$B4" '{tool_name:"Bash",tool_input:{command:("echo cd " + $d + "; git commit -m x")}}')
+[ "$(run "$j")" = deny ] && pass "echo-text cd does not move the target" || die "echo-text cd bypass"
+rm -rf "$B4" "$M6"
 
 # --- adversarial: commit-detection and compound bypasses (close review) ---
 # git -c <config> commit on main must be denied (global option before commit).
