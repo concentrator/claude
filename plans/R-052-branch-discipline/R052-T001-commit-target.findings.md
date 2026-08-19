@@ -41,6 +41,6 @@ this shape. Out of scope.
 - **Target resolution: an in-command `cd <literal-path>` joins
   `git -C` in resolving the commit's repo** - the last one before the
   commit wins. A sibling-repo commit is then judged by that repo's
-  HEAD and denied only when it sits on a trunk. A non-literal `cd`
-  (variable, command substitution) leaves the target unresolvable and
-  fails open, per the requirements constraint.
+  HEAD and denied only when it sits on a trunk. A cd target the hook
+  cannot resolve from the call text (variable, command substitution, an
+  unexpanded `~`) fails open, per the requirements constraint.
