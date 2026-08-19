@@ -7,7 +7,7 @@ type: feat
   SessionStart plus a refresh) and size its per-turn context cost
   against R-050's budget concern; present the decision for approval
   and record it with the measurement in the findings file
-- [ ] The hook: emit current branch and working-tree state into the
+- [x] The hook: emit current branch and working-tree state into the
   session at the chosen point, registered in `settings.json`, with a
   test that fails when the mechanism is removed; `DESIGN.md` tree-map
   and § Self-enforcement plus `README.md § Contents` in the same
