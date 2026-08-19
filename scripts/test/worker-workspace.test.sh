@@ -4,6 +4,8 @@
 # mirror the script split, so each suite covers one execution surface.
 # Run: bash scripts/test/worker-workspace.test.sh
 set -uo pipefail
+# Never inherit a git environment - see scripts/test/isolation.test.sh.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 WSSCRIPT="$(git rev-parse --show-toplevel)/scripts/worker-workspace.sh"
 # Credentials live in their own script - the surface a mistake leaks.
 CRSCRIPT="$(git rev-parse --show-toplevel)/scripts/worker-credentials.sh"

@@ -4,6 +4,8 @@
 # throwaway dirs; nothing here contacts GCP.
 # Run: bash scripts/test/provision-worker.test.sh
 set -uo pipefail
+# Never inherit a git environment - see scripts/test/isolation.test.sh.
+unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 SCRIPT="$(git rev-parse --show-toplevel)/scripts/provision-worker.sh"
 # VM-side subcommands live in the counterpart script, split by execution context.
 VMSCRIPT="$(git rev-parse --show-toplevel)/scripts/worker-setup.sh"
