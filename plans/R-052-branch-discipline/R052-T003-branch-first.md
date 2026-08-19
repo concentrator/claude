@@ -9,7 +9,7 @@ type: doc
 - [x] The same statement where the remaining planning writers act:
   batch composition (`branch-plan.md § Batches`, the `/dev plan
   batch` path) and the supervisor portfolio (`supervise.md`)
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
   (stale/temp data), mark plan complete, commit

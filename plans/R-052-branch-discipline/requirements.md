@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-18
 kind: bug
+status: done 2026-08-20
 ---
 
 # R-052: Branch discipline and commit target resolution
@@ -66,18 +67,30 @@ this hook, so adopters inherit the fixture denials.
 
 ## Acceptance criteria
 
-- [ ] A commit into a repo that is not project work is allowed, proved
+- [x] A commit into a repo that is not project work is allowed, proved
       by cases in `scripts/test/dev-branch-guard.test.sh` that fail
       against the pre-fix hook.
-- [ ] A commit that would land on a real project's trunk is still denied
+      Evidence: the R-052 cases (same-command `git init`, `cd` into a
+      sibling repo) were proved red pre-fix in
+      `R052-T001-commit-target.findings.md` and pass in the suite.
+- [x] A commit that would land on a real project's trunk is still denied
       from any cwd, proved by the existing trunk cases continuing to
       pass.
-- [ ] Current branch and working-tree state reach the session unprompted
+      Evidence: the pre-R-052 trunk cases in
+      `scripts/test/dev-branch-guard.test.sh` pass unchanged.
+- [x] Current branch and working-tree state reach the session unprompted
       in both modes, proved by a run that fails when the mechanism is
       removed.
-- [ ] The hook's header states the commit path's actual resolution rule
+      Evidence: `scripts/test/dev-branch-state.test.sh` fails on a
+      missing hook file or `settings.json` entry; `UserPromptSubmit`
+      fires in DEV and VIBE alike.
+- [x] The hook's header states the commit path's actual resolution rule
       (`MAINTENANCE.md § Doc-sync pairs`).
-- [ ] `bash scripts/ci/run-all.sh` green.
+      Evidence: `hooks/dev-branch-guard.sh` header names the last
+      literal `cd` / `git -C` rule and both exemptions.
+- [x] `bash scripts/ci/run-all.sh` green.
+      Evidence: green on this branch's final commit and on each task's
+      merged PR.
 
 ## Constraints
 
