@@ -200,3 +200,10 @@ Initiative index. Items: `R-001: description`; each entry owns
       never opens; `finish.md § 4` opens it whenever the merge closed
       the initiative, and the unarchived backlog (R-049, R-054) is
       swept to `plans/archive/`.
+- [ ] R-056: Settings tiering and session defaults - durable
+      repo-scoped permission rules (the default-branch/force-push deny
+      carve-out, the batch-push allow) move from the gitignored
+      `settings.local.json` to a tracked `.claude/settings.json` so a
+      fresh clone keeps them; the local file keeps the model override
+      and one-offs; the tracked user-global `settings.json` switches
+      `defaultMode` to `acceptEdits`.
