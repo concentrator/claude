@@ -6,7 +6,7 @@ composite (`R055-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R055-T001 [doc]**: fix the trigger in `finish.md § 4` - the
+- [x] **R055-T001 [doc]**: fix the trigger in `finish.md § 4` - the
   closure plan MR/PR opens whenever the merge closed the initiative,
   carrying the closure records when the branch did not and the
   archive move always, with the promotion check first.
