@@ -3,7 +3,7 @@ type: fix
 
 # R052-T001 - Commit-path target resolution
 
-- [ ] Findings: extract the denied `git commit` shapes from the local
+- [x] Findings: extract the denied `git commit` shapes from the local
   session transcripts, settle the non-project signal against them
   (ephemeral path prefix, repo created in the same command, or both -
   readable from the tool call alone), present the decision for
