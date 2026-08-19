@@ -81,8 +81,9 @@ the repo root, so `plans/` sits beside them - see
 To give another machine or project the DEV toolset - the `/dev` router,
 its mode-file companions, the bundled dependency skills, the writing
 conventions, the project-agnostic Tier-1 checks (code-size, em-dash,
-accretion, batch-tags - the last two with self-tests), and the two
-PreToolUse guards - run the installer from a checkout of this repo:
+accretion, batch-tags - the last two with self-tests), the two
+PreToolUse guards, and the branch-state line - run the installer from a
+checkout of this repo:
 
     scripts/install-dev.sh                   # into ~/.claude (global)
     scripts/install-dev.sh --project <path>  # into <path>/.claude
@@ -90,9 +91,9 @@ PreToolUse guards - run the installer from a checkout of this repo:
 Global install serves a contributor who wants `/dev` everywhere; the
 `--project` copy serves a repo's no-global contributors (skill precedence
 means a contributor's own global copy still wins). The installer registers
-the branch-guard and secrets-guard hooks in the target `settings.json`
-idempotently and never ships the personal convention rules. Re-run it to
-refresh.
+the branch-guard, secrets-guard, and branch-state hooks in the target
+`settings.json` idempotently and never ships the personal convention
+rules. Re-run it to refresh.
 
 It also writes outside the target `.claude/`, append-only in both cases:
 an `@writing.md` import added to the target `CLAUDE.md`, and - for

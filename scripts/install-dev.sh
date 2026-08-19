@@ -6,9 +6,9 @@
 #   install-dev.sh --project <p>   install into <p>/.claude (project copy)
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
-# branch-guard + secrets-guard hooks (registered in the target settings.json),
-# the shipped Tier-1 checks with their self-tests, and the writing
-# conventions (@imported by CLAUDE.md).
+# branch-guard + secrets-guard + branch-state hooks (registered in the target
+# settings.json), the shipped Tier-1 checks with their self-tests, and the
+# writing conventions (@imported by CLAUDE.md).
 # Does NOT ship the user's personal convention rules.
 # Idempotent + re-runnable.
 set -euo pipefail
@@ -39,6 +39,7 @@ for s in $BUNDLED; do
 done
 
 # 3. hooks: copy + register the branch-guard and the secrets guard
+#    (PreToolUse) and the branch-state line (UserPromptSubmit)
 #    (idempotent; preserve everything else in settings.json)
 if [ "$scope" = global ]; then hp="~/.claude/hooks"; else hp=".claude/hooks"; fi
 settings="$target/settings.json"
@@ -61,8 +62,25 @@ register_hook() {   # $1 = hook script basename
   fi
 }
 
+register_state_hook() {   # $1 = hook script basename; UserPromptSubmit, no matcher
+  cp "$SRC/hooks/$1" "$target/hooks/$1"
+  chmod +x "$target/hooks/$1"
+  local cmd="$hp/$1" tmp; tmp="$(mktemp)"
+  if jq --arg cmd "$cmd" '
+    if ([.hooks.UserPromptSubmit[]?.hooks[]?.command] | any(. == $cmd)) then .
+    else .hooks.UserPromptSubmit = ((.hooks.UserPromptSubmit // []) + [
+      {hooks: [{type: "command", command: $cmd}]}
+    ]) end
+  ' "$settings" > "$tmp"; then
+    mv "$tmp" "$settings"
+  else
+    rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
+  fi
+}
+
 register_hook dev-branch-guard.sh
 register_hook dev-secrets-guard.sh
+register_state_hook dev-branch-state.sh
 
 # 4. shipped Tier-1 checks - the ones with no dependency on this repo's
 #    own layout; adopters wire them into their CI (the batch-tags gate
