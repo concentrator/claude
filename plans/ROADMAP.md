@@ -194,3 +194,9 @@ Initiative index. Items: `R-001: description`; each entry owns
       one-shot session literals and arbitrary-execution wildcards go,
       the batch-push deny carve-out and model override stay, nothing
       ships to police regrowth.
+- [ ] R-055: Archive an initiative when it closes - the archive move's
+      only vehicle is the closure's plan MR/PR, which the usual
+      closure path (closure riding the last task's final commit)
+      never opens; `finish.md § 4` opens it whenever the merge closed
+      the initiative, and the unarchived backlog (R-049, R-054) is
+      swept to `plans/archive/`.
