@@ -14,7 +14,7 @@ composite (`R052-T###`, counter scoped to this initiative).
 - [x] **R052-T002 [feat]**: ambient branch state - a hook putting the
   current branch and working-tree state in front of every session in
   both modes, its per-turn context cost sized against R-050's budget.
-- [ ] **R052-T003 [doc]**: the DEV planning flow creates its branch
+- [x] **R052-T003 [doc]**: the DEV planning flow creates its branch
   before its first artifact write - the sequence stated where the flow
   acts, not only where the rule lives. DEV-scoped: VIBE carries no new
   rule.
