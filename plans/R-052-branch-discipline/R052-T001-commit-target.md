@@ -8,7 +8,7 @@ type: fix
   (ephemeral path prefix, repo created in the same command, or both -
   readable from the tool call alone), present the decision for
   approval, and record measurement and decision in the findings file
-- [ ] Fix the `hooks/dev-branch-guard.sh` commit path per the settled
+- [x] Fix the `hooks/dev-branch-guard.sh` commit path per the settled
   signal: new cases in `scripts/test/dev-branch-guard.test.sh` proved
   to fail against the pre-fix hook (non-project commit allowed),
   existing trunk cases still passing (real-trunk commit denied from
