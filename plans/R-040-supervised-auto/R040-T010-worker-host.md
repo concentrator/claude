@@ -47,7 +47,7 @@ attributes to the public internet what may have travelled the tunnel.
 them, never echoes them, and never takes one as an argument. Anything
 missing is reported as absent, never printed.
 
-- [ ] Preflight `gcloud` from a **non-interactive** shell, since that
+- [x] Preflight `gcloud` from a **non-interactive** shell, since that
       is where the deploy step runs. Resolve the SDK rather than
       trusting `PATH`: `command -v gcloud`, then `$CLOUDSDK_ROOT_DIR`,
       then the standard roots (`~/google-cloud-sdk`,
@@ -65,7 +65,7 @@ missing is reported as absent, never printed.
       answering is the check; absolute-path invocation then works for
       auth and config too, which live under `~/.config/gcloud` and
       never depended on `PATH`.
-- [ ] Deploy the instance, from the operator's machine. A
+- [x] Deploy the instance, from the operator's machine. A
       `gcloud compute instances create` wrapper, values as variables
       with these defaults, each verified against the project rather
       than assumed:
@@ -97,7 +97,7 @@ missing is reported as absent, never printed.
       independently of Tailscale and of any later firewall change, so
       it is verified first rather than assumed, and nothing in the
       hardening step closes a door until it has answered.
-- [ ] `scripts/provision-worker.sh`, OS baseline. Debian 13: Node >= 22
+- [x] `scripts/provision-worker.sh`, OS baseline. Debian 13: Node >= 22
       from NodeSource (the distro package is older than
       `attack-checker`'s `engines` demands, so every gate fails without
       this), plus `jq`, `tmux`, `git`, `curl`, `ca-certificates`. Set
@@ -110,7 +110,7 @@ missing is reported as absent, never printed.
       must own it, so it belongs here rather than in the clone step
       where sudo would be a surprise. Idempotent: prove it by running
       twice and showing the second run changes nothing.
-- [ ] Harden the host, before any credential reaches it. This box will
+- [x] Harden the host, before any credential reaches it. This box will
       hold SSH keys for two forges, two API tokens and a Claude Code
       session; a compromise is push access to every repository the
       operator owns, so the posture here is the repositories' posture.
@@ -149,14 +149,14 @@ missing is reported as absent, never printed.
       single-purpose worker). Acceptance is the inventory re-run -
       `ss -tulpn` shows nothing on a public interface that the item
       does not name.
-- [ ] SSH keys, one per host. Generate separate ed25519 keys for GitHub
+- [x] SSH keys, one per host. Generate separate ed25519 keys for GitHub
       and GitLab with no passphrase (a worker cannot answer a prompt),
       write a matching `~/.ssh/config` stanza per host, and print the
       public halves for the operator to install. Verify each with
       `ssh -T` and report the identity the host reports back - a key
       that authenticates as the wrong account is the failure worth
       catching here.
-- [ ] `glab` and `gh` installed and authenticated. Both are API-layer
+- [x] `glab` and `gh` installed and authenticated. Both are API-layer
       only: git traffic runs over the SSH keys above, so these are
       needed for MR/PR create, view and merge. Read `GITLAB_TOKEN` and
       `GITHUB_TOKEN` from `~/.claude/.env`; authenticate non-
@@ -164,7 +164,26 @@ missing is reported as absent, never printed.
       `gh auth status`. Missing `GITHUB_TOKEN` is not an error - a
       worker delivering only GitLab projects never needs it - so report
       it as absent and continue, naming what it would unlock.
-- [ ] Clone this repo as the worker's `~/.claude`. It carries
+- [x] Install Tailscale and start its authentication. From the official
+      repository, `systemctl enable tailscaled` so it survives reboot, then
+      `tailscale up` - which cannot complete unattended: it emits an SSO URL
+      the operator opens in a browser. Surface that URL and stop; do not
+      pretend to have finished. A separate check reports whether the node has
+      a tailnet address yet, so the operator can resume the run once they
+      have clicked through.
+      Then settle what Tailscale actually buys, which no earlier item could:
+      from the VM, with the tailnet up and again with it down, does
+      `gl.wallarm.com` resolve and answer? That is the test the plan has
+      deferred since it could not be run from a laptop, and its answer
+      decides whether the clone step depends on the tailnet at all.
+- [x] Install the Claude Code client and start its authentication. Same
+      shape: install, then an SSO handoff the operator completes in a
+      browser. Verify with `claude --version` **from a non-interactive
+      shell** - the gcloud trap applies identically here, where an installer
+      that only edits an interactive rc leaves the binary invisible to the
+      context a supervisor dispatches into, and the failure reads as "not
+      installed" rather than "not on this PATH".
+- [x] Clone this repo as the worker's `~/.claude`. It carries
       `CLAUDE.md`, `rules/`, `skills/`, `agents/`, `hooks/` and
       `settings.json` while ignoring all harness state, so the worker
       gets identical config to the operator's machine. Do not use
@@ -172,7 +191,7 @@ missing is reported as absent, never printed.
       omits personal convention rules. Restore
       `git config core.hooksPath .githooks`, which clone does not carry,
       and prove the pre-push hook fires rather than assuming it.
-- [ ] Clone a target project into `/opt/wallarm` with its sibling repos
+- [x] Clone a target project into `/opt/wallarm` with its sibling repos
       adjacent, then `npm ci` and run its declared gate. Adjacency is a
       hard requirement, not a convenience: `attack-checker`'s
       `package.json` names `"wallarm-api-js": "file:../wallarm-api-js"`,
@@ -182,7 +201,7 @@ missing is reported as absent, never printed.
       gate is the acceptance evidence - a host that cannot execute the
       gate cannot deliver a batch, and finding that out here is cheaper
       than finding it at a checkpoint.
-- [ ] Place each project's `.claude/settings.local.json`. It is
+- [x] Place each project's `.claude/settings.local.json`. It is
       gitignored (`*.local.json`), so a fresh clone arrives with no
       allowlist at all - and that file is exactly what keeps a worker
       from stalling on a permission prompt. Provision it from a
@@ -195,7 +214,7 @@ missing is reported as absent, never printed.
       running a command the allowlist covers and observing no prompt;
       an unprompted success is the only evidence that distinguishes a
       placed file from a missing one.
-- [ ] `skills/worker-host/SKILL.md`, wrapping the sequence. States the
+- [x] `skills/worker-host/SKILL.md`, wrapping the sequence. States the
       order, which steps the script performs and which the operator
       must do in a browser (Tailscale, Claude Code), and the
       verification for each. Documents both session modes: `tmux` for
@@ -204,9 +223,9 @@ missing is reported as absent, never printed.
       under any `.claude/` path, so tasks touching guarded config
       cannot be delivered headless. Note that the script is supervisor
       infrastructure and stays out of `install-dev.sh`'s payload.
-- [ ] Mark `R040-T010` `[x]` in this R's `tasks.md`. The entry stays
+- [x] Mark `R040-T010` `[x]` in this R's `tasks.md`. The entry stays
       under `## Open`; the mark takes effect at merge.
-- [ ] Complete the branch: `bash scripts/ci/run-all.sh` green, then mark
+- [x] Complete the branch: `bash scripts/ci/run-all.sh` green, then mark
       this plan's remaining checkboxes `[x]` and commit. Closure is
       checkbox-only - no dated status prose. R040-T010 does not close
       R-040; T003 depends on it and remains open.

@@ -21,7 +21,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   per-project `transport:` switch in the portfolio (`local` default);
   the session-lifetime decision lands here.
   `depends-on: R040-T002, R040-T010`
-- [ ] **R040-T010 [feat]**: worker-host deployment and provisioning - a
+- [x] **R040-T010 [feat]**: worker-host deployment and provisioning - a
   skill plus an idempotent script that creates a Debian 13 VM and takes
   it to a state where a worker session can run a batch. Two execution
   contexts: `gcloud compute instances create` runs on the operator's
@@ -107,3 +107,21 @@ composite (`R040-T###`, counter scoped to this initiative).
   operator's own session joins, and correct the keystroke claim this
   initiative wrote into three documents.
   `depends-on: R040-T002`
+- [ ] **R040-T012 [mnt]**: the shared config's `Bash(git:*)` grant is wider
+  than the per-project templates assume - broad enough that a project's
+  `settings.local.json` allow rules are largely redundant on top of it, which
+  is why R040-T010 could not build a test that discriminated a placed file
+  from a missing one. Narrow the global grant to what a session actually
+  needs, so the per-project templates carry the authority they claim to and
+  their acceptance tests can discriminate. Routed from
+  `R040-T010-worker-host.findings.md`. `depends-on: R040-T010`
+- [ ] **R040-T013 [doc]**: decide whether `companions/documentation.md`
+  § Verification gate should distinguish a targeted-edit branch from a new or
+  rewritten doc. It clears rules and planning prose on the changed claims but
+  feature docs on **every** claim, so a sweep touching fourteen docs owes a
+  per-claim pass over all fourteen. The wider reading earns its cost - it
+  caught a worked example throwing `RangeError` while stamped `verified`, on
+  lines that branch never touched - but most of those docs took a single line
+  of edit. Evidence both ways is in `R040-T010-worker-host.findings.md`.
+  Amending a gate to pass it is not a call to make under delivery pressure,
+  which is why this is its own task.
