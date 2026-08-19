@@ -189,3 +189,8 @@ Initiative index. Items: `R-001: description`; each entry owns
       are reserved for the guards that protect real work; hardening
       against a hazard that has never fired needs explicit approval.
       The existing test suite is trimmed to the same standard.
+- [ ] R-054: Prune the local permission allowlist -
+      `.claude/settings.local.json` is cut to durable tool classes:
+      one-shot session literals and arbitrary-execution wildcards go,
+      the batch-push deny carve-out and model override stay, nothing
+      ships to police regrowth.
