@@ -14,6 +14,6 @@ file, so deletion reconciles both by itself.
 - [x] Delete `scripts/test/check-no-em-dash.test.sh` and
       `scripts/test/check-code-size.test.sh`; both runners stay green
       (`bash scripts/ci/run-all.sh`, `bash scripts/test/run-all.sh`).
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
