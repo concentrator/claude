@@ -28,7 +28,7 @@ the same standard. Nothing new ships to enforce any of this.
 
 - `dev-secrets-guard` and `dev-branch-guard` keep their full test
   depth.
-- Every CI check keeps at least one proof that it bites.
+- Every remaining check test proves its check bites.
 - Supervise mode and worktree use are untouched; the three-variable
   scrub stays in every test.
 - No check or hook changes behavior; only test weight changes.

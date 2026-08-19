@@ -9,7 +9,7 @@ composite (`R053-T###`, counter scoped to this initiative).
 - [x] **R053-T001 [doc]**: the proportionality rule - a short section
   in `plan.md`, and a one-line hook in `brainstorm.md § Rules` so every
   shape round applies it.
-- [ ] **R053-T002 [mnt]**: delete `scripts/test/check-no-em-dash.test.sh`
+- [x] **R053-T002 [mnt]**: delete `scripts/test/check-no-em-dash.test.sh`
   and `scripts/test/check-code-size.test.sh`; reconcile
   `scripts/test/run-all.sh` and any installer references.
 - [ ] **R053-T003 [mnt]**: shrink the meta tests to the
