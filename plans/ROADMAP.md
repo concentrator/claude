@@ -206,4 +206,4 @@ Initiative index. Items: `R-001: description`; each entry owns
       `settings.local.json` to a tracked `.claude/settings.json` so a
       fresh clone keeps them; the local file keeps the model override
       and one-offs; the tracked user-global `settings.json` switches
-      `defaultMode` to `acceptEdits` and `effortLevel` to `medium`.
+      `defaultMode` to `acceptEdits`.

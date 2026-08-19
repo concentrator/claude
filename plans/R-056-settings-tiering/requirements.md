@@ -14,8 +14,7 @@ tracked user-global `settings.json` allows `Bash(git:*)` - GitHub
 branch protection is the only surviving backstop. The local file also
 carries allows shadowed by that global rule. In the tracked
 `settings.json`, `defaultMode` is `"default"`, so every session
-starts by prompting for each edit, and `effortLevel` is `"high"`,
-which every subagent inherits (effort has no per-dispatch override).
+starts by prompting for each edit.
 
 ## Desired state
 
@@ -24,8 +23,9 @@ Rules live in the tier matching their lifetime: a tracked project
 carve-out, the batch-push allow), with a `.gitignore` allowlist entry
 making it trackable; `settings.local.json` keeps only the model
 override and genuine one-offs. The tracked user-global `settings.json`
-sets `defaultMode` to `"acceptEdits"` and `effortLevel` to
-`"medium"`.
+sets `defaultMode` to `"acceptEdits"`; `effortLevel` stays `"high"` -
+review cost is handled by R-057's capped close review, not by
+lowering session effort.
 
 ## Invariants
 
@@ -50,7 +50,7 @@ sets `defaultMode` to `"acceptEdits"` and `effortLevel` to
 - [ ] `settings.local.json` holds only the model override and rules
   found in no tracked tier; every migrated or shadowed entry is gone.
 - [ ] Tracked `settings.json` has `"defaultMode": "acceptEdits"` and
-  `"effortLevel": "medium"`.
+  `"effortLevel"` unchanged at `"high"`.
 - [ ] All touched JSON parses (`jq .`) and `bash
   scripts/ci/run-all.sh` is green.
 
@@ -68,6 +68,4 @@ None.
 ## References
 
 R-054 (pruned the local file; this moves what pruning kept);
-`MAINTENANCE.md § Generalize allow rules`;
-`skills/dev/companions/verification-policy.md` (effort is
-session-level only).
+R-057 (owns review cost); `MAINTENANCE.md § Generalize allow rules`.

@@ -12,6 +12,6 @@ composite (`R056-T###`, counter scoped to this initiative).
   the migrated, shadowed, and one-shot entries from
   `settings.local.json`, leaving the model override.
 
-- [ ] **R056-T002 [mnt]**: session defaults - set
-  `"defaultMode": "acceptEdits"` and `"effortLevel": "medium"` in the
-  tracked user-global `settings.json`.
+- [ ] **R056-T002 [mnt]**: session default - set
+  `"defaultMode": "acceptEdits"` in the tracked user-global
+  `settings.json`.
