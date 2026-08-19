@@ -6,6 +6,6 @@ composite (`R054-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R054-T001 [mnt]**: prune `.claude/settings.local.json` to the
+- [x] **R054-T001 [mnt]**: prune `.claude/settings.local.json` to the
   durable classes per the acceptance criteria; verify the deny block
   and model override survive byte-identical and the file parses.
