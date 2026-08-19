@@ -6,6 +6,19 @@
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
+
+# Most cases exercise resolve_gcloud's fallbacks, which only run when PATH
+# holds no gcloud. A host that has one - a CI runner with /usr/bin/gcloud, say -
+# satisfies the PATH branch first, so the fixtures below would go unexercised
+# while still reporting ok. Cases therefore run under a mirror of /usr/bin and
+# /bin with gcloud left out: every tool a script needs, no SDK to find.
+HERMETIC=$(mktemp -d)
+for f in /usr/bin/* /bin/*; do
+  b=${f##*/}
+  [ "$b" = gcloud ] && continue
+  ln -s "$f" "$HERMETIC/$b" 2>/dev/null
+done
+trap 'rm -rf "$HERMETIC"' EXIT
 SCRIPT="$(git rev-parse --show-toplevel)/scripts/provision-worker.sh"
 # VM-side subcommands live in the counterpart script, split by execution context.
 VMSCRIPT="$(git rev-parse --show-toplevel)/scripts/worker-setup.sh"
@@ -39,11 +52,11 @@ EOF
 
 # Run preflight with PATH stripped of any real gcloud, so only what a case
 # injects can be found.
-preflight() { env PATH=/usr/bin:/bin "$@" bash "$SCRIPT" preflight 2>&1; }
+preflight() { env PATH="$HERMETIC" "$@" bash "$SCRIPT" preflight 2>&1; }
 
 # 1. resolves a gcloud that is on PATH
 r=$(mkroot)
-out=$(env PATH="$r/bin:/usr/bin:/bin" bash "$SCRIPT" preflight 2>&1)
+out=$(env PATH="$r/bin:$HERMETIC" bash "$SCRIPT" preflight 2>&1)
 [ $? -eq 0 ] && grep -q "$r/bin/gcloud" <<<"$out" \
   && pass "resolves gcloud from PATH" || die "PATH resolution failed: $out"
 rm -rf "$r"
@@ -90,7 +103,7 @@ EOF
   chmod +x "$d/bin/gcloud"; printf '%s' "$d"
 }
 
-deploy() { env PATH=/usr/bin:/bin "$@" bash "$SCRIPT" deploy --dry-run 2>&1; }
+deploy() { env PATH="$HERMETIC" "$@" bash "$SCRIPT" deploy --dry-run 2>&1; }
 
 # 6. dry run assembles every verified parameter
 r=$(mkrecorder)
@@ -127,7 +140,7 @@ rm -rf "$r"
 
 # --- baseline: host preparation, composed on the VM --------------------------
 
-baseline() { env PATH=/usr/bin:/bin "$@" bash "$VMSCRIPT" baseline --dry-run 2>&1; }
+baseline() { env PATH="$HERMETIC" "$@" bash "$VMSCRIPT" baseline --dry-run 2>&1; }
 
 # 10. dry run names every package and change the host needs
 out=$(baseline)
@@ -149,7 +162,7 @@ cat > "$r/bin/apt-get" <<EOF
 printf '%s\\n' "\$*" >> "$r/calls"
 EOF
 chmod +x "$r/bin/apt-get"
-env PATH="$r/bin:/usr/bin:/bin" bash "$VMSCRIPT" baseline --dry-run >/dev/null 2>&1
+env PATH="$r/bin:$HERMETIC" bash "$VMSCRIPT" baseline --dry-run >/dev/null 2>&1
 [ ! -s "$r/calls" ] && pass "baseline dry run installs nothing" \
   || die "baseline dry run called apt: $(cat "$r/calls")"
 rm -rf "$r"
@@ -168,8 +181,8 @@ rm -f "$mi"
 
 # --- harden: host surface, and the firewall that must not lock us out -------
 
-harden()   { env PATH=/usr/bin:/bin "$@" bash "$VMSCRIPT" harden --dry-run 2>&1; }
-firewall() { env PATH=/usr/bin:/bin "$@" bash "$SCRIPT" firewall --dry-run 2>&1; }
+harden()   { env PATH="$HERMETIC" "$@" bash "$VMSCRIPT" harden --dry-run 2>&1; }
+firewall() { env PATH="$HERMETIC" "$@" bash "$SCRIPT" firewall --dry-run 2>&1; }
 
 # 14. harden names each surface the inventory actually found on the host
 out=$(harden)
@@ -184,7 +197,7 @@ done
 r=$(mktemp -d); mkdir -p "$r/bin"
 printf '#!/usr/bin/env bash\nprintf "%%s\\n" "$*" >> %s/calls\n' "$r" > "$r/bin/apt-get"
 chmod +x "$r/bin/apt-get"
-env PATH="$r/bin:/usr/bin:/bin" bash "$VMSCRIPT" harden --dry-run >/dev/null 2>&1
+env PATH="$r/bin:$HERMETIC" bash "$VMSCRIPT" harden --dry-run >/dev/null 2>&1
 [ ! -s "$r/calls" ] && pass "harden dry run changes nothing" || die "harden dry run ran apt"
 rm -rf "$r"
 
@@ -213,7 +226,7 @@ rm -rf "$r"
 
 # --- claude install: the SSO handoff and the PATH trap ----------------------
 
-cc() { env PATH=/usr/bin:/bin "$@" bash "$VMSCRIPT" claude-install --dry-run 2>&1; }
+cc() { env PATH="$HERMETIC" "$@" bash "$VMSCRIPT" claude-install --dry-run 2>&1; }
 
 # 27. claude install verifies from a non-interactive shell, the context that
 #     caught gcloud out
@@ -225,7 +238,7 @@ grep -qiF 'non-interactive' <<<"$out" && grep -qF 'claude --version' <<<"$out" \
 r=$(mktemp -d); mkdir -p "$r/bin"
 printf '#!/usr/bin/env bash\nprintf "%%s\\n" "$*" >> %s/calls\n' "$r" > "$r/bin/apt-get"
 chmod +x "$r/bin/apt-get"
-env PATH="$r/bin:/usr/bin:/bin" bash "$VMSCRIPT" claude-install --dry-run >/dev/null 2>&1
+env PATH="$r/bin:$HERMETIC" bash "$VMSCRIPT" claude-install --dry-run >/dev/null 2>&1
 [ ! -s "$r/calls" ] && pass "install dry runs change nothing" || die "dry run ran apt"
 rm -rf "$r"
 
