@@ -53,12 +53,12 @@ the merge with the user), then:
 1. Sync the default branch (`git checkout <default>`, `git pull`).
 2. Promote any durable fact the closed task's artifacts established
    (`plan.md § Archival`).
-3. The merge closed the initiative - its ROADMAP entry turned `[x]`
-   with it, or the R's tasks are now all `[x]` with no closure
-   recorded → open a plan MR/PR carrying the archive move of the R's
-   directory to `plans/archive/` (`plan.md § Archival`) and, when the
-   branch did not record it, the closure (`plan.md § Approval and
-   closure`). The move never rides a task branch.
+3. When the merge closed the initiative - its ROADMAP entry turned
+   `[x]` with it, or its tasks are now all `[x]`, the closure
+   unrecorded, and the closure check verifies (`plan.md § Approval
+   and closure`) - open a plan MR/PR carrying the archive move
+   (`plan.md § Archival`) and, when the branch did not record it,
+   the closure.
 4. Delete the merged branch (local; remote too if pushed).
 
 Bookkeeping landed with the merge (`branch-plan.md § Closing routine`;
