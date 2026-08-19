@@ -45,9 +45,10 @@ round (`/dev plan R-XXX`), or per task via `/dev plan <task-id>` / `all`.
    - `depends-on: R008-T001` (if cross-task dependency)
 5. **Add the mandatory final items** at the end - the index mark then
    the completion commit (per `branch-plan.md § Closing routine`).
-6. **Confirm with user**, then write to
-   `plans/R-XXX-<slug>/<task-id>-<slug>.md` and deliver via a short-lived
-   plan MR/PR (`plan.md § Where plans live in git`).
+6. **Confirm with user**, then create the plan branch before the
+   first artifact write, write to
+   `plans/R-XXX-<slug>/<task-id>-<slug>.md`, and deliver via a
+   short-lived plan MR/PR (`plan.md § Where plans live in git`).
 
 ## Soft cap
 
@@ -56,8 +57,10 @@ Per `branch-plan.md § Size cap` (warn/split thresholds live there).
 ## Bulk mode (`/dev plan all`)
 
 One plan-writer subagent per open task lacking a plan (independent -
-dispatch in parallel), each following this skill. Then a single user
-review pass over all slugs + plans before delivering them (one plan MR/PR).
+dispatch in parallel), each following this skill; the dispatcher
+creates the one plan branch before dispatch, so step 6's branch act
+is not the writers'. Then a single user review pass over all slugs +
+plans before delivering them (one plan MR/PR).
 
 ## Out of scope
 

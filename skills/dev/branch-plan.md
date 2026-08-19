@@ -172,7 +172,8 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
 
 Composition only (members, order, mode), never status - task state's
 one home is the R's `tasks.md`. Open iff a member task is `[ ]` there
-and no `B-XXX.report.md` exists.
+and no `B-XXX.report.md` exists. Composition is a planning write:
+the plan branch precedes the manifest.
 
 Delivery grouping, not a planning level: a batch is scoped to the R
 whose dir holds it - members are its open tasks (coupling: tasks not
@@ -188,12 +189,11 @@ marks land per § Closing routine; reject: § Rails. The R-closure
 check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) opened after the batch MR/PR merges.
 
-Per-branch close in auto mode: the close review (the `code-reviewer`
-pass) runs only for branches above the small-branch threshold in
-the `auto` verification policy - small branches
-defer their first review to the batch-close full-diff pass. The
-mandatory final commit and the tests/lint-green gate before merging
-into `batch/R<NNN>-B-XXX` hold for every branch regardless of size.
+Per-branch close in auto mode: the close review runs only above the
+small-branch threshold in the `auto` verification policy - small
+branches defer their first review to the batch-close full-diff
+pass. The mandatory final commit and the tests/lint-green gate
+before merging into `batch/R<NNN>-B-XXX` hold regardless of size.
 
 ### Rails
 
