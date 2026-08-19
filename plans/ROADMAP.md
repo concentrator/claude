@@ -183,7 +183,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       misfires, bounded by R-053's proportionality rule: no new
       subsystem, no state file. Supervise mode and worktrees stay as
       they are - supervisor plus worker on a remote host is the target
-      model. (stub - shape via `/dev plan R-052`)
+      model.
 - [ ] R-053: Proportional engineering - a planning rule, not a gate:
       one observed failure earns one fix and one test; deeper proofs
       are reserved for the guards that protect real work; hardening
