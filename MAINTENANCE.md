@@ -59,7 +59,7 @@ Initial defaults - tune per project.
 | Transcripts | retention | `cleanupPeriodDays` (settings) |
 | `plans/` | orphaned or closed plan, findings, requirements & batch files; empty `R-XXX-<slug>` dirs | monthly |
 | `plans/visual-artifacts/` | gitignored scratch left behind | clear when stale |
-| `settings.local.json` | allow-list mess: one-off / dead / overlapping rules | weekly |
+| `.claude/settings.json` + any regrown `settings.local.json` | allow-list mess: one-off / dead / overlapping rules; local entries a tracked tier already carries | weekly |
 | skills/ | dead, unused, broken, or duplicate skills | monthly |
 | rules/, CLAUDE.md, foundational docs & README | stale paths / dead references | on edit + monthly |
 | repo root & `.claude/` | stray temp / build artifacts | weekly |
@@ -84,8 +84,8 @@ propose the repair and await approval (`claude-md.md` / `skills.md`
 
 Accepted permission prompts accumulate as verbatim one-offs; the list
 rots and prompts keep rising for near-identical commands. Weekly, per
-settings file (`settings.json` global, `settings.local.json` per
-project):
+settings file (`settings.json` global, `.claude/settings.json` project
+tier, any regrown `settings.local.json` per machine):
 
 1. Group entries by command; collapse variants into one prefix rule
    (`Bash(go test -v ...)`, `Bash(go vet ...)` → `Bash(go:*)`).
