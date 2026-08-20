@@ -223,3 +223,11 @@ Initiative index. Items: `R-001: description`; each entry owns
       only, leaving non-main force pushes unguarded. Settings
       semantics cannot express the intent; likely a hook-level rule.
       (stub - shape via `/dev plan R-058`)
+- [ ] R-059: Relax the commit-message rule - git is the right home for
+      change history, and the single-line rule pushes it into findings
+      and plan files instead. `git-workflow.md § Commit messages`
+      keeps the subject constraints (imperative, ~50 chars, no joined
+      clauses, no trailers) and allows an optional compact body for
+      the what/why the subject cannot carry; texts that key off the
+      single-line rule (branch plans, templates) reconcile with it.
+      (stub - shape via `/dev plan R-059`)
