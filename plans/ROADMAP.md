@@ -216,12 +216,17 @@ Initiative index. Items: `R-001: description`; each entry owns
       subagents; a low-priority targeted reviewer set (security,
       maintainability/style, performance) is defined for later
       routing.
-- [ ] R-058: Push-guard hardening - the push deny rules are prefix
+- [ ] R-058: Guard hardening - the guards the `acceptEdits` default
+      leans on have verified gaps. Push: the deny rules are prefix
       matches, so equivalent spellings (`push origin HEAD:main`,
       `+main`, `-f`, trailing `--force`) fall through to the global
-      `Bash(git:*)` allow; server-side protection backstops `main`
-      only, leaving non-main force pushes unguarded. Settings
-      semantics cannot express the intent; likely a hook-level rule.
+      `Bash(git:*)` allow, and server-side protection backstops `main`
+      only. Secrets: the guard is a fixed regex heuristic and the
+      interactive edit prompt that backstopped it is gone; no Tier-1
+      check scans for secrets. Branch guard: `is_trunk()` recognizes
+      only `main`/`master`, and targets with no owning repo are
+      allowed unconditionally. Settings semantics cannot express
+      these; likely hook-level rules plus a Tier-1 secrets scan.
       (stub - shape via `/dev plan R-058`)
 - [ ] R-059: Relax the commit-message rule - git is the right home for
       change history, and the single-line rule pushes it into findings

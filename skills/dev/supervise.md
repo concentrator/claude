@@ -68,10 +68,11 @@ missing it is no more mergeable than a batch missing its report. The supervisor 
 their repo - the supervisor never relays content; its ledgered
 question answers are the one exception. Workers never stall on
 permission prompts: the session starts under guaranteed prompt
-acceptance (the declared permissions cover every tool the plan needs)
-or the supervisor accepts the worker's edit prompts - edits inside
-the worker's repo within the declared permissions only; any other
-prompt halts the member and escalates.
+acceptance (the declared permissions cover every tool the plan needs).
+Under the `acceptEdits` session default, edits and in-cwd filesystem
+commands apply without a prompt, so edit prompts are not a supervisor
+control; any prompt a worker does raise halts the member and
+escalates.
 
 ## Monitor
 

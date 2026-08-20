@@ -30,6 +30,14 @@ the next prune. The tracked user-global `settings.json` sets
 review cost is handled by R-057's capped close review, not by
 lowering session effort.
 
+The `acceptEdits` default is machine-wide and broader than file
+edits: it applies to every project on the machine, guarded or not,
+and also auto-approves in-cwd filesystem commands (`rm`, `mv`,
+`sed -i`, ...), so edits and deletions lose their per-action prompt.
+Accepted as a deliberate trade for fewer prompts; the guard gaps it
+makes load-bearing are owned by R-058, the supervised-worker edit
+gate by R-040.
+
 ## Invariants
 
 - Deny rules keep binding in every permission mode.

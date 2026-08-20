@@ -42,7 +42,7 @@
       "Edit(//tmp/**)",
       "Edit(//private/tmp/**)"
     ],
-    "defaultMode": "default"
+    "defaultMode": "acceptEdits"
   },
   "hooks": {
     "PreToolUse": [

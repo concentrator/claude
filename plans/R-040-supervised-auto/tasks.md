@@ -125,3 +125,12 @@ composite (`R040-T###`, counter scoped to this initiative).
   of edit. Evidence both ways is in `R040-T010-worker-host.findings.md`.
   Amending a gate to pass it is not a call to make under delivery pressure,
   which is why this is its own task.
+
+- [ ] **R040-T014 [mnt]**: worker edit gate under `acceptEdits` - the
+  user-global `defaultMode: acceptEdits` (R056-T002) removed the edit
+  prompts `supervise.md` used as a checkpoint (accept in-repo edit
+  prompts, halt on any other). Decide the replacement: pin
+  `defaultMode: default` in worker-host provisioning, add a
+  worker-side guard hook, or accept declared permissions as the only
+  gate; update `supervise.md` and the provisioning scripts to match.
+  Routed from `R-056-settings-tiering/R056-T002-accept-edits.findings.md`.
