@@ -91,13 +91,26 @@ big-bang merge (§ Anti-patterns).
 
 ## Commit messages
 
-Single-line, ~50 chars / 6-8 words, subject only. No semicolons joining
-clauses, no body, no multi-line descriptions, no Co-Authored-By tags.
-Convey the WHAT, not the HOW or rationale.
+Subject: imperative, ~50 chars / 6-8 words, no semicolons joining
+clauses; convey the WHAT, not the HOW. A routine commit is
+subject-only.
+
+Body, only when the subject cannot carry the what/why (a no-diff
+move, a decision, a constraint): compact prose - no boilerplate, no
+file lists, no restating the diff. Routing between the commit,
+findings, and task homes: `writing.md § One home per finding`. No
+trailers (Co-Authored-By and kin).
 
 Examples:
 - GOOD: `Fix period chrome over logo`
 - GOOD: `Collapse multi-xxl into multi with dense modifier`
+- GOOD, a body earning its place:
+
+      Drop the local settings tier
+
+      The durable rules move to the tracked project tier. The local
+      file is gitignored, so its deletion leaves no diff.
+
 - BAD: `Fix period chrome shadowing the logo; anchor via .container::before`
 - BAD: `Add slide--st03-multi--dense modifier toggled by tenant count for 9+ tenants`
 

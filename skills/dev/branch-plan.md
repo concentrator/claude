@@ -29,8 +29,8 @@ the same commit as its code (§ Commit cadence).
 
 ### Commit cadence (all types)
 
-Every execution pass ends the same way; `feat`/`fix`/`refactor` add
-their mode file's loop, `doc`/`test`/`mnt` run this alone:
+Every pass ends the same way; `feat`/`fix`/`refactor` add their mode
+file's loop, `doc`/`test`/`mnt` run this alone:
 
 1. **Verify** - project test + lint commands green.
 2. **Docs** - per project `CLAUDE.md § Conventions`, in *this* commit:
@@ -38,7 +38,8 @@ their mode file's loop, `doc`/`test`/`mnt` run this alone:
    (`changelog.md`); new public
    surface → `README.md`; `extended-docs: yes` → per conventions
    (feature `docs/` docs reconcile at close).
-3. **Commit** - single-line message; mark the plan `[x]` immediately.
+3. **Commit** (`git-workflow.md § Commit messages`); mark the plan
+   `[x]` immediately.
 
 Open `[ ]` items → next pass; last non-final `[x]` → § Closing routine.
 
