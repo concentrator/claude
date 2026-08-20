@@ -235,4 +235,3 @@ Initiative index. Items: `R-001: description`; each entry owns
       clauses, no trailers) and allows an optional compact body for
       the what/why the subject cannot carry; texts that key off the
       single-line rule (branch plans, templates) reconcile with it.
-      (stub - shape via `/dev plan R-059`)
