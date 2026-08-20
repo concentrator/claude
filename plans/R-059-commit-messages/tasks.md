@@ -6,7 +6,7 @@ composite (`R059-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R059-T001 [doc]**: amend `git-workflow.md § Commit messages` -
+- [x] **R059-T001 [doc]**: amend `git-workflow.md § Commit messages` -
   subject constraints and the trailer ban stay; an optional compact
   body carries the what/why the subject cannot; add a body example;
   the restating texts (`branch-plan.md`, `release.md`,
