@@ -12,7 +12,7 @@ composite (`R059-T###`, counter scoped to this initiative).
   the restating texts (`branch-plan.md`, `release.md`,
   `spec-reviewer-prompt.md`) defer to the rule.
 
-- [ ] **R059-T002 [mnt]**: set `"includeCoAuthoredBy": false` in the
+- [x] **R059-T002 [mnt]**: set `"includeCoAuthoredBy": false` in the
   tracked user-global `settings.json`, ending the standing conflict
   between the harness default that appends a `Co-Authored-By` trailer
   and the rule's trailer ban. Routed from

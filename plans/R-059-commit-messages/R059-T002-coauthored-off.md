@@ -4,7 +4,7 @@ depends-on: R059-T001
 
 # R059-T002 - Turn the Co-Authored-By default off
 
-- [ ] Set `"includeCoAuthoredBy": false` in the tracked user-global
+- [x] Set `"includeCoAuthoredBy": false` in the tracked user-global
   `settings.json`, so the harness stops appending the trailer the
   rule bans; `jq -e '.includeCoAuthoredBy == false'` passes and
   `check-settings` stays green
