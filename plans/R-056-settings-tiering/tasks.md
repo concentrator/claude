@@ -12,7 +12,7 @@ composite (`R056-T###`, counter scoped to this initiative).
   the `.gitignore` allowlist entry; drop `settings.local.json`, its
   one-shot entries with it.
 
-- [ ] **R056-T002 [mnt]**: session default - set
+- [x] **R056-T002 [mnt]**: session default - set
   `"defaultMode": "acceptEdits"` in the tracked user-global
   `settings.json`.
 
