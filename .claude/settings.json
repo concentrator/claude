@@ -15,6 +15,7 @@
       "Bash(git push -u origin feat/*)",
       "Bash(git push -u origin fix/*)",
       "Bash(git push -u origin refactor/*)",
+      "Bash(git push -u origin release/*)",
       "Bash(git push -u origin mnt/*)",
       "Bash(git push -u origin test/*)",
       "Bash(git push -u origin plan/*)"
