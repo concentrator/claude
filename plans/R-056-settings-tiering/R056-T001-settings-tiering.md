@@ -15,7 +15,7 @@ type: mnt
   user-global `settings.json` working tree (both gitignored or
   no-diff moves - the commit message records them); `DESIGN.md`
   tree-map gains the new file in the same commit
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
   (stale/temp data), mark plan complete, commit
