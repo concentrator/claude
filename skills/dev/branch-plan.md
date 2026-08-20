@@ -38,7 +38,7 @@ their mode file's loop, `doc`/`test`/`mnt` run this alone:
    (`changelog.md`); new public
    surface → `README.md`; `extended-docs: yes` → per conventions
    (feature `docs/` docs reconcile at close).
-3. **Commit** - single-line message; mark the plan `[x]` immediately.
+3. **Commit**; mark the plan `[x]` immediately.
 
 Open `[ ]` items → next pass; last non-final `[x]` → § Closing routine.
 

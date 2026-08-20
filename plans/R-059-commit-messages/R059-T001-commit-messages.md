@@ -3,7 +3,7 @@ type: doc
 
 # R059-T001 - Relax the commit-message rule
 
-- [ ] Amend `git-workflow.md § Commit messages`: subject constraints
+- [x] Amend `git-workflow.md § Commit messages`: subject constraints
   (imperative, ~50 chars, no semicolon-joined clauses, WHAT not HOW)
   and the trailer ban stay; an optional compact body is allowed when
   the subject cannot carry the what/why (a no-diff move, a decision,
