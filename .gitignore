@@ -28,8 +28,9 @@ stats-cache.json
 *.local.json
 *.local.md
 
-# Side-effect from approving rm commands earlier
-.claude/
+# Project tier: everything machine-local except the tracked settings
+.claude/*
+!.claude/settings.json
 
 # Plugins (marketplace-managed)
 plugins/

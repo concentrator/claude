@@ -94,7 +94,7 @@ Mechanics: `skills/dev/branch-plan.md § Agentic execution`,
 
 - Self-hosting: foundational files live at the repo root (`~/.claude/`),
   which is itself the `.claude/` config directory. Claude Code's own
-  project settings remain at `~/.claude/.claude/settings.local.json`.
+  project settings live at `~/.claude/.claude/settings.json`, tracked.
 - Must stay compatible with the Claude Code settings/skill/hook schemas.
 
 ## Open questions

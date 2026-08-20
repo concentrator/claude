@@ -202,11 +202,12 @@ Initiative index. Items: `R-001: description`; each entry owns
       swept to `plans/archive/`.
 - [ ] R-056: Settings tiering and session defaults - durable
       repo-scoped permission rules (the default-branch/force-push deny
-      carve-out, the batch-push allow) move from the gitignored
-      `settings.local.json` to a tracked `.claude/settings.json` so a
-      fresh clone keeps them; the local file keeps the model override
-      and one-offs; the tracked user-global `settings.json` switches
-      `defaultMode` to `acceptEdits`.
+      carve-out, the batch-push allow, the durable tool allows, the
+      model override) move from the gitignored `settings.local.json`
+      to a tracked `.claude/settings.json` so a fresh clone keeps
+      them; the local file is dropped, one-shot approvals with it; the
+      tracked user-global `settings.json` switches `defaultMode` to
+      `acceptEdits`.
 - [ ] R-057: Cap the close review - the routed close review becomes
       the repo's `code-reviewer` agent (one reviewer, a second
       verifier only on a Critical finding) in place of the built-in
@@ -215,3 +216,10 @@ Initiative index. Items: `R-001: description`; each entry owns
       subagents; a low-priority targeted reviewer set (security,
       maintainability/style, performance) is defined for later
       routing.
+- [ ] R-058: Push-guard hardening - the push deny rules are prefix
+      matches, so equivalent spellings (`push origin HEAD:main`,
+      `+main`, `-f`, trailing `--force`) fall through to the global
+      `Bash(git:*)` allow; server-side protection backstops `main`
+      only, leaving non-main force pushes unguarded. Settings
+      semantics cannot express the intent; likely a hook-level rule.
+      (stub - shape via `/dev plan R-058`)

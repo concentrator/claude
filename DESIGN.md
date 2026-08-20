@@ -59,7 +59,7 @@ excluded - see `.gitignore`.
 │   ├── install-dev.sh            # toolset installer (global or --project)
 │   └── test/                     # script tests + run-all.sh
 ├── .claude/
-│   └── settings.local.json       # project-tier, gitignored
+│   └── settings.json             # project tier, tracked - push carve-out, durable allows, model
 ├── plans/                        # planning hierarchy
 │   ├── ROADMAP.md                # cross-R index - see skills/dev/plan.md
 │   ├── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
