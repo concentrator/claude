@@ -93,11 +93,13 @@ big-bang merge (§ Anti-patterns).
 
 Subject: imperative, ~50 chars / 6-8 words, no semicolons joining
 clauses; convey the WHAT, not the HOW. A routine commit is
-subject-only. When the subject cannot carry the what/why - a no-diff
-move, a decision, a constraint - add a compact body: short prose, no
-boilerplate, never a restatement of the diff. Git is the home for
-change history; a body that belongs with its commit never moves to a
-findings or plan file. No trailers (Co-Authored-By and kin).
+subject-only.
+
+Body, only when the subject cannot carry the what/why (a no-diff
+move, a decision, a constraint): compact prose - no boilerplate, no
+file lists, no restating the diff. Routing between the commit,
+findings, and task homes: `writing.md § One home per finding`. No
+trailers (Co-Authored-By and kin).
 
 Examples:
 - GOOD: `Fix period chrome over logo`
@@ -106,12 +108,11 @@ Examples:
 
       Drop the local settings tier
 
-      The durable rules move to the tracked project tier; the local
+      The durable rules move to the tracked project tier. The local
       file is gitignored, so its deletion leaves no diff.
 
 - BAD: `Fix period chrome shadowing the logo; anchor via .container::before`
 - BAD: `Add slide--st03-multi--dense modifier toggled by tenant count for 9+ tenants`
-- BAD body: a file list or the diff restated hunk by hunk
 
 ## MR/PR messages
 
