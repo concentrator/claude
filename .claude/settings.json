@@ -1,0 +1,27 @@
+{
+  "model": "claude-fable-5[1m]",
+  "permissions": {
+    "allow": [
+      "Bash(bash scripts/ci/run-all.sh)",
+      "Bash(bash scripts/ci/check-caps.sh)",
+      "Bash(gh auth *)",
+      "Bash(glab auth *)",
+      "Bash(glab config *)",
+      "Read(//opt/homebrew/**)",
+      "Workflow(code-review)",
+      "Skill(claude-api)",
+      "Bash(git push -u origin batch/*)",
+      "Bash(git push -u origin doc/*)",
+      "Bash(git push -u origin feat/*)",
+      "Bash(git push -u origin fix/*)",
+      "Bash(git push -u origin refactor/*)",
+      "Bash(git push -u origin mnt/*)",
+      "Bash(git push -u origin test/*)",
+      "Bash(git push -u origin plan/*)"
+    ],
+    "deny": [
+      "Bash(git push origin main:*)",
+      "Bash(git push --force:*)"
+    ]
+  }
+}

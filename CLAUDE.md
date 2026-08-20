@@ -27,7 +27,7 @@ Delivery cadence: one branch = one coherent unit, not a per-edit PR
   (`skills/dev/companions/declarations.md § Supervisor bounds`).
 - VCS-host CLI: `gh`; state-check:
   `gh pr view <n> --json state,mergedAt,statusCheckRollup`.
-- Batch-push carve-out: `.claude/settings.local.json` (deny narrowed
+- Batch-push carve-out: tracked `.claude/settings.json` (deny narrowed
   to default-branch/force pushes).
 - Merge gate: `main` is protected - a PR + a green `tier1` check
   required (`enforce_admins` on), so `gh pr merge` merges only on
