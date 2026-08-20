@@ -3,7 +3,7 @@ type: mnt
 
 # R056-T001 - Migrate the durable rules
 
-- [ ] Create the tracked project tier: `.claude/settings.json` holding
+- [x] Create the tracked project tier: `.claude/settings.json` holding
   the default-branch/force-push denies, the batch-push allow, the
   durable tool-class allows merged from `.claude/settings.local.json`
   (gate runners, host auth, homebrew reads, the code-review workflow
