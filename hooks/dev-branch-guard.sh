@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 # dev-branch-guard.sh - PreToolUse hook (R-021, refined R-024/R-034/R-036/
-# R-052).
+# R-052/R-058).
 # Refuses repo-mutating tool calls that would land on the trunk - the repo's
 # default branch, resolved per is_trunk() below -
 # so all work goes through a branch (git-workflow trunk rule). Reads the
-# tool-call JSON on stdin; emits a PreToolUse "deny" decision when the write
-# or commit actually targets a trunk. Silent (allow) otherwise. Judges the
-# real target, never the session cwd: a write is judged by the repo owning
-# the (physically resolved) target path - tracked-side on a trunk denies
-# from any cwd; gitignored, repo-less, or working-branch targets allow. A
-# commit is judged by the repo it targets - the last literal `cd` or
-# `git -C <path>` before it, else the cwd; a repo the same command creates
+# tool-call JSON on stdin; emits a PreToolUse "deny" decision when the
+# write, commit, or push actually targets a trunk, and for a force push in
+# any spelling. Silent (allow) otherwise. Judges the real target, never the
+# session cwd: a write is judged by the repo owning the (physically
+# resolved) target path - tracked-side on a trunk denies from any cwd;
+# gitignored, repo-less, or working-branch targets allow. A commit or push
+# is judged by the repo it targets - the last literal `cd` or `git -C
+# <path>` before it, else the cwd; a repo the same command creates
 # (`git init`) and a compound `checkout -b && commit` are allowed. Fails
 # open.
 #
@@ -155,13 +156,16 @@ case "$tool" in
       fi
     }
 
-    # Push rules (R-058). A push is judged from its own command segment -
-    # command-head anchored, so echo text never triggers - covering the
-    # spellings the settings deny pair misses.
+    # Push rules (R-058). Every push in the text is judged from its own
+    # command segment - command-head anchored, so echo text never triggers -
+    # covering the spellings the settings deny pair misses. The scan walks
+    # pushes last-to-first: judge the last one, truncate to its prefix,
+    # repeat.
     Prx="^(.*)(^|[;&|])[[:space:]]*git${opt}[[:space:]]+push([[:space:]]|\$)"
-    pnorm="${cmd//$'\n'/;}"
-    if [[ "$pnorm" =~ $Prx ]]; then
-      pseg="${pnorm:${#BASH_REMATCH[0]}}"
+    pscan="${cmd//$'\n'/;}"
+    while [[ "$pscan" =~ $Prx ]]; do
+      phead="${BASH_REMATCH[0]}"
+      pseg="${pscan:${#phead}}"
       pseg="${pseg%%[;&|]*}"
       # One token walk: force spellings deny outright; the first bare
       # token is the remote, later ones are refspecs.
@@ -179,12 +183,19 @@ case "$tool" in
       done
       set +f
       # A push targeting the default branch: any refspec whose destination
-      # is the target repo's trunk; a push with no refspec is judged by
-      # that repo's HEAD.
-      pdir=$(resolve_target "${pnorm%%push*}") || exit 0
+      # is the target repo's trunk; a push with no refspec, or a HEAD
+      # destination, is judged by that repo's HEAD. The prefix ends at this
+      # push's own command word, so an earlier "push" substring in the text
+      # cannot corrupt the -C/cd resolution.
+      pbefore="${phead%push*}"
+      pdir=$(resolve_target "$pbefore") || exit 0
       if (( ${#refspecs[@]} )); then
         for rs in "${refspecs[@]}"; do
           dest="${rs##*:}"; dest="${dest#refs/heads/}"
+          if [ "$dest" = HEAD ]; then
+            dest=$(git -C "$pdir" rev-parse --abbrev-ref HEAD 2>/dev/null)
+            [ -n "$dest" ] || continue
+          fi
           is_trunk "$pdir" "$dest" \
             && deny "branch-guard: refusing 'git push' - refspec '$rs' targets the default branch; deliver via an MR/PR (git-workflow § Enforcement)."
         done
@@ -193,7 +204,8 @@ case "$tool" in
         [ -n "$pbr" ] && is_trunk "$pdir" "$pbr" \
           && deny "branch-guard: refusing a bare 'git push' on '$pbr' - it targets the default branch; deliver via an MR/PR (git-workflow § Enforcement)."
       fi
-    fi
+      pscan="$pbefore"
+    done
 
     # Only guard commands that actually commit. The boundary after
     # `commit` leaves plumbing (git commit-tree / commit-graph) alone.
