@@ -4,7 +4,7 @@ depends-on: R058-T003
 
 # R058-T001 - Push rules in the branch guard
 
-- [ ] Deny a force push in any spelling: a `git push` whose arguments
+- [x] Deny a force push in any spelling: a `git push` whose arguments
   carry `-f`, `--force`, `--force-with-lease`, or a `+`-prefixed
   refspec is denied by `dev-branch-guard.sh`'s Bash path, reusing the
   existing command parsing (`-C`/`cd` target resolution, echo-text

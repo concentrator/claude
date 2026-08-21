@@ -133,6 +133,27 @@ case "$tool" in
     # end the match, so a quoted value cannot smuggle tokens into either
     # pattern.
     opt="([[:space:]]+-[^[:space:]\"']+([[:space:]]+[^[:space:]\"'-][^[:space:]\"']*)?)*"
+
+    # Push rules (R-058). A push is judged from its own command segment -
+    # command-head anchored, so echo text never triggers - covering the
+    # spellings the settings deny pair misses.
+    Prx="^(.*)(^|[;&|])[[:space:]]*git${opt}[[:space:]]+push([[:space:]]|\$)"
+    pnorm="${cmd//$'\n'/;}"
+    if [[ "$pnorm" =~ $Prx ]]; then
+      pseg="${pnorm:${#BASH_REMATCH[0]}}"
+      pseg="${pseg%%[;&|]*}"
+      set -f
+      for tok in $pseg; do
+        case "$tok" in
+          -f | --force | --force-with-lease | --force-with-lease=*)
+            deny "branch-guard: refusing 'git push' carrying '$tok' - a force push in any spelling is denied (git-workflow § Enforcement)." ;;
+          +*)
+            deny "branch-guard: refusing 'git push' carrying the forced refspec '$tok' - a force push in any spelling is denied (git-workflow § Enforcement)." ;;
+        esac
+      done
+      set +f
+    fi
+
     # Only guard commands that actually commit. The boundary after
     # `commit` leaves plumbing (git commit-tree / commit-graph) alone.
     crx="(^|[^[:alnum:]-])git${opt}[[:space:]]+commit([[:space:]]|\$)"
