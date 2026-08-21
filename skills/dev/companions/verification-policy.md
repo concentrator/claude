@@ -8,14 +8,14 @@ knobs the controller has and when to apply them.
 
 ## Effort mechanics
 
-Effort routes per dispatch, on two surfaces: an agent definition's
+Effort routes per role, not per call: an agent definition's
 frontmatter carries an `effort:` key beside `model:`
-(`agents/code-reviewer.md` pins `medium`), and the Agent dispatch
-surface takes a per-call `effort` override
-(`low`/`medium`/`high`/`xhigh`/`max`). A dispatch with neither
-inherits the session `effortLevel`. Routing therefore encodes a model
-and, where a role warrants it, an effort - the session setting is the
-default, not the ceiling.
+(`low`/`medium`/`high`/`xhigh`/`max`; `agents/code-reviewer.md` pins
+`medium`), while the Agent dispatch surface still overrides `model`
+only. A role whose definition pins neither inherits the session
+`effortLevel`. Routing therefore encodes a model and, where a role
+warrants it, an effort - the session setting is the default, not the
+ceiling.
 
 ## Mechanical commits
 
@@ -155,7 +155,7 @@ present and the fix is cheap.
 | Branch-close review and batch full-diff review | Fable 5 (`fable`) |
 
 Effort: a role runs at the session `effortLevel` unless its definition
-or dispatch pins one (§ Effort mechanics).
+pins one (§ Effort mechanics).
 
 **Capacity fallback.** A pinned model can be rate-limited, which is not
 a fact about the work. When a dispatch fails on capacity, fall back one

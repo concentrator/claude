@@ -67,9 +67,8 @@ fixes:
 smell, naming inconsistency:
 - Within this branch's scope → fix it here as a commit; don't defer
   in-scope work to a finding.
-- Belongs to a different component → append to the plan's
-  sibling `<task-id>-<slug>.findings.md` (one line + brief context), continue
-  coding, and triage at close.
+- Belongs to a different component → append to the plan's sibling
+  `<task-id>-<slug>.findings.md`, continue coding, triage at close.
 - Never silently expand scope.
 
 ### Scope changes mid-branch
@@ -105,14 +104,15 @@ commit and the hand-off (`finish`).
 4. Apply approved fixes as additional commits if needed.
 5. Capture the branch outcome: a summary against the task's acceptance
    criteria; surface manual-testing/automation needs (`finish § 2`).
-6. **Triage `<task-id>-<slug>.findings.md`** - in-scope findings are resolved
-   in this branch (as commits), not deferred (§ Scope discoveries). For each remaining `[ ]`, prompt user:
+6. **Triage `<task-id>-<slug>.findings.md`** - in-scope findings are
+   resolved in this branch (as commits), not deferred
+   (§ Scope discoveries). For each remaining `[ ]`, prompt user:
    - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
-7. **Reconcile the feature doc** - update the `docs/` doc to the
-   shipped code, then complete it - and every doc the branch ships, re-review edits
-   included - through the verification gate
+7. **Reconcile the feature doc** - write or update the `docs/` doc
+   to the shipped code, then complete it - and every doc the branch
+   ships, re-review edits included - through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
    the **mandatory final two items** of every plan:
 
@@ -190,8 +190,9 @@ check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) opened after the batch MR/PR merges.
 
 Per-branch close in auto mode: the close review runs only above the
-small-branch threshold - small branches defer their first review to
-the batch-close full-diff pass. The mandatory final commit and the tests/lint-green gate
+close-folding threshold (`verification-policy.md § Close folding`) -
+smaller branches defer their first review to the batch-close
+full-diff pass. The mandatory final commit and the tests/lint-green gate
 before merging into `batch/R<NNN>-B-XXX` hold regardless of size.
 
 ### Rails
