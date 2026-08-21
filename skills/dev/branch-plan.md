@@ -1,7 +1,7 @@
 # Branch plan rules
 
-A branch plan is `plans/R-XXX-<slug>/<task-id>-<slug>.md` (root-relative;
-dir per roadmap entry - `plan.md § Directory conventions`). One
+A branch plan is `plans/R-XXX-<slug>/<task-id>-<slug>.md`
+(root-relative; `plan.md § Directory conventions`). One
 branch = one task. The plan must be complete and committed to `main`
 **before** the branch is created.
 
@@ -25,7 +25,7 @@ intent - a commit that didn't land stays `[ ]`.
 
 A doc that depends on a later commit gets a placeholder + sub-task,
 replaced in the commit that completes it; everything else updates in
-the same commit as its code (§ Commit cadence).
+the same commit as its code.
 
 ### Commit cadence (all types)
 
@@ -88,11 +88,13 @@ commit and the hand-off (`finish`).
    | The diff changes | Review |
    |---|---|
    | code, behavior preserved | `/simplify` |
-   | code, behavior added or fixed | `/code-review` |
-   | prose, rules, docs, plans | `/code-review` |
-   | data or config | `/code-review` |
+   | code, behavior added or fixed | `code-reviewer` agent |
+   | prose, rules, docs, plans | `code-reviewer` agent |
+   | data or config | `code-reviewer` agent |
    | more than one row | both |
 
+   Cap: one dispatch, plus a verifier only on a Critical finding;
+   `/code-review` is a manual escalation - suggest, never run.
    Bookkeeping (plan marks, CHANGELOG) keys no row. The size governor
    overrides: mixed-purpose (more than one task tag) or >9
    commits → both. Also run the **Tier-2 compliance review**: confirm
@@ -102,17 +104,14 @@ commit and the hand-off (`finish`).
 3. Print report; request user approval before applying.
 4. Apply approved fixes as additional commits if needed.
 5. Capture the branch outcome: a summary against the task's acceptance
-   criteria; surface manual-testing/automation needs (verify per diff
-   content: `finish § 2`).
+   criteria; surface manual-testing/automation needs (`finish § 2`).
 6. **Triage `<task-id>-<slug>.findings.md`** - in-scope findings are resolved
-   in this branch (as commits), not deferred (routing:
-   § Scope discoveries). For each remaining `[ ]`, prompt user:
+   in this branch (as commits), not deferred (§ Scope discoveries). For each remaining `[ ]`, prompt user:
    - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
-7. **Reconcile the feature doc** - write or update the `docs/` doc
-   to match the shipped code, then
-   complete it - and every doc the branch ships, re-review edits
+7. **Reconcile the feature doc** - update the `docs/` doc to the
+   shipped code, then complete it - and every doc the branch ships, re-review edits
    included - through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
    the **mandatory final two items** of every plan:
@@ -131,15 +130,15 @@ commit and the hand-off (`finish`).
 
 ## Architecture-changing branches
 
-If header has `architecture-changing: true`, the plan must include a commit
-that updates `DESIGN.md`. Routine branches do not modify `DESIGN.md` -
+Header `architecture-changing: true` → the plan includes a commit
+updating `DESIGN.md`. Routine branches do not modify `DESIGN.md` -
 except routine tree-map upkeep (adding a new file to `DESIGN.md § Tree-map`),
 which any branch may fold into its final commit without the flag.
 
 ## Size cap
 
-A branch runs ~20 commits (medium): warn past 20, prompt to
-split past 30 - subordinate to the short-lived governor
+A branch runs ~20 commits: warn past 20, prompt to split
+past 30 - subordinate to the short-lived governor
 (`git-workflow.md § Delivery cadence`). Override with stated
 reason in plan header.
 
@@ -173,8 +172,8 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
 
 Composition only (members, order, mode), never status - task state's
 one home is the R's `tasks.md`. Open iff a member task is `[ ]` there
-and no `B-XXX.report.md` exists. Composition is a planning write:
-the plan branch precedes the manifest.
+and no `B-XXX.report.md` exists. Composition is a planning write -
+the plan branch comes first.
 
 Delivery grouping, not a planning level: a batch is scoped to the R
 whose dir holds it - members are its open tasks (coupling: tasks not
@@ -191,9 +190,8 @@ check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) opened after the batch MR/PR merges.
 
 Per-branch close in auto mode: the close review runs only above the
-small-branch threshold in the `auto` verification policy - small
-branches defer their first review to the batch-close full-diff
-pass. The mandatory final commit and the tests/lint-green gate
+small-branch threshold - small branches defer their first review to
+the batch-close full-diff pass. The mandatory final commit and the tests/lint-green gate
 before merging into `batch/R<NNN>-B-XXX` hold regardless of size.
 
 ### Rails
