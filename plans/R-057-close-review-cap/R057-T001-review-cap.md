@@ -21,7 +21,7 @@ type: mnt
   the present - agent frontmatter carries an effort key, so per-role
   effort routing is real (the dispatch surface still overrides model
   only); the model table and capacity fallback stay
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
   (stale/temp data), mark plan complete, commit
