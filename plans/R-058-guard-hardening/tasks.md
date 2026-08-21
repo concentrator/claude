@@ -18,7 +18,7 @@ composite (`R058-T###`, counter scoped to this initiative).
   `run-all.sh`, ships a self-test; `DESIGN.md § Self-enforcement` and
   the doc-sync pairs updated per the new-check row.
 
-- [ ] **R058-T003 [fix]**: `is_trunk()` resolves the repo's actual
+- [x] **R058-T003 [fix]**: `is_trunk()` resolves the repo's actual
   default branch - `origin/HEAD`, then `init.defaultBranch`, then the
   `main`/`master` fallback; unresolvable → fail open; a test repo with
   a differently named trunk proves the deny.
