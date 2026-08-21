@@ -9,7 +9,7 @@ depends-on: R058-T003
   refspec is denied by `dev-branch-guard.sh`'s Bash path, reusing the
   existing command parsing (`-C`/`cd` target resolution, echo-text
   immunity); tests cover each spelling and echo-text non-triggering
-- [ ] Deny a push targeting the default branch in any spelling: a
+- [x] Deny a push targeting the default branch in any spelling: a
   refspec equal to the default branch or ending `:<default>`, or a
   bare `git push` while the target repo's HEAD is the default branch,
   is denied via the T003 resolver; `git push -u origin <prefix>/*`

@@ -134,6 +134,27 @@ case "$tool" in
     # pattern.
     opt="([[:space:]]+-[^[:space:]\"']+([[:space:]]+[^[:space:]\"'-][^[:space:]\"']*)?)*"
 
+    # Judge the repo a git call targets: the later of the last `git -C
+    # <path>` and the last command-head `cd <path>` in the text before it
+    # (both via a greedy prefix), else the cwd. A cd target with expansion
+    # characters cannot be read from the call text - rc 1, caller fails
+    # open.
+    Crx="^(.*)git[[:space:]]+-C[[:space:]]+([^[:space:]]+)"
+    cdrx="^(.*)(^|[;&|])[[:space:]]*cd[[:space:]]+([^;&|[:space:]]+)"
+    resolve_target() {
+      local before="$1" cpos=-1 dpos=-1 cval= dval=
+      if [[ "$before" =~ $Crx ]]; then cpos=${#BASH_REMATCH[1]} cval="${BASH_REMATCH[2]}"; fi
+      if [[ "$before" =~ $cdrx ]]; then dpos=${#BASH_REMATCH[1]} dval="${BASH_REMATCH[3]}"; fi
+      if (( dpos > cpos )); then
+        case "$dval" in *[\$\`\"\']*) return 1 ;; esac
+        printf '%s' "$dval"
+      elif (( cpos >= 0 )); then
+        printf '%s' "$cval"
+      else
+        printf '.'
+      fi
+    }
+
     # Push rules (R-058). A push is judged from its own command segment -
     # command-head anchored, so echo text never triggers - covering the
     # spellings the settings deny pair misses.
@@ -142,6 +163,9 @@ case "$tool" in
     if [[ "$pnorm" =~ $Prx ]]; then
       pseg="${pnorm:${#BASH_REMATCH[0]}}"
       pseg="${pseg%%[;&|]*}"
+      # One token walk: force spellings deny outright; the first bare
+      # token is the remote, later ones are refspecs.
+      seen_remote=0 refspecs=()
       set -f
       for tok in $pseg; do
         case "$tok" in
@@ -149,9 +173,26 @@ case "$tool" in
             deny "branch-guard: refusing 'git push' carrying '$tok' - a force push in any spelling is denied (git-workflow § Enforcement)." ;;
           +*)
             deny "branch-guard: refusing 'git push' carrying the forced refspec '$tok' - a force push in any spelling is denied (git-workflow § Enforcement)." ;;
+          -*) ;;
+          *) if (( seen_remote )); then refspecs+=("$tok"); else seen_remote=1; fi ;;
         esac
       done
       set +f
+      # A push targeting the default branch: any refspec whose destination
+      # is the target repo's trunk; a push with no refspec is judged by
+      # that repo's HEAD.
+      pdir=$(resolve_target "${pnorm%%push*}") || exit 0
+      if (( ${#refspecs[@]} )); then
+        for rs in "${refspecs[@]}"; do
+          dest="${rs##*:}"; dest="${dest#refs/heads/}"
+          is_trunk "$pdir" "$dest" \
+            && deny "branch-guard: refusing 'git push' - refspec '$rs' targets the default branch; deliver via an MR/PR (git-workflow § Enforcement)."
+        done
+      else
+        pbr=$(git -C "$pdir" rev-parse --abbrev-ref HEAD 2>/dev/null)
+        [ -n "$pbr" ] && is_trunk "$pdir" "$pbr" \
+          && deny "branch-guard: refusing a bare 'git push' on '$pbr' - it targets the default branch; deliver via an MR/PR (git-workflow § Enforcement)."
+      fi
     fi
 
     # Only guard commands that actually commit. The boundary after
@@ -171,21 +212,8 @@ case "$tool" in
     irx="(^|[;&|]+)[[:space:]]*git${opt}[[:space:]]+init([[:space:];&|]|\$)"
     [[ "$before" =~ $irx ]] && exit 0
 
-    # Judge the repo the commit targets: the later of the last `git -C
-    # <path>` and the last command-head `cd <path>` before it (both via a
-    # greedy prefix), else the cwd repo. A cd target with expansion
-    # characters cannot be read from the call text - fail open.
-    Crx="^(.*)git[[:space:]]+-C[[:space:]]+([^[:space:]]+)"
-    cdrx="^(.*)(^|[;&|])[[:space:]]*cd[[:space:]]+([^;&|[:space:]]+)"
-    dir="." cpos=-1 dpos=-1 cval= dval=
-    if [[ "$before" =~ $Crx ]]; then cpos=${#BASH_REMATCH[1]} cval="${BASH_REMATCH[2]}"; fi
-    if [[ "$before" =~ $cdrx ]]; then dpos=${#BASH_REMATCH[1]} dval="${BASH_REMATCH[3]}"; fi
-    if (( dpos > cpos )); then
-      case "$dval" in *[\$\`\"\']*) exit 0 ;; esac
-      dir="$dval"
-    elif (( cpos >= 0 )); then
-      dir="$cval"
-    fi
+    # Judge the repo the commit targets (resolve_target above).
+    dir=$(resolve_target "$before") || exit 0
 
     # Treat `checkout -b` / `switch -c` as a branch-create only when it is
     # an actual command head (start, or after a shell separator), names a

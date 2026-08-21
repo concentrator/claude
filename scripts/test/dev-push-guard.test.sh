@@ -36,5 +36,26 @@ j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git push origin +feat/x"}}')
 j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"echo git push -f origin main"}}')
 [ "$(run "$j")" = allow ] && pass "echo-text push does not trigger" || die "echo-text push denied"
 
+# --- pushes targeting the default branch are denied ---
+# A fresh repo on `main`; config is scrubbed above, so the literal
+# fallback names its trunk.
+M=$(mktemp -d); trap 'rm -rf "$M"' EXIT
+git -c init.defaultBranch=main -C "$M" init -q
+git -C "$M" config user.email t@e >/dev/null; git -C "$M" config user.name t >/dev/null
+git -C "$M" commit -q --allow-empty -m init
+cd "$M"
+
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git push origin main"}}')
+[ "$(run "$j")" = deny ] && pass "refspec equal to the default denied" || die "push origin main allowed"
+
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git push origin HEAD:main"}}')
+[ "$(run "$j")" = deny ] && pass "refspec dest :main denied" || die "push HEAD:main allowed"
+
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git push"}}')
+[ "$(run "$j")" = deny ] && pass "bare push on the default branch denied" || die "bare push on main allowed"
+
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git push -u origin feat/x"}}')
+[ "$(run "$j")" = allow ] && pass "task-branch push allowed" || die "task-branch push denied"
+
 (( fail == 0 )) && echo "dev-push-guard.test: OK"
 exit $fail
