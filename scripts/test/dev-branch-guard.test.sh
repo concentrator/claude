@@ -10,6 +10,8 @@
 # (`git -C <main>` from a branch cwd is denied), the commit-target cases
 # R-052 adds (an in-command `cd` moves the judged repo; a same-command
 # `git init` marks non-project work; unresolvable cd targets fail open),
+# the trunk-resolution cases R-058 adds (a develop trunk resolved via
+# origin/HEAD denies; unresolvable repos fall back to the literals),
 # and fail-open on malformed input / outside a repo.
 # Run: bash scripts/test/dev-branch-guard.test.sh
 set -uo pipefail
