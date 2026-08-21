@@ -44,8 +44,6 @@ the branch's files; the switch to default is §4, after merge.
 `discard`. Then checkout default, `git branch -D`. The task stays `[ ]`;
 ask whether to keep the plan.
 
-Delivery ends the session's unit (`branch-plan.md § Session boundary`).
-
 ## 4. Post-merge (after the branch merges)
 
 Detect the merge via the declared state-check command
@@ -65,4 +63,5 @@ the merge with the user), then:
 
 Bookkeeping landed with the merge (`branch-plan.md § Closing routine`;
 untracked mode: `companions/untracked-claude.md`); late closures:
-`plan.md § Approval and closure`.
+`plan.md § Approval and closure`. Post-merge done, the session's unit
+ends (`branch-plan.md § Session boundary`).

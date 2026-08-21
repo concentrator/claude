@@ -127,7 +127,7 @@ commit and the hand-off (`finish`).
 
 Header `architecture-changing: true` → the plan includes a commit
 updating `DESIGN.md`. Other branches touch `DESIGN.md` only for
-tree-map upkeep (adding a new file to `§ Tree-map`), foldable into
+tree-map upkeep (adding a new file to `DESIGN.md § Tree-map`), foldable into
 the final commit without the flag.
 
 ## Size cap
@@ -181,8 +181,8 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
     - R008-T001 (<slug>)
     - R008-T002 (<slug>)
 
-Composition only (members, order, mode), never status - task state
-lives in the R's `tasks.md`. Open iff a member is `[ ]` there and no
+Composition only (members, order, mode), never status - task state's
+home is the R's `tasks.md`. Open iff a member is `[ ]` there and no
 `B-XXX.report.md` exists. Composition is a planning write -
 the plan branch comes first.
 
