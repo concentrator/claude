@@ -122,8 +122,7 @@ d=$(direct_case bare)
 # --- Coverage --------------------------------------------------------------
 
 # Any test that mentions git must scrub, whatever idiom builds its fixture. The
-# match is whole-line: this file quotes the scrub in its own header, and a
-# decorative mention must not satisfy the gate.
+# match is whole-line: this file quotes the scrub in its own header.
 # The match is deliberately loose - it catches a prose mention too - because
 # over-inclusion costs a redundant unset while under-inclusion costs a leak.
 # Echoes the offenders, so one function serves the suite and its negative case.

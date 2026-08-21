@@ -20,7 +20,7 @@ self-tests carry the isolation scrub" - that assertion stays.
       biting fixture, one canary per invocation path (runner, direct),
       and the bare-direct leak case proving detection still bites;
       drop the mutant-runner, index-only and partial-scrub variants.
-      `context-cost.test.sh`: remove the mutant case.
+      `context-cost.test.sh`: remove the mutant cases.
 - [ ] `install-dev.test.sh` stays green unchanged; reconcile only if
       the trim breaks it.
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`; the merge

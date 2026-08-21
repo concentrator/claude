@@ -7,7 +7,7 @@
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
-TOOL="${TOOL:-$(git rev-parse --show-toplevel)/scripts/context-cost.py}"
+TOOL=$(git rev-parse --show-toplevel)/scripts/context-cost.py
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
