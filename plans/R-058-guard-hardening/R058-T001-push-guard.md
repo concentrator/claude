@@ -15,7 +15,7 @@ depends-on: R058-T003
   is denied via the T003 resolver; `git push -u origin <prefix>/*`
   stays allowed; tests cover the refspec forms, the bare-push case,
   and the allowed task-branch push
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
   (stale/temp data), mark plan complete, commit

@@ -50,7 +50,7 @@ excluded - see `.gitignore`.
 ├── .githooks/
 │   └── pre-push                  # advisory local Tier-1 mirror
 ├── hooks/
-│   ├── dev-branch-guard.sh       # PreToolUse branch-guard (no writes on trunk)
+│   ├── dev-branch-guard.sh       # PreToolUse branch-guard (no trunk mutations)
 │   ├── dev-branch-state.sh       # UserPromptSubmit ambient branch/tree state
 │   └── dev-secrets-guard.sh      # PreToolUse secrets guard
 ├── scripts/
@@ -143,8 +143,9 @@ The workflow triggers on `pull_request` only, so it never re-judges the
 direct-to-main bootstrap history.
 
 Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
-`dev-secrets-guard`) add a local pre-emptive guard: no writes or commits on
-the trunk, and no secrets into tracked files or commits. A UserPromptSubmit
+`dev-secrets-guard`) add a local pre-emptive guard: no writes, commits, or
+pushes on the trunk, no force pushes, and no secrets into tracked files or
+commits. A UserPromptSubmit
 hook (`dev-branch-state`) keeps the current branch and working-tree state
 in front of the session, so the trunk rule is followed rather than tripped.
 
