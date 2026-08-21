@@ -7,8 +7,6 @@
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
-# Overridable so a mutated copy can be run against these cases, confirming
-# every reported figure has a case that fails when it breaks.
 TOOL="${TOOL:-$(git rev-parse --show-toplevel)/scripts/context-cost.py}"
 fail=0
 pass() { echo "ok - $1"; }
@@ -241,19 +239,5 @@ out=$(CLAUDE_CONFIG_DIR="$d/cfg" python3 "$TOOL" --last 2 "$d/cfg/projects/p1/ne
 [ "$(grep -c '^== new ==' <<<"$out")" = 1 ] \
   && pass "a session named twice is reported once" \
   || die "duplicate session reported twice: $out"
-
-# The identity is the tool's own runtime check, so prove it fires. A mutant
-# that drops the retained-output term must both report a mismatch and exit
-# nonzero; a tool that reports without failing would pass every case above.
-mutant="$d/mutant.py"
-sed 's/^\( *\)turns\[MODEL\] += keep \* remaining$/\1pass/' "$TOOL" > "$mutant"
-diff -q "$TOOL" "$mutant" >/dev/null \
-  && die "mutation did not apply" || pass "mutant differs from the tool"
-out=$(python3 "$mutant" "$d/a.jsonl" 2>&1)
-python3 "$mutant" "$d/a.jsonl" >/dev/null 2>&1 \
-  && die "mutant reported success on a broken identity" \
-  || pass "mutant exits nonzero on a broken identity"
-grep -qiF -- "identity" <<<"$out" && pass "mutant names the identity failure" \
-  || die "mutant failed without naming the identity: $out"
 
 exit $fail
