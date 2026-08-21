@@ -8,28 +8,14 @@ knobs the controller has and when to apply them.
 
 ## Effort mechanics
 
-Reasoning effort is **session-level only; per-dispatch routing degrades
-to model choice.** No surface in this repo exposes a per-subagent effort
-field: an agent definition's frontmatter carries `model:` (and `name:`,
-`description:`) but no effort key, and the Task/Agent dispatch surface
-exposes a `model` override (`sonnet`/`opus`/`haiku`/`fable`) with no
-effort parameter. Effort is fixed for the whole session by the
-`effortLevel` setting; the high-effort intent for Opus implementers is
-met when the session runs at `high` or above - below that, routing
-degrades to model choice only. So when the controller wants a cheaper or deeper
-check for a given dispatch, the only lever it actually controls is which
-model that subagent runs - routing encodes a model per role and inherits
-the session effort.
-
-Evidence:
-
-- `agents/code-reviewer.md` frontmatter - keys present: `name`,
-  `description`, `model` (value `inherit`). No effort key.
-- `settings.json` - `effortLevel: "high"`: a top-level session/global
-  setting, not scoped to any dispatch.
-- `implementer-prompt.md` - the Task-tool
-  dispatch template passes `description` and `prompt` only; no effort
-  field. The Agent tool's sole per-dispatch override is `model`.
+Effort routes per dispatch, on two surfaces: an agent definition's
+frontmatter carries an `effort:` key beside `model:`
+(`agents/code-reviewer.md` pins `medium`), and the Agent dispatch
+surface takes a per-call `effort` override
+(`low`/`medium`/`high`/`xhigh`/`max`). A dispatch with neither
+inherits the session `effortLevel`. Routing therefore encodes a model
+and, where a role warrants it, an effort - the session setting is the
+default, not the ceiling.
 
 ## Mechanical commits
 
@@ -168,7 +154,8 @@ present and the fix is cheap.
 | Spec-compliance checks (per-commit) | Fable 5 (`fable`) |
 | Branch-close review and batch full-diff review | Fable 5 (`fable`) |
 
-Effort: every role runs at the session `effortLevel` (§ Effort mechanics).
+Effort: a role runs at the session `effortLevel` unless its definition
+or dispatch pins one (§ Effort mechanics).
 
 **Capacity fallback.** A pinned model can be rate-limited, which is not
 a fact about the work. When a dispatch fails on capacity, fall back one
