@@ -8,23 +8,24 @@ depends-on: R053-T002
 
 Branch: `mnt/meta-test-trim`.
 
-Trim standard (R-053 requirements): one passing and one biting case
-per check; isolation keeps the static scrub sweep plus one canary per
-invocation path. The R-051 closure cites `install-dev.test.sh` case
-"vendored self-tests carry the isolation scrub" - that assertion
-stays.
+Trim standard (R-053 requirements): the meta depth to remove is the
+two files the acceptance criterion names - isolation and context-cost.
+The four check tests (plan-integrity, batch-tags, accretion, settings)
+already carry passing and biting cases and stay as they are: resizing
+working tests is the churn the proportionality rule argues against.
+The R-051 closure cites `install-dev.test.sh` case "vendored
+self-tests carry the isolation scrub" - that assertion stays.
 
-- [ ] `isolation.test.sh`: reduce to the static sweep, one canary per
-      invocation path (runner, direct), and one leak counter-case
-      proving detection still bites; drop the index-only and git-dir
-      variants. `context-cost.test.sh`: remove the mutant cases.
-- [ ] `check-plan-integrity.test.sh`, `check-batch-tags.test.sh`,
-      `check-accretion.test.sh`, `check-settings.test.sh`: one
-      passing and one biting case each; drop the per-code-path
-      variants.
-- [ ] `install-dev.test.sh`: reconcile to the trimmed vendored
-      self-tests, keeping the isolation-scrub assertion and one
-      bites-from-install-location case per shipped check.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] `isolation.test.sh`: reduce to the static scrub sweep with one
+      biting fixture, one canary per invocation path (runner, direct),
+      and the bare-direct leak case proving detection still bites;
+      drop the mutant-runner, index-only and partial-scrub variants.
+      `context-cost.test.sh`: remove the mutant cases.
+- [x] `install-dev.test.sh` stays green unchanged; reconcile only if
+      the trim breaks it.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`; the merge
+      closes R-053, so the same commit verifies the acceptance
+      criteria and stamps `status: done` (`plan.md § Approval and
+      closure`).
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.

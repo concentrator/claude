@@ -184,7 +184,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       subsystem, no state file. Supervise mode and worktrees stay as
       they are - supervisor plus worker on a remote host is the target
       model.
-- [ ] R-053: Proportional engineering - a planning rule, not a gate:
+- [x] R-053: Proportional engineering - a planning rule, not a gate:
       one observed failure earns one fix and one test; deeper proofs
       are reserved for the guards that protect real work; hardening
       against a hazard that has never fired needs explicit approval.

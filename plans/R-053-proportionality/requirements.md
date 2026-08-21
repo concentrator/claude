@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-19
 kind: mnt
+status: done 2026-08-21
 ---
 
 # R-053: Proportional engineering
@@ -41,19 +42,25 @@ under `scripts/ci/` or `hooks/` changes.
 
 ## Acceptance criteria
 
-- [ ] The planning rules state the proportionality rule: one observed
+- [x] The planning rules state the proportionality rule: one observed
       failure earns one fix and one test; deeper proofs are reserved
       for the two guards; hardening against a hazard that has never
       fired needs explicit user approval; the shape round asks what
-      can be deleted before adding.
-- [ ] `check-no-em-dash` and `check-code-size` have no test files and
-      still run in Tier-1.
-- [ ] Every remaining check test has one passing and one biting case;
+      can be deleted before adding (R053-T001, PR #343;
+      `plan.md § Proportionality`, `brainstorm.md § Rules`).
+- [x] `check-no-em-dash` and `check-code-size` have no test files and
+      still run in Tier-1 (R053-T002, PR #344; both stay in the
+      `scripts/ci/run-all.sh` loop).
+- [x] Every remaining check test has one passing and one biting case;
       meta depth beyond that is gone: isolation reduced to the static
       scrub sweep plus one canary per invocation path, context-cost
-      mutant cases removed.
-- [ ] Tier-1 and the test suite green:
-      `bash scripts/ci/run-all.sh`, `bash scripts/test/run-all.sh`.
+      mutant cases removed (R053-T003; the four check tests each carry
+      both cases, `isolation.test.sh` and `context-cost.test.sh`
+      trimmed on this branch).
+- [x] Tier-1 and the test suite green:
+      `bash scripts/ci/run-all.sh`, `bash scripts/test/run-all.sh`
+      (local `ALL OK` for both; each delivery PR merged on a green
+      `tier1` check).
 
 ## Constraints
 
