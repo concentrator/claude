@@ -19,7 +19,7 @@ composite (`R050-T###`, counter scoped to this initiative).
   `settings.json` registration and a script test.
   `depends-on: R050-T001` Won't fix: the window is the enforcement;
   an advisory layer over it fails the R-053 proportionality test.
-- [ ] **R050-T004 [doc]**: session boundary and doc-load discipline - the
+- [x] **R050-T004 [doc]**: session boundary and doc-load discipline - the
   delivery unit per mode into `branch-plan.md`, `finish.md`, `auto.md`
   and `supervise.md`; one doc-load phase per unit, sectional reads over
   whole-file reads, and reports and findings read at triage rather than

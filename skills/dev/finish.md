@@ -63,4 +63,5 @@ the merge with the user), then:
 
 Bookkeeping landed with the merge (`branch-plan.md § Closing routine`;
 untracked mode: `companions/untracked-claude.md`); late closures:
-`plan.md § Approval and closure`.
+`plan.md § Approval and closure`. Post-merge done, the session's unit
+ends (`branch-plan.md § Session boundary`).

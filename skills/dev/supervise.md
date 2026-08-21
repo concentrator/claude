@@ -52,7 +52,9 @@ over its intact refs. Never run two workers on one project.
 One headless worker session per project, under that project's declared
 transport and permissions - the pre-flight is `auto.md`'s. The worker
 runs the `/dev auto` engine on the scoped batch (a lone task is a
-batch of one).
+batch of one). The batch bounds the worker session (`branch-plan.md
+§ Session boundary`); the supervisor is exempt - report-level context
+lets one session span many workers (§ Monitor).
 
 **When the scope is not a batch.** `§ Resolve` admits open tasks with
 stamped plans, and a task without a batch manifest is delivered
