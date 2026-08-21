@@ -16,7 +16,7 @@ composite (`R056-T###`, counter scoped to this initiative).
   `"defaultMode": "acceptEdits"` in the tracked user-global
   `settings.json`.
 
-- [ ] **R056-T003 [doc]**: auto-mode pre-flight reads merged tiers -
+- [x] **R056-T003 [doc]**: auto-mode pre-flight reads merged tiers -
   `auto.md` checks `.claude/settings.local.json` for every
   `auto-permissions.template.json` rule, so on a repo whose durable
   rules live in tracked tiers the pre-flight recreates the local file
