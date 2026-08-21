@@ -13,19 +13,18 @@ sensitive-file guard).
   the first manifest with a member task still `[ ]` in its R's
   `tasks.md` and no `B-XXX.report.md` - manifest text never carries
   status (`branch-plan.md § Batches`).
-- Permissions: the merged tiers (user-global `settings.json`, tracked
-  project `.claude/settings.json`, any `settings.local.json`) cover
-  every `companions/auto-permissions.template.json` rule
-  (`__PROJECT_DIR__`/`__HOME__`
-  → abs paths without their leading slash - the rules carry the `//`
-  prefix; `__ARTIFACTS_ROOT__` → the normalized root, the whole
-  `__ARTIFACTS_ROOT__/` segment collapsing for a repo-root value -
-  `plan.md § Where things live`)
-  plus the CLAUDE.md `## Agent toolchain` rules, incl. a VCS-host CLI
-  (`glab`/`gh`; absent → push-only, manual MR/PR). A rule any tier
-  already carries is satisfied; only rules no tier carries are
-  proposed, into `settings.local.json`, applied on approval. No
-  toolchain section → halt, ask.
+- Permissions: every `companions/auto-permissions.template.json` rule
+  (`__PROJECT_DIR__`/`__HOME__` → abs paths without their leading
+  slash - the rules carry the `//` prefix; `__ARTIFACTS_ROOT__` → the
+  normalized root, the whole `__ARTIFACTS_ROOT__/` segment collapsing
+  for a repo-root value - `plan.md § Where things live`) plus the
+  CLAUDE.md `## Agent toolchain` rules, incl. a VCS-host CLI
+  (`glab`/`gh`; absent → push-only, manual MR/PR), is carried by a
+  tracked tier (user-global `settings.json`, project
+  `.claude/settings.json`) or deliberately narrowed by one
+  (`companions/toolchain.md § Permission carve-out`); the rest are
+  proposed into `.claude/settings.local.json`, applied on approval.
+  No toolchain section → halt, ask.
 - Default branch, clean tree, tests + lint green.
 - Tag `pre-R<NNN>-B-XXX` (e.g. `pre-R042-B-001`); create
   `batch/R<NNN>-B-XXX` off default.
