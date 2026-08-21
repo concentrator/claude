@@ -7,11 +7,10 @@ session that needs one spawns it rather than pausing to confirm.
 - **Documentation verification gates.** `companions/documentation.md`
   requires an independent verifier, never the author. Self-verification
   does not clear the gate, so a doc the author also verified is unverified.
-- **Close-review fan-out.** `/simplify` and `/code-review` dispatch
-  parallel reviewers by design; the close review is routed by diff
-  content (`skills/dev/branch-plan.md § Closing routine`). Run the
-  routed review as written rather than reviewing the diff single-handed
-  and noting the deviation.
+- **Capped close review.** The close review is routed by diff content
+  (`skills/dev/branch-plan.md § Closing routine`) and dispatched by
+  the session itself, never delegated onward: a subagent never invokes
+  `/code-review` and never spawns further subagents.
 - **Genuinely wide searches.** Sweeping many files, directories, or naming
   conventions where only the conclusion is wanted, not the file dumps.
 
