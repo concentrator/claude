@@ -148,6 +148,11 @@ the finished work on every later call.
 | `/dev code` | the task, or the branch where larger |
 | `/dev auto`; a supervised worker | the batch |
 
+Doc loading keys to the boundary: one load phase at the unit's
+start; sectional reads, not whole files; no re-reads within the
+unit; outputs (batch reports, findings files) wait for triage.
+Front-loading pays only once the session is bounded.
+
 ## Agentic execution
 
 The **batch** - one or more coupled tasks shipped as one CI-gated
