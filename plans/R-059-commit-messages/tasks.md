@@ -19,6 +19,7 @@ composite (`R059-T###`, counter scoped to this initiative).
   `R059-T001-commit-messages.findings.md`. `depends-on: R059-T001`
 
 Backlog: `git-workflow.md § MR/PR messages` Title bullet restates the
-subject constraints (now cosmetically divergent) and enumerates
-trailers the commit rule bans as a class - dedupe by pointer at this
-R's next round.
+subject constraints and enumerates trailers the commit rule bans as a
+class. Dropped at closure: outside this R's approved scope
+(`requirements.md § Scope`); the Tier-2 no-duplication concern owns it
+on the file's next edit.
