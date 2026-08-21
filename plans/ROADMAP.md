@@ -227,7 +227,6 @@ Initiative index. Items: `R-001: description`; each entry owns
       only `main`/`master`, and targets with no owning repo are
       allowed unconditionally. Settings semantics cannot express
       these; likely hook-level rules plus a Tier-1 secrets scan.
-      (stub - shape via `/dev plan R-058`)
 - [x] R-059: Relax the commit-message rule - git is the right home for
       change history, and the single-line rule pushes it into findings
       and plan files instead. `git-workflow.md § Commit messages`
