@@ -16,16 +16,16 @@ working tests is the churn the proportionality rule argues against.
 The R-051 closure cites `install-dev.test.sh` case "vendored
 self-tests carry the isolation scrub" - that assertion stays.
 
-- [ ] `isolation.test.sh`: reduce to the static scrub sweep with one
+- [x] `isolation.test.sh`: reduce to the static scrub sweep with one
       biting fixture, one canary per invocation path (runner, direct),
       and the bare-direct leak case proving detection still bites;
       drop the mutant-runner, index-only and partial-scrub variants.
       `context-cost.test.sh`: remove the mutant cases.
-- [ ] `install-dev.test.sh` stays green unchanged; reconcile only if
+- [x] `install-dev.test.sh` stays green unchanged; reconcile only if
       the trim breaks it.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`; the merge
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`; the merge
       closes R-053, so the same commit verifies the acceptance
       criteria and stamps `status: done` (`plan.md § Approval and
       closure`).
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
