@@ -6,11 +6,11 @@ composite (`R058-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R058-T001 [feat]**: push rules in `dev-branch-guard.sh` - deny
+- [x] **R058-T001 [feat]**: push rules in `dev-branch-guard.sh` - deny
   a force push in any spelling (`-f`, `--force` in any position,
   `+refspec`) and any refspec targeting the default branch; task-branch
   pushes pass; fail-open elsewhere; one test per denied class plus the
-  allowed-push case in `dev-branch-guard.test.sh`.
+  allowed-push case in `dev-push-guard.test.sh`.
 
 - [ ] **R058-T002 [feat]**: Tier-1 secrets scan -
   `scripts/ci/check-secrets.sh` scans tracked files with the pattern
