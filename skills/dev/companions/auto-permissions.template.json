@@ -8,6 +8,7 @@
 
       "Read(//__HOME__/.claude/skills/**)",
       "Read(//__HOME__/.claude/rules/**)",
+      "Read(//__HOME__/.claude/settings.json)",
 
       "Bash(git status:*)",
       "Bash(git diff:*)",
