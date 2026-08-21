@@ -6,7 +6,7 @@ composite (`R057-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R057-T001 [mnt]**: switch the routed close review to the
+- [x] **R057-T001 [mnt]**: switch the routed close review to the
   capped `code-reviewer` agent - repoint the table rows, state the
   cap (one reviewer, a verifier only on Critical) and the manual-only
   `/code-review` escalation, pin `model: fable` plus an effort key
