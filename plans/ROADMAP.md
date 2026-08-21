@@ -158,7 +158,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       per-initiative collision the R-044 anchor rename fixed, and the
       branch is pushed at accept; promoted from R044-T001's close
       review.
-- [ ] R-050: Context budget - bound the working window so a trivial tool
+- [x] R-050: Context budget - bound the working window so a trivial tool
       step stops re-billing it, make the session boundary the delivery
       unit (task or branch in `code`, batch in `auto` and for a
       supervised worker), and drop context-resident waste: shell
