@@ -47,7 +47,9 @@ Adopter projects deny `Bash(git push:*)` to keep agents from pushing.
 it. Two working patterns:
 
 1. **Narrow the deny** (recommended for recurring batch projects) - in
-   `.claude/settings.local.json`:
+   the tracked project `.claude/settings.json`, so a fresh clone keeps
+   it (`.claude/settings.local.json` only where the carve-out is
+   deliberately machine-local):
 
    ```json
    "allow": ["Bash(git push -u origin batch/*)",
