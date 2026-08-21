@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-19
 kind: mnt
+status: done 2026-08-21
 ---
 
 # R-056: Settings tiering and session defaults
@@ -55,17 +56,25 @@ gate by R-040.
 
 ## Acceptance criteria
 
-- [ ] A fresh clone carries the default-branch/force-push denies, the
+- [x] A fresh clone carries the default-branch/force-push denies, the
   batch-push allow, the durable tool-class allows, and the model
   override: they sit in tracked `.claude/settings.json`, and
   `git check-ignore .claude/settings.json` fails.
-- [ ] `.claude/settings.local.json` is gone; no tracked file and no
+  Evidence: check-ignore exits 1; the tracked file holds 2 denies,
+  17 allows, and the model key (2026-08-21).
+- [x] `.claude/settings.local.json` is gone; no tracked file and no
   surviving local tier duplicates a tracked rule.
-- [ ] Tracked `settings.json` has `"defaultMode": "acceptEdits"`,
+  Evidence: deleted at migration; the session-regrown copy holds two
+  entries no tracked tier carries, per the desired-state regrowth
+  clause (2026-08-21).
+- [x] Tracked `settings.json` has `"defaultMode": "acceptEdits"`,
   `"effortLevel"` unchanged at `"high"`, and no `model` key - the
   override's one home is the project tier.
-- [ ] All touched JSON parses (`jq .`) and `bash
+  Evidence: jq shows acceptEdits / high / no model key (2026-08-21).
+- [x] All touched JSON parses (`jq .`) and `bash
   scripts/ci/run-all.sh` is green.
+  Evidence: jq -e passes on all three settings files; run-all green at
+  closure (2026-08-21).
 
 ## Constraints
 
