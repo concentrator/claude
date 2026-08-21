@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-17
 kind: feat
+status: done 2026-08-21
 ---
 
 # R-050: Context budget
@@ -71,18 +72,23 @@ happened, so a compacted session recovers by re-reading the plan.
 
 ## Acceptance criteria
 
-- [ ] `settings.json` carries an `autoCompactWindow` value, and the
+- [x] `settings.json` carries an `autoCompactWindow` value, and the
       measurement tool reports a maximum context below it for a session
-      produced after the change.
-- [ ] The measurement tool reports per-session billed context with a
+      produced after the change. (R050-T002, PR #331; a post-change
+      session auto-compacted with `context-cost.py` reporting
+      ctx_max 183645 under the 200000 window)
+- [x] The measurement tool reports per-session billed context with a
       source attribution whose total equals the billed total it
       measured, and its `scripts/test/` case fails on a known-bad
-      input.
-- [ ] Every mode file names its delivery unit and its session boundary,
+      input. (R050-T001, PR #327; `context-cost.test.sh`)
+- [x] Every mode file names its delivery unit and its session boundary,
       and no two contradict each other (single home, R-039). The
       supervisor's spanning behaviour is stated where `supervise.md
-      § Monitor` implies it today.
-- [ ] Tier-1 green: `bash scripts/ci/run-all.sh`.
+      § Monitor` implies it today. (R050-T004, PR #382;
+      `branch-plan.md § Session boundary` owns both, pointed to from
+      `auto.md`, `finish.md § 4` and `supervise.md § Dispatch`)
+- [x] Tier-1 green: `bash scripts/ci/run-all.sh`. (local `ALL OK`;
+      each delivery PR merged on a green `tier1` check)
 
 ## Constraints
 
