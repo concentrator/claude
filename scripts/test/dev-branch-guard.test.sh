@@ -15,6 +15,11 @@
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
+# The guard resolves init.defaultBranch, so host git config must not leak
+# into fixtures: unconfigured repos here exercise the literal fallback.
+# NOSYSTEM, not GIT_CONFIG_SYSTEM=/dev/null - Apple git reads its vendor
+# gitconfig (init.defaultBranch=main) even with the latter set.
+export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 HOOK="$(git rev-parse --show-toplevel)/hooks/dev-branch-guard.sh"
 fail=0
 pass() { echo "ok - $1"; }
@@ -36,6 +41,16 @@ new_main() {
 # Same, then switched onto a working branch.
 new_branch() {
   local d; d=$(new_main); git -C "$d" checkout -q -b work; printf '%s' "$d"
+}
+# A repo whose trunk is `develop`, resolvable via origin/HEAD (R-058).
+new_develop() {
+  local d; d=$(mktemp -d)
+  git -c init.defaultBranch=develop -C "$d" init -q
+  git -C "$d" config user.email t@e >/dev/null; git -C "$d" config user.name t >/dev/null
+  printf 'clean\n' > "$d/tracked.sh"
+  git -C "$d" add tracked.sh; git -C "$d" commit -qm init >/dev/null
+  git -C "$d" symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/develop
+  printf '%s' "$d"
 }
 
 M=$(new_main); trap 'rm -rf "$M"' EXIT; cd "$M"
@@ -237,6 +252,21 @@ B2=$(new_branch)
 j=$(jq -nc --arg b "$B2" --arg m "$M" '{tool_name:"Bash",tool_input:{command:("git -C " + $b + " add . && git -C " + $m + " commit -m x")}}')
 [ "$(run "$j")" = deny ] && pass "multi -C judges the commit target repo" || die "multi -C judged wrong repo"
 rm -rf "$B2"
+
+# --- R-058: the trunk is the repo's resolved default branch ---
+D=$(new_develop)
+j=$(jq -nc --arg p "$D/tracked.sh" '{tool_name:"Write",tool_input:{file_path:$p,content:"x"}}')
+[ "$(run "$j")" = deny ] && pass "write on a develop trunk denied via origin/HEAD" || die "develop trunk write allowed"
+
+# With the default resolved to develop, `main` is an ordinary branch there.
+git -C "$D" checkout -q -b main
+[ "$(run "$j")" = allow ] && pass "main is a working branch when the default is develop" || die "literal main denied despite a resolved develop default"
+git -C "$D" checkout -q develop
+
+# Resolution removed: the literal fallback no longer matches develop.
+git -C "$D" symbolic-ref --delete refs/remotes/origin/HEAD
+[ "$(run "$j")" = allow ] && pass "unresolvable default falls back to the literals" || die "literal fallback still denied a develop trunk"
+rm -rf "$D"
 
 # --- fail open ---
 [ "$(printf 'not json{' | bash "$HOOK" 2>/dev/null | grep -q '"permissionDecision":"deny"' && echo deny || echo allow)" = allow ] \

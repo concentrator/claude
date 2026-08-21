@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # dev-branch-guard.sh - PreToolUse hook (R-021, refined R-024/R-034/R-036/
 # R-052).
-# Refuses repo-mutating tool calls that would land on the trunk (main/master)
+# Refuses repo-mutating tool calls that would land on the trunk - the repo's
+# default branch, resolved per is_trunk() below -
 # so all work goes through a branch (git-workflow trunk rule). Reads the
 # tool-call JSON on stdin; emits a PreToolUse "deny" decision when the write
 # or commit actually targets a trunk. Silent (allow) otherwise. Judges the
@@ -30,7 +31,20 @@ deny() {
   exit 0
 }
 
-is_trunk() { case "$1" in main | master) return 0 ;; *) return 1 ;; esac; }
+# is_trunk <repo> <branch> - the trunk is the repo's default branch:
+# origin/HEAD, then init.defaultBranch, then the main/master literals
+# when neither resolves.
+is_trunk() {
+  local def
+  def=$(git -C "$1" symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null)
+  def=${def#origin/}
+  [ -n "$def" ] || def=$(git -C "$1" config init.defaultBranch 2>/dev/null)
+  if [ -n "$def" ]; then
+    [ "$2" = "$def" ]
+  else
+    case "$2" in main | master) return 0 ;; *) return 1 ;; esac
+  fi
+}
 
 tool=$(printf '%s' "$input" | jq -r '.tool_name // ""')
 case "$tool" in
@@ -102,7 +116,7 @@ case "$tool" in
         [ "$top" != / ] || exit 0
         jdir=$(dirname -- "$top")                   # unborn → climb
       done
-      is_trunk "$branch" || exit 0                  # owner on a working branch → allow
+      is_trunk "$top" "$branch" || exit 0           # owner on a working branch → allow
       git -C "$top" check-ignore -q -- "$target" 2>/dev/null
       [ $? -eq 1 ] || exit 0                        # ignored or error → allow
       deny "branch-guard: refusing $tool into '$top' on '$branch'. Create a working branch there first - never edit the trunk (git-workflow)."
@@ -110,7 +124,7 @@ case "$tool" in
     # No path in the call: keep the conservative cwd-repo judgment.
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
     [ -n "$branch" ] || exit 0
-    is_trunk "$branch" || exit 0
+    is_trunk . "$branch" || exit 0
     deny "branch-guard: refusing $tool on '$branch'. Create a working branch first - never edit the trunk (git-workflow)." ;;
   Bash)
     cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // ""')
@@ -164,25 +178,23 @@ case "$tool" in
       xpre="${BASH_REMATCH[1]}"
       xseg="${BASH_REMATCH[0]:${#xpre}}"
       xbr="${BASH_REMATCH[8]}"
-      if ! is_trunk "$xbr"; then
-        codir=
-        if [[ "$xseg" =~ -C[[:space:]]+([^[:space:]]+) ]]; then
-          codir="${BASH_REMATCH[1]}"
-        elif [[ "$xpre" =~ $cdrx ]]; then
-          case "${BASH_REMATCH[3]}" in *[\$\`\"\']*) ;; *) codir="${BASH_REMATCH[3]}" ;; esac
-        else
-          codir="."
-        fi
-        if [ -n "$codir" ]; then
-          cotop=$(git -C "$codir" rev-parse --show-toplevel 2>/dev/null)
-          citop=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null)
-          [ -n "$cotop" ] && [ "$cotop" = "$citop" ] && exit 0
-        fi
+      codir=
+      if [[ "$xseg" =~ -C[[:space:]]+([^[:space:]]+) ]]; then
+        codir="${BASH_REMATCH[1]}"
+      elif [[ "$xpre" =~ $cdrx ]]; then
+        case "${BASH_REMATCH[3]}" in *[\$\`\"\']*) ;; *) codir="${BASH_REMATCH[3]}" ;; esac
+      else
+        codir="."
+      fi
+      if [ -n "$codir" ]; then
+        cotop=$(git -C "$codir" rev-parse --show-toplevel 2>/dev/null)
+        citop=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null)
+        [ -n "$cotop" ] && [ "$cotop" = "$citop" ] && ! is_trunk "$cotop" "$xbr" && exit 0
       fi
     fi
 
     branch=$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
-    is_trunk "$branch" && deny "branch-guard: refusing 'git commit' on '$branch'. Create a working branch first (git-workflow)." ;;
+    is_trunk "$dir" "$branch" && deny "branch-guard: refusing 'git commit' on '$branch'. Create a working branch first (git-workflow)." ;;
 esac
 
 exit 0

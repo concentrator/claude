@@ -3,7 +3,7 @@ type: fix
 
 # R058-T003 - is_trunk resolves the default branch
 
-- [ ] `is_trunk()` takes the owning repo and the branch: resolve the
+- [x] `is_trunk()` takes the owning repo and the branch: resolve the
   repo's default branch from `origin/HEAD`
   (`git symbolic-ref --short refs/remotes/origin/HEAD`, `origin/`
   stripped), then `git config init.defaultBranch`, then the literal
