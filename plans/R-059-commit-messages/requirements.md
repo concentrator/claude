@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-21
 kind: doc
+status: done 2026-08-21
 ---
 
 # R-059: Relax the commit-message rule
@@ -45,15 +46,21 @@ three restating files defer to the rule instead of restating its form.
 
 ## Acceptance criteria
 
-- [ ] `git-workflow.md § Commit messages` permits an optional compact
+- [x] `git-workflow.md § Commit messages` permits an optional compact
   body carrying the what/why, keeps every subject constraint, and
   keeps the trailer ban; at least one good body example shows the
   boundary.
-- [ ] No tracked rule or skill text still states that a commit message
+  Evidence: independent verifier passed all six section claims,
+  example included (2026-08-21).
+- [x] No tracked rule or skill text still states that a commit message
   must be single-line: the restating files cite the rule or use
   wording that permits a body (grep for the old form matches nothing
   outside `archive/`).
-- [ ] `bash scripts/ci/run-all.sh` is green.
+  Evidence: verifier grep over `skills/` and `rules/` clean; re-run at
+  closure clean (2026-08-21).
+- [x] `bash scripts/ci/run-all.sh` is green.
+  Evidence: green on every branch commit; re-run at closure
+  (2026-08-21).
 
 ## Constraints
 

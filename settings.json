@@ -113,6 +113,7 @@
   "editorMode": "normal",
   "preferredNotifChannel": "auto",
   "autoCompactEnabled": true,
+  "includeCoAuthoredBy": false,
   "autoCompactWindow": 200000,
   "switchModelsOnFlag": true,
   "remoteControlAtStartup": false
