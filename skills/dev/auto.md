@@ -79,3 +79,5 @@ re-verifying acceptance criteria. No report → no accept. Present:
 - **Reject** → ref handling per `branch-plan.md § Rails`.
 - **Halt** → failed item reported, work intact; the operator - user,
   or supervisor within bounds - resolves, re-runs `/dev auto B-XXX`.
+
+The batch is the session's unit (`branch-plan.md § Session boundary`).

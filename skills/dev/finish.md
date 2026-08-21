@@ -44,6 +44,8 @@ the branch's files; the switch to default is §4, after merge.
 `discard`. Then checkout default, `git branch -D`. The task stays `[ ]`;
 ask whether to keep the plan.
 
+Delivery ends the session's unit (`branch-plan.md § Session boundary`).
+
 ## 4. Post-merge (after the branch merges)
 
 Detect the merge via the declared state-check command
