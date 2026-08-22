@@ -7,7 +7,9 @@
 # untracked scan.
 set -uo pipefail
 
-. "$(dirname "${BASH_SOURCE[0]}")/../../hooks/secret-patterns.sh"
+# A gate scanning nothing must not report OK: unlike the guard, fail closed.
+. "$(dirname "${BASH_SOURCE[0]}")/../../hooks/secret-patterns.sh" \
+  || { echo "check-secrets: cannot load hooks/secret-patterns.sh"; exit 1; }
 cd "$(git rev-parse --show-toplevel)"
 
 fail=0

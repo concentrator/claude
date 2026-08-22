@@ -68,6 +68,25 @@ rm -rf "$T"
 [ "$rc" -eq 0 ] && [[ "$out" == *"check-secrets: OK"* ]] \
   && pass "tracked symlink skipped" || die "tracked symlink scanned"
 
+# A secret early in a large (sub-1MB) file is still caught: grep -q's
+# early exit must not turn the match into a SIGPIPE loss under pipefail.
+BIG_EARLY="aws=$AWS
+$(head -c 500000 /dev/zero | tr '\0' 'a')"
+run_case "early secret in large file caught" deny "$BIG_EARLY"
+
+# The check fails closed when its predicate cannot load: a copy of the
+# check in a layout without hooks/secret-patterns.sh must fail, not OK.
+T=$(mktemp -d)
+mkdir -p "$T/broken/scripts/ci" "$T/repo"
+cp "$CHECK" "$T/broken/scripts/ci/check-secrets.sh"
+git -C "$T/repo" init -q
+printf 'plain\n' > "$T/repo/f.txt"
+git -C "$T/repo" add f.txt
+out=$(cd "$T/repo" && bash "$T/broken/scripts/ci/check-secrets.sh" 2>&1); rc=$?
+rm -rf "$T"
+[ "$rc" -ne 0 ] && [[ "$out" == *secret-patterns.sh* ]] \
+  && pass "missing predicate fails closed" || die "missing predicate passed"
+
 # A tracked file over 1MB is skipped.
 T=$(mktemp -d)
 git -C "$T" init -q
