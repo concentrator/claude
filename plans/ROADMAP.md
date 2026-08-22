@@ -216,7 +216,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       subagents; a low-priority targeted reviewer set (security,
       maintainability/style, performance) is defined for later
       routing.
-- [ ] R-058: Guard hardening - the guards the `acceptEdits` default
+- [x] R-058: Guard hardening - the guards the `acceptEdits` default
       leans on have verified gaps. Push: the deny rules are prefix
       matches, so equivalent spellings (`push origin HEAD:main`,
       `+main`, `-f`, trailing `--force`) fall through to the global
