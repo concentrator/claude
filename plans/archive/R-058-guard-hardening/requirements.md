@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-21
 kind: feat
+status: done 2026-08-23
 ---
 
 # R-058: Guard hardening
@@ -51,19 +52,25 @@ gate (`plan.md § Proportionality`).
 
 ## Acceptance criteria
 
-- [ ] Each named bypass spelling is denied by `dev-branch-guard.sh`
+- [x] Each named bypass spelling is denied by `dev-branch-guard.sh`
   and a task-branch push is allowed, one test per class in
-  `dev-branch-guard.test.sh`.
-- [ ] `check-secrets` runs in the Tier-1 suite, fails on a seeded
+  `dev-branch-guard.test.sh`. (R058-T001, PR #385; the push cases
+  live in the split-out `dev-push-guard.test.sh` - one per denied
+  class plus the allowed task-branch push)
+- [x] `check-secrets` runs in the Tier-1 suite, fails on a seeded
   secret of each pattern class in a tracked file, passes on the clean
   tree, and shares its pattern list with `dev-secrets-guard.sh` from
-  one home (no duplicated regex list).
-- [ ] `is_trunk()` resolves the default branch (`origin/HEAD`, then
+  one home (no duplicated regex list). (R058-T002, PR #386;
+  `check-secrets.test.sh` seeds each class and the clean-tree pass;
+  both consumers source `hooks/secret-patterns.sh`)
+- [x] `is_trunk()` resolves the default branch (`origin/HEAD`, then
   `init.defaultBranch`, then `main`/`master`), verified by a test
   repo whose trunk is named neither; unresolvable detection fails
-  open.
-- [ ] `bash scripts/ci/run-all.sh` and `bash scripts/test/run-all.sh`
-  are green.
+  open. (R058-T003, PR #384; `dev-branch-guard.test.sh` trunk-name
+  cases)
+- [x] `bash scripts/ci/run-all.sh` and `bash scripts/test/run-all.sh`
+  are green. (local `ALL OK` on the merged tip; each delivery PR
+  merged on a green `tier1` check)
 
 ## Constraints
 
