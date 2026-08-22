@@ -81,6 +81,8 @@ register_state_hook() {   # $1 = hook script basename; UserPromptSubmit, no matc
 register_hook dev-branch-guard.sh
 register_hook dev-secrets-guard.sh
 register_state_hook dev-branch-state.sh
+# The secrets guard's predicate lives beside it (sourced, not registered).
+cp "$SRC/hooks/secret-patterns.sh" "$target/hooks/secret-patterns.sh"
 
 # 4. shipped Tier-1 checks - the ones with no dependency on this repo's
 #    own layout; adopters wire them into their CI (the batch-tags gate

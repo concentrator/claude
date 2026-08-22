@@ -44,7 +44,7 @@ gate (`plan.md § Proportionality`).
   the default branch is denied by the PreToolUse hook with a message
   naming the rule; the settings deny pair stays as a second layer.
 - `bash scripts/ci/run-all.sh` gains a `check-secrets` step; a seeded
-  secret in a tracked file fails it naming the file and pattern class.
+  secret in a tracked file fails it naming the file.
 - In a repo whose trunk is named neither `main` nor `master`, writes
   and commits on the trunk are denied exactly as on `main` here;
   detection failure fails open, as every guard does.
