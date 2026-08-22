@@ -25,14 +25,13 @@ in a normal project is the repo root here. Foundational DEV files
 the root, not in a nested `.claude/`. The nested `.claude/` holds only Claude Code's
 project settings, whose location is fixed by the tool. The artifacts
 root declared in `CLAUDE.md § Agent toolchain` is the repo root, so
-artifacts resolve under the same rule as adopters, not as a special
-case.
+artifacts resolve under the same rule as adopters.
 
 ## Tree-map
 
 All configuration and artifact dirs and files. Harness-managed state (`projects/`,
 `cache/`, `shell-snapshots/`, `plugins/`, logs, …) is gitignored and
-excluded - see `.gitignore`.
+excluded.
 
 ```
 ~/.claude/
@@ -52,7 +51,8 @@ excluded - see `.gitignore`.
 ├── hooks/
 │   ├── dev-branch-guard.sh       # PreToolUse branch-guard (no trunk mutations)
 │   ├── dev-branch-state.sh       # UserPromptSubmit ambient branch/tree state
-│   └── dev-secrets-guard.sh      # PreToolUse secrets guard
+│   ├── dev-secrets-guard.sh      # PreToolUse secrets guard
+│   └── secret-patterns.sh        # the secret predicate (one home, sourced)
 ├── scripts/
 │   ├── ci/                       # Tier-1 checks + run-all.sh
 │   ├── context-cost.py           # session context cost + attribution
@@ -131,9 +131,9 @@ Two tiers gate every change into `main` (the CI tiers are built for
   `TODO`/`FIXME`/`XXX` marker in code, an expired reference, a dated
   accretion marker (`check-accretion`), an oversized code file or
   function (`check-code-size`, with an allowlist), an em dash
-  (`check-no-em-dash`), a stale or unresolvable batch ref (tag or
-  branch) (`check-batch-tags`, local-only: skips where refs are
-  hidden), or an unconfigured context budget (`check-settings`).
+  (`check-no-em-dash`), a stale or unresolvable batch ref
+  (`check-batch-tags`, local-only: skips where refs are hidden), or an
+  unconfigured context budget (`check-settings`).
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
   concern set to the diff as a mandatory step in the branch-close routine
   (`skills/dev/branch-plan.md § Closing routine`). The concerns are
@@ -146,8 +146,8 @@ Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
 `dev-secrets-guard`) add a local pre-emptive guard: no writes, commits, or
 pushes on the trunk, no force pushes, and no secrets into tracked files or
 commits. A UserPromptSubmit
-hook (`dev-branch-state`) keeps the current branch and working-tree state
-in front of the session, so the trunk rule is followed rather than tripped.
+hook (`dev-branch-state`) keeps branch and working-tree state in front of
+the session, so the trunk rule is followed rather than tripped.
 
 ## Context budget
 
