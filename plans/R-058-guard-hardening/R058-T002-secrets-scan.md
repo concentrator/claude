@@ -3,7 +3,7 @@ type: feat
 
 # R058-T002 - Tier-1 secrets scan
 
-- [ ] Extract the secret predicate to one home: `has_secret()` and its
+- [x] Extract the secret predicate to one home: `has_secret()` and its
   pattern list move to `hooks/secret-patterns.sh`, sourced by
   `dev-secrets-guard.sh`; `install-dev.sh` copies the new file
   (`install-dev.test.sh` asserts it); existing secrets-guard tests
