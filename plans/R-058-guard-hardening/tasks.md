@@ -12,7 +12,7 @@ composite (`R058-T###`, counter scoped to this initiative).
   pushes pass; fail-open elsewhere; one test per denied class plus the
   allowed-push case in `dev-push-guard.test.sh`.
 
-- [ ] **R058-T002 [feat]**: Tier-1 secrets scan -
+- [x] **R058-T002 [feat]**: Tier-1 secrets scan -
   `scripts/ci/check-secrets.sh` scans tracked files with the pattern
   list shared from `dev-secrets-guard.sh` (one home), registers in
   `run-all.sh`, ships a self-test; `DESIGN.md § Self-enforcement` and
