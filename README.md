@@ -17,7 +17,7 @@ every project on the machine.
 | `rules/` | Personal convention rules: git discipline, JS style, CLAUDE.md/skill maintenance (path-scoped) |
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); plus reference skills |
 | `agents/` | Custom agents (e.g. branch-close code reviewer) |
-| `hooks/` | PreToolUse guards (no writes or commits on the trunk, no secrets into tracked files or commits) and the UserPromptSubmit branch-state line |
+| `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no secrets into tracked files or commits) and the UserPromptSubmit branch-state line |
 | `scripts/` | `ci/` the Tier-1 mechanical gate (`run-all.sh`), `install-dev.sh`, `context-cost.py` the session context-cost reporter, `test/` the script tests |
 | `.github/`, `.githooks/`, `.gitignore` | The CI gate on pull requests, its advisory local pre-push mirror, and the ignore rules for harness state |
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
