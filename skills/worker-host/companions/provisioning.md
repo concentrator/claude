@@ -18,9 +18,11 @@ subcommands in this sequence.
    IAP allow, **verifies the tunnel**, and only then denies public SSH.
 5. **`keys`** - one ed25519 key per forge, generated on the VM, which
    can create a key but not install it. Then `keys-install` on the
-   operator side, under their forge credentials: it adds each public key
-   to its forge and retires any `claude-worker` key the host no longer
-   holds. `keys-verify` reports the identity each forge hands back -
+   operator side, under their own `gh` and `glab` logins rather than the
+   host's tokens: it adds each public key to its forge and retires any
+   `claude-worker` key the host no longer holds. GitHub scopes that:
+   `write:public_key` installs a key, `admin:public_key` also deletes
+   one; on GitLab the `api` scope covers both. `keys-verify` reports the identity each forge hands back -
    a key that authenticates as the wrong account looks like success.
 6. **`claude-install`**, then the operator authenticates by running
    `claude` once and completing SSO.
