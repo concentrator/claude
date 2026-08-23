@@ -73,7 +73,7 @@ they are taken into account.
       `glab auth status` reports logged in, so a valid token reads as
       "Unauthenticated" - this branch's own key rotation hit it. Every scripted
       call pins `GITLAB_HOST`.
-- [ ] Extend `scripts/provision-worker.sh` with a `keys-install` subcommand:
+- [x] Extend `scripts/provision-worker.sh` with a `keys-install` subcommand:
       read both public keys from the VM over IAP, install each on its forge
       through the CLI's API, and retire stale `claude-worker` keys - a key left
       by a previous host is standing access for a machine that no longer

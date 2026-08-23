@@ -10,7 +10,7 @@ Four scripts, split by where they run:
 
 | Script | Runs on | Subcommands |
 |---|---|---|
-| `scripts/provision-worker.sh` | the operator | `preflight`, `deploy`, `firewall` |
+| `scripts/provision-worker.sh` | the operator | `preflight`, `deploy`, `firewall`, `keys-install` |
 | `scripts/worker-setup.sh` | the VM | `baseline`, `harden`, `claude-install` |
 | `scripts/worker-credentials.sh` | the VM | `keys`, `keys-verify`, `forge-cli` |
 | `scripts/worker-workspace.sh` | the VM | `config-clone`, `project-clone`, `settings` |
@@ -27,11 +27,11 @@ debugging round to find.
 
 Three steps need a human and are not failures when they pause:
 
-- Install the two public keys on GitHub and GitLab.
+- Run `keys-install`, which needs their forge credentials.
 - Run `claude` once on the VM and complete SSO.
-- Place `~/.claude/.env` with `GITLAB_TOKEN`, and `GITHUB_TOKEN` if the
-  worker will deliver toolset PRs. Secrets are the operator's to move;
-  the scripts read them and never echo them.
+- Copy `.env.example` to `~/.claude/.env` and fill in the tokens.
+  Secrets are the operator's to move; the scripts read them and never
+  echo them.
 
 ## Connecting
 
