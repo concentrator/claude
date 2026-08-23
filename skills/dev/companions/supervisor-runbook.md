@@ -10,10 +10,16 @@ escalate, how a question is answered. This holds the mechanics.
 |---|---|---|
 | Supervisor runs on | the operator's machine | the worker host |
 | Worker runs on | the operator's machine | the worker host |
-| Channel | peer messaging (`ListAgents`, `SendMessage`) | `tmux` on the shared host |
+| Channel | peer messaging (`ListAgents`, `SendMessage`) | peer messaging on the host |
 | Who starts the worker | the operator | the supervisor |
-| Who clears the worker's prompts | the operator, at the keyboard | the supervisor |
-| Operator's seat | the same machine | `gcloud compute ssh --tunnel-through-iap` |
+| Who clears the worker's prompts | the operator, at the keyboard | the supervisor, over `tmux` |
+| Operator's seat | the same machine | Remote Control (§ Remote Control), or `gcloud compute ssh --tunnel-through-iap` |
+
+A message wakes an idle co-located peer rather than queueing for one
+already taking turns, so dispatch, questions, and answers ride
+`SendMessage` in both variants. `tmux` keystrokes remain only for what
+a message cannot do: answering a permission prompt and reading a pane
+(§ tmux recipes).
 
 Both deliver. Take A for a single scope you intend to sit with. Take B
 when the work should outlive the laptop, when the operator wants the
@@ -85,34 +91,26 @@ The supervisor cycles until the scope is delivered:
 2. **Operator** confirms a clean start: no stale `tmux` sessions, the
    project checkout on the trunk with nothing uncommitted.
 3. **Operator** starts the supervisor:
-   `tmux new -d -s supervisor -c <project-dir> claude --permission-mode auto`
+   `tmux new -d -s supervisor -c <project-dir> claude --remote-control supervisor --permission-mode auto`
+   The flag joins Remote Control under the name `supervisor`
+   (§ Remote Control); `tmux` keeps the session alive across a dropped
+   tunnel.
 4. **Operator** briefs it in one message: the scope and its branch plan
-   path, the command that starts the worker, the send and poll idioms
-   below, and the instruction to print `ESCALATION:` and stop for
-   anything design-level or for the merge itself.
-5. **Supervisor** starts the worker:
-   `tmux new -d -s worker -c <project-dir> claude --permission-mode acceptEdits`
-6. **Supervisor** dispatches one line and nothing else: `/dev code
-   <slug>`.
-7. **Supervisor** polls, clears the worker's permission prompts, and
-   answers implementation questions.
-8. **Supervisor** verifies by running the gates, then merges within
+   path, the command that starts the worker, and the instruction to
+   print `ESCALATION:` and stop for anything design-level or for the
+   merge itself.
+5. **Supervisor** starts the worker
+   (`tmux new -d -s worker -c <project-dir> claude --permission-mode acceptEdits`),
+   adopts it by name over `ListAgents`, and dispatches one line and
+   nothing else by `SendMessage`: `/dev code <slug>`.
+6. **Supervisor** follows: answers implementation questions over the
+   channel, clears the worker's permission prompts over `tmux`.
+7. **Supervisor** verifies by running the gates, then merges within
    bounds or escalates.
-9. **Operator** watches both panes and answers escalations.
+8. **Operator** answers escalations - over `SendMessage` from a
+   connected session, or in the supervisor's pane.
 
-### Driving another session over tmux
-
-Send a message. Paste through a buffer rather than typing the text:
-a buffer carries newlines and quoting intact, and a long line beginning
-`/` typed key by key can open the command menu instead.
-
-```
-printf '%s' 'TEXT' > /tmp/w.txt
-tmux load-buffer /tmp/w.txt
-tmux paste-buffer -d -t worker
-sleep 1
-tmux send-keys -t worker Enter
-```
+### tmux recipes - what a message cannot do
 
 Read a pane:
 
@@ -137,6 +135,15 @@ tmux capture-pane -p -t worker | tail -30
 `esc to interrupt` is in the footer only while the session is working,
 and absent both when it is idle and when it is stopped on a prompt, so
 the loop returns on either.
+
+## Remote Control
+
+The supervisor joins by launch flag, never by settings:
+`remoteControlAtStartup` is honoured only at user scope, and on the
+worker host `~/.claude` is the tracked config repo, so provisioning it
+would dirty the repo. The flag is also the better shape - only the
+supervisor joins, under a chosen name, instead of every throwaway
+session on the box.
 
 ## Modes, and why each role gets one
 
