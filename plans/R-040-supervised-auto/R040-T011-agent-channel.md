@@ -68,7 +68,7 @@ they are taken into account.
 - [x] Add to `skills/worker-host/companions/pitfalls.md`: a fresh directory blocks
       session startup on the trust dialog, which stalled the positive control in
       this task's own measurements until it was answered.
-- [ ] Add the `GITLAB_HOST` pitfall to `skills/worker-host/companions/pitfalls.md`:
+- [x] Add the `GITLAB_HOST` pitfall to `skills/worker-host/companions/pitfalls.md`:
       bare `glab` calls target gitlab.com regardless of which host
       `glab auth status` reports logged in, so a valid token reads as
       "Unauthenticated" - this branch's own key rotation hit it. Every scripted

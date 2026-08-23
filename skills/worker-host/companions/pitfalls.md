@@ -23,6 +23,14 @@ Each of these cost a debugging round on a real host.
   lives outside the project and arrives with neither the clone nor the
   settings.
 
+- **`glab` takes its host from the current directory.** `glab api` and
+  `glab ssh-key` use the authenticated host of the git repo they run in
+  and fall back to gitlab.com everywhere else - including inside a GitHub
+  checkout. A `gl.wallarm.com` token sent to gitlab.com answers
+  "Unauthenticated", which reads as a token-scope problem and is not one.
+  Pin the host on every scripted call:
+  `GITLAB_HOST=gl.wallarm.com glab api user/keys`.
+
 - **Sibling repositories are not optional.** `attack-checker` depends on
   `file:../wallarm-api-js`, so `npm ci` fails outright unless both sit
   adjacent under `/opt/wallarm`.
