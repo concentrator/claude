@@ -26,7 +26,9 @@ subcommands in this sequence.
    `claude` once and completing SSO.
 7. **`config-clone`** - this config repo becomes the worker's `~/.claude`.
 8. **`forge-cli`** - installs `glab` and `gh`, then authenticates from
-   `~/.claude/.env`, which the operator places.
+   `~/.claude/.env`. The clone brings `.env.example` but never `.env`,
+   which is gitignored: the operator copies one to the other and fills
+   in the tokens. Each variable's purpose and scope is in that file.
 9. **`project-clone`** then **`settings`** - repositories into
    `/opt/wallarm`, then the per-project allowlist and workspace trust.
 

@@ -19,8 +19,8 @@ What each part contributes; the inventory itself is § Tree-map.
 
 ## Self-hosting layout
 
-This repo is consumed as `~/.claude`, so the directory that is `.claude/`
-in a normal project is the repo root here. Foundational DEV files
+This repo is consumed as `~/.claude`, so what is `.claude/` in a normal
+project is the repo root here. Foundational DEV files
 (`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`) sit at
 the root, not in a nested `.claude/`. The nested `.claude/` holds only Claude Code's
 project settings, whose location is fixed by the tool. The artifacts
@@ -40,6 +40,7 @@ excluded.
 ├── writing.md                    # writing conventions (@imported by CLAUDE.md)
 ├── settings.json                 # global Claude Code config (tracked)
 ├── .gitignore
+├── .env.example                  # worker-host tokens; `.env` is never tracked
 ├── README.md
 ├── REQUIREMENTS.md               # foundational requirements
 ├── DESIGN.md
@@ -125,8 +126,8 @@ Two tiers gate every change into `main` (the CI tiers are built for
 - **Tier-1 - mechanical CI.** `scripts/ci/*.sh`, and the script tests in
   `scripts/test/`, run together in `.github/workflows/ci.yml` on
   `pull_request` and locally in the advisory `.githooks/pre-push` via
-  `core.hooksPath`; either failing blocks the push or the merge. The
-  checks hard-fail a PR on:
+  `core.hooksPath`; either failing blocks the push or the merge. They
+  hard-fail a PR on:
   a cap violation, a stray top-level file, a plan-integrity break, a
   `TODO`/`FIXME`/`XXX` marker in code, an expired reference, a dated
   accretion marker (`check-accretion`), an oversized code file or
@@ -144,9 +145,8 @@ The workflow triggers on `pull_request` only, so it never re-judges the
 direct-to-main bootstrap history.
 
 Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
-`dev-secrets-guard`) add a local pre-emptive guard: no writes, commits, or
-pushes on the trunk, no force pushes, and no secrets into tracked files or
-commits. A UserPromptSubmit
+`dev-secrets-guard`) guard locally: no writes, commits, or pushes on the
+trunk, no force pushes, no secrets into tracked files or commits. A UserPromptSubmit
 hook (`dev-branch-state`) keeps branch and working-tree state in front of
 the session, so the trunk rule is followed rather than tripped.
 

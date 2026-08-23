@@ -80,6 +80,11 @@ they are taken into account.
       exists, and nothing else removes it. Operator-side, `--dry-run`,
       idempotent, TDD; the skill table, `companions/provisioning.md` step 5 and
       the operator-only list follow.
+- [x] Add a tracked `.env.example`, which the config clone carries onto the host,
+      so the one file the operator must write by hand is a copy-and-fill rather
+      than a recall of which variables exist and what each token must be scoped
+      for. The repo's own baseline requires it of any project using env vars
+      (`skills/dev/layout.md`), and this one has been the exception.
 - [ ] Complete the branch: gates green, mark this plan's checkboxes, and route what
       the build turns up. Closure is checkbox-only; R040-T011 does not close R-040.
 
