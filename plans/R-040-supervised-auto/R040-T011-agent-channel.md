@@ -44,6 +44,16 @@ they are taken into account.
       set. Note the fallback in the same place: an enabled session prints its own
       `https://claude.ai/code/session_...` URL, so browser and phone control work
       whether or not peer messaging is wired.
+- [ ] Add `companions/supervisor-runbook.md`, the pilot's operating recipes: the
+      per-variant mode and channel table, driving over tmux, reading panes,
+      answering permission prompts.
+- [ ] Reconcile `supervise.md` with what the pilot ran: correct the headless-dispatch
+      claim (a headless worker cannot edit protected `.claude/` paths or answer a
+      prompt, so a blocked one is dead; both delivered runs were interactive) and
+      the prompt-free claim (Bash allow rules match a command prefix, so a compound
+      command escalates under any allowlist); point both passages at the runbook,
+      and stop restating the merge classes - their one home is
+      `declarations.md § Supervisor bounds`.
 - [ ] Replace the tmux driving idioms in `companions/supervisor-runbook.md` for the
       co-located case, and correct the claim - carried in the runbook, in this
       plan's first draft, and in `supervise.md` - that supervisor-to-worker must
