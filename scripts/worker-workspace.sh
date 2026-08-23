@@ -25,6 +25,8 @@ config_clone() {
     printf '  - restore core.hooksPath=.githooks, which clone never carries\n'
     printf '  - prove the pre-push hook actually fires, rather than assuming it\n'
     printf '  - leave .credentials.json and other ignored state in place\n'
+    printf '  - retire ~/%s, the bootstrap staging dir this checkout supersedes\n' \
+      "${WORKER_BOOTSTRAP_DIR:-.worker-bootstrap}"
     return 0
   fi
 
@@ -50,6 +52,14 @@ config_clone() {
   local hp; hp=$(git -C "$d" config --get core.hooksPath)
   [ "$hp" = ".githooks" ] || { printf 'config-clone: hooksPath not set\n' >&2; return 1; }
   [ -x "$d/.githooks/pre-push" ] || { printf 'config-clone: pre-push hook missing or not executable\n' >&2; return 1; }
+
+  # scripts/ is now the VM-side scripts' home, so the copies provision-worker.sh
+  # push-scripts staged to bootstrap this host are superseded, and a second copy
+  # is one an operator can edit or run by mistake. Removed only once every check
+  # above has passed, and safe even though this script is running from there:
+  # the kernel keeps the open file alive until it exits.
+  rm -rf "$HOME/${WORKER_BOOTSTRAP_DIR:-.worker-bootstrap}"
+
   printf 'config-clone: %s at %s, hooksPath=%s, pre-push present\n' \
     "$d" "$(git -C "$d" rev-parse --short HEAD)" "$hp"
 }

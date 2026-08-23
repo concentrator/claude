@@ -10,7 +10,7 @@ Four scripts, split by where they run:
 
 | Script | Runs on | Subcommands |
 |---|---|---|
-| `scripts/provision-worker.sh` | the operator | `preflight`, `deploy`, `firewall`, `keys-install` |
+| `scripts/provision-worker.sh` | the operator | `preflight`, `deploy`, `push-scripts`, `firewall`, `keys-install` |
 | `scripts/worker-setup.sh` | the VM | `baseline`, `harden`, `claude-install` |
 | `scripts/worker-credentials.sh` | the VM | `keys`, `keys-verify`, `forge-cli` |
 | `scripts/worker-workspace.sh` | the VM | `config-clone`, `project-clone`, `settings` |

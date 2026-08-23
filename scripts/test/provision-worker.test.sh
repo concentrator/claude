@@ -98,7 +98,11 @@ mkrecorder() {
 printf '%s\n' "\$*" >> "$d/calls"
 exit 0
 EOF
-  chmod +x "$d/bin/gcloud"; printf '%s' "$d"
+  chmod +x "$d/bin/gcloud"
+  # An empty log rather than none, so a case asserting "nothing ran" reads a
+  # real file instead of passing on a missing one.
+  : > "$d/calls"
+  printf '%s' "$d"
 }
 
 deploy() { env PATH="$HERMETIC" "$@" bash "$SCRIPT" deploy --dry-run 2>&1; }
@@ -163,108 +167,68 @@ deny_p=$(grep -o 'priority=[0-9]*' <<<"$out" | tail -1 | cut -d= -f2)
   || die "firewall dry run called gcloud: $(cat "$r/calls")"
 rm -rf "$r"
 
-# --- keys-install: the operator's half of the key exchange -------------------
+# --- push-scripts: getting the VM-side scripts onto a bare host --------------
 
-# A fake operator toolchain: a gcloud that hands back the host's public keys
-# over the tunnel, plus gh and glab CLIs that record every call and answer a
-# key listing from a fixture. Recording is the point - it is what lets a case
-# assert that a dry run installed nothing and that a real run deleted only the
-# keys it was entitled to.
-mkforge() {
-  local d; d=$(mktemp -d); mkdir -p "$d/bin"
-  cat > "$d/bin/gcloud" <<EOF
-#!/usr/bin/env bash
-[ "\${1:-}" = version ] && { echo "Google Cloud SDK 580.0.0"; exit 0; }
-printf 'gcloud %s\n' "\$*" >> "$d/calls"
-[ -n "\${FAKE_NO_KEYS:-}" ] && exit 0
-case "\$*" in
-  *id_ed25519_github*) echo "ssh-ed25519 AAAAHOSTGITHUB claude-worker-github" ;;
-  *id_ed25519_gitlab*) echo "ssh-ed25519 AAAAHOSTGITLAB claude-worker-gitlab" ;;
-esac
-exit 0
-EOF
-  cat > "$d/bin/gh" <<EOF
-#!/usr/bin/env bash
-printf 'gh %s\n' "\$*" >> "$d/calls"
-case "\$*" in
-  *"ssh-key add"*|*DELETE*) exit 0 ;;
-esac
-cat "$d/github.json"
-EOF
-  cat > "$d/bin/glab" <<EOF
-#!/usr/bin/env bash
-printf 'glab GITLAB_HOST=\${GITLAB_HOST:-unset} %s\n' "\$*" >> "$d/calls"
-case "\$*" in
-  *POST*|*DELETE*) exit 0 ;;
-esac
-cat "$d/gitlab.json"
-EOF
-  chmod +x "$d/bin"/gcloud "$d/bin"/gh "$d/bin"/glab
-  printf '[]' > "$d/github.json"; printf '[]' > "$d/gitlab.json"
-  # An empty log rather than none, so a case asserting "nothing ran" reads a
-  # real file instead of passing on a missing one.
-  : > "$d/calls"
-  printf '%s' "$d"
-}
+push() { env PATH="$HERMETIC" WORKER_SDK_ROOTS="$1" bash "$SCRIPT" push-scripts 2>&1; }
 
-ki() { local d="$1"; shift; env PATH="$d/bin:$HERMETIC" "$@" bash "$SCRIPT" keys-install 2>&1; }
-
-# 32. the dry run names both forges, the titles it would install under, and the
-#     pinned GitLab host - and installs nothing
-d=$(mkforge)
-out=$(env PATH="$d/bin:$HERMETIC" bash "$SCRIPT" keys-install --dry-run 2>&1)
+# 37. the dry run names every script it would stage and where, and copies
+#     nothing. All three are needed: steps 3 to 7 all run on the VM before the
+#     config repo that is their permanent home has been cloned.
+r=$(mkrecorder)
+out=$(env PATH="$HERMETIC" WORKER_SDK_ROOTS="$r" bash "$SCRIPT" push-scripts --dry-run 2>&1)
 miss=""
-for f in "claude-worker-github" "claude-worker-gitlab" "gl.wallarm.com"; do
+for f in "worker-setup.sh" "worker-credentials.sh" "worker-workspace.sh" \
+         ".worker-bootstrap" "claude-worker"; do
   grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
 done
-[ -z "$miss" ] && pass "keys-install dry run names both forges" || die "keys-install missing:$miss"
-grep -qE 'ssh-key add|POST|DELETE' "$d/calls" \
-  && die "keys-install dry run changed a forge: $(cat "$d/calls")" \
-  || pass "keys-install dry run changes nothing"
-rm -rf "$d"
+[ -z "$miss" ] && pass "push-scripts dry run names what it would stage" \
+  || die "push-scripts dry run missing:$miss"
+[ ! -s "$r/calls" ] && pass "push-scripts dry run copies nothing" \
+  || die "push-scripts dry run called gcloud: $(cat "$r/calls")"
+rm -rf "$r"
 
-# 33. a key already on the forge is not added a second time. Re-running against
-#     a provisioned host is the normal case, and gh rejects a duplicate key
-#     outright, so a blind add turns a no-op into a failure.
-d=$(mkforge)
-printf '[{"id":1,"title":"claude-worker-github","key":"ssh-ed25519 AAAAHOSTGITHUB"}]' > "$d/github.json"
-printf '[{"id":11,"title":"claude-worker-gitlab","key":"ssh-ed25519 AAAAHOSTGITLAB c"}]' > "$d/gitlab.json"
-out=$(ki "$d")
-grep -qE 'ssh-key add|POST' "$d/calls" && die "re-run added an installed key: $(cat "$d/calls")" \
-  || pass "an installed key is not added again"
-grep -q DELETE "$d/calls" && die "re-run deleted the current key: $(cat "$d/calls")" \
-  || pass "the current key is never retired"
-rm -rf "$d"
+# 38. a real run copies all three and makes them executable there. Presence is
+#     not usability: a file arriving without its executable bit fails at the
+#     next step instead of this one.
+r=$(mkrecorder)
+out=$(push "$r")
+grep -q 'compute scp' "$r/calls" || die "push-scripts copied nothing: $(cat "$r/calls")"
+miss=""
+for f in worker-setup.sh worker-credentials.sh worker-workspace.sh; do
+  grep -q "scp.*$f" "$r/calls" || miss="$miss [$f]"
+done
+[ -z "$miss" ] && pass "push-scripts stages all three scripts" || die "not staged:$miss"
+grep -q 'chmod +x' "$r/calls" && pass "staged scripts are made executable" \
+  || die "no chmod on the host: $(cat "$r/calls")"
 
-# 34. a previous host's key is retired, and nothing else is. A key titled
-#     claude-worker that no longer matches the host is standing access for a
-#     machine that is gone; a key with any other title belongs to a human and
-#     deleting it locks them out of their own account.
-d=$(mkforge)
-printf '[{"id":1,"title":"claude-worker-github","key":"ssh-ed25519 AAAAOLDHOST"},{"id":2,"title":"laptop","key":"ssh-ed25519 AAAALAPTOP"}]' > "$d/github.json"
-printf '[{"id":11,"title":"claude-worker-gitlab","key":"ssh-ed25519 AAAAOLDHOST"},{"id":12,"title":"laptop","key":"ssh-ed25519 AAAALAPTOP"}]' > "$d/gitlab.json"
-out=$(ki "$d")
-grep -q 'DELETE user/keys/1$' "$d/calls" && grep -q 'DELETE user/keys/11$' "$d/calls" \
-  && pass "stale worker keys are retired" || die "stale keys kept: $(cat "$d/calls")"
-grep -qE 'DELETE user/keys/(2|12)$' "$d/calls" \
-  && die "keys-install deleted a key it does not own: $(cat "$d/calls")" \
-  || pass "keys with other titles are untouched"
-grep -q 'ssh-key add' "$d/calls" && grep -q 'POST' "$d/calls" \
-  && pass "the current key is installed on both forges" || die "no install: $(cat "$d/calls")"
+# 39. every call rides the IAP tunnel and pins zone and project. Public SSH is
+#     denied by the tagged firewall rule, so an unpinned call has no path in.
+untunnelled=$(grep -c 'compute \(ssh\|scp\)' "$r/calls")
+tunnelled=$(grep 'compute \(ssh\|scp\)' "$r/calls" | grep -c 'tunnel-through-iap')
+[ "$untunnelled" -gt 0 ] && [ "$untunnelled" -eq "$tunnelled" ] \
+  && pass "every remote call rides the IAP tunnel" \
+  || die "$((untunnelled - tunnelled)) call(s) bypassed the tunnel: $(cat "$r/calls")"
+grep -q 'zone=europe-west2-a' "$r/calls" && grep -q 'project=poc-cloud-nodes' "$r/calls" \
+  && pass "push-scripts pins zone and project" || die "unpinned target: $(cat "$r/calls")"
 
-# 35. every GitLab call is host-pinned - unpinned, the token goes to gitlab.com
-grep -q 'GITLAB_HOST=unset' "$d/calls" && die "an unpinned glab call was made: $(cat "$d/calls")" \
-  || pass "every glab call pins the host"
-rm -rf "$d"
+# 40. the staging directory is not $HOME. A script loose in the worker's home
+#     is indistinguishable from the repo copy that supersedes it at step 7.
+grep -qE 'scp[^\n]*:~?/?$|:~/ ' "$r/calls" \
+  && die "push-scripts staged into \$HOME: $(cat "$r/calls")" \
+  || pass "staged into its own directory, not \$HOME"
+rm -rf "$r"
 
-# 36. a host with no keys yet fails pointing at the step that makes them,
-#     rather than installing an empty string as a key
-d=$(mkforge)
-out=$(ki "$d" FAKE_NO_KEYS=1)
-[ $? -ne 0 ] && grep -qF 'worker-credentials.sh keys' <<<"$out" \
-  && pass "a keyless host names the step that fixes it" || die "keyless host mishandled: $out"
-grep -qE 'ssh-key add|POST' "$d/calls" && die "installed a key from a keyless host" \
-  || pass "nothing is installed from a keyless host"
-rm -rf "$d"
+# 41. a script missing locally fails naming it, and stages nothing. A partial
+#     set is worse than none: provisioning stops halfway with no signal why.
+# Both operator-side files, so the script loads; none of the three it stages.
+r=$(mkrecorder); lone=$(mktemp -d); cp "$SCRIPT" "${SCRIPT%/*}/forge-keys.sh" "$lone/"
+out=$(env PATH="$HERMETIC" WORKER_SDK_ROOTS="$r" bash "$lone/provision-worker.sh" push-scripts 2>&1)
+[ $? -ne 0 ] && grep -qF 'worker-setup.sh' <<<"$out" \
+  && pass "a missing script fails naming it" || die "missing script mishandled: $out"
+grep -q 'compute scp' "$r/calls" && die "staged a partial set: $(cat "$r/calls")" \
+  || pass "nothing is staged from an incomplete set"
+rm -rf "$r" "$lone"
+
+# --- keys-install lives in provision-keys.test.sh ----------------------------
 
 exit $fail

@@ -85,6 +85,14 @@ they are taken into account.
       than a recall of which variables exist and what each token must be scoped
       for. The repo's own baseline requires it of any project using env vars
       (`skills/dev/layout.md`), and this one has been the exception.
+- [x] Add a `push-scripts` subcommand to `scripts/provision-worker.sh`: stage the
+      three VM-side scripts on the host over IAP, make them executable, and prove
+      each parses there. This was the one provisioning step nothing automated -
+      the scripts reached the pilot host by hand, and `companions/provisioning.md`
+      began calling them as if they were already present. They stage into
+      `~/.worker-bootstrap` rather than `$HOME`, and `config-clone` retires that
+      directory once `~/.claude/scripts/` supersedes it. TDD; the skill table and
+      the provisioning order follow.
 - [ ] Complete the branch: gates green, mark this plan's checkboxes, and route what
       the build turns up. Closure is checkbox-only; R040-T011 does not close R-040.
 

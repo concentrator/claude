@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 # provision-worker.sh - stand up a Claude Code worker host (R040-T010).
 #
-# Usage:
-#   provision-worker.sh preflight     verify the operator's gcloud is usable
-#
-# Two execution contexts: `preflight` and `deploy` run on the operator's
-# machine under their gcloud credentials; the provisioning subcommands run on
-# the VM, which never needs gcloud. A subcommand states which it expects.
+# Every subcommand here runs on the OPERATOR's machine, under their gcloud and
+# forge credentials; the VM-side counterparts are the three worker-*.sh scripts,
+# which `push-scripts` puts on the host. Subcommand list: main() at the foot.
 set -uo pipefail
+
+# keys-install and its forge helpers live beside this file (one home), sourced
+# rather than duplicated so both halves judge a key the same way.
+. "$(dirname "${BASH_SOURCE[0]}")/forge-keys.sh" \
+  || { echo "provision-worker: cannot load forge-keys.sh" >&2; exit 1; }
 
 # Standard SDK roots, colon-separated. Overridable so tests can inject a fake
 # root without a real install.
@@ -93,7 +95,7 @@ deploy() {
   "$g" "${args[@]}" || return 1
 }
 
-# Runs on the OPERATOR's machine. Order is the whole point: the IAP allow is
+# Order is the whole point: the IAP allow is
 # created and proven before the deny exists, and it outranks the deny by
 # priority number, because in GCP the lower number wins. The shared
 # default-allow-ssh is never touched - it carries 0.0.0.0/0 with no target
@@ -130,112 +132,50 @@ firewall() {
   printf 'firewall: public SSH denied, IAP still verified\n'
 }
 
-# Runs on the OPERATOR's machine, and finishes the exchange `worker-credentials.sh
-# keys` starts on the VM: that step can generate a key but not install it,
-# because the forge credentials are the operator's. Retirement has no other
-# owner at all - a key titled claude-worker that no longer matches the host is
-# standing access for a machine that has been deleted, and nothing on the new
-# host would ever notice it.
-keys_install() {
+# The three VM-side scripts have to be on the host before any of them can run,
+# and the config repo that is their permanent home is cloned much later in the
+# order - by worker-workspace.sh, one of the three. Staged into a directory of
+# their own rather than $HOME, so a bootstrap copy is never mistaken for the
+# repo's; config-clone removes it once the repo lands.
+push_scripts() {
   local dry=0
   [ "${1:-}" = "--dry-run" ] && dry=1
   local g; g=$(resolve_gcloud) || return 1
-  local glhost="${WORKER_GITLAB_HOST:-gl.wallarm.com}"
+  local name="${WORKER_NAME:-claude-worker}"
+  local dest="${WORKER_BOOTSTRAP_DIR:-.worker-bootstrap}"
+  local dir; dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd) || return 1
 
-  local c
-  for c in gh glab; do
-    command -v "$c" >/dev/null 2>&1 || {
-      printf 'keys-install: %s not found on this machine\n' "$c" >&2; return 1; }
+  # Resolve the whole set before copying any of it. A partial set strands
+  # provisioning midway with nothing to say which script never arrived.
+  local files=() f
+  for f in worker-setup.sh worker-credentials.sh worker-workspace.sh; do
+    [ -f "$dir/$f" ] || {
+      printf 'push-scripts: %s missing from %s - nothing staged\n' "$f" "$dir" >&2; return 1; }
+    files+=("$dir/$f")
   done
 
-  local forge host key material listed present stale id title mat rc=0
-  for forge in github gitlab; do
-    case "$forge" in github) host=github.com ;; gitlab) host="$glhost" ;; esac
+  local common=( --zone="${WORKER_ZONE:-europe-west2-a}"
+    --project="${WORKER_PROJECT:-poc-cloud-nodes}" --tunnel-through-iap --quiet )
 
-    key=$(vm_pubkey "$g" "$forge") || { rc=1; continue; }
-    material=$(awk '{print $2}' <<<"$key")
-    listed=$(forge_keys "$forge" "$glhost") || { rc=1; continue; }
+  if [ "$dry" -eq 1 ]; then
+    printf 'push-scripts would copy to %s:~/%s/\n' "$name" "$dest"
+    printf '  - %s\n' "${files[@]}"
+    printf 'then make each executable there and check it parses\n'
+    return 0
+  fi
 
-    # Match on the base64 field alone. Titles and trailing comments differ
-    # between what the host generated and what each forge stores, so that
-    # field is the only part that identifies a key across both.
-    present=no; stale=""
-    while IFS=$'\t' read -r id title mat; do
-      [ -n "$id" ] || continue
-      [ "$mat" = "$material" ] && { present=yes; continue; }
-      case "$title" in claude-worker*) stale="$stale $id" ;; esac
-    done <<<"$listed"
+  "$g" compute ssh "$name" "${common[@]}" --command="mkdir -p ~/$dest" || return 1
+  "$g" compute scp "${common[@]}" "${files[@]}" "$name:~/$dest/" || return 1
 
-    if [ "$present" = yes ]; then
-      printf '%s: claude-worker-%s already installed\n' "$host" "$forge"
-    elif [ "$dry" -eq 1 ]; then
-      printf '%s: would add the host key as claude-worker-%s\n' "$host" "$forge"
-    else
-      forge_add "$forge" "$glhost" "$key" "claude-worker-$forge" \
-        && printf '%s: installed claude-worker-%s\n' "$host" "$forge" || rc=1
-    fi
+  # Arrival is not usability. A file that lost its executable bit in transit, or
+  # that a truncated copy left unparseable, fails at the next provisioning step
+  # instead of this one, where the cause is still obvious.
+  "$g" compute ssh "$name" "${common[@]}" \
+    --command="chmod +x ~/$dest/*.sh && for f in ~/$dest/*.sh; do [ -x \"\$f\" ] && bash -n \"\$f\" || exit 1; done" \
+    || { printf 'push-scripts: staged scripts are not usable on %s\n' "$name" >&2; return 1; }
 
-    for id in $stale; do
-      if [ "$dry" -eq 1 ]; then
-        printf '%s: would retire key %s - titled claude-worker, matches no key on the host\n' "$host" "$id"
-      else
-        forge_api "$forge" "$glhost" --method DELETE "user/keys/$id" >/dev/null \
-          && printf '%s: retired key %s\n' "$host" "$id" || rc=1
-      fi
-    done
-  done
-  return $rc
-}
-
-# Read one public key off the host. Read-only, so a dry run does it too: what
-# the run would change depends on which keys are already on each forge.
-vm_pubkey() {
-  local g="$1" forge="$2" name="${WORKER_NAME:-claude-worker}" out
-  out=$("$g" compute ssh "$name" \
-    --zone="${WORKER_ZONE:-europe-west2-a}" --project="${WORKER_PROJECT:-poc-cloud-nodes}" \
-    --tunnel-through-iap --quiet --command="cat ~/.ssh/id_ed25519_$forge.pub" 2>/dev/null \
-    | grep -m1 '^ssh-')
-  [ -n "$out" ] || {
-    printf 'keys-install: no %s key on %s - run worker-credentials.sh keys there first\n' \
-      "$forge" "$name" >&2; return 1; }
-  printf '%s' "$out"
-}
-
-# One API call to a forge, host-pinned. `glab` takes its host from the current
-# directory's git remote and falls back to gitlab.com everywhere else, so an
-# unpinned call sends a gl.wallarm.com token to the wrong server and the
-# failure reads as a token problem (`companions/pitfalls.md`).
-forge_api() {
-  local forge="$1" glhost="$2"; shift 2
-  case "$forge" in
-    github) gh api "$@" ;;
-    gitlab) GITLAB_HOST="$glhost" glab api "$@" ;;
-  esac
-}
-
-# id, title and key material for every key on the forge, one per line.
-forge_keys() {
-  local forge="$1" glhost="$2" json
-  json=$(forge_api "$forge" "$glhost" --paginate user/keys 2>&1) || {
-    printf 'keys-install: listing %s keys failed. Output:\n%s\n' "$forge" "$json" >&2; return 1; }
-  jq -r '.[] | [(.id|tostring), .title, (.key|split(" ")[1])] | @tsv' <<<"$json" 2>/dev/null || {
-    printf 'keys-install: %s key listing was not a key list. Output:\n%s\n' "$forge" "$json" >&2
-    return 1; }
-}
-
-# GitHub takes a key file, GitLab takes API fields. Both titles carry the
-# forge name, which is what makes a key retirable later.
-forge_add() {
-  local forge="$1" glhost="$2" key="$3" title="$4" f st
-  case "$forge" in
-    github)
-      f=$(mktemp); printf '%s\n' "$key" > "$f"
-      gh ssh-key add "$f" --title "$title"; st=$?
-      rm -f "$f"; return $st ;;
-    gitlab)
-      forge_api gitlab "$glhost" --method POST user/keys \
-        --raw-field "title=$title" --raw-field "key=$key" >/dev/null ;;
-  esac
+  printf 'push-scripts: staged in ~/%s on %s:%s\n' "$dest" "$name" \
+    "$(printf ' %s' "${files[@]##*/}")"
 }
 
 # One trivial command over the tunnel. First connections can fail while the
@@ -255,9 +195,10 @@ main() {
   case "${1:-}" in
     preflight) preflight ;;
     deploy)    shift; deploy "$@" ;;
+    push-scripts) shift; push_scripts "$@" ;;
     firewall)  shift; firewall "$@" ;;
     keys-install) shift; keys_install "$@" ;;
-    *) printf 'usage: provision-worker.sh preflight | deploy | firewall | keys-install [--dry-run]\n' >&2; return 2 ;;
+    *) printf 'usage: provision-worker.sh preflight | deploy | push-scripts | firewall | keys-install [--dry-run]\n' >&2; return 2 ;;
   esac
 }
 
