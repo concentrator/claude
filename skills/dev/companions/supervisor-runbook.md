@@ -157,6 +157,13 @@ Leave `autoUploadSessions` unset. It mirrors sessions to claude.ai
 view-only, is not required for Remote Control, and is the one setting
 here with a data-egress consequence.
 
+The operator's own session joins Remote Control too: a host session
+appears in the operator's `ListAgents` only when both ends are
+connected, and `isolatePeerMachines: true` in the tracked
+`settings.json` gates each cross-machine send behind explicit
+approval. The fallback needs no joining - an enabled session prints
+its own URL, so browser and phone control work either way.
+
 ## Modes, and why each role gets one
 
 | Role | Mode | Reason |

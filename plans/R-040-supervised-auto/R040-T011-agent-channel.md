@@ -33,7 +33,7 @@ they are taken into account.
       correct home. It carries `bypassImmune: true`, so it holds even under
       `bypassPermissions` - which is what makes opening a hardened host to a
       cross-machine channel defensible rather than merely convenient.
-- [ ] Leave `autoUploadSessions` unset, and say so where the setting is described.
+- [x] Leave `autoUploadSessions` unset, and say so where the setting is described.
       It mirrors sessions to claude.ai view-only, is not required for Remote
       Control, and is the one setting here with a data-egress consequence.
 - [ ] Settle the operator end, which is the only remaining blocker for
