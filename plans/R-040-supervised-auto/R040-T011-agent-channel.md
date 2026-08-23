@@ -60,7 +60,7 @@ they are taken into account.
       stay on keystrokes because a session only acts when handed a turn. It does
       not. Keep the tmux recipes for reading a pane and for answering a permission
       prompt, which no message can do.
-- [ ] Record the instrument, because two obvious ones lie. `claude daemon status`
+- [x] Record the instrument, because two obvious ones lie. `claude daemon status`
       reports "not running" while the bridge is active, and the `/remote-control`
       line in the splash is a rotating tip present in neither arm of a comparison.
       The reliable marker is `/rc active` in the footer, and it was only found by

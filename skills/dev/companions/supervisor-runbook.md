@@ -153,6 +153,10 @@ active - the daemon serves background sessions, not an interactive
 bridge - and the `/remote-control` line in the splash is a rotating
 tip, present in neither arm of a comparison.
 
+Leave `autoUploadSessions` unset. It mirrors sessions to claude.ai
+view-only, is not required for Remote Control, and is the one setting
+here with a data-egress consequence.
+
 ## Modes, and why each role gets one
 
 | Role | Mode | Reason |
