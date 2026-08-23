@@ -16,9 +16,12 @@ subcommands in this sequence.
 4. **`harden`** - inventory first with `ss -tulpn`, then remove what is
    not justified. Then `firewall` on the operator side, which creates the
    IAP allow, **verifies the tunnel**, and only then denies public SSH.
-5. **`keys`** - one ed25519 key per forge. Prints both public keys; the
-   operator installs them. `keys-verify` reports the identity each forge
-   hands back.
+5. **`keys`** - one ed25519 key per forge, generated on the VM, which
+   can create a key but not install it. Then `keys-install` on the
+   operator side, under their forge credentials: it adds each public key
+   to its forge and retires any `claude-worker` key the host no longer
+   holds. `keys-verify` reports the identity each forge hands back -
+   a key that authenticates as the wrong account looks like success.
 6. **`claude-install`**, then the operator authenticates by running
    `claude` once and completing SSO.
 7. **`config-clone`** - this config repo becomes the worker's `~/.claude`.
@@ -33,6 +36,10 @@ Everything is idempotent, so re-running against an existing host is safe.
 To start clean, delete the instance and its two firewall rules
 (`claude-worker-allow-iap`, `claude-worker-deny-public-ssh`) and run the
 order above.
+
+A rebuilt host generates a new key pair, so the old one is left valid on
+both forges: access for a machine that no longer exists. `keys-install`
+is what removes it, and only when run after the new keys exist.
 
 The shared `default-allow-ssh` rule is never touched: it carries
 `0.0.0.0/0` with no target tags, so every other instance in the project
