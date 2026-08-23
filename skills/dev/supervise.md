@@ -49,10 +49,14 @@ means a worker is (or was) on the batch: adopt it - status ping, then
 monitor - or, if it is dead, resume `/dev auto B-XXX` in a new session
 over its intact refs. Never run two workers on one project.
 
-One headless worker session per project, under that project's declared
-transport and permissions - the pre-flight is `auto.md`'s. The worker
-runs the `/dev auto` engine on the scoped batch (a lone task is a
-batch of one). The batch bounds the worker session (`branch-plan.md
+One interactive worker session per project, under that project's
+declared transport and permissions - the pre-flight is `auto.md`'s.
+Headless does not serve: it cannot edit protected `.claude/` paths and
+has no way to answer a prompt, so a blocked headless worker is a dead
+one. Which mode each role runs in, and how the two reach each other,
+is per variant in `companions/supervisor-runbook.md`. The worker runs
+the `/dev auto` engine on the scoped batch (a lone task is a batch of
+one). The batch bounds the worker session (`branch-plan.md
 § Session boundary`); the supervisor is exempt - report-level context
 lets one session span many workers (§ Monitor).
 
@@ -68,12 +72,17 @@ landed, close review run, tests and lint green). Verify that set from
 artifacts exactly as a report would be verified; a manual branch
 missing it is no more mergeable than a batch missing its report. The supervisor passes ids only; workers read plans from
 their repo - the supervisor never relays content; its ledgered
-question answers are the one exception. Workers never stall on
-permission prompts: the session starts under guaranteed prompt
-acceptance (the declared permissions cover every tool the plan needs).
-Under the `acceptEdits` session default, edits and in-cwd filesystem
-commands apply without a prompt, so edit prompts are not a supervisor
-control; any prompt a worker does raise halts the member and
+question answers are the one exception. A worker does stall on permission
+prompts, and no declaration prevents it: Bash rules match a command
+prefix, and a compound command - a loop, a pipeline, a `case` - offers
+none to match, so it escalates however wide the allowlist is. Clearing
+those prompts - commands inside the worker's repo within the declared
+permissions only - is the supervisor's work, which is why the supervisor
+runs in a mode that never blocks it
+(`companions/supervisor-runbook.md`). Under the `acceptEdits` session
+default, edits and in-cwd filesystem commands apply without a prompt,
+so edit prompts are not a supervisor control; any other prompt halts
+the member and
 escalates.
 
 ## Monitor
@@ -128,13 +137,19 @@ by the worker's checkpoint fixup; design-level calls escalate.
 
 ## Merge or escalate
 
-Within bounds - green `plan/` MR/PRs; green batch/member MR/PRs whose
-report verifies the criteria - merge via the declared command and
-apply the signature: the `supervised` label plus a merge comment
-naming the bound (`companions/declarations.md § Supervisor bounds`).
-Everything else escalates - the always-escalated classes per
-`companions/declarations.md § Supervisor bounds`, and anything the
-grant does not name.
+The merge classes live in `companions/declarations.md § Supervisor
+bounds` and are deliberately not restated here: a partial copy is how a
+supervisor comes to believe a class it holds does not exist. Read the
+project's declared bound, then name the class the MR/PR falls into.
+Merging without naming a class and escalating without having read the
+declaration are the same error in opposite directions.
+
+Within a named class, merge via the declared command and apply the
+signature: the `supervised` label plus a merge comment naming the bound.
+Everything else escalates - the always-escalated classes per that same
+section, and anything the grant does not name. Branch protection is a
+route to the trunk, not a statement about authority: a protected trunk
+still merges under a class the grant names.
 
 Escalations are existing artifacts read back - halted members, the
 reports' queued judgment calls, refused merges - never a parallel
