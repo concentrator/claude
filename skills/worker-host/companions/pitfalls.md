@@ -27,6 +27,12 @@ Each of these cost a debugging round on a real host.
   `file:../wallarm-api-js`, so `npm ci` fails outright unless both sit
   adjacent under `/opt/wallarm`.
 
+- **A fresh directory blocks session startup on the trust dialog.** A
+  session started in a directory Claude has not seen waits on the trust
+  question before the prompt appears, which reads as a hang when nobody
+  is at the keyboard. `settings` marks the provisioned paths trusted;
+  a session started anywhere else answers the dialog first.
+
 - **The auto-mode setup dialog blocks a session it appears over.** A fresh
   auto-mode session offers to scan the repo, recent sessions, shell
   history and other repositories, and waits. On a supervisor that reads

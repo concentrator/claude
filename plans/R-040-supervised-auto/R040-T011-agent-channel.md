@@ -36,7 +36,7 @@ they are taken into account.
 - [x] Leave `autoUploadSessions` unset, and say so where the setting is described.
       It mirrors sessions to claude.ai view-only, is not required for Remote
       Control, and is the one setting here with a data-egress consequence.
-- [ ] Settle the operator end, which is the only remaining blocker for
+- [x] Settle the operator end, which is the only remaining blocker for
       cross-machine messaging: a remote-controlled session on the host does not
       appear in the operator's `ListAgents` unless the operator's own session is
       connected too. This is a change to the operator's session exposure and
