@@ -54,7 +54,7 @@ they are taken into account.
       command escalates under any allowlist); point both passages at the runbook,
       and stop restating the merge classes - their one home is
       `declarations.md § Supervisor bounds`.
-- [ ] Replace the tmux driving idioms in `companions/supervisor-runbook.md` for the
+- [x] Replace the tmux driving idioms in `companions/supervisor-runbook.md` for the
       co-located case, and correct the claim - carried in the runbook, in this
       plan's first draft, and in `supervise.md` - that supervisor-to-worker must
       stay on keystrokes because a session only acts when handed a turn. It does

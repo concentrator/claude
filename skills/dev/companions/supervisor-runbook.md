@@ -145,6 +145,14 @@ would dirty the repo. The flag is also the better shape - only the
 supervisor joins, under a chosen name, instead of every throwaway
 session on the box.
 
+The one reliable instrument is the `/rc active` marker in the session
+footer; an enabled session also prints its own
+`https://claude.ai/code/session_...` URL. Two obvious instruments lie:
+`claude daemon status` reports "not running" while the bridge is
+active - the daemon serves background sessions, not an interactive
+bridge - and the `/remote-control` line in the splash is a rotating
+tip, present in neither arm of a comparison.
+
 ## Modes, and why each role gets one
 
 | Role | Mode | Reason |
