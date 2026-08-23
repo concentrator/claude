@@ -93,6 +93,11 @@ they are taken into account.
       `~/.worker-bootstrap` rather than `$HOME`, and `config-clone` retires that
       directory once `~/.claude/scripts/` supersedes it. TDD; the skill table and
       the provisioning order follow.
+- [x] Fix `forge-cli --dry-run` reporting a token that the real run then finds
+      blank: the dry run tested for the variable's name, the run itself for a
+      value. The tracked `.env.example` above is what makes this reachable, since
+      it ships both names empty for the operator to fill; found on the live host,
+      where the dry run said `GITHUB_TOKEN=yes` and the run skipped `gh`.
 - [ ] Complete the branch: gates green, mark this plan's checkboxes, and route what
       the build turns up. Closure is checkbox-only; R040-T011 does not close R-040.
 

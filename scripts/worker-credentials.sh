@@ -65,10 +65,13 @@ forge_cli() {
   [ "${1:-}" = "--dry-run" ] && dry=1
   local envf="$HOME/.claude/.env"
 
+  # A value, not a line. .env.example ships both names empty for the operator to
+  # fill, so testing for the name alone reports a token the real run then finds
+  # blank and skips - a dry run promising an authentication that never happens.
   local have_gl=no have_gh=no
   if [ -f "$envf" ]; then
-    grep -q '^GITLAB_TOKEN=' "$envf" && have_gl=yes
-    grep -q '^GITHUB_TOKEN=' "$envf" && have_gh=yes
+    grep -qE '^GITLAB_TOKEN=[^[:space:]]' "$envf" && have_gl=yes
+    grep -qE '^GITHUB_TOKEN=[^[:space:]]' "$envf" && have_gh=yes
   fi
 
   if [ "$dry" -eq 1 ]; then

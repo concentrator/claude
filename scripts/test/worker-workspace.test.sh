@@ -62,6 +62,17 @@ printf 'GITLAB_TOKEN=fixtureleakcanary\n' > "$h/.claude/.env"
 out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$CRSCRIPT" forge-cli --dry-run 2>&1)
 [ $? -eq 0 ] && grep -qi 'github' <<<"$out" \
   && pass "absent GitHub token reported, not fatal" || die "missing token mishandled: $out"
+
+# 39. a declared-but-empty token reads as absent, not present. .env.example
+#     ships GITHUB_TOKEN= for the operator to fill, so "the line exists" and
+#     "there is a token" are different questions - and the real run answers the
+#     second, which left the dry run promising an authentication it then skipped.
+printf 'GITLAB_TOKEN=fixtureleakcanary\nGITHUB_TOKEN=\n' > "$h/.claude/.env"
+out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$CRSCRIPT" forge-cli --dry-run 2>&1)
+grep -q 'GITHUB_TOKEN=no' <<<"$out" && pass "an empty token reads as absent" \
+  || die "empty token reported present: $out"
+grep -q 'GITLAB_TOKEN=yes' <<<"$out" && pass "a filled token still reads as present" \
+  || die "filled token reported absent: $out"
 rm -rf "$h"
 
 # --- config clone: this repo becomes the worker's ~/.claude -----------------
