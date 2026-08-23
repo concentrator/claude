@@ -65,9 +65,21 @@ they are taken into account.
       line in the splash is a rotating tip present in neither arm of a comparison.
       The reliable marker is `/rc active` in the footer, and it was only found by
       starting a known-positive session first.
-- [ ] Add to `skills/worker-host/companions/pitfalls.md`: a fresh directory blocks
+- [x] Add to `skills/worker-host/companions/pitfalls.md`: a fresh directory blocks
       session startup on the trust dialog, which stalled the positive control in
       this task's own measurements until it was answered.
+- [ ] Add the `GITLAB_HOST` pitfall to `skills/worker-host/companions/pitfalls.md`:
+      bare `glab` calls target gitlab.com regardless of which host
+      `glab auth status` reports logged in, so a valid token reads as
+      "Unauthenticated" - this branch's own key rotation hit it. Every scripted
+      call pins `GITLAB_HOST`.
+- [ ] Extend `scripts/provision-worker.sh` with a `keys-install` subcommand:
+      read both public keys from the VM over IAP, install each on its forge
+      through the CLI's API, and retire stale `claude-worker` keys - a key left
+      by a previous host is standing access for a machine that no longer
+      exists, and nothing else removes it. Operator-side, `--dry-run`,
+      idempotent, TDD; the skill table, `companions/provisioning.md` step 5 and
+      the operator-only list follow.
 - [ ] Complete the branch: gates green, mark this plan's checkboxes, and route what
       the build turns up. Closure is checkbox-only; R040-T011 does not close R-040.
 
