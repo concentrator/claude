@@ -207,6 +207,29 @@ described by their symptom in a pane rather than by a log line.
       the prompt recurs per agent. Each recurrence needs an awake supervisor,
       which compounds the visibility failures above.
 
+- [x] **The worker's unattended-halt surface is Bash classification, not
+      edits.** Inside one item the worker held twice on its own permission
+      dialog, ten minutes apart, on two differently shaped commands doing the
+      same job: an existence probe over sibling-relative doc links, refused as
+      `Contains simple_expansion`, and a three-shape negative-claim sweep over
+      the eight realigned docs, refused as `Brace expansion`. Both were
+      read-only. `acceptEdits` names edits and covers only edits, so every
+      shell command a worker runs goes to the auto classifier, and the mode's
+      name advertises a coverage it does not have.
+      Two properties make this worse than the sibling-path prompt above.
+      Avoiding one refused shape does not clear the class - the second command
+      was rewritten and refused for a different reason. And a wider allowlist
+      is not the fix, because a loop over an expanded variable has no stable
+      pattern to grant.
+      What cleared the first dialog is not established from these reads: the
+      worker had moved to a new command by the next tick, and no operator here
+      touched the pane. Either way the loop supplies no resolver of its own -
+      `SendMessage` wakes an idle peer, and a session on a modal dialog is not
+      idle-waiting-for-a-message.
+      `R040-T014` owns the edit gate under `acceptEdits`; this is the same
+      assumption failing on the other tool, and needs either a constraint on
+      probe shape in the dispatch text or a declared Bash surface for workers.
+
 ### What held under load
 
 - [x] **The supervisor reached the worker with `SendMessage` unprompted.** Not
@@ -318,6 +341,13 @@ described by their symptom in a pane rather than by a log line.
       evidence for each. What would separate them is per-item elapsed time and
       amend count for the remaining thirteen under the same rail, which this run
       will supply without anyone doing anything extra.
+      Item 8 supplied the first of those and went the other way: one commit, no
+      amends, 392 insertions and 175 deletions in twenty-five minutes, declared
+      clean by the checkpoint on first read. Under the same rail as item 7 the
+      review round cost nothing, which reads as a learning cost paid once rather
+      than a standard charged per item. One confound keeps it from being a clean
+      second sample: item 8's prose was written by a subagent the worker
+      dispatched, so the production path differed as well as the rail's age.
 
 - [x] **The supervisor found that one of its own completed audits proved
       nothing.** It had confirmed an item's fixup with `git show <sha>^:<path>`,
