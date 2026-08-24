@@ -315,11 +315,12 @@ described by their symptom in a pane rather than by a log line.
 
 - [x] **Every commit in the batch was amended once, and three of the four
       amends changed the document.** Measured from the member branch's reflog:
-      each item was committed, reviewed, then amended. One amend was
-      message-only, the other three edited the doc, the first item's by 86
-      insertions and 36 deletions. So the review round is not a formality that
-      rewords commit bodies; it is where a third of each item's content
-      arrives, and it fires on every item rather than occasionally.
+      each item was committed, reviewed, then amended. All four amends rewrote
+      the commit message; three of those also edited the doc, the first item's
+      by 86 insertions and 36 deletions. So the review round is not a formality
+      that rewords commit bodies: it does rewrite every message, and on three
+      items out of four it also supplies doc content, the first item's about a
+      third of the file. It fires on every item rather than occasionally.
       Two readings, and this run cannot separate them: the review is catching
       what a first pass genuinely misses, or the acceptance standard reaches the
       implementer only as review feedback. The second is cheap to test - state
@@ -343,6 +344,15 @@ described by their symptom in a pane rather than by a log line.
       just made rather than in a report about older work, which is the strongest
       case yet for `verification-policy.md`'s rule that a check counts the unit
       of the thing it claims to check.
+      The supervisor then adopted the worker's framing, calling the defect "the
+      three false commit bodies" one tick later, and built its remediation on
+      that reading. The remediation is sound anyway - a pre-commit pass that
+      verifies each claim against source, which catches a wrong doc as readily
+      as a wrong message - but it was chosen from a diagnosis the refs do not
+      support, and the count it names is short by one.
+      That is the transmission path worth fixing, not the arithmetic: a
+      worker's characterisation of its own work reached the checkpoint's
+      reasoning without ever being checked against the commits it described.
 
 ### Routed out of this file
 
