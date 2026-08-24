@@ -134,3 +134,16 @@ composite (`R040-T###`, counter scoped to this initiative).
   worker-side guard hook, or accept declared permissions as the only
   gate; update `supervise.md` and the provisioning scripts to match.
   Routed from `R-056-settings-tiering/R056-T002-accept-edits.findings.md`.
+
+- [ ] **R040-T015 [feat]**: quota-gated Fable review - the tracked
+  project tier pins `model: claude-fable-5[1m]`, so every session in
+  this repo spends the Fable window on ordinary work, and
+  `verification-policy.md § Models` pins branch-close and batch
+  full-diff review to `fable` behind a capacity fallback that fires
+  only once a dispatch has already failed. Make Opus the default and
+  the fallback pre-flight: `scripts/model-quota.sh` reads the session's
+  own OAuth credential and the claude.ai usage endpoint, which reports
+  a per-model weekly window, so a `fable`-pinned role dispatches on
+  Fable only while that window has headroom. Over the ceiling,
+  unreadable, or absent, the role dispatches on Opus and records the
+  substitution the policy already requires.
