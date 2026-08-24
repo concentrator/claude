@@ -338,6 +338,13 @@ described by their symptom in a pane rather than by a log line.
       merge.
       A briefing template that summarises authority will keep drifting from the
       declaration that owns it. It should cite instead.
+      Tested later in the same run. Told to disregard the briefing clause and
+      act on the declaration, the supervisor read the file, reported that it
+      granted more than the briefing had, and pushed the corrected rule to the
+      worker in one message. So the repair is cheap once someone notices, and
+      the whole cost sits in the noticing: a summary that under-grants produces
+      a supervisor that behaves correctly by its own lights while holding work
+      it was authorised to deliver, which no gate catches and no report flags.
 
 - [x] **The watcher repeated the supervisor's scope claim for eight consecutive
       reports without once testing it.** Every tick during the hold said E1 was
