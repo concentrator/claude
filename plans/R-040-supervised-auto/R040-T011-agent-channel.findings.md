@@ -321,12 +321,19 @@ described by their symptom in a pane rather than by a log line.
       that rewords commit bodies: it does rewrite every message, and on three
       items out of four it also supplies doc content, the first item's about a
       third of the file. It fires on every item rather than occasionally.
-      Two readings, and this run cannot separate them: the review is catching
-      what a first pass genuinely misses, or the acceptance standard reaches the
-      implementer only as review feedback. The second is cheap to test - state
-      the criteria the reviewer will apply in the dispatch prompt and see
-      whether the amend rate moves - and worth testing, because at four of four
-      the round is a fixed cost per item rather than an exception.
+      Then the run separated the two readings on its own. After item 4 the
+      supervisor added a pre-commit pass that verifies each claim against
+      source, and the next two items were each committed once with no amend at
+      all: four of four became zero of two. Two trials is not a rate, but the
+      direction is the informative part. The amends were not a first pass
+      genuinely missing things that only review could find; they were a
+      correctly specified check standing in the wrong place, after the commit
+      instead of before it. Moving it removed the round rather than shortening
+      it.
+      So the fix is a sequencing rule, not more review: verify claims against
+      source before committing, and the review round stops being a fixed cost
+      per item. Worth stating in the dispatch prompt rather than waiting for a
+      supervisor to derive it four items in.
       History rewriting was safe here only because nothing was pushed.
 
 - [x] **The worker's account of its own amends inverts them, in the direction
