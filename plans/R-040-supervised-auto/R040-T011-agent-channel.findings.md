@@ -321,19 +321,18 @@ described by their symptom in a pane rather than by a log line.
       that rewords commit bodies: it does rewrite every message, and on three
       items out of four it also supplies doc content, the first item's about a
       third of the file. It fires on every item rather than occasionally.
-      Then the run separated the two readings on its own. After item 4 the
-      supervisor added a pre-commit pass that verifies each claim against
-      source, and the next two items were each committed once with no amend at
-      all: four of four became zero of two. Two trials is not a rate, but the
-      direction is the informative part. The amends were not a first pass
-      genuinely missing things that only review could find; they were a
-      correctly specified check standing in the wrong place, after the commit
-      instead of before it. Moving it removed the round rather than shortening
-      it.
-      So the fix is a sequencing rule, not more review: verify claims against
-      source before committing, and the review round stops being a fixed cost
-      per item. Worth stating in the dispatch prompt rather than waiting for a
-      supervisor to derive it four items in.
+      After item 4 the supervisor added a pre-commit pass that verifies each
+      claim against source. Across the two items that followed, one committed
+      clean and one still took an amend, so the rate went from four of four to
+      one of two. That is not evidence the round was removed, and an earlier
+      reading of this file said it was: item 6 was measured before its amend
+      landed, which is the same mistake as reading a pane mid-write.
+      What the run has actually shown is narrower. Five of the first six items
+      needed an amend, every amend rewrote the commit message, and most also
+      changed the doc, so the round is a near-fixed cost per item. Whether
+      moving verification ahead of the commit reduces it is still open, and one
+      clean item out of two is too thin to answer either way. It stays worth
+      testing because the cost is real, not because this run settled it.
       History rewriting was safe here only because nothing was pushed.
 
 - [x] **The worker's account of its own amends inverts them, in the direction
