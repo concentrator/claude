@@ -239,6 +239,30 @@ described by their symptom in a pane rather than by a log line.
       correct item. The supervisor held its ledger in context and approached
       compaction with it. Routed to `R040-T017`.
 
+- [x] **A hold held, in both directions.** With the batch stopped on a
+      design-level escalation, the worker proposed widening the realign into
+      `checks.js` and the supervisor refused it as source work the batch has no
+      approval for. It then told the worker to stand by rather than look for
+      more to verify, which is the harder half: an idle agent under a hold
+      invents work, and that work lands outside the scope the hold exists to
+      protect. Neither role treated the pause as licence to make progress
+      somewhere else.
+      It also drew a line worth keeping: it authorised a write, not a commit,
+      so the item's findings file sits untracked and folds into the closing
+      commit. Untracked is a real loss path if a branch closes over it, and the
+      supervisor recorded it as a checkpoint obligation rather than trusting it
+      to memory.
+
+- [x] **Both roles caught their own crude measurements, unprompted.** In one
+      tick the supervisor corrected its own `grep -c` count of precedent cells
+      from 19 to 17, naming the two prose uses that inflated it and crediting
+      the worker's count over its own; the worker then recounted its 16 on the
+      same grounds, and re-ran twelve probes untruncated after realising it had
+      described clipped 60-70 character error strings to the supervisor as
+      exact. That is `verification-policy.md`'s discrimination rule applied by
+      the roles to themselves, against their own reported figures, with no
+      operator turn involved.
+
 ### Operator error, recorded because the loop should prevent it
 
 - [x] **The dispatch briefing restated merge authority and narrowed it.** The
