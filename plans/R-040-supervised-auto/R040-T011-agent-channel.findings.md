@@ -262,6 +262,72 @@ described by their symptom in a pane rather than by a log line.
       The rejection round was not waste - it caught the defect its blocking
       task had been merged to prevent.
 
+### The role whose state the checkpoint reads keeps the least of it
+
+- [x] **The supervisor's ledger survived only because an operator intervened
+      one minute before compaction.** The worker had moved its ledger to a file
+      early and came back from its own compaction on the correct item. The
+      supervisor, whose state the checkpoint actually reads, held its ledger in
+      context and ran to 0% remaining. Told to write it out, it produced a
+      201-line `supervisor-ledger.md` in its own scratchpad, outside the
+      worker's checkout, and compaction began immediately after.
+      Two things follow. The asymmetry is backwards: the role with the least
+      durable state is the one the merge decision depends on. And the save was
+      operator-triggered, so on an unattended run the ledger goes with the
+      compaction and no one learns it was lost, because a compacted supervisor
+      still answers status questions plausibly.
+      Writing outside the checkout is not a detail: a state file in the project
+      would break the `git status` scope check the worker uses to prove its
+      edits stayed in `dev/docs`, so the two roles cannot share a directory for
+      this.
+
+- [x] **Reports drift from the artifacts they describe; artifacts do not.**
+      Three instances in one batch: a reviewer caught two arithmetic errors
+      present in an implementer's report but absent from the doc it described,
+      and a commit body was written "from memory of the work instead of from the
+      code". Every spec check in this run was told to verify against source for
+      this reason, and each time the artifact was the reliable party.
+      This is `verification-policy.md`'s unit-of-check rule with instances
+      behind it rather than an argument.
+
+- [ ] **No diagram in the batch was machine-verified, and a member's acceptance
+      criterion may require it.** No mermaid tooling is installed on the host,
+      so every Model diagram was eye-reviewed. The worker declined to install a
+      renderer, on the grounds that adding a browser dependency to a docs-only
+      batch is not its call, and recommended routing machine-parsing onward.
+      Correct to escalate: `supervise.md § Boundary verification` step 2 needs
+      the report to verify each member's criteria, and a criterion no tool
+      checked cannot be reported as verified.
+      The premise deserves a test before the routing is accepted. A full render
+      needs a headless browser; a syntax-level parse may not, and if it does
+      not, the criterion is satisfiable in this batch rather than deferred.
+      Unresolved at the time of writing.
+
+- [x] **A conflict between two rails is a routing decision, and the supervisor
+      surfaced one without blocking on it.** A realigned doc duplicated nine
+      values from a doc not yet realigned, putting the member's "a realign
+      deletes no claim" against `writing.md § One home per number`. It routed
+      the resolution to the later commit that has both docs in view, required
+      that commit to rule explicitly, deleted nothing unilaterally, and offered
+      the operator the alternative. Worth recording as the shape a
+      near-design-level call should take: decide, name the alternative,
+      continue.
+
+- [x] **Every commit in the batch was amended once, and three of the four
+      amends changed the document.** Measured from the member branch's reflog:
+      each item was committed, reviewed, then amended. One amend was
+      message-only, the other three edited the doc, the first item's by 86
+      insertions and 36 deletions. So the review round is not a formality that
+      rewords commit bodies; it is where a third of each item's content
+      arrives, and it fires on every item rather than occasionally.
+      Two readings, and this run cannot separate them: the review is catching
+      what a first pass genuinely misses, or the acceptance standard reaches the
+      implementer only as review feedback. The second is cheap to test - state
+      the criteria the reviewer will apply in the dispatch prompt and see
+      whether the amend rate moves - and worth testing, because at four of four
+      the round is a fixed cost per item rather than an exception.
+      History rewriting was safe here only because nothing was pushed.
+
 ### Routed out of this file
 
 - [ ] `R040-T017` - durable role state. Drafted, not yet filed.
