@@ -300,6 +300,22 @@ described by their symptom in a pane rather than by a log line.
       the question actually gates. That distinction needs a home in
       `supervise.md`, because nothing there currently separates "this needs a
       ruling" from "this cannot proceed".
+- [x] **The supervisor found that one of its own completed audits proved
+      nothing.** It had confirmed an item's fixup with `git show <sha>^:<path>`,
+      which reads an object by id and succeeds just as well when that commit is
+      an orphan, so the command could not have failed for the thing it was
+      meant to establish. Existence and branch-reachability are different
+      checks and only the first was ever run. It then audited the branch
+      properly and found three orphans, one per recorded amendment, with no
+      stray rewrites.
+      Its own generalisation is the useful part, and it is worth lifting into
+      `verification-policy.md` beside the discrimination rule: a command that
+      returns output is not evidence unless it could have failed for the claim
+      you meant to test. The rule already says this about executions; the
+      failure here was a read that returned the right bytes from the wrong
+      place, and a supervisor audit is exactly where that goes unnoticed,
+      because the check appears to have run.
+
 - [x] **Both roles caught their own crude measurements, unprompted.** In one
       tick the supervisor corrected its own `grep -c` count of precedent cells
       from 19 to 17, naming the two prose uses that inflated it and crediting
@@ -383,7 +399,14 @@ described by their symptom in a pane rather than by a log line.
       The premise deserves a test before the routing is accepted. A full render
       needs a headless browser; a syntax-level parse may not, and if it does
       not, the criterion is satisfiable in this batch rather than deferred.
-      Unresolved at the time of writing.
+      Then the gap produced a defect. Item 7's commit body held up under the new
+      cite-or-delete rail, and the error moved to the one channel that rail does
+      not cover: its diagram. The item stayed unticked pending a redraw and a
+      spec check, so nothing shipped wrong, but the sequence is the argument. A
+      claim in prose now gets a citation opened and confirmed before it is
+      written, while a claim drawn as a diagram gets an eye. Defects go where
+      the checking is thinnest, and this batch has demonstrated it rather than
+      predicted it.
 
 - [x] **A conflict between two rails is a routing decision, and the supervisor
       surfaced one without blocking on it.** A realigned doc duplicated nine
