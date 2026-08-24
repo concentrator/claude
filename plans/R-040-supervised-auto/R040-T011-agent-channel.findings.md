@@ -300,6 +300,25 @@ described by their symptom in a pane rather than by a log line.
       the question actually gates. That distinction needs a home in
       `supervise.md`, because nothing there currently separates "this needs a
       ruling" from "this cannot proceed".
+- [x] **Adding rails moved the cost into the review loop rather than removing
+      it.** Item 7 was the first item delivered under the cite-or-delete rail
+      and it took one commit plus five amends, against a single amend on each of
+      the six items before it. The deltas were 6/1, 16/13, 7/6, 2/1 and 3/3
+      lines, netting 25 insertions and 15 deletions on a commit that changed 291
+      and 167 - so five review rounds adjusted about a tenth of the item, in
+      pieces that got smaller but never stopped. Elapsed cost was roughly forty
+      minutes against a steady state near eleven.
+      The rail worked: the commit body held, and the defect that did survive
+      went to the diagram, the one channel it does not cover. What the run has
+      not shown is a net saving. Earlier in this file the amend round looked like
+      a check standing in the wrong place; item 7 says the opposite is also
+      available, that a stricter standard converges by iteration and each
+      iteration is a full round trip through two sessions.
+      Neither reading is settled, and the batch has now produced one item's
+      evidence for each. What would separate them is per-item elapsed time and
+      amend count for the remaining thirteen under the same rail, which this run
+      will supply without anyone doing anything extra.
+
 - [x] **The supervisor found that one of its own completed audits proved
       nothing.** It had confirmed an item's fixup with `git show <sha>^:<path>`,
       which reads an object by id and succeeds just as well when that commit is
