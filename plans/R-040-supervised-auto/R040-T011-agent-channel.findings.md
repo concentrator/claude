@@ -253,6 +253,21 @@ described by their symptom in a pane rather than by a log line.
       supervisor recorded it as a checkpoint obligation rather than trusting it
       to memory.
 
+- [x] **An escalation that carries its own measurement step arrives at a
+      sharper question than it left with.** The supervisor did not just hold: it
+      told the operator what it would measure while held, then partitioned the
+      affected cells by whether the later verification pass could lift each one.
+      The count came back lower than its first figure and every remaining cell
+      turned out liftable, which moved the question from a permanent gap in the
+      vocabulary to whether a guaranteed-temporary state needs a token at all.
+      Same decision, far cheaper to make, and the revised figure is the one in
+      the report.
+      Worth making a habit rather than an accident: an escalation names the
+      measurement that would narrow it, and holding time pays for that
+      measurement instead of being dead time. The operator-facing cost is that
+      the second version supersedes the first, so a relayed figure has to be
+      restated rather than left standing.
+
 - [x] **Both roles caught their own crude measurements, unprompted.** In one
       tick the supervisor corrected its own `grep -c` count of precedent cells
       from 19 to 17, naming the two prose uses that inflated it and crediting
