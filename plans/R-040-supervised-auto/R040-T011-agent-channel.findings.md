@@ -226,9 +226,21 @@ described by their symptom in a pane rather than by a log line.
       touched the pane. Either way the loop supplies no resolver of its own -
       `SendMessage` wakes an idle peer, and a session on a modal dialog is not
       idle-waiting-for-a-message.
+      The third occurrence, ten minutes after the second, closed the loop
+      entirely: the dialog was raised **by a subagent** the worker had
+      dispatched, over a `git ls-files` probe assigned to a variable, refused
+      for `simple_expansion` again. The worker's own pane read "Waiting for 3
+      background agents to finish" - it had yielded its turn to the agents it
+      was waiting on, so it could not answer the dialog holding one of them.
+      Three halts in thirty minutes, and the last one is not merely unattended
+      but unrecoverable by any agent in the run.
       `R040-T014` owns the edit gate under `acceptEdits`; this is the same
       assumption failing on the other tool, and needs either a constraint on
       probe shape in the dispatch text or a declared Bash surface for workers.
+      The subagent case narrows the options further: probe shape can be
+      dispatched to a worker and cannot be dispatched to the agents that worker
+      spawns, so a prompt-level constraint does not reach where the third halt
+      happened.
 
 ### What held under load
 
