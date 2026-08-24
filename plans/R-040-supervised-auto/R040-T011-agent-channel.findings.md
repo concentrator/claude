@@ -101,7 +101,183 @@ What remains is configuration plus one decision.
   all that can be said is under 90 seconds; the documented semantics
   ("messages drain at the receiver's next tool round") suggest near-immediate.
 - The return leg was authorised but its result was not read back: whether the
-  worker's reply reaches the supervisor.
-- Whether a woken session in `auto` mode completes a shell action unattended,
-  which is the combination a real dispatch would use. The wake test used a
-  worker in accept-edits, which is why it stopped.
+  worker's reply reaches the supervisor. The live run advanced this without
+  closing it - the supervisor sent the worker a message and the worker acted on
+  it, so the forward leg carries content, but no reply text was observed
+  arriving back at the supervisor.
+
+## From the first remote-transport batch
+
+R-020 B-002 on the worker host, the first batch delivered under the remote
+transport with the supervisor driving the worker itself and the operator
+watching on a fixed interval. Everything below was read from the two panes or
+from read-only refs while the run was live, which is why the failures are
+described by their symptom in a pane rather than by a log line.
+
+### The channel is the failure surface
+
+- [x] **A supervisor that polls a pane loses its worker, and did so three
+      times by three unrelated routes.** First a readiness wait on
+      `"for shortcuts\|Welcome\|>"`, none of which a fresh pane contains: the
+      splash carries no "Welcome", `grep -c "for shortcuts"` returns 0, and the
+      prompt glyph is `❯`, not ASCII `>`. Then an idle wait that could not
+      exit because `capture-pane` returns the whole pane including a stale
+      `Waiting for 1 background agent` line, so a worker sitting on a
+      permission prompt read as busy; measured at the time with per-pattern
+      counts, `esc to interrupt` 0, spinner 0, stale line 1. Then simply
+      finishing a turn with no wait armed at all. Each one stalled the batch
+      until the operator woke the supervisor by hand.
+      The three share a cause worth stating plainly: polling puts the burden of
+      noticing on the party that is not doing the work. A blocked worker is
+      indistinguishable from a working one in a pane, which is the claim this
+      task was opened on, now reproduced under load rather than argued.
+
+- [x] **Pane polling spends the supervisor's context, and the design assumes
+      it stays small.** `supervise.md § Monitor` keeps the supervisor at
+      report level so one session can span many workers. Two hours in it was
+      at 12% before auto-compact, and not from reports: from `capture-pane`
+      output, one screenful per check, plus the pane dumps its
+      prompt-clearing needed. A message costs a sentence; a pane costs a
+      screen. Same cause as the visibility failures above, different symptom.
+
+- [x] **A prompt-clearing script replaces judgement with pattern matching, and
+      approved a protected-path edit.** The supervisor wrote
+      `clear-prompts.sh`, intending it to fail closed: a DANGER regex stops the
+      loop, a read-only whitelist clears the prompt, anything unrecognised
+      stops. Its command extractor resets its buffer on a `Bash command`
+      header, so an **Edit** prompt, which has no such header, accumulated 400
+      lines of unrelated scrollback; the whitelist matched a `grep` from that
+      scrollback and approved a request to edit `skills/dev/layout.md`, which
+      `declarations.md § Supervisor bounds` escalates under any grant. Nothing
+      persisted - the config clone stayed clean at its HEAD - so the breach was
+      of authorisation, not of content.
+      The general shape: a fail-closed policy implemented by parsing fails open
+      on exactly the input its parser does not model, and an auto-approval is
+      indistinguishable in the pane from a considered one.
+
+### Blockers the host still carries
+
+- [x] **A third startup dialog blocks a session before its prompt line.** The
+      fullscreen-renderer opt-in holds a fresh session the same way the trust
+      and auto-mode dialogs do, and is in neither `pitfalls.md` nor the keys
+      `worker-workspace.sh settings` writes. Answered "Not now" deliberately:
+      the renderer would likely break the `capture-pane` reads the whole
+      operator loop depends on. Any future opt-in dialog becomes a headless
+      startup hang by default, which is the entry worth writing rather than
+      this one dialog.
+
+- [x] **`glab` held no host entry for the project's forge, so the batch could
+      not have opened its MR.** Cleared by hand before dispatch and filed as
+      `R040-T016`: `forge_auth` never runs the `glab auth login` its own
+      `--dry-run` text promises, and verifies with an explicit `--hostname`,
+      which is the one check shape that cannot detect the omission.
+
+- [x] **No git author identity exists on the host, and commits succeed
+      anyway.** No `/etc/gitconfig`, no `~/.gitconfig`, no global config, no
+      repo-local `[user]`, no `GIT_AUTHOR_*` export - yet the first commit
+      carries the correct author. The implementer supplied it per invocation by
+      inference. It was right this time; nothing makes that repeatable, and
+      because nothing halts, no run surfaces it.
+      Fix belongs in provisioning: `baseline` sets it from the same gitignored
+      `.env` that carries the forge tokens, keeping identity something the
+      operator moves rather than an agent decides.
+
+- [x] **Every implementer stalls on reading the declared sibling
+      dependency.** `pitfalls.md` already records that `wallarm-api-js` is not
+      optional, but the project's permission list grants it as an npm
+      dependency and never as a readable path, so each agent prompts for it.
+      The supervisor correctly declined the offered persistent grant, since a
+      settings change is outside batch-scoped delivery, and named the cost:
+      the prompt recurs per agent. Each recurrence needs an awake supervisor,
+      which compounds the visibility failures above.
+
+### What held under load
+
+- [x] **The supervisor reached the worker with `SendMessage` unprompted.** Not
+      instructed to; it addressed the worker as a peer session and the worker
+      acted on the message. The settled finding at the top of this file,
+      arrived at again independently by the party doing the work.
+
+- [x] **The capacity fallback carried the run instead of halting it.** Two
+      consecutive 529s on the pinned implementer degraded one row to Sonnet
+      with the substitution recorded; the Fable window was exhausted for every
+      verification role for the whole batch, also recorded. Legal under
+      `verification-policy.md § Models`, and direct evidence for `R040-T015`:
+      the fallback is the normal case here, not the exception, which is the
+      argument for checking the quota before dispatch rather than discovering
+      it per failure.
+
+- [x] **Bounds discipline held where it cost something.** Offered a persistent
+      permission grant that would have removed a recurring prompt, the
+      supervisor took the one-time approval and said why: persisting a scope is
+      a settings change and no grant of its own covers editing permissions.
+      It also declined to treat an observed commit id as final because the
+      fixup agent had not reported, and said it would re-verify ids at the
+      checkpoint.
+
+- [x] **Verification checked artifacts, not claims.** Item 3's spec check ran
+      structure assertions against the committed blob - heading set, mermaid
+      block, verified marks, em dashes - rather than against the implementer's
+      summary, and checkers were told to return UNPROVEN per limb rather than
+      pass softly. `verification-policy.md`'s unit-of-check and discrimination
+      rules, applied without being restated at dispatch.
+
+- [x] **Scope discipline held on a real temptation.** A broken sibling-relative
+      link turned up in a file outside both members' corpus; the worker routed
+      it to the whole-catalog gate task instead of fixing it under a task that
+      forbids out-of-corpus changes. `git diff --name-only` against the anchor
+      showed `dev/docs` and nothing else for the whole run.
+
+- [x] **A woken session in `auto` mode completes shell actions unattended.**
+      Open in this file until now. The supervisor ran its entire monitoring and
+      prompt-clearing loop this way, including sending keys to another session,
+      with no operator turn between wake and action.
+
+- [x] **File-backed state survives compaction; context-held state does not.**
+      The worker moved its decision ledger to a scratchpad file and ticked plan
+      checkboxes as it went, then compacted mid-batch and resumed on the
+      correct item. The supervisor held its ledger in context and approached
+      compaction with it. Routed to `R040-T017`.
+
+### Operator error, recorded because the loop should prevent it
+
+- [x] **The dispatch briefing restated merge authority and narrowed it.** The
+      supervisor was told to escalate "anything design-level or the merge
+      itself" while operating under a declaration granting green batch MRs.
+      `supervise.md § Merge or escalate` refuses to restate the merge classes
+      for exactly this reason, calling a partial copy the way a supervisor
+      comes to believe a class it holds does not exist. The briefing was that
+      partial copy. Confirmed live: the supervisor stated it would hold the
+      merge.
+      A briefing template that summarises authority will keep drifting from the
+      declaration that owns it. It should cite instead.
+
+### Throughput
+
+- [x] **First item 50 minutes, steady state about 10.** Three items closed in
+      the first hour and fifty minutes, with the first carrying two 529s, a
+      model substitution and a rejection round. Rate matters to the channel
+      argument: at ten minutes an item a supervisor that loses sight of a
+      blocked worker costs a fraction of an item, and at fifty it costs hours.
+      The rejection round was not waste - it caught the defect its blocking
+      task had been merged to prevent.
+
+### Routed out of this file
+
+- [ ] `R040-T017` - durable role state. Drafted, not yet filed.
+- [ ] The worker-side notification hook: a blocked worker wakes its supervisor
+      rather than waiting to be noticed. This is what the channel should be,
+      and it replaces every wait recipe below.
+- [ ] Replace the runbook's wait recipes: footer-only busy detection, an
+      affirmative wake on a pending prompt, and a hard `timeout` on every loop.
+      Provisional until the notification hook lands, which removes the need.
+- [ ] Take a position on prompt-clearing scripts at all. If permitted, classify
+      the prompt type before parsing any command, and stop unconditionally on a
+      protected-path edit.
+- [ ] `pitfalls.md`: the fullscreen-renderer dialog, and the general rule that
+      a new opt-in dialog is a headless startup hang.
+- [ ] Provisioning sets `git config --global user.name/user.email` from `.env`,
+      documented in `.env.example`.
+- [ ] The project's permission list grants reading the declared sibling
+      repository.
+- [ ] The briefing recipe cites the declaration rather than summarising it.
