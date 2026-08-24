@@ -232,8 +232,9 @@ described by their symptom in a pane rather than by a log line.
       for `simple_expansion` again. The worker's own pane read "Waiting for 3
       background agents to finish" - it had yielded its turn to the agents it
       was waiting on, so it could not answer the dialog holding one of them.
-      Three halts in thirty minutes, and the last one is not merely unattended
-      but unrecoverable by any agent in the run.
+      Four halts in forty minutes, three of them for `simple_expansion`, and
+      the nested one is not merely unattended but unrecoverable by any agent in
+      the run. No commit landed across any of them.
       `R040-T014` owns the edit gate under `acceptEdits`; this is the same
       assumption failing on the other tool, and needs either a constraint on
       probe shape in the dispatch text or a declared Bash surface for workers.
@@ -386,6 +387,19 @@ described by their symptom in a pane rather than by a log line.
       exact. That is `verification-policy.md`'s discrimination rule applied by
       the roles to themselves, against their own reported figures, with no
       operator turn involved.
+      Item 9 produced the sharper version of the same move. Auditing provenance
+      bars, the supervisor noticed that an exact-match count is silent about
+      the near-misses its own exactness excludes, so it grepped for the loose
+      pattern minus the exact header and got zero - which is what licenses the
+      count to mean "21 and no others" rather than "21 that matched". It also
+      conceded a second miscount of its own on-screen output in fourteen
+      instances, and kept the corrected value labelled as the minority case
+      rather than quietly adopting it.
+      This is a check on the shape of a check, invented in the run rather than
+      required by the policy, and `verification-policy.md` has no rule that
+      would have asked for it: the discrimination rule tests whether an
+      execution could have failed, not whether an exact filter is hiding what
+      it excludes.
 
 ### Operator error, recorded because the loop should prevent it
 
