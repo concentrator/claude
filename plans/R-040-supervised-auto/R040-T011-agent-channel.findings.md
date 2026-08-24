@@ -105,19 +105,22 @@ What remains is configuration plus one decision.
   closing it - the supervisor sent the worker a message and the worker acted on
   it, so the forward leg carries content, but no reply text was observed
   arriving back at the supervisor.
-- The operator leg has no transport, and a real escalation proved it. Held on a
-  design question, the supervisor kept itself alive on a heartbeat: the wait
-  expires on a timer, and on expiry it reports that nothing changed and re-arms
-  with a fresh id. So the session is neither dead nor spinning. What no timer
-  supplies is the answer. The escalation reached the operator by being scraped
-  out of a pane, the ruling can only return by an operator typing it back, and
-  each wake achieves nothing but confirming the hold - an hour of them, at six of
-  twenty. A supervisor that can block on an operator needs an addressable inbox,
-  or the loop's slowest leg stays a human reading scrollback.
-  Four consecutive reads showing one heartbeat id were reads taken between
-  expiries, and an earlier version of this entry read them as a session that
-  never wakes. That is the same stale-read error this file records against the
-  pane transport, committed while describing it.
+- The operator's two legs are not equally served, and a real escalation
+  separated them. Inbound works: the operator answered the escalation directly
+  into the supervisor from the Claude app over Remote Control, and the session
+  woke, ruled, closed the question and dispatched the next item without the
+  watching session relaying anything. Outbound is the weak leg. The escalation
+  itself only left the host because a watcher scraped it out of a pane, and
+  while it sat there the supervisor's heartbeat expired, reported no change and
+  re-armed - alive and aware, achieving nothing but confirming the hold. So the
+  gap to close is notification, not control: an operator who can reach a held
+  session still has no way to learn it is held.
+  Two reading errors of this file's own, both worth keeping. Four consecutive
+  reads showing one heartbeat id were reads taken between expiries, and an
+  earlier version called that a session that never wakes - the same stale-read
+  error the file records against the pane transport, committed while describing
+  it. And an earlier version claimed the operator leg had no transport at all,
+  written before the operator used it.
 
 ## From the first remote-transport batch
 
@@ -281,6 +284,22 @@ described by their symptom in a pane rather than by a log line.
       the second version supersedes the first, so a relayed figure has to be
       restated rather than left standing.
 
+- [x] **Escalating was right; halting the whole batch was not, and the
+      supervisor said so itself.** The ruling came back as "keep the existing
+      convention", so an hour and forty minutes bought an answer of carry on as
+      you were. The reason it cost that much is structural, not bad luck: the
+      disputed mark is written by the item in hand and never read by later
+      items, so nothing downstream depended on the answer. The supervisor's own
+      escalation had already said the fix would be marks only and a sweep would
+      be a relabel rather than a re-derivation, then it halted as though the
+      answer were a precondition. Stating that a fix is cheap and treating it as
+      blocking is one contradiction, and the worker had argued the other side
+      correctly at the time.
+      The refinement it proposed, logged as evidence for an ask rather than
+      applied: escalate design-level questions immediately, but halt only what
+      the question actually gates. That distinction needs a home in
+      `supervise.md`, because nothing there currently separates "this needs a
+      ruling" from "this cannot proceed".
 - [x] **Both roles caught their own crude measurements, unprompted.** In one
       tick the supervisor corrected its own `grep -c` count of precedent cells
       from 19 to 17, naming the two prose uses that inflated it and crediting
@@ -304,6 +323,17 @@ described by their symptom in a pane rather than by a log line.
       A briefing template that summarises authority will keep drifting from the
       declaration that owns it. It should cite instead.
 
+- [x] **The watcher repeated the supervisor's scope claim for eight consecutive
+      reports without once testing it.** Every tick during the hold said E1 was
+      gating items 7 through 20, taken from the escalation's own framing and
+      never checked against the batch manifest. It was false, and it was
+      checkable at any point: the disputed mark is written per item and read by
+      none of the later ones. Repetition made it sound established, and the
+      operator was deciding under a stated urgency that did not exist.
+      The rule the watcher was already applying to the agents is the one it
+      skipped on itself. A verified report and a relayed report are different
+      objects, and a relayed claim about scope needs the same source check as
+      a relayed claim about content.
 ### Throughput
 
 - [x] **First item 50 minutes, steady state about 10.** Three items closed in
