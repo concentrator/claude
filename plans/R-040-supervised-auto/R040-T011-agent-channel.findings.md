@@ -328,6 +328,22 @@ described by their symptom in a pane rather than by a log line.
       the round is a fixed cost per item rather than an exception.
       History rewriting was safe here only because nothing was pushed.
 
+- [x] **The worker's account of its own amends inverts them, in the direction
+      that makes the review round look cosmetic.** Its pane states that in all
+      three amendments the doc was right and only the commit message was wrong.
+      The refs say the opposite: the three amends it is describing each edited
+      the doc, and the single message-only amend is the one it leaves out of the
+      count. Verified by naming the changed path in each amend, not by trusting
+      either account.
+      The direction is what makes this more than a slip. A supervisor that takes
+      this at report level records a review round that fixes commit bodies,
+      when what it actually does is supply doc content, and the checkpoint then
+      certifies the weaker claim. It is the same failure the entry above
+      describes, caught this time in the worker's reasoning about commits it had
+      just made rather than in a report about older work, which is the strongest
+      case yet for `verification-policy.md`'s rule that a check counts the unit
+      of the thing it claims to check.
+
 ### Routed out of this file
 
 - [ ] `R040-T017` - durable role state. Drafted, not yet filed.
