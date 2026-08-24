@@ -105,16 +105,19 @@ What remains is configuration plus one decision.
   closing it - the supervisor sent the worker a message and the worker acted on
   it, so the forward leg carries content, but no reply text was observed
   arriving back at the supervisor.
-- The operator leg has no transport at all, and a real escalation proved it. Held
-  on a design question, the supervisor armed a prompt-only heartbeat, correctly,
-  since a timer poll would only spin while the worker is idle by instruction. The
-  consequence is that nothing on the host resumes the run: the escalation reached
-  the operator by being scraped out of a pane, and the ruling can only return by
-  an operator typing it back in. Four consecutive reads showed the same heartbeat
-  id, so the session had not woken once in forty minutes and would not have woken
-  on its own however long the hold ran. A supervisor that can block on an
-  operator needs an addressable inbox for the answer, or the loop's slowest leg
-  stays a human reading scrollback.
+- The operator leg has no transport, and a real escalation proved it. Held on a
+  design question, the supervisor kept itself alive on a heartbeat: the wait
+  expires on a timer, and on expiry it reports that nothing changed and re-arms
+  with a fresh id. So the session is neither dead nor spinning. What no timer
+  supplies is the answer. The escalation reached the operator by being scraped
+  out of a pane, the ruling can only return by an operator typing it back, and
+  each wake achieves nothing but confirming the hold - an hour of them, at six of
+  twenty. A supervisor that can block on an operator needs an addressable inbox,
+  or the loop's slowest leg stays a human reading scrollback.
+  Four consecutive reads showing one heartbeat id were reads taken between
+  expiries, and an earlier version of this entry read them as a session that
+  never wakes. That is the same stale-read error this file records against the
+  pane transport, committed while describing it.
 
 ## From the first remote-transport batch
 
