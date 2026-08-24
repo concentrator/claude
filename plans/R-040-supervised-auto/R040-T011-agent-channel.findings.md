@@ -235,6 +235,14 @@ described by their symptom in a pane rather than by a log line.
       Four halts in forty minutes, three of them for `simple_expansion`, and
       the nested one is not merely unattended but unrecoverable by any agent in
       the run. No commit landed across any of them.
+      The fourth then stopped the run outright. Ten minutes later both panes
+      read identically to the tick before: the same dialog on the worker, and
+      behind it a supervisor whose last turn had completed, idle at its prompt
+      waiting on the worker it cannot reach. Every earlier halt had cleared by
+      the next read; this one is the first the loop was observed to sit in. It
+      is not a claim about what would have happened over a longer wait - only
+      that two roles, one held and one waiting on the held one, is a stable
+      state with no exit inside the run.
       `R040-T014` owns the edit gate under `acceptEdits`; this is the same
       assumption failing on the other tool, and needs either a constraint on
       probe shape in the dispatch text or a declared Bash surface for workers.
