@@ -13,7 +13,7 @@ a router row, a rule section and a template; the Tier-1 gate
 - [x] Route `milestone <id>` in `SKILL.md`'s `/dev plan` table, placed
       ahead of the `<slug>` row and pointing at `plan.md`; body stays
       within the orchestrator word limit (`rules/skills.md § Size`).
-- [ ] Write `plan.md § Milestone plans`: optional (single-initiative
+- [x] Write `plan.md § Milestone plans`: optional (single-initiative
       milestones need none), order not scope, existing task ids only (a
       gap gets a task), `depends-on` authoritative (a contradicting
       order is a defect in the milestone file), the `ROADMAP.md
