@@ -240,13 +240,18 @@ described by their symptom in a pane rather than by a log line.
       including the third occurrence here, which a subagent raised while the
       worker sat on "Waiting for 3 background agents to finish" and could not
       have answered anything.
-      What actually stops the run is mutual waiting. The fourth dialog arrived
-      after the supervisor's turn ended, so the worker was waiting on a dialog
-      only the supervisor clears while the supervisor was idle waiting on the
-      worker - and a held worker cannot send the message that would wake it.
-      The state held for hours across repeated reads, and the supervisor
-      auto-compacted inside it without resuming, because compaction does not
-      start a turn.
+      What stopped the run was turn discipline, and the supervisor's own
+      account is more precise than anything the panes showed. Its wait loop did
+      detect the dialog and printed `PROMPT`; it then appended its ledger entry
+      and ended the turn without ever reading that output. Three dialogs had
+      stacked up behind the first by the time it resumed, so the queue, not the
+      dialog, was the object needing draining. From there the state was stable:
+      a worker waiting on a dialog only the supervisor clears, a supervisor
+      idle waiting on the worker, a held worker unable to send the message that
+      would wake it, and compaction passing through without starting a turn.
+      The detector worked and its output went unread, which is the same failure
+      as the escalation that sat in scrollback for an hour, one layer further
+      in.
       One message ended it. Pasted into the idle supervisor after about seven
       and a half hours, it cleared the worker's dialog inside a minute, went
       back to reading `layout.md` for item 9, and started polling the worker's
@@ -426,6 +431,24 @@ described by their symptom in a pane rather than by a log line.
       would have asked for it: the discrimination rule tests whether an
       execution could have failed, not whether an exact filter is hiding what
       it excludes.
+      Then the same audit produced a rule for grading its own errors. The
+      worker had excused both of the supervisor's miscounts as the minority
+      case; the supervisor overruled that and adopted a test - was the number
+      correct for what was measured, as opposed to for what it was used to
+      claim - which moved its own tally up rather than down. Under it, a
+      `grep -n` line number that is correct for the extracted stream it counted
+      and wrong as a file coordinate is the majority case, because nothing
+      measured the file; a figure read off the screen as eight when ten were
+      there is the minority case, because nothing measured anything. The test
+      is worth `verification-policy.md`: it separates the two buckets without
+      argument and lets a reader classify the next case unaided.
+      Its occasion was the supervisor's own defect. Recommending a change to
+      `layout.md`, it cited the file ninety-six lines off, having piped `awk`
+      section-extraction into `grep -n` and read the extract's numbering as the
+      file's. The worker caught it and named the mechanism unaided. The content
+      survived the correction unchanged, which is the part worth keeping: the
+      error was in the one channel a reader is most likely to follow to source,
+      inside the artifact arguing for the change.
 
 ### Operator error, recorded because the loop should prevent it
 
