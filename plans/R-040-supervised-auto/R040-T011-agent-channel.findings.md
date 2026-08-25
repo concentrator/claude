@@ -228,31 +228,36 @@ described by their symptom in a pane rather than by a log line.
       was rewritten and refused for a different reason. And a wider allowlist
       is not the fix, because a loop over an expanded variable has no stable
       pattern to grant.
-      What cleared the first dialog is not established from these reads: the
-      worker had moved to a new command by the next tick, and no operator here
-      touched the pane. Either way the loop supplies no resolver of its own -
-      `SendMessage` wakes an idle peer, and a session on a modal dialog is not
-      idle-waiting-for-a-message.
-      The third occurrence, ten minutes after the second, closed the loop
-      entirely: the dialog was raised **by a subagent** the worker had
-      dispatched, over a `git ls-files` probe assigned to a variable, refused
-      for `simple_expansion` again. The worker's own pane read "Waiting for 3
-      background agents to finish" - it had yielded its turn to the agents it
-      was waiting on, so it could not answer the dialog holding one of them.
-      Four halts in forty minutes, three of them for `simple_expansion`, and
-      the nested one is not merely unattended but unrecoverable by any agent in
-      the run. No commit landed across any of them.
-      The fourth then stopped the run outright. Ten minutes later both panes
-      read identically to the tick before: the same dialog on the worker, and
-      behind it a supervisor whose last turn had completed, idle at its prompt
-      waiting on the worker it cannot reach. Every earlier halt had cleared by
-      the next read; this one is the first the loop was observed to sit in. It
-      is not a claim about what would have happened over a longer wait - only
-      that two roles, one held and one waiting on the held one, is a stable
-      state with no exit inside the run.
+      The loop does have a resolver, and it is the supervisor. Its ledger
+      records thirty-three numbered prompts cleared by hand over the run, each
+      classified by kind - read-only greps over `dev/docs/`, verifier subagent
+      greps, `node` scratchpad executions against a declared `Bash(node *)` -
+      and each with a stated policy: take the one-shot option, never the
+      persistent one. Two sibling-repo offers of a standing read grant were
+      declined on exactly that ground and cleared one-shot instead, with a note
+      to surface it as a scope decision if it recurred. So a worker's dialog is
+      not outside the loop's reach; clearing it is routine supervisor work,
+      including the third occurrence here, which a subagent raised while the
+      worker sat on "Waiting for 3 background agents to finish" and could not
+      have answered anything.
+      What actually stops the run is mutual waiting. The fourth dialog arrived
+      after the supervisor's turn ended, so the worker was waiting on a dialog
+      only the supervisor clears while the supervisor was idle waiting on the
+      worker - and a held worker cannot send the message that would wake it.
+      The state held for hours across repeated reads, and the supervisor
+      auto-compacted inside it without resuming, because compaction does not
+      start a turn.
+      That makes the failure a liveness property of the pair rather than a
+      missing capability, and it changes the fix. Neither a constraint on probe
+      shape nor a wider Bash grant addresses it: both reduce how often dialogs
+      appear, and the deadlock needs only one to appear at the wrong moment.
+      What closes it is a wake path that does not depend on the held role
+      taking a turn.
       `R040-T014` owns the edit gate under `acceptEdits`; this is the same
-      assumption failing on the other tool, and needs either a constraint on
-      probe shape in the dispatch text or a declared Bash surface for workers.
+      assumption failing on the other tool, and would be helped by either a
+      constraint on probe shape in the dispatch text or a declared Bash surface
+      for workers - both of which lower the prompt rate without closing the
+      deadlock above.
       The subagent case narrows the options further: probe shape can be
       dispatched to a worker and cannot be dispatched to the agents that worker
       spawns, so a prompt-level constraint does not reach where the third halt
@@ -447,6 +452,24 @@ described by their symptom in a pane rather than by a log line.
       skipped on itself. A verified report and a relayed report are different
       objects, and a relayed claim about scope needs the same source check as
       a relayed claim about content.
+
+- [x] **The watcher diagnosed a halt from panes while the answer sat in a file
+      it had already been reading.** Across four ticks it reported that no role
+      in the loop could clear a worker's permission dialog, escalated for
+      authority to clear them itself, and wrote the claim into this file three
+      times. The supervisor's ledger, on disk and read by this same watcher
+      earlier in the run, was numbering those clears as it made them - thirty
+      three of them, with their classes and a standing policy on persistent
+      grants. The pane showed a dialog; it could not show who answers dialogs,
+      and the watcher inferred the second from the first.
+      The escalation was the expensive part. It asked the operator to grant a
+      permission the run did not need, four times, using time the operator was
+      spending on the wrong question. What the run needed was for someone to
+      notice that both roles were waiting on each other.
+      The general form is the one this file already states about panes and now
+      states about itself: a transport shows you a state, never the mechanism
+      that produces it. Where a durable artifact for that mechanism exists, it
+      outranks the pane, and here it existed, was known, and went unread.
 ### Throughput
 
 - [x] **First item 50 minutes, steady state about 10.** Three items closed in
