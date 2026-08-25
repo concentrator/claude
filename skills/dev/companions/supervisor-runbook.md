@@ -96,9 +96,14 @@ The supervisor cycles until the scope is delivered:
    (§ Remote Control); `tmux` keeps the session alive across a dropped
    tunnel.
 4. **Operator** briefs it in one message: the scope and its branch plan
-   path, the command that starts the worker, and the instruction to
-   print `ESCALATION:` and stop for anything design-level or for the
-   merge itself.
+   path, the command that starts the worker, and a pointer to
+   `companions/declarations.md § Supervisor bounds` for what it may
+   merge and what it must escalate. Cite that section, never restate it.
+   A briefing that summarises authority becomes a second source for it,
+   and the copy is what the supervisor obeys: this line once told
+   supervisors to escalate the merge itself, which the declaration
+   grants them, and every run briefed from it stopped one step short of
+   delivery.
 5. **Supervisor** starts the worker
    (`tmux new -d -s worker -c <project-dir> claude --permission-mode acceptEdits`),
    adopts it by name over `ListAgents`, and dispatches one line and

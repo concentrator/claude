@@ -127,6 +127,8 @@ settings() {
     printf '  - read %s\n' "$tpl"
     printf '  - substitute __PROJECT_DIR__=%s __HOME__=%s __ARTIFACTS_ROOT__=%s\n' \
       "${pd#/}" "${HOME#/}" "$root"
+    printf '  - grant read on %s, the projects root, since a doc cites the\n' "$(dirname "$pd")"
+    printf '    sibling repositories its subject calls into\n'
     printf '  - add the project toolchain rules from its CLAUDE.md and the push\n'
     printf '    carve-out: git push -u origin doc/* feat/* fix/* refactor/*\n'
     printf '    mnt/* test/* plan/* batch/* - batch-only stalls manual branches\n'
@@ -142,7 +144,9 @@ settings() {
 
   local base; base=$(sed -e "s|__PROJECT_DIR__|${pd#/}|g" -e "s|__HOME__|${HOME#/}|g" \
                          -e "s|__ARTIFACTS_ROOT__/|$root/|g" -e "s|__ARTIFACTS_ROOT__|$root|g" "$tpl")
-  printf '%s' "$base" | jq '.permissions.allow += [
+  printf '%s' "$base" | jq --arg siblings "//$(dirname "${pd#/}")/**" \
+    '.permissions.allow += [
+      "Read(" + $siblings + ")",
       "Bash(npm *)", "Bash(node *)", "Bash(npx *)", "Bash(glab *)", "Bash(gh *)",
       "Bash(git push -u origin batch/*)", "Bash(git push -u origin doc/*)",
       "Bash(git push -u origin feat/*)",  "Bash(git push -u origin fix/*)",

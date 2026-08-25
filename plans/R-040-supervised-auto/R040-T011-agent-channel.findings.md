@@ -493,6 +493,30 @@ described by their symptom in a pane rather than by a log line.
 
 ### Operator error, recorded because the loop should prevent it
 
+- [x] **A briefing that restated merge authority beat the declaration that
+      holds it, for the whole run.** `declarations.md § Supervisor bounds`
+      grants batch-scoped delivery the merge of a green batch or member MR/PR
+      whose checkpoint report verifies the task's acceptance criteria, and
+      attack-checker declares exactly that. T-083 is that class. Yet the
+      supervisor was briefed to print `ESCALATION:` and stop "for the merge
+      itself", so it never treated the merge as its own, and the watcher
+      repeated the same claim to the operator until the operator said for the
+      fifth time that the supervisor merges.
+      The source was `supervisor-runbook.md`'s Variant B briefing recipe,
+      which summarised authority in the step that composes the briefing rather
+      than citing the section that holds it - and summarised it wrong,
+      contradicting its own next step two lines later. Nobody read the
+      declaration, because a briefing arrives as an instruction and a
+      declaration has to be looked up: the copy is what the supervisor obeys.
+      That makes the fix structural rather than textual. Authority has one
+      home, and any document that helps compose a briefing must point at it
+      instead of paraphrasing it, since a paraphrase is a second source that
+      wins on arrival and drifts silently. The recipe now cites the section
+      and says why.
+      Cost: every supervised run briefed from that recipe stopped one step
+      short of delivery and handed a merge back to the operator the grant had
+      already covered.
+
 - [x] **The dispatch briefing restated merge authority and narrowed it.** The
       supervisor was told to escalate "anything design-level or the merge
       itself" while operating under a declaration granting green batch MRs.
@@ -671,8 +695,11 @@ described by their symptom in a pane rather than by a log line.
       a new opt-in dialog is a headless startup hang.
 - [ ] Provisioning sets `git config --global user.name/user.email` from `.env`,
       documented in `.env.example`.
-- [ ] The project's permission list grants reading the declared sibling
-      repository. The need is structural rather than incidental: a verifier
+- [x] The project's permission list grants reading the declared sibling
+      repository. Done: `worker-workspace.sh settings` now grants read on the
+      projects root, the parent of the project directory, because that is
+      where provisioning puts sibling repositories and it needs no per-project
+      list. The need is structural rather than incidental: a verifier
       settled a claim in `validate-hit.md` only from `../wallarm-api-js`,
       because the doc's subject calls into it. Five persistent-scope offers
       were declined and cleared one-shot instead, which is the right answer to
@@ -685,4 +712,5 @@ described by their symptom in a pane rather than by a log line.
       A verifier charter that asks for exhaustive negative searches therefore
       buys false negatives that read as proof of absence, and the discrimination
       rule already in that file is the one this violates.
-- [ ] The briefing recipe cites the declaration rather than summarising it.
+- [x] The briefing recipe cites the declaration rather than summarising it.
+      Done, and the merge-authority entry above is why it mattered.
