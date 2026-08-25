@@ -250,3 +250,6 @@ Initiative index. Items: `R-001: description`; each entry owns
       directories and refs are legacy: frozen, valid, never renamed.
       The two id-parsing gates accept both shapes; the rule's one home
       is `plan.md § ID format`.
+- [ ] R062: Headroom in plan.md - `skills/dev/plan.md` sits at the
+      1500-word cap; the next rule added there needs a companion file
+      or a split. Stub, to be shaped.
