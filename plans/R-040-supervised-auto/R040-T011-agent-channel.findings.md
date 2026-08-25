@@ -490,6 +490,22 @@ described by their symptom in a pane rather than by a log line.
       survived the correction unchanged, which is the part worth keeping: the
       error was in the one channel a reader is most likely to follow to source,
       inside the artifact arguing for the change.
+      By the run's end the count reached twenty-four instances, four of them
+      the minority case, and the conclusion the pair drew from it is the part
+      worth carrying. These are two parties whose entire subject was this
+      defect, both able to define it, several of them committing an instance
+      within minutes of naming it. So the remedy cannot be vigilance. Of the
+      near-misses that were genuinely saved, each was saved by running a
+      query, by declining to conclude, or by a constraint that stopped an
+      action before it completed - not once by attention. That is an argument
+      for mechanism in `verification-policy.md` rather than another rule
+      telling a reader to be careful, and it is evidenced rather than
+      asserted, which is the standard the same finding demands.
+      The worker then supplied the pattern in working form on T-084: handed a
+      plausible defect in negated scalar filter values, it scanned all
+      twenty-one shipped filter files, found zero, and wrote the claim up as
+      theoretical rather than as a bug. The mechanism is one query standing
+      between a plausible claim and a committed one.
 
 ### Operator error, recorded because the loop should prevent it
 
