@@ -12,7 +12,7 @@ composite (`R061-T###`, counter scoped to this initiative).
   `check-batch-tags.sh` judges `batch/R<NNN>-B<NNN>` and
   `pre-R<NNN>-B<NNN>` beside `R<NNN>-B-XXX`; both test scripts gain
   new-shape and mixed-tree fixtures.
-- [ ] **R061-T002 [doc]**: state the unified shape - rewrite
+- [x] **R061-T002 [doc]**: state the unified shape - rewrite
   `plan.md § ID format` as the one home (new shape, legacy shapes
   frozen), then respell every example and placeholder in the files
   listed in `requirements.md § Scope` so no tracked file outside

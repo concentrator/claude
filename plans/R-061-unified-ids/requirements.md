@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-25
 kind: refactor
+status: done 2026-08-26
 ---
 
 # R-061: Unified plan ids
@@ -70,22 +71,27 @@ them.
 
 ## Acceptance criteria
 
-- [ ] `plan.md § ID format` states the one shape above and names every
+- [x] `plan.md § ID format` states the one shape above and names every
       legacy shape (`R-NNN`, `T-NNN`, `B-NNN`, `R<NNN>-B-NNN`) as frozen.
-- [ ] No tracked file outside `plans/` shows a legacy shape except where
+      Evidence: the section, commit "State the unified id shape in plan.md".
+- [x] No tracked file outside `plans/` shows a legacy shape except where
       it is labelled legacy: `grep -rnE 'R-XXX|R-<NNN>|B-XXX|B-<NNN>'`
       over `git ls-files` minus `plans/` returns only lines containing
-      `legacy`.
-- [ ] `check-plan-integrity.sh` resolves an initiative written `R062`
+      `legacy`. Evidence: the grep returns zero unlabelled lines on the
+      `doc/id-shape-docs` branch (close review, R061-T002).
+- [x] `check-plan-integrity.sh` resolves an initiative written `R062`
       in `ROADMAP.md` to a directory `plans/R062-<slug>/`, reads
       `R062-T001` task ids under it, and still passes on the current
       tree; `scripts/test/check-plan-integrity.test.sh` covers a
-      new-shape fixture and a mixed tree.
-- [ ] `check-batch-tags.sh` judges `batch/R062-B001` and `pre-R062-B001`
+      new-shape fixture and a mixed tree. Evidence: test cases 18-23,
+      PR "Teach the id gates the unified shape" (R061-T001).
+- [x] `check-batch-tags.sh` judges `batch/R062-B001` and `pre-R062-B001`
       against `plans/R062-<slug>/batches/R062-B001.report.md`, and
       still judges the legacy `R<NNN>-B-XXX` refs;
-      `scripts/test/check-batch-tags.test.sh` covers both.
-- [ ] `bash scripts/ci/run-all.sh` is green.
+      `scripts/test/check-batch-tags.test.sh` covers both. Evidence:
+      test cases 17-22, same PR.
+- [x] `bash scripts/ci/run-all.sh` is green. Evidence: exit 0 on every
+      commit of both branches; CI `tier1` on both PRs.
 
 ## Constraints
 
