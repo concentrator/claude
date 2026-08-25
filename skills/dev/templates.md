@@ -116,7 +116,9 @@ confirms dropping them.
 
 Created by `/dev plan milestone <id>` for a milestone spanning several
 initiatives (rules: `plan.md § Milestone plans`). Every entry is an
-existing task id; waves follow the tasks' `depends-on` edges.
+existing task id; waves follow the tasks' `depends-on` edges. Once
+every entry is `[x]`, the same command offers the file for
+`plans/archive/` (`plan.md § Archival`).
 
 ```
 # Milestone <id>

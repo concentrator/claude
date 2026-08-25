@@ -8,7 +8,7 @@ Branch `feat/milestone-archive`. Prose only; `plan.md` sits at the
 current archival clause instead of adding a sentence. Gate:
 `bash scripts/ci/run-all.sh`.
 
-- [ ] `plan.md § Archival`: the clause "milestone plans when the
+- [x] `plan.md § Archival`: the clause "milestone plans when the
       milestone completes" becomes the owned trigger - `/dev plan
       milestone <id>` offers the file for `plans/archive/` once every
       entry's task is `[x]`, as `release` does for the release plan

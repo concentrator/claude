@@ -212,9 +212,9 @@ if it needs a fact from there, promotion missed it; move the fact.
 pointers, not operative content.)
 
 Also archived, at the user's option: release plans after the release
-ships (offered by the `release` skill), milestone plans when the
-milestone completes, and pre-DEV legacy artifacts
-(completed plan files with no `task:` chain). Legacy `REQ-XXX` content:
+ships (offered by the `release` skill), milestone plans with every
+entry `[x]` (offered by `/dev plan milestone <id>`), and pre-DEV
+legacy artifacts. Legacy `REQ-XXX` content:
 folded into foundational `REQUIREMENTS.md`, files removed (§ ID format).
 
 ## Templates
