@@ -1,14 +1,14 @@
 # Batch report template
 
-Written by the checkpoint to `plans/R-XXX-<slug>/batches/B-XXX.report.md`
+Written by the checkpoint to `plans/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.report.md`
 (timing + no-report-no-accept: `auto.md § Checkpoint`). Fill every
 section; write "none" rather than omitting one - an empty heading reads
 as a skipped step.
 
 ```markdown
-# B-XXX report - <one-line batch theme>
+# R<NNN>-B<NNN> report - <one-line batch theme>
 
-batch-branch: batch/R<NNN>-B-XXX
+batch-branch: batch/R<NNN>-B<NNN>
 base: <default branch>@<sha at pre-flight>
 state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
 
@@ -64,7 +64,7 @@ previously verified">
 ## Prompt friction
 
 <summary of this batch's permission_prompts.jsonl entries (those whose
-`batch` field matches this run's `pre-R<NNN>-B-XXX` tag) grouped by
+`batch` field matches this run's `pre-R<NNN>-B<NNN>` tag) grouped by
 root cause, with proposed rail/allowlist fixes; or "log empty - zero
 prompts". The
 log is gitignored scratch - never truncated by the agent.>

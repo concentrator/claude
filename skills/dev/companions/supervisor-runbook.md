@@ -40,7 +40,7 @@ machine back, or when the host is provisioned for it
       v
  +-------------------------------------------------+
  |  WORKER                          accept-edits    |
- |  /dev code <slug>   or   /dev auto B-XXX         |
+ |  /dev code <slug>   or   /dev auto R<NNN>-B<NNN>         |
  +-------------------------------------------------+
       |
       v
@@ -80,7 +80,7 @@ The supervisor cycles until the scope is delivered:
    Adopt before dispatch (`supervise.md § Dispatch`): never run two
    workers on one project.
 4. **Supervisor** dispatches with `SendMessage`, ids only: `/dev code
-   <slug>` for a manual task, `/dev auto B-XXX` for a batch.
+   <slug>` for a manual task, `/dev auto R<NNN>-B<NNN>` for a batch.
 5. **Supervisor** follows to checkpoint with status pings. The operator
    is at the keyboard, so the worker's permission prompts are theirs to
    clear.

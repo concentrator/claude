@@ -16,7 +16,7 @@ the one a command maps to before acting.**
 | `/dev` | - | Route by state (ask if ambiguous) |
 | `/dev plan [<target>]` | per target table below | Planning (plan MR/PRs) |
 | `/dev code [<slug>]` | `branch-plan.md` | Manual execution on a branch - rules below |
-| `/dev auto [B-XXX]` | `auto.md` | Run an approved batch via subagents (no arg → first open); unattended until checkpoint or halt |
+| `/dev auto [R<NNN>-B<NNN>]` | `auto.md` | Run an approved batch via subagents (no arg → first open); unattended until checkpoint or halt |
 | `/dev supervise [project] [scope]` | `supervise.md` | Supervise scoped delivery: dispatch, verify, merge within declared bounds |
 | `/dev release` | `release.md` | Finalize + tag the release (project `release` override or this companion) |
 | `/dev migrate` | `migrate.md` | Adopt an existing project into DEV: inventory, then route |
@@ -28,15 +28,15 @@ the one a command maps to before acting.**
 | Target | Action | Read |
 |---|---|---|
 | `R` | Shape a new initiative (requirements + draft tasks, one gate) | `brainstorm.md` |
-| `R-XXX` | Detail an open initiative (tasks + branch plans) | `plan.md` |
+| `R<NNN>` | Detail an open initiative (tasks + branch plans) | `plan.md` |
 | `<task-id>` / `all` | Branch plan(s) for open task(s) | `write-plan.md` |
-| `batch` | Compose `B-XXX.md`; readiness review + `agentic:` stamps | `branch-plan.md` |
+| `batch` | Compose `R<NNN>-B<NNN>.md`; readiness review + `agentic:` stamps | `branch-plan.md` |
 | `milestone <id>` | Milestone plan (cross-initiative order) | `plan.md` |
 | `<slug>` | Adjust an existing branch plan | `branch-plan.md` |
 | `release` | Release plan (next semver) | `release.md` |
 | (bare) | Ask | - |
 
-Two rounds - shape (`R`) then detail (`R-XXX`); round-gate rules in
+Two rounds - shape (`R`) then detail (`R<NNN>`); round-gate rules in
 `plan.md § Planning rounds`.
 
 ## `/dev code [<slug>]`

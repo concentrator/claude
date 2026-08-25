@@ -20,7 +20,7 @@ Inventory, then report - touching nothing:
 
 - **Move set** - the `.claude/`-resident artifact trees, listed per
   top-level entry: `.claude/plans/` → `<root>/plans/` (ROADMAP.md,
-  release plans, `R-XXX-<slug>/` dirs, `archive/`,
+  release plans, `R<NNN>-<slug>/` dirs, `archive/`,
   `visual-artifacts/`) and `.claude/docs/` → `<root>/docs/` (feature
   docs + `index.md`). Config stays under `.claude/`: `REQUIREMENTS.md`,
   `DESIGN.md`, `MAINTENANCE.md`, `settings*.json`, `skills/`,

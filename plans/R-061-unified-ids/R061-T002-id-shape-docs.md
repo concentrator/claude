@@ -22,7 +22,7 @@ replaces the three per-level bullets rather than adding to them. Gate:
       § Trunk` (batch prefix form), `write-plan.md`, `templates.md`,
       `layout.md` tree - examples respelled, legacy mentions labelled
       `legacy`.
-- [ ] Remaining `skills/dev/` files and `companions/` naming a shape
+- [x] Remaining `skills/dev/` files and `companions/` naming a shape
       (`brainstorm.md`, `auto.md`, `supervise.md`, `finish.md`,
       `migrate.md`, `SKILL.md` router rows, `legacy-migration.md`,
       `report-template.md`, `root-migration.md`, `supervisor-runbook.md`,

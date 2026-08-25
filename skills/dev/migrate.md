@@ -84,7 +84,7 @@ contributors.
 ## 6. Backfill plans
 
 Create `<root>/plans/` with `ROADMAP.md` (per-R `tasks.md`, created
-lazily). Ask about ongoing work → initiatives (R-XXX) and open tasks
+lazily). Ask about ongoing work → initiatives (R<NNN>) and open tasks
 (composite ids, `plan.md § ID format`) in their R's `tasks.md`.
 Known bugs or tech debt → R stubs per `plan.md
 § Referential integrity`.
