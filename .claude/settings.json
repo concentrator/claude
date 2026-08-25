@@ -3,6 +3,7 @@
   "fallbackModel": [
     "claude-opus-5[1m]"
   ],
+  "autoCompactWindow": 300000,
   "permissions": {
     "allow": [
       "Bash(bash scripts/ci/run-all.sh)",
