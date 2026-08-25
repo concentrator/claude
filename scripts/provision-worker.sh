@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 # provision-worker.sh - stand up a Claude Code worker host (R040-T010).
 #
-# Usage:
-#   provision-worker.sh preflight     verify the operator's gcloud is usable
-#
-# Two execution contexts: `preflight` and `deploy` run on the operator's
-# machine under their gcloud credentials; the provisioning subcommands run on
-# the VM, which never needs gcloud. A subcommand states which it expects.
+# Every subcommand here runs on the OPERATOR's machine, under their gcloud and
+# forge credentials; the VM-side counterparts are the three worker-*.sh scripts,
+# which `push-scripts` puts on the host. Subcommand list: main() at the foot.
 set -uo pipefail
+
+# keys-install and its forge helpers live beside this file (one home), sourced
+# rather than duplicated so both halves judge a key the same way.
+. "$(dirname "${BASH_SOURCE[0]}")/forge-keys.sh" \
+  || { echo "provision-worker: cannot load forge-keys.sh" >&2; exit 1; }
 
 # Standard SDK roots, colon-separated. Overridable so tests can inject a fake
 # root without a real install.
@@ -93,7 +95,7 @@ deploy() {
   "$g" "${args[@]}" || return 1
 }
 
-# Runs on the OPERATOR's machine. Order is the whole point: the IAP allow is
+# Order is the whole point: the IAP allow is
 # created and proven before the deny exists, and it outranks the deny by
 # priority number, because in GCP the lower number wins. The shared
 # default-allow-ssh is never touched - it carries 0.0.0.0/0 with no target
@@ -130,6 +132,52 @@ firewall() {
   printf 'firewall: public SSH denied, IAP still verified\n'
 }
 
+# The three VM-side scripts have to be on the host before any of them can run,
+# and the config repo that is their permanent home is cloned much later in the
+# order - by worker-workspace.sh, one of the three. Staged into a directory of
+# their own rather than $HOME, so a bootstrap copy is never mistaken for the
+# repo's; config-clone removes it once the repo lands.
+push_scripts() {
+  local dry=0
+  [ "${1:-}" = "--dry-run" ] && dry=1
+  local g; g=$(resolve_gcloud) || return 1
+  local name="${WORKER_NAME:-claude-worker}"
+  local dest="${WORKER_BOOTSTRAP_DIR:-.worker-bootstrap}"
+  local dir; dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd) || return 1
+
+  # Resolve the whole set before copying any of it. A partial set strands
+  # provisioning midway with nothing to say which script never arrived.
+  local files=() f
+  for f in worker-setup.sh worker-credentials.sh worker-workspace.sh; do
+    [ -f "$dir/$f" ] || {
+      printf 'push-scripts: %s missing from %s - nothing staged\n' "$f" "$dir" >&2; return 1; }
+    files+=("$dir/$f")
+  done
+
+  local common=( --zone="${WORKER_ZONE:-europe-west2-a}"
+    --project="${WORKER_PROJECT:-poc-cloud-nodes}" --tunnel-through-iap --quiet )
+
+  if [ "$dry" -eq 1 ]; then
+    printf 'push-scripts would copy to %s:~/%s/\n' "$name" "$dest"
+    printf '  - %s\n' "${files[@]}"
+    printf 'then make each executable there and check it parses\n'
+    return 0
+  fi
+
+  "$g" compute ssh "$name" "${common[@]}" --command="mkdir -p ~/$dest" || return 1
+  "$g" compute scp "${common[@]}" "${files[@]}" "$name:~/$dest/" || return 1
+
+  # Arrival is not usability. A file that lost its executable bit in transit, or
+  # that a truncated copy left unparseable, fails at the next provisioning step
+  # instead of this one, where the cause is still obvious.
+  "$g" compute ssh "$name" "${common[@]}" \
+    --command="chmod +x ~/$dest/*.sh && for f in ~/$dest/*.sh; do [ -x \"\$f\" ] && bash -n \"\$f\" || exit 1; done" \
+    || { printf 'push-scripts: staged scripts are not usable on %s\n' "$name" >&2; return 1; }
+
+  printf 'push-scripts: staged in ~/%s on %s:%s\n' "$dest" "$name" \
+    "$(printf ' %s' "${files[@]##*/}")"
+}
+
 # One trivial command over the tunnel. First connections can fail while the
 # key propagates, so a single failure is not a verdict.
 verify_iap() {
@@ -147,8 +195,10 @@ main() {
   case "${1:-}" in
     preflight) preflight ;;
     deploy)    shift; deploy "$@" ;;
+    push-scripts) shift; push_scripts "$@" ;;
     firewall)  shift; firewall "$@" ;;
-    *) printf 'usage: provision-worker.sh preflight | deploy | firewall [--dry-run]\n' >&2; return 2 ;;
+    keys-install) shift; keys_install "$@" ;;
+    *) printf 'usage: provision-worker.sh preflight | deploy | push-scripts | firewall | keys-install [--dry-run]\n' >&2; return 2 ;;
   esac
 }
 

@@ -33,10 +33,10 @@ they are taken into account.
       correct home. It carries `bypassImmune: true`, so it holds even under
       `bypassPermissions` - which is what makes opening a hardened host to a
       cross-machine channel defensible rather than merely convenient.
-- [ ] Leave `autoUploadSessions` unset, and say so where the setting is described.
+- [x] Leave `autoUploadSessions` unset, and say so where the setting is described.
       It mirrors sessions to claude.ai view-only, is not required for Remote
       Control, and is the one setting here with a data-egress consequence.
-- [ ] Settle the operator end, which is the only remaining blocker for
+- [x] Settle the operator end, which is the only remaining blocker for
       cross-machine messaging: a remote-controlled session on the host does not
       appear in the operator's `ListAgents` unless the operator's own session is
       connected too. This is a change to the operator's session exposure and
@@ -44,30 +44,60 @@ they are taken into account.
       set. Note the fallback in the same place: an enabled session prints its own
       `https://claude.ai/code/session_...` URL, so browser and phone control work
       whether or not peer messaging is wired.
-- [ ] Add `companions/supervisor-runbook.md`, the pilot's operating recipes: the
+- [x] Add `companions/supervisor-runbook.md`, the pilot's operating recipes: the
       per-variant mode and channel table, driving over tmux, reading panes,
       answering permission prompts.
-- [ ] Reconcile `supervise.md` with what the pilot ran: correct the headless-dispatch
+- [x] Reconcile `supervise.md` with what the pilot ran: correct the headless-dispatch
       claim (a headless worker cannot edit protected `.claude/` paths or answer a
       prompt, so a blocked one is dead; both delivered runs were interactive) and
       the prompt-free claim (Bash allow rules match a command prefix, so a compound
       command escalates under any allowlist); point both passages at the runbook,
       and stop restating the merge classes - their one home is
       `declarations.md § Supervisor bounds`.
-- [ ] Replace the tmux driving idioms in `companions/supervisor-runbook.md` for the
+- [x] Replace the tmux driving idioms in `companions/supervisor-runbook.md` for the
       co-located case, and correct the claim - carried in the runbook, in this
       plan's first draft, and in `supervise.md` - that supervisor-to-worker must
       stay on keystrokes because a session only acts when handed a turn. It does
       not. Keep the tmux recipes for reading a pane and for answering a permission
       prompt, which no message can do.
-- [ ] Record the instrument, because two obvious ones lie. `claude daemon status`
+- [x] Record the instrument, because two obvious ones lie. `claude daemon status`
       reports "not running" while the bridge is active, and the `/remote-control`
       line in the splash is a rotating tip present in neither arm of a comparison.
       The reliable marker is `/rc active` in the footer, and it was only found by
       starting a known-positive session first.
-- [ ] Add to `skills/worker-host/companions/pitfalls.md`: a fresh directory blocks
+- [x] Add to `skills/worker-host/companions/pitfalls.md`: a fresh directory blocks
       session startup on the trust dialog, which stalled the positive control in
       this task's own measurements until it was answered.
+- [x] Add the `GITLAB_HOST` pitfall to `skills/worker-host/companions/pitfalls.md`:
+      bare `glab` calls target gitlab.com regardless of which host
+      `glab auth status` reports logged in, so a valid token reads as
+      "Unauthenticated" - this branch's own key rotation hit it. Every scripted
+      call pins `GITLAB_HOST`.
+- [x] Extend `scripts/provision-worker.sh` with a `keys-install` subcommand:
+      read both public keys from the VM over IAP, install each on its forge
+      through the CLI's API, and retire stale `claude-worker` keys - a key left
+      by a previous host is standing access for a machine that no longer
+      exists, and nothing else removes it. Operator-side, `--dry-run`,
+      idempotent, TDD; the skill table, `companions/provisioning.md` step 5 and
+      the operator-only list follow.
+- [x] Add a tracked `.env.example`, which the config clone carries onto the host,
+      so the one file the operator must write by hand is a copy-and-fill rather
+      than a recall of which variables exist and what each token must be scoped
+      for. The repo's own baseline requires it of any project using env vars
+      (`skills/dev/layout.md`), and this one has been the exception.
+- [x] Add a `push-scripts` subcommand to `scripts/provision-worker.sh`: stage the
+      three VM-side scripts on the host over IAP, make them executable, and prove
+      each parses there. This was the one provisioning step nothing automated -
+      the scripts reached the pilot host by hand, and `companions/provisioning.md`
+      began calling them as if they were already present. They stage into
+      `~/.worker-bootstrap` rather than `$HOME`, and `config-clone` retires that
+      directory once `~/.claude/scripts/` supersedes it. TDD; the skill table and
+      the provisioning order follow.
+- [x] Fix `forge-cli --dry-run` reporting a token that the real run then finds
+      blank: the dry run tested for the variable's name, the run itself for a
+      value. The tracked `.env.example` above is what makes this reachable, since
+      it ships both names empty for the operator to fill; found on the live host,
+      where the dry run said `GITHUB_TOKEN=yes` and the run skipped `gh`.
 - [ ] Complete the branch: gates green, mark this plan's checkboxes, and route what
       the build turns up. Closure is checkbox-only; R040-T011 does not close R-040.
 

@@ -23,9 +23,23 @@ Each of these cost a debugging round on a real host.
   lives outside the project and arrives with neither the clone nor the
   settings.
 
+- **`glab` takes its host from the current directory.** `glab api` and
+  `glab ssh-key` use the authenticated host of the git repo they run in
+  and fall back to gitlab.com everywhere else - including inside a GitHub
+  checkout. A `gl.wallarm.com` token sent to gitlab.com answers
+  "Unauthenticated", which reads as a token-scope problem and is not one.
+  Pin the host on every scripted call:
+  `GITLAB_HOST=gl.wallarm.com glab api user/keys`.
+
 - **Sibling repositories are not optional.** `attack-checker` depends on
   `file:../wallarm-api-js`, so `npm ci` fails outright unless both sit
   adjacent under `/opt/wallarm`.
+
+- **A fresh directory blocks session startup on the trust dialog.** A
+  session started in a directory Claude has not seen waits on the trust
+  question before the prompt appears, which reads as a hang when nobody
+  is at the keyboard. `settings` marks the provisioned paths trusted;
+  a session started anywhere else answers the dialog first.
 
 - **The auto-mode setup dialog blocks a session it appears over.** A fresh
   auto-mode session offers to scan the repo, recent sessions, shell

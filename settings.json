@@ -116,5 +116,6 @@
   "includeCoAuthoredBy": false,
   "autoCompactWindow": 200000,
   "switchModelsOnFlag": true,
-  "remoteControlAtStartup": false
+  "remoteControlAtStartup": false,
+  "isolatePeerMachines": true
 }

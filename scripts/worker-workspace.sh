@@ -25,6 +25,8 @@ config_clone() {
     printf '  - restore core.hooksPath=.githooks, which clone never carries\n'
     printf '  - prove the pre-push hook actually fires, rather than assuming it\n'
     printf '  - leave .credentials.json and other ignored state in place\n'
+    printf '  - retire ~/%s, the bootstrap staging dir this checkout supersedes\n' \
+      "${WORKER_BOOTSTRAP_DIR:-.worker-bootstrap}"
     return 0
   fi
 
@@ -50,6 +52,14 @@ config_clone() {
   local hp; hp=$(git -C "$d" config --get core.hooksPath)
   [ "$hp" = ".githooks" ] || { printf 'config-clone: hooksPath not set\n' >&2; return 1; }
   [ -x "$d/.githooks/pre-push" ] || { printf 'config-clone: pre-push hook missing or not executable\n' >&2; return 1; }
+
+  # scripts/ is now the VM-side scripts' home, so the copies provision-worker.sh
+  # push-scripts staged to bootstrap this host are superseded, and a second copy
+  # is one an operator can edit or run by mistake. Removed only once every check
+  # above has passed, and safe even though this script is running from there:
+  # the kernel keeps the open file alive until it exits.
+  rm -rf "$HOME/${WORKER_BOOTSTRAP_DIR:-.worker-bootstrap}"
+
   printf 'config-clone: %s at %s, hooksPath=%s, pre-push present\n' \
     "$d" "$(git -C "$d" rev-parse --short HEAD)" "$hp"
 }
@@ -117,6 +127,8 @@ settings() {
     printf '  - read %s\n' "$tpl"
     printf '  - substitute __PROJECT_DIR__=%s __HOME__=%s __ARTIFACTS_ROOT__=%s\n' \
       "${pd#/}" "${HOME#/}" "$root"
+    printf '  - grant read on %s, the projects root, since a doc cites the\n' "$(dirname "$pd")"
+    printf '    sibling repositories its subject calls into\n'
     printf '  - add the project toolchain rules from its CLAUDE.md and the push\n'
     printf '    carve-out: git push -u origin doc/* feat/* fix/* refactor/*\n'
     printf '    mnt/* test/* plan/* batch/* - batch-only stalls manual branches\n'
@@ -132,7 +144,9 @@ settings() {
 
   local base; base=$(sed -e "s|__PROJECT_DIR__|${pd#/}|g" -e "s|__HOME__|${HOME#/}|g" \
                          -e "s|__ARTIFACTS_ROOT__/|$root/|g" -e "s|__ARTIFACTS_ROOT__|$root|g" "$tpl")
-  printf '%s' "$base" | jq '.permissions.allow += [
+  printf '%s' "$base" | jq --arg siblings "//$(dirname "${pd#/}")/**" \
+    '.permissions.allow += [
+      "Read(" + $siblings + ")",
       "Bash(npm *)", "Bash(node *)", "Bash(npx *)", "Bash(glab *)", "Bash(gh *)",
       "Bash(git push -u origin batch/*)", "Bash(git push -u origin doc/*)",
       "Bash(git push -u origin feat/*)",  "Bash(git push -u origin fix/*)",

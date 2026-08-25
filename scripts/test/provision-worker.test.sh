@@ -20,10 +20,8 @@ for f in /usr/bin/* /bin/*; do
 done
 trap 'rm -rf "$HERMETIC"' EXIT
 SCRIPT="$(git rev-parse --show-toplevel)/scripts/provision-worker.sh"
-# VM-side subcommands live in the counterpart script, split by execution context.
-VMSCRIPT="$(git rev-parse --show-toplevel)/scripts/worker-setup.sh"
-# $HOME-level subcommands live in the workspace script; system-level in VMSCRIPT.
-WSSCRIPT="$(git rev-parse --show-toplevel)/scripts/worker-workspace.sh"
+# VM-side subcommands live in the counterpart scripts, each with its own suite:
+# worker-setup.test.sh for system-level, worker-workspace.test.sh for $HOME.
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
@@ -100,7 +98,11 @@ mkrecorder() {
 printf '%s\n' "\$*" >> "$d/calls"
 exit 0
 EOF
-  chmod +x "$d/bin/gcloud"; printf '%s' "$d"
+  chmod +x "$d/bin/gcloud"
+  # An empty log rather than none, so a case asserting "nothing ran" reads a
+  # real file instead of passing on a missing one.
+  : > "$d/calls"
+  printf '%s' "$d"
 }
 
 deploy() { env PATH="$HERMETIC" "$@" bash "$SCRIPT" deploy --dry-run 2>&1; }
@@ -138,68 +140,9 @@ grep -qF -- "--zone=europe-west2-c" <<<"$out" && grep -qF -- " w2 " <<<" $out " 
   && pass "overrides win over defaults" || die "overrides ignored: $out"
 rm -rf "$r"
 
-# --- baseline: host preparation, composed on the VM --------------------------
+# --- firewall: the rules that must not lock us out ---------------------------
 
-baseline() { env PATH="$HERMETIC" "$@" bash "$VMSCRIPT" baseline --dry-run 2>&1; }
-
-# 10. dry run names every package and change the host needs
-out=$(baseline)
-miss=""
-for f in "nodejs" "jq" "tmux" "git" "swapfile" "timedatectl" "/opt/wallarm"; do
-  grep -qF -- "$f" <<<"$out" || miss="$miss $f"
-done
-[ -z "$miss" ] && pass "baseline dry run names each change" || die "baseline missing:$miss"
-
-# 11. Node comes from NodeSource, not the distro - trixie ships one older than
-#     the >=22 the projects require
-grep -qi 'nodesource' <<<"$out" && pass "node installs from NodeSource" \
-  || die "no NodeSource in baseline: $out"
-
-# 12. dry run mutates nothing
-r=$(mktemp -d); mkdir -p "$r/bin"
-cat > "$r/bin/apt-get" <<EOF
-#!/usr/bin/env bash
-printf '%s\\n' "\$*" >> "$r/calls"
-EOF
-chmod +x "$r/bin/apt-get"
-env PATH="$r/bin:$HERMETIC" bash "$VMSCRIPT" baseline --dry-run >/dev/null 2>&1
-[ ! -s "$r/calls" ] && pass "baseline dry run installs nothing" \
-  || die "baseline dry run called apt: $(cat "$r/calls")"
-rm -rf "$r"
-
-# 13. swap tracks memory but is capped - it is OOM insurance for ~1 GB
-#     sessions, not hibernation space, and an uncapped rule ate 16 GB of a
-#     30 GB disk on the real host
-mi=$(mktemp)
-printf 'MemTotal:        2097152 kB\n' > "$mi"; small=$(baseline WORKER_MEMINFO="$mi")
-printf 'MemTotal:       16777216 kB\n' > "$mi"; large=$(baseline WORKER_MEMINFO="$mi")
-grep -q '2048 MB' <<<"$small" && pass "swap tracks memory below the cap" \
-  || die "small host swap wrong: $(grep -o '[0-9]* MB' <<<"$small")"
-grep -q '4096 MB' <<<"$large" && pass "swap is capped on a large host" \
-  || die "large host swap uncapped: $(grep -o '[0-9]* MB' <<<"$large")"
-rm -f "$mi"
-
-# --- harden: host surface, and the firewall that must not lock us out -------
-
-harden()   { env PATH="$HERMETIC" "$@" bash "$VMSCRIPT" harden --dry-run 2>&1; }
 firewall() { env PATH="$HERMETIC" "$@" bash "$SCRIPT" firewall --dry-run 2>&1; }
-
-# 14. harden names each surface the inventory actually found on the host
-out=$(harden)
-miss=""
-for f in "exim4" "5355" "PasswordAuthentication no" "PermitRootLogin no" \
-         "nftables" "unattended-upgrades"; do
-  grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
-done
-[ -z "$miss" ] && pass "harden names each found surface" || die "harden missing:$miss"
-
-# 15. harden dry run mutates nothing
-r=$(mktemp -d); mkdir -p "$r/bin"
-printf '#!/usr/bin/env bash\nprintf "%%s\\n" "$*" >> %s/calls\n' "$r" > "$r/bin/apt-get"
-chmod +x "$r/bin/apt-get"
-env PATH="$r/bin:$HERMETIC" bash "$VMSCRIPT" harden --dry-run >/dev/null 2>&1
-[ ! -s "$r/calls" ] && pass "harden dry run changes nothing" || die "harden dry run ran apt"
-rm -rf "$r"
 
 # 16. firewall composes a tagged allow and a tagged deny, never touching the
 #     shared default-allow-ssh other instances in the project depend on
@@ -224,22 +167,68 @@ deny_p=$(grep -o 'priority=[0-9]*' <<<"$out" | tail -1 | cut -d= -f2)
   || die "firewall dry run called gcloud: $(cat "$r/calls")"
 rm -rf "$r"
 
-# --- claude install: the SSO handoff and the PATH trap ----------------------
+# --- push-scripts: getting the VM-side scripts onto a bare host --------------
 
-cc() { env PATH="$HERMETIC" "$@" bash "$VMSCRIPT" claude-install --dry-run 2>&1; }
+push() { env PATH="$HERMETIC" WORKER_SDK_ROOTS="$1" bash "$SCRIPT" push-scripts 2>&1; }
 
-# 27. claude install verifies from a non-interactive shell, the context that
-#     caught gcloud out
-out=$(cc)
-grep -qiF 'non-interactive' <<<"$out" && grep -qF 'claude --version' <<<"$out" \
-  && pass "claude verified non-interactively" || die "claude verify weak: $out"
-
-# 28. the dry run installs nothing
-r=$(mktemp -d); mkdir -p "$r/bin"
-printf '#!/usr/bin/env bash\nprintf "%%s\\n" "$*" >> %s/calls\n' "$r" > "$r/bin/apt-get"
-chmod +x "$r/bin/apt-get"
-env PATH="$r/bin:$HERMETIC" bash "$VMSCRIPT" claude-install --dry-run >/dev/null 2>&1
-[ ! -s "$r/calls" ] && pass "install dry runs change nothing" || die "dry run ran apt"
+# 37. the dry run names every script it would stage and where, and copies
+#     nothing. All three are needed: steps 3 to 7 all run on the VM before the
+#     config repo that is their permanent home has been cloned.
+r=$(mkrecorder)
+out=$(env PATH="$HERMETIC" WORKER_SDK_ROOTS="$r" bash "$SCRIPT" push-scripts --dry-run 2>&1)
+miss=""
+for f in "worker-setup.sh" "worker-credentials.sh" "worker-workspace.sh" \
+         ".worker-bootstrap" "claude-worker"; do
+  grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
+done
+[ -z "$miss" ] && pass "push-scripts dry run names what it would stage" \
+  || die "push-scripts dry run missing:$miss"
+[ ! -s "$r/calls" ] && pass "push-scripts dry run copies nothing" \
+  || die "push-scripts dry run called gcloud: $(cat "$r/calls")"
 rm -rf "$r"
+
+# 38. a real run copies all three and makes them executable there. Presence is
+#     not usability: a file arriving without its executable bit fails at the
+#     next step instead of this one.
+r=$(mkrecorder)
+out=$(push "$r")
+grep -q 'compute scp' "$r/calls" || die "push-scripts copied nothing: $(cat "$r/calls")"
+miss=""
+for f in worker-setup.sh worker-credentials.sh worker-workspace.sh; do
+  grep -q "scp.*$f" "$r/calls" || miss="$miss [$f]"
+done
+[ -z "$miss" ] && pass "push-scripts stages all three scripts" || die "not staged:$miss"
+grep -q 'chmod +x' "$r/calls" && pass "staged scripts are made executable" \
+  || die "no chmod on the host: $(cat "$r/calls")"
+
+# 39. every call rides the IAP tunnel and pins zone and project. Public SSH is
+#     denied by the tagged firewall rule, so an unpinned call has no path in.
+untunnelled=$(grep -c 'compute \(ssh\|scp\)' "$r/calls")
+tunnelled=$(grep 'compute \(ssh\|scp\)' "$r/calls" | grep -c 'tunnel-through-iap')
+[ "$untunnelled" -gt 0 ] && [ "$untunnelled" -eq "$tunnelled" ] \
+  && pass "every remote call rides the IAP tunnel" \
+  || die "$((untunnelled - tunnelled)) call(s) bypassed the tunnel: $(cat "$r/calls")"
+grep -q 'zone=europe-west2-a' "$r/calls" && grep -q 'project=poc-cloud-nodes' "$r/calls" \
+  && pass "push-scripts pins zone and project" || die "unpinned target: $(cat "$r/calls")"
+
+# 40. the staging directory is not $HOME. A script loose in the worker's home
+#     is indistinguishable from the repo copy that supersedes it at step 7.
+grep -qE 'scp[^\n]*:~?/?$|:~/ ' "$r/calls" \
+  && die "push-scripts staged into \$HOME: $(cat "$r/calls")" \
+  || pass "staged into its own directory, not \$HOME"
+rm -rf "$r"
+
+# 41. a script missing locally fails naming it, and stages nothing. A partial
+#     set is worse than none: provisioning stops halfway with no signal why.
+# Both operator-side files, so the script loads; none of the three it stages.
+r=$(mkrecorder); lone=$(mktemp -d); cp "$SCRIPT" "${SCRIPT%/*}/forge-keys.sh" "$lone/"
+out=$(env PATH="$HERMETIC" WORKER_SDK_ROOTS="$r" bash "$lone/provision-worker.sh" push-scripts 2>&1)
+[ $? -ne 0 ] && grep -qF 'worker-setup.sh' <<<"$out" \
+  && pass "a missing script fails naming it" || die "missing script mishandled: $out"
+grep -q 'compute scp' "$r/calls" && die "staged a partial set: $(cat "$r/calls")" \
+  || pass "nothing is staged from an incomplete set"
+rm -rf "$r" "$lone"
+
+# --- keys-install lives in provision-keys.test.sh ----------------------------
 
 exit $fail

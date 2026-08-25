@@ -65,10 +65,13 @@ forge_cli() {
   [ "${1:-}" = "--dry-run" ] && dry=1
   local envf="$HOME/.claude/.env"
 
+  # A value, not a line. .env.example ships both names empty for the operator to
+  # fill, so testing for the name alone reports a token the real run then finds
+  # blank and skips - a dry run promising an authentication that never happens.
   local have_gl=no have_gh=no
   if [ -f "$envf" ]; then
-    grep -q '^GITLAB_TOKEN=' "$envf" && have_gl=yes
-    grep -q '^GITHUB_TOKEN=' "$envf" && have_gh=yes
+    grep -qE '^GITLAB_TOKEN=[^[:space:]]' "$envf" && have_gl=yes
+    grep -qE '^GITHUB_TOKEN=[^[:space:]]' "$envf" && have_gh=yes
   fi
 
   if [ "$dry" -eq 1 ]; then
@@ -122,6 +125,35 @@ forge_install() {
 # shell. Verification is scoped to the instance in question and reports the
 # identity: `glab auth status` checks every configured instance and fails if
 # any one does, which produced a false negative here while real calls worked.
+# Two identities, because a supervised commit has two facts to state. The
+# author is the human whose work it is; the committer says how it was applied.
+# git honours committer.* independently of user.*, so `git log --author`,
+# shortlog and blame keep answering about the human while the distinction stays
+# visible where a reader looks for it. The committer name derives from the
+# hostname rather than from .env, because it states two facts about this
+# machine and nothing a second copy could disagree with.
+#
+# Both variables are required rather than optional: without an identity git
+# refuses to commit outright, so the failure is a worker halting at its first
+# commit, not a misattributed history. Provisioning that reported success here
+# while leaving the host unable to commit is the shape this check exists to
+# rule out.
+git_identity() {
+  local envf="$1"
+  if [ -z "${GIT_USER_NAME:-}" ] || [ -z "${GIT_USER_EMAIL:-}" ]; then
+    printf 'git: GIT_USER_NAME or GIT_USER_EMAIL absent from %s\n' "$envf" >&2
+    printf 'git: git refuses to commit without an identity, so a worker would\n' >&2
+    printf '     halt at its first commit. Fill both in and re-run.\n' >&2
+    return 1
+  fi
+  git config --global user.name  "$GIT_USER_NAME"
+  git config --global user.email "$GIT_USER_EMAIL"
+  git config --global committer.name  "$(hostname) (supervised)"
+  git config --global committer.email "$GIT_USER_EMAIL"
+  printf 'git: %s authors, %s commits\n' \
+    "$(git config --global --get user.name)" "$(git config --global --get committer.name)"
+}
+
 forge_auth() {
   local envf="$HOME/.claude/.env"
   if [ ! -f "$envf" ]; then
@@ -138,6 +170,8 @@ forge_auth() {
       '[ -f "$HOME/.claude/.env" ] && set -a && . "$HOME/.claude/.env" && set +a' \
       | cat - "$HOME/.bashrc" > "$HOME/.bashrc.new" && mv "$HOME/.bashrc.new" "$HOME/.bashrc"
   fi
+
+  git_identity "$envf" || return 1
 
   local who
   if [ -n "${GITLAB_TOKEN:-}" ]; then

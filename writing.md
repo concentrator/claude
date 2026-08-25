@@ -64,3 +64,15 @@ A number is born in its final form: binding → config or code,
 recurring → its class's one table or a test that computes it, one-shot
 decision evidence → the deciding artifact, dying with it. Nothing is
 written planning to move it later.
+
+## Name things by their durable id
+
+Cite work by a name that survives the work: a task or batch id, an
+MR/PR number, a commit subject. Never a bare commit hash. A rebase,
+amend or filter rewrites every hash it touches, so prose citing one
+points at nothing while still reading as precise - and the reader
+cannot tell a stale hash from a live one without resolving it. Where a
+hash is genuinely the subject (a bisect result, a revert target), pair
+it with the subject line so the citation degrades into something
+findable. And do not rewrite history that prose already cites unless
+the citations are regenerable or the rewrite preserves subjects.

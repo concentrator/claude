@@ -1,7 +1,7 @@
 # `CLAUDE.md § Agent toolchain` declarations
 
 The keys a project declares in its `CLAUDE.md § Agent toolchain` section,
-and the exact form each takes. All three apply everywhere - both modes,
+and the exact form each takes. All four apply everywhere - both modes,
 every command. Push and MR/PR mechanics that consume them:
 `toolchain.md`.
 
@@ -44,24 +44,31 @@ merge authority:
 - Supervisor bounds: batch-scoped delivery; instructions: .claude/supervisor.md
 ```
 
-No declaration = a read-only supervisor: it reports and escalates,
-answers nothing, merges nothing. The default grant, **batch-scoped
-delivery**, allows three merge classes and one decision class:
+No declaration = a read-only supervisor: it reports and escalates and
+answers nothing. The default grant, **batch-scoped delivery**, carries
+work as far as a green MR/PR and holds one decision class:
 
-- green `plan/` MR/PRs;
-- green batch/member MR/PRs whose checkpoint report verifies the
+- deliver a `plan/` branch to a green MR/PR;
+- deliver a batch or member branch whose checkpoint report verifies the
   task's acceptance criteria - the approved plan is the decision, the
   supervisor automates its delivery;
-- green task-branch MR/PRs from manual `/dev code` delivery, where
+- deliver a task branch from manual `/dev code` work, where
   `finish.md § 1`'s verify set stands in for the checkpoint report:
   every plan checkbox `[x]`, findings file triaged, bookkeeping marks
   landed, close review run, tests and lint green. Same rationale, same
   bar - the evidence is assembled from the branch's own artifacts
-  instead of a report, and its absence refuses the merge exactly as a
+  instead of a report, and its absence stops the delivery exactly as a
   missing report does;
 - implementation-level resolutions of worker questions and queued
   judgment calls, each ledgered in the report's supervisor-decisions
   section.
+
+**No grant merges.** The supervisor's last act on a branch is the green
+MR/PR and the evidence that verifies it; the operator reads that MR/PR
+and decides (§ Operator modes). The split keeps the seat that assembled
+the evidence apart from the seat that accepts it, which is what a
+self-merging supervisor collapses - it becomes the only reviewer of its
+own work.
 
 The decision split: implementation-level is code shape, naming, test
 details, finding triage within the plan's stated behavior;
@@ -71,16 +78,68 @@ classify escalates.
 
 Always escalated, under any grant: releases; changes to `CLAUDE.md`,
 `rules/`, or `skills/`; red gates; off-plan work; design and
-architectural decisions. Host gates
-(protected trunk, required checks) stay the hard floor - no admin
-merges.
+architectural decisions. Host gates (protected trunk, required checks)
+stay the hard floor for every seat - no admin merges.
 
 Operating instructions beyond authority - project quirks, escalation
 additions, never-touch areas - live in the optional
 `.claude/supervisor.md` the declaration references; authority never
 moves there.
 
-**Merge signature.** Every supervisor merge carries a `supervised`
-label plus a merge comment naming the bound applied - host metadata
-only, never commit or MR/PR prose (`git-workflow.md § MR/PR messages`
-governs prose and is unchanged by supervision).
+**Supervision signature.** Supervision is recorded as metadata in two
+places and never as prose. Every merge of supervised work carries a
+`supervised` label plus a merge comment naming the bound applied and the
+seat that applied it. And
+where a host exists to run supervised delivery, every commit made on it
+carries the mode in its committer field: the author is the human whose
+work it is, and `committer.name` says how it was applied. git honours
+`committer.*` independently of `user.*`, so `git log --author`,
+shortlog and blame keep answering about the human.
+
+The line between them is the audience. A label answers "how was this
+delivered" at the MR/PR, and a committer answers it at any commit
+reached later from blame, long after the MR/PR is closed. Prose is
+excluded from both: `git-workflow.md § MR/PR messages` governs it and
+is unchanged by supervision, so no commit message, title or body
+mentions supervision at all.
+
+## Operator modes
+
+A supervised project declares who holds the merge the supervisor does
+not, in the same `## Agent toolchain` section:
+
+```
+- Operator mode: AI operated | Human operated
+```
+
+**Human operated** - a person answers escalations and decides merges at
+the keyboard. This is the default when the key is absent.
+
+**AI operated** - a Claude session holds the merge decision. It reads
+the MR/PR and decides on that evidence alone: approvals, resolved
+discussions, gate results, and a report that verifies what the plan
+asked for. It never implements, never edits plans, and never reopens a
+question the supervisor already classified as design-level.
+
+It escalates to the human:
+
+- anything the supervisor escalated as design-level or unclassifiable -
+  the supervisor's classification stands and is not re-decided;
+- anything § Supervisor bounds always escalates, the operator's own
+  configuration included;
+- a merge whose evidence is incomplete or contested - approvals
+  missing, discussions unresolved, gates not green, or a report that
+  does not verify the plan's acceptance criteria.
+
+The fail-safe is a reading count: if classifying a decision takes more
+than one reading of the evidence, it escalates. A second reading means
+the categories do not cleanly hold, which is the condition escalation
+exists for.
+
+The deciding seat is visible in the artifact that already records the
+decision - a supervisor resolution in the report's supervisor-decisions
+section, an operator merge in the MR/PR merge comment, an escalation
+answer in the thread that raised it. No seat gets a store of its own.
+
+One operator serves many projects, each with its own supervisor and its
+own single worker. Nothing crosses project lines but the operator.

@@ -62,6 +62,17 @@ printf 'GITLAB_TOKEN=fixtureleakcanary\n' > "$h/.claude/.env"
 out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$CRSCRIPT" forge-cli --dry-run 2>&1)
 [ $? -eq 0 ] && grep -qi 'github' <<<"$out" \
   && pass "absent GitHub token reported, not fatal" || die "missing token mishandled: $out"
+
+# 39. a declared-but-empty token reads as absent, not present. .env.example
+#     ships GITHUB_TOKEN= for the operator to fill, so "the line exists" and
+#     "there is a token" are different questions - and the real run answers the
+#     second, which left the dry run promising an authentication it then skipped.
+printf 'GITLAB_TOKEN=fixtureleakcanary\nGITHUB_TOKEN=\n' > "$h/.claude/.env"
+out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$CRSCRIPT" forge-cli --dry-run 2>&1)
+grep -q 'GITHUB_TOKEN=no' <<<"$out" && pass "an empty token reads as absent" \
+  || die "empty token reported present: $out"
+grep -q 'GITLAB_TOKEN=yes' <<<"$out" && pass "a filled token still reads as present" \
+  || die "filled token reported absent: $out"
 rm -rf "$h"
 
 # --- config clone: this repo becomes the worker's ~/.claude -----------------
@@ -86,6 +97,42 @@ grep -qiE 'existing|in place|init' <<<"$out" && pass "clones into the existing d
 h=$(mktemp -d); mkdir -p "$h/.claude"
 env PATH=/usr/bin:/bin HOME="$h" bash "$WSSCRIPT" config-clone --dry-run >/dev/null 2>&1
 [ ! -d "$h/.claude/.git" ] && pass "config-clone dry run creates no repo" || die "dry run made a repo"
+rm -rf "$h"
+
+# A local bare repo standing in for the config remote, so a real config-clone
+# runs offline. It carries the one file config-clone verifies after checkout.
+mkremote() {
+  local d; d=$(mktemp -d); local w="$d/work"
+  mkdir -p "$w/.githooks"; printf '#!/bin/sh\nexit 0\n' > "$w/.githooks/pre-push"
+  chmod +x "$w/.githooks/pre-push"
+  git -C "$w" init -q -b main >/dev/null 2>&1
+  git -C "$w" add -A >/dev/null 2>&1
+  git -C "$w" -c user.email=t@example.com -c user.name=t commit -qm init >/dev/null 2>&1
+  git clone -q --bare "$w" "$d/remote.git" >/dev/null 2>&1
+  printf '%s' "$d"
+}
+
+# 37. the checkout retires the bootstrap staging dir. Once ~/.claude is the repo,
+#     scripts/ is the scripts' home, and a second copy in ~/.worker-bootstrap is
+#     one the operator can edit or run by mistake.
+h=$(mktemp -d); mkdir -p "$h/.claude" "$h/.worker-bootstrap"
+rem=$(mkremote); cp /dev/null "$h/.worker-bootstrap/worker-setup.sh"
+out=$(env PATH=/usr/bin:/bin HOME="$h" WORKER_CONFIG_REMOTE="file://$rem/remote.git" \
+  bash "$WSSCRIPT" config-clone 2>&1)
+if [ -d "$h/.claude/.git" ]; then
+  [ ! -d "$h/.worker-bootstrap" ] && pass "config-clone retires the staging dir" \
+    || die "staging dir survived the checkout"
+else
+  die "config-clone did not check out from the fixture remote: $out"
+fi
+
+# 38. the dry run says so, and removes nothing
+h2=$(mktemp -d); mkdir -p "$h2/.claude" "$h2/.worker-bootstrap"
+out=$(env PATH=/usr/bin:/bin HOME="$h2" bash "$WSSCRIPT" config-clone --dry-run 2>&1)
+grep -qF -- ".worker-bootstrap" <<<"$out" && [ -d "$h2/.worker-bootstrap" ] \
+  && pass "config-clone dry run names the staging dir without removing it" \
+  || die "staging dir removal unannounced or done anyway: $out"
+rm -rf "$h" "$h2" "$rem"
 
 # --- project clone: into /opt/wallarm, siblings adjacent --------------------
 
