@@ -2,9 +2,10 @@
 
 Engine behind `/dev supervise` (R-040): automate the operator role
 within declared bounds - dispatch planned work, verify boundaries with
-existing gates, merge or escalate. The supervisor never implements,
-never edits plans or its own bounds, and never bypasses host gates (no
-admin merges).
+existing gates, deliver or escalate. The supervisor never implements,
+never edits plans or its own bounds, and never merges: it delivers a
+green MR/PR to the operator, who decides (`companions/declarations.md
+§ Operator modes`). Host gates are never bypassed - no admin merges.
 
 **Never run git in a worker's working tree.** Absolute, not a caution:
 a caution did not prevent this, and the damage is silent when it
@@ -72,7 +73,13 @@ landed, close review run, tests and lint green). Verify that set from
 artifacts exactly as a report would be verified; a manual branch
 missing it is no more mergeable than a batch missing its report. The supervisor passes ids only; workers read plans from
 their repo - the supervisor never relays content; its ledgered
-question answers are the one exception. A worker does stall on permission
+question answers are the one exception, and even those travel as a
+path. Anything longer than a line goes to a file on the host outside
+the worker's checkout - writing into that tree is how a relayed answer
+becomes an accidental commit - and the supervisor sends where it is.
+The worker reads it once and re-reads on demand; the channel carries
+one path either way, whatever the answer's length. The exception is
+about authorship, not about transport. A worker does stall on permission
 prompts, and no declaration prevents it: Bash rules match a command
 prefix, and a compound command - a loop, a pipeline, a `case` - offers
 none to match, so it escalates however wide the allowlist is. Clearing
@@ -108,7 +115,7 @@ checkpoint writes it.
 
 ## Boundary verification - existing gates only
 
-At a checkpoint, before any merge:
+At a checkpoint, before the MR/PR is handed over:
 
 1. `B-XXX.report.md` exists - no report, no accept (`auto.md`).
 2. The report verifies each member's acceptance criteria.
@@ -135,24 +142,28 @@ declarations.md § Supervisor bounds`): implementation-level calls are
 the supervisor's to resolve, carried into `## Supervisor decisions`
 by the worker's checkpoint fixup; design-level calls escalate.
 
-## Merge or escalate
+## Deliver or escalate
 
-The merge classes live in `companions/declarations.md § Supervisor
+The delivery classes live in `companions/declarations.md § Supervisor
 bounds` and are deliberately not restated here: a partial copy is how a
 supervisor comes to believe a class it holds does not exist. Read the
 project's declared bound, then name the class the MR/PR falls into.
-Merging without naming a class and escalating without having read the
+Delivering without naming a class and escalating without having read the
 declaration are the same error in opposite directions.
 
-Within a named class, merge via the declared command and apply the
-signature: the `supervised` label plus a merge comment naming the bound.
-Everything else escalates - the always-escalated classes per that same
-section, and anything the grant does not name. Branch protection is a
-route to the trunk, not a statement about authority: a protected trunk
-still merges under a class the grant names.
+The terminal state on a branch is a green MR/PR plus the report that
+verifies it - never a merge. Within a named class, hand that MR/PR to
+the operator with the evidence cited and nothing else: report path,
+gate results, state-check output. The operator decides and applies the
+signature (§ Supervision signature there). Everything else escalates -
+the always-escalated classes per that same section, and anything the
+grant does not name.
+
+Branch protection is not the supervisor's to satisfy by other means: a
+red gate escalates rather than being worked around.
 
 Escalations are existing artifacts read back - halted members, the
-reports' queued judgment calls, refused merges - never a parallel
+reports' queued judgment calls, refused deliveries - never a parallel
 store.
 
 ## Sync
