@@ -395,15 +395,25 @@ described by their symptom in a pane rather than by a log line.
       and check the :15 claim` - above a worker reporting itself idle with a
       clean tree, which is what an undelivered dispatch looks like from the
       outside.
-      The likely mechanism is mundane: a `send-keys` write whose Enter never
-      landed, which the watcher hits often enough to work around with a delay
-      between the text and the submit. It is not evidence against
-      `SendMessage`, and an earlier note here said so in error. The settled
-      finding at the top of this file was verified by watching a woken worker
-      act with no keystroke from anyone, and nothing observed since touches it.
-      What the instances are evidence against is the keystroke transport, which
-      is what that finding already argues. The origin of the two lines the
-      watcher did not write stays unestablished; the pane names no sender.
+      The sender is the operator, over Remote Control. The supervisor was
+      launched with `--remote-control supervisor`, so input reaches it from
+      claude.ai or a phone without passing through the pane, and the pane cannot
+      label what did not come through it. Two later sends settled it from the
+      transcript: `what are you keeping in Ledger?` and a `/context` command,
+      landing in the same minutes the operator asked the watcher the same two
+      questions in its own session. The `/context` table then appeared as pane
+      output with no visible prompt, which is what an out-of-band send looks
+      like from the outside.
+      This is not evidence against `SendMessage`, and an earlier note here said
+      so in error. The settled finding at the top of this file was verified by
+      watching a woken worker act with no keystroke from anyone.
+      Two properties of the transport matter more than the attribution. The
+      transcript cannot distinguish channels either: all 1,185 user messages in
+      the session carry `userType: external` with no source field, so a keystroke
+      and a Remote Control send are indistinguishable after the fact, and
+      attribution survives only as correlation against another session's clock.
+      And an unsubmitted draft never reaches the transcript at all, so the one
+      line still sitting in the box is invisible to every artifact.
       The consequence holds whatever the origin turns out to be. An unsent line
       reading exactly like an operator ruling, in the box of the one role
       permitted to merge, is an unattributable authorisation one keystroke from
@@ -774,6 +784,40 @@ described by their symptom in a pane rather than by a log line.
       would break the `git status` scope check the worker uses to prove its
       edits stayed in `dev/docs`, so the two roles cannot share a directory for
       this.
+
+- [x] **Twelve compactions for two tasks, and the ledger is not what caused
+      them.** Counted from the supervisor's own `compact_boundary` events rather
+      than from the ledger, whose eighteen mentions of compaction are mostly it
+      narrating the worker's: supervisor 12, worker 14, every one automatic.
+      Each fired between 166.6K and 177.2K tokens and left an average of 12.8K,
+      dropping 1,870,128 tokens cumulatively and spending 1,850 seconds
+      compacting. Six of the twelve fell between 06:17 and 08:38, the batch's
+      busiest stretch, so the interval at load is 20 to 30 minutes.
+      What occupied it, from the live `/context` breakdown: messages 122K
+      against a fixed prefix of 38.6K, of which system tools are 24.5K and the
+      config we own - skills, memory files, system prompt - is 14.1K combined.
+      So trimming config buys nothing; the levers are the window itself and
+      message volume. The ledger is not in the picture, at 15,573 characters of
+      appends plus one 12,912-character initial write, under 1% of measurable
+      payload. Inside the measurable part, Bash dominates at 762K characters of
+      command input and 831K of results, most of it multi-line verification
+      scripts rather than pane reads, and `SendMessage` is second at 256K over
+      74 sends averaging 3.5K - the rails re-issued to protect the worker's
+      context, paid for out of the supervisor's.
+      The 33K autocompact buffer is reserved rather than occupied, which is why
+      a 200K window compacts at ~167K. Any window is a trigger roughly 15% under
+      the number written down, and a threshold set above a model's real capacity
+      converts a graceful compaction into a hard context error. The model pin
+      therefore has to precede the window, and neither was ever declared: the
+      supervisor ran on the account default with no `--model` and no window key
+      on the host.
+      One limit on all of the above. Reasoning text is not persisted - all 620
+      thinking blocks carry a signature and an empty string - so the transcript
+      structurally cannot account for reasoning tokens, and the measurable
+      payload is a floor rather than a total. A watcher reconciled that gap with
+      an invented figure for fixed overhead and was corrected by the operator's
+      `/context` output. Same failure as the filter above, one instrument
+      reporting agreement with itself, two hours after writing that entry.
 
 - [x] **Reports drift from the artifacts they describe; artifacts do not.**
       Three instances in one batch: a reviewer caught two arithmetic errors
