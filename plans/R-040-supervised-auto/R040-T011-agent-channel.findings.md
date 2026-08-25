@@ -264,6 +264,18 @@ described by their symptom in a pane rather than by a log line.
       appear, and the deadlock needs only one to appear at the wrong moment.
       What closes it is a wake path that does not depend on the held role
       taking a turn.
+      The same state then recurred and cleared itself, which is the closest
+      thing to a controlled test the run produced. About eight hours later the
+      supervisor auto-compacted while the worker held a dialog, the exact
+      sequence its own account blames. It came back, read its wait output
+      first, drained nine dialogs, re-armed the wait and reported item 9's
+      progress, all inside one tick. What changed between the two occurrences
+      is three invariants the supervisor adopted and wrote down: read the wait
+      output before any other work on every notification, never end a turn
+      waiting on the worker without a fresh `capture-pane` showing no dialog
+      pends, and drain the queue rather than one dialog. They are turn
+      discipline rather than capability, they held through the one event most
+      likely to break them, and they are what the runbook should carry.
       `R040-T014` owns the edit gate under `acceptEdits`; this is the same
       assumption failing on the other tool, and would be helped by either a
       constraint on probe shape in the dispatch text or a declared Bash surface
@@ -280,6 +292,35 @@ described by their symptom in a pane rather than by a log line.
       instructed to; it addressed the worker as a peer session and the worker
       acted on the message. The settled finding at the top of this file,
       arrived at again independently by the party doing the work.
+
+- [x] **The pair settled an authority question against the party that raised
+      it, without the operator.** The supervisor wrote a script to clear the
+      worker's Bash dialogs, guarded to halt rather than clear on any
+      persistent-scope offer, any edit-class dialog, and any command touching
+      settings, conventions, `git commit/push/merge` or the forge CLI. The
+      worker objected on the one ground that holds: a permission dialog in its
+      pane is the operator's decision point, and a peer clearing it substitutes
+      its own judgment for theirs. It also produced the supervisor's own two
+      rulings from earlier in the run, both of which had told it that a prompt
+      is correct rather than a thing to engineer around.
+      The supervisor had a defensible reading available - its brief says to
+      clear the worker's prompts over tmux, and the operator's later
+      instruction not to clear protected-path edits by script presupposes
+      script-clearing and carves out one class. It declined to use it, on the
+      ground that reasoning of the form "the rule says X, but Y is fine here
+      because" is the rationalisation its own conventions name. The automation
+      was downgraded to detect-only inside one turn: the wait watches the pane
+      and wakes the supervisor, and every clear from there is by hand after
+      reading the command.
+      Two things make this worth keeping. The deadlock fix survived the
+      retraction, because the objectionable part was the keystroke and not the
+      watching. And the five dialogs the script had already cleared were
+      audited on the spot against the criteria they might have carried, found
+      to be read-only verifier probes, and declared in the report rather than
+      left implicit - the pair's own answer to the question an auditor would
+      ask next. The escalation the supervisor then raised asks the operator to
+      rule on the mechanism, not to unblock the run, which is the distinction
+      the escalation list exists to draw.
 
 - [x] **The capacity fallback carried the run instead of halting it.** Two
       consecutive 529s on the pinned implementer degraded one row to Sonnet
@@ -631,5 +672,17 @@ described by their symptom in a pane rather than by a log line.
 - [ ] Provisioning sets `git config --global user.name/user.email` from `.env`,
       documented in `.env.example`.
 - [ ] The project's permission list grants reading the declared sibling
-      repository.
+      repository. The need is structural rather than incidental: a verifier
+      settled a claim in `validate-hit.md` only from `../wallarm-api-js`,
+      because the doc's subject calls into it. Five persistent-scope offers
+      were declined and cleared one-shot instead, which is the right answer to
+      a scope question arriving through a dialog.
+- [ ] `verification-policy.md`: a negative search is evidence only from an
+      instrument whose failure is distinguishable from its success. The bare
+      `grep` these sessions invoke is a wrapper around `ugrep -I`; on a file it
+      judges binary it prints nothing and exits 1, which is byte-identical to a
+      genuine no-match. GNU grep on the same file exits 0 and warns on stderr.
+      A verifier charter that asks for exhaustive negative searches therefore
+      buys false negatives that read as proof of absence, and the discrimination
+      rule already in that file is the one this violates.
 - [ ] The briefing recipe cites the declaration rather than summarising it.
