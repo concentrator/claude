@@ -97,8 +97,8 @@ repo-relative directory outside `.claude/`, declared as `DEV artifacts
 root:` in `CLAUDE.md § Agent toolchain` (syntax:
 `companions/declarations.md § Artifacts root`); absent, the root is
 `dev/`. `./` (or `.`) is the repo root; a trailing slash is
-insignificant. Skills never guess the root. `<root>/` marks it in path
-tables and trees; bare artifact paths in prose (`plans/...`,
+insignificant. Skills never guess the root. `<root>/` marks it in tables
+and trees; bare artifact paths in prose (`plans/...`,
 `docs/...`) are root-relative; a materialized path (a `.gitignore`
 entry, a permission glob, a session dir) carries the resolved value -
 for the repo root the segment collapses. Guarded config is not an
@@ -173,9 +173,9 @@ The check runs on the branch completing the R's last open task, in its
 mandatory final commit (`branch-plan.md § Closing routine`), judged
 against `tasks.md` re-read from `main` - the closure lands with that
 branch's merge. A closure the final commit could not run - concurrent
-branches racing past the check, or run-dependent criteria - keeps the R open and ships later via its own
-plan MR/PR once verified (e.g. a batch checkpoint -
-`branch-plan.md § Batches`).
+branches racing past the check, or run-dependent (later-verified)
+criteria - keeps the R open and ships later via its own plan MR/PR
+once verified (e.g. a batch checkpoint - `branch-plan.md § Batches`).
 
 ## Milestone plans
 
@@ -192,8 +192,8 @@ initiative is ordered by that `tasks.md`.
   (§ Referential integrity), never a note.
 - **`depends-on` is authoritative.** The plan reads the edges into
   waves (a wave has no internal edges, so it runs in parallel) and
-  never restates or overrides them; a contradicting
-  order is a defect in the milestone file.
+  never restates or overrides them; a contradicting order is a defect
+  in the milestone file.
 
 ## Archival
 
@@ -221,6 +221,5 @@ folded into foundational `REQUIREMENTS.md`, files removed (§ ID format).
 
 Planning-artifact templates (foundational `REQUIREMENTS.md`,
 per-initiative `requirements.md` by `kind:`, release plan, milestone
-plan) live in
-`templates.md` - path-scoped to load only when editing the
-files they instantiate.
+plan) live in `templates.md` - path-scoped to load only when editing
+the files they instantiate.
