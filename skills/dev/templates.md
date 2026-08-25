@@ -111,3 +111,26 @@ confirms dropping them.
 
 ## Notes     - deferred or dropped scope, with reason
 ```
+
+## Milestone plan `milestone-<id>.md`
+
+Created by `/dev plan milestone <id>` for a milestone spanning several
+initiatives (rules: `plan.md § Milestone plans`). Every entry is an
+existing task id; waves follow the tasks' `depends-on` edges.
+
+```
+# Milestone <id>
+
+## Boundary  - cite the `ROADMAP.md § Milestones` row; never restate it
+
+## Order     - one wave per heading, members runnable in parallel
+### Wave 1
+- R008-T001 (<slug>): description
+- R009-T002 (<slug>): description
+### Wave 2
+- R008-T003 (<slug>): description - after R008-T001
+
+## Gaps      - work still blocking the milestone, each as a task id
+
+## Notes     - deferred scope, with reason
+```
