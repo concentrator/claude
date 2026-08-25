@@ -240,7 +240,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       authored by `/dev plan milestone <id>`. It records order, never
       scope: the boundary stays in the project's `ROADMAP.md`, every
       entry is an existing task id, a gap it names gets a task, and
-      the tasks'
-      `depends-on` edges stay authoritative, so a contradicting order
-      is a defect in the milestone file. Closes the gap that leaves a
-      cross-initiative sequence derivable but never citable.
+      the tasks' `depends-on` edges stay authoritative, so a
+      contradicting order is a defect in the milestone file. Closes the
+      gap that leaves a cross-initiative sequence derivable but never
+      citable.
