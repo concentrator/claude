@@ -24,7 +24,7 @@ a router row, a rule section and a template; the Tier-1 gate
 - [x] Add the milestone-plan template to `templates.md` (Boundary,
       Order in waves, Gaps, Notes), stating the shape once; `plan.md`
       keeps the rules.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
       release-plan entry.
 - [ ] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.

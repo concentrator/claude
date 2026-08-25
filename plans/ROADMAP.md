@@ -234,7 +234,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       clauses, no trailers) and allows an optional compact body for
       the what/why the subject cannot carry; texts that key off the
       single-line rule (branch plans, templates) reconcile with it.
-- [ ] R-060: Milestone execution plans - a milestone spanning several
+- [x] R-060: Milestone execution plans - a milestone spanning several
       initiatives may carry `plans/milestone-<id>.md`, the second
       root-level cross-initiative plan beside the release plan,
       authored by `/dev plan milestone <id>`. It records order, never

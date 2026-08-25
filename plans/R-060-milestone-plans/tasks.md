@@ -6,7 +6,7 @@ composite (`R060-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R060-T001 [feat]**: sanction the milestone plan artifact type -
+- [x] **R060-T001 [feat]**: sanction the milestone plan artifact type -
   add the `milestone-<id>.md` row to `plan.md § Where things live` and
   the matching line to the `layout.md` tree, route `milestone <id>` in
   `SKILL.md`'s `/dev plan` table ahead of the `<slug>` row, write

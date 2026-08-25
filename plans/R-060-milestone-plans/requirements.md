@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-25
 kind: feat
+status: done 2026-08-25
 ---
 
 # R-060: Milestone execution plans
@@ -57,21 +58,27 @@ release plan is when the release ships.
 
 ## Acceptance criteria
 
-- [ ] `plan.md § Where things live` lists `milestone-<id>.md` at `<root>/plans/`,
-      and `layout.md § Artifacts layout` shows it in the tree.
-- [ ] `SKILL.md`'s `/dev plan` table routes `milestone <id>` ahead of the
+- [x] `plan.md § Where things live` lists `milestone-<id>.md` at `<root>/plans/`,
+      and `layout.md § Artifacts layout` shows it in the tree. Evidence:
+      table row and tree line, commit "Declare the milestone plan artifact".
+- [x] `SKILL.md`'s `/dev plan` table routes `milestone <id>` ahead of the
       `<slug>` row, so a bare milestone id never falls through to branch-plan
-      adjustment.
-- [ ] `plan.md § Milestone plans` states the rules the Goals and Non-goals above
+      adjustment. Evidence: row precedes `<slug>`, commit "Route /dev plan
+      milestone <id>".
+- [x] `plan.md § Milestone plans` states the rules the Goals and Non-goals above
       fix: optional, order not scope, existing task ids only, and `depends-on`
       authoritative - so an order contradicting the edges is a defect in the
       milestone file. It declares the `ROADMAP.md § Milestones` map in the same
-      place, as the boundary's home.
-- [ ] `templates.md` carries the milestone-plan template: Boundary, Order in
-      waves, Gaps, Notes.
-- [ ] `plan.md § Templates` and `plan.md § Archival` name the milestone plan
-      beside the release plan.
-- [ ] `scripts/test/run-all.sh` is green.
+      place, as the boundary's home. Evidence: section's three bullets and lead
+      paragraph, commit "State the milestone plan rules".
+- [x] `templates.md` carries the milestone-plan template: Boundary, Order in
+      waves, Gaps, Notes. Evidence: `templates.md § Milestone plan`, commit
+      "Add the milestone plan template".
+- [x] `plan.md § Templates` and `plan.md § Archival` name the milestone plan
+      beside the release plan. Evidence: both sections, commit "State the
+      milestone plan rules".
+- [x] `scripts/test/run-all.sh` is green. Evidence: `bash scripts/ci/run-all.sh`
+      exit 0 on every branch commit; CI `tier1` on the PR.
 
 ## Constraints
 
