@@ -220,6 +220,13 @@ described by their symptom in a pane rather than by a log line.
       commits written before the identity existed were retrofitted on the
       operator's ruling, by the supervisor, since a history rewrite in the
       worker's checkout is its operation and not the watcher's.
+      The batch's own merge then tested the two carriers against each other.
+      The MR merged green carrying the `supervised` label and a comment naming
+      the bound applied, and its merge commit carries the marker in neither
+      identity field: the forge creates that commit server-side under the token
+      owner's name, so a commit not made on the host is out of the committer
+      carrier's reach entirely. The two are not redundant. Each covers exactly
+      what the other cannot, which was not the reason for having both.
 
 - [x] **Every implementer stalls on reading the declared sibling
       dependency.** `pitfalls.md` already records that `wallarm-api-js` is not
