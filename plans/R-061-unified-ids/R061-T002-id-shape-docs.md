@@ -28,7 +28,7 @@ replaces the three per-level bullets rather than adding to them. Gate:
       `report-template.md`, `root-migration.md`, `supervisor-runbook.md`,
       `tbd-migration.md`, `toolchain.md`); `SKILL.md` body stays within
       400 words.
-- [ ] Root docs: `README.md`, `REQUIREMENTS.md § Planning discipline`,
+- [x] Root docs: `README.md`, `REQUIREMENTS.md § Planning discipline`,
       `DESIGN.md` tree-map, `MAINTENANCE.md`, `agents/code-reviewer.md`;
       then the acceptance grep (`requirements.md § Acceptance
       criteria`, second item) returns only `legacy`-labelled lines.
