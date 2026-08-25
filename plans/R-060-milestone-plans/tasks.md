@@ -6,13 +6,10 @@ composite (`R060-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R060-T002 [feat]**: own the milestone plan's archival offer -
+- [x] **R060-T002 [feat]**: own the milestone plan's archival offer -
   `/dev plan milestone <id>` offers the file for archival once every
   entry's task is `[x]`, mirroring the release skill's offer for the
   release plan; `plan.md § Archival` names the trigger.
-- Backlog: `skills/dev/plan.md` sits at the 1500-word cap
-  (`scripts/ci/check-caps.sh`); the next rule added there needs a
-  companion file or a split.
 - [x] **R060-T001 [feat]**: sanction the milestone plan artifact type -
   add the `milestone-<id>.md` row to `plan.md § Where things live` and
   the matching line to the `layout.md` tree, route `milestone <id>` in

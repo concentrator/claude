@@ -197,8 +197,8 @@ initiative is ordered by that `tasks.md`.
 
 ## Archival
 
-Archival runs at **initiative** close, in two steps; a closing task
-promotes but never moves files. **Promote**: any durable fact the
+Archival runs at **initiative** close; a closing task promotes but
+never moves files. **Promote**: any durable fact the
 task's artifacts established moves to its permanent home - component
 behavior to docs, external-system facts to references, binding limits
 to where they bind. A finding another initiative's open task still
@@ -208,14 +208,14 @@ when the initiative closes, its whole directory moves to
 and findings together.
 A living doc never cites `archive/` for operative content -
 if it needs a fact from there, promotion missed it; move the fact.
-(Closure-evidence stamps citing archived findings are historical
-pointers, not operative content.)
+(Closure-evidence stamps citing archived findings are historical, not
+operative.)
 
-Also archived, at the user's option: release plans after the release
-ships (offered by the `release` skill), milestone plans when the
-milestone completes, and pre-DEV legacy artifacts
-(completed plan files with no `task:` chain). Legacy `REQ-XXX` content:
-folded into foundational `REQUIREMENTS.md`, files removed (§ ID format).
+Also archived at the user's option: release plans after the release
+ships (offered by the `release` skill), milestone plans with every
+entry `[x]` (offered by `/dev plan milestone <id>`), and pre-DEV
+legacy artifacts (plan files with no `task:` header). Legacy
+`REQ-XXX`: folded into `REQUIREMENTS.md`, files removed (§ ID format).
 
 ## Templates
 
