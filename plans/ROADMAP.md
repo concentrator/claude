@@ -244,3 +244,9 @@ Initiative index. Items: `R-001: description`; each entry owns
       contradicting order is a defect in the milestone file. Closes the
       gap that leaves a cross-initiative sequence derivable but never
       citable.
+- [ ] R-061: Unified plan ids - one shape for every plan id created
+      from now on: `R<NNN>`, `R<NNN>-T<NNN>`, `R<NNN>-B<NNN>`, a single
+      hyphen joining components and none inside one. Existing ids,
+      directories and refs are legacy: frozen, valid, never renamed.
+      The two id-parsing gates accept both shapes; the rule's one home
+      is `plan.md § ID format`.
