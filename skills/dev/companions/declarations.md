@@ -80,7 +80,18 @@ additions, never-touch areas - live in the optional
 `.claude/supervisor.md` the declaration references; authority never
 moves there.
 
-**Merge signature.** Every supervisor merge carries a `supervised`
-label plus a merge comment naming the bound applied - host metadata
-only, never commit or MR/PR prose (`git-workflow.md § MR/PR messages`
-governs prose and is unchanged by supervision).
+**Supervision signature.** Supervision is recorded as metadata in two
+places and never as prose. Every supervisor merge carries a
+`supervised` label plus a merge comment naming the bound applied. And
+where a host exists to run supervised delivery, every commit made on it
+carries the mode in its committer field: the author is the human whose
+work it is, and `committer.name` says how it was applied. git honours
+`committer.*` independently of `user.*`, so `git log --author`,
+shortlog and blame keep answering about the human.
+
+The line between them is the audience. A label answers "how was this
+delivered" at the MR/PR, and a committer answers it at any commit
+reached later from blame, long after the MR/PR is closed. Prose is
+excluded from both: `git-workflow.md § MR/PR messages` governs it and
+is unchanged by supervision, so no commit message, title or body
+mentions supervision at all.

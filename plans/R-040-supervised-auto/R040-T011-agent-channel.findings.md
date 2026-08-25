@@ -204,6 +204,22 @@ described by their symptom in a pane rather than by a log line.
       Fix belongs in provisioning: `baseline` sets it from the same gitignored
       `.env` that carries the forge tokens, keeping identity something the
       operator moves rather than an agent decides.
+      Landed, and the shape it took answers a question the entry did not ask.
+      `worker-credentials.sh git_identity` requires both `GIT_USER_NAME` and
+      `GIT_USER_EMAIL` and refuses to proceed without them, which converts the
+      silent case above into a halt at provisioning rather than at the first
+      commit. Beyond that it sets a second identity: `committer.*`, which git
+      honours as config keys independently of `user.*`, so the author stays the
+      human whose work it is and the committer records how it was applied. A
+      host that exists to run supervised delivery has that fact to state about
+      every commit on it, and prose is the wrong place - `git log --author`,
+      shortlog and blame keep answering about the human either way.
+      Recorded as a rule in `declarations.md § Supervision signature`, which now
+      covers both metadata carriers, the merge label and the committer, and
+      excludes supervision from commit and MR/PR prose entirely. The thirteen
+      commits written before the identity existed were retrofitted on the
+      operator's ruling, by the supervisor, since a history rewrite in the
+      worker's checkout is its operation and not the watcher's.
 
 - [x] **Every implementer stalls on reading the declared sibling
       dependency.** `pitfalls.md` already records that `wallarm-api-js` is not
@@ -305,6 +321,12 @@ described by their symptom in a pane rather than by a log line.
       `BSpace` is what clears it. A transport whose write path silently
       concatenates with unattributable text is the strongest argument in this
       file for not typing into panes at all.
+      A clear does not stay cleared, either. The same line was pending again at
+      the next read, after a clear verified by `capture-pane`, and nothing in
+      the pane says whether it was restored as a draft or retyped. That is the
+      property that matters: the box's contents cannot be established once and
+      relied on, so every write to it has to re-read and re-clear immediately
+      beforehand, and a channel needing that is not a channel.
 
 - [x] **`SendMessage` reaches peers within one machine's namespace, and the
       operator is outside it.** The settled finding at the top of this file -
