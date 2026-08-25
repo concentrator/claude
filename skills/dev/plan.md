@@ -1,18 +1,18 @@
 # Planning rules
 
-Three-level hierarchy for DEV mode: `R-XXX → R<NNN>-T<NNN> → branch plan`,
+Three-level hierarchy for DEV mode: `R<NNN> → R<NNN>-T<NNN> → branch plan`,
 planned in two rounds (§ Planning rounds). An initiative is any work
 foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 
 ## Levels
 
 1. **Roadmap** - `plans/ROADMAP.md` (root-relative: § Where things
-   live). Initiative index. Items: `R-001: description`.
-   Each entry owns `plans/R-XXX-<slug>/`, whose `requirements.md`
+   live). Initiative index. Items: `R001: description`.
+   Each entry owns `plans/R<NNN>-<slug>/`, whose `requirements.md`
    carries the initiative's motivation, goals, and acceptance
    criteria (template: templates.md). Closure: see § Approval
    and closure.
-2. **Tasks** - `plans/R-XXX-<slug>/tasks.md`, one index per
+2. **Tasks** - `plans/R<NNN>-<slug>/tasks.md`, one index per
    initiative, created lazily with the R's first task (an R with no tasks
    has none). Concrete units of work. Items:
    `R001-T001 [feat]: description` - the tag in brackets
@@ -21,7 +21,7 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
    Checkbox closes only when the task's branch is merged.
    The next free id is the highest in this R's `tasks.md` plus one - no
    cross-R lookup (format: § ID format). The id itself routes: the
-   task's artifacts live in `plans/R-<NNN>-<slug>/`, or the same path
+   task's artifacts live in `plans/R<NNN>-<slug>/`, or the same path
    under `archive/`. `ROADMAP.md` is the cross-R index - there is no
    flat global task list.
    **Right-size**: a task is a coherent, multi-commit deliverable (a
@@ -29,8 +29,8 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
    steps live in the branch-plan checklist. E.g. "add the size-scaled
    close-review policy" (rule + skill wiring + cross-refs) is one task;
    "fix a typo in a rule" is a commit within one, never a task.
-3. **Branch plan** - `plans/R-XXX-<slug>/<task-id>-<slug>.md`
-   (e.g. `R008-T001-ip-verify.md`; legacy `T-XXX-<slug>.md`).
+3. **Branch plan** - `plans/R<NNN>-<slug>/<task-id>-<slug>.md`
+   (legacy `T-XXX-<slug>.md`).
    Checkboxes per commit. Header: `task: R008-T001`. Checkbox closes at
    commit (`branch-plan.md`).
 
@@ -42,7 +42,7 @@ Two rounds, each emitting several artifact levels at once:
   **and** a draft task list (`tasks.md`) together, approved at one gate.
   Deferrable: for a large or uncertain initiative, approve requirements
   and defer the task list to the detail round.
-- **Detail** (`/dev plan R-XXX`) - produce the open R's tasks **and**
+- **Detail** (`/dev plan R<NNN>`) - produce the open R's tasks **and**
   their branch plans together.
 
 **Approval authorizes planning, not code** (gate: § Approval and
@@ -62,17 +62,16 @@ deleted before it adds.
 
 ## ID format
 
-- Initiatives (roadmap): `R-001`, `R-002`, ...
-- Tasks: `R001-T001`, `R001-T002`, ... - composite, T counter scoped to
-  the initiative. A task moving to another initiative closes under its
-  old id with a one-line tombstone naming the new id; ids are never
-  renumbered. Legacy bare `T-XXX` (retired global counter): valid,
-  frozen, never reissued.
-- Batches: `B-001`, `B-002`, ... (execution grouping, not a level -
-  see `branch-plan.md § Agentic execution`)
-- One-indexed, three digits, monotonic within their scope.
-- `REQ-XXX` is retired: requirement content carries its parent's
-  R-XXX id (legacy files: § Archival).
+One shape for every id: initiative `R<NNN>`, task `R<NNN>-T<NNN>`,
+batch `R<NNN>-B<NNN>` (`branch-plan.md § Agentic execution`). A letter
+plus three digits per component, hyphens only between components;
+one-indexed, monotonic, T and B counters scoped to the initiative. A
+task moving to another initiative closes under its old id with a
+one-line tombstone naming the new id; ids are never renumbered. Legacy
+shapes - `R-NNN` initiatives, bare `T-NNN` (retired global counter),
+`B-NNN` and `R<NNN>-B-NNN` batches - are frozen: valid, never reissued
+or renamed. `REQ-XXX` is retired: requirement content carries
+its parent's R id (legacy files: § Archival).
 
 ## Referential integrity
 
@@ -82,7 +81,7 @@ deleted before it adds.
 - Each parent must be **open** (`[ ]`) at the time the child is created.
 - Commits inside a branch plan need no external refs.
 - Findings promotion too: a finding becomes a task
-  only under a fitting open `R-XXX`. If none exists, create an R stub
+  only under a fitting open `R<NNN>`. If none exists, create an R stub
   instead - the initiative act per § Directory conventions, shaped
   in a later shape round (`/dev plan R`).
 - Only a discovery that blocks the current task's goal becomes a task
@@ -108,11 +107,11 @@ included (`layout.md § Config layout`).
 | File | Location |
 |---|---|
 | `ROADMAP.md` | `<root>/plans/` |
-| `requirements.md` (per initiative) | `<root>/plans/R-XXX-<slug>/` |
-| `tasks.md` (per initiative, lazy) | `<root>/plans/R-XXX-<slug>/` |
-| `<task-id>-<slug>.md` (branch plans) | `<root>/plans/R-XXX-<slug>/` |
+| `requirements.md` (per initiative) | `<root>/plans/R<NNN>-<slug>/` |
+| `tasks.md` (per initiative, lazy) | `<root>/plans/R<NNN>-<slug>/` |
+| `<task-id>-<slug>.md` (branch plans) | `<root>/plans/R<NNN>-<slug>/` |
 | `<task-id>-<slug>.findings.md` | beside its branch plan |
-| `B-XXX.md`, `B-XXX.report.md` (batches) | `<root>/plans/R-XXX-<slug>/batches/` |
+| `R<NNN>-B<NNN>.md`, `R<NNN>-B<NNN>.report.md` (batches) | `<root>/plans/R<NNN>-<slug>/batches/` |
 | `release-vX.Y.Z.md` | `<root>/plans/` |
 | `milestone-<id>.md` (§ Milestone plans) | `<root>/plans/` |
 
@@ -121,13 +120,13 @@ These locations are exclusive - never place plans or specs in
 
 ## Directory conventions
 
-- One plan directory per roadmap entry: `plans/R-XXX-<slug>/`, created
+- One plan directory per roadmap entry: `plans/R<NNN>-<slug>/`, created
   at initiative time - a new initiative is one act: ROADMAP entry +
   dir + `requirements.md` (`approved: pending`). Slug derives from the
   roadmap entry subject, is fixed at creation, and is never renamed on
   roadmap rewording.
 - Branch naming: `git-workflow.md § Trunk`.
-- `R-XXX-<slug>/batches/` is created with the R's first batch
+- `R<NNN>-<slug>/batches/` is created with the R's first batch
   manifest; batches are scoped to that single R (`branch-plan.md
   § Batches`).
 
@@ -148,8 +147,8 @@ refuses to start the branch until the dependency is merged.
 
 After the rounds, adjust in place:
 
-- **Initiative requirements** (`plans/R-XXX-<slug>/requirements.md`):
-  `/dev plan R-XXX` to extend.
+- **Initiative requirements** (`plans/R<NNN>-<slug>/requirements.md`):
+  `/dev plan R<NNN>` to extend.
 - **Branch plan (`<slug>`)**: `/dev plan <slug>` to add commits after
   the final.
 - **Roadmap items, tasks** (single-line entries): direct file edit.
@@ -158,7 +157,7 @@ After the rounds, adjust in place:
 ## Approval and closure
 
 `.claude/REQUIREMENTS.md` and each initiative's
-`plans/R-XXX-<slug>/requirements.md` carry a frontmatter `approved:`
+`plans/R<NNN>-<slug>/requirements.md` carry a frontmatter `approved:`
 field: `pending` when new, `YYYY-MM-DD` once the user confirms.
 Nothing downstream proceeds while pending.
 
@@ -204,7 +203,7 @@ behavior to docs, external-system facts to references, binding limits
 to where they bind. A finding another initiative's open task still
 cites is promoted before its own R closes. **Archive**:
 when the initiative closes, its whole directory moves to
-`plans/archive/R-XXX-<slug>/` - requirements, task index, branch plans,
+`plans/archive/R<NNN>-<slug>/` - requirements, task index, branch plans,
 and findings together.
 A living doc never cites `archive/` for operative content -
 if it needs a fact from there, promotion missed it; move the fact.

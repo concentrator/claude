@@ -9,7 +9,7 @@ Branch `doc/id-shape-docs`. Prose only; `plan.md` must stay within the
 replaces the three per-level bullets rather than adding to them. Gate:
 `bash scripts/ci/run-all.sh`.
 
-- [ ] `plan.md § ID format` becomes the one home: the shape
+- [x] `plan.md § ID format` becomes the one home: the shape
       (`R<NNN>`, `R<NNN>-T<NNN>`, `R<NNN>-B<NNN>`; one hyphen between
       components, none inside), the next-free-id rule, and the legacy
       shapes (`R-NNN`, `T-NNN`, `B-NNN`, `R<NNN>-B-NNN`) frozen and never
