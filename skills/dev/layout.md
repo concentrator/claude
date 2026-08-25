@@ -37,6 +37,7 @@ What agents author.
     ├── plans/                    # planning hierarchy - plan.md § Where things live
     │   ├── ROADMAP.md
     │   ├── release-vX.Y.Z.md
+    │   ├── milestone-<id>.md
     │   ├── R-XXX-<slug>/         # one per roadmap entry
     │   │   ├── requirements.md
     │   │   ├── tasks.md

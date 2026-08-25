@@ -123,6 +123,7 @@ what instructs agents - is not an artifact: it stays under
 | `<task-id>-<slug>.findings.md` | beside its branch plan |
 | `B-XXX.md`, `B-XXX.report.md` (batches) | `<root>/plans/R-XXX-<slug>/batches/` |
 | `release-vX.Y.Z.md` | `<root>/plans/` |
+| `milestone-<id>.md` (§ Milestone plans) | `<root>/plans/` |
 
 These locations are exclusive - never place plans or specs in
 `docs/` or other project directories.
