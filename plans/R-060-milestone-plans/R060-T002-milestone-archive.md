@@ -16,7 +16,7 @@ current archival clause instead of adding a sentence. Gate:
       names the same trigger in one line. Word count stays ≤ 1500.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
       release-plan entry.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit; as R-060's last
       open task, run the closure check (`plan.md § Approval and
       closure`) and stamp `requirements.md`.
