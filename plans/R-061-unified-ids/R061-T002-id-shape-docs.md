@@ -17,7 +17,7 @@ replaces the three per-level bullets rather than adding to them. Gate:
       § Directory conventions and the file's opening line
       (`R<NNN>-<slug>/`); the id-format bullet in § ID format about
       `REQ-XXX` stays.
-- [ ] `branch-plan.md § Batches` and `§ Rails` (`R<NNN>-B<NNN>.md`,
+- [x] `branch-plan.md § Batches` and `§ Rails` (`R<NNN>-B<NNN>.md`,
       `batch/R<NNN>-B<NNN>`, `pre-R<NNN>-B<NNN>`), `git-workflow.md
       § Trunk` (batch prefix form), `write-plan.md`, `templates.md`,
       `layout.md` tree - examples respelled, legacy mentions labelled
