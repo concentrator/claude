@@ -286,6 +286,41 @@ described by their symptom in a pane rather than by a log line.
       spawns, so a prompt-level constraint does not reach where the third halt
       happened.
 
+### Composed but unsent reads exactly like sent
+
+- [x] **The pane cannot distinguish text typed into an input box from text
+      delivered.** Three instances: `check the verifier partial output files`
+      in the worker's box, then `keep going` and
+      `Retrofit the 13 commits before you push.` in the supervisor's. The last
+      one cost a stall. The supervisor had ended its turn saying the retrofit
+      call was the operator's; an instruction answering it sat in its own input
+      box, unsubmitted; and the worker waited on a dialog only the supervisor
+      clears. Two consecutive ticks came back byte-identical, which is what
+      distinguished a stall from a long turn.
+      The hazard compounds on the way out. Typing a message into that box
+      appends to whatever is already there, so delivering anything would have
+      submitted the pending line as part of it - an instruction that could not
+      be attributed, authorising a thirteen-commit history rewrite. The box had
+      to be emptied first, and `C-u` is not bound: `End` followed by enough
+      `BSpace` is what clears it. A transport whose write path silently
+      concatenates with unattributable text is the strongest argument in this
+      file for not typing into panes at all.
+
+- [x] **`SendMessage` reaches peers within one machine's namespace, and the
+      operator is outside it.** The settled finding at the top of this file -
+      that the channel already exists and wakes an idle peer - held for the
+      supervisor and worker, which are sessions on the same host and messaged
+      each other by name all run. It does not extend to the watcher. From the
+      operator's machine `ListAgents` lists local peers and nothing on the
+      worker host, so the one role that most needed a wake path had only tmux,
+      which is why every operator intervention this run went through
+      `send-keys` and inherited the hazard above.
+      That answers the open question of whether the operator's session joins:
+      it must, or the remote transport keeps a keystroke channel on its most
+      consequential leg. It also bounds the earlier claim. `SendMessage` closes
+      the supervisor-worker deadlock and does not close the operator-supervisor
+      one, and the two were being treated as the same finding.
+
 ### What held under load
 
 - [x] **The supervisor reached the worker with `SendMessage` unprompted.** Not
