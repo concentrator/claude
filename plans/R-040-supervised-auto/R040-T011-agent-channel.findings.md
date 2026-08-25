@@ -329,6 +329,28 @@ described by their symptom in a pane rather than by a log line.
       than a new failure. Only a wake path or a poll that runs outside the turn
       closes it; no turn-end check can.
 
+- [x] **An account usage limit stops a supervisor mid-turn behind a pane that
+      reads as ordinary idle.** The supervisor was three commands into the
+      close-out when its turn ended on `You've hit your session limit · resets
+      1:10pm (Europe/London)`. It had verified the retrofit and confirmed origin
+      carried the rewritten tips; it had not yet deleted the backup refs or cut
+      the branch. Nothing in the footer or the prompt line said so. The pane
+      showed an empty box, auto mode on, and a completed cogitation - the same
+      picture a finished turn leaves - and the limit notice sat two lines up in
+      the scrollback where a tail-and-read tick happened to catch it.
+      This is not a host blocker and no configuration prevents it, but the
+      diagnosis is preventable and the runbook does not carry it. Idle triage
+      asks which role is blocked and on what, and the answer here is neither
+      role: the work stopped because the account ran out, and every question
+      about dialogs, dispatch and bounds returns nothing. A watcher that reads
+      only the prompt line cannot tell this from a hang, and the two call for
+      opposite actions - wait, versus intervene.
+      What cleared it was the reset plus one resume message naming where the
+      turn stopped. Cheap, and only because the interrupted work was
+      idempotent: the four verification checks were re-runnable and the delete
+      had not happened. A limit landing between a destructive step and its
+      verification is the same event with no cheap recovery.
+
 ### A keystroke write can drop its submit, silently
 
 - [x] **A pane write can leave its text sitting as an unsubmitted draft, and
@@ -628,6 +650,28 @@ described by their symptom in a pane rather than by a log line.
       twenty-one shipped filter files, found zero, and wrote the claim up as
       theoretical rather than as a bug. The mechanism is one query standing
       between a plausible claim and a committed one.
+
+- [x] **The review command filtered out the exact rows it existed to show, and
+      only a second instrument caught it.** Reviewing the three-line close-out
+      diff, the supervisor stripped diff headers with `grep -v '^[+-][+-]'`. A
+      removed checkbox line is `- [ ] **T-083 ...`, so in a diff it renders as
+      `-- [ ] **T-083 ...` and matched the header pattern. The filter deleted
+      the two rows under review. What surfaced it was disagreement: the stat
+      line reported two files changed while the filtered review showed one edit,
+      and the supervisor believed neither until they agreed.
+      In the same change it left a wrong count three lines from the top of the
+      artifact it was editing to remove a wrong count, and put that in
+      `9dc24e4`'s commit message rather than the ledger, where the finding's own
+      one-home rule sends it.
+      Both belong here because of what caught them. Every near-miss this run
+      was caught the same way - two instruments disagreeing, never attention:
+      the keystroke that read as sent until the queued-messages line contradicted
+      it, the committer carrier that looked redundant until the forge's own merge
+      commit fell outside it, the machine tier that looked CPU-bound until the
+      load average said 96% idle. A verification built from one instrument
+      reports agreement with itself. That is the argument for pairing
+      instruments in `verification-policy.md`, and its cleanest instance is a
+      three-line diff where the reviewing command was the thing that was wrong.
 
 ### Operator error, recorded because the loop should prevent it
 
