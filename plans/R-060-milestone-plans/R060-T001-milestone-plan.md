@@ -7,10 +7,10 @@ Branch `feat/milestone-plan`. Prose-only: the change is a declaration,
 a router row, a rule section and a template; the Tier-1 gate
 (`bash scripts/ci/run-all.sh`) is the test for every commit.
 
-- [ ] Declare `milestone-<id>.md` at `<root>/plans/`: a row in
+- [x] Declare `milestone-<id>.md` at `<root>/plans/`: a row in
       `plan.md § Where things live` beside `release-vX.Y.Z.md`, and the
       matching line in the `layout.md § Artifacts layout` tree.
-- [ ] Route `milestone <id>` in `SKILL.md`'s `/dev plan` table, placed
+- [x] Route `milestone <id>` in `SKILL.md`'s `/dev plan` table, placed
       ahead of the `<slug>` row and pointing at `plan.md`; body stays
       within the orchestrator word limit (`rules/skills.md § Size`).
 - [ ] Write `plan.md § Milestone plans`: optional (single-initiative

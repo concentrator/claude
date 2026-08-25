@@ -31,6 +31,7 @@ the one a command maps to before acting.**
 | `R-XXX` | Detail an open initiative (tasks + branch plans) | `plan.md` |
 | `<task-id>` / `all` | Branch plan(s) for open task(s) | `write-plan.md` |
 | `batch` | Compose `B-XXX.md`; readiness review + `agentic:` stamps | `branch-plan.md` |
+| `milestone <id>` | Milestone plan (cross-initiative order) | `plan.md` |
 | `<slug>` | Adjust an existing branch plan | `branch-plan.md` |
 | `release` | Release plan (next semver) | `release.md` |
 | (bare) | Ask | - |
