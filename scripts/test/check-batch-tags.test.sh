@@ -158,5 +158,61 @@ out=$(out_in "$d"); rc=$?
   && pass "shallow clone skips loudly" || die "shallow clone did not skip: $out"
 rm -rf "$src" "$d"
 
+# Unified id shape (plan.md § ID format): R<NNN>-B<NNN> refs, report
+# and manifest named by the full batch id under an R<NNN>-<slug> dir.
+mkstale2() {
+  local d; d=$(mkrepo); mkdir -p "$d/plans/R062-ids/batches"
+  printf 'report\n' > "$d/plans/R062-ids/batches/R062-B001.report.md"
+  commit_in "$d" report; git -C "$d" "$@"
+  printf '%s' "$d"
+}
+mklive2() {
+  local d; d=$(mkrepo); mkdir -p "$d/plans/R062-ids/batches"
+  printf -- '# R062-B001\n' > "$d/plans/R062-ids/batches/R062-B001.md"
+  commit_in "$d" manifest; git -C "$d" "$@"
+  printf '%s' "$d"
+}
+
+# 17. unified stale anchor -> fail, naming tag and report
+d=$(mkstale2 tag pre-R062-B001)
+out=$(out_in "$d"); rc=$?
+[ $rc -ne 0 ] && grep -q 'pre-R062-B001' <<<"$out" \
+  && grep -q 'R062-B001\.report\.md' <<<"$out" \
+  && pass "unified stale anchor caught" \
+  || die "unified stale anchor missed: $out"; rm -rf "$d"
+
+# 18. unified live anchor and live batch branch -> pass
+d=$(mklive2 tag pre-R062-B001); git -C "$d" branch batch/R062-B001
+out_in "$d" >/dev/null && pass "unified live refs pass" \
+  || die "unified live refs wrongly flagged: $(out_in "$d")"; rm -rf "$d"
+
+# 19. unified stale batch branch -> fail, naming the branch
+d=$(mkstale2 branch batch/R062-B001)
+out=$(out_in "$d"); rc=$?
+[ $rc -ne 0 ] && grep -q 'batch/R062-B001' <<<"$out" \
+  && pass "unified stale batch branch caught" \
+  || die "unified stale batch branch missed: $out"; rm -rf "$d"
+
+# 20. unified anchor naming an initiative absent from the trunk -> fail
+d=$(mkrepo); git -C "$d" tag pre-R099-B001
+out=$(out_in "$d"); rc=$?
+[ $rc -ne 0 ] && grep -q 'R099' <<<"$out" \
+  && pass "unified unknown-initiative anchor caught" \
+  || die "unified unknown-initiative anchor missed: $out"; rm -rf "$d"
+
+# 21. cross-spelling: a unified ref against a legacy dir and report is
+#     the same batch, so it is stale
+d=$(mkstale tag pre-R042-B001)
+out_in "$d" >/dev/null && die "cross-spelling stale anchor missed" \
+  || pass "cross-spelling stale anchor caught"; rm -rf "$d"
+
+# 22. the unresolvable verdict names both spellings
+d=$(mkrepo); git -C "$d" tag pre-B001
+out=$(out_in "$d"); rc=$?
+[ $rc -ne 0 ] && grep -q 'pre-R<NNN>-B<NNN>' <<<"$out" \
+  && grep -q 'legacy pre-R<NNN>-B-XXX' <<<"$out" \
+  && pass "unresolvable verdict names both spellings" \
+  || die "unresolvable verdict incomplete: $out"; rm -rf "$d"
+
 (( fail == 0 )) && echo "check-batch-tags.test: OK"
 exit $fail

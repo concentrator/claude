@@ -16,7 +16,7 @@ Gate: `bash scripts/ci/run-all.sh`.
       `R062-T001` tasks and plan) passes; a mixed tree of both shapes
       passes; a composite task misfiled under a new-shape dir is
       caught; the header comment names both shapes.
-- [ ] `check-batch-tags.sh`: `judge` matches `R<NNN>-B<NNN>` beside
+- [x] `check-batch-tags.sh`: `judge` matches `R<NNN>-B<NNN>` beside
       `R<NNN>-B-<NNN>`, looks for the report as
       `R-?<NNN>-<slug>/batches/(B-<NNN>|R<NNN>-B<NNN>).report.md`, and
       resolves the initiative by digits; `want` strings and the header
