@@ -247,6 +247,12 @@ described by their symptom in a pane rather than by a log line.
       The state held for hours across repeated reads, and the supervisor
       auto-compacted inside it without resuming, because compaction does not
       start a turn.
+      One message ended it. Pasted into the idle supervisor after about seven
+      and a half hours, it cleared the worker's dialog inside a minute, went
+      back to reading `layout.md` for item 9, and started polling the worker's
+      pane on its own initiative - "I am watching your pane continuously now."
+      Nothing was repaired and nothing was granted. The pair simply needed a
+      turn started from outside itself.
       That makes the failure a liveness property of the pair rather than a
       missing capability, and it changes the fix. Neither a constraint on probe
       shape nor a wider Bash grant addresses it: both reduce how often dialogs
