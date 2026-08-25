@@ -30,16 +30,18 @@ hard floor.
   one-line portfolio edit. Workers carry all repo identity and do all
   in-repo work; the supervisor dispatches, monitors, and collects
   outcomes - it never implements.
-- **Delegated delivery within declared bounds** - default: merge green
-  `plan/` MRs and green batch/member MRs whose checkpoint report
+- **Delegated delivery within declared bounds** - default: deliver
+  green `plan/` MRs and green batch/member MRs whose checkpoint report
   verifies the acceptance criteria (the approved plan is the decision;
-  the supervisor automates its delivery). Escalate: releases,
+  the supervisor automates its delivery). The merge itself is never the
+  supervisor's - it hands the green MR up, and the seat that decides is
+  declared per project as an operator mode. Escalate: releases,
   convention changes (`CLAUDE.md`, `rules/`, `skills/`), red gates,
   off-plan work. Bounds are declared per project and readable by the
-  supervisor; per-repo overrides allowed. Every supervisor merge
-  carries a host signature - a `supervised` label plus a merge comment
-  naming the bound applied - in host metadata, never in commit or
-  MR/PR prose.
+  supervisor; per-repo overrides allowed. Every merge of supervised
+  work carries a host signature - a `supervised` label plus a merge
+  comment naming the bound applied and the seat that applied it - in
+  host metadata, never in commit or MR/PR prose.
 - **Quality acceptance layer**: the supervisor is the worker's first
   responder. A worker halting on an implementation question - a
   NEEDS_CONTEXT, a choice between offered options, a spec ambiguity -
@@ -95,7 +97,7 @@ hard floor.
       supervisor refuses any action outside it and escalates instead.
 - [ ] The supervisor runs a full batch lifecycle unattended on a
       worker session: dispatch, monitor, checkpoint verification
-      (report + criteria + gates), merge within bounds - under either
+      (report + criteria + gates), delivery of a green MR - under either
       transport; switching a project's transport is a one-line
       portfolio change.
 - [ ] Escalations queue with context sufficient to resolve without
@@ -115,8 +117,8 @@ hard floor.
       project is one portfolio entry plus that project's own
       declarations; supervising two projects is one loop, not two
       sessions.
-- [ ] Every supervisor merge is distinguishable on the host (label +
-      comment) with commit and MR/PR prose untouched.
+- [ ] Every merge of supervised work is distinguishable on the host
+      (label + comment) with commit and MR/PR prose untouched.
 - [ ] Pilot, two local stages in the same adopter project
       (attack-checker), the user present only at sync points: first
       its plans/docs migration batch - planned and stamped in that

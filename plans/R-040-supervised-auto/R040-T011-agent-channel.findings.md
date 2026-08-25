@@ -712,7 +712,7 @@ described by their symptom in a pane rather than by a log line.
 - [x] **The dispatch briefing restated merge authority and narrowed it.** The
       supervisor was told to escalate "anything design-level or the merge
       itself" while operating under a declaration granting green batch MRs.
-      `supervise.md § Merge or escalate` refuses to restate the merge classes
+      `supervise.md § Deliver or escalate` refuses to restate the delivery classes
       for exactly this reason, calling a partial copy the way a supervisor
       comes to believe a class it holds does not exist. The briefing was that
       partial copy. Confirmed live: the supervisor stated it would hold the
