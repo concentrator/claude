@@ -81,15 +81,16 @@ out_in "$d" >/dev/null && pass "batch-branch report passes" \
 d=$(mkrepo); git -C "$d" tag pre-B-001
 out=$(out_in "$d"); rc=$?
 [ $rc -ne 0 ] && grep -q 'pre-B-001' <<<"$out" \
-  && grep -q 'pre-R<NNN>-B-XXX' <<<"$out" \
+  && grep -q 'legacy pre-R<NNN>-B-XXX' <<<"$out" \
   && pass "legacy flat tag caught, naming the expected form" \
   || die "legacy flat tag not caught: $out"; rm -rf "$d"
 
 # 7. malformed widths and the literal placeholder -> unresolvable, fail
-d=$(mkrepo); git -C "$d" tag pre-R42-B-1; git -C "$d" tag pre-R044-B-XXX
+legacy_ph='pre-R044-B-XXX'  # the legacy placeholder, taken literally
+d=$(mkrepo); git -C "$d" tag pre-R42-B-1; git -C "$d" tag "$legacy_ph"
 out=$(out_in "$d"); rc=$?
 [ $rc -ne 0 ] && grep -q 'pre-R42-B-1' <<<"$out" \
-  && grep -q 'pre-R044-B-XXX' <<<"$out" \
+  && grep -q "$legacy_ph" <<<"$out" \
   && pass "malformed tags caught" || die "malformed tags not caught: $out"
 rm -rf "$d"
 

@@ -36,7 +36,7 @@ Diff the tracked `.claude/` and artifacts trees against
 - **Strays** - tracked files outside the canonical layout.
 - **Flat task index** - a pre-R-014 single `plans/tasks.md`.
   Recommend splitting it into per-R `tasks.md` (each task moved to its
-  owning `R-XXX-<slug>/tasks.md`, status preserved), then removing the
+  owning `R<NNN>-<slug>/tasks.md`, status preserved), then removing the
   flat file; T-ids stay global.
 
 The user approves the moves; the agent executes them - one coherent MR/PR

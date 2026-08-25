@@ -27,10 +27,10 @@ working reference implementation of its own conventions.
 ## Planning discipline
 
 DEV-mode work flows through a traceable hierarchy - **initiative
-(R-XXX) → task (R<NNN>-T<NNN>) → branch plan → commits** - so every
+(R<NNN>) → task (R<NNN>-T<NNN>) → branch plan → commits** - so every
 change traces back to a motivating requirement. The environment must:
 
-- Keep one directory per initiative (`plans/R-XXX-<slug>/`) holding its
+- Keep one directory per initiative (`plans/R<NNN>-<slug>/`) holding its
   `requirements.md`, task index (`tasks.md`), branch plans
   (`<task-id>-<slug>.md`), findings, and batch manifests; the cross-initiative
   index (`ROADMAP.md`) lives at `plans/`; foundational docs at the repo
@@ -56,13 +56,13 @@ Mechanics: `skills/dev/plan.md`, `skills/dev/branch-plan.md`,
 `/dev auto` runs a batch of approved branches through subagents without
 touching the default branch:
 
-- A batch integration branch `batch/R<NNN>-B-XXX` is cut off the
+- A batch integration branch `batch/R<NNN>-B<NNN>` is cut off the
   default branch at pre-flight; member branches merge into it; the
   default branch advances only when the batch MR merges.
 - The batch close phase reviews the full batch diff on the most capable
   model, applies fixes on the batch branch, re-runs tests + lint, and
   checks docs coherence.
-- A written checkpoint report (`B-XXX.report.md` - per-branch + batch
+- A written checkpoint report (`R<NNN>-B<NNN>.report.md` - per-branch + batch
   sections, cost and defect outcomes) is mandatory; accept is invalid
   without it.
 - Accept pushes only the batch branch and opens an MR. Pushing the

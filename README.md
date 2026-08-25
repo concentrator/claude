@@ -23,7 +23,7 @@ every project on the machine.
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
 | `DESIGN.md` | Architecture, full tree-map, self-hosting layout |
 | `MAINTENANCE.md` | The Tier-2 review concerns, plus the sanity routine: cleanup, repair, allow-list hygiene, skill audits |
-| `plans/` | This repo's own planning artifacts: the roadmap index, per-initiative `R-XXX-<slug>/` dirs, and `archive/` for closed initiatives |
+| `plans/` | This repo's own planning artifacts: the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, and `archive/` for closed initiatives |
 
 ## Workflow
 
@@ -32,13 +32,13 @@ Two modes, defined in `CLAUDE.md`:
 - **VIBE** (default) - freestyle, no ceremony.
 - **DEV** - entered via `/dev`: initiatives (requirements) → tasks →
   branch plans → commits, every level traceable
-  (`R-XXX → R<NNN>-T<NNN> → branch`). Task ids are composite, with the
+  (`R<NNN> → R<NNN>-T<NNN> → branch`). Task ids are composite, with the
   task counter scoped to its initiative, so the id routes to the
-  artifacts: `R045-T001` lives in `plans/R-045-<slug>/`, or the same path
+  artifacts: `R062-T001` lives in `plans/R062-<slug>/`, or the same path
   under `archive/` once the initiative closes.
 
 Planning takes two rounds: `/dev plan R` shapes an initiative,
-`/dev plan R-XXX` details its tasks and branch plans. Execution is
+`/dev plan R<NNN>` details its tasks and branch plans. Execution is
 manual (`/dev code`, one branch at a time), agentic (`/dev auto`, a
 batch of branches run by subagents between checkpoints, on permission
 rails), or supervised (`/dev supervise`, scoped delivery within declared

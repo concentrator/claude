@@ -63,12 +63,12 @@ excluded.
 │   └── settings.json             # project tier, tracked - push carve-out, durable allows, model
 ├── plans/                        # planning hierarchy
 │   ├── ROADMAP.md                # cross-R index - see skills/dev/plan.md
-│   ├── R-XXX-<slug>/             # one dir per roadmap entry (initiative-time)
+│   ├── R<NNN>-<slug>/            # one dir per roadmap entry (initiative-time)
 │   │   ├── requirements.md       # initiative requirements
 │   │   ├── tasks.md              # this initiative's task index (lazy)
 │   │   ├── R<NNN>-T<NNN>-<slug>.md
 │   │   ├── R<NNN>-T<NNN>-<slug>.findings.md
-│   │   └── batches/              # B-XXX manifests + reports (lazy)
+│   │   └── batches/              # R<NNN>-B<NNN> manifests + reports (lazy)
 │   └── archive/                  # closed initiatives, frozen history
 ├── rules/                        # personal convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules

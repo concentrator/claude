@@ -1,14 +1,14 @@
 # Writing Plans
 
-Generate a branch plan (`plans/R-XXX-<slug>/<task-id>-<slug>.md`,
+Generate a branch plan (`plans/R<NNN>-<slug>/<task-id>-<slug>.md`,
 root-relative) from a task in its initiative's `tasks.md`. Invoked
 within the detail
-round (`/dev plan R-XXX`), or per task via `/dev plan <task-id>` / `all`.
+round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` / `all`.
 
 ## Inputs
 
 - Task ID (e.g. `R008-T001`; legacy `T-014`) from the parent R's
-  `plans/R-XXX-<slug>/tasks.md`
+  `plans/R<NNN>-<slug>/tasks.md`
 - Task tag: `[feat] | [fix] | [refactor] | [doc] | [test] | [mnt]`
 - Parent chain for context: task → initiative
 - Project `CLAUDE.md` (build/test/lint), `.claude/DESIGN.md` (architecture)
@@ -20,7 +20,7 @@ round (`/dev plan R-XXX`), or per task via `/dev plan <task-id>` / `all`.
 ## Steps
 
 1. **Resolve chain.** Read task line; walk back T → R. Read
-   `plans/R-XXX-<slug>/requirements.md` for acceptance criteria, and the
+   `plans/R<NNN>-<slug>/requirements.md` for acceptance criteria, and the
    changed feature's `docs/` doc (if any) for its current behavior.
 2. **Propose slug** (`git-workflow.md § Trunk` rules); confirm with
    user.
@@ -47,7 +47,7 @@ round (`/dev plan R-XXX`), or per task via `/dev plan <task-id>` / `all`.
    the completion commit (per `branch-plan.md § Closing routine`).
 6. **Confirm with user**, then create the plan branch before the
    first artifact write, write to
-   `plans/R-XXX-<slug>/<task-id>-<slug>.md`, and deliver via a
+   `plans/R<NNN>-<slug>/<task-id>-<slug>.md`, and deliver via a
    short-lived plan MR/PR (`plan.md § Where plans live in git`).
 
 ## Soft cap

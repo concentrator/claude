@@ -249,7 +249,7 @@ fails_with "$d" 'R062 not in ROADMAP' \
 rm -rf "$d"
 
 # 22. a legacy task line whose description holds an R-like token but no
-# `(R-XXX)` tag is parentless, not misfiled
+# legacy `(R-XXX)` tag is parentless, not misfiled
 d=$(mkrepo); mkdir -p "$d/plans/R-001-x"
 printf -- '- [ ] R-001: thing.\n' > "$d/plans/ROADMAP.md"
 printf -- '- [ ] T-014 [feat]: see PR393\n' > "$d/plans/R-001-x/tasks.md"

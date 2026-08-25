@@ -1,6 +1,6 @@
 # Branch plan rules
 
-A branch plan is `plans/R-XXX-<slug>/<task-id>-<slug>.md`
+A branch plan is `plans/R<NNN>-<slug>/<task-id>-<slug>.md`
 (root-relative; `plan.md § Directory conventions`). One
 branch = one task. The plan is complete and committed to `main`
 **before** the branch is created.
@@ -158,7 +158,7 @@ Front-loading pays only once the session is bounded.
 The **batch** - one or more coupled tasks shipped as one CI-gated
 MR/PR - is the unit of delivery to `main` in both modes; a lone task
 is a batch of one, its branch the MR/PR. Auto mode (`/dev auto`)
-runs members via subagents on a `batch/R<NNN>-B-XXX` branch;
+runs members via subagents on a `batch/R<NNN>-B<NNN>` branch;
 manual mode (`/dev code`) implements them by hand. Only
 verification differs: auto runs the checkpoint below, manual uses
 § Closing routine + `finish`.
@@ -175,15 +175,15 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
 
 ### Batches
 
-`plans/R-XXX-<slug>/batches/B-XXX.md` - ordered member list:
+`plans/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.md` - ordered member list:
 
-    # B-001
-    - R008-T001 (<slug>)
-    - R008-T002 (<slug>)
+    # R062-B001
+    - R062-T001 (<slug>)
+    - R062-T002 (<slug>)
 
 Composition only (members, order, mode), never status - task state's
 home is the R's `tasks.md`. Open iff a member is `[ ]` there and no
-`B-XXX.report.md` exists. Composition is a planning write -
+`R<NNN>-B<NNN>.report.md` exists. Composition is a planning write -
 the plan branch comes first.
 
 Delivery grouping, not a planning level: a batch is scoped to the R
@@ -194,7 +194,7 @@ that R's acceptance criteria. Soft cap ~30 planned commits
 (§ Size cap governor). Auto mode requires a stamped batch.
 
 Batch-close bookkeeping: the close phase marks member-task
-checkboxes as commits on `batch/R<NNN>-B-XXX` before the MR/PR -
+checkboxes as commits on `batch/R<NNN>-B<NNN>` before the MR/PR -
 marks land per § Closing routine; reject: § Rails. The R-closure
 check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) after the batch MR/PR merges.
@@ -209,8 +209,8 @@ before merging into the batch branch hold regardless of size.
 
 - Agents touch only code, plan checkboxes, and findings files -
   never plan content, never the closing decisions.
-- Pre-flight creates `batch/R<NNN>-B-XXX` off latest `main` and sets the
-  `pre-R<NNN>-B-XXX` tag (rollback anchor). Member branches merge into the
+- Pre-flight creates `batch/R<NNN>-B<NNN>` off latest `main` and sets the
+  `pre-R<NNN>-B<NNN>` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.
 - Agents never push; the only delivery is the checkpoint-accept
   **CI-gated MR/PR** of the batch branch to origin (`auto`
@@ -218,7 +218,7 @@ before merging into the batch branch hold regardless of size.
 - No commit on red tests/lint - no exceptions.
 - Findings triage and push decisions defer to the checkpoint.
 - Branch refs stay until the user validates the checkpoint.
-  Accept = delete the `pre-R<NNN>-B-XXX` tag and member refs;
+  Accept = delete the `pre-R<NNN>-B<NNN>` tag and member refs;
   post-merge cleanup deletes the batch branch, local and origin.
   Reject = delete the batch branch; tag and member refs stay for
   salvage.
@@ -233,4 +233,4 @@ before merging into the batch branch hold regardless of size.
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
 | Non-blocker discovery | `<task-id>-<slug>.findings.md`, continue |
-| Batch complete | Close phase on `batch/R<NNN>-B-XXX`, then checkpoint (accept opens the MR/PR), wait for user |
+| Batch complete | Close phase on `batch/R<NNN>-B<NNN>`, then checkpoint (accept opens the MR/PR), wait for user |

@@ -23,7 +23,7 @@ approved: pending
 ## Open questions
 ```
 
-## Per-initiative `plans/R-XXX-<slug>/requirements.md`
+## Per-initiative `plans/R<NNN>-<slug>/requirements.md`
 
 In rules, skills, and docs, write it path-qualified wherever bare
 `requirements.md` could be read against root `REQUIREMENTS.md`.
@@ -42,7 +42,7 @@ approved: pending
 kind: feat | bug | refactor | doc | test | mnt
 ---
 
-# R-001: <short title>
+# R001: <short title>
 ```
 
 ### `kind: feat`

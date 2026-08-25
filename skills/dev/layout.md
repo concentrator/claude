@@ -38,7 +38,7 @@ What agents author.
     │   ├── ROADMAP.md
     │   ├── release-vX.Y.Z.md
     │   ├── milestone-<id>.md
-    │   ├── R-XXX-<slug>/         # one per roadmap entry
+    │   ├── R<NNN>-<slug>/        # one per roadmap entry
     │   │   ├── requirements.md
     │   │   ├── tasks.md
     │   │   ├── <task-id>-<slug>.md
@@ -73,11 +73,11 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
   `.claude/rules/`, `.claude/commands/`, `.claude/agents/`,
   `.claude/MAINTENANCE.md`; `<root>/plans/ROADMAP.md`;
   `.claude/hooks/` (shipped by the DEV toolset installer).
-- **Initiative-time**: `<root>/plans/R-XXX-<slug>/` + `requirements.md`
+- **Initiative-time**: `<root>/plans/R<NNN>-<slug>/` + `requirements.md`
   (`plan.md § Directory conventions`).
 - **Lazy** (created on first use): `.claude/adr/`,
   `.claude/references/`, `<root>/docs/`,
-  `<root>/plans/R-XXX-<slug>/tasks.md` and `batches/` (`plan.md
+  `<root>/plans/R<NNN>-<slug>/tasks.md` and `batches/` (`plan.md
   § Levels`, `§ Directory conventions`), `<root>/plans/archive/`,
   `<root>/plans/visual-artifacts/` (gitignored session artifacts).
 

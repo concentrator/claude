@@ -32,7 +32,7 @@ commits and carries them to trunk on merge.
    declaration (`companions/declarations.md § Supervisor bounds`) and its
    `.claude/supervisor.md` instructions when referenced. No
    declaration → read-only: report and escalate, merge nothing.
-3. **Scope** - an explicit `B-XXX` / task id / `R-XXX` argument; bare =
+3. **Scope** - an explicit `R<NNN>-B<NNN>` / task id / `R<NNN>` argument; bare =
    the project's open batch (`branch-plan.md § Batches`: a member task
    `[ ]` in `tasks.md`, no report), else open tasks with stamped
    plans. Scope selects pre-approved work - anything lacking approved
@@ -44,10 +44,10 @@ commits and carries them to trunk on merge.
 **Adopt before dispatch.** A worker may already exist - started by the
 user or a previous supervisor session. Before launching one, check, in
 order: local peer sessions rooted in the project's path; a running
-worker process on the scope; the scope's `pre-R<NNN>-B-XXX` tag or
-`batch/R<NNN>-B-XXX` branch present with no `B-XXX.report.md`. Any hit
+worker process on the scope; the scope's `pre-R<NNN>-B<NNN>` tag or
+`batch/R<NNN>-B<NNN>` branch present with no `R<NNN>-B<NNN>.report.md`. Any hit
 means a worker is (or was) on the batch: adopt it - status ping, then
-monitor - or, if it is dead, resume `/dev auto B-XXX` in a new session
+monitor - or, if it is dead, resume `/dev auto R<NNN>-B<NNN>` in a new session
 over its intact refs. Never run two workers on one project.
 
 One interactive worker session per project, under that project's
@@ -67,7 +67,7 @@ manually: the worker runs `/dev code <slug>` and closes per
 `finish.md`, not the auto engine. Everything else here holds
 unchanged - ids only, questions to the supervisor, no merge by the
 worker. What differs is the evidence at the checkpoint: there is no
-`B-XXX.report.md`, so `finish.md § 1`'s verify set stands in its place
+`R<NNN>-B<NNN>.report.md`, so `finish.md § 1`'s verify set stands in its place
 (every plan checkbox `[x]`, findings file triaged, bookkeeping marks
 landed, close review run, tests and lint green). Verify that set from
 artifacts exactly as a report would be verified; a manual branch
@@ -117,9 +117,9 @@ checkpoint writes it.
 
 At a checkpoint, before the MR/PR is handed over:
 
-1. `B-XXX.report.md` exists - no report, no accept (`auto.md`).
+1. `R<NNN>-B<NNN>.report.md` exists - no report, no accept (`auto.md`).
 2. The report verifies each member's acceptance criteria.
-3. `batch/R<NNN>-B-XXX` has moved off `pre-R<NNN>-B-XXX`. One
+3. `batch/R<NNN>-B<NNN>` has moved off `pre-R<NNN>-B<NNN>`. One
    `git log -1` on each. Still equal while the member work is
    complete means no member branch ever merged in, so the work
    travelled some other route - and every gate that route skipped is

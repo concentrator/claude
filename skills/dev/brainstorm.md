@@ -17,7 +17,7 @@ act of `plan.md § Directory conventions`. The discovery method behind
    message, opt-in.
 4. **Approaches** - propose 2–3 with trade-offs; lead with your
    recommendation. YAGNI ruthlessly.
-5. **Draft** - pick the next free `R-XXX` id, create the plan branch
+5. **Draft** - pick the next free `R<NNN>` id, create the plan branch
    (`git-workflow.md § Trunk`) before the first artifact write, then
    draft: requirements sections per `templates.md § Per-initiative`.
    Present it section by section, confirming each. Then the draft
@@ -27,7 +27,7 @@ act of `plan.md § Directory conventions`. The discovery method behind
 7. **User review** - user reads the committed-to-be file; iterate.
    Approval stamp + delivery: `plan.md § Approval and closure`,
    `§ Where plans live in git`.
-8. **Next** - propose the detail round `/dev plan R-XXX` for branch
+8. **Next** - propose the detail round `/dev plan R<NNN>` for branch
    plans (gate rules: `plan.md § Planning rounds`).
 
 ## Rules
