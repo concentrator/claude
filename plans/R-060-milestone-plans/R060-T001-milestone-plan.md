@@ -26,5 +26,5 @@ a router row, a rule section and a template; the Tier-1 gate
       keeps the rules.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
       release-plan entry.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
