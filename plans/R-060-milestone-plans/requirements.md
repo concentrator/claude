@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-25
 kind: feat
+status: done 2026-08-26
 ---
 
 # R-060: Milestone execution plans

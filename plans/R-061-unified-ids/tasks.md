@@ -17,3 +17,6 @@ composite (`R061-T###`, counter scoped to this initiative).
   frozen), then respell every example and placeholder in the files
   listed in `requirements.md § Scope` so no tracked file outside
   `plans/` shows a legacy shape unlabelled. Depends on R061-T001.
+- Backlog: `skills/dev/plan.md` sits at the 1500-word cap
+  (`scripts/ci/check-caps.sh`); the next rule added there needs a
+  companion file or a split.
