@@ -21,7 +21,7 @@ a router row, a rule section and a template; the Tier-1 gate
       milestone <id>`. Name the milestone plan beside the release plan
       in `plan.md § Templates` and `§ Archival` (offered for archival at
       milestone completion).
-- [ ] Add the milestone-plan template to `templates.md` (Boundary,
+- [x] Add the milestone-plan template to `templates.md` (Boundary,
       Order in waves, Gaps, Notes), stating the shape once; `plan.md`
       keeps the rules.
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
