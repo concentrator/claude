@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Tier-1 batch-ref gate (R-044, R-048): the batch refs the DEV flow
-# creates - the pre-R<NNN>-B-XXX rollback tag and the batch/R<NNN>-B-XXX
-# integration branch - must not outlive their batch: accept deletes the
-# tag, post-merge cleanup the branch (skills/dev/branch-plan.md
-# § Rails). Member branches carry no reserved namespace, so they stay
-# outside the gate. A batch is closed once its B-XXX.report.md reaches
+# creates - the pre-R<NNN>-B<NNN> rollback tag and the batch/R<NNN>-B<NNN>
+# integration branch (legacy spelling R<NNN>-B-XXX) - must not outlive
+# their batch: accept deletes the tag, post-merge cleanup the branch
+# (skills/dev/branch-plan.md § Rails). Member branches carry no reserved
+# namespace, so they stay outside the gate. A batch is closed once its
+# report (R<NNN>-B<NNN>.report.md, legacy B-XXX.report.md) reaches
 # the trunk via the accepted batch MR/PR, so the gate judges the
 # trunk's tree, never the worktree: reject, halt, and the accept push
 # itself all hold refs while a report exists somewhere, and none of
@@ -48,20 +49,22 @@ report() { echo "BATCH-TAGS: $1"; fail=1; }
 
 # Judge one batch-namespace ref: $1 = the ref as shown, $2 = its
 # composite remainder, $3 = the expected full form, $4 = extra remedy
-# appended to the stale verdict. The ls-tree listing is already scoped
-# to $P, so the patterns carry no root prefix (and need no escaping).
+# appended to the stale verdict. Ids are matched by digits, so a ref
+# in either spelling resolves against a dir and report in either. The
+# ls-tree listing is already scoped to $P, so the patterns carry no
+# root prefix (and need no escaping).
 judge() {
   local ref="$1" rest="$2" want="$3" hint="${4:-}" nnn mmm rep
-  if [[ "$rest" =~ ^R([0-9]{3})-B-([0-9]{3})$ ]]; then
+  if [[ "$rest" =~ ^R([0-9]{3})-B-?([0-9]{3})$ ]]; then
     nnn="${BASH_REMATCH[1]}"; mmm="${BASH_REMATCH[2]}"
-    rep="$(grep -E -m1 "(^|/)R-$nnn-[^/]+/batches/B-$mmm\.report\.md$" <<<"$tree" || true)"
+    rep="$(grep -E -m1 "(^|/)R-?$nnn-[^/]+/batches/(B-$mmm|R$nnn-B$mmm)\.report\.md$" <<<"$tree" || true)"
     if [ -n "$rep" ]; then
       report "$ref outlived its batch - $trunk carries $rep; § Rails retires the ref$hint"
-    elif ! grep -qE "(^|/)R-$nnn-" <<<"$tree"; then
-      report "$ref names no initiative R-$nnn on $trunk - unresolvable"
+    elif ! grep -qE "(^|/)R-?$nnn-" <<<"$tree"; then
+      report "$ref names no initiative R$nnn on $trunk - unresolvable"
     fi
   else
-    report "$ref is not a composite batch ref ($want) - unresolvable"
+    report "$ref is not a composite batch ref ($want; legacy ${want/B<NNN>/B-XXX}) - unresolvable"
   fi
 }
 
@@ -70,11 +73,11 @@ judge() {
 while IFS= read -r full; do
   case "$full" in
     refs/tags/pre-*)
-      judge "${full#refs/tags/}" "${full#refs/tags/pre-}" 'pre-R<NNN>-B-XXX' ;;
+      judge "${full#refs/tags/}" "${full#refs/tags/pre-}" 'pre-R<NNN>-B<NNN>' ;;
     refs/heads/batch/*)
-      judge "${full#refs/heads/}" "${full##*batch/}" 'batch/R<NNN>-B-XXX' ;;
+      judge "${full#refs/heads/}" "${full##*batch/}" 'batch/R<NNN>-B<NNN>' ;;
     refs/remotes/*/batch/*)
-      judge "${full#refs/remotes/}" "${full##*batch/}" 'batch/R<NNN>-B-XXX' \
+      judge "${full#refs/remotes/}" "${full##*batch/}" 'batch/R<NNN>-B<NNN>' \
             '; already gone from origin? git fetch --prune' ;;
   esac
 done < <(git for-each-ref --format='%(refname)')

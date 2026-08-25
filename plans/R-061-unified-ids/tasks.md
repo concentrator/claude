@@ -6,7 +6,7 @@ composite (`R061-T###`, counter scoped to this initiative).
 
 ## Open
 
-- [ ] **R061-T001 [mnt]**: teach the gates the unified shape -
+- [x] **R061-T001 [mnt]**: teach the gates the unified shape -
   `check-plan-integrity.sh` resolves `R<NNN>` initiatives, `R<NNN>-<slug>`
   directories and `R<NNN>-B<NNN>` batch files beside the legacy shapes;
   `check-batch-tags.sh` judges `batch/R<NNN>-B<NNN>` and
