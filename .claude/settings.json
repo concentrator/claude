@@ -1,5 +1,8 @@
 {
   "model": "claude-fable-5[1m]",
+  "fallbackModel": [
+    "claude-opus-5[1m]"
+  ],
   "permissions": {
     "allow": [
       "Bash(bash scripts/ci/run-all.sh)",
