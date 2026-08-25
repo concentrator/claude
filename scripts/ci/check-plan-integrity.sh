@@ -25,7 +25,9 @@ has() { grep -qxF "$1" <<<"$2"; }
 # Initiative key: the digits of an `R###` or `R-###` spelling.
 rkey() { grep -oE 'R-?[0-9]{3}' <<<"$1" | head -1 | tr -d '-'; }
 
-roadmap_rs=$(grep -oE 'R-?[0-9]{3}' "$P/ROADMAP.md" | tr -d '-' | sort -u || true)
+# Entry lines only: an id mentioned in prose does not list an initiative.
+roadmap_rs=$(sed -nE 's/^- \[[ x]\] (R-?[0-9]{3}).*/\1/p' "$P/ROADMAP.md" \
+  | tr -d '-' | sort -u || true)
 
 # Each per-R tasks.md: every task names the owning dir's R (in ROADMAP)
 all_ts=""
@@ -35,7 +37,7 @@ while IFS= read -r f; do
   has "$(rkey "$owner")" "$roadmap_rs" || report "$f under $owner not in ROADMAP.md"
   while IFS= read -r line; do
     t=$(grep -oE 'T-[0-9]{3}' <<<"$line" | head -1 || true)
-    r=$(grep -oE 'R-?[0-9]{3}' <<<"$line" | head -1 || true)
+    r=$(grep -oE '\(R-?[0-9]{3}\)' <<<"$line" | head -1 | tr -d '()' || true)
     [ -n "$r" ] || { report "$t in $f has no parent R"; continue; }
     [ "$(rkey "$r")" = "$(rkey "$owner")" ] || report "$t in $f names $r but its dir is $owner"
     all_ts+="$t"$'\n'

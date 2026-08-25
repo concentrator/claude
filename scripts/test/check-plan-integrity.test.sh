@@ -239,7 +239,26 @@ fails_with "$d" 'R001-T001 in .* but its dir is R062' \
   && pass "misfiled id under unified dir caught" || die "misfiled id under unified dir missed"
 rm -rf "$d"
 
-# 21. a unified-shape dir the roadmap never lists
+# 21. an id mentioned in another entry's prose lists no initiative
+d=$(mkrepo); mkdir -p "$d/plans/R062-x"
+printf -- '- [ ] R-001: thing, after R062-T001 and pre-R062-B001.\n' > "$d/plans/ROADMAP.md"
+printf -- '- [ ] **R062-T001 [doc]**: thing\n' > "$d/plans/R062-x/tasks.md"
+add "$d"
+fails_with "$d" 'R062 not in ROADMAP' \
+  && pass "prose mention lists no initiative" || die "prose mention whitelisted an initiative"
+rm -rf "$d"
+
+# 22. a legacy task line whose description holds an R-like token but no
+# `(R-XXX)` tag is parentless, not misfiled
+d=$(mkrepo); mkdir -p "$d/plans/R-001-x"
+printf -- '- [ ] R-001: thing.\n' > "$d/plans/ROADMAP.md"
+printf -- '- [ ] T-014 [feat]: see PR393\n' > "$d/plans/R-001-x/tasks.md"
+add "$d"
+fails_with "$d" 'T-014 in .* has no parent R' \
+  && pass "untagged legacy line is parentless" || die "untagged legacy line misread: $(run_in "$d")"
+rm -rf "$d"
+
+# 23. a unified-shape dir the roadmap never lists
 d=$(mkrepo); mkdir -p "$d/plans/R062-x"
 printf -- '- [ ] R-001: thing.\n' > "$d/plans/ROADMAP.md"
 printf -- '- [ ] **R062-T001 [doc]**: thing\n' > "$d/plans/R062-x/tasks.md"

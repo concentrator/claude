@@ -196,7 +196,7 @@ out=$(out_in "$d"); rc=$?
 # 20. unified anchor naming an initiative absent from the trunk -> fail
 d=$(mkrepo); git -C "$d" tag pre-R099-B001
 out=$(out_in "$d"); rc=$?
-[ $rc -ne 0 ] && grep -q 'R099' <<<"$out" \
+[ $rc -ne 0 ] && grep -q 'names no initiative R099' <<<"$out" \
   && pass "unified unknown-initiative anchor caught" \
   || die "unified unknown-initiative anchor missed: $out"; rm -rf "$d"
 
