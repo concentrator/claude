@@ -30,7 +30,7 @@ machine back, or when the host is provisioned for it
 
 ```
    operator
-      |  answers escalations; nothing else
+      |  answers escalations, decides merges; nothing else
       v
  +-------------------------------------------------+
  |  SUPERVISOR                          auto mode   |
@@ -64,7 +64,10 @@ The supervisor cycles until the scope is delivered:
   |                                |
   +--------------------------------+
                                    |
-                    merge within bounds, or escalate
+                 hand the green MR/PR up, or escalate
+                                   |
+                                   v
+                 operator merges (§ Operator modes)
 ```
 
 ## Variant A: one machine
@@ -82,7 +85,7 @@ The supervisor cycles until the scope is delivered:
    is at the keyboard, so the worker's permission prompts are theirs to
    clear.
 6. **Supervisor** verifies the delivered scope from artifacts by running
-   them, then merges within bounds or escalates.
+   them, then hands the green MR/PR to the operator, or escalates.
 
 ## Variant B: remote host
 
@@ -98,22 +101,22 @@ The supervisor cycles until the scope is delivered:
 4. **Operator** briefs it in one message: the scope and its branch plan
    path, the command that starts the worker, and a pointer to
    `companions/declarations.md § Supervisor bounds` for what it may
-   merge and what it must escalate. Cite that section, never restate it.
-   A briefing that summarises authority becomes a second source for it,
-   and the copy is what the supervisor obeys: this line once told
-   supervisors to escalate the merge itself, which the declaration
-   grants them, and every run briefed from it stopped one step short of
-   delivery.
+   deliver and what it must escalate. Cite that section, never restate
+   it. A briefing that summarises authority becomes a second source for
+   it, and the copy is what the supervisor obeys - so a briefing written
+   against an earlier revision of the bounds is the one thing that can
+   put a supervisor outside them while it believes it is inside.
 5. **Supervisor** starts the worker
    (`tmux new -d -s worker -c <project-dir> claude --permission-mode acceptEdits`),
    adopts it by name over `ListAgents`, and dispatches one line and
    nothing else by `SendMessage`: `/dev code <slug>`.
 6. **Supervisor** follows: answers implementation questions over the
    channel, clears the worker's permission prompts over `tmux`.
-7. **Supervisor** verifies by running the gates, then merges within
-   bounds or escalates.
-8. **Operator** answers escalations - over `SendMessage` from a
-   connected session, or in the supervisor's pane.
+7. **Supervisor** verifies by running the gates, then hands the green
+   MR/PR to the operator citing its evidence, or escalates.
+8. **Operator** decides the handed-over MR/PR and answers escalations -
+   over `SendMessage` from a connected session, or in the supervisor's
+   pane.
 
 ### tmux recipes - what a message cannot do
 
@@ -140,6 +143,29 @@ tmux capture-pane -p -t worker | tail -30
 `esc to interrupt` is in the footer only while the session is working,
 and absent both when it is idle and when it is stopped on a prompt, so
 the loop returns on either.
+
+Put the loop inside the remote command, not around it:
+
+```
+ssh <host> --command='until ! tmux capture-pane -p -t worker | grep -q "esc to interrupt"; do sleep 5; done
+                      tmux capture-pane -p -t worker | tail -30'
+```
+
+One connection waits on the host and returns once. Re-connecting per
+poll pays the tunnel handshake every iteration and reads a pane that
+`send-keys` has not caught up with, which is how a stale capture gets
+reported as a state change.
+
+**Keystroke authority.** A single key sent to another session's dialog
+is an answer; text typed into its input box is a dispatch. The operator
+may send `1`, `2` or `Esc` to a supervisor stopped on a permission
+prompt, once it has read the pane and the command being approved is
+inside that session's own bounds. It may not type instructions into the
+box: that makes the operator a second dispatcher, and the transcript
+records no channel for any input, so nothing afterwards can tell the
+two apart. Nor is a keystroke the fix for a deadlock - a session
+stopped because nobody can answer it is a provisioning bug, and the
+key buys one turn while leaving the cause in place.
 
 ## Remote Control
 
@@ -204,3 +230,14 @@ a `git push origin main` or force-push deny still bites.
   pressing Enter.
 - **Claude Code writes `defaultMode` into the tracked `settings.json`.**
   A supervised run dirties the config repo by starting. Do not stage it.
+- **A usage limit halts the session, and the pane lies about when.** The
+  reset time shown is in the account's timezone, not the host's, so run
+  `date` on the host before concluding the wait is over. Recovery is a
+  message naming where the turn stopped, which is cheap only when the
+  interrupted step was idempotent - otherwise establish what landed
+  first.
+- **A turn ending between two steps leaves no record of which.** The
+  transcript holds the last completed tool call, never the intent that
+  would have followed. So a resumed session is told where to resume;
+  asking it to work that out from its own history is asking for a
+  guess.
