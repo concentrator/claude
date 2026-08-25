@@ -25,5 +25,5 @@ Gate: `bash scripts/ci/run-all.sh`.
       `batch/R062-B001`; the existing legacy cases unchanged.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
       release-plan entry.
-- [ ] Complete the branch: re-review docs across all commits, cleanup
+- [x] Complete the branch: re-review docs across all commits, cleanup
       (stale/temp data), mark plan complete, commit.
