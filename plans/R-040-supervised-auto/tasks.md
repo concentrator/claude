@@ -134,3 +134,35 @@ composite (`R040-T###`, counter scoped to this initiative).
   worker-side guard hook, or accept declared permissions as the only
   gate; update `supervise.md` and the provisioning scripts to match.
   Routed from `R-056-settings-tiering/R056-T002-accept-edits.findings.md`.
+
+- [ ] **R040-T015 [feat]**: quota-gated Fable review - the tracked
+  project tier pins `model: claude-fable-5[1m]`, so every session in
+  this repo spends the Fable window on ordinary work, and
+  `verification-policy.md § Models` pins branch-close and batch
+  full-diff review to `fable` behind a capacity fallback that fires
+  only once a dispatch has already failed. Make Opus the default and
+  the fallback pre-flight: `scripts/model-quota.sh` reads the session's
+  own OAuth credential and the claude.ai usage endpoint, which reports
+  a per-model weekly window, so a `fable`-pinned role dispatches on
+  Fable only while that window has headroom. Over the ceiling,
+  unreadable, or absent, the role dispatches on Opus and records the
+  substitution the policy already requires.
+
+- [ ] **R040-T016 [fix]**: `forge-cli` reports success on a host whose
+  `glab` cannot reach the project. `forge_auth`
+  (`scripts/worker-credentials.sh:128`) exports `GITLAB_TOKEN` and
+  verifies with `glab api user --hostname gl.wallarm.com`, which passes
+  on a token whose instance `glab` holds no host entry for. Every
+  repo-relative command then fails - "None of the git remotes configured
+  for this repository point to a known GitLab host" - so a worker runs a
+  batch to completion and cannot open its MR. Two gaps, and the second
+  is why the first survived: the subcommand never runs the `glab auth
+  login` its `--dry-run` text promises (`:81`), and the check it does run
+  is the one shape that cannot detect the omission. Add `glab auth login
+  --hostname <host> --stdin --insecure-storage`, since a headless VM has
+  no keyring to fall back on, and verify from inside the project
+  checkout, which is where a worker calls it from. The `--dry-run` text's
+  other promise, `glab auth status`, stays rejected for the reason `:126`
+  records. Found on `claude-worker` before the R-020 B-002 dispatch, and
+  cleared there by hand so that run could proceed.
+  `depends-on: R040-T010`
