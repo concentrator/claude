@@ -166,3 +166,24 @@ composite (`R040-T###`, counter scoped to this initiative).
   records. Found on `claude-worker` before the R-020 B-002 dispatch, and
   cleared there by hand so that run could proceed.
   `depends-on: R040-T010`
+
+- [ ] **R040-T017 [feat]**: the supervisor's working ledger has no rule
+  and no durable home. Both places the rules say "ledger"
+  (`supervise.md:75`, `declarations.md:63`) mean an entry in the
+  report's `## Supervisor decisions` section; no file is defined
+  anywhere. The R-020 B-002 supervisor kept one regardless, 330 KB of
+  it, in its session scratchpad - the only place its own working state
+  lived, and it dies with the session. That is why the worker can be
+  told to clear context at its unit boundary (`branch-plan.md
+  § Session boundary`) while the supervisor cannot: clearing first
+  destroys the state it reasons from. Declare the ledger with four
+  properties. A path outside both the project checkout and the config
+  repo, so working memory dirties neither tree. Appends the auto-mode
+  classifier accepts, since a supervisor needing approval for every
+  write is not unattended. Append as a write and never `Edit`, which
+  re-reads and rewrites the whole file per entry. And working memory
+  only: a decision still lands in the report's `## Supervisor
+  decisions`, so the ledger holds evidence and never becomes a second
+  home for a finding. Then the supervisor can take the same clearing
+  rule the worker already has.
+  `depends-on: R040-T011`
