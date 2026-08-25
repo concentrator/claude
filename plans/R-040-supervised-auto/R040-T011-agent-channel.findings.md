@@ -115,6 +115,13 @@ What remains is configuration plus one decision.
   re-armed - alive and aware, achieving nothing but confirming the hold. So the
   gap to close is notification, not control: an operator who can reach a held
   session still has no way to learn it is held.
+  The outbound leg then failed on its own account. One tick's `capture-pane`
+  read over the IAP tunnel took about thirty-five minutes to execute: the
+  command was dispatched at one time and the host clock inside its own output
+  showed another. Nothing was wrong on the host, and the panes were unchanged
+  when it landed, so the stall cost no state - but for that half hour the
+  operator could not have distinguished a stalled run from a stalled read, and
+  the only instrument for telling them apart is the one that stalled.
   Two reading errors of this file's own, both worth keeping. Four consecutive
   reads showing one heartbeat id were reads taken between expiries, and an
   earlier version called that a session that never wakes - the same stale-read
