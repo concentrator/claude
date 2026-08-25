@@ -40,7 +40,7 @@ machine back, or when the host is provisioned for it
       v
  +-------------------------------------------------+
  |  WORKER                          accept-edits    |
- |  /dev code <slug>   or   /dev auto R<NNN>-B<NNN>         |
+ |  /dev code <slug>  or  /dev auto R<NNN>-B<NNN>  |
  +-------------------------------------------------+
       |
       v

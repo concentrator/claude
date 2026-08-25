@@ -177,9 +177,9 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
 
 `plans/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.md` - ordered member list:
 
-    # R008-B001
-    - R008-T001 (<slug>)
-    - R008-T002 (<slug>)
+    # R062-B001
+    - R062-T001 (<slug>)
+    - R062-T002 (<slug>)
 
 Composition only (members, order, mode), never status - task state's
 home is the R's `tasks.md`. Open iff a member is `[ ]` there and no

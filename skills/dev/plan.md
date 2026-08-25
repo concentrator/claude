@@ -19,8 +19,7 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
    (`[feat] | [fix] | [refactor] | [doc] | [test] | [mnt]`) declares task
    type and determines the branch prefix (`git-workflow.md § Trunk`).
    Checkbox closes only when the task's branch is merged.
-   The next free id is the highest in this R's `tasks.md` plus one - no
-   cross-R lookup (format: § ID format). The id itself routes: the
+   The id itself routes: the
    task's artifacts live in `plans/R<NNN>-<slug>/`, or the same path
    under `archive/`. `ROADMAP.md` is the cross-R index - there is no
    flat global task list.
@@ -30,7 +29,7 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
    close-review policy" (rule + skill wiring + cross-refs) is one task;
    "fix a typo in a rule" is a commit within one, never a task.
 3. **Branch plan** - `plans/R<NNN>-<slug>/<task-id>-<slug>.md`
-   (legacy `T-XXX-<slug>.md`).
+   (e.g. `R062-T001-id-gates.md`; legacy `T-XXX-<slug>.md`).
    Checkboxes per commit. Header: `task: R008-T001`. Checkbox closes at
    commit (`branch-plan.md`).
 
@@ -65,8 +64,9 @@ deleted before it adds.
 One shape for every id: initiative `R<NNN>`, task `R<NNN>-T<NNN>`,
 batch `R<NNN>-B<NNN>` (`branch-plan.md § Agentic execution`). A letter
 plus three digits per component, hyphens only between components;
-one-indexed, monotonic, T and B counters scoped to the initiative. A
-task moving to another initiative closes under its old id with a
+one-indexed, monotonic, T and B counters scoped to the initiative; the
+next free id is the highest in its scope plus one, no cross-scope
+lookup. A task moving to another initiative closes under its old id with a
 one-line tombstone naming the new id; ids are never renumbered. Legacy
 shapes - `R-NNN` initiatives, bare `T-NNN` (retired global counter),
 `B-NNN` and `R<NNN>-B-NNN` batches - are frozen: valid, never reissued

@@ -63,7 +63,7 @@ excluded.
 │   └── settings.json             # project tier, tracked - push carve-out, durable allows, model
 ├── plans/                        # planning hierarchy
 │   ├── ROADMAP.md                # cross-R index - see skills/dev/plan.md
-│   ├── R<NNN>-<slug>/             # one dir per roadmap entry (initiative-time)
+│   ├── R<NNN>-<slug>/            # one dir per roadmap entry (initiative-time)
 │   │   ├── requirements.md       # initiative requirements
 │   │   ├── tasks.md              # this initiative's task index (lazy)
 │   │   ├── R<NNN>-T<NNN>-<slug>.md
