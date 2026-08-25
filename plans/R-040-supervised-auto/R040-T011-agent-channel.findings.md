@@ -301,11 +301,31 @@ described by their symptom in a pane rather than by a log line.
       dispatched to a worker and cannot be dispatched to the agents that worker
       spawns, so a prompt-level constraint does not reach where the third halt
       happened.
+      A long supervisor turn is a guaranteed worker idle window, which is the
+      non-deadlocked version of the same problem. Three ticks spanning twelve
+      minutes showed the worker holding one read-only grep dialog while the
+      supervisor sat in `Waiting for 1 background agent to finish` with a
+      close-review subagent visibly advancing. Nothing was wrong: the invariant
+      drains the queue when the turn ends, and the turn had not ended. But the
+      supervisor's capacity to clear dialogs is exclusive with its own work, so
+      worker idle time is bounded below by the length of whatever the
+      supervisor is doing, and the close review is the longest turn in the
+      routine. That is the argument for the keystroke authority still open as
+      an escalation: a detector permitted only to report, and a clearer that is
+      also the busiest role, cannot cover for each other.
+      Invariant three has a structural hole. A check that no dialog pends
+      before the turn ends cannot cover a dialog that arrives after it. The
+      supervisor ended a turn reporting the worker's dialog cleared, which was
+      true when it checked, and a new one appeared while it sat idle waiting on
+      an answer to a question of its own. Both roles were then blocked on the
+      operator, which is the same deadlock with one more participant rather
+      than a new failure. Only a wake path or a poll that runs outside the turn
+      closes it; no turn-end check can.
 
-### Composed but unsent reads exactly like sent
+### A keystroke write can drop its submit, silently
 
-- [x] **The pane cannot distinguish text typed into an input box from text
-      delivered.** Three instances: `check the verifier partial output files`
+- [x] **A pane write can leave its text sitting as an unsubmitted draft, and
+      neither end is told.** Three instances: `check the verifier partial output files`
       in the worker's box, then `keep going` and
       `Retrofit the 13 commits before you push.` in the supervisor's. The last
       one cost a stall. The supervisor had ended its turn saying the retrofit
@@ -321,12 +341,50 @@ described by their symptom in a pane rather than by a log line.
       `BSpace` is what clears it. A transport whose write path silently
       concatenates with unattributable text is the strongest argument in this
       file for not typing into panes at all.
-      A clear does not stay cleared, either. The same line was pending again at
-      the next read, after a clear verified by `capture-pane`, and nothing in
-      the pane says whether it was restored as a draft or retyped. That is the
-      property that matters: the box's contents cannot be established once and
-      relied on, so every write to it has to re-read and re-clear immediately
-      beforehand, and a channel needing that is not a channel.
+      The read lags the write, so verifying a clear is itself unreliable. A
+      `capture-pane` one second after the `BSpace` run reported the line still
+      present; the same read three seconds later, and again four seconds after
+      that, reported the box empty. The clear had worked. Nothing distinguishes
+      a stale read from a failed clear except waiting longer, and no delay is
+      known to be long enough, so the operator confirming its own write is
+      guessing.
+      There is one reliable signal, found by accident. A message that really
+      was submitted to a session already taking turns shows
+      `Press up to edit queued messages` on the input line; an unsubmitted
+      draft shows its own text. So the check after any pane write is to read
+      the box and look for your own words: seeing them means the submit did not
+      land. That is a receipt for delivery into the session, and it is the only
+      one this transport offers.
+
+- [x] **The box acquires text from somewhere the pane does not name.** Three
+      unsent lines appeared in the supervisor's box over the run, each
+      answering the question the supervisor had just asked, each phrased as an
+      operator would phrase it: retrofit the commits before pushing, push and
+      open the MR, and approve five fix commits and merge on green. Only the
+      first was the watcher's. A fourth then appeared in the worker's box,
+      phrased as the supervisor's own dispatch - `read companions/documentation.md
+      and check the :15 claim` - above a worker reporting itself idle with a
+      clean tree, which is what an undelivered dispatch looks like from the
+      outside.
+      The likely mechanism is mundane: a `send-keys` write whose Enter never
+      landed, which the watcher hits often enough to work around with a delay
+      between the text and the submit. It is not evidence against
+      `SendMessage`, and an earlier note here said so in error. The settled
+      finding at the top of this file was verified by watching a woken worker
+      act with no keystroke from anyone, and nothing observed since touches it.
+      What the instances are evidence against is the keystroke transport, which
+      is what that finding already argues. The origin of the two lines the
+      watcher did not write stays unestablished; the pane names no sender.
+      The consequence holds whatever the origin turns out to be. An unsent line
+      reading exactly like an operator ruling, in the box of the one role
+      permitted to merge, is an unattributable authorisation one keystroke from
+      delivery - and by the append-on-write behaviour above, the next genuine
+      operator message is that keystroke.
+      The mitigation adopted mid-run is a prefix: the operator writes
+      `OPERATOR:` and the supervisor acts on nothing in its box that lacks it,
+      reporting it instead. That is a convention and not a control, since it
+      authenticates nothing and any line could carry it. It is worth the cost
+      only because the transport offers no sender to check.
 
 - [x] **`SendMessage` reaches peers within one machine's namespace, and the
       operator is outside it.** The settled finding at the top of this file -
