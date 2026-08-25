@@ -204,5 +204,49 @@ ok_in "$d" && pass "default root ignores outside-root plans" \
   || die "default root read the wrong tree: $(run_in "$d")"
 rm -rf "$d"
 
+# 18. unified id shape (plan.md § ID format): `R062` entry, `R062-x/` dir,
+# composite task and plan under it
+d=$(mkrepo); mkdir -p "$d/plans/R062-x"
+printf -- '- [ ] R062: thing.\n' > "$d/plans/ROADMAP.md"
+printf -- '- [ ] **R062-T001 [doc]**: thing\n' > "$d/plans/R062-x/tasks.md"
+printf -- 'task: R062-T001\ntype: doc\n' > "$d/plans/R062-x/R062-T001-thing.md"
+add "$d"
+ok_in "$d" && pass "unified id shape passes" \
+  || die "unified id shape wrongly flagged: $(run_in "$d")"
+rm -rf "$d"
+
+# 19. both spellings in one tree: a legacy `R-001` beside a unified `R062`,
+# the archive holding one of each, a cross-shape depends-on resolving
+d=$(mkrepo); mkdir -p "$d/plans/R-001-x" "$d/plans/R062-y" \
+  "$d/plans/archive/R-003-z" "$d/plans/archive/R050-w"
+printf -- '- [ ] R-001: a.\n- [ ] R062: b.\n- [x] R-003: c.\n- [x] R050: d.\n' > "$d/plans/ROADMAP.md"
+printf -- '- [ ] **R001-T001 [doc]**: thing\n' > "$d/plans/R-001-x/tasks.md"
+printf -- '- [ ] **R062-T001 [doc]**: thing\n' > "$d/plans/R062-y/tasks.md"
+printf -- 'task: R062-T001\ndepends-on: R001-T001\n' > "$d/plans/R062-y/R062-T001-thing.md"
+printf -- '- [x] **R003-T001 [doc]**: closed\n' > "$d/plans/archive/R-003-z/tasks.md"
+printf -- '- [x] **R050-T001 [doc]**: closed\n' > "$d/plans/archive/R050-w/tasks.md"
+add "$d"
+ok_in "$d" && pass "mixed id shapes pass" \
+  || die "mixed id shapes wrongly flagged: $(run_in "$d")"
+rm -rf "$d"
+
+# 20. a composite id misfiled under a unified-shape dir is still caught
+d=$(mkrepo); mkdir -p "$d/plans/R062-x"
+printf -- '- [ ] R-001: thing.\n- [ ] R062: other.\n' > "$d/plans/ROADMAP.md"
+printf -- '- [ ] **R001-T001 [doc]**: misfiled\n' > "$d/plans/R062-x/tasks.md"
+add "$d"
+fails_with "$d" 'R001-T001 in .* but its dir is R062' \
+  && pass "misfiled id under unified dir caught" || die "misfiled id under unified dir missed"
+rm -rf "$d"
+
+# 21. a unified-shape dir the roadmap never lists
+d=$(mkrepo); mkdir -p "$d/plans/R062-x"
+printf -- '- [ ] R-001: thing.\n' > "$d/plans/ROADMAP.md"
+printf -- '- [ ] **R062-T001 [doc]**: thing\n' > "$d/plans/R062-x/tasks.md"
+add "$d"
+fails_with "$d" 'R062 not in ROADMAP' \
+  && pass "unlisted unified dir caught" || die "unlisted unified dir missed"
+rm -rf "$d"
+
 (( fail == 0 )) && echo "check-plan-integrity.test: OK"
 exit $fail

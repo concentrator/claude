@@ -7,7 +7,7 @@ Branch `mnt/id-gates`. Each commit lands its test cases with the change
 (`scripts/test/*.test.sh`), and every legacy fixture keeps passing.
 Gate: `bash scripts/ci/run-all.sh`.
 
-- [ ] `check-plan-integrity.sh`: key initiatives by digits, not
+- [x] `check-plan-integrity.sh`: key initiatives by digits, not
       spelling - the ROADMAP set, the owning dir (`R-NNN-<slug>` or
       `RNNN-<slug>`, both globbed under `plans/` and `plans/archive/`)
       and a composite task id's `R` part all normalize to one key
