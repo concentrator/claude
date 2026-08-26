@@ -188,18 +188,35 @@ composite (`R040-T###`, counter scoped to this initiative).
   rule the worker already has.
   `depends-on: R040-T011`
 
-- [ ] **R040-T018 [doc]**: a lone supervised task has no stamping
-  route. `supervise.md § Resolve` admits only stamped plans, for a
-  manual `/dev code` task as much as for a batch, and
-  `branch-plan.md § agentic: stamp` hands the readiness review to
-  `/dev plan batch` alone - so a task with no batch manifest can be
-  scoped by a supervisor and never be eligible. Found on the first
-  supervised task of a fresh project: seven approved branch plans,
-  none stamped, no batch, and the supervisor's only lawful move was to
-  report NOT READY. Decide and write the route: either `/dev plan
-  <task-id>` runs the readiness review and stamps a single plan on
-  approval, or `§ Resolve` drops the stamp for manual delivery and
-  says what stands in for the review. Whichever lands, state in one
-  place when a stamp is required - supervised dispatch, auto mode - and
-  when it is not - a human at `/dev code`.
+- [ ] **R040-T018 [doc]**: the readiness bar is written for a blind
+  implementer and applied to a watched one. `branch-plan.md § agentic:
+  stamp` admits a plan only when a cold reader can build it with no
+  question, because a `/dev auto` subagent has no one to ask; under
+  `/dev supervise` a worker has three receivers - supervisor for
+  implementation calls, operator for merges and plan-fact corrections,
+  human for design - yet `supervise.md § Resolve` demands the same
+  stamp, so every plan a supervisor may touch must first pass the
+  blind-implementer bar by the human's hand. First supervised task of
+  a fresh project: three cold reads to stamp one doc plan, and the one
+  real defect (a route method) was caught by the worker at pre-flight,
+  not by any of them. Three changes, one PR. First, two stamps:
+  `agentic: approved <date>` keeps its bar and its cold read, and stays
+  what `/dev auto` needs when no supervisor is listening; `supervised:
+  approved <date>` guarantees approved requirements, one commit per
+  item and no known design question open, is applied to every plan in
+  the R when the human approves the planning round (`plan.md
+  § Approval and closure`), and is what `§ Resolve` admits alongside
+  `agentic`. A cold read under `supervised` is optional and its
+  findings are triaged by receiver, only a human-level one blocks.
+  Second, the always-escalated list in `companions/declarations.md
+  § Supervisor bounds` carves out a `CLAUDE.md` change confined to
+  `§ Agent toolchain`: declaration lines are configuration, and the
+  operator delivers them. Third, `§ Operator modes` states that for an
+  AI-operated seat the global `CLAUDE.md § Approval and persistence`
+  and `§ Communication` are satisfied by the declared bounds - it
+  decides merges and plan-wording facts within them, runs
+  `--permission-mode auto`, and halts only on the always-escalated
+  classes, design-level questions and evidence gaps - and
+  `companions/supervisor-runbook.md` gains the operator session's
+  launch line and briefing beside the supervisor's.
   `depends-on: R040-T008`
