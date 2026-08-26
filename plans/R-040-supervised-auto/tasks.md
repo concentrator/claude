@@ -187,3 +187,19 @@ composite (`R040-T###`, counter scoped to this initiative).
   home for a finding. Then the supervisor can take the same clearing
   rule the worker already has.
   `depends-on: R040-T011`
+
+- [ ] **R040-T018 [doc]**: a lone supervised task has no stamping
+  route. `supervise.md § Resolve` admits only stamped plans, for a
+  manual `/dev code` task as much as for a batch, and
+  `branch-plan.md § agentic: stamp` hands the readiness review to
+  `/dev plan batch` alone - so a task with no batch manifest can be
+  scoped by a supervisor and never be eligible. Found on the first
+  supervised task of a fresh project: seven approved branch plans,
+  none stamped, no batch, and the supervisor's only lawful move was to
+  report NOT READY. Decide and write the route: either `/dev plan
+  <task-id>` runs the readiness review and stamps a single plan on
+  approval, or `§ Resolve` drops the stamp for manual delivery and
+  says what stands in for the review. Whichever lands, state in one
+  place when a stamp is required - supervised dispatch, auto mode - and
+  when it is not - a human at `/dev code`.
+  `depends-on: R040-T008`
