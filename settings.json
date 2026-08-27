@@ -93,6 +93,16 @@
           }
         ]
       }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/dev-precompact-state.sh"
+          }
+        ]
+      }
     ]
   },
   "enabledPlugins": {

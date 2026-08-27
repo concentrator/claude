@@ -220,3 +220,18 @@ composite (`R040-T###`, counter scoped to this initiative).
   `companions/supervisor-runbook.md` gains the operator session's
   launch line and briefing beside the supervisor's.
   `depends-on: R040-T008`
+- [ ] **R040-T019 [feat]**: state survives compaction. A worker or
+  supervisor whose context auto-compacts mid-branch keeps the
+  summary's account of the work and loses the tree's: which
+  checkboxes are committed, what is uncommitted, which ruling was the
+  last one applied. Two supervised tasks each compacted with an
+  uncommitted checkbox and were recovered only because the operator
+  watched the indicator and briefed by hand. A `PreCompact` hook
+  (`hooks/dev-precompact-state.sh`) writes branch, `git status
+  --porcelain`, the last commits and the first open plan item to a
+  per-session state file; `hooks/dev-branch-state.sh` names that file
+  on the next prompt so the resumed session re-briefs from the tree;
+  `supervise.md § Monitor` makes the pre-compaction commit and the
+  post-compaction re-brief part of the watch. Registered in
+  `settings.json`, tested by `scripts/test/dev-precompact-state.test.sh`.
+  `depends-on: R040-T018`

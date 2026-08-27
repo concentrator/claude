@@ -99,6 +99,11 @@ path and MR/PR references - never diffs or transcripts; the
 supervisor's context stays report-level so one supervisor spans many
 sessions.
 
+Under a tenth of context left, the worker commits locally. After
+compacting, its next prompt names the state file
+`hooks/dev-precompact-state.sh` wrote; re-brief from it and `git status`,
+never the summary. A compacted supervisor re-reads the dispatch.
+
 ## Question resolution
 
 Within a declared grant, a worker halting on an implementation
