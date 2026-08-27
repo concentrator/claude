@@ -253,3 +253,6 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [ ] R062: Headroom in plan.md - `skills/dev/plan.md` sits at the
       1500-word cap; the next rule added there needs a companion file
       or a split. Stub, to be shaped.
+- [ ] R063: Tier-2 review text and guard fail-closed - runnable review
+      clauses citing their owners; hook guards that run from any
+      directory and fail closed. Shaped, pending approval.
