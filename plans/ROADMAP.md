@@ -256,3 +256,6 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [ ] R063: Tier-2 review text and guard fail-closed - runnable review
       clauses citing their owners; hook guards that run from any
       directory and fail closed.
+- [ ] R064: Fixed dev/ home - `dev/` is the one home of DEV artifacts
+      in every project, this repository included; the configurable
+      artifacts root and its resolver are removed.
