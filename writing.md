@@ -76,3 +76,10 @@ hash is genuinely the subject (a bisect result, a revert target), pair
 it with the subject line so the citation degrades into something
 findable. And do not rewrite history that prose already cites unless
 the citations are regenerable or the rewrite preserves subjects.
+
+## Bulk edits
+
+Never rewrite Markdown structure with chained `sed` or a one-shot
+script. Edit on an explicit anchor, one occurrence at a time; after any
+multi-occurrence rewrite, re-read the file and confirm headings, lists
+and fences are intact before committing.
