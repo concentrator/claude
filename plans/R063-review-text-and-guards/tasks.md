@@ -1,9 +1,9 @@
 # R063: Tier-2 review text and guard fail-closed - tasks
 
-Draft; the detail round confirms once `requirements.md` is approved.
-
-- [ ] R063-T001 [doc]: rewrite `MAINTENANCE.md § Tier-2 AI review` per
-  the acceptance criteria on the review text
-- [ ] R063-T002 [fix]: `settings.json` hook paths resolve from any
-  working directory; `dev-secrets-guard.sh` fails closed with one
-  stderr line when its library is missing
+- [ ] R063-T001 [doc]: `MAINTENANCE.md § Tier-2 AI review` owns dead
+  prose in one concern with its gates in place and states the maximal
+  reading of "never restated"; `layout.md` stops claiming a seeded
+  `MAINTENANCE.md`
+- [ ] R063-T002 [fix]: `install-dev.sh` registers project-tier hooks
+  by `$CLAUDE_PROJECT_DIR`; `dev-secrets-guard.sh` fails closed on a
+  missing library; fp-remedy re-installed
