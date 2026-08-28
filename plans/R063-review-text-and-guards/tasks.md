@@ -8,3 +8,7 @@
 - [ ] R063-T002 [fix]: `install-dev.sh` registers project-tier hooks
   by `$CLAUDE_PROJECT_DIR`; `dev-secrets-guard.sh` fails closed on a
   missing library; fp-remedy re-installed
+- [ ] R063-T003 [doc]: `finish.md § 3` names the delivery routine
+  **Ship** (gate, push, MR/PR, poll to green, merge approval, merge,
+  post-merge) with `ship / discard` as the close options, and
+  `/dev ship` enters it from the router; depends-on: R063-T001
