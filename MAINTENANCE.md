@@ -3,9 +3,8 @@
 Keeps `.claude/` and the project root clean and healthy. Two parts: the
 **Tier-2 AI review** gates each change into `main` (per-PR); the
 **Routine** is the time-based cleanup + repair sweep. The Routine
-section is generic and seeded into each project's
-`.claude/MAINTENANCE.md`; the **This environment** section holds targets
-unique to this repo.
+section is generic and each project's `.claude/MAINTENANCE.md` carries
+it; the **This environment** section holds targets unique to this repo.
 
 ## Tier-2 AI review
 
@@ -17,8 +16,16 @@ review the diff against the rule set and confirm the concerns below:
   (`CLAUDE.md` per `rules/claude-md.md`; `SKILL.md` per `rules/skills.md`;
   plans per `skills/dev/plan.md`).
 - **Cross-file integrity** - references resolve; no rule duplicated
-  across files; the `DESIGN.md` tree-map matches the tree.
-- **Cleanup** - no stray scratch, dead prose, or transient content.
+  across files (read maximally: any echo of a rule's text is a
+  restatement), so a concern names the rule and cites its owning
+  document (`rules/claude-md.md § Size and structure`, "No
+  duplication"); the `DESIGN.md` tree-map matches the tree.
+- **Cleanup** - no stray scratch or transient content, and no dead
+  prose: every rule, instruction, or sentence the diff adds or touches
+  passes three gates - accurate and sensible in context; valuable in a
+  real scenario; behavior would change if it were removed. Fail any →
+  cut it and propose the fix (content tests: `rules/claude-md.md
+  § Content`).
 - **Reference freshness** - no dead paths; no expired time-bound
   references. Mark a time-bound reference `<!-- expires: YYYY-MM-DD -->`;
   `scripts/ci/check-references.sh` fails once the date is past.
@@ -31,18 +38,6 @@ review the diff against the rule set and confirm the concerns below:
   project without one still owes the concern, judged against its own
   docs.
 - **Writing** - changed prose follows `writing.md`.
-
-### Prune dead prose
-
-Part of the Compliance concern: review every rule, instruction, or
-sentence the diff adds or touches against three gates -
-
-1. Accurate and sensible in context?
-2. Valuable in any real scenario?
-3. Would behavior change if it were removed?
-
-Fail any gate → cut it and propose the fix (underlying content tests:
-`rules/claude-md.md § Content`).
 
 ## Routine
 
