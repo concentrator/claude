@@ -25,7 +25,7 @@ Inventory, then report - touching nothing:
   `dev/docs/`: a partial earlier migration). Report each; § 2 refuses
   to move onto it - merge, rename, or abort is the user's call.
 - **Gaps** - a `- DEV artifacts root:` line in `CLAUDE.md § Agent
-  toolchain`, which the Tier-1 gate rejects; a `.gitignore` entry for
+  toolchain`, which `scripts/ci/check-plan-integrity.sh` rejects; a `.gitignore` entry for
   `dev/plans/visual-artifacts/` where the moved tree contains
   `plans/visual-artifacts/`; untracked mode, where `dev/` must be
   gitignored too (`untracked-claude.md § Detection`).

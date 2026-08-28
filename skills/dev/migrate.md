@@ -35,6 +35,13 @@ classifying:
   `install-dev.sh --project`) - tune its `MARKERS` list, never
   rewrite the check.
 
+  **Stale root** - a project set up while the artifacts root was
+  configurable may still carry a `- DEV artifacts root:` line in
+  `CLAUDE.md`, `<root>` or "artifacts root" wording in its own docs,
+  and a copied `.claude/scripts/ci/resolve-root.sh`. Report each
+  hit with its rewrite to `dev/...` (or its deletion); apply on
+  approval.
+
 ## 1. Inventory
 
 Check existing: `CLAUDE.md`, `README.md`, `CHANGELOG.md`, language/stack,
@@ -64,8 +71,8 @@ Ensure project `CLAUDE.md` has `## Conventions` (release-routine,
 publish-external, extended-docs, and a `dev/docs/index.md` pointer if
 the docs layer is used) + stack, base branch, and an `## Agent
 toolchain` section (VCS host + build/test/lint/change-request/
-state-check commands, the artifacts-root declaration -
-`companions/declarations.md`); backfill it if absent. Propose deletion of any
+state-check commands - `companions/declarations.md`); backfill it if
+absent. Propose deletion of any
 restated global rules. Keep it within the `rules/claude-md.md` limits
 (§ Content, § Size and structure).
 

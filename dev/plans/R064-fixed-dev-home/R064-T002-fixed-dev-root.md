@@ -23,8 +23,8 @@ ignored setting.
 - **Declaration failure** - `scripts/ci/check-plan-integrity.sh`
   fails when `CLAUDE.md` carries a line starting `- DEV artifacts
   root:`, printing one line: the home is fixed at `dev/`, move the
-  named directory there and drop the line. The gate is Tier-1, so an
-  adopter sees it on the first push after re-installing the checks.
+  named directory there and drop the line. The check is not in the
+  installed set, so an adopter sees it only where it is wired in.
 - **Removed** - `scripts/ci/resolve-root.sh` and its copy in
   `install-dev.sh`'s check set; `companions/declarations.md
   § Artifacts root`; `__ARTIFACTS_ROOT__` and `WORKER_ARTIFACTS_ROOT`
@@ -65,10 +65,10 @@ ignored setting.
   removed; `root-migration.md` moves a `.claude/`-layout project onto
   `dev/` with no resolution step; `toolchain.md`,
   `untracked-claude.md`, `visual-companion.md`, `gitignore.template`
-  (comment) spell fixed paths; `README.md`, `DESIGN.md`
-  (§ Self-enforcement, tree-map: resolver gone), `REQUIREMENTS.md`
-  where they describe the declaration.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+  (comment) spell fixed paths; `README.md`, `REQUIREMENTS.md`,
+  `MAINTENANCE.md` where they describe the declaration (`DESIGN.md`
+  was already clean).
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code and prose rows: `code-reviewer`), Tier-2 compliance
   review, `bash scripts/ci/run-all.sh` green, cleanup; R064 closure
