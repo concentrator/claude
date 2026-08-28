@@ -1,6 +1,6 @@
 # R064: Fixed dev/ home - tasks
 
-- [ ] R064-T001 [mnt]: this repository moves onto `dev/`: `plans/` →
+- [x] R064-T001 [mnt]: this repository moves onto `dev/`: `plans/` →
   `dev/plans/` (archive included), `session/` → `dev/session/`, the
   `./` declaration dropped from `CLAUDE.md` so the default applies,
   every tracked reference outside the archive updated (`README.md`,
