@@ -1,6 +1,6 @@
 # R063: Tier-2 review text and guard fail-closed - tasks
 
-- [ ] R063-T001 [doc]: `MAINTENANCE.md § Tier-2 AI review` owns dead
+- [x] R063-T001 [doc]: `MAINTENANCE.md § Tier-2 AI review` owns dead
   prose in one concern with its gates in place and states the maximal
   reading of "never restated"; `layout.md` stops claiming a seeded
   `MAINTENANCE.md`; `git-workflow.md § Merge policy` states the

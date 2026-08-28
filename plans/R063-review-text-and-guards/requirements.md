@@ -66,11 +66,11 @@ draft).
 
 ## Acceptance criteria
 
-- [ ] Dead prose has one owning concern, its three gates beside the
+- [x] Dead prose has one owning concern, its three gates beside the
   bullet; `### Prune dead prose` is gone as a separate subsection.
-- [ ] The section states that any echo of a rule's text is a
+- [x] The section states that any echo of a rule's text is a
   restatement and a concern cites the rule's owner instead.
-- [ ] `layout.md` states how `MAINTENANCE.md` comes to exist, or drops
+- [x] `layout.md` states how `MAINTENANCE.md` comes to exist, or drops
   the claim.
 - [ ] A project-scope install writes `"$CLAUDE_PROJECT_DIR"/.claude/hooks/<name>.sh`
   for every registered hook (`install-dev.test.sh` asserts it); the
@@ -83,10 +83,6 @@ draft).
 - [ ] `finish.md § 3 Ship` states gate, push, MR/PR, poll to green,
   merge approval (skipped for `plan/`), merge and post-merge in one
   place; `/dev ship` is a router row reading it.
-
-## Constraints
-
-- `MAINTENANCE.md` stays under its word cap (`scripts/ci/check-caps.sh`).
 
 ## References
 
