@@ -83,6 +83,11 @@ register_hook dev-secrets-guard.sh
 register_state_hook dev-branch-state.sh
 # The secrets guard's predicate lives beside it (sourced, not registered).
 cp "$SRC/hooks/secret-patterns.sh" "$target/hooks/secret-patterns.sh"
+# The session-state writer is copied, not registered: PreCompact runs it
+# from the user-global settings only, but dev-branch-state.sh asks it for
+# the session file's path on every prompt (hooks/dev-precompact-state.sh).
+cp "$SRC/hooks/dev-precompact-state.sh" "$target/hooks/dev-precompact-state.sh"
+chmod +x "$target/hooks/dev-precompact-state.sh"
 
 # 4. shipped Tier-1 checks - the ones with no dependency on this repo's
 #    own layout; adopters wire them into their CI (the batch-tags gate
@@ -133,6 +138,12 @@ if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplev
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"
   done
+  # 7. session state: <artifacts root>/session/ holds per-session files the
+  # PreCompact hook and hand-off notes write (skills/dev/handoff.md); never
+  # tracked, so the target's .gitignore takes the line (idempotent).
+  art="$(cd "$repo" && bash "$SRC/scripts/ci/resolve-root.sh" 2>/dev/null)" || art=dev
+  line="/${art:+$art/}session/"   # anchored: only the artifacts root's session dir
+  grep -qxF "$line" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
 fi
 
 echo "install-dev: DEV toolset installed into $target ($scope)"

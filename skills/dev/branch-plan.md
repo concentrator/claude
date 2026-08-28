@@ -151,7 +151,7 @@ the finished work on every later call.
 Doc loading keys to the boundary: one load phase at the unit's
 start; sectional reads, not whole files; no re-reads within the
 unit; outputs (batch reports, findings files) wait for triage.
-Front-loading pays only once the session is bounded.
+Hand-off note at the boundary, re-brief after compaction: `handoff.md`.
 
 ## Agentic execution
 

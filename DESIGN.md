@@ -52,6 +52,7 @@ excluded.
 ├── hooks/
 │   ├── dev-branch-guard.sh       # PreToolUse branch-guard (no trunk mutations)
 │   ├── dev-branch-state.sh       # UserPromptSubmit ambient branch/tree state
+│   ├── dev-precompact-state.sh   # PreCompact session-state writer
 │   ├── dev-secrets-guard.sh      # PreToolUse secrets guard
 │   └── secret-patterns.sh        # the secret predicate (one home, sourced)
 ├── scripts/
@@ -81,7 +82,7 @@ excluded.
     ├── dev/                      # the DEV toolset
     │   ├── SKILL.md              #   the router
     │   ├── plan.md branch-plan.md templates.md layout.md changelog.md git-workflow.md  # process rules
-    │   ├── feat.md fix.md refactor.md write-plan.md finish.md release.md auto.md        # execution
+    │   ├── feat.md fix.md refactor.md write-plan.md finish.md handoff.md release.md auto.md   # execution
     │   ├── supervise.md secrets.md docs.md     # supervised delivery, secrets policy, docs layer
     │   ├── brainstorm.md migrate.md start.md   # shape + adoption
     │   └── companions/           # declaration syntax, documentation framework, prompt templates, verification-policy, migration docs, mockup scripts
@@ -137,18 +138,16 @@ Two tiers gate every change into `main` (the CI tiers are built for
   (`check-batch-tags`, local-only: skips where refs are hidden), or an
   unconfigured context budget (`check-settings`).
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
-  concern set to the diff as a mandatory step in the branch-close routine
-  (`skills/dev/branch-plan.md § Closing routine`). The concerns are
-  enumerated there and nowhere else.
-
-The workflow triggers on `pull_request` only, so it never re-judges the
-direct-to-main bootstrap history.
+  concerns to the diff at branch close (`skills/dev/branch-plan.md
+  § Closing routine`); they are enumerated there and nowhere else.
 
 Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
-`dev-secrets-guard`) guard locally: no writes, commits, or pushes on the
-trunk, no force pushes, no secrets into tracked files or commits. A UserPromptSubmit
-hook (`dev-branch-state`) keeps branch and working-tree state in front of
-the session, so the trunk rule is followed rather than tripped.
+`dev-secrets-guard`) guard locally: no trunk writes, commits or pushes,
+no force pushes, no secrets into tracked files or commits.
+`dev-branch-state` (UserPromptSubmit) keeps branch and tree state in
+front of the session, so the trunk rule is followed rather than tripped;
+`dev-precompact-state` (PreCompact) saves that state to the session file
+for the re-brief after compaction (`skills/dev/handoff.md`).
 
 ## Context budget
 

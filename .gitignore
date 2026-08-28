@@ -38,6 +38,9 @@ plugins/
 # Project-specific skills, symlinked from external repos (versioned there)
 skills/wallarm-*
 
+# DEV session state - hooks/dev-precompact-state.sh, skills/dev/handoff.md
+/session/
+
 # OS
 .DS_Store
 supervisor/

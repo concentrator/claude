@@ -17,7 +17,7 @@ every project on the machine.
 | `rules/` | Personal convention rules: git discipline, JS style, CLAUDE.md/skill maintenance (path-scoped) |
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); plus reference skills |
 | `agents/` | Custom agents (e.g. branch-close code reviewer) |
-| `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no secrets into tracked files or commits) and the UserPromptSubmit branch-state line |
+| `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no secrets into tracked files or commits), the UserPromptSubmit branch-state line, and the PreCompact session-state writer |
 | `scripts/` | `ci/` the Tier-1 mechanical gate (`run-all.sh`), `install-dev.sh`, `context-cost.py` the session context-cost reporter, `test/` the script tests |
 | `.github/`, `.githooks/`, `.gitignore` | The CI gate on pull requests, its advisory local pre-push mirror, and the ignore rules for harness state |
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
@@ -42,7 +42,9 @@ Planning takes two rounds: `/dev plan R` shapes an initiative,
 manual (`/dev code`, one branch at a time), agentic (`/dev auto`, a
 batch of branches run by subagents between checkpoints, on permission
 rails), or supervised (`/dev supervise`, scoped delivery within declared
-bounds). `/dev ship` takes a landed branch to a merged MR/PR.
+bounds). `/dev ship` takes a landed branch to a merged MR/PR;
+`/dev handoff` writes the session's hand-off note, which with the
+PreCompact hook's tree block carries state across compaction.
 `/dev start`, `/dev migrate`, `/dev docs`, and `/dev release` cover
 scaffolding a new project, adopting an existing one, the `docs/`
 layer, and tagging a release. Command surface and mode files:
@@ -94,12 +96,16 @@ Global install serves a contributor who wants `/dev` everywhere; the
 `--project` copy serves a repo's no-global contributors (skill precedence
 means a contributor's own global copy still wins). The installer registers
 the branch-guard, secrets-guard, and branch-state hooks in the target
-`settings.json` idempotently and never ships the personal convention
-rules. Re-run it to refresh.
+`settings.json` idempotently, copies the session-state writer beside
+them unregistered (the branch-state hook asks it for the session file's
+path), and never ships the personal convention rules. Re-run it to
+refresh.
 
 It also writes outside the target `.claude/`, append-only in both cases:
 an `@writing.md` import added to the target `CLAUDE.md`, and - for
 `--project` - a `!`-allowlist line in the repo's root `.gitignore` for
-each installed path that repo ignores, so the toolset stays committable.
+each installed path that repo ignores, so the toolset stays committable,
+plus an ignore line for `<artifacts root>/session/`, the per-session
+state files (`skills/dev/handoff.md`).
 The copied checks are yours to wire into CI; the installer ships them
 without registering them.

@@ -25,6 +25,11 @@ sensitive-file guard).
   (`companions/toolchain.md § Permission carve-out`); the rest are
   proposed into `.claude/settings.local.json`, applied on approval.
   No toolchain section → halt, ask.
+- No member plan names a target under `.claude/`: config is never a
+  batch's to write (`companions/implementer-prompt.md`). Every
+  pre-flight check runs before any action; failures are reported
+  together in one message, and the batch halts with no branch created
+  and no edit made.
 - Default branch, clean tree, tests + lint green.
 - Tag `pre-R<NNN>-B<NNN>` (e.g. `pre-R062-B001`); create
   `batch/R<NNN>-B<NNN>` off default.

@@ -67,15 +67,16 @@ an uncommitted checkbox (R040-T019 task line).
   `| session-state: <path>`, the session's own file whether or not it
   exists yet, so a session learns where to write without guessing.
 - **Registration** - global only: `settings.json` gains a `PreCompact`
-  entry running `~/.claude/hooks/dev-precompact-state.sh`. Project-scope
-  installs are not changed: the worker hosts run this repository as
-  their global config.
+  entry running `~/.claude/hooks/dev-precompact-state.sh`; the worker
+  hosts run this repository as their global config. Project-scope
+  installs copy the hook file without registering it, so the pointer
+  resolves there through the one home of the path logic.
 - **Housekeeping** - `MAINTENANCE.md § Routine` table gains a row:
   `session/` files whose session is gone, weekly, delete.
 
 ## Commits
 
-- [ ] `hooks/dev-precompact-state.sh` per § Terms, reworked from the
+- [x] `hooks/dev-precompact-state.sh` per § Terms, reworked from the
   draft: session file under the resolved root, header then tree block
   appended, `compaction_trigger` read, `CLAUDE_PROJECT_DIR` root;
   `install-dev.sh` and `skills/dev/start.md` add the `session/` ignore
@@ -87,10 +88,10 @@ an uncommitted checkbox (R040-T019 task line).
   into a subdirectory before the call still finds the root. `DESIGN.md`
   tree-map and § Self-enforcement name the hook; `README.md § Contents`
   `hooks/` row names it.
-- [ ] Pointer per § Terms in `hooks/dev-branch-state.sh`;
+- [x] Pointer per § Terms in `hooks/dev-branch-state.sh`;
   `scripts/test/dev-branch-state.test.sh` asserts the path is printed
   with and without the file.
-- [ ] Hand-off note per § Terms: `skills/dev/handoff.md` (header rule,
+- [x] Hand-off note per § Terms: `skills/dev/handoff.md` (header rule,
   block format, the five keys, the delete-after-re-brief rule) and a
   `/dev handoff` row in `SKILL.md`'s router table; the boundary rule as
   one sentence each in `branch-plan.md § Session boundary` and
@@ -100,19 +101,19 @@ an uncommitted checkbox (R040-T019 task line).
   `MAINTENANCE.md § Routine` row. `README.md § Workflow` and the
   `DESIGN.md` tree-map take the new command and file (§ Doc-sync pairs
   rows 1 and 2).
-- [ ] `skills/dev/auto.md § Pre-flight` gains one bullet: no member
+- [x] `skills/dev/auto.md § Pre-flight` gains one bullet: no member
   plan names a target under `.claude/` (config is never a batch's to
   write, `companions/implementer-prompt.md`); every pre-flight check
   runs before any action, failures are reported together in one
   message, and the batch halts with no branch created and no edit
   made. Artifacts under the root need no mention: they left `.claude/`
   with the artifacts root and are edited through Read/Edit/Write.
-- [ ] Registration per § Terms in `settings.json` (a `~/.claude`
+- [x] Registration per § Terms in `settings.json` (a `~/.claude`
   settings change: user approval on this plan is the approval);
   `scripts/test/dev-precompact-state.test.sh` asserts the entry.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code and prose rows: `code-reviewer`), Tier-2 compliance
   review, `bash scripts/ci/run-all.sh` green, cleanup, mark plan
   complete, commit.
