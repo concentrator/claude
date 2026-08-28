@@ -18,7 +18,12 @@ review the diff against the rule set and confirm the concerns below:
   plans per `skills/dev/plan.md`).
 - **Cross-file integrity** - references resolve; no rule duplicated
   across files; the `DESIGN.md` tree-map matches the tree.
-- **Cleanup** - no stray scratch, dead prose, or transient content.
+- **Cleanup** - no stray scratch or transient content, and no dead
+  prose: every rule, instruction, or sentence the diff adds or touches
+  passes three gates - accurate and sensible in context; valuable in a
+  real scenario; behavior would change if it were removed. Fail any →
+  cut it and propose the fix (content tests: `rules/claude-md.md
+  § Content`).
 - **Reference freshness** - no dead paths; no expired time-bound
   references. Mark a time-bound reference `<!-- expires: YYYY-MM-DD -->`;
   `scripts/ci/check-references.sh` fails once the date is past.
@@ -31,18 +36,6 @@ review the diff against the rule set and confirm the concerns below:
   project without one still owes the concern, judged against its own
   docs.
 - **Writing** - changed prose follows `writing.md`.
-
-### Prune dead prose
-
-Part of the Compliance concern: review every rule, instruction, or
-sentence the diff adds or touches against three gates -
-
-1. Accurate and sensible in context?
-2. Valuable in any real scenario?
-3. Would behavior change if it were removed?
-
-Fail any gate → cut it and propose the fix (underlying content tests:
-`rules/claude-md.md § Content`).
 
 ## Routine
 
