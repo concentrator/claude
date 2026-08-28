@@ -20,30 +20,26 @@ user's description rather than existing code).
 
 Baseline files (`layout.md § Baseline files`):
 - `/init` → project `CLAUDE.md` incl. `## Conventions` and `## Agent
-  toolchain`, spec per `migrate.md § 4`. Ask: **artifacts root?**
-  Record the answer as the `DEV artifacts root:` declaration
-  (`companions/declarations.md § Artifacts root`); no preference → omit
-  the line and the default applies.
+  toolchain`, spec per `migrate.md § 4`.
 - `README.md` (verify or stub).
 - `.gitignore` / `.env.example` - seed from the `companions/*.template`
-  files; contents per `layout.md § Baseline files`. The template's
-  `dev/session/` line follows a non-default artifacts root.
-- `<root>/plans/` with `ROADMAP.md`.
+  files; contents per `layout.md § Baseline files`.
+- `dev/plans/` with `ROADMAP.md`.
 - Toolset for no-global contributors: per `migrate.md § 5`.
 
 Full config + artifacts layout and baseline set: `layout.md`.
 
 Ask: **release routine?** Record `release-routine:` in `CLAUDE.md
 § Conventions`. If yes: `CHANGELOG.md`, versioning (default `vX.Y.Z`),
-`<root>/plans/release-v0.1.0.md`. Ask about external publishing;
+`dev/plans/release-v0.1.0.md`. Ask about external publishing;
 record `publish-external:`. If external, override
 `release` at `<project>/.claude/skills/release/SKILL.md`.
 
 Ask: **extended docs?** Record `extended-docs:` (+ path if yes) in
 `CLAUDE.md § Conventions`. If yes: create directory with placeholder.
 
-If the project will keep `<root>/docs/` feature docs (`layout.md § Docs`),
-record a one-line pointer to `<root>/docs/index.md` in `§ Conventions`.
+If the project will keep `dev/docs/` feature docs (`layout.md § Docs`),
+record a one-line pointer to `dev/docs/index.md` in `§ Conventions`.
 
 ## 4. Quality infrastructure
 

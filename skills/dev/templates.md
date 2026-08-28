@@ -23,7 +23,7 @@ approved: pending
 ## Open questions
 ```
 
-## Per-initiative `plans/R<NNN>-<slug>/requirements.md`
+## Per-initiative `dev/plans/R<NNN>-<slug>/requirements.md`
 
 In rules, skills, and docs, write it path-qualified wherever bare
 `requirements.md` could be read against root `REQUIREMENTS.md`.
@@ -118,7 +118,7 @@ Created by `/dev plan milestone <id>` for a milestone spanning several
 initiatives (rules: `plan.md § Milestone plans`). Every entry is an
 existing task id; waves follow the tasks' `depends-on` edges. Once
 every entry is `[x]`, the same command offers the file for
-`plans/archive/` (`plan.md § Archival`).
+`dev/plans/archive/` (`plan.md § Archival`).
 
 ```
 # Milestone <id>

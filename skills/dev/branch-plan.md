@@ -1,7 +1,7 @@
 # Branch plan rules
 
-A branch plan is `plans/R<NNN>-<slug>/<task-id>-<slug>.md`
-(root-relative; `plan.md § Directory conventions`). One
+A branch plan is `dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`
+(`plan.md § Directory conventions`). One
 branch = one task. The plan is complete and committed to `main`
 **before** the branch is created.
 
@@ -35,7 +35,7 @@ file's loop, `doc`/`test`/`mnt` run this alone:
    `release-routine: yes` → CHANGELOG `## [Unreleased]` entry
    (`changelog.md`); new public
    surface → `README.md`; `extended-docs: yes` → per conventions
-   (feature `docs/` docs reconcile at close).
+   (feature `dev/docs/` docs reconcile at close).
 3. **Commit** (`git-workflow.md § Commit messages`); mark the plan
    `[x]` immediately.
 
@@ -105,7 +105,7 @@ commit and the hand-off (`finish`).
    - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
-7. **Reconcile the feature doc** - write or update the `docs/` doc
+7. **Reconcile the feature doc** - write or update the `dev/docs/` doc
    to the shipped code, then take it, and every doc the branch
    ships (re-review edits included), through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
@@ -175,7 +175,7 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
 
 ### Batches
 
-`plans/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.md` - ordered member list:
+`dev/plans/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.md` - ordered member list:
 
     # R062-B001
     - R062-T001 (<slug>)
