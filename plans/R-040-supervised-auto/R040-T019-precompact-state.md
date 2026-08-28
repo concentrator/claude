@@ -100,6 +100,13 @@ an uncommitted checkbox (R040-T019 task line).
   `MAINTENANCE.md § Routine` row. `README.md § Workflow` and the
   `DESIGN.md` tree-map take the new command and file (§ Doc-sync pairs
   rows 1 and 2).
+- [ ] `skills/dev/auto.md § Pre-flight` gains one bullet: no member
+  plan names a target under `.claude/` (config is never a batch's to
+  write, `companions/implementer-prompt.md`); every pre-flight check
+  runs before any action, failures are reported together in one
+  message, and the batch halts with no branch created and no edit
+  made. Artifacts under the root need no mention: they left `.claude/`
+  with the artifacts root and are edited through Read/Edit/Write.
 - [ ] Registration per § Terms in `settings.json` (a `~/.claude`
   settings change: user approval on this plan is the approval);
   `scripts/test/dev-precompact-state.test.sh` asserts the entry.
