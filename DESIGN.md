@@ -82,7 +82,7 @@ excluded.
     ├── dev/                      # the DEV toolset
     │   ├── SKILL.md              #   the router
     │   ├── plan.md branch-plan.md templates.md layout.md changelog.md git-workflow.md  # process rules
-    │   ├── feat.md fix.md refactor.md write-plan.md finish.md release.md auto.md        # execution
+    │   ├── feat.md fix.md refactor.md write-plan.md finish.md handoff.md release.md auto.md   # execution
     │   ├── supervise.md secrets.md docs.md     # supervised delivery, secrets policy, docs layer
     │   ├── brainstorm.md migrate.md start.md   # shape + adoption
     │   └── companions/           # declaration syntax, documentation framework, prompt templates, verification-policy, migration docs, mockup scripts

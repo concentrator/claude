@@ -42,7 +42,9 @@ Planning takes two rounds: `/dev plan R` shapes an initiative,
 manual (`/dev code`, one branch at a time), agentic (`/dev auto`, a
 batch of branches run by subagents between checkpoints, on permission
 rails), or supervised (`/dev supervise`, scoped delivery within declared
-bounds). `/dev ship` takes a landed branch to a merged MR/PR.
+bounds). `/dev ship` takes a landed branch to a merged MR/PR;
+`/dev handoff` writes the session's hand-off note, which with the
+PreCompact hook's tree block carries state across compaction.
 `/dev start`, `/dev migrate`, `/dev docs`, and `/dev release` cover
 scaffolding a new project, adopting an existing one, the `docs/`
 layer, and tagging a release. Command surface and mode files:

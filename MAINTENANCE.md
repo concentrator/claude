@@ -52,6 +52,7 @@ Initial defaults - tune per project.
 | Target | Check | Cadence / threshold |
 |---|---|---|
 | Transcripts | retention | `cleanupPeriodDays` (settings) |
+| `<root>/session/` | files whose session is gone (`skills/dev/handoff.md`) | weekly, delete |
 | `plans/` | orphaned or closed plan, findings, requirements & batch files; empty `R<NNN>-<slug>` dirs | monthly |
 | `plans/visual-artifacts/` | gitignored scratch left behind | clear when stale |
 | `.claude/settings.json` + any regrown `settings.local.json` | allow-list mess: one-off / dead / overlapping rules; local entries a tracked tier already carries | weekly |

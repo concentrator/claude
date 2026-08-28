@@ -6,8 +6,8 @@ description: Use to enter DEV mode for spec-driven, planned, reviewed work.
 # Dev
 
 DEV mode - strict, spec-driven, manual (`/dev code`) or agentic (`/dev
-auto`). The mode files live beside this file in `skills/dev/`. **Read
-the one a command maps to before acting.**
+auto`). Mode files live beside this file; **read the one a command
+maps to before acting.**
 
 ## Surface
 
@@ -19,6 +19,7 @@ the one a command maps to before acting.**
 | `/dev auto [R<NNN>-B<NNN>]` | `auto.md` | Run an approved batch via subagents (no arg → first open); unattended until checkpoint or halt |
 | `/dev supervise [project] [scope]` | `supervise.md` | Supervise scoped delivery: dispatch, verify, merge within declared bounds |
 | `/dev ship` | `finish.md § 3` | Ship the landed branch; else error naming why |
+| `/dev handoff` | `handoff.md` | Write the hand-off note now |
 | `/dev release` | `release.md` | Finalize + tag the release (project `release` override or this companion) |
 | `/dev migrate` | `migrate.md` | Adopt an existing project into DEV: inventory, then route |
 | `/dev start` | `start.md` | Scaffold a new project into DEV |
@@ -37,8 +38,7 @@ the one a command maps to before acting.**
 | `release` | Release plan (next semver) | `release.md` |
 | (bare) | Ask | - |
 
-Two rounds - shape (`R`) then detail (`R<NNN>`); round-gate rules in
-`plan.md § Planning rounds`.
+Round-gate rules: `plan.md § Planning rounds`.
 
 ## `/dev code [<slug>]`
 
