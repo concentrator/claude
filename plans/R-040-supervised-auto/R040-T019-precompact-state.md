@@ -67,9 +67,10 @@ an uncommitted checkbox (R040-T019 task line).
   `| session-state: <path>`, the session's own file whether or not it
   exists yet, so a session learns where to write without guessing.
 - **Registration** - global only: `settings.json` gains a `PreCompact`
-  entry running `~/.claude/hooks/dev-precompact-state.sh`. Project-scope
-  installs are not changed: the worker hosts run this repository as
-  their global config.
+  entry running `~/.claude/hooks/dev-precompact-state.sh`; the worker
+  hosts run this repository as their global config. Project-scope
+  installs copy the hook file without registering it, so the pointer
+  resolves there through the one home of the path logic.
 - **Housekeeping** - `MAINTENANCE.md § Routine` table gains a row:
   `session/` files whose session is gone, weekly, delete.
 

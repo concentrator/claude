@@ -27,6 +27,7 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -x "$P/.claude/hooks/dev-secrets-guard.sh" ]     && pass "secrets hook copied + exec" || die "no secrets hook"
 [ -f "$P/.claude/hooks/secret-patterns.sh" ]       && pass "secret patterns copied" || die "no secret patterns"
 [ -x "$P/.claude/hooks/dev-branch-state.sh" ]      && pass "state hook copied + exec" || die "no state hook"
+[ -x "$P/.claude/hooks/dev-precompact-state.sh" ]  && pass "session-state writer copied + exec" || die "no session-state writer"
 [ -x "$P/.claude/scripts/ci/check-code-size.sh" ]  && pass "code-size check copied + exec" || die "no code-size check"
 [ -x "$P/.claude/scripts/ci/check-no-em-dash.sh" ] && pass "no-em-dash check copied + exec" || die "no no-em-dash check"
 [ -f "$P/.claude/scripts/ci/code-size-allow.txt" ] && pass "code-size allowlist template" || die "no code-size allowlist"
@@ -162,14 +163,15 @@ done
 [ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1
 [ "$(grep -c '^!.claude/hooks/$' "$G/.gitignore")" = "1" ] && pass "gitignore allowlist idempotent" || die "duplicate allowlist entries"
-[ "$(grep -c '^dev/session/$' "$G/.gitignore")" = "1" ] && pass "session dir ignored once under the default root" || die "session ignore line: $(grep -c '^dev/session/$' "$G/.gitignore")"
+[ "$(grep -c '^/dev/session/$' "$G/.gitignore")" = "1" ] && pass "session dir ignored once under the default root" || die "session ignore line: $(grep -c '^/dev/session/$' "$G/.gitignore")"
+git -C "$G" check-ignore -q "skills/x/session/f" && die "unanchored session ignore" || pass "session ignore is anchored to the root"
 rm -rf "$G"
 
 # --- session ignore line follows the declared artifacts root ---
 G=$(mktemp -d); git -C "$G" init -q
 printf '# X\n\n## Agent toolchain\n\n- DEV artifacts root: ./\n' > "$G/CLAUDE.md"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (root ./ fixture) exits nonzero"
-grep -qx 'session/' "$G/.gitignore" && pass "session ignore line follows a ./ root" || die "root ./ fixture: $(grep session "$G/.gitignore")"
+grep -qx '/session/' "$G/.gitignore" && pass "session ignore line follows a ./ root" || die "root ./ fixture: $(grep session "$G/.gitignore")"
 rm -rf "$G"
 
 (( fail == 0 )) && echo "install-dev.test: OK"

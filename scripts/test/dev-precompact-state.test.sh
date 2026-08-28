@@ -32,7 +32,7 @@ git -C "$R" config user.email t@e; git -C "$R" config user.name t
 mkdir -p "$R/dev/plans/R" "$R/src"
 printf -- '- [x] done\n- [ ] open one\n' > "$R/dev/plans/R/T1.md"
 printf 'clean\n' > "$R/tracked.sh"
-printf 'dev/session/\n' > "$R/.gitignore"   # as install-dev.sh and the template leave a real repo
+printf '/dev/session/\n' > "$R/.gitignore"   # as install-dev.sh and the template leave a real repo
 git -C "$R" add -A; git -C "$R" commit -qm init
 git -C "$R" remote add origin "$D/origin"; git -C "$R" push -q origin main
 git -C "$R" checkout -q -b work
@@ -58,7 +58,8 @@ printf '{"session_id":"s1","compaction_trigger":"manual"}' | bash "$HOOK" >/dev/
 grep -q '^- trigger: manual$' "$f" && pass "manual trigger recorded" || die "manual trigger missing"
 
 out=$(printf '{}' | bash "$HOOK" 2>/dev/null)
-[ "$(ls "$R/dev/session" | wc -l | tr -d ' ')" -eq 2 ] && pass "repository-keyed file without a session id" || die "expected two files, got: $(ls "$R/dev/session")"
+ck=$(printf '%s' "$R" | cksum | cut -d' ' -f1)
+[ -f "$R/dev/session/$ck.md" ] && pass "repository-keyed file without a session id" || die "no $ck.md in: $(ls "$R/dev/session")"
 
 out=$(printf '{"session_id":"s4"}' | bash "$HOOK" --path 2>/dev/null)
 [ "$out" = "$R/dev/session/s4.md" ] && [ ! -f "$R/dev/session/s4.md" ] && pass "--path names the file without writing it" || die "--path: $out"

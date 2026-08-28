@@ -17,7 +17,7 @@ input=$(cat 2>/dev/null || true)
 sid=
 trigger=unknown
 if command -v jq >/dev/null 2>&1 && [ -n "$input" ]; then
-  sid=$(printf '%s' "$input" | jq -r '.session_id // empty' 2>/dev/null)
+  sid=$(printf '%s' "$input" | jq -r '.session_id // empty' 2>/dev/null | tr -cd 'A-Za-z0-9._-')   # a filename, so only filename characters
   trigger=$(printf '%s' "$input" | jq -r '.compaction_trigger // "unknown"' 2>/dev/null)
 fi
 
@@ -47,7 +47,10 @@ status=$(git -C "$root" status --porcelain 2>/dev/null | paste -sd ';' - | sed '
 commits=$(git -C "$root" log --oneline -5 2>/dev/null | paste -sd ';' - | sed 's/;/; /g')
 # Branch plans keep one checkbox per commit; the first unticked box in any
 # plan this branch touched is where the work resumes.
-base=$(git -C "$root" merge-base HEAD origin/main 2>/dev/null || echo HEAD)
+base=HEAD
+for ref in origin/main origin/master main master; do
+  b=$(git -C "$root" merge-base HEAD "$ref" 2>/dev/null) && { base=$b; break; }
+done
 plans=$(git -C "$root" diff --name-only "$base" HEAD 2>/dev/null \
   | grep -E '(^|/)plans/.*\.md$' | grep -v '/archive/' \
   | while IFS= read -r f; do

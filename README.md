@@ -102,6 +102,8 @@ rules. Re-run it to refresh.
 It also writes outside the target `.claude/`, append-only in both cases:
 an `@writing.md` import added to the target `CLAUDE.md`, and - for
 `--project` - a `!`-allowlist line in the repo's root `.gitignore` for
-each installed path that repo ignores, so the toolset stays committable.
+each installed path that repo ignores, so the toolset stays committable,
+plus an ignore line for `<artifacts root>/session/`, the per-session
+state files (`skills/dev/handoff.md`).
 The copied checks are yours to wire into CI; the installer ships them
 without registering them.

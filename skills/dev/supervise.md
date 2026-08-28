@@ -97,9 +97,8 @@ escalates.
 Follow the worker to checkpoint or halt. Collect the checkpoint report
 path and MR/PR references - never diffs or transcripts; the
 supervisor's context stays report-level so one supervisor spans many
-sessions. At each boundary the supervisor writes its hand-off note; a
-compacted session of either role re-briefs from its session file and
-the tree, then deletes it (`handoff.md`).
+sessions. Hand-off note at each boundary, re-brief after compaction,
+for supervisor and worker alike: `handoff.md`.
 
 ## Question resolution
 

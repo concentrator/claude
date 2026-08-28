@@ -8,7 +8,7 @@
 CLAUDE.local.md
 
 # DEV session state (skills/dev/handoff.md); path follows the artifacts root
-dev/session/
+/dev/session/
 
 # Dependencies and build output (extend per stack)
 node_modules/
