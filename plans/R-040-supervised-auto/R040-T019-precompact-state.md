@@ -24,62 +24,82 @@ an uncommitted checkbox (R040-T019 task line).
 
 ## Terms used below
 
-- **Session file** - `~/.claude/state/session/<session_id>.md`
-  (`DEV_STATE_DIR` overrides the directory for tests); when
-  `session_id` is absent the key is the repository root's checksum, one
-  file per repository. Two writers append to it, each a dated block:
-  the session's hand-off note and the hook's tree block. The resumed
-  session re-briefs from the file and the tree, never the summary, then
-  deletes the file. `state/` joins `.gitignore` under the harness-managed
-  state block, since the writes land inside this tracked tree.
-- **Hand-off note** - written by the session itself at a unit boundary
-  (an initiative closed, a dispatch sent, a ruling received, a task
-  branch opened): done, next, current branch, open MR/PR numbers, and
-  the rulings in force. The tree cannot derive intent, so no hook
-  writes this block. `/dev handoff` writes one on demand; the
-  boundary rule in `branch-plan.md § Session boundary` and
-  `supervise.md § Monitor` writes it without being asked.
-- **Tree block** - written by `hooks/dev-precompact-state.sh` on
-  `PreCompact`: time, `compaction_trigger`, repository root, branch,
-  `git status --porcelain`, the last five commits, and for each plan
-  file the branch touched (against the merge base with `origin/main`)
-  the line of its first `- [ ]`. Display only, never a decision; silent
-  outside a repository; every read fails open.
+- **Session file** - `<artifacts root>/session/<session_id>.md`
+  (`dev/session/` in a project; `./session/` in this repository, whose
+  root is `./`), the root resolved by `scripts/ci/resolve-root.sh` in
+  both hooks; `DEV_STATE_DIR` overrides the directory for tests. The
+  directory is gitignored: `install-dev.sh` and `/dev start` add the
+  line. When `session_id` is absent the key is the repository root's
+  checksum, one file per repository. Two writers append to it; the
+  resumed session re-briefs from the file and the tree, never the
+  summary, then deletes the file.
+- **Identity** - one file per `session_id`. Under the supervisor
+  runbook the supervisor, worker and operator are separate `claude`
+  processes, so each has its own file. Under `/dev auto` or a worker
+  spawned as a subagent, hooks fire with the parent's `session_id`, so
+  the run has one file and only the orchestrating session writes
+  hand-offs to it; the batch checkpoint report stays the subagent's
+  state.
+- **Format** - the first writer creates the file with the header
+  `# <role> session <session_id>`; the hook, which knows no role,
+  writes `# session <session_id>` and the next hand-off fills the role
+  in (`worker`, `supervisor`, `operator`, `solo`). Each block is
+  `## <kind> <UTC timestamp>` followed by `- key: value` lines,
+  appended in time order; the last block of each kind is current.
+- **Hand-off note** - kind `hand-off`, written by the session at a unit
+  boundary (an initiative closed, a dispatch sent, a ruling received, a
+  task branch opened) to the path its own prompt line names: `done`,
+  `next`, `branch`, `open` (MR/PR numbers), `rulings` (in force). The
+  tree cannot derive intent, so no hook writes this block.
+  `/dev handoff` writes one on demand; the boundary rule in
+  `branch-plan.md § Session boundary` and `supervise.md § Monitor`
+  writes it without being asked.
+- **Tree block** - kind `tree`, written by
+  `hooks/dev-precompact-state.sh` on `PreCompact`: `trigger`
+  (`compaction_trigger`), `repo`, `branch`, `status`
+  (`git status --porcelain`), `commits` (last five), and `plan` per
+  plan file the branch touched (against the merge base with
+  `origin/main`) with the line of its first `- [ ]`. Display only,
+  never a decision; silent outside a repository; every read fails open.
 - **Root** - `CLAUDE_PROJECT_DIR` when set, else `git rev-parse
   --show-toplevel` from the current directory.
-- **Pointer** - `hooks/dev-branch-state.sh` appends
-  `| session-state: <path>` to its line while a session file for the
-  session (or the repository) exists.
+- **Pointer** - `hooks/dev-branch-state.sh` always ends its line with
+  `| session-state: <path>`, the session's own file whether or not it
+  exists yet, so a session learns where to write without guessing.
 - **Registration** - global only: `settings.json` gains a `PreCompact`
   entry running `~/.claude/hooks/dev-precompact-state.sh`. Project-scope
   installs are not changed: the worker hosts run this repository as
   their global config.
+- **Housekeeping** - `MAINTENANCE.md § Routine` table gains a row:
+  `session/` files whose session is gone, weekly, delete.
 
 ## Commits
 
 - [ ] `hooks/dev-precompact-state.sh` per § Terms, reworked from the
-  draft: appends the tree block to the session file, reads
-  `compaction_trigger`, roots at `CLAUDE_PROJECT_DIR`; `state/` ignored;
-  `scripts/test/dev-precompact-state.test.sh` asserts the file per
-  session, `compaction_trigger: auto` recorded, branch, an uncommitted
-  path, the first open plan item and its line, a second run appending
-  rather than replacing, the repository-keyed file without a session
-  id, silence outside a repository, and that a `cd` into a subdirectory
-  before the call still finds the root. `DESIGN.md` tree-map and
-  § Self-enforcement name the hook; `README.md § Contents` `hooks/` row
-  names it.
+  draft: session file under the resolved root, header then tree block
+  appended, `compaction_trigger` read, `CLAUDE_PROJECT_DIR` root;
+  `install-dev.sh` and `skills/dev/start.md` add the `session/` ignore
+  line (`install-dev.test.sh` asserts it); `scripts/test/dev-precompact-state.test.sh`
+  asserts the file per session under `dev/session/`, the header, a
+  `trigger: auto` line, branch, an uncommitted path, the first open plan
+  item and its line, a second run appending, the repository-keyed file
+  without a session id, silence outside a repository, and that a `cd`
+  into a subdirectory before the call still finds the root. `DESIGN.md`
+  tree-map and § Self-enforcement name the hook; `README.md § Contents`
+  `hooks/` row names it.
 - [ ] Pointer per § Terms in `hooks/dev-branch-state.sh`;
-  `scripts/test/dev-branch-state.test.sh` asserts the pointer while the
-  file exists and its absence once deleted.
-- [ ] Hand-off note per § Terms: `skills/dev/handoff.md` (the block's
-  five fields, the append, the delete-after-re-brief rule) and a
+  `scripts/test/dev-branch-state.test.sh` asserts the path is printed
+  with and without the file.
+- [ ] Hand-off note per § Terms: `skills/dev/handoff.md` (header rule,
+  block format, the five keys, the delete-after-re-brief rule) and a
   `/dev handoff` row in `SKILL.md`'s router table; the boundary rule as
   one sentence each in `branch-plan.md § Session boundary` and
   `supervise.md § Monitor` (write the note before the next unit; after
   compaction re-brief from the session file, then delete it; under a
-  tenth of context the worker commits locally first). `README.md
-  § Workflow` and the `DESIGN.md` tree-map take the new command and
-  file (§ Doc-sync pairs rows 1 and 2).
+  tenth of context the worker commits locally first); the
+  `MAINTENANCE.md § Routine` row. `README.md § Workflow` and the
+  `DESIGN.md` tree-map take the new command and file (§ Doc-sync pairs
+  rows 1 and 2).
 - [ ] Registration per § Terms in `settings.json` (a `~/.claude`
   settings change: user approval on this plan is the approval);
   `scripts/test/dev-precompact-state.test.sh` asserts the entry.
