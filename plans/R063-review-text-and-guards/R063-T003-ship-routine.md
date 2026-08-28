@@ -51,7 +51,7 @@ run on any landed branch, not only from the closing routine.
   `/dev release`.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review over
   the diff, `bash scripts/ci/run-all.sh` green, cleanup, mark plan
   complete, commit.
