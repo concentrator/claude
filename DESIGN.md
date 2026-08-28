@@ -23,9 +23,8 @@ This repo is consumed as `~/.claude`, so what is `.claude/` in a normal
 project is the repo root here. Foundational DEV files
 (`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`) sit at
 the root, not in a nested `.claude/`. The nested `.claude/` holds only Claude Code's
-project settings, whose location is fixed by the tool. The artifacts
-root declared in `CLAUDE.md § Agent toolchain` is the repo root, so
-artifacts resolve under the same rule as adopters.
+project settings, whose location is fixed by the tool. DEV artifacts
+sit under `dev/` as in every adopter.
 
 ## Tree-map
 
