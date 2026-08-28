@@ -69,7 +69,7 @@ ignored setting.
   `MAINTENANCE.md` where they describe the declaration (`DESIGN.md`
   was already clean).
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code and prose rows: `code-reviewer`), Tier-2 compliance
   review, `bash scripts/ci/run-all.sh` green, cleanup; R064 closure
   check per `plan.md § Approval and closure` - each acceptance
