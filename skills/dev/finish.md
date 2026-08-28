@@ -33,7 +33,9 @@ MR/PR opens only on explicit choice - never automatically.
 ## 3. Execute
 
 **Ship** - the one path from a landed branch (every planned commit in,
-nothing uncommitted) to a merged MR/PR; `/dev ship` enters it directly.
+nothing uncommitted) to a merged MR/PR. `/dev ship` enters it directly;
+on the default branch, or with uncommitted changes, it stops with an
+error naming that condition.
 
 1. Gate: `bash scripts/ci/run-all.sh` plus the declared test and lint
    commands. A failure stops Ship and is reported.
