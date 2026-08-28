@@ -21,7 +21,7 @@ only how this repository is reviewed.
   template" claim goes, since no script or skill copies the file.
   `start.md` and `migrate.md` are read to confirm what they say, and
   amended only if they claim the copy.
-- [ ] `skills/dev/git-workflow.md § Merge policy` states the order:
+- [x] `skills/dev/git-workflow.md § Merge policy` states the order:
   read the state check (`companions/toolchain.md § State check`) until
   it reports success, then merge; a state with no pipeline yet, or one
   queued or running, keeps the poll going and is never read as success;
@@ -31,7 +31,7 @@ only how this repository is reviewed.
   starts after the pipeline finished merges on its first read.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review over
   the diff, `bash scripts/ci/run-all.sh` green, cleanup, mark plan
   complete, commit.
