@@ -52,12 +52,11 @@ invokes explicitly.
 
 ## Proportionality
 
-One observed failure earns one fix and one test. Deeper proofs -
-mutant cases, unfixed-copy comparisons, vendored-copy assertions - are
-reserved for `dev-secrets-guard` and
-`dev-branch-guard`. Hardening against a hazard that has never
-fired needs explicit user approval. A shape round asks what can be
-deleted before it adds.
+`CLAUDE.md § Scope` binds here: one observed failure earns one fix and
+one test. Deeper proofs - mutant cases, unfixed-copy comparisons,
+vendored-copy assertions - are reserved for `dev-secrets-guard` and
+`dev-branch-guard`. A shape round asks what can be deleted before it
+adds.
 
 ## ID format
 
