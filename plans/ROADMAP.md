@@ -255,4 +255,4 @@ Initiative index. Items: `R-001: description`; each entry owns
       or a split. Stub, to be shaped.
 - [ ] R063: Tier-2 review text and guard fail-closed - runnable review
       clauses citing their owners; hook guards that run from any
-      directory and fail closed. Shaped, pending approval.
+      directory and fail closed.

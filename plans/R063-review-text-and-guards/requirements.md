@@ -1,5 +1,5 @@
 ---
-approved: pending
+approved: 2026-08-28
 kind: fix
 ---
 
@@ -18,7 +18,7 @@ final unchecked box as a finding; dead prose is bound under Cleanup
 while its three-gate test hangs off Compliance; `### Prune dead prose`
 and the `§ Doc-sync pairs` table sit far from the bullets that invoke
 them; rows 2 and 6 and the lead-in's second sentence restate rules
-owned elsewhere; how far "never restated" reaches is unsettled.
+owned elsewhere.
 
 `settings.json` registers the two `PreToolUse` guards by the relative
 path `.claude/hooks/<name>.sh`, so after any `cd` both fail with "not
@@ -29,8 +29,10 @@ also passes the call. Neither path reports its own absence.
 ## Desired state
 
 Every clause of the review section is runnable per commit or per
-branch and cites the document that owns any rule it names; each
-concern owns its test and its prune step in place. Both guards run
+branch. "Never restated" is read maximally: any echo of a rule's text
+is a restatement, so a concern names the rule and cites its owning
+document without repeating what it says; each concern owns its test
+and its prune step in place. Both guards run
 from any working directory and fail closed, with one stderr line, when
 their script or library is missing.
 
@@ -54,6 +56,9 @@ their script or library is missing.
 - [ ] Dead prose has one owning concern, its test and prune step beside
   the bullet.
 - [ ] Rows 2 and 6 and the lead-in sentence are cut or cite their owner.
+- [ ] No bullet or row repeats the text of a rule another document
+  owns; a `git grep` for each owned rule's key phrase hits only its
+  owner.
 - [ ] Hook paths resolve from any working directory (a test runs a
   guarded call after `cd` into a subdirectory).
 - [ ] A missing `secret-patterns.sh` fails the call with one stderr line.
@@ -61,11 +66,6 @@ their script or library is missing.
 ## Constraints
 
 - `MAINTENANCE.md` stays under its word cap (`scripts/ci/check-caps.sh`).
-
-## Open questions
-
-- The reach of "never restated": narrow reading (a bullet naming a rule
-  cites its owner) or maximal (any echo is a restatement).
 
 ## References
 
