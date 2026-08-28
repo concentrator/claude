@@ -51,6 +51,14 @@ declared commands rather than probing the host - MR/PR state included.
   (`gh pr merge --auto`, GitLab merge-when-pipeline-succeeds); where the
   host can't gate (no branch protection), the operator merges once the
   required checks pass.
+- **Merge order.** Read the declared state check
+  (`companions/toolchain.md § State check`) until it reports success,
+  then merge. No pipeline yet, queued, or running is never success:
+  keep polling; a merge called before success fails (GitLab answers
+  405). The check reports the pipeline's current state, so a poll that
+  starts after the pipeline finished merges on its first read. An
+  MR/PR the check already reports merged is reported as merged, never
+  merged again.
 
 ## Coherent delivery
 
