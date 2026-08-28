@@ -18,6 +18,9 @@ pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 
 [ -x "$HOOK" ] && pass "hook file present and executable" || die "hook file missing"
+jq -e '[.hooks.PreCompact[]?.hooks[]?.command // "" | select(test("dev-precompact-state"))] | length > 0' \
+  "$ROOT/settings.json" >/dev/null 2>&1 \
+  && pass "hook registered on PreCompact" || die "hook not registered in settings.json"
 
 # A repo with a remote main, a work branch, one plan with an open item, one
 # uncommitted change, and no root declaration (so the artifacts root is dev).
