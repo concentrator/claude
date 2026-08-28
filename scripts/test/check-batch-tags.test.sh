@@ -16,11 +16,12 @@ pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 
 out_in() { ( cd "$1" && env -u CI bash "$CHECK" 2>&1 ); }
-# Fixtures declare `./` so the gate reads their root-level plans/; the
-# trunk is pinned to main so trunk resolution is machine-independent.
+# Fixtures keep plans/ at the root (the gate scopes the trunk's listing
+# to any plans/ directory, so no declaration is read); the trunk is
+# pinned to main so trunk resolution is machine-independent.
 mkrepo() {
   local d; d=$(mktemp -d); git -C "$d" init -q -b main
-  printf -- '- DEV artifacts root: ./\n' > "$d/CLAUDE.md"
+  printf 'fixture\n' > "$d/CLAUDE.md"
   git -C "$d" add -A
   git -C "$d" -c user.email=t@t -c user.name=t commit -qm init
   printf '%s' "$d"
@@ -214,6 +215,16 @@ out=$(out_in "$d"); rc=$?
   && grep -q 'legacy pre-R<NNN>-B-XXX' <<<"$out" \
   && pass "unresolvable verdict names both spellings" \
   || die "unresolvable verdict incomplete: $out"; rm -rf "$d"
+
+# Trunk plans under dev/plans/: the listing follows the trunk's own
+# layout, so a stale anchor is still caught when the artifacts moved.
+d=$(mkrepo); mkdir -p "$d/dev/plans/R-042-pocs/batches"
+printf 'report\n' > "$d/dev/plans/R-042-pocs/batches/B-001.report.md"
+commit_in "$d" report; git -C "$d" tag pre-R042-B-001
+out=$(out_in "$d"); rc=$?
+[ $rc -ne 0 ] && grep -q 'dev/plans/R-042-pocs/batches/B-001\.report\.md' <<<"$out" \
+  && pass "stale anchor caught under a dev/plans/ trunk" \
+  || die "dev/plans/ trunk missed: $out"; rm -rf "$d"
 
 (( fail == 0 )) && echo "check-batch-tags.test: OK"
 exit $fail

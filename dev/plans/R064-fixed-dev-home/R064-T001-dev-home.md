@@ -34,14 +34,14 @@ this repository's actual files.
   `- DEV artifacts root: ./` line; `.gitignore` ignores
   `/dev/session/`; the `DESIGN.md` tree-map takes the `dev/` node;
   `bash scripts/ci/run-all.sh` green.
-- [x] Concrete references follow: `README.md`, `MAINTENANCE.md
-  § Routine` (`dev/session/`, `dev/plans/`,
-  `dev/plans/visual-artifacts/`), `REQUIREMENTS.md`, `DESIGN.md`
-  prose, `agents/code-reviewer.md`, the `hooks/dev-precompact-state.sh`
-  header comment, and the open `R-040` and `R063` plan files that cite
-  this repository's paths; verified by
-  `grep -rn '\bplans/' --exclude-dir=dev` showing only the skills'
-  root-relative shorthand.
+- [x] Concrete references follow: `README.md` (§ Contents row,
+  § Workflow, § Self-hosting), `MAINTENANCE.md § Routine`
+  (`dev/session/`, `dev/plans/`, `dev/plans/visual-artifacts/`),
+  `DESIGN.md § Self-hosting layout`; verified by
+  `grep -rn '\bplans/' --exclude-dir=dev` showing only root-relative
+  shorthand and fixtures that declare `./`. `REQUIREMENTS.md`,
+  `agents/code-reviewer.md`, the hook's plan-file regex and the open
+  R-040/R063 plans hold shorthand only and are untouched.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose rows: `code-reviewer`), Tier-2 compliance review,
