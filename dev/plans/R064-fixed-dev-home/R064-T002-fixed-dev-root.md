@@ -61,7 +61,7 @@ ignored setting.
   `write-plan.md`, `branch-plan.md`, `finish.md`, `release.md`,
   `templates.md`, `auto.md § Pre-flight` (placeholder sentence gone)
   spell `dev/plans/`, `dev/docs/`, `dev/session/`; `<root>/` gone.
-- [ ] Companions and root docs: `declarations.md § Artifacts root`
+- [x] Companions and root docs: `declarations.md § Artifacts root`
   removed; `root-migration.md` moves a `.claude/`-layout project onto
   `dev/` with no resolution step; `toolchain.md`,
   `untracked-claude.md`, `visual-companion.md`, `gitignore.template`
