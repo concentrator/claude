@@ -17,7 +17,10 @@ review the diff against the rule set and confirm the concerns below:
   (`CLAUDE.md` per `rules/claude-md.md`; `SKILL.md` per `rules/skills.md`;
   plans per `skills/dev/plan.md`).
 - **Cross-file integrity** - references resolve; no rule duplicated
-  across files; the `DESIGN.md` tree-map matches the tree.
+  across files, read maximally: any echo of a rule's text is a
+  restatement, so a concern names the rule and cites its owning
+  document instead (`rules/claude-md.md § Size and structure`, "No
+  duplication"); the `DESIGN.md` tree-map matches the tree.
 - **Cleanup** - no stray scratch or transient content, and no dead
   prose: every rule, instruction, or sentence the diff adds or touches
   passes three gates - accurate and sensible in context; valuable in a
