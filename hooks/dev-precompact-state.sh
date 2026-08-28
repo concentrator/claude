@@ -26,15 +26,9 @@ root=${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null)}
 [ -n "$root" ] || exit 0
 git -C "$root" rev-parse --show-toplevel >/dev/null 2>&1 || exit 0
 
-# Session dir: <artifacts root>/session under the repo (resolve-root.sh
-# reads the CLAUDE.md declaration; absent -> dev). DEV_STATE_DIR overrides.
-if [ -n "${DEV_STATE_DIR:-}" ]; then
-  dir=$DEV_STATE_DIR
-else
-  resolver="$(cd "$(dirname "$0")/.." && pwd)/scripts/ci/resolve-root.sh"
-  art=$(cd "$root" && bash "$resolver" 2>/dev/null) || art=dev
-  dir="$root/${art:+$art/}session"
-fi
+# Session dir: dev/session under the repo (skills/dev/handoff.md);
+# DEV_STATE_DIR overrides it for tests.
+dir=${DEV_STATE_DIR:-$root/dev/session}
 
 # One file per session; without a session id, one per repository.
 key=${sid:-$(printf '%s' "$root" | cksum | cut -d' ' -f1)}

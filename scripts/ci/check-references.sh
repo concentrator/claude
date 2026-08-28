@@ -2,10 +2,9 @@
 # Tier-1 reference freshness: fail on expired `<!-- expires: YYYY-MM-DD -->`
 # markers (strictly before today) across tracked markdown.
 # Dead *paths* are a Tier-2 AI-review concern (MAINTENANCE.md), not a
-# mechanical check - lazy dirs, skill-relative paths, the
-# self-hosting `.claude/` indirection, and the declared artifacts root
-# (skills/dev/plan.md § Where things live) make path resolution a
-# judgment call that produces false positives in CI.
+# mechanical check - lazy dirs, skill-relative paths and the
+# self-hosting `.claude/` indirection make path resolution a judgment
+# call that produces false positives in CI.
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 

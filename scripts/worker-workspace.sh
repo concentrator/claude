@@ -112,21 +112,19 @@ project_clone() {
 # gitignored (*.local.json) and therefore never arrives with a clone - and it
 # is exactly the file that keeps a worker from stalling on a permission
 # prompt. Built from companions/auto-permissions.template.json with
-# __PROJECT_DIR__, __HOME__ and __ARTIFACTS_ROOT__ substituted; the rules carry
-# a // prefix, so the paths go in without their leading slash.
+# __PROJECT_DIR__ and __HOME__ substituted; the rules carry a // prefix,
+# so the paths go in without their leading slash.
 settings() {
   local dry=0
   [ "${1:-}" = "--dry-run" ] && dry=1
   local pd="${WORKER_PROJECT_DIR:-/opt/wallarm/attack-checker}"
   local tpl="$HOME/.claude/skills/dev/companions/auto-permissions.template.json"
   local out="$pd/.claude/settings.local.json"
-  local root="${WORKER_ARTIFACTS_ROOT:-dev}"
 
   if [ "$dry" -eq 1 ]; then
     printf 'settings would:\n'
     printf '  - read %s\n' "$tpl"
-    printf '  - substitute __PROJECT_DIR__=%s __HOME__=%s __ARTIFACTS_ROOT__=%s\n' \
-      "${pd#/}" "${HOME#/}" "$root"
+    printf '  - substitute __PROJECT_DIR__=%s __HOME__=%s\n' "${pd#/}" "${HOME#/}"
     printf '  - grant read on %s, the projects root, since a doc cites the\n' "$(dirname "$pd")"
     printf '    sibling repositories its subject calls into\n'
     printf '  - add the project toolchain rules from its CLAUDE.md and the push\n'
@@ -142,8 +140,7 @@ settings() {
   [ -f "$tpl" ] || { printf 'settings: template missing at %s\n' "$tpl" >&2; return 1; }
   mkdir -p "$pd/.claude"
 
-  local base; base=$(sed -e "s|__PROJECT_DIR__|${pd#/}|g" -e "s|__HOME__|${HOME#/}|g" \
-                         -e "s|__ARTIFACTS_ROOT__/|$root/|g" -e "s|__ARTIFACTS_ROOT__|$root|g" "$tpl")
+  local base; base=$(sed -e "s|__PROJECT_DIR__|${pd#/}|g" -e "s|__HOME__|${HOME#/}|g" "$tpl")
   printf '%s' "$base" | jq --arg siblings "//$(dirname "${pd#/}")/**" \
     '.permissions.allow += [
       "Read(" + $siblings + ")",

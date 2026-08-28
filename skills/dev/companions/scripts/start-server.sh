@@ -6,9 +6,9 @@
 # Each session gets its own directory to avoid conflicts.
 #
 # Options:
-#   --project-dir <path>  Store session files under the project's declared
-#                         DEV artifacts root (<root>/plans/visual-artifacts/)
-#                         instead of /tmp. Files persist after server stops.
+#   --project-dir <path>  Store session files under the project's
+#                         dev/plans/visual-artifacts/ instead of /tmp.
+#                         Files persist after server stops.
 #   --host <bind-host>    Host/interface to bind (default: 127.0.0.1).
 #                         Use 0.0.0.0 in remote/containerized environments.
 #   --url-host <host>     Hostname shown in returned URL JSON.
@@ -79,19 +79,13 @@ fi
 SESSION_ID="$$-$(date +%s)"
 
 if [[ -n "$PROJECT_DIR" ]]; then
-  # Resolve the DEV artifacts root from the project CLAUDE.md declaration;
-  # absent resolves to dev (skills/dev/plan.md § Where things live). A
-  # project with no declaration whose artifacts still sit under
-  # .claude/plans/ keeps that legacy location until it migrates.
-  ROOT="$(sed -n 's/^- DEV artifacts root:[[:space:]]*//p' "${PROJECT_DIR}/CLAUDE.md" 2>/dev/null | head -n1 | sed -e 's/[[:space:][:cntrl:]]*$//' || true)"
-  if [[ -z "$ROOT" && -d "${PROJECT_DIR}/.claude/plans" ]]; then
+  # Plans live at dev/plans/ (skills/dev/plan.md § Where things live); a
+  # project whose artifacts still sit under .claude/plans/ keeps that
+  # legacy location until it migrates.
+  if [[ -d "${PROJECT_DIR}/.claude/plans" ]]; then
     SESSION_DIR="${PROJECT_DIR}/.claude/plans/visual-artifacts/${SESSION_ID}"
   else
-    ROOT="${ROOT:-dev}"
-    ROOT="${ROOT%/}"
-    ROOT="${ROOT#./}"
-    if [[ "$ROOT" == "." ]]; then ROOT=""; fi
-    SESSION_DIR="${PROJECT_DIR}${ROOT:+/$ROOT}/plans/visual-artifacts/${SESSION_ID}"
+    SESSION_DIR="${PROJECT_DIR}/dev/plans/visual-artifacts/${SESSION_ID}"
   fi
 else
   SESSION_DIR="/tmp/brainstorm-${SESSION_ID}"
