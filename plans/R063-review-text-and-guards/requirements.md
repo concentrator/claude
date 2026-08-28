@@ -61,6 +61,8 @@ draft).
   `hooks/dev-secrets-guard.sh`, `scripts/test/secrets-guard.test.sh`.
 - Re-install into fp-remedy (its `.claude/settings.json` and hook
   copies), delivered by an fp-remedy MR.
+- `skills/dev/finish.md § 3`, `skills/dev/SKILL.md` router,
+  `README.md`: the Ship delivery routine and `/dev ship`.
 
 ## Acceptance criteria
 
@@ -78,6 +80,9 @@ draft).
   open, and the guard's header names the one closed path.
 - [ ] fp-remedy's `.claude/settings.json` carries the new paths and its
   hook copies match `hooks/`.
+- [ ] `finish.md § 3 Ship` states gate, push, MR/PR, poll to green,
+  merge approval (skipped for `plan/`), merge and post-merge in one
+  place; `/dev ship` is a router row reading it.
 
 ## Constraints
 
