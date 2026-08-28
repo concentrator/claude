@@ -45,8 +45,9 @@ declared commands rather than probing the host - MR/PR state included.
 - **Merge policy.** Only `plan/` MR/PRs (planning artifacts) auto-merge;
   every other prefix - `feat`/`fix`/`refactor`/`release`/`doc`/`test`/
   `mnt`, and `batch` via its checkpoint accept - keeps review and merge
-  as the user's call, delegable to a supervisor within a project's
-  declared bounds (`companions/declarations.md § Supervisor bounds`). Auto-merge runs on a
+  as the user's call (asked by `finish.md § 3 Ship`), delegable to a
+  supervisor within a project's declared bounds
+  (`companions/declarations.md § Supervisor bounds`). Auto-merge runs on a
   green gate: native host auto-merge where available
   (`gh pr merge --auto`, GitLab merge-when-pipeline-succeeds); where the
   host can't gate (no branch protection), the operator merges

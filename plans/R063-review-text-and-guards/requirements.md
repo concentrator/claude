@@ -80,7 +80,7 @@ draft).
   open, and the guard's header names the one closed path.
 - [ ] fp-remedy's `.claude/settings.json` carries the new paths and its
   hook copies match `hooks/`.
-- [ ] `finish.md § 3 Ship` states gate, push, MR/PR, poll to green,
+- [x] `finish.md § 3 Ship` states gate, push, MR/PR, poll to green,
   merge approval (skipped for `plan/`), merge and post-merge in one
   place; `/dev ship` is a router row reading it.
 

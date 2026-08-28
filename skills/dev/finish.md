@@ -24,21 +24,35 @@ into the options or glossed past:
    against a real case; tests → the suite run is the verification;
    data or config → run the work product and show the results. Present
    this and wait.
-3. **Options** - only then present delivery: push and open a CI-gated MR/PR
-   to origin / keep / discard.
+3. **Options** - only then present delivery: **ship / discard**. No
+   answer keeps the branch as it is, and the report says "kept, not
+   shipped".
 
 MR/PR opens only on explicit choice - never automatically.
 
 ## 3. Execute
 
-**Push + MR/PR** - `git push -u origin <branch>`, then open a CI-gated
-MR/PR via the declared change-request command (`companions/declarations.md
-§ Declared commands`; no declared host → push and print the URL). Merge
-per `git-workflow.md § Trunk`. After opening it, **stay on the branch** - do not
-switch to the default branch while the MR/PR is open, so the reviewer sees
-the branch's files; the switch to default is §4, after merge.
+**Ship** - the one path from a landed branch (every planned commit in,
+nothing uncommitted) to a merged MR/PR. `/dev ship` enters it directly;
+on the default branch, or with uncommitted changes, it stops with an
+error naming that condition.
 
-**Keep** - report branch name. Nothing closes.
+1. Gate: `bash scripts/ci/run-all.sh` plus the declared test and lint
+   commands. A failure stops Ship and is reported.
+2. `git push -u origin <branch>`, then open a CI-gated MR/PR via the
+   declared change-request command (`companions/declarations.md
+   § Declared commands`; no declared host → push and print the URL).
+   **Stay on the branch** - do not switch to the default branch while
+   the MR/PR is open, so the reviewer sees the branch's files; the
+   switch to default is §4, after merge.
+3. Poll to green (`git-workflow.md § Merge order`).
+4. Report the MR/PR number and pipeline state in one line and ask for
+   merge approval. A `plan/` branch skips the ask (`plan.md
+   § Planning rounds`, `git-workflow.md § Merge policy`).
+5. On approval, merge via the declared merge command, then §4.
+
+Ship ends with one line: MR/PR number and final state - merged, open
+awaiting approval, or kept.
 
 **Discard** - list branch, commits, plan state; require typing
 `discard`. Then checkout default, `git branch -D`. The task stays `[ ]`;
