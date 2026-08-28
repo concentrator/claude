@@ -30,11 +30,11 @@ DEV-mode work flows through a traceable hierarchy - **initiative
 (R<NNN>) → task (R<NNN>-T<NNN>) → branch plan → commits** - so every
 change traces back to a motivating requirement. The environment must:
 
-- Keep one directory per initiative (`plans/R<NNN>-<slug>/`) holding its
-  `requirements.md`, task index (`tasks.md`), branch plans
-  (`<task-id>-<slug>.md`), findings, and batch manifests; the cross-initiative
-  index (`ROADMAP.md`) lives at `plans/`; foundational docs at the repo
-  root.
+- Keep one directory per initiative (`dev/plans/R<NNN>-<slug>/`) holding
+  its `requirements.md`, task index (`tasks.md`), branch plans
+  (`<task-id>-<slug>.md`), findings, and batch manifests; the
+  cross-initiative index (`ROADMAP.md`) lives at `dev/plans/`;
+  foundational docs at the repo root.
 - Name branch-plan files by task id (sortable, instant file→task
   mapping), the id scoped to its initiative so it routes to the
   artifacts; git branches stay `<prefix>/<slug>` with no id.

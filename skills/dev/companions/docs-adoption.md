@@ -25,14 +25,14 @@ docs and the WARN ones are the backlog.
 
 ## Build
 
-Build or rebuild `docs/` (root-relative) to the framework for the
+Build or rebuild `dev/docs/` to the framework for the
 features the
 user prioritizes - ask which matter most (entrypoints and high-churn areas
 are good candidates), and offer re-alignment for the WARN docs:
 restructure onto the framework, then re-verify. The build always runs,
 even from zero docs; the rest stay on the backlog, backfilled on-touch by
 the doc-first cycle. Reuse graded existing docs as input, and add each doc
-to `docs/index.md`. Any doc produced here is complete only after
+to `dev/docs/index.md`. Any doc produced here is complete only after
 the verification gate (`documentation.md § Verification gate`).
 
 ## Correct the workflow
@@ -40,6 +40,6 @@ the verification gate (`documentation.md § Verification gate`).
 So future work maintains the docs:
 
 - record the docs conventions in `CLAUDE.md § Conventions` if absent - the
-  granularity model and the `docs/index.md` pointer;
+  granularity model and the `dev/docs/index.md` pointer;
 - rely on the read-at-plan / reconcile-at-close lifecycle (`branch-plan.md`,
   `write-plan.md`) that ships with DEV.

@@ -39,7 +39,7 @@ ignored setting.
 
 ## Commits
 
-- [ ] Checks: the resolver callers under `scripts/ci/`
+- [x] Checks: the resolver callers under `scripts/ci/`
   (`check-plan-integrity.sh`, `check-accretion.sh`) use the fixed
   path, and `check-batch-tags.sh` scopes the trunk's listing to
   `dev/plans/` instead of any `plans/` segment (R064-T001 widened it
@@ -49,14 +49,14 @@ ignored setting.
   resolver seam and declared-root cases and assert the declaration
   failure's one line; `install-dev.sh` stops copying the resolver and
   writes `/dev/session/` literally (`install-dev.test.sh` follows).
-- [ ] Hooks and scripts: `hooks/dev-precompact-state.sh` writes under
+- [x] Hooks and scripts: `hooks/dev-precompact-state.sh` writes under
   `dev/session` (`dev-precompact-state.test.sh` follows);
   `scripts/worker-workspace.sh` drops the placeholder substitution and
   `WORKER_ARTIFACTS_ROOT` (`worker-workspace.test.sh` follows);
   `companions/auto-permissions.template.json` rules carry
   `dev/plans/**`; `companions/scripts/start-server.sh` and
   `stop-server.sh` use the fixed path with no declaration lookup.
-- [ ] Mode files: `plan.md § Where things live` reduced to the fixed
+- [x] Mode files: `plan.md § Where things live` reduced to the fixed
   table; `layout.md` trees; `start.md`, `migrate.md`, `handoff.md`,
   `write-plan.md`, `branch-plan.md`, `finish.md`, `release.md`,
   `templates.md`, `auto.md § Pre-flight` (placeholder sentence gone)

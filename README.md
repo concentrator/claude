@@ -46,18 +46,17 @@ bounds). `/dev ship` takes a landed branch to a merged MR/PR;
 `/dev handoff` writes the session's hand-off note, which with the
 PreCompact hook's tree block carries state across compaction.
 `/dev start`, `/dev migrate`, `/dev docs`, and `/dev release` cover
-scaffolding a new project, adopting an existing one, the `docs/`
+scaffolding a new project, adopting an existing one, the `dev/docs/`
 layer, and tagging a release. Command surface and mode files:
 `skills/dev/SKILL.md`.
 
-## Artifacts root
+## DEV artifacts
 
 Two trees: guarded config - what instructs agents - under `.claude/`,
-and agent-authored artifacts (`plans/`, `docs/`) under the **artifacts
-root** a project declares as `DEV artifacts root:` in
-`CLAUDE.md § Agent toolchain`. Absent a declaration the root is `dev/`.
-Structure: `skills/dev/layout.md`; path resolution:
-`skills/dev/plan.md § Where things live`.
+and agent-authored artifacts under `dev/` (`plans/`, `docs/`, the
+gitignored `session/`), the same in every project. Structure:
+`skills/dev/layout.md`; paths: `skills/dev/plan.md § Where things
+live`.
 
 ## Self-hosting
 
@@ -104,7 +103,7 @@ It also writes outside the target `.claude/`, append-only in both cases:
 an `@writing.md` import added to the target `CLAUDE.md`, and - for
 `--project` - a `!`-allowlist line in the repo's root `.gitignore` for
 each installed path that repo ignores, so the toolset stays committable,
-plus an ignore line for `<artifacts root>/session/`, the per-session
+plus an ignore line for `dev/session/`, the per-session
 state files (`skills/dev/handoff.md`).
 The copied checks are yours to wire into CI; the installer ships them
 without registering them.

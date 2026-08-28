@@ -12,7 +12,7 @@ Upgrade a pre-existing `.claude/` to the current schema
   case-insensitive filesystem).
 - Four-level legacy `R-XXX (REQ-XXX)` roadmap entries (`REQ-XXX` is retired -
   `plan.md § ID format`).
-- A flat `plans/tasks.md` instead of per-R `tasks.md`.
+- A flat `dev/plans/tasks.md` instead of per-R `tasks.md`.
 - Cross-references to `~/.claude/rules/...` where an embedded copy is
   intended.
 
@@ -26,7 +26,7 @@ Upgrade a pre-existing `.claude/` to the current schema
    `REQ-XXX` requirement content into foundational `REQUIREMENTS.md` as
    present-tense behavior statements (`plan.md § Archival`); drop the
    retired `REQ-XXX` files (git history preserves them).
-3. Tasks: split a flat `plans/tasks.md` into per-R
+3. Tasks: split a flat `dev/plans/tasks.md` into per-R
    `R-XXX-<slug>/tasks.md` (legacy dirs keep their spelling); relocate
    branch plans under their R-dir.
 4. References: repoint stale `~/.claude/...` paths per the target (global

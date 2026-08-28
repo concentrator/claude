@@ -10,8 +10,8 @@ machinery is bypassed. Everything else in the workflow is unchanged.
 ## Detection
 
 Active when `.claude/` is gitignored: `git check-ignore -q .claude`
-exits 0. Then verify the artifacts root is gitignored too
-(`git check-ignore -q <root>`); if it is not, add it to `.gitignore`
+exits 0. Then verify `dev/` is gitignored too
+(`git check-ignore -q dev`); if it is not, add it to `.gitignore`
 before any plan write. Check this at the start of `migrate` (§ 1
 Inventory) and whenever plan bookkeeping is about to open a `plan/`
 branch.
@@ -38,9 +38,9 @@ git, so a `plan/` branch and its MR/PR would carry nothing:
 - **`migrate.md § 8` / `start.md § 5` - written, not committed.**
   Adoption / scaffold artifacts land in the working tree only; the
   initial or adoption commit carries code and quality config, not the
-  `.claude/` tree or the artifacts root.
+  `.claude/` tree or `dev/`.
 - **`.gitignore`** ignores all of `.claude/`, root `CLAUDE.md`, and
-  the artifacts root (this
+  `dev/` (this
   inverts the `layout.md § Baseline` default, which ignores only `.env`
   and `.claude/settings.local.json`).
 - **Contributor skill copy** (`start.md § 3`, `migrate.md § 5`) does not

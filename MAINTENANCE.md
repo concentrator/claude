@@ -132,5 +132,5 @@ delivery.
 | What `install-dev.sh` copies or registers | `README.md § Installing the toolset elsewhere`, `scripts/test/install-dev.test.sh` (it asserts the copied set) |
 | A `scripts/ci/` check added or removed | `scripts/ci/run-all.sh` (its loop is what registers a check), `DESIGN.md § Self-enforcement` |
 | A `hooks/` guard added or removed | `DESIGN.md` tree-map (`check-stray.sh` reads it) and § Self-enforcement, `README.md § Contents` |
-| Planning layout, the artifacts root, or an id or naming convention | `README.md`, `REQUIREMENTS.md § Planning discipline`, `DESIGN.md`, and every `skills/dev/` file stating the convention (`plan.md`, `layout.md`, `branch-plan.md`, `write-plan.md`, `finish.md`, `templates.md`) |
+| Planning layout or an id or naming convention | `README.md`, `REQUIREMENTS.md § Planning discipline`, `DESIGN.md`, and every `skills/dev/` file stating the convention (`plan.md`, `layout.md`, `branch-plan.md`, `write-plan.md`, `finish.md`, `templates.md`) |
 | Any file moved or renamed | Every inbound reference (grep the tracked tree) |
