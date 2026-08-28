@@ -62,15 +62,16 @@ excluded.
 │   └── test/                     # script tests + run-all.sh
 ├── .claude/
 │   └── settings.json             # project tier, tracked - push carve-out, durable allows, model
-├── plans/                        # planning hierarchy
-│   ├── ROADMAP.md                # cross-R index - see skills/dev/plan.md
-│   ├── R<NNN>-<slug>/            # one dir per roadmap entry (initiative-time)
-│   │   ├── requirements.md       # initiative requirements
-│   │   ├── tasks.md              # this initiative's task index (lazy)
-│   │   ├── R<NNN>-T<NNN>-<slug>.md
-│   │   ├── R<NNN>-T<NNN>-<slug>.findings.md
-│   │   └── batches/              # R<NNN>-B<NNN> manifests + reports (lazy)
-│   └── archive/                  # closed initiatives, frozen history
+├── dev/                          # DEV artifacts (session/ gitignored)
+│   ├── plans/                    # planning hierarchy
+│   │   ├── ROADMAP.md            # cross-R index - see skills/dev/plan.md
+│   │   ├── R<NNN>-<slug>/        # one dir per roadmap entry (initiative-time)
+│   │   │   ├── requirements.md   # initiative requirements
+│   │   │   ├── tasks.md          # this initiative's task index (lazy)
+│   │   │   ├── R<NNN>-T<NNN>-<slug>.md
+│   │   │   ├── R<NNN>-T<NNN>-<slug>.findings.md
+│   │   │   └── batches/          # R<NNN>-B<NNN> manifests + reports (lazy)
+│   │   └── archive/              # closed initiatives, frozen history
 ├── rules/                        # personal convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
 │   ├── git-workflow.md           # trunk/branch/commit/PR discipline (always-on)
@@ -141,19 +142,17 @@ Two tiers gate every change into `main` (the CI tiers are built for
   concerns to the diff at branch close (`skills/dev/branch-plan.md
   § Closing routine`); they are enumerated there and nowhere else.
 
-Ahead of both tiers, PreToolUse hooks (`dev-branch-guard`,
-`dev-secrets-guard`) guard locally: no trunk writes, commits or pushes,
-no force pushes, no secrets into tracked files or commits.
-`dev-branch-state` (UserPromptSubmit) keeps branch and tree state in
-front of the session, so the trunk rule is followed rather than tripped;
-`dev-precompact-state` (PreCompact) saves that state to the session file
-for the re-brief after compaction (`skills/dev/handoff.md`).
+PreToolUse hooks (`dev-branch-guard`, `dev-secrets-guard`) guard ahead
+of both tiers: no trunk writes, commits, pushes or force pushes, no
+secrets into tracked files or commits. `dev-branch-state`
+(UserPromptSubmit) keeps branch and tree state in front of the session;
+`dev-precompact-state` (PreCompact) saves it to the session file for
+the re-brief after compaction (`skills/dev/handoff.md`).
 
 ## Context budget
 
 `autoCompactWindow` caps the working context, so cost stops tracking
-session length. Enforcement is the harness's: the gates above judge
-changes, not sessions.
+session length; the gates above judge changes, not sessions.
 
 ## Invariants
 
