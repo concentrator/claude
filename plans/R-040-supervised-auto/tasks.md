@@ -220,7 +220,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   `companions/supervisor-runbook.md` gains the operator session's
   launch line and briefing beside the supervisor's.
   `depends-on: R040-T008`
-- [ ] **R040-T019 [feat]**: state survives compaction. A worker or
+- [x] **R040-T019 [feat]**: state survives compaction. A worker or
   supervisor whose context auto-compacts mid-branch keeps the
   summary's account of the work and loses the tree's: which
   checkboxes are committed, what is uncommitted, which ruling was the
