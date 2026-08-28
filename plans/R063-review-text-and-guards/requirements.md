@@ -10,31 +10,44 @@ against this repository's review checklist and hook guards.
 
 ## Current state
 
-`MAINTENANCE.md § Tier-2 AI review` carries clauses a reviewer cannot
-run as written: "a `feat` or `fix` commit carries its test" names a
-commit type no subject carries; Doc-sync row 1 reads a correctly
-unchanged target as a miss; the Compliance bullet counts the plan's own
-final unchecked box as a finding; dead prose is bound under Cleanup
-while its three-gate test hangs off Compliance; `### Prune dead prose`
-and the `§ Doc-sync pairs` table sit far from the bullets that invoke
-them; rows 2 and 6 and the lead-in's second sentence restate rules
-owned elsewhere.
+`MAINTENANCE.md § Tier-2 AI review` binds dead prose under Cleanup
+while the three-gate test that defines it hangs off Compliance in
+`### Prune dead prose`, a subsection after all six bullets, so which
+concern owns dead prose is unstated and the gates are easy to miss on
+a cold read. The maximal reading of "never restated" (any echo of a
+rule's text is a restatement) is ruled but written nowhere the review
+is defined. `skills/dev/layout.md` says the file is "seeded from
+template", but no script or skill copies it: each project's Tier-2
+section is hand-written, and fp-remedy's copy carries eight further
+defects of its own wording (an uncheckable "a `feat` or `fix` commit
+carries its test", a Doc-sync row 1 that reads a correctly unchanged
+target as a miss, a Compliance bullet that counts the plan's own final
+unchecked box, rows 2 and 6 and a lead-in sentence restating rules
+owned elsewhere).
 
-`settings.json` registers the two `PreToolUse` guards by the relative
-path `.claude/hooks/<name>.sh`, so after any `cd` both fail with "not
-found" and the call proceeds unguarded. `hooks/dev-secrets-guard.sh`
-sources `secret-patterns.sh` with `|| exit 0`, so a missing library
-also passes the call. Neither path reports its own absence.
+`scripts/install-dev.sh` registers the project-tier `PreToolUse`
+guards by the relative path `.claude/hooks/<name>.sh`; a hook command
+runs in the session's current working directory, so after any `cd`
+both guards fail with "not found" and the call proceeds unguarded.
+`hooks/dev-secrets-guard.sh` sources `secret-patterns.sh` with
+`|| exit 0`, so a missing library also passes the call. Neither path
+reports its own absence. The relative prefix is installed in every
+project-scope install; on this machine fp-remedy, `wallarm_pure/skills`
+and `wallarm_pure/sessions-api`.
 
 ## Desired state
 
-Every clause of the review section is runnable per commit or per
-branch. "Never restated" is read maximally: any echo of a rule's text
-is a restatement, so a concern names the rule and cites its owning
-document without repeating what it says; each concern owns its test
-and its prune step in place. Both guards run
-from any working directory and fail closed, with one stderr line, when
-their script or library is missing.
+The review section owns dead prose in one concern with its three gates
+beside the bullet, states the maximal reading of "never restated", and
+`layout.md` no longer claims a seeding that does not happen. The
+installer registers project-tier hooks as
+`"$CLAUDE_PROJECT_DIR"/.claude/hooks/<name>.sh`, the documented idiom
+(code.claude.com/docs/en/hooks.md), so the guards run from any working
+directory; the secrets guard fails closed, with one stderr line, when
+its library is missing. fp-remedy alone is re-installed; the other two
+projects are left as they are by the user's ruling. fp-remedy's own
+review text is fp-remedy's task (its `dev/plans/R002-reduce/tasks.md`
+draft).
 
 ## Invariants
 
@@ -43,25 +56,28 @@ their script or library is missing.
 
 ## Scope
 
-- `MAINTENANCE.md § Tier-2 AI review`, `§ Doc-sync pairs`.
-- `settings.json` hook registration; `hooks/dev-secrets-guard.sh`.
-- The fp-remedy copy of the review section follows by its own MR.
+- `MAINTENANCE.md § Tier-2 AI review`; `skills/dev/layout.md` line 17.
+- `scripts/install-dev.sh`, `scripts/test/install-dev.test.sh`;
+  `hooks/dev-secrets-guard.sh`, `scripts/test/secrets-guard.test.sh`.
+- Re-install into fp-remedy (its `.claude/settings.json` and hook
+  copies), delivered by an fp-remedy MR.
 
 ## Acceptance criteria
 
-- [ ] The test-carrying clause names the unit it binds (a
-  behavior-changing commit) and cites `skills/dev/feat.md` and `fix.md`.
-- [ ] Doc-sync row 1 states the already-satisfied outcome.
-- [ ] The Compliance bullet excludes the plan item that runs the review.
-- [ ] Dead prose has one owning concern, its test and prune step beside
-  the bullet.
-- [ ] Rows 2 and 6 and the lead-in sentence are cut or cite their owner.
-- [ ] No bullet or row repeats the text of a rule another document
-  owns; a `git grep` for each owned rule's key phrase hits only its
-  owner.
-- [ ] Hook paths resolve from any working directory (a test runs a
-  guarded call after `cd` into a subdirectory).
-- [ ] A missing `secret-patterns.sh` fails the call with one stderr line.
+- [ ] Dead prose has one owning concern, its three gates beside the
+  bullet; `### Prune dead prose` is gone as a separate subsection.
+- [ ] The section states that any echo of a rule's text is a
+  restatement and a concern cites the rule's owner instead.
+- [ ] `layout.md` states how `MAINTENANCE.md` comes to exist, or drops
+  the claim.
+- [ ] A project-scope install writes `"$CLAUDE_PROJECT_DIR"/.claude/hooks/<name>.sh`
+  for every registered hook (`install-dev.test.sh` asserts it); the
+  global path is unchanged.
+- [ ] A missing `secret-patterns.sh` denies the call with one stderr
+  line (`secrets-guard.test.sh` asserts it); a missing `jq` still fails
+  open, and the guard's header names the one closed path.
+- [ ] fp-remedy's `.claude/settings.json` carries the new paths and its
+  hook copies match `hooks/`.
 
 ## Constraints
 
