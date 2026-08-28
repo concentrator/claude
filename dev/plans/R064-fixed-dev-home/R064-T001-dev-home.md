@@ -43,7 +43,7 @@ this repository's actual files.
   `agents/code-reviewer.md`, the hook's plan-file regex and the open
   R-040/R063 plans hold shorthand only and are untouched.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose rows: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.
