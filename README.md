@@ -96,8 +96,10 @@ Global install serves a contributor who wants `/dev` everywhere; the
 `--project` copy serves a repo's no-global contributors (skill precedence
 means a contributor's own global copy still wins). The installer registers
 the branch-guard, secrets-guard, and branch-state hooks in the target
-`settings.json` idempotently and never ships the personal convention
-rules. Re-run it to refresh.
+`settings.json` idempotently, copies the session-state writer beside
+them unregistered (the branch-state hook asks it for the session file's
+path), and never ships the personal convention rules. Re-run it to
+refresh.
 
 It also writes outside the target `.claude/`, append-only in both cases:
 an `@writing.md` import added to the target `CLAUDE.md`, and - for

@@ -113,7 +113,7 @@ an uncommitted checkbox (R040-T019 task line).
   `scripts/test/dev-precompact-state.test.sh` asserts the entry.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code and prose rows: `code-reviewer`), Tier-2 compliance
   review, `bash scripts/ci/run-all.sh` green, cleanup, mark plan
   complete, commit.
