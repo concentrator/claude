@@ -234,3 +234,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   `supervise.md § Monitor` makes the pre-compaction commit and the
   post-compaction re-brief part of the watch. Registered in
   `settings.json`, tested by `scripts/test/dev-precompact-state.test.sh`.
+  The tree cannot record intent, so the same file takes a hand-off
+  note the session writes at each unit boundary - done, next, branch,
+  open MR/PRs, rulings in force - on demand via `/dev handoff` and by
+  rule at the boundary.
