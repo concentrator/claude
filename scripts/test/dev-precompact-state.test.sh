@@ -32,6 +32,7 @@ git -C "$R" config user.email t@e; git -C "$R" config user.name t
 mkdir -p "$R/dev/plans/R" "$R/src"
 printf -- '- [x] done\n- [ ] open one\n' > "$R/dev/plans/R/T1.md"
 printf 'clean\n' > "$R/tracked.sh"
+printf 'dev/session/\n' > "$R/.gitignore"   # as install-dev.sh and the template leave a real repo
 git -C "$R" add -A; git -C "$R" commit -qm init
 git -C "$R" remote add origin "$D/origin"; git -C "$R" push -q origin main
 git -C "$R" checkout -q -b work
@@ -69,6 +70,12 @@ out=$(printf '{"session_id":"s2"}' | bash "$HOOK" 2>/dev/null)
 cd "$R"
 DEV_STATE_DIR="$D/override" bash -c 'printf "{\"session_id\":\"s3\"}" | bash "$0"' "$HOOK" >/dev/null 2>&1
 [ -f "$D/override/s3.md" ] && pass "DEV_STATE_DIR overrides the directory" || die "override ignored"
+
+# No plan touched on this branch: the file is still written and named.
+git -C "$R" stash -q; git -C "$R" checkout -q main
+out=$(printf '{"session_id":"s5"}' | bash "$HOOK" 2>/dev/null)
+case "$out" in session-state:*s5.md) pass "file named when no plan changed" ;; *) die "no name without plan changes: '$out'" ;; esac
+grep -q '^- status: clean$' "$R/dev/session/s5.md" && pass "clean tree recorded as clean" || die "clean form missing"
 
 cd "$D"
 out=$(printf '{}' | bash "$HOOK" 2>/dev/null); rc=$?

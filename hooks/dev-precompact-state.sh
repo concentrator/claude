@@ -66,7 +66,7 @@ header=1; [ -f "$out" ] && header=0   # decided before >> creates the file
   printf -- '- branch: %s\n' "${branch:-unknown}"
   printf -- '- status: %s\n' "${status:-clean}"
   printf -- '- commits: %s\n' "${commits:-none}"
-  [ -n "$plans" ] && printf '%s\n' "$plans"
+  [ -z "$plans" ] || printf '%s\n' "$plans"   # last command must succeed, or || exit 0 skips the name below
 } >> "$out" 2>/dev/null || exit 0
 
 printf 'session-state: %s\n' "$out"
