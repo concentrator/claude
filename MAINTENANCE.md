@@ -3,9 +3,8 @@
 Keeps `.claude/` and the project root clean and healthy. Two parts: the
 **Tier-2 AI review** gates each change into `main` (per-PR); the
 **Routine** is the time-based cleanup + repair sweep. The Routine
-section is generic and seeded into each project's
-`.claude/MAINTENANCE.md`; the **This environment** section holds targets
-unique to this repo.
+section is generic and each project's `.claude/MAINTENANCE.md` carries
+it; the **This environment** section holds targets unique to this repo.
 
 ## Tier-2 AI review
 

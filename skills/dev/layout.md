@@ -14,7 +14,7 @@ What instructs agents.
     .claude/
     ├── REQUIREMENTS.md           # foundational requirements
     ├── DESIGN.md                 # architecture and design (≤1000w inline)
-    ├── MAINTENANCE.md            # sanity routine - seeded from template
+    ├── MAINTENANCE.md            # Tier-2 review concerns + sanity routine
     ├── skills/                   # project skill overrides
     │   └── <name>/SKILL.md
     ├── rules/                    # project-scoped rules (paths: scoped)
