@@ -39,8 +39,11 @@ ignored setting.
 
 ## Commits
 
-- [ ] Checks: the three resolver callers under `scripts/ci/` use the
-  fixed path; `check-plan-integrity.sh` adds the declaration failure;
+- [ ] Checks: the resolver callers under `scripts/ci/`
+  (`check-plan-integrity.sh`, `check-accretion.sh`) use the fixed
+  path, and `check-batch-tags.sh` scopes the trunk's listing to
+  `dev/plans/` instead of any `plans/` segment (R064-T001 widened it
+  for the move); `check-plan-integrity.sh` adds the declaration failure;
   `resolve-root.sh` deleted; `check-plan-integrity.test.sh`,
   `check-accretion.test.sh`, `check-batch-tags.test.sh` drop the
   resolver seam and declared-root cases and assert the declaration

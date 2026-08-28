@@ -24,7 +24,6 @@ line (`skills/dev/plan.md § Referential integrity`).
 
 ## Agent toolchain
 
-- DEV artifacts root: ./
 - Self-hosting: this file is also the project CLAUDE.md.
 - Test/lint: `bash scripts/ci/run-all.sh` (Tier-1 gate, also CI and
   pre-push).

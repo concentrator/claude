@@ -52,15 +52,15 @@ Initial defaults - tune per project.
 | Target | Check | Cadence / threshold |
 |---|---|---|
 | Transcripts | retention | `cleanupPeriodDays` (settings) |
-| `<root>/session/` | files whose session is gone (`skills/dev/handoff.md`) | weekly, delete |
-| `plans/` | orphaned or closed plan, findings, requirements & batch files; empty `R<NNN>-<slug>` dirs | monthly |
-| `plans/visual-artifacts/` | gitignored scratch left behind | clear when stale |
+| `dev/session/` | files whose session is gone (`skills/dev/handoff.md`) | weekly, delete |
+| `dev/plans/` | orphaned or closed plan, findings, requirements & batch files; empty `R<NNN>-<slug>` dirs | monthly |
+| `dev/plans/visual-artifacts/` | gitignored scratch left behind | clear when stale |
 | `.claude/settings.json` + any regrown `settings.local.json` | allow-list mess: one-off / dead / overlapping rules; local entries a tracked tier already carries | weekly |
 | skills/ | dead, unused, broken, or duplicate skills | monthly |
 | rules/, CLAUDE.md, foundational docs & README | stale paths / dead references | on edit + monthly |
 | repo root & `.claude/` | stray temp / build artifacts | weekly |
 | sizes | caps per `claude-md.md § Size and structure` / `skills.md § Size` | on edit |
-| file counts | flag unexpected growth in `plans/`, skills/ | monthly |
+| file counts | flag unexpected growth in `dev/plans/`, skills/ | monthly |
 
 ### Repair
 

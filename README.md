@@ -23,7 +23,7 @@ every project on the machine.
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
 | `DESIGN.md` | Architecture, full tree-map, self-hosting layout |
 | `MAINTENANCE.md` | The Tier-2 review concerns, plus the sanity routine: cleanup, repair, allow-list hygiene, skill audits |
-| `plans/` | This repo's own planning artifacts: the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, and `archive/` for closed initiatives |
+| `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) and the gitignored `session/` |
 
 ## Workflow
 
@@ -34,7 +34,7 @@ Two modes, defined in `CLAUDE.md`:
   branch plans → commits, every level traceable
   (`R<NNN> → R<NNN>-T<NNN> → branch`). Task ids are composite, with the
   task counter scoped to its initiative, so the id routes to the
-  artifacts: `R062-T001` lives in `plans/R062-<slug>/`, or the same path
+  artifacts: `R062-T001` lives in `dev/plans/R062-<slug>/`, or the same path
   under `archive/` once the initiative closes.
 
 Planning takes two rounds: `/dev plan R` shapes an initiative,
@@ -62,11 +62,10 @@ Structure: `skills/dev/layout.md`; path resolution:
 ## Self-hosting
 
 This repo manages itself with the same DEV discipline it provides:
-changes to the environment flow through `plans/` initiatives like any
-other project. Because the repo root *is* the `.claude/` directory, the
-foundational files live at the root and the declared artifacts root is
-the repo root, so `plans/` sits beside them - see
-`DESIGN.md § Self-hosting layout`.
+changes to the environment flow through `dev/plans/` initiatives like
+any other project. Because the repo root *is* the `.claude/` directory,
+the foundational files live at the root and the DEV artifacts sit
+beside them under `dev/` - see `DESIGN.md § Self-hosting layout`.
 
 ## Setup on a new machine
 
