@@ -238,3 +238,32 @@ composite (`R040-T###`, counter scoped to this initiative).
   note the session writes at each unit boundary - done, next, branch,
   open MR/PRs, rulings in force - on demand via `/dev handoff` and by
   rule at the boundary.
+
+- [ ] **R040-T021 [doc]**: context burn under execution. A worker's
+  window is ~85k tokens of room after compaction (a ~32k cached prefix
+  plus ~45k rebuilt on every compaction: summary, re-attached files,
+  skill bodies, tool deltas), and a `/dev code` session burns it at
+  ~6k tokens a minute, so compaction fires every ~14 minutes (aikido
+  session, 2026-08-28, measured with `scripts/context-cost.py`).
+  Two-thirds is model output retained across a tool loop; the rest is
+  tool I/O the command shape chose: whole-file `cat`s of files already
+  in context, unfiltered `grep` results, heredoc rewrites that resend
+  the file as a command, and the pre-push hook's full test transcript
+  on every `git push`. First check whether Claude Code offers a setting
+  or hook that caps or truncates tool output (settings reference and
+  hooks reference; a `PostToolUse` hook that rewrites the result
+  counts); a verified one is adopted in `settings.json` and the rule
+  below shrinks to what it does not cover. Then write the rule once,
+  in `branch-plan.md § Commit cadence`, cited by
+  `companions/implementer-prompt.md` and the supervisor runbook: a
+  command prints only what the step needs - a status word, a count,
+  the requested range (`grep -l`/`-c`, `sed -n`, `>/dev/null` on gates
+  and pushes with the exit status echoed), never a file already in
+  context; edits go through `Edit` on anchors, not heredoc rewrites.
+  The rebuilt base is harness behaviour and out of scope; no setting
+  controlling the summary's size is verified, so `autoCompactWindow`
+  stays where `DESIGN.md § Context budget` sets it and `/compact
+  <focus>` remains the one lever on summary content. Acceptance: the
+  setting check recorded with its source, the rule text, and one
+  re-measurement of a `/dev code` session after it with
+  `context-cost.py`.
