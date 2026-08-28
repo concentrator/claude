@@ -27,7 +27,7 @@ run on any landed branch, not only from the closing routine.
 
 ## Commits
 
-- [ ] `finish.md § 2` step 3 offers **ship / discard**; no answer
+- [x] `finish.md § 2` step 3 offers **ship / discard**; no answer
   keeps the branch and the report says "kept, not shipped".
   `finish.md § 3` replaces **Push + MR/PR** and **Keep** with **Ship**,
   whose steps are: (1) gate - `bash scripts/ci/run-all.sh` and the
@@ -35,21 +35,21 @@ run on any landed branch, not only from the closing routine.
   `git push -u origin <branch>`, then open the MR/PR via the declared
   change-request command (no declared host → push and print the
   URL), and stay on the branch; (3) poll the declared state check
-  until it reports success, per `git-workflow.md § Merge policy`;
+  until it reports success, per `git-workflow.md § Merge order`;
   (4) report the MR/PR number and pipeline state in one line and ask
   for merge approval - a `plan/` branch skips the ask (§ Terms); (5)
   on approval, merge via the declared merge command, then `§ 4`.
   Ship ends with one line: MR/PR number and final state (merged,
   open awaiting approval, or kept). **Discard** is unchanged.
-- [ ] `git-workflow.md § Merge policy` names `finish.md § 3 Ship` as
+- [x] `git-workflow.md § Merge policy` names `finish.md § 3 Ship` as
   the routine that asks for the user's merge call, one clause, no
   restatement of the steps.
-- [ ] `skills/dev/SKILL.md` router gains `/dev ship`, Read
+- [x] `skills/dev/SKILL.md` router gains `/dev ship`, Read
   `finish.md § 3 Ship`: run Ship on the current landed branch; on
   the default branch, or with uncommitted changes → error naming the
   condition. `README.md` command sentence names `/dev ship` beside
   `/dev release`.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review over
