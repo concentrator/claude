@@ -49,8 +49,8 @@ declared commands rather than probing the host - MR/PR state included.
   declared bounds (`companions/declarations.md § Supervisor bounds`). Auto-merge runs on a
   green gate: native host auto-merge where available
   (`gh pr merge --auto`, GitLab merge-when-pipeline-succeeds); where the
-  host can't gate (no branch protection), the operator merges once the
-  required checks pass.
+  host can't gate (no branch protection), the operator merges
+  (§ Merge order).
 - **Merge order.** Read the declared state check
   (`companions/toolchain.md § State check`) until it reports success,
   then merge. No pipeline yet, queued, or running is never success:
