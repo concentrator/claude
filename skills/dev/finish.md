@@ -45,12 +45,10 @@ error naming that condition.
    **Stay on the branch** - do not switch to the default branch while
    the MR/PR is open, so the reviewer sees the branch's files; the
    switch to default is §4, after merge.
-3. Poll the declared state check until it reports success
-   (`git-workflow.md § Merge order`).
+3. Poll to green (`git-workflow.md § Merge order`).
 4. Report the MR/PR number and pipeline state in one line and ask for
-   merge approval. A `plan/` branch skips the ask: approving its
-   content already delivered it (`plan.md § Planning rounds`,
-   `git-workflow.md § Merge policy`).
+   merge approval. A `plan/` branch skips the ask (`plan.md
+   § Planning rounds`, `git-workflow.md § Merge policy`).
 5. On approval, merge via the declared merge command, then §4.
 
 Ship ends with one line: MR/PR number and final state - merged, open
