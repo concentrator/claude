@@ -11,9 +11,8 @@
 # itself all hold refs while a report exists somewhere, and none of
 # them is stale. A pre-* tag or batch/* branch that is not a
 # well-formed composite ref naming an initiative present on the trunk
-# fails as unresolvable. The trunk's listing is scoped to its plans/
-# directories wherever they sit, so the trunk's own layout is judged
-# even while a branch moves the artifacts root.
+# fails as unresolvable. Plans live at dev/plans/ (skills/dev/plan.md
+# § Where things live).
 set -uo pipefail
 top="$(git rev-parse --show-toplevel)" \
   || { echo "BATCH-TAGS: not inside a git repo"; exit 1; }
@@ -38,7 +37,7 @@ fi
 if trunk="$(git symbolic-ref -q --short refs/remotes/origin/HEAD)"; then :
 elif git show-ref -q --verify refs/heads/main; then trunk=main
 else trunk=HEAD; fi
-tree="$(git ls-tree -r --name-only "$trunk" 2>/dev/null | grep -E '(^|/)plans/' || true)"
+tree="$(git ls-tree -r --name-only "$trunk" -- dev/plans 2>/dev/null || true)"
 
 fail=0
 report() { echo "BATCH-TAGS: $1"; fail=1; }
@@ -47,8 +46,8 @@ report() { echo "BATCH-TAGS: $1"; fail=1; }
 # composite remainder, $3 = the expected full form, $4 = extra remedy
 # appended to the stale verdict. Ids are matched by digits, so a ref
 # in either spelling resolves against a dir and report in either. The
-# ls-tree listing is already scoped to plans/ directories, so the
-# patterns carry no root prefix (and need no escaping).
+# ls-tree listing is already scoped to dev/plans, so the patterns
+# carry no prefix (and need no escaping).
 judge() {
   local ref="$1" rest="$2" want="$3" hint="${4:-}" nnn mmm rep
   if [[ "$rest" =~ ^R([0-9]{3})-B-?([0-9]{3})$ ]]; then

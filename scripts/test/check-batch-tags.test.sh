@@ -16,9 +16,8 @@ pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 
 out_in() { ( cd "$1" && env -u CI bash "$CHECK" 2>&1 ); }
-# Fixtures keep plans/ at the root (the gate scopes the trunk's listing
-# to any plans/ directory, so no declaration is read); the trunk is
-# pinned to main so trunk resolution is machine-independent.
+# Fixtures carry the fixed dev/plans/ home; the trunk is pinned to main
+# so trunk resolution is machine-independent.
 mkrepo() {
   local d; d=$(mktemp -d); git -C "$d" init -q -b main
   printf 'fixture\n' > "$d/CLAUDE.md"
@@ -30,14 +29,14 @@ commit_in() { git -C "$1" add -A; git -C "$1" -c user.email=t@t -c user.name=t c
 # Batch fixtures: report (stale) or manifest only (live) on the trunk,
 # plus the ref the trailing git args create (e.g. `tag pre-R042-B-001`).
 mkstale() {
-  local d; d=$(mkrepo); mkdir -p "$d/plans/R-042-pocs/batches"
-  printf 'report\n' > "$d/plans/R-042-pocs/batches/B-001.report.md"
+  local d; d=$(mkrepo); mkdir -p "$d/dev/plans/R-042-pocs/batches"
+  printf 'report\n' > "$d/dev/plans/R-042-pocs/batches/B-001.report.md"
   commit_in "$d" report; git -C "$d" "$@"
   printf '%s' "$d"
 }
 mklive() {
-  local d; d=$(mkrepo); mkdir -p "$d/plans/R-042-pocs/batches"
-  printf -- '# B-001\n' > "$d/plans/R-042-pocs/batches/B-001.md"
+  local d; d=$(mkrepo); mkdir -p "$d/dev/plans/R-042-pocs/batches"
+  printf -- '# B-001\n' > "$d/dev/plans/R-042-pocs/batches/B-001.md"
   commit_in "$d" manifest; git -C "$d" "$@"
   printf '%s' "$d"
 }
@@ -52,8 +51,8 @@ out=$(out_in "$d"); rc=$?
   || die "stale anchor missed or output incomplete: $out"; rm -rf "$d"
 
 # 2. report under plans/archive/ -> still a closed batch, fail
-d=$(mkrepo); mkdir -p "$d/plans/archive/R-005-cost/batches"
-printf 'report\n' > "$d/plans/archive/R-005-cost/batches/B-001.report.md"
+d=$(mkrepo); mkdir -p "$d/dev/plans/archive/R-005-cost/batches"
+printf 'report\n' > "$d/dev/plans/archive/R-005-cost/batches/B-001.report.md"
 commit_in "$d" report; git -C "$d" tag pre-R005-B-001
 out_in "$d" >/dev/null && die "archived-report anchor not caught" \
   || pass "archived-report anchor caught"; rm -rf "$d"
@@ -65,7 +64,7 @@ out_in "$d" >/dev/null && pass "live anchor passes" \
 
 # 4. halt state - report written but uncommitted -> not on the trunk, pass
 d=$(mklive tag pre-R042-B-001)
-printf 'report\n' > "$d/plans/R-042-pocs/batches/B-001.report.md"
+printf 'report\n' > "$d/dev/plans/R-042-pocs/batches/B-001.report.md"
 out_in "$d" >/dev/null && pass "uncommitted report passes" \
   || die "uncommitted report wrongly flagged"; rm -rf "$d"
 
@@ -73,7 +72,7 @@ out_in "$d" >/dev/null && pass "uncommitted report passes" \
 #    out -> trunk still clean, pass
 d=$(mklive tag pre-R042-B-001)
 git -C "$d" checkout -q -b batch/R042-B-001
-printf 'report\n' > "$d/plans/R-042-pocs/batches/B-001.report.md"
+printf 'report\n' > "$d/dev/plans/R-042-pocs/batches/B-001.report.md"
 commit_in "$d" report
 out_in "$d" >/dev/null && pass "batch-branch report passes" \
   || die "batch-branch report wrongly flagged"; rm -rf "$d"
@@ -163,14 +162,14 @@ rm -rf "$src" "$d"
 # Unified id shape (plan.md § ID format): R<NNN>-B<NNN> refs, report
 # and manifest named by the full batch id under an R<NNN>-<slug> dir.
 mkstale2() {
-  local d; d=$(mkrepo); mkdir -p "$d/plans/R062-ids/batches"
-  printf 'report\n' > "$d/plans/R062-ids/batches/R062-B001.report.md"
+  local d; d=$(mkrepo); mkdir -p "$d/dev/plans/R062-ids/batches"
+  printf 'report\n' > "$d/dev/plans/R062-ids/batches/R062-B001.report.md"
   commit_in "$d" report; git -C "$d" "$@"
   printf '%s' "$d"
 }
 mklive2() {
-  local d; d=$(mkrepo); mkdir -p "$d/plans/R062-ids/batches"
-  printf -- '# R062-B001\n' > "$d/plans/R062-ids/batches/R062-B001.md"
+  local d; d=$(mkrepo); mkdir -p "$d/dev/plans/R062-ids/batches"
+  printf -- '# R062-B001\n' > "$d/dev/plans/R062-ids/batches/R062-B001.md"
   commit_in "$d" manifest; git -C "$d" "$@"
   printf '%s' "$d"
 }
@@ -215,16 +214,6 @@ out=$(out_in "$d"); rc=$?
   && grep -q 'legacy pre-R<NNN>-B-XXX' <<<"$out" \
   && pass "unresolvable verdict names both spellings" \
   || die "unresolvable verdict incomplete: $out"; rm -rf "$d"
-
-# Trunk plans under dev/plans/: the listing follows the trunk's own
-# layout, so a stale anchor is still caught when the artifacts moved.
-d=$(mkrepo); mkdir -p "$d/dev/plans/R-042-pocs/batches"
-printf 'report\n' > "$d/dev/plans/R-042-pocs/batches/B-001.report.md"
-commit_in "$d" report; git -C "$d" tag pre-R042-B-001
-out=$(out_in "$d"); rc=$?
-[ $rc -ne 0 ] && grep -q 'dev/plans/R-042-pocs/batches/B-001\.report\.md' <<<"$out" \
-  && pass "stale anchor caught under a dev/plans/ trunk" \
-  || die "dev/plans/ trunk missed: $out"; rm -rf "$d"
 
 (( fail == 0 )) && echo "check-batch-tags.test: OK"
 exit $fail
