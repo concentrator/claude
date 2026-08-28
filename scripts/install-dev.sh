@@ -133,6 +133,12 @@ if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplev
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"
   done
+  # 7. session state: <artifacts root>/session/ holds per-session files the
+  # PreCompact hook and hand-off notes write (skills/dev/handoff.md); never
+  # tracked, so the target's .gitignore takes the line (idempotent).
+  art="$(cd "$repo" && bash "$SRC/scripts/ci/resolve-root.sh" 2>/dev/null)" || art=dev
+  line="${art:+$art/}session/"
+  grep -qxF "$line" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
 fi
 
 echo "install-dev: DEV toolset installed into $target ($scope)"

@@ -162,6 +162,14 @@ done
 [ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1
 [ "$(grep -c '^!.claude/hooks/$' "$G/.gitignore")" = "1" ] && pass "gitignore allowlist idempotent" || die "duplicate allowlist entries"
+[ "$(grep -c '^dev/session/$' "$G/.gitignore")" = "1" ] && pass "session dir ignored once under the default root" || die "session ignore line: $(grep -c '^dev/session/$' "$G/.gitignore")"
+rm -rf "$G"
+
+# --- session ignore line follows the declared artifacts root ---
+G=$(mktemp -d); git -C "$G" init -q
+printf '# X\n\n## Agent toolchain\n\n- DEV artifacts root: ./\n' > "$G/CLAUDE.md"
+bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (root ./ fixture) exits nonzero"
+grep -qx 'session/' "$G/.gitignore" && pass "session ignore line follows a ./ root" || die "root ./ fixture: $(grep session "$G/.gitignore")"
 rm -rf "$G"
 
 (( fail == 0 )) && echo "install-dev.test: OK"

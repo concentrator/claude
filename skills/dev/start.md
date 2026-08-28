@@ -26,7 +26,8 @@ Baseline files (`layout.md § Baseline files`):
   the line and the default applies.
 - `README.md` (verify or stub).
 - `.gitignore` / `.env.example` - seed from the `companions/*.template`
-  files; contents per `layout.md § Baseline files`.
+  files; contents per `layout.md § Baseline files`. The template's
+  `dev/session/` line follows a non-default artifacts root.
 - `<root>/plans/` with `ROADMAP.md`.
 - Toolset for no-global contributors: per `migrate.md § 5`.
 
