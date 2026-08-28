@@ -21,7 +21,7 @@ die()  { echo "not ok - $1"; fail=1; }
 
 # A repo with a remote main, a work branch, one plan with an open item, one
 # uncommitted change, and no root declaration (so the artifacts root is dev).
-D=$(mktemp -d); trap 'rm -rf "$D"' EXIT
+D=$(cd "$(mktemp -d)" && pwd -P); trap 'rm -rf "$D"' EXIT   # physical path: git resolves symlinks
 git -c init.defaultBranch=main -C "$D" init -q --bare origin
 git -c init.defaultBranch=main -C "$D" init -q repo
 R="$D/repo"
@@ -55,6 +55,9 @@ grep -q '^- trigger: manual$' "$f" && pass "manual trigger recorded" || die "man
 
 out=$(printf '{}' | bash "$HOOK" 2>/dev/null)
 [ "$(ls "$R/dev/session" | wc -l | tr -d ' ')" -eq 2 ] && pass "repository-keyed file without a session id" || die "expected two files, got: $(ls "$R/dev/session")"
+
+out=$(printf '{"session_id":"s4"}' | bash "$HOOK" --path 2>/dev/null)
+[ "$out" = "$R/dev/session/s4.md" ] && [ ! -f "$R/dev/session/s4.md" ] && pass "--path names the file without writing it" || die "--path: $out"
 
 cd "$R/src"
 out=$(printf '{"session_id":"s2"}' | bash "$HOOK" 2>/dev/null)

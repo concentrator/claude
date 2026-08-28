@@ -8,8 +8,11 @@
 # from the tree, never the summary (skills/dev/handoff.md owns the file's
 # format and the hand-off block the session itself writes). Display only,
 # never a decision. Silent outside a git repo; every read fails open.
+# `--path` prints the session file's path for the same stdin and writes
+# nothing: the one home of the path, used by dev-branch-state.sh.
 set -uo pipefail
 
+path_only=0; [ "${1:-}" = "--path" ] && path_only=1
 input=$(cat 2>/dev/null || true)
 sid=
 trigger=unknown
@@ -36,6 +39,7 @@ fi
 # One file per session; without a session id, one per repository.
 key=${sid:-$(printf '%s' "$root" | cksum | cut -d' ' -f1)}
 out="$dir/$key.md"
+[ "$path_only" -eq 1 ] && { printf '%s\n' "$out"; exit 0; }
 
 # Read the tree before touching it, so the record is about the work.
 branch=$(git -C "$root" rev-parse --abbrev-ref HEAD 2>/dev/null)
