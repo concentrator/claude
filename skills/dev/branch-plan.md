@@ -141,9 +141,8 @@ reason in plan header.
 
 ## Session boundary
 
-A session ends with its delivery unit - context cost tracks window
-size times session length, so a session outliving its unit re-bills
-the finished work on every later call.
+A session ends with its delivery unit: a session outliving its unit
+re-bills the finished work on every later call.
 
 | Mode | Unit |
 |---|---|

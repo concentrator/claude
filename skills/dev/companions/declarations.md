@@ -46,10 +46,8 @@ work as far as a green MR/PR and holds one decision class:
 
 **No grant merges.** The supervisor's last act on a branch is the green
 MR/PR and the evidence that verifies it; the operator reads that MR/PR
-and decides (§ Operator modes). The split keeps the seat that assembled
-the evidence apart from the seat that accepts it, which is what a
-self-merging supervisor collapses - it becomes the only reviewer of its
-own work.
+and decides (§ Operator modes): the seat that assembled the evidence
+stays apart from the seat that accepts it.
 
 The decision split: implementation-level is code shape, naming, test
 details, finding triage within the plan's stated behavior;
@@ -77,12 +75,10 @@ work it is, and `committer.name` says how it was applied. git honours
 `committer.*` independently of `user.*`, so `git log --author`,
 shortlog and blame keep answering about the human.
 
-The line between them is the audience. A label answers "how was this
-delivered" at the MR/PR, and a committer answers it at any commit
-reached later from blame, long after the MR/PR is closed. Prose is
-excluded from both: `git-workflow.md § MR/PR messages` governs it and
-is unchanged by supervision, so no commit message, title or body
-mentions supervision at all.
+The label answers at the MR/PR, the committer at any commit reached
+later from blame. No commit message, title or body mentions
+supervision: `git-workflow.md § MR/PR messages` governs prose and is
+unchanged by supervision.
 
 ## Operator modes
 

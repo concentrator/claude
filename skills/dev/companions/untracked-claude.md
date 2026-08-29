@@ -58,6 +58,6 @@ delivery cadence all work exactly as in a tracked project.
 
 ## Tradeoff
 
-Plans are purely local: no shared history, no team visibility, no review
-of planning artifacts through the host. That is the accepted cost of
-keeping DEV tooling out of the repo.
+Plans are purely local - no shared history, team visibility, or host
+review of planning artifacts - the accepted cost of keeping DEV tooling
+out of the repo.
