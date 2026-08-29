@@ -61,7 +61,7 @@ a feature.
       `model: claude-opus-5[1m]`), so ordinary work in this repo leaves the
       Fable window to the reviews pinned to it and the fallback target is
       what a session already runs.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: re-review docs across all commits, add the new
       script to `DESIGN.md § Tree-map`, cleanup, mark plan complete, commit.
 

@@ -138,7 +138,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   declared permissions plus supervisor-cleared prompts are the gate,
   `supervise.md § Dispatch` states it, provisioning unchanged.
 
-- [ ] **R040-T015 [feat]**: quota-gated Fable review - the tracked
+- [x] **R040-T015 [feat]**: quota-gated Fable review - the tracked
   project tier pins `model: claude-fable-5[1m]`, so every session in
   this repo spends the Fable window on ordinary work, and
   `verification-policy.md § Models` pins branch-close and batch
