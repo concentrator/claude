@@ -43,7 +43,7 @@ records the fact today and the runbook copy is the duplicate.
   has no `skills/dev/companions/scripts/`
 - [x] `supervisor-runbook.md § Remote Control` reduced to its four
   instructions (table rows 1-4)
-- [ ] `supervisor-runbook.md § Failure modes` reduced to its
+- [x] `supervisor-runbook.md § Failure modes` reduced to its
   instructions; the five host pitfalls become
   `skills/worker-host/companions/pitfalls.md` entries and the
   classifier-overflow row joins `R040-T011-agent-channel.findings.md`

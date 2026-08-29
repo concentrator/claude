@@ -198,33 +198,24 @@ a `git push origin main` or force-push deny still bites.
 
 ## Failure modes
 
-- **The classifier fails closed.** "Auto mode could not evaluate this
-  action and is blocking it for safety." Opaque commands are refused:
-  base64 piped into a shell, a script copied to a host and executed.
-  Write commands the classifier can read.
-- **Auto mode reverts to prompting.** "Auto mode classifier transcript
-  exceeded context window - falling back to manual approval." A long
-  supervisor session loses the property that makes it unattended. Treat
-  reappearing prompts as this, not as a mode change.
-- **`pkill -f <pattern>` matches its own shell.** Run over
-  `ssh host command`, the remote shell's command line contains the
-  pattern, so `pkill -f resmon.sh` kills the connection and `ssh` exits
-  255. Use a pattern that cannot self-match: `pkill -f '[r]esmon'`.
-- **Backgrounding with `&` inside an ssh command drops the connection.**
-  Run a long-lived helper in its own `tmux` session instead.
-- **A fresh session ignores keys sent during its splash.** Wait for the
-  prompt line before sending, and confirm the text landed before
-  pressing Enter.
-- **Claude Code writes `defaultMode` into the tracked `settings.json`.**
-  A supervised run dirties the config repo by starting. Do not stage it.
-- **A usage limit halts the session, and the pane lies about when.** The
-  reset time shown is in the account's timezone, not the host's, so run
-  `date` on the host before concluding the wait is over. Recovery is a
-  message naming where the turn stopped, which is cheap only when the
-  interrupted step was idempotent - otherwise establish what landed
-  first.
-- **A turn ending between two steps leaves no record of which.** The
-  transcript holds the last completed tool call, never the intent that
-  would have followed. So a resumed session is told where to resume;
-  asking it to work that out from its own history is asking for a
-  guess.
+- **The classifier fails closed** ("Auto mode could not evaluate this
+  action and is blocking it for safety"): write commands the
+  classifier can read - no base64 piped into a shell, no script copied
+  to a host and executed.
+- **Prompts reappear in a long supervisor session** ("Auto mode
+  classifier transcript exceeded context window - falling back to
+  manual approval"): the classifier transcript overflowed, not a mode
+  change.
+- **Over ssh**, use a `pkill` pattern that cannot match its own shell
+  (`pkill -f '[r]esmon'`) and run a long-lived helper in its own
+  `tmux` session, never with `&`
+  (`skills/worker-host/companions/pitfalls.md`).
+- **Sending keys to a fresh session**: wait for the prompt line, and
+  confirm the text landed before pressing Enter.
+- **`defaultMode` appears in the tracked `settings.json`** after a
+  supervised run starts: do not stage it.
+- **A usage limit halts the session**: run `date` on the host before
+  concluding the wait is over, establish what landed if the
+  interrupted step was not idempotent, then resume with a message
+  naming where the turn stopped - a resumed session is told where to
+  resume, never asked to work it out from its own history.

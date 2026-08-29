@@ -63,6 +63,12 @@ reader can re-run rather than trust.
       already runs `policy accept` on output. No package either: `remote-control`
       is a subcommand of the installed binary.
 
+- [x] **Auto mode reverts to prompting when the classifier transcript
+      overflows.** "Auto mode classifier transcript exceeded context window -
+      falling back to manual approval." A long supervisor session loses the
+      property that makes it unattended; reappearing prompts are this, not a
+      mode change.
+
 ## What this does to the task
 
 The three-file inbox/outbox/status channel this task originally specified is
