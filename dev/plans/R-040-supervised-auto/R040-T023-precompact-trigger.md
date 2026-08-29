@@ -9,7 +9,7 @@ Branch: `fix/precompact-trigger`.
 `hooks/dev-precompact-state.sh` writes `- trigger: unknown` into every
 session file. It takes the reason from `.compaction_trigger` in the
 hook's stdin JSON; Claude Code names that field `trigger`, with the
-values `manual` and `auto` (code.claude.com/docs/en/hooks-guide). The
+values `manual` and `auto` (code.claude.com/docs/en/hooks). The
 session id, read from the same input, is recorded correctly, which is
 how the wrong key is known to be the whole defect. The self-test
 `scripts/test/dev-precompact-state.test.sh` feeds `compaction_trigger`

@@ -60,6 +60,7 @@ grep -q '^- trigger: manual$' "$f" && pass "manual trigger recorded" || die "man
 out=$(printf '{}' | bash "$HOOK" 2>/dev/null)
 ck=$(printf '%s' "$R" | cksum | cut -d' ' -f1)
 [ -f "$R/dev/session/$ck.md" ] && pass "repository-keyed file without a session id" || die "no $ck.md in: $(ls "$R/dev/session")"
+grep -q '^- trigger: unknown$' "$R/dev/session/$ck.md" && pass "absent trigger falls back to unknown" || die "unknown fallback missing"
 
 out=$(printf '{"session_id":"s4"}' | bash "$HOOK" --path 2>/dev/null)
 [ "$out" = "$R/dev/session/s4.md" ] && [ ! -f "$R/dev/session/s4.md" ] && pass "--path names the file without writing it" || die "--path: $out"
