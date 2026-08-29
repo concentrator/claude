@@ -71,7 +71,7 @@ in the order listed until `check-caps.sh` passes:
   routine`; `CLAUDE.md` gets the wide-search line where
   `@delegation.md` was; `delegation.md` deleted; `DESIGN.md` tree-map
   and `README.md § Contents` row updated.
-- [ ] Inline the PR pin: one line in `CLAUDE.md § Session Workflow`
+- [x] Inline the PR pin: one line in `CLAUDE.md § Session Workflow`
   replaces `rules/git-workflow.md`, which is deleted; `DESIGN.md`
   § components `rules/` bullet and the `git-workflow.md` reference
   under § Self-hosting drop the pin; `install-dev.test.sh`'s

@@ -14,7 +14,7 @@ every project on the machine.
 | `writing.md` | Universal writing conventions, `@import`ed by `CLAUDE.md` so they load every session |
 | `settings.json` | Global Claude Code config: permissions, hooks, plugins, session defaults |
 | `.claude/settings.json` | Project-tier Claude Code config: the push deny carve-out, branch-push allows, durable tool allows, model override |
-| `rules/` | Personal convention rules: git discipline, JS style, CLAUDE.md/skill maintenance (path-scoped) |
+| `rules/` | Path-scoped convention rules: the DEV-artifact writing rules (shipped by the installer), JS style, CLAUDE.md/skill maintenance |
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); plus reference skills |
 | `agents/` | Custom agents (e.g. branch-close code reviewer) |
 | `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no secrets into tracked files or commits), the UserPromptSubmit branch-state line, and the PreCompact session-state writer |
@@ -82,7 +82,7 @@ beside them under `dev/` - see `DESIGN.md § Self-hosting layout`.
 
 To give another machine or project the DEV toolset - the `/dev` router,
 its mode-file companions, the bundled dependency skills, the writing
-conventions, the project-agnostic Tier-1 checks (code-size, em-dash,
+conventions with the DEV-artifact writing rule, the project-agnostic Tier-1 checks (code-size, em-dash,
 accretion, batch-tags - the last two with self-tests), the two
 PreToolUse guards, and the branch-state line - run the installer from a
 checkout of this repo:

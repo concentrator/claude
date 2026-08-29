@@ -37,7 +37,8 @@ review the diff against the rule set and confirm the concerns below:
   project's own targets (here: § This environment › Doc-sync pairs); a
   project without one still owes the concern, judged against its own
   docs.
-- **Writing** - changed prose follows `writing.md`.
+- **Writing** - changed prose follows `writing.md` and
+  `rules/writing-artifacts.md`.
 
 ## Routine
 

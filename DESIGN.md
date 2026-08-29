@@ -34,7 +34,7 @@ excluded.
 ```
 ~/.claude/
 ├── CLAUDE.md                     # global instructions, every session
-├── writing.md                    # writing conventions (@imported by CLAUDE.md)
+├── writing.md                    # universal writing conventions (@imported by CLAUDE.md)
 ├── settings.json                 # global Claude Code config (tracked)
 ├── .gitignore
 ├── .env.example                  # worker-host tokens; `.env` is never tracked
@@ -69,8 +69,9 @@ excluded.
 │   │   │   ├── R<NNN>-T<NNN>-<slug>.findings.md
 │   │   │   └── batches/          # R<NNN>-B<NNN> manifests + reports (lazy)
 │   │   └── archive/              # closed initiatives, frozen history
-├── rules/                        # personal convention rules
+├── rules/                        # path-scoped convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
+│   ├── writing-artifacts.md      # DEV-artifact writing rules (**/*.md; shipped)
 │   ├── js.md                     # JS conventions (path-scoped)
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/

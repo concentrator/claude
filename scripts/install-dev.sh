@@ -123,9 +123,12 @@ if [ ! -f "$target/scripts/ci/code-size-allow.txt" ]; then
 EOF
 fi
 
-# 5. writing conventions: ship writing.md + @import it from the target CLAUDE.md
+# 5. writing conventions: ship writing.md + @import it from the target CLAUDE.md,
+#    and the path-scoped DEV-artifact writing rule
 #    (append-only + idempotent; never clobbers an existing CLAUDE.md).
 cp "$SRC/writing.md" "$target/writing.md"
+mkdir -p "$target/rules"
+cp "$SRC/rules/writing-artifacts.md" "$target/rules/writing-artifacts.md"
 claudemd="$target/CLAUDE.md"
 grep -qxF '@writing.md' "$claudemd" 2>/dev/null || printf '\n@writing.md\n' >> "$claudemd"
 
@@ -133,7 +136,7 @@ grep -qxF '@writing.md' "$claudemd" 2>/dev/null || printf '\n@writing.md\n' >> "
 # target repo's .gitignore excludes (idempotent), so they can be committed.
 if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplevel >/dev/null 2>&1; then
   repo="$(git -C "${target%/.claude}" rev-parse --show-toplevel)"; gi="$repo/.gitignore"
-  for p in ".claude/skills/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/CLAUDE.md" ".claude/settings.json"; do
+  for p in ".claude/skills/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/rules/" ".claude/CLAUDE.md" ".claude/settings.json"; do
     git -C "$repo" check-ignore -q "${p%/}" 2>/dev/null || continue   # not ignored → skip
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"
