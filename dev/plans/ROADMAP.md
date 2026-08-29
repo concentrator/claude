@@ -265,3 +265,8 @@ Initiative index. Items: `R-001: description`; each entry owns
       pilot measurements leave `skills/dev/`, every rule keeps one home,
       stale text and rationale go; per-command read cost drops and
       `plan.md` regains headroom (supersedes R062).
+- [ ] R067: Shipped toolset portability - the self-tests
+      `install-dev.sh` ships as tracked files carry nothing a git host
+      may reject; the accretion self-test's Cyrillic fixture name,
+      which blocked one adopter's push outright, becomes a non-ASCII
+      name outside the Cyrillic block.
