@@ -16,11 +16,11 @@ composite (`R040-T###`, counter scoped to this initiative).
   boundary verification via existing gates, merge-or-escalate, sync
   reporting from artifacts. Local transport (the default); remote is
   R040-T003. `depends-on: R040-T001`
-- [ ] **R040-T003 [feat]**: remote transport - `ssh <target>` worker
-  sessions on the remote machine under declared permissions, plus the
-  per-project `transport:` switch in the portfolio (`local` default);
-  the session-lifetime decision lands here.
-  `depends-on: R040-T002, R040-T010`
+- [x] **R040-T003 [feat]**: remote transport - superseded: the
+  runbook's Variant B runs the supervisor on the worker host beside
+  its worker (`companions/supervisor-runbook.md § Two variants`), so
+  no second transport exists; session lifetime is `branch-plan.md
+  § Session boundary`. `depends-on: R040-T002, R040-T010`
 - [x] **R040-T010 [feat]**: worker-host deployment and provisioning - a
   skill plus an idempotent script that creates a Debian 13 VM and takes
   it to a state where a worker session can run a batch. Two execution
@@ -126,7 +126,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   Amending a gate to pass it is not a call to make under delivery pressure,
   which is why this is its own task.
 
-- [ ] **R040-T014 [mnt]**: worker edit gate under `acceptEdits` - the
+- [x] **R040-T014 [mnt]**: worker edit gate under `acceptEdits` - the
   user-global `defaultMode: acceptEdits` (R056-T002) removed the edit
   prompts `supervise.md` used as a checkpoint (accept in-repo edit
   prompts, halt on any other). Decide the replacement: pin
@@ -134,6 +134,9 @@ composite (`R040-T###`, counter scoped to this initiative).
   worker-side guard hook, or accept declared permissions as the only
   gate; update `supervise.md` and the provisioning scripts to match.
   Routed from `R-056-settings-tiering/R056-T002-accept-edits.findings.md`.
+  Resolved by "Reconcile supervise.md with the pilot" (R040-T011):
+  declared permissions plus supervisor-cleared prompts are the gate,
+  `supervise.md § Dispatch` states it, provisioning unchanged.
 
 - [ ] **R040-T015 [feat]**: quota-gated Fable review - the tracked
   project tier pins `model: claude-fable-5[1m]`, so every session in
@@ -267,7 +270,10 @@ composite (`R040-T###`, counter scoped to this initiative).
   setting check recorded with its source, the rule text, and one
   re-measurement of a `/dev code` session after it with
   `context-cost.py`.
-- Backlog: relocate the supervisor declarations (`Supervisor bounds`,
-  `Operator mode`) from `CLAUDE.md § Agent toolchain` to a section of
-  their own, `declarations.md` and `supervisor-runbook.md` following
-  (surfaced by the R065-T001 close review).
+- [ ] **R040-T022 [refactor]**: the supervisor declarations
+  (`Supervisor bounds`, `Operator mode`) move from `CLAUDE.md § Agent
+  toolchain`, which `companions/toolchain.md` defines as the build and
+  VCS declarations, to a `## Supervision` section of their own;
+  `declarations.md`, `supervise.md § Resolve` and the runbook cite the
+  new home. Surfaced by the R065-T001 close review.
+  `depends-on: R040-T018`
