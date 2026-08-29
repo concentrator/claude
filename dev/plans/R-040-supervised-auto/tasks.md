@@ -293,7 +293,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   same wrong key, so it passes. Read `.trigger`, and feed it in the
   test. Observed in a session file of 2026-08-28. `depends-on: R040-T019`
 
-- [ ] **R040-T024 [fix]**: `verification-policy.md § Models` calls the
+- [x] **R040-T024 [fix]**: `verification-policy.md § Models` calls the
   gate as `model-quota.sh "Fable 5"`, and the usage endpoint names the
   model `Fable`, so the gate exits 2 on every call and every
   `fable`-pinned review routes to Opus - the outage the gate's own

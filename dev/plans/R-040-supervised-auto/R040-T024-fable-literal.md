@@ -24,7 +24,7 @@ they no longer describe the endpoint.
   suite stays green (it is self-consistent), and the proof is the
   policy line matching the fixture string - one `grep` for `"Fable 5"`
   over `skills/` and `scripts/` prints nothing.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`; the gate, called as this branch
   writes it, decides its model), Tier-2 compliance review, `bash
