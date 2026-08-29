@@ -32,7 +32,7 @@ check it does run is the one shape that cannot detect the omission.
 
 ## Commits
 
-- [ ] `forge_auth` runs Login before its identity check and the dry-run
+- [x] `forge_auth` runs Login before its identity check and the dry-run
   text names Login and the identity check as what runs.
   `scripts/test/worker-workspace.test.sh`: a stub `glab` on `PATH`
   records its argv and stdin; the real run calls `auth login` with

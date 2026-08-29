@@ -75,6 +75,62 @@ grep -q 'GITLAB_TOKEN=yes' <<<"$out" && pass "a filled token still reads as pres
   || die "filled token reported absent: $out"
 rm -rf "$h"
 
+# --- forge CLIs, the real run: a stub glab/gh on PATH records what is called --
+
+# A host entry is what every repo-relative glab call resolves against, and the
+# identity check does not need one - so a run that skips the login passes the
+# check and leaves the worker unable to open its MR. The stub records argv and
+# stdin so the test can see the login happen, and see where the token went.
+stub=$(mktemp -d); h=$(mktemp -d); mkdir -p "$h/.claude"; : > "$h/.bashrc"
+cat > "$stub/glab" <<'STUB'
+#!/usr/bin/env bash
+printf '%s\n' "$*" >> "$GLAB_LOG"
+case "$1 ${2:-}" in
+  "auth login") cat > "$GLAB_STDIN" ;;
+  "api user")   printf '{"username":"fixture"}\n' ;;
+  "repo view")  exit "${GLAB_REPO_VIEW_RC:-0}" ;;
+esac
+STUB
+cat > "$stub/gh" <<'STUB'
+#!/usr/bin/env bash
+[ "$1 ${2:-}" = "api user" ] && printf '{"login":"fixture"}\n'
+exit 0
+STUB
+chmod +x "$stub/glab" "$stub/gh"
+printf 'GIT_USER_NAME=Fixture\nGIT_USER_EMAIL=fixture@example.test\n' > "$h/.claude/.env"
+printf 'GITLAB_HOST=gl.example.test\nGITLAB_TOKEN=fixtureleakcanary\n' >> "$h/.claude/.env"
+real() {
+  env PATH="$stub:/usr/bin:/bin" HOME="$h" GLAB_LOG="$stub/log" GLAB_STDIN="$stub/stdin" "$@" \
+    bash "$CRSCRIPT" forge-cli 2>&1
+}
+
+# 40. the run logs in to the host from .env, and only then checks the identity
+: > "$stub/log"; : > "$stub/stdin"
+out=$(real)
+login=$(grep -n '^auth login' "$stub/log")
+[ -n "$login" ] && grep -q -- '--hostname gl.example.test' <<<"$login" \
+  && grep -q -- '--stdin' <<<"$login" \
+  && pass "forge-cli logs glab in to the .env host over stdin" \
+  || die "no glab auth login --hostname <host> --stdin in: $(cat "$stub/log")"
+check=$(grep -n '^api user' "$stub/log")
+[ -n "$login" ] && [ -n "$check" ] && [ "${login%%:*}" -lt "${check%%:*}" ] \
+  && pass "login precedes the identity check" || die "identity checked before login"
+
+# 41. the token reaches the login on stdin and never argv - argv is visible to
+#     every process on the host, and lands in shell history
+grep -q 'fixtureleakcanary' "$stub/stdin" && ! grep -q 'fixtureleakcanary' "$stub/log" \
+  && pass "token travels on stdin, never argv" || die "token missing from stdin or present in argv"
+grep -q 'fixtureleakcanary' <<<"$out" && die "forge-cli echoed a token value" \
+  || pass "real run prints no token value"
+
+# 42. the dry run names the login and the identity check that run, not a
+#     verification the script rejects
+out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$CRSCRIPT" forge-cli --dry-run 2>&1)
+grep -q 'glab auth login --hostname gl.example.test' <<<"$out" && grep -q 'glab api user' <<<"$out" \
+  && ! grep -q 'auth status' <<<"$out" \
+  && pass "dry run names the login and the identity check" || die "dry run misnames what runs: $out"
+rm -rf "$h" "$stub"
+
 # --- config clone: this repo becomes the worker's ~/.claude -----------------
 
 cfg() { env PATH=/usr/bin:/bin "$@" bash "$WSSCRIPT" config-clone --dry-run 2>&1; }
