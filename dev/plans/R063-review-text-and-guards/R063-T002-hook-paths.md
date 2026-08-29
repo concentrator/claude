@@ -50,7 +50,7 @@ expands regardless of directory.
   `.claude/settings.json` plus the refreshed hook copies; run
   fp-remedy's `run-all.sh`; MR and supervised merge. No other project
   is re-installed (user ruling 2026-08-28).
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code row: `code-reviewer`), Tier-2 compliance review,
