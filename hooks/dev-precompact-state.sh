@@ -18,7 +18,7 @@ sid=
 trigger=unknown
 if command -v jq >/dev/null 2>&1 && [ -n "$input" ]; then
   sid=$(printf '%s' "$input" | jq -r '.session_id // empty' 2>/dev/null | tr -cd 'A-Za-z0-9._-')   # a filename, so only filename characters
-  trigger=$(printf '%s' "$input" | jq -r '.compaction_trigger // "unknown"' 2>/dev/null)
+  trigger=$(printf '%s' "$input" | jq -r '.trigger // "unknown"' 2>/dev/null)
 fi
 
 # Root: the project root the harness names, else the repo above the cwd.

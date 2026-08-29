@@ -18,7 +18,7 @@ than with the harness.
 
 ## Commits
 
-- [ ] The test feeds `trigger` in both cases (lines 44 and 55); it
+- [x] The test feeds `trigger` in both cases (lines 44 and 55); it
   fails with `unknown` recorded. The hook reads `.trigger // "unknown"`;
   the test passes. No other field of the hook's input changes.
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
