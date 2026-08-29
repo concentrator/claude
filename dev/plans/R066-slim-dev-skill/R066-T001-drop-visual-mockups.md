@@ -26,9 +26,9 @@ records the fact today and the runbook copy is the duplicate.
 | auto mode reverts to prompting when the classifier transcript overflows | measurement | `R040-T011-agent-channel.findings.md` (new row under "What is settled"); runbook keeps: reappearing prompts mean this, not a mode change |
 | `pkill -f` self-matches over ssh, exit 255 | measurement | `skills/worker-host/companions/pitfalls.md` (new entry; the exit-255 first-contact entry there is a different fault) |
 | `&` inside an ssh command drops the connection; use `tmux` | measurement | `skills/worker-host/companions/pitfalls.md` (new entry) |
-| a fresh session ignores keys sent during its splash | measurement | already `R040-T011-agent-channel.findings.md` ("can drop its submit"); runbook keeps: wait for the prompt line |
+| a fresh session ignores keys sent during its splash | measurement | `skills/worker-host/companions/pitfalls.md` (new entry; the T011 "drop its submit" row is a different fault); runbook keeps: wait for the prompt line |
 | Claude Code writes `defaultMode` into the tracked `settings.json` | measurement | `skills/worker-host/companions/pitfalls.md` (new entry) |
-| usage-limit reset time is in the account's timezone | measurement | already `R040-T011-agent-channel.findings.md` ("usage limit stops a supervisor mid-turn"); runbook keeps: run `date` on the host before resuming |
+| usage-limit reset time is in the account's timezone | measurement | `skills/worker-host/companions/pitfalls.md` (new entry; the T011 mid-turn row records the halt, not the timezone); runbook keeps: run `date` on the host before resuming |
 | a turn ending between steps leaves no record of which | measurement | already `R040-T011-agent-channel.findings.md` (same row); runbook keeps: tell a resumed session where to resume |
 
 ## Commits
@@ -41,10 +41,10 @@ records the fact today and the runbook copy is the duplicate.
   companions line
 - [x] `scripts/test/install-dev.test.sh` asserts the `--project` target
   has no `skills/dev/companions/scripts/`
-- [ ] `supervisor-runbook.md § Remote Control` reduced to its four
+- [x] `supervisor-runbook.md § Remote Control` reduced to its four
   instructions (table rows 1-4)
 - [ ] `supervisor-runbook.md § Failure modes` reduced to its
-  instructions; the three host pitfalls become
+  instructions; the five host pitfalls become
   `skills/worker-host/companions/pitfalls.md` entries and the
   classifier-overflow row joins `R040-T011-agent-channel.findings.md`
   (table rows 5-12)

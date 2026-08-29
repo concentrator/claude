@@ -169,31 +169,18 @@ key buys one turn while leaving the cause in place.
 
 ## Remote Control
 
-The supervisor joins by launch flag, never by settings:
-`remoteControlAtStartup` is honoured only at user scope, and on the
-worker host `~/.claude` is the tracked config repo, so provisioning it
-would dirty the repo. The flag is also the better shape - only the
-supervisor joins, under a chosen name, instead of every throwaway
-session on the box.
-
-The one reliable instrument is the `/rc active` marker in the session
-footer; an enabled session also prints its own
-`https://claude.ai/code/session_...` URL. Two obvious instruments lie:
-`claude daemon status` reports "not running" while the bridge is
-active - the daemon serves background sessions, not an interactive
-bridge - and the `/remote-control` line in the splash is a rotating
-tip, present in neither arm of a comparison.
-
-Leave `autoUploadSessions` unset. It mirrors sessions to claude.ai
-view-only, is not required for Remote Control, and is the one setting
-here with a data-egress consequence.
-
-The operator's own session joins Remote Control too: a host session
-appears in the operator's `ListAgents` only when both ends are
-connected, and `isolatePeerMachines: true` in the tracked
-`settings.json` gates each cross-machine send behind explicit
-approval. The fallback needs no joining - an enabled session prints
-its own URL, so browser and phone control work either way.
+Join by launch flag, never by settings: `remoteControlAtStartup` is
+honoured at user scope only, and on the worker host `~/.claude` is the
+tracked config repo. Confirm the join by the `/rc active` marker in
+the session footer; an enabled session also prints its own
+`https://claude.ai/code/session_...` URL. Leave `autoUploadSessions`
+unset: it mirrors sessions to claude.ai view-only, is not required,
+and is the one setting here with a data-egress consequence. The
+operator's own session joins too: a host session appears in
+`ListAgents` only when both ends are connected, and
+`isolatePeerMachines: true` in the tracked `settings.json` gates each
+cross-machine send behind explicit approval. The printed URL gives
+browser and phone control without joining.
 
 ## Modes, and why each role gets one
 
