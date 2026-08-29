@@ -20,14 +20,14 @@ merely queueing for one that is already taking turns. The evidence and its limit
 are in `R040-T011-agent-channel.findings.md`; the work below is what remains once
 they are taken into account.
 
-- [ ] Start the supervisor with `claude --remote-control <name> --permission-mode
+- [x] Start the supervisor with `claude --remote-control <name> --permission-mode
       auto` and record the name it takes. Do **not** provision
       `remoteControlAtStartup`: it is honoured only at user scope, and on a worker
       host `~/.claude` is the tracked config repo, so setting it there dirties the
       repo and no gitignored user-scope path is read. The flag is also the better
       shape - only the supervisor joins, under a chosen name, instead of every
       throwaway session on the box.
-- [ ] Commit `isolatePeerMachines: true` to the tracked `settings.json`. It has no
+- [x] Commit `isolatePeerMachines: true` to the tracked `settings.json`. It has no
       CLI flag, so it must come from user-scope settings, but it is a security
       posture rather than a per-machine choice and the tracked config is its
       correct home. It carries `bypassImmune: true`, so it holds even under
@@ -98,6 +98,14 @@ they are taken into account.
       value. The tracked `.env.example` above is what makes this reachable, since
       it ships both names empty for the operator to fill; found on the live host,
       where the dry run said `GITHUB_TOKEN=yes` and the run skipped `gh`.
+- [ ] `companions/supervisor-runbook.md` cites `skills/worker-host/` twice
+      (§ Two variants, § Failure modes) and the installer does not ship that
+      skill, so the citation is dead in an adopter tree: name the toolset
+      repository as the home in both places (`CLAUDE.md § Audience
+      visibility`). `supervise.md` drops its transport vocabulary - § Resolve
+      step 1's portfolio field, § Dispatch's "declared transport", the "local
+      transport" clause under the never-run-git rule - now that R040-T003 is
+      superseded and one worker runs beside the supervisor in both variants.
 - [ ] Complete the branch: gates green, mark this plan's checkboxes, and route what
       the build turns up. Closure is checkbox-only; R040-T011 does not close R-040.
 
