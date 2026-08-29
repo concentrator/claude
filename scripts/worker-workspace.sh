@@ -109,7 +109,7 @@ project_clone() {
   ( cd "$root/$(basename "$proj")" && npm run lint >/dev/null 2>&1 ) \
     && printf 'project-clone: npm run lint clean\n' || { printf 'project-clone: lint FAILED\n' >&2; return 1; }
   # The checkout is born here, after forge-cli's own step, so this is where the
-  # login is proven against a remote. Install and login repeat as no-ops.
+  # login is proven against a remote. Install and login are safe to repeat.
   bash "$(dirname "${BASH_SOURCE[0]}")/worker-credentials.sh" forge-cli "$root/$(basename "$proj")"
 }
 

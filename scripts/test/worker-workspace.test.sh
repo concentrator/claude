@@ -117,7 +117,7 @@ check=$(grep -n '^api user' "$stub/log")
   && pass "login precedes the identity check" || die "identity checked before login"
 
 # 41. the token reaches the login on stdin and never argv - argv is visible to
-#     every process on the host, and lands in shell history
+#     every process on the host
 grep -q 'fixtureleakcanary' "$stub/stdin" && ! grep -q 'fixtureleakcanary' "$stub/log" \
   && pass "token travels on stdin, never argv" || die "token missing from stdin or present in argv"
 grep -q 'fixtureleakcanary' <<<"$out" && die "forge-cli echoed a token value" \

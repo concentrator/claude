@@ -45,7 +45,7 @@ check it does run is the one shape that cannot detect the omission.
   `project_clone` (`scripts/worker-workspace.sh`) ends by running
   `worker-credentials.sh forge-cli <fresh checkout>`: the checkout is
   born there, after `forge-cli`'s own step in the provisioning order,
-  and the install and login it repeats are no-ops on a provisioned host.
+  and the install and login it repeats are idempotent.
   Test: the stub `glab` fails `repo view` and the run reports the host;
   succeeds and the run stays silent; `project-clone --dry-run` names
   the check. `skills/worker-host/companions/provisioning.md` step 9
