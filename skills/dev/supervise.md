@@ -67,9 +67,7 @@ manually: the worker runs `/dev code <slug>` and closes per
 `finish.md`, not the auto engine. Everything else here holds
 unchanged - ids only, questions to the supervisor, no merge by the
 worker. What differs is the evidence at the checkpoint: there is no
-`R<NNN>-B<NNN>.report.md`, so `finish.md § 1`'s verify set stands in its place
-(every plan checkbox `[x]`, findings file triaged, bookkeeping marks
-landed, close review run, tests and lint green). Verify that set from
+`R<NNN>-B<NNN>.report.md`, so `finish.md § 1`'s verify set stands in its place. Verify that set from
 artifacts exactly as a report would be verified; a manual branch
 missing it is no more mergeable than a batch missing its report. The supervisor passes ids only; workers read plans from
 their repo - the supervisor never relays content; its ledgered

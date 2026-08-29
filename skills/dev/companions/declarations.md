@@ -38,12 +38,8 @@ work as far as a green MR/PR and holds one decision class:
   task's acceptance criteria - the approved plan is the decision, the
   supervisor automates its delivery;
 - deliver a task branch from manual `/dev code` work, where
-  `finish.md § 1`'s verify set stands in for the checkpoint report:
-  every plan checkbox `[x]`, findings file triaged, bookkeeping marks
-  landed, close review run, tests and lint green. Same rationale, same
-  bar - the evidence is assembled from the branch's own artifacts
-  instead of a report, and its absence stops the delivery exactly as a
-  missing report does;
+  `finish.md § 1`'s verify set stands in for the checkpoint report,
+  and its absence stops the delivery as a missing report does;
 - implementation-level resolutions of worker questions and queued
   judgment calls, each ledgered in the report's supervisor-decisions
   section.

@@ -6,10 +6,9 @@ host. Host-neutral docs reused across repos (skills, shared
 rules) write the dual form **MR/PR**; the agent resolves it to the active
 repo's term per its host.
 
-**Declared commands** - the VCS host and the exact change-request /
-merge / state-check commands come from the project CLAUDE.md `## Agent
-toolchain` section (`companions/declarations.md`); execution runs those
-declared commands rather than probing the host - MR/PR state included.
+**Declared commands** - the host and its commands come from
+`CLAUDE.md § Agent toolchain` (`companions/declarations.md § Declared
+commands`).
 
 ## Trunk
 
