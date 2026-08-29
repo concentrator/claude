@@ -57,5 +57,5 @@ records the fact today and the runbook copy is the duplicate.
   relocation table checked row by row (grep per receiving file), and
   the `git grep` of criterion 1
 - [x] Mark and commit the task `[x]` in `tasks.md`
-- [ ] Complete the branch: re-review docs across all commits, cleanup,
+- [x] Complete the branch: re-review docs across all commits, cleanup,
   mark plan complete, commit
