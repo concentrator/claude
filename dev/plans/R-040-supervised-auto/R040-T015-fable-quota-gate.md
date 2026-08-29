@@ -28,7 +28,7 @@ control request - and the endpoint's own schema is labelled experimental in
 the binary, which is why the script owes a fail-closed path more than it owes
 a feature.
 
-- [ ] Add `scripts/model-quota.sh <display-name>`: read the session's OAuth
+- [x] Add `scripts/model-quota.sh <display-name>`: read the session's OAuth
       token, GET the usage endpoint, select that model's scoped weekly
       window, and exit 0 while it has headroom, 1 at or over the 80 percent
       ceiling. Probed shape: `GET
@@ -44,7 +44,7 @@ a feature.
       Tests stub `curl` on `PATH` as `provision-worker.test.sh` does, and
       carry a leak canary: no token value reaches output, per
       `worker-workspace.test.sh` case 23.
-- [ ] Fail closed on every unknown - absent credential file, non-200, absent
+- [x] Fail closed on every unknown - absent credential file, non-200, absent
       scoped entry, unparseable body - each exiting 2 with a one-line reason
       on stderr. A caller treats 2 exactly as 1, because routing to Fable
       wrongly stalls a review on a dialog while routing to Opus wrongly
