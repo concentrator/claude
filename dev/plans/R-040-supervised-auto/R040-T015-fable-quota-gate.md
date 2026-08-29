@@ -57,7 +57,7 @@ a feature.
       record the substitution the section already requires. Keep the reactive
       clause, which still covers a dispatch failing on capacity below the
       ceiling.
-- [ ] Point the tracked project tier at Opus (`.claude/settings.json`,
+- [x] Point the tracked project tier at Opus (`.claude/settings.json`,
       `model: claude-opus-5[1m]`), so ordinary work in this repo leaves the
       Fable window to the reviews pinned to it and the fallback target is
       what a session already runs.
