@@ -62,7 +62,7 @@ a feature.
       Fable window to the reviews pinned to it and the fallback target is
       what a session already runs.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: re-review docs across all commits, add the new
+- [x] Complete the branch: re-review docs across all commits, add the new
       script to `DESIGN.md § Tree-map`, cleanup, mark plan complete, commit.
 
 Relation to R-056: settings tiering owns which tier a setting lives in, and
