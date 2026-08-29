@@ -5,7 +5,7 @@ Close out a DEV branch - invoked by the closing routine
 
 ## 1. Verify
 
-- `plans/R<NNN>-<slug>/<task-id>-<slug>.md` (root-relative): every `[ ]`
+- `dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`: every `[ ]`
   is `[x]`; findings file triaged.
 - Bookkeeping marks landed in the closing commits (`branch-plan.md
   § Closing routine`; untracked: `companions/untracked-claude.md`).

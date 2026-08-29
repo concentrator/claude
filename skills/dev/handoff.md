@@ -9,7 +9,7 @@ demand; the boundary rules in `branch-plan.md § Session boundary` and
 
 ## The file
 
-`<artifacts root>/session/<session_id>.md`, gitignored. Its path is
+`dev/session/<session_id>.md`, gitignored. Its path is
 the `session-state:` field the `branch-state:` prompt line ends with -
 read it from there, never derive it. One file per `claude` process:
 under the supervisor runbook the supervisor, worker and operator each

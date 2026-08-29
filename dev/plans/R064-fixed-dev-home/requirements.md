@@ -1,6 +1,7 @@
 ---
 approved: 2026-08-29
 kind: refactor
+status: done 2026-08-29
 ---
 
 # R064: Fixed dev/ home
@@ -78,23 +79,23 @@ placement.
 
 ## Acceptance criteria
 
-- [ ] `dev/plans/` holds every plan, archive included, and `plans/`
+- [x] `dev/plans/` holds every plan, archive included, and `plans/`
   no longer exists at the repository root; `DESIGN.md`'s tree-map
   matches (`scripts/ci/check-stray.sh`).
-- [ ] No tracked file outside `dev/plans/archive/` contains
+- [x] No tracked file outside `dev/plans/archive/` contains
   `resolve-root`, `__ARTIFACTS_ROOT__`, `DEV artifacts root`, or
   `<root>` (verified by grep at close); `scripts/ci/resolve-root.sh`
   is gone and every former caller names `dev/` directly.
-- [ ] A `CLAUDE.md` carrying `- DEV artifacts root:` fails
+- [x] A `CLAUDE.md` carrying `- DEV artifacts root:` fails
   `bash scripts/ci/run-all.sh` with one line naming `dev/` as the home
   (a `scripts/test/` case asserts it).
-- [ ] The session file's directory is spelled `dev/session/` in prose
+- [x] The session file's directory is spelled `dev/session/` in prose
   and `/dev/session/` in both gitignore writers (`.gitignore`,
   `gitignore.template`, `install-dev.sh`), and the hook writes there
   (`dev-precompact-state.test.sh`, `install-dev.test.sh`).
-- [ ] `start.md`, `migrate.md` and `root-migration.md` describe one
+- [x] `start.md`, `migrate.md` and `root-migration.md` describe one
   destination, `dev/`, with no resolution step.
-- [ ] Tier-1 gate green after each of the two merges.
+- [x] Tier-1 gate green after each of the two merges.
 
 ## Constraints
 

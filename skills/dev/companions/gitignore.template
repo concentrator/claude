@@ -7,7 +7,7 @@
 .claude/settings.local.json
 CLAUDE.local.md
 
-# DEV session state (skills/dev/handoff.md); path follows the artifacts root
+# DEV session state (skills/dev/handoff.md)
 /dev/session/
 
 # Dependencies and build output (extend per stack)

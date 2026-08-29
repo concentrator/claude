@@ -3,8 +3,8 @@
     "allow": [
       "Edit(//__PROJECT_DIR__/**)",
 
-      "Read(//__PROJECT_DIR__/__ARTIFACTS_ROOT__/plans/**)",
-      "Edit(//__PROJECT_DIR__/__ARTIFACTS_ROOT__/plans/**)",
+      "Read(//__PROJECT_DIR__/dev/plans/**)",
+      "Edit(//__PROJECT_DIR__/dev/plans/**)",
 
       "Read(//__HOME__/.claude/skills/**)",
       "Read(//__HOME__/.claude/rules/**)",

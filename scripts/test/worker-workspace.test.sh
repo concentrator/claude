@@ -164,7 +164,7 @@ setl() { env PATH=/usr/bin:/bin "$@" bash "$WSSCRIPT" settings --dry-run 2>&1; }
 out=$(setl)
 miss=""
 for f in "auto-permissions.template.json" "__PROJECT_DIR__" "__HOME__" \
-         "__ARTIFACTS_ROOT__" ".claude/settings.local.json"; do
+         ".claude/settings.local.json"; do
   grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
 done
 [ -z "$miss" ] && pass "settings names template, substitutions and target" || die "settings missing:$miss"

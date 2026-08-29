@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Tier-1 accretion gate (R-041, R-043): living plan artifacts state the
 # present (writing.md § State the present). Flags dated supersession /
-# amendment / status markers in tracked plan files under the artifacts
-# root (resolve-root.sh) - the full ISO date is the discriminator: an
+# amendment / status markers in tracked plan files under dev/plans/ -
+# the full ISO date is the discriminator: an
 # undated terminal outcome ("mooted by R-021") is present state, a dated
 # one ("superseded 2026-07-07") is hand-rolled version control that
 # belongs to git history. A bare year never matches - alone it reads as
@@ -15,12 +15,9 @@
 # `status: done`, `agentic: approved`) are exempt for the field's own
 # value span only - the rest of the line is scanned.
 set -uo pipefail
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$(git rev-parse --show-toplevel)"
 
-ROOT="$(bash "$SCRIPT_DIR/resolve-root.sh")" \
-  || { echo "ACCRETION: resolve-root.sh failed"; exit 1; }
-P="${ROOT:+$ROOT/}plans"
+P=dev/plans
 # quotePath off: a non-ASCII filename must arrive verbatim, not quoted,
 # or the read below silently skips it.
 files=$(git -c core.quotePath=false ls-files "$P/*.md")

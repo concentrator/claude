@@ -103,7 +103,7 @@ markers=""
 [ -f "$target/scripts/ci/check-accretion.sh" ] \
   && markers="$(grep -m1 '^MARKERS=' "$target/scripts/ci/check-accretion.sh" || true)"
 for f in ci/check-code-size.sh ci/check-no-em-dash.sh ci/check-accretion.sh \
-         ci/check-batch-tags.sh ci/resolve-root.sh \
+         ci/check-batch-tags.sh \
          test/check-accretion.test.sh test/check-batch-tags.test.sh; do
   cp "$SRC/scripts/$f" "$target/scripts/$f"
 done
@@ -138,11 +138,10 @@ if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplev
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"
   done
-  # 7. session state: <artifacts root>/session/ holds per-session files the
-  # PreCompact hook and hand-off notes write (skills/dev/handoff.md); never
-  # tracked, so the target's .gitignore takes the line (idempotent).
-  art="$(cd "$repo" && bash "$SRC/scripts/ci/resolve-root.sh" 2>/dev/null)" || art=dev
-  line="/${art:+$art/}session/"   # anchored: only the artifacts root's session dir
+  # 7. session state: dev/session/ holds per-session files the PreCompact
+  # hook and hand-off notes write (skills/dev/handoff.md); never tracked,
+  # so the target's .gitignore takes the anchored line (idempotent).
+  line="/dev/session/"
   grep -qxF "$line" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
 fi
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Tests hooks/dev-precompact-state.sh - the PreCompact session-state hook
 # (R040-T019). Covers the registration in settings.json, the file per
-# session under <artifacts root>/session/, the header and tree block on a
+# session under dev/session/, the header and tree block on a
 # dirty branch with an open plan item, appending on a second compaction,
 # the repository-keyed file without a session id, the DEV_STATE_DIR
 # override, the root found from a subdirectory, and silence outside a
@@ -23,7 +23,7 @@ jq -e '[.hooks.PreCompact[]?.hooks[]?.command // "" | select(test("dev-precompac
   && pass "hook registered on PreCompact" || die "hook not registered in settings.json"
 
 # A repo with a remote main, a work branch, one plan with an open item, one
-# uncommitted change, and no root declaration (so the artifacts root is dev).
+# uncommitted change.
 D=$(cd "$(mktemp -d)" && pwd -P); trap 'rm -rf "$D"' EXIT   # physical path: git resolves symlinks
 git -c init.defaultBranch=main -C "$D" init -q --bare origin
 git -c init.defaultBranch=main -C "$D" init -q repo

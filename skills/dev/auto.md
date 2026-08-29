@@ -15,9 +15,7 @@ sensitive-file guard).
   status (`branch-plan.md § Batches`).
 - Permissions: every `companions/auto-permissions.template.json` rule
   (`__PROJECT_DIR__`/`__HOME__` → abs paths without their leading
-  slash - the rules carry the `//` prefix; `__ARTIFACTS_ROOT__` → the
-  normalized root, the whole `__ARTIFACTS_ROOT__/` segment collapsing
-  for a repo-root value - `plan.md § Where things live`) plus the
+  slash - the rules carry the `//` prefix) plus the
   CLAUDE.md `## Agent toolchain` rules, incl. a VCS-host CLI
   (`glab`/`gh`; absent → push-only, manual MR/PR), is carried by a
   tracked tier (user-global `settings.json`, project

@@ -7,7 +7,7 @@
   `MAINTENANCE.md`, `.gitignore`); the resolver still runs, so the
   gate stays green; `check-batch-tags.sh` scopes the trunk's listing
   to its own plans/ directories
-- [ ] R064-T002 [refactor]: the configurable root leaves the DEV
+- [x] R064-T002 [refactor]: the configurable root leaves the DEV
   system: `resolve-root.sh` and its callers, `__ARTIFACTS_ROOT__`,
   `declarations.md § Artifacts root`, the `<root>/` notation and
   `plan.md § Where things live` replaced by fixed `dev/` paths;

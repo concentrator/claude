@@ -3,7 +3,7 @@
 The global convention for every doc - feature docs, specs, rules, knowledge
 entries. Grounded in Diataxis (diataxis.fr). Prose style is `writing.md`
 (always loaded); this file governs typing, structure, and content. Feature
-docs (`docs/`, root-relative) are its Reference application
+docs (`dev/docs/`) are its Reference application
 (`layout.md § Docs`).
 
 ## Diataxis typing
@@ -110,7 +110,7 @@ and the clearing review: rules, skills, and planning prose - the
 changed claims, checked against their sources by the close review
 (`branch-plan.md § Closing routine`; reviewer mandate:
 `agents/code-reviewer.md`; auto mode: the batch-close full-diff pass);
-`docs/` feature docs - every claim, via the dedicated per-claim pass:
+`dev/docs/` feature docs - every claim, via the dedicated per-claim pass:
 
 - Read the doc's `§ Parameters` preamble before its table. A doc that
   restates or narrows the provenance vocabulary has rewritten the

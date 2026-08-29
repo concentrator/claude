@@ -33,7 +33,6 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -f "$P/.claude/scripts/ci/code-size-allow.txt" ] && pass "code-size allowlist template" || die "no code-size allowlist"
 [ -x "$P/.claude/scripts/ci/check-accretion.sh" ]  && pass "accretion check copied + exec" || die "no accretion check"
 [ -x "$P/.claude/scripts/ci/check-batch-tags.sh" ] && pass "batch-tags check copied + exec" || die "no batch-tags check"
-[ -f "$P/.claude/scripts/ci/resolve-root.sh" ]     && pass "resolve-root copied" || die "no resolve-root"
 [ -f "$P/.claude/scripts/test/check-accretion.test.sh" ]  && pass "accretion self-test copied" || die "no accretion self-test"
 [ -f "$P/.claude/scripts/test/check-batch-tags.test.sh" ] && pass "batch-tags self-test copied" || die "no batch-tags self-test"
 grep -q 'BASH_SOURCE' "$P/.claude/scripts/test/check-accretion.test.sh" \
@@ -41,18 +40,17 @@ grep -q 'BASH_SOURCE' "$P/.claude/scripts/test/check-accretion.test.sh" \
   && pass "copied self-tests resolve their check relatively" \
   || die "copied self-test pinned to the repo root"
 
-# --- copied gates bite from the install location (exercises the sibling
-# resolve-root.sh seam) ---
+# --- copied gates bite from the install location ---
 R=$(mktemp -d); git -C "$R" init -q -b main
-printf -- '- DEV artifacts root: ./\n' > "$R/CLAUDE.md"; mkdir -p "$R/plans"
-printf -- 'Superseded: 2026-07-07 by the new flow.\n' > "$R/plans/ROADMAP.md"
+mkdir -p "$R/dev/plans"
+printf -- 'Superseded: 2026-07-07 by the new flow.\n' > "$R/dev/plans/ROADMAP.md"
 git -C "$R" add -A
 out=$( cd "$R" && env -u CI bash "$P/.claude/scripts/ci/check-accretion.sh" 2>&1 ); rc=$?
 [ $rc -ne 0 ] && grep -q 'ACCRETION:' <<<"$out" \
   && pass "copied accretion gate bites from install location" \
   || die "copied accretion gate did not bite: $out"
 git -C "$R" -c user.email=t@t -c user.name=t commit -qm init
-mkdir -p "$R/plans/R-042-x/batches"; printf 'r\n' > "$R/plans/R-042-x/batches/B-001.report.md"
+mkdir -p "$R/dev/plans/R-042-x/batches"; printf 'r\n' > "$R/dev/plans/R-042-x/batches/B-001.report.md"
 git -C "$R" add -A; git -C "$R" -c user.email=t@t -c user.name=t commit -qm report
 git -C "$R" tag pre-R042-B-001
 out=$( cd "$R" && env -u CI bash "$P/.claude/scripts/ci/check-batch-tags.sh" 2>&1 ); rc=$?
@@ -163,15 +161,8 @@ done
 [ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1
 [ "$(grep -c '^!.claude/hooks/$' "$G/.gitignore")" = "1" ] && pass "gitignore allowlist idempotent" || die "duplicate allowlist entries"
-[ "$(grep -c '^/dev/session/$' "$G/.gitignore")" = "1" ] && pass "session dir ignored once under the default root" || die "session ignore line: $(grep -c '^/dev/session/$' "$G/.gitignore")"
+[ "$(grep -c '^/dev/session/$' "$G/.gitignore")" = "1" ] && pass "session dir ignored once" || die "session ignore line: $(grep -c '^/dev/session/$' "$G/.gitignore")"
 git -C "$G" check-ignore -q "skills/x/session/f" && die "unanchored session ignore" || pass "session ignore is anchored to the root"
-rm -rf "$G"
-
-# --- session ignore line follows the declared artifacts root ---
-G=$(mktemp -d); git -C "$G" init -q
-printf '# X\n\n## Agent toolchain\n\n- DEV artifacts root: ./\n' > "$G/CLAUDE.md"
-bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (root ./ fixture) exits nonzero"
-grep -qx '/session/' "$G/.gitignore" && pass "session ignore line follows a ./ root" || die "root ./ fixture: $(grep session "$G/.gitignore")"
 rm -rf "$G"
 
 (( fail == 0 )) && echo "install-dev.test: OK"

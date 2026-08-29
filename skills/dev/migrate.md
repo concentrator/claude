@@ -1,26 +1,26 @@
 # Migrating to DEV
 
 Bring an existing project under DEV. Always run § 1 Inventory, then
-route. Artifact paths resolve against the declared artifacts root
-(`plan.md § Where things live`); probe both the root and the legacy
-`.claude/` locations before classifying:
+route. DEV artifacts live at `dev/` (`plan.md § Where things live`);
+probe both `dev/` and the legacy `.claude/` locations before
+classifying:
 
 - **Legacy / non-canonical** - the artifacts tree deviates from
   `layout.md` (lowercase foundational files, `REQ-XXX`, flat
   `tasks.md`): canonicalize per `companions/legacy-migration.md`, then
   route as `.claude/`-layout.
 - **`.claude/`-layout** - anything canonical still under
-  `.claude/plans/` or `.claude/docs/`, whether or not the root tree
-  also exists (a both-trees state is a partial migration; a root-side
+  `.claude/plans/` or `.claude/docs/`, whether or not `dev/` also
+  exists (a both-trees state is a partial migration; a `dev/`-side
   destination that already exists is a collision `root-migration.md
-  § 1` reports): relocate onto the declared root per
+  § 1` reports): relocate onto `dev/` per
   `companions/root-migration.md` (report the moves and rewrites,
   apply on approval), then treat as Already-DEV. This class takes
   precedence over Already-DEV.
 - **Fresh** - no artifacts anywhere: no `plans/` or `docs/` under
-  either the root or `.claude/`. Reverse-engineer requirements +
+  either `dev/` or `.claude/`. Reverse-engineer requirements +
   design from code, then layer planning infrastructure (steps 2–9).
-- **Already-DEV** - canonical R-rooted `<root>/plans/ROADMAP.md`: pre-TBD → TBD
+- **Already-DEV** - canonical R-rooted `dev/plans/ROADMAP.md`: pre-TBD → TBD
   migration (`companions/tbd-migration.md`; approval-gated - the agent executes each
   approved step; host-side settings stay the user's); TBD-conformant → conformant, no changes.
   Either way, check the id/archival schema: a project on the legacy global
@@ -34,6 +34,13 @@ route. Artifact paths resolve against the declared artifacts root
   `.claude/scripts/ci/check-accretion.sh` (placed by
   `install-dev.sh --project`) - tune its `MARKERS` list, never
   rewrite the check.
+
+  **Stale root** - a project set up while the artifacts root was
+  configurable may still carry a `- DEV artifacts root:` line in
+  `CLAUDE.md`, `<root>` or "artifacts root" wording in its own docs,
+  and a copied `.claude/scripts/ci/resolve-root.sh`. Report each
+  hit with its rewrite to `dev/...` (or its deletion); apply on
+  approval.
 
 ## 1. Inventory
 
@@ -61,11 +68,11 @@ Write `.claude/DESIGN.md` (≤1000 words inline). User approves.
 ## 4. CLAUDE.md alignment
 
 Ensure project `CLAUDE.md` has `## Conventions` (release-routine,
-publish-external, extended-docs, and a `<root>/docs/index.md` pointer if
+publish-external, extended-docs, and a `dev/docs/index.md` pointer if
 the docs layer is used) + stack, base branch, and an `## Agent
 toolchain` section (VCS host + build/test/lint/change-request/
-state-check commands, the artifacts-root declaration -
-`companions/declarations.md`); backfill it if absent. Propose deletion of any
+state-check commands - `companions/declarations.md`); backfill it if
+absent. Propose deletion of any
 restated global rules. Keep it within the `rules/claude-md.md` limits
 (§ Content, § Size and structure).
 
@@ -83,7 +90,7 @@ contributors.
 
 ## 6. Backfill plans
 
-Create `<root>/plans/` with `ROADMAP.md` (per-R `tasks.md`, created
+Create `dev/plans/` with `ROADMAP.md` (per-R `tasks.md`, created
 lazily). Ask about ongoing work → initiatives (R<NNN>) and open tasks
 (composite ids, `plan.md § ID format`) in their R's `tasks.md`.
 Known bugs or tech debt → R stubs per `plan.md
@@ -91,7 +98,7 @@ Known bugs or tech debt → R stubs per `plan.md
 
 ## 7. Docs adoption
 
-If the project keeps `<root>/docs/` feature docs (`layout.md § Docs`), run
+If the project keeps `dev/docs/` feature docs (`layout.md § Docs`), run
 the docs-adoption procedure (`companions/docs-adoption.md`) - audit, build,
 and workflow correction - to bring them onto the doc-first convention.
 

@@ -19,21 +19,6 @@ is the single source both modes read:
 Declare it once; `migrate` backfills it if absent (absent-host fallback:
 `finish § 3`).
 
-## Artifacts root
-
-The same section declares where DEV artifacts live, as a
-repo-relative directory on its own line, in exactly this form (a
-near-miss line - indented, or missing the dash - is ignored and the
-default applies):
-
-```
-- DEV artifacts root: <dir>/
-```
-
-Resolution, including the absent-declaration default, lives in
-`plan.md § Where things live`; `layout.md` draws the config and
-artifacts trees.
-
 ## Supervisor bounds
 
 A project delegating delivery to a supervisor (R-040) declares its

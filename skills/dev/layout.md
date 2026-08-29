@@ -1,9 +1,7 @@
 # Project layout
 
 Canonical project structure, two trees: guarded config under
-`.claude/`, agent-authored DEV artifacts under the declared artifacts
-root, written `<root>/` - the `DEV artifacts root:` line in project
-`CLAUDE.md § Agent toolchain` (rule and default: `plan.md § Where
+`.claude/`, agent-authored DEV artifacts under `dev/` (`plan.md § Where
 things live`). Other paths inside either tree need explicit
 justification.
 
@@ -29,11 +27,11 @@ What instructs agents.
     ├── settings.json             # Claude Code shared config
     └── settings.local.json       # Claude Code local (gitignored)
 
-## Artifacts layout (`<root>/`)
+## Artifacts layout (`dev/`)
 
 What agents author.
 
-    <root>/
+    dev/
     ├── plans/                    # planning hierarchy - plan.md § Where things live
     │   ├── ROADMAP.md
     │   ├── release-vX.Y.Z.md
@@ -56,7 +54,7 @@ Scaffolded at the project root, alongside `.claude/`:
 | File | When | Purpose |
 |---|---|---|
 | `README.md` | required | overview + how to run |
-| `CLAUDE.md` | required | stack, base branch, `## Agent toolchain` (host + build/test/lint + artifacts root), conventions |
+| `CLAUDE.md` | required | stack, base branch, `## Agent toolchain` (host + build/test/lint), conventions |
 | `.gitignore` | required | must ignore `.env` and `.claude/settings.local.json`; under untracked mode (`companions/untracked-claude.md`) ignores all of `.claude/` and `CLAUDE.md` |
 | `.env.example` | if the project uses env vars | placeholder vars; commit this, never `.env` |
 
@@ -68,18 +66,18 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 ## Creation policy
 
 - **Required at scaffold**: `.claude/REQUIREMENTS.md`,
-  `.claude/DESIGN.md`, `.claude/settings.json`, `<root>/plans/`.
+  `.claude/DESIGN.md`, `.claude/settings.json`, `dev/plans/`.
 - **Created as workflows need them**: `.claude/skills/`,
   `.claude/rules/`, `.claude/commands/`, `.claude/agents/`,
-  `.claude/MAINTENANCE.md`; `<root>/plans/ROADMAP.md`;
+  `.claude/MAINTENANCE.md`; `dev/plans/ROADMAP.md`;
   `.claude/hooks/` (shipped by the DEV toolset installer).
-- **Initiative-time**: `<root>/plans/R<NNN>-<slug>/` + `requirements.md`
+- **Initiative-time**: `dev/plans/R<NNN>-<slug>/` + `requirements.md`
   (`plan.md § Directory conventions`).
 - **Lazy** (created on first use): `.claude/adr/`,
-  `.claude/references/`, `<root>/docs/`,
-  `<root>/plans/R<NNN>-<slug>/tasks.md` and `batches/` (`plan.md
-  § Levels`, `§ Directory conventions`), `<root>/plans/archive/`,
-  `<root>/plans/visual-artifacts/` (gitignored session artifacts).
+  `.claude/references/`, `dev/docs/`,
+  `dev/plans/R<NNN>-<slug>/tasks.md` and `batches/` (`plan.md
+  § Levels`, `§ Directory conventions`), `dev/plans/archive/`,
+  `dev/plans/visual-artifacts/` (gitignored session artifacts).
 
 ## Disallowed in both trees
 
@@ -92,12 +90,12 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 
 `references/` holds external inputs the agent consults: API specs
 (OpenAPI), third-party docs, domain knowledge, schema files. Any
-format. **Read-only** - the agent never modifies these; `docs/` below
+format. **Read-only** - the agent never modifies these; `dev/docs/` below
 is the internal, kept-current counterpart.
 
 ## Docs
 
-`docs/` holds internal documentation of how our own code works: per-feature
+`dev/docs/` holds internal documentation of how our own code works: per-feature
 docs (data model, interfaces, business rules, edge cases) sitting between
 `DESIGN.md` (architecture) and the code (line-level). Feature docs are the
 Reference application of the global documentation framework
@@ -110,7 +108,7 @@ The granularity model - a doc per feature, page, section, or block - is a
 per-project choice. Pick the one that fits the project, record it in
 `CLAUDE.md § Conventions`, and apply it consistently.
 
-`docs/index.md` (root-relative) catalogs the docs - one line per doc, its path and
+`dev/docs/index.md` catalogs the docs - one line per doc, its path and
 what it covers - consulted before coding to find the feature's doc, and
 updated whenever a doc is added. Project `CLAUDE.md § Conventions` carries a
 one-line pointer to the index, so it is discoverable from the always-loaded
