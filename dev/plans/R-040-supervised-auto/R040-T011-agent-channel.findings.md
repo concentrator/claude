@@ -355,7 +355,9 @@ described by their symptom in a pane rather than by a log line.
       turn stopped. Cheap, and only because the interrupted work was
       idempotent: the four verification checks were re-runnable and the delete
       had not happened. A limit landing between a destructive step and its
-      verification is the same event with no cheap recovery.
+      verification is the same event with no cheap recovery. The transcript
+      holds the last completed tool call, never the intent that would have
+      followed, so a resumed session is told where to resume.
 
 ### A keystroke write can drop its submit, silently
 

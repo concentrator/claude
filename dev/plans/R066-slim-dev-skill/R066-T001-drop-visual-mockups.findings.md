@@ -30,7 +30,7 @@ Each row of the branch plan's table resolved to its receiving file
 - [x] `&` over ssh - `pitfalls.md` (`inside an ssh command`: 1)
 - [x] keys during the splash - `pitfalls.md` (`during its splash`: 1); runbook keeps `prompt line`: 1
 - [x] `defaultMode` written - `pitfalls.md` (`defaultMode`: 1); runbook keeps `do not stage`: 1
-- [x] reset time in the account's timezone - `pitfalls.md` (`account's timezone`: 1); runbook keeps `date` on the host`: 1
+- [x] reset time in the account's timezone - `pitfalls.md` (`account's timezone`: 1); runbook keeps "date on the host": 1
 - [x] resume names where the turn stopped - `R040-T011-agent-channel.findings.md` (`naming where the`: 1); runbook keeps `where the turn stopped`: 1
 
 ## Criterion 1
