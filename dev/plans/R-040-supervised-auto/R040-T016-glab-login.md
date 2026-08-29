@@ -50,7 +50,7 @@ check it does run is the one shape that cannot detect the omission.
   succeeds and the run stays silent; `project-clone --dry-run` names
   the check. `skills/worker-host/companions/provisioning.md` step 9
   states the login, step 10 the in-checkout check.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,

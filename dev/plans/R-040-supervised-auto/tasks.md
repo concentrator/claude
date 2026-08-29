@@ -151,7 +151,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   unreadable, or absent, the role dispatches on Opus and records the
   substitution the policy already requires.
 
-- [ ] **R040-T016 [fix]**: `forge-cli` reports success on a host whose
+- [x] **R040-T016 [fix]**: `forge-cli` reports success on a host whose
   `glab` cannot reach the project. `forge_auth`
   (`scripts/worker-credentials.sh:128`) exports `GITLAB_TOKEN` and
   verifies with `glab api user --hostname gl.wallarm.com`, which passes
