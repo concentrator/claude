@@ -102,10 +102,8 @@ The supervisor cycles until the scope is delivered:
    path, the command that starts the worker, and a pointer to
    `companions/declarations.md § Supervisor bounds` for what it may
    deliver and what it must escalate. Cite that section, never restate
-   it. A briefing that summarises authority becomes a second source for
-   it, and the copy is what the supervisor obeys - so a briefing written
-   against an earlier revision of the bounds is the one thing that can
-   put a supervisor outside them while it believes it is inside.
+   it: the copy is what the supervisor obeys, and a stale copy puts it
+   outside its bounds while it believes it is inside.
 5. **Supervisor** starts the worker
    (`tmux new -d -s worker -c <project-dir> claude --permission-mode acceptEdits`),
    adopts it by name over `ListAgents`, and dispatches one line and
@@ -151,10 +149,8 @@ ssh <host> --command='until ! tmux capture-pane -p -t worker | grep -q "esc to i
                       tmux capture-pane -p -t worker | tail -30'
 ```
 
-One connection waits on the host and returns once. Re-connecting per
-poll pays the tunnel handshake every iteration and reads a pane that
-`send-keys` has not caught up with, which is how a stale capture gets
-reported as a state change.
+One connection waits on the host and returns once; a reconnect per
+poll reads a pane `send-keys` has not caught up with.
 
 **Keystroke authority.** A single key sent to another session's dialog
 is an answer; text typed into its input box is a dispatch. The operator

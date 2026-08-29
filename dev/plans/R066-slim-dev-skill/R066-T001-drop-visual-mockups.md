@@ -48,6 +48,10 @@ records the fact today and the runbook copy is the duplicate.
   `skills/worker-host/companions/pitfalls.md` entries and the
   classifier-overflow row joins `R040-T011-agent-channel.findings.md`
   (table rows 5-12)
+- [x] Two argued passages in `supervisor-runbook.md § Variant B` (the
+  briefing copy, the per-poll reconnect) reduced to their instruction:
+  the section swap left the file 30 words over the cap criterion 2
+  names
 - [ ] `R066-T001-drop-visual-mockups.findings.md`: byte sizes of the
   `/dev supervise` read set at the branch base and at close, the
   relocation table checked row by row (grep per receiving file), and
