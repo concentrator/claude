@@ -106,7 +106,7 @@ they are taken into account.
       step 1's portfolio field, § Dispatch's "declared transport", the "local
       transport" clause under the never-run-git rule - now that R040-T003 is
       superseded and one worker runs beside the supervisor in both variants.
-- [ ] Complete the branch: gates green, mark this plan's checkboxes, and route what
+- [x] Complete the branch: gates green, mark this plan's checkboxes, and route what
       the build turns up. Closure is checkbox-only; R040-T011 does not close R-040.
 
 `R040-T003` (remote transport) is superseded: Variant B runs the supervisor

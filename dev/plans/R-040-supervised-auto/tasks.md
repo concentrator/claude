@@ -92,7 +92,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   its own vocabulary passes a compliance check; and the dispatch
   prompts state that an agent verifies before applying a correction
   and reports back one it judges wrong. `depends-on: R040-T006`
-- [ ] **R040-T011 [feat]**: the agent channel - the pilot drove sibling
+- [x] **R040-T011 [feat]**: the agent channel - the pilot drove sibling
   sessions by typing into a terminal pane and paid three ways: an
   escalation printed to scrollback sat unread for roughly an hour, a
   blocked supervisor read identically to a thinking one, and the
