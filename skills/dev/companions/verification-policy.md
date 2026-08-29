@@ -156,7 +156,7 @@ pins one (§ Effort mechanics).
 
 **Capacity fallback.** A pinned model can be rate-limited, which is not
 a fact about the work. Before dispatching a `fable` role, read the gate:
-`bash ~/.claude/scripts/model-quota.sh "Fable 5"` exits 0 while the
+`bash ~/.claude/scripts/model-quota.sh "Fable"` exits 0 while the
 weekly window has headroom, 1 at or over its ceiling, 2 when it cannot
 tell; dispatch `fable` on 0 only, `opus` otherwise, a missing script
 included - a wrong `fable` stalls the review on a consent dialog, a

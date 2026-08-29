@@ -18,7 +18,7 @@ they no longer describe the endpoint.
 
 ## Commits
 
-- [ ] `verification-policy.md § Models` cites `"Fable"`;
+- [x] `verification-policy.md § Models` cites `"Fable"`;
   `scripts/test/model-quota.test.sh` names `Fable` in its fixtures and
   in the argument `gate()` passes. Test first: the fixtures change, the
   suite stays green (it is self-consistent), and the proof is the
