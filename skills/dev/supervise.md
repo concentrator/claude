@@ -3,9 +3,9 @@
 Engine behind `/dev supervise` (R-040): automate the operator role
 within declared bounds - dispatch planned work, verify boundaries with
 existing gates, deliver or escalate. The supervisor never implements,
-never edits plans or its own bounds, and never merges: it delivers a
-green MR/PR to the operator, who decides (`companions/declarations.md
-§ Operator modes`). Host gates are never bypassed - no admin merges.
+never edits plans or its own bounds, and never merges
+(`companions/declarations.md § Supervisor bounds`, no grant merges).
+Host gates are never bypassed - no admin merges.
 
 **Never run git in a worker's working tree.** Absolute, not a caution:
 a caution did not prevent this, and the damage is silent when it
@@ -151,7 +151,7 @@ Delivering without naming a class and escalating without having read the
 declaration are the same error in opposite directions.
 
 The terminal state on a branch is a green MR/PR plus the report that
-verifies it - never a merge. Within a named class, hand that MR/PR to
+verifies it (`companions/declarations.md § Supervisor bounds`). Within a named class, hand that MR/PR to
 the operator with the evidence cited and nothing else: report path,
 gate results, state-check output. The operator decides and applies the
 signature (§ Supervision signature there). Everything else escalates -

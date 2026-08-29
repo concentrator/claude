@@ -202,9 +202,8 @@ check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) after the batch MR/PR merges.
 
 Per-branch close in auto mode: the close review runs only above the
-close-folding threshold (`verification-policy.md § Close folding`) -
-smaller branches defer their first review to the batch-close
-full-diff pass. The mandatory final commit and green tests/lint
+close-folding threshold (`verification-policy.md § Close folding`).
+The mandatory final commit and green tests/lint
 before merging into the batch branch hold regardless of size.
 
 ### Rails
