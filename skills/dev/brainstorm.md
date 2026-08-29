@@ -16,8 +16,7 @@ act of `plan.md § Directory conventions`. The discovery method behind
 4. **Approaches** - propose 2–3 with trade-offs; lead with your
    recommendation. YAGNI ruthlessly.
 5. **Draft** - pick the next free `R<NNN>` id, create the plan branch
-   (`git-workflow.md § Trunk`) before the first artifact write, then
-   draft: requirements sections per `templates.md § Per-initiative`.
+   (`plan.md § Where plans live in git`), then draft: requirements sections per `templates.md § Per-initiative`.
    Present it section by section, confirming each. Then the draft
    task list (`plan.md § Planning rounds`).
 6. **Self-check** - placeholders, contradictions, criteria readable two

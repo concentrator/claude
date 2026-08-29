@@ -119,7 +119,8 @@ project directories.
 
 Planning artifacts (§ Where things live) live on `main`, visible from
 every branch, reaching it via a plan branch + MR/PR like any change
-(`git-workflow.md § Trunk`). A single planning act still commits each
+(`git-workflow.md § Trunk`); the plan branch is cut before the first
+artifact write. A single planning act still commits each
 artifact type separately - `requirements.md` apart from the `ROADMAP`
 / `tasks.md` index edits.
 

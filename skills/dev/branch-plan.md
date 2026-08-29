@@ -185,15 +185,15 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
 
 Composition only (members, order, mode), never status - task state's
 home is the R's `tasks.md`. Open iff a member is `[ ]` there and no
-`R<NNN>-B<NNN>.report.md` exists. Composition is a planning write -
-the plan branch comes first.
+`R<NNN>-B<NNN>.report.md` exists. Composition is a planning write
+(`plan.md § Where plans live in git`).
 
 Delivery grouping, not a planning level: a batch is scoped to the R
 whose dir holds it - its open, coupled tasks (not independently
 shippable). `depends-on` resolves within batch order or merged work;
 a cross-initiative need becomes its own R. The checkpoint validates
-that R's acceptance criteria. Soft cap ~30 planned commits
-(§ Size cap governor). Auto mode requires a stamped batch.
+that R's acceptance criteria. The § Size cap governor bounds the
+batch. Auto mode requires a stamped batch.
 
 Batch-close bookkeeping: the close phase marks member-task
 checkboxes as commits on `batch/R<NNN>-B<NNN>` before the MR/PR -
