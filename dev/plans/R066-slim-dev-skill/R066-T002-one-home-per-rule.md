@@ -72,9 +72,9 @@ that become citations (R066 acceptance criterion 3).
   `hooks/secret-patterns.sh`; `start.md § 1` and the
   `dev-secrets-guard.sh` header cite it; `DESIGN.md` tree-map follows
 - [x] Stale text corrected (table above, seven rows)
-- [ ] Rationale trims in `verification-policy.md` and `supervise.md`
+- [x] Rationale trims in `verification-policy.md` and `supervise.md`
   (five passages)
-- [ ] Rationale trims in `branch-plan.md`, `declarations.md`,
+- [x] Rationale trims in `branch-plan.md`, `declarations.md`,
   `documentation.md`, `untracked-claude.md` (five passages)
 - [ ] `R066-T002-one-home-per-rule.findings.md`: byte sizes of the
   `/dev supervise` and `/dev code` read sets at base and close,
