@@ -28,13 +28,15 @@ line (`skills/dev/plan.md § Referential integrity`).
 - Change request: `gh pr create`
 - State-check: `gh pr view <n> --json state,mergedAt,statusCheckRollup`
 - Merge: `gh pr merge <n> --merge --delete-branch`
-- Supervisor bounds: batch-scoped delivery; operator mode: AI operated
-  (`skills/dev/companions/declarations.md`)
+- Supervisor bounds: batch-scoped delivery
+- Operator mode: AI operated (`skills/dev/companions/declarations.md`)
 
 ## Code Comments
 
-A behavior change updates or removes the comment describing the old
-behavior; a stale comment is worse than none.
+A comment explains what the code cannot show: the reason behind a
+non-obvious choice, a constraint, a workaround. Code says what it does;
+a comment never restates it. A behavior change updates or removes the
+comment describing the old behavior; a stale comment is worse than none.
 Code and data files carry no history or annotation fields
 (`rules/writing-artifacts.md § One home per finding`).
 

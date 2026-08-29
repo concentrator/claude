@@ -87,7 +87,7 @@ in the order listed until `check-caps.sh` passes:
 - [x] Findings: `R065-T001-session-load-trim.findings.md` records the
   words loaded unconditionally (`CLAUDE.md` + imports) before and
   after, and the table above checked row by row.
-- [ ] `CLAUDE.md` cap in lines: `check-caps.sh` checks `CLAUDE.md` at
+- [x] `CLAUDE.md` cap in lines: `check-caps.sh` checks `CLAUDE.md` at
   100 lines or fewer, replacing the 200-line and 400-word checks.
 - [ ] `CLAUDE.md` § Code Comments says a comment explains what the code
   cannot show; the supervisor declarations split into their declared
