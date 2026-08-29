@@ -36,10 +36,10 @@ records the fact today and the runbook copy is the duplicate.
 - [x] Delete `companions/visual-companion.md` and `companions/scripts/`;
   drop the offer at `brainstorm.md` step 3 and the `server.cjs` line
   in `scripts/ci/code-size-allow.txt`
-- [ ] Drop `dev/plans/visual-artifacts/` from `layout.md` (tree and the
+- [x] Drop `dev/plans/visual-artifacts/` from `layout.md` (tree and the
   lazy-files list) and "mockup scripts" from the `DESIGN.md` tree-map
   companions line
-- [ ] `scripts/test/install-dev.test.sh` asserts the `--project` target
+- [x] `scripts/test/install-dev.test.sh` asserts the `--project` target
   has no `skills/dev/companions/scripts/`
 - [ ] `supervisor-runbook.md § Remote Control` reduced to its four
   instructions (table rows 1-4)
