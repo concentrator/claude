@@ -61,8 +61,14 @@ keys_verify() {
 # config clone - the operator places it. Values are read, never echoed: this
 # output reaches transcripts and shell history.
 forge_cli() {
-  local dry=0
-  [ "${1:-}" = "--dry-run" ] && dry=1
+  local dry=0 checkout=""
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --dry-run) dry=1 ;;
+      *) checkout="$1" ;;
+    esac
+    shift
+  done
   local envf="$HOME/.claude/.env"
   local host="${GITLAB_HOST:-gl.wallarm.com}"
 
@@ -84,12 +90,28 @@ forge_cli() {
     printf '  - glab auth login --hostname %s --stdin, then verify with glab api user\n' "$host"
     printf '  - export GITHUB_TOKEN for gh (it needs no login), then verify with gh api user\n'
     printf '  - token present: GITLAB_TOKEN=%s GITHUB_TOKEN=%s\n' "$have_gl" "$have_gh"
+    [ -n "$checkout" ] \
+      && printf '  - glab repo view in %s: the login must resolve the remote there\n' "$checkout"
     [ "$have_gh" = no ] && printf '  - note: no GITHUB_TOKEN. Not fatal - a worker delivering only GitLab\n    work never needs one; it gates gh pr create and merge.\n'
     return 0
   fi
 
   forge_install || return 1
-  forge_auth
+  forge_auth || return 1
+  [ -z "$checkout" ] || forge_check "$checkout"
+}
+
+# The identity check above passes on the token alone; only a repo-relative
+# call proves glab can resolve the checkout's remote to a host it has logged in
+# to, and that is the call a worker makes at MR create. Exit status only: the
+# output is the project's metadata, which is not what the operator is reading
+# for.
+forge_check() {
+  local dir="$1" host="${GITLAB_HOST:-gl.wallarm.com}"
+  [ -n "${GITLAB_TOKEN:-}" ] || return 0
+  ( cd "$dir" && glab repo view --output json >/dev/null 2>&1 ) && return 0
+  printf 'glab: cannot resolve %s from the remote of %s, so MR create fails there\n' "$host" "$dir" >&2
+  return 1
 }
 
 
@@ -202,7 +224,7 @@ main() {
     keys)        shift; keys "$@" ;;
     keys-verify) keys_verify ;;
     forge-cli)   shift; forge_cli "$@" ;;
-    *) printf 'usage: worker-credentials.sh keys | forge-cli [--dry-run] | keys-verify\n' >&2; return 2 ;;
+    *) printf 'usage: worker-credentials.sh keys | forge-cli [--dry-run] [<checkout>] | keys-verify\n' >&2; return 2 ;;
   esac
 }
 

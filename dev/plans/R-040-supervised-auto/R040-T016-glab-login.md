@@ -39,7 +39,7 @@ check it does run is the one shape that cannot detect the omission.
   `--hostname` and `--stdin`, the token reaches stdin and never argv
   (the leak canary of case 23 applied to the argv log), and the dry run
   names the login.
-- [ ] `forge-cli` takes an optional project checkout path and, when
+- [x] `forge-cli` takes an optional project checkout path and, when
   given one and `GITLAB_TOKEN` is set, runs the Repo-relative check
   there, failing with one line naming the host when it fails.
   `project_clone` (`scripts/worker-workspace.sh`) ends by running

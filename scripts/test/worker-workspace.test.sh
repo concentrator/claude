@@ -101,7 +101,7 @@ printf 'GIT_USER_NAME=Fixture\nGIT_USER_EMAIL=fixture@example.test\n' > "$h/.cla
 printf 'GITLAB_HOST=gl.example.test\nGITLAB_TOKEN=fixtureleakcanary\n' >> "$h/.claude/.env"
 real() {
   env PATH="$stub:/usr/bin:/bin" HOME="$h" GLAB_LOG="$stub/log" GLAB_STDIN="$stub/stdin" "$@" \
-    bash "$CRSCRIPT" forge-cli 2>&1
+    bash "$CRSCRIPT" forge-cli ${CHECKOUT:+"$CHECKOUT"} 2>&1
 }
 
 # 40. the run logs in to the host from .env, and only then checks the identity
@@ -129,6 +129,20 @@ out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$CRSCRIPT" forge-cli --dry-run 2>&1
 grep -q 'glab auth login --hostname gl.example.test' <<<"$out" && grep -q 'glab api user' <<<"$out" \
   && ! grep -q 'auth status' <<<"$out" \
   && pass "dry run names the login and the identity check" || die "dry run misnames what runs: $out"
+
+# 43. given a checkout, the run proves the login there: a repo-relative call
+#     resolves the host from the remote, which is what the identity check
+#     cannot exercise. Failure names the host in one line; success says nothing.
+mkdir -p "$h/proj"
+: > "$stub/log"
+out=$(CHECKOUT="$h/proj" real GLAB_REPO_VIEW_RC=1); rc=$?
+[ "$rc" -ne 0 ] && grep -q 'gl.example.test' <<<"$out" \
+  && pass "a failed repo-relative check names the host" || die "check failure unreported (rc=$rc): $out"
+grep -q '^repo view --output json' "$stub/log" \
+  && pass "the check is glab repo view in the checkout" || die "no repo view in: $(cat "$stub/log")"
+out=$(CHECKOUT="$h/proj" real); rc=$?
+[ "$rc" -eq 0 ] && ! grep -qi 'repo' <<<"$out" \
+  && pass "a passing check stays silent" || die "passing check noisy or failed (rc=$rc): $out"
 rm -rf "$h" "$stub"
 
 # --- config clone: this repo becomes the worker's ~/.claude -----------------
@@ -201,6 +215,11 @@ for f in "/opt/wallarm" "attack-checker" "wallarm-api-js" "npm ci"; do
   grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
 done
 [ -z "$miss" ] && pass "project-clone names root, project and sibling" || die "project-clone missing:$miss"
+
+# 44. the fresh checkout is where the glab login is proven: forge-cli runs
+#     before any project exists, so the repo-relative check runs from here
+grep -q 'forge-cli' <<<"$out" && grep -q 'repo view' <<<"$out" \
+  && pass "project-clone hands the checkout to forge-cli" || die "project-clone names no forge-cli check: $out"
 
 # 11. the sibling is not optional - file:../wallarm-api-js means npm ci fails
 #     outright without it, so the dry run must say so rather than list it as

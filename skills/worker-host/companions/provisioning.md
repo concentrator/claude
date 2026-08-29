@@ -36,11 +36,17 @@ subcommands in this sequence.
    `~/.worker-bootstrap` on the way out, so only one copy of each script
    is ever on the host.
 9. **`forge-cli`** - installs `glab` and `gh`, then authenticates from
-   `~/.claude/.env`. The clone brings `.env.example` but never `.env`,
-   which is gitignored: the operator copies one to the other and fills
-   in the tokens. Each variable's purpose and scope is in that file.
+   `~/.claude/.env`: `glab auth login --hostname <host> --stdin` with
+   the token on stdin, then `glab api user` for the identity. The clone
+   brings `.env.example` but never `.env`, which is gitignored: the
+   operator copies one to the other and fills in the tokens. Each
+   variable's purpose and scope is in that file.
 10. **`project-clone`** then **`settings`** - repositories into
    `/opt/wallarm`, then the per-project allowlist and workspace trust.
+   `project-clone` ends by running `forge-cli <checkout>`, whose
+   `glab repo view` in the fresh checkout proves the login resolves the
+   remote - the call a worker makes at MR create, and the one an
+   identity check cannot stand in for.
 
 ## Rebuilding
 
