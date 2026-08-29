@@ -35,7 +35,6 @@ excluded.
 ```
 ~/.claude/
 ├── CLAUDE.md                     # global instructions, every session
-├── delegation.md                 # subagent pre-authorisation (@imported by CLAUDE.md)
 ├── writing.md                    # writing conventions (@imported by CLAUDE.md)
 ├── settings.json                 # global Claude Code config (tracked)
 ├── .gitignore

@@ -105,7 +105,10 @@ No new or touched doc is complete until an **independent agent** - never
 the author -
 has verified the claims in scope against ground truth: the live system
 for observable facts, the authoritative source (source code, `--help`,
-config files, vendor docs) otherwise. The prose class sets the scope
+config files, vendor docs) otherwise. The verifier is a subagent the
+session dispatches without pausing to confirm - a doc the author also
+verified is unverified - bounded by `verification-policy.md § Verifier
+isolation`. The prose class sets the scope
 and the clearing review: rules, skills, and planning prose - the
 changed claims, checked against their sources by the close review
 (`branch-plan.md § Closing routine`; reviewer mandate:

@@ -11,7 +11,7 @@ every project on the machine.
 |---|---|
 | `README.md` | This file: what the repo is, how to set it up, how the workflow runs |
 | `CLAUDE.md` | Global operating instructions, loaded every session |
-| `writing.md`, `delegation.md` | Conventions `@import`ed by `CLAUDE.md`, so they load every session: prose rules, subagent pre-authorisation |
+| `writing.md` | Universal writing conventions, `@import`ed by `CLAUDE.md` so they load every session |
 | `settings.json` | Global Claude Code config: permissions, hooks, plugins, session defaults |
 | `.claude/settings.json` | Project-tier Claude Code config: the push deny carve-out, branch-push allows, durable tool allows, model override |
 | `rules/` | Personal convention rules: git discipline, JS style, CLAUDE.md/skill maintenance (path-scoped) |

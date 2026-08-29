@@ -45,6 +45,10 @@ in the order listed until `check-caps.sh` passes:
 3. § Verify before stating: fold the two sentences on sources into one
    ("confirm it against a source you can point to; otherwise verify
    or say you're unsure").
+ 4. § Agent toolchain: the merge-gate line shortened, the self-hosting
+   line dropped; § Session Workflow: the rules-location clause dropped;
+   § Approval and persistence and § Communication tightened by a word
+   or two; the wide-search line and the PR pin in their shortest form.
 
 ## Plan
 
@@ -58,7 +62,7 @@ in the order listed until `check-caps.sh` passes:
   `companions/documentation.md` (two), `skills/dev/git-workflow.md`
   (two), `handoff.md`, `migrate.md`, `scripts/ci/check-accretion.sh`
   header.
-- [ ] `CLAUDE.md` under the cap: the trims above, then the durable-id
+- [x] `CLAUDE.md` under the cap: the trims above, then the durable-id
   sentence and the annotation clause; `check-caps.sh` green.
 - [ ] Fold `delegation.md`: the verification-gate pre-authorisation
   becomes a sentence in `companions/documentation.md § Verification

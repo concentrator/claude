@@ -11,7 +11,8 @@ Two modes:
 Git workflow (both modes): `skills/dev/git-workflow.md`
 (repo pin: `rules/git-workflow.md`).
 
-@delegation.md
+Subagents are pre-authorised for genuinely wide searches (many files,
+only the conclusion wanted), never for a fan-out one `grep` answers.
 
 ## Scope
 
