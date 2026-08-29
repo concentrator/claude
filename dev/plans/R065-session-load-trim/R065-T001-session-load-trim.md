@@ -89,11 +89,11 @@ in the order listed until `check-caps.sh` passes:
   after, and the table above checked row by row.
 - [x] `CLAUDE.md` cap in lines: `check-caps.sh` checks `CLAUDE.md` at
   100 lines or fewer, replacing the 200-line and 400-word checks.
-- [ ] `CLAUDE.md` § Code Comments says a comment explains what the code
+- [x] `CLAUDE.md` § Code Comments says a comment explains what the code
   cannot show; the supervisor declarations split into their declared
   two lines (`Supervisor bounds`, `Operator mode`; `AI operated` kept).
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose and config rows: `code-reviewer`), Tier-2 compliance
   review, `bash scripts/ci/run-all.sh` green, cleanup; R065 closure
   check per `plan.md § Approval and closure` - each acceptance

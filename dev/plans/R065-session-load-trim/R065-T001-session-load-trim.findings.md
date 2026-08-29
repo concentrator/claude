@@ -7,10 +7,10 @@ imports), measured with `wc -w` at the branch base and at close:
 
 | File | Before | After |
 |---|---|---|
-| `CLAUDE.md` | 392 | 394 |
+| `CLAUDE.md` | 392 | 427 (78 lines, cap 100) |
 | `writing.md` | 637 | 227 |
 | `delegation.md` | 149 | deleted |
-| every session | 1178 | 621 |
+| every session | 1178 | 654 |
 | `rules/git-workflow.md` (this repository, always-on) | 90 | deleted |
 | `rules/writing-artifacts.md` (on Markdown reads and edits) | - | 466 |
 
