@@ -42,8 +42,7 @@ What agents author.
     │   │   ├── <task-id>-<slug>.md
     │   │   ├── <task-id>-<slug>.findings.md
     │   │   └── batches/
-    │   ├── archive/
-    │   └── visual-artifacts/
+    │   └── archive/
     └── docs/                     # internal feature docs (§ Docs)
         └── *.md
 
@@ -76,8 +75,7 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 - **Lazy** (created on first use): `.claude/adr/`,
   `.claude/references/`, `dev/docs/`,
   `dev/plans/R<NNN>-<slug>/tasks.md` and `batches/` (`plan.md
-  § Levels`, `§ Directory conventions`), `dev/plans/archive/`,
-  `dev/plans/visual-artifacts/` (gitignored session artifacts).
+  § Levels`, `§ Directory conventions`), `dev/plans/archive/`.
 
 ## Disallowed in both trees
 

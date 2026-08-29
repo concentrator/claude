@@ -33,7 +33,7 @@ records the fact today and the runbook copy is the duplicate.
 
 ## Commits
 
-- [ ] Delete `companions/visual-companion.md` and `companions/scripts/`;
+- [x] Delete `companions/visual-companion.md` and `companions/scripts/`;
   drop the offer at `brainstorm.md` step 3 and the `server.cjs` line
   in `scripts/ci/code-size-allow.txt`
 - [ ] Drop `dev/plans/visual-artifacts/` from `layout.md` (tree and the
