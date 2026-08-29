@@ -31,7 +31,7 @@ expands regardless of directory.
 
 ## Commits
 
-- [ ] Project prefix per § Terms with the old-form removal;
+- [x] Project prefix per § Terms with the old-form removal;
   `scripts/test/install-dev.test.sh`: project install writes the
   `$CLAUDE_PROJECT_DIR` form for all three hooks, a re-install over a
   settings file holding the relative form ends with one entry per hook

@@ -40,21 +40,28 @@ done
 
 # 3. hooks: copy + register the branch-guard and the secrets guard
 #    (PreToolUse) and the branch-state line (UserPromptSubmit)
-#    (idempotent; preserve everything else in settings.json)
-if [ "$scope" = global ]; then hp="~/.claude/hooks"; else hp=".claude/hooks"; fi
+#    (idempotent; preserve everything else in settings.json).
+#    A hook command runs in the session's cwd, so the project form is
+#    "$CLAUDE_PROJECT_DIR"/.claude/hooks/<name> (the root Claude Code sets
+#    for every hook) and `~` expands anywhere; an entry in the relative
+#    form `.claude/hooks/<name>`, which resolves only from the project
+#    root, is replaced.
+if [ "$scope" = global ]; then hp="~/.claude/hooks"; else hp='"$CLAUDE_PROJECT_DIR"/.claude/hooks'; fi
 settings="$target/settings.json"
 [ -f "$settings" ] || echo '{}' > "$settings"
 
 register_hook() {   # $1 = hook script basename
   cp "$SRC/hooks/$1" "$target/hooks/$1"
   chmod +x "$target/hooks/$1"
-  local cmd="$hp/$1" tmp; tmp="$(mktemp)"
-  if jq --arg cmd "$cmd" '
-    if ([.hooks.PreToolUse[]?.hooks[]?.command] | any(. == $cmd)) then .
-    else .hooks.PreToolUse = ((.hooks.PreToolUse // []) + [
-      {matcher: "Write|Edit|NotebookEdit", hooks: [{type: "command", command: $cmd}]},
-      {matcher: "Bash", hooks: [{type: "command", command: $cmd}]}
-    ]) end
+  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
+  if jq --arg cmd "$cmd" --arg old "$old" '
+    .hooks.PreToolUse = [(.hooks.PreToolUse // [])[]
+      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
+    | if ([.hooks.PreToolUse[].hooks[].command] | any(. == $cmd)) then .
+      else .hooks.PreToolUse += [
+        {matcher: "Write|Edit|NotebookEdit", hooks: [{type: "command", command: $cmd}]},
+        {matcher: "Bash", hooks: [{type: "command", command: $cmd}]}
+      ] end
   ' "$settings" > "$tmp"; then
     mv "$tmp" "$settings"
   else
@@ -65,12 +72,12 @@ register_hook() {   # $1 = hook script basename
 register_state_hook() {   # $1 = hook script basename; UserPromptSubmit, no matcher
   cp "$SRC/hooks/$1" "$target/hooks/$1"
   chmod +x "$target/hooks/$1"
-  local cmd="$hp/$1" tmp; tmp="$(mktemp)"
-  if jq --arg cmd "$cmd" '
-    if ([.hooks.UserPromptSubmit[]?.hooks[]?.command] | any(. == $cmd)) then .
-    else .hooks.UserPromptSubmit = ((.hooks.UserPromptSubmit // []) + [
-      {hooks: [{type: "command", command: $cmd}]}
-    ]) end
+  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
+  if jq --arg cmd "$cmd" --arg old "$old" '
+    .hooks.UserPromptSubmit = [(.hooks.UserPromptSubmit // [])[]
+      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
+    | if ([.hooks.UserPromptSubmit[].hooks[].command] | any(. == $cmd)) then .
+      else .hooks.UserPromptSubmit += [{hooks: [{type: "command", command: $cmd}]}] end
   ' "$settings" > "$tmp"; then
     mv "$tmp" "$settings"
   else

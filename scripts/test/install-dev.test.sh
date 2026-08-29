@@ -129,6 +129,47 @@ jq -e '[.hooks.UserPromptSubmit[]?.hooks[]?.command] | any(test("dev-branch-stat
 jq -e '.model == "x"' "$P/.claude/settings.json" >/dev/null && pass "pre-existing setting survives" || die "clobbered model"
 jq -e '.hooks.PostToolUse[0].matcher == "Skill"' "$P/.claude/settings.json" >/dev/null && pass "pre-existing PostToolUse survives" || die "clobbered PostToolUse"
 
+# --- project-tier hooks register by $CLAUDE_PROJECT_DIR: a hook command runs
+# in the session's cwd, so only this form resolves after a cd ---
+PFX='"$CLAUDE_PROJECT_DIR"/.claude/hooks'
+for h in dev-branch-guard dev-secrets-guard; do
+  n=$(jq --arg c "$PFX/$h.sh" '[.hooks.PreToolUse[]?.hooks[]?.command | select(. == $c)] | length' "$P/.claude/settings.json")
+  [ "$n" = "2" ] && pass "$h registered by \$CLAUDE_PROJECT_DIR (2 matchers)" || die "$h: $n \$CLAUDE_PROJECT_DIR entries"
+done
+n=$(jq --arg c "$PFX/dev-branch-state.sh" '[.hooks.UserPromptSubmit[]?.hooks[]?.command | select(. == $c)] | length' "$P/.claude/settings.json")
+[ "$n" = "1" ] && pass "dev-branch-state registered by \$CLAUDE_PROJECT_DIR" || die "dev-branch-state: $n \$CLAUDE_PROJECT_DIR entries"
+
+# --- a settings file holding the relative form ends with one entry per hook
+# and matcher in the new form, and none in the old ---
+O=$(mktemp -d); mkdir -p "$O/.claude"
+jq -n '{hooks:{PreToolUse:[
+  {matcher:"Write|Edit|NotebookEdit",hooks:[{type:"command",command:".claude/hooks/dev-branch-guard.sh"}]},
+  {matcher:"Bash",hooks:[{type:"command",command:".claude/hooks/dev-branch-guard.sh"}]},
+  {matcher:"Write|Edit|NotebookEdit",hooks:[{type:"command",command:".claude/hooks/dev-secrets-guard.sh"}]},
+  {matcher:"Bash",hooks:[{type:"command",command:".claude/hooks/dev-secrets-guard.sh"}]}],
+  UserPromptSubmit:[{hooks:[{type:"command",command:".claude/hooks/dev-branch-state.sh"}]}]}}' > "$O/.claude/settings.json"
+bash "$INSTALL" --project "$O" >/dev/null 2>&1 || die "install over the relative form exits nonzero"
+old=$(jq '[.. | strings | select(startswith(".claude/hooks/"))] | length' "$O/.claude/settings.json")
+[ "$old" = "0" ] && pass "relative hook entries removed on re-install" || die "$old relative hook entries remain"
+n=$(jq '[.hooks.PreToolUse[]?.hooks[]?.command] | length' "$O/.claude/settings.json")
+[ "$n" = "4" ] && pass "one PreToolUse entry per hook and matcher after re-install" || die "PreToolUse holds $n entries after re-install"
+n=$(jq '[.hooks.UserPromptSubmit[]?.hooks[]?.command] | length' "$O/.claude/settings.json")
+[ "$n" = "1" ] && pass "one UserPromptSubmit entry after re-install" || die "UserPromptSubmit holds $n entries after re-install"
+rm -rf "$O"
+
+# --- the registered command fires from a subdirectory: a trunk write is
+# still denied after the session has cd'd away from the project root ---
+S=$(mktemp -d); git -C "$S" init -q -b main
+printf 'x\n' > "$S/f.sh"; git -C "$S" add -A; git -C "$S" -c user.email=t@t -c user.name=t commit -qm init
+bash "$INSTALL" --project "$S" >/dev/null 2>&1 || die "install (subdirectory fixture) exits nonzero"
+mkdir -p "$S/sub"
+cmd=$(jq -r '[.hooks.PreToolUse[]?.hooks[]?.command | select(test("dev-branch-guard"))][0]' "$S/.claude/settings.json")
+j=$(jq -nc --arg p "$S/f.sh" '{tool_name:"Write",tool_input:{file_path:$p,content:"y"}}')
+out=$(cd "$S/sub" && printf '%s' "$j" | CLAUDE_PROJECT_DIR="$S" bash -c "$cmd" 2>/dev/null)
+grep -q '"permissionDecision":"deny"' <<<"$out" && pass "registered guard denies a trunk write from a subdirectory" \
+  || die "registered guard did not fire from a subdirectory: $cmd"
+rm -rf "$S"
+
 # --- idempotent: re-run adds no duplicate branch-guard blocks ---
 bash "$INSTALL" --project "$P" >/dev/null 2>&1
 n=$(jq '[.hooks.PreToolUse[]? | select(any(.hooks[]?.command; test("dev-branch-guard")))] | length' "$P/.claude/settings.json")
