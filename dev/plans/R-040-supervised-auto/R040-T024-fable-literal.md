@@ -25,7 +25,7 @@ they no longer describe the endpoint.
   policy line matching the fixture string - one `grep` for `"Fable 5"`
   over `skills/` and `scripts/` prints nothing.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`; the gate, called as this branch
   writes it, decides its model), Tier-2 compliance review, `bash
   scripts/ci/run-all.sh` green, cleanup, mark plan complete, commit.
