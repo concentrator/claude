@@ -48,7 +48,7 @@ in the order listed until `check-caps.sh` passes:
 
 ## Plan
 
-- [ ] Split `writing.md`: `rules/writing-artifacts.md` with
+- [x] Split `writing.md`: `rules/writing-artifacts.md` with
   `paths: ["**/*.md"]` takes the five artifact sections verbatim
   (State the present, One home per finding, One home per number,
   Name things by their durable id, Bulk edits) and a one-line intro;
