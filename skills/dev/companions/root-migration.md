@@ -11,8 +11,8 @@ Inventory, then report - touching nothing:
 
 - **Move set** - the `.claude/`-resident artifact trees, listed per
   top-level entry: `.claude/plans/` → `dev/plans/` (ROADMAP.md,
-  release plans, `R<NNN>-<slug>/` dirs, `archive/`,
-  `visual-artifacts/`) and `.claude/docs/` → `dev/docs/` (feature
+  release plans, `R<NNN>-<slug>/` dirs, `archive/`) and
+  `.claude/docs/` → `dev/docs/` (feature
   docs + `index.md`). Config stays under `.claude/`: `REQUIREMENTS.md`,
   `DESIGN.md`, `MAINTENANCE.md`, `settings*.json`, `skills/`,
   `rules/`, `commands/`, `agents/`, `hooks/`, `references/`, `adr/`.
@@ -25,10 +25,9 @@ Inventory, then report - touching nothing:
   `dev/docs/`: a partial earlier migration). Report each; § 2 refuses
   to move onto it - merge, rename, or abort is the user's call.
 - **Gaps** - a `- DEV artifacts root:` line in `CLAUDE.md § Agent
-  toolchain`, which `scripts/ci/check-plan-integrity.sh` rejects; a `.gitignore` entry for
-  `dev/plans/visual-artifacts/` where the moved tree contains
-  `plans/visual-artifacts/`; untracked mode, where `dev/` must be
-  gitignored too (`untracked-claude.md § Detection`).
+  toolchain`, which `scripts/ci/check-plan-integrity.sh` rejects;
+  untracked mode, where `dev/` must be gitignored too
+  (`untracked-claude.md § Detection`).
 
 Present the full report; **block on user approval**.
 
