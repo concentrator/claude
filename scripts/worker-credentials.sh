@@ -5,6 +5,8 @@
 # surface because they are the part a mistake leaks.
 set -uo pipefail
 
+gitlab_host() { printf '%s' "${GITLAB_HOST:-gl.wallarm.com}"; }
+
 # Runs ON the VM. A distinct key per forge, because one key shared across both
 # means revoking access to either revokes both. No passphrase: a worker cannot
 # answer a prompt, and the protection that matters here is that the box is
@@ -61,9 +63,17 @@ keys_verify() {
 # config clone - the operator places it. Values are read, never echoed: this
 # output reaches transcripts and shell history.
 forge_cli() {
-  local dry=0
-  [ "${1:-}" = "--dry-run" ] && dry=1
+  local dry=0 checkout=""
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --dry-run) dry=1 ;;
+      *) checkout="$1" ;;
+    esac
+    shift
+  done
   local envf="$HOME/.claude/.env"
+  local host
+  host=$(gitlab_host)
 
   # A value, not a line. .env.example ships both names empty for the operator to
   # fill, so testing for the name alone reports a token the real run then finds
@@ -72,21 +82,43 @@ forge_cli() {
   if [ -f "$envf" ]; then
     grep -qE '^GITLAB_TOKEN=[^[:space:]]' "$envf" && have_gl=yes
     grep -qE '^GITHUB_TOKEN=[^[:space:]]' "$envf" && have_gh=yes
+    if [ "$dry" -eq 1 ]; then
+      host=$(sed -n 's/^GITLAB_HOST=\([^[:space:]]\{1,\}\).*/\1/p' "$envf" | head -1)
+      host="${host:-$(gitlab_host)}"
+    fi
   fi
 
   if [ "$dry" -eq 1 ]; then
     printf 'forge-cli would:\n'
     printf '  - install glab and gh (API layer only; git itself rides the SSH keys)\n'
     printf '  - read GITLAB_TOKEN and GITHUB_TOKEN from %s (values never printed)\n' "$envf"
-    printf '  - glab auth login --stdin, then verify with glab auth status\n'
-    printf '  - gh auth login --with-token, then verify with gh auth status\n'
+    printf '  - glab auth login --hostname %s --stdin, then verify with glab api user\n' "$host"
+    printf '  - export GITHUB_TOKEN for gh (it needs no login), then verify with gh api user\n'
     printf '  - token present: GITLAB_TOKEN=%s GITHUB_TOKEN=%s\n' "$have_gl" "$have_gh"
+    [ -n "$checkout" ] \
+      && printf '  - glab repo view in %s: the login must resolve the remote there\n' "$checkout"
     [ "$have_gh" = no ] && printf '  - note: no GITHUB_TOKEN. Not fatal - a worker delivering only GitLab\n    work never needs one; it gates gh pr create and merge.\n'
     return 0
   fi
 
   forge_install || return 1
-  forge_auth
+  forge_auth || return 1
+  [ -n "$checkout" ] || return 0
+  [ -d "$checkout" ] || { printf 'forge-cli: %s is not a directory\n' "$checkout" >&2; return 2; }
+  forge_check "$checkout"
+}
+
+# The identity check in forge_auth passes on the token alone; only a repo-relative
+# call proves glab can resolve the checkout's remote to a host it has logged in
+# to, and that is the call a worker makes at MR create. Exit status only: the
+# output is the project's metadata, which is not what the operator is reading
+# for.
+forge_check() {
+  local dir="$1"
+  [ -n "${GITLAB_TOKEN:-}" ] || return 0
+  ( cd "$dir" && glab repo view --output json >/dev/null 2>&1 ) && return 0
+  printf 'glab: cannot resolve %s from the remote of %s, so MR create fails there\n' "$(gitlab_host)" "$dir" >&2
+  return 1
 }
 
 
@@ -121,10 +153,6 @@ forge_install() {
 
 }
 
-# Authenticate, and make the tokens reach a worker session - not just this
-# shell. Verification is scoped to the instance in question and reports the
-# identity: `glab auth status` checks every configured instance and fails if
-# any one does, which produced a false negative here while real calls worked.
 # Two identities, because a supervised commit has two facts to state. The
 # author is the human whose work it is; the committer says how it was applied.
 # git honours committer.* independently of user.*, so `git log --author`,
@@ -154,6 +182,14 @@ git_identity() {
     "$(git config --global --get user.name)" "$(git config --global --get committer.name)"
 }
 
+# Authenticate, and make the tokens reach a worker session - not just this
+# shell. glab needs a login as well as the token: an exported GITLAB_TOKEN
+# satisfies `glab api user --hostname`, but a repo-relative call resolves the
+# host from the checkout's remote against the hosts glab has logged in to, and
+# with none it fails - after the batch, at MR create. Verification is scoped to
+# the instance in question and reports the identity: `glab auth status` checks
+# every configured instance and fails if any one does, which produced a false
+# negative here while real calls worked.
 forge_auth() {
   local envf="$HOME/.claude/.env"
   if [ ! -f "$envf" ]; then
@@ -173,11 +209,14 @@ forge_auth() {
 
   git_identity "$envf" || return 1
 
-  local who
+  local who host
+  host=$(gitlab_host)
   if [ -n "${GITLAB_TOKEN:-}" ]; then
-    who=$(glab api user --hostname gl.wallarm.com 2>/dev/null | jq -r '.username // empty')
-    [ -n "$who" ] && printf 'glab: authenticated to gl.wallarm.com as %s\n' "$who" \
-                  || { printf 'glab: NOT authenticated to gl.wallarm.com\n' >&2; return 1; }
+    printf '%s' "$GITLAB_TOKEN" | glab auth login --hostname "$host" --stdin >/dev/null 2>&1 \
+      || { printf 'glab: login to %s failed\n' "$host" >&2; return 1; }
+    who=$(glab api user --hostname "$host" 2>/dev/null | jq -r '.username // empty')
+    [ -n "$who" ] && printf 'glab: authenticated to %s as %s\n' "$host" "$who" \
+                  || { printf 'glab: NOT authenticated to %s\n' "$host" >&2; return 1; }
   fi
   if [ -n "${GITHUB_TOKEN:-}" ]; then
     who=$(gh api user 2>/dev/null | jq -r '.login // empty')
@@ -193,7 +232,7 @@ main() {
     keys)        shift; keys "$@" ;;
     keys-verify) keys_verify ;;
     forge-cli)   shift; forge_cli "$@" ;;
-    *) printf 'usage: worker-credentials.sh keys | forge-cli [--dry-run] | keys-verify\n' >&2; return 2 ;;
+    *) printf 'usage: worker-credentials.sh keys | forge-cli [--dry-run] [<checkout>] | keys-verify\n' >&2; return 2 ;;
   esac
 }
 

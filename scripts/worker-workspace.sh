@@ -86,6 +86,8 @@ project_clone() {
     printf '    dependency is file:../wallarm-api-js, so npm ci fails without it\n'
     printf '  - npm ci in the project\n'
     printf '  - run the project gate (npm test, npm run lint) as the acceptance\n'
+    printf '  - worker-credentials.sh forge-cli %s/%s: glab repo view there proves\n' "$root" "$(basename "$proj")"
+    printf '    the login resolves the remote, which forge-cli alone cannot\n'
     return 0
   fi
 
@@ -106,6 +108,9 @@ project_clone() {
     && printf 'project-clone: npm test green\n' || { printf 'project-clone: npm test FAILED\n' >&2; return 1; }
   ( cd "$root/$(basename "$proj")" && npm run lint >/dev/null 2>&1 ) \
     && printf 'project-clone: npm run lint clean\n' || { printf 'project-clone: lint FAILED\n' >&2; return 1; }
+  # The checkout is born here, after forge-cli's own step, so this is where the
+  # login is proven against a remote. Install and login are safe to repeat.
+  bash "$(dirname "${BASH_SOURCE[0]}")/worker-credentials.sh" forge-cli "$root/$(basename "$proj")"
 }
 
 # Runs ON the VM. Writes the project's .claude/settings.local.json, which is

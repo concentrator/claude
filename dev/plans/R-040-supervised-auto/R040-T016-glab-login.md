@@ -32,26 +32,26 @@ check it does run is the one shape that cannot detect the omission.
 
 ## Commits
 
-- [ ] `forge_auth` runs Login before its identity check and the dry-run
+- [x] `forge_auth` runs Login before its identity check and the dry-run
   text names Login and the identity check as what runs.
   `scripts/test/worker-workspace.test.sh`: a stub `glab` on `PATH`
   records its argv and stdin; the real run calls `auth login` with
   `--hostname` and `--stdin`, the token reaches stdin and never argv
   (the leak canary of case 23 applied to the argv log), and the dry run
   names the login.
-- [ ] `forge-cli` takes an optional project checkout path and, when
+- [x] `forge-cli` takes an optional project checkout path and, when
   given one and `GITLAB_TOKEN` is set, runs the Repo-relative check
   there, failing with one line naming the host when it fails.
   `project_clone` (`scripts/worker-workspace.sh`) ends by running
   `worker-credentials.sh forge-cli <fresh checkout>`: the checkout is
   born there, after `forge-cli`'s own step in the provisioning order,
-  and the install and login it repeats are no-ops on a provisioned host.
+  and the install and login it repeats are idempotent.
   Test: the stub `glab` fails `repo view` and the run reports the host;
   succeeds and the run stays silent; `project-clone --dry-run` names
   the check. `skills/worker-host/companions/provisioning.md` step 9
   states the login, step 10 the in-checkout check.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.
