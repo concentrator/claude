@@ -119,10 +119,10 @@ GitHub Docs.
 ## Self-enforcement
 
 Two tiers gate every change into `main` (the CI tiers are built for
-`~/.claude`; the PreToolUse hooks ship to adopters via `install-dev.sh`):
+`~/.claude`; the hooks ship to adopters via `install-dev.sh`):
 
 - **Tier-1 - mechanical CI.** `scripts/ci/*.sh`, and the script tests in
-  `scripts/test/`, run together in `.github/workflows/ci.yml` on
+  `scripts/test/`, run in `.github/workflows/ci.yml` on
   `pull_request` and locally in the advisory `.githooks/pre-push` via
   `core.hooksPath`; either failing blocks the push or the merge. They
   hard-fail a PR on:
@@ -134,7 +134,7 @@ Two tiers gate every change into `main` (the CI tiers are built for
   hook predicate), a stale or unresolvable batch ref
   (`check-batch-tags`, local-only: skips where refs are hidden), or an
   unconfigured context budget (`check-settings`). `main` is protected: a
-  merge needs a PR with `tier1` green and `enforce_admins` is on, so
+  merge needs a PR with `tier1` green and `enforce_admins` on, so
   `gh pr merge` merges only on green, admins included.
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
   concerns to the diff at branch close (`skills/dev/branch-plan.md
@@ -142,7 +142,8 @@ Two tiers gate every change into `main` (the CI tiers are built for
 
 PreToolUse hooks (`dev-branch-guard`, `dev-secrets-guard`) guard ahead
 of both tiers: no trunk writes, commits, pushes or force pushes, no
-secrets into tracked files or commits. `dev-branch-state`
+secrets into tracked files or commits; the secrets guard fails closed
+without its pattern library. `dev-branch-state`
 (UserPromptSubmit) keeps branch and tree state in front of the session;
 `dev-precompact-state` (PreCompact) saves it to the session file for
 the re-brief after compaction (`skills/dev/handoff.md`).

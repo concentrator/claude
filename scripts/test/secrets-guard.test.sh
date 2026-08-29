@@ -2,9 +2,10 @@
 # Tests hooks/dev-secrets-guard.sh - the PreToolUse secrets guard. Covers the
 # Write/Edit/NotebookEdit paths, the gitignore-allow and inline-override
 # escapes, the git add / commit scan paths (including the -am and compound
-# add+commit cases), the pattern set, and fail-open on malformed input and a
-# missing jq. Fixture secrets are assembled at runtime so no matchable literal
-# lives in this tracked source. Run: bash scripts/test/secrets-guard.test.sh
+# add+commit cases), the pattern set, fail-open on malformed input and a
+# missing jq, and fail-closed on a missing pattern library. Fixture secrets
+# are assembled at runtime so no matchable literal lives in this tracked
+# source. Run: bash scripts/test/secrets-guard.test.sh
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
@@ -121,6 +122,16 @@ out=$(printf '%s' "$j" | PATH="$BINDIR" "$(command -v bash)" "$HOOK" 2>/dev/null
 printf '%s' "$out" | grep -q '"permissionDecision":"deny"' && r=deny || r=allow
 [ "$r" = allow ] && pass "missing jq fails open" || die "missing jq did not fail open"
 rm -rf "$BINDIR"
+
+# --- fail closed: no secret-patterns.sh beside the hook -> deny, one stderr line ---
+L=$(mktemp -d); cp "$HOOK" "$L/dev-secrets-guard.sh"
+j=$(jq -nc '{tool_name:"Write",tool_input:{file_path:"a.sh",content:"echo hello world"}}')
+out=$(printf '%s' "$j" | bash "$L/dev-secrets-guard.sh" 2>/dev/null)
+err=$(printf '%s' "$j" | bash "$L/dev-secrets-guard.sh" 2>&1 >/dev/null)
+grep -q '"permissionDecision":"deny"' <<<"$out" && pass "missing secret-patterns.sh denies" || die "missing secret-patterns.sh did not deny"
+[ "$err" = "dev-secrets-guard: secret-patterns.sh missing beside the hook; denying" ] \
+  && pass "missing library reports one stderr line" || die "stderr on missing library: '$err'"
+rm -rf "$L"
 
 (( fail == 0 )) && echo "secrets-guard.test: OK"
 exit $fail

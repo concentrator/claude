@@ -252,7 +252,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       is `plan.md § ID format`.
 - [x] R062: Headroom in plan.md - superseded by R066, whose citation
       of the layout tree from `plan.md` freed the room.
-- [ ] R063: Tier-2 review text and guard fail-closed - runnable review
+- [x] R063: Tier-2 review text and guard fail-closed - runnable review
       clauses citing their owners; hook guards that run from any
       directory and fail closed.
 - [x] R064: Fixed dev/ home - `dev/` is the one home of DEV artifacts

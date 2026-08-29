@@ -21,8 +21,10 @@ keeps credentials out of tracked files and out of history.
 - a `git add` / `git commit` whose content carries secret-shaped strings.
 
 A local, gitignored `.env` is never flagged - the guard only inspects
-tracked paths and staged content. The hook fails open: on any internal
-error it allows the action rather than blocking legitimate work.
+tracked paths and staged content. The hook fails open on a missing `jq`
+or malformed input, allowing the action rather than blocking legitimate
+work; it fails closed, with one stderr line, when `secret-patterns.sh` is
+missing beside it.
 
 ### Patterns
 

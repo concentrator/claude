@@ -4,8 +4,9 @@
 # tool-call JSON on stdin; emits a PreToolUse "deny" when a Write/Edit to a
 # non-gitignored path, or a git add/commit, carries a secret pattern. Allows
 # a gitignored path (e.g. a local .env), clean content, and any line marked
-# `secrets-guard: allow`. Fails open (exit 0, no decision) on any internal
-# error - jq missing, malformed input, or git unavailable.
+# `secrets-guard: allow`. Fails closed - one stderr line, then deny - when
+# secret-patterns.sh beside it is missing or fails to source; fails open
+# (exit 0, no decision) on a missing jq or malformed input.
 set -uo pipefail
 set -f   # no globbing (commit-flag scan word-splits the command)
 
@@ -19,9 +20,14 @@ deny() {
   exit 0
 }
 
-# has_secret() lives in secret-patterns.sh beside this hook (one home);
-# unreadable -> fail open.
-. "$(dirname "${BASH_SOURCE[0]}")/secret-patterns.sh" 2>/dev/null || exit 0
+# has_secret() lives in secret-patterns.sh beside this hook (one home).
+# Without it the guard cannot judge, and a silent allow would pass every
+# secret, so this one path fails closed and says why.
+if ! . "$(dirname "${BASH_SOURCE[0]}")/secret-patterns.sh" 2>/dev/null; then
+  msg="dev-secrets-guard: secret-patterns.sh missing beside the hook; denying"
+  echo "$msg" >&2
+  deny "$msg"
+fi
 
 # Cats untracked, non-ignored, regular files (skips symlinks and files over
 # ~1MB) so a `git add` of a new file is scanned without traversing symlinked
