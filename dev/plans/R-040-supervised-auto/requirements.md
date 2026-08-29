@@ -22,14 +22,13 @@ hard floor.
 
 - **Supervisor role**: one repo-less, machine-agnostic agent in its
   own context, supervising a declared portfolio of projects
-  (`~/.claude/supervisor/portfolio.md` - per project: path, host,
-  worker transport; config only, never state). It drives one headless
-  Claude Code worker session per project under that project's declared
-  transport - `local` (beside the supervisor, wherever it runs;
-  default) or `ssh <target>` (a remote machine); switching is a
-  one-line portfolio edit. Workers carry all repo identity and do all
-  in-repo work; the supervisor dispatches, monitors, and collects
-  outcomes - it never implements.
+  (`~/.claude/supervisor/portfolio.md` - per project: path, host;
+  config only, never state). It drives one Claude Code worker session
+  per project beside itself - both on the operator's machine, or both
+  on a worker host the operator reaches over SSH
+  (`companions/supervisor-runbook.md § Two variants`). Workers carry
+  all repo identity and do all in-repo work; the supervisor
+  dispatches, monitors, and collects outcomes - it never implements.
 - **Delegated delivery within declared bounds** - default: deliver
   green `plan/` MRs and green batch/member MRs whose checkpoint report
   verifies the acceptance criteria (the approved plan is the decision;
@@ -72,8 +71,8 @@ hard floor.
   merges).
 - Self-expansion: the supervisor never edits its own bounds or the
   conventions governing it - those changes always escalate.
-- Cloud-vendor execution environments - the remote transport is SSH
-  to owned machines only.
+- Cloud-vendor execution environments - a worker host is an owned
+  machine reached over SSH.
 - Parallelism within a batch (R-004; compose later).
 
 ## User experience
@@ -97,9 +96,8 @@ hard floor.
       supervisor refuses any action outside it and escalates instead.
 - [ ] The supervisor runs a full batch lifecycle unattended on a
       worker session: dispatch, monitor, checkpoint verification
-      (report + criteria + gates), delivery of a green MR - under either
-      transport; switching a project's transport is a one-line
-      portfolio change.
+      (report + criteria + gates), delivery of a green MR - in either
+      runbook variant.
 - [ ] Escalations queue with context sufficient to resolve without
       reading raw transcripts; a sync empties the queue.
 - [ ] A worker's implementation question is resolved by the
@@ -128,10 +126,10 @@ hard floor.
 
 ## Constraints
 
-- Worker sessions run headless Claude Code under the project's
-  declared permissions (`companions/auto-permissions.template.json` +
+- Worker sessions run Claude Code under the project's declared
+  permissions (`companions/auto-permissions.template.json` +
   `CLAUDE.md § Agent toolchain`), exactly as `/dev auto` pre-flights -
-  under either transport.
+  in either runbook variant.
 - The supervisor's context stays implementation-free (reports and
   states, not diffs by default) so one supervisor spans many sessions;
   a worker's question arrives with the excerpt needed to answer it,
@@ -147,8 +145,6 @@ hard floor.
 
 ## Open questions
 
-- Session lifetime: one remote session per batch, or a persistent
-  worker per project?
 - Supervisor continuity across its own context limits (handoff
   protocol).
 
