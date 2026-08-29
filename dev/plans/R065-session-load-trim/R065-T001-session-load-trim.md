@@ -87,6 +87,11 @@ in the order listed until `check-caps.sh` passes:
 - [x] Findings: `R065-T001-session-load-trim.findings.md` records the
   words loaded unconditionally (`CLAUDE.md` + imports) before and
   after, and the table above checked row by row.
+- [ ] `CLAUDE.md` cap in lines: `check-caps.sh` checks `CLAUDE.md` at
+  100 lines or fewer, replacing the 200-line and 400-word checks.
+- [ ] `CLAUDE.md` § Code Comments says a comment explains what the code
+  cannot show; the supervisor declarations split into their declared
+  two lines (`Supervisor bounds`, `Operator mode`; `AI operated` kept).
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose and config rows: `code-reviewer`), Tier-2 compliance

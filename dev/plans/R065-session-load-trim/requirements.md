@@ -52,6 +52,10 @@ artifact rules only through that import.
 - Every citation of a moved section (State the present and the
   others, in skills and script headers) points at
   `rules/writing-artifacts.md § <section>`.
+- `CLAUDE.md`'s cap is 100 lines (`scripts/ci/check-caps.sh`); the
+  400-word cap is retired. `CLAUDE.md § Code Comments` states that a
+  comment explains what the code cannot show, and the supervisor
+  declarations take their declared two-line form.
 
 ## Invariants
 
@@ -64,9 +68,7 @@ artifact rules only through that import.
   losing it.
 - No rule is lost or duplicated: each moved sentence has exactly one
   home (`rules/claude-md.md § No duplication`).
-- `CLAUDE.md` stays within its 400-word cap
-  (`scripts/ci/check-caps.sh`); the added lines are paid for by trims
-  elsewhere in the file.
+- `CLAUDE.md` stays within its cap (`scripts/ci/check-caps.sh`).
 - The em-dash gate and the accretion check keep citing the section
   that owns their rule.
 - The personal rules (`claude-md.md`, `js.md`, `skills.md`) stay
