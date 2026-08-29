@@ -41,7 +41,7 @@ git -C "$R" commit -qam "tick one"
 printf 'dirty\n' > "$R/tracked.sh"
 cd "$R"
 
-out=$(printf '{"session_id":"s1","compaction_trigger":"auto"}' | bash "$HOOK" 2>/dev/null)
+out=$(printf '{"session_id":"s1","trigger":"auto"}' | bash "$HOOK" 2>/dev/null)
 f="$R/dev/session/s1.md"
 [ -f "$f" ] && pass "state file per session under dev/session/" || die "no state file at $f"
 case "$out" in session-state:*s1.md) pass "hook names the file" ;; *) die "unexpected stdout: $out" ;; esac
@@ -52,7 +52,7 @@ grep -q '^- branch: work$' "$f" && pass "branch recorded" || die "branch missing
 grep -q '^- status: .*M tracked.sh' "$f" && pass "uncommitted path recorded" || die "status missing"
 grep -q '^- plan: dev/plans/R/T1.md line 3: - \[ \] open two$' "$f" && pass "first open plan item and its line" || die "plan item missing: $(grep plan: "$f")"
 
-printf '{"session_id":"s1","compaction_trigger":"manual"}' | bash "$HOOK" >/dev/null 2>&1
+printf '{"session_id":"s1","trigger":"manual"}' | bash "$HOOK" >/dev/null 2>&1
 [ "$(grep -c '^## tree ' "$f")" -eq 2 ] && [ "$(grep -c '^# session' "$f")" -eq 1 ] \
   && pass "second compaction appends under one header" || die "append failed: $(grep -c '^## tree ' "$f") blocks"
 grep -q '^- trigger: manual$' "$f" && pass "manual trigger recorded" || die "manual trigger missing"
@@ -60,6 +60,7 @@ grep -q '^- trigger: manual$' "$f" && pass "manual trigger recorded" || die "man
 out=$(printf '{}' | bash "$HOOK" 2>/dev/null)
 ck=$(printf '%s' "$R" | cksum | cut -d' ' -f1)
 [ -f "$R/dev/session/$ck.md" ] && pass "repository-keyed file without a session id" || die "no $ck.md in: $(ls "$R/dev/session")"
+grep -q '^- trigger: unknown$' "$R/dev/session/$ck.md" && pass "absent trigger falls back to unknown" || die "unknown fallback missing"
 
 out=$(printf '{"session_id":"s4"}' | bash "$HOOK" --path 2>/dev/null)
 [ "$out" = "$R/dev/session/s4.md" ] && [ ! -f "$R/dev/session/s4.md" ] && pass "--path names the file without writing it" || die "--path: $out"
