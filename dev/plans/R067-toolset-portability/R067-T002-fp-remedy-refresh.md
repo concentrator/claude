@@ -17,7 +17,7 @@ Cyrillic, which is what the host checks.
 
 ## Commits
 
-- [ ] In fp-remedy, on `mnt/toolset-refresh`: `bash
+- [x] In fp-remedy, on `mnt/toolset-refresh`: `bash
   ~/.claude/scripts/install-dev.sh --project
   /Users/skywalker/wallarm-claude/fp-remedy` from a toolset checkout at
   or after R067-T001; confirm the only change is
@@ -26,9 +26,9 @@ Cyrillic, which is what the host checks.
   its gate `bash .claude/scripts/ci/run-all.sh` green; commit there as
   "Refresh the accretion self-test from its fixed source"; push; MR;
   poll `glab mr view <n> -F json` to green; merge on the user's word.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`, citing the
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`, citing the
   MR id.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (bookkeeping only here keys no review row; the fp-remedy MR
   carries the diff), `bash scripts/ci/run-all.sh` green, mark plan
   complete, commit. R067-T002 is the R's last task: the closure check
