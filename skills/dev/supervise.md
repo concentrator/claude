@@ -103,14 +103,12 @@ for supervisor and worker alike: `handoff.md`.
 Within a declared grant, a worker halting on an implementation
 question - a NEEDS_CONTEXT, a choice between offered options, a spec
 ambiguity - gets the supervisor's resolution on the plan's and
-requirements' terms, the best option advised where possible, and the
-member resumes. The question arrives with the excerpt needed to
-answer it, never a diff or transcript. The decision split and its
-fail-safe are the bounds home's (`companions/declarations.md
-§ Supervisor bounds`): a design-touching or unclassifiable question is
-never answered - it escalates. The worker carries each received
-answer into the report's `## Supervisor decisions` section when the
-checkpoint writes it.
+requirements' terms, and the member resumes. The question arrives with
+the excerpt needed to answer it, never a diff or transcript; a
+design-touching or unclassifiable question escalates
+(`companions/declarations.md § Supervisor bounds`). The worker carries
+each answer into the report's `## Supervisor decisions` section at
+checkpoint.
 
 ## Boundary verification - existing gates only
 
@@ -118,12 +116,10 @@ At a checkpoint, before the MR/PR is handed over:
 
 1. `R<NNN>-B<NNN>.report.md` exists - no report, no accept (`auto.md`).
 2. The report verifies each member's acceptance criteria.
-3. `batch/R<NNN>-B<NNN>` has moved off `pre-R<NNN>-B<NNN>`. One
-   `git log -1` on each. Still equal while the member work is
-   complete means no member branch ever merged in, so the work
-   travelled some other route - and every gate that route skipped is
-   unrun. Check it before the gates below, because a green pipeline on
-   the wrong branch proves nothing about what reached trunk.
+3. `batch/R<NNN>-B<NNN>` has moved off `pre-R<NNN>-B<NNN>` (one
+   `git log -1` on each): equal refs mean the work reached trunk by
+   another route, with every gate on that route unrun. Check it
+   before the gates below.
 4. Project gates are green: declared test/lint plus CI on the MR/PR
    (declared state-check command).
 5. A batch closing an R does **not** carry the closure and archival
@@ -135,20 +131,16 @@ At a checkpoint, before the MR/PR is handed over:
    the batch itself creates (`plan.md § Approval and closure`,
    `§ Archival`).
 
-Checkpoint boundary checks are existing gates only. The report's
-queued judgment calls split by decision level (`companions/
-declarations.md § Supervisor bounds`): implementation-level calls are
-the supervisor's to resolve, carried into `## Supervisor decisions`
-by the worker's checkpoint fixup; design-level calls escalate.
+Checkpoint boundary checks are existing gates only; the report's
+queued judgment calls follow § Question resolution.
 
 ## Deliver or escalate
 
 The delivery classes live in `companions/declarations.md § Supervisor
-bounds` and are deliberately not restated here: a partial copy is how a
-supervisor comes to believe a class it holds does not exist. Read the
-project's declared bound, then name the class the MR/PR falls into.
-Delivering without naming a class and escalating without having read the
-declaration are the same error in opposite directions.
+bounds` and are not restated here: a partial copy misleads. Read the
+project's declared bound, then name the class the MR/PR falls into;
+never deliver without a class or escalate without having read the
+declaration.
 
 The terminal state on a branch is a green MR/PR plus the report that
 verifies it (`companions/declarations.md § Supervisor bounds`). Within a named class, hand that MR/PR to

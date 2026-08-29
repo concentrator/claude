@@ -68,10 +68,10 @@ that become citations (R066 acceptance criterion 3).
 - [x] The no-merge rule and close folding each stated once
   (`declarations.md § Supervisor bounds`, `verification-policy.md
   § Close folding`); the four citing sites repointed
-- [ ] `secrets.md` moves to `companions/secrets.md`; `§ Patterns` cites
+- [x] `secrets.md` moves to `companions/secrets.md`; `§ Patterns` cites
   `hooks/secret-patterns.sh`; `start.md § 1` and the
   `dev-secrets-guard.sh` header cite it; `DESIGN.md` tree-map follows
-- [ ] Stale text corrected (table above, seven rows)
+- [x] Stale text corrected (table above, seven rows)
 - [ ] Rationale trims in `verification-policy.md` and `supervise.md`
   (five passages)
 - [ ] Rationale trims in `branch-plan.md`, `declarations.md`,
