@@ -22,7 +22,7 @@ than with the harness.
   fails with `unknown` recorded. The hook reads `.trigger // "unknown"`;
   the test passes. No other field of the hook's input changes.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit. Closure is checkbox-only; R040-T023 does not close R-040.
