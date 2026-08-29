@@ -103,10 +103,10 @@ c=$(hits_in "$d")
 # 16. non-ASCII filename (git quotes it under default core.quotePath) ->
 # still scanned: a violation inside is caught, and the same name under
 # archive/ stays exempt
-d=$(mkrepo); printf -- 'Superseded: 2026-07-07 by the new flow.\n' > "$d/dev/plans/план.md"
+d=$(mkrepo); printf -- 'Superseded: 2026-07-07 by the new flow.\n' > "$d/dev/plans/plán.md"
 git -C "$d" add -A
 check_in "$d" && die "quoted filename silently skipped" || pass "quoted filename scanned"
-mkdir -p "$d/dev/plans/archive"; git -C "$d" mv dev/plans/план.md dev/plans/archive/план.md
+mkdir -p "$d/dev/plans/archive"; git -C "$d" mv dev/plans/plán.md dev/plans/archive/plán.md
 check_in "$d" && pass "quoted archive filename exempt" \
   || die "quoted archive filename wrongly flagged"; rm -rf "$d"
 
