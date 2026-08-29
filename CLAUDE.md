@@ -23,6 +23,9 @@ line (`skills/dev/plan.md § Referential integrity`).
 
 ## Agent toolchain
 
+This repository's declarations; a project's own `## Agent toolchain`
+wins.
+
 - Test/lint: `bash scripts/ci/run-all.sh`
 - VCS host: GitHub, CLI `gh` (MR/PR resolves to PR)
 - Change request: `gh pr create`
