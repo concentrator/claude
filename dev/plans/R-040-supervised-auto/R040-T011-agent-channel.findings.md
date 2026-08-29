@@ -76,29 +76,29 @@ The three-file inbox/outbox/status channel this task originally specified is
 `SendMessage` already does it, with delivery semantics a file cannot match.
 What remains is configuration plus one decision.
 
-- [ ] Change the supervisor launch line to
+- [x] Change the supervisor launch line to
       `claude --remote-control supervisor --permission-mode auto`, in
       `companions/supervisor-runbook.md` and wherever the host scripts start it.
       Nothing else on the host changes.
-- [ ] Commit `isolatePeerMachines: true` to the tracked `~/.claude/settings.json`.
+- [x] Commit `isolatePeerMachines: true` to the tracked `~/.claude/settings.json`.
       It has no CLI flag, so it must come from user-scope settings - but it is a
       security posture rather than a machine-specific choice, so the tracked
       config is its correct home, not a provisioning hack. It carries
       `bypassImmune: true`, so it holds even under `bypassPermissions`.
-- [ ] Leave `autoUploadSessions` unset. It mirrors sessions to claude.ai
+- [x] Leave `autoUploadSessions` unset. It mirrors sessions to claude.ai
       view-only, is not required, and is the setting that carries a data-egress
       consequence.
-- [ ] Decide, and record, whether the operator's own session joins Remote
+- [x] Decide, and record, whether the operator's own session joins Remote
       Control. This is the only remaining blocker for cross-machine
       `SendMessage`, it is a change to the operator's session exposure, and it
       routes through claude.ai. The browser and phone path works without it -
       an enabled session prints its own URL - so peer messaging is a
       convenience over that, not the only route.
-- [ ] Correct the falsified keystroke claim in `companions/supervisor-runbook.md`
+- [x] Correct the falsified keystroke claim in `companions/supervisor-runbook.md`
       (the mode table and the driving-over-tmux section) and in this task's own
       plan. `supervise.md` was already corrected on `doc/supervisor-runbook`
       for a different reason and should be re-read for this one.
-- [ ] Add a pitfalls entry: a fresh directory blocks session startup on the
+- [x] Add a pitfalls entry: a fresh directory blocks session startup on the
       trust dialog, which stalled the positive control until answered.
 
 ## Open, not settled
@@ -836,7 +836,7 @@ described by their symptom in a pane rather than by a log line.
       This is `verification-policy.md`'s unit-of-check rule with instances
       behind it rather than an argument.
 
-- [ ] **No diagram in the batch was machine-verified, and a member's acceptance
+- [x] **Won't fix here (attack-checker's own task; `supervise.md § Boundary verification` already forbids reporting an unchecked criterion as verified).** No diagram in the batch was machine-verified, and a member's acceptance
       criterion may require it.** No mermaid tooling is installed on the host,
       so every Model diagram was eye-reviewed. The worker declined to install a
       renderer, on the grounds that adding a browser dependency to a docs-only
@@ -915,19 +915,19 @@ described by their symptom in a pane rather than by a log line.
 
 ### Routed out of this file
 
-- [ ] `R040-T017` - durable role state. Drafted, not yet filed.
-- [ ] The worker-side notification hook: a blocked worker wakes its supervisor
+- [x] `R040-T017` - durable role state. Filed.
+- [x] Promoted to an R-040 backlog line. The worker-side notification hook: a blocked worker wakes its supervisor
       rather than waiting to be noticed. This is what the channel should be,
       and it replaces every wait recipe below.
-- [ ] Replace the runbook's wait recipes: footer-only busy detection, an
+- [x] Promoted with the entry above. Replace the runbook's wait recipes: footer-only busy detection, an
       affirmative wake on a pending prompt, and a hard `timeout` on every loop.
       Provisional until the notification hook lands, which removes the need.
-- [ ] Take a position on prompt-clearing scripts at all. If permitted, classify
+- [x] Done: `companions/supervisor-runbook.md § Keystroke authority`. Take a position on prompt-clearing scripts at all. If permitted, classify
       the prompt type before parsing any command, and stop unconditionally on a
       protected-path edit.
-- [ ] `pitfalls.md`: the fullscreen-renderer dialog, and the general rule that
+- [x] `pitfalls.md`: the fullscreen-renderer dialog, and the general rule that
       a new opt-in dialog is a headless startup hang.
-- [ ] Provisioning sets `git config --global user.name/user.email` from `.env`,
+- [x] Done: `scripts/worker-credentials.sh § git_identity`, `.env.example`. Provisioning sets `git config --global user.name/user.email` from `.env`,
       documented in `.env.example`.
 - [x] The project's permission list grants reading the declared sibling
       repository. Done: `worker-workspace.sh settings` now grants read on the
@@ -938,7 +938,7 @@ described by their symptom in a pane rather than by a log line.
       because the doc's subject calls into it. Five persistent-scope offers
       were declined and cleared one-shot instead, which is the right answer to
       a scope question arriving through a dialog.
-- [ ] `verification-policy.md`: a negative search is evidence only from an
+- [x] Promoted to an R-040 backlog line. `verification-policy.md`: a negative search is evidence only from an
       instrument whose failure is distinguishable from its success. The bare
       `grep` these sessions invoke is a wrapper around `ugrep -I`; on a file it
       judges binary it prints nothing and exits 1, which is byte-identical to a

@@ -10,8 +10,8 @@ Host gates are never bypassed - no admin merges.
 **Never run git in a worker's working tree.** Absolute, not a caution:
 a caution did not prevent this, and the damage is silent when it
 happens. The supervisor and its worker share one checkout, so any
-command that moves HEAD, creates a branch, stages,
-stashes or checks out there acts on whatever the worker left. Inspect
+command that moves HEAD, creates a branch, stages, stashes or checks
+out there acts on whatever the worker left. Inspect
 read-only through explicit refs - `git -C <repo> show <ref>:<path>`,
 `git -C <repo> log <ref>` - and nothing else. When the supervisor must
 author plan artifacts in an adopter repo, it takes its own worktree or
