@@ -8,8 +8,8 @@ Two modes:
 - **DEV** - spec-driven: requirements → design → initiatives → tasks →
   branch plans → commits. Entered via `/dev`.
 
-Git workflow (both modes): `skills/dev/git-workflow.md`
-(repo pin: `rules/git-workflow.md`).
+Git workflow (both modes): `skills/dev/git-workflow.md`; host GitHub, so
+MR/PR resolves to PR.
 
 Subagents are pre-authorised for genuinely wide searches (many files,
 only the conclusion wanted), never for a fan-out one `grep` answers.

@@ -115,7 +115,7 @@ grep -q "^MARKERS='justonemarker'" "$P/.claude/scripts/ci/check-accretion.sh" \
 grep -qxF '@writing.md' "$P/.claude/CLAUDE.md" 2>/dev/null && pass "writing.md imported in CLAUDE.md" || die "writing.md not imported"
 
 # --- NOT shipped: personal convention rules ---
-[ ! -e "$P/.claude/rules/git-workflow.md" ] && pass "personal rules not shipped" || die "personal rule shipped"
+[ ! -e "$P/.claude/rules/claude-md.md" ] && pass "personal rules not shipped" || die "personal rule shipped"
 
 # --- settings.json: branch-guard registered; pre-existing survives ---
 jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(test("dev-branch-guard"))' "$P/.claude/settings.json" >/dev/null \

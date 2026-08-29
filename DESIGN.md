@@ -9,9 +9,8 @@ What each part contributes; the inventory itself is § Tree-map.
 
 - **CLAUDE.md** - global operating instructions, loaded every session.
   Maintenance: `rules/claude-md.md`.
-- **rules/** - personal convention rules loaded as memory, `git-workflow`
-  always-on and the rest path-scoped. The DEV process rules live as
-  `skills/dev/` companions, not here.
+- **rules/** - convention rules loaded as memory, path-scoped. The DEV
+  process rules live as `skills/dev/` companions, not here.
 - **skills/** - invocable capabilities. `skills/dev/` is the `/dev` router
   + its inert mode-file companions (the DEV toolset); the rest are
   standalone reference skills. Authoring: `skills/skill-creator/`,
@@ -72,7 +71,6 @@ excluded.
 │   │   └── archive/              # closed initiatives, frozen history
 ├── rules/                        # personal convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
-│   ├── git-workflow.md           # trunk/branch/commit/PR discipline (always-on)
 │   ├── js.md                     # JS conventions (path-scoped)
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/
@@ -105,8 +103,7 @@ unchanged - structure is never simplified, only description detail.
 
 ## Git & delivery model
 
-Trunk-based development, per `skills/dev/git-workflow.md` (repo pin:
-`rules/git-workflow.md`).
+Trunk-based development, per `skills/dev/git-workflow.md`.
 
 The unit of delivery is the batch, and mode is orthogonal to it:
 delivery is uniform, verification differs

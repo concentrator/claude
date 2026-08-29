@@ -64,7 +64,7 @@ in the order listed until `check-caps.sh` passes:
   header.
 - [x] `CLAUDE.md` under the cap: the trims above, then the durable-id
   sentence and the annotation clause; `check-caps.sh` green.
-- [ ] Fold `delegation.md`: the verification-gate pre-authorisation
+- [x] Fold `delegation.md`: the verification-gate pre-authorisation
   becomes a sentence in `companions/documentation.md § Verification
   gate`, the close-review one (with its no-`/code-review`,
   no-nested-subagents bound) a sentence in `branch-plan.md § Closing
