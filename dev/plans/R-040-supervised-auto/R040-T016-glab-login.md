@@ -21,9 +21,9 @@ check it does run is the one shape that cannot detect the omission.
   (`skills/worker-host/companions/pitfalls.md` records why a worker
   needs it), else the literal the script uses today.
 - **Login** - `printf '%s' "$GITLAB_TOKEN" | glab auth login --hostname
-  <host> --stdin --insecure-storage`; `--insecure-storage` because a
-  headless VM has no keyring to fall back on. The token travels on
-  stdin, never in argv.
+  <host> --stdin`. The token travels on stdin, never in argv. Storage is
+  the default config file: `glab` offers a keyring only as opt-in
+  (`--use-keyring`), and a headless VM has none.
 - **Repo-relative check** - a `glab` call that resolves the host from
   the checkout's remote, run inside a project checkout: `glab repo view
   --output json` in `$1`, exit status only. `glab auth status` stays
@@ -36,16 +36,20 @@ check it does run is the one shape that cannot detect the omission.
   text names Login and the identity check as what runs.
   `scripts/test/worker-workspace.test.sh`: a stub `glab` on `PATH`
   records its argv and stdin; the real run calls `auth login` with
-  `--hostname`, `--stdin` and `--insecure-storage`, the token reaches
-  stdin and never argv (the leak canary of case 23 applied to the argv
-  log), and the dry run names the login.
+  `--hostname` and `--stdin`, the token reaches stdin and never argv
+  (the leak canary of case 23 applied to the argv log), and the dry run
+  names the login.
 - [ ] `forge-cli` takes an optional project checkout path and, when
   given one and `GITLAB_TOKEN` is set, runs the Repo-relative check
-  there, failing with one line naming the host when it fails;
-  `provision-worker.sh`'s project-clone step passes the fresh checkout.
+  there, failing with one line naming the host when it fails.
+  `project_clone` (`scripts/worker-workspace.sh`) ends by running
+  `worker-credentials.sh forge-cli <fresh checkout>`: the checkout is
+  born there, after `forge-cli`'s own step in the provisioning order,
+  and the install and login it repeats are no-ops on a provisioned host.
   Test: the stub `glab` fails `repo view` and the run reports the host;
-  succeeds and the run stays silent. `skills/worker-host/companions/
-  provisioning.md` step 9 states the login and the in-checkout check.
+  succeeds and the run stays silent; `project-clone --dry-run` names
+  the check. `skills/worker-host/companions/provisioning.md` step 9
+  states the login, step 10 the in-checkout check.
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code row: `code-reviewer`), Tier-2 compliance review,
