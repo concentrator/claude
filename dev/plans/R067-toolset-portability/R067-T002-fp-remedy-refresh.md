@@ -28,7 +28,7 @@ Cyrillic, which is what the host checks.
   poll `glab mr view <n> -F json` to green; merge on the user's word.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`, citing the
   MR id.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (bookkeeping only here keys no review row; the fp-remedy MR
   carries the diff), `bash scripts/ci/run-all.sh` green, mark plan
   complete, commit. R067-T002 is the R's last task: the closure check
