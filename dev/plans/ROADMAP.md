@@ -263,3 +263,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       `writing.md` become a path-scoped, shipped rule, and
       `delegation.md` and `rules/git-workflow.md` fold into one line
       each in `CLAUDE.md`, so a session loads only universal prose.
+- [ ] R066: Slim the DEV skill - the visual companion and the runbook's
+      pilot measurements leave `skills/dev/`, every rule keeps one home,
+      stale text and rationale go; per-command read cost drops and
+      `plan.md` regains headroom (supersedes R062).
