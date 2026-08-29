@@ -18,18 +18,17 @@ What each part contributes; the inventory itself is § Tree-map.
 
 ## Self-hosting layout
 
-This repo is consumed as `~/.claude`, so what is `.claude/` in a normal
-project is the repo root here. Foundational DEV files
+This repo is consumed as `~/.claude`, so a normal project's `.claude/`
+is the repo root here. Foundational DEV files
 (`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`) sit at
 the root, not in a nested `.claude/`. The nested `.claude/` holds only Claude Code's
-project settings, whose location is fixed by the tool. DEV artifacts
+project settings, at the path the tool fixes. DEV artifacts
 sit under `dev/` as in every adopter.
 
 ## Tree-map
 
-All configuration and artifact dirs and files. Harness-managed state (`projects/`,
-`cache/`, `shell-snapshots/`, `plugins/`, logs, …) is gitignored and
-excluded.
+Tracked dirs and notable files; harness-managed state (`projects/`,
+`cache/`, `shell-snapshots/`, `plugins/`, logs, …) is gitignored.
 
 ```
 ~/.claude/
@@ -56,6 +55,7 @@ excluded.
 │   ├── ci/                       # Tier-1 checks + run-all.sh
 │   ├── context-cost.py           # session context cost + attribution
 │   ├── install-dev.sh            # toolset installer (global or --project)
+│   ├── model-quota.sh            # pinned-dispatch quota gate
 │   └── test/                     # script tests + run-all.sh
 ├── .claude/
 │   └── settings.json             # project tier, tracked - push carve-out, durable allows, model
