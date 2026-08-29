@@ -85,7 +85,7 @@ an Element.
   hardest in-scope case.
 - **Exact, not vague**: concrete values (versions, names, paths,
   limits) - identities and constraints; derived tallies per
-  `writing.md § One home per number`. Never "check the docs" in place
+  `rules/writing-artifacts.md § One home per number`. Never "check the docs" in place
   of the fact.
 - **Actionable over referential**: give the command or value, not a link
   to scrape.
@@ -94,7 +94,7 @@ an Element.
 - **Right content, right place**: exclude test/environment artifacts;
   include the real parameters.
 - **DRY**: a shared fact lives in one doc; others cross-reference it
-  (numbers especially - `writing.md § One home per number`).
+  (numbers especially - `rules/writing-artifacts.md § One home per number`).
 - **Real examples**: an example is an executed call or case shown with its
   output, cited (a test run or recorded transcript); secrets as
   placeholders; never invented. It sits in the section it illustrates.
