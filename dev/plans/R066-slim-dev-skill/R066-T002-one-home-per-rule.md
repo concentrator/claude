@@ -85,5 +85,5 @@ that become citations (R066 acceptance criterion 3).
   superseded by R066 in `ROADMAP.md`; R066 closure check
   (`plan.md § Approval and closure`), R062's directory archiving with
   the closure plan MR/PR (`finish.md § 4`)
-- [ ] Complete the branch: re-review docs across all commits, cleanup,
+- [x] Complete the branch: re-review docs across all commits, cleanup,
   mark plan complete, commit

@@ -176,8 +176,9 @@ a measurement, `skills/worker-host/` if one is operative,
 - [x] Tier-1 gate green (`bash scripts/ci/run-all.sh`) and
   `bash scripts/test/install-dev.test.sh` green; `DESIGN.md` tree-map
   names no removed file. Evidence: `run-all.sh` ALL OK (self-tests
-  included) at the final commit; `DESIGN.md` names `secrets.md` only
-  on the companions line.
+  included) at the final commit; `DESIGN.md` names neither
+  `secrets.md` nor any deleted file (the companions line reads
+  "secrets policy").
 
 ## Constraints
 
