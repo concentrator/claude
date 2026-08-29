@@ -52,7 +52,7 @@ records the fact today and the runbook copy is the duplicate.
   briefing copy, the per-poll reconnect) reduced to their instruction:
   the section swap left the file 30 words over the cap criterion 2
   names
-- [ ] `R066-T001-drop-visual-mockups.findings.md`: byte sizes of the
+- [x] `R066-T001-drop-visual-mockups.findings.md`: byte sizes of the
   `/dev supervise` read set at the branch base and at close, the
   relocation table checked row by row (grep per receiving file), and
   the `git grep` of criterion 1

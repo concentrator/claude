@@ -22,7 +22,7 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 # --- copied: router + companion + a bundled skill + the hook ---
 [ -f "$P/.claude/skills/dev/SKILL.md" ]  && pass "dev router copied"            || die "no dev router"
 [ -f "$P/.claude/skills/dev/plan.md" ]   && pass "dev companion copied"         || die "no dev companion"
-[ ! -e "$P/.claude/skills/dev/companions/scripts" ] && pass "no mockup scripts shipped" || die "mockup scripts shipped"
+[ -z "$(find "$P/.claude/skills/dev/companions" -mindepth 1 -type d)" ] && pass "companions ship as files only" || die "companions ship a subdirectory"
 [ -d "$P/.claude/skills/test-driven-development" ] && pass "bundled skill copied" || die "no bundled skill"
 [ -x "$P/.claude/hooks/dev-branch-guard.sh" ]      && pass "hook copied + exec"   || die "no/again hook"
 [ -x "$P/.claude/hooks/dev-secrets-guard.sh" ]     && pass "secrets hook copied + exec" || die "no secrets hook"
