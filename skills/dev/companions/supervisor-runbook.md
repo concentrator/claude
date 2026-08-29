@@ -67,7 +67,7 @@ The supervisor cycles until the scope is delivered:
                  hand the green MR/PR up, or escalate
                                    |
                                    v
-                 operator merges (§ Operator modes)
+                 operator merges (`declarations.md § Operator modes`)
 ```
 
 ## Variant A: one machine

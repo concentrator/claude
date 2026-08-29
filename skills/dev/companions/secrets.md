@@ -26,16 +26,8 @@ error it allows the action rather than blocking legitimate work.
 
 ### Patterns
 
-- PEM private keys (`-----BEGIN ... PRIVATE KEY-----`)
-- AWS access key ids (`AKIA` followed by 16 uppercase/digit chars)
-- GitHub tokens (`ghp_` / `gho_` / `ghs_` / `ghr_` + 36 chars; and
-  `github_pat_` fine-grained)
-- Slack tokens (`xox[baprs]-...`)
-- Google API keys (`AIza` followed by 35 chars)
-- Generic high-entropy assignments: a `key` / `secret` / `token` /
-  `password` name set to a 16+ character value
-
-This set is a baseline; extend it in the hook as new formats appear.
+The patterns are `hooks/secret-patterns.sh`, which the guard and the
+Tier-1 secrets check share; extend that file as new formats appear.
 
 ## False positives
 

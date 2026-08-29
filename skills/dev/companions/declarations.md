@@ -21,7 +21,7 @@ Declare it once; `migrate` backfills it if absent (absent-host fallback:
 
 ## Supervisor bounds
 
-A project delegating delivery to a supervisor (R-040) declares its
+A project delegating delivery to a supervisor declares its
 bounds in the same `## Agent toolchain` section - the single home for
 merge authority:
 
@@ -38,22 +38,16 @@ work as far as a green MR/PR and holds one decision class:
   task's acceptance criteria - the approved plan is the decision, the
   supervisor automates its delivery;
 - deliver a task branch from manual `/dev code` work, where
-  `finish.md § 1`'s verify set stands in for the checkpoint report:
-  every plan checkbox `[x]`, findings file triaged, bookkeeping marks
-  landed, close review run, tests and lint green. Same rationale, same
-  bar - the evidence is assembled from the branch's own artifacts
-  instead of a report, and its absence stops the delivery exactly as a
-  missing report does;
+  `finish.md § 1`'s verify set stands in for the checkpoint report,
+  and its absence stops the delivery as a missing report does;
 - implementation-level resolutions of worker questions and queued
   judgment calls, each ledgered in the report's supervisor-decisions
   section.
 
 **No grant merges.** The supervisor's last act on a branch is the green
 MR/PR and the evidence that verifies it; the operator reads that MR/PR
-and decides (§ Operator modes). The split keeps the seat that assembled
-the evidence apart from the seat that accepts it, which is what a
-self-merging supervisor collapses - it becomes the only reviewer of its
-own work.
+and decides (§ Operator modes): the seat that assembled the evidence
+stays apart from the seat that accepts it.
 
 The decision split: implementation-level is code shape, naming, test
 details, finding triage within the plan's stated behavior;
@@ -81,12 +75,10 @@ work it is, and `committer.name` says how it was applied. git honours
 `committer.*` independently of `user.*`, so `git log --author`,
 shortlog and blame keep answering about the human.
 
-The line between them is the audience. A label answers "how was this
-delivered" at the MR/PR, and a committer answers it at any commit
-reached later from blame, long after the MR/PR is closed. Prose is
-excluded from both: `git-workflow.md § MR/PR messages` governs it and
-is unchanged by supervision, so no commit message, title or body
-mentions supervision at all.
+The label answers at the MR/PR, the committer at any commit reached
+later from blame. No commit message, title or body mentions
+supervision: `git-workflow.md § MR/PR messages` governs prose and is
+unchanged by supervision.
 
 ## Operator modes
 

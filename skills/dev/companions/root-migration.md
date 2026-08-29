@@ -25,7 +25,8 @@ Inventory, then report - touching nothing:
   `dev/docs/`: a partial earlier migration). Report each; § 2 refuses
   to move onto it - merge, rename, or abort is the user's call.
 - **Gaps** - a `- DEV artifacts root:` line in `CLAUDE.md § Agent
-  toolchain`, which `scripts/ci/check-plan-integrity.sh` rejects;
+  toolchain`, which `ci/check-plan-integrity.sh` (`start.md § 4`)
+  rejects;
   untracked mode, where `dev/` must be gitignored too
   (`untracked-claude.md § Detection`).
 

@@ -93,25 +93,16 @@ its parent's R id (legacy files: § Archival).
 DEV artifacts live at `dev/` in every project, repository-relative and
 never declared or resolved: `dev/plans/` (below), `dev/docs/`
 (`layout.md § Docs`), `dev/session/` (`handoff.md`). A `CLAUDE.md`
-still carrying a `DEV artifacts root:` line fails
-`scripts/ci/check-plan-integrity.sh` with one line naming the move.
+still carrying a `DEV artifacts root:` line fails the Tier-1 check
+`ci/check-plan-integrity.sh` (`start.md § 4`) with one line naming
+the move.
 Guarded config is not an artifact: it stays under `.claude/`,
 `REQUIREMENTS.md` and `DESIGN.md` included (`layout.md § Config
 layout`).
 
-| File | Location |
-|---|---|
-| `ROADMAP.md` | `dev/plans/` |
-| `requirements.md` (per initiative) | `dev/plans/R<NNN>-<slug>/` |
-| `tasks.md` (per initiative, lazy) | `dev/plans/R<NNN>-<slug>/` |
-| `<task-id>-<slug>.md` (branch plans) | `dev/plans/R<NNN>-<slug>/` |
-| `<task-id>-<slug>.findings.md` | beside its branch plan |
-| `R<NNN>-B<NNN>.md`, `R<NNN>-B<NNN>.report.md` (batches) | `dev/plans/R<NNN>-<slug>/batches/` |
-| `release-vX.Y.Z.md` | `dev/plans/` |
-| `milestone-<id>.md` (§ Milestone plans) | `dev/plans/` |
-
-These locations are exclusive - never place plans or specs in
-`dev/docs/` or other project directories.
+The file tree is `layout.md § Artifacts layout`; its locations are
+exclusive - never place plans or specs in `dev/docs/` or other
+project directories.
 
 ## Directory conventions
 
@@ -129,7 +120,8 @@ These locations are exclusive - never place plans or specs in
 
 Planning artifacts (§ Where things live) live on `main`, visible from
 every branch, reaching it via a plan branch + MR/PR like any change
-(`git-workflow.md § Trunk`). A single planning act still commits each
+(`git-workflow.md § Trunk`); the plan branch is cut before the first
+artifact write. A single planning act still commits each
 artifact type separately - `requirements.md` apart from the `ROADMAP`
 / `tasks.md` index edits.
 

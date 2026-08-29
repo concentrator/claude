@@ -2,20 +2,17 @@
 
 Companion to `SKILL.md`, consulted by the `/dev auto` controller when
 deciding how much verification each commit and batch warrants. The aim
-is to trim agentic verification cost (R-005) without dropping below the
+is to trim agentic verification cost without dropping below the
 floor that keeps the default branch safe. Sections below define the
 knobs the controller has and when to apply them.
 
 ## Effort mechanics
 
-Effort routes per role, not per call: an agent definition's
-frontmatter carries an `effort:` key beside `model:`
-(`low`/`medium`/`high`/`xhigh`/`max`; `agents/code-reviewer.md` pins
-`medium`), while the Agent dispatch surface still overrides `model`
-only. A role whose definition pins neither inherits the session
-`effortLevel`. Routing therefore encodes a model and, where a role
-warrants it, an effort - the session setting is the default, not the
-ceiling.
+Effort routes per role: an agent definition's frontmatter carries an
+`effort:` key beside `model:` (`low`/`medium`/`high`/`xhigh`/`max`;
+`agents/code-reviewer.md` pins `medium`), since dispatch overrides
+`model` only; a role pinning neither inherits the session
+`effortLevel`, the default rather than the ceiling.
 
 ## Mechanical commits
 
@@ -164,26 +161,19 @@ substitution in the batch report or branch findings: pinned model,
 substitute, reason. It is a documented degrade, not a decision to
 negotiate per batch, and not grounds to halt delivery.
 
-The record states what the substitution costs, because that differs by
-work. Where acceptance is independently pinned by deterministic gates,
-a review only has to catch plan-versus-diff divergence and the
-substitution is cheap. Where the gates cannot see the claim being made -
-authored prose, a documented behaviour, anything a green suite would
-pass either way - the reviewer's judgment is the whole check and the
-substitution is the larger call. Do not carry a rationale from one to
-the other; they are different bets.
+The record states what the substitution costs: cheap where
+deterministic gates pin acceptance, the larger call where the
+reviewer's judgment is the whole check (authored prose, documented
+behaviour).
 
 **Routing:** the controller picks the implementer row deterministically -
 mechanical predicate true → Mechanical-commit row (`sonnet`); plan item
 explicitly tagged `(judgment-heavy)` → Judgment-heavy row (`fable`);
-otherwise the Default implementers row (`opus`). There is no predicate
-for "judgment-heavy": an item reaches that row only by carrying the
-explicit `(judgment-heavy)` tag in its plan-item text, mirroring the
-task `[type]` tag. Absent the tag, items default to Opus.
+otherwise the Default implementers row (`opus`). No predicate infers
+`(judgment-heavy)`; only the tag in the plan-item text does.
 
 **Spec-check disambiguation:** per-commit spec-compliance checks
 (pass/fail against the plan item) and the judgment-heavy branch-close /
 batch full-diff reviews all run on `fable`. They remain distinct roles -
-the per-commit spec check is the only one lever 1 may skip on a
-mechanical commit; the close/batch reviews always run. Do not conflate
-them.
+the per-commit spec check is the only one a mechanical commit may
+skip (§ Spec-check skip); the close/batch reviews always run.

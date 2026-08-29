@@ -57,33 +57,33 @@ that become citations (R066 acceptance criterion 3).
 
 ## Commits
 
-- [ ] `plan.md § Where things live` cites `layout.md § Artifacts
+- [x] `plan.md § Where things live` cites `layout.md § Artifacts
   layout` in place of its table
-- [ ] Commit caps and the plan-branch rule each stated once
+- [x] Commit caps and the plan-branch rule each stated once
   (`branch-plan.md § Size cap`, `plan.md § Where plans live in git`);
   the six citing sites repointed
-- [ ] The verify set and the declared-commands rule each stated once
+- [x] The verify set and the declared-commands rule each stated once
   (`finish.md § 1`, `declarations.md § Declared commands`); the four
   citing sites repointed
-- [ ] The no-merge rule and close folding each stated once
+- [x] The no-merge rule and close folding each stated once
   (`declarations.md § Supervisor bounds`, `verification-policy.md
   § Close folding`); the four citing sites repointed
-- [ ] `secrets.md` moves to `companions/secrets.md`; `§ Patterns` cites
+- [x] `secrets.md` moves to `companions/secrets.md`; `§ Patterns` cites
   `hooks/secret-patterns.sh`; `start.md § 1` and the
   `dev-secrets-guard.sh` header cite it; `DESIGN.md` tree-map follows
-- [ ] Stale text corrected (table above, seven rows)
-- [ ] Rationale trims in `verification-policy.md` and `supervise.md`
+- [x] Stale text corrected (table above, seven rows)
+- [x] Rationale trims in `verification-policy.md` and `supervise.md`
   (five passages)
-- [ ] Rationale trims in `branch-plan.md`, `declarations.md`,
+- [x] Rationale trims in `branch-plan.md`, `declarations.md`,
   `documentation.md`, `untracked-claude.md` (five passages)
-- [ ] `R066-T002-one-home-per-rule.findings.md`: byte sizes of the
+- [x] `R066-T002-one-home-per-rule.findings.md`: byte sizes of the
   `/dev supervise` and `/dev code` read sets at base and close,
   `plan.md` word count, the phrase greps of the rule-to-home table, the
   `git grep` of criterion 4, the initiative-id grep of criterion 5,
   and the `§` citation check script with its output (criterion 6)
-- [ ] Mark and commit the task `[x]` in `tasks.md`; R062 marked `[x]`
+- [x] Mark and commit the task `[x]` in `tasks.md`; R062 marked `[x]`
   superseded by R066 in `ROADMAP.md`; R066 closure check
   (`plan.md § Approval and closure`), R062's directory archiving with
   the closure plan MR/PR (`finish.md § 4`)
-- [ ] Complete the branch: re-review docs across all commits, cleanup,
+- [x] Complete the branch: re-review docs across all commits, cleanup,
   mark plan complete, commit

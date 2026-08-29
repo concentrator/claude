@@ -81,9 +81,9 @@ excluded.
     │   ├── SKILL.md              #   the router
     │   ├── plan.md branch-plan.md templates.md layout.md changelog.md git-workflow.md  # process rules
     │   ├── feat.md fix.md refactor.md write-plan.md finish.md handoff.md release.md auto.md   # execution
-    │   ├── supervise.md secrets.md docs.md     # supervised delivery, secrets policy, docs layer
+    │   ├── supervise.md docs.md  # supervised delivery, docs layer
     │   ├── brainstorm.md migrate.md start.md   # shape + adoption
-    │   └── companions/           # declaration syntax, documentation framework, prompt templates, verification-policy, migration docs
+    │   └── companions/           # declaration syntax, documentation framework, prompt templates, verification-policy, migration docs, secrets policy
     ├── test-driven-development/  # bundled dependency skills (installer ships these) + testing-anti-patterns
     ├── systematic-debugging/     # + root-cause-tracing, defense-in-depth, condition-based-waiting, find-polluter.sh
     ├── verification-before-completion/SKILL.md

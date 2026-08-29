@@ -1,11 +1,11 @@
 # Supervising Execution
 
-Engine behind `/dev supervise` (R-040): automate the operator role
+Engine behind `/dev supervise`: automate the operator role
 within declared bounds - dispatch planned work, verify boundaries with
 existing gates, deliver or escalate. The supervisor never implements,
-never edits plans or its own bounds, and never merges: it delivers a
-green MR/PR to the operator, who decides (`companions/declarations.md
-§ Operator modes`). Host gates are never bypassed - no admin merges.
+never edits plans or its own bounds, and never merges
+(`companions/declarations.md § Supervisor bounds`, no grant merges).
+Host gates are never bypassed - no admin merges.
 
 **Never run git in a worker's working tree.** Absolute, not a caution:
 a caution did not prevent this, and the damage is silent when it
@@ -15,8 +15,8 @@ stashes or checks out there acts on whatever the worker left. Inspect
 read-only through explicit refs - `git -C <repo> show <ref>:<path>`,
 `git -C <repo> log <ref>` - and nothing else. When the supervisor must
 author plan artifacts in an adopter repo, it takes its own worktree or
-waits for the worker to report idle, and cuts its plan branch - before
-the first artifact write - as
+waits for the worker to report idle, and cuts its plan branch (`plan.md
+§ Where plans live in git`) as
 `git switch -c <name> origin/main`; the bare `-c` form inherits the
 current HEAD, which is how a plan branch acquires a worker's unmerged
 commits and carries them to trunk on merge.
@@ -26,7 +26,7 @@ commits and carries them to trunk on merge.
 1. **Projects** - bare inside a repo: that project. Repo-less: every
    entry in `~/.claude/supervisor/portfolio.md` (per project: path,
    VCS host, worker transport - `local`, the default and only built
-   transport; `ssh <target>` is R040-T003's scope). The portfolio is
+   transport). The portfolio is
    config only - never write state there.
 2. **Bounds** - read each project's `CLAUDE.md § Agent toolchain`
    declaration (`companions/declarations.md § Supervisor bounds`) and its
@@ -67,10 +67,9 @@ manually: the worker runs `/dev code <slug>` and closes per
 `finish.md`, not the auto engine. Everything else here holds
 unchanged - ids only, questions to the supervisor, no merge by the
 worker. What differs is the evidence at the checkpoint: there is no
-`R<NNN>-B<NNN>.report.md`, so `finish.md § 1`'s verify set stands in its place
-(every plan checkbox `[x]`, findings file triaged, bookkeeping marks
-landed, close review run, tests and lint green). Verify that set from
-artifacts exactly as a report would be verified; a manual branch
+`R<NNN>-B<NNN>.report.md`, so `finish.md § 1`'s verify set stands in
+its place. Verify that set from artifacts exactly as a report would be
+verified; a manual branch
 missing it is no more mergeable than a batch missing its report. The supervisor passes ids only; workers read plans from
 their repo - the supervisor never relays content; its ledgered
 question answers are the one exception, and even those travel as a
@@ -107,12 +106,10 @@ question - a NEEDS_CONTEXT, a choice between offered options, a spec
 ambiguity - gets the supervisor's resolution on the plan's and
 requirements' terms, the best option advised where possible, and the
 member resumes. The question arrives with the excerpt needed to
-answer it, never a diff or transcript. The decision split and its
-fail-safe are the bounds home's (`companions/declarations.md
-§ Supervisor bounds`): a design-touching or unclassifiable question is
-never answered - it escalates. The worker carries each received
-answer into the report's `## Supervisor decisions` section when the
-checkpoint writes it.
+answer it, never a diff or transcript; a design-touching or
+unclassifiable question escalates (`companions/declarations.md
+§ Supervisor bounds`). The worker carries each answer into the
+report's `## Supervisor decisions` section at checkpoint.
 
 ## Boundary verification - existing gates only
 
@@ -120,12 +117,10 @@ At a checkpoint, before the MR/PR is handed over:
 
 1. `R<NNN>-B<NNN>.report.md` exists - no report, no accept (`auto.md`).
 2. The report verifies each member's acceptance criteria.
-3. `batch/R<NNN>-B<NNN>` has moved off `pre-R<NNN>-B<NNN>`. One
-   `git log -1` on each. Still equal while the member work is
-   complete means no member branch ever merged in, so the work
-   travelled some other route - and every gate that route skipped is
-   unrun. Check it before the gates below, because a green pipeline on
-   the wrong branch proves nothing about what reached trunk.
+3. `batch/R<NNN>-B<NNN>` has moved off `pre-R<NNN>-B<NNN>` (one
+   `git log -1` on each): equal refs mean no member branch merged in,
+   so the work took another route, with every gate on that route
+   unrun. Check it before the gates below.
 4. Project gates are green: declared test/lint plus CI on the MR/PR
    (declared state-check command).
 5. A batch closing an R does **not** carry the closure and archival
@@ -137,23 +132,20 @@ At a checkpoint, before the MR/PR is handed over:
    the batch itself creates (`plan.md § Approval and closure`,
    `§ Archival`).
 
-Checkpoint boundary checks are existing gates only. The report's
-queued judgment calls split by decision level (`companions/
-declarations.md § Supervisor bounds`): implementation-level calls are
-the supervisor's to resolve, carried into `## Supervisor decisions`
-by the worker's checkpoint fixup; design-level calls escalate.
+Checkpoint boundary checks are existing gates only; the report's
+queued judgment calls follow § Question resolution.
 
 ## Deliver or escalate
 
 The delivery classes live in `companions/declarations.md § Supervisor
-bounds` and are deliberately not restated here: a partial copy is how a
-supervisor comes to believe a class it holds does not exist. Read the
-project's declared bound, then name the class the MR/PR falls into.
-Delivering without naming a class and escalating without having read the
-declaration are the same error in opposite directions.
+bounds` and are not restated here: a partial copy misleads. Read the
+project's declared bound, then name the class the MR/PR falls into;
+never deliver without a class or escalate without having read the
+declaration.
 
 The terminal state on a branch is a green MR/PR plus the report that
-verifies it - never a merge. Within a named class, hand that MR/PR to
+verifies it (`companions/declarations.md § Supervisor bounds`). Within
+a named class, hand that MR/PR to
 the operator with the evidence cited and nothing else: report path,
 gate results, state-check output. The operator decides and applies the
 signature (§ Supervision signature there). Everything else escalates -

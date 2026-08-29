@@ -37,10 +37,8 @@ classifying:
 
   **Stale root** - a project set up while the artifacts root was
   configurable may still carry a `- DEV artifacts root:` line in
-  `CLAUDE.md`, `<root>` or "artifacts root" wording in its own docs,
-  and a copied `.claude/scripts/ci/resolve-root.sh`. Report each
-  hit with its rewrite to `dev/...` (or its deletion); apply on
-  approval.
+  `CLAUDE.md`, `<root>` or "artifacts root" wording in its own docs.
+  Report each hit with its rewrite to `dev/...`; apply on approval.
 
 ## 1. Inventory
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# dev-secrets-guard.sh - PreToolUse hook (R-022).
+# dev-secrets-guard.sh - PreToolUse hook; manual: skills/dev/companions/secrets.md.
 # Denies secret-shaped content entering tracked files or commits. Reads the
 # tool-call JSON on stdin; emits a PreToolUse "deny" when a Write/Edit to a
 # non-gitignored path, or a git add/commit, carries a secret pattern. Allows

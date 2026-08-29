@@ -1,5 +1,6 @@
 ---
 approved: 2026-08-29
+status: done 2026-08-29
 kind: refactor
 ---
 
@@ -127,37 +128,57 @@ a measurement, `skills/worker-host/` if one is operative,
 
 ## Acceptance criteria
 
-- [ ] `git grep -l 'visual-companion\|companions/scripts\|visual-artifacts\|server.cjs'`
+- [x] `git grep -l 'visual-companion\|companions/scripts\|visual-artifacts\|server.cjs'`
   outside `dev/plans/archive/` and the R066 plan directory returns
-  nothing, and an
-  `install-dev.sh --project` target has no `companions/scripts/`.
-- [ ] `supervisor-runbook.md` is under the 1500-word reference cap and
+  nothing, and an `install-dev.sh --project` target has no
+  `companions/scripts/`. Evidence: `R066-T001-drop-visual-mockups.findings.md`
+  § Criterion 1 (0 files; re-run at T002 close: 0);
+  `install-dev.test.sh` asserts "companions ship as files only".
+- [x] `supervisor-runbook.md` is under the 1500-word reference cap and
   has no `§ Remote Control` or `§ Failure modes` measurement; the
   branch plan's relocation table names the receiving file per moved
-  finding, and each resolves.
-- [ ] For each row of the rules table, the branch plan names a
+  finding, and each resolves. Evidence: 1486 words at T002 close;
+  `R066-T001-drop-visual-mockups.findings.md` § Relocation table, 12
+  rows resolved.
+- [x] For each row of the rules table, the branch plan names a
   distinguishing phrase; `git grep` for it under `skills/dev/` hits
   the one home, and every other hit is a `§` citation of that home.
-- [ ] `git grep -n 'resolve-root\|permission_prompts\|lever 1\|invoked from .SKILL.md\|§ Operator modes'`
+  Evidence: `R066-T002-one-home-per-rule.findings.md` § Rule-to-home
+  table, 8 rows.
+- [x] `git grep -n 'resolve-root\|permission_prompts\|lever 1\|invoked from .SKILL.md\|§ Operator modes'`
   under `skills/`, `hooks/`, `scripts/` hits only `declarations.md`'s
   own heading; `finish.md` and `plan.md` name the CI scripts in a form
   that resolves from both `~/.claude/` and an adopter's `.claude/`.
-- [ ] `grep -nE 'R-?0[0-9]{2}' skills/dev` hits only id-format examples
+  Evidence: `R066-T002-one-home-per-rule.findings.md` § Criteria 1, 4,
+  5, 6 - the two remaining hits are the heading's in-file pointer and
+  the runbook's file-qualified citation of it; the scripts are named
+  `ci/<script>` with `start.md § 4` for the installed location.
+- [x] `grep -nE 'R-?0[0-9]{2}' skills/dev` hits only id-format examples
   and template placeholders; no sentence names an initiative as a
-  rule's origin.
-- [ ] Every `file § Section` citation inside `skills/dev/` resolves to
+  rule's origin. Evidence: same findings section.
+- [x] Every `file § Section` citation inside `skills/dev/` resolves to
   a heading in the named file (checked by a one-off script recorded in
-  the task's findings).
-- [ ] `companions/secrets.md` exists with at least two inbound
+  the task's findings). Evidence: the checker and its output in
+  `R066-T002-one-home-per-rule.findings.md` - 191 citations; the
+  unresolved ones name adopter-project sections, two bold labels, and
+  one backticked heading; the one stale citation was corrected.
+- [x] `companions/secrets.md` exists with at least two inbound
   citations outside `DESIGN.md`; the pattern list appears once, in
   `hooks/secret-patterns.sh`; `skills/dev/secrets.md` does not exist.
-- [ ] `plan.md` has headroom under 1500 words; the R062 ROADMAP entry
-  reads superseded by this initiative.
-- [ ] Before/after byte sizes of every file in the `/dev supervise` and
-  `/dev code` read sets are recorded in the task findings.
-- [ ] Tier-1 gate green (`bash scripts/ci/run-all.sh`) and
+  Evidence: citations at `start.md § 3` and the `dev-secrets-guard.sh`
+  header; the findings' `AKIA` grep; the file moved by `git mv`.
+- [x] `plan.md` has headroom under 1500 words; the R062 ROADMAP entry
+  reads superseded by this initiative. Evidence: 1400 words at T002
+  close; `ROADMAP.md` R062 entry.
+- [x] Before/after byte sizes of every file in the `/dev supervise` and
+  `/dev code` read sets are recorded in the task findings. Evidence:
+  both findings files' first table.
+- [x] Tier-1 gate green (`bash scripts/ci/run-all.sh`) and
   `bash scripts/test/install-dev.test.sh` green; `DESIGN.md` tree-map
-  names no removed file.
+  names no removed file. Evidence: `run-all.sh` ALL OK (self-tests
+  included) at the final commit; `DESIGN.md` names neither
+  `secrets.md` nor any deleted file (the companions line reads
+  "secrets policy").
 
 ## Constraints
 

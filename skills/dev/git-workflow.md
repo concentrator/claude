@@ -6,10 +6,9 @@ host. Host-neutral docs reused across repos (skills, shared
 rules) write the dual form **MR/PR**; the agent resolves it to the active
 repo's term per its host.
 
-**Declared commands** - the VCS host and the exact change-request /
-merge / state-check commands come from the project CLAUDE.md `## Agent
-toolchain` section (`companions/declarations.md`); execution runs those
-declared commands rather than probing the host - MR/PR state included.
+**Declared commands** - the host and its commands come from
+`CLAUDE.md § Agent toolchain` (`companions/declarations.md § Declared
+commands`).
 
 ## Trunk
 
@@ -45,7 +44,7 @@ declared commands rather than probing the host - MR/PR state included.
 - **Merge policy.** Only `plan/` MR/PRs (planning artifacts) auto-merge;
   every other prefix - `feat`/`fix`/`refactor`/`release`/`doc`/`test`/
   `mnt`, and `batch` via its checkpoint accept - keeps review and merge
-  as the user's call (asked by `finish.md § 3 Ship`), delegable to a
+  as the user's call (asked by `finish.md § 3`), delegable to a
   supervisor within a project's declared bounds
   (`companions/declarations.md § Supervisor bounds`). Auto-merge runs on a
   green gate: native host auto-merge where available
@@ -94,8 +93,8 @@ Always within the short-lived / ≤ 3 active / merge-within-a-day bounds
 above.
 
 **Size is governed by this time bound, not a commit count.**
-`branch-plan.md`'s caps (~20 per branch, ~30 per batch) are subordinate
-proxies - the hard limit is merging within the short-lived window with no
+`branch-plan.md § Size cap` is a subordinate
+proxy - the hard limit is merging within the short-lived window with no
 big-bang merge (§ Anti-patterns).
 
 ## Commit messages
