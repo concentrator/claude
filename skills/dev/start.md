@@ -23,7 +23,8 @@ Baseline files (`layout.md § Baseline files`):
   toolchain`, spec per `migrate.md § 4`.
 - `README.md` (verify or stub).
 - `.gitignore` / `.env.example` - seed from the `companions/*.template`
-  files; contents per `layout.md § Baseline files`.
+  files; contents per `layout.md § Baseline files`; the `.env` rule and
+  the guard that enforces it: `companions/secrets.md`.
 - `dev/plans/` with `ROADMAP.md`.
 - Toolset for no-global contributors: per `migrate.md § 5`.
 

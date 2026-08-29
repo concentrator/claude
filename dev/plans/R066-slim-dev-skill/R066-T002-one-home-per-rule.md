@@ -57,15 +57,15 @@ that become citations (R066 acceptance criterion 3).
 
 ## Commits
 
-- [ ] `plan.md § Where things live` cites `layout.md § Artifacts
+- [x] `plan.md § Where things live` cites `layout.md § Artifacts
   layout` in place of its table
-- [ ] Commit caps and the plan-branch rule each stated once
+- [x] Commit caps and the plan-branch rule each stated once
   (`branch-plan.md § Size cap`, `plan.md § Where plans live in git`);
   the six citing sites repointed
-- [ ] The verify set and the declared-commands rule each stated once
+- [x] The verify set and the declared-commands rule each stated once
   (`finish.md § 1`, `declarations.md § Declared commands`); the four
   citing sites repointed
-- [ ] The no-merge rule and close folding each stated once
+- [x] The no-merge rule and close folding each stated once
   (`declarations.md § Supervisor bounds`, `verification-policy.md
   § Close folding`); the four citing sites repointed
 - [ ] `secrets.md` moves to `companions/secrets.md`; `§ Patterns` cites
