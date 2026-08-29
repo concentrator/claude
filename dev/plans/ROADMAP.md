@@ -259,3 +259,7 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R064: Fixed dev/ home - `dev/` is the one home of DEV artifacts
       in every project, this repository included; the configurable
       artifacts root and its resolver are removed.
+- [ ] R065: Trim the session-loaded prose - the DEV-only sections of
+      `writing.md` become a path-scoped, shipped rule, and
+      `delegation.md` and `rules/git-workflow.md` fold into one line
+      each in `CLAUDE.md`, so a session loads only universal prose.
