@@ -83,7 +83,7 @@ in the order listed until `check-caps.sh` passes:
   ships; `README.md § Installing` and `§ Contents` (`rules/` row),
   `DESIGN.md` tree-map (`rules/` node), `MAINTENANCE.md § Tier-2`
   Writing concern name both files.
-- [ ] Findings: `R065-T001-session-load-trim.findings.md` records the
+- [x] Findings: `R065-T001-session-load-trim.findings.md` records the
   words loaded unconditionally (`CLAUDE.md` + imports) before and
   after, and the table above checked row by row.
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
