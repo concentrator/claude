@@ -98,7 +98,7 @@ they are taken into account.
       value. The tracked `.env.example` above is what makes this reachable, since
       it ships both names empty for the operator to fill; found on the live host,
       where the dry run said `GITHUB_TOKEN=yes` and the run skipped `gh`.
-- [ ] `companions/supervisor-runbook.md` cites `skills/worker-host/` twice
+- [x] `companions/supervisor-runbook.md` cites `skills/worker-host/` twice
       (§ Two variants, § Failure modes) and the installer does not ship that
       skill, so the citation is dead in an adopter tree: name the toolset
       repository as the home in both places (`CLAUDE.md § Audience
@@ -106,13 +106,9 @@ they are taken into account.
       step 1's portfolio field, § Dispatch's "declared transport", the "local
       transport" clause under the never-run-git rule - now that R040-T003 is
       superseded and one worker runs beside the supervisor in both variants.
-- [ ] Complete the branch: gates green, mark this plan's checkboxes, and route what
+- [x] Complete the branch: gates green, mark this plan's checkboxes, and route what
       the build turns up. Closure is checkbox-only; R040-T011 does not close R-040.
 
-Relation to `R040-T003`: that task carries the remote transport for a worker on a
-different machine. This one settles the operator-to-supervisor link and the
-co-located supervisor-to-worker link, which between them are the arrangement the
-pilot actually ran. Its `ssh <target>` framing should be re-read against these
-findings before it is executed - a peer message that wakes an idle session is a
-different mechanism from a shell over ssh, and may make most of T003 unnecessary
-too.
+`R040-T003` (remote transport) is superseded: Variant B runs the supervisor
+beside its worker on the host (`companions/supervisor-runbook.md § Two
+variants`), so the co-located link this task settles is the only one.

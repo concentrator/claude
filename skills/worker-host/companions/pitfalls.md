@@ -41,6 +41,12 @@ Each of these cost a debugging round on a real host.
   is at the keyboard. `settings` marks the provisioned paths trusted;
   a session started anywhere else answers the dialog first.
 
+- **Any new opt-in dialog is a headless startup hang.** The
+  fullscreen-renderer opt-in holds a fresh session before its prompt
+  line exactly as the trust and auto-mode dialogs do, and a future
+  dialog will too; answer it "Not now" over `tmux` (the renderer would
+  break the `capture-pane` reads the supervisor loop depends on) and
+  add its key to what `settings` writes once it is known.
 - **The auto-mode setup dialog blocks a session it appears over.** A fresh
   auto-mode session offers to scan the repo, recent sessions, shell
   history and other repositories, and waits. On a supervisor that reads

@@ -24,7 +24,7 @@ a message cannot do: answering a permission prompt and reading a pane
 Both deliver. Take A for a single scope you intend to sit with. Take B
 when the work should outlive the laptop, when the operator wants the
 machine back, or when the host is provisioned for it
-(`skills/worker-host/SKILL.md`).
+(`skills/worker-host/SKILL.md` in the toolset repository).
 
 ## The loop
 
@@ -205,7 +205,8 @@ a `git push origin main` or force-push deny still bites.
 - **Over ssh**, use a `pkill` pattern that cannot match its own shell
   (`pkill -f '[r]esmon'`) and run a long-lived helper in its own
   `tmux` session, never with `&`
-  (`skills/worker-host/companions/pitfalls.md`).
+  (`skills/worker-host/companions/pitfalls.md` in the toolset
+  repository).
 - **Sending keys to a fresh session**: wait for the prompt line, and
   confirm the text landed before pressing Enter.
 - **`defaultMode` appears in the tracked `settings.json`** after a

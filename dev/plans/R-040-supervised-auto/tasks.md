@@ -92,7 +92,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   its own vocabulary passes a compliance check; and the dispatch
   prompts state that an agent verifies before applying a correction
   and reports back one it judges wrong. `depends-on: R040-T006`
-- [ ] **R040-T011 [feat]**: the agent channel - the pilot drove sibling
+- [x] **R040-T011 [feat]**: the agent channel - the pilot drove sibling
   sessions by typing into a terminal pane and paid three ways: an
   escalation printed to scrollback sat unread for roughly an hour, a
   blocked supervisor read identically to a thinking one, and the
@@ -277,3 +277,11 @@ composite (`R040-T###`, counter scoped to this initiative).
   `declarations.md`, `supervise.md § Resolve` and the runbook cite the
   new home. Surfaced by the R065-T001 close review.
   `depends-on: R040-T018`
+- Backlog: a worker-side notification hook - a blocked worker wakes its
+  supervisor instead of waiting to be read; until it lands, the
+  runbook's wait recipes take a hard `timeout` on every loop
+  (`R040-T011-agent-channel.findings.md`).
+- Backlog: `verification-policy.md` - a negative search is evidence
+  only from an instrument whose failure differs from its no-match; the
+  `grep` these sessions invoke wraps `ugrep -I`, which exits 1 silently
+  on a file it judges binary (`R040-T011-agent-channel.findings.md`).
