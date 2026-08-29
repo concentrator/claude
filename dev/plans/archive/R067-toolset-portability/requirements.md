@@ -1,5 +1,6 @@
 ---
 approved: 2026-08-30
+status: done 2026-08-30
 kind: fix
 ---
 
@@ -49,12 +50,13 @@ ruling.
 
 ## Acceptance criteria
 
-- [ ] No tracked file carries a Cyrillic character. Evidence:
-  `git grep -l -P '[\x{0400}-\x{04FF}]'` prints nothing.
-- [ ] Case 16 still exercises a git-quoted filename. Evidence: the
-  fixture name is non-ASCII and `bash
-  scripts/test/check-accretion.test.sh` reports "quoted filename
-  scanned" and "quoted archive filename exempt".
-- [ ] fp-remedy's copy matches the source and its refresh is on the
-  host. Evidence: `diff` between the two files is empty; the fp-remedy
-  MR id, merged.
+- [x] No tracked file carries a Cyrillic character. Evidence:
+  `git grep -l -P '[\x{0400}-\x{04FF}]'` on `main` after R067-T002
+  prints nothing.
+- [x] Case 16 still exercises a git-quoted filename. Evidence: the
+  fixture is `plán.md` (`scripts/test/check-accretion.test.sh` case
+  16) and the suite reports "quoted filename scanned" and "quoted
+  archive filename exempt".
+- [x] fp-remedy's copy matches the source and its refresh is on the
+  host. Evidence: `cmp` of fp-remedy's copy against the source is
+  silent; fp-remedy MR !38 merged.
