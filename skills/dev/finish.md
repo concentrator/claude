@@ -37,8 +37,8 @@ nothing uncommitted) to a merged MR/PR. `/dev ship` enters it directly;
 on the default branch, or with uncommitted changes, it stops with an
 error naming that condition.
 
-1. Gate: `bash scripts/ci/run-all.sh` plus the declared test and lint
-   commands. A failure stops Ship and is reported.
+1. Gate: the Tier-1 runner `ci/run-all.sh` (installed per `start.md
+   § 4`) plus the declared test and lint commands. A failure stops Ship and is reported.
 2. `git push -u origin <branch>`, then open a CI-gated MR/PR via the
    declared change-request command (`companions/declarations.md
    § Declared commands`; no declared host → push and print the URL).

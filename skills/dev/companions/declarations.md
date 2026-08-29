@@ -21,7 +21,7 @@ Declare it once; `migrate` backfills it if absent (absent-host fallback:
 
 ## Supervisor bounds
 
-A project delegating delivery to a supervisor (R-040) declares its
+A project delegating delivery to a supervisor declares its
 bounds in the same `## Agent toolchain` section - the single home for
 merge authority:
 

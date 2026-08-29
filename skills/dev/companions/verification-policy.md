@@ -2,7 +2,7 @@
 
 Companion to `SKILL.md`, consulted by the `/dev auto` controller when
 deciding how much verification each commit and batch warrants. The aim
-is to trim agentic verification cost (R-005) without dropping below the
+is to trim agentic verification cost without dropping below the
 floor that keeps the default branch safe. Sections below define the
 knobs the controller has and when to apply them.
 
@@ -184,6 +184,6 @@ task `[type]` tag. Absent the tag, items default to Opus.
 **Spec-check disambiguation:** per-commit spec-compliance checks
 (pass/fail against the plan item) and the judgment-heavy branch-close /
 batch full-diff reviews all run on `fable`. They remain distinct roles -
-the per-commit spec check is the only one lever 1 may skip on a
-mechanical commit; the close/batch reviews always run. Do not conflate
+the per-commit spec check is the only one a mechanical commit may
+skip (§ Spec-check skip); the close/batch reviews always run. Do not conflate
 them.

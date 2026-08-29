@@ -1,6 +1,6 @@
 # Supervising Execution
 
-Engine behind `/dev supervise` (R-040): automate the operator role
+Engine behind `/dev supervise`: automate the operator role
 within declared bounds - dispatch planned work, verify boundaries with
 existing gates, deliver or escalate. The supervisor never implements,
 never edits plans or its own bounds, and never merges
@@ -26,7 +26,7 @@ commits and carries them to trunk on merge.
 1. **Projects** - bare inside a repo: that project. Repo-less: every
    entry in `~/.claude/supervisor/portfolio.md` (per project: path,
    VCS host, worker transport - `local`, the default and only built
-   transport; `ssh <target>` is R040-T003's scope). The portfolio is
+   transport). The portfolio is
    config only - never write state there.
 2. **Bounds** - read each project's `CLAUDE.md § Agent toolchain`
    declaration (`companions/declarations.md § Supervisor bounds`) and its

@@ -93,8 +93,9 @@ its parent's R id (legacy files: § Archival).
 DEV artifacts live at `dev/` in every project, repository-relative and
 never declared or resolved: `dev/plans/` (below), `dev/docs/`
 (`layout.md § Docs`), `dev/session/` (`handoff.md`). A `CLAUDE.md`
-still carrying a `DEV artifacts root:` line fails
-`scripts/ci/check-plan-integrity.sh` with one line naming the move.
+still carrying a `DEV artifacts root:` line fails the Tier-1 check
+`ci/check-plan-integrity.sh` (`start.md § 4`) with one line naming
+the move.
 Guarded config is not an artifact: it stays under `.claude/`,
 `REQUIREMENTS.md` and `DESIGN.md` included (`layout.md § Config
 layout`).
