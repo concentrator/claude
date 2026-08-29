@@ -155,11 +155,17 @@ Effort: a role runs at the session `effortLevel` unless its definition
 pins one (§ Effort mechanics).
 
 **Capacity fallback.** A pinned model can be rate-limited, which is not
-a fact about the work. When a dispatch fails on capacity, fall back one
-row - `fable` roles to `opus`, `opus` roles to `sonnet` - and record the
-substitution in the batch report or branch findings: pinned model,
-substitute, reason. It is a documented degrade, not a decision to
-negotiate per batch, and not grounds to halt delivery.
+a fact about the work. Before dispatching a `fable` role, read the gate:
+`bash scripts/model-quota.sh "Fable 5"` exits 0 while the weekly window
+has headroom, 1 at or over its ceiling, 2 when it cannot tell; dispatch
+`fable` on 0 only, `opus` otherwise - a wrong `fable` stalls the review
+on a consent dialog, a wrong `opus` costs a weaker review, and only the
+second is recoverable. A dispatch that still fails on capacity below
+the ceiling falls back one row - `fable` roles to `opus`, `opus` roles
+to `sonnet`. Either way, record the substitution in the batch report or
+branch findings: pinned model, substitute, reason. It is a documented
+degrade, not a decision to negotiate per batch, and not grounds to halt
+delivery.
 
 The record states what the substitution costs: cheap where
 deterministic gates pin acceptance, the larger call where the

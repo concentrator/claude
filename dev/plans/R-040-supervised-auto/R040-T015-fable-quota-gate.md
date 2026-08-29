@@ -51,7 +51,7 @@ a feature.
       costs a weaker review. The script never reads or refreshes
       `refreshToken`: rotation belongs to Claude Code, and a script racing it
       can leave the credential unusable for the session that owns it.
-- [ ] Make the capacity fallback in `verification-policy.md § Models`
+- [x] Make the capacity fallback in `verification-policy.md § Models`
       pre-flight: read the gate before dispatching a `fable`-pinned role,
       dispatch `fable` only on exit 0, and otherwise dispatch `opus` and
       record the substitution the section already requires. Keep the reactive
