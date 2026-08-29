@@ -98,7 +98,7 @@ they are taken into account.
       value. The tracked `.env.example` above is what makes this reachable, since
       it ships both names empty for the operator to fill; found on the live host,
       where the dry run said `GITHUB_TOKEN=yes` and the run skipped `gh`.
-- [ ] `companions/supervisor-runbook.md` cites `skills/worker-host/` twice
+- [x] `companions/supervisor-runbook.md` cites `skills/worker-host/` twice
       (§ Two variants, § Failure modes) and the installer does not ship that
       skill, so the citation is dead in an adopter tree: name the toolset
       repository as the home in both places (`CLAUDE.md § Audience

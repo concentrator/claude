@@ -9,8 +9,8 @@ Host gates are never bypassed - no admin merges.
 
 **Never run git in a worker's working tree.** Absolute, not a caution:
 a caution did not prevent this, and the damage is silent when it
-happens. Under the local transport the supervisor and its worker share
-one checkout, so any command that moves HEAD, creates a branch, stages,
+happens. The supervisor and its worker share one checkout, so any
+command that moves HEAD, creates a branch, stages,
 stashes or checks out there acts on whatever the worker left. Inspect
 read-only through explicit refs - `git -C <repo> show <ref>:<path>`,
 `git -C <repo> log <ref>` - and nothing else. When the supervisor must
@@ -25,9 +25,7 @@ commits and carries them to trunk on merge.
 
 1. **Projects** - bare inside a repo: that project. Repo-less: every
    entry in `~/.claude/supervisor/portfolio.md` (per project: path,
-   VCS host, worker transport - `local`, the default and only built
-   transport). The portfolio is
-   config only - never write state there.
+   VCS host). The portfolio is config only - never write state there.
 2. **Bounds** - read each project's `CLAUDE.md § Agent toolchain`
    declaration (`companions/declarations.md § Supervisor bounds`) and its
    `.claude/supervisor.md` instructions when referenced. No
@@ -51,7 +49,7 @@ monitor - or, if it is dead, resume `/dev auto R<NNN>-B<NNN>` in a new session
 over its intact refs. Never run two workers on one project.
 
 One interactive worker session per project, under that project's
-declared transport and permissions - the pre-flight is `auto.md`'s.
+declared permissions - the pre-flight is `auto.md`'s.
 Headless does not serve: it cannot edit protected `.claude/` paths and
 has no way to answer a prompt, so a blocked headless worker is a dead
 one. Which mode each role runs in, and how the two reach each other,
@@ -78,7 +76,7 @@ the worker's checkout - writing into that tree is how a relayed answer
 becomes an accidental commit - and the supervisor sends where it is.
 The worker reads it once and re-reads on demand; the channel carries
 one path either way, whatever the answer's length. The exception is
-about authorship, not about transport. A worker does stall on permission
+about authorship, not about the channel. A worker does stall on permission
 prompts, and no declaration prevents it: Bash rules match a command
 prefix, and a compound command - a loop, a pipeline, a `case` - offers
 none to match, so it escalates however wide the allowlist is. Clearing
