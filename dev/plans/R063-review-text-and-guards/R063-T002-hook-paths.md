@@ -44,7 +44,7 @@ expands regardless of directory.
   writes the one stderr line; `missing jq fails open` stays green.
   `DESIGN.md § Self-enforcement` sentence on the guards names the
   closed path in one clause.
-- [ ] Re-install into fp-remedy: `bash scripts/install-dev.sh
+- [x] Re-install into fp-remedy: `bash scripts/install-dev.sh
   /Users/skywalker/wallarm-claude/fp-remedy` on a fp-remedy branch
   `fix/hook-paths`; the diff is the five hook paths in
   `.claude/settings.json` plus the refreshed hook copies; run
