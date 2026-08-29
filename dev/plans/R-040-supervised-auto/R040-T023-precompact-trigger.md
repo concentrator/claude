@@ -21,7 +21,7 @@ than with the harness.
 - [x] The test feeds `trigger` in both cases (lines 44 and 55); it
   fails with `unknown` recorded. The hook reads `.trigger // "unknown"`;
   the test passes. No other field of the hook's input changes.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,

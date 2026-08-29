@@ -285,7 +285,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   `grep` these sessions invoke wraps `ugrep -I`, which exits 1 silently
   on a file it judges binary (`R040-T011-agent-channel.findings.md`).
 
-- [ ] **R040-T023 [fix]**: `hooks/dev-precompact-state.sh` records
+- [x] **R040-T023 [fix]**: `hooks/dev-precompact-state.sh` records
   `trigger: unknown` on every compaction. It reads
   `.compaction_trigger` from the hook's stdin, and Claude Code sends the
   reason as `trigger` (`manual` or `auto`, code.claude.com/docs/en/hooks-guide),
