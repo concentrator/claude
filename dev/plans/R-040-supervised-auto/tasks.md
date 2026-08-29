@@ -284,3 +284,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   only from an instrument whose failure differs from its no-match; the
   `grep` these sessions invoke wraps `ugrep -I`, which exits 1 silently
   on a file it judges binary (`R040-T011-agent-channel.findings.md`).
+
+- Backlog: `.claude/settings.json` `fallbackModel` equals `model` since
+  R040-T015 pointed the project tier at Opus - dead config. Settings
+  tiering (R-056, closed) owned the key; drop it or point it at Sonnet.

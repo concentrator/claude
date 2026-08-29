@@ -18,16 +18,16 @@ What each part contributes; the inventory itself is § Tree-map.
 
 ## Self-hosting layout
 
-This repo is consumed as `~/.claude`, so what is `.claude/` in a normal
-project is the repo root here. Foundational DEV files
+This repo is consumed as `~/.claude`, so a normal project's `.claude/`
+is the repo root here. Foundational DEV files
 (`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md`) sit at
 the root, not in a nested `.claude/`. The nested `.claude/` holds only Claude Code's
-project settings, which the tool locates. DEV artifacts
+project settings, at the path the tool fixes. DEV artifacts
 sit under `dev/` as in every adopter.
 
 ## Tree-map
 
-Every tracked dir and file; harness-managed state (`projects/`,
+Tracked dirs and notable files; harness-managed state (`projects/`,
 `cache/`, `shell-snapshots/`, `plugins/`, logs, …) is gitignored.
 
 ```

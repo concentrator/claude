@@ -15,7 +15,8 @@ for f in /usr/bin/* /bin/*; do
   case "$b" in curl|security) continue ;; esac
   ln -s "$f" "$HERMETIC/$b" 2>/dev/null
 done
-trap 'rm -rf "$HERMETIC"' EXIT
+LEAKS=$(mktemp)
+trap 'rm -rf "$HERMETIC" "$LEAKS"' EXIT
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
@@ -35,6 +36,7 @@ while [ \$# -gt 0 ]; do
   case "\$1" in -H) [ "\${2#@}" != "\$2" ] && cat "\${2#@}" >> "$d/headers"; shift ;; esac
   shift
 done
+[ "\$(cat "$d/curlrc")" = 0 ] || exit "\$(cat "$d/curlrc")"
 cat "$d/body"; printf '\n%s\n' "\$(cat "$d/status")"
 STUB
   cat > "$d/bin/security" <<STUB
@@ -44,14 +46,20 @@ cat "$d/keychain.json"
 STUB
   chmod +x "$d/bin/curl" "$d/bin/security"
   : > "$d/calls"; : > "$d/headers"
-  printf '200' > "$d/status"
+  printf '200' > "$d/status"; printf '0' > "$d/curlrc"
   printf '%s' "$d"
 }
-window() {  # <display-name> <percent> [is_active]
-  printf '{"seven_day_opus":null,"limits":[{"scope":{"model":{"id":null,"display_name":"%s"}},"percent":%s,"severity":"ok","resets_at":"2026-08-31T00:00:00Z","is_active":%s}]}' \
-    "$1" "$2" "${3:-true}"
+window() {  # <display-name> <percent>
+  printf '{"seven_day_opus":null,"limits":[{"scope":{"model":{"id":null,"display_name":"%s"}},"percent":%s,"severity":"ok","resets_at":"2026-08-31T00:00:00Z","is_active":true}]}' \
+    "$1" "$2"
 }
-gate() { local d="$1"; shift; env PATH="$d/bin:$HERMETIC" HOME="$d/home" "$@" bash "$SCRIPT" "Fable 5" 2>&1; }
+# Every run's output is screened for a credential value, whichever path it took.
+gate() {
+  local out rc
+  out=$(env PATH="$1/bin:$HERMETIC" HOME="$1/home" bash "$SCRIPT" "Fable 5" 2>&1); rc=$?
+  grep -q 'canary' <<<"$out" && printf '%s\n' "$out" >> "$LEAKS"
+  printf '%s' "$out"; return $rc
+}
 
 # 1. headroom below the ceiling exits 0 and reports the window
 d=$(fixture); window "Fable 5" 42 > "$d/body"
@@ -65,7 +73,6 @@ grep -q 'Bearer fixtureleakcanary' "$d/headers" && pass "token sent as a bearer 
   || die "no bearer header: $(cat "$d/headers")"
 grep -q 'fixtureleakcanary' "$d/calls" && die "token in curl argv: $(cat "$d/calls")" \
   || pass "token never in argv"
-grep -q 'canary' <<<"$out" && die "credential value printed: $out" || pass "no credential value printed"
 
 # 3. the refresh token is Claude Code's to rotate; the script never reads it
 grep -q 'fixturerefreshcanary' "$d/headers" "$d/calls" && die "refresh token used" \
@@ -76,13 +83,18 @@ grep -q 'anthropic-beta: oauth-2025-04-20' "$d/headers" && grep -q 'api.anthropi
   && pass "request matches the probed shape" || die "request shape: $(cat "$d/calls" "$d/headers")"
 rm -rf "$d"
 
-# 5. at the ceiling, and over it, exit 1 - the caller dispatches the fallback
-for p in 80 97; do
+# 5. at the ceiling, and over it, exit 1 - the caller dispatches the fallback;
+#     the endpoint may answer with a float, and the boundary holds either way
+for p in 80 80.0 97; do
   d=$(fixture); window "Fable 5" "$p" > "$d/body"
   out=$(gate "$d"); rc=$?
   [ "$rc" -eq 1 ] && pass "$p percent exits 1" || die "$p percent rc=$rc: $out"
   rm -rf "$d"
 done
+d=$(fixture); window "Fable 5" 79.9 > "$d/body"
+out=$(gate "$d"); rc=$?
+[ "$rc" -eq 0 ] && pass "79.9 percent exits 0" || die "79.9 percent rc=$rc: $out"
+rm -rf "$d"
 
 # 6. with no credentials file, the macOS keychain item is the credential
 d=$(fixture); rm "$d/home/.claude/.credentials.json"
@@ -119,5 +131,21 @@ unknown "unparseable body" "$d"; rm -rf "$d"
 
 d=$(fixture); printf '{"claudeAiOauth":{"refreshToken":"fixturerefreshcanary"}}' > "$d/home/.claude/.credentials.json"
 unknown "credential without an access token" "$d"; rm -rf "$d"
+
+d=$(fixture); printf '7' > "$d/curlrc"
+unknown "unreachable endpoint" "$d"; rm -rf "$d"
+
+d=$(fixture); window "Fable 5" '"n/a"' > "$d/body"
+unknown "non-numeric percent" "$d"; rm -rf "$d"
+
+# 8. an absent entry names what the endpoint did return, so a renamed model
+#     reads as a wrong selector rather than an outage
+d=$(fixture); window "Opus 5" 10 > "$d/body"
+out=$(gate "$d")
+grep -q 'seen: Opus 5' <<<"$out" && pass "absent entry lists the names seen" || die "names not listed: $out"
+rm -rf "$d"
+
+# 9. no run on any path printed a credential value
+[ ! -s "$LEAKS" ] && pass "no credential value printed on any path" || die "credential printed: $(cat "$LEAKS")"
 
 exit $fail
