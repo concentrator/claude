@@ -293,6 +293,15 @@ composite (`R040-T###`, counter scoped to this initiative).
   same wrong key, so it passes. Read `.trigger`, and feed it in the
   test. Observed in a session file of 2026-08-28. `depends-on: R040-T019`
 
+- [ ] **R040-T024 [fix]**: `verification-policy.md § Models` calls the
+  gate as `model-quota.sh "Fable 5"`, and the usage endpoint names the
+  model `Fable`, so the gate exits 2 on every call and every
+  `fable`-pinned review routes to Opus - the outage the gate's own
+  diagnostic was built to expose, and it did, on the first close review
+  after R040-T015 merged (`R040-T023-precompact-trigger.findings.md`).
+  Cite `"Fable"` in the policy and in the gate's test fixtures.
+  `depends-on: R040-T015`
+
 - Backlog: `.claude/settings.json` `fallbackModel` equals `model` since
   R040-T015 pointed the project tier at Opus - dead config. Settings
   tiering (R-056, closed) owned the key; drop it or point it at Sonnet.
