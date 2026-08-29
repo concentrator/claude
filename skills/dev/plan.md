@@ -99,19 +99,9 @@ Guarded config is not an artifact: it stays under `.claude/`,
 `REQUIREMENTS.md` and `DESIGN.md` included (`layout.md § Config
 layout`).
 
-| File | Location |
-|---|---|
-| `ROADMAP.md` | `dev/plans/` |
-| `requirements.md` (per initiative) | `dev/plans/R<NNN>-<slug>/` |
-| `tasks.md` (per initiative, lazy) | `dev/plans/R<NNN>-<slug>/` |
-| `<task-id>-<slug>.md` (branch plans) | `dev/plans/R<NNN>-<slug>/` |
-| `<task-id>-<slug>.findings.md` | beside its branch plan |
-| `R<NNN>-B<NNN>.md`, `R<NNN>-B<NNN>.report.md` (batches) | `dev/plans/R<NNN>-<slug>/batches/` |
-| `release-vX.Y.Z.md` | `dev/plans/` |
-| `milestone-<id>.md` (§ Milestone plans) | `dev/plans/` |
-
-These locations are exclusive - never place plans or specs in
-`dev/docs/` or other project directories.
+The file tree is `layout.md § Artifacts layout`; its locations are
+exclusive - never place plans or specs in `dev/docs/` or other
+project directories.
 
 ## Directory conventions
 
