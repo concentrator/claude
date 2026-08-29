@@ -75,10 +75,11 @@ in the order listed until `check-caps.sh` passes:
   replaces `rules/git-workflow.md`, which is deleted; `DESIGN.md`
   § components `rules/` bullet and the `git-workflow.md` reference
   under § Self-hosting drop the pin; `install-dev.test.sh`'s
-  not-shipped assertion targets `rules/claude-md.md`.
+  not-shipped assertion checks `rules/` holds only the shipped rule.
 - [x] Installer ships the rule: `install-dev.sh` copies
   `rules/writing-artifacts.md` into `<target>/rules/` beside step 5
-  and allowlists `.claude/rules/writing-artifacts.md` in step 6;
+  and allowlists `.claude/rules/` in step 6 (a file under an ignored
+  directory cannot be re-included);
   `install-dev.test.sh` asserts the copy and that no other rule
   ships; `README.md § Installing` and `§ Contents` (`rules/` row),
   `DESIGN.md` tree-map (`rules/` node), `MAINTENANCE.md § Tier-2`
@@ -86,7 +87,7 @@ in the order listed until `check-caps.sh` passes:
 - [x] Findings: `R065-T001-session-load-trim.findings.md` records the
   words loaded unconditionally (`CLAUDE.md` + imports) before and
   after, and the table above checked row by row.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose and config rows: `code-reviewer`), Tier-2 compliance
   review, `bash scripts/ci/run-all.sh` green, cleanup; R065 closure

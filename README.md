@@ -82,7 +82,7 @@ beside them under `dev/` - see `DESIGN.md § Self-hosting layout`.
 
 To give another machine or project the DEV toolset - the `/dev` router,
 its mode-file companions, the bundled dependency skills, the writing
-conventions with the DEV-artifact writing rule, the project-agnostic Tier-1 checks (code-size, em-dash,
+conventions and the DEV-artifact writing rule, the project-agnostic Tier-1 checks (code-size, em-dash,
 accretion, batch-tags - the last two with self-tests), the two
 PreToolUse guards, and the branch-state line - run the installer from a
 checkout of this repo:
@@ -96,7 +96,7 @@ means a contributor's own global copy still wins). The installer registers
 the branch-guard, secrets-guard, and branch-state hooks in the target
 `settings.json` idempotently, copies the session-state writer beside
 them unregistered (the branch-state hook asks it for the session file's
-path), and never ships the personal convention rules. Re-run it to
+path), and from `rules/` ships only `writing-artifacts.md`. Re-run it to
 refresh.
 
 It also writes outside the target `.claude/`, append-only in both cases:

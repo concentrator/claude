@@ -133,7 +133,9 @@ Two tiers gate every change into `main` (the CI tiers are built for
   (`check-no-em-dash`), a tracked secret (`check-secrets`, sharing the
   hook predicate), a stale or unresolvable batch ref
   (`check-batch-tags`, local-only: skips where refs are hidden), or an
-  unconfigured context budget (`check-settings`).
+  unconfigured context budget (`check-settings`). `main` is protected: a
+  merge needs a PR with `tier1` green and `enforce_admins` is on, so
+  `gh pr merge` merges only on green, admins included.
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
   concerns to the diff at branch close (`skills/dev/branch-plan.md
   § Closing routine`); they are enumerated there and nowhere else.

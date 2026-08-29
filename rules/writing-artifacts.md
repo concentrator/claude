@@ -3,11 +3,11 @@ paths:
   - "**/*.md"
 ---
 
-# Writing conventions for DEV artifacts
+# Writing conventions for artifacts
 
-Applies to every Markdown artifact - plans, docs, findings, rules,
-skills - and to the prose that cites them. Loaded when Markdown is read
-or edited; the universal conventions are `writing.md`.
+Applies to every Markdown file - plans, docs, findings, rules, skills.
+Loaded when Markdown is read or edited; the universal conventions are
+`writing.md`.
 
 ## State the present
 

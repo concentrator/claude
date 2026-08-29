@@ -851,7 +851,7 @@ described by their symptom in a pane rather than by a log line.
 - [x] **A conflict between two rails is a routing decision, and the supervisor
       surfaced one without blocking on it.** A realigned doc duplicated nine
       values from a doc not yet realigned, putting the member's "a realign
-      deletes no claim" against `writing.md § One home per number`. It routed
+      deletes no claim" against `rules/writing-artifacts.md § One home per number`. It routed
       the resolution to the later commit that has both docs in view, required
       that commit to rule explicitly, deleted nothing unilaterally, and offered
       the operator the alternative. Worth recording as the shape a

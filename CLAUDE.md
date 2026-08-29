@@ -8,11 +8,11 @@ Two modes:
 - **DEV** - spec-driven: requirements → design → initiatives → tasks →
   branch plans → commits. Entered via `/dev`.
 
-Git workflow (both modes): `skills/dev/git-workflow.md`; host GitHub, so
-MR/PR resolves to PR.
+Git workflow (both modes): `skills/dev/git-workflow.md`.
 
-Subagents are pre-authorised for genuinely wide searches (many files,
-only the conclusion wanted), never for a fan-out one `grep` answers.
+Subagents are pre-authorised for wide searches (many files, conclusion
+only), never for a fan-out one `grep` answers or whose token cost the
+task does not justify.
 
 ## Scope
 
@@ -23,13 +23,13 @@ line (`skills/dev/plan.md § Referential integrity`).
 
 ## Agent toolchain
 
-- Test/lint: `bash scripts/ci/run-all.sh` (Tier-1 gate, also CI and
-  pre-push).
+- Test/lint: `bash scripts/ci/run-all.sh`
+- VCS host: GitHub, CLI `gh` (MR/PR resolves to PR)
+- Change request: `gh pr create`
+- State-check: `gh pr view <n> --json state,mergedAt,statusCheckRollup`
+- Merge: `gh pr merge <n> --merge --delete-branch`
 - Supervisor bounds: batch-scoped delivery; operator mode: AI operated
-  (`skills/dev/companions/declarations.md`).
-- VCS-host CLI: `gh`; state-check:
-  `gh pr view <n> --json state,mergedAt,statusCheckRollup`.
-- Merge gate: PR + green `tier1` on protected `main`.
+  (`skills/dev/companions/declarations.md`)
 
 ## Code Comments
 

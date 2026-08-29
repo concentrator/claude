@@ -49,8 +49,8 @@ artifact rules only through that import.
 - `install-dev.sh` copies `rules/writing-artifacts.md` into the target
   `.claude/rules/`, so adopters keep every artifact rule and the skill
   citations resolve for them.
-- Every citation of a moved section (`writing.md § State the present`
-  and the others, in skills and script headers) points at
+- Every citation of a moved section (State the present and the
+  others, in skills and script headers) points at
   `rules/writing-artifacts.md § <section>`.
 
 ## Invariants
@@ -109,8 +109,8 @@ pre-authorisations (`companions/documentation.md`,
 ## Constraints
 
 - One `refactor/` branch; sections move verbatim and keep their
-  meaning, rewording is out of (`writing.md § State the present` applies to the moved text
-  as it stands).
+  meaning; rewording is out of scope (`rules/writing-artifacts.md
+  § State the present` applies to the moved text as it stands).
 - Changes to `CLAUDE.md` and `rules/` are approved by this initiative;
   the branch plan lists the exact `CLAUDE.md` trims for approval.
 
