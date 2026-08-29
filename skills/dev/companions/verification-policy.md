@@ -10,9 +10,9 @@ knobs the controller has and when to apply them.
 
 Effort routes per role: an agent definition's frontmatter carries an
 `effort:` key beside `model:` (`low`/`medium`/`high`/`xhigh`/`max`;
-`agents/code-reviewer.md` pins `medium`); a role pinning neither
-inherits the session `effortLevel`, the default rather than the
-ceiling.
+`agents/code-reviewer.md` pins `medium`), since dispatch overrides
+`model` only; a role pinning neither inherits the session
+`effortLevel`, the default rather than the ceiling.
 
 ## Mechanical commits
 

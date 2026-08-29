@@ -67,8 +67,9 @@ manually: the worker runs `/dev code <slug>` and closes per
 `finish.md`, not the auto engine. Everything else here holds
 unchanged - ids only, questions to the supervisor, no merge by the
 worker. What differs is the evidence at the checkpoint: there is no
-`R<NNN>-B<NNN>.report.md`, so `finish.md § 1`'s verify set stands in its place. Verify that set from
-artifacts exactly as a report would be verified; a manual branch
+`R<NNN>-B<NNN>.report.md`, so `finish.md § 1`'s verify set stands in
+its place. Verify that set from artifacts exactly as a report would be
+verified; a manual branch
 missing it is no more mergeable than a batch missing its report. The supervisor passes ids only; workers read plans from
 their repo - the supervisor never relays content; its ledgered
 question answers are the one exception, and even those travel as a
@@ -103,12 +104,12 @@ for supervisor and worker alike: `handoff.md`.
 Within a declared grant, a worker halting on an implementation
 question - a NEEDS_CONTEXT, a choice between offered options, a spec
 ambiguity - gets the supervisor's resolution on the plan's and
-requirements' terms, and the member resumes. The question arrives with
-the excerpt needed to answer it, never a diff or transcript; a
-design-touching or unclassifiable question escalates
-(`companions/declarations.md § Supervisor bounds`). The worker carries
-each answer into the report's `## Supervisor decisions` section at
-checkpoint.
+requirements' terms, the best option advised where possible, and the
+member resumes. The question arrives with the excerpt needed to
+answer it, never a diff or transcript; a design-touching or
+unclassifiable question escalates (`companions/declarations.md
+§ Supervisor bounds`). The worker carries each answer into the
+report's `## Supervisor decisions` section at checkpoint.
 
 ## Boundary verification - existing gates only
 
@@ -117,9 +118,9 @@ At a checkpoint, before the MR/PR is handed over:
 1. `R<NNN>-B<NNN>.report.md` exists - no report, no accept (`auto.md`).
 2. The report verifies each member's acceptance criteria.
 3. `batch/R<NNN>-B<NNN>` has moved off `pre-R<NNN>-B<NNN>` (one
-   `git log -1` on each): equal refs mean the work reached trunk by
-   another route, with every gate on that route unrun. Check it
-   before the gates below.
+   `git log -1` on each): equal refs mean no member branch merged in,
+   so the work took another route, with every gate on that route
+   unrun. Check it before the gates below.
 4. Project gates are green: declared test/lint plus CI on the MR/PR
    (declared state-check command).
 5. A batch closing an R does **not** carry the closure and archival
@@ -143,7 +144,8 @@ never deliver without a class or escalate without having read the
 declaration.
 
 The terminal state on a branch is a green MR/PR plus the report that
-verifies it (`companions/declarations.md § Supervisor bounds`). Within a named class, hand that MR/PR to
+verifies it (`companions/declarations.md § Supervisor bounds`). Within
+a named class, hand that MR/PR to
 the operator with the evidence cited and nothing else: report path,
 gate results, state-check output. The operator decides and applies the
 signature (§ Supervision signature there). Everything else escalates -

@@ -1,7 +1,8 @@
 # TBD migration report
 
-For an already-DEV, pre-TBD project - invoked from `migrate.md` (and `legacy-migration.md`) when
-`dev/plans/ROADMAP.md` is present. Produce a report over
+For an already-DEV, pre-TBD project - invoked from `migrate.md` (and
+`legacy-migration.md`) when `dev/plans/ROADMAP.md` is present. Produce
+a report over
 the three
 areas below. **Approval-gated throughout:** the agent executes each step only after
 the user approves it (`migrate.md`); host-side settings (protection)

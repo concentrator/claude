@@ -135,7 +135,8 @@ the final commit without the flag.
 ## Size cap
 
 A branch runs ~20 commits: warn past 20, prompt to split
-past 30 - subordinate to the short-lived governor
+past 30; a batch's planned commits split past 30 - subordinate to
+the short-lived governor
 (`git-workflow.md § Delivery cadence`). Override with stated
 reason in plan header.
 

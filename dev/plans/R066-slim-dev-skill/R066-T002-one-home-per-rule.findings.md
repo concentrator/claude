@@ -9,21 +9,21 @@ are the `/dev supervise` set; `branch-plan.md`, `git-workflow.md`,
 
 | File | Base | Close |
 |---|---|---|
-| `supervise.md` | 9517 | 8712 |
+| `supervise.md` | 9517 | 8771 |
 | `companions/supervisor-runbook.md` | 9877 | 9895 |
-| `companions/verification-policy.md` | 9285 | 8623 |
+| `companions/verification-policy.md` | 9285 | 8662 |
 | `companions/declarations.md` | 5889 | 5392 |
-| `/dev supervise` set | 34568 | 32622 |
-| `branch-plan.md` | 10049 | 9912 |
-| `git-workflow.md` | 7407 | 7241 |
-| `finish.md` | 3612 | 3649 |
-| `/dev code` set | 21068 | 20802 |
+| `/dev supervise` set | 34568 | 32720 |
+| `branch-plan.md` | 10049 | 9953 |
+| `git-workflow.md` | 7407 | 7236 |
+| `finish.md` | 3612 | 3652 |
+| `/dev code` set | 21068 | 20841 |
 | `plan.md` | 10080 (1437 words) | 9687 (1400 words) |
 | `secrets.md` → `companions/secrets.md` | 2362 | 2014 |
 
 Across the initiative (T001 base to T002 close): the `/dev supervise`
-set 36075 → 32622 bytes, `skills/dev` 264 → 216 KB (`du -sk`), the
-runbook 1738 →     1486 words.
+set 36075 → 32720 bytes, `skills/dev` 264 → 216 KB (`du -sk`), the
+runbook 1738 → 1486 words.
 
 ## Rule-to-home table, checked
 
@@ -57,7 +57,7 @@ it needed no edit.
   initiative as a rule's origin.
 - Criterion 6: a one-off checker (below) over every `file § Section`
   citation in `skills/dev/`: 191 citations. Unresolved by heading:
-  `CLAUDE.md § Conventions` (9) and `ROADMAP.md § Milestones` (2),
+  `CLAUDE.md § Conventions` (10) and `ROADMAP.md § Milestones` (2),
   sections of adopter-project files that `start.md` scaffolds;
   `git-workflow.md § Merge order` and `§ Merge policy`, bold labels
   (the audit's note, no gate); `branch-plan.md § agentic: stamp`, a
