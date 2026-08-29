@@ -250,9 +250,8 @@ Initiative index. Items: `R-001: description`; each entry owns
       directories and refs are legacy: frozen, valid, never renamed.
       The two id-parsing gates accept both shapes; the rule's one home
       is `plan.md § ID format`.
-- [ ] R062: Headroom in plan.md - `skills/dev/plan.md` sits at the
-      1500-word cap; the next rule added there needs a companion file
-      or a split. Stub, to be shaped.
+- [x] R062: Headroom in plan.md - superseded by R066, whose citation
+      of the layout tree from `plan.md` freed the room.
 - [ ] R063: Tier-2 review text and guard fail-closed - runnable review
       clauses citing their owners; hook guards that run from any
       directory and fail closed.
@@ -263,7 +262,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       `writing.md` become a path-scoped, shipped rule, and
       `delegation.md` and `rules/git-workflow.md` fold into one line
       each in `CLAUDE.md`, so a session loads only universal prose.
-- [ ] R066: Slim the DEV skill - the visual companion and the runbook's
+- [x] R066: Slim the DEV skill - the visual companion and the runbook's
       pilot measurements leave `skills/dev/`, every rule keeps one home,
       stale text and rationale go; per-command read cost drops and
       `plan.md` regains headroom (supersedes R062).

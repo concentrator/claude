@@ -81,7 +81,7 @@ that become citations (R066 acceptance criterion 3).
   `plan.md` word count, the phrase greps of the rule-to-home table, the
   `git grep` of criterion 4, the initiative-id grep of criterion 5,
   and the `§` citation check script with its output (criterion 6)
-- [ ] Mark and commit the task `[x]` in `tasks.md`; R062 marked `[x]`
+- [x] Mark and commit the task `[x]` in `tasks.md`; R062 marked `[x]`
   superseded by R066 in `ROADMAP.md`; R066 closure check
   (`plan.md § Approval and closure`), R062's directory archiving with
   the closure plan MR/PR (`finish.md § 4`)
