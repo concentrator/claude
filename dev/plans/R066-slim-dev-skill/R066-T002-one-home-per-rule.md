@@ -76,7 +76,7 @@ that become citations (R066 acceptance criterion 3).
   (five passages)
 - [x] Rationale trims in `branch-plan.md`, `declarations.md`,
   `documentation.md`, `untracked-claude.md` (five passages)
-- [ ] `R066-T002-one-home-per-rule.findings.md`: byte sizes of the
+- [x] `R066-T002-one-home-per-rule.findings.md`: byte sizes of the
   `/dev supervise` and `/dev code` read sets at base and close,
   `plan.md` word count, the phrase greps of the rule-to-home table, the
   `git grep` of criterion 4, the initiative-id grep of criterion 5,
