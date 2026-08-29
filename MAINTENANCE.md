@@ -55,7 +55,6 @@ Initial defaults - tune per project.
 | Transcripts | retention | `cleanupPeriodDays` (settings) |
 | `dev/session/` | files whose session is gone (`skills/dev/handoff.md`) | weekly, delete |
 | `dev/plans/` | orphaned or closed plan, findings, requirements & batch files; empty `R<NNN>-<slug>` dirs | monthly |
-| `dev/plans/visual-artifacts/` | gitignored scratch left behind | clear when stale |
 | `.claude/settings.json` + any regrown `settings.local.json` | allow-list mess: one-off / dead / overlapping rules; local entries a tracked tier already carries | weekly |
 | skills/ | dead, unused, broken, or duplicate skills | monthly |
 | rules/, CLAUDE.md, foundational docs & README | stale paths / dead references | on edit + monthly |

@@ -128,7 +128,8 @@ a measurement, `skills/worker-host/` if one is operative,
 ## Acceptance criteria
 
 - [ ] `git grep -l 'visual-companion\|companions/scripts\|visual-artifacts\|server.cjs'`
-  outside `dev/plans/archive/` returns nothing, and an
+  outside `dev/plans/archive/` and the R066 plan directory returns
+  nothing, and an
   `install-dev.sh --project` target has no `companions/scripts/`.
 - [ ] `supervisor-runbook.md` is under the 1500-word reference cap and
   has no `§ Remote Control` or `§ Failure modes` measurement; the

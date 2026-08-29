@@ -63,6 +63,12 @@ reader can re-run rather than trust.
       already runs `policy accept` on output. No package either: `remote-control`
       is a subcommand of the installed binary.
 
+- [x] **Auto mode reverts to prompting when the classifier transcript
+      overflows.** "Auto mode classifier transcript exceeded context window -
+      falling back to manual approval." A long supervisor session loses the
+      property that makes it unattended; reappearing prompts are this, not a
+      mode change.
+
 ## What this does to the task
 
 The three-file inbox/outbox/status channel this task originally specified is
@@ -349,7 +355,9 @@ described by their symptom in a pane rather than by a log line.
       turn stopped. Cheap, and only because the interrupted work was
       idempotent: the four verification checks were re-runnable and the delete
       had not happened. A limit landing between a destructive step and its
-      verification is the same event with no cheap recovery.
+      verification is the same event with no cheap recovery. The transcript
+      holds the last completed tool call, never the intent that would have
+      followed, so a resumed session is told where to resume.
 
 ### A keystroke write can drop its submit, silently
 

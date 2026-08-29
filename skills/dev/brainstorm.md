@@ -12,9 +12,7 @@ act of `plan.md § Directory conventions`. The discovery method behind
    say so and split; brainstorm the first.
 3. **Clarify** - questions one at a time, multiple-choice when possible:
    purpose, constraints, success criteria. Stop when you could write the
-   acceptance criteria. For genuinely visual questions (mockups,
-   layouts), offer the companion per `companions/visual-companion.md` - own
-   message, opt-in.
+   acceptance criteria.
 4. **Approaches** - propose 2–3 with trade-offs; lead with your
    recommendation. YAGNI ruthlessly.
 5. **Draft** - pick the next free `R<NNN>` id, create the plan branch

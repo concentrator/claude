@@ -26,32 +26,36 @@ records the fact today and the runbook copy is the duplicate.
 | auto mode reverts to prompting when the classifier transcript overflows | measurement | `R040-T011-agent-channel.findings.md` (new row under "What is settled"); runbook keeps: reappearing prompts mean this, not a mode change |
 | `pkill -f` self-matches over ssh, exit 255 | measurement | `skills/worker-host/companions/pitfalls.md` (new entry; the exit-255 first-contact entry there is a different fault) |
 | `&` inside an ssh command drops the connection; use `tmux` | measurement | `skills/worker-host/companions/pitfalls.md` (new entry) |
-| a fresh session ignores keys sent during its splash | measurement | already `R040-T011-agent-channel.findings.md` ("can drop its submit"); runbook keeps: wait for the prompt line |
+| a fresh session ignores keys sent during its splash | measurement | `skills/worker-host/companions/pitfalls.md` (new entry; the T011 "drop its submit" row is a different fault); runbook keeps: wait for the prompt line |
 | Claude Code writes `defaultMode` into the tracked `settings.json` | measurement | `skills/worker-host/companions/pitfalls.md` (new entry) |
-| usage-limit reset time is in the account's timezone | measurement | already `R040-T011-agent-channel.findings.md` ("usage limit stops a supervisor mid-turn"); runbook keeps: run `date` on the host before resuming |
+| usage-limit reset time is in the account's timezone | measurement | `skills/worker-host/companions/pitfalls.md` (new entry; the T011 mid-turn row records the halt, not the timezone); runbook keeps: run `date` on the host before resuming |
 | a turn ending between steps leaves no record of which | measurement | already `R040-T011-agent-channel.findings.md` (same row); runbook keeps: tell a resumed session where to resume |
 
 ## Commits
 
-- [ ] Delete `companions/visual-companion.md` and `companions/scripts/`;
+- [x] Delete `companions/visual-companion.md` and `companions/scripts/`;
   drop the offer at `brainstorm.md` step 3 and the `server.cjs` line
   in `scripts/ci/code-size-allow.txt`
-- [ ] Drop `dev/plans/visual-artifacts/` from `layout.md` (tree and the
+- [x] Drop `dev/plans/visual-artifacts/` from `layout.md` (tree and the
   lazy-files list) and "mockup scripts" from the `DESIGN.md` tree-map
   companions line
-- [ ] `scripts/test/install-dev.test.sh` asserts the `--project` target
+- [x] `scripts/test/install-dev.test.sh` asserts the `--project` target
   has no `skills/dev/companions/scripts/`
-- [ ] `supervisor-runbook.md § Remote Control` reduced to its four
+- [x] `supervisor-runbook.md § Remote Control` reduced to its four
   instructions (table rows 1-4)
-- [ ] `supervisor-runbook.md § Failure modes` reduced to its
-  instructions; the three host pitfalls become
+- [x] `supervisor-runbook.md § Failure modes` reduced to its
+  instructions; the five host pitfalls become
   `skills/worker-host/companions/pitfalls.md` entries and the
   classifier-overflow row joins `R040-T011-agent-channel.findings.md`
   (table rows 5-12)
-- [ ] `R066-T001-drop-visual-mockups.findings.md`: byte sizes of the
+- [x] Two argued passages in `supervisor-runbook.md § Variant B` (the
+  briefing copy, the per-poll reconnect) reduced to their instruction:
+  the section swap left the file 30 words over the cap criterion 2
+  names
+- [x] `R066-T001-drop-visual-mockups.findings.md`: byte sizes of the
   `/dev supervise` read set at the branch base and at close, the
   relocation table checked row by row (grep per receiving file), and
   the `git grep` of criterion 1
-- [ ] Mark and commit the task `[x]` in `tasks.md`
-- [ ] Complete the branch: re-review docs across all commits, cleanup,
+- [x] Mark and commit the task `[x]` in `tasks.md`
+- [x] Complete the branch: re-review docs across all commits, cleanup,
   mark plan complete, commit

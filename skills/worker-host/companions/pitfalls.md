@@ -49,3 +49,25 @@ Each of these cost a debugging round on a real host.
   `autoModeEnvSetup.dismissed` in `~/.claude.json`. Auto mode needs no
   setup to function, so nothing is lost by dismissing it; opting into the
   scan stays the operator's deliberate choice.
+
+- **`pkill -f` over ssh matches its own shell.** Run as
+  `ssh host 'pkill -f resmon.sh'`, the remote shell's command line
+  contains the pattern, so the kill takes the connection with it and
+  `ssh` exits 255. Use a pattern that cannot self-match:
+  `pkill -f '[r]esmon'`.
+
+- **`&` inside an ssh command drops the connection.** A helper
+  backgrounded that way dies with the session. Run a long-lived helper
+  in its own `tmux` session.
+
+- **A fresh session ignores keys sent during its splash.** Text written
+  before the prompt line appears is lost. Wait for the prompt line, and
+  confirm the text landed before pressing Enter.
+
+- **Claude Code writes `defaultMode` into the tracked `settings.json`.**
+  A supervised run dirties the config repo by starting. Do not stage
+  it.
+
+- **A usage-limit reset time is shown in the account's timezone, not
+  the host's.** Run `date` on the host before concluding the wait is
+  over.
