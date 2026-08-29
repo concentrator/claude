@@ -45,10 +45,14 @@ in the order listed until `check-caps.sh` passes:
 3. § Verify before stating: fold the two sentences on sources into one
    ("confirm it against a source you can point to; otherwise verify
    or say you're unsure").
+ 4. § Agent toolchain: the merge-gate line shortened, the self-hosting
+   line dropped; § Session Workflow: the rules-location clause dropped;
+   § Approval and persistence and § Communication tightened by a word
+   or two; the wide-search line and the PR pin in their shortest form.
 
 ## Plan
 
-- [ ] Split `writing.md`: `rules/writing-artifacts.md` with
+- [x] Split `writing.md`: `rules/writing-artifacts.md` with
   `paths: ["**/*.md"]` takes the five artifact sections verbatim
   (State the present, One home per finding, One home per number,
   Name things by their durable id, Bulk edits) and a one-line intro;
@@ -58,32 +62,38 @@ in the order listed until `check-caps.sh` passes:
   `companions/documentation.md` (two), `skills/dev/git-workflow.md`
   (two), `handoff.md`, `migrate.md`, `scripts/ci/check-accretion.sh`
   header.
-- [ ] `CLAUDE.md` under the cap: the trims above, then the durable-id
+- [x] `CLAUDE.md` under the cap: the trims above, then the durable-id
   sentence and the annotation clause; `check-caps.sh` green.
-- [ ] Fold `delegation.md`: the verification-gate pre-authorisation
+- [x] Fold `delegation.md`: the verification-gate pre-authorisation
   becomes a sentence in `companions/documentation.md § Verification
   gate`, the close-review one (with its no-`/code-review`,
   no-nested-subagents bound) a sentence in `branch-plan.md § Closing
   routine`; `CLAUDE.md` gets the wide-search line where
   `@delegation.md` was; `delegation.md` deleted; `DESIGN.md` tree-map
   and `README.md § Contents` row updated.
-- [ ] Inline the PR pin: one line in `CLAUDE.md § Session Workflow`
+- [x] Inline the PR pin: one line in `CLAUDE.md § Session Workflow`
   replaces `rules/git-workflow.md`, which is deleted; `DESIGN.md`
   § components `rules/` bullet and the `git-workflow.md` reference
   under § Self-hosting drop the pin; `install-dev.test.sh`'s
-  not-shipped assertion targets `rules/claude-md.md`.
-- [ ] Installer ships the rule: `install-dev.sh` copies
+  not-shipped assertion checks `rules/` holds only the shipped rule.
+- [x] Installer ships the rule: `install-dev.sh` copies
   `rules/writing-artifacts.md` into `<target>/rules/` beside step 5
-  and allowlists `.claude/rules/writing-artifacts.md` in step 6;
+  and allowlists `.claude/rules/` in step 6 (a file under an ignored
+  directory cannot be re-included);
   `install-dev.test.sh` asserts the copy and that no other rule
   ships; `README.md § Installing` and `§ Contents` (`rules/` row),
   `DESIGN.md` tree-map (`rules/` node), `MAINTENANCE.md § Tier-2`
   Writing concern name both files.
-- [ ] Findings: `R065-T001-session-load-trim.findings.md` records the
+- [x] Findings: `R065-T001-session-load-trim.findings.md` records the
   words loaded unconditionally (`CLAUDE.md` + imports) before and
   after, and the table above checked row by row.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] `CLAUDE.md` cap in lines: `check-caps.sh` checks `CLAUDE.md` at
+  100 lines or fewer, replacing the 200-line and 400-word checks.
+- [x] `CLAUDE.md` § Code Comments says a comment explains what the code
+  cannot show; the supervisor declarations split into their declared
+  two lines (`Supervisor bounds`, `Operator mode`; `AI operated` kept).
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose and config rows: `code-reviewer`), Tier-2 compliance
   review, `bash scripts/ci/run-all.sh` green, cleanup; R065 closure
   check per `plan.md § Approval and closure` - each acceptance

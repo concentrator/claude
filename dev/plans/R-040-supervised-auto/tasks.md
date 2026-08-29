@@ -267,3 +267,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   setting check recorded with its source, the rule text, and one
   re-measurement of a `/dev code` session after it with
   `context-cost.py`.
+- Backlog: relocate the supervisor declarations (`Supervisor bounds`,
+  `Operator mode`) from `CLAUDE.md § Agent toolchain` to a section of
+  their own, `declarations.md` and `supervisor-runbook.md` following
+  (surfaced by the R065-T001 close review).

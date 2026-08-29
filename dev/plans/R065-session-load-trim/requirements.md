@@ -1,5 +1,6 @@
 ---
 approved: 2026-08-29
+status: done 2026-08-29
 kind: refactor
 ---
 
@@ -49,9 +50,13 @@ artifact rules only through that import.
 - `install-dev.sh` copies `rules/writing-artifacts.md` into the target
   `.claude/rules/`, so adopters keep every artifact rule and the skill
   citations resolve for them.
-- Every citation of a moved section (`writing.md § State the present`
-  and the others, in skills and script headers) points at
+- Every citation of a moved section (State the present and the
+  others, in skills and script headers) points at
   `rules/writing-artifacts.md § <section>`.
+- `CLAUDE.md`'s cap is 100 lines (`scripts/ci/check-caps.sh`); the
+  400-word cap is retired. `CLAUDE.md § Code Comments` states that a
+  comment explains what the code cannot show, and the supervisor
+  declarations take their declared two-line form.
 
 ## Invariants
 
@@ -64,9 +69,7 @@ artifact rules only through that import.
   losing it.
 - No rule is lost or duplicated: each moved sentence has exactly one
   home (`rules/claude-md.md § No duplication`).
-- `CLAUDE.md` stays within its 400-word cap
-  (`scripts/ci/check-caps.sh`); the added lines are paid for by trims
-  elsewhere in the file.
+- `CLAUDE.md` stays within its cap (`scripts/ci/check-caps.sh`).
 - The em-dash gate and the accretion check keep citing the section
   that owns their rule.
 - The personal rules (`claude-md.md`, `js.md`, `skills.md`) stay
@@ -87,30 +90,30 @@ pre-authorisations (`companions/documentation.md`,
 
 ## Acceptance criteria
 
-- [ ] `writing.md` has exactly the four universal sections and
+- [x] `writing.md` has exactly the four universal sections and
   `rules/writing-artifacts.md` (`paths: ["**/*.md"]`) exactly the
   five artifact sections; `git grep 'writing.md § '` outside
   `dev/plans/archive/` names only surviving `writing.md` sections.
-- [ ] `delegation.md` and `rules/git-workflow.md` do not exist and no
+- [x] `delegation.md` and `rules/git-workflow.md` do not exist and no
   tracked file outside `dev/plans/archive/` cites either; `CLAUDE.md`
   states the commit-text durable-id sentence, the wide-search
   pre-authorisation and the PR pin, each once.
-- [ ] `install-dev.sh --project` places `.claude/rules/writing-artifacts.md`
+- [x] `install-dev.sh --project` places `.claude/rules/writing-artifacts.md`
   and nothing else under `rules/`; `install-dev.test.sh` asserts both.
-- [ ] The branch plan carries a rule-to-trigger table - each moved rule,
+- [x] The branch plan carries a rule-to-trigger table - each moved rule,
   the situations it governed, the file that loads it afterwards - and
   every row resolves to a loading file; no row reads "not loaded".
-- [ ] No file loaded unconditionally in every session (`CLAUDE.md`
+- [x] No file loaded unconditionally in every session (`CLAUDE.md`
   and its imports) carries a rule that binds only DEV artifacts; the
   before/after word counts of that set are recorded in the task's
   findings.
-- [ ] Tier-1 gate green (`bash scripts/ci/run-all.sh`, caps included).
+- [x] Tier-1 gate green (`bash scripts/ci/run-all.sh`, caps included).
 
 ## Constraints
 
 - One `refactor/` branch; sections move verbatim and keep their
-  meaning, rewording is out of (`writing.md § State the present` applies to the moved text
-  as it stands).
+  meaning; rewording is out of scope (`rules/writing-artifacts.md
+  § State the present` applies to the moved text as it stands).
 - Changes to `CLAUDE.md` and `rules/` are approved by this initiative;
   the branch plan lists the exact `CLAUDE.md` trims for approval.
 

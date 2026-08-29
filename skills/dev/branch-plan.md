@@ -87,16 +87,18 @@ commit and the hand-off (`finish`).
    | data or config | `code-reviewer` agent |
    | more than one row | both |
 
-   Cap: one dispatch, plus a verifier only on a Critical finding;
+   Cap: one pre-authorised dispatch by the session itself
+   (`agents/code-reviewer.md` bounds it), plus a verifier only on a
+   Critical finding (`companions/verification-policy.md § Verifier
+   isolation`);
    `/code-review` is a manual escalation - suggest, never run.
-   Bookkeeping (plan marks, CHANGELOG) keys no row. The size governor
-   overrides: mixed-purpose (more than one task tag) or >9
-   commits → both. Also run the **Tier-2 compliance review**: confirm
-   every concern in `MAINTENANCE.md § Tier-2 AI review` over the
-   diff.
-2. Validate the review's findings against full project context.
-3. Print report; request user approval before applying.
-4. Apply approved fixes as additional commits if needed.
+   Bookkeeping (plan marks, CHANGELOG) keys no row. Size governor:
+   mixed-purpose (more than one task tag) or >9
+   commits → both. Also the **Tier-2 compliance review**: every concern in
+   `MAINTENANCE.md § Tier-2 AI review`, over the diff.
+2. Validate findings against full project context.
+3. Report; request user approval before applying.
+4. Apply approved fixes as commits.
 5. Capture the branch outcome: a summary against the task's acceptance
    criteria; surface manual-testing/automation needs (`finish § 2`).
 6. **Triage `<task-id>-<slug>.findings.md`** - in-scope findings
@@ -106,8 +108,8 @@ commit and the hand-off (`finish`).
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Reconcile the feature doc** - write or update the `dev/docs/` doc
-   to the shipped code, then take it, and every doc the branch
-   ships (re-review edits included), through the verification gate
+   to the shipped code, then take every doc the branch ships
+   (re-review edits included) through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
    the **mandatory final two items** of every plan:
 

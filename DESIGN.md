@@ -9,9 +9,8 @@ What each part contributes; the inventory itself is § Tree-map.
 
 - **CLAUDE.md** - global operating instructions, loaded every session.
   Maintenance: `rules/claude-md.md`.
-- **rules/** - personal convention rules loaded as memory, `git-workflow`
-  always-on and the rest path-scoped. The DEV process rules live as
-  `skills/dev/` companions, not here.
+- **rules/** - convention rules loaded as memory, path-scoped. The DEV
+  process rules live as `skills/dev/` companions, not here.
 - **skills/** - invocable capabilities. `skills/dev/` is the `/dev` router
   + its inert mode-file companions (the DEV toolset); the rest are
   standalone reference skills. Authoring: `skills/skill-creator/`,
@@ -35,8 +34,7 @@ excluded.
 ```
 ~/.claude/
 ├── CLAUDE.md                     # global instructions, every session
-├── delegation.md                 # subagent pre-authorisation (@imported by CLAUDE.md)
-├── writing.md                    # writing conventions (@imported by CLAUDE.md)
+├── writing.md                    # universal writing conventions (@imported by CLAUDE.md)
 ├── settings.json                 # global Claude Code config (tracked)
 ├── .gitignore
 ├── .env.example                  # worker-host tokens; `.env` is never tracked
@@ -71,9 +69,9 @@ excluded.
 │   │   │   ├── R<NNN>-T<NNN>-<slug>.findings.md
 │   │   │   └── batches/          # R<NNN>-B<NNN> manifests + reports (lazy)
 │   │   └── archive/              # closed initiatives, frozen history
-├── rules/                        # personal convention rules
+├── rules/                        # path-scoped convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
-│   ├── git-workflow.md           # trunk/branch/commit/PR discipline (always-on)
+│   ├── writing-artifacts.md      # DEV-artifact writing rules (**/*.md; shipped)
 │   ├── js.md                     # JS conventions (path-scoped)
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/
@@ -106,8 +104,7 @@ unchanged - structure is never simplified, only description detail.
 
 ## Git & delivery model
 
-Trunk-based development, per `skills/dev/git-workflow.md` (repo pin:
-`rules/git-workflow.md`).
+Trunk-based development, per `skills/dev/git-workflow.md`.
 
 The unit of delivery is the batch, and mode is orthogonal to it:
 delivery is uniform, verification differs
@@ -136,7 +133,9 @@ Two tiers gate every change into `main` (the CI tiers are built for
   (`check-no-em-dash`), a tracked secret (`check-secrets`, sharing the
   hook predicate), a stale or unresolvable batch ref
   (`check-batch-tags`, local-only: skips where refs are hidden), or an
-  unconfigured context budget (`check-settings`).
+  unconfigured context budget (`check-settings`). `main` is protected: a
+  merge needs a PR with `tier1` green and `enforce_admins` is on, so
+  `gh pr merge` merges only on green, admins included.
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
   concerns to the diff at branch close (`skills/dev/branch-plan.md
   § Closing routine`); they are enumerated there and nowhere else.

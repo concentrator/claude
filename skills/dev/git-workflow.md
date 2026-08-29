@@ -84,7 +84,7 @@ Related edits accumulate on the working branch; deliver (open the MR/PR +
 merge) at a work boundary - when the user moves to unrelated work or says
 to wrap up - confirming the merge first. A work boundary also settles
 findings: list any unsaved ones with a proposed destination each and get
-approval in one batch (`writing.md § One home per finding`). An edit unrelated to the current
+approval in one batch (`rules/writing-artifacts.md § One home per finding`). An edit unrelated to the current
 branch's topic → flag it and ask whether to deliver the current branch
 before starting fresh.
 
@@ -107,7 +107,7 @@ subject-only.
 Body, only when the subject cannot carry the what/why (a no-diff
 move, a decision, a constraint): compact prose - no boilerplate, no
 file lists, no restating the diff. Routing between the commit,
-findings, and task homes: `writing.md § One home per finding`. No
+findings, and task homes: `rules/writing-artifacts.md § One home per finding`. No
 trailers (Co-Authored-By and kin).
 
 Examples:
