@@ -3,8 +3,9 @@
 # Write/Edit/NotebookEdit paths, the gitignore-allow and inline-override
 # escapes, the git add / commit scan paths (including the -am and compound
 # add+commit cases), the pattern set, fail-open on malformed input and a
-# missing jq, and fail-closed on a missing pattern library. Fixture secrets are assembled at runtime so no matchable literal
-# lives in this tracked source. Run: bash scripts/test/secrets-guard.test.sh
+# missing jq, and fail-closed on a missing pattern library. Fixture secrets
+# are assembled at runtime so no matchable literal lives in this tracked
+# source. Run: bash scripts/test/secrets-guard.test.sh
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE

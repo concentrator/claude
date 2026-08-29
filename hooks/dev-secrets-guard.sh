@@ -24,8 +24,9 @@ deny() {
 # Without it the guard cannot judge, and a silent allow would pass every
 # secret, so this one path fails closed and says why.
 if ! . "$(dirname "${BASH_SOURCE[0]}")/secret-patterns.sh" 2>/dev/null; then
-  echo "dev-secrets-guard: secret-patterns.sh missing beside the hook; denying" >&2
-  deny "dev-secrets-guard: secret-patterns.sh missing beside the hook; denying"
+  msg="dev-secrets-guard: secret-patterns.sh missing beside the hook; denying"
+  echo "$msg" >&2
+  deny "$msg"
 fi
 
 # Cats untracked, non-ignored, regular files (skips symlinks and files over

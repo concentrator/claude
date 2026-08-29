@@ -129,8 +129,7 @@ jq -e '[.hooks.UserPromptSubmit[]?.hooks[]?.command] | any(test("dev-branch-stat
 jq -e '.model == "x"' "$P/.claude/settings.json" >/dev/null && pass "pre-existing setting survives" || die "clobbered model"
 jq -e '.hooks.PostToolUse[0].matcher == "Skill"' "$P/.claude/settings.json" >/dev/null && pass "pre-existing PostToolUse survives" || die "clobbered PostToolUse"
 
-# --- project-tier hooks register by $CLAUDE_PROJECT_DIR: a hook command runs
-# in the session's cwd, so only this form resolves after a cd ---
+# --- project-tier hooks register by $CLAUDE_PROJECT_DIR (install-dev.sh § 3) ---
 PFX='"$CLAUDE_PROJECT_DIR"/.claude/hooks'
 for h in dev-branch-guard dev-secrets-guard; do
   n=$(jq --arg c "$PFX/$h.sh" '[.hooks.PreToolUse[]?.hooks[]?.command | select(. == $c)] | length' "$P/.claude/settings.json")
