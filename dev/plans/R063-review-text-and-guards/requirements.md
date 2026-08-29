@@ -1,5 +1,6 @@
 ---
 approved: 2026-08-28
+status: done 2026-08-29
 kind: fix
 ---
 
@@ -68,21 +69,34 @@ draft).
 
 - [x] Dead prose has one owning concern, its three gates beside the
   bullet; `### Prune dead prose` is gone as a separate subsection.
+  Evidence: `MAINTENANCE.md § Tier-2 AI review`, Cleanup bullet; no
+  `### Prune` heading in the file.
 - [x] The section states that any echo of a rule's text is a
-  restatement and a concern cites the rule's owner instead.
+  restatement and a concern cites the rule's owner instead. Evidence:
+  the Cross-file integrity bullet, "read maximally".
 - [x] `layout.md` states how `MAINTENANCE.md` comes to exist, or drops
-  the claim.
-- [ ] A project-scope install writes `"$CLAUDE_PROJECT_DIR"/.claude/hooks/<name>.sh`
+  the claim. Evidence: `layout.md` line 15 names the file without a
+  seeding claim.
+- [x] A project-scope install writes `"$CLAUDE_PROJECT_DIR"/.claude/hooks/<name>.sh`
   for every registered hook (`install-dev.test.sh` asserts it); the
-  global path is unchanged.
-- [ ] A missing `secret-patterns.sh` denies the call with one stderr
+  global path is unchanged. Evidence: `install-dev.test.sh` "registered
+  by $CLAUDE_PROJECT_DIR" (3 hooks) and "global hook path is
+  ~/.claude/..." green; the same assertions fail on the previous
+  installer (`R063-T002-hook-paths.findings.md`).
+- [x] A missing `secret-patterns.sh` denies the call with one stderr
   line (`secrets-guard.test.sh` asserts it); a missing `jq` still fails
-  open, and the guard's header names the one closed path.
-- [ ] fp-remedy's `.claude/settings.json` carries the new paths and its
-  hook copies match `hooks/`.
+  open, and the guard's header names the one closed path. Evidence:
+  `secrets-guard.test.sh` "missing secret-patterns.sh denies", "missing
+  library reports one stderr line", "missing jq fails open" green;
+  `dev-secrets-guard.sh` header, "Fails closed".
+- [x] fp-remedy's `.claude/settings.json` carries the new paths and its
+  hook copies match `hooks/`. Evidence: fp-remedy MR !35 merged
+  2026-08-29; on its `main`, all five commands in the new form and the
+  five hook files byte-identical to `hooks/` (`cmp`).
 - [x] `finish.md § 3 Ship` states gate, push, MR/PR, poll to green,
   merge approval (skipped for `plan/`), merge and post-merge in one
-  place; `/dev ship` is a router row reading it.
+  place; `/dev ship` is a router row reading it. Evidence:
+  `finish.md § 3` "**Ship**"; `SKILL.md` router row `/dev ship`.
 
 ## References
 

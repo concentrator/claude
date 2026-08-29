@@ -52,7 +52,7 @@ expands regardless of directory.
   is re-installed (user ruling 2026-08-28).
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`, plus any
   release-plan entry.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.
