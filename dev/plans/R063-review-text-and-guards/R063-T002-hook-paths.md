@@ -39,7 +39,7 @@ expands regardless of directory.
   through the registered command from a subdirectory still denies a
   trunk write (the test runs the command string through `bash -c` with
   `CLAUDE_PROJECT_DIR` set and `cwd` a subdirectory).
-- [ ] Closed path per § Terms; `scripts/test/secrets-guard.test.sh`: a
+- [x] Closed path per § Terms; `scripts/test/secrets-guard.test.sh`: a
   copy of the guard with no `secret-patterns.sh` beside it denies and
   writes the one stderr line; `missing jq fails open` stays green.
   `DESIGN.md § Self-enforcement` sentence on the guards names the
