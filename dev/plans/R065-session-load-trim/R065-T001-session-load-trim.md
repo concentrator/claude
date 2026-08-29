@@ -76,7 +76,7 @@ in the order listed until `check-caps.sh` passes:
   § components `rules/` bullet and the `git-workflow.md` reference
   under § Self-hosting drop the pin; `install-dev.test.sh`'s
   not-shipped assertion targets `rules/claude-md.md`.
-- [ ] Installer ships the rule: `install-dev.sh` copies
+- [x] Installer ships the rule: `install-dev.sh` copies
   `rules/writing-artifacts.md` into `<target>/rules/` beside step 5
   and allowlists `.claude/rules/writing-artifacts.md` in step 6;
   `install-dev.test.sh` asserts the copy and that no other rule
