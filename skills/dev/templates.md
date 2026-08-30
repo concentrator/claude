@@ -78,7 +78,8 @@ kind: feat | bug | refactor | doc | test | mnt
 ## Desired state
 ## Invariants            - what must NOT change (behavior, performance)
 ## Scope                 - affected modules/files
-## Acceptance criteria   - observable confirmation (tests pass, structure conforms)
+## Acceptance criteria
+- observable confirmation (tests pass, structure conforms)
 ## Constraints
 ## Open questions
 ## References

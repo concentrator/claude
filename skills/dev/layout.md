@@ -10,33 +10,33 @@ justification.
 What instructs agents.
 
     .claude/
-    ├── REQUIREMENTS.md           # foundational requirements
-    ├── DESIGN.md                 # architecture and design (≤1000w inline)
-    ├── MAINTENANCE.md            # Tier-2 review concerns + sanity routine
-    ├── skills/                   # project skill overrides
+    ├── REQUIREMENTS.md       # foundational requirements
+    ├── DESIGN.md             # architecture and design (≤1000w inline)
+    ├── MAINTENANCE.md        # Tier-2 review concerns + sanity routine
+    ├── skills/               # project skill overrides
     │   └── <name>/SKILL.md
-    ├── rules/                    # project-scoped rules (paths: scoped)
+    ├── rules/                # project-scoped rules (paths: scoped)
     │   └── *.md
-    ├── commands/                 # project-specific slash commands (optional)
-    ├── agents/                   # project-specific agents (optional)
-    ├── hooks/                    # Claude Code hooks
-    ├── adr/                      # architecture decision records
+    ├── commands/             # project-specific slash commands (optional)
+    ├── agents/               # project-specific agents (optional)
+    ├── hooks/                # Claude Code hooks
+    ├── adr/                  # architecture decision records
     │   └── NNN-<short-title>.md
-    ├── references/               # external docs/specs (read-only, § References)
-    │   └── *                     # any format
-    ├── settings.json             # Claude Code shared config
-    └── settings.local.json       # Claude Code local (gitignored)
+    ├── references/           # external docs/specs (read-only, § References)
+    │   └── *                 # any format
+    ├── settings.json         # Claude Code shared config
+    └── settings.local.json   # Claude Code local (gitignored)
 
 ## Artifacts layout (`dev/`)
 
 What agents author.
 
     dev/
-    ├── plans/                    # planning hierarchy - plan.md § Where things live
+    ├── plans/                # planning hierarchy - plan.md § Where things live
     │   ├── ROADMAP.md
     │   ├── release-vX.Y.Z.md
     │   ├── milestone-<id>.md
-    │   ├── R<NNN>-<slug>/        # one per roadmap entry
+    │   ├── R<NNN>-<slug>/    # one per roadmap entry
     │   │   ├── requirements.md
     │   │   ├── tasks.md
     │   │   ├── <task-id>-<slug>.md

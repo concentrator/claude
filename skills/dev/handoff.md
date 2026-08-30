@@ -42,7 +42,8 @@ Append one `hand-off` block with these five keys, each one line;
     - open: none
     - rulings: plan/ merges on green without a second ask; keep the 405 note
 
-`done` and `next` name work by durable ids (`rules/writing-artifacts.md § Name things
+`done` and `next` name work by durable ids (`rules/writing-artifacts.md § Name
+things
 by their durable id`); `open` lists MR/PR numbers awaiting a decision;
 `rulings` lists the user's decisions still in force for the unit. The
 note is intent, so the tree never overrides it and it never restates

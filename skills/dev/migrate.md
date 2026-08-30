@@ -21,14 +21,17 @@ classifying:
   either `dev/` or `.claude/`. Reverse-engineer requirements +
   design from code, then layer planning infrastructure (steps 2–9).
 - **Already-DEV** - canonical R-rooted `dev/plans/ROADMAP.md`: pre-TBD → TBD
-  migration (`companions/tbd-migration.md`; approval-gated - the agent executes each
-  approved step; host-side settings stay the user's); TBD-conformant → conformant, no changes.
+  migration (`companions/tbd-migration.md`; approval-gated - the agent executes
+  each
+  approved step; host-side settings stay the user's); TBD-conformant →
+  conformant, no changes.
   Either way, check the id/archival schema: a project on the legacy global
   T-id scheme adopts composite ids for NEW tasks (`plan.md § ID format`;
   legacy ids frozen, never renumbered) by stating the convention in each
   open `tasks.md` header. Draining the stock - archive closed work,
   compact living docs, gate accretion (`plan.md § Archival`,
-  `rules/writing-artifacts.md § State the present`) - is proposed as a docs-reconcile
+  `rules/writing-artifacts.md § State the present`) - is proposed as a
+  docs-reconcile
   initiative, never done inline during migration. The accretion gate
   in that proposal reuses the shipped
   `.claude/scripts/ci/check-accretion.sh` (placed by

@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
-# Tier-1 cap check: CLAUDE.md / DESIGN.md / SKILL.md size limits.
-# Caps per rules/skills.md § Size and skills/dev/layout.md; this repo's
-# CLAUDE.md is held to 100 lines, inside rules/claude-md.md's general 200.
-# SKILL body = file minus YAML frontmatter (skills.md caps are on body).
+# Tier-1 cap check: CLAUDE.md / DESIGN.md / SKILL.md / dev mode-file size
+# limits. Caps per rules/skills.md § Size and skills/dev/layout.md; this
+# repo's CLAUDE.md is held to 100 lines, inside rules/claude-md.md's general
+# 200. SKILL body = file minus YAML frontmatter (skills.md caps are on
+# body). Mode files are measured in lines and line length, never words:
+# a word count does not measure a document (R040-T025).
 # Skill class lists below mirror skills.md § Size; new skills default to
 # the general 300-word cap. Only git-tracked files are checked, so
 # gitignored project skills (e.g. wallarm-*) are out of scope.
 set -euo pipefail
+export LC_ALL=C.UTF-8   # ${#line} counts characters, not bytes
 cd "$(git rev-parse --show-toplevel)"
 ROOT="."
 
@@ -33,11 +36,19 @@ while IFS= read -r f; do
   (( dw <= 12 )) || report "$f description $dw words > 12"
 done < <(git ls-files "$ROOT/skills" | grep '/SKILL\.md$')
 
-# R-021: skills/dev/ companion mode files (read on demand by the dev router)
-# - reference tier (1500w). SKILL.md handled above; companions/ are exempt.
+# R-021: skills/dev/ mode files (read on demand by the dev router) - 300
+# lines, 80 characters a line; a table row cannot wrap, so it is exempt from
+# the length ceiling. SKILL.md handled above; companions/ are exempt.
 while IFS= read -r f; do
-  ww=$(wc -w < "$f")
-  (( ww <= 1500 )) || report "$f $ww words > 1500"
+  ln=$(( $(wc -l < "$f") ))
+  (( ln <= 300 )) || report "$f $ln lines > 300"
+  n=0
+  while IFS= read -r line || [ -n "$line" ]; do
+    n=$((n + 1))
+    t="${line#"${line%%[![:space:]]*}"}"
+    [ "${t:0:1}" = '|' ] && continue
+    (( ${#line} <= 80 )) || { report "$f line $n: ${#line} characters > 80"; break; }
+  done < "$f"
 done < <(git ls-files "$ROOT/skills/dev" | grep -E '(^|/)skills/dev/[^/]+\.md$' | grep -v '/SKILL\.md$')
 
 (( fail == 0 )) && echo "check-caps: OK"
