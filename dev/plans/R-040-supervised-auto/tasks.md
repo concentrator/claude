@@ -317,5 +317,5 @@ composite (`R040-T###`, counter scoped to this initiative).
   the R040-T021 setting check found
   (`R040-T021-context-burn.findings.md`); a hook with its test, built
   if the rule alone leaves the burn high.
-- Next: R closure, once acceptance criterion 9 has a two-project run
-  behind it (`requirements.md`).
+- Next: R closure, once acceptance criterion 9 has a run behind it -
+  one operator over two projects at once (`requirements.md`).

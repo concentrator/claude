@@ -93,8 +93,10 @@ hard floor.
 ## Acceptance criteria
 
 Closure check run 2026-08-30 on the branch closing R040-T022, judged
-against `tasks.md` on `main`; criterion 9 has no run behind it, so
-the R stays open (`plan.md § Approval and closure`).
+against `tasks.md` on `main`; criterion 9, reworded on 2026-08-30 to
+the one-operator model `declarations.md § Operator modes` states, has
+no run behind it, so the R stays open (`plan.md § Approval and
+closure`).
 
 - [x] A per-project capability-bounds declaration exists; the
       supervisor refuses any action outside it and escalates instead.
@@ -105,10 +107,12 @@ the R stays open (`plan.md § Approval and closure`).
       worker session: dispatch, monitor, checkpoint verification
       (report + criteria + gates), delivery of a green MR - in either
       runbook variant.
-      Evidence: Variant A, attack-checker; `glab mr list --label
+      Evidence: Variant A. attack-checker: `glab mr list --label
       supervised --merged` lists fourteen MRs, `!349` (R-020 B-001)
       and `!369` (`batch/R020-B-002`) among them (R040-T004,
-      R040-T006).
+      R040-T006). fp-remedy: twenty-four, R001-T002 through T007
+      and their plan MRs, `!30` closing R001 on its criteria and
+      `!32` archiving it.
 - [x] Escalations queue with context sufficient to resolve without
       reading raw transcripts; a sync empties the queue.
       Evidence: `supervise.md § Deliver or escalate` (escalations are
@@ -137,21 +141,23 @@ the R stays open (`plan.md § Approval and closure`).
       R040-T014.
 - [x] Every merge is a normal green-gated MR merge - host protections
       untouched throughout the pilot.
-      Evidence: the fourteen supervised MRs above, each `main` ←
+      Evidence: the thirty-eight supervised MRs above, each `main` ←
       branch through the host's gate; the stage-2 incident
       (R040-T007) reached `main` through a green plan MR, not around
       the gate.
-- [ ] The supervisor runs repo-less over the portfolio: adding a
-      project is one portfolio entry plus that project's own
-      declarations; supervising two projects is one loop, not two
-      sessions.
-      Evidence: `supervise.md § Resolve` iterates the portfolio; the
-      portfolio holds one project, so a two-project loop has not run.
+- [ ] One operator holds the merge for two projects at once, each
+      with its own supervisor + worker pair; adding a project is one
+      portfolio entry plus that project's own declarations. Nothing
+      crosses project lines but the operator.
+      Evidence: `declarations.md § Operator modes` states the model;
+      attack-checker and fp-remedy were each supervised in their own
+      session, never two under one operator at once.
 - [x] Every merge of supervised work is distinguishable on the host
       (label + comment) with commit and MR/PR prose untouched.
       Evidence: `declarations.md § Supervision signature`; the pilot
       batch MR merged green with the `supervised` label and the bound
-      comment, prose untouched (`R040-T011-agent-channel.findings.md`).
+      comment, prose untouched (`R040-T011-agent-channel.findings.md`);
+      fp-remedy's twenty-four supervised MRs carry the label.
 - [x] Pilot, two local stages in the same adopter project
       (attack-checker), the user present only at sync points: first
       its plans/docs migration batch - planned and stamped in that
