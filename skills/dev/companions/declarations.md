@@ -56,8 +56,10 @@ design-level is component boundaries, schemas, API shapes,
 classify escalates.
 
 Always escalated, under any grant: releases; changes to `CLAUDE.md`,
-`rules/`, or `skills/`; red gates; off-plan work; design and
-architectural decisions. Host gates (protected trunk, required checks)
+`rules/`, or `skills/` - except a `CLAUDE.md` change confined to the
+declaration lines this file defines, which is configuration the
+operator delivers, not a convention change; red gates; off-plan work;
+design and architectural decisions. Host gates (protected trunk, required checks)
 stay the hard floor for every seat - no admin merges.
 
 Operating instructions beyond authority - project quirks, escalation

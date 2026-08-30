@@ -38,7 +38,7 @@ at pre-flight. Three changes, one PR.
   and names the receiver triage for an optional cold read. `auto.md` is
   untouched. `branch-plan.md` stays under its word cap: the item
   includes the offsetting trim.
-- [ ] `companions/declarations.md § Supervisor bounds`: the
+- [x] `companions/declarations.md § Supervisor bounds`: the
   always-escalated list carves out the Declaration carve-out;
   `git-workflow.md § Merge policy`'s escalation list cites it instead
   of restating.
