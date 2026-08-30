@@ -1,7 +1,8 @@
-# `CLAUDE.md § Agent toolchain` declarations
+# `CLAUDE.md` declarations
 
-The keys a project declares in its `CLAUDE.md § Agent toolchain` section,
-and the exact form each takes. All four apply everywhere - both modes,
+The keys a project declares in its `CLAUDE.md` - routine commands in
+`§ Agent toolchain`, supervision in `§ Supervision`, directly after
+it - and the exact form each takes. All four apply everywhere - both modes,
 every command. Push and MR/PR mechanics that consume them:
 `toolchain.md`.
 
@@ -22,8 +23,8 @@ Declare it once; `migrate` backfills it if absent (absent-host fallback:
 ## Supervisor bounds
 
 A project delegating delivery to a supervisor declares its
-bounds in the same `## Agent toolchain` section - the single home for
-merge authority:
+bounds in a `## Supervision` section directly after `## Agent
+toolchain` - the single home for merge authority:
 
 ```
 - Supervisor bounds: batch-scoped delivery; instructions: .claude/supervisor.md
@@ -57,9 +58,10 @@ classify escalates.
 
 Always escalated, under any grant: releases; changes to `CLAUDE.md`,
 `rules/`, or `skills/` - except a `CLAUDE.md` change confined to the
-declaration lines this file defines, other than `Operator mode:`,
-which is configuration the operator delivers, not a convention
-change; red gates; off-plan work; design and architectural decisions.
+declaration lines this file defines (`§ Agent toolchain`,
+`§ Supervision`), other than `Operator mode:`, which is configuration
+the operator delivers, not a convention change; red gates; off-plan
+work; design and architectural decisions.
 Host gates (protected trunk, required checks) stay the hard floor for
 every seat - no admin merges.
 
@@ -86,7 +88,7 @@ unchanged by supervision.
 ## Operator modes
 
 A supervised project declares who holds the merge the supervisor does
-not, in the same `## Agent toolchain` section:
+not, in the same `## Supervision` section:
 
 ```
 - Operator mode: AI operated | Human operated

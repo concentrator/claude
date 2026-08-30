@@ -15,7 +15,7 @@ reader of § Agent toolchain meets merge authority among lint commands.
 
 ## Commits
 
-- [ ] `CLAUDE.md`: the two lines move to a `## Supervision` section
+- [x] `CLAUDE.md`: the two lines move to a `## Supervision` section
   directly after § Agent toolchain, within the 100-line hold;
   `companions/declarations.md § Supervisor bounds` and `§ Operator
   modes` name that section as the home, `supervise.md § Resolve` step 2
