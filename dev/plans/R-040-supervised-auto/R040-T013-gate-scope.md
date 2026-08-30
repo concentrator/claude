@@ -21,7 +21,7 @@ under delivery pressure.
 
 ## Commits
 
-- [ ] `companions/documentation.md § Verification gate`: one sentence
+- [x] `companions/documentation.md § Verification gate`: one sentence
   after the prose-class split stating that a feature doc's pass covers
   the doc, never the diff, and why - a claim's source can move under an
   untouched line; the R040-T010 `RangeError` catch is the evidence and
