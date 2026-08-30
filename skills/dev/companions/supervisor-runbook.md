@@ -72,6 +72,13 @@ The supervisor cycles until the scope is delivered:
 
 ## Variant A: one machine
 
+0. **Human**, where the project declares `Operator mode: AI operated`
+   (`declarations.md § Operator modes`): starts the operator in its
+   own terminal, `claude --permission-mode auto`, and briefs it in one
+   message - the projects it holds the merge for and a pointer to
+   that section for what it decides and what it escalates. Cite,
+   never restate, for the reason Variant B step 4 gives. Human
+   operated: the person is the seat and this step is theirs.
 1. **Operator** opens a second terminal in the project directory and
    starts the worker: `claude --permission-mode acceptEdits`.
 2. **Operator** starts the supervisor in another session in auto mode
@@ -96,6 +103,11 @@ The supervisor cycles until the scope is delivered:
    project checkout on the trunk with nothing uncommitted.
 3. **Operator** starts the supervisor:
    `tmux new -d -s supervisor -c <project-dir> claude --remote-control supervisor --permission-mode auto`
+   Where the project declares `Operator mode: AI operated`, the human
+   starts the operator the same way first,
+   `tmux new -d -s operator -c <project-dir> claude --remote-control operator --permission-mode auto`,
+   briefed as Variant A step 0: the projects it holds the merge for
+   and a pointer to `declarations.md § Operator modes`.
    The flag joins Remote Control under the name `supervisor`
    (§ Remote Control); `tmux` keeps the session alive across a dropped
    tunnel.
@@ -185,6 +197,7 @@ browser and phone control without joining.
 | Role | Mode | Reason |
 |---|---|---|
 | Supervisor | `auto` | Its own tooling is compound shell - until-loops, pipelines - which prefix rules cannot match. Auto suspends Bash allow rules and routes every shell command to a classifier that judges what the command does, so the supervisor is never blocked and can always answer the worker. |
+| Operator, AI operated | `auto` | It merges and polls through the host CLI, compound shell like the supervisor's, and decides within declared bounds (`declarations.md § Operator modes`). |
 | Worker | `acceptEdits` | Edits land without a prompt. The shell prompts it still raises are cleared by whoever holds the keyboard for that variant. |
 
 Never `bypassPermissions`: it discards deny rules along with everything

@@ -42,7 +42,7 @@ at pre-flight. Three changes, one PR.
   always-escalated list carves out the Declaration carve-out;
   `git-workflow.md § Merge policy`'s escalation list cites it instead
   of restating.
-- [ ] `companions/declarations.md § Operator modes`: an AI-operated seat
+- [x] `companions/declarations.md § Operator modes`: an AI-operated seat
   satisfies the global `CLAUDE.md § Approval and persistence` and
   `§ Communication` by the declared bounds - it decides merges and
   plan-wording facts within them, runs `--permission-mode auto`, and

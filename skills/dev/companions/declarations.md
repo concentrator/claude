@@ -100,6 +100,12 @@ discussions, gate results, and a report that verifies what the plan
 asked for. It never implements, never edits plans, and never reopens a
 question the supervisor already classified as design-level.
 
+The declared bounds are how an AI-operated seat satisfies the global
+`CLAUDE.md § Approval and persistence` and `§ Communication`: within
+them it decides merges and plan-fact corrections, runs
+`--permission-mode auto`, and halts only on the always-escalated
+classes, a design-level question, or a gap in the evidence.
+
 It escalates to the human:
 
 - anything the supervisor escalated as design-level or unclassifiable -
