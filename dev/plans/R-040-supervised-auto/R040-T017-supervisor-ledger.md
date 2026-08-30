@@ -16,11 +16,10 @@ state it reasons from.
 
 ## Terms used below
 
-- **Ledger** - `~/.claude/supervisor/ledger/<project>-<scope>.md`. The
-  directory is the supervisor's gitignored home beside
-  `portfolio.md`, so an append dirties neither the config repo nor the
-  project checkout. One file per scope; a resumed supervisor opens the
-  same file.
+- **Ledger** - `<project-dir>/dev/supervisor/<scope>.md`, beside
+  `dev/session/` and ignored like it, so an append dirties nothing and
+  stays on the host that runs the supervisor. One file per scope; a
+  resumed supervisor on the same host opens the same file.
 - **Entry** - one appended block: a timestamp, the event (dispatch,
   question, answer, prompt cleared, verify, escalation, hand-over) and
   the ids it names; written with a single `printf '%s\n' ... >>`, which
@@ -61,7 +60,7 @@ host-local, ignored like `dev/session/`.
   `scripts/install-dev.sh` step 7 writes that line into adopters
   beside `/dev/session/`, and `scripts/test/install-dev.test.sh`
   asserts it once and anchored.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose and code rows: `code-reviewer`), Tier-2 compliance
   review, `bash scripts/ci/run-all.sh` green, cleanup, mark plan
   complete, commit.
