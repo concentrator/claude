@@ -298,4 +298,15 @@ composite (`R040-T###`, counter scoped to this initiative).
   Cite `"Fable"` in the policy and in the gate's test fixtures.
   `depends-on: R040-T015`
 
-- Next: R040-T021, R040-T013, R040-T012, R040-T018, R040-T022.
+- [ ] **R040-T025 [mnt]**: the mode-file cap counts words, and a word
+  count does not measure a document - `branch-plan.md` sat at exactly
+  1500 words through R040-T017 and R040-T021 while each edit bought
+  its words by trimming sentences elsewhere, twice losing a condition
+  the close review had to restore. Measure size in lines instead:
+  `scripts/ci/check-caps.sh` holds every `skills/dev/*.md` mode file
+  other than `SKILL.md` to 300 lines and 80 characters a line, table
+  rows exempt, replacing the 1500-word tier; `rules/skills.md § Size`
+  states the tier in the same units; the over-long prose lines the
+  new check finds are rewrapped, wording untouched.
+
+- Next: R040-T025, R040-T021, R040-T013, R040-T012, R040-T018, R040-T022.
