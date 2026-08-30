@@ -33,7 +33,7 @@ under delivery pressure.
   exits 1 silently on a file it judges binary
   (`R040-T011-agent-channel.findings.md`) - and the remedy: `git grep`,
   or `grep` with `-a`, for a search whose empty result is the claim.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
