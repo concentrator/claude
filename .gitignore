@@ -46,7 +46,7 @@ skills/wallarm-*
 # OS
 .DS_Store
 
-# Supervisor portfolio - skills/dev/supervise.md names portfolio.md
+# Supervisor portfolio (skills/dev/supervise.md)
 /supervisor/
 
 # Secrets - baseline requirement (layout.md § Baseline files)

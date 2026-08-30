@@ -112,8 +112,8 @@ composite (`R040-T###`, counter scoped to this initiative).
   `settings.local.json` allow rules are largely redundant on top of it, which
   is why R040-T010 could not build a test that discriminated a placed file
   from a missing one. Narrow the global grant to what a session actually
-  needs, so the per-project templates carry the authority they claim to and
-  their acceptance tests can discriminate. Routed from
+  needs, so the global grant is what a session runs and a per-project list
+  decides on hosts without it. Routed from
   `R040-T010-worker-host.findings.md`. `depends-on: R040-T010`
 - [x] **R040-T013 [doc]**: decide whether `companions/documentation.md`
   § Verification gate should distinguish a targeted-edit branch from a new or

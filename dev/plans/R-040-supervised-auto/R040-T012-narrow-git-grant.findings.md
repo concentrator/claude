@@ -57,6 +57,9 @@ repo's. `git ls` appeared once and is not a subcommand.
 | tag | 4 | 1 |
 | worktree | - | 1 |
 
-Forty-one subcommands. The thirteen the per-project template grants
-(`companions/auto-permissions.template.json`) are all among them; the
-template keeps them for a host without this config.
+Every git subcommand the per-project template grants
+(`companions/auto-permissions.template.json`) is among them, so on a
+host carrying this config the template's git list is still fully
+covered by the global grant; a placed-versus-missing test
+discriminates only on a host without it. The template keeps its list
+for that host.

@@ -129,12 +129,13 @@ Two tiers gate every change into `main` (the CI tiers are built for
   a cap violation, a stray top-level file, a plan-integrity break, a
   `TODO`/`FIXME`/`XXX` marker in code, an expired reference, a dated
   accretion marker (`check-accretion`), an oversized code file or
-  function (`check-code-size`, with an allowlist), an em dash
+  function (`check-code-size`, allowlist-backed), an em dash
   (`check-no-em-dash`), a tracked secret (`check-secrets`, sharing the
   hook predicate), a stale or unresolvable batch ref
   (`check-batch-tags`, local-only: skips where refs are hidden), or an
-  unconfigured context budget (`check-settings`). `main` is protected: a
-  merge needs a PR with `tier1` green and `enforce_admins` on, so
+  unconfigured context budget or bare `Bash(git:*)` grant
+  (`check-settings`). `main` is protected: a
+  merge needs a PR with `tier1` green, `enforce_admins` on, so
   `gh pr merge` merges only on green, admins included.
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
   concerns to the diff at branch close (`skills/dev/branch-plan.md
