@@ -47,3 +47,21 @@ state it reasons from.
   routine` (prose row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.
+
+## Amendment
+
+The home above puts runtime state in the config repo's tree, and on a
+worker host that tree is a provisioned clone a re-provision wipes.
+The ledger moves beside the session files instead:
+`<project-dir>/dev/supervisor/<scope>.md`, in the supervisor's cwd,
+host-local, ignored like `dev/session/`.
+
+- [ ] `supervise.md § Ledger` names the new path; `handoff.md`'s role
+  list follows. `.gitignore` gains `/dev/supervisor/`;
+  `scripts/install-dev.sh` step 7 writes that line into adopters
+  beside `/dev/session/`, and `scripts/test/install-dev.test.sh`
+  asserts it once and anchored.
+- [ ] Complete the branch: close review per `branch-plan.md § Closing
+  routine` (prose and code rows: `code-reviewer`), Tier-2 compliance
+  review, `bash scripts/ci/run-all.sh` green, cleanup, mark plan
+  complete, commit.
