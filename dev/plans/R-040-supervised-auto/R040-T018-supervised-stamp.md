@@ -29,7 +29,7 @@ at pre-flight. Three changes, one PR.
 
 ## Commits
 
-- [ ] `branch-plan.md`: § `agentic:` stamp becomes § Stamps, holding
+- [x] `branch-plan.md`: § `agentic:` stamp becomes § Stamps, holding
   both stamps and what each admits (`agentic:` keeps its bar and its
   cold read, and stays what `/dev auto` needs); the header example
   gains the `supervised:` line. `plan.md § Approval and closure` states

@@ -34,8 +34,12 @@ commits and carries them to trunk on merge.
    the project's open batch (`branch-plan.md § Batches`: a member task
    `[ ]` in `tasks.md`, no report), else open tasks with stamped
    plans. Scope selects pre-approved work - anything lacking approved
-   requirements or an `agentic: approved` plan is reported NOT READY,
-   never dispatched.
+   requirements or a stamped plan (`agentic:` or `supervised:`,
+   `branch-plan.md § Stamps`) is reported NOT READY, never dispatched.
+   A cold read of a `supervised:` plan is optional; each finding goes
+   to its receiver - the supervisor for an implementation call, the
+   operator for a merge or a plan-fact correction, the human for
+   design - and only a human-level finding holds the dispatch.
 4. **Ledger** - open the scope's file (§ Ledger).
 
 ## Dispatch

@@ -139,7 +139,7 @@ own mess included - a verifier that needs cleanup stops and reports.
 
 ## Comprehension check
 
-Part of the readiness review (`branch-plan.md § agentic: stamp`). A
+Part of the readiness review (`branch-plan.md § Stamps`). A
 stamped plan is implemented by a cold-context agent, so test it on one:
 dispatch a fresh subagent with exactly the implementer's inputs - the
 commit-item text plus parent-chain context, never the plan file or the

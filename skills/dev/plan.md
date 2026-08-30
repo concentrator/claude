@@ -146,7 +146,9 @@ After the rounds, adjust in place:
 `.claude/REQUIREMENTS.md` and each initiative's
 `dev/plans/R<NNN>-<slug>/requirements.md` carry a frontmatter `approved:`
 field: `pending` when new, `YYYY-MM-DD` once the user confirms.
-Nothing downstream proceeds while pending.
+Nothing downstream proceeds while pending. Approval of an R's detail
+round stamps `supervised: approved YYYY-MM-DD` on the round's branch
+plans (`branch-plan.md § Stamps`).
 
 An R entry closes (`[x]` in ROADMAP) only when **both** hold:
 
