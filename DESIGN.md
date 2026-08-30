@@ -59,7 +59,7 @@ Tracked dirs and notable files; harness-managed state (`projects/`,
 │   └── test/                     # script tests + run-all.sh
 ├── .claude/
 │   └── settings.json             # project tier, tracked - push carve-out, durable allows, model
-├── dev/                          # DEV artifacts (session/ gitignored)
+├── dev/                          # DEV artifacts (session/, supervisor/ gitignored)
 │   ├── plans/                    # planning hierarchy
 │   │   ├── ROADMAP.md            # cross-R index - see skills/dev/plan.md
 │   │   ├── R<NNN>-<slug>/        # one dir per roadmap entry (initiative-time)
