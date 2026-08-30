@@ -107,7 +107,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   operator's own session joins, and correct the keystroke claim this
   initiative wrote into three documents.
   `depends-on: R040-T002`
-- [ ] **R040-T012 [mnt]**: the shared config's `Bash(git:*)` grant is wider
+- [x] **R040-T012 [mnt]**: the shared config's `Bash(git:*)` grant is wider
   than the per-project templates assume - broad enough that a project's
   `settings.local.json` allow rules are largely redundant on top of it, which
   is why R040-T010 could not build a test that discriminated a placed file
@@ -316,4 +316,4 @@ composite (`R040-T###`, counter scoped to this initiative).
   the R040-T021 setting check found
   (`R040-T021-context-burn.findings.md`); a hook with its test, built
   if the rule alone leaves the burn high.
-- Next: R040-T012, R040-T018, R040-T022.
+- Next: R040-T018, R040-T022.

@@ -50,7 +50,7 @@ unaffected either way.
   closed); anchor the portfolio's ignore in `.gitignore` to
   `/supervisor/` under its own comment naming `portfolio.md`, out of
   the `# OS` block. `scripts/ci/run-all.sh` green.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (config row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
