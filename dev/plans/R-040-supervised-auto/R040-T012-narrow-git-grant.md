@@ -51,7 +51,7 @@ unaffected either way.
   `/supervisor/` under its own comment naming `portfolio.md`, out of
   the `# OS` block. `scripts/ci/run-all.sh` green.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (config row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.
