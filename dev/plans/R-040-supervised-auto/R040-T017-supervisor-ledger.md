@@ -32,7 +32,7 @@ state it reasons from.
 
 ## Commits
 
-- [ ] `supervise.md` gains `## Ledger`: the three terms above, opened at
+- [x] `supervise.md` gains `## Ledger`: the three terms above, opened at
   § Resolve and appended at each § Monitor event; the two "ledgered"
   phrases cite it. `companions/report-template.md § Supervisor
   decisions` states that the ledger is its evidence, not its copy.

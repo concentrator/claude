@@ -41,8 +41,8 @@ work as far as a green MR/PR and holds one decision class:
   `finish.md § 1`'s verify set stands in for the checkpoint report,
   and its absence stops the delivery as a missing report does;
 - implementation-level resolutions of worker questions and queued
-  judgment calls, each ledgered in the report's supervisor-decisions
-  section.
+  judgment calls, each recorded in the report's supervisor-decisions
+  section and ledgered (`supervise.md § Ledger`).
 
 **No grant merges.** The supervisor's last act on a branch is the green
 MR/PR and the evidence that verifies it; the operator reads that MR/PR

@@ -36,6 +36,7 @@ commits and carries them to trunk on merge.
    plans. Scope selects pre-approved work - anything lacking approved
    requirements or an `agentic: approved` plan is reported NOT READY,
    never dispatched.
+4. **Ledger** - open the scope's file (§ Ledger) before any dispatch.
 
 ## Dispatch
 
@@ -69,9 +70,9 @@ worker. What differs is the evidence at the checkpoint: there is no
 its place. Verify that set from artifacts exactly as a report would be
 verified; a manual branch
 missing it is no more mergeable than a batch missing its report. The supervisor passes ids only; workers read plans from
-their repo - the supervisor never relays content; its ledgered
-question answers are the one exception, and even those travel as a
-path. Anything longer than a line goes to a file on the host outside
+their repo - the supervisor never relays content; its question
+answers, ledgered (§ Ledger), are the one exception, and even those
+travel as a path. Anything longer than a line goes to a file on the host outside
 the worker's checkout - writing into that tree is how a relayed answer
 becomes an accidental commit - and the supervisor sends where it is.
 The worker reads it once and re-reads on demand; the channel carries
@@ -96,6 +97,22 @@ path and MR/PR references - never diffs or transcripts; the
 supervisor's context stays report-level so one supervisor spans many
 sessions. Hand-off note at each boundary, re-brief after compaction,
 for supervisor and worker alike: `handoff.md`.
+
+## Ledger
+
+The supervisor's working memory lives in
+`~/.claude/supervisor/ledger/<project>-<scope>.md`: the directory is
+the supervisor's gitignored home beside `portfolio.md`, so an append
+dirties neither the config repo nor the project checkout. One file per
+scope; a resumed supervisor opens the same file. Opened at § Resolve,
+it takes one entry per § Monitor event - a timestamp, the event
+(dispatch, question, answer, prompt cleared, verify, escalation,
+hand-over) and the ids it names - appended with a single
+`printf '%s\n' ... >>`, which the auto-mode classifier reads as an
+append; never `Edit`, which rewrites the file per entry. It is working
+memory only: a decision still lands in the report's `## Supervisor
+decisions` (`companions/report-template.md`), and the ledger is the
+evidence a re-brief reads, never a second home for a finding.
 
 ## Question resolution
 
