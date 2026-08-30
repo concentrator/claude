@@ -115,7 +115,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   needs, so the per-project templates carry the authority they claim to and
   their acceptance tests can discriminate. Routed from
   `R040-T010-worker-host.findings.md`. `depends-on: R040-T010`
-- [ ] **R040-T013 [doc]**: decide whether `companions/documentation.md`
+- [x] **R040-T013 [doc]**: decide whether `companions/documentation.md`
   § Verification gate should distinguish a targeted-edit branch from a new or
   rewritten doc. It clears rules and planning prose on the changed claims but
   feature docs on **every** claim, so a sweep touching fourteen docs owes a
@@ -316,4 +316,4 @@ composite (`R040-T###`, counter scoped to this initiative).
   the R040-T021 setting check found
   (`R040-T021-context-burn.findings.md`); a hook with its test, built
   if the rule alone leaves the burn high.
-- Next: R040-T013, R040-T012, R040-T018, R040-T022.
+- Next: R040-T012, R040-T018, R040-T022.

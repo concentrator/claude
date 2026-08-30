@@ -136,6 +136,9 @@ changed claims, checked against their sources by the close review
   claims: the verdicts check that the doc is true, this checks that it
   is usable cold.
 
+A feature doc's pass covers the doc, never the diff: a claim's source
+can change under a line no branch touches.
+
 Either path is artifact-free: version-control history records that the
 review ran; no separate stamp or ledger is kept.
 

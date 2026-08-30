@@ -112,11 +112,20 @@ running something easier and calling it verified.
 
 **A check must count the unit it claims to check.** An exemption drawn
 per file does not exempt an entry; a count taken per line does not
-count occurrences; a grep that skips a file reports the same silence
-as a grep that found nothing. Each of those passes its own execution
+count occurrences. Both pass their own execution
 while answering a question other than the one asked, so state the unit
 before trusting a green result, and prove a new check bites by making
 it fail on a known instance first.
+
+**A negative search is evidence only from an instrument whose failure
+differs from its no-match.** The `grep` these sessions invoke wraps
+`ugrep -I`: on a file it judges binary it prints nothing and exits 1,
+byte-identical to a genuine no-match, so an empty result proves
+nothing about that file. A search whose empty result is the claim
+runs as `git grep`, which reports a binary match instead of hiding
+it, or as `grep -a`; a recursive search over untracked paths adds
+`--no-ignore-files`, since the same wrapper also skips gitignored
+files and `git grep` never reads them.
 
 ## Verifier isolation
 
