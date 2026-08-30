@@ -14,5 +14,6 @@ moved and opens the docs for *how*.
   paragraph of behavior analysis.
 - Audience visibility per `CLAUDE.md § Audience visibility`.
 
-GOOD: `` `SecurityIssues.get` - args now `(clientId, id)`; unknown id returns `null`. ``
+GOOD: `` `SecurityIssues.get` - args now `(clientId, id)`; unknown id returns
+`null`. ``
 BAD:  a paragraph on the 404-catch, payload shape, and no-alias rationale.

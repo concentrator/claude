@@ -26,20 +26,21 @@ line-length ceiling so a rewrap cannot buy lines.
 
 ## Commits
 
-- [ ] `check-caps.sh`: the mode-file loop measures the tier, the header
+- [x] `check-caps.sh`: the mode-file loop measures the tier, the header
   comment and the R-021 note say lines; `scripts/test/check-caps.test.sh`,
-  new, with four fixture cases - 301 lines caught, an 81-character prose
+  new, with six fixture cases - 301 lines caught, an 81-character prose
   line caught with its line number, an 81-character table row passes, a
-  compliant file passes - hermetic like the sibling self-tests
+  compliant file passes, 80 multibyte characters pass, a companion is
+  outside the tier - hermetic like the sibling self-tests
   (`scripts/test/isolation.test.sh` names the scrub).
-- [ ] Rewrap every prose line the new check reports, in every mode
+- [x] Rewrap every prose line the new check reports, in every mode
   file it reports (ten files, 36 lines at planning time), wording
   untouched; `bash scripts/ci/run-all.sh` green.
-- [ ] `rules/skills.md § Size` states the mode-file tier in lines and
+- [x] `rules/skills.md § Size` states the mode-file tier in lines and
   characters; `DESIGN.md § Self-enforcement` stays unchanged unless
   it names the unit.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.

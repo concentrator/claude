@@ -45,8 +45,8 @@ sensitive-file guard).
    - DONE → spec check. DONE_WITH_CONCERNS → resolve first.
      NEEDS_CONTEXT → answer once from requirements/design, re-dispatch.
      Halt triggers: `branch-plan.md § Stop conditions`.
-   - Spec check (`companions/spec-reviewer-prompt.md`): exactly the item; skipped
-     for mechanical commits per `companions/verification-policy.md`.
+   - Spec check (`companions/spec-reviewer-prompt.md`): exactly the item;
+     skipped for mechanical commits per `companions/verification-policy.md`.
      Reject → fix → recheck.
    - Mark `[x]` after the commit lands.
 3. Close agentically: `code-reviewer` (branch diff vs plan; skipped
@@ -71,14 +71,16 @@ Models + spec-check depth: `companions/verification-policy.md`.
 
 ## Checkpoint (batch end or halt)
 
-Write the R's `batches/R<NNN>-B<NNN>.report.md` per `companions/report-template.md`,
+Write the R's `batches/R<NNN>-B<NNN>.report.md` per
+`companions/report-template.md`,
 re-verifying acceptance criteria. No report → no accept. Present:
 
 - **Accept** → push `batch/R<NNN>-B<NNN>` to origin + open the CI-gated
   MR/PR per `companions/toolchain.md`, description from report
-  (defer = explicit user choice). Findings triage; ref cleanup per `branch-plan.md
-  § Rails` - after the MR/PR merges, post-merge cleanup deletes the
-  batch branch, local and origin.
+  (defer = explicit user choice). Findings triage; ref cleanup per
+  `branch-plan.md
+  § Rails` - after the MR/PR merges, post-merge cleanup deletes the batch
+  branch, local and origin.
 - **Reject** → ref handling per `branch-plan.md § Rails`.
 - **Halt** → failed item reported, work intact; the operator - user,
   or supervisor within bounds - resolves, re-runs `/dev auto R<NNN>-B<NNN>`.

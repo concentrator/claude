@@ -69,7 +69,8 @@ worker. What differs is the evidence at the checkpoint: there is no
 `R<NNN>-B<NNN>.report.md`, so `finish.md § 1`'s verify set stands in
 its place. Verify that set from artifacts exactly as a report would be
 verified; a manual branch
-missing it is no more mergeable than a batch missing its report. The supervisor passes ids only; workers read plans from
+missing it is no more mergeable than a batch missing its report. The supervisor
+passes ids only; workers read plans from
 their repo - the supervisor never relays content; its question
 answers, ledgered (§ Ledger), are the one exception, and even those
 travel as a path. Anything longer than a line goes to a file on the host outside

@@ -298,7 +298,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   Cite `"Fable"` in the policy and in the gate's test fixtures.
   `depends-on: R040-T015`
 
-- [ ] **R040-T025 [mnt]**: the mode-file cap counts words, and a word
+- [x] **R040-T025 [mnt]**: the mode-file cap counts words, and a word
   count does not measure a document - `branch-plan.md` sat at exactly
   1500 words through R040-T017 and R040-T021 while each edit bought
   its words by trimming sentences elsewhere, twice losing a condition
