@@ -212,7 +212,8 @@ composite (`R040-T###`, counter scoped to this initiative).
   findings are triaged by receiver, only a human-level one blocks.
   Second, the always-escalated list in `companions/declarations.md
   § Supervisor bounds` carves out a `CLAUDE.md` change confined to
-  `§ Agent toolchain`: declaration lines are configuration, and the
+  the declaration lines (`§ Agent toolchain`, `§ Supervision`): they
+  are configuration, and the
   operator delivers them. Third, `§ Operator modes` states that for an
   AI-operated seat the global `CLAUDE.md § Approval and persistence`
   and `§ Communication` are satisfied by the declared bounds - it
@@ -269,7 +270,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   setting check recorded with its source, the rule text, and one
   re-measurement of a `/dev code` session after it with
   `context-cost.py`.
-- [ ] **R040-T022 [refactor]**: the supervisor declarations
+- [x] **R040-T022 [refactor]**: the supervisor declarations
   (`Supervisor bounds`, `Operator mode`) move from `CLAUDE.md § Agent
   toolchain`, which `companions/toolchain.md` defines as the build and
   VCS declarations, to a `## Supervision` section of their own;
@@ -316,4 +317,5 @@ composite (`R040-T###`, counter scoped to this initiative).
   the R040-T021 setting check found
   (`R040-T021-context-burn.findings.md`); a hook with its test, built
   if the rule alone leaves the burn high.
-- Next: R040-T022.
+- Next: R closure, once acceptance criterion 9 has a run behind it -
+  one operator over two projects at once (`requirements.md`).

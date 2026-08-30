@@ -83,7 +83,7 @@ hard floor.
   open batch, else stamped open tasks) and never authorizes work. The
   loop runs until scope is delivered or only escalations remain.
 - Per-project surfaces: merge authority lives only in the project's
-  `CLAUDE.md § Agent toolchain` bounds declaration; operating
+  `CLAUDE.md § Supervision` bounds declaration; operating
   instructions (project quirks, escalation additions) live in an
   optional `.claude/supervisor.md` referenced from it.
 - A user sync is a conversation: "status" yields per-initiative state
@@ -92,37 +92,80 @@ hard floor.
 
 ## Acceptance criteria
 
-- [ ] A per-project capability-bounds declaration exists; the
+Closure check run 2026-08-30 on the branch closing R040-T022, judged
+against `tasks.md` on `main`; criterion 9, reworded on 2026-08-30 to
+the one-operator model `declarations.md § Operator modes` states, has
+no run behind it, so the R stays open (`plan.md § Approval and
+closure`).
+
+- [x] A per-project capability-bounds declaration exists; the
       supervisor refuses any action outside it and escalates instead.
-- [ ] The supervisor runs a full batch lifecycle unattended on a
+      Evidence: `CLAUDE.md § Supervision`, `companions/declarations.md
+      § Supervisor bounds`; `supervise.md § Deliver or escalate` names
+      a class or escalates.
+- [x] The supervisor runs a full batch lifecycle unattended on a
       worker session: dispatch, monitor, checkpoint verification
       (report + criteria + gates), delivery of a green MR - in either
       runbook variant.
-- [ ] Escalations queue with context sufficient to resolve without
+      Evidence: Variant A. attack-checker: `glab mr list --label
+      supervised --merged` lists fourteen MRs, `!349` (R-020 B-001)
+      and `!369` (`batch/R020-B-002`) among them (R040-T004,
+      R040-T006). fp-remedy: twenty-four, R001-T002 through T007
+      and their plan MRs, `!30` closing R001 on its criteria and
+      `!32` archiving it.
+- [x] Escalations queue with context sufficient to resolve without
       reading raw transcripts; a sync empties the queue.
-- [ ] A worker's implementation question is resolved by the
+      Evidence: `supervise.md § Deliver or escalate` (escalations are
+      existing artifacts read back) and `§ Sync`; the pilot's
+      identity escalation resolved by the operator's ruling
+      (`R040-T011-agent-channel.findings.md`).
+- [x] A worker's implementation question is resolved by the
       supervisor and the run continues; every resolution appears in
       the final report; a design-touching question escalates
       unanswered.
-- [ ] Every checkpoint boundary check is an existing gate.
-- [ ] A design or architectural decision never lands supervised
+      Evidence: `supervise.md § Question resolution`,
+      `companions/report-template.md § Supervisor decisions`; pilot
+      stage 2 (R040-T006).
+- [x] Every checkpoint boundary check is an existing gate.
+      Evidence: `supervise.md § Boundary verification - existing
+      gates only`.
+- [x] A design or architectural decision never lands supervised
       without confirmation.
-- [ ] No worker session stalls on a permission prompt: prompts are
+      Evidence: the always-escalated list in `declarations.md
+      § Supervisor bounds`; `§ Operator modes` never re-decides a
+      design-level escalation (R040-T005, R040-T018).
+- [x] No worker session stalls on a permission prompt: prompts are
       pre-accepted by the declared mode or accepted by the supervisor.
-- [ ] Every merge is a normal green-gated MR merge - host protections
+      Evidence: `supervisor-runbook.md § Modes, and why each role gets
+      one`; `R040-T004-pilot-stage1.findings.md § prompt constraint`;
+      R040-T014.
+- [x] Every merge is a normal green-gated MR merge - host protections
       untouched throughout the pilot.
-- [ ] The supervisor runs repo-less over the portfolio: adding a
-      project is one portfolio entry plus that project's own
-      declarations; supervising two projects is one loop, not two
-      sessions.
-- [ ] Every merge of supervised work is distinguishable on the host
+      Evidence: the thirty-eight supervised MRs above, each `main` ←
+      branch through the host's gate; the stage-2 incident
+      (R040-T007) reached `main` through a green plan MR, not around
+      the gate.
+- [ ] One operator holds the merge for two projects at once, each
+      with its own supervisor + worker pair; adding a project is one
+      portfolio entry plus that project's own declarations. Nothing
+      crosses project lines but the operator.
+      Evidence: `declarations.md § Operator modes` states the model;
+      attack-checker and fp-remedy were each supervised in their own
+      session, never two under one operator at once.
+- [x] Every merge of supervised work is distinguishable on the host
       (label + comment) with commit and MR/PR prose untouched.
-- [ ] Pilot, two local stages in the same adopter project
+      Evidence: `declarations.md § Supervision signature`; the pilot
+      batch MR merged green with the `supervised` label and the bound
+      comment, prose untouched (`R040-T011-agent-channel.findings.md`);
+      fp-remedy's twenty-four supervised MRs carry the label.
+- [x] Pilot, two local stages in the same adopter project
       (attack-checker), the user present only at sync points: first
       its plans/docs migration batch - planned and stamped in that
       repo, delivered supervised; then one real task's batch. Both
       stages exercise question resolution, the decision ledger, and
       the prompt constraint.
+      Evidence: R040-T004 and R040-T006 `[x]` in `tasks.md`;
+      `R040-T004-pilot-stage1.findings.md`.
 
 ## Constraints
 

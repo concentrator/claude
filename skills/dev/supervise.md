@@ -26,7 +26,7 @@ commits and carries them to trunk on merge.
 1. **Projects** - bare inside a repo: that project. Repo-less: every
    entry in `~/.claude/supervisor/portfolio.md` (per project: path,
    VCS host). The portfolio is config only - never write state there.
-2. **Bounds** - read each project's `CLAUDE.md § Agent toolchain`
+2. **Bounds** - read each project's `CLAUDE.md § Supervision`
    declaration (`companions/declarations.md § Supervisor bounds`) and its
    `.claude/supervisor.md` instructions when referenced. No
    declaration → read-only: report and escalate, merge nothing.

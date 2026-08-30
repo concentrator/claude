@@ -15,15 +15,15 @@ reader of § Agent toolchain meets merge authority among lint commands.
 
 ## Commits
 
-- [ ] `CLAUDE.md`: the two lines move to a `## Supervision` section
+- [x] `CLAUDE.md`: the two lines move to a `## Supervision` section
   directly after § Agent toolchain, within the 100-line hold;
   `companions/declarations.md § Supervisor bounds` and `§ Operator
   modes` name that section as the home, `supervise.md § Resolve` step 2
   and `companions/supervisor-runbook.md` read it from there, and the
   R040-T018 declaration carve-out names it. `rules/claude-md.md`
   changes only if it lists the sections a `CLAUDE.md` holds.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.
