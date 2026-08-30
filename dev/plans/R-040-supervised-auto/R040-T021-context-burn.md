@@ -33,7 +33,7 @@ base is harness behaviour and out of scope.
 ## Commits
 
 - [x] Setting check per § Terms, recorded in the findings file.
-- [ ] The rule, once, as a fourth point of `branch-plan.md § Commit
+- [x] The rule, once, as a fourth point of `branch-plan.md § Commit
   cadence`; `companions/implementer-prompt.md` and
   `companions/supervisor-runbook.md` cite it in one line each.
   `branch-plan.md` stays under its word cap: the item includes the

@@ -48,6 +48,8 @@ Task tool (general-purpose):
     CLAUDE.md and git-workflow.md are in your context; follow
     git-workflow.md § Commit messages, CLAUDE.md § Code Comments +
     § Audience visibility, and project `## Conventions` (docs/CHANGELOG).
+    Commands print only what the step needs (`branch-plan.md § Commit
+    cadence`, point 4): a status, a count, a range - never a file in context.
 
     ## Code Organization
 

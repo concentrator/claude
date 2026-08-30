@@ -23,7 +23,7 @@ a commit that didn't land stays `[ ]`.
 
 A doc depending on a later commit gets a placeholder + sub-task,
 replaced by the commit completing it; everything else updates in its
-code's commit.
+commit.
 
 ## Commit cadence (all types)
 
@@ -38,14 +38,17 @@ file's loop, `doc`/`test`/`mnt` run this alone:
    (feature `dev/docs/` docs reconcile at close).
 3. **Commit** (`git-workflow.md § Commit messages`); mark the plan
    `[x]` immediately.
+4. **Output** - throughout the pass a command prints only what the
+   step needs: a status, a count, a range (`grep -c`, `sed -n`, a gate
+   silenced with its exit status echoed), never a file already in
+   context; edits go through `Edit` on anchors, not heredoc rewrites.
 
 Open `[ ]` items → next pass; last non-final `[x]` → § Closing routine.
 
 ## No TODOs in code
 
 Never write `TODO`/`FIXME`/`XXX` in code. Route each to a plan artifact
-(branch-plan commit, the R's `tasks.md`, or an R stub) at discovery
-(§ Scope discoveries).
+(branch-plan commit, the R's `tasks.md`, or an R stub) at discovery.
 
 ## Scope discoveries
 
@@ -54,23 +57,21 @@ Noticed mid-execution, not in the plan.
 **Blocker** - proceeding would produce wrong, unsafe, or contradictory
 code, the task's premise is invalidated, a plan item is ambiguous, or
 verification keeps failing after repeated fixes:
-- **Stop. Ask the user.** Resolution may require plan extension, new
-  task, new R, or aborting the branch. Never inline-fix beyond a true
-  typo in code you're writing.
+- **Stop. Ask the user.** Resolution may be a plan extension, a new
+  task or R, or aborting the branch. Never inline-fix beyond a true
+  typo.
 
-**Non-blocker** - improvement, refactor idea, tangential test gap, code
-smell, naming inconsistency:
-- In this branch's scope → fix here as a commit, never deferred to a
-  finding.
+**Non-blocker** - improvement, refactor idea, test gap, smell, naming:
+- In this branch's scope → a commit here, never a finding.
 - Another component's → append to the plan's sibling
   `<task-id>-<slug>.findings.md`, continue coding, triage at close.
 - Never silently expand scope.
 
 ## Scope changes mid-branch
 
-Changes needed after the final commit → adjust the plan via
-`/dev plan <slug>` (`plan.md § Adjusting existing plans`): new
-checkboxes plus a new final commit.
+Changes after the final commit → adjust the plan via `/dev plan
+<slug>` (`plan.md § Adjusting existing plans`): new checkboxes plus
+a new final commit.
 
 ## Closing routine
 
@@ -87,14 +88,13 @@ commit and the hand-off (`finish`).
    | data or config | `code-reviewer` agent |
    | more than one row | both |
 
-   Cap: one pre-authorised dispatch by the session itself
+   Cap: one pre-authorised dispatch by the session
    (`agents/code-reviewer.md` bounds it), plus a verifier only on a
    Critical finding (`companions/verification-policy.md § Verifier
    isolation`);
    `/code-review` is a manual escalation - suggest, never run.
    Bookkeeping (plan marks, CHANGELOG) keys no row. Size governor:
-   mixed-purpose (more than one task tag) or >9
-   commits → both. Also the **Tier-2 compliance review**: every concern in
+   more than one task tag or >9 commits → both. Also the **Tier-2 compliance review**: every concern in
    `MAINTENANCE.md § Tier-2 AI review`, over the diff.
 2. Validate findings against full project context.
 3. Report; request user approval before applying.
@@ -105,7 +105,7 @@ commit and the hand-off (`finish`).
    resolve here as commits, not deferrals (§ Scope discoveries).
    For each remaining `[ ]`, prompt user:
    - Promote to a task or an R stub (`plan.md § Referential
-     integrity` owns the routing)
+     integrity` routes it)
    - Discard (mark `[x]` with reason: "won't fix")
 7. **Reconcile the feature doc** - write or update the `dev/docs/` doc
    to the shipped code, then take every doc the branch ships
@@ -119,8 +119,8 @@ commit and the hand-off (`finish`).
    > Complete the branch: re-review docs across all commits, cleanup
    > (stale/temp data), mark plan complete, commit.
 
-   The commit includes the resolved findings file and the reconciled
-   doc; closing the R's last open task → the closure check
+   The commit includes the resolved findings file and reconciled doc;
+   closing the R's last open task → the closure check
    (`plan.md § Approval and closure`); verified → ROADMAP `[x]`. Marks
    land with the merge; a rejected branch discards them.
 8. Invoke `finish` - present the delivery options and execute.
@@ -129,21 +129,19 @@ commit and the hand-off (`finish`).
 
 Header `architecture-changing: true` → the plan includes a commit
 updating `DESIGN.md`. Other branches touch `DESIGN.md` only for
-tree-map upkeep (adding a new file to `DESIGN.md § Tree-map`), foldable into
-the final commit without the flag.
+tree-map upkeep, foldable into the final commit without the flag.
 
 ## Size cap
 
-A branch runs ~20 commits: warn past 20, prompt to split
-past 30; a batch's planned commits split past 30 - subordinate to
-the short-lived governor
-(`git-workflow.md § Delivery cadence`). Override with stated
-reason in plan header.
+A branch runs ~20 commits: warn past 20, prompt to split past 30,
+a batch's planned commits likewise - subordinate to the short-lived
+governor (`git-workflow.md § Delivery cadence`). Override with a
+stated reason in the plan header.
 
 ## Session boundary
 
-A session ends with its delivery unit: a session outliving its unit
-re-bills the finished work on every later call.
+A session ends with its delivery unit: outliving it re-bills the
+finished work on every later call.
 
 | Mode | Unit |
 |---|---|
@@ -161,11 +159,10 @@ supervisor from its ledger too (`supervise.md § Ledger`).
 
 The **batch** - one or more coupled tasks shipped as one CI-gated
 MR/PR - is the unit of delivery to `main` in both modes; a lone task
-is a batch of one, its branch the MR/PR. Auto mode (`/dev auto`)
-runs members via subagents on a `batch/R<NNN>-B<NNN>` branch;
-manual mode (`/dev code`) implements them by hand. Only
-verification differs: auto runs the checkpoint below, manual uses
-§ Closing routine + `finish`.
+is a batch of one. Auto mode (`/dev auto`) runs members via
+subagents on a `batch/R<NNN>-B<NNN>` branch; manual mode
+(`/dev code`) implements them by hand. Only verification differs:
+the checkpoint below, or § Closing routine + `finish`.
 
 ### `agentic:` stamp
 
@@ -185,8 +182,8 @@ check`). Items failing → fix via `/dev plan <slug>` first. User approves → s
     - R062-T001 (<slug>)
     - R062-T002 (<slug>)
 
-Composition only (members, order, mode), never status - task state's
-home is the R's `tasks.md`. Open iff a member is `[ ]` there and no
+Composition only (members, order, mode), never status - task state
+lives in the R's `tasks.md`. Open iff a member is `[ ]` there and no
 `R<NNN>-B<NNN>.report.md` exists. Composition is a planning write
 (`plan.md § Where plans live in git`).
 
@@ -194,8 +191,7 @@ Delivery grouping, not a planning level: a batch is scoped to the R
 whose dir holds it - its open, coupled tasks (not independently
 shippable). `depends-on` resolves within batch order or merged work;
 a cross-initiative need becomes its own R. The checkpoint validates
-that R's acceptance criteria. The § Size cap governor bounds the
-batch. Auto mode requires a stamped batch.
+that R's acceptance criteria. Auto mode requires a stamped batch.
 
 Batch-close bookkeeping: the close phase marks member-task
 checkboxes as commits on `batch/R<NNN>-B<NNN>` before the MR/PR -
@@ -205,8 +201,8 @@ check and release marking ride a close-out plan MR/PR
 
 Per-branch close in auto mode: the close review runs only above the
 close-folding threshold (`verification-policy.md § Close folding`).
-The mandatory final commit and green tests/lint
-before merging into the batch branch hold regardless of size.
+The mandatory final commit and green tests/lint before the merge
+into the batch branch hold at any size.
 
 ### Rails
 
@@ -214,10 +210,9 @@ before merging into the batch branch hold regardless of size.
   never plan content, never the closing decisions.
 - Pre-flight creates `batch/R<NNN>-B<NNN>` off latest `main` and sets the
   `pre-R<NNN>-B<NNN>` tag (rollback anchor). Member branches merge into the
-  batch branch only; `main` is untouched until the batch MR/PR merges.
+  batch branch only; `main` waits for the batch MR/PR.
 - Agents never push; the only delivery is the checkpoint-accept
-  **CI-gated MR/PR** of the batch branch to origin (`auto`
-  checkpoint).
+  CI-gated MR/PR of the batch branch (`auto` checkpoint).
 - No commit on red tests/lint - no exceptions.
 - Findings triage and push decisions defer to the checkpoint.
 - Branch refs stay until the user validates the checkpoint.
