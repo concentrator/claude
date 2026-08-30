@@ -26,6 +26,13 @@ under delivery pressure.
   the doc, never the diff, and why - a claim's source can move under an
   untouched line; the R040-T010 `RangeError` catch is the evidence and
   stays in its findings file, not in the rule.
+- [ ] `companions/verification-policy.md`: one paragraph stating that
+  a negative search is evidence only from an instrument whose failure
+  differs from its no-match, with the observed case named as the
+  reason - the `grep` these sessions invoke wraps `ugrep -I`, which
+  exits 1 silently on a file it judges binary
+  (`R040-T011-agent-channel.findings.md`) - and the remedy: `git grep`,
+  or `grep` with `-a`, for a search whose empty result is the claim.
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review,

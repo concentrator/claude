@@ -44,6 +44,12 @@ unaffected either way.
   the findings file every git prompt it raised; a prompt on a
   subcommand the inventory missed is added to the grant in the same
   commit.
+- [ ] Config hygiene in the same tree: drop `fallbackModel` from
+  `.claude/settings.json` (it equals `model` since R040-T015 pointed
+  the project tier at Opus, and the tiering that owned it, R-056, is
+  closed); anchor the portfolio's ignore in `.gitignore` to
+  `/supervisor/` under its own comment naming `portfolio.md`, out of
+  the `# OS` block. `scripts/ci/run-all.sh` green.
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (config row: `code-reviewer`), Tier-2 compliance review,

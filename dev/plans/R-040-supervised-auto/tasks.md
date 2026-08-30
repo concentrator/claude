@@ -280,10 +280,6 @@ composite (`R040-T###`, counter scoped to this initiative).
   supervisor instead of waiting to be read; until it lands, the
   runbook's wait recipes take a hard `timeout` on every loop
   (`R040-T011-agent-channel.findings.md`).
-- Backlog: `verification-policy.md` - a negative search is evidence
-  only from an instrument whose failure differs from its no-match; the
-  `grep` these sessions invoke wraps `ugrep -I`, which exits 1 silently
-  on a file it judges binary (`R040-T011-agent-channel.findings.md`).
 
 - [x] **R040-T023 [fix]**: `hooks/dev-precompact-state.sh` records
   `trigger: unknown` on every compaction. It reads
@@ -302,11 +298,4 @@ composite (`R040-T###`, counter scoped to this initiative).
   Cite `"Fable"` in the policy and in the gate's test fixtures.
   `depends-on: R040-T015`
 
-- Backlog: `.claude/settings.json` `fallbackModel` equals `model` since
-  R040-T015 pointed the project tier at Opus - dead config. Settings
-  tiering (R-056, closed) owned the key; drop it or point it at Sonnet.
-- Backlog: `handoff.md § Reading it back` covers re-brief after
-  compaction only; a session cleared at its unit boundary starts with a
-  new `session_id`, so nothing names the old note to it. The supervisor
-  re-briefs from its ledger (R040-T017); the worker's path is
-  unstated.
+- Next: R040-T021, R040-T013, R040-T012, R040-T018, R040-T022.
