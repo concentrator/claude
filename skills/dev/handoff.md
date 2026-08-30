@@ -23,8 +23,8 @@ state is its checkpoint report).
 `# session <session_id>`, and the next hand-off rewrites that line with
 the role. Roles: `worker` (dispatched by a supervisor), `supervisor`
 (`/dev supervise`; re-briefed from this note and its ledger,
-`~/.claude/supervisor/ledger/<project>-<scope>.md`), `operator` (the
-AI operator seat), `solo` (no other seat).
+`dev/supervisor/<scope>.md`), `operator` (the AI operator seat),
+`solo` (no other seat).
 
 **Blocks** - `## <kind> <UTC timestamp>` followed by `- key: value`
 lines, appended in time order; the last block of each kind is current.

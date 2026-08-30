@@ -101,11 +101,10 @@ boundary, re-brief after compaction, supervisor and worker alike:
 
 ## Ledger
 
-The supervisor's working memory is
-`~/.claude/supervisor/ledger/<project>-<scope>.md`, in its gitignored
-home beside `portfolio.md`: an append dirties neither the config
-repo nor the project checkout. One file per scope; a resumed
-supervisor opens the same file. Opened at § Resolve (`mkdir -p` the
+The supervisor's working memory is `dev/supervisor/<scope>.md` in the
+checkout, beside `dev/session/` and ignored like it, so an append
+dirties nothing. One file per scope; a resumed supervisor on the same
+host opens the same file. Opened at § Resolve (`mkdir -p` the
 directory, then the first entry), it takes one entry per event from
 § Dispatch through § Deliver or escalate, in `handoff.md § Blocks`
 format: `## <event> <UTC timestamp>` - dispatch, question, answer,

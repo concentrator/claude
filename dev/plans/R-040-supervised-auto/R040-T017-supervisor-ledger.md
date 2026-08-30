@@ -56,7 +56,7 @@ The ledger moves beside the session files instead:
 `<project-dir>/dev/supervisor/<scope>.md`, in the supervisor's cwd,
 host-local, ignored like `dev/session/`.
 
-- [ ] `supervise.md § Ledger` names the new path; `handoff.md`'s role
+- [x] `supervise.md § Ledger` names the new path; `handoff.md`'s role
   list follows. `.gitignore` gains `/dev/supervisor/`;
   `scripts/install-dev.sh` step 7 writes that line into adopters
   beside `/dev/session/`, and `scripts/test/install-dev.test.sh`
