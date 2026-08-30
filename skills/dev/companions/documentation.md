@@ -137,8 +137,7 @@ changed claims, checked against their sources by the close review
   is usable cold.
 
 A feature doc's pass covers the doc, never the diff: a claim's source
-can change under a line no branch touches, and the only pass that finds
-that is one that reads the doc.
+can change under a line no branch touches.
 
 Either path is artifact-free: version-control history records that the
 review ran; no separate stamp or ledger is kept.
