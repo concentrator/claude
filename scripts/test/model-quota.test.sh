@@ -56,13 +56,13 @@ window() {  # <display-name> <percent>
 # Every run's output is screened for a credential value, whichever path it took.
 gate() {
   local out rc
-  out=$(env PATH="$1/bin:$HERMETIC" HOME="$1/home" bash "$SCRIPT" "Fable 5" 2>&1); rc=$?
+  out=$(env PATH="$1/bin:$HERMETIC" HOME="$1/home" bash "$SCRIPT" "Fable" 2>&1); rc=$?
   grep -q 'canary' <<<"$out" && printf '%s\n' "$out" >> "$LEAKS"
   printf '%s' "$out"; return $rc
 }
 
 # 1. headroom below the ceiling exits 0 and reports the window
-d=$(fixture); window "Fable 5" 42 > "$d/body"
+d=$(fixture); window "Fable" 42 > "$d/body"
 out=$(gate "$d"); rc=$?
 [ "$rc" -eq 0 ] && grep -q '42' <<<"$out" \
   && pass "headroom exits 0 and reports the percent" || die "headroom rc=$rc: $out"
@@ -86,12 +86,12 @@ rm -rf "$d"
 # 5. at the ceiling, and over it, exit 1 - the caller dispatches the fallback;
 #     the endpoint may answer with a float, and the boundary holds either way
 for p in 80 80.0 97; do
-  d=$(fixture); window "Fable 5" "$p" > "$d/body"
+  d=$(fixture); window "Fable" "$p" > "$d/body"
   out=$(gate "$d"); rc=$?
   [ "$rc" -eq 1 ] && pass "$p percent exits 1" || die "$p percent rc=$rc: $out"
   rm -rf "$d"
 done
-d=$(fixture); window "Fable 5" 79.9 > "$d/body"
+d=$(fixture); window "Fable" 79.9 > "$d/body"
 out=$(gate "$d"); rc=$?
 [ "$rc" -eq 0 ] && pass "79.9 percent exits 0" || die "79.9 percent rc=$rc: $out"
 rm -rf "$d"
@@ -99,7 +99,7 @@ rm -rf "$d"
 # 6. with no credentials file, the macOS keychain item is the credential
 d=$(fixture); rm "$d/home/.claude/.credentials.json"
 printf '{"claudeAiOauth":{"accessToken":"fixtureleakcanary"}}\n' > "$d/keychain.json"
-window "Fable 5" 10 > "$d/body"
+window "Fable" 10 > "$d/body"
 out=$(gate "$d"); rc=$?
 [ "$rc" -eq 0 ] && grep -q 'security find-generic-password' "$d/calls" \
   && grep -q 'Claude Code-credentials' "$d/calls" && grep -q 'Bearer fixtureleakcanary' "$d/headers" \
@@ -115,12 +115,12 @@ unknown() {  # <label> <fixture>
     && pass "$1 exits 2 with one reason" || die "$1 rc=$rc: $out"
 }
 d=$(fixture); rm "$d/home/.claude/.credentials.json"; rm "$d/bin/security"
-window "Fable 5" 10 > "$d/body"
+window "Fable" 10 > "$d/body"
 unknown "absent credential" "$d"
 [ ! -s "$d/calls" ] && pass "no request without a credential" || die "requested anyway: $(cat "$d/calls")"
 rm -rf "$d"
 
-d=$(fixture); window "Fable 5" 10 > "$d/body"; printf '401' > "$d/status"
+d=$(fixture); window "Fable" 10 > "$d/body"; printf '401' > "$d/status"
 unknown "non-200 answer" "$d"; rm -rf "$d"
 
 d=$(fixture); window "Opus 5" 10 > "$d/body"
@@ -135,7 +135,7 @@ unknown "credential without an access token" "$d"; rm -rf "$d"
 d=$(fixture); printf '7' > "$d/curlrc"
 unknown "unreachable endpoint" "$d"; rm -rf "$d"
 
-d=$(fixture); window "Fable 5" '"n/a"' > "$d/body"
+d=$(fixture); window "Fable" '"n/a"' > "$d/body"
 unknown "non-numeric percent" "$d"; rm -rf "$d"
 
 # 8. an absent entry names what the endpoint did return, so a renamed model
