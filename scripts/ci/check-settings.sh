@@ -7,6 +7,10 @@
 # the rest of the gate still green. The window binds only while
 # auto-compaction is on, so both keys are checked.
 #
+# The git grant is per subcommand: a bare `Bash(git:*)` here is read before
+# any project's `settings.local.json`, so it would make the per-project
+# template's own git list inert on every host carrying this config.
+#
 # The 100000 to 1000000 bounds are the Claude Code settings reference's, not
 # this repo's; they are restated here because the gate has to compare against
 # something and no tracked file owns them. The chosen value inside those
@@ -45,4 +49,7 @@ reason=$(jq -r --argjson lo "$MIN" --argjson hi "$MAX" '
   else "" end' "$f")
 
 [ -z "$reason" ] || { echo "SETTINGS: $reason"; exit 1; }
+
+jq -e '(.permissions.allow // []) | index("Bash(git:*)") == null' "$f" >/dev/null 2>&1 \
+  || { echo "SETTINGS: permissions.allow grants a bare Bash(git:*); grant git per subcommand"; exit 1; }
 echo "check-settings: OK"

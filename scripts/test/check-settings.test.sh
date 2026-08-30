@@ -82,6 +82,14 @@ fails_with "$d" "SETTINGS: autoCompactWindow is not a number" \
   && pass "string window caught, named as a type failure" \
   || die "string window not caught: $(run_in "$d")"
 
+d=$(fixture '{ "autoCompactEnabled": true, "autoCompactWindow": 200000, "permissions": { "allow": ["Bash(git status:*)", "Bash(git:*)"] } }')
+fails_with "$d" "SETTINGS: permissions.allow grants a bare Bash(git:*)" \
+  && pass "bare git grant caught, named" \
+  || die "bare git grant not caught: $(run_in "$d")"
+
+d=$(fixture '{ "autoCompactEnabled": true, "autoCompactWindow": 200000, "permissions": { "allow": ["Bash(git status:*)", "Bash(git push -u origin doc/*)"] } }')
+ok_in "$d" && pass "per-subcommand git grants pass" || die "narrowed grant rejected: $(run_in "$d")"
+
 d=$(fixture NONE)
 fails_with "$d" "is missing; the context budget has no home" && pass "missing settings.json caught, named" \
   || die "missing settings.json not caught: $(run_in "$d")"
