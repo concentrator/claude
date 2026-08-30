@@ -22,6 +22,9 @@ read or edit.
   (e.g. `dev`) - tables inflate raw word counts.
 - **Reference skills** (lookup material, not a workflow): up to ~1500 words inline.
   Beyond that → companion `.md` files alongside `SKILL.md`.
+- **Mode files** (`skills/dev/*.md`, read on demand by the router): at most
+  300 lines, no line over 80 characters (table rows exempt) - a document
+  is measured in lines, never words; beyond that → a companion.
 
 ## Naming and location
 

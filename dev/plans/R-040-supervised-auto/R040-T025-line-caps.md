@@ -35,7 +35,7 @@ line-length ceiling so a rewrap cannot buy lines.
 - [x] Rewrap every prose line the new check reports, in every mode
   file it reports (ten files, 36 lines at planning time), wording
   untouched; `bash scripts/ci/run-all.sh` green.
-- [ ] `rules/skills.md § Size` states the mode-file tier in lines and
+- [x] `rules/skills.md § Size` states the mode-file tier in lines and
   characters; `DESIGN.md § Self-enforcement` stays unchanged unless
   it names the unit.
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
