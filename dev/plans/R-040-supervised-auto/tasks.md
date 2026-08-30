@@ -241,7 +241,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   open MR/PRs, rulings in force - on demand via `/dev handoff` and by
   rule at the boundary.
 
-- [ ] **R040-T021 [doc]**: context burn under execution. A worker's
+- [x] **R040-T021 [doc]**: context burn under execution. A worker's
   window is ~85k tokens of room after compaction (a ~32k cached prefix
   plus ~45k rebuilt on every compaction: summary, re-attached files,
   skill bodies, tool deltas), and a `/dev code` session burns it at
@@ -309,4 +309,11 @@ composite (`R040-T###`, counter scoped to this initiative).
   states the tier in the same units; the over-long prose lines the
   new check finds are rewrapped, wording untouched.
 
-- Next: R040-T025, R040-T021, R040-T013, R040-T012, R040-T018, R040-T022.
+- Backlog: a `PostToolUse` hook that trims a Bash result before Claude
+  sees it (`updatedToolOutput`, `hooks.md § PostToolUse decision
+  control`): keep a gate's verdict line, drop a pre-push transcript.
+  The one instrument
+  the R040-T021 setting check found
+  (`R040-T021-context-burn.findings.md`); a hook with its test, built
+  if the rule alone leaves the burn high.
+- Next: R040-T013, R040-T012, R040-T018, R040-T022.

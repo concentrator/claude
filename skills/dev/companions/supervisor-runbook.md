@@ -194,6 +194,9 @@ becomes a hard failure instead of a question.
 Deny rules survive auto mode. Only Bash *allow* rules are suspended, so
 a `git push origin main` or force-push deny still bites.
 
+Both seats hold their commands to `branch-plan.md § Commit cadence`
+point 4: print what the step needs, never a file already in context.
+
 ## Failure modes
 
 - **The classifier fails closed** ("Auto mode could not evaluate this

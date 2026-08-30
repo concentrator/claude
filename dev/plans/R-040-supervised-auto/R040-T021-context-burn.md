@@ -27,23 +27,24 @@ base is harness behaviour and out of scope.
 - **The rule** - a command prints only what the step needs: a status
   word, a count, the requested range (`grep -l`/`-c`, `sed -n`,
   `>/dev/null` on gates and pushes with the exit status echoed), never
-  a file already in context; edits go through `Edit` on anchors, not
-  heredoc rewrites.
+  a file already in context; an edit replaces one anchored span
+  (`Edit`, or `sed` or a script asserting a single match), never a
+  heredoc rewrite of the file.
 
 ## Commits
 
-- [ ] Setting check per § Terms, recorded in the findings file.
-- [ ] The rule, once, as a fourth point of `branch-plan.md § Commit
+- [x] Setting check per § Terms, recorded in the findings file.
+- [x] The rule, once, as a fourth point of `branch-plan.md § Commit
   cadence`; `companions/implementer-prompt.md` and
   `companions/supervisor-runbook.md` cite it in one line each.
   `branch-plan.md` stays under its word cap: the item includes the
   offsetting trim.
-- [ ] Re-measure: at this branch's close, `scripts/context-cost.py
+- [x] Re-measure: at this branch's close, `scripts/context-cost.py
   --session <this session's transcript>` for the turns after the rule
   landed; tokens per minute and compaction interval against the
   baseline above, recorded in the findings file.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.
