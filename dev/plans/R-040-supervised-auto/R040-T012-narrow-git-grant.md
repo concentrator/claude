@@ -32,26 +32,26 @@ unaffected either way.
 
 ## Commits
 
-- [ ] Inventory per § Terms, in the findings file; the list is the
+- [x] Inventory per § Terms, in the findings file; the list is the
   branch's evidence and the next item's input.
-- [ ] Replace `Bash(git:*)` in `settings.json` with the narrowed grant;
+- [x] Replace `Bash(git:*)` in `settings.json` with the narrowed grant;
   `scripts/ci/check-settings.sh` gains one rule - the tracked
   `settings.json` grants no bare `Bash(git:*)` - with its case in
   `scripts/test/check-settings.test.sh`. `README.md § Contents` row for
   `settings.json` is unchanged unless it names the grant.
-- [ ] Run one `/dev code` step in this repo under the narrowed grant
+- [x] Run one `/dev code` step in this repo under the narrowed grant
   (the branch's own close, which pushes and opens a PR) and record in
   the findings file every git prompt it raised; a prompt on a
   subcommand the inventory missed is added to the grant in the same
   commit.
-- [ ] Config hygiene in the same tree: drop `fallbackModel` from
+- [x] Config hygiene in the same tree: drop `fallbackModel` from
   `.claude/settings.json` (it equals `model` since R040-T015 pointed
   the project tier at Opus, and the tiering that owned it, R-056, is
   closed); anchor the portfolio's ignore in `.gitignore` to
   `/supervisor/` under its own comment naming `portfolio.md`, out of
   the `# OS` block. `scripts/ci/run-all.sh` green.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (config row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.

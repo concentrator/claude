@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Tests scripts/ci/check-settings.sh - the Tier-1 gate over the context
-# budget. Each case runs the real check inside a throwaway git repo, so this
+# budget and the git grant. Each case runs the real check inside a throwaway git repo, so this
 # repo's own settings.json is never the subject and a case cannot pass by
 # accident of the live config.
 # Run: bash scripts/test/check-settings.test.sh
@@ -81,6 +81,19 @@ d=$(fixture '{ "autoCompactEnabled": true, "autoCompactWindow": "200000" }')
 fails_with "$d" "SETTINGS: autoCompactWindow is not a number" \
   && pass "string window caught, named as a type failure" \
   || die "string window not caught: $(run_in "$d")"
+
+d=$(fixture '{ "autoCompactEnabled": true, "autoCompactWindow": 200000, "permissions": { "allow": ["Bash(git status:*)", "Bash(git:*)"] } }')
+fails_with "$d" "SETTINGS: permissions.allow grants a bare Bash(git:*)" \
+  && pass "bare git grant caught, named" \
+  || die "bare git grant not caught: $(run_in "$d")"
+
+d=$(fixture '{ "autoCompactEnabled": true, "autoCompactWindow": 200000, "permissions": { "allow": ["Bash(git status:*)", "Bash(git push -u origin doc/*)"] } }')
+ok_in "$d" && pass "per-subcommand git grants pass" || die "narrowed grant rejected: $(run_in "$d")"
+
+d=$(fixture '{ "autoCompactEnabled": true, "autoCompactWindow": 200000, "permissions": { "allow": 42 } }')
+fails_with "$d" "SETTINGS: permissions.allow is not an array" \
+  && pass "non-array allow caught, named" \
+  || die "non-array allow not caught: $(run_in "$d")"
 
 d=$(fixture NONE)
 fails_with "$d" "is missing; the context budget has no home" && pass "missing settings.json caught, named" \
