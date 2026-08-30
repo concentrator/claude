@@ -28,9 +28,10 @@ line-length ceiling so a rewrap cannot buy lines.
 
 - [x] `check-caps.sh`: the mode-file loop measures the tier, the header
   comment and the R-021 note say lines; `scripts/test/check-caps.test.sh`,
-  new, with four fixture cases - 301 lines caught, an 81-character prose
+  new, with six fixture cases - 301 lines caught, an 81-character prose
   line caught with its line number, an 81-character table row passes, a
-  compliant file passes - hermetic like the sibling self-tests
+  compliant file passes, 80 multibyte characters pass, a companion is
+  outside the tier - hermetic like the sibling self-tests
   (`scripts/test/isolation.test.sh` names the scrub).
 - [x] Rewrap every prose line the new check reports, in every mode
   file it reports (ten files, 36 lines at planning time), wording

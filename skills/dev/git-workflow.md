@@ -84,9 +84,8 @@ merge) at a work boundary - when the user moves to unrelated work or says
 to wrap up - confirming the merge first. A work boundary also settles
 findings: list any unsaved ones with a proposed destination each and get
 approval in one batch (`rules/writing-artifacts.md § One home per finding`). An
-edit unrelated to the current
-branch's topic → flag it and ask whether to deliver the current branch
-before starting fresh.
+edit unrelated to the current branch's topic → flag it and ask whether to
+deliver the current branch before starting fresh.
 
 DEV inherits the principle: a branch carries its task/batch, and delivery
 timing follows `branch-plan.md § Agentic execution` + `finish`.
@@ -108,8 +107,7 @@ Body, only when the subject cannot carry the what/why (a no-diff
 move, a decision, a constraint): compact prose - no boilerplate, no
 file lists, no restating the diff. Routing between the commit,
 findings, and task homes: `rules/writing-artifacts.md § One home per finding`.
-No
-trailers (Co-Authored-By and kin).
+No trailers (Co-Authored-By and kin).
 
 Examples:
 - GOOD: `Fix period chrome over logo`

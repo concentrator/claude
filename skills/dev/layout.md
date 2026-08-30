@@ -43,7 +43,7 @@ What agents author.
     │   │   ├── <task-id>-<slug>.findings.md
     │   │   └── batches/
     │   └── archive/
-    └── docs/                     # internal feature docs (§ Docs)
+    └── docs/                 # internal feature docs (§ Docs)
         └── *.md
 
 ## Baseline files (project root)

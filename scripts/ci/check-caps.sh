@@ -40,15 +40,15 @@ done < <(git ls-files "$ROOT/skills" | grep '/SKILL\.md$')
 # lines, 80 characters a line; a table row cannot wrap, so it is exempt from
 # the length ceiling. SKILL.md handled above; companions/ are exempt.
 while IFS= read -r f; do
-  ln=$(( $(wc -l < "$f") ))
-  (( ln <= 300 )) || report "$f $ln lines > 300"
-  n=0
+  n=0; long=""
   while IFS= read -r line || [ -n "$line" ]; do
     n=$((n + 1))
     t="${line#"${line%%[![:space:]]*}"}"
     [ "${t:0:1}" = '|' ] && continue
-    (( ${#line} <= 80 )) || { report "$f line $n: ${#line} characters > 80"; break; }
+    [ -n "$long" ] || (( ${#line} <= 80 )) || long="line $n: ${#line} characters > 80"
   done < "$f"
+  (( n <= 300 )) || report "$f $n lines > 300"
+  [ -z "$long" ] || report "$f $long"
 done < <(git ls-files "$ROOT/skills/dev" | grep -E '(^|/)skills/dev/[^/]+\.md$' | grep -v '/SKILL\.md$')
 
 (( fail == 0 )) && echo "check-caps: OK"
