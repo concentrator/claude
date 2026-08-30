@@ -39,7 +39,7 @@ unaffected either way.
   `settings.json` grants no bare `Bash(git:*)` - with its case in
   `scripts/test/check-settings.test.sh`. `README.md § Contents` row for
   `settings.json` is unchanged unless it names the grant.
-- [ ] Run one `/dev code` step in this repo under the narrowed grant
+- [x] Run one `/dev code` step in this repo under the narrowed grant
   (the branch's own close, which pushes and opens a PR) and record in
   the findings file every git prompt it raised; a prompt on a
   subcommand the inventory missed is added to the grant in the same

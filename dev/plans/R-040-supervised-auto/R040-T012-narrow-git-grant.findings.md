@@ -63,3 +63,17 @@ host carrying this config the template's git list is still fully
 covered by the global grant; a placed-versus-missing test
 discriminates only on a host without it. The template keeps its list
 for that host.
+
+## Prompts under the narrowed grant
+
+The branch's own close, in this repo, on the session that made the
+change. Git commands run after the grant landed: `add`, `commit`,
+`log`, `status`, `check-ignore`, `diff`; the pre-push hook and the
+gate run `rev-parse`, `ls-files`, `for-each-ref`, `show-ref`,
+`symbolic-ref`, `fetch` from inside scripts, which the Bash grant
+does not judge. No git prompt was raised. Two limits on that
+evidence: the session runs in auto mode, where a rule miss goes to
+the classifier rather than to a prompt, and whether a running session
+reloads `settings.json` is not observable from inside it. The push
+and the PR open run after this record; a prompt there adds its
+subcommand to the grant before the PR opens.
