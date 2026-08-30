@@ -270,7 +270,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   setting check recorded with its source, the rule text, and one
   re-measurement of a `/dev code` session after it with
   `context-cost.py`.
-- [ ] **R040-T022 [refactor]**: the supervisor declarations
+- [x] **R040-T022 [refactor]**: the supervisor declarations
   (`Supervisor bounds`, `Operator mode`) move from `CLAUDE.md § Agent
   toolchain`, which `companions/toolchain.md` defines as the build and
   VCS declarations, to a `## Supervision` section of their own;
@@ -317,4 +317,5 @@ composite (`R040-T###`, counter scoped to this initiative).
   the R040-T021 setting check found
   (`R040-T021-context-burn.findings.md`); a hook with its test, built
   if the rule alone leaves the burn high.
-- Next: R040-T022.
+- Next: R closure, once acceptance criterion 9 has a two-project run
+  behind it (`requirements.md`).
