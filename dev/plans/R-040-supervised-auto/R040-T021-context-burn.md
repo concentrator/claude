@@ -38,7 +38,7 @@ base is harness behaviour and out of scope.
   `companions/supervisor-runbook.md` cite it in one line each.
   `branch-plan.md` stays under its word cap: the item includes the
   offsetting trim.
-- [ ] Re-measure: at this branch's close, `scripts/context-cost.py
+- [x] Re-measure: at this branch's close, `scripts/context-cost.py
   --session <this session's transcript>` for the turns after the rule
   landed; tokens per minute and compaction interval against the
   baseline above, recorded in the findings file.

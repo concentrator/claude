@@ -30,3 +30,31 @@ Verdict: no setting adopted. Nothing in the settings caps output
 without cutting what a step needs; the rule carries the whole burden.
 A trimming `PostToolUse` hook is the one instrument found and is
 proposed as a backlog line, not built here.
+
+## Re-measure
+
+This session's transcript, sliced at the rule's commit
+(2026-08-30T10:47:38Z), `scripts/context-cost.py` per slice; active
+minutes count gaps up to ten minutes; tokens added exclude the context
+a slice starts with.
+
+| Slice | Calls | Active min | Added/min | Added/call | Bash result/call | Model output/call |
+|---|---|---|---|---|---|---|
+| Session before 2026-08-30 | 365 | 521 | 1294 | 1848 | 813 | 906 |
+| 2026-08-30 before the rule | 99 | 124 | 1186 | 1486 | 822 | 712 |
+| After the rule (51 min) | 58 | 51 | 1510 | 1323 | 380 | 874 |
+
+- Bash result tokens per Bash call, the rule's direct target, halved
+  (822 → 380).
+- Tokens per call fell 11%; tokens per active minute rose, because the
+  post-rule window is the close of two tasks (review dispatch,
+  reports, PR bodies) at 1.1 calls a minute against 0.8 before.
+- Compaction: one, at 11:37, the session's fourth; the previous was at
+  20:27 the day before, so the window filled over 15 hours of wall
+  clock, mostly before the rule. No interval to compare with the
+  baseline's 14 minutes.
+- The baseline session (aikido, 6k/min) was never matched here: this
+  session ran at 1.2-1.3k/min before the rule, one fifth of the
+  baseline, so the rule's effect on a session at the baseline rate is
+  unmeasured. A 51-minute window is a smoke test, not a result; the
+  next `/dev code` session on a code project is the measure.
