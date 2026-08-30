@@ -40,7 +40,7 @@ line-length ceiling so a rewrap cannot buy lines.
   characters; `DESIGN.md § Self-enforcement` stays unchanged unless
   it names the unit.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.
