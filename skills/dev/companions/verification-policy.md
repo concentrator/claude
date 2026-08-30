@@ -118,6 +118,14 @@ while answering a question other than the one asked, so state the unit
 before trusting a green result, and prove a new check bites by making
 it fail on a known instance first.
 
+**A negative search is evidence only from an instrument whose failure
+differs from its no-match.** The `grep` these sessions invoke wraps
+`ugrep -I`: on a file it judges binary it prints nothing and exits 1,
+byte-identical to a genuine no-match, so an empty result proves
+nothing about that file. A search whose empty result is the claim
+runs as `git grep`, which reports a binary match instead of hiding
+it, or as `grep -a`.
+
 ## Verifier isolation
 
 A verifier probing repo-touching behavior (git, hooks, filesystem

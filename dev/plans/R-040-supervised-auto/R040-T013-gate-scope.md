@@ -26,7 +26,7 @@ under delivery pressure.
   the doc, never the diff, and why - a claim's source can move under an
   untouched line; the R040-T010 `RangeError` catch is the evidence and
   stays in its findings file, not in the rule.
-- [ ] `companions/verification-policy.md`: one paragraph stating that
+- [x] `companions/verification-policy.md`: one paragraph stating that
   a negative search is evidence only from an instrument whose failure
   differs from its no-match, with the observed case named as the
   reason - the `grep` these sessions invoke wraps `ugrep -I`, which
