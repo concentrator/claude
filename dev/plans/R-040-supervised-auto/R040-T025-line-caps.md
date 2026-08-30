@@ -38,7 +38,7 @@ line-length ceiling so a rewrap cannot buy lines.
 - [x] `rules/skills.md § Size` states the mode-file tier in lines and
   characters; `DESIGN.md § Self-enforcement` stays unchanged unless
   it names the unit.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (code row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
