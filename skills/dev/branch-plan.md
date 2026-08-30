@@ -9,9 +9,11 @@ branch = one task. The plan is complete and committed to `main`
 
     task: R008-T002
     type: feat                      # required - task tag; sets branch prefix
-    architecture-changing: true     # optional - triggers DESIGN.md update commit
+    architecture-changing: true     # optional - triggers DESIGN.md
+                                    #   update commit
     depends-on: R008-T001           # optional - blocks `/dev code` until merged
-    agentic: approved 2026-06-10    # optional - auto-eligible; absent = manual-only
+    agentic: approved 2026-06-10    # optional - auto-eligible;
+                                    #   absent = manual-only
 
 ## Body
 

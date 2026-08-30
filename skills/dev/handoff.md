@@ -42,11 +42,11 @@ Append one `hand-off` block with these five keys, each one line;
     - open: none
     - rulings: plan/ merges on green without a second ask; keep the 405 note
 
-`done` and `next` name work by durable ids (`rules/writing-artifacts.md § Name things
-by their durable id`); `open` lists MR/PR numbers awaiting a decision;
-`rulings` lists the user's decisions still in force for the unit. The
-note is intent, so the tree never overrides it and it never restates
-the tree: branch state comes from the `tree` block and `git status`.
+`done` and `next` name work by durable ids (`rules/writing-artifacts.md § Name
+things by their durable id`); `open` lists MR/PR numbers awaiting a decision;
+`rulings` lists the user's decisions still in force for the unit. The note is
+intent, so the tree never overrides it and it never restates the tree: branch
+state comes from the `tree` block and `git status`.
 
 Write it at each unit boundary - an initiative closed, a dispatch sent,
 a ruling received, a task branch opened - and before any step the
