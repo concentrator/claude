@@ -190,7 +190,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   rule the worker already has.
   `depends-on: R040-T011`
 
-- [ ] **R040-T018 [doc]**: the readiness bar is written for a blind
+- [x] **R040-T018 [doc]**: the readiness bar is written for a blind
   implementer and applied to a watched one. `branch-plan.md § agentic:
   stamp` admits a plan only when a cold reader can build it with no
   question, because a `/dev auto` subagent has no one to ask; under
@@ -316,4 +316,4 @@ composite (`R040-T###`, counter scoped to this initiative).
   the R040-T021 setting check found
   (`R040-T021-context-burn.findings.md`); a hook with its test, built
   if the rule alone leaves the burn high.
-- Next: R040-T018, R040-T022.
+- Next: R040-T022.

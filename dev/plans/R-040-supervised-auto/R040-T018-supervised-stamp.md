@@ -29,7 +29,7 @@ at pre-flight. Three changes, one PR.
 
 ## Commits
 
-- [ ] `branch-plan.md`: § `agentic:` stamp becomes § Stamps, holding
+- [x] `branch-plan.md`: § `agentic:` stamp becomes § Stamps, holding
   both stamps and what each admits (`agentic:` keeps its bar and its
   cold read, and stays what `/dev auto` needs); the header example
   gains the `supervised:` line. `plan.md § Approval and closure` states
@@ -38,11 +38,11 @@ at pre-flight. Three changes, one PR.
   and names the receiver triage for an optional cold read. `auto.md` is
   untouched. `branch-plan.md` stays under its word cap: the item
   includes the offsetting trim.
-- [ ] `companions/declarations.md § Supervisor bounds`: the
+- [x] `companions/declarations.md § Supervisor bounds`: the
   always-escalated list carves out the Declaration carve-out;
   `git-workflow.md § Merge policy`'s escalation list cites it instead
   of restating.
-- [ ] `companions/declarations.md § Operator modes`: an AI-operated seat
+- [x] `companions/declarations.md § Operator modes`: an AI-operated seat
   satisfies the global `CLAUDE.md § Approval and persistence` and
   `§ Communication` by the declared bounds - it decides merges and
   plan-wording facts within them, runs `--permission-mode auto`, and
@@ -50,8 +50,8 @@ at pre-flight. Three changes, one PR.
   and evidence gaps. `companions/supervisor-runbook.md` gains the
   operator session's launch line and briefing beside the supervisor's
   in both variants.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.

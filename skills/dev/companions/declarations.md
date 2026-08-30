@@ -56,9 +56,12 @@ design-level is component boundaries, schemas, API shapes,
 classify escalates.
 
 Always escalated, under any grant: releases; changes to `CLAUDE.md`,
-`rules/`, or `skills/`; red gates; off-plan work; design and
-architectural decisions. Host gates (protected trunk, required checks)
-stay the hard floor for every seat - no admin merges.
+`rules/`, or `skills/` - except a `CLAUDE.md` change confined to the
+declaration lines this file defines, other than `Operator mode:`,
+which is configuration the operator delivers, not a convention
+change; red gates; off-plan work; design and architectural decisions.
+Host gates (protected trunk, required checks) stay the hard floor for
+every seat - no admin merges.
 
 Operating instructions beyond authority - project quirks, escalation
 additions, never-touch areas - live in the optional
@@ -98,7 +101,13 @@ discussions, gate results, and a report that verifies what the plan
 asked for. It never implements, never edits plans, and never reopens a
 question the supervisor already classified as design-level.
 
-It escalates to the human:
+The declared bounds are how an AI-operated seat satisfies the global
+`CLAUDE.md § Approval and persistence` and `§ Communication`: within
+them it decides merges and rules on plan-fact corrections (a wrong
+path or name the supervisor reports; the edit rides a `plan/` MR/PR
+the supervisor delivers), and it runs `--permission-mode auto`
+(`supervisor-runbook.md § Modes, and why each role gets one`). It
+escalates to the human:
 
 - anything the supervisor escalated as design-level or unclassifiable -
   the supervisor's classification stands and is not re-decided;

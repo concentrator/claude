@@ -72,25 +72,35 @@ The supervisor cycles until the scope is delivered:
 
 ## Variant A: one machine
 
-1. **Operator** opens a second terminal in the project directory and
+1. **Human**, where the project declares `Operator mode: AI operated`
+   (`declarations.md § Operator modes`): starts the operator in its
+   own terminal, `claude --permission-mode auto`, and briefs it in one
+   message - the projects it holds the merge for and a pointer to
+   that section for what it decides and what it escalates. Cite,
+   never restate, for the reason Variant B step 4 gives. In this
+   variant the AI seat holds only the merge; the person at the
+   keyboard does steps 2, 3 and 6. Human operated: the person is the
+   seat and this step is theirs.
+2. **Operator** opens a second terminal in the project directory and
    starts the worker: `claude --permission-mode acceptEdits`.
-2. **Operator** starts the supervisor in another session in auto mode
+3. **Operator** starts the supervisor in another session in auto mode
    and runs `/dev supervise <project> <scope>`.
-3. **Supervisor** runs `ListAgents` and adopts the worker peer by name.
+4. **Supervisor** runs `ListAgents` and adopts the worker peer by name.
    Adopt before dispatch (`supervise.md § Dispatch`): never run two
    workers on one project.
-4. **Supervisor** opens the ledger (`supervise.md § Ledger`), then
+5. **Supervisor** opens the ledger (`supervise.md § Ledger`), then
    dispatches with `SendMessage`, ids only: `/dev code <slug>` for a
    manual task, `/dev auto R<NNN>-B<NNN>` for a batch.
-5. **Supervisor** follows to checkpoint with status pings. The operator
+6. **Supervisor** follows to checkpoint with status pings. The operator
    is at the keyboard, so the worker's permission prompts are theirs to
    clear.
-6. **Supervisor** verifies the delivered scope from artifacts by running
+7. **Supervisor** verifies the delivered scope from artifacts by running
    them, then hands the green MR/PR to the operator, or escalates.
 
 ## Variant B: remote host
 
-1. **Operator** connects:
+1. **Operator** (the human, where the project declares `Operator
+   mode: AI operated`; steps 1-3 are theirs) connects:
    `gcloud compute ssh <host> --zone=<zone> --project=<project> --tunnel-through-iap`
 2. **Operator** confirms a clean start: no stale `tmux` sessions, the
    project checkout on the trunk with nothing uncommitted.
@@ -98,7 +108,11 @@ The supervisor cycles until the scope is delivered:
    `tmux new -d -s supervisor -c <project-dir> claude --remote-control supervisor --permission-mode auto`
    The flag joins Remote Control under the name `supervisor`
    (§ Remote Control); `tmux` keeps the session alive across a dropped
-   tunnel.
+   tunnel. Where the project declares `Operator mode: AI operated`,
+   the human starts the operator the same way first,
+   `tmux new -d -s operator -c <project-dir> claude --remote-control operator --permission-mode auto`,
+   briefed as Variant A step 1: the projects it holds the merge for
+   and a pointer to `declarations.md § Operator modes`.
 4. **Operator** briefs it in one message: the scope and its branch plan
    path, the command that starts the worker, and a pointer to
    `companions/declarations.md § Supervisor bounds` for what it may
@@ -185,6 +199,7 @@ browser and phone control without joining.
 | Role | Mode | Reason |
 |---|---|---|
 | Supervisor | `auto` | Its own tooling is compound shell - until-loops, pipelines - which prefix rules cannot match. Auto suspends Bash allow rules and routes every shell command to a classifier that judges what the command does, so the supervisor is never blocked and can always answer the worker. |
+| Operator, AI operated | `auto` | It merges and polls through the host CLI, compound shell like the supervisor's, and decides within declared bounds (`declarations.md § Operator modes`). |
 | Worker | `acceptEdits` | Edits land without a prompt. The shell prompts it still raises are cleared by whoever holds the keyboard for that variant. |
 
 Never `bypassPermissions`: it discards deny rules along with everything
@@ -194,7 +209,7 @@ becomes a hard failure instead of a question.
 Deny rules survive auto mode. Only Bash *allow* rules are suspended, so
 a `git push origin main` or force-push deny still bites.
 
-Both seats hold their commands to `branch-plan.md § Commit cadence`
+Every seat holds its commands to `branch-plan.md § Commit cadence`
 point 4: print what the step needs, never a file already in context.
 
 ## Failure modes
