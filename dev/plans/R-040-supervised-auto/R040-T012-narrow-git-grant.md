@@ -32,7 +32,7 @@ unaffected either way.
 
 ## Commits
 
-- [ ] Inventory per § Terms, in the findings file; the list is the
+- [x] Inventory per § Terms, in the findings file; the list is the
   branch's evidence and the next item's input.
 - [ ] Replace `Bash(git:*)` in `settings.json` with the narrowed grant;
   `scripts/ci/check-settings.sh` gains one rule - the tracked
