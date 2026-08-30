@@ -84,6 +84,8 @@ project_clone() {
     printf '  - clone git@%s:%s.git into %s/attack-checker\n' "$host" "$proj" "$root"
     printf '  - clone git@%s:%s.git into %s/wallarm-api-js, adjacent - the\n' "$host" "$sib" "$root"
     printf '    dependency is file:../wallarm-api-js, so npm ci fails without it\n'
+    printf '  - exclude dev/session/ and dev/supervisor/ in each checkout via\n'
+    printf '    .git/info/exclude - the ledger must not dirty the tree\n'
     printf '  - npm ci in the project\n'
     printf '  - run the project gate (npm test, npm run lint) as the acceptance\n'
     printf '  - worker-credentials.sh forge-cli %s/%s: glab repo view there proves\n' "$root" "$(basename "$proj")"
@@ -92,7 +94,7 @@ project_clone() {
   fi
 
   mkdir -p "$root" || return 1
-  local name
+  local name ex
   for pair in "$proj" "$sib"; do
     name=$(basename "$pair")
     if [ -d "$root/$name/.git" ]; then
@@ -100,6 +102,11 @@ project_clone() {
     else
       git clone -q "git@$host:$pair.git" "$root/$name" || { printf 'project-clone: clone failed for %s\n' "$pair" >&2; return 1; }
     fi
+    # Belt and braces, local to this checkout: supervise.md § Ledger appends
+    # to dev/supervisor/ and handoff.md to dev/session/ while a worker may run
+    # git add -A, so both must be ignored whatever the cloned .gitignore says.
+    ex="$root/$name/.git/info/exclude"
+    grep -q '^dev/supervisor/$' "$ex" 2>/dev/null || printf 'dev/session/\ndev/supervisor/\n' >> "$ex"
   done
 
   ( cd "$root/$(basename "$proj")" && npm ci --silent ) || { printf 'project-clone: npm ci failed\n' >&2; return 1; }
