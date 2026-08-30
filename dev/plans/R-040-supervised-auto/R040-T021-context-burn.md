@@ -27,8 +27,9 @@ base is harness behaviour and out of scope.
 - **The rule** - a command prints only what the step needs: a status
   word, a count, the requested range (`grep -l`/`-c`, `sed -n`,
   `>/dev/null` on gates and pushes with the exit status echoed), never
-  a file already in context; edits go through `Edit` on anchors, not
-  heredoc rewrites.
+  a file already in context; an edit replaces one anchored span
+  (`Edit`, or `sed` or a script asserting a single match), never a
+  heredoc rewrite of the file.
 
 ## Commits
 

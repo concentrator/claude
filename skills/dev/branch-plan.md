@@ -43,7 +43,9 @@ file's loop, `doc`/`test`/`mnt` run this alone:
 4. **Output** - throughout the pass a command prints only what the
    step needs: a status, a count, a range (`grep -c`, `sed -n`, a gate
    or push silenced with its exit status echoed), never a file already
-   in context; edits go through `Edit` on anchors, not heredoc rewrites.
+   in context; an edit replaces one anchored span (`Edit`, or `sed` or
+   a script asserting a single match), never a heredoc rewrite of the
+   file.
 
 Open `[ ]` items → next pass; last non-final `[x]` → § Closing routine.
 
