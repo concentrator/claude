@@ -36,7 +36,7 @@ state it reasons from.
   § Resolve and appended at each § Monitor event; the two "ledgered"
   phrases cite it. `companions/report-template.md § Supervisor
   decisions` states that the ledger is its evidence, not its copy.
-- [ ] `branch-plan.md § Session boundary`: the supervisor's unit is the
+- [x] `branch-plan.md § Session boundary`: the supervisor's unit is the
   scope, and it clears at the unit boundary like the worker, re-briefed
   from the ledger and its hand-off note (`handoff.md` names the ledger
   path for the `supervisor` role). `companions/supervisor-runbook.md`

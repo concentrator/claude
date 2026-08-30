@@ -149,11 +149,13 @@ re-bills the finished work on every later call.
 |---|---|
 | `/dev code` | the task, or the branch where larger |
 | `/dev auto`; a supervised worker | the batch |
+| `/dev supervise` | the scope |
 
 Doc loading keys to the boundary: one load phase at the unit's
 start; sectional reads, not whole files; no re-reads within the
-unit; outputs (batch reports, findings files) wait for triage.
-Hand-off note at the boundary, re-brief after compaction: `handoff.md`.
+unit; outputs (reports, findings files) wait for triage.
+Each role clears at the boundary and re-briefs from `handoff.md`, a
+supervisor from its ledger too (`supervise.md § Ledger`).
 
 ## Agentic execution
 
