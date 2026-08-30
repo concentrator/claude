@@ -34,6 +34,9 @@ wins.
 
 ## Supervision
 
+This repository's own declarations; they never stand in for a
+project's missing `## Supervision`.
+
 - Supervisor bounds: batch-scoped delivery
 - Operator mode: AI operated (`skills/dev/companions/declarations.md`)
 

@@ -212,7 +212,8 @@ composite (`R040-T###`, counter scoped to this initiative).
   findings are triaged by receiver, only a human-level one blocks.
   Second, the always-escalated list in `companions/declarations.md
   § Supervisor bounds` carves out a `CLAUDE.md` change confined to
-  `§ Agent toolchain`: declaration lines are configuration, and the
+  the declaration lines (`§ Agent toolchain`, `§ Supervision`): they
+  are configuration, and the
   operator delivers them. Third, `§ Operator modes` states that for an
   AI-operated seat the global `CLAUDE.md § Approval and persistence`
   and `§ Communication` are satisfied by the declared bounds - it

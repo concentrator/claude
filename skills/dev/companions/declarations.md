@@ -1,8 +1,8 @@
 # `CLAUDE.md` declarations
 
 The keys a project declares in its `CLAUDE.md` - routine commands in
-`§ Agent toolchain`, supervision in `§ Supervision`, directly after
-it - and the exact form each takes. All four apply everywhere - both modes,
+`§ Agent toolchain`, supervision in the `§ Supervision` that follows
+it - and the exact form each takes. All apply everywhere - both modes,
 every command. Push and MR/PR mechanics that consume them:
 `toolchain.md`.
 

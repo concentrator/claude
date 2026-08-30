@@ -4,9 +4,9 @@ Read by `finish`, `auto`, and `declarations.md`. § State check applies
 everywhere. § Push and the carve-out below are the auto-mode engine's
 checkpoint-**accept** mechanics - the engine pushes at no other point
 and never pushes the default branch. Manual `finish` pushes its own
-branch (`finish.md § 3`). The `CLAUDE.md § Agent toolchain` keys these
-mechanics consume - declared commands, supervisor bounds - are
-defined in `declarations.md`.
+branch (`finish.md § 3`). The `CLAUDE.md` keys these mechanics
+consume - declared commands (`§ Agent toolchain`), supervisor bounds
+(`§ Supervision`) - are defined in `declarations.md`.
 
 ## State check
 

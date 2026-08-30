@@ -83,7 +83,7 @@ hard floor.
   open batch, else stamped open tasks) and never authorizes work. The
   loop runs until scope is delivered or only escalations remain.
 - Per-project surfaces: merge authority lives only in the project's
-  `CLAUDE.md § Agent toolchain` bounds declaration; operating
+  `CLAUDE.md § Supervision` bounds declaration; operating
   instructions (project quirks, escalation additions) live in an
   optional `.claude/supervisor.md` referenced from it.
 - A user sync is a conversation: "status" yields per-initiative state
