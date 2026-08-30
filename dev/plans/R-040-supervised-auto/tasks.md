@@ -169,7 +169,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   cleared there by hand so that run could proceed.
   `depends-on: R040-T010`
 
-- [ ] **R040-T017 [feat]**: the supervisor's working ledger has no rule
+- [x] **R040-T017 [feat]**: the supervisor's working ledger has no rule
   and no durable home. Both places the rules say "ledger"
   (`supervise.md:75`, `declarations.md:63`) mean an entry in the
   report's `## Supervisor decisions` section; no file is defined

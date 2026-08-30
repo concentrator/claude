@@ -42,7 +42,7 @@ state it reasons from.
   path for the `supervisor` role). `companions/supervisor-runbook.md`
   Variant A and B: the supervisor opens the ledger before dispatch, one
   line each.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
