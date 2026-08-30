@@ -51,7 +51,7 @@ at pre-flight. Three changes, one PR.
   operator session's launch line and briefing beside the supervisor's
   in both variants.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.
