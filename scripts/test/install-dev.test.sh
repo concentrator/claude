@@ -205,6 +205,8 @@ bash "$INSTALL" --project "$G" >/dev/null 2>&1
 [ "$(grep -c '^!.claude/hooks/$' "$G/.gitignore")" = "1" ] && pass "gitignore allowlist idempotent" || die "duplicate allowlist entries"
 [ "$(grep -c '^/dev/session/$' "$G/.gitignore")" = "1" ] && pass "session dir ignored once" || die "session ignore line: $(grep -c '^/dev/session/$' "$G/.gitignore")"
 git -C "$G" check-ignore -q "skills/x/session/f" && die "unanchored session ignore" || pass "session ignore is anchored to the root"
+[ "$(grep -c '^/dev/supervisor/$' "$G/.gitignore")" = "1" ] && pass "supervisor dir ignored once" || die "supervisor ignore line: $(grep -c '^/dev/supervisor/$' "$G/.gitignore")"
+git -C "$G" check-ignore -q "skills/x/supervisor/f" && die "unanchored supervisor ignore" || pass "supervisor ignore is anchored to the root"
 rm -rf "$G"
 
 (( fail == 0 )) && echo "install-dev.test: OK"

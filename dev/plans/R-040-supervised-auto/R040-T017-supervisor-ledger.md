@@ -16,11 +16,10 @@ state it reasons from.
 
 ## Terms used below
 
-- **Ledger** - `~/.claude/supervisor/ledger/<project>-<scope>.md`. The
-  directory is the supervisor's gitignored home beside
-  `portfolio.md`, so an append dirties neither the config repo nor the
-  project checkout. One file per scope; a resumed supervisor opens the
-  same file.
+- **Ledger** - `<project-dir>/dev/supervisor/<scope>.md`, beside
+  `dev/session/` and ignored like it, so an append dirties nothing and
+  stays on the host that runs the supervisor. One file per scope; a
+  resumed supervisor on the same host opens the same file.
 - **Entry** - one appended block: a timestamp, the event (dispatch,
   question, answer, prompt cleared, verify, escalation, hand-over) and
   the ids it names; written with a single `printf '%s\n' ... >>`, which
@@ -32,18 +31,18 @@ state it reasons from.
 
 ## Commits
 
-- [ ] `supervise.md` gains `## Ledger`: the three terms above, opened at
+- [x] `supervise.md` gains `## Ledger`: the three terms above, opened at
   § Resolve and appended at each § Monitor event; the two "ledgered"
   phrases cite it. `companions/report-template.md § Supervisor
   decisions` states that the ledger is its evidence, not its copy.
-- [ ] `branch-plan.md § Session boundary`: the supervisor's unit is the
+- [x] `branch-plan.md § Session boundary`: the supervisor's unit is the
   scope, and it clears at the unit boundary like the worker, re-briefed
   from the ledger and its hand-off note (`handoff.md` names the ledger
   path for the `supervisor` role). `companions/supervisor-runbook.md`
   Variant A and B: the supervisor opens the ledger before dispatch, one
   line each.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.
@@ -56,12 +55,12 @@ The ledger moves beside the session files instead:
 `<project-dir>/dev/supervisor/<scope>.md`, in the supervisor's cwd,
 host-local, ignored like `dev/session/`.
 
-- [ ] `supervise.md § Ledger` names the new path; `handoff.md`'s role
+- [x] `supervise.md § Ledger` names the new path; `handoff.md`'s role
   list follows. `.gitignore` gains `/dev/supervisor/`;
   `scripts/install-dev.sh` step 7 writes that line into adopters
   beside `/dev/session/`, and `scripts/test/install-dev.test.sh`
   asserts it once and anchored.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose and code rows: `code-reviewer`), Tier-2 compliance
   review, `bash scripts/ci/run-all.sh` green, cleanup, mark plan
   complete, commit.

@@ -66,7 +66,8 @@ previously verified">
 <implementation questions and queued calls resolved by the
 supervisor, each with the chosen option and rationale - answers
 carried in by the worker at checkpoint; or "none" - unsupervised runs
-or no questions asked>
+or no questions asked. The supervisor's ledger (`supervise.md
+§ Ledger`) is this section's evidence, not its copy>
 
 ## Judgment calls for checkpoint
 

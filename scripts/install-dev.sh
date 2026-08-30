@@ -148,11 +148,13 @@ if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplev
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"
   done
-  # 7. session state: dev/session/ holds per-session files the PreCompact
-  # hook and hand-off notes write (skills/dev/handoff.md); never tracked,
-  # so the target's .gitignore takes the anchored line (idempotent).
-  line="/dev/session/"
-  grep -qxF "$line" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
+  # 7. runtime state: dev/session/ holds per-session files the PreCompact
+  # hook and hand-off notes write (skills/dev/handoff.md), dev/supervisor/
+  # the supervisor's ledgers (skills/dev/supervise.md § Ledger); never
+  # tracked, so the target's .gitignore takes the anchored lines (idempotent).
+  for line in "/dev/session/" "/dev/supervisor/"; do
+    grep -qxF "$line" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
+  done
 fi
 
 echo "install-dev: DEV toolset installed into $target ($scope)"

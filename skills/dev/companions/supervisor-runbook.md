@@ -79,8 +79,9 @@ The supervisor cycles until the scope is delivered:
 3. **Supervisor** runs `ListAgents` and adopts the worker peer by name.
    Adopt before dispatch (`supervise.md § Dispatch`): never run two
    workers on one project.
-4. **Supervisor** dispatches with `SendMessage`, ids only: `/dev code
-   <slug>` for a manual task, `/dev auto R<NNN>-B<NNN>` for a batch.
+4. **Supervisor** opens the ledger (`supervise.md § Ledger`), then
+   dispatches with `SendMessage`, ids only: `/dev code <slug>` for a
+   manual task, `/dev auto R<NNN>-B<NNN>` for a batch.
 5. **Supervisor** follows to checkpoint with status pings. The operator
    is at the keyboard, so the worker's permission prompts are theirs to
    clear.
@@ -104,7 +105,8 @@ The supervisor cycles until the scope is delivered:
    deliver and what it must escalate. Cite that section, never restate
    it: the copy is what the supervisor obeys, and a stale copy puts it
    outside its bounds while it believes it is inside.
-5. **Supervisor** starts the worker
+5. **Supervisor** opens the ledger (`supervise.md § Ledger`), starts
+   the worker
    (`tmux new -d -s worker -c <project-dir> claude --permission-mode acceptEdits`),
    adopts it by name over `ListAgents`, and dispatches one line and
    nothing else by `SendMessage`: `/dev code <slug>`.

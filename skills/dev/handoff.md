@@ -22,8 +22,9 @@ state is its checkpoint report).
 `# <role> session <session_id>`; the hook, which knows no role, writes
 `# session <session_id>`, and the next hand-off rewrites that line with
 the role. Roles: `worker` (dispatched by a supervisor), `supervisor`
-(`/dev supervise`), `operator` (the AI operator seat), `solo` (no
-other seat).
+(`/dev supervise`; re-briefed from this note and its ledger,
+`dev/supervisor/<scope>.md`), `operator` (the AI operator seat),
+`solo` (no other seat).
 
 **Blocks** - `## <kind> <UTC timestamp>` followed by `- key: value`
 lines, appended in time order; the last block of each kind is current.
