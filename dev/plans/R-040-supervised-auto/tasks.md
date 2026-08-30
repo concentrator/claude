@@ -310,8 +310,9 @@ composite (`R040-T###`, counter scoped to this initiative).
   new check finds are rewrapped, wording untouched.
 
 - Backlog: a `PostToolUse` hook that trims a Bash result before Claude
-  sees it (`updatedToolOutput`, `hooks.md § PostToolUse decision control`): keep a
-  gate's verdict line, drop a pre-push transcript. The one instrument
+  sees it (`updatedToolOutput`, `hooks.md § PostToolUse decision
+  control`): keep a gate's verdict line, drop a pre-push transcript.
+  The one instrument
   the R040-T021 setting check found
   (`R040-T021-context-burn.findings.md`); a hook with its test, built
   if the rule alone leaves the burn high.
