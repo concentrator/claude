@@ -37,9 +37,9 @@ commits and carries them to trunk on merge.
    requirements or a stamped plan (`agentic:` or `supervised:`,
    `branch-plan.md § Stamps`) is reported NOT READY, never dispatched.
    A cold read of a `supervised:` plan is optional; each finding goes
-   to its receiver - the supervisor for an implementation call, the
-   operator for a merge or a plan-fact correction, the human for
-   design - and only a human-level finding holds the dispatch.
+   to the seat that owns its class (`companions/declarations.md
+   § Supervisor bounds`, `§ Operator modes`), and only a finding for
+   the human holds the dispatch.
 4. **Ledger** - open the scope's file (§ Ledger).
 
 ## Dispatch
