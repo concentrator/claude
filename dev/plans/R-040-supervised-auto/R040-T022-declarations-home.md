@@ -23,7 +23,7 @@ reader of § Agent toolchain meets merge authority among lint commands.
   R040-T018 declaration carve-out names it. `rules/claude-md.md`
   changes only if it lists the sections a `CLAUDE.md` holds.
 - [x] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.
