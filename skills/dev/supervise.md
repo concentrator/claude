@@ -36,7 +36,7 @@ commits and carries them to trunk on merge.
    plans. Scope selects pre-approved work - anything lacking approved
    requirements or an `agentic: approved` plan is reported NOT READY,
    never dispatched.
-4. **Ledger** - open the scope's file (§ Ledger) before any dispatch.
+4. **Ledger** - open the scope's file (§ Ledger).
 
 ## Dispatch
 
@@ -95,24 +95,27 @@ escalates.
 Follow the worker to checkpoint or halt. Collect the checkpoint report
 path and MR/PR references - never diffs or transcripts; the
 supervisor's context stays report-level so one supervisor spans many
-sessions. Hand-off note at each boundary, re-brief after compaction,
-for supervisor and worker alike: `handoff.md`.
+sessions. Ledger entry per event (§ Ledger); hand-off note at each
+boundary, re-brief after compaction, supervisor and worker alike:
+`handoff.md`.
 
 ## Ledger
 
-The supervisor's working memory lives in
-`~/.claude/supervisor/ledger/<project>-<scope>.md`: the directory is
-the supervisor's gitignored home beside `portfolio.md`, so an append
-dirties neither the config repo nor the project checkout. One file per
-scope; a resumed supervisor opens the same file. Opened at § Resolve,
-it takes one entry per § Monitor event - a timestamp, the event
-(dispatch, question, answer, prompt cleared, verify, escalation,
-hand-over) and the ids it names - appended with a single
-`printf '%s\n' ... >>`, which the auto-mode classifier reads as an
-append; never `Edit`, which rewrites the file per entry. It is working
-memory only: a decision still lands in the report's `## Supervisor
-decisions` (`companions/report-template.md`), and the ledger is the
-evidence a re-brief reads, never a second home for a finding.
+The supervisor's working memory is
+`~/.claude/supervisor/ledger/<project>-<scope>.md`, in its gitignored
+home beside `portfolio.md`: an append dirties neither the config
+repo nor the project checkout. One file per scope; a resumed
+supervisor opens the same file. Opened at § Resolve (`mkdir -p` the
+directory, then the first entry), it takes one entry per event from
+§ Dispatch through § Deliver or escalate, in `handoff.md § Blocks`
+format: `## <event> <UTC timestamp>` - dispatch, question, answer,
+prompt cleared, verify, escalation, hand-over - over `- key: value`
+lines naming the ids, appended with a single `printf '%s\n' ... >>`,
+which the auto-mode classifier reads as an append, never `Edit`, which
+rewrites it. Working memory only: a decision still lands in the
+report's `## Supervisor decisions` (`companions/report-template.md`);
+the ledger is the evidence a re-brief reads, never a second home for a
+finding.
 
 ## Question resolution
 
