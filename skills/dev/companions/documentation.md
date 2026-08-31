@@ -91,6 +91,16 @@ an Element.
   to scrape.
 - **Justify or drop**: each requirement states why, or is removed.
 - **No dead ends**: no empty, stale, or broken links.
+- **Snapshot, not history**: a doc states the subject's current
+  behavior only - no development chronology, task or plan ids, round
+  dates, or development details. Git holds history and plans hold
+  planning; a provenance mark (`layout.md § Docs`) is a state fact
+  about claim strength and stays, dateless.
+- **Closed link scope**: a doc links only sibling documents inside
+  the docs tree or external URLs - never plan files (live or
+  archived), findings files, or `.claude/` paths. The docs gate
+  fails a doc referencing `dev/plans/`, `.claude/`, or a non-URL
+  path outside the docs tree.
 - **Right content, right place**: exclude test/environment artifacts;
   include the real parameters.
 - **DRY**: a shared fact lives in one doc; others cross-reference it
