@@ -20,6 +20,18 @@ Every doc is exactly one of four types; never mix them in one file.
 A spec or feature doc is a **Reference**: it describes how the subject *is*.
 Procedures belong in a How-to; do not put steps in a Reference.
 
+Two further types live in their own subdirectories of the docs tree
+(`layout.md § Docs`):
+
+- **Reports** (`docs/reports/`): probe and test reports - executed
+  calls with their outputs, attached as evidence. The one docs
+  location where datetimes and tenant or client ids are allowed.
+  Feature docs link them plainly; a report is useful, never required -
+  the doc itself states facts without proving them.
+- **Adapted references** (`docs/references/`): external or codebase
+  material rewritten to project format, carrying exactly what the
+  docs need; a source URL is allowed inside.
+
 ## Reference discipline
 
 - **Describe, don't instruct.** State facts and structure, not actions.
@@ -106,8 +118,9 @@ an Element.
 - **DRY**: a shared fact lives in one doc; others cross-reference it
   (numbers especially - `rules/writing-artifacts.md § One home per number`).
 - **Real examples**: an example is an executed call or case shown with its
-  output, cited (a test run or recorded transcript); secrets as
-  placeholders; never invented. It sits in the section it illustrates.
+  output, cited when kept - as a report doc (§ Diataxis typing);
+  secrets as placeholders; never invented. It sits in the section it
+  illustrates.
 
 ## Verification gate
 
@@ -156,6 +169,7 @@ review ran; no separate stamp or ledger is kept.
 
 - Prefer verified-by-doing over cited-from-docs over inferred.
 - A version- or environment-specific fact says which version or
-  environment it was verified against.
+  environment it was verified against - as a provenance mark or in a
+  report doc (§ Diataxis typing), never as inline chronology.
 - A recalled or documented fact that names a file, flag, or field is
   re-checked against the current system before it is relied on.
