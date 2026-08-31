@@ -243,6 +243,22 @@ point 4: print what the step needs, never a file already in context.
   repository).
 - **Sending keys to a fresh session**: wait for the prompt line, and
   confirm the text landed before pressing Enter.
+- **A permission dialog mislabels its command** (a read-only command
+  labeled as a sensitive-file edit): adjudicate on the command line
+  shown, never the label.
+- **Composer placeholder text renders as if typed** - dim suggested
+  text at the prompt line in a pane capture is never input; leave it.
+- **The classifier denies a previously-allowed command**: denials are
+  nondeterministic - retry once, identical; a second denial is an
+  answer.
+- **A watch command wakes falsely after an edit**: digest-based
+  dedupe hashes the command's own output shape, so freeze a watch
+  command verbatim for the life of its watch.
+- **Clearing another seat's prompt** (the operator on a worker
+  prompt): only after the stall window - one flatness check
+  (§ above) with the prompt still pending - and with the same
+  verify-pending guard; the owning seat clears first
+  (`supervise.md`).
 - **`defaultMode` appears in the tracked `settings.json`** after a
   supervised run starts: do not stage it.
 - **The MR view omits the pipeline** (`glab mr view` returns
