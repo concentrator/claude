@@ -118,7 +118,9 @@ host opens the same file. Opened at § Resolve (`mkdir -p` the
 directory, then the first entry), it takes one entry per event from
 § Dispatch through § Deliver or escalate, in `handoff.md § Blocks`
 format: `## <event> <UTC timestamp>` - dispatch, question, answer,
-prompt cleared, verify, escalation, hand-over - over `- key: value`
+prompt cleared, verify, escalation, hand-over - the timestamp read
+from the clock (`date -u`) at write time, never composed or carried
+forward - over `- key: value`
 lines naming the ids, appended with a single `printf '%s\n' ... >>`,
 which the auto-mode classifier reads as an append, never `Edit`, which
 rewrites it. Working memory only: a decision still lands in the
