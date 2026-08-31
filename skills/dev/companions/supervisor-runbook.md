@@ -104,7 +104,11 @@ The supervisor cycles until the scope is delivered:
    connects:
    `gcloud compute ssh <host> --zone=<zone> --project=<project> --tunnel-through-iap`
 2. **Operator** confirms a clean start: no stale `tmux` sessions, the
-   project checkout on the trunk with nothing uncommitted.
+   project checkout on the trunk with nothing uncommitted. Readiness
+   also names which verbs auto-allow in each seat (from the merged
+   allow rules and the seat's mode), so a promptless action is a
+   known quantity before the first dispatch, not a discovery during
+   one.
 3. **Operator** starts the supervisor:
    `tmux new -d -s supervisor-<project> -c <project-dir> claude --remote-control supervisor-<project> --permission-mode auto`
    The flag joins Remote Control under the name `supervisor-<project>`
