@@ -1,5 +1,6 @@
 ---
 approved: 2026-08-08
+status: done
 kind: feat
 ---
 
@@ -92,11 +93,9 @@ hard floor.
 
 ## Acceptance criteria
 
-Closure check run 2026-08-30 on the branch closing R040-T022, judged
-against `tasks.md` on `main`; criterion 9, reworded on 2026-08-30 to
-the one-operator model `declarations.md § Operator modes` states, has
-no run behind it, so the R stays open (`plan.md § Approval and
-closure`).
+Closure check run 2026-08-31 on the branch closing R040-T026, judged
+against `tasks.md` on `main`: every criterion carries evidence, so the
+R closes (`plan.md § Approval and closure`).
 
 - [x] A per-project capability-bounds declaration exists; the
       supervisor refuses any action outside it and escalates instead.
@@ -145,13 +144,15 @@ closure`).
       branch through the host's gate; the stage-2 incident
       (R040-T007) reached `main` through a green plan MR, not around
       the gate.
-- [ ] One operator holds the merge for two projects at once, each
+- [x] One operator holds the merge for two projects at once, each
       with its own supervisor + worker pair; adding a project is one
       portfolio entry plus that project's own declarations. Nothing
       crosses project lines but the operator.
-      Evidence: `declarations.md § Operator modes` states the model;
-      attack-checker and fp-remedy were each supervised in their own
-      session, never two under one operator at once.
+      Evidence: `R040-T026-two-project-run.findings.md § The run` -
+      five supervised MRs merged by one operator over two pairs
+      (aikido !140, wallarm-api-js !173-!176), every merge decided in
+      the operator seat with label and note, nothing crossing project
+      lines but that seat.
 - [x] Every merge of supervised work is distinguishable on the host
       (label + comment) with commit and MR/PR prose untouched.
       Evidence: `declarations.md § Supervision signature`; the pilot
