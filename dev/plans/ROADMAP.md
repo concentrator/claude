@@ -103,7 +103,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       JSON-emitting MR/PR state check per host.
 - [x] R-039: Single-home the /dev system - one owner per rule with
       pointers; twins single-sourced; execution files as cadence deltas.
-- [ ] R-040: Supervisor-orchestrated autonomous DEV - one repo-less
+- [x] R-040: Supervisor-orchestrated autonomous DEV - one repo-less
       supervisor agent over a declared portfolio drives one Claude
       Code worker session per project beside itself, on the operator's
       machine or on a worker host: dispatches planned work, verifies boundaries

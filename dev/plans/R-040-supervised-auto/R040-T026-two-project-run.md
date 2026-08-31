@@ -20,7 +20,7 @@ each project; the operator briefs, decides and answers from here.
 
 ## Commits
 
-- [ ] `companions/supervisor-runbook.md`: Variant B with two pairs on
+- [x] `companions/supervisor-runbook.md`: Variant B with two pairs on
   one host and the operator's seat off-host - `tmux` and Remote
   Control names carry the project (`supervisor-<project>`,
   `worker-<project>`) and the recipes target by that name; no
@@ -29,7 +29,7 @@ each project; the operator briefs, decides and answers from here.
   name over `ListAgents`, and each cross-machine send clears the
   `isolatePeerMachines` approval (§ Remote Control). Step 1's
   "steps 1-3 are theirs" holds per project.
-- [ ] Host readiness, recorded in
+- [x] Host readiness, recorded in
   `R040-T026-two-project-run.findings.md` with the commands run and
   their result: `~/.claude` on the host pulled to `main`; aikido
   cloned by `scripts/worker-workspace.sh project-clone` (its sibling
@@ -48,7 +48,7 @@ each project; the operator briefs, decides and answers from here.
   session's Remote Control join confirmed (`/rc active`), or the run
   restarted from a session launched `--remote-control operator` after
   a hand-off note (`handoff.md`).
-- [ ] The run: the human starts `supervisor-aikido` and
+- [x] The run: the human starts `supervisor-aikido` and
   `supervisor-wallarm-api-js` on the host (Variant B steps 1-3); this
   session briefs each in one message (step 4: scope, branch plan
   path, worker start command, pointer to `declarations.md
@@ -58,12 +58,12 @@ each project; the operator briefs, decides and answers from here.
   `glab mr list --label supervised --merged`, the operator's merge
   comments, the ledger `dev/supervisor/<scope>.md`, and every
   escalation with who ruled on it.
-- [ ] Closure: criterion 9 `[x]` with that evidence, `status: done`
+- [x] Closure: criterion 9 `[x]` with that evidence, `status: done`
   in `requirements.md`, R-040 `[x]` in `ROADMAP.md`; a finding that
   changes a rule goes to the owning artifact, one that does not stays
   in the findings file.
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` (prose row: `code-reviewer`), Tier-2 compliance review,
   `bash scripts/ci/run-all.sh` green, cleanup, mark plan complete,
   commit.

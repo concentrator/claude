@@ -309,7 +309,7 @@ composite (`R040-T###`, counter scoped to this initiative).
   rows exempt, replacing the 1500-word tier; `rules/skills.md § Size`
   states the tier in the same units; the over-long prose lines the
   new check finds are rewrapped, wording untouched.
-- [ ] **R040-T026 [test]**: the one-operator run acceptance criterion
+- [x] **R040-T026 [test]**: the one-operator run acceptance criterion
   9 waits for - this session as the AI operator on the operator's
   machine, holding the merge for two projects at once on the worker
   host `claude-worker` (Variant B), each with its own supervisor +
@@ -325,5 +325,3 @@ composite (`R040-T###`, counter scoped to this initiative).
   the R040-T021 setting check found
   (`R040-T021-context-burn.findings.md`); a hook with its test, built
   if the rule alone leaves the burn high.
-- Next: R040-T026 - the run behind acceptance criterion 9, and the R's
-  closure on its evidence (`requirements.md`).
