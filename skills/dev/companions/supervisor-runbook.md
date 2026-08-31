@@ -114,7 +114,8 @@ The supervisor cycles until the scope is delivered:
    `worker-<project>` - and every recipe targets that name. Where the
    project declares `Operator mode: AI operated`, the operator's
    session runs on its own machine, never in a host `tmux`: launched
-   `claude --remote-control operator --permission-mode auto`, briefed
+   `claude --remote-control operator --permission-mode auto`, or
+   joined in place by `/remote-control operator`; briefed
    as Variant A step 1 (the projects it holds the merge for and a
    pointer to `declarations.md § Operator modes`), it adopts each
    supervisor by name over `ListAgents`, and each cross-machine send
@@ -187,7 +188,8 @@ key buys one turn while leaving the cause in place.
 
 ## Remote Control
 
-Join by launch flag, never by settings: `remoteControlAtStartup` is
+Join by launch flag or, for a running session, `/remote-control
+<name>`, never by settings: `remoteControlAtStartup` is
 honoured at user scope only, and on the worker host `~/.claude` is the
 tracked config repo. Confirm the join by the `/rc active` marker in
 the session footer; an enabled session also prints its own

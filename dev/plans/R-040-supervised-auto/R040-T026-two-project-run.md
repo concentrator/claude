@@ -29,7 +29,7 @@ each project; the operator briefs, decides and answers from here.
   name over `ListAgents`, and each cross-machine send clears the
   `isolatePeerMachines` approval (§ Remote Control). Step 1's
   "steps 1-3 are theirs" holds per project.
-- [ ] Host readiness, recorded in
+- [x] Host readiness, recorded in
   `R040-T026-two-project-run.findings.md` with the commands run and
   their result: `~/.claude` on the host pulled to `main`; aikido
   cloned by `scripts/worker-workspace.sh project-clone` (its sibling
