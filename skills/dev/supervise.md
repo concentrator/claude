@@ -89,11 +89,16 @@ none to match, so it escalates however wide the allowlist is. Clearing
 those prompts - commands inside the worker's repo within the declared
 permissions only - is the supervisor's work, which is why the supervisor
 runs in a mode that never blocks it
-(`companions/supervisor-runbook.md`). Under the `acceptEdits` session
-default, edits and in-cwd filesystem commands apply without a prompt,
-so edit prompts are not a supervisor control; any other prompt halts
-the member and
-escalates.
+(`companions/supervisor-runbook.md`). A prompt is cleared with the
+one-time approval only, never a persistent rule or a mode switch, and
+the clearing send re-verifies the prompt is still pending immediately
+before sending - a keystroke after the dialog is gone lands in the
+composer as input. The operator intervenes on a worker prompt
+only after the runbook's stall window
+(`companions/supervisor-runbook.md § Failure modes`). Under the
+`acceptEdits` session default, edits and in-cwd filesystem commands
+apply without a prompt, so edit prompts are not a supervisor control;
+any other prompt halts the member and escalates.
 
 ## Monitor
 
