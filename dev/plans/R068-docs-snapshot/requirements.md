@@ -1,6 +1,6 @@
 ---
 approved: 2026-09-01
-status: open
+status: done 2026-09-01
 kind: doc
 ---
 
@@ -88,13 +88,13 @@ implementation.
 
 ## Acceptance criteria
 
-- [ ] `documentation.md` states the snapshot principle and the link
+- [x] `documentation.md` states the snapshot principle and the link
   scope rule, defines the reports and adapted-references doc types
   with their allowances, and names the link-scope gate expectation.
-- [ ] `layout.md § Docs` shows both subdirectories in the docs home
+- [x] `layout.md § Docs` shows both subdirectories in the docs home
   and row 7 targets sibling docs, reports, and adapted references.
-- [ ] `plan.md § Archival` lists the four findings dispositions and
+- [x] `plan.md § Archival` lists the four findings dispositions and
   states that docs never link findings or plan files.
-- [ ] No remaining framework text invites a doc to cite planning
+- [x] No remaining framework text invites a doc to cite planning
   artifacts: the § Content quality example rule and § Evidence and
   provenance point at report docs.
