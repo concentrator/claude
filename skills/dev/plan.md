@@ -186,18 +186,23 @@ initiative is ordered by that `tasks.md`.
 ## Archival
 
 Archival runs at **initiative** close; a closing task promotes but
-never moves files. **Promote**: any durable fact the
-task's artifacts established moves to its permanent home - component
-behavior to docs, external-system facts to references, binding limits
-to where they bind. A finding another initiative's open task still
-cites is promoted before its own R closes. **Archive**:
-when the initiative closes, its whole directory moves to
-`dev/plans/archive/R<NNN>-<slug>/` - requirements, task index, branch plans,
-and findings together.
-A living doc never cites `archive/` for operative content -
-if it needs a fact from there, promotion missed it; move the fact.
-(Closure-evidence stamps citing archived findings are historical, not
-operative.)
+never moves files. At close every findings file meets one of four
+endings: **archived uncited** with its directory; **promoted** - its
+durable facts move to their permanent home (component behavior to
+docs, external-system facts to adapted references, binding limits to
+where they bind); **transformed** into a report doc
+(`companions/documentation.md § Diataxis typing`) when its evidence
+stays useful as evidence; or **spawned** into a new plan or task it
+motivates. A finding another initiative's open task still cites is
+promoted before its own R closes. **Archive**: when the initiative
+closes, its whole directory moves to
+`dev/plans/archive/R<NNN>-<slug>/` - requirements, task index, branch
+plans, and findings together.
+Docs never link findings or plan files, live or archived
+(`companions/documentation.md § Content quality`): promotion moves
+facts, never links. If a doc needs a fact from `archive/`, promotion
+missed it; move the fact. (Closure-evidence stamps citing archived
+findings are historical, not operative.)
 
 Also archived at the user's option: release plans after the release
 ships (offered by the `release` skill), milestone plans with every
