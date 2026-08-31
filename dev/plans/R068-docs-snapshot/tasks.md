@@ -9,3 +9,9 @@
   `plan.md § Archival` rewrites findings disposition to the four
   endings (archive uncited / promote to doc / transform to report /
   spawn a task)
+
+- Backlog: `branch-plan.md` findings triage routes only to a task, an
+  R stub, or discard - no route to the report-doc ending
+  `plan.md § Archival` now names.
+- Backlog: `docs.md` and `companions/docs-adoption.md` bootstrap
+  `dev/docs/` without mentioning `reports/` and `references/`.

@@ -8,7 +8,7 @@ docs (`dev/docs/`) are its Reference application
 
 ## Diataxis typing
 
-Every doc is exactly one of four types; never mix them in one file.
+Every doc is exactly one of these types; never mix them in one file.
 
 | Type | Answers | Shape |
 |---|---|---|
@@ -55,7 +55,7 @@ Two further types live in their own subdirectories of the docs tree
 | 4. Behavior | Runtime interactions, precedence, semantics |
 | 5. Parameters | Table: name -> default -> meaning |
 | 6. Reference data | Domain lookup tables (limits, fields, codes, paths) |
-| 7. References | Cross-links to sibling docs |
+| 7. References | Sibling docs, report docs, and adapted references |
 
 Omit a section only when the subject genuinely has nothing for it.
 Tiebreak: a flag or field is a Parameter; the component it configures is

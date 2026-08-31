@@ -44,7 +44,9 @@ What agents author.
     │   │   └── batches/
     │   └── archive/
     └── docs/                 # internal feature docs (§ Docs)
-        └── *.md
+        ├── *.md
+        ├── reports/          # probe and test reports (§ Docs)
+        └── references/       # adapted external material (§ Docs)
 
 ## Baseline files (project root)
 
@@ -86,7 +88,7 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 
 ## References
 
-`references/` holds external inputs the agent consults: API specs
+`.claude/references/` holds external inputs the agent consults: API specs
 (OpenAPI), third-party docs, domain knowledge, schema files. Any
 format. **Read-only** - the agent never modifies these; `dev/docs/` below
 is the internal, kept-current counterpart.
