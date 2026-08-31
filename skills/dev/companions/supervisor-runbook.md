@@ -100,7 +100,8 @@ The supervisor cycles until the scope is delivered:
 ## Variant B: remote host
 
 1. **Operator** (the human, where the project declares `Operator
-   mode: AI operated`; steps 1-3 are theirs) connects:
+   mode: AI operated`; steps 1-3 are theirs, once per project)
+   connects:
    `gcloud compute ssh <host> --zone=<zone> --project=<project> --tunnel-through-iap`
 2. **Operator** confirms a clean start: no stale `tmux` sessions, the
    project checkout on the trunk with nothing uncommitted.
@@ -108,11 +109,16 @@ The supervisor cycles until the scope is delivered:
    `tmux new -d -s supervisor -c <project-dir> claude --remote-control supervisor --permission-mode auto`
    The flag joins Remote Control under the name `supervisor`
    (§ Remote Control); `tmux` keeps the session alive across a dropped
-   tunnel. Where the project declares `Operator mode: AI operated`,
-   the human starts the operator the same way first,
-   `tmux new -d -s operator -c <project-dir> claude --remote-control operator --permission-mode auto`,
-   briefed as Variant A step 1: the projects it holds the merge for
-   and a pointer to `declarations.md § Operator modes`.
+   tunnel. Two pairs on one host never share a name: session and
+   Remote Control names carry the project - `supervisor-<project>`,
+   `worker-<project>` - and every recipe targets that name. Where the
+   project declares `Operator mode: AI operated`, the operator's
+   session runs on its own machine, never in a host `tmux`: launched
+   `claude --remote-control operator --permission-mode auto`, briefed
+   as Variant A step 1 (the projects it holds the merge for and a
+   pointer to `declarations.md § Operator modes`), it adopts each
+   supervisor by name over `ListAgents`, and each cross-machine send
+   clears the `isolatePeerMachines` approval (§ Remote Control).
 4. **Operator** briefs it in one message: the scope and its branch plan
    path, the command that starts the worker, and a pointer to
    `companions/declarations.md § Supervisor bounds` for what it may

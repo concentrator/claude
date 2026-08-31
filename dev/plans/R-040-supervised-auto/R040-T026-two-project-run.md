@@ -20,7 +20,7 @@ each project; the operator briefs, decides and answers from here.
 
 ## Commits
 
-- [ ] `companions/supervisor-runbook.md`: Variant B with two pairs on
+- [x] `companions/supervisor-runbook.md`: Variant B with two pairs on
   one host and the operator's seat off-host - `tmux` and Remote
   Control names carry the project (`supervisor-<project>`,
   `worker-<project>`) and the recipes target by that name; no
