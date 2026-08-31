@@ -175,6 +175,12 @@ ssh <host> --command='until ! tmux capture-pane -p -t worker-<project> | grep -q
 One connection waits on the host and returns once; a reconnect per
 poll reads a pane `send-keys` has not caught up with.
 
+A hold can raise no prompt at all - a free-form question, a held
+dialog - and match no watch pattern. The alarm for those is flatness:
+activity counters (token usage, pane output) unchanged past ~15
+minutes mean a hold the patterns missed; inspect both panes directly
+instead of waiting longer.
+
 **Keystroke authority.** A single key sent to another session's dialog
 is an answer; text typed into its input box is a dispatch. The operator
 may send `1`, `2` or `Esc` to a supervisor stopped on a permission
