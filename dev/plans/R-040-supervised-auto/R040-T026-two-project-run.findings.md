@@ -31,7 +31,7 @@ Host `claude-worker` (35.246.88.227), all commands over
 - wallarm-api-js gates on the host after the pull: `npm ci`,
   `npm test` green, `npm run lint` clean.
 - Remote Control: this session joined in place by `/remote-control
-  operator` (docs `remote-control.md § From an existing session`),
+  operator` (Claude Code docs, remote-control § From an existing session),
   `/rc active` confirmed by the user - no restart, no hand-off.
 
 Adjacent defects found, not fixed here:

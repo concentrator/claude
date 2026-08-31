@@ -1,6 +1,6 @@
 ---
 approved: 2026-08-08
-status: done
+status: done 2026-08-31
 kind: feat
 ---
 
@@ -92,10 +92,6 @@ hard floor.
   artifacts; resolving an escalation resumes the affected work.
 
 ## Acceptance criteria
-
-Closure check run 2026-08-31 on the branch closing R040-T026, judged
-against `tasks.md` on `main`: every criterion carries evidence, so the
-R closes (`plan.md § Approval and closure`).
 
 - [x] A per-project capability-bounds declaration exists; the
       supervisor refuses any action outside it and escalates instead.

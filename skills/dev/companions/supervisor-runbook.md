@@ -106,8 +106,8 @@ The supervisor cycles until the scope is delivered:
 2. **Operator** confirms a clean start: no stale `tmux` sessions, the
    project checkout on the trunk with nothing uncommitted.
 3. **Operator** starts the supervisor:
-   `tmux new -d -s supervisor -c <project-dir> claude --remote-control supervisor --permission-mode auto`
-   The flag joins Remote Control under the name `supervisor`
+   `tmux new -d -s supervisor-<project> -c <project-dir> claude --remote-control supervisor-<project> --permission-mode auto`
+   The flag joins Remote Control under the name `supervisor-<project>`
    (§ Remote Control); `tmux` keeps the session alive across a dropped
    tunnel. Two pairs on one host never share a name: session and
    Remote Control names carry the project - `supervisor-<project>`,
@@ -128,7 +128,7 @@ The supervisor cycles until the scope is delivered:
    outside its bounds while it believes it is inside.
 5. **Supervisor** opens the ledger (`supervise.md § Ledger`), starts
    the worker
-   (`tmux new -d -s worker -c <project-dir> claude --permission-mode acceptEdits`),
+   (`tmux new -d -s worker-<project> -c <project-dir> claude --permission-mode acceptEdits`),
    adopts it by name over `ListAgents`, and dispatches one line and
    nothing else by `SendMessage`: `/dev code <slug>`.
 6. **Supervisor** follows: answers implementation questions over the
@@ -144,21 +144,21 @@ The supervisor cycles until the scope is delivered:
 Read a pane:
 
 ```
-tmux capture-pane -p -t worker | tail -30
+tmux capture-pane -p -t worker-<project> | tail -30
 ```
 
 Answer a permission prompt:
 
 ```
-tmux send-keys -t worker '1'; sleep 1; tmux send-keys -t worker Enter
+tmux send-keys -t worker-<project> '1'; sleep 1; tmux send-keys -t worker-<project> Enter
 ```
 
 Wait for a session to go quiet. A bare foreground `sleep` is blocked, so
 use an until-loop on the footer:
 
 ```
-until ! tmux capture-pane -p -t worker | grep -q "esc to interrupt"; do sleep 5; done
-tmux capture-pane -p -t worker | tail -30
+until ! tmux capture-pane -p -t worker-<project> | grep -q "esc to interrupt"; do sleep 5; done
+tmux capture-pane -p -t worker-<project> | tail -30
 ```
 
 `esc to interrupt` is in the footer only while the session is working,
@@ -168,8 +168,8 @@ the loop returns on either.
 Put the loop inside the remote command, not around it:
 
 ```
-ssh <host> --command='until ! tmux capture-pane -p -t worker | grep -q "esc to interrupt"; do sleep 5; done
-                      tmux capture-pane -p -t worker | tail -30'
+ssh <host> --command='until ! tmux capture-pane -p -t worker-<project> | grep -q "esc to interrupt"; do sleep 5; done
+                      tmux capture-pane -p -t worker-<project> | tail -30'
 ```
 
 One connection waits on the host and returns once; a reconnect per
