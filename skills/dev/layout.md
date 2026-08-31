@@ -102,6 +102,11 @@ and its references alone, a fresh agent composes a correct, working
 invocation with the full input set - if answering needs the source, the doc
 fails.
 
+Two subdirectories hold the docs tree's other types
+(`companions/documentation.md § Diataxis typing`): `dev/docs/reports/`
+for probe and test reports, `dev/docs/references/` for adapted
+external or codebase material.
+
 The granularity model - a doc per feature, page, section, or block - is a
 per-project choice. Pick the one that fits the project, record it in
 `CLAUDE.md § Conventions`, and apply it consistently.
@@ -123,7 +128,7 @@ The framework's Reference skeleton applied to a feature:
 | 4. Behavior | Business rules and why; edge cases, failure modes, and how each is handled |
 | 5. Parameters | Each method / endpoint / event: its outputs, errors, and every input it accepts |
 | 6. Reference data | Domain lookups: codes, limits, fixed values |
-| 7. References | Sibling docs and the feature's `references/` inputs |
+| 7. References | Sibling docs, report docs, and adapted references |
 
 § Parameters is the feature's detail bar: every input - wired through the
 code or not - one row:
