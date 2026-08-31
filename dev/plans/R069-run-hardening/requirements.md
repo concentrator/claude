@@ -1,6 +1,6 @@
 ---
 approved: 2026-09-01
-status: open
+status: done 2026-09-01
 kind: doc
 ---
 
@@ -90,13 +90,13 @@ PostToolUse trim hook.
 
 ## Acceptance criteria
 
-- [ ] Each Desired-state item is stated exactly once across the two
+- [x] Each Desired-state item is stated exactly once across the two
   files, with the other file citing rather than restating it
   (grep for the rule's key terms finds one defining home).
-- [ ] Every rule traces to a named failure in
+- [x] Every rule traces to a named failure in
   `R040-T026-two-project-run.findings.md`; no rule ships for a hazard
   the run did not observe.
-- [ ] The runbook's recipes stay executable as written: any command a
+- [x] The runbook's recipes stay executable as written: any command a
   rule adds or amends names its target by the project-carrying
   session name.
-- [ ] Tier-1 gate green; no file exceeds the 300-line skill cap.
+- [x] Tier-1 gate green; no file exceeds the 300-line skill cap.

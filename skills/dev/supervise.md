@@ -89,11 +89,16 @@ none to match, so it escalates however wide the allowlist is. Clearing
 those prompts - commands inside the worker's repo within the declared
 permissions only - is the supervisor's work, which is why the supervisor
 runs in a mode that never blocks it
-(`companions/supervisor-runbook.md`). Under the `acceptEdits` session
-default, edits and in-cwd filesystem commands apply without a prompt,
-so edit prompts are not a supervisor control; any other prompt halts
-the member and
-escalates.
+(`companions/supervisor-runbook.md`). A prompt is cleared with the
+one-time approval only, never a persistent rule or a mode switch, and
+the clearing send re-verifies the prompt is still pending immediately
+before sending - a keystroke after the dialog is gone lands in the
+composer as input. The operator intervenes on a worker prompt
+only after the runbook's stall window
+(`companions/supervisor-runbook.md § Failure modes`). Under the
+`acceptEdits` session default, edits and in-cwd filesystem commands
+apply without a prompt, so edit prompts are not a supervisor control;
+any other prompt halts the member and escalates.
 
 ## Monitor
 
@@ -102,7 +107,10 @@ path and MR/PR references - never diffs or transcripts; the
 supervisor's context stays report-level so one supervisor spans many
 sessions. Ledger entry per event (§ Ledger); hand-off note at each
 boundary, re-brief after compaction, supervisor and worker alike:
-`handoff.md`.
+`handoff.md`. A worker approaching auto-compact before the finish
+stage is re-briefed the same way with its stop boundary restated, so
+the boundary survives compaction instead of depending on whatever the
+summary keeps.
 
 ## Ledger
 
@@ -113,7 +121,9 @@ host opens the same file. Opened at § Resolve (`mkdir -p` the
 directory, then the first entry), it takes one entry per event from
 § Dispatch through § Deliver or escalate, in `handoff.md § Blocks`
 format: `## <event> <UTC timestamp>` - dispatch, question, answer,
-prompt cleared, verify, escalation, hand-over - over `- key: value`
+prompt cleared, verify, escalation, hand-over - the timestamp read
+from the clock (`date -u`) at write time, never composed or carried
+forward - over `- key: value`
 lines naming the ids, appended with a single `printf '%s\n' ... >>`,
 which the auto-mode classifier reads as an append, never `Edit`, which
 rewrites it. Working memory only: a decision still lands in the

@@ -114,6 +114,14 @@ Channel findings:
 - Composer placeholder text renders at the prompt as if typed; it is
   never input. It reappeared at run end as an unsent `/dev handoff`
   in the worker composer; left alone.
+- Permission dialogs mislabel read-only commands: `sed -n` reads of
+  `.claude/` paths surfaced repeatedly as "edit sensitive file";
+  adjudicated on the command line shown, never the label.
+- Both seats raced to clear the same gate prompt once; each side's
+  verify-pending guard prevented a double send. A keystroke after a
+  dialog is gone lands in the composer as input, so every clearing
+  send re-verified first, one-time yes only - never a persistent
+  rule or mode switch.
 - Auto-mode classifier denials are nondeterministic: an identical
   previously-allowed watcher command was denied twice, one identical
   retry passed each time. A watcher variant that auto-cleared prompts

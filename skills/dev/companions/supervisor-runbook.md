@@ -104,7 +104,11 @@ The supervisor cycles until the scope is delivered:
    connects:
    `gcloud compute ssh <host> --zone=<zone> --project=<project> --tunnel-through-iap`
 2. **Operator** confirms a clean start: no stale `tmux` sessions, the
-   project checkout on the trunk with nothing uncommitted.
+   project checkout on the trunk with nothing uncommitted. Readiness
+   also names which verbs auto-allow in each seat (from the merged
+   allow rules and the seat's mode), so a promptless action is a
+   known quantity before the first dispatch, not a discovery during
+   one.
 3. **Operator** starts the supervisor:
    `tmux new -d -s supervisor-<project> -c <project-dir> claude --remote-control supervisor-<project> --permission-mode auto`
    The flag joins Remote Control under the name `supervisor-<project>`
@@ -175,6 +179,12 @@ ssh <host> --command='until ! tmux capture-pane -p -t worker-<project> | grep -q
 One connection waits on the host and returns once; a reconnect per
 poll reads a pane `send-keys` has not caught up with.
 
+A hold can raise no prompt at all - a free-form question, a held
+dialog - and match no watch pattern. The alarm for those is flatness:
+activity counters (token usage, pane output) unchanged past ~15
+minutes mean a hold the patterns missed; inspect both panes directly
+instead of waiting longer.
+
 **Keystroke authority.** A single key sent to another session's dialog
 is an answer; text typed into its input box is a dispatch. The operator
 may send `1`, `2` or `Esc` to a supervisor stopped on a permission
@@ -184,7 +194,9 @@ box: that makes the operator a second dispatcher, and the transcript
 records no channel for any input, so nothing afterwards can tell the
 two apart. Nor is a keystroke the fix for a deadlock - a session
 stopped because nobody can answer it is a provisioning bug, and the
-key buys one turn while leaving the cause in place.
+key buys one turn while leaving the cause in place. For a worker
+prompt, § Failure modes "Clearing another seat's prompt" adds the
+stall window and the verify-pending guard.
 
 ## Remote Control
 
@@ -237,8 +249,28 @@ point 4: print what the step needs, never a file already in context.
   repository).
 - **Sending keys to a fresh session**: wait for the prompt line, and
   confirm the text landed before pressing Enter.
+- **A permission dialog mislabels its command** (a read-only command
+  labeled as a sensitive-file edit): adjudicate on the command line
+  shown, never the label.
+- **Composer placeholder text renders as if typed** - dim suggested
+  text at the prompt line in a pane capture is never input; leave it.
+- **The classifier denies a previously-allowed command**: denials are
+  nondeterministic - retry once, identical; a second denial is an
+  answer.
+- **A watch command wakes falsely after an edit**: digest-based
+  dedupe hashes the command's own output shape, so freeze a watch
+  command verbatim for the life of its watch.
+- **Clearing another seat's prompt** (the operator on a worker
+  prompt): only after the stall window - one flatness check (the
+  watch recipes' flatness alarm) with the prompt still pending - and
+  with the same verify-pending guard; the owning seat clears first
+  (`supervise.md`).
 - **`defaultMode` appears in the tracked `settings.json`** after a
   supervised run starts: do not stage it.
+- **The MR view omits the pipeline** (`glab mr view` returns
+  `pipeline: null` on a live MR): CI evidence is a direct
+  pipelines-endpoint read, its ref and sha matched to the MR head, so
+  the green provably belongs to the commit being merged.
 - **A usage limit halts the session**: run `date` on the host before
   concluding the wait is over, establish what landed if the
   interrupted step was not idempotent, then resume with a message

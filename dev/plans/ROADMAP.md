@@ -276,7 +276,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       adapted-reference doc types inside the docs tree, and findings
       that end archived, promoted, transformed to reports, or spawned
       as tasks - never linked from docs.
-- [ ] R069: Supervised-run hardening - the R040-T026 run's lessons
+- [x] R069: Supervised-run hardening - the R040-T026 run's lessons
       land as rules in supervise.md and the supervisor runbook:
       prompt-clearing ownership with a stall window, a flat-activity
       alarm, write-time ledger timestamps, the pipelines-endpoint
