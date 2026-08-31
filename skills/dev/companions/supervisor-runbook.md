@@ -245,6 +245,10 @@ point 4: print what the step needs, never a file already in context.
   confirm the text landed before pressing Enter.
 - **`defaultMode` appears in the tracked `settings.json`** after a
   supervised run starts: do not stage it.
+- **The MR view omits the pipeline** (`glab mr view` returns
+  `pipeline: null` on a live MR): CI evidence is a direct
+  pipelines-endpoint read, its ref and sha matched to the MR head, so
+  the green provably belongs to the commit being merged.
 - **A usage limit halts the session**: run `date` on the host before
   concluding the wait is over, establish what landed if the
   interrupted step was not idempotent, then resume with a message
