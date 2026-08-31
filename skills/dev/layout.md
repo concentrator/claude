@@ -44,7 +44,9 @@ What agents author.
     │   │   └── batches/
     │   └── archive/
     └── docs/                 # internal feature docs (§ Docs)
-        └── *.md
+        ├── *.md
+        ├── reports/          # probe and test reports (§ Docs)
+        └── references/       # adapted external material (§ Docs)
 
 ## Baseline files (project root)
 
@@ -86,7 +88,7 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 
 ## References
 
-`references/` holds external inputs the agent consults: API specs
+`.claude/references/` holds external inputs the agent consults: API specs
 (OpenAPI), third-party docs, domain knowledge, schema files. Any
 format. **Read-only** - the agent never modifies these; `dev/docs/` below
 is the internal, kept-current counterpart.
@@ -101,6 +103,11 @@ Reference application of the global documentation framework
 and its references alone, a fresh agent composes a correct, working
 invocation with the full input set - if answering needs the source, the doc
 fails.
+
+Two subdirectories hold the docs tree's other types
+(`companions/documentation.md § Diataxis typing`): `dev/docs/reports/`
+for probe and test reports, `dev/docs/references/` for adapted
+external or codebase material.
 
 The granularity model - a doc per feature, page, section, or block - is a
 per-project choice. Pick the one that fits the project, record it in
@@ -123,7 +130,7 @@ The framework's Reference skeleton applied to a feature:
 | 4. Behavior | Business rules and why; edge cases, failure modes, and how each is handled |
 | 5. Parameters | Each method / endpoint / event: its outputs, errors, and every input it accepts |
 | 6. Reference data | Domain lookups: codes, limits, fixed values |
-| 7. References | Sibling docs and the feature's `references/` inputs |
+| 7. References | Sibling docs, report docs, and adapted references |
 
 § Parameters is the feature's detail bar: every input - wired through the
 code or not - one row:

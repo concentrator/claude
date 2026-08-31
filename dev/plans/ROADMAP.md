@@ -270,7 +270,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       may reject; the accretion self-test's Cyrillic fixture name,
       which blocked one adopter's push outright, becomes a non-ASCII
       name outside the Cyrillic block.
-- [ ] R068: Docs as snapshot - the documentation framework rules docs
+- [x] R068: Docs as snapshot - the documentation framework rules docs
       as snapshots of current state: no chronology or planning ids, a
       closed link scope (sibling docs or external URLs), report and
       adapted-reference doc types inside the docs tree, and findings
