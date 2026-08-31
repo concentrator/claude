@@ -194,7 +194,9 @@ box: that makes the operator a second dispatcher, and the transcript
 records no channel for any input, so nothing afterwards can tell the
 two apart. Nor is a keystroke the fix for a deadlock - a session
 stopped because nobody can answer it is a provisioning bug, and the
-key buys one turn while leaving the cause in place.
+key buys one turn while leaving the cause in place. For a worker
+prompt, § Failure modes "Clearing another seat's prompt" adds the
+stall window and the verify-pending guard.
 
 ## Remote Control
 
@@ -259,9 +261,9 @@ point 4: print what the step needs, never a file already in context.
   dedupe hashes the command's own output shape, so freeze a watch
   command verbatim for the life of its watch.
 - **Clearing another seat's prompt** (the operator on a worker
-  prompt): only after the stall window - one flatness check
-  (§ above) with the prompt still pending - and with the same
-  verify-pending guard; the owning seat clears first
+  prompt): only after the stall window - one flatness check (the
+  watch recipes' flatness alarm) with the prompt still pending - and
+  with the same verify-pending guard; the owning seat clears first
   (`supervise.md`).
 - **`defaultMode` appears in the tracked `settings.json`** after a
   supervised run starts: do not stage it.
