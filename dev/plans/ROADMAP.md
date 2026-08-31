@@ -282,3 +282,8 @@ Initiative index. Items: `R-001: description`; each entry owns
       alarm, write-time ledger timestamps, the pipelines-endpoint
       merge-evidence fallback, a pre-finish context re-brief, the
       channel-traps list, and a gating pre-flight.
+- [ ] R070: Archival gate - closure and archival become one delivery:
+      the closing branch's final commit carries the archive move, a
+      Tier-1 check fails any closed initiative left outside archive/,
+      and archival: deferred with a reason is the one visible
+      exemption.
