@@ -107,7 +107,10 @@ path and MR/PR references - never diffs or transcripts; the
 supervisor's context stays report-level so one supervisor spans many
 sessions. Ledger entry per event (§ Ledger); hand-off note at each
 boundary, re-brief after compaction, supervisor and worker alike:
-`handoff.md`.
+`handoff.md`. A worker approaching auto-compact before the finish
+stage is re-briefed the same way with its stop boundary restated, so
+the boundary survives compaction instead of depending on whatever the
+summary keeps.
 
 ## Ledger
 
