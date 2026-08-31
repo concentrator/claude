@@ -10,6 +10,9 @@ CLAUDE.local.md
 # DEV session state (skills/dev/handoff.md)
 /dev/session/
 
+# Supervisor ledger (skills/dev/supervise.md § Ledger)
+/dev/supervisor/
+
 # Dependencies and build output (extend per stack)
 node_modules/
 dist/

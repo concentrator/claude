@@ -221,6 +221,13 @@ done
 grep -q 'forge-cli' <<<"$out" && grep -q 'repo view' <<<"$out" \
   && pass "project-clone hands the checkout to forge-cli" || die "project-clone names no forge-cli check: $out"
 
+# 45. the supervisor's ledger and the session state must never be stageable:
+#     the harness writes dev/supervisor/ and dev/session/ while a worker may
+#     run git add -A, and the cloned .gitignore is whatever commit arrived
+grep -q 'dev/supervisor/' <<<"$out" && grep -q 'info/exclude' <<<"$out" \
+  && pass "project-clone excludes the ledger and session dirs" \
+  || die "project-clone does not name the ledger exclude: $out"
+
 # 11. the sibling is not optional - file:../wallarm-api-js means npm ci fails
 #     outright without it, so the dry run must say so rather than list it as
 #     one repo among several
