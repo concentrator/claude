@@ -14,7 +14,7 @@ types inside the docs tree.
 
 ## Commits
 
-- [ ] `documentation.md`: add the snapshot principle and link scope -
+- [x] `documentation.md`: add the snapshot principle and link scope -
   a doc states current behavior with no chronology, task or plan ids,
   or development details (provenance marks stay, dateless); links go
   only to sibling documents inside the docs tree or external URLs,
@@ -22,7 +22,7 @@ types inside the docs tree.
   the mechanical gate expectation (docs gate fails on `dev/plans/`,
   `.claude/`, or non-URL out-of-tree references) lands beside "No
   dead ends" in § Content quality.
-- [ ] `documentation.md`: define the two doc types - reports
+- [x] `documentation.md`: define the two doc types - reports
   (`docs/reports/`: probe and test reports, the one docs location
   where datetimes and tenant / client ids are allowed; linked
   plainly; useful, never required) and adapted references
@@ -31,11 +31,11 @@ types inside the docs tree.
   allowed inside) - and retarget § Content quality "Real examples ...
   cited" and § Evidence and provenance from findings and transcripts
   to report docs.
-- [ ] `layout.md § Docs`: add `reports/` and `references/` under the
+- [x] `layout.md § Docs`: add `reports/` and `references/` under the
   docs home in the tree and the section prose; reword skeleton row 7
   from "Sibling docs and the feature's `references/` inputs" to
   sibling docs, reports, and adapted references.
-- [ ] `plan.md § Archival`: rewrite the findings disposition - at
+- [x] `plan.md § Archival`: rewrite the findings disposition - at
   close every findings file is archived uncited, promoted into a doc,
   transformed into a report doc, or spawned into a new plan or task -
   and state that docs never link findings or plan files, so promotion

@@ -1,6 +1,6 @@
 # R068: Docs as snapshot - tasks
 
-- [ ] R068-T001 [doc]: the documentation framework rules docs as
+- [x] R068-T001 [doc]: the documentation framework rules docs as
   snapshots - `documentation.md` gains the snapshot principle, the
   link-scope rule (sibling docs or external URLs; never plans,
   findings, `.claude/`), the reports and adapted-references doc
