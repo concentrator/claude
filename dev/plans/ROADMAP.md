@@ -291,3 +291,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       check-archival.sh and its run-all registration so adopter
       projects get the same archival enforcement, asserted by
       install-dev.test.sh.
+- [ ] R072: Slim the per-task workflow - size-scaled close review,
+      two-seat supervision (operator merges into the supervisor),
+      plan-MR merge as the one approval gate, proportional tests,
+      direct plan-file edits; supersedes R-057's remainder and R-025.
