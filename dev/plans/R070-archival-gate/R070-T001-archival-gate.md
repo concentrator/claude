@@ -27,7 +27,7 @@ the self-test registers itself.
   malformed frontmatter (no closing `---`) fails loudly. Test cases:
   deferred pass with reason printed, reasonless fail, malformed
   fail.
-- [ ] `plan.md § Archival`, `branch-plan.md § Closing routine`, and
+- [x] `plan.md § Archival`, `branch-plan.md § Closing routine`, and
   `finish.md § 4`: the one-delivery flow - the closing branch's
   final commit carries the archive move when it closes the R;
   finish § 4 step 3 verifies the move landed instead of opening a
@@ -38,7 +38,7 @@ the self-test registers itself.
   presented and the closure marks and archive move land only on
   explicit confirmation - never as a side effect of finishing the
   task.
-- [ ] `DESIGN.md § Self-enforcement`: the check's row (Tier-2 doc
+- [x] `DESIGN.md § Self-enforcement`: the check's row (Tier-2 doc
   sync for an added `scripts/ci/` check).
 - [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md
