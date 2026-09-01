@@ -21,7 +21,7 @@ the self-test registers itself.
   line naming the initiative and the remedy (archive move or
   deferral); clean tree passes; `archive/` exempt. Test cases: clean
   pass, done-unarchived fail, archive-exempt.
-- [ ] Defer marker slice, check + test together:
+- [x] Defer marker slice, check + test together:
   `archival: deferred - <reason>` in the same frontmatter exempts
   and the check prints the reason; a marker with no reason fails;
   malformed frontmatter (no closing `---`) fails loudly. Test cases:

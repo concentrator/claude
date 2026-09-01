@@ -130,9 +130,12 @@ commit and the hand-off (`finish`).
    > (stale/temp data), mark plan complete, commit.
 
    The commit includes the resolved findings file and the reconciled
-   doc; closing the R's last open task → the closure check
-   (`plan.md § Approval and closure`); verified → ROADMAP `[x]`. Marks
-   land with the merge; a rejected branch discards them.
+   doc. Closing the R's last open task → the closure check
+   (`plan.md § Approval and closure`): present its verdict and ask -
+   the closure marks, ROADMAP `[x]`, and the archive move
+   (`plan.md § Archival`) land in the final commit only on explicit
+   user confirmation, never as a side effect of finishing the task.
+   Marks land with the merge; a rejected branch discards them.
 8. Invoke `finish` - present the delivery options and execute.
 
 ## Architecture-changing branches
