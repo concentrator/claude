@@ -20,15 +20,6 @@ Draft list from the shape round; the detail round refines it.
   verification without local gate re-runs, the `supervised` label at
   merge.
 
-- [ ] **R072-T003 [mnt]**: retire the approval stamps - plan-MR merge
-  is the approval; `templates.md`, `plan.md § Approval and closure`,
-  `branch-plan.md § Stamps`, `brainstorm.md` step 7, CI stamp
-  handling; existing stamps freeze.
-
-- [ ] **R072-T004 [mnt]**: proportional tests - the condition in
+- [ ] **R072-T003 [mnt]**: proportional tests - the condition in
   `plan.md § Proportionality`, the reviewer conduct line in
   `agents/code-reviewer.md`, the close-review checklist wording.
-
-- [ ] **R072-T005 [mnt]**: direct plan-file edits - the direct-edit
-  and protected sets in `plan.md § Adjusting existing plans`; sweep
-  rules that route bookkeeping edits through plan MRs.

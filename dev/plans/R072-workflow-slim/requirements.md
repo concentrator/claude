@@ -22,15 +22,14 @@ against a manual baseline task:
   each; the supervisor re-runs the full local gate set the worker just
   ran and the pipeline re-verifies anyway; the operator re-reviews what
   the supervisor already verified before merging.
-- Plan approval is stamped twice: an `approved:` frontmatter field plus
-  the plan MR itself, and detail rounds add `supervised: approved`
-  stamps per branch plan. The stamps duplicate the gate the MR merge
-  already is.
 - Close review pressure treats a missing test as a finding, producing
   tests that satisfy the rule rather than guard an invariant -
   against `plan.md § Proportionality`.
-- Plan-file edits route through plan MRs even for checkbox marks,
-  backlog lines, and wording, adding a delivery cycle to bookkeeping.
+
+The planning layer's own weight (stamps, plan-file bookkeeping, the
+second home it creates beside the docs) is R073's subject: planning
+moves to Jira and out of the repo. This R lands the cuts that hold
+regardless of where plans live.
 
 ## Desired state
 
@@ -51,20 +50,14 @@ risk, delivered through at most two seats.
    Control). At handover it verifies only what CI cannot: plan boxes,
    diff confinement, commit signature, pipeline green matched to the
    MR head sha - never a local re-run of gates the worker ran and CI
-   re-ran. A short always-ask-the-user list survives the merge:
+   re-ran. The supervisor applies the `supervised` MR label at merge.
+   A short always-ask-the-user list survives the merge:
    rules-file edits, customer data or disclosure, off-plan work,
    history rewrites.
-3. **MR merge is plan approval.** The `approved:` and
-   `supervised: approved` stamps retire; merging the plan MR is the
-   one approval gate. Existing stamps freeze as history.
-4. **Proportional tests.** A test is written when it guards an
+3. **Proportional tests.** A test is written when it guards an
    invariant or pins a fixed bug; doc, config, and plan tasks ship
    none, and the reviewer may not flag a missing test unless system
    integrity is at risk.
-5. **Direct plan-file edits.** Checkbox marks, backlog lines, task
-   additions, and wording are direct edits on the working branch.
-   Protected and unchanged: merged history, and the requirements of an
-   R another branch is currently executing against.
 
 ## Invariants
 
@@ -72,19 +65,16 @@ risk, delivered through at most two seats.
   delivery in supervised mode.
 - Tier-1 CI gates and the archival gate are untouched; what changes is
   who re-runs them, not what they check.
-- Closure rules (`plan.md § Approval and closure` closing conditions,
-  one-delivery archival) keep their meaning with stamps removed:
-  `status: done` remains the closure mark.
 - Manual mode's user gates (ship, merge) are unchanged.
+- Planning-artifact rules are untouched here; they retire wholesale
+  with R073.
 
 ## Scope
 
 `skills/dev/`: `supervise.md`, `companions/supervisor-runbook.md`,
-`companions/declarations.md`, `plan.md`, `branch-plan.md`, `finish.md`,
-`brainstorm.md`, `templates.md`, `delegation.md`;
-`agents/code-reviewer.md`; `scripts/ci/` stamp handling
-(`check-accretion.sh` exemptions, `check-plan-integrity.sh` if it reads
-stamps); ROADMAP entries R-025 and R-057.
+`companions/declarations.md`, `plan.md § Proportionality`,
+`branch-plan.md` closing-routine table, `delegation.md`;
+`agents/code-reviewer.md`; ROADMAP entries R-025 and R-057.
 
 ## Acceptance criteria
 
@@ -94,17 +84,12 @@ stamps); ROADMAP entries R-025 and R-057.
       dimension. Verified by reading the routing table and agent file.
 - [ ] `supervise.md` and the runbook define two seats; no step hands
       over to an operator, re-runs local gates at handover, or merges
-      without the always-ask list stated. Verified by grep for the
-      operator seat across `skills/dev/`.
-- [ ] No template, rule, or CI check requires or reads `approved:` or
-      `supervised:` stamps; a new plan file carries neither. Verified
-      by grep across `skills/dev/` and `scripts/ci/`.
+      without the always-ask list stated; the `supervised` label is
+      the supervisor's merge step. Verified by grep for the operator
+      seat across `skills/dev/`.
 - [ ] The test rule states the invariant/fixed-bug condition and the
       reviewer prohibition; `code-reviewer.md` carries the matching
       conduct line.
-- [ ] `plan.md § Adjusting existing plans` names the direct-edit set
-      and the protected set; no rule routes checkbox or backlog edits
-      through a plan MR.
 - [ ] R-057 and R-025 are closed or tombstoned with one-line notes
       naming this R.
 
@@ -118,15 +103,12 @@ stamps); ROADMAP entries R-025 and R-057.
 
 ## Open questions
 
-- Sweep existing `approved:`/`supervised:` frontmatter from open plan
-  files, or freeze it in place? (Lean: freeze; the fields become
-  inert.)
-- Does the merged supervisor also own the `supervised` MR label at
-  merge, per this run's practice? (Lean: yes, named in the runbook.)
+None.
 
 ## References
 
 - R-057 (close-review cap, T001 shipped), R-025 (checklist stub),
-  R068 (documentation framework), R069 (supervised-run hardening).
+  R068 (documentation framework), R069 (supervised-run hardening),
+  R073 (planning moves to Jira; owns stamps and plan-file rules).
 - Timing evidence: this session's supervised R019 run ledger and the
   R070 manual baseline.
