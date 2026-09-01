@@ -282,8 +282,12 @@ Initiative index. Items: `R-001: description`; each entry owns
       alarm, write-time ledger timestamps, the pipelines-endpoint
       merge-evidence fallback, a pre-finish context re-brief, the
       channel-traps list, and a gating pre-flight.
-- [ ] R070: Archival gate - closure and archival become one delivery:
+- [x] R070: Archival gate - closure and archival become one delivery:
       the closing branch's final commit carries the archive move, a
       Tier-1 check fails any closed initiative left outside archive/,
       and archival: deferred with a reason is the one visible
       exemption.
+- [ ] R071: Install-shipped archival gate - install-dev.sh copies
+      check-archival.sh and its run-all registration so adopter
+      projects get the same archival enforcement, asserted by
+      install-dev.test.sh.

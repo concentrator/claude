@@ -1,6 +1,6 @@
 ---
 approved: 2026-09-01
-status: open
+status: done 2026-09-01
 kind: feat
 ---
 
@@ -53,19 +53,19 @@ as open work, and the findings-disposition step it gates never runs.
 
 ## Acceptance criteria
 
-- [ ] `scripts/ci/check-archival.sh` exists, is registered by the
+- [x] `scripts/ci/check-archival.sh` exists, is registered by the
   `run-all.sh` loop, and fails naming initiative and remedy when a
   non-archive `dev/plans/*/requirements.md` carries `status: done`.
-- [ ] `archival: deferred - <reason>` in that file's frontmatter
+- [x] `archival: deferred - <reason>` in that file's frontmatter
   exempts it; the check prints the reason; a marker without a reason
   fails.
-- [ ] A self-test covers: clean tree passes, done-unarchived fails,
+- [x] A self-test covers: clean tree passes, done-unarchived fails,
   deferred passes with the reason printed, reasonless deferral
   fails, malformed frontmatter fails loudly, `archive/` exempt.
-- [ ] `plan.md § Archival`, `branch-plan.md § Closing routine`, and
+- [x] `plan.md § Archival`, `branch-plan.md § Closing routine`, and
   `finish.md § 4` state the one-delivery flow; no text still
   describes the archive move as a routine follow-up MR/PR.
-- [ ] `DESIGN.md § Self-enforcement` lists the check (Tier-2 doc
+- [x] `DESIGN.md § Self-enforcement` lists the check (Tier-2 doc
   sync row for an added `scripts/ci/` check).
 
 ## Constraints
