@@ -14,7 +14,7 @@ the self-test registers itself.
 
 ## Commits
 
-- [ ] `scripts/ci/check-archival.sh` +
+- [x] `scripts/ci/check-archival.sh` +
   `scripts/test/check-archival.test.sh`, and `archival` added to the
   `run-all.sh` list: a non-archive `dev/plans/*/requirements.md`
   whose frontmatter carries `status: done` fails the gate with one

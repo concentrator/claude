@@ -62,5 +62,30 @@ d=$(mkrepo); mkr "$d" archive/R001-x 'status: done 2026-09-01'
 ok_in "$d" && pass "archived initiative exempt" || die "archived initiative wrongly flagged"
 rm -rf "$d"
 
+# 5. a deferred closure is exempt and the reason is printed
+d=$(mkrepo); mkr "$d" R001-x 'status: done 2026-09-01
+archival: deferred - docs remediation owns the disposition'
+out=$(run_in "$d")
+if ok_in "$d" && grep -q 'docs remediation owns the disposition' <<<"$out"; then
+  pass "deferred closure exempt, reason printed"
+else
+  die "deferred closure mishandled"
+fi
+rm -rf "$d"
+
+# 6. a defer marker with no reason fails
+d=$(mkrepo); mkr "$d" R001-x 'status: done 2026-09-01
+archival: deferred'
+fails_with "$d" 'reason' \
+  && pass "reasonless deferral caught" || die "reasonless deferral missed"
+rm -rf "$d"
+
+# 7. frontmatter with no closing --- fails loudly
+d=$(mkrepo); mkdir -p "$d/dev/plans/R001-x"
+printf -- '---\nstatus: done 2026-09-01\n' > "$d/dev/plans/R001-x/requirements.md"
+fails_with "$d" 'frontmatter' \
+  && pass "malformed frontmatter caught" || die "malformed frontmatter missed"
+rm -rf "$d"
+
 (( fail == 0 )) && echo "check-archival.test: OK"
 exit $fail
