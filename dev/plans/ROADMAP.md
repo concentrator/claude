@@ -293,5 +293,8 @@ Initiative index. Items: `R-001: description`; each entry owns
       install-dev.test.sh.
 - [ ] R072: Slim the per-task workflow - size-scaled close review,
       two-seat supervision (operator merges into the supervisor),
-      plan-MR merge as the one approval gate, proportional tests,
-      direct plan-file edits; supersedes R-057's remainder and R-025.
+      proportional tests; supersedes R-057's remainder and R-025.
+- [ ] R073: Planning moves to Jira - epics/tickets replace the repo's
+      planning layer, the worker sees only its ticket and reports in
+      comments, one ticket one branch, `dev/plans/` and its CI checks
+      retire; drops R071 as moot.
