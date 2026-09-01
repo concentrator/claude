@@ -194,10 +194,12 @@ where they bind); **transformed** into a report doc
 (`companions/documentation.md § Diataxis typing`) when its evidence
 stays useful as evidence; or **spawned** into a new plan or task it
 motivates. A finding another initiative's open task still cites is
-promoted before its own R closes. **Archive**: when the initiative
-closes, its whole directory moves to
+promoted before its own R closes. **Archive**: the closing branch's
+final commit carries the whole directory's move to
 `dev/plans/archive/R<NNN>-<slug>/` - requirements, task index, branch
-plans, and findings together.
+plans, and findings together - so one delivery closes and archives the
+R (Tier-1 `check-archival`; a frontmatter
+`archival: deferred - <reason>` defers the move with cause).
 Docs never link findings or plan files, live or archived
 (`companions/documentation.md § Content quality`): promotion moves
 facts, never links. If a doc needs a fact from `archive/`, promotion
