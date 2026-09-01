@@ -40,7 +40,7 @@ the self-test registers itself.
   task.
 - [x] `DESIGN.md § Self-enforcement`: the check's row (Tier-2 doc
   sync for an added `scripts/ci/` check).
-- [ ] Mark and commit the task `[x]` in the R's `tasks.md`.
+- [x] Mark and commit the task `[x]` in the R's `tasks.md`.
 - [ ] Complete the branch: close review per `branch-plan.md
   § Closing routine` (code + prose rows → both reviews), Tier-2
   compliance review, `bash scripts/ci/run-all.sh` green, cleanup,

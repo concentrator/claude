@@ -14,12 +14,14 @@ for f in dev/plans/*/requirements.md; do
   [[ -f "$f" ]] || continue
   head -1 "$f" | grep -qx -- '---' || continue   # no frontmatter
   r=$(basename "$(dirname "$f")")
-  if ! tail -n +2 "$f" | grep -qx -- '---'; then
+  # grep drains its input: -q would exit early and SIGPIPE tail under
+  # pipefail on a file larger than the pipe buffer.
+  if ! tail -n +2 "$f" | grep -x -- '---' >/dev/null; then
     echo "ARCHIVAL: $f frontmatter has no closing --- - fix it before its status can be read"
     fail=1; continue
   fi
   fm=$(sed -n '2,${/^---$/q;p;}' "$f")
-  grep -q '^status: done' <<<"$fm" || continue
+  grep -q '^status: done\( \|$\)' <<<"$fm" || continue
   if grep -q '^archival: deferred' <<<"$fm"; then
     reason=$(sed -n 's/^archival: deferred - //p' <<<"$fm" | head -1)
     if [[ -n "$reason" ]]; then

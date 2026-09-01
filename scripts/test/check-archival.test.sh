@@ -87,5 +87,17 @@ fails_with "$d" 'frontmatter' \
   && pass "malformed frontmatter caught" || die "malformed frontmatter missed"
 rm -rf "$d"
 
+# 8. a status merely beginning with "done" is not a closure
+d=$(mkrepo); mkr "$d" R001-x 'status: donework'
+ok_in "$d" && pass "done-prefixed status ignored" || die "done-prefixed status wrongly flagged"
+rm -rf "$d"
+
+# 9. valid frontmatter on a file larger than a pipe buffer still parses
+# (guards the pipefail/SIGPIPE hazard in the closing-delimiter probe)
+d=$(mkrepo); mkr "$d" R001-x 'status: open'
+yes 'body line' | head -20000 >> "$d/dev/plans/R001-x/requirements.md"
+ok_in "$d" && pass "large file parses" || die "large file falsely malformed"
+rm -rf "$d"
+
 (( fail == 0 )) && echo "check-archival.test: OK"
 exit $fail
