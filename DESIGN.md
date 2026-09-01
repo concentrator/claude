@@ -126,7 +126,8 @@ Two tiers gate every change into `main` (the CI tiers are built for
   `pull_request` and locally in the advisory `.githooks/pre-push` via
   `core.hooksPath`; either failing blocks the push or the merge. They
   hard-fail a PR on:
-  a cap violation, a stray top-level file, a plan-integrity break, a
+  a cap violation, a stray top-level file, a plan-integrity break, an
+  unarchived closed initiative (`check-archival`), a
   `TODO`/`FIXME`/`XXX` marker in code, an expired reference, a dated
   accretion marker (`check-accretion`), an oversized code file or
   function (`check-code-size`, allowlist-backed), an em dash
@@ -135,8 +136,7 @@ Two tiers gate every change into `main` (the CI tiers are built for
   (`check-batch-tags`, local-only: skips where refs are hidden), or an
   unconfigured context budget or bare `Bash(git:*)` grant
   (`check-settings`). `main` is protected: a
-  merge needs a PR with `tier1` green, `enforce_admins` on, so
-  `gh pr merge` merges only on green, admins included.
+  merge needs a PR with `tier1` green, `enforce_admins` on.
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
   concerns to the diff at branch close (`skills/dev/branch-plan.md
   § Closing routine`); they are enumerated there and nowhere else.
