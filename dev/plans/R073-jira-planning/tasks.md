@@ -28,8 +28,10 @@ matters: the integration surface first, the teardown last.
   fixes from the pilot land on the same branch.
 
 - [ ] **R073-T005 [mnt]**: migrate and tear down - open initiatives
-  to epics with source-id manifest comments, delete `dev/plans/`,
-  retire the plan CI checks and the archival gate, drop R071.
+  to epics with source-id manifest comments, `dev/docs/` moves to
+  `docs/` with every rule naming the old path, delete `dev/plans/`
+  (no tracked `dev/` remains), retire the plan CI checks and the
+  archival gate, drop R071.
 
 - [ ] **R073-T006 [mnt]**: consuming-project rollout - migration
   steps for projects on these skills, applied per project at its next

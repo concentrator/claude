@@ -296,5 +296,5 @@ Initiative index. Items: `R-001: description`; each entry owns
       proportional tests; supersedes R-057's remainder and R-025.
 - [ ] R073: Planning moves to Jira - epics/tickets replace the repo's
       planning layer, the worker sees only its ticket and reports in
-      comments, one ticket one branch, `dev/plans/` and its CI checks
-      retire; drops R071 as moot.
+      comments, one ticket one branch, docs move to a single top-level
+      `docs/`, `dev/` and its CI checks retire; drops R071 as moot.

@@ -41,12 +41,15 @@ operations, and documentation - nothing else.
    worker reads Jira read-only, writes progress and reports as ticket
    comments, and never writes a planning artifact into the repo. No
    plan file is tracked in git.
-3. **Docs are the repo's knowledge.** Unchanged from the R068
-   framework and restated as the counterweight: docs reflect current
-   state, carry no history or task sequence, and link only external
-   URLs or sibling docs. Durable facts land in docs directly at the
-   branch that learns them - there is no findings file to promote
-   from.
+3. **Docs are the repo's knowledge, at `docs/`.** One documentation
+   directory per project, top-level, internal and external audiences
+   under the same contract; `dev/docs/` moves there and `dev/`
+   disappears from tracking (supervisor ledgers and session state stay
+   gitignored local files). The R068 contract is unchanged: docs
+   reflect current state, carry no history or task sequence, and link
+   only external URLs or sibling docs. Durable facts land in docs
+   directly at the branch that learns them - there is no findings
+   file to promote from.
 4. **Fewer, larger branches.** One ticket, one branch, typically
    10-30 commits; commits need not be atomic. The MR is the review
    and delivery unit, cutting per-branch routine to one cycle.
@@ -66,8 +69,8 @@ operations, and documentation - nothing else.
   the user before its tickets run; MR merge remains the delivery gate.
 - Code and docs CI gates (tests, lint, em dash, docs scope, caps) are
   untouched.
-- The R068 docs framework is untouched; this R removes its plan-file
-  competitor, not its rules.
+- The R068 docs framework keeps its contract; this R moves its home
+  to `docs/` and removes its plan-file competitor, not its rules.
 - Two-seat supervision (R072) is the execution model this R re-points
   at tickets; seams and bounds unchanged.
 
@@ -77,15 +80,19 @@ operations, and documentation - nothing else.
 `brainstorm.md`, `write-plan.md`, `branch-plan.md`, `finish.md`,
 `auto.md`, `supervise.md`, runbook, `templates.md`, `handoff.md`,
 `migrate.md`, `start.md`); `scripts/ci/` plan checks and their tests;
-`dev/plans/` corpus (migrate open, delete all); Jira integration
-surface (project, issue types, agent credentials, read/write skill);
-consuming projects after their in-flight initiatives close.
+`dev/plans/` corpus (migrate open, delete all); the `dev/docs/` to
+`docs/` move with every rule that names the old path (`layout.md
+§ Docs`, `companions/documentation.md`, project overlays); Jira
+integration surface (project, issue types, agent credentials,
+read/write skill); consuming projects after their in-flight
+initiatives close.
 
 ## Acceptance criteria
 
-- [ ] No tracked file exists under `dev/plans/`, and no rule or skill
-      references repo plan files. Verified by `git ls-files dev/plans`
-      empty and grep across `skills/dev/` and `scripts/ci/`.
+- [ ] No tracked file exists under `dev/`, docs live at `docs/`, and
+      no rule or skill references repo plan files or `dev/` paths.
+      Verified by `git ls-files dev` empty and grep across
+      `skills/dev/` and `scripts/ci/`.
 - [ ] `/dev plan` produces Jira epics/tickets; `/dev code` and the
       supervised dispatch start from a ticket id and inject its plan;
       verified by one pilot task executed end to end with its report
@@ -114,8 +121,6 @@ consuming projects after their in-flight initiatives close.
   availability per project).
 - Credential path for the VM worker/supervisor (API token scope,
   storage).
-- Whether `dev/supervisor/` ledgers also move to ticket comments or
-  stay as gitignored local files.
 
 ## References
 
