@@ -20,6 +20,14 @@ Draft list from the shape round; the detail round refines it.
   verification without local gate re-runs, the `supervised` label at
   merge.
 
-- [ ] **R072-T003 [mnt]**: proportional tests - the condition in
+- [x] **R072-T003 [mnt]**: proportional tests - the condition in
   `plan.md § Proportionality`, the reviewer conduct line in
   `agents/code-reviewer.md`, the close-review checklist wording.
+
+- [ ] **R072-T004 [mnt]**: tiered verify - per commit runs lint plus
+  tests scoped to the change (a project-declared fast subset; without
+  one, lint only); the full suite runs once at close (`finish.md
+  § 3`), CI the authority on the MR/PR; projects declare `Test (fast)`
+  and `Test (full)` in `## Agent toolchain`; `branch-plan.md § Commit
+  cadence`, `auto.md` and the implementer prompt aligned so subagent
+  workers inherit the cadence.

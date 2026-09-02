@@ -53,8 +53,11 @@ invokes explicitly.
 ## Proportionality
 
 `CLAUDE.md § Scope` binds here: one observed failure earns one fix and
-one test. Deeper proofs - mutant cases, unfixed-copy comparisons,
-vendored-copy assertions - are reserved for `dev-secrets-guard` and
+one test. A test is written when it guards an invariant or pins an
+observed failure; doc, config, and plan tasks ship none, and a test
+written to satisfy a review expectation is scope creep. Deeper
+proofs - mutant cases, unfixed-copy comparisons, vendored-copy
+assertions - are reserved for `dev-secrets-guard` and
 `dev-branch-guard`. A shape round asks what can be deleted before it
 adds.
 
