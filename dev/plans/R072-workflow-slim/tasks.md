@@ -24,10 +24,15 @@ Draft list from the shape round; the detail round refines it.
   `plan.md § Proportionality`, the reviewer conduct line in
   `agents/code-reviewer.md`, the close-review checklist wording.
 
-- [ ] **R072-T004 [mnt]**: tiered verify - per commit runs lint plus
+- [x] **R072-T004 [mnt]**: tiered verify - per commit runs lint plus
   tests scoped to the change (a project-declared fast subset; without
   one, lint only); the full suite runs once at close (`finish.md
   § 3`), CI the authority on the MR/PR; projects declare `Test (fast)`
   and `Test (full)` in `## Agent toolchain`; `branch-plan.md § Commit
   cadence`, `auto.md` and the implementer prompt aligned so subagent
   workers inherit the cadence.
+
+Backlog: pre-tier "tests + lint" wording remains in
+`git-workflow.md § Delivery cadence`, `companions/report-template.md`,
+and `supervise.md` - T002's operator-reference sweep absorbs the
+`supervise.md` site; the other two ride any later R072 branch.
