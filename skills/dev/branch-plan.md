@@ -34,7 +34,9 @@ code's commit.
 Every pass ends the same way; `feat`/`fix`/`refactor` add their mode
 file's loop, `doc`/`test`/`mnt` run this alone:
 
-1. **Verify** - project test + lint commands green.
+1. **Verify** - the fast tier green: lint plus the declared scoped
+   subset (`companions/declarations.md § Declared commands`); the
+   full suite runs once at close (`finish.md`).
 2. **Docs** - per project `CLAUDE.md § Conventions`, in *this* commit:
    `release-routine: yes` → CHANGELOG `## [Unreleased]` entry
    (`changelog.md`); new public
@@ -221,8 +223,9 @@ check and release marking ride a close-out plan MR/PR
 
 Per-branch close in auto mode: the close review runs only above the
 close-folding threshold (`verification-policy.md § Close folding`).
-The mandatory final commit and green tests/lint
-before merging into the batch branch hold regardless of size.
+The mandatory final commit and a green fast tier
+before merging into the batch branch hold regardless of size; the
+full suite runs at batch close (`auto.md § Batch close`).
 
 ### Rails
 
@@ -234,7 +237,7 @@ before merging into the batch branch hold regardless of size.
 - Agents never push; the only delivery is the checkpoint-accept
   **CI-gated MR/PR** of the batch branch to origin (`auto`
   checkpoint).
-- No commit on red tests/lint - no exceptions.
+- No commit on a red fast tier - no exceptions.
 - Findings triage and push decisions defer to the checkpoint.
 - Branch refs stay until the user validates the checkpoint.
   Accept = delete the `pre-R<NNN>-B<NNN>` tag and member refs;
