@@ -31,6 +31,8 @@ say which class you applied:
     failure paths handled, no regression to adjacent behavior.
   - Security: no injected or leaked secrets, no widened permissions,
     inputs treated as untrusted where they are.
+  - Performance: critical loops, query cost, and allocation in hot
+    paths - flagged only where the diff plausibly regresses them.
   - Maintainability: naming and structure match the surrounding code,
     no duplication introduced, comments only where code cannot speak
     (`CLAUDE.md § Code Comments`).
@@ -38,14 +40,15 @@ say which class you applied:
   against its ground truth per the verification gate
   (`skills/dev/companions/documentation.md § Verification gate`) -
   its source-selection and independence conditions apply as written;
-  report a mismatch as Critical. `docs/` feature docs take the gate's
-  dedicated per-claim pass instead.
+  report a mismatch as Critical. `dev/docs/` feature docs take the
+  gate's dedicated per-claim pass instead.
 - **Mixed**: the strictest applicable class per file.
 
 **Escalation for the dispatcher**: a second verification agent is
 warranted only when this review reports a Critical finding, or the
-diff touches rules files or CI scripts. Say explicitly whether that
-condition is met.
+diff touches rules files (`rules/`, `skills/`, `agents/`,
+`CLAUDE.md`) or CI scripts. Say explicitly whether that condition is
+met.
 
 **Batch mode**: when dispatched with a batch manifest
 (`dev/plans/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.md`) and the full
