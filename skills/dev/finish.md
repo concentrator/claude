@@ -10,7 +10,9 @@ Close out a DEV branch - invoked by the closing routine
 - Bookkeeping marks landed in the closing commits (`branch-plan.md
   § Closing routine`; untracked: `companions/untracked-claude.md`).
 - Close review per `branch-plan.md § Closing routine`.
-- Fresh test + lint green; failing → stop and report.
+- Fresh `Test (full)` + lint green (`companions/declarations.md
+  § Declared commands`) - the branch's one full local run; failing →
+  stop and report.
 
 ## 2. Report outcome, verify, then present options
 
@@ -38,8 +40,9 @@ on the default branch, or with uncommitted changes, it stops with an
 error naming that condition.
 
 1. Gate: the Tier-1 runner `ci/run-all.sh` (installed per
-   `start.md § 4`) plus the declared test and lint commands. A failure
-   stops Ship and is reported.
+   `start.md § 4`) plus the declared lint and `Test (full)` commands -
+   already satisfied by a § 1 run with no commit after it. CI on the
+   MR/PR is the authority; a local failure stops Ship and is reported.
 2. `git push -u origin <branch>`, then open a CI-gated MR/PR via the
    declared change-request command (`companions/declarations.md
    § Declared commands`; no declared host → push and print the URL).
