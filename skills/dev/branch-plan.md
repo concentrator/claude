@@ -87,24 +87,16 @@ checkboxes plus a new final commit.
 Runs when the last non-final `[ ]` turns `[x]`; ends in the final
 commit and the hand-off (`finish`).
 
-1. **Close review, scaled to the branch**:
-
-   | The diff changes | Review |
-   |---|---|
-   | code, behavior preserved | `/simplify` |
-   | code, behavior added or fixed | `code-reviewer` agent |
-   | prose, rules, docs, plans | `code-reviewer` agent |
-   | data or config | `code-reviewer` agent |
-   | more than one row | both |
-
-   Cap: one pre-authorised dispatch by the session itself
-   (`agents/code-reviewer.md` bounds it), plus a verifier only on a
-   Critical finding (`companions/verification-policy.md § Verifier
-   isolation`);
+1. **Close review**: one `code-reviewer` dispatch; its depth follows
+   the diff class per the rubric in `agents/code-reviewer.md`, which
+   also bounds the agent's conduct. A behavior-preserving code diff
+   runs `/simplify` instead. A second verification agent only when
+   the reviewer reports the escalation condition met - a Critical
+   finding, or a diff touching rules files or CI scripts
+   (`companions/verification-policy.md § Verifier isolation`);
    `/code-review` is a manual escalation - suggest, never run.
-   Bookkeeping (plan marks, CHANGELOG) keys no row. Size governor:
-   mixed-purpose (more than one task tag) or >9
-   commits → both. Also the **Tier-2 compliance review**: every concern in
+   Bookkeeping (plan marks, CHANGELOG) keys no review. Also the
+   **Tier-2 compliance review**: every concern in
    `MAINTENANCE.md § Tier-2 AI review`, over the diff.
 2. Validate findings against full project context.
 3. Report; request user approval before applying.
