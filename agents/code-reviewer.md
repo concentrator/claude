@@ -38,7 +38,7 @@ say which class you applied:
     (`CLAUDE.md § Code Comments`).
 
   A missing test is flagged only when system integrity is at risk -
-  an invariant without a guard, or a fixed bug without a pin
+  an invariant without a guard, or an observed failure without a pin
   (`skills/dev/plan.md § Proportionality`); test absence is otherwise
   not a finding.
 - **Rules, skills, planning prose**: check each changed factual claim
