@@ -63,9 +63,8 @@ sensitive-file guard).
    cross-branch interactions, duplicated helpers, convention drift;
    folded small branches get first-review vs their plans.
 2. Fixes land as batch-branch commits; queue judgment calls.
-3. Run `Test (full)` + lint - the batch's one full local run; red →
-   halt. Docs coherence pass (CHANGELOG/README across member
-   branches).
+3. Run `Test (full)` - the batch's one full local run; red → halt.
+   Docs coherence pass (CHANGELOG/README across member branches).
 4. Mark member-task checkboxes; commit on `batch/R<NNN>-B<NNN>`
    (`branch-plan.md § Batches`).
 
