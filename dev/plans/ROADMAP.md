@@ -204,7 +204,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       them; the local file is dropped, one-shot approvals with it; the
       tracked user-global `settings.json` switches `defaultMode` to
       `acceptEdits`.
-- [ ] R-057: Cap the close review - the routed close review becomes
+- [x] R-057: Cap the close review - the routed close review becomes
       the repo's `code-reviewer` agent (one reviewer, a second
       verifier only on a Critical finding) in place of the built-in
       `/code-review`, which turns manual-only: the flow may suggest
