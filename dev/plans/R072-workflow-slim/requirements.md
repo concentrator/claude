@@ -73,7 +73,7 @@ risk, delivered through at most two seats.
 
 `skills/dev/`: `supervise.md`, `companions/supervisor-runbook.md`,
 `companions/declarations.md`, `plan.md § Proportionality`,
-`branch-plan.md` closing-routine table, `delegation.md`;
+`branch-plan.md` closing-routine table;
 `agents/code-reviewer.md`; ROADMAP entries R-025 and R-057.
 
 ## Acceptance criteria
