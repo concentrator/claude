@@ -36,6 +36,11 @@ say which class you applied:
   - Maintainability: naming and structure match the surrounding code,
     no duplication introduced, comments only where code cannot speak
     (`CLAUDE.md § Code Comments`).
+
+  A missing test is flagged only when system integrity is at risk -
+  an invariant without a guard, or a fixed bug without a pin
+  (`skills/dev/plan.md § Proportionality`); test absence is otherwise
+  not a finding.
 - **Rules, skills, planning prose**: check each changed factual claim
   against its ground truth per the verification gate
   (`skills/dev/companions/documentation.md § Verification gate`) -
