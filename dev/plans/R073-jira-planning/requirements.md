@@ -1,5 +1,5 @@
 ---
-approved: pending
+approved: 2026-09-02
 kind: mnt
 ---
 
