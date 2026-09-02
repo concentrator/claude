@@ -73,7 +73,7 @@ risk, delivered through at most two seats.
 
 `skills/dev/`: `supervise.md`, `companions/supervisor-runbook.md`,
 `companions/declarations.md`, `plan.md § Proportionality`,
-`branch-plan.md` closing-routine table, `delegation.md`;
+`branch-plan.md § Closing routine`;
 `agents/code-reviewer.md`; ROADMAP entries R-025 and R-057.
 
 ## Acceptance criteria
@@ -81,7 +81,8 @@ risk, delivered through at most two seats.
 - [ ] The closing-routine table routes every diff class to one
       reviewer dispatch; the second-agent condition is stated in
       `agents/code-reviewer.md` and no flow dispatches reviewers by
-      dimension. Verified by reading the routing table and agent file.
+      dimension. Verified by reading the closing routine and agent
+      file.
 - [ ] `supervise.md` and the runbook define two seats; no step hands
       over to an operator, re-runs local gates at handover, or merges
       without the always-ask list stated; the `supervised` label is

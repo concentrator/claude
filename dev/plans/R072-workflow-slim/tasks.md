@@ -8,7 +8,7 @@ Draft list from the shape round; the detail round refines it.
 
 ## Open
 
-- [ ] **R072-T001 [mnt]**: size-scale the close review - the rubric
+- [x] **R072-T001 [mnt]**: size-scale the close review - the rubric
   and diff classes in `agents/code-reviewer.md`, the second-agent
   condition, the closing-routine table rows, the `delegation.md`
   line; close R-057 (T002 superseded) and tombstone R-025.

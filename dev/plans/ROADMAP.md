@@ -66,11 +66,8 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R-024: DEV confirmation and outcome gates - plan approval never
       auto-starts code; `finish` verifies before merge options; precise
       branch guard.
-- [ ] R-025: Explicit review checklist - a review.md-style checklist
-      (Correctness, Security, Performance, Maintainability) with
-      severity-tagged output across the reviewer agent, the
-      `receiving-code-review` skill, and the `finish` close-review.
-      (stub - shape via `/dev plan R-025`)
+- [x] R-025: Explicit review checklist - superseded by R072-T001: the
+      dimensions are checklist lines in the `code-reviewer` rubric.
 - [x] R-026: Writing conventions - em dashes banned in every tracked
       file (Tier-1 check + one-time sweep); prose style as Tier-2
       review criteria.
@@ -207,7 +204,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       them; the local file is dropped, one-shot approvals with it; the
       tracked user-global `settings.json` switches `defaultMode` to
       `acceptEdits`.
-- [ ] R-057: Cap the close review - the routed close review becomes
+- [x] R-057: Cap the close review - the routed close review becomes
       the repo's `code-reviewer` agent (one reviewer, a second
       verifier only on a Critical finding) in place of the built-in
       `/code-review`, which turns manual-only: the flow may suggest

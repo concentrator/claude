@@ -17,9 +17,7 @@ composite (`R057-T###`, counter scoped to this initiative).
   `delegation.md` close-review bullet with the subagent prohibition,
   and update `verification-policy.md § Effort mechanics`.
 
-- [ ] **R057-T002 [mnt]** (low priority): define the targeted
-  reviewer set - `agents/security-reviewer.md` (high-tier model,
-  vulnerability vectors), `agents/style-reviewer.md` (Haiku, strict
-  token and runtime bounds), `agents/perf-reviewer.md` (critical
-  loops and query logic) - each with dispatch criteria; no flow
-  routes to them yet.
+- [x] **R057-T002 [mnt]**: superseded by R072-T001 - the review
+  dimensions became checklist lines inside the one
+  `agents/code-reviewer.md` rubric; no targeted reviewer set is
+  defined.

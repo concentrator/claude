@@ -1,5 +1,6 @@
 ---
 approved: 2026-08-19
+status: done 2026-09-02
 kind: mnt
 ---
 
@@ -48,21 +49,36 @@ definitions.
 
 ## Acceptance criteria
 
-- [ ] No close-review table row routes to `/code-review`; the routine
+- [x] No close-review table row routes to `/code-review`; the routine
   names it only as a manual escalation the session may suggest.
-- [ ] The routine states the cap: at most two agents per close review,
+  Evidence: `branch-plan.md § Closing routine` step 1 - one
+  `code-reviewer` dispatch, `/code-review` "suggest, never run".
+- [x] The routine states the cap: at most two agents per close review,
   the second dispatched only on a Critical finding.
-- [ ] `agents/code-reviewer.md` pins `model: fable`, carries an
+  Evidence: same step - second agent only on the reviewer's stated
+  escalation condition (Critical, or a rules/CI diff; the R072-T001
+  rubric widened the trigger).
+- [x] `agents/code-reviewer.md` pins `model: fable`, carries an
   effort key, and its prompt forbids spawning subagents.
-- [ ] The delegation rule "subagents never invoke `/code-review` or
+  Evidence: frontmatter `model: fable`, `effort: medium`; Conduct
+  block bars `/code-review`, the Agent tool, and subagents.
+- [x] The delegation rule "subagents never invoke `/code-review` or
   spawn further subagents" is in `delegation.md`, replacing the
   close-review fan-out bullet.
-- [ ] `verification-policy.md § Effort mechanics` reflects the
+  Evidence: `delegation.md` was retired by R066 with the fan-out
+  bullet; the prohibition lives as the reviewer's Conduct block, the
+  only close-review subagent any flow dispatches.
+- [x] `verification-policy.md § Effort mechanics` reflects the
   frontmatter effort key instead of claiming none exists.
-- [ ] Three targeted reviewer definitions (security,
+  Evidence: that section names the `effort:` key and the reviewer's
+  `medium` pin.
+- [x] Three targeted reviewer definitions (security,
   maintainability/style, performance) exist with dispatch criteria
   and model pins, routed by no flow yet.
-- [ ] `bash scripts/ci/run-all.sh` green.
+  Evidence: superseded - R057-T002 tombstoned to R072-T001; the
+  dimensions are checklist lines in the one reviewer's rubric.
+- [x] `bash scripts/ci/run-all.sh` green.
+  Evidence: green on the closing branch `mnt/review-rubric`.
 
 ## Constraints
 
