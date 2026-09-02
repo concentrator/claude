@@ -32,7 +32,9 @@ Task tool (general-purpose):
     1. Implement exactly what the commit item specifies
     2. Tests per branch type: feat/fix - strict TDD (failing test first);
        refactor - behavior preserved, baseline stays green
-    3. Verify: project's test + lint commands, green
+    3. Verify: the fast tier green - lint plus the declared scoped
+       test subset (`Test (fast)` in the project's `## Agent
+       toolchain`; the full suite belongs to the close, not to you)
     4. Docs in this same commit per project conventions (see ## Conventions)
     5. Commit (message rules: ## Conventions below)
     6. Self-review (see below)

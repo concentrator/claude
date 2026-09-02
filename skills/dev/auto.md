@@ -28,7 +28,8 @@ sensitive-file guard).
   pre-flight check runs before any action; failures are reported
   together in one message, and the batch halts with no branch created
   and no edit made.
-- Default branch, clean tree, tests + lint green.
+- Default branch, clean tree, fast tier green
+  (`companions/declarations.md § Declared commands`).
 - Tag `pre-R<NNN>-B<NNN>` (e.g. `pre-R062-B001`); create
   `batch/R<NNN>-B<NNN>` off default.
 
@@ -52,7 +53,7 @@ sensitive-file guard).
 3. Close agentically: `code-reviewer` (branch diff vs plan; skipped
    for small branches per `companions/verification-policy.md`); mechanical fixes
    applied, judgment calls queued. Mandatory final commit (docs
-   re-review, cleanup, plan complete). Tests + lint green → merge
+   re-review, cleanup, plan complete). Fast tier green → merge
    into `batch/R<NNN>-B<NNN>`; red → halt.
 4. Rails hold throughout (`branch-plan.md § Rails`).
 
@@ -62,8 +63,8 @@ sensitive-file guard).
    cross-branch interactions, duplicated helpers, convention drift;
    folded small branches get first-review vs their plans.
 2. Fixes land as batch-branch commits; queue judgment calls.
-3. Re-run tests + lint; red → halt. Docs coherence pass
-   (CHANGELOG/README across member branches).
+3. Run `Test (full)` - the batch's one full local run; red → halt.
+   Docs coherence pass (CHANGELOG/README across member branches).
 4. Mark member-task checkboxes; commit on `batch/R<NNN>-B<NNN>`
    (`branch-plan.md § Batches`).
 

@@ -17,6 +17,14 @@ is the single source both modes read:
   `toolchain.md § Permission carve-out for the checkpoint push`).
 - Manual `finish` runs the declared commands instead of probing the host.
 
+The test declaration is tiered, and both tiers include lint.
+`Test (fast)` - lint plus a scoped subset of the suite (the tests
+covering the area a commit touches) - runs per commit; `Test (full)` -
+lint plus the whole suite - runs once at branch close
+(`finish.md § 1`), and CI on the MR/PR is the authority. A single
+`Test:` declaration serves as both tiers; a project with no scoped
+subset declares fast as lint only.
+
 Declare it once; `migrate` backfills it if absent (absent-host fallback:
 `finish § 3`).
 
