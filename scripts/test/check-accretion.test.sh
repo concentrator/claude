@@ -29,9 +29,10 @@ printf -- 'superseded 2026-07-07 by R-021\n' > "$d/dev/plans/archive/R-001-x/tas
 git -C "$d" add -A
 check_in "$d" && pass "archive exempt" || die "archive wrongly flagged"; rm -rf "$d"
 
-# 3. mandated frontmatter fields (incl. both stamps) -> exempt, pass
+# 3. the two dated stamps -> exempt, pass. `approved:` carries a state,
+# so it needs no exemption and is shown here in its undated form.
 d=$(mkrepo); mkdir -p "$d/dev/plans/R-001-x"
-printf -- '---\napproved: 2026-08-06\nkind: chore\nstatus: done 2026-08-06\nagentic: approved 2026-08-09\nsupervised: approved 2026-08-09\n---\n\n# R-001\n' \
+printf -- '---\napproved: yes\nkind: chore\nagentic: approved 2026-08-09\nsupervised: approved 2026-08-09\n---\n\n# R-001\n' \
   > "$d/dev/plans/R-001-x/requirements.md"
 git -C "$d" add -A
 check_in "$d" && pass "frontmatter exempt" || die "frontmatter wrongly flagged"; rm -rf "$d"
@@ -116,6 +117,16 @@ printf 'x\n' > "$d/README.md"; git -C "$d" add -A
 out=$(cd "$d" && bash "$CHECK" 2>&1); rc=$?
 [ $rc -ne 0 ] && grep -q 'no tracked plan files' <<<"$out" \
   && pass "empty home fails loudly" || die "empty home passed vacuously"; rm -rf "$d"
+
+# 18. a dated `approved:` -> caught. The field carries `pending` / `yes`
+# (`skills/dev/plan.md § Approval and closure`), so a date in it is the
+# approval's second home and the gate is what keeps it to one.
+d=$(mkrepo); mkdir -p "$d/dev/plans/R-001-x"
+printf -- '---\napproved: 2026-08-06\n---\n\n# R-001\n' \
+  > "$d/dev/plans/R-001-x/requirements.md"
+git -C "$d" add -A
+check_in "$d" && die "dated approved not caught" || pass "dated approved caught"
+rm -rf "$d"
 
 (( fail == 0 )) && echo "check-accretion.test: OK"
 exit $fail

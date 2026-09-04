@@ -32,6 +32,16 @@ commands`).
   - `mnt` - repo maintenance (CI, scripts, hooks, settings, dependencies).
   - `plan` - planning artifacts (ROADMAP, requirements, tasks, branch
     plans; untracked `.claude/`: `companions/untracked-claude.md`).
+    A planning change a branch discovers about its own task rides that
+    branch instead: correcting a wrong item, recording a resolution,
+    adding a task the work surfaced. Splitting it out costs a branch, an
+    MR/PR and a rebase to move two lines, and the correction reviews
+    better next to the work that motivated it. A change reaching beyond
+    the branch's own task - another R, the ROADMAP, requirements - still
+    takes a `plan/` branch. Who may make the edit is unchanged: auto-mode
+    agents stay on checkboxes and findings files (`branch-plan.md
+    § Rails`), and an ambiguous item is still a halt
+    (`branch-plan.md § Scope discoveries`).
 - Slug: code / `doc` / `test` / `mnt` branches carry no id (it lives in
   the plan file + MR/PR); `plan/` branches reference the initiative -
   `plan/r<NNN>-<action>` (R-id, full three digits: `r014`, never `r12`;

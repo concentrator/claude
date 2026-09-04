@@ -148,17 +148,23 @@ After the rounds, adjust in place:
 
 `.claude/REQUIREMENTS.md` and each initiative's
 `dev/plans/R<NNN>-<slug>/requirements.md` carry a frontmatter `approved:`
-field: `pending` when new, `YYYY-MM-DD` once the user confirms.
-Nothing downstream proceeds while pending. Approval of an R's detail
+field: `pending` when new, `yes` once the user confirms. Nothing
+downstream proceeds while pending. The field records which state the
+requirements are in, not when they got there - the date of an approval
+is in the commit and MR/PR that carried it. Approval of an R's detail
 round stamps `supervised: approved YYYY-MM-DD` on the round's branch
-plans (`branch-plan.md § Stamps`).
+plans (`branch-plan.md § Stamps`), where the date earns its place: the
+stamp admits a plan to unattended execution, so which review it came
+from has to be resolvable.
 
 An R entry closes (`[x]` in ROADMAP) only when **both** hold:
 
 - all child tasks are `[x]`, and
-- every acceptance criterion in its `requirements.md` is verified,
-  with one-line evidence per criterion, stamped
-  `status: done YYYY-MM-DD` in that file's frontmatter.
+- every acceptance criterion in its `requirements.md` is verified, with
+  one-line evidence per criterion in that file.
+
+The ROADMAP `[x]` is the closure record; the evidence lines say what
+verified each criterion.
 
 The check runs on the branch completing the R's last open task, in its
 mandatory final commit (`branch-plan.md § Closing routine`), judged

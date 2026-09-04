@@ -1,5 +1,5 @@
 ---
-approved: 2026-09-02
+approved: yes
 kind: mnt
 ---
 

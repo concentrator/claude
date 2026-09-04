@@ -11,9 +11,13 @@
 # The rule is blind to markdown, so prose documenting the gate describes
 # a marker rather than quoting one - code spans are not exempt, or real
 # accretion could hide inside one. plans/archive/ is
-# frozen history and exempt; the mandated frontmatter fields (`approved:`,
-# `status: done`, `agentic: approved`, `supervised: approved`) are exempt
-# for the field's own value span only - the rest of the line is scanned.
+# frozen history and exempt; the two dated frontmatter stamps
+# (`agentic: approved`, `supervised: approved`) are exempt for the
+# field's own value span only - the rest of the line is scanned.
+# `approved:` and `status:` need no exemption: `approved:` carries a
+# state (`pending` / `yes`) rather than a date, and `status: done`
+# is retired, surviving only in the exempt archive
+# (`skills/dev/plan.md § Approval and closure`).
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
@@ -27,7 +31,7 @@ fail=0
 # own verbs. Tune this list only; the date rule in PAT stays fixed.
 MARKERS='supersede[sd]|retracted|settled|corrected|approved|shaped|done|absorbed|mooted|retired|updated|added|amended|re-?baselined|resolved|shipped|delivered|restored|revised|deferred|completed?'
 PAT="\b($MARKERS)[[:space:]:,(-]{1,3}20[0-9]{2}-[0-9]{2}-[0-9]{2}"
-EXEMPT_SPAN='s/^([0-9]+:)(approved|status|agentic|supervised):[[:space:]]*[a-z]*[[:space:]]*/\1/'
+EXEMPT_SPAN='s/^([0-9]+:)(agentic|supervised):[[:space:]]*[a-z]*[[:space:]]*/\1/'
 
 while IFS= read -r f; do
   case "$f" in "$P/archive/"*) continue ;; esac

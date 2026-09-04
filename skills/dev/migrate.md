@@ -54,7 +54,7 @@ Read README + code. Ask user 3–5 clarifying questions. Write
 `.claude/REQUIREMENTS.md` with
 `approved: pending` per `templates.md
 § Foundational`. **Block on user approval** - then update `approved:` to
-today.
+`yes`.
 
 ## 3. Design
 

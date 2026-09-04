@@ -159,8 +159,9 @@ At a checkpoint, before the MR/PR is handed over:
    marks - they ride a close-out plan MR/PR (`plan/r<NNN>-close`)
    opened after the batch MR/PR merges (`branch-plan.md § Batches`).
    Verify that the batch left them alone and that the close-out is
-   queued; a batch stamping `status: done` has closed on an unverified
-   criterion, since CI-green criteria are only verifiable on the MR/PR
+   queued; a batch marking the R `[x]` in ROADMAP has closed on an
+   unverified criterion, since CI-green criteria are only verifiable on
+   the MR/PR
    the batch itself creates (`plan.md § Approval and closure`,
    `§ Archival`).
 
