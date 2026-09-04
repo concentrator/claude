@@ -1,5 +1,5 @@
 ---
-approved: 2026-08-07
+approved: yes
 kind: feat
 ---
 

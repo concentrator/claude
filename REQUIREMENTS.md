@@ -1,5 +1,5 @@
 ---
-approved: 2026-06-11
+approved: yes
 ---
 
 # Environment requirements
