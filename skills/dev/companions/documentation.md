@@ -108,11 +108,14 @@ an Element.
   dates, or development details. Git holds history and plans hold
   planning; a provenance mark (`layout.md § Docs`) is a state fact
   about claim strength and stays, dateless.
-- **Closed link scope**: a doc links only sibling documents inside
-  the docs tree or external URLs - never plan files (live or
-  archived), findings files, or `.claude/` paths. The docs gate
-  fails a doc referencing `dev/plans/`, `.claude/`, or a non-URL
-  path outside the docs tree.
+- **Closed link scope**: a doc links only sibling documents inside the
+  docs tree, other files of the same project (`config/`, `scripts/`,
+  `src/`), or external URLs - never plan files (live or archived),
+  findings files, or `.claude/` paths. Those name artifacts that move,
+  are archived, or are retired, so the citation drifts while still
+  reading as precise. An `archive/` directory inside the docs tree is
+  exempt. A project's docs gate checks this mechanically where the
+  project has one.
 - **Right content, right place**: exclude test/environment artifacts;
   include the real parameters.
 - **DRY**: a shared fact lives in one doc; others cross-reference it
