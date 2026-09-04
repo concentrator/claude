@@ -116,13 +116,16 @@ commit and the hand-off (`finish`).
    to the shipped code, then take every doc the branch ships
    (re-review edits included) through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
-   the **mandatory final two items** of every plan:
+   the **mandatory final item** of every plan:
 
-   > Mark and commit the task `[x]` in the R's `tasks.md`, plus any
-   > release-plan entry. (Auto-mode members: § Batches.)
-   >
    > Complete the branch: re-review docs across all commits, cleanup
-   > (stale/temp data), mark plan complete, commit.
+   > (stale/temp data), mark plan complete, mark the task `[x]` in the
+   > R's `tasks.md` plus any release-plan entry, commit. (Auto-mode
+   > members: the task mark rides the batch branch, § Batches.)
+
+   The task mark comes last because the re-review and cleanup ahead of
+   it can still find work: a `[x]` written before them asserts a
+   completion the branch has not reached.
 
    The commit includes the resolved findings file and the reconciled
    doc. Closing the R's last open task → the closure check
