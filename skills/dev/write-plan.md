@@ -43,8 +43,8 @@ round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` / `all`.
    - `type: <inherited from task tag>`
    - `architecture-changing: true` (only if it touches design)
    - `depends-on: R008-T001` (if cross-task dependency)
-5. **Add the mandatory final items** at the end - the index mark then
-   the completion commit (per `branch-plan.md § Closing routine`).
+5. **Add the mandatory final item** at the end - the completion commit
+   (per `branch-plan.md § Closing routine`).
 6. **Confirm with user**, then create the plan branch, write to
    `dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`, and deliver via a
    short-lived plan MR/PR (`plan.md § Where plans live in git`).
