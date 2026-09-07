@@ -57,7 +57,9 @@ operations, and documentation - nothing else.
    within bounds (R072-T002). The project declares who holds the seat,
    `Supervisor: human | AI`, and the always-ask list reaches the user
    under either. The stamp pair has no successor: readiness is a
-   property of the plan, not of the mode running it.
+   property of the plan, not of the mode running it. A seat is an
+   agent started for one item and shut down at its exit; the next
+   seat starts fresh, and only the branch and the ticket carry over.
 4. **Planning exits through a cold read.** A ticket's plan is ready
    for dispatch when a fresh agent, given exactly the worker's inputs,
    says what it would build and finds nothing ambiguous; a question
@@ -81,6 +83,14 @@ operations, and documentation - nothing else.
 7. **Fewer, larger branches.** One ticket, one branch, typically
    10-30 commits; commits need not be atomic. The MR is the review
    and delivery unit, cutting per-branch routine to one cycle.
+8. **Each seat reads a fixed input set, and nothing more.** The
+   implementer: the ticket's plan, the docs, and the code. The
+   reviewer: the same plan plus the task's requirements, which are
+   the acceptance criteria the epic holds for it. The doc writer: the
+   diff, the ticket, and the existing docs. The ticket may carry
+   decisions and explanations for the doc writer's benefit, but the
+   docs never cite the ticket: the doc writer states the fact as the
+   docs' own.
 8. **Skill rewrite.** `/dev plan` writes epics and tickets in Jira;
    `/dev code <ticket>` and the supervisor's dispatch start from a
    ticket id; `finish` closes the ticket and comments the MR link.
