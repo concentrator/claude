@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 # dev-handoff-nudge.sh - Stop hook (R074). The PreCompact tree block
-# records the repo's state, but the intent half of the session file (the
-# hand-off block: done/next/open/rulings) only the session can write,
-# and near the compaction point it rarely does. When context fill is at
-# or above the warning threshold (dev-context-fill.sh owns the number)
-# and the session file's last tree block is newer than its last hand-off
-# block, this hook refuses the turn end once with a reason naming the
-# file and the format (a command Stop hook blocks via a top-level
-# decision:block, hooks-guide.md decision control); writing the hand-off
-# clears the condition and stop_hook_active guards the retry, so the
-# nudge self-limits without state of its own. A reminder, never a gate:
-# every read failure exits 0 silent (fail open).
+# records the repo's state, but the intent half of the session file
+# (the hand-off block: done/next/branch/open/rulings/notes) only the
+# session can write, and near the compaction point it rarely does. When
+# context fill is at or above the warning threshold (dev-context-fill.sh
+# owns the number) and the session file's last tree block is newer than
+# its last hand-off block, this hook refuses the turn end once with a
+# reason naming the file and the format (a command Stop hook blocks via
+# a top-level decision:block, hooks-guide.md decision control); writing
+# the hand-off clears the condition and stop_hook_active guards the
+# retry, so the nudge self-limits without state of its own. A reminder,
+# never a gate: every read failure exits 0 silent (fail open).
 set -uo pipefail
 
 command -v jq >/dev/null 2>&1 || exit 0

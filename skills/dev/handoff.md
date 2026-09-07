@@ -41,18 +41,16 @@ Append one `hand-off` block with these six keys, each one line;
     - branch: feat/precompact-state, 2 commits ahead of main
     - open: none
     - rulings: plan/ merges on green without a second ask; keep the 405 note
-    - notes: pre-push runs the full suite - allow minutes; the fix held
-      only with the index rebuilt first
+    - notes: pre-push runs the full suite; the fix needed the index rebuilt
 
 `done` and `next` name work by durable ids (`rules/writing-artifacts.md § Name
 things by their durable id`); `open` lists MR/PR numbers awaiting a decision;
 `rulings` lists the user's decisions still in force for the unit. `notes`
 holds short factual lines - facts, decisions, observations, explanations no
 durable artifact owns - and is expected whenever the note is written
-mid-task: it is what the resumed session cannot recover from git or the
-plan. The note is
-intent, so the tree never overrides it and it never restates the tree: branch
-state comes from the `tree` block and `git status`.
+mid-task: it is what the resumed session cannot recover from git or the plan.
+The note is intent, so the tree never overrides it and it never restates the
+tree: branch state comes from the `tree` block and `git status`.
 
 Two reminders point here when the note is overdue: the `branch-state:`
 context warning and the Stop-hook nudge (`hooks/dev-handoff-nudge.sh`).
