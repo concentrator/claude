@@ -28,13 +28,27 @@ done
 
 # Pre-write guard (R075): a --project install drops files a later session
 # may commit blind alongside unrelated work; refuse a dirty tracked tree
-# so the install rides its own clean change. A non-git target skips the
-# guard; --force bypasses it.
+# or a default-branch HEAD so the install rides its own clean branch. A
+# non-git target skips the guard; --force bypasses it. The default branch
+# is origin/HEAD's basename when set, else whichever of main/master
+# exists locally, else no refusal.
 proj="${target%/.claude}"
 if [ "$scope" = project ] && [ "$force" -eq 0 ] \
    && git -C "$proj" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   if [ -n "$(git -C "$proj" status --porcelain --untracked-files=no 2>/dev/null)" ]; then
     echo "install-dev: $proj has uncommitted changes - commit or stash them, or pass --force" >&2
+    exit 1
+  fi
+  default=$(git -C "$proj" symbolic-ref -q --short refs/remotes/origin/HEAD 2>/dev/null || true)
+  default=${default#origin/}
+  if [ -z "$default" ]; then
+    for b in main master; do
+      if git -C "$proj" show-ref -q --verify "refs/heads/$b"; then default=$b; break; fi
+    done
+  fi
+  cur=$(git -C "$proj" branch --show-current 2>/dev/null || true)
+  if [ -n "$default" ] && [ "$cur" = "$default" ]; then
+    echo "install-dev: $proj is on its default branch '$default' - switch to a new branch, or pass --force" >&2
     exit 1
   fi
 fi

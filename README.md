@@ -90,6 +90,10 @@ the installer from a checkout of this repo:
     scripts/install-dev.sh                   # into ~/.claude (global)
     scripts/install-dev.sh --project <path>  # into <path>/.claude
 
+A `--project` install into a git repo refuses a dirty tracked tree or a
+default-branch HEAD, so the copy ships as its own reviewable change;
+`--force` bypasses the guard.
+
 Global install serves a contributor who wants `/dev` everywhere; the
 `--project` copy serves a repo's no-global contributors (skill precedence
 means a contributor's own global copy still wins). The installer registers

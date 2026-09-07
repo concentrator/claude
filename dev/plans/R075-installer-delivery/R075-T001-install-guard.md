@@ -14,7 +14,7 @@ installs before the first write.
   comment gains the flag. `install-dev.test.sh` gains a dirty fixture
   asserting the exit, the message, no `.claude` created, and the
   `--force` bypass.
-- [ ] Default-branch refusal: the same guard also refuses when the
+- [x] Default-branch refusal: the same guard also refuses when the
   current branch is the default - `origin/HEAD`'s basename when set,
   else whichever of `main`/`master` exists, else no refusal - with a
   switch-to-a-new-branch message; when both conditions hold the dirty
