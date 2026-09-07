@@ -31,7 +31,7 @@ subagents, `agent_id`; the matcher filters on the reason; on exit 0 a
   file, file without a hand-off, subagent input, malformed input,
   outside a git repo. `DESIGN.md` tree-map gains the hook line with a
   matching trim (the file sits at its 1000-word cap).
-- [ ] Installer ships it: `install-dev.sh` gains a SessionStart
+- [x] Installer ships it: `install-dev.sh` gains a SessionStart
   register function (the `register_stop_hook` shape plus the
   `compact|resume` matcher) wired for both scope path forms, and the
   header comment names the hook. `install-dev.test.sh` asserts: copied
