@@ -31,7 +31,7 @@ The turn-end reminder for autonomous sessions and the installer wiring
   both copies, the registration, and the re-install dedupe;
   `README.md` hooks row and the `DESIGN.md` tree-map name the new
   hooks.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, R074 closure check per `plan.md § Approval and closure`
   (criteria verified with one-line evidence, ROADMAP `[x]`, archival
