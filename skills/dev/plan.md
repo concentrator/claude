@@ -152,10 +152,9 @@ field: `pending` when new, `yes` once the user confirms. Nothing
 downstream proceeds while pending. The field records which state the
 requirements are in, not when they got there - the date of an approval
 is in the commit and MR/PR that carried it. Approval of an R's detail
-round stamps `supervised: approved YYYY-MM-DD` on the round's branch
-plans (`branch-plan.md § Stamps`), where the date earns its place: the
-stamp admits a plan to unattended execution, so which review it came
-from has to be resolvable.
+round stamps `supervised: approved` on the round's branch plans
+(`branch-plan.md § Stamps`); like `approved:`, which review a stamp
+came from is resolvable from the commit that added it.
 
 An R entry closes (`[x]` in ROADMAP) only when **both** hold:
 

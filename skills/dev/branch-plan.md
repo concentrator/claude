@@ -12,9 +12,9 @@ branch = one task. The plan is complete and committed to `main`
     architecture-changing: true     # optional - triggers DESIGN.md
                                     #   update commit
     depends-on: R008-T001           # optional - blocks `/dev code` until merged
-    agentic: approved 2026-06-10    # optional - auto-eligible;
+    agentic: approved               # optional - auto-eligible;
                                     #   absent = manual-only
-    supervised: approved 2026-06-10 # optional - supervise-eligible
+    supervised: approved            # optional - supervise-eligible
                                     #   (§ Stamps)
 
 ## Body
@@ -188,15 +188,15 @@ verification differs: auto runs the checkpoint below, manual uses
 Two header stamps admit a plan to work without the user at the
 keyboard; each names what it guarantees.
 
-`agentic: approved YYYY-MM-DD` - what `/dev auto` needs: its subagent
-has no one to ask, so the plan passes a **readiness review** (run by
+`agentic: approved` - what `/dev auto` needs: its subagent has no one
+to ask, so the plan passes a **readiness review** (run by
 `/dev plan batch` for unstamped plans): each commit item unambiguous,
 testable, dependent only on earlier items, and free of design judgment
 beyond the plan's text - backed by a cold-reader check
 (`companions/verification-policy.md § Comprehension check`). Items
 failing → fix via `/dev plan <slug>` first. User approves → stamp.
 
-`supervised: approved YYYY-MM-DD` - what `/dev supervise` needs
+`supervised: approved` - what `/dev supervise` needs
 (`supervise.md § Resolve`): approved requirements, one commit per
 item, no known design question open. A supervised worker has someone
 to ask, so the readiness review is not required. Applied at
