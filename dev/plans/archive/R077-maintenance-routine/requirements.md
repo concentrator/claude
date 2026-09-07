@@ -51,18 +51,25 @@ the installer should deliver the rules that retire them.
 
 ## Acceptance criteria
 
-- [ ] `--project` into a target without `.claude/MAINTENANCE.md`
-  creates it with the section (install self-test).
-- [ ] `--project` into a target whose `MAINTENANCE.md` lacks the
+- [x] `--project` into a target without `.claude/MAINTENANCE.md`
+  creates it with the section (install self-test). Evidence:
+  "hygiene section seeded on a fresh target", "targets table names
+  its rows".
+- [x] `--project` into a target whose `MAINTENANCE.md` lacks the
   section appends it and preserves the existing content (install
-  self-test).
-- [ ] Re-install over a modified section leaves the file byte-identical
-  (install self-test).
-- [ ] A global install writes no `MAINTENANCE.md` (install self-test).
-- [ ] The reworded `MAINTENANCE.md` sentence names the seeding
-  mechanism.
-- [ ] Tier-1 gate green (`bash scripts/ci/run-all.sh`, script tests
-  included).
+  self-test). Evidence: "section appended, existing content
+  preserved".
+- [x] Re-install over a modified section leaves the file byte-identical
+  (install self-test). Evidence: "tuned section survives re-install
+  byte-identical", "seeding idempotent over re-installs".
+- [x] A global install writes no `MAINTENANCE.md` (install self-test).
+  Evidence: "global install seeds no MAINTENANCE.md".
+- [x] The reworded `MAINTENANCE.md` sentence names the seeding
+  mechanism. Evidence: the intro now reads "install-dev.sh --project
+  seeds its hygiene subset ... project-owned afterward".
+- [x] Tier-1 gate green (`bash scripts/ci/run-all.sh`, script tests
+  included). Evidence: `run-all: ALL OK` and `test/run-all: ALL OK` at
+  branch close.
 
 ## Constraints
 

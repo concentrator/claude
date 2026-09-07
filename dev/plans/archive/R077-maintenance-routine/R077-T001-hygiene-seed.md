@@ -32,7 +32,7 @@ Branch: `feat/hygiene-seed`. Requirements:
   --project` seeds the hygiene subset when the heading is absent; the
   project owns it afterward). Doc-only commit; the Tier-1 gate is the
   verification.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, R077 closure check per `plan.md § Approval and closure`
   (criteria verified with one-line evidence, ROADMAP `[x]`, archival
