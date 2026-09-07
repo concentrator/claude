@@ -1,7 +1,7 @@
 ---
 task: R042-T001
 type: doc
-agentic: approved 2026-08-09
+agentic: approved
 ---
 
 # R042-T001 - the spike provision

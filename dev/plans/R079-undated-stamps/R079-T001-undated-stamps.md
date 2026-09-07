@@ -14,7 +14,7 @@ Branch: `mnt/undated-stamps`. Requirements:
   defending the date; `auto.md` and `supervise.md` wording checked
   against the dateless form (already presence-only, adjust only if a
   date surfaces).
-- [ ] Migrate the live stamp:
+- [x] Migrate the live stamp:
   `dev/plans/R-042-planning-pocs/R042-T001-spike-provision.md` carries
   the R's only dated `agentic:` stamp; its header reads
   `agentic: approved`.
