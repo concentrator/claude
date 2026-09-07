@@ -97,7 +97,8 @@ commit and the hand-off (`finish`).
    the diff class per the rubric in `agents/code-reviewer.md`, which
    also bounds the agent's conduct. A diff that is entirely
    behavior-preserving code runs `/simplify` instead; mixed diffs go
-   to the reviewer. A second verification agent only when
+   to the reviewer, adding `/simplify` only at the user's request.
+   A second verification agent only when
    the reviewer reports the escalation condition met - a Critical
    finding, or a diff touching rules files or CI scripts
    (`companions/verification-policy.md § Verifier isolation`);
