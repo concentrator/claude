@@ -329,3 +329,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       mid-session agreements: a `notes` key for facts no artifact
       owns, and a `SessionStart` hook injecting the last hand-off
       block into the resumed context.
+- [ ] R079: Undated stamps - the agentic/supervised stamp date
+      duplicates the approving commit and nothing reads it; the
+      stamps go dateless, plan.md's self-contradiction on approval
+      dates resolves, the one live dated stamp migrates.
