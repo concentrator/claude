@@ -49,6 +49,7 @@ Tracked dirs and notable files; harness-managed state (`projects/`,
 │   ├── dev-branch-guard.sh       # PreToolUse branch-guard (no trunk mutations)
 │   ├── dev-branch-state.sh       # UserPromptSubmit ambient branch/tree state
 │   ├── dev-context-fill.sh       # context-fill percent helper
+│   ├── dev-handoff-nudge.sh      # Stop hand-off nudge
 │   ├── dev-precompact-state.sh   # PreCompact session-state writer
 │   ├── dev-secrets-guard.sh      # PreToolUse secrets guard
 │   └── secret-patterns.sh        # the secret predicate (one home, sourced)
@@ -59,7 +60,7 @@ Tracked dirs and notable files; harness-managed state (`projects/`,
 │   ├── model-quota.sh            # pinned-dispatch quota gate
 │   └── test/                     # script tests + run-all.sh
 ├── .claude/
-│   └── settings.json             # project tier, tracked - push carve-out, durable allows, model
+│   └── settings.json             # project tier, tracked: push carve-out, durable allows, model
 ├── dev/                          # DEV artifacts (session/, supervisor/ gitignored)
 │   ├── plans/                    # planning hierarchy
 │   │   ├── ROADMAP.md            # cross-R index: skills/dev/plan.md
@@ -95,8 +96,7 @@ Tracked dirs and notable files; harness-managed state (`projects/`,
 ```
 
 Project-specific skills symlinked into `skills/` from external repos
-(gitignored via `skills/wallarm-*`) are versioned in their own repo, so
-the map excludes them.
+are versioned there, so the map excludes them.
 
 ## Planning model
 

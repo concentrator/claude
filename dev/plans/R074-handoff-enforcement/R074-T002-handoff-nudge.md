@@ -24,7 +24,7 @@ The turn-end reminder for autonomous sessions and the installer wiring
   asserts the registration (the `dev-branch-state.test.sh` pattern);
   `skills/dev/handoff.md § Writing the note` gains one line naming the
   warning and the nudge as the reminders that point here.
-- [ ] `scripts/install-dev.sh`: copy `dev-context-fill.sh` and
+- [x] `scripts/install-dev.sh`: copy `dev-context-fill.sh` and
   `dev-handoff-nudge.sh` beside the other hooks and register the nudge
   on `Stop` idempotently (a `register_stop_hook` beside
   `register_state_hook`); `scripts/test/install-dev.test.sh` asserts

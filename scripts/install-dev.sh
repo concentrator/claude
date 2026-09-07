@@ -85,9 +85,26 @@ register_state_hook() {   # $1 = hook script basename; UserPromptSubmit, no matc
   fi
 }
 
+register_stop_hook() {   # $1 = hook script basename; Stop, no matcher
+  cp "$SRC/hooks/$1" "$target/hooks/$1"
+  chmod +x "$target/hooks/$1"
+  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
+  if jq --arg cmd "$cmd" --arg old "$old" '
+    .hooks.Stop = [(.hooks.Stop // [])[]
+      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
+    | if ([.hooks.Stop[].hooks[].command] | any(. == $cmd)) then .
+      else .hooks.Stop += [{hooks: [{type: "command", command: $cmd}]}] end
+  ' "$settings" > "$tmp"; then
+    mv "$tmp" "$settings"
+  else
+    rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
+  fi
+}
+
 register_hook dev-branch-guard.sh
 register_hook dev-secrets-guard.sh
 register_state_hook dev-branch-state.sh
+register_stop_hook dev-handoff-nudge.sh
 # The secrets guard's predicate lives beside it (sourced, not registered).
 cp "$SRC/hooks/secret-patterns.sh" "$target/hooks/secret-patterns.sh"
 # The session-state writer is copied, not registered: PreCompact runs it
@@ -95,6 +112,10 @@ cp "$SRC/hooks/secret-patterns.sh" "$target/hooks/secret-patterns.sh"
 # the session file's path on every prompt (hooks/dev-precompact-state.sh).
 cp "$SRC/hooks/dev-precompact-state.sh" "$target/hooks/dev-precompact-state.sh"
 chmod +x "$target/hooks/dev-precompact-state.sh"
+# The context-fill helper is likewise copied, not registered: the
+# branch-state and handoff-nudge hooks call it for the fill percent.
+cp "$SRC/hooks/dev-context-fill.sh" "$target/hooks/dev-context-fill.sh"
+chmod +x "$target/hooks/dev-context-fill.sh"
 
 # 4. shipped Tier-1 checks - the ones with no dependency on this repo's
 #    own layout; adopters wire them into their CI (the batch-tags gate
