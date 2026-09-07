@@ -8,7 +8,7 @@ type: mnt
 Branch: `mnt/undated-stamps`. Requirements:
 `dev/plans/R079-undated-stamps/requirements.md`.
 
-- [ ] Dateless stamps in the rules: `branch-plan.md § Header` example
+- [x] Dateless stamps in the rules: `branch-plan.md § Header` example
   and `§ Stamps` definitions drop `YYYY-MM-DD`; `plan.md § Approval
   and closure` states the dateless form and loses the sentence
   defending the date; `auto.md` and `supervise.md` wording checked
