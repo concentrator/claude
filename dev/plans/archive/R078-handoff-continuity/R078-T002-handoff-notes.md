@@ -16,7 +16,7 @@ Branch: `mnt/handoff-notes`. Requirements:
   block reason names the key so a mid-pass compaction prompts for the
   facts; `dev-handoff-nudge.test.sh` gains the reason assertion beside
   the existing two.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, R078 closure check per `plan.md § Approval and closure`
   when this closes the R's last open task (criteria verified with

@@ -53,15 +53,22 @@ post-compaction outcomes contradicting mid-session agreements.
 
 ## Acceptance criteria
 
-- [ ] A post-compaction or resume start with a session file injects
+- [x] A post-compaction or resume start with a session file injects
   its last `## hand-off` block; a fresh start, a missing file, or a
   file without the block stays silent, exit 0 (hook self-test).
-- [ ] The installer registers the hook on `SessionStart` in project
+  Evidence: `dev-session-brief.test.sh` - "block injected to its last
+  line" plus the silent fresh/missing/blockless/subagent cases.
+- [x] The installer registers the hook on `SessionStart` in project
   and global scope, idempotently (install self-test).
-- [ ] `handoff.md` documents the `notes` key and the nudge reason
+  Evidence: `install-dev.test.sh` - SessionStart entry asserted in the
+  project and global forms, unchanged on re-install.
+- [x] `handoff.md` documents the `notes` key and the nudge reason
   names it (nudge self-test asserts the reason).
-- [ ] Tier-1 gate green (`bash scripts/ci/run-all.sh`, script tests
+  Evidence: `dev-handoff-nudge.test.sh` - "reason names the notes
+  key".
+- [x] Tier-1 gate green (`bash scripts/ci/run-all.sh`, script tests
   included).
+  Evidence: `run-all: ALL OK` at close, full suite green.
 
 ## Constraints
 

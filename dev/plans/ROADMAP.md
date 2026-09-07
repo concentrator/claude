@@ -322,7 +322,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       `dev/session/` sweep until added by hand, its MR !219): the
       installer delivers the generic targets table for the project doc
       to carry, and the claim is reworded to match the mechanism.
-- [ ] R078: Hand-off continuity - the R074 nudge makes the hand-off
+- [x] R078: Hand-off continuity - the R074 nudge makes the hand-off
       get written, but reading it after compaction stays advisory (a
       path pointer the resumed model may skip) and the five keys drop
       mid-task facts, so post-compaction outcomes can contradict
