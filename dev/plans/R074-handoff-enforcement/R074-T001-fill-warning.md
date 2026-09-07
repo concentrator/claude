@@ -1,5 +1,6 @@
 task: R074-T001
 type: feat
+supervised: approved 2026-09-07
 
 # R074-T001: fill computation and the prompt-line warning
 

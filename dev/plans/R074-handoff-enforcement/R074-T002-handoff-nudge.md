@@ -1,6 +1,7 @@
 task: R074-T002
 type: feat
 depends-on: R074-T001
+supervised: approved 2026-09-07
 
 # R074-T002: the Stop-hook nudge, registered and shipped
 
