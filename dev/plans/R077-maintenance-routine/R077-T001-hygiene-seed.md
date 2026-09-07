@@ -26,7 +26,7 @@ Branch: `feat/hygiene-seed`. Requirements:
   no `MAINTENANCE.md` is written; the gitignore fixture covers the
   new allowlist entry; the re-run fixtures stay green (seeding is
   idempotent by the heading check).
-- [ ] True claim: the `MAINTENANCE.md` sentence "The Routine section
+- [x] True claim: the `MAINTENANCE.md` sentence "The Routine section
   is generic and each project's `.claude/MAINTENANCE.md` carries it"
   is reworded to name the seeding mechanism (`install-dev.sh
   --project` seeds the hygiene subset when the heading is absent; the
