@@ -304,9 +304,8 @@ Initiative index. Items: `R-001: description`; each entry owns
       fill computed from the transcript's usage records, reads fail
       open), a `Stop`-hook nudge covering autonomous turns, the
       PreCompact tree block unchanged as the floor.
-- [ ] R075: Installer delivery mode - a plain `--project` install
+- [ ] R075: Installer delivery guard - a plain `--project` install
       writes uncommitted toolset state onto the target's checked-out
-      branch: an `install-dev.sh --deliver` installing in a temporary
-      worktree off the default branch and committing `mnt/dev-toolset`
-      (push and MR/PR stay with the operator), and a dirty-tree
-      warning on in-place `--project` naming it.
+      branch: the installer refuses a dirty tree or a default-branch
+      HEAD before writing, naming the remedy (`--force` overrides);
+      commits, branching, and MR/PR stay with the operator.
