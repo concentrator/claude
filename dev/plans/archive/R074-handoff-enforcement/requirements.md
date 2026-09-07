@@ -75,25 +75,32 @@ window), so a warning threshold must sit below that point.
 
 ## Acceptance criteria
 
-- [ ] With a synthesized transcript at or above the threshold and a
+- [x] With a synthesized transcript at or above the threshold and a
   session file whose last `tree` block is newer than its last
   `hand-off`, the branch-state line carries the fill warning and the
   session-file path; below the threshold, or with a fresh `hand-off`,
-  the line is unchanged and stays one line (hook self-test).
-- [ ] The Stop hook prints `decision: block` with a reason citing
+  the line is unchanged and stays one line (hook self-test). Evidence:
+  `scripts/test/dev-branch-state.test.sh` fill-warning cases, merged
+  with PR #485.
+- [x] The Stop hook prints `decision: block` with a reason citing
   `handoff.md` exactly when fill >= threshold and the hand-off is
   stale, each condition asserted both ways; silent exit 0 on a
   malformed or absent transcript, absent `autoCompactWindow`, or
-  outside a git repository (fail open), each asserted.
-- [ ] The threshold is 80% of the project's `autoCompactWindow` and an
+  outside a git repository (fail open), each asserted. Evidence:
+  `scripts/test/dev-handoff-nudge.test.sh` four-cell matrix and
+  fail-open cases.
+- [x] The threshold is 80% of the project's `autoCompactWindow` and an
   environment override changes it; the self-test's transcript fixture
   pins the `usage` fields the helper reads, failing loudly when the
-  schema drifts.
-- [ ] `install-dev.sh --project` registers both hooks idempotently and
+  schema drifts. Evidence: `scripts/test/dev-context-fill.test.sh`
+  override and pinned-fields cases, merged with PR #485.
+- [x] `install-dev.sh --project` registers both hooks idempotently and
   `install-dev.test.sh` asserts the registration and the re-install
-  dedupe.
-- [ ] Tier-1 gate green (`bash scripts/ci/run-all.sh`, script tests
-  included).
+  dedupe. Evidence: `scripts/test/install-dev.test.sh` copy,
+  registration, and idempotence assertions for both hooks.
+- [x] Tier-1 gate green (`bash scripts/ci/run-all.sh`, script tests
+  included). Evidence: CI green on PR #485; this branch merges through
+  the same gate.
 
 ## Constraints
 
