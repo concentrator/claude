@@ -4,6 +4,7 @@
 # Usage:
 #   install-dev.sh                 install into ~/.claude (global)
 #   install-dev.sh --project <p>   install into <p>/.claude (project copy)
+#   --force                        bypass the pre-write project guard
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
 # branch-guard + secrets-guard + branch-state hooks (registered in the target
@@ -15,14 +16,42 @@ set -euo pipefail
 
 SRC="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "install-dev: run from a checkout of the toolset repo" >&2; exit 1; }
 command -v jq >/dev/null || { echo "install-dev: jq is required" >&2; exit 1; }
-target="$HOME/.claude"; scope="global"
+target="$HOME/.claude"; scope="global"; force=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --project) target="${2:?--project needs a path}/.claude"; scope="project"; shift ;;
-    *) echo "usage: install-dev.sh [--project <path>]" >&2; exit 2 ;;
+    --force) force=1 ;;
+    *) echo "usage: install-dev.sh [--project <path>] [--force]" >&2; exit 2 ;;
   esac
   shift
 done
+
+# Pre-write guard (R075): a --project install drops files a later session
+# may commit blind alongside unrelated work; refuse a dirty tracked tree
+# or a default-branch HEAD so the install rides its own clean branch. A
+# non-git target skips the guard; --force bypasses it. The default branch
+# is origin/HEAD's basename when set, else whichever of main/master
+# exists locally, else no refusal.
+proj="${target%/.claude}"
+if [ "$scope" = project ] && [ "$force" -eq 0 ] \
+   && git -C "$proj" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  if [ -n "$(git -C "$proj" status --porcelain --untracked-files=no 2>/dev/null)" ]; then
+    echo "install-dev: $proj has uncommitted changes - commit or stash them, or pass --force" >&2
+    exit 1
+  fi
+  default=$(git -C "$proj" symbolic-ref -q --short refs/remotes/origin/HEAD 2>/dev/null || true)
+  default=${default#origin/}
+  if [ -z "$default" ]; then
+    for b in main master; do
+      if git -C "$proj" show-ref -q --verify "refs/heads/$b"; then default=$b; break; fi
+    done
+  fi
+  cur=$(git -C "$proj" branch --show-current 2>/dev/null || true)
+  if [ -n "$default" ] && [ "$cur" = "$default" ]; then
+    echo "install-dev: $proj is on its default branch '$default' - switch to a new branch, or pass --force" >&2
+    exit 1
+  fi
+fi
 
 BUNDLED="test-driven-development systematic-debugging verification-before-completion receiving-code-review dispatching-parallel-agents"
 
@@ -162,8 +191,8 @@ grep -qxF '@writing.md' "$claudemd" 2>/dev/null || printf '\n@writing.md\n' >> "
 
 # 6. committability: for a project install, allowlist installed paths that the
 # target repo's .gitignore excludes (idempotent), so they can be committed.
-if [ "$scope" = project ] && git -C "${target%/.claude}" rev-parse --show-toplevel >/dev/null 2>&1; then
-  repo="$(git -C "${target%/.claude}" rev-parse --show-toplevel)"; gi="$repo/.gitignore"
+if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null 2>&1; then
+  repo="$(git -C "$proj" rev-parse --show-toplevel)"; gi="$repo/.gitignore"
   for p in ".claude/skills/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/rules/" ".claude/CLAUDE.md" ".claude/settings.json"; do
     git -C "$repo" check-ignore -q "${p%/}" 2>/dev/null || continue   # not ignored → skip
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted

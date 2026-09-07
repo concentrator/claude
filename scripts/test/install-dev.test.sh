@@ -166,7 +166,9 @@ rm -rf "$O"
 # still denied after the session has cd'd away from the project root ---
 S=$(mktemp -d); git -C "$S" init -q -b main
 printf 'x\n' > "$S/f.sh"; git -C "$S" add -A; git -C "$S" -c user.email=t@t -c user.name=t commit -qm init
+git -C "$S" checkout -qb work   # the pre-write guard refuses a default-branch HEAD
 bash "$INSTALL" --project "$S" >/dev/null 2>&1 || die "install (subdirectory fixture) exits nonzero"
+git -C "$S" checkout -q main   # the branch-guard denies trunk writes only from trunk
 mkdir -p "$S/sub"
 cmd=$(jq -r '[.hooks.PreToolUse[]?.hooks[]?.command | select(test("dev-branch-guard"))][0]' "$S/.claude/settings.json")
 j=$(jq -nc --arg p "$S/f.sh" '{tool_name:"Write",tool_input:{file_path:$p,content:"y"}}')
@@ -192,6 +194,39 @@ bash "$INSTALL" --project "$Q" >/dev/null 2>&1 && die "install succeeded on malf
 [ "$(cat "$Q/.claude/settings.json")" = 'not json{' ] && pass "malformed settings left intact" || die "malformed settings mutated"
 rm -rf "$Q"
 
+# --- pre-write guard (R075): a dirty tracked tree refuses the install ---
+DG=$(mktemp -d); git -C "$DG" init -q -b main
+printf 'x\n' > "$DG/f"; git -C "$DG" add -A
+git -C "$DG" -c user.email=t@t -c user.name=t commit -qm init
+git -C "$DG" checkout -qb work
+printf 'y\n' > "$DG/f"
+out=$(bash "$INSTALL" --project "$DG" 2>&1); rc=$?
+[ $rc -ne 0 ] && pass "dirty tree refused" || die "dirty tree installed (rc=$rc)"
+grep -qi 'commit or stash' <<<"$out" && grep -q -- '--force' <<<"$out" \
+  && pass "dirty refusal names the remedy" || die "dirty message: $out"
+[ ! -e "$DG/.claude" ] && pass "refused install wrote nothing" || die ".claude created despite refusal"
+bash "$INSTALL" --project "$DG" --force >/dev/null 2>&1 && [ -f "$DG/.claude/settings.json" ] \
+  && pass "--force bypasses the dirty refusal" || die "--force did not install"
+rm -rf "$DG"
+
+# --- pre-write guard (R075): default-branch HEAD refuses the install ---
+DB=$(mktemp -d); git -C "$DB" init -q -b main
+printf 'x\n' > "$DB/f"; git -C "$DB" add -A
+git -C "$DB" -c user.email=t@t -c user.name=t commit -qm init
+out=$(bash "$INSTALL" --project "$DB" 2>&1); rc=$?
+[ $rc -ne 0 ] && pass "default-branch HEAD refused" || die "installed on default branch (rc=$rc)"
+grep -q 'switch to a new branch' <<<"$out" && pass "default-branch refusal names the remedy" || die "default-branch message: $out"
+[ ! -e "$DB/.claude" ] && pass "default-branch refusal wrote nothing" || die ".claude created despite refusal"
+printf 'y\n' > "$DB/f"
+out=$(bash "$INSTALL" --project "$DB" 2>&1)
+grep -qi 'commit or stash' <<<"$out" && pass "both conditions: dirty reported first" || die "both-conditions message: $out"
+git -C "$DB" checkout -q -- f
+bash "$INSTALL" --project "$DB" --force >/dev/null 2>&1 && [ -f "$DB/.claude/settings.json" ] \
+  && pass "--force bypasses the default-branch refusal" || die "--force did not bypass default-branch refusal"
+git -C "$DB" checkout -qb work
+bash "$INSTALL" --project "$DB" >/dev/null 2>&1 && pass "clean work-branch install passes" || die "clean work-branch install refused"
+rm -rf "$DB"
+
 # --- global path (no --project): installs into HOME/.claude with a ~/... hook ---
 H=$(mktemp -d)
 HOME="$H" bash "$INSTALL" >/dev/null 2>&1 || die "global install exits nonzero"
@@ -202,6 +237,7 @@ rm -rf "$H"
 
 # --- committability: restrictive .claude/* gitignore → installed paths trackable ---
 G=$(mktemp -d); git -C "$G" init -q
+git -C "$G" checkout -qb work   # keep the fixture off a default branch in case it gains commits
 printf '.claude/*\n' > "$G/.gitignore"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (gitignore fixture) exits nonzero"
 still=""

@@ -6,7 +6,7 @@ type: feat
 Both refusals of `requirements.md § Goals`, guarding `--project`
 installs before the first write.
 
-- [ ] Dirty-tree refusal: `--force` joins the argument loop, and a
+- [x] Dirty-tree refusal: `--force` joins the argument loop, and a
   project-scope guard between that loop and the first `mkdir` refuses
   when `git status --porcelain --untracked-files=no` in the target
   repo is non-empty - stderr names commit/stash and `--force`, exit 1,
@@ -14,7 +14,7 @@ installs before the first write.
   comment gains the flag. `install-dev.test.sh` gains a dirty fixture
   asserting the exit, the message, no `.claude` created, and the
   `--force` bypass.
-- [ ] Default-branch refusal: the same guard also refuses when the
+- [x] Default-branch refusal: the same guard also refuses when the
   current branch is the default - `origin/HEAD`'s basename when set,
   else whichever of `main`/`master` exists, else no refusal - with a
   switch-to-a-new-branch message; when both conditions hold the dirty
@@ -24,7 +24,7 @@ installs before the first write.
   gains one sentence naming the guard. Tests: the refusal, its
   `--force` bypass, the both-conditions ordering, and a clean
   non-default-branch install passing untouched.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, R075 closure check per `plan.md § Approval and closure`
   (criteria verified with one-line evidence, ROADMAP `[x]`, archival
