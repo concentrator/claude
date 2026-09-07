@@ -75,11 +75,11 @@ d=$(mkrepo); printf -- 'Harvest is done. 2026-07-07 corpus follows.\n' > "$d/dev
 git -C "$d" add -A
 check_in "$d" && pass "terminator stays clean" || die "terminator wrongly bridged"; rm -rf "$d"
 
-# 10. exempt field's trailing clause is scanned -> fail
+# 10. dated marker clauses in frontmatter -> fail
 d=$(mkrepo); mkdir -p "$d/dev/plans/R-001-x"
 printf -- '---\nstatus: done 2026-08-09; re-baselined 2026-05-05\n---\n' > "$d/dev/plans/R-001-x/requirements.md"
 git -C "$d" add -A
-check_in "$d" && die "exempt-line remainder not scanned" || pass "exempt-line remainder scanned"; rm -rf "$d"
+check_in "$d" && die "dated frontmatter clauses not caught" || pass "dated frontmatter clauses caught"; rm -rf "$d"
 
 # 11. only dev/plans/ is scanned: a violation there is caught, the same
 # text in a root-level plans/ is not

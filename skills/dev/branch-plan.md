@@ -188,8 +188,8 @@ verification differs: auto runs the checkpoint below, manual uses
 Two header stamps admit a plan to work without the user at the
 keyboard; each names what it guarantees.
 
-`agentic: approved` - what `/dev auto` needs: its subagent
-has no one to ask, so the plan passes a **readiness review** (run by
+`agentic: approved` - what `/dev auto` needs: its subagent has no one
+to ask, so the plan passes a **readiness review** (run by
 `/dev plan batch` for unstamped plans): each commit item unambiguous,
 testable, dependent only on earlier items, and free of design judgment
 beyond the plan's text - backed by a cold-reader check
