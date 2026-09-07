@@ -1,5 +1,5 @@
 ---
-approved: pending
+approved: yes
 kind: feat
 ---
 
