@@ -4,6 +4,7 @@
 # Usage:
 #   install-dev.sh                 install into ~/.claude (global)
 #   install-dev.sh --project <p>   install into <p>/.claude (project copy)
+#   --force                        bypass the pre-write project guard
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
 # branch-guard + secrets-guard + branch-state hooks (registered in the target
@@ -15,14 +16,28 @@ set -euo pipefail
 
 SRC="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "install-dev: run from a checkout of the toolset repo" >&2; exit 1; }
 command -v jq >/dev/null || { echo "install-dev: jq is required" >&2; exit 1; }
-target="$HOME/.claude"; scope="global"
+target="$HOME/.claude"; scope="global"; force=0
 while [ $# -gt 0 ]; do
   case "$1" in
     --project) target="${2:?--project needs a path}/.claude"; scope="project"; shift ;;
-    *) echo "usage: install-dev.sh [--project <path>]" >&2; exit 2 ;;
+    --force) force=1 ;;
+    *) echo "usage: install-dev.sh [--project <path>] [--force]" >&2; exit 2 ;;
   esac
   shift
 done
+
+# Pre-write guard (R075): a --project install drops files a later session
+# may commit blind alongside unrelated work; refuse a dirty tracked tree
+# so the install rides its own clean change. A non-git target skips the
+# guard; --force bypasses it.
+proj="${target%/.claude}"
+if [ "$scope" = project ] && [ "$force" -eq 0 ] \
+   && git -C "$proj" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+  if [ -n "$(git -C "$proj" status --porcelain --untracked-files=no 2>/dev/null)" ]; then
+    echo "install-dev: $proj has uncommitted changes - commit or stash them, or pass --force" >&2
+    exit 1
+  fi
+fi
 
 BUNDLED="test-driven-development systematic-debugging verification-before-completion receiving-code-review dispatching-parallel-agents"
 

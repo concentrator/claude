@@ -192,6 +192,21 @@ bash "$INSTALL" --project "$Q" >/dev/null 2>&1 && die "install succeeded on malf
 [ "$(cat "$Q/.claude/settings.json")" = 'not json{' ] && pass "malformed settings left intact" || die "malformed settings mutated"
 rm -rf "$Q"
 
+# --- pre-write guard (R075): a dirty tracked tree refuses the install ---
+DG=$(mktemp -d); git -C "$DG" init -q -b main
+printf 'x\n' > "$DG/f"; git -C "$DG" add -A
+git -C "$DG" -c user.email=t@t -c user.name=t commit -qm init
+git -C "$DG" checkout -qb work
+printf 'y\n' > "$DG/f"
+out=$(bash "$INSTALL" --project "$DG" 2>&1); rc=$?
+[ $rc -ne 0 ] && pass "dirty tree refused" || die "dirty tree installed (rc=$rc)"
+grep -qi 'commit or stash' <<<"$out" && grep -q -- '--force' <<<"$out" \
+  && pass "dirty refusal names the remedy" || die "dirty message: $out"
+[ ! -e "$DG/.claude" ] && pass "refused install wrote nothing" || die ".claude created despite refusal"
+bash "$INSTALL" --project "$DG" --force >/dev/null 2>&1 && [ -f "$DG/.claude/settings.json" ] \
+  && pass "--force bypasses the dirty refusal" || die "--force did not install"
+rm -rf "$DG"
+
 # --- global path (no --project): installs into HOME/.claude with a ~/... hook ---
 H=$(mktemp -d)
 HOME="$H" bash "$INSTALL" >/dev/null 2>&1 || die "global install exits nonzero"

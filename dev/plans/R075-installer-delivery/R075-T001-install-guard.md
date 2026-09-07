@@ -6,7 +6,7 @@ type: feat
 Both refusals of `requirements.md § Goals`, guarding `--project`
 installs before the first write.
 
-- [ ] Dirty-tree refusal: `--force` joins the argument loop, and a
+- [x] Dirty-tree refusal: `--force` joins the argument loop, and a
   project-scope guard between that loop and the first `mkdir` refuses
   when `git status --porcelain --untracked-files=no` in the target
   repo is non-empty - stderr names commit/stash and `--force`, exit 1,
