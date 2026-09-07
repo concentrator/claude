@@ -218,7 +218,12 @@ seeded=""
 if [ "$scope" = project ]; then
   m="$target/MAINTENANCE.md"
   if ! grep -q '^## Session and planning hygiene' "$m" 2>/dev/null; then
-    if [ -f "$m" ]; then printf '\n' >> "$m"; else printf '# Maintenance\n\n' > "$m"; fi
+    if [ -f "$m" ]; then
+      [ -z "$(tail -c1 "$m")" ] || printf '\n' >> "$m"   # terminate an unterminated last line
+      printf '\n' >> "$m"
+    else
+      printf '# Maintenance\n\n' > "$m"
+    fi
     cat >> "$m" <<'EOF'
 ## Session and planning hygiene
 

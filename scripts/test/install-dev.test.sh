@@ -245,7 +245,7 @@ grep -q '^project-specific rules stay.$' "$M/.claude/MAINTENANCE.md" \
 # Tuned section: a re-install leaves the file byte-identical.
 printf '| data/ | stale outputs | weekly |\n' >> "$M/.claude/MAINTENANCE.md"
 cp "$M/.claude/MAINTENANCE.md" "$M/before"
-bash "$INSTALL" --project "$M" >/dev/null 2>&1
+bash "$INSTALL" --project "$M" >/dev/null 2>&1 || die "re-install (maintenance fixture) exits nonzero"
 cmp -s "$M/.claude/MAINTENANCE.md" "$M/before" \
   && pass "tuned section survives re-install byte-identical" || die "re-install rewrote the maintenance doc"
 rm -rf "$M"
