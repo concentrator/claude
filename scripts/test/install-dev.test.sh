@@ -227,12 +227,36 @@ git -C "$DB" checkout -qb work
 bash "$INSTALL" --project "$DB" >/dev/null 2>&1 && pass "clean work-branch install passes" || die "clean work-branch install refused"
 rm -rf "$DB"
 
+# --- maintenance seeding (R077): the hygiene section reaches the project doc ---
+# Fresh target: the P installs created the file with the section, exactly once.
+[ -f "$P/.claude/MAINTENANCE.md" ] && grep -q '^## Session and planning hygiene' "$P/.claude/MAINTENANCE.md" \
+  && pass "hygiene section seeded on a fresh target" || die "no hygiene section on the fresh target"
+[ "$(grep -c '^## Session and planning hygiene' "$P/.claude/MAINTENANCE.md" 2>/dev/null)" = "1" ] \
+  && pass "seeding idempotent over re-installs" || die "hygiene section count wrong"
+grep -q 'dev/session/' "$P/.claude/MAINTENANCE.md" 2>/dev/null && grep -q 'dev/plans/' "$P/.claude/MAINTENANCE.md" 2>/dev/null \
+  && pass "targets table names its rows" || die "targets table incomplete"
+# Existing MAINTENANCE.md without the heading: appended, prior content intact.
+M=$(mktemp -d); mkdir -p "$M/.claude"
+printf '# Maintenance\n\nproject-specific rules stay.\n' > "$M/.claude/MAINTENANCE.md"
+bash "$INSTALL" --project "$M" >/dev/null 2>&1 || die "install (maintenance fixture) exits nonzero"
+grep -q '^project-specific rules stay.$' "$M/.claude/MAINTENANCE.md" \
+  && grep -q '^## Session and planning hygiene' "$M/.claude/MAINTENANCE.md" \
+  && pass "section appended, existing content preserved" || die "append clobbered the maintenance doc"
+# Tuned section: a re-install leaves the file byte-identical.
+printf '| data/ | stale outputs | weekly |\n' >> "$M/.claude/MAINTENANCE.md"
+cp "$M/.claude/MAINTENANCE.md" "$M/before"
+bash "$INSTALL" --project "$M" >/dev/null 2>&1 || die "re-install (maintenance fixture) exits nonzero"
+cmp -s "$M/.claude/MAINTENANCE.md" "$M/before" \
+  && pass "tuned section survives re-install byte-identical" || die "re-install rewrote the maintenance doc"
+rm -rf "$M"
+
 # --- global path (no --project): installs into HOME/.claude with a ~/... hook ---
 H=$(mktemp -d)
 HOME="$H" bash "$INSTALL" >/dev/null 2>&1 || die "global install exits nonzero"
 [ -f "$H/.claude/skills/dev/SKILL.md" ] && pass "global install copies toolset" || die "global install missing toolset"
 jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(. == "~/.claude/hooks/dev-branch-guard.sh")' "$H/.claude/settings.json" >/dev/null \
   && pass "global hook path is ~/.claude/..." || die "global hook path wrong"
+[ ! -e "$H/.claude/MAINTENANCE.md" ] && pass "global install seeds no MAINTENANCE.md" || die "global install wrote MAINTENANCE.md"
 rm -rf "$H"
 
 # --- committability: restrictive .claude/* gitignore → installed paths trackable ---
@@ -241,7 +265,7 @@ git -C "$G" checkout -qb work   # keep the fixture off a default branch in case 
 printf '.claude/*\n' > "$G/.gitignore"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (gitignore fixture) exits nonzero"
 still=""
-for p in .claude/skills .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/writing.md .claude/rules/writing-artifacts.md .claude/settings.json; do
+for p in .claude/skills .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/writing.md .claude/rules/writing-artifacts.md .claude/settings.json .claude/MAINTENANCE.md; do
   git -C "$G" check-ignore -q "$p" && still="$still $p"
 done
 [ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"

@@ -8,7 +8,7 @@ type: feat
 Branch: `feat/hygiene-seed`. Requirements:
 `dev/plans/R077-maintenance-routine/requirements.md`.
 
-- [ ] Seeding mechanism: the canonical "Session and planning hygiene"
+- [x] Seeding mechanism: the canonical "Session and planning hygiene"
   section (heading, two intro lines, the four-row targets table) lives
   as a heredoc in `install-dev.sh` following the code-size-allowlist
   idiom, and a project-scope step after the gitignore work writes
@@ -26,13 +26,13 @@ Branch: `feat/hygiene-seed`. Requirements:
   no `MAINTENANCE.md` is written; the gitignore fixture covers the
   new allowlist entry; the re-run fixtures stay green (seeding is
   idempotent by the heading check).
-- [ ] True claim: the `MAINTENANCE.md` sentence "The Routine section
+- [x] True claim: the `MAINTENANCE.md` sentence "The Routine section
   is generic and each project's `.claude/MAINTENANCE.md` carries it"
   is reworded to name the seeding mechanism (`install-dev.sh
   --project` seeds the hygiene subset when the heading is absent; the
   project owns it afterward). Doc-only commit; the Tier-1 gate is the
   verification.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, R077 closure check per `plan.md § Approval and closure`
   (criteria verified with one-line evidence, ROADMAP `[x]`, archival
