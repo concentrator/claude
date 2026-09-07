@@ -8,7 +8,7 @@ type: mnt
 Branch: `mnt/handoff-notes`. Requirements:
 `dev/plans/R078-handoff-continuity/requirements.md`.
 
-- [ ] The `notes` key: `handoff.md § Writing the note` adds `notes` to
+- [x] The `notes` key: `handoff.md § Writing the note` adds `notes` to
   the key list and the example block - short factual lines (facts,
   decisions, observations, explanations no durable artifact owns),
   expected when the note is written mid-task, `none` when empty; the

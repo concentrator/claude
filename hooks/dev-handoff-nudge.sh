@@ -32,7 +32,7 @@ tree=$(grep -n '^## tree ' "$session" 2>/dev/null | tail -1 | cut -d: -f1)
 [ -n "$tree" ] || exit 0
 hand=$(grep -n '^## hand-off' "$session" 2>/dev/null | tail -1 | cut -d: -f1)
 if [ -z "$hand" ] || [ "$tree" -gt "$hand" ]; then
-  jq -nc --arg r "context ${fill}% and the session state is stale: append the hand-off block to $session (skills/dev/handoff.md § Writing the note), then stop" \
+  jq -nc --arg r "context ${fill}% and the session state is stale: append the hand-off block - notes included for mid-task facts - to $session (skills/dev/handoff.md § Writing the note), then stop" \
     '{decision: "block", reason: $r}'
 fi
 exit 0

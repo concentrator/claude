@@ -51,6 +51,7 @@ echo "$out" | jq -e '.decision == "block"' >/dev/null 2>&1 \
   && pass "above + no hand-off: blocked" || die "expected decision:block, got rc=$rc out='$out'"
 case "$out" in *"$D/state/s1.md"*) pass "reason names the session file" ;; *) die "no session path in reason: $out" ;; esac
 case "$out" in *"Writing the note"*) pass "reason cites handoff.md § Writing the note" ;; *) die "no handoff.md citation: $out" ;; esac
+case "$out" in *"notes"*) pass "reason names the notes key" ;; *) die "no notes mention in reason: $out" ;; esac
 
 # Below + stale: silent.
 out=$(run "$BELOW"); rc=$?

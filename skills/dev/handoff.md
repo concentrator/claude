@@ -32,7 +32,7 @@ Kinds: `tree` (the hook's) and `hand-off` (this note).
 
 ## Writing the note
 
-Append one `hand-off` block with these five keys, each one line;
+Append one `hand-off` block with these six keys, each one line;
 `none` when empty:
 
     ## hand-off 2026-08-29T10:15:00Z
@@ -41,10 +41,16 @@ Append one `hand-off` block with these five keys, each one line;
     - branch: feat/precompact-state, 2 commits ahead of main
     - open: none
     - rulings: plan/ merges on green without a second ask; keep the 405 note
+    - notes: pre-push runs the full suite - allow minutes; the fix held
+      only with the index rebuilt first
 
 `done` and `next` name work by durable ids (`rules/writing-artifacts.md § Name
 things by their durable id`); `open` lists MR/PR numbers awaiting a decision;
-`rulings` lists the user's decisions still in force for the unit. The note is
+`rulings` lists the user's decisions still in force for the unit. `notes`
+holds short factual lines - facts, decisions, observations, explanations no
+durable artifact owns - and is expected whenever the note is written
+mid-task: it is what the resumed session cannot recover from git or the
+plan. The note is
 intent, so the tree never overrides it and it never restates the tree: branch
 state comes from the `tree` block and `git status`.
 
