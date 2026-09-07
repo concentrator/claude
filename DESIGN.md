@@ -51,6 +51,7 @@ Tracked dirs and notable files; harness-managed state (`projects/`,
 │   ├── dev-context-fill.sh       # context-fill percent helper
 │   ├── dev-handoff-nudge.sh      # Stop hand-off nudge
 │   ├── dev-precompact-state.sh   # PreCompact session-state writer
+│   ├── dev-session-brief.sh      # SessionStart hand-off re-brief
 │   ├── dev-secrets-guard.sh      # PreToolUse secrets guard
 │   └── secret-patterns.sh        # the secret predicate (one home, sourced)
 ├── scripts/
@@ -119,8 +120,8 @@ GitHub Docs.
 
 ## Self-enforcement
 
-Two tiers gate every change into `main` (the CI tiers are built for
-`~/.claude`; the hooks ship to adopters via `install-dev.sh`):
+Two tiers gate every change into `main` (hooks ship to adopters via
+`install-dev.sh`):
 
 - **Tier-1 - mechanical CI.** `scripts/ci/*.sh`, and the script tests in
   `scripts/test/`, run in `.github/workflows/ci.yml` on

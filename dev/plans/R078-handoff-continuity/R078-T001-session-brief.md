@@ -13,7 +13,7 @@ subagents, `agent_id`; the matcher filters on the reason; on exit 0 a
 `{"hookSpecificOutput": {"hookEventName": "SessionStart",
 "additionalContext": ...}}` JSON injects the context.
 
-- [ ] The hook and its self-test: `hooks/dev-session-brief.sh` reads
+- [x] The hook and its self-test: `hooks/dev-session-brief.sh` reads
   the stdin JSON (jq missing or input malformed → silent exit 0),
   exits silently when `agent_id` is present (a subagent needs no
   re-brief), resolves the session file via
