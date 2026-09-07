@@ -17,7 +17,7 @@ every project on the machine.
 | `rules/` | Path-scoped convention rules: the DEV-artifact writing rules (shipped by the installer), JS style, CLAUDE.md/skill maintenance |
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); plus reference skills |
 | `agents/` | Custom agents (e.g. branch-close code reviewer) |
-| `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no secrets into tracked files or commits), the UserPromptSubmit branch-state line, the PreCompact session-state writer, and the Stop hand-off nudge |
+| `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no secrets into tracked files or commits), the UserPromptSubmit branch-state line, the PreCompact session-state writer, the Stop hand-off nudge, and the SessionStart re-brief |
 | `scripts/` | `ci/` the Tier-1 mechanical gate (`run-all.sh`), `install-dev.sh`, `context-cost.py` the session context-cost reporter, `model-quota.sh` the pinned-dispatch quota gate, `test/` the script tests |
 | `.github/`, `.githooks/`, `.gitignore` | The CI gate on pull requests, its advisory local pre-push mirror, and the ignore rules for harness state |
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
@@ -44,7 +44,8 @@ batch of branches run by subagents between checkpoints, on permission
 rails), or supervised (`/dev supervise`, scoped delivery within declared
 bounds). `/dev ship` takes a landed branch to a merged MR/PR;
 `/dev handoff` writes the session's hand-off note, which with the
-PreCompact hook's tree block carries state across compaction.
+PreCompact hook's tree block carries state across compaction (the
+SessionStart hook re-injects the last hand-off block on resume).
 `/dev start`, `/dev migrate`, `/dev docs`, and `/dev release` cover
 scaffolding a new project, adopting an existing one, the `dev/docs/`
 layer, and tagging a release. Command surface and mode files:
@@ -98,9 +99,9 @@ default-branch HEAD, so the copy ships as its own reviewable change;
 Global install serves a contributor who wants `/dev` everywhere; the
 `--project` copy serves a repo's no-global contributors (skill precedence
 means a contributor's own global copy still wins). The installer registers
-the branch-guard, secrets-guard, branch-state, and handoff-nudge hooks
-in the target `settings.json` idempotently, copies the session-state
-writer and the context-fill helper beside them unregistered (the
+the branch-guard, secrets-guard, branch-state, handoff-nudge, and
+session-brief hooks in the target `settings.json` idempotently, copies
+the session-state writer and the context-fill helper beside them unregistered (the
 registered hooks call them for the session file's path and the fill
 percent), and from `rules/` ships only `writing-artifacts.md`. Re-run it to
 refresh.

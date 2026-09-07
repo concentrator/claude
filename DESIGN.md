@@ -51,6 +51,7 @@ Tracked dirs and notable files; harness-managed state (`projects/`,
 │   ├── dev-context-fill.sh       # context-fill percent helper
 │   ├── dev-handoff-nudge.sh      # Stop hand-off nudge
 │   ├── dev-precompact-state.sh   # PreCompact session-state writer
+│   ├── dev-session-brief.sh      # SessionStart hand-off re-brief
 │   ├── dev-secrets-guard.sh      # PreToolUse secrets guard
 │   └── secret-patterns.sh        # the secret predicate (one home, sourced)
 ├── scripts/
@@ -119,8 +120,8 @@ GitHub Docs.
 
 ## Self-enforcement
 
-Two tiers gate every change into `main` (the CI tiers are built for
-`~/.claude`; the hooks ship to adopters via `install-dev.sh`):
+Two tiers gate every change into `main` (hooks ship to adopters via
+`install-dev.sh`):
 
 - **Tier-1 - mechanical CI.** `scripts/ci/*.sh`, and the script tests in
   `scripts/test/`, run in `.github/workflows/ci.yml` on
@@ -143,12 +144,13 @@ Two tiers gate every change into `main` (the CI tiers are built for
   § Closing routine`); they are enumerated there and nowhere else.
 
 PreToolUse hooks (`dev-branch-guard`, `dev-secrets-guard`) guard ahead
-of both tiers: no trunk writes, commits, pushes or force pushes, no
-secrets into tracked files or commits; the secrets guard fails closed
-without its pattern library. `dev-branch-state`
-(UserPromptSubmit) keeps branch and tree state in front of the session;
-`dev-precompact-state` (PreCompact) saves it to the session file for
-the re-brief after compaction (`skills/dev/handoff.md`).
+of both tiers: no trunk writes, commits, or pushes, force pushes
+nowhere, no secrets into tracked files or commits; the secrets guard
+fails closed without its pattern library. `dev-branch-state`
+(UserPromptSubmit) keeps branch and tree in view;
+`dev-precompact-state` (PreCompact) saves it to the session file;
+`dev-session-brief` (SessionStart) injects its last hand-off block on
+resume (`skills/dev/handoff.md`).
 
 ## Context budget
 

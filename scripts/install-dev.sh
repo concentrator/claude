@@ -7,8 +7,9 @@
 #   --force                        bypass the pre-write project guard
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
-# branch-guard + secrets-guard + branch-state hooks (registered in the target
-# settings.json), the shipped Tier-1 checks with their self-tests, the
+# branch-guard + secrets-guard + branch-state + hand-off-nudge +
+# session-brief hooks (registered in the target settings.json), the shipped
+# Tier-1 checks with their self-tests, the
 # writing conventions (@imported by CLAUDE.md), and - on a project
 # install - the maintenance hygiene section when the target doc lacks it.
 # Does NOT ship the user's personal convention rules.
@@ -131,10 +132,27 @@ register_stop_hook() {   # $1 = hook script basename; Stop, no matcher
   fi
 }
 
+register_brief_hook() {   # $1 = hook script basename; SessionStart, compact/resume starts
+  cp "$SRC/hooks/$1" "$target/hooks/$1"
+  chmod +x "$target/hooks/$1"
+  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
+  if jq --arg cmd "$cmd" --arg old "$old" '
+    .hooks.SessionStart = [(.hooks.SessionStart // [])[]
+      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
+    | if ([.hooks.SessionStart[].hooks[].command] | any(. == $cmd)) then .
+      else .hooks.SessionStart += [{matcher: "compact|resume", hooks: [{type: "command", command: $cmd}]}] end
+  ' "$settings" > "$tmp"; then
+    mv "$tmp" "$settings"
+  else
+    rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
+  fi
+}
+
 register_hook dev-branch-guard.sh
 register_hook dev-secrets-guard.sh
 register_state_hook dev-branch-state.sh
 register_stop_hook dev-handoff-nudge.sh
+register_brief_hook dev-session-brief.sh
 # The secrets guard's predicate lives beside it (sourced, not registered).
 cp "$SRC/hooks/secret-patterns.sh" "$target/hooks/secret-patterns.sh"
 # The session-state writer is copied, not registered: PreCompact runs it

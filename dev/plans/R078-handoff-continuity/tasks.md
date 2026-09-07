@@ -1,6 +1,6 @@
 # R078: Hand-off continuity - tasks
 
-- [ ] R078-T001 [feat]: the `SessionStart` re-brief hook - inject the
+- [x] R078-T001 [feat]: the `SessionStart` re-brief hook - inject the
   session file's last `## hand-off` block on compact/resume starts,
   fail open everywhere, registered by the installer in both scopes,
   self-test and install-test coverage

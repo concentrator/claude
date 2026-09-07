@@ -13,7 +13,7 @@ subagents, `agent_id`; the matcher filters on the reason; on exit 0 a
 `{"hookSpecificOutput": {"hookEventName": "SessionStart",
 "additionalContext": ...}}` JSON injects the context.
 
-- [ ] The hook and its self-test: `hooks/dev-session-brief.sh` reads
+- [x] The hook and its self-test: `hooks/dev-session-brief.sh` reads
   the stdin JSON (jq missing or input malformed → silent exit 0),
   exits silently when `agent_id` is present (a subagent needs no
   re-brief), resolves the session file via
@@ -31,14 +31,14 @@ subagents, `agent_id`; the matcher filters on the reason; on exit 0 a
   file, file without a hand-off, subagent input, malformed input,
   outside a git repo. `DESIGN.md` tree-map gains the hook line with a
   matching trim (the file sits at its 1000-word cap).
-- [ ] Installer ships it: `install-dev.sh` gains a SessionStart
+- [x] Installer ships it: `install-dev.sh` gains a SessionStart
   register function (the `register_stop_hook` shape plus the
   `compact|resume` matcher) wired for both scope path forms, and the
   header comment names the hook. `install-dev.test.sh` asserts: copied
   and executable, registered on `SessionStart` with the matcher in the
   project form and the `~/.claude` global form, idempotent re-run (one
   block), relative-form entries replaced.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup. (R078 closure rides the task that closes the
   R's last open box - expected: R078-T002.)
