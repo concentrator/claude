@@ -1,6 +1,6 @@
 # R074: Session-state hand-off enforcement - tasks
 
-- [ ] R074-T001 [feat]: fill computation and the prompt-line warning -
+- [x] R074-T001 [feat]: fill computation and the prompt-line warning -
   the transcript-reading helper (fail-open, env-overridable threshold,
   fixture-pinned `usage` fields), `dev-branch-state.sh` extended with
   the warning, its self-test extended to assert both states and the

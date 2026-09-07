@@ -48,6 +48,7 @@ Tracked dirs and notable files; harness-managed state (`projects/`,
 ├── hooks/
 │   ├── dev-branch-guard.sh       # PreToolUse branch-guard (no trunk mutations)
 │   ├── dev-branch-state.sh       # UserPromptSubmit ambient branch/tree state
+│   ├── dev-context-fill.sh       # context-fill percent helper
 │   ├── dev-precompact-state.sh   # PreCompact session-state writer
 │   ├── dev-secrets-guard.sh      # PreToolUse secrets guard
 │   └── secret-patterns.sh        # the secret predicate (one home, sourced)
@@ -61,7 +62,7 @@ Tracked dirs and notable files; harness-managed state (`projects/`,
 │   └── settings.json             # project tier, tracked - push carve-out, durable allows, model
 ├── dev/                          # DEV artifacts (session/, supervisor/ gitignored)
 │   ├── plans/                    # planning hierarchy
-│   │   ├── ROADMAP.md            # cross-R index - see skills/dev/plan.md
+│   │   ├── ROADMAP.md            # cross-R index: skills/dev/plan.md
 │   │   ├── R<NNN>-<slug>/        # one dir per roadmap entry (initiative-time)
 │   │   │   ├── requirements.md   # initiative requirements
 │   │   │   ├── tasks.md          # this initiative's task index (lazy)

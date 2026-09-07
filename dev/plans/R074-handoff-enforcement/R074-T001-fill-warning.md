@@ -25,6 +25,6 @@ The transcript-reading helper and the `branch-state:` line extension
   <session path>`; `scripts/test/dev-branch-state.test.sh` gains the
   above-threshold form (override + fixture transcript), the unchanged
   below-threshold form, and re-asserts the one-line contract.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup.
