@@ -7,6 +7,7 @@
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
+unset CLAUDE_PROJECT_DIR DEV_STATE_DIR
 ROOT="$(git rev-parse --show-toplevel)"
 HOOK="$ROOT/hooks/dev-branch-state.sh"
 fail=0
@@ -49,6 +50,24 @@ mkdir -p "$D/dev/session"; printf '# session s9\n' > "$D/dev/session/s9.md"
 out=$(printf '{"session_id":"s9"}' | bash "$HOOK" 2>/dev/null)
 case "$out" in *"| session-state: $D/dev/session/s9.md") pass "session file named once it exists" ;; *) die "no pointer in: $out" ;; esac
 [ "$(printf '%s\n' "$out" | wc -l | tr -d ' ')" -eq 1 ] && pass "pointer keeps the line to one" || die "pointer broke the one-line form"
+
+# Context-fill warning (R074-T001): above the (overridden) threshold the
+# line gains the warning segment naming the session file; below it the
+# line is unchanged. One-line contract holds in both forms. The global
+# settings tier is pointed at an empty fixture so only the repo's own
+# window is read.
+mkdir -p "$D/.claude" "$D/global"
+printf '{"autoCompactWindow":100000}\n' > "$D/.claude/settings.json"
+printf '{}\n' > "$D/global/settings.json"
+T="$D/t.jsonl"
+printf '{"type":"assistant","message":{"usage":{"input_tokens":5000,"cache_creation_input_tokens":10000,"cache_read_input_tokens":35000}}}\n' > "$T"
+out=$(printf '{"session_id":"s9","transcript_path":"%s"}' "$T" \
+  | env CLAUDE_CONFIG_DIR="$D/global" DEV_FILL_WARN_PCT=40 bash "$HOOK" 2>/dev/null)
+case "$out" in *"| context 50% - append the hand-off block to $D/dev/session/s9.md") pass "fill warning above threshold" ;; *) die "no fill warning in: $out" ;; esac
+[ "$(printf '%s\n' "$out" | wc -l | tr -d ' ')" -eq 1 ] && pass "warning keeps the line to one" || die "warning broke the one-line form"
+out=$(printf '{"session_id":"s9","transcript_path":"%s"}' "$T" \
+  | env CLAUDE_CONFIG_DIR="$D/global" bash "$HOOK" 2>/dev/null)
+case "$out" in *context*) die "warning printed below threshold: $out" ;; *"| session-state: $D/dev/session/s9.md") pass "below threshold: line unchanged" ;; *) die "unexpected line: $out" ;; esac
 
 # Outside any git repo: silent, exit 0.
 N=$(mktemp -d); cd "$N"

@@ -7,7 +7,7 @@ supervised: approved 2026-09-07
 The transcript-reading helper and the `branch-state:` line extension
 (`requirements.md § Goals`, first two bullets).
 
-- [ ] `hooks/dev-context-fill.sh`: reads the hook input JSON on stdin,
+- [x] `hooks/dev-context-fill.sh`: reads the hook input JSON on stdin,
   takes the last `message.usage` record from its `transcript_path`
   (`input_tokens` + `cache_creation_input_tokens` +
   `cache_read_input_tokens`, the fields `scripts/context-cost.py`
@@ -20,11 +20,11 @@ The transcript-reading helper and the `branch-state:` line extension
   pinning the three `usage` fields (loud failure on schema drift),
   above/below threshold, the override, and each fail-open path
   (absent transcript, malformed JSON, absent window).
-- [ ] `hooks/dev-branch-state.sh`: when the helper prints, the one
+- [x] `hooks/dev-branch-state.sh`: when the helper prints, the one
   line gains `| context <pct>% - append the hand-off block to
   <session path>`; `scripts/test/dev-branch-state.test.sh` gains the
   above-threshold form (override + fixture transcript), the unchanged
   below-threshold form, and re-asserts the one-line contract.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup.
