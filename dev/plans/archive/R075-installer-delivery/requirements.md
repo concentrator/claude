@@ -51,18 +51,26 @@ with the operator.
 
 ## Acceptance criteria
 
-- [ ] `--project` into a repo with a modified tracked file exits
+- [x] `--project` into a repo with a modified tracked file exits
   nonzero, leaves the target byte-identical, and the message names
-  commit/stash and `--force` (install self-test).
-- [ ] `--project` with a clean tree checked out on the default branch
+  commit/stash and `--force` (install self-test). Evidence:
+  `install-dev.test.sh` "dirty tree refused", "dirty refusal names the
+  remedy", "refused install wrote nothing".
+- [x] `--project` with a clean tree checked out on the default branch
   exits nonzero, leaves the target unchanged, and the message says to
-  switch to a new branch (install self-test).
-- [ ] `--force` installs in both refused situations (install
-  self-test).
-- [ ] A clean tree on a non-default branch installs; the existing
+  switch to a new branch (install self-test). Evidence:
+  "default-branch HEAD refused", "default-branch refusal names the
+  remedy", "default-branch refusal wrote nothing".
+- [x] `--force` installs in both refused situations (install
+  self-test). Evidence: "--force bypasses the dirty refusal",
+  "--force bypasses the default-branch refusal".
+- [x] A clean tree on a non-default branch installs; the existing
   non-git and global fixtures in `install-dev.test.sh` pass unchanged.
-- [ ] Tier-1 gate green (`bash scripts/ci/run-all.sh`, script tests
-  included).
+  Evidence: "clean work-branch install passes"; the non-git, global,
+  idempotency, and malformed-settings assertions pass untouched.
+- [x] Tier-1 gate green (`bash scripts/ci/run-all.sh`, script tests
+  included). Evidence: `run-all: ALL OK` and `test/run-all: ALL OK` at
+  branch close.
 
 ## Constraints
 

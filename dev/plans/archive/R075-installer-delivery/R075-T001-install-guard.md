@@ -24,7 +24,7 @@ installs before the first write.
   gains one sentence naming the guard. Tests: the refusal, its
   `--force` bypass, the both-conditions ordering, and a clean
   non-default-branch install passing untouched.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, R075 closure check per `plan.md § Approval and closure`
   (criteria verified with one-line evidence, ROADMAP `[x]`, archival
