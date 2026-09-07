@@ -8,7 +8,7 @@ type: feat
 Branch: `feat/hygiene-seed`. Requirements:
 `dev/plans/R077-maintenance-routine/requirements.md`.
 
-- [ ] Seeding mechanism: the canonical "Session and planning hygiene"
+- [x] Seeding mechanism: the canonical "Session and planning hygiene"
   section (heading, two intro lines, the four-row targets table) lives
   as a heredoc in `install-dev.sh` following the code-size-allowlist
   idiom, and a project-scope step after the gitignore work writes

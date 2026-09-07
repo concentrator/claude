@@ -8,8 +8,9 @@
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
 # branch-guard + secrets-guard + branch-state hooks (registered in the target
-# settings.json), the shipped Tier-1 checks with their self-tests, and the
-# writing conventions (@imported by CLAUDE.md).
+# settings.json), the shipped Tier-1 checks with their self-tests, the
+# writing conventions (@imported by CLAUDE.md), and - on a project
+# install - the maintenance hygiene section when the target doc lacks it.
 # Does NOT ship the user's personal convention rules.
 # Idempotent + re-runnable.
 set -euo pipefail
@@ -193,7 +194,7 @@ grep -qxF '@writing.md' "$claudemd" 2>/dev/null || printf '\n@writing.md\n' >> "
 # target repo's .gitignore excludes (idempotent), so they can be committed.
 if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null 2>&1; then
   repo="$(git -C "$proj" rev-parse --show-toplevel)"; gi="$repo/.gitignore"
-  for p in ".claude/skills/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/rules/" ".claude/CLAUDE.md" ".claude/settings.json"; do
+  for p in ".claude/skills/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/rules/" ".claude/CLAUDE.md" ".claude/settings.json" ".claude/MAINTENANCE.md"; do
     git -C "$repo" check-ignore -q "${p%/}" 2>/dev/null || continue   # not ignored → skip
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"
@@ -207,6 +208,35 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
   done
 fi
 
+# 8. maintenance: seed the hygiene section - the cleanup rules for the
+#    toolset's own by-products (session files, closed plans, allow-list
+#    growth) - into the project doc when its heading is absent; the
+#    heading is the marker, so an adopter's tuned copy is never touched.
+#    The global target is this repo, whose MAINTENANCE.md § Routine is
+#    the superset, so global installs seed nothing.
+seeded=""
+if [ "$scope" = project ]; then
+  m="$target/MAINTENANCE.md"
+  if ! grep -q '^## Session and planning hygiene' "$m" 2>/dev/null; then
+    if [ -f "$m" ]; then printf '\n' >> "$m"; else printf '# Maintenance\n\n' > "$m"; fi
+    cat >> "$m" <<'EOF'
+## Session and planning hygiene
+
+DEV-toolset by-products age out on a cadence: detect, report, repair - and
+never silently delete something you didn't create.
+
+| Target | Check | Cadence |
+|---|---|---|
+| `dev/session/` | files whose session transcript is gone (`.claude/skills/dev/handoff.md`) | weekly, delete |
+| `dev/plans/` | orphaned or closed plan, findings, requirements and batch files; empty initiative dirs | monthly |
+| `.claude/settings.json` + any `settings.local.json` | allow-list mess: one-off, dead or overlapping rules | weekly |
+| repo root and `.claude/` | stray temp or build artifacts | weekly |
+EOF
+    seeded="$m"
+  fi
+fi
+
 echo "install-dev: DEV toolset installed into $target ($scope)"
 echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh, check-accretion.sh, check-batch-tags.sh)"
 echo "install-dev: self-tests in $target/scripts/test/ - wire checks and self-tests into your CI"
+if [ -n "$seeded" ]; then echo "install-dev: maintenance hygiene section seeded into $seeded"; fi
