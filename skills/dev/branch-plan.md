@@ -41,7 +41,11 @@ file's loop, `doc`/`test`/`mnt` run this alone:
    `release-routine: yes` → CHANGELOG `## [Unreleased]` entry
    (`changelog.md`); new public
    surface → `README.md`; `extended-docs: yes` → per conventions
-   (feature `dev/docs/` docs reconcile at close).
+   (feature `dev/docs/` docs reconcile at close). A task whose commits
+   are one release-note-worthy change split across passes writes the
+   CHANGELOG entry once, in the pass that completes it, rather than
+   restating a growing entry per commit; the plan item that carries it
+   says so.
 3. **Commit** (`git-workflow.md § Commit messages`); mark the plan
    `[x]` immediately.
 4. **Output** - throughout the pass a command prints only what the
