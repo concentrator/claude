@@ -8,7 +8,7 @@ supervised: approved 2026-09-07
 The turn-end reminder for autonomous sessions and the installer wiring
 (`requirements.md § Goals`, last two bullets).
 
-- [ ] `hooks/dev-handoff-nudge.sh` (Stop hook): fill from
+- [x] `hooks/dev-handoff-nudge.sh` (Stop hook): fill from
   `dev-context-fill.sh`; session file from `dev-precompact-state.sh
   --path`; stale means the file's last `## tree` block sits after its
   last `## hand-off` block (no `hand-off` at all counts as stale, no
