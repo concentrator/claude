@@ -18,7 +18,7 @@ Branch: `mnt/undated-stamps`. Requirements:
   `dev/plans/R-042-planning-pocs/R042-T001-spike-provision.md` carries
   the R's only dated `agentic:` stamp; its header reads
   `agentic: approved`.
-- [ ] Retire the dated-stamp exemption in
+- [x] Retire the dated-stamp exemption in
   `scripts/ci/check-accretion.sh`: the stamp value span is scanned
   like any other text, and the exemption case in
   `check-accretion.test.sh` asserts a dated stamp is caught.

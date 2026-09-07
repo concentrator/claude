@@ -29,13 +29,18 @@ printf -- 'superseded 2026-07-07 by R-021\n' > "$d/dev/plans/archive/R-001-x/tas
 git -C "$d" add -A
 check_in "$d" && pass "archive exempt" || die "archive wrongly flagged"; rm -rf "$d"
 
-# 3. the two dated stamps -> exempt, pass. `approved:` carries a state,
-# so it needs no exemption and is shown here in its undated form.
+# 3. the stamps are dateless (`branch-plan.md § Stamps`): the undated
+# forms pass, a dated stamp is accretion like any other dated marker.
 d=$(mkrepo); mkdir -p "$d/dev/plans/R-001-x"
-printf -- '---\napproved: yes\nkind: chore\nagentic: approved 2026-08-09\nsupervised: approved 2026-08-09\n---\n\n# R-001\n' \
+printf -- '---\napproved: yes\nkind: chore\nagentic: approved\nsupervised: approved\n---\n\n# R-001\n' \
   > "$d/dev/plans/R-001-x/requirements.md"
 git -C "$d" add -A
-check_in "$d" && pass "frontmatter exempt" || die "frontmatter wrongly flagged"; rm -rf "$d"
+check_in "$d" && pass "undated stamps pass" || die "undated stamps wrongly flagged"; rm -rf "$d"
+d=$(mkrepo); mkdir -p "$d/dev/plans/R-001-x"
+printf -- '---\napproved: yes\nkind: chore\nagentic: approved 2026-08-09\n---\n\n# R-001\n' \
+  > "$d/dev/plans/R-001-x/requirements.md"
+git -C "$d" add -A
+check_in "$d" && die "dated stamp not caught" || pass "dated stamp caught"; rm -rf "$d"
 
 # 4. undated terminal outcome -> present state, pass
 d=$(mkrepo); printf -- '- [x] R-019: embed - mooted by R-021 (no vendoring).\n' > "$d/dev/plans/ROADMAP.md"
