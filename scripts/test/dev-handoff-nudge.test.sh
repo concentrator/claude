@@ -47,8 +47,8 @@ out=$(run "$ABOVE"); rc=$?
 # Above + tree and no hand-off at all: stale, the stop is blocked.
 printf '\n## tree 2026-09-07T00:00:00Z\n- branch: work\n' >> "$D/state/s1.md"
 out=$(run "$ABOVE"); rc=$?
-echo "$out" | jq -e '.ok == false' >/dev/null 2>&1 \
-  && pass "above + no hand-off: blocked" || die "expected ok:false, got rc=$rc out='$out'"
+echo "$out" | jq -e '.decision == "block"' >/dev/null 2>&1 \
+  && pass "above + no hand-off: blocked" || die "expected decision:block, got rc=$rc out='$out'"
 case "$out" in *"$D/state/s1.md"*) pass "reason names the session file" ;; *) die "no session path in reason: $out" ;; esac
 case "$out" in *"Writing the note"*) pass "reason cites handoff.md § Writing the note" ;; *) die "no handoff.md citation: $out" ;; esac
 
@@ -64,8 +64,13 @@ out=$(run "$ABOVE"); rc=$?
 # A later tree makes it stale again.
 printf '\n## tree 2026-09-07T00:10:00Z\n- branch: work\n' >> "$D/state/s1.md"
 out=$(run "$ABOVE")
-echo "$out" | jq -e '.ok == false' >/dev/null 2>&1 \
+echo "$out" | jq -e '.decision == "block"' >/dev/null 2>&1 \
   && pass "tree after hand-off: stale again" || die "expected re-block, got '$out'"
+
+# Already continuing from a Stop block: silent even above + stale.
+out=$(printf '{"session_id":"s1","transcript_path":"%s","stop_hook_active":true}' "$ABOVE" \
+  | env CLAUDE_PROJECT_DIR="$D/proj" CLAUDE_CONFIG_DIR="$D/global" DEV_STATE_DIR="$D/state" bash "$HOOK" 2>/dev/null); rc=$?
+[ "$rc" -eq 0 ] && [ -z "$out" ] && pass "stop_hook_active: silent" || die "stop_hook_active: rc=$rc out='$out'"
 
 # Fail-open: absent transcript, absent window, outside a git repository.
 out=$(run "$D/missing.jsonl"); rc=$?

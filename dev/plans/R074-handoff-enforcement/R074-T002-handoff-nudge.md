@@ -13,7 +13,7 @@ The turn-end reminder for autonomous sessions and the installer wiring
   --path`; stale means the file's last `## tree` block sits after its
   last `## hand-off` block (no `hand-off` at all counts as stale, no
   file or no `tree` as fresh). Both conditions hold → print
-  `{"ok": false, "reason": "..."}` naming the session file and
+  `{"decision": "block", "reason": "..."}` naming the session file and
   `handoff.md § Writing the note`; anything else, and every read
   failure, → exit 0 silent. With it
   `scripts/test/dev-handoff-nudge.test.sh`: the four-cell
