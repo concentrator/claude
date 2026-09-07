@@ -297,3 +297,11 @@ Initiative index. Items: `R-001: description`; each entry owns
       declared supervisor, docs by a doc-writer seat and at a single
       top-level `docs/`, `dev/` and its CI checks retire; drops R071 as
       moot.
+- [ ] R074: Session-state hand-off enforcement - compacted sessions
+      leave the `dev/session/` hand-off half unwritten, so intent is
+      lost to the summary: a context-fill warning line in
+      `dev-branch-state.sh` (threshold below the auto-compact point,
+      fill computed from the transcript's usage records, reads fail
+      open), a `Stop`-hook nudge covering autonomous turns, the
+      PreCompact tree block unchanged as the floor.
+      (stub - shape via `/dev plan R074`)
