@@ -7,6 +7,7 @@
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
+unset CLAUDE_PROJECT_DIR DEV_STATE_DIR
 ROOT="$(git rev-parse --show-toplevel)"
 HOOK="$ROOT/hooks/dev-branch-state.sh"
 fail=0
