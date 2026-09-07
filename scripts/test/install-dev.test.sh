@@ -237,7 +237,7 @@ rm -rf "$H"
 
 # --- committability: restrictive .claude/* gitignore → installed paths trackable ---
 G=$(mktemp -d); git -C "$G" init -q
-git -C "$G" checkout -qb work   # the pre-write guard refuses a default-branch HEAD
+git -C "$G" checkout -qb work   # keep the fixture off a default branch in case it gains commits
 printf '.claude/*\n' > "$G/.gitignore"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (gitignore fixture) exits nonzero"
 still=""
