@@ -110,8 +110,6 @@ Targets beyond the generic routine:
   zero invocations over the period and no inbound reference from
   CLAUDE.md / rules / other skills → flag for triage (wire in, accept
   as description-triggered, or remove). Truncate the log after review.
-- Skill listing: keep total descriptions within
-  `skillListingBudgetFraction`.
 - Pre-push hook: a tracked `.githooks/pre-push` runs the Tier-1 gate
   (`scripts/ci/run-all.sh`) locally - advisory, bypass with
   `git push --no-verify`. Enable once per clone:
