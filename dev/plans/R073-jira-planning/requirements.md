@@ -25,6 +25,14 @@ runs:
 - **Duplicated homes.** Findings promote into docs at close, so facts
   live twice with a rule (`plan.md § Archival`) needed to reconcile
   them; four CI checks exist only to police plan-file shape.
+- **Two unattended modes for one job.** `/dev auto` and
+  `/dev supervise` both run planned work with no user at the keyboard
+  and differ only in who answers the worker: a stamp vouching that no
+  question will arise, or a supervising session. Each carries its own
+  stamp, pre-flight, and halt path. The cold read that tests a plan on
+  a fresh reader is a stamp step, so it retires with the stamps unless
+  re-homed; and the implementer writes the docs, so the docs contract
+  rests on a context already full of implementation.
 
 ## Desired state
 
@@ -36,12 +44,32 @@ operations, and documentation - nothing else.
    one ticket is one branch. A batch is a ticket with attached
    sub-tickets. History, decisions, and evidence live in the tracker;
    reports and findings are ticket comments.
-2. **The worker sees one task.** The dispatch (manual `/dev code` or
-   supervised brief) injects the ticket's plan and requirements; the
-   worker reads Jira read-only, writes progress and reports as ticket
-   comments, and never writes a planning artifact into the repo. No
-   plan file is tracked in git.
-3. **Docs are the repo's knowledge, at `docs/`.** One documentation
+2. **The worker sees one task.** The dispatch injects the ticket's
+   plan and the epic's requirements; with the repo's docs and code,
+   that is the worker's whole context. It reads Jira read-only, writes
+   progress and reports as ticket comments, and never writes a
+   planning artifact into the repo. No plan file is tracked in git.
+3. **One unattended flow, three dispatched seats.** `/dev auto` and
+   `/dev supervise` merge: the worker engine (fresh implementer per
+   item, spec check, review, checkpoint) runs under a supervisor that
+   dispatches planner, worker, and doc writer, answers
+   implementation-level questions, verifies the boundary, and merges
+   within bounds (R072-T002). The project declares who holds the seat,
+   `Supervisor: human | AI`, and the always-ask list reaches the user
+   under either. The stamp pair has no successor: readiness is a
+   property of the plan, not of the mode running it.
+4. **Planning exits through a cold read.** A ticket's plan is ready
+   for dispatch when a fresh agent, given exactly the worker's inputs,
+   says what it would build and finds nothing ambiguous; a question
+   the inputs cannot answer is a plan gap fixed before the epic is
+   approved. The check moves from the stamps to the planner's exit.
+5. **Docs come from a doc-writer seat.** After the worker's code lands
+   on the branch, the supervisor dispatches a doc writer with the
+   diff, the ticket, and the existing docs, and none of the
+   implementer's context, to write `docs/` on the same branch; the
+   documentation contract's verification gate is its exit. The
+   implementer's dispatch names no doc target.
+6. **Docs are the repo's knowledge, at `docs/`.** One documentation
    directory per project, top-level, internal and external audiences
    under the same contract; `dev/docs/` moves there and `dev/`
    disappears from tracking (supervisor ledgers and session state stay
@@ -50,14 +78,14 @@ operations, and documentation - nothing else.
    only external URLs or sibling docs. Durable facts land in docs
    directly at the branch that learns them - there is no findings
    file to promote from.
-4. **Fewer, larger branches.** One ticket, one branch, typically
+7. **Fewer, larger branches.** One ticket, one branch, typically
    10-30 commits; commits need not be atomic. The MR is the review
    and delivery unit, cutting per-branch routine to one cycle.
-5. **Skill rewrite.** `/dev plan` writes epics and tickets in Jira;
+8. **Skill rewrite.** `/dev plan` writes epics and tickets in Jira;
    `/dev code <ticket>` and the supervisor's dispatch start from a
    ticket id; `finish` closes the ticket and comments the MR link.
    Commit and MR text cite the ticket key as the durable id.
-6. **Teardown.** `dev/plans/` (archive included) is deleted - git
+9. **Teardown.** `dev/plans/` (archive included) is deleted - git
    history preserves it; ROADMAP, task indexes, branch-plan and
    findings templates, the archival gate, `check-plan-integrity`,
    `check-batch-tags`, and the accretion stamp exemptions retire.
@@ -72,14 +100,22 @@ operations, and documentation - nothing else.
 - The R068 docs framework keeps its contract; this R moves its home
   to `docs/` and removes its plan-file competitor, not its rules.
 - Two-seat supervision (R072) is the execution model this R re-points
-  at tickets; seams and bounds unchanged.
+  at tickets and folds the modes into; the worker/supervisor seam,
+  merge authority, and always-ask list are R072-T002's and are not
+  re-decided here.
+- A seat's context is its dispatch: no seat reads another seat's
+  transcript, planning conversation, or working files.
 
 ## Scope
 
 `skills/dev/` (all planning-facing files: `dev.md` surface, `plan.md`,
 `brainstorm.md`, `write-plan.md`, `branch-plan.md`, `finish.md`,
 `auto.md`, `supervise.md`, runbook, `templates.md`, `handoff.md`,
-`migrate.md`, `start.md`); `scripts/ci/` plan checks and their tests;
+`migrate.md`, `start.md`); the seat model (`companions/declarations.md`
+supervision declaration, `companions/supervisor-runbook.md § Modes`,
+`companions/verification-policy.md § Comprehension check`,
+`companions/implementer-prompt.md`, a doc-writer prompt, `DESIGN.md`);
+`scripts/ci/` plan checks and their tests;
 `dev/plans/` corpus (migrate open, delete all); the `dev/docs/` to
 `docs/` move with every rule that names the old path (`layout.md
 § Docs`, `companions/documentation.md`, project overlays); Jira
@@ -100,6 +136,16 @@ initiatives close.
 - [ ] Every open initiative and task existing at migration is
       reachable in Jira with its content; verified by a migration
       manifest comment on each epic naming its source R id.
+- [ ] One unattended flow: `Supervisor: human | AI` is the only
+      supervision-role declaration, and `Operator mode:`, `agentic:`,
+      `supervised:` appear in no rule, skill, template, or CI check;
+      verified by grep across `CLAUDE.md`, `rules/`, `skills/`,
+      `scripts/ci/`.
+- [ ] The pilot's plan passed a cold read before its epic was approved
+      and its docs were written by a doc-writer dispatch; verified by
+      the cold-read result and the doc-writer report as ticket
+      comments, and by the implementer dispatch text naming no doc
+      target.
 - [ ] `run-all.sh` carries no plan-file check and the suite is green.
 - [ ] MR and commit text cite ticket keys; the branch of the pilot
       task maps one to one to its ticket.
@@ -114,6 +160,8 @@ initiatives close.
 - In-flight initiatives (R019 remainder, fp-remedy R002/R011/R003)
   finish under current rules; their projects migrate at their next
   planning round.
+- R072-T002 (the operator seat merges into the supervisor) lands
+  first; T003 rewrites its result and re-decides none of its bounds.
 
 ## Open questions
 
@@ -124,5 +172,6 @@ initiatives close.
 
 ## References
 
-- R072 (execution cuts this R re-points at tickets), R068 (docs
-  framework), R070 (archival gate this R retires).
+- R072 (execution cuts this R re-points at tickets; R072-T002 is the
+  two-seat result the mode merge builds on), R068 (docs framework),
+  R070 (archival gate this R retires).
