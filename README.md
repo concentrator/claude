@@ -17,7 +17,7 @@ every project on the machine.
 | `rules/` | Path-scoped convention rules: the DEV-artifact writing rules (shipped by the installer), JS style, CLAUDE.md/skill maintenance |
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); plus reference skills |
 | `agents/` | Custom agents (e.g. branch-close code reviewer) |
-| `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no secrets into tracked files or commits), the UserPromptSubmit branch-state line, and the PreCompact session-state writer |
+| `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no secrets into tracked files or commits), the UserPromptSubmit branch-state line, the PreCompact session-state writer, and the Stop hand-off nudge |
 | `scripts/` | `ci/` the Tier-1 mechanical gate (`run-all.sh`), `install-dev.sh`, `context-cost.py` the session context-cost reporter, `model-quota.sh` the pinned-dispatch quota gate, `test/` the script tests |
 | `.github/`, `.githooks/`, `.gitignore` | The CI gate on pull requests, its advisory local pre-push mirror, and the ignore rules for harness state |
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
@@ -84,8 +84,8 @@ To give another machine or project the DEV toolset - the `/dev` router,
 its mode-file companions, the bundled dependency skills, the writing
 conventions and the DEV-artifact writing rule, the project-agnostic Tier-1 checks (code-size, em-dash,
 accretion, batch-tags - the last two with self-tests), the two
-PreToolUse guards, and the branch-state line - run the installer from a
-checkout of this repo:
+PreToolUse guards, the branch-state line, and the hand-off nudge - run
+the installer from a checkout of this repo:
 
     scripts/install-dev.sh                   # into ~/.claude (global)
     scripts/install-dev.sh --project <path>  # into <path>/.claude
@@ -93,10 +93,11 @@ checkout of this repo:
 Global install serves a contributor who wants `/dev` everywhere; the
 `--project` copy serves a repo's no-global contributors (skill precedence
 means a contributor's own global copy still wins). The installer registers
-the branch-guard, secrets-guard, and branch-state hooks in the target
-`settings.json` idempotently, copies the session-state writer beside
-them unregistered (the branch-state hook asks it for the session file's
-path), and from `rules/` ships only `writing-artifacts.md`. Re-run it to
+the branch-guard, secrets-guard, branch-state, and handoff-nudge hooks
+in the target `settings.json` idempotently, copies the session-state
+writer and the context-fill helper beside them unregistered (the
+registered hooks call them for the session file's path and the fill
+percent), and from `rules/` ships only `writing-artifacts.md`. Re-run it to
 refresh.
 
 It also writes outside the target `.claude/`, append-only in both cases:

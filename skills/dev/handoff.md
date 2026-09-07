@@ -48,6 +48,9 @@ things by their durable id`); `open` lists MR/PR numbers awaiting a decision;
 intent, so the tree never overrides it and it never restates the tree: branch
 state comes from the `tree` block and `git status`.
 
+Two reminders point here when the note is overdue: the `branch-state:`
+context warning and the Stop-hook nudge (`hooks/dev-handoff-nudge.sh`).
+
 Write it at each unit boundary - an initiative closed, a dispatch sent,
 a ruling received, a task branch opened - and before any step the
 session expects to outlive its context. Under a tenth of context left,

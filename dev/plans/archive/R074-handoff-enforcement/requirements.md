@@ -22,9 +22,9 @@ warning, and PreCompact is side-effect only - it cannot make the model
 write. Verified 2026-09-07 against `code.claude.com/docs/en/hooks-guide.md`
 and `context-window.md`: no hook event or input field carries context
 fill and no "approaching compaction" notification exists; every hook
-receives `transcript_path`; a `Stop` hook returning `ok: false` with a
-reason sends the model back for another turn (the harness overrides
-after 8 consecutive blocks); `UserPromptSubmit` hook output reaches
+receives `transcript_path`; a command `Stop` hook printing a top-level
+`decision: block` with a reason sends the model back for another turn
+(the harness overrides after 8 consecutive blocks); `UserPromptSubmit` hook output reaches
 the model each prompt. The transcript's per-message `usage` records
 are undocumented but observed: `scripts/context-cost.py` computes all
 its numbers from them, and its test pins the fields. Auto-compaction
@@ -42,8 +42,8 @@ window), so a warning threshold must sit below that point.
   `hooks/dev-branch-state.sh` extends its one line with the fill and
   the instruction, e.g.
   `context 82% - append the hand-off block to <session-state path>`.
-- **Stop-hook nudge**: a new hook on `Stop` returns `ok: false` with a
-  one-line reason citing `handoff.md § Writing the note` exactly when
+- **Stop-hook nudge**: a new hook on `Stop` prints `decision: block`
+  with a one-line reason citing `handoff.md § Writing the note` exactly when
   both hold: fill is at or above the threshold, and the session file's
   last `tree` block is newer than its last `hand-off` block (a file
   with no `hand-off` counts as stale). Writing the hand-off clears the
@@ -80,11 +80,11 @@ window), so a warning threshold must sit below that point.
   `hand-off`, the branch-state line carries the fill warning and the
   session-file path; below the threshold, or with a fresh `hand-off`,
   the line is unchanged and stays one line (hook self-test).
-- [ ] The Stop hook returns `ok: false` with a reason citing
+- [ ] The Stop hook prints `decision: block` with a reason citing
   `handoff.md` exactly when fill >= threshold and the hand-off is
-  stale, each condition asserted both ways; `ok: true` on a malformed
-  or absent transcript, absent `autoCompactWindow`, or outside a git
-  repository (fail open), each asserted.
+  stale, each condition asserted both ways; silent exit 0 on a
+  malformed or absent transcript, absent `autoCompactWindow`, or
+  outside a git repository (fail open), each asserted.
 - [ ] The threshold is 80% of the project's `autoCompactWindow` and an
   environment override changes it; the self-test's transcript fixture
   pins the `usage` fields the helper reads, failing loudly when the

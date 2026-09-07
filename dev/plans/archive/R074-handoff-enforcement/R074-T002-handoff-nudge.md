@@ -8,23 +8,23 @@ supervised: approved 2026-09-07
 The turn-end reminder for autonomous sessions and the installer wiring
 (`requirements.md § Goals`, last two bullets).
 
-- [ ] `hooks/dev-handoff-nudge.sh` (Stop hook): fill from
+- [x] `hooks/dev-handoff-nudge.sh` (Stop hook): fill from
   `dev-context-fill.sh`; session file from `dev-precompact-state.sh
   --path`; stale means the file's last `## tree` block sits after its
   last `## hand-off` block (no `hand-off` at all counts as stale, no
   file or no `tree` as fresh). Both conditions hold → print
-  `{"ok": false, "reason": "..."}` naming the session file and
+  `{"decision": "block", "reason": "..."}` naming the session file and
   `handoff.md § Writing the note`; anything else, and every read
   failure, → exit 0 silent. With it
   `scripts/test/dev-handoff-nudge.test.sh`: the four-cell
   condition matrix, the fail-open paths (absent transcript, absent
   window, outside a git repository), and that a `hand-off` appended
   after the `tree` block clears the nudge.
-- [ ] Register the hook on `Stop` in `settings.json`; the self-test
+- [x] Register the hook on `Stop` in `settings.json`; the self-test
   asserts the registration (the `dev-branch-state.test.sh` pattern);
   `skills/dev/handoff.md § Writing the note` gains one line naming the
   warning and the nudge as the reminders that point here.
-- [ ] `scripts/install-dev.sh`: copy `dev-context-fill.sh` and
+- [x] `scripts/install-dev.sh`: copy `dev-context-fill.sh` and
   `dev-handoff-nudge.sh` beside the other hooks and register the nudge
   on `Stop` idempotently (a `register_stop_hook` beside
   `register_state_hook`); `scripts/test/install-dev.test.sh` asserts
