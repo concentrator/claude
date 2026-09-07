@@ -157,7 +157,8 @@ jq -n '{hooks:{PreToolUse:[
   {matcher:"Bash",hooks:[{type:"command",command:".claude/hooks/dev-branch-guard.sh"}]},
   {matcher:"Write|Edit|NotebookEdit",hooks:[{type:"command",command:".claude/hooks/dev-secrets-guard.sh"}]},
   {matcher:"Bash",hooks:[{type:"command",command:".claude/hooks/dev-secrets-guard.sh"}]}],
-  UserPromptSubmit:[{hooks:[{type:"command",command:".claude/hooks/dev-branch-state.sh"}]}]}}' > "$O/.claude/settings.json"
+  UserPromptSubmit:[{hooks:[{type:"command",command:".claude/hooks/dev-branch-state.sh"}]}],
+  SessionStart:[{matcher:"compact|resume",hooks:[{type:"command",command:".claude/hooks/dev-session-brief.sh"}]}]}}' > "$O/.claude/settings.json"
 bash "$INSTALL" --project "$O" >/dev/null 2>&1 || die "install over the relative form exits nonzero"
 old=$(jq '[.. | strings | select(startswith(".claude/hooks/"))] | length' "$O/.claude/settings.json")
 [ "$old" = "0" ] && pass "relative hook entries removed on re-install" || die "$old relative hook entries remain"
@@ -263,6 +264,8 @@ HOME="$H" bash "$INSTALL" >/dev/null 2>&1 || die "global install exits nonzero"
 [ -f "$H/.claude/skills/dev/SKILL.md" ] && pass "global install copies toolset" || die "global install missing toolset"
 jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(. == "~/.claude/hooks/dev-branch-guard.sh")' "$H/.claude/settings.json" >/dev/null \
   && pass "global hook path is ~/.claude/..." || die "global hook path wrong"
+jq -e '[.hooks.SessionStart[]?.hooks[]?.command] | any(. == "~/.claude/hooks/dev-session-brief.sh")' "$H/.claude/settings.json" >/dev/null \
+  && pass "global session-brief path is ~/.claude/..." || die "global session-brief path wrong"
 [ ! -e "$H/.claude/MAINTENANCE.md" ] && pass "global install seeds no MAINTENANCE.md" || die "global install wrote MAINTENANCE.md"
 rm -rf "$H"
 

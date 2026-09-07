@@ -100,8 +100,8 @@ Global install serves a contributor who wants `/dev` everywhere; the
 `--project` copy serves a repo's no-global contributors (skill precedence
 means a contributor's own global copy still wins). The installer registers
 the branch-guard, secrets-guard, branch-state, handoff-nudge, and
-session-brief hooks in the target `settings.json` idempotently, copies the session-state
-writer and the context-fill helper beside them unregistered (the
+session-brief hooks in the target `settings.json` idempotently, copies
+the session-state writer and the context-fill helper beside them unregistered (the
 registered hooks call them for the session file's path and the fill
 percent), and from `rules/` ships only `writing-artifacts.md`. Re-run it to
 refresh.

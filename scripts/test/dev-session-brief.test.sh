@@ -58,7 +58,6 @@ silent() { # $1 = label, $2 = stdin payload
   [ "$r" -eq 0 ] && [ -z "$o" ] && pass "$1" || die "$1 (rc=$r, out=$o)"
 }
 silent "subagent start: silent" '{"session_id":"s9","agent_id":"a1","agent_type":"code-reviewer"}'
-silent "file without a hand-off: silent" '{"session_id":"treeonly"}'
 printf '# session treeonly\n\n## tree 2026-09-07T11:00:00Z\n- trigger: auto\n' > "$D/dev/session/treeonly.md"
 silent "hand-off-less session file: silent" '{"session_id":"treeonly"}'
 silent "missing session file: silent" '{"session_id":"nosuch"}'
