@@ -41,12 +41,17 @@ drift from the commit that actually carried the approval.
 
 ## Acceptance criteria
 
-- [ ] No tracked rule, skill, or open plan writes or shows a dated
+- [x] No tracked rule, skill, or open plan writes or shows a dated
   stamp: `grep -rn "approved 20\|approved YYYY" skills/ rules/
   dev/plans/ --exclude-dir=archive` returns nothing.
-- [ ] Stamp consumers still resolve: `auto.md` and `supervise.md`
+  Evidence: grep clean in the delivered tree - the only quoting lines
+  are this R's own, archived in the same commit.
+- [x] Stamp consumers still resolve: `auto.md` and `supervise.md`
   wording matches the dateless form.
-- [ ] Tier-1 gate green (`bash scripts/ci/run-all.sh`).
+  Evidence: both check stamp presence only (`auto.md` pre-flight,
+  `supervise.md § Resolve`); confirmed by both close-review passes.
+- [x] Tier-1 gate green (`bash scripts/ci/run-all.sh`).
+  Evidence: `run-all: ALL OK` at close; full suite 19/19 green.
 
 ## Constraints
 

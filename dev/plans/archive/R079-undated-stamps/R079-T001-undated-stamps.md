@@ -22,7 +22,7 @@ Branch: `mnt/undated-stamps`. Requirements:
   `scripts/ci/check-accretion.sh`: the stamp value span is scanned
   like any other text, and the exemption case in
   `check-accretion.test.sh` asserts a dated stamp is caught.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, R079 closure check per `plan.md § Approval and closure`
   when this closes the R's last open task (criteria verified with
