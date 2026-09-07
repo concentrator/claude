@@ -20,7 +20,7 @@ The turn-end reminder for autonomous sessions and the installer wiring
   condition matrix, the fail-open paths (absent transcript, absent
   window, outside a git repository), and that a `hand-off` appended
   after the `tree` block clears the nudge.
-- [ ] Register the hook on `Stop` in `settings.json`; the self-test
+- [x] Register the hook on `Stop` in `settings.json`; the self-test
   asserts the registration (the `dev-branch-state.test.sh` pattern);
   `skills/dev/handoff.md § Writing the note` gains one line naming the
   warning and the nudge as the reminders that point here.

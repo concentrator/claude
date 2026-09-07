@@ -14,6 +14,9 @@ pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 
 [ -x "$HOOK" ] && pass "hook file present and executable" || die "hook file missing"
+jq -e '[.hooks.Stop[]?.hooks[]?.command // "" | select(test("dev-handoff-nudge"))] | length > 0' \
+  "$ROOT/settings.json" >/dev/null 2>&1 \
+  && pass "hook registered on Stop" || die "hook not registered in settings.json"
 D=$(cd "$(mktemp -d)" && pwd -P); trap 'rm -rf "$D"' EXIT
 # A git repo project (dev-precompact-state.sh --path requires one), a
 # window of 100000 so sums read as percents, an empty global tier, and
