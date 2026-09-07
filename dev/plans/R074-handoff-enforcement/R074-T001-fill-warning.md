@@ -20,7 +20,7 @@ The transcript-reading helper and the `branch-state:` line extension
   pinning the three `usage` fields (loud failure on schema drift),
   above/below threshold, the override, and each fail-open path
   (absent transcript, malformed JSON, absent window).
-- [ ] `hooks/dev-branch-state.sh`: when the helper prints, the one
+- [x] `hooks/dev-branch-state.sh`: when the helper prints, the one
   line gains `| context <pct>% - append the hand-off block to
   <session path>`; `scripts/test/dev-branch-state.test.sh` gains the
   above-threshold form (override + fixture transcript), the unchanged

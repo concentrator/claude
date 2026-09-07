@@ -7,6 +7,8 @@
 # degrades to "clean" (fail open). The line ends with the session's
 # state file (R040-T019), whether or not it exists yet, so a session knows
 # where hand-off notes go and where a compaction's tree block landed.
+# Near the compaction point the line also carries the context fill and
+# the hand-off instruction (R074: dev-context-fill.sh owns the number).
 set -uo pipefail
 
 input=$(cat 2>/dev/null || true)   # the prompt JSON: only session_id is used
@@ -24,5 +26,10 @@ state=
 [ "$changed" -gt 0 ] && state="$changed changed"
 [ "$untracked" -gt 0 ] && state="${state:+$state, }$untracked untracked"
 session=$(printf '%s' "$input" | bash "$(dirname "$0")/dev-precompact-state.sh" --path 2>/dev/null)
-printf 'branch-state: %s | %s%s\n' "$branch" "${state:-clean}" "${session:+ | session-state: $session}"
+# The helper prints only at or above the threshold, and the instruction
+# needs a destination, so the warning appears only with a session path.
+fill=$(printf '%s' "$input" | bash "$(dirname "$0")/dev-context-fill.sh" 2>/dev/null)
+warn=
+[ -n "$fill" ] && [ -n "$session" ] && warn=" | context ${fill}% - append the hand-off block to $session"
+printf 'branch-state: %s | %s%s%s\n' "$branch" "${state:-clean}" "${session:+ | session-state: $session}" "$warn"
 exit 0
