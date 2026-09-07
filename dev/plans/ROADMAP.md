@@ -316,3 +316,9 @@ Initiative index. Items: `R-001: description`; each entry owns
       guard denies writes into `~/.claude` from any session whose
       project root is elsewhere, the denial routing the proposal to a
       report file in the writer's own repo for upstream triage.
+- [ ] R077: Ship the maintenance routine - MAINTENANCE.md says each
+      project's `.claude/MAINTENANCE.md` carries the generic Routine,
+      but the installer ships none of it (aikido lacked the
+      `dev/session/` sweep until added by hand, its MR !219): the
+      installer delivers the generic targets table for the project doc
+      to carry, and the claim is reworded to match the mechanism.
