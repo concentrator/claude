@@ -293,10 +293,8 @@ Initiative index. Items: `R-001: description`; each entry owns
       proportional tests; supersedes R-057's remainder and R-025.
 - [ ] R073: Planning moves to Jira - epics/tickets replace the repo's
       planning layer, the worker sees only its ticket and reports in
-      comments, one ticket one branch, one unattended flow under a
-      declared supervisor, docs by a doc-writer seat and at a single
-      top-level `docs/`, `dev/` and its CI checks retire; drops R071 as
-      moot.
+      comments, one ticket one branch, `dev/` and its CI checks
+      retire; depends on R080, drops R071 as moot.
 - [x] R074: Session-state hand-off enforcement - compacted sessions
       leave the `dev/session/` hand-off half unwritten, so intent is
       lost to the summary: a context-fill warning line in
@@ -333,3 +331,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       duplicates the approving commit and nothing reads it; the
       stamps go dateless, plan.md's self-contradiction on approval
       dates resolves, the one live dated stamp migrates.
+- [ ] R080: Work by seats - one unattended flow under a declared
+      supervisor, planner exit through a cold read, a doc-writer seat,
+      a fixed input set per seat, docs at a single top-level `docs/`;
+      builds on R072-T002.
