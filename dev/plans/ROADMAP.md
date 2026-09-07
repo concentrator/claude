@@ -309,3 +309,10 @@ Initiative index. Items: `R-001: description`; each entry owns
       branch: the installer refuses a dirty tree or a default-branch
       HEAD before writing, naming the remedy (`--force` overrides);
       commits, branching, and MR/PR stay with the operator.
+- [ ] R076: Global-config write fence - a child-project session can
+      edit `~/.claude` tracked content whenever this repo sits on a
+      branch (`dev-branch-guard` only covers its trunk), so an adopter
+      session drafting a rules change can write it upstream unasked: a
+      guard denies writes into `~/.claude` from any session whose
+      project root is elsewhere, the denial routing the proposal to a
+      report file in the writer's own repo for upstream triage.
