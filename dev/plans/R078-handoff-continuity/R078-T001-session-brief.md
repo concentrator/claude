@@ -38,7 +38,7 @@ subagents, `agent_id`; the matcher filters on the reason; on exit 0 a
   and executable, registered on `SessionStart` with the matcher in the
   project form and the `~/.claude` global form, idempotent re-run (one
   block), relative-form entries replaced.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup. (R078 closure rides the task that closes the
   R's last open box - expected: R078-T002.)
