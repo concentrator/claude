@@ -7,7 +7,7 @@ supervised: approved 2026-09-07
 The transcript-reading helper and the `branch-state:` line extension
 (`requirements.md § Goals`, first two bullets).
 
-- [ ] `hooks/dev-context-fill.sh`: reads the hook input JSON on stdin,
+- [x] `hooks/dev-context-fill.sh`: reads the hook input JSON on stdin,
   takes the last `message.usage` record from its `transcript_path`
   (`input_tokens` + `cache_creation_input_tokens` +
   `cache_read_input_tokens`, the fields `scripts/context-cost.py`
