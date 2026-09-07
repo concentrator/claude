@@ -304,4 +304,3 @@ Initiative index. Items: `R-001: description`; each entry owns
       fill computed from the transcript's usage records, reads fail
       open), a `Stop`-hook nudge covering autonomous turns, the
       PreCompact tree block unchanged as the floor.
-      (stub - shape via `/dev plan R074`)
