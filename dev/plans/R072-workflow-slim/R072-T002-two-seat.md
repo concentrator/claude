@@ -12,7 +12,7 @@ Two seats: the worker implements; the supervisor dispatches, verifies,
 merges within declared bounds, and escalates directly to the user. The
 operator seat and its relay retire.
 
-- [ ] `companions/declarations.md`: the grant is scoped delivery plus
+- [x] `companions/declarations.md`: the grant is scoped delivery plus
   merge - the supervisor's last act on a green in-class MR/PR is the
   merge, carrying the `supervised` label and the merge comment
   (signature section unchanged otherwise); the `## Operator modes`
