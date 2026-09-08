@@ -12,9 +12,9 @@ branch = one task. The plan is complete and committed to `main`
     architecture-changing: true     # optional - triggers DESIGN.md
                                     #   update commit
     depends-on: R008-T001           # optional - blocks `/dev run` until merged
-    cold-read: passed               # required - the planner's exit
-                                    #   (`write-plan.md` step 6); absent =
-                                    #   refused by `/dev run`
+    cold-read: passed               # required - the dispatcher's read of
+                                    #   the plan (`write-plan.md` step 6);
+                                    #   absent = refused by `/dev run`
 
 ## Body
 
@@ -69,9 +69,13 @@ Noticed mid-execution, not in the plan.
 **Blocker** - proceeding would produce wrong, unsafe, or contradictory
 code, the task's premise is invalidated, a plan item is ambiguous, or
 verification keeps failing after repeated fixes:
-- **Stop. Ask the user.** Resolution may require plan extension, new
-  task, new R, or aborting the branch. Never inline-fix beyond a true
-  typo in code you're writing.
+- **Stop.** A blocker the plan can absorb - an ambiguous item, a
+  missing step - halts the item: the runner reverts its uncommitted
+  edits and re-dispatches the planner with the blocker's text
+  (`run.md § Question resolution`), and the fresh implementer starts
+  from the last commit. An invalidated premise halts the branch
+  instead, for the user to route to a new task, a new R, or an abort.
+  Never inline-fix beyond a true typo in code you're writing.
 
 **Non-blocker** - improvement, refactor idea, tangential test gap, code
 smell, naming inconsistency:
@@ -83,9 +87,10 @@ smell, naming inconsistency:
 
 ## Scope changes mid-branch
 
-Changes needed after the final commit → adjust the plan via
-`/dev plan <slug>` (`plan.md § Adjusting existing plans`): new
-checkboxes plus a new final commit.
+Changes needed after the final commit dispatch the planner on the same
+branch (`plan.md § Adjusting existing plans`): no implementer is
+running, so there is none to halt, and the plan gains new checkboxes
+plus a new final commit. Each new item then gets a fresh implementer.
 
 ## Closing routine
 
@@ -178,8 +183,8 @@ through the checkpoint below; a task-scoped run closes through
 § Closing routine + `finish`.
 
 A plan is admitted to a run by its `cold-read: passed` record alone -
-the planner's exit (`write-plan.md` step 6) - over approved
-requirements (`run.md § Resolve`).
+the dispatcher's read of the plan (`write-plan.md` step 6) - over
+approved requirements (`run.md § Resolve`).
 
 ### Batches
 
@@ -215,8 +220,10 @@ full suite runs at batch close (`run.md § Batch close`).
 
 ### Rails
 
-- Agents touch only code, plan checkboxes, and findings files -
-  never plan content, never the closing decisions.
+- Plan content is the planner's alone
+  (`companions/planner-prompt.md`); no other seat edits it, and none
+  makes the closing decisions. The implementer keeps the code, the
+  plan checkboxes and the findings files.
 - Pre-flight creates `batch/R<NNN>-B<NNN>` off latest `main` and sets the
   `pre-R<NNN>-B<NNN>` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.
@@ -235,8 +242,9 @@ full suite runs at batch close (`run.md § Batch close`).
 
 | Event | Action |
 |---|---|
-| Blocker (§ Scope discoveries) | Halt, report |
-| NEEDS_CONTEXT unanswerable from the R's `requirements.md`/design | Halt, report |
+| Blocker the plan can absorb (§ Scope discoveries), or an implementer's NEEDS_CONTEXT | Halt the item, planner re-dispatch (`run.md § Question resolution`) |
+| Blocker invalidating the task's premise | Halt, report |
+| Planner reports BLOCKED or NEEDS_CONTEXT on its re-dispatch | Halt, report |
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |

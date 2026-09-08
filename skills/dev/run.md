@@ -3,13 +3,14 @@
 Engine behind `/dev run <scope>`: planned work - a task, a batch or an
 initiative - runs as dispatched seats under the supervisor seat the
 project declares (`companions/declarations.md § Supervisor bounds`).
-The runner session holds that seat. Under `Supervisor: AI` it answers
-and merges within the declared bounds; under `Supervisor: human` the
-steps marked **user** below are the user's own and the session only
-dispatches. The session never implements: every code or doc edit is a
-seat's, and the runner's own edits are the plan bookkeeping and the
-closing commit. Rules: `branch-plan.md`. Host gates are never bypassed
-- no admin merges.
+The runner session holds that seat. Under `Supervisor: AI` it
+dispatches, verifies and merges within the declared bounds; under
+`Supervisor: human` the steps marked **user** below are the user's
+own. Either mode routes questions through § Question resolution. The
+session never implements: every code or doc edit is a seat's, and the
+runner's own edits are the plan bookkeeping and the closing commit.
+Rules: `branch-plan.md`. Host gates are never bypassed - no admin
+merges.
 
 A seat is a subagent of the runner, dispatched with the Task tool in
 the runner's checkout for one item, inheriting the runner's permission
@@ -29,7 +30,12 @@ config (edit-class shell there trips the sensitive-file guard).
    run. Scope selects pre-approved work: anything lacking approved
    requirements or `cold-read: passed` (`branch-plan.md § Header`) is
    reported NOT READY, never dispatched, the report naming the
-   missing record; a plan whose `depends-on` is unmerged the same.
+   missing record; a plan whose `depends-on` is unmerged the same. The
+   check runs at every implementer dispatch, not at scope start alone -
+   the reader seat's dispatch is not one, its read being what earns the
+   record - so a plan changed mid-branch is admitted again once the
+   record stands, kept through a cite-only change or restored by the
+   bookkeeping commit (§ Question resolution).
 2. **Supervisor** - read `CLAUDE.md § Supervision`: the `Supervisor:`
    line and the bounds, plus `.claude/supervisor.md` where referenced.
    No block, or no `Supervisor:` line → halt, naming it.
@@ -68,12 +74,21 @@ branch per plan - and per commit checkbox:
    the docs and the code as its inputs and nothing else. Its loop is
    the plan's `type:` mode file (`feat.md`, `fix.md`, `refactor.md`);
    `doc`/`test`/`mnt` run `branch-plan.md § Commit cadence` alone.
-2. DONE → spec check. DONE_WITH_CONCERNS → resolve first.
-   NEEDS_CONTEXT → § Question resolution, then re-dispatch. Halt
+2. DONE → spec check. DONE_WITH_CONCERNS → a concern that changes plan
+   text takes § Question resolution as NEEDS_CONTEXT does: the item's
+   `[x]` stands and its commit goes unchecked; the planner's change
+   adds a new checkbox for the redo, as § Close step 2 does for fixes,
+   so the fresh implementer works the concern and its commit is what
+   the spec check reads; the runner records `<item>: spec check
+   skipped: superseded by plan change`, carried verbatim into the
+   report's Cost section like every skip
+   (`companions/verification-policy.md § Spec-check skip`). Any other
+   concern the runner ledgers (§ Ledger) and carries into the report,
+   then spec check. NEEDS_CONTEXT → § Question resolution. Halt
    triggers: `branch-plan.md § Stop conditions`.
-3. Spec check (`companions/spec-reviewer-prompt.md`): exactly the
-   item; skipped for mechanical commits per
-   `companions/verification-policy.md`. Reject → fix → recheck.
+3. Spec check (`companions/spec-reviewer-prompt.md`): exactly the item;
+   skipped per `companions/verification-policy.md § Spec-check skip`.
+   Reject → fix → recheck.
 4. The implementer marks `[x]` in its commit (`branch-plan.md § Commit
    cadence` 3); the runner confirms the mark landed before the spec
    check.
@@ -86,16 +101,40 @@ is reported as a pre-flight defect, never keyed past.
 
 ## Question resolution
 
-A seat halting on an implementation question - a NEEDS_CONTEXT, a
-choice between offered options, a spec ambiguity - gets the resolution
-on the plan's and requirements' terms, the best option advised where
-possible, and the item resumes. Within a declared grant the runner
-answers; a design-touching or unclassifiable question, and every
-question under `Supervisor: human`, goes to the **user**
-(`companions/declarations.md § Supervisor bounds`). The question
-arrives with the excerpt needed to answer it, never a diff or
-transcript. Each answer is ledgered (§ Ledger) and carried into the
-report's `## Supervisor decisions` section at checkpoint.
+A question whose answer changes plan text - an implementer's blocker, a
+plan-changing concern, a spec ambiguity, a cold-read gap found in
+flight - halts the item and re-dispatches the planner
+(`companions/planner-prompt.md`) with that text, on the item's own
+branch (`git-workflow.md § Trunk`). The halt reverts the item's
+uncommitted edits - `git checkout -- .` and removal of the untracked
+files the seat created - so the branch stands at its last commit
+before the planner is dispatched. The planner commits its
+change locally, nothing being pushed until the runner delivers; a
+planner reporting DONE_WITH_CONCERNS (`companions/planner-prompt.md
+§ Report Format`) has committed too, so its change takes the read below
+as DONE's does and its concern reaches the user with the change for
+approval. The runner then runs `write-plan.md` step 6 on the changed
+plan, the reader a dispatched seat (`companions/verification-policy.md
+§ Comprehension check`), never the runner's own read. Where the change
+dropped `cold-read: passed` - a change adding a decision,
+`companions/planner-prompt.md` Job 3 - the pass is recorded in the
+runner's own bookkeeping commit on the item's branch, while a change
+that only cites text already in the tree keeps the record and needs no
+commit. The change is the **user**'s to approve under either supervisor
+mode (`companions/declarations.md § Supervisor bounds`); a rejection
+re-dispatches the planner with the objection's text, and the next
+planner commit replaces the text - no revert, and the runner edits no
+plan content. Only then is a fresh implementer dispatched, starting
+from the last commit. A seat never resumes.
+
+Every answer takes that route. An implementer's inputs are the plan,
+the docs and the code (`companions/implementer-prompt.md`), so an
+answer reaches the next implementer only as plan text, and the planner
+is what writes it there. The re-dispatch carries the blocker's, the
+concern's, the cold-read gap's or the user's objection text and nothing
+else - never a diff or a transcript. Each answer
+is ledgered (§ Ledger) and carried into the report's `## Supervisor
+decisions` section at checkpoint.
 
 ## Close
 
@@ -108,8 +147,10 @@ Per branch, when its last non-final item is `[x]`:
    routine`).
 2. Fixes: mechanical ones applied, judgment calls queued; approval of
    the applied set is the **user**'s under `Supervisor: human`. The
-   approved fixes are an implementer seat's item, the findings its
-   text.
+   approved fixes go to the planner as one change on the branch
+   (`plan.md § Adjusting existing plans`), each fix a new checkbox and
+   the change approved per § Question resolution; a fresh implementer
+   works them.
 3. The runner makes the mandatory final commit (docs re-review,
    cleanup, plan complete, task mark per `branch-plan.md § Closing
    routine`).
@@ -147,8 +188,13 @@ more mergeable than a batch missing its report. Then - the choice the
   cleanup per `branch-plan.md § Rails` - after the MR/PR merges,
   post-merge cleanup deletes the batch branch, local and origin.
 - **Reject** → ref handling per `branch-plan.md § Rails`.
-- **Halt** → failed item reported, work intact; the resolver (§
-  Question resolution) resolves and the run resumes on the same scope.
+- **Halt** → failed item reported. A question halt - an implementer's
+  plan-changing concern, NEEDS_CONTEXT or an absorbable blocker
+  (`branch-plan.md § Scope discoveries`) - takes § Question resolution,
+  whose revert drops the item's uncommitted edits; any other halt - a
+  red tier, a spec check rejecting twice (`branch-plan.md § Stop
+  conditions`) - keeps the work intact. The run resumes on the same
+  scope.
 
 ## Boundary verification
 
@@ -207,7 +253,7 @@ checkout, beside `dev/session/` and ignored like it, so an append
 dirties nothing. One file per scope; a resumed runner on the same host
 opens the same file. Opened at § Resolve (`mkdir -p` the directory,
 then the first entry), it takes one entry per event from § Dispatch
-per item through § Merge or ask, in `handoff.md § Blocks` format:
+per item through § Merge or ask, in `handoff.md § The file` format:
 `## <event> <UTC timestamp>` - dispatch, question, answer, prompt,
 verify, escalation, merge - the timestamp read from the clock
 (`date -u`) at write time, never composed or carried forward - over
@@ -230,5 +276,6 @@ scope. Hand-off note at each boundary and re-brief after compaction:
 On "status": per initiative - merged / in-flight / halted / escalated,
 with MR/PR links - derived from artifacts at ask time (task
 checkboxes, reports, state-check output). Resolving an escalation
-resumes the affected item. The run ends when the scope is delivered
-or only escalations remain; report which.
+re-dispatches the affected item - a fresh implementer on the plan,
+re-read where it changed. The run ends when the scope is delivered or
+only escalations remain; report which.

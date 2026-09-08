@@ -40,13 +40,14 @@ seat and its bounds in a `## Supervision` section directly after
 ```
 
 `Supervisor: human` - the user's own interactive session holds the
-seat: it dispatches the seats, and the user answers their questions,
-clears what stops them and merges. `Supervisor: AI` - a supervising
-session dispatches, answers and merges within the bounds below, and
-the user gets the always-ask list only. That list reaches the user
-under either. A block without the `Supervisor:` line, or no block at
-all, halts the run at resolve, naming the missing line; the bounds
-line alone grants nothing. The default grant, **batch-scoped
+seat: it dispatches the seats, and the user approves the planner's
+changes (`run.md § Question resolution`), clears what stops them and
+merges. `Supervisor: AI` - a supervising session dispatches, verifies
+and merges within the bounds below, and the user approves plan changes
+and answers the always-ask list. Both reach the user under either. A
+block without the `Supervisor:` line, or no block at all, halts the
+run at resolve, naming the missing line; the bounds line alone grants
+nothing. The default grant, **batch-scoped
 delivery**, carries
 work as far as a green MR/PR and holds one decision class:
 
@@ -57,15 +58,17 @@ work as far as a green MR/PR and holds one decision class:
 - deliver a task-scoped run's branch, where `finish.md § 1`'s verify
   set stands in for the checkpoint report, and its absence stops the
   delivery as a missing report does;
-- implementation-level resolutions of worker questions and queued
-  judgment calls, each recorded in the report's supervisor-decisions
-  section and ledgered (`run.md § Ledger`).
+- queued judgment calls at implementation level, each recorded in the
+  report's supervisor-decisions section and ledgered (`run.md
+  § Ledger`); an implementer's question instead takes the planner's
+  change and the **user**'s approval under either mode (`run.md
+  § Question resolution`).
 
 **The grant includes the merge.** Within the declared bound the
 supervisor's last act on a green in-class MR/PR is the merge, carrying
 the supervision signature below; everything outside the bound - and
 everything on the always-ask list - goes to the user. The
-worker/supervisor seam stays: the doer never verifies its own
+implementer/supervisor seam stays: the doer never verifies its own
 delivery.
 
 The decision split: implementation-level is code shape, naming, test

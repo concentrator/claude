@@ -41,14 +41,18 @@ after all - regardless of how the item read before dispatch.
 
 ## Spec-check skip
 
-A commit classified mechanical (per the predicate above, guard not
-voided) skips the per-commit spec check. Drift from the plan is caught
+Two classes of commit skip the per-commit spec check: a commit
+classified mechanical (per the predicate above, guard not voided), and
+a commit superseded by a plan change (`run.md § Dispatch per item` 2),
+whose redo the planner adds as a new checkbox, leaving the spec check
+to read the fresh implementer's commit. Drift from the plan is caught
 by the branch-close review instead.
 
 **Recording:** for every skipped spec check the runner records a
 line and carries the records verbatim into the report's Cost section:
 
     <commit-sha or plan-item id>: spec check skipped: mechanical
+    <commit-sha or plan-item id>: spec check skipped: superseded by plan change
 
 **Scope of this rule:** only the per-commit spec check is skipped.
 Everything else is unchanged:
@@ -139,24 +143,25 @@ own mess included - a verifier that needs cleanup stops and reports.
 
 ## Comprehension check
 
-The planner's exit (`write-plan.md` step 6). A plan is implemented by
-a cold-context agent, so test it on one before it is offered for
-approval: dispatch a fresh subagent with exactly the implementer's
-inputs - the plan, the docs and the code
-(`companions/implementer-prompt.md`), never the planning conversation
-- and ask what it would build
-and what is ambiguous or assumed. A question the inputs cannot answer
-is a plan gap, not a reader fault: fix it, re-run per the rule of
-`write-plan.md` step 6, then record `cold-read: passed` in the header
-(`branch-plan.md § Header`). This catches `NEEDS_CONTEXT` halts at
-planning time, when the user is present and the fix is cheap; nothing
-dispatches a plan without the record, and a plan chained on an
-unmerged task earns it at its start.
+The dispatcher's read of the plan (`write-plan.md` step 6). A plan is
+implemented by a cold-context agent, so test it on one before it is
+offered for approval: dispatch a fresh subagent with exactly the
+implementer's inputs - the plan, the docs and the code
+(`companions/implementer-prompt.md`), never the planning conversation -
+and ask what it would build and what is ambiguous or assumed. A
+question the inputs cannot answer is a plan gap, not a reader fault: a
+planner fixes it, the read re-runs per the rule of `write-plan.md`
+step 6, and the header then records `cold-read: passed`
+(`branch-plan.md § Header`). This catches `NEEDS_CONTEXT` halts before
+an implementer meets them, while the fix is cheap; nothing dispatches a
+plan without the record, and a plan chained on an unmerged task earns
+it at its start.
 
 ## Models
 
 | Role | Model (dispatch value) |
 |---|---|
+| Planners (branch plans and plan changes) | Fable 5 (`fable`) |
 | Default implementers | Opus 4.8 (`opus`) |
 | Mechanical-commit implementers | Sonnet 4.6 (`sonnet`) |
 | Probes (live API probing work) | Opus 4.8 (`opus`) |

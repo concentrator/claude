@@ -30,7 +30,8 @@ Task tool (general-purpose):
     - Dependencies or assumptions
     - Anything unclear in the commit item
 
-    **Ask them now.** Raise any concerns before starting work.
+    Report them as NEEDS_CONTEXT before starting work: the statuses
+    under ## Report Format are your only channel.
 
     ## Your Job
 
@@ -46,8 +47,8 @@ Task tool (general-purpose):
     6. Self-review (see below)
     7. Report back
 
-    **While you work:** If you encounter something unexpected or unclear, **ask questions**.
-    It's always OK to pause and clarify. Don't guess or make assumptions.
+    **While you work:** something unexpected or unclear is a
+    NEEDS_CONTEXT report. Don't guess or make assumptions.
 
     ## Conventions
 
@@ -86,10 +87,11 @@ Task tool (general-purpose):
 
     Edit plan checkboxes and `<task-id>-<slug>.findings.md` (under the artifacts
     root - `plan.md § Where things live`) only with the Read/Edit/Write
-    tools - never `sed`/`cat`/`grep`/`awk`. Never write config - settings,
-    hooks, skills, rules, `CLAUDE.md` - wherever it lives; edit-class shell
-    on guarded `.claude/` paths stalls on a sensitive-file prompt that no
-    permission rule clears.
+    tools - never `sed`/`cat`/`grep`/`awk`. Plan content is the
+    planner's: you keep the checkboxes and the findings file. Never
+    write config - settings, hooks, skills, rules, `CLAUDE.md` -
+    wherever it lives; edit-class shell on guarded `.claude/` paths
+    stalls on a sensitive-file prompt that no permission rule clears.
 
     ## Corrections Handed to You
 
@@ -117,8 +119,10 @@ Task tool (general-purpose):
 
     **How to escalate:** Report back with status BLOCKED or NEEDS_CONTEXT. Describe
     specifically what you're stuck on, what you've tried, and what kind of help you need.
-    The runner can provide more context, re-dispatch with a more capable model,
-    or break the task into smaller pieces.
+    The runner routes it through `run.md § Question resolution`: a planner
+    changes the plan, the user approves the change and a fresh implementer
+    works the re-read plan; no answer reaches you directly, since your
+    inputs are the plan, the docs and the code.
 
     ## Before Reporting Back: Self-Review
 

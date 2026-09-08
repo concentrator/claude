@@ -140,10 +140,16 @@ After the rounds, adjust in place:
 
 - **Initiative requirements** (`dev/plans/R<NNN>-<slug>/requirements.md`):
   `/dev plan R<NNN>` to extend.
-- **Branch plan (`<slug>`)**: `/dev plan <slug>` to add commits after
-  the final; the added items go through the cold read (`write-plan.md`
-  step 6) before the plan MR/PR, so the record vouches for the current
-  text.
+- **Branch plan (`<slug>`)**: `/dev plan <slug>` dispatches one planner
+  per change (`companions/planner-prompt.md`), which states the change
+  as a diff of items and makes exactly that change - commits added
+  after the final, a blocker, an implementer's plan-changing concern, a
+  cold-read gap, the user's rejection of a change. The session runs the
+  cold read (`write-plan.md` step 6) over the result and presents it for
+  the user's approval before the plan MR/PR - or before the item's next
+  dispatch where the change rides the item's own branch
+  (`branch-plan.md § Scope changes mid-branch`) - so the record vouches
+  for the current text.
 - **Roadmap items, tasks** (single-line entries): direct file edit.
 - Never rewrite history retroactively.
 

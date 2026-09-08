@@ -104,7 +104,7 @@ plan leaves planning by its cold read (`skills/dev/write-plan.md` step
 Trunk-based development, per `skills/dev/git-workflow.md`.
 
 Planned work runs through one flow, `skills/dev/run.md`: a runner
-session dispatches seats - implementer and reviewer today -
+dispatches seats - planner, implementer and reviewer today -
 each a subagent in its checkout with fixed inputs and a one-item
 lifetime. Who holds the supervisor seat, the user or the runner, is
 declared per project (`skills/dev/companions/declarations.md
@@ -162,5 +162,5 @@ per `skills/dev/layout.md`).
 
 - The `agentic:`/`supervised:` plan stamps went with the second
   runner: each certified readiness for a flow with no one to ask, and
-  in one flow whose seats can ask, the cold read at the planner's exit
-  is the only admission a plan needs.
+  in one flow whose seats can ask, the dispatcher's cold read of the
+  plan is the only admission a plan needs.

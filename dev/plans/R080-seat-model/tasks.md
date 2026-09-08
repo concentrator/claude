@@ -33,7 +33,7 @@ pre-flight after every seat exists, the pilot last.
   and the reviewer's the plan, its acceptance criteria and the diff.
   Depends on R080-T002.
 
-- [ ] **R080-T008 [mnt]**: planner seat - a dispatched agent that
+- [x] **R080-T008 [mnt]**: planner seat - a dispatched agent that
   writes or updates one branch plan from the initiative's
   requirements, the task line, the docs, the code and the initiative's
   other plans, exiting through the cold read; the detail round and
@@ -71,4 +71,16 @@ Backlog: R080-T001, T002 and T004 to T008 still carry a
 `supervised: approved` header line the plan header no longer admits
 (`skills/dev/branch-plan.md § Header`); strip it on the R080 close-out
 plan MR/PR. The acceptance criterion on the refused plan names
-`/dev code`; reword to `/dev run` there too.
+`/dev code`; reword to `/dev run` there too. From the R080-T008 close
+review: the T008 task line above still says a blocker re-dispatches
+the planner "with the worker paused" where `skills/dev/run.md
+§ Question resolution` halts the item and dispatches a fresh
+implementer; `requirements.md § Desired state` 1 still has the
+supervisor answering implementation-level questions; the cold read
+(`skills/dev/write-plan.md` step 6) needs a stopping rule - two rounds,
+then judgment-level gaps go to the findings file - and a plan change
+should stay within the files a reviewer named; `write-plan.md § Bulk
+mode` has parallel planners committing in one checkout, a race the
+session's single commit avoided; pre-existing cites `run.md
+§ Archival`, `finish.md § 2-3` and `CLAUDE.md § Conventions` resolve to
+no heading; `DESIGN.md` sits at 998 of its 1000 words.
