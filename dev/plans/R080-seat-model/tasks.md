@@ -16,7 +16,7 @@ pre-flight after every seat exists, the pilot last.
   for consuming projects, applied per project at its next planning
   round.
 
-- [ ] **R080-T002 [mnt]**: cold read at the planner's exit - a fresh
+- [x] **R080-T002 [mnt]**: cold read at the planner's exit - a fresh
   agent given the worker's inputs says what it would build; re-homed
   from `branch-plan.md § Stamps` and
   `companions/verification-policy.md § Comprehension check`; a gap is
