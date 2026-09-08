@@ -27,7 +27,7 @@ operator seat and its relay retire.
   MR/PR matched to the head sha, plan boxes, diff confinement, and the
   committer signature are the checks (this also clears the pre-tier
   test/lint wording the R's backlog routes here).
-- [ ] `companions/supervisor-runbook.md`: the topology is two seats -
+- [x] `companions/supervisor-runbook.md`: the topology is two seats -
   operator briefs, relays, and merge handovers become the supervisor's
   own steps or direct user asks; the Remote Control section points the
   escalation path at the user's device; failure modes reviewed for

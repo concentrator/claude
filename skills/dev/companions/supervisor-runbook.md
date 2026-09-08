@@ -8,12 +8,12 @@ escalate, how a question is answered. This holds the mechanics.
 
 |  | A: one machine | B: remote host |
 |---|---|---|
-| Supervisor runs on | the operator's machine | the worker host |
-| Worker runs on | the operator's machine | the worker host |
+| Supervisor runs on | the user's machine | the worker host |
+| Worker runs on | the user's machine | the worker host |
 | Channel | peer messaging (`ListAgents`, `SendMessage`) | peer messaging on the host |
-| Who starts the worker | the operator | the supervisor |
-| Who clears the worker's prompts | the operator, at the keyboard | the supervisor, over `tmux` |
-| Operator's seat | the same machine | Remote Control (§ Remote Control), or `gcloud compute ssh --tunnel-through-iap` |
+| Who starts the worker | the user | the supervisor |
+| Who clears the worker's prompts | the user, at the keyboard | the supervisor, over `tmux` |
+| User's seat | the same machine | Remote Control (§ Remote Control), or `gcloud compute ssh --tunnel-through-iap` |
 
 A message wakes an idle co-located peer rather than queueing for one
 already taking turns, so dispatch, questions, and answers ride
@@ -22,15 +22,15 @@ a message cannot do: answering a permission prompt and reading a pane
 (§ tmux recipes).
 
 Both deliver. Take A for a single scope you intend to sit with. Take B
-when the work should outlive the laptop, when the operator wants the
+when the work should outlive the laptop, when the user wants the
 machine back, or when the host is provisioned for it
 (`skills/worker-host/SKILL.md` in the toolset repository).
 
 ## The loop
 
 ```
-   operator
-      |  answers escalations, decides merges; nothing else
+   user
+      |  answers the always-ask escalations; nothing else
       v
  +-------------------------------------------------+
  |  SUPERVISOR                          auto mode   |
@@ -64,70 +64,53 @@ The supervisor cycles until the scope is delivered:
   |                                |
   +--------------------------------+
                                    |
-                 hand the green MR/PR up, or escalate
-                                   |
-                                   v
-                 operator merges (`declarations.md § Operator modes`)
+                 merge the green in-class MR/PR, or ask the user
+                     (`declarations.md § Supervisor bounds`)
 ```
 
 ## Variant A: one machine
 
-1. **Human**, where the project declares `Operator mode: AI operated`
-   (`declarations.md § Operator modes`): starts the operator in its
-   own terminal, `claude --permission-mode auto`, and briefs it in one
-   message - the projects it holds the merge for and a pointer to
-   that section for what it decides and what it escalates. Cite,
-   never restate, for the reason Variant B step 4 gives. In this
-   variant the AI seat holds only the merge; the person at the
-   keyboard does steps 2, 3 and 6. Human operated: the person is the
-   seat and this step is theirs.
-2. **Operator** opens a second terminal in the project directory and
-   starts the worker: `claude --permission-mode acceptEdits`.
-3. **Operator** starts the supervisor in another session in auto mode
+1. **User** opens a terminal in the project directory and starts the
+   worker: `claude --permission-mode acceptEdits`.
+2. **User** starts the supervisor in another session in auto mode
    and runs `/dev supervise <project> <scope>`.
-4. **Supervisor** runs `ListAgents` and adopts the worker peer by name.
+3. **Supervisor** runs `ListAgents` and adopts the worker peer by name.
    Adopt before dispatch (`supervise.md § Dispatch`): never run two
    workers on one project.
-5. **Supervisor** opens the ledger (`supervise.md § Ledger`), then
+4. **Supervisor** opens the ledger (`supervise.md § Ledger`), then
    dispatches with `SendMessage`, ids only: `/dev code <slug>` for a
    manual task, `/dev auto R<NNN>-B<NNN>` for a batch.
-6. **Supervisor** follows to checkpoint with status pings. The operator
-   is at the keyboard, so the worker's permission prompts are theirs to
-   clear.
-7. **Supervisor** verifies the delivered scope from artifacts by running
-   them, then hands the green MR/PR to the operator, or escalates.
+5. **Supervisor** follows to checkpoint with status pings. The user
+   is at the keyboard, so the worker's permission prompts are theirs
+   to clear.
+6. **Supervisor** verifies the boundary from CI and artifacts
+   (`supervise.md § Boundary verification`), then merges the green
+   in-class MR/PR or asks the user.
 
 ## Variant B: remote host
 
-1. **Operator** (the human, where the project declares `Operator
-   mode: AI operated`; steps 1-3 are theirs, once per project)
-   connects:
+1. **User** (once per project) connects:
    `gcloud compute ssh <host> --zone=<zone> --project=<project> --tunnel-through-iap`
-2. **Operator** confirms a clean start: no stale `tmux` sessions, the
+2. **User** confirms a clean start: no stale `tmux` sessions, the
    project checkout on the trunk with nothing uncommitted. Readiness
    also names which verbs auto-allow in each seat (from the merged
    allow rules and the seat's mode), so a promptless action is a
    known quantity before the first dispatch, not a discovery during
    one.
-3. **Operator** starts the supervisor:
+3. **User** starts the supervisor:
    `tmux new -d -s supervisor-<project> -c <project-dir> claude --remote-control supervisor-<project> --permission-mode auto`
    The flag joins Remote Control under the name `supervisor-<project>`
    (§ Remote Control); `tmux` keeps the session alive across a dropped
    tunnel. Two pairs on one host never share a name: session and
    Remote Control names carry the project - `supervisor-<project>`,
-   `worker-<project>` - and every recipe targets that name. Where the
-   project declares `Operator mode: AI operated`, the operator's
-   session runs on its own machine, never in a host `tmux`: launched
-   `claude --remote-control operator --permission-mode auto`, or
-   joined in place by `/remote-control operator`; briefed
-   as Variant A step 1 (the projects it holds the merge for and a
-   pointer to `declarations.md § Operator modes`), it adopts each
-   supervisor by name over `ListAgents`, and each cross-machine send
-   clears the `isolatePeerMachines` approval (§ Remote Control).
-4. **Operator** briefs it in one message: the scope and its branch plan
+   `worker-<project>` - and every recipe targets that name.
+   Escalations reach the user on their own device over Remote Control
+   (§ Remote Control) - no session of the user's runs in a host
+   `tmux`.
+4. **User** briefs it in one message: the scope and its branch plan
    path, the command that starts the worker, and a pointer to
    `companions/declarations.md § Supervisor bounds` for what it may
-   deliver and what it must escalate. Cite that section, never restate
+   merge and what it must ask. Cite that section, never restate
    it: the copy is what the supervisor obeys, and a stale copy puts it
    outside its bounds while it believes it is inside.
 5. **Supervisor** opens the ledger (`supervise.md § Ledger`), starts
@@ -137,11 +120,12 @@ The supervisor cycles until the scope is delivered:
    nothing else by `SendMessage`: `/dev code <slug>`.
 6. **Supervisor** follows: answers implementation questions over the
    channel, clears the worker's permission prompts over `tmux`.
-7. **Supervisor** verifies by running the gates, then hands the green
-   MR/PR to the operator citing its evidence, or escalates.
-8. **Operator** decides the handed-over MR/PR and answers escalations -
-   over `SendMessage` from a connected session, or in the supervisor's
-   pane.
+7. **Supervisor** verifies the boundary from CI and artifacts
+   (`supervise.md § Boundary verification`), then merges the green
+   in-class MR/PR or asks the user.
+8. **User** answers the always-ask escalations - over `SendMessage`
+   from a connected session, in the supervisor's pane, or from the
+   phone via the Remote Control URL.
 
 ### tmux recipes - what a message cannot do
 
@@ -186,11 +170,11 @@ minutes mean a hold the patterns missed; inspect both panes directly
 instead of waiting longer.
 
 **Keystroke authority.** A single key sent to another session's dialog
-is an answer; text typed into its input box is a dispatch. The operator
+is an answer; text typed into its input box is a dispatch. The user
 may send `1`, `2` or `Esc` to a supervisor stopped on a permission
-prompt, once it has read the pane and the command being approved is
-inside that session's own bounds. It may not type instructions into the
-box: that makes the operator a second dispatcher, and the transcript
+prompt, once they have read the pane and the command being approved is
+inside that session's own bounds. They may not type instructions into
+the box: that makes the user a second dispatcher, and the transcript
 records no channel for any input, so nothing afterwards can tell the
 two apart. Nor is a keystroke the fix for a deadlock - a session
 stopped because nobody can answer it is a provisioning bug, and the
@@ -207,8 +191,8 @@ tracked config repo. Confirm the join by the `/rc active` marker in
 the session footer; an enabled session also prints its own
 `https://claude.ai/code/session_...` URL. Leave `autoUploadSessions`
 unset: it mirrors sessions to claude.ai view-only, is not required,
-and is the one setting here with a data-egress consequence. The
-operator's own session joins too: a host session appears in
+and is the one setting here with a data-egress consequence. A
+session of the user's own joins too: a host session appears in
 `ListAgents` only when both ends are connected, and
 `isolatePeerMachines: true` in the tracked `settings.json` gates each
 cross-machine send behind explicit approval. The printed URL gives
@@ -219,7 +203,6 @@ browser and phone control without joining.
 | Role | Mode | Reason |
 |---|---|---|
 | Supervisor | `auto` | Its own tooling is compound shell - until-loops, pipelines - which prefix rules cannot match. Auto suspends Bash allow rules and routes every shell command to a classifier that judges what the command does, so the supervisor is never blocked and can always answer the worker. |
-| Operator, AI operated | `auto` | It merges and polls through the host CLI, compound shell like the supervisor's, and decides within declared bounds (`declarations.md § Operator modes`). |
 | Worker | `acceptEdits` | Edits land without a prompt. The shell prompts it still raises are cleared by whoever holds the keyboard for that variant. |
 
 Never `bypassPermissions`: it discards deny rules along with everything
@@ -260,7 +243,7 @@ point 4: print what the step needs, never a file already in context.
 - **A watch command wakes falsely after an edit**: digest-based
   dedupe hashes the command's own output shape, so freeze a watch
   command verbatim for the life of its watch.
-- **Clearing another seat's prompt** (the operator on a worker
+- **Clearing another seat's prompt** (one seat on another's pending
   prompt): only after the stall window - one flatness check (the
   watch recipes' flatness alarm) with the prompt still pending - and
   with the same verify-pending guard; the owning seat clears first
