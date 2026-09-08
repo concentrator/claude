@@ -162,8 +162,9 @@ initiatives close.
       from a planner dispatch; verified by the pilot's ledger holding a
       planner entry for its plan and for any mid-branch change.
 - [ ] Docs live at `docs/` and no rule, skill, or overlay names
-      `dev/docs/`; verified by `git ls-files dev/docs` empty and grep
-      across `rules/`, `skills/`, `CLAUDE.md`.
+      `dev/docs/` as the docs home; the migration names it only as its
+      source. Verified by `git ls-files dev/docs` empty and grep across
+      `rules/`, `skills/`, `CLAUDE.md`.
 - [ ] Each seat's duties under each supervisor mode are in one table
       and every duty statement elsewhere cites it; verified by reading
       the table against § Desired state 6 and grepping the seat names
