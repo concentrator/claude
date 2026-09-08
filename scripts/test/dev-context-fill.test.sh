@@ -46,6 +46,14 @@ out=$(run "$T"); rc=$?
   && pass "last record, pinned fields: prints 85" \
   || die "expected 85 rc=0, got rc=$rc out='$out'"
 
+# The default threshold itself: 70 warns, so the default is pinned low
+# enough for a turn boundary to sample it before compaction (the helper
+# header gives the measurement).
+T="$D/default.jsonl"; usage_line 5000 10000 55000 > "$T"
+out=$(run "$T"); rc=$?
+[ "$rc" -eq 0 ] && [ "$out" = "70" ] \
+  && pass "default threshold warns at 70" || die "default too high: rc=$rc out='$out'"
+
 # Below the threshold: silent, exit 0.
 T="$D/below.jsonl"; usage_line 5000 10000 35000 > "$T"
 out=$(run "$T"); rc=$?

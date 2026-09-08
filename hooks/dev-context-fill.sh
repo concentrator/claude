@@ -4,9 +4,14 @@
 # usage record is the window the last API call read (the sum
 # scripts/context-cost.py bills). This helper turns that into an integer
 # percent of the project's autoCompactWindow and prints it only at or
-# above the warning threshold (default 80, DEV_FILL_WARN_PCT overrides),
+# above the warning threshold (default 65, DEV_FILL_WARN_PCT overrides),
 # so callers compose warnings without token values or arithmetic of
 # their own. Not a hook itself: called by hooks with their stdin JSON.
+# The threshold sits well under the compaction point because every
+# caller is a turn-boundary hook: auto-compaction fires mid-turn around
+# 83% of the window, and one turn has been measured growing it 15
+# points, so a threshold near the compaction point is crossed inside a
+# turn and no boundary ever samples it.
 # Display only, never a decision; silent and exit 0 on any read, parse,
 # or lookup failure (fail open).
 set -uo pipefail
@@ -33,8 +38,8 @@ window=
   || window=$(jq -r '.autoCompactWindow // empty' "${CLAUDE_CONFIG_DIR:-$HOME/.claude}/settings.json" 2>/dev/null)
 case "$window" in ''|0|*[!0-9]*) exit 0 ;; esac
 
-threshold=${DEV_FILL_WARN_PCT:-80}
-case "$threshold" in ''|*[!0-9]*) threshold=80 ;; esac
+threshold=${DEV_FILL_WARN_PCT:-65}
+case "$threshold" in ''|*[!0-9]*) threshold=65 ;; esac
 
 pct=$(( sum * 100 / window ))
 [ "$pct" -ge "$threshold" ] && printf '%s\n' "$pct"

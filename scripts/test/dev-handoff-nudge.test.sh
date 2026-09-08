@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Tests hooks/dev-handoff-nudge.sh - the Stop-hook hand-off nudge (R074-T002).
 # The four-cell matrix (fill above/below threshold x hand-off stale/fresh)
-# plus the fail-open paths: only above-and-stale blocks the stop.
+# plus the fail-open paths: only above-and-stale blocks the stop. Stale
+# includes a session file that does not exist yet, so the pre-first-
+# compaction state is covered.
 # Run: bash scripts/test/dev-handoff-nudge.test.sh
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
@@ -35,14 +37,24 @@ run() {  # run <transcript> -> hook output; $? = exit code
       bash "$HOOK" 2>/dev/null
 }
 
-# Above + no session file: fresh, silent.
-out=$(run "$ABOVE"); rc=$?
-[ "$rc" -eq 0 ] && [ -z "$out" ] && pass "no session file: silent" || die "no file: rc=$rc out='$out'"
+# Above + no session file: stale (no hand-off anywhere), blocked. This
+# is every session before its first compaction.
+out=$(run "$ABOVE")
+echo "$out" | jq -e '.decision == "block"' >/dev/null 2>&1 \
+  && pass "no session file: blocked" || die "expected decision:block, got '$out'"
 
-# Above + file without a tree block: fresh, silent.
+# Above + file without a tree block: still no hand-off, blocked.
 printf '# session s1\n' > "$D/state/s1.md"
-out=$(run "$ABOVE"); rc=$?
-[ "$rc" -eq 0 ] && [ -z "$out" ] && pass "no tree block: silent" || die "no tree: rc=$rc out='$out'"
+out=$(run "$ABOVE")
+echo "$out" | jq -e '.decision == "block"' >/dev/null 2>&1 \
+  && pass "header only: blocked" || die "expected decision:block, got '$out'"
+
+# Above + hand-off and no tree block: fresh, silent - a session that
+# wrote its note before any compaction is not nagged.
+printf '# session s2\n\n## hand-off 2026-09-07T00:00:00Z\n- done: none\n' > "$D/state/s2.md"
+out=$(printf '{"session_id":"s2","transcript_path":"%s"}' "$ABOVE" \
+  | env CLAUDE_PROJECT_DIR="$D/proj" CLAUDE_CONFIG_DIR="$D/global" DEV_STATE_DIR="$D/state" bash "$HOOK" 2>/dev/null); rc=$?
+[ "$rc" -eq 0 ] && [ -z "$out" ] && pass "hand-off, no tree: silent" || die "hand-off only: rc=$rc out='$out'"
 
 # Above + tree and no hand-off at all: stale, the stop is blocked.
 printf '\n## tree 2026-09-07T00:00:00Z\n- branch: work\n' >> "$D/state/s1.md"
