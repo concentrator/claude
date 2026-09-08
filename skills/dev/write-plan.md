@@ -43,9 +43,17 @@ round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` / `all`.
    - `type: <inherited from task tag>`
    - `architecture-changing: true` (only if it touches design)
    - `depends-on: R008-T001` (if cross-task dependency)
+   - `cold-read: passed` is written by step 6, never ahead of it
 5. **Add the mandatory final item** at the end - the completion commit
    (per `branch-plan.md § Closing routine`).
-6. **Confirm with user**, then create the plan branch, write to
+6. **Cold read** (`companions/verification-policy.md § Comprehension
+   check`): dispatch a fresh subagent with the commit-item texts plus
+   parent-chain context - never the plan file or the planning
+   conversation - and ask what it would build and what is ambiguous or
+   assumed. Each gap is fixed in the plan and the read re-run until it
+   reports none; the header then records `cold-read: passed`. A plan
+   is never offered for approval without the record.
+7. **Confirm with user**, then create the plan branch, write to
    `dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`, and deliver via a
    short-lived plan MR/PR (`plan.md § Where plans live in git`).
 
@@ -57,9 +65,10 @@ Per `branch-plan.md § Size cap` (warn/split thresholds live there).
 
 One plan-writer subagent per open task lacking a plan (independent -
 dispatch in parallel), each following this skill; the dispatcher
-creates the one plan branch before dispatch, so step 6's branch act
-is not the writers'. Then a single user review pass over all slugs +
-plans before delivering them (one plan MR/PR).
+creates the one plan branch before dispatch, so step 7's branch act
+is not the writers'. Each writer runs step 6 on its own plan, and the
+single user review pass over all slugs + plans opens only when every
+plan carries `cold-read: passed`; then deliver them (one plan MR/PR).
 
 ## Out of scope
 
