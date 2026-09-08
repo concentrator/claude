@@ -71,6 +71,69 @@ until R080-T006's table exists and they cite it.
   findings files" and `companions/implementer-prompt.md § Plan &
   Findings Files` say the same. `DESIGN.md § Git & delivery model`
   lists the planner among the seats that exist.
+- [ ] `run.md`, three sites and nothing else. `§ Close` step 2: "The
+  approved fixes are an implementer seat's item, the findings its
+  text" becomes: the approved fixes go to the planner as one change on
+  the branch (`plan.md § Adjusting existing plans`), each fix a new
+  checkbox, the change approved per `§ Question resolution`, and a
+  fresh implementer works them - so the step agrees with `§ Question
+  resolution` and `branch-plan.md § Rails` (plan content is the
+  planner's alone); the step's first sentence stays. `§ Checkpoint`,
+  Halt bullet: "the resolver (§ Question resolution) resolves and the
+  run resumes on the same scope" becomes "the halted item takes
+  § Question resolution and the run resumes on the same scope".
+  `§ Sync`: "a fresh implementer on the re-read plan" becomes "a fresh
+  implementer on the plan, re-read where it changed". The file stays
+  within 300 lines and 80 columns (table rows exempt).
+- [ ] `write-plan.md` and `companions/planner-prompt.md`, the planning
+  side of the same route. `write-plan.md`: the opening paragraph
+  reflows and gains one line routing `/dev plan <slug>` to `plan.md
+  § Adjusting existing plans`, since `SKILL.md § /dev plan` sends its
+  `<slug>` row here; `§ Inputs` keeps the task id and the task tag as
+  the session's entries (they settle step 2: the slug, the branch
+  prefix, the plan file) and replaces the remaining entries with one
+  line citing `companions/planner-prompt.md § Inputs` as the planner's
+  set, a restated list drifting (`§ Readiness checklist`); the
+  `§ Steps` lead says the planner's step 1 runs after the session
+  settles step 2; step 3's ragged wrap ("or `references/`. For a" /
+  "`[feat]` / `[fix]` task, each checkbox is") reflows; step 6 "The
+  session commits that header edit on the plan branch itself" becomes
+  "on the branch the planner committed to". The file stays within 300
+  lines and 80 columns. `companions/planner-prompt.md`: the
+  placeholder `<plan branch>` becomes `<branch>` at its two sites (the
+  `## Inputs` Code bullet, Job 4), a mid-branch re-dispatch committing
+  on the item's branch; Job 3 reads "item 1 above" for "step 1", and
+  adds that a change adding a decision drops `cold-read: passed` from
+  the header, the re-read re-earning it, while a change that only
+  cites text already in the tree leaves it - the split `write-plan.md`
+  step 6 already draws.
+- [ ] The companion files that still let the runner answer a seat's
+  question (the findings file's entry). `companions/supervisor-runbook.md`
+  `§ Variant A` step 3 reads: the runner routes a seat's question
+  through `run.md § Question resolution` - the item halts, the planner
+  changes the plan, the **user** approves under either supervisor
+  mode, a fresh implementer follows. `§ The loop`: the two-line
+  "asking?" branch ("implementation: answer" and "design or
+  unclassifiable: escalate") becomes one line, "asking? -> planner
+  change, user approves, fresh implementer"; the runner box's
+  "answers" becomes "routes questions"; the `Supervisor: AI` line
+  above the runner box reads "answers the always-ask escalations and
+  approves plan changes". `§ Modes by seat`: the clause "and can
+  always answer a seat" drops, "never blocked" standing; the seat
+  table's second row reads "Planner, implementer, reviewer", cells
+  unchanged. `companions/declarations.md § Supervisor bounds`: the
+  grant bullet "implementation-level resolutions of worker questions
+  and queued judgment calls" narrows to queued judgment calls at
+  implementation level, an implementer's question taking the
+  planner's change and the user's approval under either mode
+  (`run.md § Question resolution`); "worker" retires for "implementer"
+  at its other site ("the worker/supervisor seam"); "the user gets the
+  always-ask list only" becomes "the always-ask list and plan changes".
+  `companions/report-template.md § Supervisor decisions`:
+  "implementation questions and queued calls resolved by the
+  supervisor" becomes the queued calls the supervisor resolved and the
+  plan changes the user approved. The findings file's entry goes
+  `[x]`, ending "Resolved by R080-T008 item 6."
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup, commit.
