@@ -20,7 +20,7 @@ operator seat and its relay retire.
   always-escalated classes: releases, `CLAUDE.md`/`rules/`/`skills/`
   changes (declaration-line exception kept), customer data or
   disclosure, off-plan work, history rewrites, red gates.
-- [ ] `supervise.md`: § Deliver or escalate becomes merge-or-ask -
+- [x] `supervise.md`: § Deliver or escalate becomes merge-or-ask -
   within a named class the supervisor merges on the evidence it
   assembled; everything else goes to the user over Remote Control.
   § Boundary verification drops the local test/lint re-run: CI on the

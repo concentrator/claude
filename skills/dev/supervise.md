@@ -1,11 +1,11 @@
 # Supervising Execution
 
-Engine behind `/dev supervise`: automate the operator role
-within declared bounds - dispatch planned work, verify boundaries with
-existing gates, deliver or escalate. The supervisor never implements,
-never edits plans or its own bounds, and never merges
-(`companions/declarations.md § Supervisor bounds`, no grant merges).
-Host gates are never bypassed - no admin merges.
+Engine behind `/dev supervise`: scoped delivery within declared
+bounds - dispatch planned work, verify boundaries with existing gates,
+merge or ask. The supervisor never implements and never edits plans or
+its own bounds; it merges a green in-class MR/PR and asks the user
+about everything else (`companions/declarations.md § Supervisor
+bounds`). Host gates are never bypassed - no admin merges.
 
 **Never run git in a worker's working tree.** Absolute, not a caution:
 a caution did not prevent this, and the damage is silent when it
@@ -36,10 +36,10 @@ commits and carries them to trunk on merge.
    plans. Scope selects pre-approved work - anything lacking approved
    requirements or a stamped plan (`agentic:` or `supervised:`,
    `branch-plan.md § Stamps`) is reported NOT READY, never dispatched.
-   A cold read of a `supervised:` plan is optional; each finding goes
-   to the seat that owns its class (`companions/declarations.md
-   § Supervisor bounds`, `§ Operator modes`), and only a finding for
-   the human holds the dispatch.
+   A cold read of a `supervised:` plan is optional; each finding is
+   resolved in class or asked of the user (`companions/declarations.md
+   § Supervisor bounds`), and only a finding for the user holds the
+   dispatch.
 4. **Ledger** - open the scope's file (§ Ledger).
 
 ## Dispatch
@@ -93,7 +93,7 @@ runs in a mode that never blocks it
 one-time approval only, never a persistent rule or a mode switch, and
 the clearing send re-verifies the prompt is still pending immediately
 before sending - a keystroke after the dialog is gone lands in the
-composer as input. The operator intervenes on a worker prompt
+composer as input. The supervisor intervenes on a worker prompt
 only after the runbook's stall window
 (`companions/supervisor-runbook.md § Failure modes`). Under the
 `acceptEdits` session default, edits and in-cwd filesystem commands
@@ -153,8 +153,10 @@ At a checkpoint, before the MR/PR is handed over:
    `git log -1` on each): equal refs mean no member branch merged in,
    so the work took another route, with every gate on that route
    unrun. Check it before the gates below.
-4. Project gates are green: declared test/lint plus CI on the MR/PR
-   (declared state-check command).
+4. CI on the MR/PR is green, matched to the head sha (declared
+   state-check command) - never a local re-run of gates the worker ran
+   and CI re-ran. Plan boxes, diff confinement, and the committer
+   signature complete the check.
 5. A batch closing an R does **not** carry the closure and archival
    marks - they ride a close-out plan MR/PR (`plan/r<NNN>-close`)
    opened after the batch MR/PR merges (`branch-plan.md § Batches`).
@@ -168,7 +170,7 @@ At a checkpoint, before the MR/PR is handed over:
 Checkpoint boundary checks are existing gates only; the report's
 queued judgment calls follow § Question resolution.
 
-## Deliver or escalate
+## Merge or ask
 
 The delivery classes live in `companions/declarations.md § Supervisor
 bounds` and are not restated here: a partial copy misleads. Read the
@@ -178,12 +180,12 @@ declaration.
 
 The terminal state on a branch is a green MR/PR plus the report that
 verifies it (`companions/declarations.md § Supervisor bounds`). Within
-a named class, hand that MR/PR to
-the operator with the evidence cited and nothing else: report path,
-gate results, state-check output. The operator decides and applies the
-signature (§ Supervision signature there). Everything else escalates -
-the always-escalated classes per that same section, and anything the
-grant does not name.
+a named class the supervisor merges on the evidence it assembled -
+report path, gate results, state-check output - and applies the
+signature (§ Supervision signature there): the `supervised` label and
+the merge comment. Everything else is asked of the user directly
+(Remote Control where connected) - the always-ask list per that same
+section, and anything the grant does not name.
 
 Branch protection is not the supervisor's to satisfy by other means: a
 red gate escalates rather than being worked around.
