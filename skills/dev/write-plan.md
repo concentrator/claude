@@ -1,27 +1,29 @@
 # Writing Plans
 
 Generate a branch plan (`dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`)
-from a task in its initiative's `tasks.md`. Invoked
-within the detail
-round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` / `all`.
+from a task in its initiative's `tasks.md`. Invoked within the detail
+round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` /
+`all`. `/dev plan <slug>` adjusts a plan that already exists, which is
+`plan.md § Adjusting existing plans`.
 
 ## Inputs
+
+The session's own, which settle step 2 - the slug, the branch prefix
+and the plan file:
 
 - Task ID (e.g. `R008-T001`; legacy `T-014`) from the parent R's
   `dev/plans/R<NNN>-<slug>/tasks.md`
 - Task tag: `[feat] | [fix] | [refactor] | [doc] | [test] | [mnt]`
-- Parent chain for context: task → initiative
-- Project `CLAUDE.md` (build/test/lint), `.claude/DESIGN.md` (architecture)
-- The changed feature's `docs/` doc, if it exists (`layout.md § Docs`)
-  - plan against the current documented behavior
-- Probe findings for the surfaces the task touches (rule: step 3
-  below).
+
+The planner's set is `companions/planner-prompt.md § Inputs`; restating
+it here would drift from it (`§ Readiness checklist`).
 
 ## Steps
 
-Steps 1 and 3 to 5 belong to one planner dispatched per task after
-step 2 (`companions/planner-prompt.md`). The session keeps steps 2, 6
-and 7 and writes no plan text itself.
+Steps 1 and 3 to 5 belong to one planner dispatched per task
+(`companions/planner-prompt.md`); its step 1 runs once the session has
+settled step 2. The session keeps steps 2, 6 and 7 and writes no plan
+text itself.
 
 1. **Resolve chain.** Read task line; walk back T → R. Read
    `dev/plans/R<NNN>-<slug>/requirements.md` for acceptance criteria, and the
@@ -33,17 +35,16 @@ and 7 and writes no plan text itself.
 3. **Decompose work** into commit-sized checkboxes. Each `[ ]` = one
    commit, ~2–5 minutes of focused work, naming the change in one
    sentence and the docs it touches (task right-sizing:
-   `plan.md § Levels`). Probe findings live in the R's
-   `requirements.md` or `references/`. For a
-   `[feat]` / `[fix]` task, each checkbox is
-   one behavior slice carrying its test and its implementation together -
-   the execution cadence commits a whole red→green→refactor pass as one
+   `plan.md § Levels`). Probe findings live in the R's `requirements.md`
+   or `references/`. For a `[feat]` / `[fix]` task, each checkbox is one
+   behavior slice carrying its test and its implementation together - the
+   execution cadence commits a whole red→green→refactor pass as one
    commit (`feat.md`, `fix.md`) - so "write tests" is never its own
-   commit item. A wire-level detail in a commit item (response
-   envelope, field names, pagination keys, accepted shapes) cites the
-   probe findings, never the repo's idiom or a `DESIGN.md` convention -
-   the house shape does not predict an external surface. A wire detail
-   the plan depends on with no probe behind it → probe first, then plan.
+   commit item. A wire-level detail in a commit item (response envelope,
+   field names, pagination keys, accepted shapes) cites the probe
+   findings, never the repo's idiom or a `DESIGN.md` convention - the
+   house shape does not predict an external surface. A wire detail the
+   plan depends on with no probe behind it → probe first, then plan.
    Apply `§ Readiness checklist` to every item.
 4. **Add header** per `branch-plan.md`:
    - `task: R008-T002`
@@ -60,10 +61,10 @@ and 7 and writes no plan text itself.
    existing plans`); a fix that adds a decision re-runs the read, a fix
    that cites text already in the tree does not; when it reports none
    the header records `cold-read: passed`. The session commits that
-   header edit on the plan branch itself - the record is bookkeeping,
-   not plan text. A plan whose `depends-on` names an unmerged task is
-   read at its start instead, when its targets exist, and carries no
-   record until then.
+   header edit on the branch the planner committed to - the record is
+   bookkeeping, not plan text. A plan whose `depends-on` names an
+   unmerged task is read at its start instead, when its targets exist,
+   and carries no record until then.
 7. **Confirm with user**, then deliver the committed plan via a
    short-lived plan MR/PR (`plan.md § Where plans live in git`).
 

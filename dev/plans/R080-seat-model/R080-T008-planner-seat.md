@@ -85,7 +85,7 @@ until R080-T006's table exists and they cite it.
   `§ Sync`: "a fresh implementer on the re-read plan" becomes "a fresh
   implementer on the plan, re-read where it changed". The file stays
   within 300 lines and 80 columns (table rows exempt).
-- [ ] `write-plan.md` and `companions/planner-prompt.md`, the planning
+- [x] `write-plan.md` and `companions/planner-prompt.md`, the planning
   side of the same route. `write-plan.md`: the opening paragraph
   reflows and gains one line routing `/dev plan <slug>` to `plan.md
   § Adjusting existing plans`, since `SKILL.md § /dev plan` sends its

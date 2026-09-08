@@ -19,7 +19,7 @@ Task tool (general-purpose):
     - Docs: the project's docs directory, `DESIGN.md` and `README.md`
       where present - the code's own documentation.
     - Code: the checkout you are in, `<directory>`, on branch
-      `<plan branch>`.
+      `<branch>`.
     - The initiative's other plans, in `<plans directory>`.
     - <Re-dispatch only: the blocker's or the cold-read gap's text,
       verbatim.>
@@ -37,11 +37,15 @@ Task tool (general-purpose):
        step 6, which is not yours.
     2. Write the plan to `<path to the plan file>`. The dispatch names
        that file: you neither choose the slug nor create the branch.
-    3. On a change to an existing plan, step 1 does not run: state the
-       change as a diff of items - which items are added, reworded or
-       dropped, and why - and make exactly that change. The rest of
-       the plan stays as it is.
-    4. Commit on `<plan branch>` (message rules: ## Conventions).
+    3. On a change to an existing plan, item 1 above does not run:
+       state the change as a diff of items - which items are added,
+       reworded or dropped, and why - and make exactly that change. The
+       rest of the plan stays as it is. A change that adds a decision
+       drops `cold-read: passed` from the header, the dispatcher's
+       re-read re-earning it; a change that only cites text already in
+       the tree leaves the record standing (`write-plan.md` step 6
+       draws that split).
+    4. Commit on `<branch>` (message rules: ## Conventions).
        Never push: delivery is the dispatcher's.
 
     ## Conventions
