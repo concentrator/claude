@@ -42,10 +42,11 @@ planner's exit.
   of `run.md` replaces the ship question of `finish.md § 2-3`, which
   stays the human-mode surface. A seat is a subagent of the runner
   session, dispatched with the Task tool in the runner's checkout and
-  inheriting its permission mode; the runbook's peer-session material
+  inheriting its permission mode; the runbook's peer-worker material
   - the `tmux` worker, adopt before dispatch, one worker at a time,
-  prompt clearing over `tmux` - retires with that model, and what
-  `§ Modes` says per seat is its tool set. Close folding
+  prompt clearing over `tmux` - retires with that model, while the
+  runner-in-`tmux` material stays for a runner on a remote host. Close
+  folding
   (`companions/verification-policy.md § Close folding`) applies to a
   batch-scoped run; a task-scoped run closes in full. `handoff.md`:
   the runner session writes as `supervisor`, a seat writes none since
@@ -73,15 +74,23 @@ planner's exit.
 - [ ] `companions/implementer-prompt.md`: the input set is the task's
   plan, the docs and the code (`requirements.md § Desired state` 4),
   stated as such - never the initiative's requirements;
-  `companions/spec-reviewer-prompt.md`: the plan, the task's
-  acceptance criteria and the diff, and nothing else, stated as such -
-  the implementer's report is not an input, so the report section and
-  its distrust framing go, and the convention check against `CLAUDE.md`
+  `companions/spec-reviewer-prompt.md`: the plan, the initiative's
+  acceptance criteria (`requirements.md § Acceptance criteria`, the
+  whole list) and the diff, and nothing else, stated as such - the
+  implementer's report is not an input, so the report section and its
+  distrust framing go, and the convention check against `CLAUDE.md`
   stays as part of reading the code. The reviewer's input list lives
-  here, as `requirements.md § Desired state` 4 records.
-  `companions/supervisor-runbook.md § Modes` heads its table by seat
-  and `§ Two variants` names the human supervisor as the one-machine
-  case.
+  here, as `requirements.md § Desired state` 4 records. The cold read
+  follows the implementer's inputs: `companions/verification-policy.md
+  § Comprehension check` and `write-plan.md` step 6 give the reader the
+  plan, the docs and the code in place of the commit-item text and
+  parent chain, the planning conversation still withheld.
+  `companions/supervisor-runbook.md § Modes` heads its table by seat,
+  every dispatched seat's mode reading "inherits the runner's" and the
+  tool-set column left to T007; `§ Two variants` re-keys by where the
+  runner session lives - A on this machine, B on a remote host under
+  `tmux` and Remote Control - independent of the supervisor mode, its
+  peer-worker rows gone.
 - [ ] `DESIGN.md § Planning model` and `§ Git & delivery model`: the
   seat model - one flow, supervisor declared per project, seats with
   fixed inputs and a one-item lifetime; `§ Decisions` gains a bullet
