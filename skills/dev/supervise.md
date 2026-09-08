@@ -35,11 +35,9 @@ commits and carries them to trunk on merge.
    `[ ]` in `tasks.md`, no report), else open tasks with stamped
    plans. Scope selects pre-approved work - anything lacking approved
    requirements or a stamped plan (`agentic:` or `supervised:`,
-   `branch-plan.md § Stamps`) is reported NOT READY, never dispatched.
-   A cold read of a `supervised:` plan is optional; each finding is
-   resolved in class or asked of the user (`companions/declarations.md
-   § Supervisor bounds`), and only a finding for the user holds the
-   dispatch.
+   `branch-plan.md § Stamps`) is reported NOT READY, never dispatched;
+   so is a plan without `cold-read: passed` (`branch-plan.md
+   § Header`), the report naming the missing record.
 4. **Ledger** - open the scope's file (§ Ledger).
 
 ## Dispatch

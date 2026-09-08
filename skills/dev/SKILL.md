@@ -6,8 +6,7 @@ description: Use to enter DEV mode for spec-driven, planned, reviewed work.
 # Dev
 
 DEV mode - strict, spec-driven, manual (`/dev code`) or agentic (`/dev
-auto`). Mode files live beside this file; **read the one a command
-maps to before acting.**
+auto`). **Read the mode file a command maps to before acting.**
 
 ## Surface
 
@@ -43,8 +42,9 @@ Round-gate rules: `plan.md § Planning rounds`.
 ## `/dev code [<slug>]`
 
 On `main`: no arg → next task from the open batch, else ask; `<slug>` →
-verify plan, branch, start. On a branch: continue from first `[ ]`; wrong
-or missing `<slug>` → error. Pre-flight: re-read plan vs code; concerns →
+verify plan (no `cold-read: passed` → refuse, naming it), branch,
+start. On a branch: continue from first `[ ]`; wrong or missing
+`<slug>` → error. Pre-flight: re-read plan vs code; concerns →
 `/dev plan <slug>` first.
 Dispatch by tag: `feat`→`feat.md`, `fix`→`fix.md`, `refactor`→`refactor.md`;
 `doc`/`test`/`mnt` have no mode file - run `branch-plan.md § Commit

@@ -12,6 +12,9 @@ branch = one task. The plan is complete and committed to `main`
     architecture-changing: true     # optional - triggers DESIGN.md
                                     #   update commit
     depends-on: R008-T001           # optional - blocks `/dev code` until merged
+    cold-read: passed               # required - the planner's exit
+                                    #   (`write-plan.md` step 6); absent =
+                                    #   refused by every runner
     agentic: approved               # optional - auto-eligible;
                                     #   absent = manual-only
     supervised: approved            # optional - supervise-eligible
