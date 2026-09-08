@@ -39,8 +39,8 @@ record `publish-external:`. If external, override
 Ask: **extended docs?** Record `extended-docs:` (+ path if yes) in
 `CLAUDE.md § Conventions`. If yes: create directory with placeholder.
 
-If the project will keep `dev/docs/` feature docs (`layout.md § Docs`),
-record a one-line pointer to `dev/docs/index.md` in `§ Conventions`.
+If the project will keep `docs/` feature docs (`layout.md § Docs`),
+record a one-line pointer to `docs/index.md` in `§ Conventions`.
 
 ## 4. Quality infrastructure
 

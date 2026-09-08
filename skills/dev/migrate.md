@@ -64,7 +64,7 @@ Write `.claude/DESIGN.md` (≤1000 words inline). User approves.
 ## 4. CLAUDE.md alignment
 
 Ensure project `CLAUDE.md` has `## Conventions` (release-routine,
-publish-external, extended-docs, and a `dev/docs/index.md` pointer if
+publish-external, extended-docs, and a `docs/index.md` pointer if
 the docs layer is used) + stack, base branch, and an `## Agent
 toolchain` section (VCS host + build/test/lint/change-request/
 state-check commands - `companions/declarations.md`); backfill it if
@@ -94,7 +94,7 @@ Known bugs or tech debt → R stubs per `plan.md
 
 ## 7. Docs adoption
 
-If the project keeps `dev/docs/` feature docs (`layout.md § Docs`), run
+If the project keeps `docs/` feature docs (`layout.md § Docs`), run
 the docs-adoption procedure (`companions/docs-adoption.md`) - audit, build,
 and workflow correction - to bring them onto the doc-first convention.
 

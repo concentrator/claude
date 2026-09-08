@@ -12,7 +12,7 @@ Inventory, then report - touching nothing:
 - **Move set** - the `.claude/`-resident artifact trees, listed per
   top-level entry: `.claude/plans/` → `dev/plans/` (ROADMAP.md,
   release plans, `R<NNN>-<slug>/` dirs, `archive/`) and
-  `.claude/docs/` → `dev/docs/` (feature
+  `.claude/docs/` → `docs/` (feature
   docs + `index.md`). Config stays under `.claude/`: `REQUIREMENTS.md`,
   `DESIGN.md`, `MAINTENANCE.md`, `settings*.json`, `skills/`,
   `rules/`, `commands/`, `agents/`, `hooks/`, `references/`, `adr/`.
@@ -22,7 +22,7 @@ Inventory, then report - touching nothing:
   are gitignored), for `.claude/plans` and `.claude/docs`; list each
   hit with its replacement.
 - **Collisions** - a destination that already exists (`dev/plans/` or
-  `dev/docs/`: a partial earlier migration). Report each; § 2 refuses
+  `docs/`: a partial earlier migration). Report each; § 2 refuses
   to move onto it - merge, rename, or abort is the user's call.
 - **Gaps** - a `- DEV artifacts root:` line in `CLAUDE.md § Agent
   toolchain`, which `ci/check-plan-integrity.sh` (`start.md § 4`)
@@ -43,7 +43,7 @@ tracked-file rewrites ride the branch.
 1. **Move** - the destination must not exist (§ 1 Collisions; if it
    does, stop and resolve with the user). Tracked:
    `git mv .claude/plans dev/plans` and
-   `git mv .claude/docs dev/docs`, creating parent dirs as needed
+   `git mv .claude/docs docs`, creating parent dirs as needed
    and skipping trees the project does not have - `git mv` preserves
    history. Untracked mode: plain `mv` - the tree has no history to
    preserve.

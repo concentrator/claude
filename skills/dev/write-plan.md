@@ -12,7 +12,7 @@ round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` / `all`.
 - Task tag: `[feat] | [fix] | [refactor] | [doc] | [test] | [mnt]`
 - Parent chain for context: task → initiative
 - Project `CLAUDE.md` (build/test/lint), `.claude/DESIGN.md` (architecture)
-- The changed feature's `dev/docs/` doc, if it exists (`layout.md § Docs`)
+- The changed feature's `docs/` doc, if it exists (`layout.md § Docs`)
   - plan against the current documented behavior
 - Probe findings for the surfaces the task touches (rule: step 3
   below).
@@ -21,7 +21,7 @@ round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` / `all`.
 
 1. **Resolve chain.** Read task line; walk back T → R. Read
    `dev/plans/R<NNN>-<slug>/requirements.md` for acceptance criteria, and the
-   changed feature's `dev/docs/` doc (if any) for its current behavior.
+   changed feature's `docs/` doc (if any) for its current behavior.
 2. **Propose slug** (`git-workflow.md § Trunk` rules); confirm with
    user.
 3. **Decompose work** into commit-sized checkboxes. Each `[ ]` = one
