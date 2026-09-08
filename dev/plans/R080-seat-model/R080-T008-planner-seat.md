@@ -130,10 +130,12 @@ until R080-T006's table exists and they cite it.
   supervisor" becomes the queued calls the supervisor resolved and the
   plan changes the user approved. The findings file's entry goes
   `[x]`, ending "Resolved by R080-T008 item 6."
-- [ ] `run.md` and `companions/implementer-prompt.md`, the concern
-  route, one cite and the implementer's one channel. `run.md
-  § Dispatch per item` 2 reads: "DONE → spec check. DONE_WITH_CONCERNS
-  → a concern that changes plan text takes § Question resolution as
+- [ ] `run.md`, `companions/implementer-prompt.md` and
+  `companions/verification-policy.md § Spec-check skip`, three files:
+  the concern route, one cite, the implementer's one channel and the
+  second spec-check skip class. `run.md § Dispatch per item` 2 reads:
+  "DONE → spec check. DONE_WITH_CONCERNS → a concern that changes plan
+  text takes § Question resolution as
   NEEDS_CONTEXT does: the item's `[x]` stands and its commit goes
   unchecked; the planner's change adds a new checkbox for the redo, as
   § Close step 2 does for fixes, so the fresh implementer works the
@@ -165,8 +167,15 @@ until R080-T006's table exists and they cite it.
   `run.md § Question resolution`: a planner changes the plan, the user
   approves the change and a fresh implementer works the re-read plan;
   no answer reaches you directly, since your inputs are the plan, the
-  docs and the code." `run.md` grows by the concern clause and stays
-  within 300 lines and 80 columns.
+  docs and the code." `companions/verification-policy.md § Spec-check
+  skip` opens with two skip classes - a commit classified mechanical
+  (the predicate above it, guard not voided), and a commit superseded
+  by a plan change (`run.md § Dispatch per item` 2) - and its
+  recording rule covers both record forms, `…: mechanical` and
+  `…: superseded by plan change`; the section's scope and drift
+  paragraphs stay. Three files, so the item takes a spec check.
+  `run.md` grows by the concern clause and stays within 300 lines and
+  80 columns.
 - [ ] `run.md § Question resolution`, `§ Resolve` and `§ Checkpoint`,
   the halted item's tree, the re-read and the rejection path.
   `§ Question resolution`, first paragraph: the halt reverts the
@@ -192,7 +201,10 @@ until R080-T006's table exists and they cite it.
   from the last commit. "The runner reads the changed plan" drops, the
   read being the reader seat's.
   Second paragraph: "The re-dispatch carries the blocker's or the
-  gap's text" gains "or the objection's". `§ Resolve` 1 adds, after
+  gap's text" reads "The re-dispatch carries the blocker's, the
+  concern's, the cold-read gap's or the user's objection text", the
+  same list `companions/planner-prompt.md § Inputs` carries (item 11).
+  `§ Resolve` 1 adds, after
   "a plan whose `depends-on` is unmerged the same": the check runs at
   every implementer dispatch, not at scope start alone - the reader
   seat's dispatch is not one, its read being what earns the record -
@@ -200,9 +212,10 @@ until R080-T006's table exists and they cite it.
   stands, kept through a cite-only change or restored by the
   bookkeeping commit (§ Question resolution). `§ Checkpoint`, the Halt
   bullet reads: "**Halt** → failed item reported. A question halt - an
-  implementer's plan-changing concern or NEEDS_CONTEXT - takes
-  § Question resolution, whose revert drops the item's uncommitted
-  edits; any other halt - a red tier, a spec check rejecting twice
+  implementer's plan-changing concern, NEEDS_CONTEXT or an absorbable
+  blocker (`branch-plan.md § Scope discoveries`) - takes § Question
+  resolution, whose revert drops the item's uncommitted edits; any
+  other halt - a red tier, a spec check rejecting twice
   (`branch-plan.md § Stop conditions`) - keeps the work intact. The
   run resumes on the same scope." The file grows by these sentences
   and stays within 300 lines and 80 columns (table rows exempt).
@@ -253,10 +266,12 @@ until R080-T006's table exists and they cite it.
   step staying.
 - [ ] `companions/planner-prompt.md`, the rejection path. The opening
   paragraph's "whenever a blocker or a cold-read gap needs plan text
-  changed" reads "whenever a blocker, a cold-read gap or the user's
-  rejection of a change needs plan text changed". The `## Inputs`
-  re-dispatch bullet reads "<Re-dispatch only: the blocker's, the
-  cold-read gap's or the user's objection text, verbatim.>". Job 4
+  changed" reads "whenever a blocker, an implementer's plan-changing
+  concern, a cold-read gap or the user's rejection of a change needs
+  plan text changed". The `## Inputs` re-dispatch bullet reads
+  "<Re-dispatch only: the blocker's, the concern's, the cold-read
+  gap's or the user's objection text, verbatim.>", the list `run.md
+  § Question resolution` carries (item 8). Job 4
   gains, after "Never push: delivery is the dispatcher's.": "Your
   commit stands whether or not the user approves the change: nothing
   is pushed until the runner delivers, a rejection re-dispatches a
