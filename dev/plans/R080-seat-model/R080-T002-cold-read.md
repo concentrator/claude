@@ -39,7 +39,7 @@ Runs before T003 so the check has a home before the stamps retire.
 - [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup, commit.
-- [ ] `write-plan.md § Readiness checklist`: the eight gap classes the
+- [x] `write-plan.md § Readiness checklist`: the eight gap classes the
   first cold reads found, applied at step 3 so the read confirms
   rather than discovers; step 6 gains the re-run rule (a gap fixed by
   a new decision re-runs the read, one fixed by citing text already in
@@ -49,6 +49,6 @@ Runs before T003 so the check has a home before the stamps retire.
   § Approval and closure` and `companions/verification-policy.md
   § Comprehension check` follow; `requirements.md § Desired state` 2
   gains the chained-plan clause.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup, commit.
