@@ -281,6 +281,30 @@ until R080-T006's table exists and they cite it.
   content." The `## Exit` paragraph adds, after "a gap re-dispatches a
   planner with the gap's text", ", the user's rejection one with the
   objection's text".
+- [ ] `run.md` and `plan.md`, three sites where text items 7, 8 and 11
+  changed still reads as before; two files, so the item is mechanical.
+  `run.md § Dispatch per item` 3, "skipped for mechanical commits per
+  `companions/verification-policy.md`", names one skip class where
+  `companions/verification-policy.md § Spec-check skip` (item 7) has
+  two; the step reads "Spec check (`companions/spec-reviewer-prompt.md`):
+  exactly the item; skipped per `companions/verification-policy.md
+  § Spec-check skip`. Reject → fix → recheck." `run.md § Question
+  resolution`, the opening list, omits the plan-changing concern the
+  section routes (item 7); the sentence reads "A question whose answer
+  changes plan text - an implementer's blocker, a plan-changing
+  concern, a spec ambiguity, a cold-read gap found in flight - halts
+  the item and re-dispatches the planner (`companions/planner-prompt.md`)
+  with that text, on the item's own branch (`git-workflow.md
+  § Trunk`)." `plan.md § Adjusting existing plans`, the branch-plan
+  bullet's change kinds "commits added after the final, a gap the read
+  found, a blocker's answer" carry the four that
+  `companions/planner-prompt.md`'s opening paragraph and `run.md
+  § Question resolution`'s second paragraph carry (items 8 and 11),
+  plus the first; the clause reads "makes exactly that change - commits
+  added after the final, a blocker, an implementer's plan-changing
+  concern, a cold-read gap, the user's rejection of a change." The rest
+  of each sentence and section stays. `run.md`, at 280 lines, stays
+  within 300 lines and 80 columns (table rows exempt).
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup, commit.
