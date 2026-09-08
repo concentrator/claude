@@ -12,8 +12,8 @@ demand; the boundary rules in `branch-plan.md § Session boundary` and
 `dev/session/<session_id>.md`, gitignored. Its path is
 the `session-state:` field the `branch-state:` prompt line ends with -
 read it from there, never derive it. One file per `claude` process:
-under the supervisor runbook the supervisor, worker and operator each
-have their own; under `/dev auto` or a worker spawned as a subagent,
+under the supervisor runbook the supervisor and worker each have
+their own; under `/dev auto` or a worker spawned as a subagent,
 hooks fire with the parent's `session_id`, so the run has one file and
 only the orchestrating session writes hand-offs to it (a member's
 state is its checkpoint report).
@@ -23,8 +23,7 @@ state is its checkpoint report).
 `# session <session_id>`, and the next hand-off rewrites that line with
 the role. Roles: `worker` (dispatched by a supervisor), `supervisor`
 (`/dev supervise`; re-briefed from this note and its ledger,
-`dev/supervisor/<scope>.md`), `operator` (the AI operator seat),
-`solo` (no other seat).
+`dev/supervisor/<scope>.md`), `solo` (no other seat).
 
 **Blocks** - `## <kind> <UTC timestamp>` followed by `- key: value`
 lines, appended in time order; the last block of each kind is current.

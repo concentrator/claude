@@ -78,21 +78,31 @@ risk, delivered through at most two seats.
 
 ## Acceptance criteria
 
-- [ ] The closing-routine table routes every diff class to one
+- [x] The closing-routine table routes every diff class to one
       reviewer dispatch; the second-agent condition is stated in
       `agents/code-reviewer.md` and no flow dispatches reviewers by
       dimension. Verified by reading the closing routine and agent
       file.
-- [ ] `supervise.md` and the runbook define two seats; no step hands
+  Evidence: `branch-plan.md § Closing routine` step 1 is the one
+  dispatch, depth per the rubric; the escalation condition sits in
+  `agents/code-reviewer.md § Escalation for the dispatcher`.
+- [x] `supervise.md` and the runbook define two seats; no step hands
       over to an operator, re-runs local gates at handover, or merges
       without the always-ask list stated; the `supervised` label is
       the supervisor's merge step. Verified by grep for the operator
       seat across `skills/dev/`.
-- [ ] The test rule states the invariant/fixed-bug condition and the
+  Evidence: the grep returns nothing; boundary verification is CI +
+  artifacts only and `supervise.md § Merge or ask` carries the label.
+- [x] The test rule states the invariant/fixed-bug condition and the
       reviewer prohibition; `code-reviewer.md` carries the matching
       conduct line.
-- [ ] R-057 and R-025 are closed or tombstoned with one-line notes
+  Evidence: `plan.md § Proportionality` states the condition; the
+  reviewer conduct line pairs invariant-without-guard with
+  observed-failure-without-pin.
+- [x] R-057 and R-025 are closed or tombstoned with one-line notes
       naming this R.
+  Evidence: ROADMAP marks R-025 superseded by R072-T001; archived
+  R-057 tombstones R057-T002 to R072-T001.
 
 ## Constraints
 

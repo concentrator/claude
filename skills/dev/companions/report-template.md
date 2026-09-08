@@ -10,7 +10,7 @@ as a skipped step.
 
 batch-branch: batch/R<NNN>-B<NNN>
 base: <default branch>@<sha at pre-flight>
-state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
+state: <branches merged>/<branches planned>, full tier <green|red>
 
 ## Branches
 
@@ -28,7 +28,7 @@ state: <branches merged>/<branches planned>, tests <green|red>, lint <green|red>
   semantic conflicts, duplicated helpers, divergent conventions -
   each + resolution; findings in folded branches attributed per branch>
 - fixes applied on batch branch: <shas + one-liners, or "none">
-- tests + lint after fixes: <results>
+- full tier after fixes: <results>
 
 ## Docs coherence
 

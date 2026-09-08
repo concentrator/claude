@@ -288,7 +288,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       check-archival.sh and its run-all registration so adopter
       projects get the same archival enforcement, asserted by
       install-dev.test.sh.
-- [ ] R072: Slim the per-task workflow - size-scaled close review,
+- [x] R072: Slim the per-task workflow - size-scaled close review,
       two-seat supervision (operator merges into the supervisor),
       proportional tests; supersedes R-057's remainder and R-025.
 - [ ] R073: Planning moves to Jira - epics/tickets replace the repo's
