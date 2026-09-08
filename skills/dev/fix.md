@@ -1,6 +1,7 @@
 # Fixing a Bug
 
-Iteration loop for one bug-fix task from its branch plan.
+The implementer seat's loop for one bug-fix item, run per dispatch
+(`run.md § Dispatch per item`).
 
 ## Pass
 

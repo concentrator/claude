@@ -1,6 +1,7 @@
 # Adding a Feature
 
-Strict TDD iteration for one feature task from its branch plan.
+The implementer seat's TDD loop for one feature item, run per dispatch
+(`run.md § Dispatch per item`).
 
 ## Pass (red → green → refactor)
 

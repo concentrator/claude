@@ -138,7 +138,8 @@ isolation`. The prose class sets the scope
 and the clearing review: rules, skills, and planning prose - the
 changed claims, checked against their sources by the close review
 (`branch-plan.md § Closing routine`; reviewer mandate:
-`agents/code-reviewer.md`; auto mode: the batch-close full-diff pass);
+`agents/code-reviewer.md`; a batch-scoped run: the batch-close full-diff
+pass, `run.md § Batch close`);
 `docs/` feature docs - every claim, via the dedicated per-claim pass:
 
 - Read the doc's `§ Parameters` preamble before its table. The

@@ -252,7 +252,7 @@ done
 [ -z "$miss" ] && pass "settings names template, substitutions and target" || die "settings missing:$miss"
 
 # 14. the push carve-out must cover task-branch prefixes, not just batch/* -
-#     batch-only stalls every manual /dev code branch at push time
+#     batch-only stalls every task-scoped run's branch at push time
 grep -qF -- 'git push -u origin doc/*' <<<"$out" && pass "carve-out covers task branches" \
   || die "push carve-out is batch-shaped: $out"
 

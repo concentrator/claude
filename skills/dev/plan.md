@@ -47,7 +47,7 @@ Two rounds, each emitting several artifact levels at once:
 **Approval authorizes planning, not code** (gate: § Approval and
 closure). Approving a plan delivers its MR/PR and stops: shape-approval
 authorizes the detail round; detail-approval authorizes nothing to run.
-A plan round ends by proposing `/dev code <slug>`, which the user
+A plan round ends by proposing `/dev run <slug>`, which the user
 invokes explicitly.
 
 ## Proportionality
@@ -131,7 +131,7 @@ artifact type separately - `requirements.md` apart from the `ROADMAP`
 
 ## Cross-plan dependencies
 
-A branch plan may declare `depends-on: R008-T001` in its header. `/dev code`
+A branch plan may declare `depends-on: R008-T001` in its header. `/dev run`
 refuses to start the branch until the dependency is merged.
 
 ## Adjusting existing plans
@@ -154,9 +154,7 @@ After the rounds, adjust in place:
 field: `pending` when new, `yes` once the user confirms. Nothing
 downstream proceeds while pending. The field records which state the
 requirements are in, not when they got there - the date of an approval
-is in the commit and MR/PR that carried it. Approval of an R's detail
-round stamps `supervised: approved` on the round's branch plans
-(`branch-plan.md § Stamps`); like `approved:`, which review a stamp
+is in the commit and MR/PR that carried it; which review an approval
 came from is resolvable from the commit that added it. A detail round
 is offered for approval only with every plan's cold read passed and
 recorded as `cold-read: passed` (`write-plan.md` step 6), a plan whose

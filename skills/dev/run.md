@@ -1,0 +1,234 @@
+# Running planned work
+
+Engine behind `/dev run <scope>`: planned work - a task, a batch or an
+initiative - runs as dispatched seats under the supervisor seat the
+project declares (`companions/declarations.md § Supervisor bounds`).
+The runner session holds that seat. Under `Supervisor: AI` it answers
+and merges within the declared bounds; under `Supervisor: human` the
+steps marked **user** below are the user's own and the session only
+dispatches. The session never implements: every code or doc edit is a
+seat's, and the runner's own edits are the plan bookkeeping and the
+closing commit. Rules: `branch-plan.md`. Host gates are never bypassed
+- no admin merges.
+
+A seat is a subagent of the runner, dispatched with the Task tool in
+the runner's checkout for one item, inheriting the runner's permission
+mode and shut down at its exit; the next seat starts fresh, and only
+the branch and the plan item carry over. Seats run one at a time, and
+the runner runs git only between dispatches. A seat touches plan and
+findings files only through Read/Edit/Write and never `.claude/`
+config (edit-class shell there trips the sensitive-file guard).
+
+## Resolve
+
+1. **Scope** - an explicit `R<NNN>-B<NNN>`, task id or slug, or
+   `R<NNN>`; bare = the project's open batch (`branch-plan.md
+   § Batches`: a member task `[ ]` in `tasks.md`, no report), else
+   the next open task whose plan is read. An initiative runs its open
+   batch, else its open tasks in `tasks.md` order, each a task-scoped
+   run. Scope selects pre-approved work: anything lacking approved
+   requirements or `cold-read: passed` (`branch-plan.md § Header`) is
+   reported NOT READY, never dispatched, the report naming the
+   missing record; a plan whose `depends-on` is unmerged the same.
+2. **Supervisor** - read `CLAUDE.md § Supervision`: the `Supervisor:`
+   line and the bounds, plus `.claude/supervisor.md` where referenced.
+   No block, or no `Supervisor:` line → halt, naming it.
+3. **Ledger** - open the scope's file (§ Ledger).
+
+## Pre-flight
+
+- Permissions: every `companions/auto-permissions.template.json` rule
+  (`__PROJECT_DIR__`/`__HOME__` → abs paths without their leading
+  slash - the rules carry the `//` prefix) plus the CLAUDE.md
+  `## Agent toolchain` rules, incl. a VCS-host CLI (`glab`/`gh`;
+  absent → push-only, manual MR/PR), is carried by a tracked tier
+  (user-global `settings.json`, project `.claude/settings.json`) or
+  deliberately narrowed by one (`companions/toolchain.md § Permission
+  carve-out`); the rest are proposed into `.claude/settings.local.json`,
+  applied on approval (**user**). No toolchain section → halt, ask.
+- No plan in scope names a target under `.claude/`: config is never a
+  seat's to write (`companions/implementer-prompt.md`). Every
+  pre-flight check runs before any action; failures are reported
+  together in one message, and the run halts with no branch created
+  and no edit made.
+- Default branch, clean tree, fast tier green
+  (`companions/declarations.md § Declared commands`).
+- Batch scope: tag `pre-R<NNN>-B<NNN>` (e.g. `pre-R062-B001`); create
+  `batch/R<NNN>-B<NNN>` off default. Task scope: the task's branch off
+  default, prefix from `type:`, no tag.
+
+## Dispatch per item
+
+Per task in scope order - a member already `[x]` in `tasks.md` is
+skipped, noted for the checkpoint, never re-implemented; else its
+branch per plan - and per commit checkbox:
+
+1. Dispatch a fresh implementer (`companions/implementer-prompt.md`)
+   naming the plan file - the item it works is the first `[ ]` - with
+   the docs and the code as its inputs and nothing else. Its loop is
+   the plan's `type:` mode file (`feat.md`, `fix.md`, `refactor.md`);
+   `doc`/`test`/`mnt` run `branch-plan.md § Commit cadence` alone.
+2. DONE → spec check. DONE_WITH_CONCERNS → resolve first.
+   NEEDS_CONTEXT → § Question resolution, then re-dispatch. Halt
+   triggers: `branch-plan.md § Stop conditions`.
+3. Spec check (`companions/spec-reviewer-prompt.md`): exactly the
+   item; skipped for mechanical commits per
+   `companions/verification-policy.md`. Reject → fix → recheck.
+4. The implementer marks `[x]` in its commit (`branch-plan.md § Commit
+   cadence` 3); the runner confirms the mark landed before the spec
+   check.
+
+A seat does stall on a permission prompt the declared set did not
+predict: Bash rules match a command prefix, and a compound command - a
+loop, a pipeline, a `case` - offers none to match. Under the runner's
+mode edits apply without a prompt; any other prompt halts the item and
+is reported as a pre-flight defect, never keyed past.
+
+## Question resolution
+
+A seat halting on an implementation question - a NEEDS_CONTEXT, a
+choice between offered options, a spec ambiguity - gets the resolution
+on the plan's and requirements' terms, the best option advised where
+possible, and the item resumes. Within a declared grant the runner
+answers; a design-touching or unclassifiable question, and every
+question under `Supervisor: human`, goes to the **user**
+(`companions/declarations.md § Supervisor bounds`). The question
+arrives with the excerpt needed to answer it, never a diff or
+transcript. Each answer is ledgered (§ Ledger) and carried into the
+report's `## Supervisor decisions` section at checkpoint.
+
+## Close
+
+Per branch, when its last non-final item is `[x]`:
+
+1. Close review: `code-reviewer` on the branch diff vs plan. In a
+   batch-scoped run a small branch skips it
+   (`companions/verification-policy.md § Close folding`); a
+   task-scoped run closes in full (`branch-plan.md § Closing
+   routine`).
+2. Fixes: mechanical ones applied, judgment calls queued; approval of
+   the applied set is the **user**'s under `Supervisor: human`. The
+   approved fixes are an implementer seat's item, the findings its
+   text.
+3. The runner makes the mandatory final commit (docs re-review,
+   cleanup, plan complete, task mark per `branch-plan.md § Closing
+   routine`).
+4. Fast tier green → batch scope: merge into `batch/R<NNN>-B<NNN>`;
+   task scope: `finish.md` from its § 1, then § Checkpoint. Red → halt.
+
+Rails hold throughout (`branch-plan.md § Rails`).
+
+## Batch close
+
+1. Full-diff review vs default (`code-reviewer`, most capable):
+   cross-branch interactions, duplicated helpers, convention drift;
+   folded small branches get first-review vs their plans.
+2. Fixes land as batch-branch commits; queue judgment calls.
+3. Run `Test (full)` - the batch's one full local run; red → halt.
+   Docs coherence pass (CHANGELOG/README across member branches).
+4. Mark member-task checkboxes; commit on `batch/R<NNN>-B<NNN>`
+   (`branch-plan.md § Batches`).
+
+Models + spec-check depth: `companions/verification-policy.md`.
+
+## Checkpoint
+
+At scope end or halt, write the R's `batches/R<NNN>-B<NNN>.report.md`
+per `companions/report-template.md`, re-verifying acceptance criteria.
+No report → no accept. A task-scoped run has no report: `finish.md
+§ 1`'s verify set stands in its place, and a branch missing it is no
+more mergeable than a batch missing its report. Then - the choice the
+**user**'s under `Supervisor: human`, the runner's within bounds under
+`Supervisor: AI`:
+
+- **Accept** → push the branch to origin + open the CI-gated MR/PR per
+  `companions/toolchain.md`, description from the report; then
+  § Boundary verification and § Merge or ask. Findings triage; ref
+  cleanup per `branch-plan.md § Rails` - after the MR/PR merges,
+  post-merge cleanup deletes the batch branch, local and origin.
+- **Reject** → ref handling per `branch-plan.md § Rails`.
+- **Halt** → failed item reported, work intact; the resolver (§
+  Question resolution) resolves and the run resumes on the same scope.
+
+## Boundary verification
+
+Existing gates only, before the MR/PR is merged or asked of the user:
+
+1. The report exists (task scope: the `finish.md § 1` set) - no
+   report, no accept.
+2. The report verifies each member's acceptance criteria.
+3. Batch scope: `batch/R<NNN>-B<NNN>` has moved off
+   `pre-R<NNN>-B<NNN>` (one `git log -1` on each): equal refs mean no
+   member branch merged in, so the work took another route, with
+   every gate on that route unrun. Check it before the gates below.
+4. CI on the MR/PR is green, matched to the head sha (declared
+   state-check command) - never a local re-run of gates the seats ran
+   and CI re-ran. Plan boxes, diff confinement, and the committer
+   signature complete the check.
+5. A batch closing an R does **not** carry the closure and archival
+   marks - they ride a close-out plan MR/PR (`plan/r<NNN>-close`)
+   opened after the batch MR/PR merges (`branch-plan.md § Batches`).
+   Verify that the batch left them alone and that the close-out is
+   queued; a batch marking the R `[x]` in ROADMAP has closed on an
+   unverified criterion, since CI-green criteria are only verifiable
+   on the MR/PR the batch itself creates (`plan.md § Approval and
+   closure`, `§ Archival`).
+
+The report's queued judgment calls follow § Question resolution.
+
+## Merge or ask
+
+The delivery classes live in `companions/declarations.md § Supervisor
+bounds` and are not restated here: a partial copy misleads. Read the
+project's declared bound, then name the class the MR/PR falls into;
+never deliver without a class or escalate without having read the
+declaration.
+
+The terminal state on a branch is a green MR/PR plus the report that
+verifies it. Under `Supervisor: AI`, within a named class the runner
+merges on the evidence it assembled - report path, gate results,
+state-check output - and applies the signature (§ Supervision
+signature there); everything else is asked of the user directly
+(Remote Control where connected) - the always-ask list per that same
+section, and anything the grant does not name. Under `Supervisor:
+human` every merge is the **user**'s: the run presents the MR/PR and
+its evidence and waits, and this step replaces the ship question of
+`finish.md § 2-3` for a task-scoped run under AI.
+
+Branch protection is not the runner's to satisfy by other means: a
+red gate escalates rather than being worked around. Escalations are
+existing artifacts read back - halted items, the reports' queued
+judgment calls, refused deliveries - never a parallel store.
+
+## Ledger
+
+The runner's working memory is `dev/supervisor/<scope>.md` in the
+checkout, beside `dev/session/` and ignored like it, so an append
+dirties nothing. One file per scope; a resumed runner on the same host
+opens the same file. Opened at § Resolve (`mkdir -p` the directory,
+then the first entry), it takes one entry per event from § Dispatch
+per item through § Merge or ask, in `handoff.md § Blocks` format:
+`## <event> <UTC timestamp>` - dispatch, question, answer, prompt,
+verify, escalation, merge - the timestamp read from the clock
+(`date -u`) at write time, never composed or carried forward - over
+`- key: value` lines naming the ids, appended with a single
+`printf '%s\n' ... >>`, never `Edit`, which rewrites it. Working
+memory only: a decision still lands in the report's `## Supervisor
+decisions` (`companions/report-template.md`); the ledger is the
+evidence a re-brief reads, never a second home for a finding.
+
+## Monitor
+
+The runner's context stays report-level: it collects report paths and
+MR/PR references, never diffs or transcripts, so one runner spans a
+scope. Hand-off note at each boundary and re-brief after compaction:
+`handoff.md`. The scope is the runner's unit (`branch-plan.md
+§ Session boundary`).
+
+## Sync
+
+On "status": per initiative - merged / in-flight / halted / escalated,
+with MR/PR links - derived from artifacts at ask time (task
+checkboxes, reports, state-check output). Resolving an escalation
+resumes the affected item. The run ends when the scope is delivered
+or only escalations remain; report which.

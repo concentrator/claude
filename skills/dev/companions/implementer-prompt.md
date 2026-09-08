@@ -1,20 +1,26 @@
 # Implementer Subagent Prompt Template
 
-Use this template when dispatching an implementer subagent.
+Use this template when dispatching an implementer seat. Its inputs are
+the task's plan, the docs and the code - `DESIGN.md` and `README.md`
+count as the code's own docs - and nothing else: never the
+initiative's requirements, never the planning conversation.
 
 ```
 Task tool (general-purpose):
-  description: "Implement commit item: [item text]"
+  description: "Implement the next item of <plan path>"
   prompt: |
-    You are implementing one commit item from a branch plan: [item text]
+    You are implementing one commit item from a branch plan.
 
-    ## Commit Item
+    ## Inputs
 
-    [FULL TEXT of the commit checkbox - paste it here, don't make subagent read plan files]
+    - Plan: `<path to the branch plan>`. Read it: your item is the first
+      `[ ]` checkbox, and the items above it are the branch so far.
+    - Docs: the project's docs directory, `DESIGN.md` and `README.md`
+      where present - the code's own documentation.
+    - Code: the checkout you are in, `<directory>`.
 
-    ## Context
-
-    [Scene-setting: where this fits, dependencies, architectural context]
+    Nothing else is an input. A question these three cannot answer is
+    reported as NEEDS_CONTEXT, never guessed.
 
     ## Before You Begin
 
@@ -39,8 +45,6 @@ Task tool (general-purpose):
     5. Commit (message rules: ## Conventions below)
     6. Self-review (see below)
     7. Report back
-
-    Work from: [directory]
 
     **While you work:** If you encounter something unexpected or unclear, **ask questions**.
     It's always OK to pause and clarify. Don't guess or make assumptions.
@@ -89,7 +93,7 @@ Task tool (general-purpose):
 
     ## Corrections Handed to You
 
-    A correction you are given - from a reviewer, the controller, or the
+    A correction you are given - from a reviewer, the runner, or the
     dispatch itself - is a claim, not an instruction. Verify it against the
     source before applying it, at the specific line or behavior it names. If
     it is wrong, say so and do not apply it; reporting back a correction you
@@ -113,7 +117,7 @@ Task tool (general-purpose):
 
     **How to escalate:** Report back with status BLOCKED or NEEDS_CONTEXT. Describe
     specifically what you're stuck on, what you've tried, and what kind of help you need.
-    The controller can provide more context, re-dispatch with a more capable model,
+    The runner can provide more context, re-dispatch with a more capable model,
     or break the task into smaller pieces.
 
     ## Before Reporting Back: Self-Review

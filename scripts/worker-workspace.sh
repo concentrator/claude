@@ -102,7 +102,7 @@ project_clone() {
     else
       git clone -q "git@$host:$pair.git" "$root/$name" || { printf 'project-clone: clone failed for %s\n' "$pair" >&2; return 1; }
     fi
-    # Belt and braces, local to this checkout: supervise.md § Ledger appends
+    # Belt and braces, local to this checkout: run.md § Ledger appends
     # to dev/supervisor/ and handoff.md to dev/session/ while a worker may run
     # git add -A, so both must be ignored whatever the cloned .gitignore says.
     ex="$root/$name/.git/info/exclude"
@@ -141,7 +141,7 @@ settings() {
     printf '    sibling repositories its subject calls into\n'
     printf '  - add the project toolchain rules from its CLAUDE.md and the push\n'
     printf '    carve-out: git push -u origin doc/* feat/* fix/* refactor/*\n'
-    printf '    mnt/* test/* plan/* batch/* - batch-only stalls manual branches\n'
+    printf '    mnt/* test/* plan/* batch/* - batch-only stalls task-scoped branches\n'
     printf '  - write %s (gitignored, so it never arrives with a clone)\n' "$out"
     printf '  - trust the workspace and dismiss the auto-mode setup dialog in\n'
     printf '    ~/.claude.json, neither of which arrives with a clone\n'

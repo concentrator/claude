@@ -11,14 +11,10 @@ branch = one task. The plan is complete and committed to `main`
     type: feat                      # required - task tag; sets branch prefix
     architecture-changing: true     # optional - triggers DESIGN.md
                                     #   update commit
-    depends-on: R008-T001           # optional - blocks `/dev code` until merged
+    depends-on: R008-T001           # optional - blocks `/dev run` until merged
     cold-read: passed               # required - the planner's exit
                                     #   (`write-plan.md` step 6); absent =
-                                    #   refused by every runner
-    agentic: approved               # optional - auto-eligible;
-                                    #   absent = manual-only
-    supervised: approved            # optional - supervise-eligible
-                                    #   (§ Stamps)
+                                    #   refused by `/dev run`
 
 ## Body
 
@@ -128,7 +124,7 @@ commit and the hand-off (`finish`).
 
    > Complete the branch: re-review docs across all commits, cleanup
    > (stale/temp data), mark plan complete, mark the task `[x]` in the
-   > R's `tasks.md` plus any release-plan entry, commit. (Auto-mode
+   > R's `tasks.md` plus any release-plan entry, commit. (Batch
    > members: the task mark rides the batch branch, § Batches.)
 
    The task mark comes last because the re-review and cleanup ahead of
@@ -161,51 +157,29 @@ reason in plan header.
 
 ## Session boundary
 
-A session ends with its delivery unit: a session outliving its unit
-re-bills the finished work on every later call.
-
-| Mode | Unit |
-|---|---|
-| `/dev code` | the task, or the branch where larger |
-| `/dev auto`; a supervised worker | the batch |
-| `/dev supervise` | the scope |
+A seat starts for one item and shuts down at its exit; only the branch
+and the plan item carry over to the next seat, and a seat outliving
+its item re-bills the finished work on every later call. The runner
+session's unit is the scope it runs (`run.md`): it clears at that
+boundary and re-briefs from `handoff.md` and its ledger (`run.md
+§ Ledger`).
 
 Doc loading keys to the boundary: one load phase at the unit's
 start; sectional reads, not whole files; no re-reads within the
 unit; outputs (reports, findings files) wait for triage.
-Each role clears at the boundary and re-briefs from `handoff.md`, a
-supervisor from its ledger too (`supervise.md § Ledger`).
 
 ## Agentic execution
 
 The **batch** - one or more coupled tasks shipped as one CI-gated
-MR/PR - is the unit of delivery to `main` in both modes; a lone task
-is a batch of one, its branch the MR/PR. Auto mode (`/dev auto`)
-runs members via subagents on a `batch/R<NNN>-B<NNN>` branch;
-manual mode (`/dev code`) implements them by hand. Only
-verification differs: auto runs the checkpoint below, manual uses
+MR/PR - is the unit of delivery to `main` at either scope; a lone task
+is a batch of one, its branch the MR/PR. A batch-scoped run
+(`run.md`) runs members on a `batch/R<NNN>-B<NNN>` branch and closes
+through the checkpoint below; a task-scoped run closes through
 § Closing routine + `finish`.
 
-### Stamps
-
-Two header stamps admit a plan to work without the user at the
-keyboard; each names what it guarantees.
-
-`agentic: approved` - what `/dev auto` needs: its subagent has no one
-to ask, so the plan passes a **readiness review** (run by
-`/dev plan batch` for unstamped plans): each commit item unambiguous,
-testable, dependent only on earlier items, and free of design judgment
-beyond the plan's text. The cold read precedes every stamp: it is the
-planner's exit (`companions/verification-policy.md § Comprehension
-check`), recorded as `cold-read: passed`. Items failing → fix via
-`/dev plan <slug>` first. User approves → stamp.
-
-`supervised: approved` - what `/dev supervise` needs
-(`supervise.md § Resolve`): approved requirements, one commit per
-item, no known design question open. A supervised worker has someone
-to ask, so the readiness review is not required. Applied at
-detail-round approval (`plan.md § Approval and closure`), which the
-round reaches only with every plan's cold read passed.
+A plan is admitted to a run by its `cold-read: passed` record alone -
+the planner's exit (`write-plan.md` step 6) - over approved
+requirements (`run.md § Resolve`).
 
 ### Batches
 
@@ -225,7 +199,7 @@ whose dir holds it - its open, coupled tasks (not independently
 shippable). `depends-on` resolves within batch order or merged work;
 a cross-initiative need becomes its own R. The checkpoint validates
 that R's acceptance criteria. The § Size cap governor bounds the
-batch. Auto mode requires an `agentic:`-stamped batch.
+batch.
 
 Batch-close bookkeeping: the close phase marks member-task
 checkboxes as commits on `batch/R<NNN>-B<NNN>` before the MR/PR -
@@ -233,11 +207,11 @@ marks land per § Closing routine; reject: § Rails. The R-closure
 check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) after the batch MR/PR merges.
 
-Per-branch close in auto mode: the close review runs only above the
+Per-branch close in a batch-scoped run: the close review runs only above the
 close-folding threshold (`verification-policy.md § Close folding`).
 The mandatory final commit and a green fast tier
 before merging into the batch branch hold regardless of size; the
-full suite runs at batch close (`auto.md § Batch close`).
+full suite runs at batch close (`run.md § Batch close`).
 
 ### Rails
 
@@ -246,9 +220,9 @@ full suite runs at batch close (`auto.md § Batch close`).
 - Pre-flight creates `batch/R<NNN>-B<NNN>` off latest `main` and sets the
   `pre-R<NNN>-B<NNN>` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.
-- Agents never push; the only delivery is the checkpoint-accept
-  **CI-gated MR/PR** of the batch branch to origin (`auto`
-  checkpoint).
+- Seats never push; the only delivery is the checkpoint-accept
+  **CI-gated MR/PR** of the batch branch to origin (`run.md
+  § Checkpoint`).
 - No commit on a red fast tier - no exceptions.
 - Findings triage and push decisions defer to the checkpoint.
 - Branch refs stay until the user validates the checkpoint.

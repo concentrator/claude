@@ -4,7 +4,6 @@ type: mnt
 architecture-changing: true
 depends-on: R080-T002
 cold-read: passed
-supervised: approved
 ---
 
 # R080-T003: one runner
@@ -21,7 +20,7 @@ for one item and shut down at its exit, reading a fixed input set. The
 stamp pair retires: readiness is the cold read T002 placed at the
 planner's exit.
 
-- [ ] `companions/declarations.md § Supervisor bounds`: the
+- [x] `companions/declarations.md § Supervisor bounds`: the
   `## Supervision` block declares `Supervisor: human | AI` beside the
   bounds line. Human: the user's own interactive session holds the
   supervisor seat - it dispatches the seats, and the user answers,
@@ -31,7 +30,7 @@ planner's exit.
   line halts the run at resolve, naming it. `rules/claude-md.md
   § Agent toolchain declaration` names the new line; this repository's
   `CLAUDE.md § Supervision` declares `Supervisor: AI`.
-- [ ] `run.md` replaces `auto.md`, `supervise.md`, `docs.md` and the
+- [x] `run.md` replaces `auto.md`, `supervise.md`, `docs.md` and the
   `/dev code` section of `SKILL.md`: resolve (scope - a task, a batch
   or an initiative - bounds, ledger), pre-flight, dispatch per item,
   question resolution, close, boundary verification, merge or ask,
@@ -69,7 +68,7 @@ planner's exit.
   `companions/docs-adoption.md`, `companions/verification-policy.md`,
   `companions/gitignore.template`, `scripts/install-dev.sh`,
   `scripts/worker-workspace.sh` among them.
-- [ ] `branch-plan.md § Agentic execution`: `§ Stamps` retires and the
+- [x] `branch-plan.md § Agentic execution`: `§ Stamps` retires and the
   `agentic:`/`supervised:` header lines with it; `§ Session boundary`
   becomes the seat lifecycle - a seat starts for one item and shuts
   down at its exit, only the branch and the plan item carry over;
@@ -78,7 +77,7 @@ planner's exit.
   review retiring with the stamps since the cold read at the planner's
   exit is its successor. `scripts/ci/check-accretion.sh` drops the
   stamp exemption and its test the cases that pinned it.
-- [ ] `companions/implementer-prompt.md`: the input set is the task's
+- [x] `companions/implementer-prompt.md`: the input set is the task's
   plan, the docs and the code (`requirements.md § Desired state` 4),
   stated as such - `DESIGN.md` and `README.md` count as the code's own
   docs and stay in, the initiative's requirements never;
@@ -101,10 +100,10 @@ planner's exit.
   runner session lives - A on this machine, B on a remote host under
   `tmux` and Remote Control - independent of the supervisor mode, its
   peer-worker rows gone.
-- [ ] `DESIGN.md § Planning model` and `§ Git & delivery model`: the
+- [x] `DESIGN.md § Planning model` and `§ Git & delivery model`: the
   seat model - one flow, supervisor declared per project, seats with
   fixed inputs and a one-item lifetime; `§ Decisions` gains a bullet
   on why the stamps went, no ADR file.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup, commit.

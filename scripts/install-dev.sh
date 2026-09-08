@@ -219,7 +219,7 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
   done
   # 7. runtime state: dev/session/ holds per-session files the PreCompact
   # hook and hand-off notes write (skills/dev/handoff.md), dev/supervisor/
-  # the supervisor's ledgers (skills/dev/supervise.md § Ledger); never
+  # the supervisor's ledgers (skills/dev/run.md § Ledger); never
   # tracked, so the target's .gitignore takes the anchored lines (idempotent).
   for line in "/dev/session/" "/dev/supervisor/"; do
     grep -qxF "$line" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"

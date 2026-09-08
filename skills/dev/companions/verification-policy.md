@@ -1,10 +1,10 @@
 # Verification depth policy
 
-Companion to `SKILL.md`, consulted by the `/dev auto` controller when
+Companion to `SKILL.md`, consulted by the runner (`run.md`) when
 deciding how much verification each commit and batch warrants. The aim
 is to trim agentic verification cost without dropping below the
 floor that keeps the default branch safe. Sections below define the
-knobs the controller has and when to apply them.
+knobs the runner has and when to apply them.
 
 ## Effort mechanics
 
@@ -34,7 +34,7 @@ evaluated from the plan-item text alone, before dispatch:
    text does not settle.
 
 **Post-implementation guard:** after the implementer reports back, the
-controller checks the "Files changed" line in the report. If the set of
+runner checks the "Files changed" line in the report. If the set of
 files the implementer actually touched exceeds the files named in the
 plan item, the mechanical classification is void and the spec check runs
 after all - regardless of how the item read before dispatch.
@@ -45,7 +45,7 @@ A commit classified mechanical (per the predicate above, guard not
 voided) skips the per-commit spec check. Drift from the plan is caught
 by the branch-close review instead.
 
-**Recording:** for every skipped spec check the controller records a
+**Recording:** for every skipped spec check the runner records a
 line and carries the records verbatim into the report's Cost section:
 
     <commit-sha or plan-item id>: spec check skipped: mechanical
@@ -61,7 +61,7 @@ Everything else is unchanged:
 
 **Convention drift outcome:** a spec-check report of "⚠️ Convention
 drift only" is not a rejection - it never counts toward the
-two-rejection halt. The controller fixes the drift directly on the
+two-rejection halt. The runner fixes the drift directly on the
 member branch and carries the count into the report's Cost section.
 The spec-check sensor is blind on spec-check-skipped (mechanical)
 commits, so convention drift surfaced by the branch-close or batch
@@ -79,7 +79,7 @@ evaluated by reading the plan file at branch close - no agent judgment:
 **Consequence:** a small branch skips the per-branch `code-reviewer` pass.
 Its first review is the batch full-diff review at batch close (which
 re-covers most of the per-branch pass, saving the bulk of a per-branch
-review's tokens per folded branch). The controller passes the list of
+review's tokens per folded branch). The runner passes the list of
 folded branches into the batch full-diff review dispatch; the reviewer
 covers their diffs against their own plans (first review), not only
 cross-branch concerns.
@@ -88,8 +88,8 @@ cross-branch concerns.
 the final commit and the green gate hold for every branch; branches
 above the threshold keep the full per-branch review.
 
-**Scope:** this rule applies to auto mode only. Manual-mode
-`skills/dev/branch-plan.md § Closing routine` is unaffected.
+**Scope:** this rule applies to a batch-scoped run only; a task-scoped
+run closes in full (`skills/dev/branch-plan.md § Closing routine`).
 
 ## Verification modality
 
@@ -142,8 +142,9 @@ own mess included - a verifier that needs cleanup stops and reports.
 The planner's exit (`write-plan.md` step 6). A plan is implemented by
 a cold-context agent, so test it on one before it is offered for
 approval: dispatch a fresh subagent with exactly the implementer's
-inputs - the commit-item text plus parent-chain context, never the
-plan file or the planning conversation - and ask what it would build
+inputs - the plan, the docs and the code
+(`companions/implementer-prompt.md`), never the planning conversation
+- and ask what it would build
 and what is ambiguous or assumed. A question the inputs cannot answer
 is a plan gap, not a reader fault: fix it, re-run per the rule of
 `write-plan.md` step 6, then record `cold-read: passed` in the header
@@ -185,7 +186,7 @@ deterministic gates pin acceptance, the larger call where the
 reviewer's judgment is the whole check (authored prose, documented
 behaviour).
 
-**Routing:** the controller picks the implementer row deterministically -
+**Routing:** the runner picks the implementer row deterministically -
 mechanical predicate true → Mechanical-commit row (`sonnet`); plan item
 explicitly tagged `(judgment-heavy)` → Judgment-heavy row (`fable`);
 otherwise the Default implementers row (`opus`). No predicate infers
