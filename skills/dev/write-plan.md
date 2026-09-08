@@ -46,13 +46,10 @@ round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` / `all`.
    - `cold-read: passed` is written by step 6, never ahead of it
 5. **Add the mandatory final item** at the end - the completion commit
    (per `branch-plan.md § Closing routine`).
-6. **Cold read** (`companions/verification-policy.md § Comprehension
-   check`): dispatch a fresh subagent with the commit-item texts plus
-   parent-chain context - never the plan file or the planning
-   conversation - and ask what it would build and what is ambiguous or
-   assumed. Each gap is fixed in the plan and the read re-run until it
-   reports none; the header then records `cold-read: passed`. A plan
-   is never offered for approval without the record.
+6. **Cold read** per `companions/verification-policy.md
+   § Comprehension check`: each gap it reports is fixed in the plan and
+   the read re-run until it reports none; the header then records
+   `cold-read: passed`.
 7. **Confirm with user**, then create the plan branch, write to
    `dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`, and deliver via a
    short-lived plan MR/PR (`plan.md § Where plans live in git`).

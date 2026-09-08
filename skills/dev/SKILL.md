@@ -41,12 +41,12 @@ Round-gate rules: `plan.md § Planning rounds`.
 
 ## `/dev code [<slug>]`
 
-On `main`: no arg → next task from the open batch, else ask; `<slug>` →
-verify plan (no `cold-read: passed` → refuse, naming it), branch,
-start. On a branch: continue from first `[ ]`; wrong or missing
-`<slug>` → error. Pre-flight: re-read plan vs code; concerns →
-`/dev plan <slug>` first.
+On `main`: resolve the task (no arg → next from the open batch, else
+ask; else `<slug>`), verify its plan (no `cold-read: passed` → refuse,
+naming it), branch, start. On a branch: continue from first `[ ]`;
+wrong or missing `<slug>` → error. Pre-flight: re-read plan vs code;
+concerns → `/dev plan <slug>` first.
 Dispatch by tag: `feat`→`feat.md`, `fix`→`fix.md`, `refactor`→`refactor.md`;
-`doc`/`test`/`mnt` have no mode file - run `branch-plan.md § Commit
+`doc`/`test`/`mnt` have no mode file: `branch-plan.md § Commit
 cadence` directly.
 Close the branch: `finish.md`.
