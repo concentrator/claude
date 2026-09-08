@@ -33,7 +33,7 @@ until R080-T006's table exists and they cite it.
   `companions/verification-policy.md § Models` gains a planner row at
   `fable` under the capacity fallback that already governs the review
   rows.
-- [ ] `write-plan.md` and `plan.md § Adjusting existing plans`: the
+- [x] `write-plan.md` and `plan.md § Adjusting existing plans`: the
   detail round dispatches one planner per task and the adjustment path
   dispatches one per change; the interactive session keeps step 2 (the
   slug, proposed before the dispatch, which names the plan file) and
