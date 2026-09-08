@@ -51,10 +51,10 @@ change traces back to a motivating requirement. The environment must:
 Mechanics: `skills/dev/plan.md`, `skills/dev/branch-plan.md`,
 `skills/dev/layout.md`.
 
-## Agentic execution
+## Batch delivery
 
-`/dev auto` runs a batch of approved branches through subagents without
-touching the default branch:
+`/dev run` at batch scope runs a batch of read plans through dispatched
+seats without touching the default branch:
 
 - A batch integration branch `batch/R<NNN>-B<NNN>` is cut off the
   default branch at pre-flight; member branches merge into it; the
@@ -67,14 +67,14 @@ touching the default branch:
   without it.
 - Accept pushes only the batch branch and opens an MR. Pushing the
   default branch is never automated; deferring the push is an explicit
-  user choice; subagents never push.
+  user choice; seats never push.
 - Verification depth is tuned for cost without dropping the safety
   floor: mechanical commits may skip the per-commit spec check (the
   close review is the net), small branches fold their review into the
   batch review, and models route per role.
 
-Mechanics: `skills/dev/branch-plan.md § Agentic execution`,
-`skills/dispatching-parallel-agents/`.
+Mechanics: `skills/dev/run.md`, `skills/dev/branch-plan.md § Agentic
+execution`, `skills/dispatching-parallel-agents/`.
 
 ## Audience
 

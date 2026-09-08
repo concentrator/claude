@@ -6,9 +6,10 @@ project declares (`companions/declarations.md § Supervisor bounds`).
 The runner session holds that seat. Under `Supervisor: AI` it answers
 and merges within the declared bounds; under `Supervisor: human` the
 steps marked **user** below are the user's own and the session only
-dispatches. The session never implements: every edit is a seat's.
-Rules: `branch-plan.md`. Host gates are never bypassed - no admin
-merges.
+dispatches. The session never implements: every code or doc edit is a
+seat's, and the runner's own edits are the plan bookkeeping and the
+closing commit. Rules: `branch-plan.md`. Host gates are never bypassed
+- no admin merges.
 
 A seat is a subagent of the runner, dispatched with the Task tool in
 the runner's checkout for one item, inheriting the runner's permission
@@ -73,14 +74,15 @@ branch per plan - and per commit checkbox:
 3. Spec check (`companions/spec-reviewer-prompt.md`): exactly the
    item; skipped for mechanical commits per
    `companions/verification-policy.md`. Reject → fix → recheck.
-4. Mark `[x]` after the commit lands.
+4. The implementer marks `[x]` in its commit (`branch-plan.md § Commit
+   cadence` 3); the runner confirms the mark landed before the spec
+   check.
 
 A seat does stall on a permission prompt the declared set did not
 predict: Bash rules match a command prefix, and a compound command - a
-loop, a pipeline, a `case` - offers none to match. Under the
-`acceptEdits` default, edits and in-cwd filesystem commands apply
-without a prompt; any other prompt halts the item and is reported as a
-pre-flight defect, never keyed past.
+loop, a pipeline, a `case` - offers none to match. Under the runner's
+mode edits apply without a prompt; any other prompt halts the item and
+is reported as a pre-flight defect, never keyed past.
 
 ## Question resolution
 
@@ -112,7 +114,7 @@ Per branch, when its last non-final item is `[x]`:
    cleanup, plan complete, task mark per `branch-plan.md § Closing
    routine`).
 4. Fast tier green → batch scope: merge into `batch/R<NNN>-B<NNN>`;
-   task scope: `finish.md` from its § 1. Red → halt.
+   task scope: `finish.md` from its § 1, then § Checkpoint. Red → halt.
 
 Rails hold throughout (`branch-plan.md § Rails`).
 
@@ -131,11 +133,13 @@ Models + spec-check depth: `companions/verification-policy.md`.
 
 ## Checkpoint
 
-At batch end or halt, write the R's `batches/R<NNN>-B<NNN>.report.md`
+At scope end or halt, write the R's `batches/R<NNN>-B<NNN>.report.md`
 per `companions/report-template.md`, re-verifying acceptance criteria.
 No report → no accept. A task-scoped run has no report: `finish.md
 § 1`'s verify set stands in its place, and a branch missing it is no
-more mergeable than a batch missing its report. Then:
+more mergeable than a batch missing its report. Then - the choice the
+**user**'s under `Supervisor: human`, the runner's within bounds under
+`Supervisor: AI`:
 
 - **Accept** → push the branch to origin + open the CI-gated MR/PR per
   `companions/toolchain.md`, description from the report; then

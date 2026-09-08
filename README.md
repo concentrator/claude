@@ -46,8 +46,8 @@ declared bounds. `/dev ship` takes a landed branch to a merged MR/PR;
 PreCompact hook's tree block carries state across compaction (the
 SessionStart hook re-injects the last hand-off block on resume).
 `/dev start`, `/dev migrate`, and `/dev release` cover
-scaffolding a new project, adopting an existing one, the `docs/`
-layer, and tagging a release. Command surface and mode files:
+scaffolding a new project, adopting an existing one, and tagging a
+release. Command surface and mode files:
 `skills/dev/SKILL.md`.
 
 ## DEV artifacts

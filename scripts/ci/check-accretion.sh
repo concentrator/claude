@@ -12,9 +12,8 @@
 # a marker rather than quoting one - code spans are not exempt, or real
 # accretion could hide inside one. plans/archive/ is
 # frozen history and exempt. The status fields need no exemption:
-# `approved:` carries a state (`pending` / `yes`) rather than a date
-# (`skills/dev/plan.md § Approval and closure`), and `status: done` is
-# retired, surviving only in the exempt archive
+# `approved:` carries a state (`pending` / `yes`) rather than a date,
+# and `status: done` is retired, surviving only in the exempt archive
 # (`skills/dev/plan.md § Approval and closure`).
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"

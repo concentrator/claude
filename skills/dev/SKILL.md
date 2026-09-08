@@ -14,7 +14,7 @@ DEV mode - strict, spec-driven: plan, then run as dispatched seats.
 |---|---|---|
 | `/dev` | - | Route by state (ask if ambiguous) |
 | `/dev plan [<target>]` | per target table below | Planning (plan MR/PRs) |
-| `/dev run [<scope>]` | `run.md` | Run planned work - a task, a batch or an initiative - as dispatched seats under the declared supervisor; no arg → the open batch, else the next read task |
+| `/dev run [<scope>]` | `run.md` | Run planned work - a task, a batch or an initiative - as dispatched seats under the declared supervisor; no arg → the open batch, else the next cold-read task |
 | `/dev ship` | `finish.md § 3` | Ship the landed branch; else error naming why |
 | `/dev handoff` | `handoff.md` | Write the hand-off note now |
 | `/dev release` | `release.md` | Finalize + tag the release (project `release` override or this companion) |

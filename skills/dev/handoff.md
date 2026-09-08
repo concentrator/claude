@@ -56,7 +56,7 @@ context warning and the Stop-hook nudge (`hooks/dev-handoff-nudge.sh`).
 Write it at each unit boundary - an initiative closed, a dispatch sent,
 a ruling received, a task branch opened - and before any step the
 session expects to outlive its context. Under a tenth of context left,
-a worker commits locally first, so the tree block records commits, not
+a seat commits locally first, so the tree block records commits, not
 an uncommitted checkbox.
 
 ## Reading it back

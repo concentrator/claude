@@ -124,7 +124,7 @@ commit and the hand-off (`finish`).
 
    > Complete the branch: re-review docs across all commits, cleanup
    > (stale/temp data), mark plan complete, mark the task `[x]` in the
-   > R's `tasks.md` plus any release-plan entry, commit. (Auto-mode
+   > R's `tasks.md` plus any release-plan entry, commit. (Batch
    > members: the task mark rides the batch branch, § Batches.)
 
    The task mark comes last because the re-review and cleanup ahead of

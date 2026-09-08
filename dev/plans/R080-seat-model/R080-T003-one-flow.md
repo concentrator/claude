@@ -4,7 +4,6 @@ type: mnt
 architecture-changing: true
 depends-on: R080-T002
 cold-read: passed
-supervised: approved
 ---
 
 # R080-T003: one runner

@@ -11,11 +11,11 @@ every command. Push and MR/PR mechanics that consume them:
 A project's `CLAUDE.md` declares its routine commands in an `## Agent
 toolchain` section - the VCS host (→ `gh`/`glab`) and the exact
 change-request / merge / state-check / test / lint / build commands. It
-is the single source both modes read:
+is the single source the run reads:
 
 - `/dev run` uses it for `permissions.allow` (the pre-flight gate in
   `toolchain.md § Permission carve-out for the checkpoint push`).
-- Manual `finish` runs the declared commands instead of probing the host.
+- `finish` runs the declared commands instead of probing the host.
 
 The test declaration is tiered, and both tiers include lint.
 `Test (fast)` - lint plus a scoped subset of the suite (the tests

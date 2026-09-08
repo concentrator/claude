@@ -26,7 +26,7 @@ commands`).
     type.
   - `doc` - documentation and operative prose (README, CHANGELOG,
     comments, `rules/`, `skills/`, `CLAUDE.md`); not planning artifacts.
-  - `batch` - auto-mode delivery branches (engine-managed; fixed id
+  - `batch` - a batch-scoped run's delivery branches (runner-managed; fixed id
     form `batch/R<NNN>-B<NNN>`, exempt from the slug rule).
   - `test` - test additions or changes (automated or manual harness).
   - `mnt` - repo maintenance (CI, scripts, hooks, settings, dependencies).
@@ -38,8 +38,8 @@ commands`).
     MR/PR and a rebase to move two lines, and the correction reviews
     better next to the work that motivated it. A change reaching beyond
     the branch's own task - another R, the ROADMAP, requirements - still
-    takes a `plan/` branch. Who may make the edit is unchanged: auto-mode
-    agents stay on checkboxes and findings files (`branch-plan.md
+    takes a `plan/` branch. Who may make the edit is unchanged: dispatched
+    seats stay on checkboxes and findings files (`branch-plan.md
     § Rails`), and an ambiguous item is still a halt
     (`branch-plan.md § Scope discoveries`).
 - Slug: code / `doc` / `test` / `mnt` branches carry no id (it lives in
