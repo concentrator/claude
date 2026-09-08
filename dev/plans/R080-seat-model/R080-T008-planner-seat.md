@@ -107,7 +107,7 @@ until R080-T006's table exists and they cite it.
   the header, the re-read re-earning it, while a change that only
   cites text already in the tree leaves it - the split `write-plan.md`
   step 6 already draws.
-- [ ] The companion files that still let the runner answer a seat's
+- [x] The companion files that still let the runner answer a seat's
   question (the findings file's entry). `companions/supervisor-runbook.md`
   `§ Variant A` step 3 reads: the runner routes a seat's question
   through `run.md § Question resolution` - the item halts, the planner

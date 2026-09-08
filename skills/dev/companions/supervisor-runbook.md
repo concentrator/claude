@@ -30,16 +30,16 @@ back, or when the host is provisioned for it
       |  Supervisor: human - answers, clears, merges
       |  Supervisor: AI    - answers the always-ask escalations only
       v
- +-------------------------------------------------+
- |  RUNNER SESSION      /dev run <scope>           |
- |  resolves, dispatches, answers, verifies        |
- +-------------------------------------------------+
+ +---------------------------------------------------+
+ |  RUNNER SESSION      /dev run <scope>             |
+ |  resolves, dispatches, routes questions, verifies |
+ +---------------------------------------------------+
       |  Task tool, one seat at a time
       v
- +-------------------------------------------------+
- |  SEAT (subagent)     one plan item              |
- |  implementer / reviewer                         |
- +-------------------------------------------------+
+ +---------------------------------------------------+
+ |  SEAT (subagent)     one plan item                |
+ |  implementer / reviewer                           |
+ +---------------------------------------------------+
       |
       v
    branch  ->  commits  ->  gates  ->  MR/PR
@@ -50,11 +50,9 @@ The runner cycles until the scope is delivered:
 ```
   +--> dispatch the next item's seat
   |         |
-  |         +-- DONE?          -> spec check, mark, next ----------+
-  |         |                                                      |
-  |         +-- asking?        -> implementation: answer ----------+
-  |         |                     design or unclassifiable:
-  |         |                     escalate (human: the user answers)
+  |         +-- DONE?          -> spec check, mark, next ---------------------------+
+  |         |                                                                       |
+  |         +-- asking?        -> planner change, user approves, fresh implementer -+
   |         |
   |         +-- last item?     -> close, checkpoint, push, MR/PR
   |                                  |
@@ -75,9 +73,10 @@ The runner cycles until the scope is delivered:
 2. **Runner** resolves the scope and the supervisor line, opens the
    ledger (`run.md § Ledger`), and dispatches seats one at a time
    (`run.md § Dispatch per item`).
-3. **Runner** answers implementation questions within the grant;
-   under `Supervisor: human` every question is the user's, asked in
-   the session (`run.md § Question resolution`).
+3. **Runner** routes a seat's question through `run.md § Question
+   resolution`: the item halts, the planner changes the plan, the
+   **user** approves the change under either supervisor mode, and a
+   fresh implementer follows.
 4. **Runner** verifies the boundary from CI and artifacts
    (`run.md § Boundary verification`), then merges the green in-class
    MR/PR or asks the user (`run.md § Merge or ask`).
@@ -183,16 +182,16 @@ browser and phone control without joining.
 | Seat | `Supervisor: AI` | `Supervisor: human` |
 |---|---|---|
 | Runner | `auto` | the user's session's own mode |
-| Implementer, reviewer | inherits the runner's | inherits the runner's |
+| Planner, implementer, reviewer | inherits the runner's | inherits the runner's |
 
 A dispatched seat is a subagent and has no mode of its own: the run
 has one permission mode, the runner's. Under `Supervisor: AI` that is
 `auto`: the runner's own tooling is compound shell - until-loops,
 pipelines - which prefix rules cannot match, and auto suspends Bash
 allow rules and routes every shell command to a classifier that judges
-what the command does, so the runner is never blocked and can always
-answer a seat. Under `Supervisor: human` the user is at the keyboard,
-so their session's mode governs and its prompts are theirs to clear.
+what the command does, so the runner is never blocked. Under
+`Supervisor: human` the user is at the keyboard, so their session's
+mode governs and its prompts are theirs to clear.
 
 Never `bypassPermissions`: it discards deny rules along with everything
 else. Never `dontAsk`: it denies rather than approves, so every prompt

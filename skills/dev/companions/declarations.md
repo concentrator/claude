@@ -57,15 +57,17 @@ work as far as a green MR/PR and holds one decision class:
 - deliver a task-scoped run's branch, where `finish.md § 1`'s verify
   set stands in for the checkpoint report, and its absence stops the
   delivery as a missing report does;
-- implementation-level resolutions of worker questions and queued
-  judgment calls, each recorded in the report's supervisor-decisions
-  section and ledgered (`run.md § Ledger`).
+- queued judgment calls at implementation level, each recorded in the
+  report's supervisor-decisions section and ledgered (`run.md
+  § Ledger`); an implementer's question instead takes the planner's
+  change and the **user**'s approval under either mode (`run.md
+  § Question resolution`).
 
 **The grant includes the merge.** Within the declared bound the
 supervisor's last act on a green in-class MR/PR is the merge, carrying
 the supervision signature below; everything outside the bound - and
 everything on the always-ask list - goes to the user. The
-worker/supervisor seam stays: the doer never verifies its own
+implementer/supervisor seam stays: the doer never verifies its own
 delivery.
 
 The decision split: implementation-level is code shape, naming, test
