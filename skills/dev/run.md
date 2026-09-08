@@ -3,13 +3,14 @@
 Engine behind `/dev run <scope>`: planned work - a task, a batch or an
 initiative - runs as dispatched seats under the supervisor seat the
 project declares (`companions/declarations.md § Supervisor bounds`).
-The runner session holds that seat. Under `Supervisor: AI` it answers
-and merges within the declared bounds; under `Supervisor: human` the
-steps marked **user** below are the user's own and the session only
-dispatches. The session never implements: every code or doc edit is a
-seat's, and the runner's own edits are the plan bookkeeping and the
-closing commit. Rules: `branch-plan.md`. Host gates are never bypassed
-- no admin merges.
+The runner session holds that seat. Under `Supervisor: AI` it
+dispatches, verifies and merges within the declared bounds; under
+`Supervisor: human` the steps marked **user** below are the user's
+own. Either mode routes questions through § Question resolution. The
+session never implements: every code or doc edit is a seat's, and the
+runner's own edits are the plan bookkeeping and the closing commit.
+Rules: `branch-plan.md`. Host gates are never bypassed - no admin
+merges.
 
 A seat is a subagent of the runner, dispatched with the Task tool in
 the runner's checkout for one item, inheriting the runner's permission
@@ -69,8 +70,8 @@ branch per plan - and per commit checkbox:
    the plan's `type:` mode file (`feat.md`, `fix.md`, `refactor.md`);
    `doc`/`test`/`mnt` run `branch-plan.md § Commit cadence` alone.
 2. DONE → spec check. DONE_WITH_CONCERNS → resolve first.
-   NEEDS_CONTEXT → § Question resolution. Halt
-   triggers: `branch-plan.md § Stop conditions`.
+   NEEDS_CONTEXT → § Question resolution. Halt triggers:
+   `branch-plan.md § Stop conditions`.
 3. Spec check (`companions/spec-reviewer-prompt.md`): exactly the
    item; skipped for mechanical commits per
    `companions/verification-policy.md`. Reject → fix → recheck.
@@ -236,5 +237,6 @@ scope. Hand-off note at each boundary and re-brief after compaction:
 On "status": per initiative - merged / in-flight / halted / escalated,
 with MR/PR links - derived from artifacts at ask time (task
 checkboxes, reports, state-check output). Resolving an escalation
-resumes the affected item. The run ends when the scope is delivered
-or only escalations remain; report which.
+re-dispatches the affected item - a fresh implementer on the re-read
+plan. The run ends when the scope is delivered or only escalations
+remain; report which.

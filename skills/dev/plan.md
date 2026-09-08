@@ -145,7 +145,9 @@ After the rounds, adjust in place:
   as a diff of items and makes exactly that change - commits added
   after the final, a gap the read found, a blocker's answer. The
   session runs the cold read (`write-plan.md` step 6) over the result
-  and presents it for the user's approval before the plan MR/PR, so the
+  and presents it for the user's approval before the plan MR/PR - or
+  before the item's next dispatch where the change rides the item's
+  own branch (`branch-plan.md § Scope changes mid-branch`) - so the
   record vouches for the current text.
 - **Roadmap items, tasks** (single-line entries): direct file edit.
 - Never rewrite history retroactively.
