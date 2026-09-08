@@ -40,13 +40,14 @@ seat and its bounds in a `## Supervision` section directly after
 ```
 
 `Supervisor: human` - the user's own interactive session holds the
-seat: it dispatches the seats, and the user answers their questions,
-clears what stops them and merges. `Supervisor: AI` - a supervising
-session dispatches, answers and merges within the bounds below, and
-the user gets the always-ask list only. That list reaches the user
-under either. A block without the `Supervisor:` line, or no block at
-all, halts the run at resolve, naming the missing line; the bounds
-line alone grants nothing. The default grant, **batch-scoped
+seat: it dispatches the seats, and the user approves the planner's
+changes (`run.md § Question resolution`), clears what stops them and
+merges. `Supervisor: AI` - a supervising session dispatches, verifies
+and merges within the bounds below, and the user approves plan changes
+and answers the always-ask list. Both reach the user under either. A
+block without the `Supervisor:` line, or no block at all, halts the
+run at resolve, naming the missing line; the bounds line alone grants
+nothing. The default grant, **batch-scoped
 delivery**, carries
 work as far as a green MR/PR and holds one decision class:
 

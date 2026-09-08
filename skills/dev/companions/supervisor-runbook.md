@@ -15,7 +15,7 @@ session is the runner's.
 |---|---|---|
 | Runner runs on | the user's machine | the remote host, under `tmux` |
 | Who starts it | the user, in a terminal | the user, over ssh |
-| Where the user answers | the same machine | Remote Control (§ Remote Control), or `gcloud compute ssh --tunnel-through-iap` |
+| Where the user approves | the same machine | Remote Control (§ Remote Control), or `gcloud compute ssh --tunnel-through-iap` |
 | Runner's pane read by | the user | `tmux` (§ tmux recipes) |
 
 Both deliver. Take A for a scope you intend to sit with. Take B when
@@ -27,8 +27,10 @@ back, or when the host is provisioned for it
 
 ```
    user
-      |  Supervisor: human - answers, clears, merges
-      |  Supervisor: AI    - answers the always-ask escalations only
+      |  Supervisor: human - approves plan changes, answers the
+      |                      always-ask escalations, clears, merges
+      |  Supervisor: AI    - approves plan changes, answers the
+      |                      always-ask escalations only
       v
  +---------------------------------------------------+
  |  RUNNER SESSION      /dev run <scope>             |
@@ -105,9 +107,9 @@ The runner cycles until the scope is delivered:
    its bounds while it believes it is inside.
 5. **Runner** runs the loop above: its seats are its subagents, and no
    second session exists on the host.
-6. **User** answers the always-ask escalations - over `SendMessage`
-   from a connected session, in the runner's pane, or from the phone
-   via the Remote Control URL.
+6. **User** approves plan changes and answers the always-ask
+   escalations - over `SendMessage` from a connected session, in the
+   runner's pane, or from the phone via the Remote Control URL.
 
 ### tmux recipes
 

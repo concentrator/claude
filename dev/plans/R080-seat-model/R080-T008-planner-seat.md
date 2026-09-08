@@ -237,7 +237,7 @@ until R080-T006's table exists and they cite it.
   § Question resolution`), and the fresh implementer starts from the
   last commit." The rest of the bullet stays. The file stays within 80
   columns (table rows exempt).
-- [ ] `companions/declarations.md § Supervisor bounds` and
+- [x] `companions/declarations.md § Supervisor bounds` and
   `companions/supervisor-runbook.md`, what the user approves under
   either mode. `declarations.md`, the two mode sentences and the one
   after them: "`Supervisor: human` - the user's own interactive session
