@@ -30,25 +30,33 @@ Declare it once; `migrate` backfills it if absent (absent-host fallback:
 
 ## Supervisor bounds
 
-A project delegating delivery to a supervisor declares its
-bounds in a `## Supervision` section directly after `## Agent
-toolchain` - the single home for merge authority:
+A project delegating delivery to a supervisor declares who holds the
+seat and its bounds in a `## Supervision` section directly after
+`## Agent toolchain` - the single home for merge authority:
 
 ```
+- Supervisor: AI
 - Supervisor bounds: batch-scoped delivery; instructions: .claude/supervisor.md
 ```
 
-No declaration = a read-only supervisor: it reports and escalates and
-answers nothing. The default grant, **batch-scoped delivery**, carries
+`Supervisor: human` - the user's own interactive session holds the
+seat: it dispatches the seats, and the user answers their questions,
+clears what stops them and merges. `Supervisor: AI` - a supervising
+session dispatches, answers and merges within the bounds below, and
+the user gets the always-ask list only. That list reaches the user
+under either. A block without the `Supervisor:` line, or no block at
+all, halts the run at resolve, naming the missing line; the bounds
+line alone grants nothing. The default grant, **batch-scoped
+delivery**, carries
 work as far as a green MR/PR and holds one decision class:
 
 - deliver a `plan/` branch to a green MR/PR;
 - deliver a batch or member branch whose checkpoint report verifies the
   task's acceptance criteria - the approved plan is the decision, the
   supervisor automates its delivery;
-- deliver a task branch from manual `/dev code` work, where
-  `finish.md § 1`'s verify set stands in for the checkpoint report,
-  and its absence stops the delivery as a missing report does;
+- deliver a task-scoped run's branch, where `finish.md § 1`'s verify
+  set stands in for the checkpoint report, and its absence stops the
+  delivery as a missing report does;
 - implementation-level resolutions of worker questions and queued
   judgment calls, each recorded in the report's supervisor-decisions
   section and ledgered (`supervise.md § Ledger`).

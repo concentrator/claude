@@ -38,6 +38,7 @@ wins.
 This repository's own declarations; they never stand in for a
 project's missing `## Supervision`.
 
+- Supervisor: AI
 - Supervisor bounds: batch-scoped delivery
 
 ## Code Comments
