@@ -162,5 +162,5 @@ per `skills/dev/layout.md`).
 
 - The `agentic:`/`supervised:` plan stamps went with the second
   runner: each certified readiness for a flow with no one to ask, and
-  in one flow whose seats can ask, the cold read at the planner's exit
-  is the only admission a plan needs.
+  in one flow whose seats can ask, the dispatcher's cold read of the
+  plan is the only admission a plan needs.

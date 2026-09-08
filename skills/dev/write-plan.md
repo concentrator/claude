@@ -59,9 +59,11 @@ and 7 and writes no plan text itself.
    re-dispatches a planner with the gap's text (`plan.md § Adjusting
    existing plans`); a fix that adds a decision re-runs the read, a fix
    that cites text already in the tree does not; when it reports none
-   the header records `cold-read: passed`. A plan whose `depends-on`
-   names an unmerged task is read at its start instead, when its
-   targets exist, and carries no record until then.
+   the header records `cold-read: passed`. The session commits that
+   header edit on the plan branch itself - the record is bookkeeping,
+   not plan text. A plan whose `depends-on` names an unmerged task is
+   read at its start instead, when its targets exist, and carries no
+   record until then.
 7. **Confirm with user**, then deliver the committed plan via a
    short-lived plan MR/PR (`plan.md § Where plans live in git`).
 

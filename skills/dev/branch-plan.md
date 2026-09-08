@@ -12,9 +12,9 @@ branch = one task. The plan is complete and committed to `main`
     architecture-changing: true     # optional - triggers DESIGN.md
                                     #   update commit
     depends-on: R008-T001           # optional - blocks `/dev run` until merged
-    cold-read: passed               # required - the planner's exit
-                                    #   (`write-plan.md` step 6); absent =
-                                    #   refused by `/dev run`
+    cold-read: passed               # required - the dispatcher's read of
+                                    #   the plan (`write-plan.md` step 6);
+                                    #   absent = refused by `/dev run`
 
 ## Body
 
@@ -178,8 +178,8 @@ through the checkpoint below; a task-scoped run closes through
 § Closing routine + `finish`.
 
 A plan is admitted to a run by its `cold-read: passed` record alone -
-the planner's exit (`write-plan.md` step 6) - over approved
-requirements (`run.md § Resolve`).
+the dispatcher's read of the plan (`write-plan.md` step 6) - over
+approved requirements (`run.md § Resolve`).
 
 ### Batches
 
