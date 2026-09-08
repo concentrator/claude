@@ -281,7 +281,7 @@ until R080-T006's table exists and they cite it.
   content." The `## Exit` paragraph adds, after "a gap re-dispatches a
   planner with the gap's text", ", the user's rejection one with the
   objection's text".
-- [ ] `run.md` and `plan.md`, three sites where text items 7, 8 and 11
+- [x] `run.md` and `plan.md`, three sites where text items 7, 8 and 11
   changed still reads as before; two files, so the item is mechanical.
   `run.md § Dispatch per item` 3, "skipped for mechanical commits per
   `companions/verification-policy.md`", names one skip class where

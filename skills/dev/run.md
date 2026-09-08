@@ -86,9 +86,9 @@ branch per plan - and per commit checkbox:
    concern the runner ledgers (§ Ledger) and carries into the report,
    then spec check. NEEDS_CONTEXT → § Question resolution. Halt
    triggers: `branch-plan.md § Stop conditions`.
-3. Spec check (`companions/spec-reviewer-prompt.md`): exactly the
-   item; skipped for mechanical commits per
-   `companions/verification-policy.md`. Reject → fix → recheck.
+3. Spec check (`companions/spec-reviewer-prompt.md`): exactly the item;
+   skipped per `companions/verification-policy.md § Spec-check skip`.
+   Reject → fix → recheck.
 4. The implementer marks `[x]` in its commit (`branch-plan.md § Commit
    cadence` 3); the runner confirms the mark landed before the spec
    check.
@@ -102,12 +102,13 @@ is reported as a pre-flight defect, never keyed past.
 ## Question resolution
 
 A question whose answer changes plan text - an implementer's blocker, a
-spec ambiguity, a cold-read gap found in flight - halts the item and
-re-dispatches the planner (`companions/planner-prompt.md`) with that
-text, on the item's own branch (`git-workflow.md § Trunk`). The halt
-reverts the item's uncommitted edits - `git checkout -- .` and removal
-of the untracked files the seat created - so the branch stands at its
-last commit before the planner is dispatched. The planner commits its
+plan-changing concern, a spec ambiguity, a cold-read gap found in
+flight - halts the item and re-dispatches the planner
+(`companions/planner-prompt.md`) with that text, on the item's own
+branch (`git-workflow.md § Trunk`). The halt reverts the item's
+uncommitted edits - `git checkout -- .` and removal of the untracked
+files the seat created - so the branch stands at its last commit
+before the planner is dispatched. The planner commits its
 change locally, nothing being pushed until the runner delivers; a
 planner reporting DONE_WITH_CONCERNS (`companions/planner-prompt.md
 § Report Format`) has committed too, so its change takes the read below
