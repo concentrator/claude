@@ -43,7 +43,6 @@ optimized default, without dialing every commit individually.
 
 - Does `high` raise `effortLevel` session-wide, or stay session-fixed
   with only model + loop rules changing?
-- Interaction with R-004 (parallel batches) if both land.
 
 ## References
 

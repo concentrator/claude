@@ -12,8 +12,8 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R-003: Flatten the requirement level into roadmap entries -
       R-rooted chain with in-dir `requirements.md`, single closure point
       on verified acceptance criteria.
-- [ ] R-004: Parallel batch execution for DEV auto mode - run
-      independent member branches concurrently between checkpoints.
+- [x] R-004: Parallel batch execution for DEV auto mode - dropped:
+      will not implement.
 - [x] R-005: Trim agentic verification cost - verification-depth policy,
       per-role model routing, branch-close folding, slimmer dispatch
       prompts, context diet for always-loaded rules.
@@ -108,10 +108,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       declared per-project bounds (batch-scoped delivery default,
       host-label signature), escalates the rest; the user resolves
       escalations at periodic syncs.
-- [ ] R-042: Planning-round PoCs - a shape/detail round may run a
-      time-boxed throwaway spike in a worktree to ground an unproven
-      assumption; findings recorded like probe findings, spike code
-      always discarded.
+- [x] R-042: Planning-round PoCs - dropped: will not implement.
 - [x] R-043: Ship the accretion check to adopters - the reference
       `check-accretion.sh` + self-test, hardened with aikido's audit
       findings, become a copyable adopter check (the R-026 em-dash
