@@ -37,7 +37,7 @@ cat > "$D/dev/session/s9.md" <<'SES'
 
 ## hand-off 2026-09-07T12:00:00Z
 - done: the fresh unit
-- next: /dev code R078-T001
+- next: /dev run R078-T001
 - rulings: keep the list
 SES
 cd "$D"

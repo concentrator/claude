@@ -13,7 +13,7 @@ toolchain` section - the VCS host (→ `gh`/`glab`) and the exact
 change-request / merge / state-check / test / lint / build commands. It
 is the single source both modes read:
 
-- `/dev auto` uses it for `permissions.allow` (the pre-flight gate in
+- `/dev run` uses it for `permissions.allow` (the pre-flight gate in
   `toolchain.md § Permission carve-out for the checkpoint push`).
 - Manual `finish` runs the declared commands instead of probing the host.
 
@@ -59,7 +59,7 @@ work as far as a green MR/PR and holds one decision class:
   delivery as a missing report does;
 - implementation-level resolutions of worker questions and queued
   judgment calls, each recorded in the report's supervisor-decisions
-  section and ledgered (`supervise.md § Ledger`).
+  section and ledgered (`run.md § Ledger`).
 
 **The grant includes the merge.** Within the declared bound the
 supervisor's last act on a green in-class MR/PR is the merge, carrying

@@ -102,7 +102,7 @@ project_clone() {
     else
       git clone -q "git@$host:$pair.git" "$root/$name" || { printf 'project-clone: clone failed for %s\n' "$pair" >&2; return 1; }
     fi
-    # Belt and braces, local to this checkout: supervise.md § Ledger appends
+    # Belt and braces, local to this checkout: run.md § Ledger appends
     # to dev/supervisor/ and handoff.md to dev/session/ while a worker may run
     # git add -A, so both must be ignored whatever the cloned .gitignore says.
     ex="$root/$name/.git/info/exclude"

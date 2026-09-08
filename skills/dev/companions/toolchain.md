@@ -67,7 +67,7 @@ it. Two working patterns:
    The deny shrinks from all-push to default-branch/force push; the
    allow covers the push of any task branch, not only a batch. Cover
    the prefixes the project actually uses (`git-workflow.md § Trunk`) -
-   `batch/*` alone stalls every manual `/dev code` branch at push time,
+   `batch/*` alone stalls every task-scoped run's branch at push time,
    which is a prompt in the one place a supervised run cannot answer
    one.
 

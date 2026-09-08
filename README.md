@@ -39,14 +39,13 @@ Two modes, defined in `CLAUDE.md`:
 
 Planning takes two rounds: `/dev plan R` shapes an initiative,
 `/dev plan R<NNN>` details its tasks and branch plans. Execution is
-manual (`/dev code`, one branch at a time), agentic (`/dev auto`, a
-batch of branches run by subagents between checkpoints, on permission
-rails), or supervised (`/dev supervise`, scoped delivery within declared
-bounds). `/dev ship` takes a landed branch to a merged MR/PR;
+`/dev run`: a task, a batch or an initiative runs as dispatched seats
+under the supervisor the project declares, human or AI, within
+declared bounds. `/dev ship` takes a landed branch to a merged MR/PR;
 `/dev handoff` writes the session's hand-off note, which with the
 PreCompact hook's tree block carries state across compaction (the
 SessionStart hook re-injects the last hand-off block on resume).
-`/dev start`, `/dev migrate`, `/dev docs`, and `/dev release` cover
+`/dev start`, `/dev migrate`, and `/dev release` cover
 scaffolding a new project, adopting an existing one, the `docs/`
 layer, and tagging a release. Command surface and mode files:
 `skills/dev/SKILL.md`.
@@ -113,6 +112,6 @@ an `@writing.md` import added to the target `CLAUDE.md`, and - for
 each installed path that repo ignores, so the toolset stays committable,
 plus ignore lines for `dev/session/`, the per-session state files
 (`skills/dev/handoff.md`), and `dev/supervisor/`, the supervisor's
-ledgers (`skills/dev/supervise.md § Ledger`).
+ledgers (`skills/dev/run.md § Ledger`).
 The copied checks are yours to wire into CI; the installer ships them
 without registering them.

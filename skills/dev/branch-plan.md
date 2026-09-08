@@ -11,7 +11,7 @@ branch = one task. The plan is complete and committed to `main`
     type: feat                      # required - task tag; sets branch prefix
     architecture-changing: true     # optional - triggers DESIGN.md
                                     #   update commit
-    depends-on: R008-T001           # optional - blocks `/dev code` until merged
+    depends-on: R008-T001           # optional - blocks `/dev run` until merged
     cold-read: passed               # required - the planner's exit
                                     #   (`write-plan.md` step 6); absent =
                                     #   refused by every runner
@@ -166,24 +166,23 @@ re-bills the finished work on every later call.
 
 | Mode | Unit |
 |---|---|
-| `/dev code` | the task, or the branch where larger |
-| `/dev auto`; a supervised worker | the batch |
-| `/dev supervise` | the scope |
+| a task-scoped run | the task, or the branch where larger |
+| a batch-scoped run | the batch |
+| the runner session | the scope |
 
 Doc loading keys to the boundary: one load phase at the unit's
 start; sectional reads, not whole files; no re-reads within the
 unit; outputs (reports, findings files) wait for triage.
 Each role clears at the boundary and re-briefs from `handoff.md`, a
-supervisor from its ledger too (`supervise.md § Ledger`).
+supervisor from its ledger too (`run.md § Ledger`).
 
 ## Agentic execution
 
 The **batch** - one or more coupled tasks shipped as one CI-gated
 MR/PR - is the unit of delivery to `main` in both modes; a lone task
-is a batch of one, its branch the MR/PR. Auto mode (`/dev auto`)
-runs members via subagents on a `batch/R<NNN>-B<NNN>` branch;
-manual mode (`/dev code`) implements them by hand. Only
-verification differs: auto runs the checkpoint below, manual uses
+is a batch of one, its branch the MR/PR. A batch-scoped run
+(`run.md`) runs members on a `batch/R<NNN>-B<NNN>` branch and closes
+through the checkpoint below; a task-scoped run closes through
 § Closing routine + `finish`.
 
 ### Stamps
@@ -201,7 +200,7 @@ check`), recorded as `cold-read: passed`. Items failing → fix via
 `/dev plan <slug>` first. User approves → stamp.
 
 `supervised: approved` - what `/dev supervise` needs
-(`supervise.md § Resolve`): approved requirements, one commit per
+(`run.md § Resolve`): approved requirements, one commit per
 item, no known design question open. A supervised worker has someone
 to ask, so the readiness review is not required. Applied at
 detail-round approval (`plan.md § Approval and closure`), which the
@@ -233,11 +232,11 @@ marks land per § Closing routine; reject: § Rails. The R-closure
 check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) after the batch MR/PR merges.
 
-Per-branch close in auto mode: the close review runs only above the
+Per-branch close in a batch-scoped run: the close review runs only above the
 close-folding threshold (`verification-policy.md § Close folding`).
 The mandatory final commit and a green fast tier
 before merging into the batch branch hold regardless of size; the
-full suite runs at batch close (`auto.md § Batch close`).
+full suite runs at batch close (`run.md § Batch close`).
 
 ### Rails
 

@@ -5,8 +5,8 @@ description: Use to enter DEV mode for spec-driven, planned, reviewed work.
 
 # Dev
 
-DEV mode - strict, spec-driven, manual (`/dev code`) or agentic (`/dev
-auto`). **Read the mode file a command maps to before acting.**
+DEV mode - strict, spec-driven: plan, then run as dispatched seats.
+**Read the mode file a command maps to before acting.**
 
 ## Surface
 
@@ -14,15 +14,12 @@ auto`). **Read the mode file a command maps to before acting.**
 |---|---|---|
 | `/dev` | - | Route by state (ask if ambiguous) |
 | `/dev plan [<target>]` | per target table below | Planning (plan MR/PRs) |
-| `/dev code [<slug>]` | `branch-plan.md` | Manual execution on a branch - rules below |
-| `/dev auto [R<NNN>-B<NNN>]` | `auto.md` | Run an approved batch via subagents (no arg → first open); unattended until checkpoint or halt |
-| `/dev supervise [project] [scope]` | `supervise.md` | Supervise scoped delivery: dispatch, verify, merge within declared bounds |
+| `/dev run [<scope>]` | `run.md` | Run planned work - a task, a batch or an initiative - as dispatched seats under the declared supervisor; no arg → the open batch, else the next read task |
 | `/dev ship` | `finish.md § 3` | Ship the landed branch; else error naming why |
 | `/dev handoff` | `handoff.md` | Write the hand-off note now |
 | `/dev release` | `release.md` | Finalize + tag the release (project `release` override or this companion) |
 | `/dev migrate` | `migrate.md` | Adopt an existing project into DEV: inventory, then route |
 | `/dev start` | `start.md` | Scaffold a new project into DEV |
-| `/dev docs` | `docs.md` | Audit / build / refresh the docs layer |
 
 ## `/dev plan <target>`
 
@@ -38,15 +35,3 @@ auto`). **Read the mode file a command maps to before acting.**
 | (bare) | Ask | - |
 
 Round-gate rules: `plan.md § Planning rounds`.
-
-## `/dev code [<slug>]`
-
-On `main`: resolve the task (no arg → next from the open batch, else
-ask; else `<slug>`), verify its plan (no `cold-read: passed` → refuse,
-naming it), branch, start. On a branch: continue from first `[ ]`;
-wrong or missing `<slug>` → error. Pre-flight: re-read plan vs code;
-concerns → `/dev plan <slug>` first.
-Dispatch by tag: `feat`→`feat.md`, `fix`→`fix.md`, `refactor`→`refactor.md`;
-`doc`/`test`/`mnt` have no mode file: `branch-plan.md § Commit
-cadence` directly.
-Close the branch: `finish.md`.

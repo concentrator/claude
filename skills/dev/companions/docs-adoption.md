@@ -1,7 +1,8 @@
 # Docs adoption procedure
 
-Runs the docs-adoption behind `/dev docs` and `migrate § 7`; framing
-and re-run semantics: `docs.md`.
+Runs the docs-adoption behind `migrate.md § 7`, at adoption; from then
+on each branch's doc work keeps the docs current (`branch-plan.md
+§ Commit cadence`).
 
 ## Audit
 

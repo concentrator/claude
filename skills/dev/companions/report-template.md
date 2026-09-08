@@ -1,7 +1,7 @@
 # Batch report template
 
 Written by the checkpoint to `dev/plans/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.report.md`
-(timing + no-report-no-accept: `auto.md § Checkpoint`). Fill every
+(timing + no-report-no-accept: `run.md § Checkpoint`). Fill every
 section; write "none" rather than omitting one - an empty heading reads
 as a skipped step.
 
@@ -65,9 +65,9 @@ previously verified">
 
 <implementation questions and queued calls resolved by the
 supervisor, each with the chosen option and rationale - answers
-carried in by the worker at checkpoint; or "none" - unsupervised runs
-or no questions asked. The supervisor's ledger (`supervise.md
-§ Ledger`) is this section's evidence, not its copy>
+carried in at checkpoint; or "none" when no question was asked. The
+runner's ledger (`run.md § Ledger`) is this section's evidence, not
+its copy>
 
 ## Judgment calls for checkpoint
 

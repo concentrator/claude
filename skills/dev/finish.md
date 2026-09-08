@@ -1,7 +1,10 @@
 # Finishing a Development Branch
 
-Close out a DEV branch - invoked by the closing routine
-(`branch-plan.md`) after the mandatory final commit.
+Close out a task-scoped run's branch - the close step `run.md § Close`
+invokes after the mandatory final commit; its § 1 verify set is the
+run's evidence (`companions/declarations.md § Supervisor bounds`). § 2
+and § 3 are the human-mode surface: under `Supervisor: AI` the
+merge-or-ask step of `run.md` replaces the ship question.
 
 ## 1. Verify
 

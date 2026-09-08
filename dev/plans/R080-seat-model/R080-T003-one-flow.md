@@ -21,7 +21,7 @@ for one item and shut down at its exit, reading a fixed input set. The
 stamp pair retires: readiness is the cold read T002 placed at the
 planner's exit.
 
-- [ ] `companions/declarations.md § Supervisor bounds`: the
+- [x] `companions/declarations.md § Supervisor bounds`: the
   `## Supervision` block declares `Supervisor: human | AI` beside the
   bounds line. Human: the user's own interactive session holds the
   supervisor seat - it dispatches the seats, and the user answers,
@@ -31,7 +31,7 @@ planner's exit.
   line halts the run at resolve, naming it. `rules/claude-md.md
   § Agent toolchain declaration` names the new line; this repository's
   `CLAUDE.md § Supervision` declares `Supervisor: AI`.
-- [ ] `run.md` replaces `auto.md`, `supervise.md`, `docs.md` and the
+- [x] `run.md` replaces `auto.md`, `supervise.md`, `docs.md` and the
   `/dev code` section of `SKILL.md`: resolve (scope - a task, a batch
   or an initiative - bounds, ledger), pre-flight, dispatch per item,
   question resolution, close, boundary verification, merge or ask,

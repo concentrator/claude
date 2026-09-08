@@ -1,7 +1,7 @@
 # Supervisor runbook
 
 How to stand a supervisor and a worker up and run one scope to a merged
-MR/PR. `supervise.md` holds the judgement: what may be merged, what must
+MR/PR. `run.md` holds the judgement: what may be merged, what must
 escalate, how a question is answered. This holds the mechanics.
 
 ## Two variants
@@ -40,7 +40,7 @@ machine back, or when the host is provisioned for it
       v
  +-------------------------------------------------+
  |  WORKER                         accept-edits    |
- |  /dev code <slug>  or  /dev auto R<NNN>-B<NNN>  |
+ |  /dev run <scope>                                   |
  +-------------------------------------------------+
       |
       v
@@ -73,18 +73,17 @@ The supervisor cycles until the scope is delivered:
 1. **User** opens a terminal in the project directory and starts the
    worker: `claude --permission-mode acceptEdits`.
 2. **User** starts the supervisor in another session in auto mode
-   and runs `/dev supervise <project> <scope>`.
+   and runs `/dev run <scope>`.
 3. **Supervisor** runs `ListAgents` and adopts the worker peer by name.
-   Adopt before dispatch (`supervise.md § Dispatch`): never run two
+   Adopt before dispatch (`run.md § Dispatch per item`): never run two
    workers on one project.
-4. **Supervisor** opens the ledger (`supervise.md § Ledger`), then
-   dispatches with `SendMessage`, ids only: `/dev code <slug>` for a
-   manual task, `/dev auto R<NNN>-B<NNN>` for a batch.
+4. **Supervisor** opens the ledger (`run.md § Ledger`), then
+   dispatches with `SendMessage`, ids only: `/dev run <scope>`.
 5. **Supervisor** follows to checkpoint with status pings. The user
    is at the keyboard, so the worker's permission prompts are theirs
    to clear.
 6. **Supervisor** verifies the boundary from CI and artifacts
-   (`supervise.md § Boundary verification`), then merges the green
+   (`run.md § Boundary verification`), then merges the green
    in-class MR/PR or asks the user.
 
 ## Variant B: remote host
@@ -113,15 +112,15 @@ The supervisor cycles until the scope is delivered:
    merge and what it must ask. Cite that section, never restate
    it: the copy is what the supervisor obeys, and a stale copy puts it
    outside its bounds while it believes it is inside.
-5. **Supervisor** opens the ledger (`supervise.md § Ledger`), starts
+5. **Supervisor** opens the ledger (`run.md § Ledger`), starts
    the worker
    (`tmux new -d -s worker-<project> -c <project-dir> claude --permission-mode acceptEdits`),
    adopts it by name over `ListAgents`, and dispatches one line and
-   nothing else by `SendMessage`: `/dev code <slug>`.
+   nothing else by `SendMessage`: `/dev run <scope>`.
 6. **Supervisor** follows: answers implementation questions over the
    channel, clears the worker's permission prompts over `tmux`.
 7. **Supervisor** verifies the boundary from CI and artifacts
-   (`supervise.md § Boundary verification`), then merges the green
+   (`run.md § Boundary verification`), then merges the green
    in-class MR/PR or asks the user.
 8. **User** answers the always-ask escalations - over `SendMessage`
    from a connected session, in the supervisor's pane, or from the
@@ -247,7 +246,7 @@ point 4: print what the step needs, never a file already in context.
   prompt): only after the stall window - one flatness check (the
   watch recipes' flatness alarm) with the prompt still pending - and
   with the same verify-pending guard; the owning seat clears first
-  (`supervise.md`).
+  (`run.md`).
 - **`defaultMode` appears in the tracked `settings.json`** after a
   supervised run starts: do not stage it.
 - **The MR view omits the pipeline** (`glab mr view` returns

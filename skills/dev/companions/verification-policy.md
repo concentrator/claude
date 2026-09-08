@@ -1,6 +1,6 @@
 # Verification depth policy
 
-Companion to `SKILL.md`, consulted by the `/dev auto` controller when
+Companion to `SKILL.md`, consulted by the runner (`run.md`) when
 deciding how much verification each commit and batch warrants. The aim
 is to trim agentic verification cost without dropping below the
 floor that keeps the default branch safe. Sections below define the
@@ -88,8 +88,8 @@ cross-branch concerns.
 the final commit and the green gate hold for every branch; branches
 above the threshold keep the full per-branch review.
 
-**Scope:** this rule applies to auto mode only. Manual-mode
-`skills/dev/branch-plan.md § Closing routine` is unaffected.
+**Scope:** this rule applies to a batch-scoped run only; a task-scoped
+run closes in full (`skills/dev/branch-plan.md § Closing routine`).
 
 ## Verification modality
 

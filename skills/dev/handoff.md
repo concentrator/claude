@@ -5,25 +5,24 @@ loses: the tree's, which `hooks/dev-precompact-state.sh` appends as a
 `tree` block just before compaction, and the session's intent, which
 only the session can write - this note. `/dev handoff` writes one on
 demand; the boundary rules in `branch-plan.md § Session boundary` and
-`supervise.md § Monitor` write one without being asked.
+`run.md § Monitor` write one without being asked.
 
 ## The file
 
 `dev/session/<session_id>.md`, gitignored. Its path is
 the `session-state:` field the `branch-state:` prompt line ends with -
-read it from there, never derive it. One file per `claude` process:
-under the supervisor runbook the supervisor and worker each have
-their own; under `/dev auto` or a worker spawned as a subagent,
-hooks fire with the parent's `session_id`, so the run has one file and
-only the orchestrating session writes hand-offs to it (a member's
-state is its checkpoint report).
+read it from there, never derive it. One file per `claude` process: a
+run has one, since its seats are subagents and hooks fire with the
+runner's `session_id`, and only the runner writes hand-offs to it (a
+seat's state is its report).
 
 **Header** - the first writer creates the file with
 `# <role> session <session_id>`; the hook, which knows no role, writes
 `# session <session_id>`, and the next hand-off rewrites that line with
-the role. Roles: `worker` (dispatched by a supervisor), `supervisor`
-(`/dev supervise`; re-briefed from this note and its ledger,
-`dev/supervisor/<scope>.md`), `solo` (no other seat).
+the role. Roles: `supervisor` (the runner session of `/dev run`;
+re-briefed from this note and its ledger, `dev/supervisor/<scope>.md`),
+`solo` (a session outside a run). A seat writes none: it ends at its
+item.
 
 **Blocks** - `## <kind> <UTC timestamp>` followed by `- key: value`
 lines, appended in time order; the last block of each kind is current.
@@ -36,7 +35,7 @@ Append one `hand-off` block with these six keys, each one line;
 
     ## hand-off 2026-08-29T10:15:00Z
     - done: R063-T003 merged (#416); R040-T021 planned (#417)
-    - next: /dev code R040-T019, item 3 (handoff.md)
+    - next: /dev run R040-T019, item 3 (handoff.md)
     - branch: feat/precompact-state, 2 commits ahead of main
     - open: none
     - rulings: plan/ merges on green without a second ask; keep the 405 note

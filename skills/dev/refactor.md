@@ -1,6 +1,7 @@
 # Doing a Refactor
 
-Iteration for one refactor task from its branch plan. Behavior preserved.
+The implementer seat's loop for one refactor item, run per dispatch
+(`run.md § Dispatch per item`). Behavior preserved.
 
 ## Pre-requisite
 

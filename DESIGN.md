@@ -83,8 +83,7 @@ Tracked dirs and notable files; harness-managed state (`projects/`,
     ├── dev/                      # the DEV toolset
     │   ├── SKILL.md              #   the router
     │   ├── plan.md branch-plan.md templates.md layout.md changelog.md git-workflow.md  # process rules
-    │   ├── feat.md fix.md refactor.md write-plan.md finish.md handoff.md release.md auto.md   # execution
-    │   ├── supervise.md docs.md  # supervised delivery, docs layer
+    │   ├── run.md feat.md fix.md refactor.md write-plan.md finish.md handoff.md release.md   # execution
     │   ├── brainstorm.md migrate.md start.md   # shape + adoption
     │   └── companions/           # declaration syntax, documentation framework, prompt templates, verification-policy, migration docs, secrets policy
     ├── test-driven-development/  # bundled dependency skills (installer ships these) + testing-anti-patterns
