@@ -2,7 +2,6 @@
 task: R080-T008
 type: mnt
 depends-on: R080-T003
-cold-read: passed
 ---
 
 # R080-T008: planner seat
@@ -56,7 +55,7 @@ until R080-T006's table exists and they cite it.
   approval of the change under either supervisor mode, then dispatches
   a fresh implementer on the re-read plan; a seat never resumes. Every
   answer takes that route: an implementer's inputs are the plan, the
-  docs and the code (`requirements.md § Desired state` 4), so an answer
+  docs and the code (`companions/implementer-prompt.md`), so an answer
   reaches the next implementer only as plan text, and the planner
   writes it there.
   `§ Dispatch per item` 2 routes NEEDS_CONTEXT there in place of "then
@@ -131,6 +130,90 @@ until R080-T006's table exists and they cite it.
   supervisor" becomes the queued calls the supervisor resolved and the
   plan changes the user approved. The findings file's entry goes
   `[x]`, ending "Resolved by R080-T008 item 6."
+- [ ] `run.md` and `companions/implementer-prompt.md`, the concern
+  route and one cite. `run.md § Dispatch per item` 2 reads: "DONE →
+  spec check. DONE_WITH_CONCERNS → a concern that changes plan text
+  takes § Question resolution as NEEDS_CONTEXT does; any other the
+  runner ledgers (§ Ledger) and carries into the report, then spec
+  check. NEEDS_CONTEXT → § Question resolution. Halt triggers:
+  `branch-plan.md § Stop conditions`." - "resolve first" names no
+  resolver, and the runner answers no seat. `run.md § Ledger` cites
+  `handoff.md § The file` where it cites `handoff.md § Blocks`, the
+  block format being a bold run-in under that heading and no heading
+  of its own. `companions/implementer-prompt.md § How to escalate`'s
+  last sentence, "The runner can provide more context, re-dispatch
+  with a more capable model, or break the task into smaller pieces",
+  becomes: "The runner routes it through `run.md § Question
+  resolution`: a planner changes the plan, the user approves the
+  change and a fresh implementer works the re-read plan; no answer
+  reaches you directly, since your inputs are the plan, the docs and
+  the code." `run.md` stays within 300 lines and 80 columns.
+- [ ] `run.md § Question resolution`, `§ Resolve` and `§ Checkpoint`,
+  the halted item's tree, the re-read and the rejection path.
+  `§ Question resolution`, first paragraph: the halt reverts the
+  item's uncommitted edits - `git checkout -- .` and removal of the
+  untracked files the seat created - so the branch stands at its last
+  commit before the planner is dispatched; the planner commits its
+  change locally (nothing is pushed until the runner delivers); the
+  runner then runs `write-plan.md` step 6 on the changed plan, the
+  reader a dispatched seat (`companions/verification-policy.md
+  § Comprehension check`), never the runner's own read, and records
+  `cold-read: passed` in its own bookkeeping commit on the item's
+  branch; the change is the **user**'s to approve under either
+  supervisor mode; a rejection re-dispatches the planner with the
+  objection's text, and the next planner commit replaces the text - no
+  revert, and the runner edits no plan content; only then is a fresh
+  implementer dispatched, starting from the last commit. "The runner
+  reads the changed plan" drops, the read being the reader seat's.
+  Second paragraph: "The re-dispatch carries the blocker's or the
+  gap's text" gains "or the objection's". `§ Resolve` 1 adds, after
+  "a plan whose `depends-on` is unmerged the same": the check runs at
+  every dispatch, not at scope start alone - a plan changed
+  mid-branch is admitted again by the record the bookkeeping commit
+  restores (§ Question resolution). `§ Checkpoint`, Halt bullet:
+  "work intact" reads "the branch as it stands - a question-resolution
+  halt has already reverted the item's uncommitted edits (§ Question
+  resolution)", so "intact" covers the checkpoint halt alone. The
+  file grows by these sentences and stays within 300 lines and 80
+  columns (table rows exempt).
+- [ ] `branch-plan.md § Stop conditions` and `§ Scope discoveries`.
+  The table's first row event reads "Blocker the plan can absorb
+  (§ Scope discoveries), or an implementer's NEEDS_CONTEXT", action
+  unchanged: every NEEDS_CONTEXT takes the planner re-dispatch, none
+  is the runner's to answer from `requirements.md` or the design. The
+  row "NEEDS_CONTEXT unanswerable from the R's `requirements.md`/design
+  | Halt, report" becomes "Planner reports BLOCKED or NEEDS_CONTEXT on
+  its re-dispatch | Halt, report". `§ Scope discoveries`, the **Stop**
+  bullet's second sentence reads: "A blocker the plan can absorb - an
+  ambiguous item, a missing step - halts the item: the runner reverts
+  its uncommitted edits and re-dispatches the planner with the
+  blocker's text (`run.md § Question resolution`), and the fresh
+  implementer starts from the last commit." The rest of the bullet
+  stays. The file stays within 80 columns (table rows exempt).
+- [ ] `companions/declarations.md § Supervisor bounds`, the two mode
+  sentences. "`Supervisor: human` - the user's own interactive session
+  holds the seat: it dispatches the seats, and the user answers their
+  questions, clears what stops them and merges." reads: "... it
+  dispatches the seats, and the user approves the planner's changes
+  (`run.md § Question resolution`), clears what stops them and
+  merges." "`Supervisor: AI` - a supervising session dispatches,
+  answers and merges within the bounds below" reads "dispatches,
+  verifies and merges within the bounds below", mirroring `run.md`'s
+  opening paragraph. Nothing else in the section changes.
+- [ ] `companions/planner-prompt.md`, the rejection path. The opening
+  paragraph's "whenever a blocker or a cold-read gap needs plan text
+  changed" reads "whenever a blocker, a cold-read gap or the user's
+  rejection of a change needs plan text changed". The `## Inputs`
+  re-dispatch bullet reads "<Re-dispatch only: the blocker's, the
+  cold-read gap's or the user's objection text, verbatim.>". Job 4
+  gains, after "Never push: delivery is the dispatcher's.": "Your
+  commit stands whether or not the user approves the change: nothing
+  is pushed until the runner delivers, a rejection re-dispatches a
+  planner with the objection's text, and that planner's commit
+  replaces the text - no revert, and no other seat edits plan
+  content." The `## Exit` paragraph adds, after "a gap re-dispatches a
+  planner with the gap's text", ", the user's rejection one with the
+  objection's text".
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup, commit.
