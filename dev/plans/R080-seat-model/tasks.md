@@ -23,13 +23,15 @@ pre-flight after every seat exists, the pilot last.
   fixed before approval; mandatory - the plan records the passed read
   and `/dev code` and the flow refuse a plan without it.
 
-- [ ] **R080-T003 [mnt]**: one unattended flow - `/dev auto` and
-  `/dev supervise` merge into the worker engine under a supervisor
-  seat declared `Supervisor: human | AI`; `Operator mode:` and the
-  stamp pair retire; a seat starts for one item and shuts down at its
-  exit; the implementer's dispatch carries the plan item, the
-  initiative's requirements, docs, and code only, and the reviewer's
-  the plan item plus its acceptance criteria. Depends on R072-T002.
+- [ ] **R080-T003 [mnt]**: one runner - `/dev run <scope>` replaces
+  `/dev code`, `/dev auto` and `/dev supervise`, and `/dev docs`
+  retires: planned work runs as dispatched seats under a supervisor
+  seat declared `Supervisor: human | AI`, the session never
+  implementing itself; `Operator mode:` and the stamp pair retire; a
+  seat starts for one item and shuts down at its exit; the
+  implementer's dispatch carries the plan item, the initiative's
+  requirements, docs, and code only, and the reviewer's the plan item
+  plus its acceptance criteria. Depends on R072-T002.
 
 - [ ] **R080-T008 [mnt]**: planner seat - a dispatched agent that
   writes or updates one branch plan from the initiative's

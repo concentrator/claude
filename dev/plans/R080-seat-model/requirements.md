@@ -125,8 +125,8 @@ input set, started for one item and shut down at its exit.
 
 `skills/dev/auto.md`, `supervise.md`, `docs.md`, the `/dev code`
 section of `SKILL.md`, `feat.md`, `fix.md`, `refactor.md`, `finish.md`,
-`branch-plan.md § Stamps` and `§ Commit cadence`, `layout.md § Docs`; the seat model
-(`companions/declarations.md` supervision declaration,
+`branch-plan.md § Stamps` and `§ Commit cadence`, `layout.md § Docs`;
+the seat model (`companions/declarations.md` supervision declaration,
 `companions/supervisor-runbook.md § Modes`,
 `companions/verification-policy.md § Comprehension check`,
 `companions/implementer-prompt.md`, a planner prompt, a doc-writer

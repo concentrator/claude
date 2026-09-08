@@ -5,17 +5,19 @@ architecture-changing: true
 depends-on: R072-T002
 ---
 
-# R080-T003: one unattended flow
+# R080-T003: one runner
 
 Branch: `mnt/one-flow`. Requirements:
 `dev/plans/R080-seat-model/requirements.md § Desired state` 1 and 4,
 `§ Invariants`.
 
-`/dev auto` and `/dev supervise` become one flow, `/dev run`: the worker
-engine under a supervisor seat the project declares as human or AI.
-Every seat is an agent started for one item and shut down at its exit,
-reading a fixed input set. The stamp pair retires: readiness is the
-cold read T002 placed at the planner's exit.
+`/dev code`, `/dev auto` and `/dev supervise` become one runner,
+`/dev run <scope>`: planned work as dispatched seats under a supervisor
+seat the project declares as human or AI; the session never implements
+itself. `/dev docs` retires with them. Every seat is an agent started
+for one item and shut down at its exit, reading a fixed input set. The
+stamp pair retires: readiness is the cold read T002 placed at the
+planner's exit.
 
 - [ ] `companions/declarations.md § Supervisor bounds`: the
   `## Supervision` block declares `Supervisor: human | AI` beside the
@@ -23,14 +25,19 @@ cold read T002 placed at the planner's exit.
   worker, AI a supervising session; the always-ask list reaches the
   user under either. The last `Operator mode` wording goes;
   `rules/claude-md.md` names the new line.
-- [ ] `run.md` replaces `auto.md` and `supervise.md`: resolve (scope,
-  bounds, ledger), pre-flight, dispatch per item, question
-  resolution, boundary verification, merge or ask, checkpoint - one
-  sequence, with the supervisor's steps marked as the user's own under
-  `Supervisor: human`. `SKILL.md § Surface` lists `/dev run [scope]`
-  in place of the two rows; `plan.md`, `handoff.md`, `finish.md`,
-  `git-workflow.md`, `companions/toolchain.md` and
-  `companions/report-template.md` cite it where they cited either.
+- [ ] `run.md` replaces `auto.md`, `supervise.md`, `docs.md` and the
+  `/dev code` section of `SKILL.md`: resolve (scope - a task, a batch
+  or an initiative - bounds, ledger), pre-flight, dispatch per item,
+  question resolution, close, boundary verification, merge or ask,
+  checkpoint - one sequence, with the supervisor's steps marked as
+  the user's own under `Supervisor: human`. `feat.md`, `fix.md` and
+  `refactor.md` become the implementer's per-item loop the dispatch
+  selects by tag; `finish.md` is the close step `run.md` invokes, with
+  `/dev ship` kept for a landed branch. `SKILL.md § Surface` lists
+  `/dev run <scope>` in place of the four rows; `plan.md`,
+  `handoff.md`, `git-workflow.md`, `companions/toolchain.md` and
+  `companions/report-template.md` cite it where they cited any of
+  them.
 - [ ] `branch-plan.md § Agentic execution`: `§ Stamps` retires and the
   `agentic:`/`supervised:` header lines with it; `§ Session boundary`
   becomes the seat lifecycle - a seat starts for one item and shuts

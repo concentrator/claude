@@ -331,7 +331,9 @@ Initiative index. Items: `R-001: description`; each entry owns
       duplicates the approving commit and nothing reads it; the
       stamps go dateless, plan.md's self-contradiction on approval
       dates resolves, the one live dated stamp migrates.
-- [ ] R080: Work by seats - one unattended flow under a declared
-      supervisor, planner exit through a cold read, a doc-writer seat,
-      a fixed input set per seat, docs at a single top-level `docs/`;
-      builds on R072-T002.
+- [ ] R080: Work by seats - one runner for planned work under a
+      declared supervisor, the session never implementing itself; a
+      planner seat exiting through a mandatory cold read, a doc-writer
+      seat, a fixed input set per seat, one duties table per mode,
+      permissions settled pre-flight, docs at a single top-level
+      `docs/`; builds on R072-T002.
