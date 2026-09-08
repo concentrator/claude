@@ -26,9 +26,10 @@ planner's exit.
   supervisor seat - it dispatches the seats, and the user answers,
   clears and merges. AI: a supervising session dispatches and merges
   within bounds, and the user gets the always-ask list only, which
-  reaches the user under either. `rules/claude-md.md § Agent toolchain
-  declaration` names the new line; this repository's `CLAUDE.md
-  § Supervision` declares `Supervisor: AI`.
+  reaches the user under either; a `## Supervision` block without the
+  line halts the run at resolve, naming it. `rules/claude-md.md
+  § Agent toolchain declaration` names the new line; this repository's
+  `CLAUDE.md § Supervision` declares `Supervisor: AI`.
 - [ ] `run.md` replaces `auto.md`, `supervise.md`, `docs.md` and the
   `/dev code` section of `SKILL.md`: resolve (scope - a task, a batch
   or an initiative - bounds, ledger), pre-flight, dispatch per item,
@@ -51,9 +52,14 @@ planner's exit.
   batch-scoped run; a task-scoped run closes in full. `handoff.md`:
   the runner session writes as `supervisor`, a seat writes none since
   it ends at its item, `solo` stays for a session outside a run.
-  `companions/docs-adoption.md` cites `migrate.md § 7` for the
-  standalone refresh; in-branch doc work is T004's. `SKILL.md
-  § Surface` lists `/dev run <scope>` in place of the four rows.
+  The standalone docs refresh retires with `/dev docs`;
+  `companions/docs-adoption.md` cites `migrate.md § 7` for adoption
+  only, and in-branch doc work is T004's. The implementer's dispatch
+  names the plan file, the item it works being the first `[ ]`; the
+  close review's approved fixes are an implementer seat's item with
+  the findings as its text, and the runner makes the final commit.
+  `SKILL.md § Surface` lists `/dev run <scope>` in place of the four
+  rows.
   Every file the acceptance grep
   (`CLAUDE.md`, `rules/`, `skills/`, `scripts/`, `README.md`,
   `DESIGN.md`) finds citing a retired runner or stamp cites `run.md`
@@ -73,7 +79,8 @@ planner's exit.
   stamp exemption and its test the cases that pinned it.
 - [ ] `companions/implementer-prompt.md`: the input set is the task's
   plan, the docs and the code (`requirements.md § Desired state` 4),
-  stated as such - never the initiative's requirements;
+  stated as such - `DESIGN.md` and `README.md` count as the code's own
+  docs and stay in, the initiative's requirements never;
   `companions/spec-reviewer-prompt.md`: the plan, the initiative's
   acceptance criteria (`requirements.md § Acceptance criteria`, the
   whole list) and the diff, and nothing else, stated as such - the
@@ -85,9 +92,11 @@ planner's exit.
   § Comprehension check` and `write-plan.md` step 6 give the reader the
   plan, the docs and the code in place of the commit-item text and
   parent chain, the planning conversation still withheld.
-  `companions/supervisor-runbook.md § Modes` heads its table by seat,
-  every dispatched seat's mode reading "inherits the runner's" and the
-  tool-set column left to T007; `§ Two variants` re-keys by where the
+  `companions/supervisor-runbook.md § Modes` heads its table by seat:
+  the runner `auto` under `Supervisor: AI` and the user's session's own
+  mode under `Supervisor: human`, every dispatched seat "inherits the
+  runner's", the tool-set column left to T007; `§ Two variants` re-keys
+  by where the
   runner session lives - A on this machine, B on a remote host under
   `tmux` and Remote Control - independent of the supervisor mode, its
   peer-worker rows gone.
