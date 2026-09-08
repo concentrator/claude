@@ -70,11 +70,12 @@ Noticed mid-execution, not in the plan.
 code, the task's premise is invalidated, a plan item is ambiguous, or
 verification keeps failing after repeated fixes:
 - **Stop.** A blocker the plan can absorb - an ambiguous item, a
-  missing step - halts the item and goes to the planner as a
-  re-dispatch carrying the blocker's text (`run.md § Question
-  resolution`). An invalidated premise halts the branch instead, for
-  the user to route to a new task, a new R, or an abort. Never
-  inline-fix beyond a true typo in code you're writing.
+  missing step - halts the item: the runner reverts its uncommitted
+  edits and re-dispatches the planner with the blocker's text
+  (`run.md § Question resolution`), and the fresh implementer starts
+  from the last commit. An invalidated premise halts the branch
+  instead, for the user to route to a new task, a new R, or an abort.
+  Never inline-fix beyond a true typo in code you're writing.
 
 **Non-blocker** - improvement, refactor idea, tangential test gap, code
 smell, naming inconsistency:
@@ -241,9 +242,9 @@ full suite runs at batch close (`run.md § Batch close`).
 
 | Event | Action |
 |---|---|
-| Blocker the plan can absorb (§ Scope discoveries) | Halt the item, planner re-dispatch (`run.md § Question resolution`) |
+| Blocker the plan can absorb (§ Scope discoveries), or an implementer's NEEDS_CONTEXT | Halt the item, planner re-dispatch (`run.md § Question resolution`) |
 | Blocker invalidating the task's premise | Halt, report |
-| NEEDS_CONTEXT unanswerable from the R's `requirements.md`/design | Halt, report |
+| Planner reports BLOCKED or NEEDS_CONTEXT on its re-dispatch | Halt, report |
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |

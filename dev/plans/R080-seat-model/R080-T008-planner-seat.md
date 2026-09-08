@@ -220,7 +220,7 @@ until R080-T006's table exists and they cite it.
   (`branch-plan.md § Stop conditions`) - keeps the work intact. The
   run resumes on the same scope." The file grows by these sentences
   and stays within 300 lines and 80 columns (table rows exempt).
-- [ ] `branch-plan.md § Stop conditions` and `§ Scope discoveries`.
+- [x] `branch-plan.md § Stop conditions` and `§ Scope discoveries`.
   The table's first row event reads "Blocker the plan can absorb
   (§ Scope discoveries), or an implementer's NEEDS_CONTEXT", action
   unchanged: every NEEDS_CONTEXT takes the planner re-dispatch, none
