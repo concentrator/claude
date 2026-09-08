@@ -104,7 +104,7 @@ plan leaves planning by its cold read (`skills/dev/write-plan.md` step
 Trunk-based development, per `skills/dev/git-workflow.md`.
 
 Planned work runs through one flow, `skills/dev/run.md`: a runner
-session dispatches seats - implementer and reviewer today -
+dispatches seats - planner, implementer and reviewer today -
 each a subagent in its checkout with fixed inputs and a one-item
 lifetime. Who holds the supervisor seat, the user or the runner, is
 declared per project (`skills/dev/companions/declarations.md

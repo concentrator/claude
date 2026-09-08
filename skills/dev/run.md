@@ -69,7 +69,7 @@ branch per plan - and per commit checkbox:
    the plan's `type:` mode file (`feat.md`, `fix.md`, `refactor.md`);
    `doc`/`test`/`mnt` run `branch-plan.md § Commit cadence` alone.
 2. DONE → spec check. DONE_WITH_CONCERNS → resolve first.
-   NEEDS_CONTEXT → § Question resolution, then re-dispatch. Halt
+   NEEDS_CONTEXT → § Question resolution. Halt
    triggers: `branch-plan.md § Stop conditions`.
 3. Spec check (`companions/spec-reviewer-prompt.md`): exactly the
    item; skipped for mechanical commits per
@@ -86,16 +86,22 @@ is reported as a pre-flight defect, never keyed past.
 
 ## Question resolution
 
-A seat halting on an implementation question - a NEEDS_CONTEXT, a
-choice between offered options, a spec ambiguity - gets the resolution
-on the plan's and requirements' terms, the best option advised where
-possible, and the item resumes. Within a declared grant the runner
-answers; a design-touching or unclassifiable question, and every
-question under `Supervisor: human`, goes to the **user**
-(`companions/declarations.md § Supervisor bounds`). The question
-arrives with the excerpt needed to answer it, never a diff or
-transcript. Each answer is ledgered (§ Ledger) and carried into the
-report's `## Supervisor decisions` section at checkpoint.
+A question whose answer changes plan text - an implementer's blocker, a
+spec ambiguity, a cold-read gap found in flight - halts the item and
+re-dispatches the planner (`companions/planner-prompt.md`) with that
+text, on the item's own branch (`git-workflow.md § Trunk`). The runner
+reads the changed plan (`write-plan.md` step 6), the change is the
+**user**'s to approve under either supervisor mode
+(`companions/declarations.md § Supervisor bounds`), and a fresh
+implementer then works the re-read plan. A seat never resumes.
+
+Every answer takes that route. An implementer's inputs are the plan,
+the docs and the code (`companions/implementer-prompt.md`), so an
+answer reaches the next implementer only as plan text, and the planner
+is what writes it there. The re-dispatch carries the blocker's or the
+gap's text and nothing else - never a diff or a transcript. Each answer
+is ledgered (§ Ledger) and carried into the report's `## Supervisor
+decisions` section at checkpoint.
 
 ## Close
 

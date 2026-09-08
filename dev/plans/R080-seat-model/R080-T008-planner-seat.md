@@ -49,7 +49,7 @@ until R080-T006's table exists and they cite it.
   `companions/verification-policy.md § Comprehension check` drops
   "when the user is present" since the read now also runs mid-branch.
   `SKILL.md § /dev plan` `<slug>` row reads `write-plan.md`.
-- [ ] `run.md § Question resolution`: a question whose answer changes
+- [x] `run.md § Question resolution`: a question whose answer changes
   plan text - an implementer's blocker, a cold-read gap found in
   flight - halts the item, re-dispatches the planner with that text on
   the item's branch (`git-workflow.md § Trunk`), takes the **user**'s
