@@ -45,7 +45,7 @@ say which class you applied:
   against its ground truth per the verification gate
   (`skills/dev/companions/documentation.md § Verification gate`) -
   its source-selection and independence conditions apply as written;
-  report a mismatch as Critical. `dev/docs/` feature docs take the
+  report a mismatch as Critical. `docs/` feature docs take the
   gate's dedicated per-claim pass instead.
 - **Mixed**: the strictest applicable class per file.
 

@@ -1,9 +1,9 @@
 # Project layout
 
-Canonical project structure, two trees: guarded config under
+Canonical project structure, three locations: guarded config under
 `.claude/`, agent-authored DEV artifacts under `dev/` (`plan.md § Where
-things live`). Other paths inside either tree need explicit
-justification.
+things live`), and the docs tree at `docs/` (§ Docs). Other paths
+inside any of them need explicit justification.
 
 ## Config layout (`.claude/`)
 
@@ -27,26 +27,29 @@ What instructs agents.
     ├── settings.json         # Claude Code shared config
     └── settings.local.json   # Claude Code local (gitignored)
 
-## Artifacts layout (`dev/`)
+## Artifacts layout (`dev/`, `docs/`)
 
-What agents author.
+What agents author: the planning tree under `dev/`, the docs tree at
+the repository root.
 
     dev/
-    ├── plans/                # planning hierarchy - plan.md § Where things live
-    │   ├── ROADMAP.md
-    │   ├── release-vX.Y.Z.md
-    │   ├── milestone-<id>.md
-    │   ├── R<NNN>-<slug>/    # one per roadmap entry
-    │   │   ├── requirements.md
-    │   │   ├── tasks.md
-    │   │   ├── <task-id>-<slug>.md
-    │   │   ├── <task-id>-<slug>.findings.md
-    │   │   └── batches/
-    │   └── archive/
-    └── docs/                 # internal feature docs (§ Docs)
-        ├── *.md
-        ├── reports/          # probe and test reports (§ Docs)
-        └── references/       # adapted external material (§ Docs)
+    └── plans/                # planning hierarchy - plan.md § Where things live
+        ├── ROADMAP.md
+        ├── release-vX.Y.Z.md
+        ├── milestone-<id>.md
+        ├── R<NNN>-<slug>/    # one per roadmap entry
+        │   ├── requirements.md
+        │   ├── tasks.md
+        │   ├── <task-id>-<slug>.md
+        │   ├── <task-id>-<slug>.findings.md
+        │   └── batches/
+        └── archive/
+
+    docs/                     # the project's documentation (§ Docs)
+    ├── index.md
+    ├── *.md
+    ├── reports/              # probe and test reports (§ Docs)
+    └── references/           # adapted external material (§ Docs)
 
 ## Baseline files (project root)
 
@@ -75,7 +78,7 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 - **Initiative-time**: `dev/plans/R<NNN>-<slug>/` + `requirements.md`
   (`plan.md § Directory conventions`).
 - **Lazy** (created on first use): `.claude/adr/`,
-  `.claude/references/`, `dev/docs/`,
+  `.claude/references/`, `docs/`,
   `dev/plans/R<NNN>-<slug>/tasks.md` and `batches/` (`plan.md
   § Levels`, `§ Directory conventions`), `dev/plans/archive/`.
 
@@ -90,30 +93,32 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 
 `.claude/references/` holds external inputs the agent consults: API specs
 (OpenAPI), third-party docs, domain knowledge, schema files. Any
-format. **Read-only** - the agent never modifies these; `dev/docs/` below
-is the internal, kept-current counterpart.
+format. **Read-only** - the agent never modifies these; `docs/` below
+is the project's own, kept-current counterpart.
 
 ## Docs
 
-`dev/docs/` holds internal documentation of how our own code works: per-feature
-docs (data model, interfaces, business rules, edge cases) sitting between
-`DESIGN.md` (architecture) and the code (line-level). Feature docs are the
-Reference application of the global documentation framework
+`docs/`, at the repository root, holds the project's documentation -
+internal and external audiences under one contract, outside the
+planning tree. Its
+per-feature docs (data model, interfaces, business rules, edge cases)
+sit between `DESIGN.md` (architecture) and the code (line-level), and
+are the Reference application of the global documentation framework
 (`companions/documentation.md`). The bar: from the doc
 and its references alone, a fresh agent composes a correct, working
 invocation with the full input set - if answering needs the source, the doc
 fails.
 
 Two subdirectories hold the docs tree's other types
-(`companions/documentation.md § Diataxis typing`): `dev/docs/reports/`
-for probe and test reports, `dev/docs/references/` for adapted
+(`companions/documentation.md § Diataxis typing`): `docs/reports/`
+for probe and test reports, `docs/references/` for adapted
 external or codebase material.
 
 The granularity model - a doc per feature, page, section, or block - is a
 per-project choice. Pick the one that fits the project, record it in
 `CLAUDE.md § Conventions`, and apply it consistently.
 
-`dev/docs/index.md` catalogs the docs - one line per doc, its path and
+`docs/index.md` catalogs the docs - one line per doc, its path and
 what it covers - consulted before coding to find the feature's doc, and
 updated whenever a doc is added. Project `CLAUDE.md § Conventions` carries a
 one-line pointer to the index, so it is discoverable from the always-loaded

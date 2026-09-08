@@ -47,15 +47,16 @@ bounds). `/dev ship` takes a landed branch to a merged MR/PR;
 PreCompact hook's tree block carries state across compaction (the
 SessionStart hook re-injects the last hand-off block on resume).
 `/dev start`, `/dev migrate`, `/dev docs`, and `/dev release` cover
-scaffolding a new project, adopting an existing one, the `dev/docs/`
+scaffolding a new project, adopting an existing one, the `docs/`
 layer, and tagging a release. Command surface and mode files:
 `skills/dev/SKILL.md`.
 
 ## DEV artifacts
 
 Two trees: guarded config - what instructs agents - under `.claude/`,
-and agent-authored artifacts under `dev/` (`plans/`, `docs/`, the
-gitignored `session/`), the same in every project. Structure:
+and agent-authored artifacts under `dev/` (`plans/`, the gitignored
+`session/`), with the docs tree at `docs/`, the same in every project.
+Structure:
 `skills/dev/layout.md`; paths: `skills/dev/plan.md § Where things
 live`.
 

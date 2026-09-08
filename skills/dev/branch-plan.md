@@ -41,7 +41,7 @@ file's loop, `doc`/`test`/`mnt` run this alone:
    `release-routine: yes` → CHANGELOG `## [Unreleased]` entry
    (`changelog.md`); new public
    surface → `README.md`; `extended-docs: yes` → per conventions
-   (feature `dev/docs/` docs reconcile at close). A task whose commits
+   (feature `docs/` docs reconcile at close). A task whose commits
    are one release-note-worthy change split across passes writes the
    CHANGELOG entry once, in the pass that completes it, rather than
    restating a growing entry per commit; the plan item that carries it
@@ -117,7 +117,7 @@ commit and the hand-off (`finish`).
    - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
-7. **Reconcile the feature doc** - write or update the `dev/docs/` doc
+7. **Reconcile the feature doc** - write or update the `docs/` doc
    to the shipped code, then take every doc the branch ships
    (re-review edits included) through the verification gate
    (`companions/documentation.md § Verification gate`) before delivery. Then
