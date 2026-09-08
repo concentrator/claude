@@ -4,9 +4,9 @@ This initiative's task index. The tag sets the branch prefix; a
 checkbox closes only when the task's branch merges. Task ids are
 composite (`R080-T###`, counter scoped to this initiative).
 
-Draft list from the split of R073; the detail round refines it and adds
-branch plans. Order matters: the docs move first so the doc writer has
-one target, the pilot last.
+Order matters: the docs move first so the doc writer has one target,
+the planner and the duties table after the flow, the permission
+pre-flight after every seat exists, the pilot last.
 
 ## Open
 
@@ -20,7 +20,8 @@ one target, the pilot last.
   agent given the worker's inputs says what it would build; re-homed
   from `branch-plan.md § Stamps` and
   `companions/verification-policy.md § Comprehension check`; a gap is
-  fixed before approval.
+  fixed before approval; mandatory - the plan records the passed read
+  and `/dev code` and the flow refuse a plan without it.
 
 - [ ] **R080-T003 [mnt]**: one unattended flow - `/dev auto` and
   `/dev supervise` merge into the worker engine under a supervisor
@@ -30,6 +31,20 @@ one target, the pilot last.
   initiative's requirements, docs, and code only, and the reviewer's
   the plan item plus its acceptance criteria. Depends on R072-T002.
 
+- [ ] **R080-T008 [mnt]**: planner seat - a dispatched agent that
+  writes or updates one branch plan from the initiative's
+  requirements, the task line, the docs, the code and the initiative's
+  other plans, exiting through the cold read; the detail round and
+  `plan.md § Adjusting existing plans` dispatch it, a worker's blocker
+  or cold-read gap re-dispatches it with the worker paused, and no
+  other seat edits plan content. Depends on R080-T003.
+
+- [ ] **R080-T006 [mnt]**: seat responsibilities per mode - one table
+  in the flow file, a row per seat and a column per supervisor mode,
+  saying who plans, dispatches, answers, clears a prompt, verifies,
+  merges and is asked; every duty statement in `skills/dev/` cites it; a duty
+  the table leaves unassigned halts the run. Depends on R080-T003.
+
 - [ ] **R080-T004 [mnt]**: doc-writer seat - a dispatched agent that
   writes `docs/` on the worker's branch from the diff, the plan item,
   and the existing docs, exiting through
@@ -37,6 +52,15 @@ one target, the pilot last.
   prompt drops doc targets; `branch-plan.md § Commit cadence`'s docs
   step re-points to the seat.
 
+- [ ] **R080-T007 [mnt]**: deterministic permission pre-flight - a
+  declared permission set per seat (mode plus allow rules) derived
+  from the toolchain declaration and the seat prompts; a pre-flight
+  script that resolves the set against the tracked tiers, applies
+  every adjustment before the first dispatch and reports every gap in
+  one message, with its test; the runbook's prompt-clearing rows and
+  failure modes re-read against it. Depends on R080-T004.
+
 - [ ] **R080-T005 [mnt]**: pilot task end to end under the seats -
-  cold read, worker dispatch, doc-writer pass, supervised merge; fixes
-  from the pilot land on the same branch.
+  pre-flight, cold read, worker dispatch, doc-writer pass, supervised
+  merge, no prompt outside the declared set; fixes from the pilot land
+  on the same branch. Depends on R080-T007.
