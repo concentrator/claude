@@ -305,6 +305,6 @@ until R080-T006's table exists and they cite it.
   concern, a cold-read gap, the user's rejection of a change." The rest
   of each sentence and section stays. `run.md`, at 280 lines, stays
   within 300 lines and 80 columns (table rows exempt).
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup, commit.
