@@ -119,9 +119,9 @@ checkout, beside `dev/session/` and ignored like it, so an append
 dirties nothing. One file per scope; a resumed supervisor on the same
 host opens the same file. Opened at § Resolve (`mkdir -p` the
 directory, then the first entry), it takes one entry per event from
-§ Dispatch through § Deliver or escalate, in `handoff.md § Blocks`
+§ Dispatch through § Merge or ask, in `handoff.md § Blocks`
 format: `## <event> <UTC timestamp>` - dispatch, question, answer,
-prompt cleared, verify, escalation, hand-over - the timestamp read
+prompt cleared, verify, escalation, merge - the timestamp read
 from the clock (`date -u`) at write time, never composed or carried
 forward - over `- key: value`
 lines naming the ids, appended with a single `printf '%s\n' ... >>`,
@@ -145,7 +145,7 @@ report's `## Supervisor decisions` section at checkpoint.
 
 ## Boundary verification - existing gates only
 
-At a checkpoint, before the MR/PR is handed over:
+At a checkpoint, before the MR/PR is merged or asked of the user:
 
 1. `R<NNN>-B<NNN>.report.md` exists - no report, no accept (`auto.md`).
 2. The report verifies each member's acceptance criteria.
@@ -182,10 +182,9 @@ The terminal state on a branch is a green MR/PR plus the report that
 verifies it (`companions/declarations.md § Supervisor bounds`). Within
 a named class the supervisor merges on the evidence it assembled -
 report path, gate results, state-check output - and applies the
-signature (§ Supervision signature there): the `supervised` label and
-the merge comment. Everything else is asked of the user directly
-(Remote Control where connected) - the always-ask list per that same
-section, and anything the grant does not name.
+signature (§ Supervision signature there). Everything else is asked
+of the user directly (Remote Control where connected) - the always-ask
+list per that same section, and anything the grant does not name.
 
 Branch protection is not the supervisor's to satisfy by other means: a
 red gate escalates rather than being worked around.

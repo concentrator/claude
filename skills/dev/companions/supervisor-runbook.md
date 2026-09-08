@@ -33,13 +33,13 @@ machine back, or when the host is provisioned for it
       |  answers the always-ask escalations; nothing else
       v
  +-------------------------------------------------+
- |  SUPERVISOR                          auto mode   |
- |  never blocked, so it can always act             |
+ |  SUPERVISOR                         auto mode   |
+ |  never blocked, so it can always act            |
  +-------------------------------------------------+
       |  starts, dispatches, unblocks, verifies
       v
  +-------------------------------------------------+
- |  WORKER                          accept-edits    |
+ |  WORKER                         accept-edits    |
  |  /dev code <slug>  or  /dev auto R<NNN>-B<NNN>  |
  +-------------------------------------------------+
       |
@@ -60,7 +60,7 @@ The supervisor cycles until the scope is delivered:
   |         |                 design or unclassifiable:
   |         |                 print ESCALATION and stop
   |         |
-  |         +-- delivered? -> verify by running the gates
+  |         +-- delivered? -> verify the boundary (CI + artifacts)
   |                                |
   +--------------------------------+
                                    |
