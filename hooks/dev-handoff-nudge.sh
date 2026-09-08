@@ -4,8 +4,8 @@
 # (the hand-off block: done/next/branch/open/rulings/notes) only the
 # session can write, and near the compaction point it rarely does. When
 # context fill is at or above the warning threshold (dev-context-fill.sh
-# owns the number) and the session file's last tree block is newer than
-# its last hand-off block, this hook refuses the turn end once with a
+# owns the number) and the session has no hand-off block later than its
+# last tree block, this hook refuses the turn end once with a
 # reason naming the file and the format (a command Stop hook blocks via
 # a top-level decision:block, hooks-guide.md decision control); writing
 # the hand-off clears the condition and stop_hook_active guards the
@@ -24,14 +24,18 @@ fill=$(printf '%s' "$input" | bash "$dir/dev-context-fill.sh" 2>/dev/null)
 [ -n "$fill" ] || exit 0
 
 session=$(printf '%s' "$input" | bash "$dir/dev-precompact-state.sh" --path 2>/dev/null)
-[ -n "$session" ] && [ -f "$session" ] || exit 0
+[ -n "$session" ] || exit 0
 
-# Stale: the last tree block sits after the last hand-off block; a file
-# with no hand-off is stale, no tree at all is fresh.
-tree=$(grep -n '^## tree ' "$session" 2>/dev/null | tail -1 | cut -d: -f1)
-[ -n "$tree" ] || exit 0
-hand=$(grep -n '^## hand-off' "$session" 2>/dev/null | tail -1 | cut -d: -f1)
-if [ -z "$hand" ] || [ "$tree" -gt "$hand" ]; then
+# Stale: no hand-off block at all, or the last tree block sits after it.
+# An absent file has no hand-off and so is stale - the state of every
+# session before its first compaction, which is the one the nudge most
+# needs to catch. A file carrying only a hand-off is fresh.
+tree= hand=
+if [ -f "$session" ]; then
+  tree=$(grep -n '^## tree ' "$session" 2>/dev/null | tail -1 | cut -d: -f1)
+  hand=$(grep -n '^## hand-off' "$session" 2>/dev/null | tail -1 | cut -d: -f1)
+fi
+if [ -z "$hand" ] || { [ -n "$tree" ] && [ "$tree" -gt "$hand" ]; }; then
   jq -nc --arg r "context ${fill}% and the session state is stale: append the hand-off block - notes included for mid-task facts - to $session (skills/dev/handoff.md § Writing the note), then stop" \
     '{decision: "block", reason: $r}'
 fi
