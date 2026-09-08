@@ -64,9 +64,10 @@ input set, started for one item and shut down at its exit.
 4. **Each seat reads a fixed input set, and nothing more.** The
    planner: the initiative's requirements, the task line, the docs,
    the code, and the initiative's other plans. The implementer: the
-   task's plan, the docs, and the code. The reviewer:
-   the same plan plus the task's requirements, which are the
-   acceptance criteria the initiative holds for it. The doc writer:
+   task's plan, the docs, and the code. The reviewer: the same plan
+   plus the task's requirements, which are the acceptance criteria the
+   initiative holds for it, and the diff; its list lives in
+   `companions/spec-reviewer-prompt.md`. The doc writer:
    the diff, the plan item, and the existing docs. The plan item may
    carry decisions and explanations for the doc writer's benefit, but
    the docs never cite it: the doc writer states the fact as the docs'
@@ -94,11 +95,12 @@ input set, started for one item and shut down at its exit.
    marks checkboxes and the reviewer reads. The user approves what the
    planner wrote, under either supervisor mode.
 8. **Permissions are declared, validated and applied before the run.**
-   Each seat has a declared permission set: its mode and the allow
+   Each seat has a declared permission set: its tool set and the allow
    rules its commands need, derived from the toolchain declaration and
-   the seat's prompt. Pre-flight resolves the whole set against the
-   tracked tiers, applies every adjustment - the project's local
-   settings, each seat's mode - before the first dispatch, and reports
+   the seat's prompt; the run has one permission mode, the runner's.
+   Pre-flight resolves the whole set against the tracked tiers,
+   applies every adjustment to the project's local settings before
+   the first dispatch, and reports
    every gap in one message; anything it cannot apply stops the run
    before it starts. The run raises no prompt the declared set did not
    predict and tells no seat it is at the keyboard: a prompt that
@@ -185,8 +187,7 @@ initiatives close.
 
 ## Open questions
 
-- Where the reviewer seat's input list lives: the existing review
-  checklist or a prompt of its own beside the implementer's.
+None.
 
 ## References
 

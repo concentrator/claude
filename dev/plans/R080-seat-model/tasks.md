@@ -27,11 +27,11 @@ pre-flight after every seat exists, the pilot last.
   `/dev code`, `/dev auto` and `/dev supervise`, and `/dev docs`
   retires: planned work runs as dispatched seats under a supervisor
   seat declared `Supervisor: human | AI`, the session never
-  implementing itself; `Operator mode:` and the stamp pair retire; a
-  seat starts for one item and shuts down at its exit; the
-  implementer's dispatch carries the plan item, the initiative's
-  requirements, docs, and code only, and the reviewer's the plan item
-  plus its acceptance criteria. Depends on R072-T002.
+  implementing itself; the stamp pair retires; a seat is a subagent
+  of the runner started for one item and shut down at its exit; the
+  implementer's dispatch carries the task's plan, docs and code only,
+  and the reviewer's the plan, its acceptance criteria and the diff.
+  Depends on R080-T002.
 
 - [ ] **R080-T008 [mnt]**: planner seat - a dispatched agent that
   writes or updates one branch plan from the initiative's
@@ -42,9 +42,9 @@ pre-flight after every seat exists, the pilot last.
   other seat edits plan content. Depends on R080-T003.
 
 - [ ] **R080-T006 [mnt]**: seat responsibilities per mode - one table
-  in the flow file, a row per seat and a column per supervisor mode,
-  saying who plans, dispatches, answers, clears a prompt, verifies,
-  merges and is asked; every duty statement in `skills/dev/` cites it; a duty
+  in the flow file, a row per duty - plan, dispatch, answer, clear a
+  prompt, verify, merge, be asked - a column per supervisor mode and a
+  seat in each cell; every duty statement in `skills/dev/` cites it; a duty
   the table leaves unassigned halts the run. Depends on R080-T003.
 
 - [ ] **R080-T004 [mnt]**: doc-writer seat - a dispatched agent that
