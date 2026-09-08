@@ -145,11 +145,12 @@ approval: dispatch a fresh subagent with exactly the implementer's
 inputs - the commit-item text plus parent-chain context, never the
 plan file or the planning conversation - and ask what it would build
 and what is ambiguous or assumed. A question the inputs cannot answer
-is a plan gap, not a reader fault: fix it and re-run the read until it
-reports none, then record `cold-read: passed` in the header
+is a plan gap, not a reader fault: fix it, re-run per the rule of
+`write-plan.md` step 6, then record `cold-read: passed` in the header
 (`branch-plan.md § Header`). This catches `NEEDS_CONTEXT` halts at
 planning time, when the user is present and the fix is cheap; nothing
-approves, stamps or dispatches a plan without the record.
+dispatches a plan without the record, and a plan chained on an
+unmerged task earns it at its start.
 
 ## Models
 

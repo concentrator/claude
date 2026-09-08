@@ -38,6 +38,7 @@ round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` / `all`.
    probe findings, never the repo's idiom or a `DESIGN.md` convention -
    the house shape does not predict an external surface. A wire detail
    the plan depends on with no probe behind it → probe first, then plan.
+   Apply `§ Readiness checklist` to every item.
 4. **Add header** per `branch-plan.md`:
    - `task: R008-T002`
    - `type: <inherited from task tag>`
@@ -47,12 +48,42 @@ round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` / `all`.
 5. **Add the mandatory final item** at the end - the completion commit
    (per `branch-plan.md § Closing routine`).
 6. **Cold read** per `companions/verification-policy.md
-   § Comprehension check`: each gap it reports is fixed in the plan and
-   the read re-run until it reports none; the header then records
-   `cold-read: passed`.
+   § Comprehension check`: each gap it reports is fixed in the plan; a
+   fix that adds a decision re-runs the read, a fix that cites text
+   already in the tree does not; when it reports none the header
+   records `cold-read: passed`. A plan whose `depends-on` names an
+   unmerged task is read at its start instead, when its targets exist,
+   and carries no record until then.
 7. **Confirm with user**, then create the plan branch, write to
    `dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`, and deliver via a
    short-lived plan MR/PR (`plan.md § Where plans live in git`).
+
+## Readiness checklist
+
+Applied while decomposing (step 3), before the read, so the read
+confirms rather than discovers. Each entry is a gap class cold reads
+have found:
+
+- **Targets exist.** An item names only files and sections on the tree
+  at branch start, or names the task that creates them.
+- **Decisions are homed.** Every choice an item implies is stated in it
+  or cited to the requirement point that makes it; nothing is left to
+  the implementer, and no item closes an open question without the
+  answer.
+- **Casualties are listed.** Grep the tree for every rule sentence the
+  change invalidates and name each; "among others" is a gap.
+- **Requirements are cited, not paraphrased.** A restated input list or
+  invariant drifts; cite the point.
+- **Terms have one reading.** A word with two meanings in the tree
+  (mode: permission or supervisor) is qualified every time.
+- **Mechanisms are probed.** An item resting on host behavior (what a
+  subagent inherits, what a setting scopes) cites a probe, as a wire
+  detail does.
+- **Order is declared.** `depends-on` names every task whose output
+  the items cite or retire.
+- **Design is not an item.** An item that creates or merges a skill
+  carries the file's section outline; "merge A, B and C into D" is a
+  design task, not a commit.
 
 ## Soft cap
 
