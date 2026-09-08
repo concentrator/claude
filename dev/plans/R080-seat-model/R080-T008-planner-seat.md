@@ -36,8 +36,13 @@ until R080-T006's table exists and they cite it.
   detail round dispatches one planner per task and the adjustment path
   dispatches one per change; the interactive session keeps step 2 (the
   slug, proposed before the dispatch, which names the plan file) and
-  step 7 (branch, present for the user's approval, MR/PR), runs the
+  step 7 (present for the user's approval, MR/PR), creates the plan
+  branch before the dispatch as `§ Bulk mode` already has it, runs the
   step 6 read on the planner's output, and writes no plan text itself.
+  "The planner's exit" as the name of step 6 becomes "the dispatcher's
+  read of the plan" at its four sites: `companions/verification-policy.md
+  § Comprehension check`, `branch-plan.md § Header` comment and
+  `§ Agentic execution`, `DESIGN.md § Decisions`.
   `§ Bulk mode` is the same dispatch in parallel; step 3 drops "or the
   session transcript" from the reader's inputs, and
   `companions/verification-policy.md § Comprehension check` drops
@@ -48,7 +53,11 @@ until R080-T006's table exists and they cite it.
   flight - halts the item, re-dispatches the planner with that text on
   the item's branch (`git-workflow.md § Trunk`), takes the **user**'s
   approval of the change under either supervisor mode, then dispatches
-  a fresh implementer on the re-read plan; a seat never resumes.
+  a fresh implementer on the re-read plan; a seat never resumes. Every
+  answer takes that route: an implementer's inputs are the plan, the
+  docs and the code (`requirements.md § Desired state` 4), so an answer
+  reaches the next implementer only as plan text, and the planner
+  writes it there.
   `§ Dispatch per item` 2 routes NEEDS_CONTEXT there in place of "then
   re-dispatch". `branch-plan.md § Scope discoveries` (blocker) and
   `§ Stop conditions` route the plan change to that re-dispatch, Halt
