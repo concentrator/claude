@@ -59,8 +59,8 @@ commands`).
   (`companions/declarations.md § Supervisor bounds`). Auto-merge runs on a
   green gate: native host auto-merge where available
   (`gh pr merge --auto`, GitLab merge-when-pipeline-succeeds); where the
-  host can't gate (no branch protection), the operator merges
-  (§ Merge order).
+  host can't gate (no branch protection), the user - or the supervisor
+  within bounds - merges (§ Merge order).
 - **Merge order.** Read the declared state check
   (`companions/toolchain.md § State check`) until it reports success,
   then merge. No pipeline yet, queued, or running is never success:
@@ -138,8 +138,8 @@ Examples:
 **Title** - commit-subject style (imperative, ~50 chars, WHAT not how).
 **Body** - a short summary (what changed + why) + a test plan: the
 checks that matter to verify (manual / non-obvious), not a paste of CI
-output; the standard pipeline (tests + lint) is one line - CI reports the
-detail. Scannable, not a wall of text.
+output; the declared full tier is one line - CI reports the detail.
+Scannable, not a wall of text.
 
 - No agent attribution, "Generated with…", or Co-Authored-By trailers.
 - Audience visibility per `CLAUDE.md § Audience visibility`; link

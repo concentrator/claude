@@ -32,7 +32,7 @@ operator seat and its relay retire.
   own steps or direct user asks; the Remote Control section points the
   escalation path at the user's device; failure modes reviewed for
   operator-seat entries.
-- [ ] Sweep the remaining seat and pre-tier wording sites:
+- [x] Sweep the remaining seat and pre-tier wording sites:
   `handoff.md` roles (the operator seat leaves the table), `auto.md`
   halt line, `git-workflow.md` merge line (the word operator resolves
   to the user or the supervisor, whichever holds the act),

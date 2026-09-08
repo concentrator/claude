@@ -83,7 +83,7 @@ re-verifying acceptance criteria. No report → no accept. Present:
   § Rails` - after the MR/PR merges, post-merge cleanup deletes the batch
   branch, local and origin.
 - **Reject** → ref handling per `branch-plan.md § Rails`.
-- **Halt** → failed item reported, work intact; the operator - user,
-  or supervisor within bounds - resolves, re-runs `/dev auto R<NNN>-B<NNN>`.
+- **Halt** → failed item reported, work intact; the user - or the
+  supervisor within bounds - resolves, re-runs `/dev auto R<NNN>-B<NNN>`.
 
 The batch is the session's unit (`branch-plan.md § Session boundary`).

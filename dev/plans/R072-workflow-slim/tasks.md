@@ -31,8 +31,3 @@ Draft list from the shape round; the detail round refines it.
   and `Test (full)` in `## Agent toolchain`; `branch-plan.md § Commit
   cadence`, `auto.md` and the implementer prompt aligned so subagent
   workers inherit the cadence.
-
-Backlog: pre-tier "tests + lint" wording remains in
-`git-workflow.md § Delivery cadence`, `companions/report-template.md`,
-and `supervise.md` - T002's operator-reference sweep absorbs the
-`supervise.md` site; the other two ride any later R072 branch.
