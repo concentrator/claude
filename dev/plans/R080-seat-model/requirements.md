@@ -64,9 +64,10 @@ input set, started for one item and shut down at its exit.
 4. **Each seat reads a fixed input set, and nothing more.** The
    planner: the initiative's requirements, the task line, the docs,
    the code, and the initiative's other plans. The implementer: the
-   task's plan, the docs, and the code. The reviewer:
-   the same plan plus the task's requirements, which are the
-   acceptance criteria the initiative holds for it. The doc writer:
+   task's plan, the docs, and the code. The reviewer: the same plan
+   plus the task's requirements, which are the acceptance criteria the
+   initiative holds for it, and the diff; its list lives in
+   `companions/spec-reviewer-prompt.md`. The doc writer:
    the diff, the plan item, and the existing docs. The plan item may
    carry decisions and explanations for the doc writer's benefit, but
    the docs never cite it: the doc writer states the fact as the docs'
@@ -186,8 +187,7 @@ initiatives close.
 
 ## Open questions
 
-- Where the reviewer seat's input list lives: the existing review
-  checklist or a prompt of its own beside the implementer's.
+None.
 
 ## References
 

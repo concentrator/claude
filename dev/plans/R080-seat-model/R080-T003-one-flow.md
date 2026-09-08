@@ -40,8 +40,20 @@ planner's exit.
   invokes and the report of a task-scoped run, with `/dev ship` kept
   for a landed branch; under `Supervisor: AI` the merge-or-ask step
   of `run.md` replaces the ship question of `finish.md § 2-3`, which
-  stays the human-mode surface. `SKILL.md § Surface` lists `/dev run
-  <scope>` in place of the four rows. Every file the acceptance grep
+  stays the human-mode surface. A seat is a subagent of the runner
+  session, dispatched with the Task tool in the runner's checkout and
+  inheriting its permission mode; the runbook's peer-session material
+  - the `tmux` worker, adopt before dispatch, one worker at a time,
+  prompt clearing over `tmux` - retires with that model, and what
+  `§ Modes` says per seat is its tool set. Close folding
+  (`companions/verification-policy.md § Close folding`) applies to a
+  batch-scoped run; a task-scoped run closes in full. `handoff.md`:
+  the runner session writes as `supervisor`, a seat writes none since
+  it ends at its item, `solo` stays for a session outside a run.
+  `companions/docs-adoption.md` cites `migrate.md § 7` for the
+  standalone refresh; in-branch doc work is T004's. `SKILL.md
+  § Surface` lists `/dev run <scope>` in place of the four rows.
+  Every file the acceptance grep
   (`CLAUDE.md`, `rules/`, `skills/`, `scripts/`, `README.md`,
   `DESIGN.md`) finds citing a retired runner or stamp cites `run.md`
   instead - `plan.md`, `handoff.md`, `git-workflow.md`,
@@ -53,14 +65,20 @@ planner's exit.
   `agentic:`/`supervised:` header lines with it; `§ Session boundary`
   becomes the seat lifecycle - a seat starts for one item and shuts
   down at its exit, only the branch and the plan item carry over;
-  `§ Batches` and `§ Rails` read against `run.md`.
-  `scripts/ci/check-accretion.sh` drops the stamp exemption and its
-  test the cases that pinned it.
-- [ ] `companions/implementer-prompt.md`: the input set is the plan
-  item, the initiative's requirements, the docs and the code, stated
-  as such; `companions/spec-reviewer-prompt.md`: the plan item plus
-  its acceptance criteria, and nothing else, stated as such - the
-  reviewer's input list lives here, closing the R's open question.
+  `§ Batches` and `§ Rails` read against `run.md`; the `SKILL.md
+  § /dev plan` `batch` row composes the batch only, the readiness
+  review retiring with the stamps since the cold read at the planner's
+  exit is its successor. `scripts/ci/check-accretion.sh` drops the
+  stamp exemption and its test the cases that pinned it.
+- [ ] `companions/implementer-prompt.md`: the input set is the task's
+  plan, the docs and the code (`requirements.md § Desired state` 4),
+  stated as such - never the initiative's requirements;
+  `companions/spec-reviewer-prompt.md`: the plan, the task's
+  acceptance criteria and the diff, and nothing else, stated as such -
+  the implementer's report is not an input, so the report section and
+  its distrust framing go, and the convention check against `CLAUDE.md`
+  stays as part of reading the code. The reviewer's input list lives
+  here, as `requirements.md § Desired state` 4 records.
   `companions/supervisor-runbook.md § Modes` heads its table by seat
   and `§ Two variants` names the human supervisor as the one-machine
   case.
