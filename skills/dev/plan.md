@@ -155,7 +155,9 @@ requirements are in, not when they got there - the date of an approval
 is in the commit and MR/PR that carried it. Approval of an R's detail
 round stamps `supervised: approved` on the round's branch plans
 (`branch-plan.md § Stamps`); like `approved:`, which review a stamp
-came from is resolvable from the commit that added it.
+came from is resolvable from the commit that added it. A detail round
+is offered for approval only with every plan's cold read passed and
+recorded as `cold-read: passed` (`write-plan.md` step 6).
 
 An R entry closes (`[x]` in ROADMAP) only when **both** hold:
 
