@@ -10,11 +10,13 @@ kind: mnt
 Planned work runs through one context that does everything. The costs,
 observed across this repo's runs and fp-remedy's:
 
-- **Two unattended modes for one job.** `/dev auto` and
-  `/dev supervise` both run planned work with no user at the keyboard
-  and differ only in who answers the worker: a stamp vouching that no
-  question will arise, or a supervising session. Each carries its own
-  stamp, pre-flight, and halt path.
+- **Three runners for one job.** `/dev code`, `/dev auto` and
+  `/dev supervise` all run planned work and differ in who implements
+  and who answers the worker: the session itself, a subagent nobody
+  answers under a stamp vouching that no question will arise, or a
+  subagent a supervising session answers. Each carries its own
+  pre-flight, halt path and close; two of them are rarely used, and
+  `/dev docs` beside them has no planned task to run.
 - **The cold read is a stamp step.** The check that tests a plan on a
   fresh reader lives in `branch-plan.md § Stamps`, so it retires with
   the stamps unless re-homed.
@@ -30,17 +32,20 @@ observed across this repo's runs and fp-remedy's:
 One supervisor dispatches specialised seats, each an agent with a fixed
 input set, started for one item and shut down at its exit.
 
-1. **One unattended flow, three dispatched seats.** `/dev auto` and
-   `/dev supervise` merge: the worker engine (fresh implementer per
-   item, spec check, review, checkpoint) runs under a supervisor that
-   dispatches planner, worker, and doc writer, answers
-   implementation-level questions, verifies the boundary, and merges
-   within bounds (R072-T002). The project declares who holds the seat,
-   `Supervisor: human | AI`, and the always-ask list reaches the user
-   under either. The stamp pair has no successor: readiness is a
-   property of the plan, not of the mode running it. A seat is an
-   agent started for one item and shut down at its exit; the next
-   seat starts fresh, and only the branch and the plan item carry over.
+1. **One runner, dispatched seats.** `/dev run <scope>` replaces
+   `/dev code`, `/dev auto` and `/dev supervise`: planned work - a
+   task, a batch or an initiative - runs as dispatched seats (fresh
+   implementer per item, reviewer, doc writer, planner re-read on a
+   gap) under a supervisor that answers implementation-level
+   questions, verifies the boundary, and merges within bounds
+   (R072-T002). The session never implements itself. The project
+   declares who holds the supervisor seat, `Supervisor: human | AI`,
+   and the always-ask list reaches the user under either. `/dev docs`
+   retires: doc work runs inside every branch through the doc-writer
+   seat. The stamp pair has no successor: readiness is a property of
+   the plan, not of the mode running it. A seat is an agent started
+   for one item and shut down at its exit; the next seat starts fresh,
+   and only the branch and the plan item carry over.
 2. **Planning exits through a cold read, and only through it.** A
    task's plan is ready for dispatch when a fresh agent, given exactly
    the worker's inputs, says what it would build and finds nothing
@@ -118,8 +123,9 @@ input set, started for one item and shut down at its exit.
 
 ## Scope
 
-`skills/dev/auto.md`, `supervise.md`, `branch-plan.md § Stamps` and
-`§ Commit cadence`, `layout.md § Docs`; the seat model
+`skills/dev/auto.md`, `supervise.md`, `docs.md`, the `/dev code`
+section of `SKILL.md`, `feat.md`, `fix.md`, `refactor.md`, `finish.md`,
+`branch-plan.md § Stamps` and `§ Commit cadence`, `layout.md § Docs`; the seat model
 (`companions/declarations.md` supervision declaration,
 `companions/supervisor-runbook.md § Modes`,
 `companions/verification-policy.md § Comprehension check`,
@@ -134,11 +140,13 @@ initiatives close.
 
 ## Acceptance criteria
 
-- [ ] One unattended flow: `Supervisor: human | AI` is the only
-      supervision-role declaration, and `Operator mode:`, `agentic:`,
-      `supervised:` appear in no rule, skill, template, or CI check;
-      verified by grep across `CLAUDE.md`, `rules/`, `skills/`,
-      `scripts/ci/`.
+- [ ] One runner: `/dev run` is the only command that starts planned
+      work, `/dev code`, `/dev auto`, `/dev supervise` and `/dev docs`
+      appear in no rule, skill, template, or CI check;
+      `Supervisor: human | AI` is the only supervision-role
+      declaration, and `Operator mode:`, `agentic:`, `supervised:`
+      appear nowhere either; verified by grep across `CLAUDE.md`,
+      `rules/`, `skills/`, `scripts/ci/`.
 - [ ] A plan with no recorded cold read is refused by `/dev code` and
       by the unattended flow's resolve step; verified by a dry run on
       a plan lacking the record.
