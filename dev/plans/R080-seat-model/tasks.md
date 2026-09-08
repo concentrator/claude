@@ -10,7 +10,7 @@ pre-flight after every seat exists, the pilot last.
 
 ## Open
 
-- [ ] **R080-T001 [mnt]**: docs move - `dev/docs/` moves to `docs/`
+- [x] **R080-T001 [mnt]**: docs move - `dev/docs/` moves to `docs/`
   with every rule naming the old path (`layout.md § Docs`,
   `companions/documentation.md`, project overlays); migration steps
   for consuming projects, applied per project at its next planning

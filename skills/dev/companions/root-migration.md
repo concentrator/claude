@@ -26,7 +26,7 @@ Inventory, then report - touching nothing:
   pointers from outside the docs tree (`CLAUDE.md § Conventions`,
   `README.md`, `DESIGN.md`, among others), and the moved docs' own
   relative links to project files (`config/`, `scripts/`, `src/` -
-  `documentation.md § Closed link scope`), which a move that changes
+  `documentation.md § Content quality`), which a move that changes
   depth breaks; grep the tree for `](../` to list them. Links between
   sibling docs survive the move.
 - **Collisions** - a destination that already exists (`dev/plans/` or
