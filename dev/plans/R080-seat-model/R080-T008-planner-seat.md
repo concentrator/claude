@@ -265,7 +265,7 @@ until R080-T006's table exists and they cite it.
   over `SendMessage`" reads "**User** approves plan changes and answers
   the always-ask escalations - over `SendMessage`", the rest of the
   step staying.
-- [ ] `companions/planner-prompt.md`, the rejection path. The opening
+- [x] `companions/planner-prompt.md`, the rejection path. The opening
   paragraph's "whenever a blocker or a cold-read gap needs plan text
   changed" reads "whenever a blocker, an implementer's plan-changing
   concern, a cold-read gap or the user's rejection of a change needs

@@ -1,9 +1,11 @@
 # Planner Subagent Prompt Template
 
 Use this template when dispatching a planner seat: once per task in the
-detail round (`write-plan.md`), and again whenever a blocker or a
-cold-read gap needs plan text changed (`plan.md § Adjusting existing
-plans`). The template's `## Inputs` is the seat's whole input set.
+detail round (`write-plan.md`), and again whenever a blocker, an
+implementer's plan-changing concern, a cold-read gap or the user's
+rejection of a change needs plan text changed (`plan.md § Adjusting
+existing plans`). The template's `## Inputs` is the seat's whole input
+set.
 
 ```
 Task tool (general-purpose):
@@ -21,8 +23,8 @@ Task tool (general-purpose):
     - Code: the checkout you are in, `<directory>`, on branch
       `<branch>`.
     - The initiative's other plans, in `<plans directory>`.
-    - <Re-dispatch only: the blocker's or the cold-read gap's text,
-      verbatim.>
+    - <Re-dispatch only: the blocker's, the concern's, the cold-read
+      gap's or the user's objection text, verbatim.>
 
     Nothing else is an input. A question these cannot answer is
     reported as NEEDS_CONTEXT, never guessed: no transcript and no
@@ -46,7 +48,11 @@ Task tool (general-purpose):
        the tree leaves the record standing (`write-plan.md` step 6
        draws that split).
     4. Commit on `<branch>` (message rules: ## Conventions).
-       Never push: delivery is the dispatcher's.
+       Never push: delivery is the dispatcher's. Your commit stands
+       whether or not the user approves the change: nothing is pushed
+       until the runner delivers, a rejection re-dispatches a planner
+       with the objection's text, and that planner's commit replaces
+       the text - no revert, and no other seat edits plan content.
 
     ## Conventions
 
@@ -62,9 +68,10 @@ Task tool (general-purpose):
 
     Report back. The plan is not yours to approve or deliver: the
     dispatching session runs the cold read (`write-plan.md` step 6),
-    a gap re-dispatches a planner with the gap's text, and a pass
-    records `cold-read: passed` in the header (`branch-plan.md
-    § Header`). Dispatch nothing yourself - no seat dispatches a seat.
+    a gap re-dispatches a planner with the gap's text, the user's
+    rejection one with the objection's text, and a pass records
+    `cold-read: passed` in the header (`branch-plan.md § Header`).
+    Dispatch nothing yourself - no seat dispatches a seat.
 
     ## Report Format
 
