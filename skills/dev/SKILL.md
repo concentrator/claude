@@ -28,7 +28,7 @@ DEV mode - strict, spec-driven: plan, then run as dispatched seats.
 | `R` | Shape a new initiative (requirements + draft tasks, one gate) | `brainstorm.md` |
 | `R<NNN>` | Detail an open initiative (tasks + branch plans) | `plan.md` |
 | `<task-id>` / `all` | Branch plan(s) for open task(s) | `write-plan.md` |
-| `batch` | Compose `R<NNN>-B<NNN>.md`; readiness review + `agentic:` stamps | `branch-plan.md` |
+| `batch` | Compose `R<NNN>-B<NNN>.md` (members, order) | `branch-plan.md § Batches` |
 | `milestone <id>` | Milestone plan (cross-initiative order) | `plan.md` |
 | `<slug>` | Adjust an existing branch plan | `branch-plan.md` |
 | `release` | Release plan (next semver) | `release.md` |

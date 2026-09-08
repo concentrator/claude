@@ -69,7 +69,7 @@ planner's exit.
   `companions/docs-adoption.md`, `companions/verification-policy.md`,
   `companions/gitignore.template`, `scripts/install-dev.sh`,
   `scripts/worker-workspace.sh` among them.
-- [ ] `branch-plan.md § Agentic execution`: `§ Stamps` retires and the
+- [x] `branch-plan.md § Agentic execution`: `§ Stamps` retires and the
   `agentic:`/`supervised:` header lines with it; `§ Session boundary`
   becomes the seat lifecycle - a seat starts for one item and shuts
   down at its exit, only the branch and the plan item carry over;
