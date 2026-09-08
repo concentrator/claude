@@ -116,19 +116,16 @@ until R080-T006's table exists and they cite it.
   "asking?" branch ("implementation: answer" and "design or
   unclassifiable: escalate") becomes one line, "asking? -> planner
   change, user approves, fresh implementer"; the runner box's
-  "answers" becomes "routes questions"; the `Supervisor: AI` line
-  above the runner box reads "answers the always-ask escalations and
-  approves plan changes". `§ Modes by seat`: the clause "and can
-  always answer a seat" drops, "never blocked" standing; the seat
-  table's second row reads "Planner, implementer, reviewer", cells
-  unchanged. `companions/declarations.md § Supervisor bounds`: the
+  "answers" becomes "routes questions". `§ Modes by seat`: the clause
+  "and can always answer a seat" drops, "never blocked" standing; the
+  seat table's second row reads "Planner, implementer, reviewer",
+  cells unchanged. `companions/declarations.md § Supervisor bounds`: the
   grant bullet "implementation-level resolutions of worker questions
   and queued judgment calls" narrows to queued judgment calls at
   implementation level, an implementer's question taking the
   planner's change and the user's approval under either mode
   (`run.md § Question resolution`); "worker" retires for "implementer"
-  at its other site ("the worker/supervisor seam"); "the user gets the
-  always-ask list only" becomes "the always-ask list and plan changes".
+  at its other site ("the worker/supervisor seam").
   `companions/report-template.md § Supervisor decisions`:
   "implementation questions and queued calls resolved by the
   supervisor" becomes the queued calls the supervisor resolved and the
