@@ -41,14 +41,18 @@ after all - regardless of how the item read before dispatch.
 
 ## Spec-check skip
 
-A commit classified mechanical (per the predicate above, guard not
-voided) skips the per-commit spec check. Drift from the plan is caught
+Two classes of commit skip the per-commit spec check: a commit
+classified mechanical (per the predicate above, guard not voided), and
+a commit superseded by a plan change (`run.md § Dispatch per item` 2),
+whose redo the planner adds as a new checkbox, leaving the spec check
+to read the fresh implementer's commit. Drift from the plan is caught
 by the branch-close review instead.
 
 **Recording:** for every skipped spec check the runner records a
 line and carries the records verbatim into the report's Cost section:
 
     <commit-sha or plan-item id>: spec check skipped: mechanical
+    <commit-sha or plan-item id>: spec check skipped: superseded by plan change
 
 **Scope of this rule:** only the per-commit spec check is skipped.
 Everything else is unchanged:

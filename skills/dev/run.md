@@ -69,9 +69,18 @@ branch per plan - and per commit checkbox:
    the docs and the code as its inputs and nothing else. Its loop is
    the plan's `type:` mode file (`feat.md`, `fix.md`, `refactor.md`);
    `doc`/`test`/`mnt` run `branch-plan.md § Commit cadence` alone.
-2. DONE → spec check. DONE_WITH_CONCERNS → resolve first.
-   NEEDS_CONTEXT → § Question resolution. Halt triggers:
-   `branch-plan.md § Stop conditions`.
+2. DONE → spec check. DONE_WITH_CONCERNS → a concern that changes plan
+   text takes § Question resolution as NEEDS_CONTEXT does: the item's
+   `[x]` stands and its commit goes unchecked; the planner's change
+   adds a new checkbox for the redo, as § Close step 2 does for fixes,
+   so the fresh implementer works the concern and its commit is what
+   the spec check reads; the runner records `<item>: spec check
+   skipped: superseded by plan change`, carried verbatim into the
+   report's Cost section like every skip
+   (`companions/verification-policy.md § Spec-check skip`). Any other
+   concern the runner ledgers (§ Ledger) and carries into the report,
+   then spec check. NEEDS_CONTEXT → § Question resolution. Halt
+   triggers: `branch-plan.md § Stop conditions`.
 3. Spec check (`companions/spec-reviewer-prompt.md`): exactly the
    item; skipped for mechanical commits per
    `companions/verification-policy.md`. Reject → fix → recheck.
@@ -216,7 +225,7 @@ checkout, beside `dev/session/` and ignored like it, so an append
 dirties nothing. One file per scope; a resumed runner on the same host
 opens the same file. Opened at § Resolve (`mkdir -p` the directory,
 then the first entry), it takes one entry per event from § Dispatch
-per item through § Merge or ask, in `handoff.md § Blocks` format:
+per item through § Merge or ask, in `handoff.md § The file` format:
 `## <event> <UTC timestamp>` - dispatch, question, answer, prompt,
 verify, escalation, merge - the timestamp read from the clock
 (`date -u`) at write time, never composed or carried forward - over

@@ -131,7 +131,7 @@ until R080-T006's table exists and they cite it.
   supervisor" becomes the queued calls the supervisor resolved and the
   plan changes the user approved. The findings file's entry goes
   `[x]`, ending "Resolved by R080-T008 item 6."
-- [ ] `run.md`, `companions/implementer-prompt.md` and
+- [x] `run.md`, `companions/implementer-prompt.md` and
   `companions/verification-policy.md § Spec-check skip`, three files:
   the concern route, one cite, the implementer's one channel and the
   second spec-check skip class. `run.md § Dispatch per item` 2 reads:
