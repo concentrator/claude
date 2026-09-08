@@ -134,13 +134,17 @@ until R080-T006's table exists and they cite it.
   route, one cite and the implementer's one channel. `run.md
   § Dispatch per item` 2 reads: "DONE → spec check. DONE_WITH_CONCERNS
   → a concern that changes plan text takes § Question resolution as
-  NEEDS_CONTEXT does, its commit unchecked - the fresh implementer's
-  commit on the changed plan is what the spec check reads - and the
-  runner ledgers `<item>: spec check skipped: superseded by plan
-  change`; any other concern the runner ledgers (§ Ledger) and carries
-  into the report, then spec check. NEEDS_CONTEXT → § Question
-  resolution. Halt triggers: `branch-plan.md § Stop conditions`." -
-  "resolve first" names no resolver, and the runner answers no seat.
+  NEEDS_CONTEXT does: the item's `[x]` stands and its commit goes
+  unchecked; the planner's change adds a new checkbox for the redo, as
+  § Close step 2 does for fixes, so the fresh implementer works the
+  concern and its commit is what the spec check reads; the runner
+  records `<item>: spec check skipped: superseded by plan change`,
+  carried verbatim into the report's Cost section like every skip
+  (`companions/verification-policy.md § Spec-check skip`). Any other
+  concern the runner ledgers (§ Ledger) and carries into the report,
+  then spec check. NEEDS_CONTEXT → § Question resolution. Halt
+  triggers: `branch-plan.md § Stop conditions`." - "resolve first"
+  names no resolver, and the runner answers no seat.
   `run.md § Ledger` cites `handoff.md § The file` where it cites
   `handoff.md § Blocks`, the block format being a bold run-in under
   that heading and no heading of its own.
@@ -169,20 +173,24 @@ until R080-T006's table exists and they cite it.
   item's uncommitted edits - `git checkout -- .` and removal of the
   untracked files the seat created - so the branch stands at its last
   commit before the planner is dispatched; the planner commits its
-  change locally (nothing is pushed until the runner delivers); the
-  runner then runs `write-plan.md` step 6 on the changed plan, the
-  reader a dispatched seat (`companions/verification-policy.md
-  § Comprehension check`), never the runner's own read; where the
-  change dropped `cold-read: passed` - a change adding a decision,
-  `companions/planner-prompt.md` Job 3 - the pass is recorded in the
-  runner's own bookkeeping commit on the item's branch, while a change
-  that only cites text already in the tree keeps the record and needs
-  no commit; the change is the **user**'s to approve under either
-  supervisor mode; a rejection re-dispatches the planner with the
-  objection's text, and the next planner commit replaces the text - no
-  revert, and the runner edits no plan content; only then is a fresh
-  implementer dispatched, starting from the last commit. "The runner
-  reads the changed plan" drops, the read being the reader seat's.
+  change locally (nothing is pushed until the runner delivers), and a
+  planner reporting DONE_WITH_CONCERNS (`companions/planner-prompt.md
+  § Report Format`) has committed too, so its change takes the read
+  below as DONE's does and its concern reaches the user with the
+  change for approval; the runner then runs `write-plan.md` step 6 on
+  the changed plan, the reader a dispatched seat
+  (`companions/verification-policy.md § Comprehension check`), never
+  the runner's own read; where the change dropped `cold-read: passed`
+  - a change adding a decision, `companions/planner-prompt.md` Job 3 -
+  the pass is recorded in the runner's own bookkeeping commit on the
+  item's branch, while a change that only cites text already in the
+  tree keeps the record and needs no commit; the change is the
+  **user**'s to approve under either supervisor mode; a rejection
+  re-dispatches the planner with the objection's text, and the next
+  planner commit replaces the text - no revert, and the runner edits no
+  plan content; only then is a fresh implementer dispatched, starting
+  from the last commit. "The runner reads the changed plan" drops, the
+  read being the reader seat's.
   Second paragraph: "The re-dispatch carries the blocker's or the
   gap's text" gains "or the objection's". `§ Resolve` 1 adds, after
   "a plan whose `depends-on` is unmerged the same": the check runs at
@@ -205,13 +213,16 @@ until R080-T006's table exists and they cite it.
   is the runner's to answer from `requirements.md` or the design. The
   row "NEEDS_CONTEXT unanswerable from the R's `requirements.md`/design
   | Halt, report" becomes "Planner reports BLOCKED or NEEDS_CONTEXT on
-  its re-dispatch | Halt, report". `§ Scope discoveries`, the **Stop**
-  bullet's second sentence reads: "A blocker the plan can absorb - an
-  ambiguous item, a missing step - halts the item: the runner reverts
-  its uncommitted edits and re-dispatches the planner with the
-  blocker's text (`run.md § Question resolution`), and the fresh
-  implementer starts from the last commit." The rest of the bullet
-  stays. The file stays within 80 columns (table rows exempt).
+  its re-dispatch | Halt, report"; the planner's DONE_WITH_CONCERNS
+  gets no row, `run.md § Question resolution` (item 8) reading its
+  committed change and putting the concern before the user with it.
+  `§ Scope discoveries`, the **Stop** bullet's second sentence reads:
+  "A blocker the plan can absorb - an ambiguous item, a missing step -
+  halts the item: the runner reverts its uncommitted edits and
+  re-dispatches the planner with the blocker's text (`run.md
+  § Question resolution`), and the fresh implementer starts from the
+  last commit." The rest of the bullet stays. The file stays within 80
+  columns (table rows exempt).
 - [ ] `companions/declarations.md § Supervisor bounds` and
   `companions/supervisor-runbook.md`, what the user approves under
   either mode. `declarations.md`, the two mode sentences and the one
