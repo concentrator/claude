@@ -71,7 +71,7 @@ until R080-T006's table exists and they cite it.
   findings files" and `companions/implementer-prompt.md § Plan &
   Findings Files` say the same. `DESIGN.md § Git & delivery model`
   lists the planner among the seats that exist.
-- [ ] `run.md`, three sites and nothing else. `§ Close` step 2: "The
+- [x] `run.md`, three sites and nothing else. `§ Close` step 2: "The
   approved fixes are an implementer seat's item, the findings its
   text" becomes: the approved fixes go to the planner as one change on
   the branch (`plan.md § Adjusting existing plans`), each fix a new

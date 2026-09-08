@@ -115,8 +115,10 @@ Per branch, when its last non-final item is `[x]`:
    routine`).
 2. Fixes: mechanical ones applied, judgment calls queued; approval of
    the applied set is the **user**'s under `Supervisor: human`. The
-   approved fixes are an implementer seat's item, the findings its
-   text.
+   approved fixes go to the planner as one change on the branch
+   (`plan.md § Adjusting existing plans`), each fix a new checkbox and
+   the change approved per § Question resolution; a fresh implementer
+   works them.
 3. The runner makes the mandatory final commit (docs re-review,
    cleanup, plan complete, task mark per `branch-plan.md § Closing
    routine`).
@@ -154,8 +156,8 @@ more mergeable than a batch missing its report. Then - the choice the
   cleanup per `branch-plan.md § Rails` - after the MR/PR merges,
   post-merge cleanup deletes the batch branch, local and origin.
 - **Reject** → ref handling per `branch-plan.md § Rails`.
-- **Halt** → failed item reported, work intact; the resolver (§
-  Question resolution) resolves and the run resumes on the same scope.
+- **Halt** → failed item reported, work intact; the halted item takes
+  § Question resolution and the run resumes on the same scope.
 
 ## Boundary verification
 
@@ -237,6 +239,6 @@ scope. Hand-off note at each boundary and re-brief after compaction:
 On "status": per initiative - merged / in-flight / halted / escalated,
 with MR/PR links - derived from artifacts at ask time (task
 checkboxes, reports, state-check output). Resolving an escalation
-re-dispatches the affected item - a fresh implementer on the re-read
-plan. The run ends when the scope is delivered or only escalations
-remain; report which.
+re-dispatches the affected item - a fresh implementer on the plan,
+re-read where it changed. The run ends when the scope is delivered or
+only escalations remain; report which.
