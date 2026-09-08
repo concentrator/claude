@@ -23,7 +23,7 @@ pre-flight after every seat exists, the pilot last.
   fixed before approval; mandatory - the plan records the passed read
   and `/dev code` and the flow refuse a plan without it.
 
-- [ ] **R080-T003 [mnt]**: one runner - `/dev run <scope>` replaces
+- [x] **R080-T003 [mnt]**: one runner - `/dev run <scope>` replaces
   `/dev code`, `/dev auto` and `/dev supervise`, and `/dev docs`
   retires: planned work runs as dispatched seats under a supervisor
   seat declared `Supervisor: human | AI`, the session never
@@ -66,3 +66,9 @@ pre-flight after every seat exists, the pilot last.
   pre-flight, cold read, worker dispatch, doc-writer pass, supervised
   merge, no prompt outside the declared set; fixes from the pilot land
   on the same branch. Depends on R080-T007.
+
+Backlog: R080-T001, T002 and T004 to T008 still carry a
+`supervised: approved` header line the plan header no longer admits
+(`skills/dev/branch-plan.md § Header`); strip it on the R080 close-out
+plan MR/PR. The acceptance criterion on the refused plan names
+`/dev code`; reword to `/dev run` there too.

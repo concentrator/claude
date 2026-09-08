@@ -104,6 +104,6 @@ planner's exit.
   seat model - one flow, supervisor declared per project, seats with
   fixed inputs and a one-item lifetime; `§ Decisions` gains a bullet
   on why the stamps went, no ADR file.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup, commit.
