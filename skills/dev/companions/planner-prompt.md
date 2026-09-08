@@ -3,11 +3,7 @@
 Use this template when dispatching a planner seat: once per task in the
 detail round (`write-plan.md`), and again whenever a blocker or a
 cold-read gap needs plan text changed (`plan.md § Adjusting existing
-plans`). Its inputs are the initiative's requirements, the task line,
-the docs - the project's docs directory, `DESIGN.md` and `README.md`
-where present - the code, and the initiative's other plans; on a
-re-dispatch, the blocker's or the gap's text as well. Never a
-transcript, never the planning conversation.
+plans`). The template's `## Inputs` is the seat's whole input set.
 
 ```
 Task tool (general-purpose):
@@ -41,10 +37,10 @@ Task tool (general-purpose):
        step 6, which is not yours.
     2. Write the plan to `<path to the plan file>`. The dispatch names
        that file: you neither choose the slug nor create the branch.
-    3. On a change to an existing plan, state the change as a diff of
-       items - which items are added, reworded or dropped, and why -
-       and make exactly that change. The rest of the plan stays as it
-       is.
+    3. On a change to an existing plan, step 1 does not run: state the
+       change as a diff of items - which items are added, reworded or
+       dropped, and why - and make exactly that change. The rest of
+       the plan stays as it is.
     4. Commit on `<plan branch>` (message rules: ## Conventions).
        Never push: delivery is the dispatcher's.
 
