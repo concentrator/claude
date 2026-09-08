@@ -20,7 +20,7 @@ classifying:
 - **`dev/docs/`-layout** - plans already on `dev/` but docs still
   under `dev/docs/`: relocate onto `docs/` per
   `companions/root-migration.md` (the docs half of its move set), then
-  treat as Already-DEV.
+  treat as Already-DEV. Takes precedence over Already-DEV.
 - **Fresh** - no artifacts anywhere: no `plans/` or `docs/` under
   either `dev/` or `.claude/`. Reverse-engineer requirements +
   design from code, then layer planning infrastructure (steps 2–9).

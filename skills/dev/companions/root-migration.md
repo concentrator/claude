@@ -4,7 +4,7 @@ Move a `.claude/`-layout project's DEV artifacts onto `dev/` and its
 docs onto `docs/` (`plan.md § Where things live`, `layout.md § Docs`).
 Invoked from `migrate.md` when the inventory finds artifacts under
 `.claude/` or docs still under `dev/docs/`; a project already on `dev/`
-runs the docs half alone, at its next planning round. Plan first, then
+runs the docs half alone through `/dev migrate`. Plan first, then
 execute: nothing moves until the user approves the reported move list.
 
 ## 1. Move plan
@@ -22,10 +22,13 @@ Inventory, then report - touching nothing:
   the whole working tree, tracked or not (in untracked mode the
   reference carriers - project `CLAUDE.md`, settings, project rules -
   are gitignored), for `.claude/plans`, `.claude/docs` and `dev/docs`;
-  list each hit with its replacement. Links inside the docs tree are
-  relative to their siblings and survive a whole-tree move; the hits
-  are the pointers from outside it - `CLAUDE.md § Conventions`,
-  `README.md`, `DESIGN.md`.
+  list each hit with its replacement. Two kinds of link need it:
+  pointers from outside the docs tree (`CLAUDE.md § Conventions`,
+  `README.md`, `DESIGN.md`, among others), and the moved docs' own
+  relative links to project files (`config/`, `scripts/`, `src/` -
+  `documentation.md § Closed link scope`), which a move that changes
+  depth breaks; grep the tree for `](../` to list them. Links between
+  sibling docs survive the move.
 - **Collisions** - a destination that already exists (`dev/plans/` or
   `docs/`: a partial earlier migration). Report each; § 2 refuses
   to move onto it - merge, rename, or abort is the user's call.
@@ -55,8 +58,8 @@ tracked-file rewrites ride the branch.
    preserve.
 2. **Rewrite** - apply the approved rewrite set, then re-grep the
    whole working tree (tracked and gitignored files alike) for
-   `.claude/plans`, `.claude/docs` and `dev/docs` to confirm zero stale
-   references.
+   `.claude/plans`, `.claude/docs` and `dev/docs`, and the moved docs
+   for `](../`, to confirm zero stale references.
 3. **Close the gaps** - the `CLAUDE.md` and `.gitignore` follow-ups
    from § 1.
 4. **Verify the moved docs** - the verification gate over the moved

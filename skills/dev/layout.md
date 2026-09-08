@@ -1,9 +1,9 @@
 # Project layout
 
-Canonical project structure, two trees: guarded config under
+Canonical project structure, three locations: guarded config under
 `.claude/`, agent-authored DEV artifacts under `dev/` (`plan.md § Where
-things live`). Other paths inside either tree need explicit
-justification.
+things live`), and the docs tree at `docs/` (§ Docs). Other paths
+inside any of them need explicit justification.
 
 ## Config layout (`.claude/`)
 
@@ -94,13 +94,13 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 `.claude/references/` holds external inputs the agent consults: API specs
 (OpenAPI), third-party docs, domain knowledge, schema files. Any
 format. **Read-only** - the agent never modifies these; `docs/` below
-is the internal, kept-current counterpart.
+is the project's own, kept-current counterpart.
 
 ## Docs
 
 `docs/`, at the repository root, holds the project's documentation -
 internal and external audiences under one contract, outside the
-planning tree so a reader of one is not a reader of the other. Its
+planning tree. Its
 per-feature docs (data model, interfaces, business rules, edge cases)
 sit between `DESIGN.md` (architecture) and the code (line-level), and
 are the Reference application of the global documentation framework

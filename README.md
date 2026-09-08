@@ -54,8 +54,9 @@ layer, and tagging a release. Command surface and mode files:
 ## DEV artifacts
 
 Two trees: guarded config - what instructs agents - under `.claude/`,
-and agent-authored artifacts under `dev/` (`plans/`, `docs/`, the
-gitignored `session/`), the same in every project. Structure:
+and agent-authored artifacts under `dev/` (`plans/`, the gitignored
+`session/`), with the docs tree at `docs/`, the same in every project.
+Structure:
 `skills/dev/layout.md`; paths: `skills/dev/plan.md § Where things
 live`.
 
