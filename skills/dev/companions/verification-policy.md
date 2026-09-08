@@ -157,6 +157,7 @@ unmerged task earns it at its start.
 
 | Role | Model (dispatch value) |
 |---|---|
+| Planners (branch plans and plan changes) | Fable 5 (`fable`) |
 | Default implementers | Opus 4.8 (`opus`) |
 | Mechanical-commit implementers | Sonnet 4.6 (`sonnet`) |
 | Probes (live API probing work) | Opus 4.8 (`opus`) |

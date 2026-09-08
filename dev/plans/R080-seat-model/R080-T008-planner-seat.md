@@ -18,7 +18,7 @@ seat reads plans; none edits their content. Vocabulary throughout is
 "worker". The duty sentences this plan writes are provisional wording
 until R080-T006's table exists and they cite it.
 
-- [ ] `companions/planner-prompt.md`: the dispatch template - inputs
+- [x] `companions/planner-prompt.md`: the dispatch template - inputs
   (the requirements, the task line, `DESIGN.md`, `README.md` and the
   docs directory, the code, the initiative's other plans, and on a
   re-dispatch the blocker's or gap's text; never a transcript or the
