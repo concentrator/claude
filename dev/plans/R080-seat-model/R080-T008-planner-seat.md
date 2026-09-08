@@ -2,6 +2,7 @@
 task: R080-T008
 type: mnt
 depends-on: R080-T003
+supervised: approved
 ---
 
 # R080-T008: planner seat

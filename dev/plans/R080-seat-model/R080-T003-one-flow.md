@@ -3,6 +3,7 @@ task: R080-T003
 type: mnt
 architecture-changing: true
 depends-on: R072-T002
+supervised: approved
 ---
 
 # R080-T003: one runner

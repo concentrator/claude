@@ -2,6 +2,7 @@
 task: R080-T006
 type: mnt
 depends-on: R080-T008
+supervised: approved
 ---
 
 # R080-T006: seat responsibilities per mode

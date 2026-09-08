@@ -2,6 +2,7 @@
 task: R080-T004
 type: mnt
 depends-on: R080-T003
+supervised: approved
 ---
 
 # R080-T004: doc-writer seat

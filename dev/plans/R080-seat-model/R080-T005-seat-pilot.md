@@ -2,6 +2,7 @@
 task: R080-T005
 type: mnt
 depends-on: R080-T007
+supervised: approved
 ---
 
 # R080-T005: pilot under the seats

@@ -1,6 +1,7 @@
 ---
 task: R080-T002
 type: mnt
+supervised: approved
 ---
 
 # R080-T002: cold read at the planner's exit

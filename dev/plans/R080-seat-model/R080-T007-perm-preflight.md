@@ -2,6 +2,7 @@
 task: R080-T007
 type: mnt
 depends-on: R080-T004
+supervised: approved
 ---
 
 # R080-T007: deterministic permission pre-flight

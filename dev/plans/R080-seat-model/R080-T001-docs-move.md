@@ -1,6 +1,7 @@
 ---
 task: R080-T001
 type: mnt
+supervised: approved
 ---
 
 # R080-T001: docs move
