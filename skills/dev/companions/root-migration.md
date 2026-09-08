@@ -1,9 +1,11 @@
 # Root migration
 
-Move a `.claude/`-layout project's DEV artifacts onto `dev/`
-(`plan.md § Where things live`). Invoked from `migrate.md` when the
-inventory finds artifacts under `.claude/`. Plan first, then execute:
-nothing moves until the user approves the reported move list.
+Move a `.claude/`-layout project's DEV artifacts onto `dev/` and its
+docs onto `docs/` (`plan.md § Where things live`, `layout.md § Docs`).
+Invoked from `migrate.md` when the inventory finds artifacts under
+`.claude/` or docs still under `dev/docs/`; a project already on `dev/`
+runs the docs half alone, at its next planning round. Plan first, then
+execute: nothing moves until the user approves the reported move list.
 
 ## 1. Move plan
 
@@ -12,15 +14,18 @@ Inventory, then report - touching nothing:
 - **Move set** - the `.claude/`-resident artifact trees, listed per
   top-level entry: `.claude/plans/` → `dev/plans/` (ROADMAP.md,
   release plans, `R<NNN>-<slug>/` dirs, `archive/`) and
-  `.claude/docs/` → `docs/` (feature
-  docs + `index.md`). Config stays under `.claude/`: `REQUIREMENTS.md`,
+  `.claude/docs/` or `dev/docs/` → `docs/` (feature docs +
+  `index.md`). Config stays under `.claude/`: `REQUIREMENTS.md`,
   `DESIGN.md`, `MAINTENANCE.md`, `settings*.json`, `skills/`,
   `rules/`, `commands/`, `agents/`, `hooks/`, `references/`, `adr/`.
 - **Rewrite set** - every in-project reference to a moved path: grep
   the whole working tree, tracked or not (in untracked mode the
   reference carriers - project `CLAUDE.md`, settings, project rules -
-  are gitignored), for `.claude/plans` and `.claude/docs`; list each
-  hit with its replacement.
+  are gitignored), for `.claude/plans`, `.claude/docs` and `dev/docs`;
+  list each hit with its replacement. Links inside the docs tree are
+  relative to their siblings and survive a whole-tree move; the hits
+  are the pointers from outside it - `CLAUDE.md § Conventions`,
+  `README.md`, `DESIGN.md`.
 - **Collisions** - a destination that already exists (`dev/plans/` or
   `docs/`: a partial earlier migration). Report each; § 2 refuses
   to move onto it - merge, rename, or abort is the user's call.
@@ -43,17 +48,21 @@ tracked-file rewrites ride the branch.
 1. **Move** - the destination must not exist (§ 1 Collisions; if it
    does, stop and resolve with the user). Tracked:
    `git mv .claude/plans dev/plans` and
-   `git mv .claude/docs docs`, creating parent dirs as needed
+   `git mv .claude/docs docs` or `git mv dev/docs docs`, creating
+   parent dirs as needed
    and skipping trees the project does not have - `git mv` preserves
    history. Untracked mode: plain `mv` - the tree has no history to
    preserve.
 2. **Rewrite** - apply the approved rewrite set, then re-grep the
    whole working tree (tracked and gitignored files alike) for
-   `.claude/plans` and `.claude/docs` to confirm zero stale
+   `.claude/plans`, `.claude/docs` and `dev/docs` to confirm zero stale
    references.
 3. **Close the gaps** - the `CLAUDE.md` and `.gitignore` follow-ups
    from § 1.
-4. **Deliver** - the `mnt/` branch's MR/PR (`git-workflow.md
+4. **Verify the moved docs** - the verification gate over the moved
+   `docs/index.md` (`documentation.md § Verification gate`): every
+   path it lists resolves, so the catalog is true after the move.
+5. **Deliver** - the `mnt/` branch's MR/PR (`git-workflow.md
    § Trunk`).
 
 Verify before delivery: `migrate.md` now classifies the project as
