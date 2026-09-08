@@ -13,7 +13,7 @@ Draft list from the shape round; the detail round refines it.
   condition, the closing-routine table rows, the `delegation.md`
   line; close R-057 (T002 superseded) and tombstone R-025.
 
-- [ ] **R072-T002 [mnt]**: merge the operator seat into the
+- [x] **R072-T002 [mnt]**: merge the operator seat into the
   supervisor - `supervise.md`, `companions/supervisor-runbook.md`,
   `companions/declarations.md`: merge authority within bounds,
   direct-to-user escalation with the always-ask list, handover

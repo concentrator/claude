@@ -41,7 +41,7 @@ operator seat and its relay retire.
   `companions/report-template.md` pre-tier "tests + lint" wording
   matches the tiered verify (R072-T004); the R's `tasks.md` backlog
   line clears.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, R072 closure check per `plan.md § Approval and closure`
   when this closes the R's last open task (criteria verified with
