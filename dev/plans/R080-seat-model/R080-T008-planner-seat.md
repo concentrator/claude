@@ -131,23 +131,38 @@ until R080-T006's table exists and they cite it.
   plan changes the user approved. The findings file's entry goes
   `[x]`, ending "Resolved by R080-T008 item 6."
 - [ ] `run.md` and `companions/implementer-prompt.md`, the concern
-  route and one cite. `run.md § Dispatch per item` 2 reads: "DONE →
-  spec check. DONE_WITH_CONCERNS → a concern that changes plan text
-  takes § Question resolution as NEEDS_CONTEXT does; any other the
-  runner ledgers (§ Ledger) and carries into the report, then spec
-  check. NEEDS_CONTEXT → § Question resolution. Halt triggers:
-  `branch-plan.md § Stop conditions`." - "resolve first" names no
-  resolver, and the runner answers no seat. `run.md § Ledger` cites
-  `handoff.md § The file` where it cites `handoff.md § Blocks`, the
-  block format being a bold run-in under that heading and no heading
-  of its own. `companions/implementer-prompt.md § How to escalate`'s
-  last sentence, "The runner can provide more context, re-dispatch
-  with a more capable model, or break the task into smaller pieces",
-  becomes: "The runner routes it through `run.md § Question
-  resolution`: a planner changes the plan, the user approves the
-  change and a fresh implementer works the re-read plan; no answer
-  reaches you directly, since your inputs are the plan, the docs and
-  the code." `run.md` stays within 300 lines and 80 columns.
+  route, one cite and the implementer's one channel. `run.md
+  § Dispatch per item` 2 reads: "DONE → spec check. DONE_WITH_CONCERNS
+  → a concern that changes plan text takes § Question resolution as
+  NEEDS_CONTEXT does, its commit unchecked - the fresh implementer's
+  commit on the changed plan is what the spec check reads - and the
+  runner ledgers `<item>: spec check skipped: superseded by plan
+  change`; any other concern the runner ledgers (§ Ledger) and carries
+  into the report, then spec check. NEEDS_CONTEXT → § Question
+  resolution. Halt triggers: `branch-plan.md § Stop conditions`." -
+  "resolve first" names no resolver, and the runner answers no seat.
+  `run.md § Ledger` cites `handoff.md § The file` where it cites
+  `handoff.md § Blocks`, the block format being a bold run-in under
+  that heading and no heading of its own.
+  `companions/implementer-prompt.md`, three sites, the report statuses
+  (DONE, DONE_WITH_CONCERNS, BLOCKED, NEEDS_CONTEXT) being the
+  implementer's only channel. `## Before You Begin`'s closing line
+  "**Ask them now.** Raise any concerns before starting work." reads
+  "Report them as NEEDS_CONTEXT before starting work: the statuses
+  under ## Report Format are your only channel." `## Your Job`'s
+  closing paragraph, "**While you work:** If you encounter something
+  unexpected or unclear, **ask questions**. It's always OK to pause and
+  clarify. Don't guess or make assumptions.", reads "**While you
+  work:** something unexpected or unclear is a NEEDS_CONTEXT report.
+  Don't guess or make assumptions." `## When You're in Over Your
+  Head`, the "How to escalate" run-in's last sentence, "The runner can
+  provide more context, re-dispatch with a more capable model, or break
+  the task into smaller pieces", becomes: "The runner routes it through
+  `run.md § Question resolution`: a planner changes the plan, the user
+  approves the change and a fresh implementer works the re-read plan;
+  no answer reaches you directly, since your inputs are the plan, the
+  docs and the code." `run.md` grows by the concern clause and stays
+  within 300 lines and 80 columns.
 - [ ] `run.md § Question resolution`, `§ Resolve` and `§ Checkpoint`,
   the halted item's tree, the re-read and the rejection path.
   `§ Question resolution`, first paragraph: the halt reverts the
@@ -157,9 +172,12 @@ until R080-T006's table exists and they cite it.
   change locally (nothing is pushed until the runner delivers); the
   runner then runs `write-plan.md` step 6 on the changed plan, the
   reader a dispatched seat (`companions/verification-policy.md
-  § Comprehension check`), never the runner's own read, and records
-  `cold-read: passed` in its own bookkeeping commit on the item's
-  branch; the change is the **user**'s to approve under either
+  § Comprehension check`), never the runner's own read; where the
+  change dropped `cold-read: passed` - a change adding a decision,
+  `companions/planner-prompt.md` Job 3 - the pass is recorded in the
+  runner's own bookkeeping commit on the item's branch, while a change
+  that only cites text already in the tree keeps the record and needs
+  no commit; the change is the **user**'s to approve under either
   supervisor mode; a rejection re-dispatches the planner with the
   objection's text, and the next planner commit replaces the text - no
   revert, and the runner edits no plan content; only then is a fresh
@@ -168,14 +186,18 @@ until R080-T006's table exists and they cite it.
   Second paragraph: "The re-dispatch carries the blocker's or the
   gap's text" gains "or the objection's". `§ Resolve` 1 adds, after
   "a plan whose `depends-on` is unmerged the same": the check runs at
-  every dispatch, not at scope start alone - a plan changed
-  mid-branch is admitted again by the record the bookkeeping commit
-  restores (§ Question resolution). `§ Checkpoint`, Halt bullet:
-  "work intact" reads "the branch as it stands - a question-resolution
-  halt has already reverted the item's uncommitted edits (§ Question
-  resolution)", so "intact" covers the checkpoint halt alone. The
-  file grows by these sentences and stays within 300 lines and 80
-  columns (table rows exempt).
+  every implementer dispatch, not at scope start alone - the reader
+  seat's dispatch is not one, its read being what earns the record -
+  so a plan changed mid-branch is admitted again once the record
+  stands, kept through a cite-only change or restored by the
+  bookkeeping commit (§ Question resolution). `§ Checkpoint`, the Halt
+  bullet reads: "**Halt** → failed item reported. A question halt - an
+  implementer's plan-changing concern or NEEDS_CONTEXT - takes
+  § Question resolution, whose revert drops the item's uncommitted
+  edits; any other halt - a red tier, a spec check rejecting twice
+  (`branch-plan.md § Stop conditions`) - keeps the work intact. The
+  run resumes on the same scope." The file grows by these sentences
+  and stays within 300 lines and 80 columns (table rows exempt).
 - [ ] `branch-plan.md § Stop conditions` and `§ Scope discoveries`.
   The table's first row event reads "Blocker the plan can absorb
   (§ Scope discoveries), or an implementer's NEEDS_CONTEXT", action
@@ -190,16 +212,34 @@ until R080-T006's table exists and they cite it.
   blocker's text (`run.md § Question resolution`), and the fresh
   implementer starts from the last commit." The rest of the bullet
   stays. The file stays within 80 columns (table rows exempt).
-- [ ] `companions/declarations.md § Supervisor bounds`, the two mode
-  sentences. "`Supervisor: human` - the user's own interactive session
+- [ ] `companions/declarations.md § Supervisor bounds` and
+  `companions/supervisor-runbook.md`, what the user approves under
+  either mode. `declarations.md`, the two mode sentences and the one
+  after them: "`Supervisor: human` - the user's own interactive session
   holds the seat: it dispatches the seats, and the user answers their
   questions, clears what stops them and merges." reads: "... it
   dispatches the seats, and the user approves the planner's changes
   (`run.md § Question resolution`), clears what stops them and
   merges." "`Supervisor: AI` - a supervising session dispatches,
-  answers and merges within the bounds below" reads "dispatches,
-  verifies and merges within the bounds below", mirroring `run.md`'s
-  opening paragraph. Nothing else in the section changes.
+  answers and merges within the bounds below, and the user gets the
+  always-ask list only." reads "`Supervisor: AI` - a supervising
+  session dispatches, verifies and merges within the bounds below, and
+  the user approves plan changes and answers the always-ask list.",
+  mirroring `run.md`'s opening paragraph; "That list reaches the user
+  under either." reads "Both reach the user under either." Nothing
+  else in the section changes. `supervisor-runbook.md`, three sites:
+  the `§ Two variants` table row "Where the user answers" reads "Where
+  the user approves", cells unchanged; `§ The loop`'s two mode lines
+  above the runner box become four, the `|` column unmoved and each
+  within 80 columns:
+  `|  Supervisor: human - approves plan changes, answers the`,
+  `|                      always-ask escalations, clears, merges`,
+  `|  Supervisor: AI    - approves plan changes, answers the`,
+  `|                      always-ask escalations only`;
+  `§ Variant B` step 6 "**User** answers the always-ask escalations -
+  over `SendMessage`" reads "**User** approves plan changes and answers
+  the always-ask escalations - over `SendMessage`", the rest of the
+  step staying.
 - [ ] `companions/planner-prompt.md`, the rejection path. The opening
   paragraph's "whenever a blocker or a cold-read gap needs plan text
   changed" reads "whenever a blocker, a cold-read gap or the user's
