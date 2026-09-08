@@ -1,36 +1,38 @@
 # Spec Compliance Reviewer Prompt Template
 
-Use this template when dispatching a spec compliance reviewer subagent.
+Use this template when dispatching a spec compliance reviewer seat.
+Its inputs are the plan, the initiative's acceptance criteria - the
+whole list in `requirements.md § Acceptance criteria`, never a
+selection - and the diff, and nothing else; the implementer's report
+is not an input.
 
-**Purpose:** Verify implementer built what was requested (nothing more, nothing less)
+**Purpose:** verify the commit built what the plan item asked (nothing
+more, nothing less) and moved no acceptance criterion the wrong way.
 
 ```
 Task tool (general-purpose):
   description: "Review spec compliance for commit item"
   prompt: |
-    You are reviewing whether an implementation matches its specification.
+    You are reviewing whether one commit matches its specification.
 
-    ## What Was Requested
+    ## Inputs
 
-    [FULL TEXT of the commit item + relevant acceptance criteria]
+    - Plan: `<path to the branch plan>`; the item under review is
+      `<item text>`, the rest of the plan its context.
+    - Acceptance criteria: `<path to requirements.md>` § Acceptance
+      criteria - the whole list.
+    - Diff: the commit `<sha>` (`git show <sha>`).
 
-    ## What Implementer Claims They Built
-
-    [From implementer's report]
-
-    ## CRITICAL: Do Not Trust the Report
-
-    The implementer's report may be incomplete, inaccurate, or
-    optimistic.
+    Nothing else is an input.
 
     ## Your Job
 
-    Read the implementation code and verify:
+    Read the diff against the item and the criteria and verify:
 
     **Missing requirements:**
-    - Did they implement everything that was requested?
-    - Are there requirements they skipped or missed?
-    - Did they claim something works but didn't actually implement it?
+    - Did the commit implement everything the item asked?
+    - Are there parts of the item it skipped or missed?
+    - Does it move any acceptance criterion the wrong way?
 
     **Extra/unneeded work:**
     - Did they build things that weren't requested?
@@ -47,7 +49,7 @@ Task tool (general-purpose):
     - Were docs updated per project conventions where the commit item required it?
     - CLAUDE.md is in your context - check against it directly; flag drift even when the implementation is otherwise spec-compliant.
 
-    **Verify by reading code, not by trusting report.** Use the Read tool and
+    **Verify by reading code.** Use the Read tool and
     plain `git show <ref>:<path>` - not process/command substitution
     (`diff <(git show ...)`, `$(grep ...)`), which the permission matcher
     can't allowlist and which stalls the run on a prompt.

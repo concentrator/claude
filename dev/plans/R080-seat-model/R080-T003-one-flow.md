@@ -78,7 +78,7 @@ planner's exit.
   review retiring with the stamps since the cold read at the planner's
   exit is its successor. `scripts/ci/check-accretion.sh` drops the
   stamp exemption and its test the cases that pinned it.
-- [ ] `companions/implementer-prompt.md`: the input set is the task's
+- [x] `companions/implementer-prompt.md`: the input set is the task's
   plan, the docs and the code (`requirements.md § Desired state` 4),
   stated as such - `DESIGN.md` and `README.md` count as the code's own
   docs and stay in, the initiative's requirements never;

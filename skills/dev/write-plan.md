@@ -48,7 +48,8 @@ round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` / `all`.
 5. **Add the mandatory final item** at the end - the completion commit
    (per `branch-plan.md § Closing routine`).
 6. **Cold read** per `companions/verification-policy.md
-   § Comprehension check`: each gap it reports is fixed in the plan; a
+   § Comprehension check`, the reader given the plan, the docs and the
+   code: each gap it reports is fixed in the plan; a
    fix that adds a decision re-runs the read, a fix that cites text
    already in the tree does not; when it reports none the header
    records `cold-read: passed`. A plan whose `depends-on` names an

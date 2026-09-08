@@ -142,8 +142,9 @@ own mess included - a verifier that needs cleanup stops and reports.
 The planner's exit (`write-plan.md` step 6). A plan is implemented by
 a cold-context agent, so test it on one before it is offered for
 approval: dispatch a fresh subagent with exactly the implementer's
-inputs - the commit-item text plus parent-chain context, never the
-plan file or the planning conversation - and ask what it would build
+inputs - the plan, the docs and the code
+(`companions/implementer-prompt.md`), never the planning conversation
+- and ask what it would build
 and what is ambiguous or assumed. A question the inputs cannot answer
 is a plan gap, not a reader fault: fix it, re-run per the rule of
 `write-plan.md` step 6, then record `cold-read: passed` in the header
