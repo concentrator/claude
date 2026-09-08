@@ -101,7 +101,7 @@ planner's exit.
   runner session lives - A on this machine, B on a remote host under
   `tmux` and Remote Control - independent of the supervisor mode, its
   peer-worker rows gone.
-- [ ] `DESIGN.md § Planning model` and `§ Git & delivery model`: the
+- [x] `DESIGN.md § Planning model` and `§ Git & delivery model`: the
   seat model - one flow, supervisor declared per project, seats with
   fixed inputs and a one-item lifetime; `§ Decisions` gains a bullet
   on why the stamps went, no ADR file.
