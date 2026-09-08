@@ -177,7 +177,7 @@ until R080-T006's table exists and they cite it.
   paragraphs stay. Three files, so the item takes a spec check.
   `run.md` grows by the concern clause and stays within 300 lines and
   80 columns.
-- [ ] `run.md § Question resolution`, `§ Resolve` and `§ Checkpoint`,
+- [x] `run.md § Question resolution`, `§ Resolve` and `§ Checkpoint`,
   the halted item's tree, the re-read and the rejection path.
   `§ Question resolution`, first paragraph: the halt reverts the
   item's uncommitted edits - `git checkout -- .` and removal of the
