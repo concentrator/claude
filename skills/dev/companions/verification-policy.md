@@ -139,15 +139,18 @@ own mess included - a verifier that needs cleanup stops and reports.
 
 ## Comprehension check
 
-Part of the readiness review (`branch-plan.md § Stamps`). A
-stamped plan is implemented by a cold-context agent, so test it on one:
-dispatch a fresh subagent with exactly the implementer's inputs - the
-commit-item text plus parent-chain context, never the plan file or the
-planning conversation - and ask what it would build and what is
-ambiguous or assumed. A question the inputs cannot answer is a plan
-gap, not a reader fault: fix via `/dev plan <slug>` before stamping.
-This catches `NEEDS_CONTEXT` halts at planning time, when the user is
-present and the fix is cheap.
+The planner's exit (`write-plan.md` step 6). A plan is implemented by
+a cold-context agent, so test it on one before it is offered for
+approval: dispatch a fresh subagent with exactly the implementer's
+inputs - the commit-item text plus parent-chain context, never the
+plan file or the planning conversation - and ask what it would build
+and what is ambiguous or assumed. A question the inputs cannot answer
+is a plan gap, not a reader fault: fix it, re-run per the rule of
+`write-plan.md` step 6, then record `cold-read: passed` in the header
+(`branch-plan.md § Header`). This catches `NEEDS_CONTEXT` halts at
+planning time, when the user is present and the fix is cheap; nothing
+dispatches a plan without the record, and a plan chained on an
+unmerged task earns it at its start.
 
 ## Models
 

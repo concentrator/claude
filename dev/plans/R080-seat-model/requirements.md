@@ -52,7 +52,9 @@ input set, started for one item and shut down at its exit.
    ambiguous; a question the inputs cannot answer is a plan gap fixed
    before the plan is approved. The read is mandatory: no plan is
    offered for approval, stamped, or dispatched without a passed read,
-   and the plan records that it passed. A plan without one is
+   and the plan records that it passed; a plan whose items depend on
+   an unmerged task's output is read at its start, when that output
+   exists, and dispatched only then. A plan without one is
    unsettled, and an unsettled plan is what makes a worker halt
    mid-branch. The check moves from the stamps to the planner's exit.
 3. **Docs come from a doc-writer seat.** After the worker's code lands

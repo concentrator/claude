@@ -141,7 +141,9 @@ After the rounds, adjust in place:
 - **Initiative requirements** (`dev/plans/R<NNN>-<slug>/requirements.md`):
   `/dev plan R<NNN>` to extend.
 - **Branch plan (`<slug>`)**: `/dev plan <slug>` to add commits after
-  the final.
+  the final; the added items go through the cold read (`write-plan.md`
+  step 6) before the plan MR/PR, so the record vouches for the current
+  text.
 - **Roadmap items, tasks** (single-line entries): direct file edit.
 - Never rewrite history retroactively.
 
@@ -155,7 +157,10 @@ requirements are in, not when they got there - the date of an approval
 is in the commit and MR/PR that carried it. Approval of an R's detail
 round stamps `supervised: approved` on the round's branch plans
 (`branch-plan.md § Stamps`); like `approved:`, which review a stamp
-came from is resolvable from the commit that added it.
+came from is resolvable from the commit that added it. A detail round
+is offered for approval only with every plan's cold read passed and
+recorded as `cold-read: passed` (`write-plan.md` step 6), a plan whose
+`depends-on` names an unmerged task excepted: it is read at its start.
 
 An R entry closes (`[x]` in ROADMAP) only when **both** hold:
 

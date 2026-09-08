@@ -9,7 +9,10 @@ sensitive-file guard).
 
 ## Pre-flight
 
-- Batch exists; member plans `agentic: approved`. No-arg resolution:
+- Batch exists; member plans `agentic: approved` and `cold-read:
+  passed` - a member without the record halts the batch; the pre-flight
+  report names the member and the missing `cold-read: passed`. No-arg
+  resolution:
   the first manifest with a member task still `[ ]` in its R's
   `tasks.md` and no `R<NNN>-B<NNN>.report.md` - manifest text never carries
   status (`branch-plan.md § Batches`).

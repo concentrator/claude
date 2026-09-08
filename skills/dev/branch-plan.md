@@ -12,6 +12,9 @@ branch = one task. The plan is complete and committed to `main`
     architecture-changing: true     # optional - triggers DESIGN.md
                                     #   update commit
     depends-on: R008-T001           # optional - blocks `/dev code` until merged
+    cold-read: passed               # required - the planner's exit
+                                    #   (`write-plan.md` step 6); absent =
+                                    #   refused by every runner
     agentic: approved               # optional - auto-eligible;
                                     #   absent = manual-only
     supervised: approved            # optional - supervise-eligible
@@ -192,16 +195,17 @@ keyboard; each names what it guarantees.
 to ask, so the plan passes a **readiness review** (run by
 `/dev plan batch` for unstamped plans): each commit item unambiguous,
 testable, dependent only on earlier items, and free of design judgment
-beyond the plan's text - backed by a cold-reader check
-(`companions/verification-policy.md § Comprehension check`). Items
-failing → fix via `/dev plan <slug>` first. User approves → stamp.
+beyond the plan's text. The cold read precedes every stamp: it is the
+planner's exit (`companions/verification-policy.md § Comprehension
+check`), recorded as `cold-read: passed`. Items failing → fix via
+`/dev plan <slug>` first. User approves → stamp.
 
 `supervised: approved` - what `/dev supervise` needs
 (`supervise.md § Resolve`): approved requirements, one commit per
 item, no known design question open. A supervised worker has someone
 to ask, so the readiness review is not required. Applied at
-detail-round approval (`plan.md § Approval and closure`); a cold read
-under it is optional.
+detail-round approval (`plan.md § Approval and closure`), which the
+round reaches only with every plan's cold read passed.
 
 ### Batches
 
