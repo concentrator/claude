@@ -94,11 +94,12 @@ input set, started for one item and shut down at its exit.
    marks checkboxes and the reviewer reads. The user approves what the
    planner wrote, under either supervisor mode.
 8. **Permissions are declared, validated and applied before the run.**
-   Each seat has a declared permission set: its mode and the allow
+   Each seat has a declared permission set: its tool set and the allow
    rules its commands need, derived from the toolchain declaration and
-   the seat's prompt. Pre-flight resolves the whole set against the
-   tracked tiers, applies every adjustment - the project's local
-   settings, each seat's mode - before the first dispatch, and reports
+   the seat's prompt; the run has one permission mode, the runner's.
+   Pre-flight resolves the whole set against the tracked tiers,
+   applies every adjustment to the project's local settings before
+   the first dispatch, and reports
    every gap in one message; anything it cannot apply stops the run
    before it starts. The run raises no prompt the declared set did not
    predict and tells no seat it is at the keyboard: a prompt that

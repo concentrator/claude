@@ -2,7 +2,7 @@
 task: R080-T003
 type: mnt
 architecture-changing: true
-depends-on: R072-T002
+depends-on: R080-T002
 supervised: approved
 ---
 
@@ -22,23 +22,33 @@ planner's exit.
 
 - [ ] `companions/declarations.md § Supervisor bounds`: the
   `## Supervision` block declares `Supervisor: human | AI` beside the
-  bounds line - human is the user at the keyboard answering the
-  worker, AI a supervising session; the always-ask list reaches the
-  user under either. The last `Operator mode` wording goes;
-  `rules/claude-md.md` names the new line.
+  bounds line. Human: the user's own interactive session holds the
+  supervisor seat - it dispatches the seats, and the user answers,
+  clears and merges. AI: a supervising session dispatches and merges
+  within bounds, and the user gets the always-ask list only, which
+  reaches the user under either. `rules/claude-md.md § Agent toolchain
+  declaration` names the new line; this repository's `CLAUDE.md
+  § Supervision` declares `Supervisor: AI`.
 - [ ] `run.md` replaces `auto.md`, `supervise.md`, `docs.md` and the
   `/dev code` section of `SKILL.md`: resolve (scope - a task, a batch
   or an initiative - bounds, ledger), pre-flight, dispatch per item,
   question resolution, close, boundary verification, merge or ask,
-  checkpoint - one sequence, with the supervisor's steps marked as
-  the user's own under `Supervisor: human`. `feat.md`, `fix.md` and
-  `refactor.md` become the implementer's per-item loop the dispatch
-  selects by tag; `finish.md` is the close step `run.md` invokes, with
-  `/dev ship` kept for a landed branch. `SKILL.md § Surface` lists
-  `/dev run <scope>` in place of the four rows; `plan.md`,
-  `handoff.md`, `git-workflow.md`, `companions/toolchain.md` and
-  `companions/report-template.md` cite it where they cited any of
-  them.
+  checkpoint - one sequence, with the answer, clear and merge steps
+  marked as the user's own under `Supervisor: human`. `feat.md`,
+  `fix.md` and `refactor.md` become the implementer's per-item loop
+  the dispatch selects by tag; `finish.md` is the close step `run.md`
+  invokes and the report of a task-scoped run, with `/dev ship` kept
+  for a landed branch; under `Supervisor: AI` the merge-or-ask step
+  of `run.md` replaces the ship question of `finish.md § 2-3`, which
+  stays the human-mode surface. `SKILL.md § Surface` lists `/dev run
+  <scope>` in place of the four rows. Every file the acceptance grep
+  (`CLAUDE.md`, `rules/`, `skills/`, `scripts/`, `README.md`,
+  `DESIGN.md`) finds citing a retired runner or stamp cites `run.md`
+  instead - `plan.md`, `handoff.md`, `git-workflow.md`,
+  `companions/toolchain.md`, `companions/report-template.md`,
+  `companions/docs-adoption.md`, `companions/verification-policy.md`,
+  `companions/gitignore.template`, `scripts/install-dev.sh`,
+  `scripts/worker-workspace.sh` among them.
 - [ ] `branch-plan.md § Agentic execution`: `§ Stamps` retires and the
   `agentic:`/`supervised:` header lines with it; `§ Session boundary`
   becomes the seat lifecycle - a seat starts for one item and shuts
@@ -56,8 +66,8 @@ planner's exit.
   case.
 - [ ] `DESIGN.md § Planning model` and `§ Git & delivery model`: the
   seat model - one flow, supervisor declared per project, seats with
-  fixed inputs and a one-item lifetime; `§ Decisions` records why the
-  stamps went.
+  fixed inputs and a one-item lifetime; `§ Decisions` gains a bullet
+  on why the stamps went, no ADR file.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, mark the task in
   `tasks.md`, cleanup, commit.
