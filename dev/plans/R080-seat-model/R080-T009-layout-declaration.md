@@ -73,7 +73,7 @@ artifacts and docs paths are declared per project in `CLAUDE.md
 in every project"; the installer's and the worker clone's ignore lines
 follow the target's declared session tree.
 
-- [ ] `companions/declarations.md` defines the path declaration:
+- [x] `companions/declarations.md` defines the path declaration:
   a `## Declared paths` section after `§ Supervisor bounds` giving the
   `## Layout` block's exact form (the four lines above, in that order)
   and its place - after `## Supervision`, or directly after `## Agent
