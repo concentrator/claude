@@ -110,7 +110,7 @@ follow the target's declared session tree.
   sentence: "A `## Layout` section after it declares the docs home,
   the plans and session trees and the layout file
   (`skills/dev/companions/declarations.md § Declared paths`)."
-- [ ] `layout.md` is the canonical structure with no fixed root: its
+- [x] `layout.md` is the canonical structure with no fixed root: its
   intro and the `§ Artifacts layout`, `§ Docs`, `§ Creation policy` and
   `§ References` sentences name `<plans>`, `<docs>` and `<session>`
   where they named `dev/`, `docs/` and the repository root, the
