@@ -3,9 +3,6 @@
     "allow": [
       "Edit(//__PROJECT_DIR__/**)",
 
-      "Read(//__PROJECT_DIR__/dev/plans/**)",
-      "Edit(//__PROJECT_DIR__/dev/plans/**)",
-
       "Read(//__HOME__/.claude/skills/**)",
       "Read(//__HOME__/.claude/rules/**)",
       "Read(//__HOME__/.claude/settings.json)",

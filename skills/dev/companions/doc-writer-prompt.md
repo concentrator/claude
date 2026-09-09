@@ -22,10 +22,12 @@ Task tool (general-purpose):
     - Plan items: every item of `<path to the branch plan>`, all of
       them this branch's. Read them for the decisions they carry; a
       doc never cites a plan.
-    - Docs: `docs/` with its index `docs/index.md`, `README.md` and
-      the CHANGELOG, each where present - yours to write. `DESIGN.md`
-      where present is read only: architecture is the implementer's
-      (`branch-plan.md § Architecture-changing branches`).
+    - Docs: `<docs>`, the docs home the project's root `CLAUDE.md
+      § Layout` declares, with its index `<docs>/index.md`,
+      `README.md` and the CHANGELOG, each where present - yours to
+      write. `DESIGN.md` where present is read only: architecture is
+      the implementer's (`branch-plan.md § Architecture-changing
+      branches`).
     - <Re-dispatch only: the docs gate's WRONG and UNPROVEN verdicts,
       verbatim.>
 
@@ -37,13 +39,11 @@ Task tool (general-purpose):
     1. Read the diff and the plan items, then each doc the change
        touches.
     2. Bring every doc the branch ships to the shipped code: the
-       `docs/` doc and its `docs/index.md` line at the project's
+       `<docs>` doc and its `<docs>/index.md` line at the project's
        granularity (`layout.md § Docs`), the CHANGELOG
        `## [Unreleased]` entry under `release-routine: yes` in
-       `changelog.md`'s style, `README.md` for new public surface, and
-       `extended-docs: yes`
-       per the project's `CLAUDE.md § Conventions`. A doc the diff
-       leaves accurate stays untouched.
+       `changelog.md`'s style, and `README.md` for new public surface.
+       A doc the diff leaves accurate stays untouched.
     3. Write per `companions/documentation.md § Reference discipline`
        and `§ Content quality`, marking each `§ Parameters` row's
        provenance per `layout.md § Docs`. A claim the inputs cannot

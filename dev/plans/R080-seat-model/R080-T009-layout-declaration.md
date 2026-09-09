@@ -421,7 +421,7 @@ follow the target's declared session tree.
   stopping rule - two rounds, then judgment-level gaps go to the
   findings file - and a plan change should stay" reads "questions; a
   plan change should stay", rewrapped.
-- [ ] The companions and the reviewer agent name declared paths by
+- [x] The companions and the reviewer agent name declared paths by
   placeholder, seat prompts naming the declaration at the first use so
   a dispatched seat resolves it without `declarations.md`:
   `companions/documentation.md` (five sites), `doc-writer-prompt.md`
@@ -464,10 +464,11 @@ follow the target's declared session tree.
   Approach: `documentation.md`: line 6 "Feature docs (`docs/`)" reads
   "Feature docs (`<docs>`)"; lines 26 and 31 "(`docs/reports/`)" and
   "(`docs/references/`)" read "(`<docs>/reports/`)" and
-  "(`<docs>/references/`)"; line 131 "the author, for `docs/`,
-  `README.md` and the CHANGELOG" reads "for `<docs>`, `README.md` and
-  the CHANGELOG"; line 145 "`docs/` feature docs" reads "`<docs>`
-  feature docs". `doc-writer-prompt.md`: "- Docs: `docs/` with its
+  "(`<docs>/references/`)"; line 131 "for `docs/`, `README.md` and the
+  CHANGELOG" reads "for `<docs>`, `README.md` and the CHANGELOG", the
+  "never the author" the sentence turns on kept; line 145 "`docs/`
+  feature docs" reads "`<docs>` feature docs".
+  `doc-writer-prompt.md`: "- Docs: `docs/` with its
   index `docs/index.md`" reads "- Docs: `<docs>`, the docs home the
   project's root `CLAUDE.md § Layout` declares, with its index
   `<docs>/index.md`"; Job 2's "the `docs/` doc and its `docs/index.md`
@@ -491,7 +492,9 @@ follow the target's declared session tree.
   and `<session>` are gitignored too (`git check-ignore -q` on each)";
   the two `dev/` at lines 41 and 43 read "the declared trees";
   `§ What changes` gains "`<layout>` is gitignored with the rest of
-  `.claude/`". `agents/code-reviewer.md` lines 15, 48, 60.
+  `.claude/`". `agents/code-reviewer.md` lines 15 - where the plans
+  tree also names `CLAUDE.md § Layout`, the reviewer being a dispatched
+  seat (`run.md § Seats`) - 48 and 60.
 - [ ] The Tier-1 plan checks read the plans tree from the declaration
   (`§ Desired state` 9; the criterion's `scripts/ci/` grep):
   `check-plan-integrity.sh`, `check-archival.sh`, `check-accretion.sh`

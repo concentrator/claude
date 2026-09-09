@@ -3,7 +3,7 @@
 The global convention for every doc - feature docs, specs, rules, knowledge
 entries. Grounded in Diataxis (diataxis.fr). Prose style is `writing.md`
 (always loaded); this file governs typing, structure, and content. Feature
-docs (`docs/`) are its Reference application
+docs (`<docs>`) are its Reference application
 (`layout.md § Docs`).
 
 ## Diataxis typing
@@ -23,12 +23,12 @@ Procedures belong in a How-to; do not put steps in a Reference.
 Two further types live in their own subdirectories of the docs tree
 (`layout.md § Docs`):
 
-- **Reports** (`docs/reports/`): probe and test reports - executed
+- **Reports** (`<docs>/reports/`): probe and test reports - executed
   calls with their outputs, attached as evidence. The one docs
   location where datetimes and tenant or client ids are allowed.
   Feature docs link them plainly; a report is useful, never required -
   the doc itself states facts without proving them.
-- **Adapted references** (`docs/references/`): external or codebase
+- **Adapted references** (`<docs>/references/`): external or codebase
   material rewritten to project format, carrying exactly what the
   docs need; a source URL is allowed inside.
 
@@ -128,7 +128,7 @@ an Element.
 ## Verification gate
 
 No new or touched doc is complete until an **independent agent** - never
-the author, for `docs/`, `README.md` and the CHANGELOG the doc-writer
+the author, for `<docs>`, `README.md` and the CHANGELOG the doc-writer
 seat (`run.md § Seats`) -
 has verified the claims in scope against ground truth: the live system
 for observable facts, the authoritative source (source code, `--help`,
@@ -142,7 +142,7 @@ changed claims, checked against their sources by the close review
 (`branch-plan.md § Closing routine`; reviewer mandate:
 `agents/code-reviewer.md`; a batch-scoped run: the batch-close full-diff
 pass, `run.md § Batch close`);
-`docs/` feature docs, `README.md` and the CHANGELOG's
+`<docs>` feature docs, `README.md` and the CHANGELOG's
 `## [Unreleased]` entry (a released block is the release's record,
 `release.md` 6) - every claim, via the dedicated per-claim pass:
 
