@@ -302,7 +302,7 @@ follow the target's declared session tree.
   § 1."; step 4's `docs/index.md` reads `<docs>/index.md`; line 72
   "under `dev/plans/`" reads "under `<plans>`". `migrate.md` stays
   within 300 lines and 80 columns.
-- [ ] The mode files name declared paths by placeholder: `write-plan.md`
+- [x] The mode files name declared paths by placeholder: `write-plan.md`
   (intro, `§ Inputs`, steps 1 and 2), `branch-plan.md` (intro,
   `§ Commit cadence` 2 and `§ Batches`), `finish.md § 1`,
   `release.md` steps 1, 7 and 12, `templates.md` (the per-initiative

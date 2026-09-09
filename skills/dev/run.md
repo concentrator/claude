@@ -267,20 +267,19 @@ judgment calls, refused deliveries - never a parallel store.
 
 ## Ledger
 
-The runner's working memory is `dev/supervisor/<scope>.md` in the
-checkout, beside `dev/session/` and ignored like it, so an append
-dirties nothing. One file per scope; a resumed runner on the same host
-opens the same file. Opened at § Resolve (`mkdir -p` the directory,
-then the first entry), it takes one entry per event from § Dispatch
-per item through § Merge or ask, in `handoff.md § The file` format:
-`## <event> <UTC timestamp>` - dispatch, question, answer, prompt,
-verify, escalation, merge - the timestamp read from the clock
-(`date -u`) at write time, never composed or carried forward - over
-`- key: value` lines naming the ids, appended with a single
-`printf '%s\n' ... >>`, never `Edit`, which rewrites it. Working
-memory only: a decision still lands in the report's `## Supervisor
-decisions` (`companions/report-template.md`); the ledger is the
-evidence a re-brief reads, never a second home for a finding.
+The runner's working memory is `supervisor/<scope>.md` beside `<session>`
+(`companions/declarations.md § Declared paths`), ignored like it, so an append
+dirties nothing. One file per scope; a resumed runner on the same host opens
+the same file. Opened at § Resolve (`mkdir -p` the directory, then the first
+entry), it takes one entry per event from § Dispatch per item through § Merge
+or ask, in `handoff.md § The file` format: `## <event> <UTC timestamp>` -
+dispatch, question, answer, prompt, verify, escalation, merge - the timestamp
+read from the clock (`date -u`) at write time, never composed or carried
+forward - over `- key: value` lines naming the ids, appended with a single
+`printf '%s\n' ... >>`, never `Edit`, which rewrites it. Working memory only:
+a decision still lands in the report's `## Supervisor decisions`
+(`companions/report-template.md`); the ledger is the evidence a re-brief
+reads, never a second home for a finding.
 
 ## Monitor
 

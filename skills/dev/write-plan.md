@@ -1,6 +1,6 @@
 # Writing Plans
 
-Generate a branch plan (`dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`)
+Generate a branch plan (`<plans>/R<NNN>-<slug>/<task-id>-<slug>.md`)
 from a task in its initiative's `tasks.md`. Invoked within the detail
 round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` /
 `all`. `/dev plan <slug>` adjusts a plan that already exists, which is
@@ -12,7 +12,7 @@ The session's own, which settle step 2 - the slug, the branch prefix
 and the plan file:
 
 - Task ID (e.g. `R008-T001`; legacy `T-014`) from the parent R's
-  `dev/plans/R<NNN>-<slug>/tasks.md`
+  `<plans>/R<NNN>-<slug>/tasks.md`
 - Task tag: `[feat] | [fix] | [refactor] | [doc] | [test] | [mnt]`
 
 The planner's set is `companions/planner-prompt.md § Inputs`; restating
@@ -26,11 +26,11 @@ settled step 2. The session keeps steps 2, 6 and 7 and writes no plan
 text itself.
 
 1. **Resolve chain.** Read task line; walk back T → R. Read
-   `dev/plans/R<NNN>-<slug>/requirements.md` for acceptance criteria, and the
-   changed feature's `docs/` doc (if any) for its current behavior.
+   `<plans>/R<NNN>-<slug>/requirements.md` for acceptance criteria, and the
+   changed feature's `<docs>` doc (if any) for its current behavior.
 2. **Propose slug** (`git-workflow.md § Trunk` rules); confirm with
    user. The slug names both the plan branch and the plan file
-   `dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`, so it is settled and
+   `<plans>/R<NNN>-<slug>/<task-id>-<slug>.md`, so it is settled and
    the branch created before the dispatch, which names that file.
 3. **Decompose work** into commit-sized checkboxes. Each `[ ]` = one
    commit, ~2–5 minutes of focused work, written as its acceptance -
