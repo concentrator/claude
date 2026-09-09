@@ -25,7 +25,7 @@ branch size, and its report is ledgered. The seat's permission mode is
 the runner's, as every seat's is; its declared permission set is
 R080-T007's.
 
-- [ ] `companions/doc-writer-prompt.md` is the doc writer's dispatch
+- [x] `companions/doc-writer-prompt.md` is the doc writer's dispatch
   template, its input set the diff, the branch's plan items and the
   existing docs and nothing else (`requirements.md § Desired state` 3
   and 4). The diff is the branch's from the commit it was cut from
@@ -65,8 +65,9 @@ R080-T007's.
   doc writer and the gate's verifier at `fable`, under the capacity
   fallback that governs the planner and review rows.
   Approach: the file mirrors `companions/planner-prompt.md`: an intro
-  paragraph naming when the runner dispatches it (`run.md § Close` 3)
-  and the input set, then a fenced Task tool block with `## Inputs`
+  paragraph naming when the runner dispatches it (`run.md § Close`,
+  cited without the step number, which is item 2's to add) and the
+  input set, then a fenced Task tool block with `## Inputs`
   (Diff: `git diff <base> HEAD`, `<base>` filled by the runner as the
   spec reviewer's is; Plan items: every item of `<path>`, the branch's
   plan file; Docs: `docs/`, `docs/index.md`, `README.md`, the
@@ -85,7 +86,7 @@ R080-T007's.
   `## Report Format` (the statuses and fields above). `§ Models`: the
   row "Doc writers and the docs gate's verifier | Fable 5 (`fable`)"
   after the planner row.
-- [ ] `run.md` runs the doc writer once per branch as `§ Close` step 3,
+- [x] `run.md` runs the doc writer once per branch as `§ Close` step 3,
   after the approved fixes of step 2 have landed and before the
   mandatory final commit, so one pass sees all the branch's code
   (`requirements.md § Desired state` 3: after the implementer's code
@@ -133,9 +134,10 @@ R080-T007's.
   (full)` - the batch's one full local run; red → halt." The lines the
   step and the row add are returned by the two cuts and by rewrapping
   tight to 80 columns the blocks with slack: `§ Resolve` 1, the
-  `§ Pre-flight` `.claude/` bullet, `§ Dispatch per item` 2 and 4,
-  `§ Close` 1 and 2, `§ Ledger`'s paragraph.
-- [ ] `companions/supervisor-runbook.md` and `DESIGN.md` count the doc
+  `§ Pre-flight` `.claude/` bullet, `§ Dispatch per item` 2 and 4, and
+  `§ Close` 1, which land the file on 300 exactly; `§ Close` 2 and
+  `§ Ledger`'s paragraph keep their slack for a later item.
+- [x] `companions/supervisor-runbook.md` and `DESIGN.md` count the doc
   writer among the seats: `§ Modes by seat`'s dispatched-seat row names
   it, the run keeping one permission mode, the runner's
   (`requirements.md § Desired state` 8; the seat's tool set and allow
@@ -151,7 +153,7 @@ R080-T007's.
   planner, implementer and reviewer today -" reads "dispatches seats -
   planner, implementer, reviewer and doc writer -", one word more,
   under the 1000-word cap.
-- [ ] The implementer's dispatch names no doc target and no rule asks
+- [x] The implementer's dispatch names no doc target and no rule asks
   the implementer or its reviewer for docs (`requirements.md § Desired
   state` 3, last sentence; acceptance criterion 3):
   `companions/implementer-prompt.md` drops its docs step and the docs
@@ -178,7 +180,7 @@ R080-T007's.
   staying. `verification-policy.md § Mechanical commits` 1: the
   sentence from "Convention-mandated doc files" through "is not
   mechanical." drops; the condition's first sentence stays.
-- [ ] `branch-plan.md` re-points its docs rules to the seat and
+- [x] `branch-plan.md` re-points its docs rules to the seat and
   `companions/verification-policy.md § Close folding` keeps the pass on
   a folded branch: `§ Body`'s item definition no longer names the docs
   a commit touches but the decisions its docs will need, the doc
@@ -216,7 +218,9 @@ R080-T007's.
   `tasks.md` plus any release-plan entry, commit. (Batch members: the
   task mark rides the batch branch, § Batches.)"; "because the
   re-review and cleanup ahead of it" reads "because the cleanup ahead
-  of it"; "The commit includes the resolved findings file and the
+  of it", and the same sentence's "before them" reads "before it", the
+  plural having lost its antecedent with the re-review; "The commit
+  includes the resolved findings file and the
   reconciled doc." reads "The commit includes the resolved findings
   file." `§ Batches`: "The mandatory final commit and a green fast
   tier before merging into the batch branch hold regardless of size"
@@ -229,7 +233,7 @@ R080-T007's.
   final commit and the green gate hold for every branch" reads "the
   doc-writer pass and its gate (`run.md § Close` 3), the final commit
   and the green gate hold for every branch".
-- [ ] `layout.md § Docs` and `companions/documentation.md
+- [x] `layout.md § Docs` and `companions/documentation.md
   § Verification gate` name the doc writer as the author the gate is
   independent of (`requirements.md § Desired state` 3) and the runner
   as the verifier's dispatcher in a run.
@@ -244,7 +248,42 @@ R080-T007's.
   verifier is a subagent the session - in a run, the runner (`run.md
   § Close` 3) - dispatches without pausing to confirm". `layout.md`
   stays within 300 lines and the item adds no line over 80 columns.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] `companions/documentation.md § Verification gate` names the
+  clearing review of `README.md` and the CHANGELOG: the gate's
+  per-claim pass, the one the runner's verifier runs over every doc the
+  doc writer touched (`run.md § Close` 3). The close review (`run.md
+  § Close` 1) precedes the doc-writer pass and cannot clear a doc
+  written after it, and the gate is the seat's exit (`requirements.md
+  § Desired state` 3), so the two files take the pass the seat's other
+  docs take. The CHANGELOG's scope is its `## [Unreleased]` entry - the
+  doc writer's target (`branch-plan.md § Commit cadence` 2) and the
+  block `release.md` 6 freezes into a release's record, which the live
+  system no longer attests - and `README.md`'s is the doc, as a feature
+  doc's is: the pass covers the doc, never the diff.
+  `agents/code-reviewer.md`'s rules-class bullet follows, so a
+  batch-close full-diff pass (`run.md § Batch close`) leaves the two to
+  the gate instead of re-checking them as planning prose. Neither file
+  gains a line over 80 columns.
+  Approach: `documentation.md § Verification gate`, the class
+  sentence's second half: "`docs/` feature docs - every claim, via the
+  dedicated per-claim pass:" reads "`docs/` feature docs, `README.md`
+  and the CHANGELOG's `## [Unreleased]` entry (a released block is the
+  release's record, `release.md` 6) - every claim, via the dedicated
+  per-claim pass:"; after the bullets, "A feature doc's pass covers the
+  doc, never the diff:" reads "The per-claim pass covers the doc, or
+  for the CHANGELOG the entry, never the diff:", the sentence's second
+  half staying. `agents/code-reviewer.md`, the "Rules, skills, planning
+  prose" bullet: "`docs/` feature docs take the gate's dedicated
+  per-claim pass instead." reads "`docs/` feature docs, `README.md` and
+  the CHANGELOG's `## [Unreleased]` entry take the gate's dedicated
+  per-claim pass instead." The same paragraph's independence clause
+  widens with the class: "never the author, for `docs/` the doc-writer
+  seat (`run.md § Seats`)" reads "never the author, for `docs/`,
+  `README.md` and the CHANGELOG the doc-writer seat (`run.md
+  § Seats`)", the seat writing all three (`branch-plan.md § Commit
+  cadence` 2). Each edit replaces its own lines in place; no other line
+  rewraps.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup (stale/temp
   data), mark plan complete, mark the task `[x]` in `tasks.md`, commit -
   the template as item 5 leaves it, this branch retiring its docs

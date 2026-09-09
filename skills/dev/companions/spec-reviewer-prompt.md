@@ -50,7 +50,6 @@ Task tool (general-purpose):
 
     **Convention drift (rail-strength sensor):**
     - Does the commit message follow git-workflow.md § Commit messages?
-    - Were docs updated per project conventions where the commit item required it?
     - CLAUDE.md is in your context - check against it directly; flag drift even when the implementation is otherwise spec-compliant.
 
     **Acceptance unchanged:** `git diff <base> <sha> -- <plan path>`

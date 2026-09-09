@@ -22,11 +22,7 @@ evaluated from the plan-item text alone, before dispatch:
 1. **File set ≤ 2, explicitly named** - the item text names at most two
    files to touch (by path or filename). Unnamed, implied, or
    wildcard-described files do not count toward the limit and void the
-   classification. Convention-mandated doc files (e.g. a per-commit
-   `CHANGELOG.md` under `release-routine: yes`) are not exempt: the plan
-   item must name them like any other file, and they count toward the
-   ≤ 2 limit - a commit that also writes a CHANGELOG entry alongside two
-   code files is not mechanical.
+   classification.
 2. **Complete spec** - the item states a testable outcome and contains
    no unresolved design choices. A testable outcome means a reader can
    write a failing check before seeing the implementation. An unresolved
@@ -89,8 +85,9 @@ covers their diffs against their own plans (first review), not only
 cross-branch concerns.
 
 **Invariants** - unaffected, per `branch-plan.md § Agentic execution`:
-the final commit and the green gate hold for every branch; branches
-above the threshold keep the full per-branch review.
+the doc-writer pass and its gate (`run.md § Close` 3), the final commit
+and the green gate hold for every branch; branches above the threshold
+keep the full per-branch review.
 
 **Scope:** this rule applies to a batch-scoped run only; a task-scoped
 run closes in full (`skills/dev/branch-plan.md § Closing routine`).
@@ -165,6 +162,7 @@ it at its start.
 | Role | Model (dispatch value) |
 |---|---|
 | Planners (branch plans and plan changes) | Fable 5 (`fable`) |
+| Doc writers and the docs gate's verifier | Fable 5 (`fable`) |
 | Default implementers | Opus 4.8 (`opus`) |
 | Mechanical-commit implementers | Sonnet 4.6 (`sonnet`) |
 | Probes (live API probing work) | Opus 4.8 (`opus`) |

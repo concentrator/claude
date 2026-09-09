@@ -104,7 +104,8 @@ planning tree. Its
 per-feature docs (data model, interfaces, business rules, edge cases)
 sit between `DESIGN.md` (architecture) and the code (line-level), and
 are the Reference application of the global documentation framework
-(`companions/documentation.md`). The bar: from the doc
+(`companions/documentation.md`). Their author is the doc-writer seat, at
+each branch's close (`run.md § Seats`). The bar: from the doc
 and its references alone, a fresh agent composes a correct, working
 invocation with the full input set - if answering needs the source, the doc
 fails.

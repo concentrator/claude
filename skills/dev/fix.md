@@ -11,7 +11,6 @@ The implementer seat's loop for one bug-fix item, run per dispatch
    if non-obvious.
 3. **Fix** - minimal change to make the test pass.
 
-Finish every pass per `branch-plan.md § Commit cadence`. Docs delta: a
-fix that changes documented behavior updates `README.md`.
+Finish every pass per `branch-plan.md § Commit cadence`.
 
 Scope discoveries: `branch-plan.md § Scope discoveries`.
