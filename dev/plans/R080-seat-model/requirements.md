@@ -26,6 +26,11 @@ observed across this repo's runs and fp-remedy's:
 - **Two docs homes.** `dev/docs/` sits under the planning tree, so a
   reader of one is a reader of the other, and every rule that names the
   docs path names `dev/`.
+- **One docs path for every project.** The rules name `docs/` literally,
+  so a project whose docs sit elsewhere gets, with a tools refresh,
+  agents pointed at an empty tree beside the real one; and no project
+  has one file holding its own full, actual tree - `layout.md` shows
+  the canonical structure, not the repository at hand.
 
 ## Desired state
 
@@ -77,12 +82,14 @@ input set, started for one item and shut down at its exit.
    carry decisions and explanations for the doc writer's benefit, but
    the docs never cite it: the doc writer states the fact as the docs'
    own.
-5. **Docs are the repo's knowledge, at `docs/`.** One documentation
-   directory per project, top-level, internal and external audiences
-   under the same contract; `dev/docs/` moves there, and every rule
-   that names the old path follows. The R068 contract is unchanged:
-   docs reflect current state, carry no history or task sequence, and
-   link only external URLs or sibling docs. Durable facts land in docs
+5. **Docs are the repo's knowledge, at the declared home.** One
+   documentation directory per project, internal and external
+   audiences under the same contract, at the path the project's root
+   `CLAUDE.md` declares (point 9) - `docs/` for a new project, and a
+   project keeps the home it has; no rule names a docs path literally.
+   The R068 contract is unchanged: docs reflect current state, carry
+   no history or task sequence, and link only external URLs or
+   sibling docs. Durable facts land in docs
    directly at the branch that learns them.
 6. **One responsibilities table per supervisor mode.** For each seat -
    user, supervisor, planner, implementer, reviewer, doc writer - and
@@ -125,6 +132,17 @@ input set, started for one item and shut down at its exit.
    predict and tells no seat it is at the keyboard: a prompt that
    appears is a pre-flight defect, fixed in the declared set, never
    cleared by hand and moved past.
+9. **Key paths are declared in the root `CLAUDE.md`; the full tree is
+   the project's `LAYOUT.md`.** The project's root `CLAUDE.md` declares
+   its key paths - the docs home (retiring `extended-docs:`), the plans
+   tree, the session tree and the layout file - and `.claude/LAYOUT.md`
+   holds the repository's full, actual tree, project-owned and
+   untouched by a tools refresh. `skills/dev/layout.md` is the
+   canonical structure both are instantiated from: `start.md` seeds
+   them from it, `migrate.md` writes them from the inventory. A rule
+   resolves every path through the declaration and cites `LAYOUT.md`
+   for the tree; a literal `docs/` or `dev/` path in a rule is a
+   defect.
 
 ## Invariants
 
@@ -137,7 +155,7 @@ input set, started for one item and shut down at its exit.
   modes into; the implementer/supervisor seam, merge authority, and
   always-ask list are R072-T002's and are not re-decided here.
 - The R068 docs framework keeps its contract; this R moves its home
-  to `docs/`, not its rules.
+  to the declared path, not its rules.
 - The plan item a dispatch injects is whatever the planning home holds:
   a branch plan today, a ticket once R073 lands. Nothing here binds a
   seat to either.
@@ -154,9 +172,11 @@ the seat model (`companions/declarations.md` supervision declaration,
 prompt, a reviewer input list, `DESIGN.md`); the permission surface
 (`companions/auto-permissions.template.json`,
 `companions/toolchain.md § Permission carve-out`, a pre-flight script
-under `scripts/` with its test); the `dev/docs/` to `docs/` move with
-every rule that names the old path (`companions/documentation.md`,
-project overlays); consuming projects after their in-flight
+under `scripts/` with its test); the path declaration and `LAYOUT.md`
+(`layout.md`, `start.md`, `migrate.md`, `plan.md § Where things live`,
+`ci/check-plan-integrity.sh`, every rule naming `docs/` or `dev/`
+literally, `companions/documentation.md`, project overlays, this
+repository's own declaration and tree); consuming projects after their in-flight
 initiatives close.
 
 ## Acceptance criteria
@@ -184,10 +204,14 @@ initiatives close.
       pilot's ledger holding a planner entry for its plan and for any
       mid-branch acceptance change, while approach edits ride the
       implementer's commits.
-- [ ] Docs live at `docs/` and no rule, skill, or overlay names
-      `dev/docs/` as the docs home; the migration names it only as its
-      source. Verified by `git ls-files dev/docs` empty and grep across
-      `rules/`, `skills/`, `CLAUDE.md`.
+- [ ] Every docs, plans, session or layout path a rule, skill or CI
+      check names resolves through the project root `CLAUDE.md`
+      declaration, and `.claude/LAYOUT.md` holds the full tree, in this
+      repository and in every installed project; `dev/docs/` appears
+      only as a migration source, and a refresh of a project whose
+      docs sit there leaves its docs home and tree as declared.
+      Verified by grep across `rules/`, `skills/`, `scripts/ci/` for a
+      literal path, and by a refresh of one installed project.
 - [ ] Each seat's duties under each supervisor mode are in one table
       and every duty statement elsewhere cites it; verified by reading
       the table against § Desired state 6 and grepping the seat names
