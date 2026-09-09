@@ -22,7 +22,11 @@
       "Bash(git push -u origin release/*)",
       "Bash(git push -u origin mnt/*)",
       "Bash(git push -u origin test/*)",
-      "Bash(git push -u origin plan/*)"
+      "Bash(git push -u origin plan/*)",
+      "Read(//Users/skywalker/.claude/skills/**)",
+      "Read(//Users/skywalker/.claude/rules/**)",
+      "Read(//Users/skywalker/.claude/dev/plans/**)",
+      "Read(//Users/skywalker/.claude/settings.json)"
     ],
     "deny": [
       "Bash(git push origin main:*)",
