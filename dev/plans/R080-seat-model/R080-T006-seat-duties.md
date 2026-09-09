@@ -369,7 +369,7 @@ implementer's. The items below follow that seam.
   asked-of row, the acceptance-approval cell and the merges outside the
   declared bounds (the Merging row's "else user")." - one line, the
   file at 298 after the item above.
-- [ ] `companions/declarations.md § Supervisor bounds`' decision split
+- [x] `companions/declarations.md § Supervisor bounds`' decision split
   names acceptance text, not plan content, as design-level, the
   approach being the implementer's (`run.md § Seats`). Approach:
   "`DESIGN.md`-level structure, plan content." reads "`DESIGN.md`-level

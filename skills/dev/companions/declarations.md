@@ -74,7 +74,7 @@ delivery.
 The decision split: implementation-level is code shape, naming, test
 details, finding triage within the plan's stated behavior;
 design-level is component boundaries, schemas, API shapes,
-`DESIGN.md`-level structure, plan content. A call the split cannot
+`DESIGN.md`-level structure, acceptance text. A call the split cannot
 classify escalates.
 
 Always asked of the user, under any grant: releases; changes to
