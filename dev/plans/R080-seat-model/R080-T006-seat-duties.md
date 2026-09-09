@@ -374,7 +374,7 @@ implementer's. The items below follow that seam.
   approach being the implementer's (`run.md § Seats`). Approach:
   "`DESIGN.md`-level structure, plan content." reads "`DESIGN.md`-level
   structure, acceptance text."; no other word changes.
-- [ ] `companions/supervisor-runbook.md § Two variants`' "Who starts
+- [x] `companions/supervisor-runbook.md § Two variants`' "Who starts
   it" row carries no `(run.md § Seats)` cite, the table having no row
   for starting the runner. Approach: the row reads "| Who starts it |
   the user, in a terminal | the user, over ssh |"; the rest of the

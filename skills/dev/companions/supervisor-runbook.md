@@ -14,7 +14,7 @@ session is the runner's.
 |  | A: this machine | B: remote host |
 |---|---|---|
 | Runner runs on | the user's machine | the remote host, under `tmux` |
-| Who starts it | the user, in a terminal (`run.md § Seats`) | the user, over ssh (`run.md § Seats`) |
+| Who starts it | the user, in a terminal | the user, over ssh |
 | Where the user approves | the same machine | Remote Control (§ Remote Control), or `gcloud compute ssh --tunnel-through-iap` |
 | Runner's pane read by | the user | `tmux` (§ tmux recipes) |
 
