@@ -33,9 +33,11 @@ text itself.
    `dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`, so it is settled and
    the branch created before the dispatch, which names that file.
 3. **Decompose work** into commit-sized checkboxes. Each `[ ]` = one
-   commit, ~2–5 minutes of focused work, naming the change in one
-   sentence and the docs it touches (task right-sizing:
-   `plan.md § Levels`). Probe findings live in the R's `requirements.md`
+   commit, ~2–5 minutes of focused work, written as its acceptance -
+   what it delivers against the requirements, one or a few sentences -
+   then `Approach:` and the files, sentences and order
+   (`branch-plan.md § Body`; task right-sizing: `plan.md § Levels`).
+   Probe findings live in the R's `requirements.md`
    or `references/`. For a `[feat]` / `[fix]` task, each checkbox is one
    behavior slice carrying its test and its implementation together - the
    execution cadence commits a whole red→green→refactor pass as one
@@ -58,10 +60,13 @@ text itself.
    `companions/verification-policy.md § Comprehension check`, the
    reader given the plan, the docs and the code: each gap it reports
    re-dispatches a planner with the gap's text (`plan.md § Adjusting
-   existing plans`); a fix that adds a decision re-runs the read, a fix
-   that cites text already in the tree does not; when it reports none
-   the header records `cold-read: passed`. The session commits that
-   header edit on the branch the planner committed to - the record is
+   existing plans`); the reader tests the acceptance and the initial
+   approach, so an acceptance fix that adds a decision re-runs the read,
+   an acceptance fix that cites text already in the tree does not, and
+   an approach gap is fixed once and re-runs no read (`run.md § Seats`);
+   when it reports none the header records `cold-read: passed`. The
+   session commits that header edit on the branch the planner
+   committed to - the record is
    bookkeeping, not plan text. A plan whose `depends-on` names an
    unmerged task is read at its start instead, when its targets exist,
    and carries no record until then.
@@ -77,8 +82,8 @@ have found:
 - **Targets exist.** An item names only files and sections on the tree
   at branch start, or names the task that creates them.
 - **Decisions are homed.** Every choice an item implies is stated in it
-  or cited to the requirement point that makes it; nothing is left to
-  the implementer, and no item closes an open question without the
+  or cited to the requirement point that makes it; no decision is left
+  to the implementer, and no item closes an open question without the
   answer.
 - **Casualties are listed.** Grep the tree for every rule sentence the
   change invalidates and name each; "among others" is a gap.

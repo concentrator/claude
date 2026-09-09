@@ -19,10 +19,10 @@ seat's state is its report).
 **Header** - the first writer creates the file with
 `# <role> session <session_id>`; the hook, which knows no role, writes
 `# session <session_id>`, and the next hand-off rewrites that line with
-the role. Roles: `supervisor` (the runner session of `/dev run`;
-re-briefed from this note and its ledger, `dev/supervisor/<scope>.md`),
-`solo` (a session outside a run). A seat writes none: it ends at its
-item.
+the role. Roles: `supervisor` (the runner session of `/dev run`, its
+duties `run.md § Seats`; re-briefed from this note and its ledger,
+`dev/supervisor/<scope>.md`), `solo` (a session outside a run). A seat
+writes none: it ends at its item.
 
 **Blocks** - `## <kind> <UTC timestamp>` followed by `- key: value`
 lines, appended in time order; the last block of each kind is current.

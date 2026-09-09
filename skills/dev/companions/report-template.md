@@ -63,11 +63,11 @@ previously verified">
 
 ## Supervisor decisions
 
-<the queued calls the supervisor resolved and the plan changes the
-user approved (`run.md § Question resolution`), each with the chosen
-option and rationale, carried in at checkpoint; or "none" when there
-were none. The runner's ledger (`run.md § Ledger`) is this section's
-evidence, not its copy>
+<the queued calls the supervisor resolved and the acceptance changes
+the user approved (`run.md § Seats`, `§ Question resolution`), each
+with the chosen option and rationale, carried in at checkpoint; or
+"none" when there were none. The runner's ledger (`run.md § Ledger`)
+is this section's evidence, not its copy>
 
 ## Judgment calls for checkpoint
 

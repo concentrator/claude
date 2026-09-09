@@ -27,9 +27,9 @@ back, or when the host is provisioned for it
 
 ```
    user
-      |  Supervisor: human - approves plan changes, answers the
-      |                      always-ask escalations, clears, merges
-      |  Supervisor: AI    - approves plan changes, answers the
+      |  Supervisor: human - approves acceptance changes, answers the
+      |                      always-ask escalations, merges
+      |  Supervisor: AI    - approves acceptance changes, answers the
       |                      always-ask escalations only
       v
  +---------------------------------------------------+
@@ -52,11 +52,11 @@ The runner cycles until the scope is delivered:
 ```
   +--> dispatch the next item's seat
   |         |
-  |         +-- DONE?          -> spec check, mark, next ---------------------------+
-  |         |                                                                       |
-  |         +-- asking?        -> planner change, user approves, fresh implementer -+
+  |         +-- DONE?                -> spec check, mark, next ---------------------------+
+  |         |                                                                             |
+  |         +-- acceptance question? -> planner change, user approves, fresh implementer -+
   |         |
-  |         +-- last item?     -> close, checkpoint, push, MR/PR
+  |         +-- last item?           -> close, checkpoint, push, MR/PR
   |                                  |
   |                                  v
   |                         verify the boundary (CI + artifacts)
@@ -75,10 +75,10 @@ The runner cycles until the scope is delivered:
 2. **Runner** resolves the scope and the supervisor line, opens the
    ledger (`run.md § Ledger`), and dispatches seats one at a time
    (`run.md § Dispatch per item`).
-3. **Runner** routes a seat's question through `run.md § Question
-   resolution`: the item halts, the planner changes the plan, the
-   **user** approves the change under either supervisor mode, and a
-   fresh implementer follows.
+3. **Runner** routes an acceptance-level question through `run.md
+   § Question resolution` (`run.md § Seats`): the item halts, the
+   planner changes the plan, the **user** approves the change under
+   either supervisor mode, and a fresh implementer follows.
 4. **Runner** verifies the boundary from CI and artifacts
    (`run.md § Boundary verification`), then merges the green in-class
    MR/PR or asks the user (`run.md § Merge or ask`).
@@ -107,9 +107,10 @@ The runner cycles until the scope is delivered:
    its bounds while it believes it is inside.
 5. **Runner** runs the loop above: its seats are its subagents, and no
    second session exists on the host.
-6. **User** approves plan changes and answers the always-ask
-   escalations - over `SendMessage` from a connected session, in the
-   runner's pane, or from the phone via the Remote Control URL.
+6. **User** approves acceptance changes (`run.md § Seats`) and answers
+   the always-ask escalations - over `SendMessage` from a connected
+   session, in the runner's pane, or from the phone via the Remote
+   Control URL.
 
 ### tmux recipes
 
@@ -148,20 +149,16 @@ minutes mean a hold the patterns missed; inspect the pane directly
 instead of waiting longer.
 
 **Keystroke authority.** A single key sent to the runner's dialog is
-an answer; text typed into its input box is a dispatch. The user may
-send `1`, `2` or `Esc` to a runner stopped on a permission prompt:
-
-```
-tmux send-keys -t runner-<project> '1'; sleep 1; tmux send-keys -t runner-<project> Enter
-```
-
-once they have read the pane and the command being approved is inside
-the session's own bounds. They may not type instructions into the
-box: that makes the user a second dispatcher, and the transcript
-records no channel for any input, so nothing afterwards can tell the
-two apart. Nor is a keystroke the fix for a deadlock - a session
-stopped because nobody can answer it is a provisioning bug, and the
-key buys one turn while leaving the cause in place.
+an answer; text typed into its input box is a dispatch. No key goes
+past a permission prompt: the prompt is a pre-flight defect the runner
+halts on and reports, and the user fixes the declared set and re-runs
+(`run.md § Seats`; `run.md § Dispatch per item`). Nor may the user
+type instructions into the box: that makes the user a second
+dispatcher, and the transcript records no channel for any input, so
+nothing afterwards can tell the two apart. Nor is a keystroke the fix
+for a deadlock - a session stopped because nobody can answer it is a
+provisioning bug, and the key buys one turn while leaving the cause in
+place.
 
 ## Remote Control
 
@@ -192,8 +189,9 @@ has one permission mode, the runner's. Under `Supervisor: AI` that is
 pipelines - which prefix rules cannot match, and auto suspends Bash
 allow rules and routes every shell command to a classifier that judges
 what the command does, so the runner is never blocked. Under
-`Supervisor: human` the user is at the keyboard, so their session's
-mode governs and its prompts are theirs to clear.
+`Supervisor: human` the user's session's mode governs; under either
+mode a prompt the declared set did not predict is a pre-flight defect
+that nobody clears (`run.md § Seats`).
 
 Never `bypassPermissions`: it discards deny rules along with everything
 else. Never `dontAsk`: it denies rather than approves, so every prompt

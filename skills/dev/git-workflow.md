@@ -39,9 +39,10 @@ commands`).
     better next to the work that motivated it. A change reaching beyond
     the branch's own task - another R, the ROADMAP, requirements - still
     takes a `plan/` branch. Who may make the edit is unchanged: the
-    planner edits plan content, the implementer stays on checkboxes and
-    findings files (`branch-plan.md § Rails`), and an ambiguous item is
-    still a halt (`branch-plan.md § Scope discoveries`).
+    planner edits acceptance text, the implementer the approach, the
+    checkboxes and the findings files (`run.md § Seats`; `branch-plan.md
+    § Rails`), and an ambiguous item is still a halt (`branch-plan.md
+    § Scope discoveries`).
 - Slug: code / `doc` / `test` / `mnt` branches carry no id (it lives in
   the plan file + MR/PR); `plan/` branches reference the initiative -
   `plan/r<NNN>-<action>` (R-id, full three digits: `r014`, never `r12`;
@@ -56,8 +57,8 @@ commands`).
   `mnt`, and `batch` via its checkpoint accept - keeps review and merge
   as the user's call (asked by `finish.md § 3`), delegable to a
   supervisor within a project's declared bounds
-  (`companions/declarations.md § Supervisor bounds`). Auto-merge runs on a
-  green gate: native host auto-merge where available
+  (`companions/declarations.md § Supervisor bounds`; `run.md § Seats`).
+  Auto-merge runs on a green gate: native host auto-merge where available
   (`gh pr merge --auto`, GitLab merge-when-pipeline-succeeds); where the
   host can't gate (no branch protection), the user - or the supervisor
   within bounds - merges (§ Merge order).
