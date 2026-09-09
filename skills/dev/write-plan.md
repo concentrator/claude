@@ -67,13 +67,14 @@ text itself.
    later one only the items the planner changed and the lines the previous
    read's gaps named; and the second read is the last - an acceptance gap it
    still reports goes to `<task-id>-<slug>.findings.md` beside the plan
-   (created if absent) as a note the implementer reads, and no planner is
-   re-dispatched. A planner change made after the pass is recorded starts a
-   count of its own, scoped to what it changed. When the read reports none, or
-   at the second read, the header records `cold-read: passed`. The session
-   commits that header edit and the notes on the branch the planner committed
-   to - the record is bookkeeping, not plan text. A plan whose `depends-on`
-   names an unmerged task is read at its start instead, when its targets exist,
+   (created if absent) as a note the implementer reads, one bullet per gap
+   with its text, and no planner is re-dispatched. A planner change made
+   after the pass is recorded starts a count of its own, scoped to what it
+   changed. When the read reports none, or at the second read, the header
+   records `cold-read: passed`. The session commits that header edit and the
+   notes on the branch the planner committed to - the record is bookkeeping,
+   not plan text. A plan whose `depends-on` names an unmerged task is read at
+   its start instead, when its targets exist,
    and carries no record until then.
 7. **Confirm with user**, then deliver the committed plan via a
    short-lived plan MR/PR (`plan.md § Where plans live in git`).
