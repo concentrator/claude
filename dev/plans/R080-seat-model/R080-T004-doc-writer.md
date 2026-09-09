@@ -3,7 +3,6 @@ task: R080-T004
 type: mnt
 depends-on: R080-T003, R080-T006, R080-T008
 supervised: approved
-cold-read: passed
 ---
 
 # R080-T004: doc-writer seat
@@ -248,6 +247,36 @@ R080-T007's.
   verifier is a subagent the session - in a run, the runner (`run.md
   § Close` 3) - dispatches without pausing to confirm". `layout.md`
   stays within 300 lines and the item adds no line over 80 columns.
+- [ ] `companions/documentation.md § Verification gate` names the
+  clearing review of `README.md` and the CHANGELOG: the gate's
+  per-claim pass, the one the runner's verifier runs over every doc the
+  doc writer touched (`run.md § Close` 3). The close review (`run.md
+  § Close` 1) precedes the doc-writer pass and cannot clear a doc
+  written after it, and the gate is the seat's exit (`requirements.md
+  § Desired state` 3), so the two files take the pass the seat's other
+  docs take. The CHANGELOG's scope is its `## [Unreleased]` entry - the
+  doc writer's target (`branch-plan.md § Commit cadence` 2) and the
+  block `release.md` 6 freezes into a release's record, which the live
+  system no longer attests - and `README.md`'s is the doc, as a feature
+  doc's is: the pass covers the doc, never the diff.
+  `agents/code-reviewer.md`'s rules-class bullet follows, so a
+  batch-close full-diff pass (`run.md § Batch close`) leaves the two to
+  the gate instead of re-checking them as planning prose. Neither file
+  gains a line over 80 columns.
+  Approach: `documentation.md § Verification gate`, the class
+  sentence's second half: "`docs/` feature docs - every claim, via the
+  dedicated per-claim pass:" reads "`docs/` feature docs, `README.md`
+  and the CHANGELOG's `## [Unreleased]` entry (a released block is the
+  release's record, `release.md` 6) - every claim, via the dedicated
+  per-claim pass:"; after the bullets, "A feature doc's pass covers the
+  doc, never the diff:" reads "The per-claim pass covers the doc, or
+  for the CHANGELOG the entry, never the diff:", the sentence's second
+  half staying. `agents/code-reviewer.md`, the "Rules, skills, planning
+  prose" bullet: "`docs/` feature docs take the gate's dedicated
+  per-claim pass instead." reads "`docs/` feature docs, `README.md` and
+  the CHANGELOG's `## [Unreleased]` entry take the gate's dedicated
+  per-claim pass instead." Each edit replaces its own lines in place;
+  no other line rewraps.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup (stale/temp
   data), mark plan complete, mark the task `[x]` in `tasks.md`, commit -
