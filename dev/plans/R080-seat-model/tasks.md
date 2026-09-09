@@ -5,7 +5,8 @@ checkbox closes only when the task's branch merges. Task ids are
 composite (`R080-T###`, counter scoped to this initiative).
 
 Order matters: the docs move first so the doc writer has one target,
-the planner and the duties table after the flow, the permission
+the planner and the duties table after the flow, the layout
+declaration once the doc writer has its target, the permission
 pre-flight after every seat exists, the pilot last.
 
 ## Open
@@ -54,6 +55,16 @@ pre-flight after every seat exists, the pilot last.
   prompt drops doc targets; `branch-plan.md § Commit cadence`'s docs
   step re-points to the seat.
 
+- [ ] **R080-T009 [mnt]**: declared layout - the project root
+  `CLAUDE.md` declares its key paths (docs home, plans tree, session
+  tree, layout file), retiring `extended-docs:`; `.claude/LAYOUT.md`
+  holds the full, actual tree, seeded by `start.md` from `layout.md`'s
+  canonical structure and written by `migrate.md` from the inventory;
+  every rule, skill or CI check naming `docs/` or `dev/` literally
+  resolves it through the declaration; this repository's own
+  declaration and `LAYOUT.md`; the installer leaves both untouched.
+  Depends on R080-T004.
+
 - [ ] **R080-T007 [mnt]**: deterministic permission pre-flight - a
   declared permission set per seat (mode plus allow rules) derived
   from the toolchain declaration and the seat prompts; a pre-flight
@@ -65,7 +76,7 @@ pre-flight after every seat exists, the pilot last.
 - [ ] **R080-T005 [mnt]**: pilot task end to end under the seats -
   pre-flight, cold read, worker dispatch, doc-writer pass, supervised
   merge, no prompt outside the declared set; fixes from the pilot land
-  on the same branch. Depends on R080-T007.
+  on the same branch. Depends on R080-T007 and R080-T009.
 
 Backlog: R080-T001, T002 and T004 to T008 still carry a
 `supervised: approved` header line the plan header no longer admits
