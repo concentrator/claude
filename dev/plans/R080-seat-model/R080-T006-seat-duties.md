@@ -23,25 +23,29 @@ of restating it, and the skill files carry the two-layer item of
 an `Approach:` run-in, and the approach after the run-in is the
 implementer's. The items below follow that seam.
 
-- [ ] `run.md` gains `## Seats` holding the responsibilities table of
+- [x] `run.md` gains `## Seats` holding the responsibilities table of
   `requirements.md § Desired state` 6 for the seats in the tree, with
   the halt rule under it, and stays within 300 lines and 80 columns
   (table rows exempt). Approach: the heading goes after the intro
   paragraph and before `## Resolve`; the intro's seat paragraph ("A
   seat is a subagent of the runner..." through "trips the
   sensitive-file guard)") moves under the heading, above the table,
-  unchanged. The table has a row per duty and a column per mode; the
-  cells, `Supervisor: human` | `Supervisor: AI`:
-  writing and updating a plan - planner | planner (both layers at the
-  detail round; the acceptance on a re-dispatch, and an approach gap
-  once);
+  unchanged. The table has a row per duty and a column per mode; where
+  both modes hold the same seat the `Supervisor: AI` cell reads "the
+  same" and the row's qualification sits in the human cell, a
+  qualification split across the columns reading as mode-specific when
+  it is not. The cells, `Supervisor: human` | `Supervisor: AI`:
+  writing and updating a plan - planner: both layers at the detail
+  round, the acceptance on a re-dispatch, an approach gap once | the
+  same;
   dispatching - user | supervisor;
-  changing an item's approach - implementer | implementer (in the
-  commit that carries the code);
-  changing an item's acceptance - planner writes, user approves |
-  planner writes, user approves;
+  changing an item's approach - implementer, in the commit that
+  carries the code | the same;
+  changing an item's acceptance - planner writes, user approves | the
+  same;
   clearing a permission prompt - nobody: a prompt is a pre-flight
-  defect | the same (`requirements.md § Desired state` 8);
+  defect | the same, with no `requirements.md` cite in the cell: a
+  plan path does not resolve from `skills/dev/`;
   verifying the boundary - user | supervisor;
   merging - user | supervisor within the declared bounds, else user;
   being asked - user: pre-flight permission proposals, acceptance
@@ -53,9 +57,9 @@ implementer's. The items below follow that seam.
   run reaching a duty the table leaves unassigned halts and reports,
   never improvises; the reviewer holds no cell, the seat being the
   close review's `code-reviewer` dispatch and the spec reviewer of
-  `companions/spec-reviewer-prompt.md`. The section adds about 20
-  lines to a 281-line file; two cuts return at least six: the intro's
-  "Either mode routes questions through § Question resolution. The
+  `companions/spec-reviewer-prompt.md`. The section adds 22 lines to a
+  281-line file and two cuts return five: the intro's "Either mode
+  routes questions through § Question resolution. The
   session never implements: every code or doc edit is a seat's, and
   the runner's own edits are the plan bookkeeping and the closing
   commit." drops, the table's rows carrying it, and the stall

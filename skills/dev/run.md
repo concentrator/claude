@@ -6,11 +6,10 @@ project declares (`companions/declarations.md § Supervisor bounds`).
 The runner session holds that seat. Under `Supervisor: AI` it
 dispatches, verifies and merges within the declared bounds; under
 `Supervisor: human` the steps marked **user** below are the user's
-own. Either mode routes questions through § Question resolution. The
-session never implements: every code or doc edit is a seat's, and the
-runner's own edits are the plan bookkeeping and the closing commit.
-Rules: `branch-plan.md`. Host gates are never bypassed - no admin
+own. Rules: `branch-plan.md`. Host gates are never bypassed - no admin
 merges.
+
+## Seats
 
 A seat is a subagent of the runner, dispatched with the Task tool in
 the runner's checkout for one item, inheriting the runner's permission
@@ -19,6 +18,26 @@ the branch and the plan item carry over. Seats run one at a time, and
 the runner runs git only between dispatches. A seat touches plan and
 findings files only through Read/Edit/Write and never `.claude/`
 config (edit-class shell there trips the sensitive-file guard).
+
+Under `Supervisor: human` the user's own session is the supervisor, so the user
+holds every supervisor cell; under `Supervisor: AI` the runner is, and the user
+holds the asked-of row and the acceptance-approval cell.
+
+| Duty | `Supervisor: human` | `Supervisor: AI` |
+| --- | --- | --- |
+| Writing and updating a plan | planner: both layers at the detail round, the acceptance on a re-dispatch, an approach gap once | the same |
+| Dispatching | user | supervisor |
+| Changing an item's approach | implementer, in the commit that carries the code | the same |
+| Changing an item's acceptance | planner writes, user approves | the same |
+| Clearing a permission prompt | nobody: a prompt is a pre-flight defect | the same |
+| Verifying the boundary | user | supervisor |
+| Merging | user | supervisor within the declared bounds, else user |
+| Being asked | user: pre-flight permission proposals, acceptance changes, the always-ask escalations | the same |
+
+A run reaching a duty the table leaves unassigned halts and reports, never
+improvises. The reviewer holds no cell, the seat being the close review's
+`code-reviewer` dispatch (§ Close) and the spec reviewer of
+`companions/spec-reviewer-prompt.md`.
 
 ## Resolve
 
@@ -93,11 +112,9 @@ branch per plan - and per commit checkbox:
    cadence` 3); the runner confirms the mark landed before the spec
    check.
 
-A seat does stall on a permission prompt the declared set did not
-predict: Bash rules match a command prefix, and a compound command - a
-loop, a pipeline, a `case` - offers none to match. Under the runner's
-mode edits apply without a prompt; any other prompt halts the item and
-is reported as a pre-flight defect, never keyed past.
+A prompt the declared set did not predict - a compound command offers
+no prefix for a Bash rule to match - halts the item as a pre-flight
+defect, cleared by nobody (§ Seats, the prompt row).
 
 ## Question resolution
 
