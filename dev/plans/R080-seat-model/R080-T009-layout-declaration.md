@@ -3,6 +3,7 @@ task: R080-T009
 type: mnt
 architecture-changing: true
 depends-on: R080-T004
+cold-read: passed
 ---
 
 # R080-T009: declared layout
