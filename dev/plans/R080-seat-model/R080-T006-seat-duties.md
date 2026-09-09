@@ -379,7 +379,7 @@ implementer's. The items below follow that seam.
   for starting the runner. Approach: the row reads "| Who starts it |
   the user, in a terminal | the user, over ssh |"; the rest of the
   table and the file unchanged.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine` and `bash scripts/ci/run-all.sh` green, the task marked in
   `tasks.md`. Approach: the close review reads every site the items
   above name for its cite; then mark the task, cleanup, commit.
