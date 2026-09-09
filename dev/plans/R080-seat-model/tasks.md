@@ -42,8 +42,8 @@ pre-flight after every seat exists, the pilot last.
   other seat edits plan content. Depends on R080-T003.
 
 - [ ] **R080-T006 [mnt]**: seat responsibilities per mode - one table
-  in the flow file, a row per duty - plan, dispatch, answer, clear a
-  prompt, verify, merge, be asked - a column per supervisor mode and a
+  in the flow file, a row per duty - plan, dispatch, clear a prompt,
+  verify, merge, be asked - a column per supervisor mode and a
   seat in each cell; every duty statement in `skills/dev/` cites it; a duty
   the table leaves unassigned halts the run. Depends on R080-T003.
 
@@ -83,4 +83,6 @@ should stay within the files a reviewer named; `write-plan.md § Bulk
 mode` has parallel planners committing in one checkout, a race the
 session's single commit avoided; pre-existing cites `run.md
 § Archival`, `finish.md § 2-3` and `CLAUDE.md § Conventions` resolve to
-no heading; `DESIGN.md` sits at 998 of its 1000 words.
+no heading; `DESIGN.md` sits at 998 of its 1000 words. R080-T006's
+table covers the seats in the tree; R080-T004 adds the doc-writer row
+to `skills/dev/run.md § Seats` when it lands.
