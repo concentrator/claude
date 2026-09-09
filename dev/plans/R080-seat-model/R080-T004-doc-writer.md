@@ -137,7 +137,7 @@ R080-T007's.
   `§ Pre-flight` `.claude/` bullet, `§ Dispatch per item` 2 and 4, and
   `§ Close` 1, which land the file on 300 exactly; `§ Close` 2 and
   `§ Ledger`'s paragraph keep their slack for a later item.
-- [ ] `companions/supervisor-runbook.md` and `DESIGN.md` count the doc
+- [x] `companions/supervisor-runbook.md` and `DESIGN.md` count the doc
   writer among the seats: `§ Modes by seat`'s dispatched-seat row names
   it, the run keeping one permission mode, the runner's
   (`requirements.md § Desired state` 8; the seat's tool set and allow
