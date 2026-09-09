@@ -192,7 +192,7 @@ implementer's. The items below follow that seam.
   plan can absorb (§ Scope discoveries), or an implementer's
   acceptance-level NEEDS_CONTEXT". The file stays within 300 lines
   and 80 columns (table rows exempt).
-- [ ] `handoff.md` and `git-workflow.md § Trunk` cite `(run.md
+- [x] `handoff.md` and `git-workflow.md § Trunk` cite `(run.md
   § Seats)` at their seat duty sentences; `solo` stays, not being a
   seat. Approach: `handoff.md`'s roles sentence reads "`supervisor`
   (the runner session of `/dev run`, its duties `run.md § Seats`;
