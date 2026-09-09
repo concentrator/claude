@@ -31,8 +31,7 @@ Task tool (general-purpose):
       verbatim.>
 
     Nothing else is an input, and you have no NEEDS_CONTEXT: a fact
-    these three cannot settle is marked in the doc as unverified
-    (## Your Job, point 3), never asked.
+    these three cannot settle is never asked (## Your Job, point 3).
 
     ## Your Job
 
@@ -53,8 +52,8 @@ Task tool (general-purpose):
     4. On a re-dispatch, correct every WRONG verdict and resolve every
        UNPROVEN one - to a verified or sourced claim, else to the
        unverified mark.
-    5. Commit the docs as one commit on the branch (## Conventions).
-       Code, plans and config are not yours to touch.
+    5. Commit the docs as one commit on the branch (## Conventions);
+       code and plans are not yours to touch.
 
     ## Conventions
 
