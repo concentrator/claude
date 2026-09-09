@@ -163,7 +163,7 @@ follow the target's declared session tree.
   `docs/index.md` read `<docs>/reports/`, `<docs>/references/`,
   `<docs>/index.md`. `§ References`' "`docs/` below" reads "`<docs>`
   below". `§ Layout file` goes after `§ Docs` and before `§ ADRs`.
-- [ ] `plan.md § Where things live` says the paths are declared:
+- [x] `plan.md § Where things live` says the paths are declared:
   DEV artifacts live at the paths the project's root `CLAUDE.md
   § Layout` declares (`companions/declarations.md § Declared paths`) -
   `<plans>` (below), `<session>` (`handoff.md`), the docs tree
