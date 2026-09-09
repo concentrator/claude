@@ -233,7 +233,7 @@ R080-T007's.
   final commit and the green gate hold for every branch" reads "the
   doc-writer pass and its gate (`run.md § Close` 3), the final commit
   and the green gate hold for every branch".
-- [ ] `layout.md § Docs` and `companions/documentation.md
+- [x] `layout.md § Docs` and `companions/documentation.md
   § Verification gate` name the doc writer as the author the gate is
   independent of (`requirements.md § Desired state` 3) and the runner
   as the verifier's dispatcher in a run.
