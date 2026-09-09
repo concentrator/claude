@@ -25,7 +25,7 @@ branch size, and its report is ledgered. The seat's permission mode is
 the runner's, as every seat's is; its declared permission set is
 R080-T007's.
 
-- [ ] `companions/doc-writer-prompt.md` is the doc writer's dispatch
+- [x] `companions/doc-writer-prompt.md` is the doc writer's dispatch
   template, its input set the diff, the branch's plan items and the
   existing docs and nothing else (`requirements.md § Desired state` 3
   and 4). The diff is the branch's from the commit it was cut from
@@ -65,8 +65,9 @@ R080-T007's.
   doc writer and the gate's verifier at `fable`, under the capacity
   fallback that governs the planner and review rows.
   Approach: the file mirrors `companions/planner-prompt.md`: an intro
-  paragraph naming when the runner dispatches it (`run.md § Close` 3)
-  and the input set, then a fenced Task tool block with `## Inputs`
+  paragraph naming when the runner dispatches it (`run.md § Close`,
+  cited without the step number, which is item 2's to add) and the
+  input set, then a fenced Task tool block with `## Inputs`
   (Diff: `git diff <base> HEAD`, `<base>` filled by the runner as the
   spec reviewer's is; Plan items: every item of `<path>`, the branch's
   plan file; Docs: `docs/`, `docs/index.md`, `README.md`, the
