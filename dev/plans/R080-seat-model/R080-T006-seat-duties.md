@@ -281,30 +281,35 @@ implementer's. The items below follow that seam.
   the user's objection text, verbatim": left naming a blocker and a
   concern it would still invite approach-level text the seat no longer
   takes.
-- [ ] `write-plan.md` and `companions/verification-policy.md
+- [x] `write-plan.md` and `companions/verification-policy.md
   § Comprehension check` say the read tests the acceptance and the
   initial approach, and an approach gap is fixed once and re-runs no
   read. Approach: `write-plan.md` step 3's "naming the change in one
-  sentence and the docs it touches" reads "its acceptance - what it
-  delivers against the requirements, one or a few sentences - then
-  `Approach:` and the files, sentences and order (`branch-plan.md
-  § Body`)"; step 6's "a fix that adds a decision re-runs the read, a
-  fix that cites text already in the tree does not" reads "the reader
-  tests the acceptance and the initial approach; an acceptance fix
-  that adds a decision re-runs the read, an acceptance fix that cites
-  text already in the tree does not, and an approach gap is fixed
-  once and re-runs no read (`run.md § Seats`)"; `§ Readiness
-  checklist`'s "nothing is left to the implementer" reads "no decision
-  is left to the implementer". `verification-policy.md
-  § Comprehension check`: "and ask what it would build and what is
-  ambiguous or assumed" reads "and ask what it would build and what
-  is ambiguous or assumed in the acceptance and the initial
-  approach"; "a planner fixes it, the read re-runs per the rule of
-  `write-plan.md` step 6" reads "a planner fixes it: an acceptance
-  gap re-runs the read per `write-plan.md` step 6, an approach gap is
-  fixed once and re-runs no read, the approach being the
-  implementer's to change in flight (`run.md § Seats`)".
-  `write-plan.md` stays within 300 lines and 80 columns.
+  sentence and the docs it touches" reads "written as its acceptance -
+  what it delivers against the requirements, one or a few sentences -
+  then `Approach:` and the files, sentences and order"; the new cite
+  joins the step's existing parenthesis rather than opening a second
+  one beside it, so the pair reads "(`branch-plan.md § Body`; task
+  right-sizing: `plan.md § Levels`)". Step 6's "a fix that adds a
+  decision re-runs the read, a fix that cites text already in the tree
+  does not" reads "the reader tests the acceptance and the initial
+  approach, so an acceptance fix that adds a decision re-runs the read,
+  an acceptance fix that cites text already in the tree does not, and
+  an approach gap is fixed once and re-runs no read (`run.md
+  § Seats`)" - the "so" carrying the split from the clause that
+  explains it. `§ Readiness checklist`'s "nothing is left to the
+  implementer" reads "no decision is left to the implementer".
+  `verification-policy.md § Comprehension check`: "and ask what it
+  would build and what is ambiguous or assumed" reads "and ask what it
+  would build and what is ambiguous or assumed in the acceptance and
+  the initial approach"; "a planner fixes it, the read re-runs per the
+  rule of `write-plan.md` step 6" reads "a planner fixes it - an
+  acceptance gap re-runs the read per `write-plan.md` step 6, an
+  approach gap is fixed once and re-runs no read, the approach being
+  the implementer's to change in flight (`run.md § Seats`) -", the
+  dashes closing the split so the sentence's "and the header then
+  records" tail keeps its subject. `write-plan.md` stays within 300
+  lines and 80 columns.
 - [ ] `plan.md § Adjusting existing plans` and
   `companions/report-template.md § Supervisor decisions` name the
   acceptance-level change kinds and cite `(run.md § Seats)`.

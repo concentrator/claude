@@ -148,12 +148,15 @@ implemented by a cold-context agent, so test it on one before it is
 offered for approval: dispatch a fresh subagent with exactly the
 implementer's inputs - the plan, the docs and the code
 (`companions/implementer-prompt.md`), never the planning conversation -
-and ask what it would build and what is ambiguous or assumed. A
-question the inputs cannot answer is a plan gap, not a reader fault: a
-planner fixes it, the read re-runs per the rule of `write-plan.md`
-step 6, and the header then records `cold-read: passed`
-(`branch-plan.md § Header`). This catches `NEEDS_CONTEXT` halts before
-an implementer meets them, while the fix is cheap; nothing dispatches a
+and ask what it would build and what is ambiguous or assumed in the
+acceptance and the initial approach. A question the inputs cannot
+answer is a plan gap, not a reader fault: a planner fixes it - an
+acceptance gap re-runs the read per `write-plan.md` step 6, an approach
+gap is fixed once and re-runs no read, the approach being the
+implementer's to change in flight (`run.md § Seats`) - and the header
+then records `cold-read: passed` (`branch-plan.md § Header`). This
+catches `NEEDS_CONTEXT` halts before an implementer meets them, while
+the fix is cheap; nothing dispatches a
 plan without the record, and a plan chained on an unmerged task earns
 it at its start.
 
