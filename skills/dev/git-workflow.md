@@ -40,8 +40,9 @@ commands`).
     the branch's own task - another R, the ROADMAP, requirements - still
     takes a `plan/` branch. Who may make the edit is unchanged: the
     planner edits acceptance text, the implementer the approach, the
-    checkboxes and the findings files (`run.md § Seats`), and an
-    ambiguous item is still a halt (`branch-plan.md § Scope discoveries`).
+    checkboxes and the findings files (`run.md § Seats`; `branch-plan.md
+    § Rails`), and an ambiguous item is still a halt (`branch-plan.md
+    § Scope discoveries`).
 - Slug: code / `doc` / `test` / `mnt` branches carry no id (it lives in
   the plan file + MR/PR); `plan/` branches reference the initiative -
   `plan/r<NNN>-<action>` (R-id, full three digits: `r014`, never `r12`;
