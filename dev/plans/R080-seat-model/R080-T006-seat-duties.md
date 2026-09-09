@@ -327,25 +327,38 @@ implementer's. The items below follow that seam.
   section is where the report names the change kind. `plan.md` stays
   within 300 lines and 80 columns.
 - [ ] `run.md § Dispatch per item` 3 defines the spec reviewer's
-  `<base>`: the latest planner commit on the branch, else the commit
-  the branch was cut from, so a planner's approved acceptance change
-  (`§ Question resolution`; `requirements.md § Desired state` 7) is no
-  "Acceptance unchanged" finding; `companions/spec-reviewer-prompt.md`
-  names the base by that definition wherever it names it - the prose
-  intro and the `## Inputs` line. `run.md` stays within 300 lines and
-  80 columns (table rows exempt). Approach: `run.md` step 3 gains,
-  before "Reject → fix → recheck.": "Its `<base>` is the latest planner
-  commit on the branch, else the commit the branch was cut from, so an
-  approved acceptance change (§ Question resolution) is no finding." -
-  two lines, the file at 297. `spec-reviewer-prompt.md`: the `## Inputs`
-  bullet "Branch base: `<base>`, the commit the branch was cut from,
-  for the plan file's diff." reads "Branch base: `<base>`, the latest
-  planner commit on the branch, else the commit the branch was cut from
-  (`run.md § Dispatch per item` 3), for the plan file's diff."; the
-  intro's "the branch base and the diff" reads "the branch base
-  (`run.md § Dispatch per item` 3) and the diff", the paragraph
-  rewrapped. The "Acceptance unchanged" check keeps its command: the
-  base moves, the diff does not.
+  `<base>` as the planner commit the branch's latest ledgered answer
+  names, else the commit the branch was cut from, and `§ Question
+  resolution` says each answer is ledgered with the planner's commit:
+  the ledger already records every approved answer (`§ Ledger`), and
+  git alone cannot tell a planner commit from the runner's bookkeeping
+  commit, which also touches the plan file. A planner's approved
+  acceptance change (`requirements.md § Desired state` 7) is then no
+  "Acceptance unchanged" finding (`§ Desired state` 4).
+  `companions/spec-reviewer-prompt.md` names the base by that
+  definition wherever it names it - the prose intro and the `## Inputs`
+  line. `run.md` stays within 300 lines and 80 columns (table rows
+  exempt). Approach: `run.md` step 3: after "skipped per
+  `companions/verification-policy.md § Spec-check skip`." the step
+  reads "Its `<base>` is the planner commit the branch's latest
+  ledgered answer names (§ Question resolution), else the commit the
+  branch was cut from, so an approved acceptance change is no finding.
+  Reject → fix → recheck." - three lines where "Reject → fix →
+  recheck." held one, the file at 297. `§ Question resolution`'s
+  closing sentence "Each answer is ledgered (§ Ledger) and carried into
+  the report's `## Supervisor decisions` section at checkpoint." reads
+  "Each answer is ledgered with the planner's commit (§ Ledger) and
+  carried into the report's `## Supervisor decisions` section at
+  checkpoint.", its two lines rewrapped tight to 80 columns, adding
+  none. `spec-reviewer-prompt.md`: the `## Inputs` bullet "Branch base:
+  `<base>`, the commit the branch was cut from, for the plan file's
+  diff." reads "Branch base: `<base>`, the latest planner commit on the
+  branch, else the commit the branch was cut from (`run.md § Dispatch
+  per item` 3), for the plan file's diff."; the intro's "the branch
+  base and the diff" reads "the branch base (`run.md § Dispatch per
+  item` 3) and the diff", the paragraph rewrapped. The "Acceptance
+  unchanged" check keeps its command: the base moves, the diff does
+  not.
 - [ ] `run.md § Seats`' intro sentence gives the user, under
   `Supervisor: AI`, the merges outside the declared bounds beside the
   asked-of row and the acceptance-approval cell, matching the Merging
