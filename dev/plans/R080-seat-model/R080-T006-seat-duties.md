@@ -310,7 +310,7 @@ implementer's. The items below follow that seam.
   dashes closing the split so the sentence's "and the header then
   records" tail keeps its subject. `write-plan.md` stays within 300
   lines and 80 columns.
-- [ ] `plan.md § Adjusting existing plans` and
+- [x] `plan.md § Adjusting existing plans` and
   `companions/report-template.md § Supervisor decisions` name the
   acceptance-level change kinds and cite `(run.md § Seats)`.
   Approach: `plan.md`'s branch-plan bullet clause "commits added after
@@ -322,8 +322,11 @@ implementer's. The items below follow that seam.
   own commit with no planner (`run.md § Seats`)"; the bullet's
   "presents it for the user's approval" gains "(`run.md § Seats`)".
   `report-template.md`: "the plan changes the user approved" reads
-  "the acceptance changes the user approved". `plan.md` stays within
-  300 lines and 80 columns.
+  "the acceptance changes the user approved", and the sentence's
+  existing cite reads "(`run.md § Seats`, `§ Question resolution`)" -
+  the acceptance asks both files for the `§ Seats` cite, and this
+  section is where the report names the change kind. `plan.md` stays
+  within 300 lines and 80 columns.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` and `bash scripts/ci/run-all.sh` green, the task marked in
   `tasks.md`. Approach: the close review reads every site the items
