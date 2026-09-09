@@ -236,7 +236,13 @@ implementer's. The items below follow that seam.
   the seat's inputs: the implementer's input set is the plan, the docs
   and the code and nothing else (`run.md § Dispatch per item` 1,
   `§ Question resolution`), so naming a fourth there would contradict
-  both the runner and the template's own `## Inputs`.
+  both the runner and the template's own `## Inputs`. The same seam
+  reaches two more sections: `§ Code Organization`'s first bullet makes
+  the plan's file structure the approach's starting point, with files
+  split or added as the work needs and the change recorded in the
+  approach text, and `§ When You're in Over Your Head`'s first
+  escalation trigger drops its multiple-valid-approaches wording for a
+  way forward that changes what the item delivers.
   `spec-reviewer-prompt.md`: the `## Inputs` list gains "- Branch base:
   `<base>`, the commit the branch was cut from, for the plan file's
   diff." and the purpose line adds "and left the item's acceptance as

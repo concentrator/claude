@@ -63,9 +63,10 @@ Task tool (general-purpose):
 
     ## Code Organization
 
-    - Follow the file structure defined in the plan. If a file you're
-      creating grows beyond the plan's intent, stop and report
-      DONE_WITH_CONCERNS - don't split files on your own.
+    - The file structure in the plan is where the approach starts, not
+      a boundary: split a file that has outgrown its job, or add one
+      the work needs; say so in the item's approach text
+      (see ## Plan & Findings Files).
     - Don't restructure things outside your task; note concerns about
       large/tangled existing files in your report.
 
@@ -117,7 +118,8 @@ Task tool (general-purpose):
     no work. You will not be penalized for escalating.
 
     **STOP and escalate when:**
-    - The task requires architectural decisions with multiple valid approaches
+    - The only way forward changes what the item delivers, not just how
+      you deliver it
     - You need to understand code beyond what was provided and can't find clarity
     - You feel uncertain whether the item's acceptance can be met
     - The task involves restructuring existing code in ways the plan didn't anticipate
