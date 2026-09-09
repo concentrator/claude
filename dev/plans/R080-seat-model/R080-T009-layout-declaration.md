@@ -194,7 +194,7 @@ follow the target's declared session tree.
   "in `<docs>`". Each remaining path edits in place; `plan.md` is at
   241 lines and the placeholders are shorter than the paths they
   replace.
-- [ ] `start.md`, `migrate.md`, `companions/root-migration.md` and
+- [x] `start.md`, `migrate.md`, `companions/root-migration.md` and
   `companions/gitignore.template` write the declaration and the layout
   file (`§ Desired state` 9). `start.md § 3` writes `## Layout` with
   the four defaults directly after `## Agent toolchain` (the scaffold

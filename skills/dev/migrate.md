@@ -1,30 +1,32 @@
 # Migrating to DEV
 
 Bring an existing project under DEV. Always run § 1 Inventory, then
-route. DEV artifacts live at `dev/` (`plan.md § Where things live`);
-probe both `dev/` and the legacy `.claude/` locations before
-classifying:
+route. DEV artifacts live at the declared paths (`plan.md § Where
+things live`); probe `<plans>` - its default, absent a declaration -
+and the legacy `.claude/` locations before classifying:
 
 - **Legacy / non-canonical** - the artifacts tree deviates from
   `layout.md` (lowercase foundational files, `REQ-XXX`, flat
   `tasks.md`): canonicalize per `companions/legacy-migration.md`, then
   route as `.claude/`-layout.
 - **`.claude/`-layout** - anything canonical still under
-  `.claude/plans/` or `.claude/docs/`, whether or not `dev/` also
-  exists (a both-trees state is a partial migration; a `dev/`-side
-  destination that already exists is a collision `root-migration.md
-  § 1` reports): relocate onto `dev/` per
-  `companions/root-migration.md` (report the moves and rewrites,
-  apply on approval), then treat as Already-DEV. This class takes
-  precedence over Already-DEV.
-- **`dev/docs/`-layout** - plans already on `dev/` but docs still
-  under `dev/docs/`: relocate onto `docs/` per
-  `companions/root-migration.md` (the docs half of its move set), then
-  treat as Already-DEV. Takes precedence over Already-DEV.
-- **Fresh** - no artifacts anywhere: no `plans/` or `docs/` under
-  either `dev/` or `.claude/`. Reverse-engineer requirements +
-  design from code, then layer planning infrastructure (steps 2–9).
-- **Already-DEV** - canonical R-rooted `dev/plans/ROADMAP.md`: pre-TBD → TBD
+  `.claude/plans/` or `.claude/docs/`, whether or not `<plans>` also
+  exists (a both-trees state is a partial migration; a destination that
+  already exists is a collision `root-migration.md § 1` reports):
+  relocate onto `<plans>` per `companions/root-migration.md` (report
+  the moves and rewrites, apply on approval), then treat as
+  Already-DEV. This class takes precedence over Already-DEV.
+- **`dev/docs/`-layout** - plans already on `<plans>` but docs under
+  `dev/docs/` with no `Docs:` line: offer the move to `<docs>` per
+  `companions/root-migration.md` or declare `dev/docs/` as the home
+  kept (`companions/declarations.md § Declared paths`), the user's
+  call; the declaration is written either way. Then treat as
+  Already-DEV. Takes precedence over Already-DEV.
+- **Fresh** - no artifacts anywhere: nothing at `<plans>` or `<docs>`
+  and no `plans/` or `docs/` under `.claude/`. Reverse-engineer
+  requirements + design from code, then layer planning infrastructure
+  (steps 2–9).
+- **Already-DEV** - canonical R-rooted `<plans>/ROADMAP.md`: pre-TBD → TBD
   migration (`companions/tbd-migration.md`; approval-gated - the agent executes
   each approved step; host-side settings stay the user's); TBD-conformant →
   conformant, no changes. Either way, check the id/archival schema: a project on
@@ -37,16 +39,20 @@ classifying:
   shipped `.claude/scripts/ci/check-accretion.sh` (placed by `install-dev.sh
   --project`) - tune its `MARKERS` list, never rewrite the check.
 
-  **Stale root** - a project set up while the artifacts root was
-  configurable may still carry a `- DEV artifacts root:` line in
-  `CLAUDE.md`, `<root>` or "artifacts root" wording in its own docs.
-  Report each hit with its rewrite to `dev/...`; apply on approval.
+  **Stale declarations** - a project set up before the paths were
+  declared may carry a `- DEV artifacts root:` or `extended-docs:` line
+  in `CLAUDE.md`, or `<root>` and "artifacts root" wording in its own
+  docs. Report each hit with its rewrite - the root line to `- Plans:`
+  naming the plans tree under it, an `extended-docs:` path to `- Docs:`
+  as the home kept, a `docs/` beside it a collision
+  (`companions/root-migration.md § 1`); apply on approval.
 
 ## 1. Inventory
 
 Check existing: `CLAUDE.md`, `README.md`, `CHANGELOG.md`, language/stack,
-build/test/lint commands, CI config, open branches, `docs/`. Cross-check
-against `layout.md` and report gaps.
+build/test/lint commands, CI config, open branches, `<docs>`,
+`<layout>`, the `## Layout` block. Cross-check against `layout.md` and
+report gaps.
 
 `git check-ignore -q .claude` exits 0 → activate untracked mode for
 the rest of the migration (flag + deltas:
@@ -68,13 +74,16 @@ Write `.claude/DESIGN.md` (≤1000 words inline). User approves.
 ## 4. CLAUDE.md alignment
 
 Ensure project `CLAUDE.md` has `## Conventions` (release-routine,
-publish-external, extended-docs, and a `docs/index.md` pointer if
-the docs layer is used) + stack, base branch, and an `## Agent
-toolchain` section (VCS host + build/test/lint/change-request/
-state-check commands - `companions/declarations.md`); backfill it if
-absent. Propose deletion of any
-restated global rules. Keep it within the `rules/claude-md.md` limits
-(§ Content, § Size and structure).
+publish-external, and a `<docs>/index.md` pointer if the docs layer is
+used) + stack, base branch, an `## Agent toolchain` section (VCS host +
+build/test/lint/change-request/state-check commands -
+`companions/declarations.md`), and a `## Layout` section after
+`## Supervision` where present and after `## Agent toolchain`
+otherwise, backfilled from the inventory (`companions/declarations.md
+§ Declared paths`); backfill any that are absent, and write `<layout>`
+from `git ls-files` (`layout.md § Layout file`). Propose deletion of
+any restated global rules. Keep it within the `rules/claude-md.md`
+limits (§ Content, § Size and structure).
 
 ## 5. Quality infrastructure
 
@@ -90,7 +99,7 @@ contributors.
 
 ## 6. Backfill plans
 
-Create `dev/plans/` with `ROADMAP.md` (per-R `tasks.md`, created
+Create `<plans>` with `ROADMAP.md` (per-R `tasks.md`, created
 lazily). Ask about ongoing work → initiatives (R<NNN>) and open tasks
 (composite ids, `plan.md § ID format`) in their R's `tasks.md`.
 Known bugs or tech debt → R stubs per `plan.md
@@ -98,7 +107,7 @@ Known bugs or tech debt → R stubs per `plan.md
 
 ## 7. Docs adoption
 
-If the project keeps `docs/` feature docs (`layout.md § Docs`), run
+If the project keeps `<docs>` feature docs (`layout.md § Docs`), run
 the docs-adoption procedure (`companions/docs-adoption.md`) - audit, build,
 and workflow correction - to bring them onto the doc-first convention.
 
