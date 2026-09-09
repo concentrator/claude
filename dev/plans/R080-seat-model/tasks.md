@@ -47,7 +47,7 @@ pre-flight after every seat exists, the pilot last.
   seat in each cell; every duty statement in `skills/dev/` cites it; a duty
   the table leaves unassigned halts the run. Depends on R080-T003.
 
-- [ ] **R080-T004 [mnt]**: doc-writer seat - a dispatched agent that
+- [x] **R080-T004 [mnt]**: doc-writer seat - a dispatched agent that
   writes `docs/` on the worker's branch from the diff, the plan item,
   and the existing docs, exiting through
   `companions/documentation.md § Verification gate`; the implementer
@@ -104,6 +104,8 @@ are all quoted-wording gets one implementer walking them in order with
 one spec check at the end (`run.md § Dispatch per item`; design
 change); the reader's dispatch says that only acceptance-level
 findings are gaps and approach findings go to the implementers as
-notes (`write-plan.md` step 6). R080-T006's
-table covers the seats in the tree; R080-T004 adds the doc-writer row
-to `skills/dev/run.md § Seats` when it lands.
+notes (`write-plan.md` step 6). The release
+routine (`skills/dev/release.md` step 3) hands the `[Unreleased]`
+CHANGELOG entry to the code reviewer, whose rubric routes it to the
+docs gate (`agents/code-reviewer.md`), and no doc writer runs in a
+release.

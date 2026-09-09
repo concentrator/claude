@@ -283,7 +283,7 @@ R080-T007's.
   § Seats`)", the seat writing all three (`branch-plan.md § Commit
   cadence` 2). Each edit replaces its own lines in place; no other line
   rewraps.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup (stale/temp
   data), mark plan complete, mark the task `[x]` in `tasks.md`, commit -
   the template as item 5 leaves it, this branch retiring its docs
