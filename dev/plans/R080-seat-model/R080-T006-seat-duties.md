@@ -352,13 +352,13 @@ implementer's. The items below follow that seam.
   checkpoint.", its two lines rewrapped tight to 80 columns, adding
   none. `spec-reviewer-prompt.md`: the `## Inputs` bullet "Branch base:
   `<base>`, the commit the branch was cut from, for the plan file's
-  diff." reads "Branch base: `<base>`, the latest planner commit on the
-  branch, else the commit the branch was cut from (`run.md § Dispatch
-  per item` 3), for the plan file's diff."; the intro's "the branch
-  base and the diff" reads "the branch base (`run.md § Dispatch per
-  item` 3) and the diff", the paragraph rewrapped. The "Acceptance
-  unchanged" check keeps its command: the base moves, the diff does
-  not.
+  diff." reads "Branch base: `<base>`, the planner commit the branch's
+  latest ledgered answer names, else the commit the branch was cut from
+  (`run.md § Dispatch per item` 3), for the plan file's diff."; the
+  intro's "the branch base and the diff" reads "the branch base (`run.md
+  § Dispatch per item` 3) and the diff", the paragraph rewrapped. The
+  "Acceptance unchanged" check keeps its command: the base moves, the
+  diff does not.
 - [ ] `run.md § Seats`' intro sentence gives the user, under
   `Supervisor: AI`, the merges outside the declared bounds beside the
   asked-of row and the acceptance-approval cell, matching the Merging
