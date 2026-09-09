@@ -68,7 +68,10 @@ input set, started for one item and shut down at its exit.
    the code, and the initiative's other plans. The implementer: the
    task's plan, the docs, and the code. The reviewer: the same plan
    plus the task's requirements, which are the acceptance criteria the
-   initiative holds for it, and the diff; its list lives in
+   initiative holds for it, and the diff; it checks the diff against
+   the item's acceptance and the criteria, and that the item's
+   acceptance text is unchanged from the branch base (a `git diff` of
+   the plan file); its list lives in
    `companions/spec-reviewer-prompt.md`. The doc writer:
    the diff, the plan item, and the existing docs. The plan item may
    carry decisions and explanations for the doc writer's benefit, but
@@ -84,18 +87,32 @@ input set, started for one item and shut down at its exit.
 6. **One responsibilities table per supervisor mode.** For each seat -
    user, supervisor, planner, implementer, reviewer, doc writer - and
    each mode, `Supervisor: human` and `Supervisor: AI`, one table says
-   who writes and updates a plan, who dispatches, who answers a seat's
-   question, who clears a permission prompt, who verifies the
-   boundary, who merges, and who is asked. Every rule that assigns a
+   who writes and updates a plan, who dispatches, who changes an
+   item's approach, who changes an item's acceptance, who clears a
+   permission prompt, who verifies the boundary, who merges, and who
+   is asked. Every rule that assigns a
    seat a duty cites the table; a duty the table does not assign is
    nobody's, and a run that reaches one halts rather than improvising.
-7. **Plans come from a planner seat.** The planner writes and updates
-   branch plans and nothing else: dispatched at the detail round once
-   per task, and re-dispatched when a worker's blocker or a cold-read
-   gap needs a plan changed, with the worker paused until the read
-   passes again. No other seat edits plan content; the implementer
-   marks checkboxes and the reviewer reads. The user approves what the
-   planner wrote, under either supervisor mode.
+7. **Plans come from a planner seat; an item has two layers.** The
+   *acceptance* - what the item must deliver against the requirements -
+   is the planner's text: the item's opening sentence or sentences up
+   to an `Approach:` run-in. The *approach* - which files, which
+   sentences, which order - is everything after the run-in and is the
+   implementer's: the implementer may change it while working,
+   committing the plan edit with the code. The planner writes branch
+   plans and nothing else: dispatched at the detail round once per
+   task, writing both layers of every item, and re-dispatched when an
+   acceptance-level question - one whose answer changes an item's
+   acceptance - or a cold-read gap needs the plan changed; the
+   question halts the item, the user approves the planner's change
+   under either supervisor mode, and a fresh implementer follows. An
+   approach-level question costs no seat and no approval: the
+   implementer resolves it in the approach text and its commit. The
+   cold read tests the acceptance and the initial approach on a cold
+   agent; an approach gap it reports is fixed by the planner once and
+   never re-runs the read. No other seat edits acceptance text; the
+   implementer marks checkboxes and keeps the approach, and the
+   reviewer reads.
 8. **Permissions are declared, validated and applied before the run.**
    Each seat has a declared permission set: its tool set and the allow
    rules its commands need, derived from the toolchain declaration and
