@@ -25,20 +25,23 @@ the runner's, as every seat's is; its declared permission set is
 R080-T007's.
 
 - [ ] `companions/doc-writer-prompt.md` is the doc writer's dispatch
-  template, its input set the diff, the plan and the existing docs and
-  nothing else (`requirements.md § Desired state` 3 and 4). The diff is
-  the branch's from the commit it was cut from (`run.md § Dispatch per
-  item` 3's second base; the planner-commit base there is for the plan
-  file's acceptance diff and never the doc writer's), so in a
-  batch-scoped run no other member's work reaches the seat. The plan is
-  the whole plan file, every item being the branch's, read for its
-  decisions and never cited in a doc (`§ Desired state` 4). The docs
-  are `docs/` with its index, `README.md` and the CHANGELOG, the seat's
-  to write, and `DESIGN.md` where present, read only - architecture
-  stays the implementer's (`branch-plan.md § Architecture-changing
-  branches`). A re-dispatch adds the gate's WRONG and UNPROVEN
-  verdicts, verbatim, as the planner's adds the gap's text
-  (`companions/planner-prompt.md § Inputs`). The job: bring every doc
+  template, its input set the diff, the branch's plan items and the
+  existing docs and nothing else (`requirements.md § Desired state` 3
+  and 4). The diff is the branch's from the commit it was cut from
+  (`run.md § Dispatch per item` 3's second base; the planner-commit
+  base there is for the plan file's acceptance diff and never the doc
+  writer's), so in a batch-scoped run no other member's work reaches
+  the seat. The plan input is "the plan item" of `§ Desired state` 3
+  and 4: the branch's plan items, the plan file being where they live
+  and every item of it the branch's, so the prompt's `## Inputs` names
+  the plan items and reads them from the plan file; they are read for
+  their decisions and never cited in a doc (`§ Desired state` 4). The
+  docs are `docs/` with its index, `README.md` and the CHANGELOG, the
+  seat's to write, and `DESIGN.md` where present, read only -
+  architecture stays the implementer's (`branch-plan.md
+  § Architecture-changing branches`). A re-dispatch adds the gate's
+  WRONG and UNPROVEN verdicts, verbatim, as the planner's adds the gap's
+  text (`companions/planner-prompt.md § Inputs`). The job: bring every doc
   the branch ships to the shipped code under
   `companions/documentation.md` and `layout.md § Docs` - the `docs/`
   doc and its index line per the project's granularity, the CHANGELOG
@@ -64,9 +67,10 @@ R080-T007's.
   paragraph naming when the runner dispatches it (`run.md § Close` 3)
   and the input set, then a fenced Task tool block with `## Inputs`
   (Diff: `git diff <base> HEAD`, `<base>` filled by the runner as the
-  spec reviewer's is; Plan: `<path>`; Docs: `docs/`, `docs/index.md`,
-  `README.md`, the CHANGELOG, `DESIGN.md` read only, each where
-  present; the re-dispatch bullet; "Nothing else is an input" with the
+  spec reviewer's is; Plan items: every item of `<path>`, the branch's
+  plan file; Docs: `docs/`, `docs/index.md`, `README.md`, the
+  CHANGELOG, `DESIGN.md` read only, each where present; the
+  re-dispatch bullet; "Nothing else is an input" with the
   implementer's report and transcript named as never reaching the
   seat), `## Your Job` (read the diff and the plan, then each doc the
   change touches; write per `companions/documentation.md § Reference
@@ -238,7 +242,7 @@ R080-T007's.
   the session dispatches without pausing to confirm" reads "The
   verifier is a subagent the session - in a run, the runner (`run.md
   § Close` 3) - dispatches without pausing to confirm". `layout.md`
-  stays within 300 lines and 80 columns.
+  stays within 300 lines and the item adds no line over 80 columns.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup (stale/temp
   data), mark plan complete, mark the task `[x]` in `tasks.md`, commit -
