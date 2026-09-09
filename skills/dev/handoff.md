@@ -33,13 +33,19 @@ Kinds: `tree` (the hook's) and `hand-off` (this note).
 Append one `hand-off` block with these six keys, each one line;
 `none` when empty:
 
-    ## hand-off 2026-08-29T10:15:00Z
+    ## hand-off 2026-08-29T10:15:43Z
     - done: R063-T003 merged (#416); R040-T021 planned (#417)
     - next: /dev run R040-T019, item 3 (handoff.md)
     - branch: feat/precompact-state, 2 commits ahead of main
     - open: none
     - rulings: plan/ merges on green without a second ask; keep the 405 note
     - notes: pre-push runs the full suite; the fix needed the index rebuilt
+
+The timestamp is read from the clock -
+`date -u +%Y-%m-%dT%H:%M:%SZ` - never composed. A composed stamp drifts
+forward, so the note dates later than `tree` blocks the hook wrote
+after it, and a re-brief comparing the two takes the older record as
+current; seconds of `00` are the signature.
 
 `done` and `next` name work by durable ids (`rules/writing-artifacts.md § Name
 things by their durable id`); `open` lists MR/PR numbers awaiting a decision;
