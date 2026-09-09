@@ -252,7 +252,7 @@ implementer's. The items below follow that seam.
   to the `Approach:` run-in. A changed approach is the implementer's
   and no finding; a changed acceptance is an issue (`run.md
   § Seats`)." The runner fills `<base>` as it fills `<sha>`.
-- [ ] `companions/planner-prompt.md` writes each item with the
+- [x] `companions/planner-prompt.md` writes each item with the
   `Approach:` seam, takes re-dispatch for acceptance-level questions
   and cold-read gaps, and fixes an approach gap once. Approach: the
   opening paragraph's "whenever a blocker, an implementer's
@@ -275,7 +275,12 @@ implementer's. The items below follow that seam.
   `## Exit`'s "a gap
   re-dispatches a planner with the gap's text" reads "an acceptance
   gap re-dispatches a planner with the gap's text and re-runs the
-  read, an approach gap once with no second read".
+  read, an approach gap once with no second read". `## Inputs`' own
+  re-dispatch bullet lists the same triggers as the opening paragraph,
+  so it reads "the acceptance-level question's, the cold-read gap's or
+  the user's objection text, verbatim": left naming a blocker and a
+  concern it would still invite approach-level text the seat no longer
+  takes.
 - [ ] `write-plan.md` and `companions/verification-policy.md
   § Comprehension check` say the read tests the acceptance and the
   initial approach, and an approach gap is fixed once and re-runs no
