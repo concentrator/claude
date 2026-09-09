@@ -42,8 +42,8 @@ pre-flight after every seat exists, the pilot last.
   other seat edits plan content. Depends on R080-T003.
 
 - [ ] **R080-T006 [mnt]**: seat responsibilities per mode - one table
-  in the flow file, a row per duty - plan, dispatch, answer, clear a
-  prompt, verify, merge, be asked - a column per supervisor mode and a
+  in the flow file, a row per duty - plan, dispatch, clear a prompt,
+  verify, merge, be asked - a column per supervisor mode and a
   seat in each cell; every duty statement in `skills/dev/` cites it; a duty
   the table leaves unassigned halts the run. Depends on R080-T003.
 

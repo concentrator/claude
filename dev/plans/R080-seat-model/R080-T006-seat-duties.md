@@ -24,16 +24,17 @@ an `Approach:` run-in, and the approach after the run-in is the
 implementer's. The items below follow that seam.
 
 - [ ] `run.md` gains `## Seats` holding the responsibilities table of
-  `requirements.md § Desired state` 6 for the five seats in the tree,
-  with the halt rule under it, and stays within 300 lines and 80
-  columns (table rows exempt). Approach: the heading goes after the
-  intro paragraph and before `## Resolve`; the intro's seat paragraph
-  ("A seat is a subagent of the runner..." through "trips the
+  `requirements.md § Desired state` 6 for the seats in the tree, with
+  the halt rule under it, and stays within 300 lines and 80 columns
+  (table rows exempt). Approach: the heading goes after the intro
+  paragraph and before `## Resolve`; the intro's seat paragraph ("A
+  seat is a subagent of the runner..." through "trips the
   sensitive-file guard)") moves under the heading, above the table,
   unchanged. The table has a row per duty and a column per mode; the
   cells, `Supervisor: human` | `Supervisor: AI`:
-  writing and updating a plan - planner | planner (both layers of
-  every item at the detail round, the acceptance on a re-dispatch);
+  writing and updating a plan - planner | planner (both layers at the
+  detail round; the acceptance on a re-dispatch, and an approach gap
+  once);
   dispatching - user | supervisor;
   changing an item's approach - implementer | implementer (in the
   commit that carries the code);
@@ -43,16 +44,23 @@ implementer's. The items below follow that seam.
   defect | the same (`requirements.md § Desired state` 8);
   verifying the boundary - user | supervisor;
   merging - user | supervisor within the declared bounds, else user;
-  being asked - user | user.
+  being asked - user: pre-flight permission proposals, acceptance
+  changes, the always-ask escalations | the same.
   One sentence above the table: under `Supervisor: human` the user's
   own session is the supervisor, so the user holds every supervisor
   cell; under `Supervisor: AI` the runner is, and the user holds the
   asked-of row and the acceptance-approval cell. Under the table: a
   run reaching a duty the table leaves unassigned halts and reports,
-  never improvises; the reviewer seat is the close review's
-  `code-reviewer` dispatch and the spec reviewer of
-  `companions/spec-reviewer-prompt.md`. The section adds about 17
-  lines to a 281-line file; the next item returns three.
+  never improvises; the reviewer holds no cell, the seat being the
+  close review's `code-reviewer` dispatch and the spec reviewer of
+  `companions/spec-reviewer-prompt.md`. The section adds about 20
+  lines to a 281-line file; two cuts return at least six: the intro's
+  "Either mode routes questions through § Question resolution. The
+  session never implements: every code or doc edit is a seat's, and
+  the runner's own edits are the plan bookkeeping and the closing
+  commit." drops, the table's rows carrying it, and the stall
+  paragraph closing `§ Dispatch per item` shrinks to the next item's
+  one sentence.
 - [ ] `run.md § Question resolution` routes acceptance-level questions
   only - those whose answer changes an item's acceptance - to the
   planner, and says an approach-level question is the implementer's,
@@ -67,19 +75,20 @@ implementer's. The items below follow that seam.
   `companions/planner-prompt.md`) with that text, on the item's own
   branch (`git-workflow.md § Trunk`)." Its "a change that only cites
   text already in the tree keeps the record and needs no commit"
-  reads "a change that only cites text already in the tree, or an
-  implementer's approach edit, keeps the record". The second
+  reads "a change that only cites text already in the tree keeps the
+  record, and an implementer's approach edit rides the code's
+  commit". The second
   paragraph opens "Every acceptance-level answer takes that route; an
   approach-level question - which files, which sentences, which
   order - costs no seat and no approval: the implementer resolves it
   in the item's approach text and commits the plan edit with the code
   (§ Seats)." and keeps the rest. `§ Dispatch per item` 2: "a concern
   that changes plan text" reads "a concern that changes an item's
-  acceptance". The five-line stall paragraph after step 4 reads: "A
-  prompt the declared set did not predict - a compound command (a
-  loop, a pipeline, a `case`) offers no prefix for a Bash rule to
-  match - halts the item and is reported as a pre-flight defect,
-  cleared by nobody (§ Seats)."
+  acceptance". The five-line stall paragraph after step 4 becomes
+  one sentence: "A prompt the declared set did not predict - a
+  compound command offers no prefix for a Bash rule to match - halts
+  the item as a pre-flight defect, cleared by nobody (§ Seats, the
+  prompt row)."
 - [ ] The remaining `run.md` duty statements cite `(§ Seats)` and
   restate no cell: the intro paragraph's mode sentence ("Under
   `Supervisor: AI` it dispatches, verifies and merges..."), `§ Close`
@@ -87,8 +96,12 @@ implementer's. The items below follow that seam.
   under `Supervisor: human`..." sentence and its Halt bullet, and
   `§ Merge or ask`'s two mode sentences ("Under `Supervisor: AI`,
   within a named class..." and "Under `Supervisor: human` every merge
-  is the **user**'s"). Approach: the cite is appended in parentheses
-  to each sentence; the Halt bullet's "an implementer's plan-changing
+  is the **user**'s"), `§ Pre-flight`'s "applied on approval
+  (**user**)" and `§ Question resolution`'s "The change is the
+  **user**'s to approve under either supervisor mode". Approach: the
+  cite is appended in parentheses to each sentence, and joins the
+  existing parenthesis where one closes the sentence ("(**user**;
+  § Seats)"); the Halt bullet's "an implementer's plan-changing
   concern" reads "an implementer's acceptance-changing concern"; no
   other word changes, and the file stays within 300 lines and 80
   columns.
@@ -114,7 +127,10 @@ implementer's. The items below follow that seam.
   escalations, merges", the AI pair "approves acceptance changes,
   answers the" / "always-ask escalations only", the `|` column
   unmoved; the "asking?" branch reads "acceptance question?", its
-  arrow text unchanged. `§ Variant A` step 3 opens "**Runner** routes
+  arrow text unchanged, and the three branch lines and the `|` line
+  between them are re-padded so the `->`, `+`, `|` and `-+` columns
+  still align (the branch line grows from 85 to 90 characters).
+  `§ Variant A` step 3 opens "**Runner** routes
   an acceptance-level question through `run.md § Question resolution`
   (`run.md § Seats`):", rest unchanged; `§ Variant B` step 6 "approves
   plan changes" reads "approves acceptance changes (`run.md
@@ -123,8 +139,15 @@ implementer's. The items below follow that seam.
   are theirs to clear." reads "Under `Supervisor: human` the user's
   session's mode governs; under either mode a prompt the declared set
   did not predict is a pre-flight defect that nobody clears (`run.md
-  § Seats`)." `§ tmux recipes`' keystroke paragraph is R080-T007's,
-  which re-reads the runbook's prompt mechanics, and stays.
+  § Seats`)." `§ tmux recipes`' "Keystroke authority" paragraph matches
+  `run.md § Dispatch per item`: a single key sent to the runner's
+  dialog is an answer and text typed into its input box a dispatch,
+  and no key goes past a permission prompt - the prompt is a
+  pre-flight defect the runner halts on and reports, and the user
+  fixes the declared set and re-runs (`run.md § Seats`); the
+  `send-keys '1'` recipe and its "once they have read the pane"
+  clause drop, the second-dispatcher and deadlock sentences stay.
+  R080-T007 builds the pre-flight mechanics; no `depends-on` on it.
 - [ ] `branch-plan.md` carries the two-layer item: `§ Body` defines
   the seam, `§ Rails` says the acceptance is the planner's alone and
   the approach the implementer's to change, and `§ Session boundary`
@@ -140,7 +163,9 @@ implementer's. The items below follow that seam.
   edit committed with the code. No seat makes the closing decisions.
   The implementer keeps the code, the approach, the plan checkboxes
   and the findings files." `§ Session boundary`'s first sentence gains
-  "(`run.md § Seats`)". `§ Scope discoveries`' **Stop** bullet: "an
+  "(`run.md § Seats`)". `§ Scope discoveries`' Blocker definition "a
+  plan item is ambiguous" reads "an item's acceptance is ambiguous";
+  its **Stop** bullet: "an
   ambiguous item, a missing step" reads "an item whose acceptance is
   ambiguous, a missing step", and the bullet gains, before "Never
   inline-fix": "An approach question - files, sentences, order - is
@@ -154,8 +179,8 @@ implementer's. The items below follow that seam.
   seat. Approach: `handoff.md`'s roles sentence reads "`supervisor`
   (the runner session of `/dev run`, its duties `run.md § Seats`;
   re-briefed from this note and its ledger,
-  `dev/supervisor/<scope>.md`), `solo` (a session outside a run, no
-  run in progress)". `git-workflow.md § Trunk`: "the planner edits
+  `dev/supervisor/<scope>.md`), `solo` (a session outside a run)".
+  `git-workflow.md § Trunk`: "the planner edits
   plan content, the implementer stays on checkboxes and findings
   files (`branch-plan.md § Rails`)" reads "the planner edits
   acceptance text, the implementer the approach, the checkboxes and
@@ -176,13 +201,20 @@ implementer's. The items below follow that seam.
   work needs and commit the plan edit with the code (`run.md
   § Seats`). You also keep the checkboxes and the findings file."
   `§ Before You Begin`: the bullet "The approach or implementation
-  strategy" drops, and the list is followed by "An approach question
-  - which files, which sentences, which order - is yours to settle in
-  the item's approach text, not a report." `§ When You're in Over
-  Your Head`: "The runner routes it through `run.md § Question
-  resolution`: a planner changes the plan" reads "The runner routes
-  an acceptance-level question through `run.md § Question resolution`
-  (`run.md § Seats`): a planner changes the acceptance".
+  strategy" drops, and between the bullet list and "Report them as
+  NEEDS_CONTEXT" goes "An approach question - which files, which
+  sentences, which order - is yours to settle in the item's approach
+  text, not a report." `§ Your Job`'s "something unexpected or
+  unclear is a NEEDS_CONTEXT report" reads "something unexpected or
+  unclear in the acceptance is a NEEDS_CONTEXT report". `§ When
+  You're in Over Your Head`: "The runner routes it through `run.md
+  § Question resolution`: a planner changes the plan" reads "The
+  runner routes an acceptance-level question through `run.md
+  § Question resolution` (`run.md § Seats`): a planner changes the
+  acceptance", and the escalation bullet "You feel uncertain about
+  whether your approach is correct" reads "You feel uncertain whether
+  the item's acceptance can be met". Both files' prose intros name
+  the branch base among the seat's inputs.
   `spec-reviewer-prompt.md`: the `## Inputs` list gains "- Branch base:
   `<base>`, the commit the branch was cut from, for the plan file's
   diff." and the purpose line adds "and left the item's acceptance as
@@ -210,7 +242,9 @@ implementer's. The items below follow that seam.
   re-earning it; a change that only cites text already in the tree,
   or a fix to an item's approach, leaves the record standing - an
   approach gap the read reports is fixed once and re-runs no read
-  (`write-plan.md` step 6 draws that split)." `## Exit`'s "a gap
+  (`write-plan.md` step 6 draws that split)." Job 4's "no other seat
+  edits plan content" reads "no other seat edits acceptance text".
+  `## Exit`'s "a gap
   re-dispatches a planner with the gap's text" reads "an acceptance
   gap re-dispatches a planner with the gap's text and re-runs the
   read, an approach gap once with no second read".
@@ -226,7 +260,9 @@ implementer's. The items below follow that seam.
   tests the acceptance and the initial approach; an acceptance fix
   that adds a decision re-runs the read, an acceptance fix that cites
   text already in the tree does not, and an approach gap is fixed
-  once and re-runs no read (`run.md § Seats`)". `verification-policy.md
+  once and re-runs no read (`run.md § Seats`)"; `§ Readiness
+  checklist`'s "nothing is left to the implementer" reads "no decision
+  is left to the implementer". `verification-policy.md
   § Comprehension check`: "and ask what it would build and what is
   ambiguous or assumed" reads "and ask what it would build and what
   is ambiguous or assumed in the acceptance and the initial
@@ -251,6 +287,6 @@ implementer's. The items below follow that seam.
   "the acceptance changes the user approved". `plan.md` stays within
   300 lines and 80 columns.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
-  routine`, reading every site the items above name for its cite,
-  `bash scripts/ci/run-all.sh` green, mark the task in `tasks.md`,
-  cleanup, commit.
+  routine` and `bash scripts/ci/run-all.sh` green, the task marked in
+  `tasks.md`. Approach: the close review reads every site the items
+  above name for its cite; then mark the task, cleanup, commit.

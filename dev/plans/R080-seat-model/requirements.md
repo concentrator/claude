@@ -48,17 +48,17 @@ input set, started for one item and shut down at its exit.
    and only the branch and the plan item carry over.
 2. **Planning exits through a cold read, and only through it.** A
    task's plan is ready for dispatch when a fresh agent, given exactly
-   the worker's inputs, says what it would build and finds nothing
+   the implementer's inputs, says what it would build and finds nothing
    ambiguous; a question the inputs cannot answer is a plan gap fixed
    before the plan is approved. The read is mandatory: no plan is
    offered for approval, stamped, or dispatched without a passed read,
    and the plan records that it passed; a plan whose items depend on
    an unmerged task's output is read at its start, when that output
    exists, and dispatched only then. A plan without one is
-   unsettled, and an unsettled plan is what makes a worker halt
+   unsettled, and an unsettled plan is what makes an implementer halt
    mid-branch. The check moves from the stamps to the planner's exit.
-3. **Docs come from a doc-writer seat.** After the worker's code lands
-   on the branch, the supervisor dispatches a doc writer with the
+3. **Docs come from a doc-writer seat.** After the implementer's code
+   lands on the branch, the supervisor dispatches a doc writer with the
    diff, the plan item, and the existing docs, and none of the
    implementer's context, to write `docs/` on the same branch; the
    documentation contract's verification gate is its exit. The
@@ -134,7 +134,7 @@ input set, started for one item and shut down at its exit.
   widens allow rules within a tracked tier, never a deny, and never
   `bypassPermissions`.
 - Two-seat supervision (R072) is the execution model this R folds the
-  modes into; the worker/supervisor seam, merge authority, and
+  modes into; the implementer/supervisor seam, merge authority, and
   always-ask list are R072-T002's and are not re-decided here.
 - The R068 docs framework keeps its contract; this R moves its home
   to `docs/`, not its rules.
@@ -179,9 +179,11 @@ initiatives close.
 - [ ] Each seat's dispatch text lists its inputs and nothing outside
       them; verified by reading the four prompts against § Desired
       state 4.
-- [ ] Every branch plan written or changed after this R lands came
-      from a planner dispatch; verified by the pilot's ledger holding a
-      planner entry for its plan and for any mid-branch change.
+- [ ] Every branch plan written, and every acceptance change made,
+      after this R lands came from a planner dispatch; verified by the
+      pilot's ledger holding a planner entry for its plan and for any
+      mid-branch acceptance change, while approach edits ride the
+      implementer's commits.
 - [ ] Docs live at `docs/` and no rule, skill, or overlay names
       `dev/docs/` as the docs home; the migration names it only as its
       source. Verified by `git ls-files dev/docs` empty and grep across
