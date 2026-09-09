@@ -51,9 +51,8 @@ Task tool (general-purpose):
        adds a decision drops `cold-read: passed` from the header, the
        dispatcher's re-read re-earning it; a change that only cites
        text already in the tree, or a fix to an item's approach,
-       leaves the record standing - an approach gap the read reports
-       is fixed once and re-runs no read (`write-plan.md` step 6 draws
-       that split).
+       leaves the record standing (`write-plan.md` step 6 draws that
+       split).
     4. Commit on `<branch>` (message rules: ## Conventions).
        Never push: delivery is the dispatcher's. Your commit stands
        whether or not the user approves the change: nothing is pushed
