@@ -106,7 +106,9 @@ branch per plan - and per commit checkbox:
    triggers: `branch-plan.md § Stop conditions`.
 3. Spec check (`companions/spec-reviewer-prompt.md`): exactly the item;
    skipped per `companions/verification-policy.md § Spec-check skip`.
-   Reject → fix → recheck.
+   Its `<base>` is the planner commit the branch's latest ledgered answer names
+   (§ Question resolution), else the commit the branch was cut from, so an
+   approved acceptance change is no finding. Reject → fix → recheck.
 4. The implementer marks `[x]` in its commit (`branch-plan.md § Commit
    cadence` 3); the runner confirms the mark landed before the spec
    check.
@@ -149,8 +151,8 @@ code (`companions/implementer-prompt.md`), so an answer reaches the next
 implementer only as plan text, and the planner is what writes it there. The
 re-dispatch carries the blocker's, the concern's, the cold-read gap's or the
 user's objection text and nothing else - never a diff or a transcript. Each
-answer is ledgered (§ Ledger) and carried into the report's `## Supervisor
-decisions` section at checkpoint.
+answer is ledgered with the planner's commit (§ Ledger) and carried into
+the report's `## Supervisor decisions` section at checkpoint.
 
 ## Close
 

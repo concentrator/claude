@@ -327,7 +327,7 @@ implementer's. The items below follow that seam.
   the acceptance asks both files for the `§ Seats` cite, and this
   section is where the report names the change kind. `plan.md` stays
   within 300 lines and 80 columns.
-- [ ] `run.md § Dispatch per item` 3 defines the spec reviewer's
+- [x] `run.md § Dispatch per item` 3 defines the spec reviewer's
   `<base>` as the planner commit the branch's latest ledgered answer
   names, else the commit the branch was cut from, and `§ Question
   resolution` says each answer is ledgered with the planner's commit:

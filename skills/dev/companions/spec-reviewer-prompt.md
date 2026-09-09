@@ -3,8 +3,8 @@
 Use this template when dispatching a spec compliance reviewer seat.
 Its inputs are the plan, the initiative's acceptance criteria - the
 whole list in `requirements.md § Acceptance criteria`, never a
-selection - the branch base and the diff, and nothing else; the
-implementer's report is not an input.
+selection - the branch base (`run.md § Dispatch per item` 3) and the
+diff, and nothing else; the implementer's report is not an input.
 
 **Purpose:** verify the commit built what the plan item asked (nothing
 more, nothing less), moved no acceptance criterion the wrong way and
@@ -23,8 +23,9 @@ Task tool (general-purpose):
     - Acceptance criteria: `<path to requirements.md>` § Acceptance
       criteria - the whole list.
     - Diff: the commit `<sha>` (`git show <sha>`).
-    - Branch base: `<base>`, the commit the branch was cut from, for
-      the plan file's diff.
+    - Branch base: `<base>`, the planner commit the branch's latest
+      ledgered answer names, else the commit the branch was cut from
+      (`run.md § Dispatch per item` 3), for the plan file's diff.
 
     Nothing else is an input.
 
