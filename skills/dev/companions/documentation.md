@@ -128,7 +128,8 @@ an Element.
 ## Verification gate
 
 No new or touched doc is complete until an **independent agent** - never
-the author, for `docs/` the doc-writer seat (`run.md § Seats`) -
+the author, for `docs/`, `README.md` and the CHANGELOG the doc-writer
+seat (`run.md § Seats`) -
 has verified the claims in scope against ground truth: the live system
 for observable facts, the authoritative source (source code, `--help`,
 config files, vendor docs) otherwise. The verifier is a subagent the
@@ -141,7 +142,9 @@ changed claims, checked against their sources by the close review
 (`branch-plan.md § Closing routine`; reviewer mandate:
 `agents/code-reviewer.md`; a batch-scoped run: the batch-close full-diff
 pass, `run.md § Batch close`);
-`docs/` feature docs - every claim, via the dedicated per-claim pass:
+`docs/` feature docs, `README.md` and the CHANGELOG's
+`## [Unreleased]` entry (a released block is the release's record,
+`release.md` 6) - every claim, via the dedicated per-claim pass:
 
 - Read the doc's `§ Parameters` preamble before its table. The
   provenance definitions are `layout.md § Docs`'s and a doc may not
@@ -164,8 +167,9 @@ pass, `run.md § Batch close`);
   claims: the verdicts check that the doc is true, this checks that it
   is usable cold.
 
-A feature doc's pass covers the doc, never the diff: a claim's source
-can change under a line no branch touches.
+The per-claim pass covers the doc, or for the CHANGELOG the entry,
+never the diff: a claim's source can change under a line no branch
+touches.
 
 Either path is artifact-free: version-control history records that the
 review ran; no separate stamp or ledger is kept.

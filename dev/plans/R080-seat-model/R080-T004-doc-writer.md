@@ -248,7 +248,7 @@ R080-T007's.
   verifier is a subagent the session - in a run, the runner (`run.md
   § Close` 3) - dispatches without pausing to confirm". `layout.md`
   stays within 300 lines and the item adds no line over 80 columns.
-- [ ] `companions/documentation.md § Verification gate` names the
+- [x] `companions/documentation.md § Verification gate` names the
   clearing review of `README.md` and the CHANGELOG: the gate's
   per-claim pass, the one the runner's verifier runs over every doc the
   doc writer touched (`run.md § Close` 3). The close review (`run.md
@@ -276,8 +276,13 @@ R080-T007's.
   prose" bullet: "`docs/` feature docs take the gate's dedicated
   per-claim pass instead." reads "`docs/` feature docs, `README.md` and
   the CHANGELOG's `## [Unreleased]` entry take the gate's dedicated
-  per-claim pass instead." Each edit replaces its own lines in place;
-  no other line rewraps.
+  per-claim pass instead." The same paragraph's independence clause
+  widens with the class: "never the author, for `docs/` the doc-writer
+  seat (`run.md § Seats`)" reads "never the author, for `docs/`,
+  `README.md` and the CHANGELOG the doc-writer seat (`run.md
+  § Seats`)", the seat writing all three (`branch-plan.md § Commit
+  cadence` 2). Each edit replaces its own lines in place; no other line
+  rewraps.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup (stale/temp
   data), mark plan complete, mark the task `[x]` in `tasks.md`, commit -
