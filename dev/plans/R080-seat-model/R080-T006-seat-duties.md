@@ -166,7 +166,7 @@ implementer's. The items below follow that seam.
   sentences stay, the second reworded to keep its subject once the
   clause it followed is gone.
   R080-T007 builds the pre-flight mechanics; no `depends-on` on it.
-- [ ] `branch-plan.md` carries the two-layer item: `§ Body` defines
+- [x] `branch-plan.md` carries the two-layer item: `§ Body` defines
   the seam, `§ Rails` says the acceptance is the planner's alone and
   the approach the implementer's to change, and `§ Session boundary`
   and `§ Scope discoveries` cite `(run.md § Seats)`. Approach:

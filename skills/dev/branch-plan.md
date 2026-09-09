@@ -19,7 +19,11 @@ branch = one task. The plan is complete and committed to `main`
 ## Body
 
 A checkbox list: each `[ ]` = one commit, naming the change and any
-documentation it touches. Marks record what happened, never intent -
+documentation it touches. Each item is its acceptance - what the
+commit delivers against the requirements, one or a few sentences -
+followed by an `Approach:` run-in and the approach: which files, which
+sentences, which order. The acceptance is the planner's, the approach
+the implementer's (§ Rails). Marks record what happened, never intent -
 a commit that didn't land stays `[ ]`.
 
 ## Doc-before-commit
@@ -67,15 +71,17 @@ Never write `TODO`/`FIXME`/`XXX` in code. Route each to a plan artifact
 Noticed mid-execution, not in the plan.
 
 **Blocker** - proceeding would produce wrong, unsafe, or contradictory
-code, the task's premise is invalidated, a plan item is ambiguous, or
-verification keeps failing after repeated fixes:
-- **Stop.** A blocker the plan can absorb - an ambiguous item, a
-  missing step - halts the item: the runner reverts its uncommitted
-  edits and re-dispatches the planner with the blocker's text
-  (`run.md § Question resolution`), and the fresh implementer starts
-  from the last commit. An invalidated premise halts the branch
+code, the task's premise is invalidated, an item's acceptance is
+ambiguous, or verification keeps failing after repeated fixes:
+- **Stop.** A blocker the plan can absorb - an item whose acceptance is
+  ambiguous, a missing step - halts the item: the runner reverts its
+  uncommitted edits and re-dispatches the planner with the blocker's
+  text (`run.md § Question resolution`), and the fresh implementer
+  starts from the last commit. An invalidated premise halts the branch
   instead, for the user to route to a new task, a new R, or an abort.
-  Never inline-fix beyond a true typo in code you're writing.
+  An approach question - files, sentences, order - is no blocker:
+  settle it in the item's approach text (`run.md § Seats`). Never
+  inline-fix beyond a true typo in code you're writing.
 
 **Non-blocker** - improvement, refactor idea, tangential test gap, code
 smell, naming inconsistency:
@@ -163,9 +169,9 @@ reason in plan header.
 ## Session boundary
 
 A seat starts for one item and shuts down at its exit; only the branch
-and the plan item carry over to the next seat, and a seat outliving
-its item re-bills the finished work on every later call. The runner
-session's unit is the scope it runs (`run.md`): it clears at that
+and the plan item carry over to the next seat, and a seat outliving its
+item re-bills the finished work on every later call (`run.md § Seats`).
+The runner session's unit is the scope it runs (`run.md`): it clears at that
 boundary and re-briefs from `handoff.md` and its ledger (`run.md
 § Ledger`).
 
@@ -220,10 +226,11 @@ full suite runs at batch close (`run.md § Batch close`).
 
 ### Rails
 
-- Plan content is the planner's alone
-  (`companions/planner-prompt.md`); no other seat edits it, and none
+- An item's acceptance is the planner's alone (`run.md § Seats`;
+  `companions/planner-prompt.md`); its approach is the implementer's to
+  change while working, the plan edit committed with the code. No seat
   makes the closing decisions. The implementer keeps the code, the
-  plan checkboxes and the findings files.
+  approach, the plan checkboxes and the findings files.
 - Pre-flight creates `batch/R<NNN>-B<NNN>` off latest `main` and sets the
   `pre-R<NNN>-B<NNN>` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.
@@ -242,7 +249,7 @@ full suite runs at batch close (`run.md § Batch close`).
 
 | Event | Action |
 |---|---|
-| Blocker the plan can absorb (§ Scope discoveries), or an implementer's NEEDS_CONTEXT | Halt the item, planner re-dispatch (`run.md § Question resolution`) |
+| Blocker the plan can absorb (§ Scope discoveries), or an implementer's acceptance-level NEEDS_CONTEXT | Halt the item, planner re-dispatch (`run.md § Question resolution`) |
 | Blocker invalidating the task's premise | Halt, report |
 | Planner reports BLOCKED or NEEDS_CONTEXT on its re-dispatch | Halt, report |
 | Spec check rejects the same commit twice | Halt, report |
