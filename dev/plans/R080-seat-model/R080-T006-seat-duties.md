@@ -207,7 +207,7 @@ implementer's. The items below follow that seam.
   (`companions/declarations.md § Supervisor bounds`)" adds "`run.md
   § Seats`" inside the parentheses. Both files stay within 300 lines
   and 80 columns.
-- [ ] `companions/implementer-prompt.md` tells the implementer the
+- [x] `companions/implementer-prompt.md` tells the implementer the
   approach is theirs to change and the acceptance is not, and
   `companions/spec-reviewer-prompt.md` checks that the item's
   acceptance text is unchanged from the branch base (`requirements.md
@@ -231,8 +231,12 @@ implementer's. The items below follow that seam.
   § Question resolution` (`run.md § Seats`): a planner changes the
   acceptance", and the escalation bullet "You feel uncertain about
   whether your approach is correct" reads "You feel uncertain whether
-  the item's acceptance can be met". Both files' prose intros name
-  the branch base among the seat's inputs.
+  the item's acceptance can be met". Only
+  `spec-reviewer-prompt.md`'s prose intro names the branch base among
+  the seat's inputs: the implementer's input set is the plan, the docs
+  and the code and nothing else (`run.md § Dispatch per item` 1,
+  `§ Question resolution`), so naming a fourth there would contradict
+  both the runner and the template's own `## Inputs`.
   `spec-reviewer-prompt.md`: the `## Inputs` list gains "- Branch base:
   `<base>`, the commit the branch was cut from, for the plan file's
   diff." and the purpose line adds "and left the item's acceptance as

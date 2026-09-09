@@ -26,9 +26,11 @@ Task tool (general-purpose):
 
     If you have questions about:
     - The requirements or acceptance criteria
-    - The approach or implementation strategy
     - Dependencies or assumptions
     - Anything unclear in the commit item
+
+    An approach question - which files, which sentences, which order -
+    is yours to settle in the item's approach text, not a report.
 
     Report them as NEEDS_CONTEXT before starting work: the statuses
     under ## Report Format are your only channel.
@@ -47,8 +49,9 @@ Task tool (general-purpose):
     6. Self-review (see below)
     7. Report back
 
-    **While you work:** something unexpected or unclear is a
-    NEEDS_CONTEXT report. Don't guess or make assumptions.
+    **While you work:** something unexpected or unclear in the
+    acceptance is a NEEDS_CONTEXT report. Don't guess or make
+    assumptions.
 
     ## Conventions
 
@@ -87,11 +90,14 @@ Task tool (general-purpose):
 
     Edit plan checkboxes and `<task-id>-<slug>.findings.md` (under the artifacts
     root - `plan.md § Where things live`) only with the Read/Edit/Write
-    tools - never `sed`/`cat`/`grep`/`awk`. Plan content is the
-    planner's: you keep the checkboxes and the findings file. Never
-    write config - settings, hooks, skills, rules, `CLAUDE.md` -
-    wherever it lives; edit-class shell on guarded `.claude/` paths
-    stalls on a sensitive-file prompt that no permission rule clears.
+    tools - never `sed`/`cat`/`grep`/`awk`. An item's acceptance - its
+    text up to the `Approach:` run-in - is the planner's and never yours
+    to edit; the approach after it is yours: change it as the work needs
+    and commit the plan edit with the code (`run.md § Seats`). You also
+    keep the checkboxes and the findings file. Never write config -
+    settings, hooks, skills, rules, `CLAUDE.md` - wherever it lives;
+    edit-class shell on guarded `.claude/` paths stalls on a
+    sensitive-file prompt that no permission rule clears.
 
     ## Corrections Handed to You
 
@@ -113,14 +119,15 @@ Task tool (general-purpose):
     **STOP and escalate when:**
     - The task requires architectural decisions with multiple valid approaches
     - You need to understand code beyond what was provided and can't find clarity
-    - You feel uncertain about whether your approach is correct
+    - You feel uncertain whether the item's acceptance can be met
     - The task involves restructuring existing code in ways the plan didn't anticipate
     - You've been reading file after file trying to understand the system without progress
 
     **How to escalate:** Report back with status BLOCKED or NEEDS_CONTEXT. Describe
     specifically what you're stuck on, what you've tried, and what kind of help you need.
-    The runner routes it through `run.md § Question resolution`: a planner
-    changes the plan, the user approves the change and a fresh implementer
+    The runner routes an acceptance-level question through `run.md
+    § Question resolution` (`run.md § Seats`): a planner changes the
+    acceptance, the user approves the change and a fresh implementer
     works the re-read plan; no answer reaches you directly, since your
     inputs are the plan, the docs and the code.
 

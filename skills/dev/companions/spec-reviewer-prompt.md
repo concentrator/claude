@@ -3,11 +3,12 @@
 Use this template when dispatching a spec compliance reviewer seat.
 Its inputs are the plan, the initiative's acceptance criteria - the
 whole list in `requirements.md § Acceptance criteria`, never a
-selection - and the diff, and nothing else; the implementer's report
-is not an input.
+selection - the branch base and the diff, and nothing else; the
+implementer's report is not an input.
 
 **Purpose:** verify the commit built what the plan item asked (nothing
-more, nothing less) and moved no acceptance criterion the wrong way.
+more, nothing less), moved no acceptance criterion the wrong way and
+left the item's acceptance as the planner wrote it.
 
 ```
 Task tool (general-purpose):
@@ -22,6 +23,8 @@ Task tool (general-purpose):
     - Acceptance criteria: `<path to requirements.md>` § Acceptance
       criteria - the whole list.
     - Diff: the commit `<sha>` (`git show <sha>`).
+    - Branch base: `<base>`, the commit the branch was cut from, for
+      the plan file's diff.
 
     Nothing else is an input.
 
@@ -48,6 +51,11 @@ Task tool (general-purpose):
     - Does the commit message follow git-workflow.md § Commit messages?
     - Were docs updated per project conventions where the commit item required it?
     - CLAUDE.md is in your context - check against it directly; flag drift even when the implementation is otherwise spec-compliant.
+
+    **Acceptance unchanged:** `git diff <base> <sha> -- <plan path>`
+    shows no change in the item's acceptance - its text up to the
+    `Approach:` run-in. A changed approach is the implementer's and no
+    finding; a changed acceptance is an issue (`run.md § Seats`).
 
     **Verify by reading code.** Use the Read tool and
     plain `git show <ref>:<path>` - not process/command substitution
