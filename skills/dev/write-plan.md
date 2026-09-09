@@ -57,18 +57,23 @@ text itself.
 5. **Add the mandatory final item** at the end - the completion commit
    (per `branch-plan.md § Closing routine`).
 6. **Cold read** of the planner's output per
-   `companions/verification-policy.md § Comprehension check`, the
-   reader given the plan, the docs and the code: each gap it reports
-   re-dispatches a planner with the gap's text (`plan.md § Adjusting
-   existing plans`); the reader tests the acceptance and the initial
-   approach, so an acceptance fix that adds a decision re-runs the read,
-   an acceptance fix that cites text already in the tree does not, and
-   an approach gap is fixed once and re-runs no read (`run.md § Seats`);
-   when it reports none the header records `cold-read: passed`. The
-   session commits that header edit on the branch the planner
-   committed to - the record is
-   bookkeeping, not plan text. A plan whose `depends-on` names an
-   unmerged task is read at its start instead, when its targets exist,
+   `companions/verification-policy.md § Comprehension check`, the reader given
+   the plan, the docs and the code: each gap it reports re-dispatches a planner
+   with the gap's text (`plan.md § Adjusting existing plans`); the reader tests
+   the acceptance and the initial approach, so an acceptance fix that adds a
+   decision re-runs the read, an acceptance fix that cites text already in the
+   tree does not, and an approach gap is fixed once and re-runs no read
+   (`run.md § Seats`). Two bounds: the first read covers the whole plan, a
+   later one only the items the planner changed and the lines the previous
+   read's gaps named; and the second read is the last - an acceptance gap it
+   still reports goes to `<task-id>-<slug>.findings.md` beside the plan
+   (created if absent) as a note the implementer reads, and no planner is
+   re-dispatched. A planner change made after the pass is recorded starts a
+   count of its own, scoped to what it changed. When the read reports none, or
+   at the second read, the header records `cold-read: passed`. The session
+   commits that header edit and the notes on the branch the planner committed
+   to - the record is bookkeeping, not plan text. A plan whose `depends-on`
+   names an unmerged task is read at its start instead, when its targets exist,
    and carries no record until then.
 7. **Confirm with user**, then deliver the committed plan via a
    short-lived plan MR/PR (`plan.md § Where plans live in git`).

@@ -347,7 +347,7 @@ follow the target's declared session tree.
   like it" - 21 characters more; `run.md` is at 300 lines, so the
   paragraph (lines 270-283) is rewrapped to fill its 14 lines, which
   it does at 12 lines of 80 columns.
-- [ ] The cold read has two bounds (`§ Desired state` 2): `write-plan.md`
+- [x] The cold read has two bounds (`§ Desired state` 2): `write-plan.md`
   step 6 states them, and its restatements in
   `companions/verification-policy.md § Comprehension check` and
   `companions/planner-prompt.md § Exit` say the same. Delta read: the

@@ -148,12 +148,13 @@ implementer's inputs - the plan, the docs and the code
 and ask what it would build and what is ambiguous or assumed in the
 acceptance and the initial approach. A question the inputs cannot
 answer is a plan gap, not a reader fault: a planner fixes it - an
-acceptance gap re-runs the read per `write-plan.md` step 6, an approach
-gap is fixed once and re-runs no read, the approach being the
-implementer's to change in flight (`run.md § Seats`) - and the header
-then records `cold-read: passed` (`branch-plan.md § Header`). This
-catches `NEEDS_CONTEXT` halts before an implementer meets them, while
-the fix is cheap; nothing dispatches a
+acceptance gap re-runs the read once, over the change, per
+`write-plan.md` step 6, which sends what the second read still finds to
+the findings file; an approach gap is fixed once and re-runs no read,
+the approach being the implementer's to change in flight
+(`run.md § Seats`) - and the header then records `cold-read: passed`
+(`branch-plan.md § Header`). This catches `NEEDS_CONTEXT` halts before
+an implementer meets them, while the fix is cheap; nothing dispatches a
 plan without the record, and a plan chained on an unmerged task earns
 it at its start.
 

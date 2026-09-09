@@ -73,11 +73,13 @@ Task tool (general-purpose):
     ## Exit
 
     Report back. The plan is not yours to approve or deliver: the
-    dispatching session runs the cold read (`write-plan.md` step 6), an
-    acceptance gap re-dispatches a planner with the gap's text and
-    re-runs the read, an approach gap once with no second read, the
-    user's rejection one with the objection's text, and a pass records
-    `cold-read: passed` in the header (`branch-plan.md § Header`).
+    dispatching session runs the cold read (`write-plan.md` step 6),
+    an acceptance gap re-dispatches a planner with the gap's text and
+    re-runs the read over the change - once, what the second read
+    still finds going to the findings file (step 6) - an approach gap
+    once with no second read, the user's rejection one with the
+    objection's text, and a pass records `cold-read: passed` in the
+    header (`branch-plan.md § Header`).
     Dispatch nothing yourself - no seat dispatches a seat.
 
     ## Report Format
