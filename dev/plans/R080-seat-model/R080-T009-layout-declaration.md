@@ -8,8 +8,8 @@ depends-on: R080-T004
 # R080-T009: declared layout
 
 Branch: `mnt/layout-declaration`. Requirements:
-`dev/plans/R080-seat-model/requirements.md § Desired state` 5 and 9 and
-the acceptance criterion "Every docs, plans, session or layout path
+`dev/plans/R080-seat-model/requirements.md § Desired state` 2, 5 and 9
+and the acceptance criterion "Every docs, plans, session or layout path
 ...".
 
 Paths stop being fixed by the rules. The project's root `CLAUDE.md`
@@ -83,7 +83,9 @@ follow the target's declared session tree.
   absence rule (a missing line or block means the default, never a
   halt, unlike `Supervisor:`); the placeholders `<docs>`, `<plans>`,
   `<session>`, `<layout>` as the form every rule uses for a declared
-  path, the structure under a declared root staying literal; the
+  path - bare in prose (`<docs>`), the slash only before a child
+  (`<docs>/index.md`) or on a tree's node line - the structure under a
+  declared root staying literal; the
   ledger directory as `supervisor/` in the session tree's parent,
   gitignored like it; and `extended-docs:` retired - one docs
   directory per project, so a second docs path has no key. The
@@ -117,7 +119,10 @@ follow the target's declared session tree.
   acceptance criterion's grep over `layout.md` finds nothing after
   this commit; a new `§ Layout file` gives `<layout>`'s shape and
   lifecycle (`§ Desired state` 9): a title, one sentence saying it is
-  the repository's actual tree, and one fenced tree in the
+  the repository's actual tree, and one fenced tree whose root line is
+  the repository directory with a trailing slash - a project's by name
+  (`attack-checker/`); this repository's is `~/.claude/`, its fixed
+  path, which the `LAYOUT.md` item below keeps - in the
   `├── `/`└── ` style with a `#` role comment on every line, holding
   every directory and every fixed-name file, a collection of same-kind
   files (the skills under a skills directory, the plans under
@@ -149,7 +154,8 @@ follow the target's declared session tree.
   reads `<docs>/`; "the planning tree under `dev/`, the docs tree at
   the repository root" reads "the planning tree at `<plans>`, the docs
   tree at `<docs>`". `§ Creation policy`: `dev/plans/` reads
-  `<plans>/`, `docs/` reads `<docs>/`, the required set gains
+  `<plans>`, `docs/` reads `<docs>` (bare, the placeholder spelling
+  `declarations.md § Declared paths` fixes), the required set gains
   `<layout>` after `.claude/settings.json`. `§ Docs`: "`docs/`, at the
   repository root, holds"
   reads "`<docs>` holds"; `docs/reports/`, `docs/references/`,
@@ -199,7 +205,7 @@ follow the target's declared session tree.
   seeded, so `gitignore.template` carries no session or ledger lines
   and the defaults keep their one home; the "extended docs?" question
   goes; `dev/plans/` (the scaffold bullet and the release plan) and
-  `docs/`, `docs/index.md` read `<plans>/`, `<docs>`, `<docs>/index.md`.
+  `docs/`, `docs/index.md` read `<plans>`, `<docs>`, `<docs>/index.md`.
   `migrate.md`: the intro probes `<plans>` (its default, absent a
   declaration) and the legacy `.claude/`, bare `dev/` surviving
   nowhere in the file; the route list names `.claude/plans/`,
@@ -229,7 +235,7 @@ follow the target's declared session tree.
   artifacts root:` Tier-1 sentence and its untracked-mode line names
   `<plans>` and `<session>`; § 2 step 3 writes the declaration and
   `<layout>`.
-  Approach: `start.md § 3`: line 28 reads "- `<plans>/` with
+  Approach: `start.md § 3`: line 28 reads "- `<plans>` with
   `ROADMAP.md`."; line 35 reads `<plans>/release-v0.1.0.md`; the "Ask:
   **extended docs?**" paragraph reads "Write `## Layout` after
   `## Agent toolchain` with the defaults (`companions/declarations.md
@@ -237,8 +243,10 @@ follow the target's declared session tree.
   and append `<session>` and `supervisor/` in its parent to
   `.gitignore`, anchored, as `install-dev.sh` step 7 writes them."; the
   `docs/` pointer sentence (lines 42-43) stays with `<docs>` and
-  `<docs>/index.md`. `gitignore.template` lines 10-14 (the "DEV
-  session state" and "Supervisor ledger" pairs) go. `migrate.md`'s
+  `<docs>/index.md`. `gitignore.template` lines 10-15 (the "DEV
+  session state" and "Supervisor ledger" pairs and the blank after
+  them) go, line 9's blank then separating the Claude Code block from
+  the dependencies block. `migrate.md`'s
   intro (lines 4-6): "DEV artifacts live at `dev/` (`plan.md § Where
   things live`); probe both `dev/` and the legacy `.claude/`
   locations" reads "DEV artifacts live at the declared paths (`plan.md
@@ -274,7 +282,7 @@ follow the target's declared session tree.
   otherwise, backfilled from the inventory (`companions/declarations.md
   § Declared paths`), and `<layout>` written from `git ls-files`
   (`layout.md § Layout file`)". `§ 6` line 93 and `§ 7` line 101 read
-  `<plans>/` and `<docs>`. `root-migration.md`: lines 3-4 "onto `dev/`
+  `<plans>` and `<docs>`. `root-migration.md`: lines 3-4 "onto `dev/`
   and its docs onto `docs/`" read "onto `<plans>` and its docs onto
   `<docs>`"; line 6 "already on `dev/`" reads "already on `<plans>`";
   line 15 "→ `dev/plans/`" reads "→ `<plans>`"; line 17 "→ `docs/`"
@@ -303,7 +311,8 @@ follow the target's declared session tree.
   `branch-plan.md § Commit cadence` 2 drops "`extended-docs: yes` per
   project `CLAUDE.md § Conventions`" and `§ Architecture-changing
   branches`' tree-map upkeep names `<layout>` (`layout.md § Layout
-  file`) in place of `DESIGN.md § Tree-map`. `git grep -n -E
+  file`) in place of `DESIGN.md § Tree-map` while keeping its rule
+  that an unflagged branch does not touch `DESIGN.md`. `git grep -n -E
   '(^|[^A-Za-z/._-])(docs/|dev/)' -- skills/dev/*.md` then finds only
   `dev/docs/` in `migrate.md`'s route. Every touched file stays within
   300 lines and 80 columns.
@@ -316,10 +325,11 @@ follow the target's declared session tree.
   "`README.md` for new public surface - is the doc writer's", the dash
   closing the pair opened at "ships -"; `§ Architecture-changing
   branches`' second sentence (lines 148-150, "Other branches touch
-  `DESIGN.md` only for tree-map upkeep ...") reads "Any branch that
-  adds or removes an entry keeps `<layout>` current (`layout.md
-  § Layout file`), foldable into the final commit without the flag.",
-  the paragraph rewrapped to stay four lines within 80 columns;
+  `DESIGN.md` only for tree-map upkeep ...") reads "Other branches
+  never touch `DESIGN.md`; any branch that adds or removes an entry
+  keeps `<layout>` current (`layout.md § Layout file`), foldable into
+  the final commit without the flag.", the paragraph rewrapped within
+  80 columns (`branch-plan.md` is at 252 lines, so a fifth line fits);
   `§ Batches`'
   manifest path (line 188). `finish.md § 1` first bullet. `release.md`
   1, 7, 12.
@@ -336,6 +346,74 @@ follow the target's declared session tree.
   like it" - 21 characters more; `run.md` is at 300 lines, so the
   paragraph (lines 270-283) is rewrapped to fill its 14 lines, which
   it does at 12 lines of 80 columns.
+- [ ] The cold read has two bounds (`§ Desired state` 2): `write-plan.md`
+  step 6 states them, and its restatements in
+  `companions/verification-policy.md § Comprehension check` and
+  `companions/planner-prompt.md § Exit` say the same. Delta read: the
+  first read covers the whole plan; a later read is scoped, in the
+  reader's dispatch, to the items the planner changed and the lines
+  the previous read's gaps named. Two-read cap: the second read is the
+  last - an acceptance gap it still reports goes to the task's
+  findings file, `<task-id>-<slug>.findings.md` beside the plan
+  (`implementer-prompt.md § Plan & Findings Files`; created if
+  absent), as a note the implementer reads, one bullet per gap with
+  the gap's text; the header then records `cold-read: passed` and no
+  planner is re-dispatched for it. The session writes the notes with
+  the header edit, in the bookkeeping commit step 6 already gives it.
+  An approach gap is fixed once with no re-read, as step 6 has it.
+  `implementer-prompt.md § Inputs`' Plan bullet names the findings
+  file beside the plan, so the notes reach the implementer as an
+  input, its three-input rule intact. `tasks.md`'s R080-T009 backlog
+  paragraph drops the clause "the cold read (`skills/dev/write-plan.md`
+  step 6) needs a stopping rule - two rounds, then judgment-level gaps
+  go to the findings file", the rule now carrying it. Every other site
+  that names the loop stays as it is, none stating a round: `run.md
+  § Question resolution` (lines 130-137) and `§ Sync` (298-299) send a
+  changed plan to step 6, so `run.md` stays at 300 lines untouched;
+  `plan.md § Adjusting existing plans` and `§ Approval and closure`,
+  `branch-plan.md § Header` and `§ Agentic execution`, `run.md
+  § Seats` and `write-plan.md § Bulk mode` cite step 6 or the record;
+  `planner-prompt.md` Job 3 draws the acceptance/approach split. `git
+  grep -n -E 're-runs the read|re-read|cold read' -- skills/dev` after
+  the commit hits only those sites, the three rewritten ones and four
+  uses of the words outside the loop (`plan.md § Approval and closure`'s
+  `tasks.md` re-read, `branch-plan.md § Session boundary`'s doc loading,
+  `write-plan.md § Readiness checklist`, `implementer-prompt.md § When
+  You're in Over Your Head`).
+  `write-plan.md` is capped at 300 lines of 80 columns
+  (`scripts/ci/check-caps.sh`, the mode-file loop); the companions
+  are exempt from it.
+  Approach: `write-plan.md` step 6, after "an approach gap is fixed
+  once and re-runs no read (`run.md § Seats`)", continues: "Two
+  bounds: the first read covers the whole plan, a later one only the
+  items the planner changed and the lines the previous read's gaps
+  named; and the second read is the last - an acceptance gap it still
+  reports goes to `<task-id>-<slug>.findings.md` beside the plan
+  (created if absent) as a note the implementer reads, and no planner
+  is re-dispatched. When the read reports none, or at the second read,
+  the header records `cold-read: passed`. The session commits that
+  header edit and the notes on the branch the planner committed to -
+  the record is bookkeeping, not plan text." - the sentence "when it
+  reports none the header records `cold-read: passed`. The session
+  commits that header edit on the branch the planner committed to -
+  the record is bookkeeping, not plan text" going in its favour; the
+  step grows from 14 to 19 lines and the file from 120 to 125.
+  `verification-policy.md § Comprehension check`: "an acceptance gap
+  re-runs the read per `write-plan.md` step 6," reads "an acceptance
+  gap re-runs the read once, over the change, per `write-plan.md` step
+  6, which sends what the second read still finds to the findings
+  file;". `planner-prompt.md § Exit`: "re-dispatches a planner with the
+  gap's text and re-runs the read, an approach gap once with no second
+  read," reads "re-dispatches a planner with the gap's text and re-runs
+  the read over the change - once, what the second read still finds
+  going to the findings file (step 6) - an approach gap once with no
+  second read,". `implementer-prompt.md § Inputs`, the Plan bullet,
+  gains a third sentence: "Its `<task-id>-<slug>.findings.md`, where
+  one exists, carries the read's open notes: read them with it."
+  `tasks.md` lines 90-93: "questions; the cold read (...) needs a
+  stopping rule - two rounds, then judgment-level gaps go to the
+  findings file - and a plan change should stay" reads "questions; a
+  plan change should stay", rewrapped.
 - [ ] The companions and the reviewer agent name declared paths by
   placeholder, seat prompts naming the declaration at the first use so
   a dispatched seat resolves it without `declarations.md`:
@@ -350,13 +428,26 @@ follow the target's declared session tree.
   against `<layout>` and `layout.md`), `untracked-claude.md` (the
   artifacts root sentence, the `dev/` gitignore checks naming
   `<plans>` and `<session>`, and `<layout>` gitignored with the
-  tree), `agents/code-reviewer.md` (three sites). After it,
+  tree), `agents/code-reviewer.md` (three sites). The permissions
+  template - `companions/auto-permissions.template.json`, or
+  `seat-permissions.template.json` once R080-T007 renames it - drops
+  its two `dev/plans/**` rules, `Read` and `Edit` (`§ Desired state`
+  9: a literal `dev/` path in a rule): the blanket
+  `Edit(//__PROJECT_DIR__/**)` above them covers the edit, and the
+  template grants `Read` only outside the project directory, the code
+  under it being read under no rule, so the plans tree is read as the
+  code is. No test asserts the two lines
+  (`scripts/test/worker-workspace.test.sh` case 13 checks the
+  template's name and substitutions only); a tracked tier's absolute
+  copy of either rule is allow-list hygiene (`MAINTENANCE.md
+  § Routine`), never a plan target (`run.md § Pre-flight`). After it,
   `git grep -n -E '(^|[^A-Za-z/._-])(docs/|dev/)' -- skills/dev rules
   agents` finds a literal path only in `companions/declarations.md
   § Declared paths` and in the migration source `dev/docs/`
   (`migrate.md`'s route, `root-migration.md`'s move and rewrite sets);
   `.claude/plans/` and `.claude/docs/` never match, the `/` before
-  them excluding them; and `git grep -n 'LAYOUT.md' -- skills rules
+  them excluding them; `git grep -n 'dev/' -- skills/dev/companions/
+  '*.json'` finds nothing; and `git grep -n 'LAYOUT.md' -- skills rules
   agents` finds the literal default only in `companions/declarations.md
   § Declared paths`. The criterion's sweep of
   all of `skills/` adds two hits in skills outside the toolset, which
@@ -375,7 +466,10 @@ follow the target's declared session tree.
   `<docs>/index.md`"; Job 2's "the `docs/` doc and its `docs/index.md`
   line" reads "the `<docs>` doc and its `<docs>/index.md` line" and
   ", and `extended-docs: yes` per the project's `CLAUDE.md
-  § Conventions`" goes. `implementer-prompt.md` line 59: "`docs/`,
+  § Conventions`" goes, the "and" moving before "`README.md` for new
+  public surface" so the three-item list closes there. The template's
+  lines 6-8 (the `dev/plans/**` pair and the blank after it) go.
+  `implementer-prompt.md` line 59: "`docs/`,
   `README.md`" reads "`<docs>` (the docs home `CLAUDE.md § Layout`
   declares), `README.md`"; lines 93-94: "(under the artifacts root -
   `plan.md § Where things live`)" reads "(under `<plans>` - `plan.md
@@ -431,9 +525,11 @@ follow the target's declared session tree.
   (18) with the `grep -q '^- DEV artifacts root:'` line and its
   message (19-20) deleted and the comment (12-14) reading "Plans live
   at the tree the root CLAUDE.md § Layout declares (skills/dev/plan.md
-  § Where things live)". Tests: each `mkrepo` stays on the default,
-  its fixture having no `CLAUDE.md`; the new case writes `- Plans:
-  var/plans/` to the fixture's `CLAUDE.md` and the tree under
+  § Where things live)". Tests: each `mkrepo` stays on the default -
+  three fixtures have no `CLAUDE.md`, `check-batch-tags.test.sh`'s
+  commits one holding `fixture` and no `- Plans:` line (lines 22-23) -
+  and the new case writes `- Plans: var/plans/` to the fixture's
+  `CLAUDE.md` (overwriting that line there) and the tree under
   `var/plans/`, then asserts with each test's own helpers: `ok_in`
   then `fails_with` in `check-plan-integrity.test.sh` (case 14, whose
   "fixed at dev/" assertion goes with the check it tested) and
@@ -491,8 +587,10 @@ follow the target's declared session tree.
   the fixture comment at line 36 "as install-dev.sh
   and the template leave a real repo" reads "as install-dev.sh leaves
   a real repo", the template no longer carrying the line. Installer
-  step 7: read `decl` the same way from `$proj/CLAUDE.md` with `||
-  true` (the installer runs under `set -e`), `sess=${decl:-dev/session/}`,
+  step 7: read `decl` the same way from `$repo/CLAUDE.md` - the git
+  toplevel line 214 resolves, where the `.gitignore` it writes is -
+  with `|| true` (the installer runs under `set -e`),
+  `sess=${decl:-dev/session/}`,
   lines `/${sess%/}/` and `/$(dirname "${sess%/}")/supervisor/` with a
   leading `/./` normalised so a one-segment tree yields
   `/supervisor/` (probed: `state/` yields `/state/` and
@@ -519,7 +617,7 @@ follow the target's declared session tree.
   out of `project_clone()` into a helper `exclude_session_tree()`
   defined directly above it, called as `exclude_session_tree
   "$root/$name"` in its place, and line 97 reads `local name`; the
-  function then has 45 lines. The helper's comment reads "run.md
+  function then has 44 lines. The helper's comment reads "run.md
   § Ledger appends to supervisor/ beside the session tree CLAUDE.md
   § Layout declares and handoff.md to that tree while a worker may run
   git add -A, so both must be ignored whatever the cloned .gitignore
@@ -627,10 +725,13 @@ follow the target's declared session tree.
   `dev/plans` fallback in each of the four plan checks. The literal
   `.claude/LAYOUT.md`, which that grep never matches, is accepted in
   `declarations.md § Declared paths` and `check-stray.sh`'s fallback
-  and nowhere else in `skills/`, `rules/`, `agents/`, `scripts/ci/`.
-  Anything else is a defect the close review fixes before the marks.
+  and nowhere else in `skills/`, `rules/`, `agents/`, `scripts/ci/`;
+  the permissions template, which a `/` shields from that grep too,
+  carries no `dev/` path. Anything else is a defect the close review
+  fixes before the marks.
   Approach: the close review reads every quoted sentence above
   against the tree and runs the acceptance criterion's grep over
-  `rules/`, `skills/`, `scripts/ci/` and `git grep -n 'LAYOUT.md' --
-  skills rules agents scripts/ci`, comparing each output to the
+  `rules/`, `skills/`, `scripts/ci/`, `git grep -n 'LAYOUT.md' --
+  skills rules agents scripts/ci` and `git grep -n 'dev/' --
+  skills/dev/companions/'*.json'`, comparing each output to the
   residue list; then the marks and the commit.
