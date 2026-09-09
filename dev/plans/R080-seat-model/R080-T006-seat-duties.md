@@ -65,7 +65,7 @@ implementer's. The items below follow that seam.
   commit." drops, the table's rows carrying it, and the stall
   paragraph closing `§ Dispatch per item` shrinks to the next item's
   one sentence.
-- [ ] `run.md § Question resolution` routes acceptance-level questions
+- [x] `run.md § Question resolution` routes acceptance-level questions
   only - those whose answer changes an item's acceptance - to the
   planner, and says an approach-level question is the implementer's,
   resolved in the approach text and its commit with no seat and no
@@ -88,11 +88,14 @@ implementer's. The items below follow that seam.
   in the item's approach text and commits the plan edit with the code
   (§ Seats)." and keeps the rest. `§ Dispatch per item` 2: "a concern
   that changes plan text" reads "a concern that changes an item's
-  acceptance". The five-line stall paragraph after step 4 becomes
-  one sentence: "A prompt the declared set did not predict - a
+  acceptance". The stall paragraph after step 4 already reads its one
+  sentence from item 1 - "A prompt the declared set did not predict - a
   compound command offers no prefix for a Bash rule to match - halts
   the item as a pre-flight defect, cleared by nobody (§ Seats, the
-  prompt row)."
+  prompt row)." - and is verified, not rewritten. No sentence is cut
+  for the added text: both `§ Question resolution` paragraphs are
+  rewrapped tight to 80 columns, which returns the four lines the new
+  wording costs and leaves the file at 298.
 - [ ] The remaining `run.md` duty statements cite `(§ Seats)` and
   restate no cell: the intro paragraph's mode sentence ("Under
   `Supervisor: AI` it dispatches, verifies and merges..."), `§ Close`

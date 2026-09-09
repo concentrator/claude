@@ -93,12 +93,12 @@ branch per plan - and per commit checkbox:
    the docs and the code as its inputs and nothing else. Its loop is
    the plan's `type:` mode file (`feat.md`, `fix.md`, `refactor.md`);
    `doc`/`test`/`mnt` run `branch-plan.md § Commit cadence` alone.
-2. DONE → spec check. DONE_WITH_CONCERNS → a concern that changes plan
-   text takes § Question resolution as NEEDS_CONTEXT does: the item's
-   `[x]` stands and its commit goes unchecked; the planner's change
-   adds a new checkbox for the redo, as § Close step 2 does for fixes,
-   so the fresh implementer works the concern and its commit is what
-   the spec check reads; the runner records `<item>: spec check
+2. DONE → spec check. DONE_WITH_CONCERNS → a concern that changes an
+   item's acceptance takes § Question resolution as NEEDS_CONTEXT does:
+   the item's `[x]` stands and its commit goes unchecked; the planner's
+   change adds a new checkbox for the redo, as § Close step 2 does for
+   fixes, so the fresh implementer works the concern and its commit is
+   what the spec check reads; the runner records `<item>: spec check
    skipped: superseded by plan change`, carried verbatim into the
    report's Cost section like every skip
    (`companions/verification-policy.md § Spec-check skip`). Any other
@@ -118,39 +118,39 @@ defect, cleared by nobody (§ Seats, the prompt row).
 
 ## Question resolution
 
-A question whose answer changes plan text - an implementer's blocker, a
-plan-changing concern, a spec ambiguity, a cold-read gap found in
-flight - halts the item and re-dispatches the planner
-(`companions/planner-prompt.md`) with that text, on the item's own
-branch (`git-workflow.md § Trunk`). The halt reverts the item's
-uncommitted edits - `git checkout -- .` and removal of the untracked
-files the seat created - so the branch stands at its last commit
-before the planner is dispatched. The planner commits its
-change locally, nothing being pushed until the runner delivers; a
-planner reporting DONE_WITH_CONCERNS (`companions/planner-prompt.md
-§ Report Format`) has committed too, so its change takes the read below
-as DONE's does and its concern reaches the user with the change for
-approval. The runner then runs `write-plan.md` step 6 on the changed
-plan, the reader a dispatched seat (`companions/verification-policy.md
-§ Comprehension check`), never the runner's own read. Where the change
-dropped `cold-read: passed` - a change adding a decision,
-`companions/planner-prompt.md` Job 3 - the pass is recorded in the
-runner's own bookkeeping commit on the item's branch, while a change
-that only cites text already in the tree keeps the record and needs no
-commit. The change is the **user**'s to approve under either supervisor
-mode (`companions/declarations.md § Supervisor bounds`); a rejection
-re-dispatches the planner with the objection's text, and the next
-planner commit replaces the text - no revert, and the runner edits no
-plan content. Only then is a fresh implementer dispatched, starting
-from the last commit. A seat never resumes.
+An acceptance-level question - an implementer's blocker, a concern or a spec
+ambiguity whose answer changes an item's acceptance, a cold-read gap found in
+flight - halts the item and re-dispatches the planner (§ Seats;
+`companions/planner-prompt.md`) with that text, on the item's own branch
+(`git-workflow.md § Trunk`). The halt reverts the item's uncommitted edits -
+`git checkout -- .` and removal of the untracked files the seat created - so the
+branch stands at its last commit before the planner is dispatched. The planner
+commits its change locally, nothing being pushed until the runner delivers; a
+planner reporting DONE_WITH_CONCERNS (`companions/planner-prompt.md § Report
+Format`) has committed too, so its change takes the read below as DONE's does
+and its concern reaches the user with the change for approval. The runner then
+runs `write-plan.md` step 6 on the changed plan, the reader a dispatched seat
+(`companions/verification-policy.md § Comprehension check`), never the runner's
+own read. Where the change dropped `cold-read: passed` - a change adding a
+decision, `companions/planner-prompt.md` Job 3 - the pass is recorded in the
+runner's own bookkeeping commit on the item's branch, while a change that only
+cites text already in the tree keeps the record, and an implementer's approach
+edit rides the code's commit. The change is the **user**'s to approve under
+either supervisor mode (`companions/declarations.md § Supervisor bounds`); a
+rejection re-dispatches the planner with the objection's text, and the next
+planner commit replaces the text - no revert, and the runner edits no plan
+content. Only then is a fresh implementer dispatched, starting from the last
+commit. A seat never resumes.
 
-Every answer takes that route. An implementer's inputs are the plan,
-the docs and the code (`companions/implementer-prompt.md`), so an
-answer reaches the next implementer only as plan text, and the planner
-is what writes it there. The re-dispatch carries the blocker's, the
-concern's, the cold-read gap's or the user's objection text and nothing
-else - never a diff or a transcript. Each answer
-is ledgered (§ Ledger) and carried into the report's `## Supervisor
+Every acceptance-level answer takes that route; an approach-level question -
+which files, which sentences, which order - costs no seat and no approval: the
+implementer resolves it in the item's approach text and commits the plan edit
+with the code (§ Seats). An implementer's inputs are the plan, the docs and the
+code (`companions/implementer-prompt.md`), so an answer reaches the next
+implementer only as plan text, and the planner is what writes it there. The
+re-dispatch carries the blocker's, the concern's, the cold-read gap's or the
+user's objection text and nothing else - never a diff or a transcript. Each
+answer is ledgered (§ Ledger) and carried into the report's `## Supervisor
 decisions` section at checkpoint.
 
 ## Close
