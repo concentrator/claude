@@ -153,7 +153,7 @@ R080-T007's.
   planner, implementer and reviewer today -" reads "dispatches seats -
   planner, implementer, reviewer and doc writer -", one word more,
   under the 1000-word cap.
-- [ ] The implementer's dispatch names no doc target and no rule asks
+- [x] The implementer's dispatch names no doc target and no rule asks
   the implementer or its reviewer for docs (`requirements.md § Desired
   state` 3, last sentence; acceptance criterion 3):
   `companions/implementer-prompt.md` drops its docs step and the docs

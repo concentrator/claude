@@ -22,11 +22,7 @@ evaluated from the plan-item text alone, before dispatch:
 1. **File set ≤ 2, explicitly named** - the item text names at most two
    files to touch (by path or filename). Unnamed, implied, or
    wildcard-described files do not count toward the limit and void the
-   classification. Convention-mandated doc files (e.g. a per-commit
-   `CHANGELOG.md` under `release-routine: yes`) are not exempt: the plan
-   item must name them like any other file, and they count toward the
-   ≤ 2 limit - a commit that also writes a CHANGELOG entry alongside two
-   code files is not mechanical.
+   classification.
 2. **Complete spec** - the item states a testable outcome and contains
    no unresolved design choices. A testable outcome means a reader can
    write a failing check before seeing the implementation. An unresolved

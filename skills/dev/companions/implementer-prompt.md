@@ -44,10 +44,9 @@ Task tool (general-purpose):
     3. Verify: the fast tier green - lint plus the declared scoped
        test subset (`Test (fast)` in the project's `## Agent
        toolchain`; the full suite belongs to the close, not to you)
-    4. Docs in this same commit per project conventions (see ## Conventions)
-    5. Commit (message rules: ## Conventions below)
-    6. Self-review (see below)
-    7. Report back
+    4. Commit (message rules: ## Conventions below)
+    5. Self-review (see below)
+    6. Report back
 
     **While you work:** something unexpected or unclear in the
     acceptance is a NEEDS_CONTEXT report. Don't guess or make
@@ -57,7 +56,9 @@ Task tool (general-purpose):
 
     CLAUDE.md and git-workflow.md are in your context; follow
     git-workflow.md § Commit messages, CLAUDE.md § Code Comments +
-    § Audience visibility, and project `## Conventions` (docs/CHANGELOG).
+    § Audience visibility. `docs/`, `README.md` and the CHANGELOG are
+    inputs, never targets: every doc the branch ships is the doc
+    writer's (`run.md § Seats`).
     Commands print only what the step needs (`branch-plan.md § Commit
     cadence`, point 4): a status, a count, a range - never a file in context.
 
