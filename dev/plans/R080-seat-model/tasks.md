@@ -83,6 +83,27 @@ should stay within the files a reviewer named; `write-plan.md § Bulk
 mode` has parallel planners committing in one checkout, a race the
 session's single commit avoided; pre-existing cites `run.md
 § Archival`, `finish.md § 2-3` and `CLAUDE.md § Conventions` resolve to
-no heading; `DESIGN.md` sits at 998 of its 1000 words. R080-T006's
+no heading; `DESIGN.md` sits at 998 of its 1000 words.
+
+Backlog, loop simplification (from the R080-T008 run, each a rule edit
+unless noted): the second verifier fires on a Critical finding only,
+not on the diff touching `skills/` (`branch-plan.md § Closing routine`,
+`companions/verification-policy.md § Verifier isolation`) - in this
+repository every diff touches it; close-review fixes with quoted
+wording get a spec check, not a second close review (`run.md § Close`);
+the mechanical predicate keys on fully quoted wording, not on a file
+count (`companions/verification-policy.md § Mechanical commits`); the
+merge ask on every task-scoped run goes by widening the bounds to
+task-scoped delivery or by running the initiative as one batch
+(`CLAUDE.md § Supervision`); the verify offer and the ship options land
+in one message (`finish.md § 2`); the ledger is the one record written
+as events happen, the hand-off note, the checkpoint report and the
+session summary derived from it (`run.md § Ledger`, `handoff.md`,
+`companions/report-template.md`; design change); a plan whose items
+are all quoted-wording gets one implementer walking them in order with
+one spec check at the end (`run.md § Dispatch per item`; design
+change); the reader's dispatch says that only acceptance-level
+findings are gaps and approach findings go to the implementers as
+notes (`write-plan.md` step 6). R080-T006's
 table covers the seats in the tree; R080-T004 adds the doc-writer row
 to `skills/dev/run.md § Seats` when it lands.
