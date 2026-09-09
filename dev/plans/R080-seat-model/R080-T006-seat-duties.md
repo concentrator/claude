@@ -96,7 +96,7 @@ implementer's. The items below follow that seam.
   for the added text: both `§ Question resolution` paragraphs are
   rewrapped tight to 80 columns, which returns the four lines the new
   wording costs and leaves the file at 298.
-- [ ] The remaining `run.md` duty statements cite `(§ Seats)` and
+- [x] The remaining `run.md` duty statements cite `(§ Seats)` and
   restate no cell: the intro paragraph's mode sentence ("Under
   `Supervisor: AI` it dispatches, verifies and merges..."), `§ Close`
   2's approval sentence, `§ Checkpoint`'s "the choice the **user**'s
@@ -106,12 +106,20 @@ implementer's. The items below follow that seam.
   is the **user**'s"), `§ Pre-flight`'s "applied on approval
   (**user**)" and `§ Question resolution`'s "The change is the
   **user**'s to approve under either supervisor mode". Approach: the
-  cite is appended in parentheses to each sentence, and joins the
-  existing parenthesis where one closes the sentence ("(**user**;
-  § Seats)"); the Halt bullet's "an implementer's plan-changing
-  concern" reads "an implementer's acceptance-changing concern"; no
-  other word changes, and the file stays within 300 lines and 80
-  columns.
+  cite is appended in parentheses at the end of the clause it
+  qualifies, joining an existing parenthesis that closes that clause -
+  `§ Pre-flight` reads "(**user**; § Seats)", the Halt bullet
+  "(`branch-plan.md § Scope discoveries`; § Seats)" and
+  `§ Question resolution` "(`companions/declarations.md § Supervisor
+  bounds`; § Seats)" - while `§ Checkpoint`'s choice sentence and
+  `§ Merge or ask`'s human sentence take the cite before their colon,
+  the end of the sentence carrying a different clause. The Halt
+  bullet's "an implementer's plan-changing concern" reads "an
+  implementer's acceptance-changing concern"; no other word changes.
+  No sentence is cut: the intro, the Halt bullet, `§ Merge or ask`'s
+  second paragraph and `§ Question resolution`'s tail are rewrapped
+  tight to 80 columns, which returns three more lines than the cites
+  cost and leaves the file at 295.
 - [ ] `companions/declarations.md § Supervisor bounds` and
   `companions/supervisor-runbook.md` cite `(run.md § Seats)` at every
   duty sentence and have nobody clearing a prompt. Approach:

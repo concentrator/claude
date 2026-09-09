@@ -1,13 +1,12 @@
 # Running planned work
 
 Engine behind `/dev run <scope>`: planned work - a task, a batch or an
-initiative - runs as dispatched seats under the supervisor seat the
-project declares (`companions/declarations.md § Supervisor bounds`).
-The runner session holds that seat. Under `Supervisor: AI` it
-dispatches, verifies and merges within the declared bounds; under
-`Supervisor: human` the steps marked **user** below are the user's
-own. Rules: `branch-plan.md`. Host gates are never bypassed - no admin
-merges.
+initiative - runs as dispatched seats under the supervisor seat the project
+declares (`companions/declarations.md § Supervisor bounds`). The runner session
+holds that seat. Under `Supervisor: AI` it dispatches, verifies and merges
+within the declared bounds; under `Supervisor: human` the steps marked **user**
+below are the user's own (§ Seats). Rules: `branch-plan.md`. Host gates are
+never bypassed - no admin merges.
 
 ## Seats
 
@@ -70,7 +69,7 @@ improvises. The reviewer holds no cell, the seat being the close review's
   (user-global `settings.json`, project `.claude/settings.json`) or
   deliberately narrowed by one (`companions/toolchain.md § Permission
   carve-out`); the rest are proposed into `.claude/settings.local.json`,
-  applied on approval (**user**). No toolchain section → halt, ask.
+  applied on approval (**user**; § Seats). No toolchain section → halt, ask.
 - No plan in scope names a target under `.claude/`: config is never a
   seat's to write (`companions/implementer-prompt.md`). Every
   pre-flight check runs before any action; failures are reported
@@ -136,11 +135,11 @@ decision, `companions/planner-prompt.md` Job 3 - the pass is recorded in the
 runner's own bookkeeping commit on the item's branch, while a change that only
 cites text already in the tree keeps the record, and an implementer's approach
 edit rides the code's commit. The change is the **user**'s to approve under
-either supervisor mode (`companions/declarations.md § Supervisor bounds`); a
-rejection re-dispatches the planner with the objection's text, and the next
-planner commit replaces the text - no revert, and the runner edits no plan
-content. Only then is a fresh implementer dispatched, starting from the last
-commit. A seat never resumes.
+either supervisor mode (`companions/declarations.md § Supervisor bounds`;
+§ Seats); a rejection re-dispatches the planner with the objection's text, and
+the next planner commit replaces the text - no revert, and the runner edits no
+plan content. Only then is a fresh implementer dispatched, starting from the
+last commit. A seat never resumes.
 
 Every acceptance-level answer takes that route; an approach-level question -
 which files, which sentences, which order - costs no seat and no approval: the
@@ -163,7 +162,7 @@ Per branch, when its last non-final item is `[x]`:
    task-scoped run closes in full (`branch-plan.md § Closing
    routine`).
 2. Fixes: mechanical ones applied, judgment calls queued; approval of
-   the applied set is the **user**'s under `Supervisor: human`. The
+   the applied set is the **user**'s under `Supervisor: human` (§ Seats). The
    approved fixes go to the planner as one change on the branch
    (`plan.md § Adjusting existing plans`), each fix a new checkbox and
    the change approved per § Question resolution; a fresh implementer
@@ -197,7 +196,7 @@ No report → no accept. A task-scoped run has no report: `finish.md
 § 1`'s verify set stands in its place, and a branch missing it is no
 more mergeable than a batch missing its report. Then - the choice the
 **user**'s under `Supervisor: human`, the runner's within bounds under
-`Supervisor: AI`:
+`Supervisor: AI` (§ Seats):
 
 - **Accept** → push the branch to origin + open the CI-gated MR/PR per
   `companions/toolchain.md`, description from the report; then
@@ -206,12 +205,11 @@ more mergeable than a batch missing its report. Then - the choice the
   post-merge cleanup deletes the batch branch, local and origin.
 - **Reject** → ref handling per `branch-plan.md § Rails`.
 - **Halt** → failed item reported. A question halt - an implementer's
-  plan-changing concern, NEEDS_CONTEXT or an absorbable blocker
-  (`branch-plan.md § Scope discoveries`) - takes § Question resolution,
-  whose revert drops the item's uncommitted edits; any other halt - a
-  red tier, a spec check rejecting twice (`branch-plan.md § Stop
-  conditions`) - keeps the work intact. The run resumes on the same
-  scope.
+  acceptance-changing concern, NEEDS_CONTEXT or an absorbable blocker
+  (`branch-plan.md § Scope discoveries`; § Seats) - takes § Question resolution,
+  whose revert drops the item's uncommitted edits; any other halt - a red tier,
+  a spec check rejecting twice (`branch-plan.md § Stop conditions`) - keeps the
+  work intact. The run resumes on the same scope.
 
 ## Boundary verification
 
@@ -247,16 +245,15 @@ project's declared bound, then name the class the MR/PR falls into;
 never deliver without a class or escalate without having read the
 declaration.
 
-The terminal state on a branch is a green MR/PR plus the report that
-verifies it. Under `Supervisor: AI`, within a named class the runner
-merges on the evidence it assembled - report path, gate results,
-state-check output - and applies the signature (§ Supervision
-signature there); everything else is asked of the user directly
-(Remote Control where connected) - the always-ask list per that same
-section, and anything the grant does not name. Under `Supervisor:
-human` every merge is the **user**'s: the run presents the MR/PR and
-its evidence and waits, and this step replaces the ship question of
-`finish.md § 2-3` for a task-scoped run under AI.
+The terminal state on a branch is a green MR/PR plus the report that verifies
+it. Under `Supervisor: AI`, within a named class the runner merges on the
+evidence it assembled - report path, gate results, state-check output - and
+applies the signature (§ Supervision signature there); everything else is asked
+of the user directly (Remote Control where connected) - the always-ask list per
+that same section, and anything the grant does not name (§ Seats). Under
+`Supervisor: human` every merge is the **user**'s (§ Seats): the run presents
+the MR/PR and its evidence and waits, and this step replaces the ship question
+of `finish.md § 2-3` for a task-scoped run under AI.
 
 Branch protection is not the runner's to satisfy by other means: a
 red gate escalates rather than being worked around. Escalations are
