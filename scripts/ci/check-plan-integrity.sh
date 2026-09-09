@@ -9,15 +9,14 @@
 #    frozen; composite ids unique by their initiative-scoped counter)
 #  - every branch plan's `task:` / `depends-on:` resolve to a known task
 #  - every branch plan sits under an R-dir that exists in ROADMAP.md
-# Plans live at dev/plans/ in every project (skills/dev/plan.md § Where
-# things live); a CLAUDE.md still declaring an artifacts root fails, so
-# the move is learned from the gate rather than from an ignored setting.
+# Plans live at the tree the root CLAUDE.md § Layout declares
+# (skills/dev/plan.md § Where things live).
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
-P=dev/plans
-grep -q '^- DEV artifacts root:' CLAUDE.md 2>/dev/null \
-  && { echo "PLAN: CLAUDE.md declares a DEV artifacts root, but the home is fixed at dev/ - move the declared directory's contents to dev/ and drop the line (skills/dev/plan.md § Where things live)"; exit 1; }
+P=$(sed -n 's/^- Plans: *//p' CLAUDE.md 2>/dev/null | head -1 || true)
+P=${P:-dev/plans}
+P=${P%/}
 [[ -f "$P/ROADMAP.md" ]] \
   || { echo "PLAN: $P/ROADMAP.md not found"; exit 1; }
 

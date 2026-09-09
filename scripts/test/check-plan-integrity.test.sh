@@ -26,7 +26,7 @@ fails_with() {
   grep -q "$2" <<<"$out"
 }
 
-# A fixture repo with the fixed dev/plans/ home.
+# A fixture repo on the default dev/plans/ home (no CLAUDE.md).
 mkrepo() {
   local d; d=$(mktemp -d); git -C "$d" init -q
   mkdir -p "$d/dev/plans"
@@ -155,15 +155,21 @@ fails_with "$d" 'ROADMAP.md not found' \
   && pass "missing ROADMAP fails loudly" || die "missing ROADMAP passed vacuously"
 rm -rf "$d"
 
-# 14. a CLAUDE.md still declaring an artifacts root fails with one line
-# naming dev/, whatever the declared value
-d=$(mkrepo)
-printf -- '- DEV artifacts root: ./sub/\n' > "$d/CLAUDE.md"
-printf -- '- [ ] R-001: thing.\n' > "$d/dev/plans/ROADMAP.md"
+# 14. the tree comes from the root CLAUDE.md § Layout declaration: a
+# declared var/plans/ holding the tree passes, and a violation there is
+# caught
+d=$(mkrepo); mkdir -p "$d/var/plans/R-001-x"
+printf -- '- Plans: var/plans/\n' > "$d/CLAUDE.md"
+printf -- '- [ ] R-001: thing.\n' > "$d/var/plans/ROADMAP.md"
+printf -- '- [ ] **R001-T001 [doc]**: thing\n' > "$d/var/plans/R-001-x/tasks.md"
 add "$d"
-fails_with "$d" 'fixed at dev/' \
-  && [ "$(run_in "$d" | grep -c 'PLAN:')" -eq 1 ] \
-  && pass "leftover declaration fails with one line" || die "leftover declaration: $(run_in "$d")"
+ok_in "$d" && pass "declared plans tree read" \
+  || die "declared plans tree not read: $(run_in "$d")"
+printf -- '- [ ] **R002-T001 [doc]**: misfiled\n' >> "$d/var/plans/R-001-x/tasks.md"
+add "$d"
+fails_with "$d" 'R002-T001 in .* but its dir is R-001' \
+  && pass "violation in the declared tree caught" \
+  || die "violation in the declared tree missed"
 rm -rf "$d"
 
 # 15. plans/ at the repo root is not the gate's tree

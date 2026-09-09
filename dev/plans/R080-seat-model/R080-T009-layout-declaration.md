@@ -495,7 +495,7 @@ follow the target's declared session tree.
   `.claude/`". `agents/code-reviewer.md` lines 15 - where the plans
   tree also names `CLAUDE.md § Layout`, the reviewer being a dispatched
   seat (`run.md § Seats`) - 48 and 60.
-- [ ] The Tier-1 plan checks read the plans tree from the declaration
+- [x] The Tier-1 plan checks read the plans tree from the declaration
   (`§ Desired state` 9; the criterion's `scripts/ci/` grep):
   `check-plan-integrity.sh`, `check-archival.sh`, `check-accretion.sh`
   and `check-batch-tags.sh` each set `P` from the `- Plans:` line of
