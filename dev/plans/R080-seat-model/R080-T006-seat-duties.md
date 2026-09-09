@@ -360,7 +360,7 @@ implementer's. The items below follow that seam.
   § Dispatch per item` 3) and the diff", the paragraph rewrapped. The
   "Acceptance unchanged" check keeps its command: the base moves, the
   diff does not.
-- [ ] `run.md § Seats`' intro sentence gives the user, under
+- [x] `run.md § Seats`' intro sentence gives the user, under
   `Supervisor: AI`, the merges outside the declared bounds beside the
   asked-of row and the acceptance-approval cell, matching the Merging
   row's "else user"; the file stays within 300 lines and 80 columns

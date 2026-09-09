@@ -20,7 +20,8 @@ config (edit-class shell there trips the sensitive-file guard).
 
 Under `Supervisor: human` the user's own session is the supervisor, so the user
 holds every supervisor cell; under `Supervisor: AI` the runner is, and the user
-holds the asked-of row and the acceptance-approval cell.
+holds the asked-of row, the acceptance-approval cell and the merges outside the
+declared bounds (the Merging row's "else user").
 
 | Duty | `Supervisor: human` | `Supervisor: AI` |
 | --- | --- | --- |
