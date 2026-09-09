@@ -86,7 +86,7 @@ R080-T007's.
   `## Report Format` (the statuses and fields above). `§ Models`: the
   row "Doc writers and the docs gate's verifier | Fable 5 (`fable`)"
   after the planner row.
-- [ ] `run.md` runs the doc writer once per branch as `§ Close` step 3,
+- [x] `run.md` runs the doc writer once per branch as `§ Close` step 3,
   after the approved fixes of step 2 have landed and before the
   mandatory final commit, so one pass sees all the branch's code
   (`requirements.md § Desired state` 3: after the implementer's code
@@ -134,8 +134,9 @@ R080-T007's.
   (full)` - the batch's one full local run; red → halt." The lines the
   step and the row add are returned by the two cuts and by rewrapping
   tight to 80 columns the blocks with slack: `§ Resolve` 1, the
-  `§ Pre-flight` `.claude/` bullet, `§ Dispatch per item` 2 and 4,
-  `§ Close` 1 and 2, `§ Ledger`'s paragraph.
+  `§ Pre-flight` `.claude/` bullet, `§ Dispatch per item` 2 and 4, and
+  `§ Close` 1, which land the file on 300 exactly; `§ Close` 2 and
+  `§ Ledger`'s paragraph keep their slack for a later item.
 - [ ] `companions/supervisor-runbook.md` and `DESIGN.md` count the doc
   writer among the seats: `§ Modes by seat`'s dispatched-seat row names
   it, the run keeping one permission mode, the runner's

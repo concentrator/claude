@@ -29,6 +29,7 @@ declared bounds (the Merging row's "else user").
 | Dispatching | user | supervisor |
 | Changing an item's approach | implementer, in the commit that carries the code | the same |
 | Changing an item's acceptance | planner writes, user approves | the same |
+| Writing the docs | doc writer, once per branch at § Close 3 | the same |
 | Clearing a permission prompt | nobody: a prompt is a pre-flight defect | the same |
 | Verifying the boundary | user | supervisor |
 | Merging | user | supervisor within the declared bounds, else user |
@@ -36,25 +37,24 @@ declared bounds (the Merging row's "else user").
 
 A run reaching a duty the table leaves unassigned halts and reports, never
 improvises. The reviewer holds no cell, the seat being the close review's
-`code-reviewer` dispatch (§ Close) and the spec reviewer of
-`companions/spec-reviewer-prompt.md`.
+`code-reviewer` dispatch (§ Close), the spec reviewer of
+`companions/spec-reviewer-prompt.md` and the docs gate's verifier (§ Close 3).
 
 ## Resolve
 
-1. **Scope** - an explicit `R<NNN>-B<NNN>`, task id or slug, or
-   `R<NNN>`; bare = the project's open batch (`branch-plan.md
-   § Batches`: a member task `[ ]` in `tasks.md`, no report), else
-   the next open task whose plan is read. An initiative runs its open
-   batch, else its open tasks in `tasks.md` order, each a task-scoped
-   run. Scope selects pre-approved work: anything lacking approved
-   requirements or `cold-read: passed` (`branch-plan.md § Header`) is
-   reported NOT READY, never dispatched, the report naming the
-   missing record; a plan whose `depends-on` is unmerged the same. The
-   check runs at every implementer dispatch, not at scope start alone -
-   the reader seat's dispatch is not one, its read being what earns the
-   record - so a plan changed mid-branch is admitted again once the
-   record stands, kept through a cite-only change or restored by the
-   bookkeeping commit (§ Question resolution).
+1. **Scope** - an explicit `R<NNN>-B<NNN>`, task id or slug, or `R<NNN>`;
+   bare = the project's open batch (`branch-plan.md § Batches`: a member
+   task `[ ]` in `tasks.md`, no report), else the next open task whose plan
+   is read. An initiative runs its open batch, else its open tasks in
+   `tasks.md` order, each a task-scoped run. Scope selects pre-approved work:
+   anything lacking approved requirements or `cold-read: passed`
+   (`branch-plan.md § Header`) is reported NOT READY, never dispatched, the
+   report naming the missing record; a plan whose `depends-on` is unmerged the
+   same. The check runs at every implementer dispatch, not at scope start
+   alone - the reader seat's dispatch is not one, its read being what earns
+   the record - so a plan changed mid-branch is admitted again once the record
+   stands, kept through a cite-only change or restored by the bookkeeping
+   commit (§ Question resolution).
 2. **Supervisor** - read `CLAUDE.md § Supervision`: the `Supervisor:`
    line and the bounds, plus `.claude/supervisor.md` where referenced.
    No block, or no `Supervisor:` line → halt, naming it.
@@ -71,11 +71,10 @@ improvises. The reviewer holds no cell, the seat being the close review's
   deliberately narrowed by one (`companions/toolchain.md § Permission
   carve-out`); the rest are proposed into `.claude/settings.local.json`,
   applied on approval (**user**; § Seats). No toolchain section → halt, ask.
-- No plan in scope names a target under `.claude/`: config is never a
-  seat's to write (`companions/implementer-prompt.md`). Every
-  pre-flight check runs before any action; failures are reported
-  together in one message, and the run halts with no branch created
-  and no edit made.
+- No plan in scope names a target under `.claude/`: config is never a seat's to
+  write (`companions/implementer-prompt.md`). Every pre-flight check runs
+  before any action; failures are reported together in one message, and the run
+  halts with no branch created and no edit made.
 - Default branch, clean tree, fast tier green
   (`companions/declarations.md § Declared commands`).
 - Batch scope: tag `pre-R<NNN>-B<NNN>` (e.g. `pre-R062-B001`); create
@@ -93,26 +92,24 @@ branch per plan - and per commit checkbox:
    the docs and the code as its inputs and nothing else. Its loop is
    the plan's `type:` mode file (`feat.md`, `fix.md`, `refactor.md`);
    `doc`/`test`/`mnt` run `branch-plan.md § Commit cadence` alone.
-2. DONE → spec check. DONE_WITH_CONCERNS → a concern that changes an
-   item's acceptance takes § Question resolution as NEEDS_CONTEXT does:
-   the item's `[x]` stands and its commit goes unchecked; the planner's
-   change adds a new checkbox for the redo, as § Close step 2 does for
-   fixes, so the fresh implementer works the concern and its commit is
-   what the spec check reads; the runner records `<item>: spec check
-   skipped: superseded by plan change`, carried verbatim into the
-   report's Cost section like every skip
-   (`companions/verification-policy.md § Spec-check skip`). Any other
-   concern the runner ledgers (§ Ledger) and carries into the report,
-   then spec check. NEEDS_CONTEXT → § Question resolution. Halt
-   triggers: `branch-plan.md § Stop conditions`.
+2. DONE → spec check. DONE_WITH_CONCERNS → a concern that changes an item's
+   acceptance takes § Question resolution as NEEDS_CONTEXT does: the item's
+   `[x]` stands and its commit goes unchecked; the planner's change adds a new
+   checkbox for the redo, as § Close step 2 does for fixes, so the fresh
+   implementer works the concern and its commit is what the spec check reads;
+   the runner records `<item>: spec check skipped: superseded by plan change`,
+   carried verbatim into the report's Cost section like every skip
+   (`companions/verification-policy.md § Spec-check skip`). Any other concern
+   the runner ledgers (§ Ledger) and carries into the report, then spec check.
+   NEEDS_CONTEXT → § Question resolution. Halt triggers: `branch-plan.md § Stop
+   conditions`.
 3. Spec check (`companions/spec-reviewer-prompt.md`): exactly the item;
    skipped per `companions/verification-policy.md § Spec-check skip`.
    Its `<base>` is the planner commit the branch's latest ledgered answer names
    (§ Question resolution), else the commit the branch was cut from, so an
    approved acceptance change is no finding. Reject → fix → recheck.
-4. The implementer marks `[x]` in its commit (`branch-plan.md § Commit
-   cadence` 3); the runner confirms the mark landed before the spec
-   check.
+4. The implementer marks `[x]` in its commit (`branch-plan.md § Commit cadence`
+   3); the runner confirms the mark landed before the spec check.
 
 A prompt the declared set did not predict - a compound command offers
 no prefix for a Bash rule to match - halts the item as a pre-flight
@@ -159,10 +156,9 @@ the report's `## Supervisor decisions` section at checkpoint.
 
 Per branch, when its last non-final item is `[x]`:
 
-1. Close review: `code-reviewer` on the branch diff vs plan. In a
-   batch-scoped run a small branch skips it
-   (`companions/verification-policy.md § Close folding`); a
-   task-scoped run closes in full (`branch-plan.md § Closing
+1. Close review: `code-reviewer` on the branch diff vs plan. In a batch-scoped
+   run a small branch skips it (`companions/verification-policy.md § Close
+   folding`); a task-scoped run closes in full (`branch-plan.md § Closing
    routine`).
 2. Fixes: mechanical ones applied, judgment calls queued; approval of
    the applied set is the **user**'s under `Supervisor: human` (§ Seats). The
@@ -170,10 +166,17 @@ Per branch, when its last non-final item is `[x]`:
    (`plan.md § Adjusting existing plans`), each fix a new checkbox and
    the change approved per § Question resolution; a fresh implementer
    works them.
-3. The runner makes the mandatory final commit (docs re-review,
-   cleanup, plan complete, task mark per `branch-plan.md § Closing
-   routine`).
-4. Fast tier green → batch scope: merge into `batch/R<NNN>-B<NNN>`;
+3. Docs: dispatch the doc writer (`companions/doc-writer-prompt.md`) on
+   the diff from the commit the branch was cut from (§ Dispatch per
+   item 3), the plan and the docs, then the gate's verifier over every
+   doc it touched (`companions/documentation.md § Verification gate`);
+   WRONG or UNPROVEN re-dispatches a fresh doc writer with the verdicts,
+   a second time or a BLOCKED halts (`branch-plan.md § Stop
+   conditions`). The report rides the dispatch entry and the verdicts a
+   verify entry (§ Ledger); folding never skips it (§ Seats).
+4. The runner makes the mandatory final commit (cleanup, plan complete,
+   task mark per `branch-plan.md § Closing routine`).
+5. Fast tier green → batch scope: merge into `batch/R<NNN>-B<NNN>`;
    task scope: `finish.md` from its § 1, then § Checkpoint. Red → halt.
 
 Rails hold throughout (`branch-plan.md § Rails`).
@@ -185,7 +188,6 @@ Rails hold throughout (`branch-plan.md § Rails`).
    folded small branches get first-review vs their plans.
 2. Fixes land as batch-branch commits; queue judgment calls.
 3. Run `Test (full)` - the batch's one full local run; red → halt.
-   Docs coherence pass (CHANGELOG/README across member branches).
 4. Mark member-task checkboxes; commit on `batch/R<NNN>-B<NNN>`
    (`branch-plan.md § Batches`).
 
