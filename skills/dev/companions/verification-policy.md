@@ -85,8 +85,9 @@ covers their diffs against their own plans (first review), not only
 cross-branch concerns.
 
 **Invariants** - unaffected, per `branch-plan.md § Agentic execution`:
-the final commit and the green gate hold for every branch; branches
-above the threshold keep the full per-branch review.
+the doc-writer pass and its gate (`run.md § Close` 3), the final commit
+and the green gate hold for every branch; branches above the threshold
+keep the full per-branch review.
 
 **Scope:** this rule applies to a batch-scoped run only; a task-scoped
 run closes in full (`skills/dev/branch-plan.md § Closing routine`).

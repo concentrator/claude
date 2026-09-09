@@ -180,7 +180,7 @@ R080-T007's.
   staying. `verification-policy.md § Mechanical commits` 1: the
   sentence from "Convention-mandated doc files" through "is not
   mechanical." drops; the condition's first sentence stays.
-- [ ] `branch-plan.md` re-points its docs rules to the seat and
+- [x] `branch-plan.md` re-points its docs rules to the seat and
   `companions/verification-policy.md § Close folding` keeps the pass on
   a folded branch: `§ Body`'s item definition no longer names the docs
   a commit touches but the decisions its docs will need, the doc
@@ -218,7 +218,9 @@ R080-T007's.
   `tasks.md` plus any release-plan entry, commit. (Batch members: the
   task mark rides the batch branch, § Batches.)"; "because the
   re-review and cleanup ahead of it" reads "because the cleanup ahead
-  of it"; "The commit includes the resolved findings file and the
+  of it", and the same sentence's "before them" reads "before it", the
+  plural having lost its antecedent with the re-review; "The commit
+  includes the resolved findings file and the
   reconciled doc." reads "The commit includes the resolved findings
   file." `§ Batches`: "The mandatory final commit and a green fast
   tier before merging into the batch branch hold regardless of size"

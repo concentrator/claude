@@ -18,19 +18,14 @@ branch = one task. The plan is complete and committed to `main`
 
 ## Body
 
-A checkbox list: each `[ ]` = one commit, naming the change and any
-documentation it touches. Each item is its acceptance - what the
-commit delivers against the requirements, one or a few sentences -
-followed by an `Approach:` run-in and the approach: which files, which
-sentences, which order. The acceptance is the planner's, the approach
-the implementer's (§ Rails). Marks record what happened, never intent -
-a commit that didn't land stays `[ ]`.
-
-## Doc-before-commit
-
-A doc depending on a later commit gets a placeholder + sub-task,
-replaced by the commit completing it; everything else updates in its
-code's commit.
+A checkbox list: each `[ ]` = one commit, naming the change and
+carrying the decisions its docs will need - the doc writer's to read,
+never the docs' to cite (`run.md § Seats`). Each item is its
+acceptance - what the commit delivers against the requirements, one or
+a few sentences - followed by an `Approach:` run-in and the approach:
+which files, which sentences, which order. The acceptance is the
+planner's, the approach the implementer's (§ Rails). Marks record what
+happened, never intent - a commit that didn't land stays `[ ]`.
 
 ## Commit cadence (all types)
 
@@ -40,15 +35,12 @@ file's loop, `doc`/`test`/`mnt` run this alone:
 1. **Verify** - the fast tier green: lint plus the declared scoped
    subset (`companions/declarations.md § Declared commands`); the
    full suite runs once at close (`finish.md`).
-2. **Docs** - per project `CLAUDE.md § Conventions`, in *this* commit:
-   `release-routine: yes` → CHANGELOG `## [Unreleased]` entry
-   (`changelog.md`); new public
-   surface → `README.md`; `extended-docs: yes` → per conventions
-   (feature `docs/` docs reconcile at close). A task whose commits
-   are one release-note-worthy change split across passes writes the
-   CHANGELOG entry once, in the pass that completes it, rather than
-   restating a growing entry per commit; the plan item that carries it
-   says so.
+2. **Docs** - none in this commit: every doc the branch ships -
+   `docs/` with its index, the CHANGELOG `## [Unreleased]` entry under
+   `release-routine: yes`, `README.md` for new public surface,
+   `extended-docs: yes` per project `CLAUDE.md § Conventions` - is the
+   doc writer's, written once per branch at `run.md § Close` 3
+   (`run.md § Seats`).
 3. **Commit** (`git-workflow.md § Commit messages`); mark the plan
    `[x]` immediately.
 4. **Output** - throughout the pass a command prints only what the
@@ -113,7 +105,7 @@ commit and the hand-off (`finish`).
    finding, or a diff touching rules files or CI scripts
    (`companions/verification-policy.md § Verifier isolation`);
    `/code-review` is a manual escalation - suggest, never run.
-   Bookkeeping (plan marks, CHANGELOG) keys no review. Also the
+   Bookkeeping (plan marks) keys no review. Also the
    **Tier-2 compliance review**: every concern in
    `MAINTENANCE.md § Tier-2 AI review`, over the diff.
 2. Validate findings against full project context.
@@ -127,28 +119,27 @@ commit and the hand-off (`finish`).
    - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
-7. **Reconcile the feature doc** - write or update the `docs/` doc
-   to the shipped code, then take every doc the branch ships
-   (re-review edits included) through the verification gate
-   (`companions/documentation.md § Verification gate`) before delivery. Then
-   the **mandatory final item** of every plan:
+7. **Docs** - the doc-writer pass (`run.md § Close` 3): the seat writes
+   every doc the branch ships to the shipped code and commits it, and
+   the gate's verifier clears it (`companions/documentation.md
+   § Verification gate`; `run.md § Seats`). Then the **mandatory final
+   item** of every plan:
 
-   > Complete the branch: re-review docs across all commits, cleanup
-   > (stale/temp data), mark plan complete, mark the task `[x]` in the
-   > R's `tasks.md` plus any release-plan entry, commit. (Batch
-   > members: the task mark rides the batch branch, § Batches.)
+   > Complete the branch: cleanup (stale/temp data), mark plan
+   > complete, mark the task `[x]` in the R's `tasks.md` plus any
+   > release-plan entry, commit. (Batch members: the task mark rides
+   > the batch branch, § Batches.)
 
-   The task mark comes last because the re-review and cleanup ahead of
-   it can still find work: a `[x]` written before them asserts a
-   completion the branch has not reached.
+   The task mark comes last because the cleanup ahead of it can still
+   find work: a `[x]` written before it asserts a completion the branch
+   has not reached.
 
-   The commit includes the resolved findings file and the reconciled
-   doc. Closing the R's last open task → the closure check
-   (`plan.md § Approval and closure`): present its verdict and ask -
-   the closure marks, ROADMAP `[x]`, and the archive move
-   (`plan.md § Archival`) land in the final commit only on explicit
-   user confirmation, never as a side effect of finishing the task.
-   Marks land with the merge; a rejected branch discards them.
+   The commit includes the resolved findings file. Closing the R's last
+   open task → the closure check (`plan.md § Approval and closure`):
+   present its verdict and ask - the closure marks, ROADMAP `[x]`, and
+   the archive move (`plan.md § Archival`) land in the final commit only
+   on explicit user confirmation, never as a side effect of finishing
+   the task. Marks land with the merge; a rejected branch discards them.
 8. Invoke `finish` - present the delivery options and execute.
 
 ## Architecture-changing branches
@@ -220,9 +211,10 @@ check and release marking ride a close-out plan MR/PR
 
 Per-branch close in a batch-scoped run: the close review runs only above the
 close-folding threshold (`verification-policy.md § Close folding`).
-The mandatory final commit and a green fast tier
-before merging into the batch branch hold regardless of size; the
-full suite runs at batch close (`run.md § Batch close`).
+The doc-writer pass (`run.md § Close` 3), the mandatory final commit
+and a green fast tier before merging into the batch branch hold
+regardless of size; the full suite runs at batch close (`run.md
+§ Batch close`).
 
 ### Rails
 
@@ -252,6 +244,7 @@ full suite runs at batch close (`run.md § Batch close`).
 | Blocker the plan can absorb (§ Scope discoveries), or an implementer's acceptance-level NEEDS_CONTEXT | Halt the item, planner re-dispatch (`run.md § Question resolution`) |
 | Blocker invalidating the task's premise | Halt, report |
 | Planner reports BLOCKED or NEEDS_CONTEXT on its re-dispatch | Halt, report |
+| Doc writer reports BLOCKED, or the docs gate's verifier reports WRONG or UNPROVEN on the same branch twice | Halt, report |
 | Spec check rejects the same commit twice | Halt, report |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
