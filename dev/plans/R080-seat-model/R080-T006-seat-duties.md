@@ -2,7 +2,6 @@
 task: R080-T006
 type: mnt
 depends-on: R080-T008
-cold-read: passed
 ---
 
 # R080-T006: seat responsibilities per mode
@@ -327,6 +326,45 @@ implementer's. The items below follow that seam.
   the acceptance asks both files for the `§ Seats` cite, and this
   section is where the report names the change kind. `plan.md` stays
   within 300 lines and 80 columns.
+- [ ] `run.md § Dispatch per item` 3 defines the spec reviewer's
+  `<base>`: the latest planner commit on the branch, else the commit
+  the branch was cut from, so a planner's approved acceptance change
+  (`§ Question resolution`; `requirements.md § Desired state` 7) is no
+  "Acceptance unchanged" finding; `companions/spec-reviewer-prompt.md`
+  names the base by that definition wherever it names it - the prose
+  intro and the `## Inputs` line. `run.md` stays within 300 lines and
+  80 columns (table rows exempt). Approach: `run.md` step 3 gains,
+  before "Reject → fix → recheck.": "Its `<base>` is the latest planner
+  commit on the branch, else the commit the branch was cut from, so an
+  approved acceptance change (§ Question resolution) is no finding." -
+  two lines, the file at 297. `spec-reviewer-prompt.md`: the `## Inputs`
+  bullet "Branch base: `<base>`, the commit the branch was cut from,
+  for the plan file's diff." reads "Branch base: `<base>`, the latest
+  planner commit on the branch, else the commit the branch was cut from
+  (`run.md § Dispatch per item` 3), for the plan file's diff."; the
+  intro's "the branch base and the diff" reads "the branch base
+  (`run.md § Dispatch per item` 3) and the diff", the paragraph
+  rewrapped. The "Acceptance unchanged" check keeps its command: the
+  base moves, the diff does not.
+- [ ] `run.md § Seats`' intro sentence gives the user, under
+  `Supervisor: AI`, the merges outside the declared bounds beside the
+  asked-of row and the acceptance-approval cell, matching the Merging
+  row's "else user"; the file stays within 300 lines and 80 columns
+  (table rows exempt). Approach: "and the user holds the asked-of row
+  and the acceptance-approval cell." reads "and the user holds the
+  asked-of row, the acceptance-approval cell and the merges outside the
+  declared bounds (the Merging row's "else user")." - one line, the
+  file at 298 after the item above.
+- [ ] `companions/declarations.md § Supervisor bounds`' decision split
+  names acceptance text, not plan content, as design-level, the
+  approach being the implementer's (`run.md § Seats`). Approach:
+  "`DESIGN.md`-level structure, plan content." reads "`DESIGN.md`-level
+  structure, acceptance text."; no other word changes.
+- [ ] `companions/supervisor-runbook.md § Two variants`' "Who starts
+  it" row carries no `(run.md § Seats)` cite, the table having no row
+  for starting the runner. Approach: the row reads "| Who starts it |
+  the user, in a terminal | the user, over ssh |"; the rest of the
+  table and the file unchanged.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` and `bash scripts/ci/run-all.sh` green, the task marked in
   `tasks.md`. Approach: the close review reads every site the items
