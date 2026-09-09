@@ -41,10 +41,10 @@ seat and its bounds in a `## Supervision` section directly after
 
 `Supervisor: human` - the user's own interactive session holds the
 seat: it dispatches the seats, and the user approves the planner's
-changes (`run.md § Question resolution`), clears what stops them and
-merges. `Supervisor: AI` - a supervising session dispatches, verifies
-and merges within the bounds below, and the user approves plan changes
-and answers the always-ask list. Both reach the user under either. A
+acceptance changes and merges (`run.md § Seats`). `Supervisor: AI` - a
+supervising session dispatches, verifies and merges within the bounds
+below, and the user approves acceptance changes and answers the
+always-ask list (`run.md § Seats`). Both reach the user under either. A
 block without the `Supervisor:` line, or no block at all, halts the
 run at resolve, naming the missing line; the bounds line alone grants
 nothing. The default grant, **batch-scoped
@@ -60,9 +60,9 @@ work as far as a green MR/PR and holds one decision class:
   delivery as a missing report does;
 - queued judgment calls at implementation level, each recorded in the
   report's supervisor-decisions section and ledgered (`run.md
-  § Ledger`); an implementer's question instead takes the planner's
+  § Ledger`); an acceptance-level question instead takes the planner's
   change and the **user**'s approval under either mode (`run.md
-  § Question resolution`).
+  § Seats`, `§ Question resolution`).
 
 **The grant includes the merge.** Within the declared bound the
 supervisor's last act on a green in-class MR/PR is the merge, carrying

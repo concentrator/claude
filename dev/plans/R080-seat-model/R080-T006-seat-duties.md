@@ -120,7 +120,7 @@ implementer's. The items below follow that seam.
   second paragraph and `§ Question resolution`'s tail are rewrapped
   tight to 80 columns, which returns three more lines than the cites
   cost and leaves the file at 295.
-- [ ] `companions/declarations.md § Supervisor bounds` and
+- [x] `companions/declarations.md § Supervisor bounds` and
   `companions/supervisor-runbook.md` cite `(run.md § Seats)` at every
   duty sentence and have nobody clearing a prompt. Approach:
   `declarations.md`: "it dispatches the seats, and the user approves
@@ -142,9 +142,10 @@ implementer's. The items below follow that seam.
   escalations, merges", the AI pair "approves acceptance changes,
   answers the" / "always-ask escalations only", the `|` column
   unmoved; the "asking?" branch reads "acceptance question?", its
-  arrow text unchanged, and the three branch lines and the `|` line
-  between them are re-padded so the `->`, `+`, `|` and `-+` columns
-  still align (the branch line grows from 85 to 90 characters).
+  arrow text unchanged, and the three `+--` branch lines and the `|`
+  line between the first two are re-padded so the `->`, `+`, `|` and
+  `-+` columns still align: the label field widens to 20 characters,
+  putting `->` at column 38 and the two `-+` lines at 91.
   `§ Variant A` step 3 opens "**Runner** routes
   an acceptance-level question through `run.md § Question resolution`
   (`run.md § Seats`):", rest unchanged; `§ Variant B` step 6 "approves
@@ -159,9 +160,11 @@ implementer's. The items below follow that seam.
   dialog is an answer and text typed into its input box a dispatch,
   and no key goes past a permission prompt - the prompt is a
   pre-flight defect the runner halts on and reports, and the user
-  fixes the declared set and re-runs (`run.md § Seats`); the
-  `send-keys '1'` recipe and its "once they have read the pane"
-  clause drop, the second-dispatcher and deadlock sentences stay.
+  fixes the declared set and re-runs (`run.md § Seats`; `run.md
+  § Dispatch per item`); the `send-keys '1'` recipe and its "once they
+  have read the pane" clause drop, the second-dispatcher and deadlock
+  sentences stay, the second reworded to keep its subject once the
+  clause it followed is gone.
   R080-T007 builds the pre-flight mechanics; no `depends-on` on it.
 - [ ] `branch-plan.md` carries the two-layer item: `§ Body` defines
   the seam, `§ Rails` says the acceptance is the planner's alone and
