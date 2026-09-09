@@ -40,8 +40,9 @@ Task tool (general-purpose):
     2. Bring every doc the branch ships to the shipped code: the
        `docs/` doc and its `docs/index.md` line at the project's
        granularity (`layout.md § Docs`), the CHANGELOG
-       `## [Unreleased]` entry under `release-routine: yes`,
-       `README.md` for new public surface, and `extended-docs: yes`
+       `## [Unreleased]` entry under `release-routine: yes` in
+       `changelog.md`'s style, `README.md` for new public surface, and
+       `extended-docs: yes`
        per the project's `CLAUDE.md § Conventions`. A doc the diff
        leaves accurate stays untouched.
     3. Write per `companions/documentation.md § Reference discipline`
