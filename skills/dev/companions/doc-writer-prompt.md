@@ -2,11 +2,10 @@
 
 Use this template when dispatching a doc-writer seat: once per branch,
 after every implementer commit has landed - the close review's approved
-fixes included - at the step of `run.md § Close` where the runner
-dispatches the seat. Its inputs are the branch diff, the branch's plan
-items and the existing docs, and nothing else: never the implementer's
-report, never its transcript. The template's `## Inputs` is the seat's
-whole input set.
+fixes included - at `run.md § Close` 3. Its inputs are the branch diff,
+the branch's plan items and the existing docs, and nothing else: never
+the implementer's report, never its transcript. The template's
+`## Inputs` is the seat's whole input set.
 
 ```
 Task tool (general-purpose):

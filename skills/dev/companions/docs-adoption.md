@@ -42,5 +42,5 @@ So future work maintains the docs:
 
 - record the docs conventions in `CLAUDE.md § Conventions` if absent - the
   granularity model and the `docs/index.md` pointer;
-- rely on the read-at-plan / reconcile-at-close lifecycle (`branch-plan.md`,
-  `write-plan.md`) that ships with DEV.
+- rely on the read-at-plan / doc-writer-at-close lifecycle
+  (`write-plan.md`, `run.md § Close` 3) that ships with DEV.
