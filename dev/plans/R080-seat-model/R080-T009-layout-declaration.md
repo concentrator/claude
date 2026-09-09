@@ -358,8 +358,12 @@ follow the target's declared session tree.
   (`implementer-prompt.md § Plan & Findings Files`; created if
   absent), as a note the implementer reads, one bullet per gap with
   the gap's text; the header then records `cold-read: passed` and no
-  planner is re-dispatched for it. The session writes the notes with
-  the header edit, in the bookkeeping commit step 6 already gives it.
+  planner is re-dispatched for it. Restart: a planner change made
+  after the pass is recorded - one `run.md § Question resolution` or
+  `plan.md § Adjusting existing plans` sends to step 6 - starts its
+  own count of two reads, scoped to what it changed. The session
+  writes the notes with the header edit, in the bookkeeping commit
+  step 6 already gives it.
   An approach gap is fixed once with no re-read, as step 6 has it.
   `implementer-prompt.md § Inputs`' Plan bullet names the findings
   file beside the plan, so the notes reach the implementer as an
@@ -390,14 +394,16 @@ follow the target's declared session tree.
   named; and the second read is the last - an acceptance gap it still
   reports goes to `<task-id>-<slug>.findings.md` beside the plan
   (created if absent) as a note the implementer reads, and no planner
-  is re-dispatched. When the read reports none, or at the second read,
+  is re-dispatched. A planner change made after the pass is recorded
+  starts a count of its own, scoped to what it changed. When the read
+  reports none, or at the second read, the header records
+  `cold-read: passed`. The session commits that header edit and the
+  notes on the branch the planner committed to - the record is
+  bookkeeping, not plan text." - the sentence "when it reports none
   the header records `cold-read: passed`. The session commits that
-  header edit and the notes on the branch the planner committed to -
-  the record is bookkeeping, not plan text." - the sentence "when it
-  reports none the header records `cold-read: passed`. The session
-  commits that header edit on the branch the planner committed to -
-  the record is bookkeeping, not plan text" going in its favour; the
-  step grows from 14 to 19 lines and the file from 120 to 125.
+  header edit on the branch the planner committed to - the record is
+  bookkeeping, not plan text" going in its favour; the step grows
+  from 14 to 18 lines and the file from 120 to 124.
   `verification-policy.md § Comprehension check`: "an acceptance gap
   re-runs the read per `write-plan.md` step 6," reads "an acceptance
   gap re-runs the read once, over the change, per `write-plan.md` step
@@ -410,7 +416,7 @@ follow the target's declared session tree.
   second read,". `implementer-prompt.md § Inputs`, the Plan bullet,
   gains a third sentence: "Its `<task-id>-<slug>.findings.md`, where
   one exists, carries the read's open notes: read them with it."
-  `tasks.md` lines 90-93: "questions; the cold read (...) needs a
+  `tasks.md` lines 89-93: "questions; the cold read (...) needs a
   stopping rule - two rounds, then judgment-level gaps go to the
   findings file - and a plan change should stay" reads "questions; a
   plan change should stay", rewrapped.
@@ -446,10 +452,10 @@ follow the target's declared session tree.
   § Declared paths` and in the migration source `dev/docs/`
   (`migrate.md`'s route, `root-migration.md`'s move and rewrite sets);
   `.claude/plans/` and `.claude/docs/` never match, the `/` before
-  them excluding them; `git grep -n 'dev/' -- skills/dev/companions/
-  '*.json'` finds nothing; and `git grep -n 'LAYOUT.md' -- skills rules
-  agents` finds the literal default only in `companions/declarations.md
-  § Declared paths`. The criterion's sweep of
+  them excluding them; `git grep -n 'dev/' --
+  skills/dev/companions/'*.json'` finds nothing; and `git grep -n
+  'LAYOUT.md' -- skills rules agents` finds the literal default only in
+  `companions/declarations.md § Declared paths`. The criterion's sweep of
   all of `skills/` adds two hits in skills outside the toolset, which
   stay: `skills/test-driven-development/testing-anti-patterns.md`
   (bundled, "docs/examples") and
