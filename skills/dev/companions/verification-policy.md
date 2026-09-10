@@ -142,8 +142,9 @@ own mess included - a verifier that needs cleanup stops and reports.
 
 The dispatcher's read of the plan (`write-plan.md` step 6). A plan is
 implemented by a cold-context agent, so test it on one before it is
-offered for approval: dispatch a fresh subagent with exactly the
-implementer's inputs - the plan, the docs and the code
+offered for approval: dispatch the cold reader
+(`agents/dev-cold-reader.md`, the `dev-cold-reader` type) with exactly
+the implementer's inputs - the plan, the docs and the code
 (`companions/implementer-prompt.md`), never the planning conversation -
 and ask what it would build and what is ambiguous or assumed in the
 acceptance and the initial approach. A question the inputs cannot

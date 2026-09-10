@@ -323,7 +323,7 @@ repository's own and the installer copies none of them.
   `## Inputs`. `run.md`'s own cites move in the `run.md` item below, so
   its `Job 3` cite points at a Job that has moved until that item
   lands; the branch is consistent at its close.
-- [ ] The two seats dispatched with no prompt companion get definitions
+- [x] The two seats dispatched with no prompt companion get definitions
   and their dispatch sites name them. `agents/dev-cold-reader.md`:
   `name: dev-cold-reader`, its description, no `model:` and no
   `effort:` - an omitted key inherits the session's, which is what the
