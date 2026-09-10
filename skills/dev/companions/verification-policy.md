@@ -8,11 +8,14 @@ knobs the runner has and when to apply them.
 
 ## Effort mechanics
 
-Effort routes per role: an agent definition's frontmatter carries an
-`effort:` key beside `model:` (`low`/`medium`/`high`/`xhigh`/`max`;
-`agents/code-reviewer.md` pins `medium`), since dispatch overrides
-`model` only; a role pinning neither inherits the session
-`effortLevel`, the default rather than the ceiling.
+Model and effort route per seat: each definition's frontmatter carries
+`model:` and, where the seat pins one, `effort:`
+(`low`/`medium`/`high`/`xhigh`/`max`; `agents/code-reviewer.md` pins
+`medium`), the roster being `run.md § Seats`. A dispatch overrides
+`model` only, which is why the implementer's tier is the dispatch's
+(§ Models) and its definition's value the default; a key a definition
+omits inherits the session's - `effortLevel` the default rather than
+the ceiling.
 
 ## Mechanical commits
 
@@ -161,31 +164,27 @@ it at its start.
 
 ## Models
 
-| Role | Model (dispatch value) |
-|---|---|
-| Planners (branch plans and plan changes) | Fable 5 (`fable`) |
-| Doc writers and the docs gate's verifier | Fable 5 (`fable`) |
-| Default implementers | Opus 4.8 (`opus`) |
-| Mechanical-commit implementers | Sonnet 4.6 (`sonnet`) |
-| Probes (live API probing work) | Opus 4.8 (`opus`) |
-| Judgment-heavy implementers | Fable 5 (`fable`) |
-| Spec-compliance checks (per-commit) | Fable 5 (`fable`) |
-| Branch-close review and batch full-diff review | Fable 5 (`fable`) |
+A seat's model is its definition's (`run.md § Seats`); the two rules a
+definition cannot hold stay here.
 
-Effort: a role runs at the session `effortLevel` unless its definition
-pins one (§ Effort mechanics).
+**Implementer tier.** The runner picks the implementer's model
+deterministically - mechanical predicate true (§ Mechanical commits) →
+`sonnet`; plan item explicitly tagged `(judgment-heavy)` → `fable`;
+otherwise the model `agents/dev-implementer.md` pins. No predicate
+infers `(judgment-heavy)`; only the tag in the plan-item text does.
 
 **Capacity fallback.** A pinned model can be rate-limited, which is not
-a fact about the work. Before dispatching a `fable` role, read the gate:
+a fact about the work. Before dispatching a seat whose definition pins
+`fable`, read the gate:
 `bash ~/.claude/scripts/model-quota.sh "Fable"` (the endpoint's
 display name for Fable 5) exits 0 while the weekly window has headroom,
 1 at or over its ceiling, 2 when it cannot tell; dispatch `fable` on 0
 only, `opus` otherwise, a missing script included - a wrong `fable`
 stalls the review on a consent dialog, a wrong `opus` costs a weaker
 review. A dispatch that still fails on capacity below the ceiling falls
-back one row - `fable` roles to `opus`, `opus` roles to `sonnet`. Either
-way, record the substitution in the batch report or
-branch findings: pinned model, substitute, reason. It is a documented
+back one row - a `fable` seat to `opus`, an `opus` seat to `sonnet`.
+Either way, record the substitution in the batch report or branch
+findings: pinned model, substitute, reason. It is a documented
 degrade, not a decision to negotiate per batch, and not grounds to halt
 delivery.
 
@@ -193,15 +192,3 @@ The record states what the substitution costs: cheap where
 deterministic gates pin acceptance, the larger call where the
 reviewer's judgment is the whole check (authored prose, documented
 behaviour).
-
-**Routing:** the runner picks the implementer row deterministically -
-mechanical predicate true → Mechanical-commit row (`sonnet`); plan item
-explicitly tagged `(judgment-heavy)` → Judgment-heavy row (`fable`);
-otherwise the Default implementers row (`opus`). No predicate infers
-`(judgment-heavy)`; only the tag in the plan-item text does.
-
-**Spec-check disambiguation:** per-commit spec-compliance checks
-(pass/fail against the plan item) and the judgment-heavy branch-close /
-batch full-diff reviews all run on `fable`. They remain distinct roles -
-the per-commit spec check is the only one a mechanical commit may
-skip (§ Spec-check skip); the close/batch reviews always run.

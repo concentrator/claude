@@ -475,7 +475,7 @@ repository's own and the installer copies none of them.
   `§ Question resolution`'s `§ Report Format` cite point at companion
   sections that stay and are left alone. Verify with
   `bash scripts/ci/run-all.sh`.
-- [ ] `companions/verification-policy.md § Models` keeps only the two
+- [x] `companions/verification-policy.md § Models` keeps only the two
   rules a definition cannot hold, and the run's own bookkeeping follows
   the split. The table goes: every value is now its seat's definition,
   which the section cites. What stays is the implementer tier rule -
@@ -500,8 +500,13 @@ repository's own and the installer copies none of them.
   Approach: `verification-policy.md § Models` opens "A seat's model is
   its definition's (`run.md § Seats`); the two rules a definition
   cannot hold stay here.", then `**Implementer tier.**` (the current
-  `**Routing:**` paragraph, its "Default implementers row (`opus`)"
-  reading "the model `agents/dev-implementer.md` pins") and
+  `**Routing:**` paragraph, naming the models rather than the rows,
+  which the deleted table no longer carries: "Mechanical-commit row
+  (`sonnet`)" reads "(§ Mechanical commits) → `sonnet`",
+  "Judgment-heavy row (`fable`)" reads "`fable`", and "the Default
+  implementers row (`opus`)" reads "the model
+  `agents/dev-implementer.md` pins", as the acceptance above states the
+  rule) and
   `**Capacity fallback.**` unchanged but for "Before dispatching a
   `fable` role" reading "Before dispatching a seat whose definition
   pins `fable`" and "`fable` roles to `opus`, `opus` roles to `sonnet`"
