@@ -24,7 +24,7 @@ every project on the machine.
 | `DESIGN.md` | Architecture, self-hosting layout |
 | `LAYOUT.md` | The repository's actual tree - the layout file `CLAUDE.md § Layout` declares; `scripts/ci/check-stray.sh` checks every tracked top-level entry against it |
 | `MAINTENANCE.md` | The Tier-2 review concerns, plus the sanity routine: cleanup, repair, allow-list hygiene, skill audits |
-| `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) and the gitignored `session/` |
+| `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) and the gitignored `session/` and `supervisor/` |
 
 ## Workflow
 
@@ -59,12 +59,12 @@ and agent-authored artifacts at the paths the project's root
 `CLAUDE.md § Layout` declares, one line per key: `Docs:` the docs tree,
 `Plans:` the planning tree, `Session:` the gitignored per-session state
 files, `Layout:` the layout file holding the repository's actual tree.
-A missing line or block means that key's default - `docs/`,
-`dev/plans/`, `dev/session/`, `.claude/LAYOUT.md` - so a project that
+A missing line or block means that key's default, so a project that
 has not declared keeps working. The supervisor's ledgers sit in
 `supervisor/` beside the session tree, gitignored like it. This repo's
 global `CLAUDE.md` carries a block of its own (§ Self-hosting); a
-project's block wins. Declaration form:
+project's block wins, and a project without one is on the defaults,
+not this block's values. Declaration form and the defaults:
 `skills/dev/companions/declarations.md § Declared paths`; canonical
 structure: `skills/dev/layout.md`; paths: `skills/dev/plan.md § Where
 things live`.
@@ -76,8 +76,9 @@ changes to the environment flow through initiatives in its plans tree
 like any other project. Because the repo root *is* the `.claude/`
 directory, the foundational files live at the root, `LAYOUT.md` among
 them, so its `CLAUDE.md § Layout` declares `LAYOUT.md` there and keeps
-the tree defaults: the DEV artifacts sit beside the root files under
-`dev/` - see `DESIGN.md § Self-hosting layout`.
+`Docs:`, `Plans:` and `Session:` at their defaults: the DEV artifacts
+sit beside the root files under `dev/` - see `DESIGN.md § Self-hosting
+layout`.
 
 ## Setup on a new machine
 
@@ -119,15 +120,15 @@ percent), and from `rules/` ships only `writing-artifacts.md`. Re-run it to
 refresh.
 
 It also writes outside the target `.claude/`, append-only in both cases:
-an `@writing.md` import added to the target `CLAUDE.md`, and - for
-`--project` - a `!`-allowlist line in the repo's root `.gitignore` for
-each installed path that repo ignores, so the toolset stays committable,
-plus two anchored ignore lines for runtime state: the session tree the
-target's `CLAUDE.md § Layout` declares, where the per-session state
-files live (`skills/dev/handoff.md`), and `supervisor/` beside it, the
-supervisor's ledgers (`skills/dev/run.md § Ledger`) - `/dev/session/`
-and `/dev/supervisor/` for a target without a declaration. The
-declaration and the layout file are the project's: an install leaves
-both exactly as it found them.
+an `@writing.md` import added to the target's `.claude/CLAUDE.md`,
+and - for `--project` - a `!`-allowlist line in the repo's root
+`.gitignore` for each installed path that repo ignores, so the toolset
+stays committable, plus two anchored ignore lines for runtime state:
+the session tree the repo's root `CLAUDE.md § Layout` declares, where
+the per-session state files live (`skills/dev/handoff.md`), and
+`supervisor/` beside it, the supervisor's ledgers (`skills/dev/run.md
+§ Ledger`) - `/dev/session/` and `/dev/supervisor/` for a target without
+a declaration. An install leaves the declaration and the layout file
+exactly as it found them: they are the project's.
 The copied checks are yours to wire into CI; the installer ships them
 without registering them.
