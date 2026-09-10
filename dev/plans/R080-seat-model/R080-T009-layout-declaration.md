@@ -751,7 +751,8 @@ follow the target's declared session tree.
 - [ ] The declaration's prose states each default once and admits this
   repository's root: `companions/declarations.md § Declared paths`'
   `Docs:` bullet no longer restates the `docs/` default the fenced
-  block above it is the one home of (the first item's rule), so the
+  block above it is the one home of (the first decision bullet above;
+  the block's own sentence "this block is their one home"), so the
   criterion's grep finds `docs/` in `declarations.md` only in that
   block; `layout.md § Layout file`'s root-line sentence admits the
   root `LAYOUT.md` carries - a repository consumed at a fixed path
@@ -786,35 +787,51 @@ follow the target's declared session tree.
 - [ ] `LAYOUT.md` carries every tracked entry `layout.md § Layout file`
   requires: under `scripts/`, the worker-host tooling `forge-keys.sh`,
   `provision-worker.sh`, `worker-credentials.sh`, `worker-setup.sh`
-  and `worker-workspace.sh`; under `skills/`, `worker-host/` with its
-  `SKILL.md` and `companions/`. Each line carries a role comment taken
-  from the file's own header comment or title, aligned to the `#`
-  column its siblings use; `companions/` is one line with its two
-  files named in the comment, as `skills/dev/companions/` is drawn,
-  the depth `§ Layout file` sets by `§ Config layout`. Entries keep
-  the file's order: alphabetical under `scripts/`, and `worker-host/`
-  last under `skills/`, after the bundled and personal skills, as the
-  one skill that is this repository's own operations. `git ls-files
-  scripts skills/worker-host` then lists no first- or second-level
-  entry the file lacks. No root entry is added, so `MAINTENANCE.md
-  § Doc-sync pairs` obliges no `README.md § Contents` row, and
-  `check-stray.sh` matches first-level nodes only, so the fast tier is
-  green before and after. No check caps `LAYOUT.md`'s line length.
-  Approach: under `scripts/`, after `context-cost.py`: "forge-keys.sh
-  # forge key exchange, the operator's half (sourced by
+  and `worker-workspace.sh`; under `scripts/ci/`, the pattern line
+  `check-*.sh` with `code-size-allow.txt` and `run-all.sh`; under
+  `scripts/test/`, the pattern line `*.test.sh` with `run-all.sh`;
+  under `skills/`, `worker-host/` with its `SKILL.md` and
+  `companions/`. Each line carries a role comment taken from the
+  file's own header comment or title (a pattern line's from what its
+  files share), aligned to the `#` column its siblings use;
+  `companions/` is one line with its two files named in the comment,
+  as `skills/dev/companions/` is drawn, the depth `§ Layout file` sets
+  by `§ Config layout`. Entries keep the file's order: alphabetical
+  under `scripts/`, `ci/` and `test/`, and `worker-host/` last under
+  `skills/`, after the bundled and personal skills, as the one skill
+  that is this repository's own operations. Verification: every line
+  `git ls-files scripts skills/worker-host | cut -d/ -f1-3 | sort -u`
+  prints is a drawn entry or matches a drawn pattern line
+  (`scripts/ci/check-*.sh`, `scripts/test/*.test.sh`); today it
+  prints the `ci/` and `test/` children, the five worker-host scripts
+  and the two `skills/worker-host/` lines the file lacks, and after
+  the change nothing the file lacks. No root entry is added, so
+  `MAINTENANCE.md § Doc-sync pairs` obliges no `README.md § Contents`
+  row, and `check-stray.sh` matches first-level nodes only, so the
+  fast tier is green before and after. No check caps `LAYOUT.md`'s
+  line length.
+  Approach: under `scripts/`, `ci/` gains three children, drawn one
+  level deeper as `dev/plans/`'s are: "├── check-*.sh # the Tier-1
+  checks, one per file", "├── code-size-allow.txt # check-code-size.sh
+  exemptions, one path per line" and "└── run-all.sh # the Tier-1
+  gate: every check, fails if any fails"; after `context-cost.py`:
+  "forge-keys.sh # forge key exchange, the operator's half (sourced by
   provision-worker.sh)"; after `model-quota.sh`: "provision-worker.sh
-  # stands up the worker host, run on the operator's machine"; after
-  `test/`, whose `└──` becomes `├──`: "worker-credentials.sh # worker
-  forge keys and CLI auth, run on the VM", "worker-setup.sh # worker
-  host system setup, run on the VM" and, as the block's new `└──`,
-  "worker-workspace.sh # worker repositories and per-project settings,
-  run on the VM". Under `skills/`, `writing-skills/`'s `└──` becomes
-  `├──` and the block ends "└── worker-host/ # GCP worker host runbook,
-  this repository's own", "├── SKILL.md #   the four scripts and where
-  each runs", "└── companions/ #   provisioning order, pitfalls", the
-  children indented as the `dev/` block's are. Padding is collapsed in
-  the quotes above: each `#` lands on the column `context-cost.py`'s
-  and `dev/`'s do.
+  # stands up the worker host, run on the operator's machine"; `test/`,
+  whose `└──` becomes `├──`, gains two children: "├── *.test.sh
+  # script and hook tests, one per subject" and "└── run-all.sh # the
+  test aggregator: every *.test.sh, fails if any fails"; after them:
+  "worker-credentials.sh # worker forge keys and CLI auth, run on the
+  VM", "worker-setup.sh # worker host system setup, run on the VM"
+  and, as the block's new `└──`, "worker-workspace.sh # worker
+  repositories and per-project settings, run on the VM". Under
+  `skills/`, `writing-skills/`'s `└──` becomes `├──` and the block
+  ends "└── worker-host/ # GCP worker host runbook, this repository's
+  own", "├── SKILL.md #   the four scripts and where each runs",
+  "└── companions/ #   provisioning order, pitfalls", the children
+  indented as the `dev/` block's are. Padding is collapsed in the
+  quotes above: each `#` lands on the column `context-cost.py`'s and
+  `dev/`'s do.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup (stale/temp
   data), mark plan complete, mark the task `[x]` in `tasks.md`,
