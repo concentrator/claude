@@ -40,7 +40,11 @@ Decisions the items rest on, each homed in the item that writes it:
 - **Naming.** The six new files are `agents/dev-<seat>.md` with a
   matching `name:`. They load in every session on this machine, DEV or
   not, and a bare `planner` or `implementer` in that list invites a
-  VIBE session to pick one; the prefix says whose they are.
+  VIBE session to pick one; the prefix says whose they are. The listing
+  selects on `description:` as much as on name, so each of the six
+  descriptions carries the same guard: one line opening "Seat of `/dev
+  run`, dispatched by the runner only:" and closing with when the run
+  dispatches it (the roster's Dispatched cell, item 4, in brief).
   `code-reviewer` keeps its name and file: five files under
   `skills/dev/`, `skills/dispatching-parallel-agents/SKILL.md`,
   `LAYOUT.md` and a test fixture
@@ -84,28 +88,40 @@ Decisions the items rest on, each homed in the item that writes it:
   4). The three reviewer seats and the cold reader are read-only toward
   the repository, as `agents/code-reviewer.md` already states in prose,
   so their sets carry no `Edit` and no `NotebookEdit`; the docs
-  verifier alone among them carries `Write`, for the throwaway fixtures
-  `companions/verification-policy.md § Verifier isolation` requires,
-  which a shell heredoc cannot build without tripping the obfuscation
-  guard.
+  verifier alone among them carries `Write`, to build the throwaway
+  repo `companions/verification-policy.md § Verifier isolation`
+  requires it to probe in: a shell heredoc carrying JSON or JS trips
+  the obfuscation guard. That section says nothing about how a fixture
+  is written, and the only file carrying the heredoc fact today
+  (`implementer-prompt.md § Scratch & Probe Scripts`) becomes the
+  implementer's definition, which no verifier cites; the docs verifier's
+  definition states the fact in its own words.
 - **A tool set cannot bound `Bash`, and no definition claims it can.**
   `agents/code-reviewer.md` bans every HEAD-moving git command in
   prose, and a reviewer still checked out `main` mid-branch: under
   `auto` the classifier reads `git checkout` as benign. Only a deny
   rule holds a seat off HEAD, and the deny floor is R080-T007's (below).
-- **The config rule is about shell and settings, not paths.** Every
-  definition carries it where the companions today say "never write
-  config", in three parts: no seat runs edit-class shell (`sed -i`,
-  `tee`, a redirection) against anything under the config directory,
-  which is what the sensitive-file guard fires on; no seat writes the
-  settings surface - `settings.json`, `.claude/settings.json`,
-  `.claude/settings.local.json`, `hooks/`, `~/.claude.json` - whose
-  only writer is the user's own `--apply` run of R080-T007's pre-flight
-  script; and everything else in the checkout - `skills/`, `rules/`,
-  `agents/`, `docs/`, `dev/plans/` - is tracked product source a seat
-  edits through Read/Edit/Write. A path reading is vacuous here: this
-  repository's checkout root is the config directory, so it would
-  forbid every task this repository has ever run.
+- **The config rule is about shell and settings, not paths**, and all
+  seven definitions carry it, every seat holding `Bash`. In each it
+  reads: "**Config.** No edit-class shell - `sed -i`, `tee`, a
+  redirection - against anything under the config directory: that is
+  what the sensitive-file guard fires on. Never the settings surface -
+  `settings.json`, `.claude/settings.json`,
+  `.claude/settings.local.json`, `hooks/`, `~/.claude.json`. Every
+  other tracked source in the checkout - skills, rules, agent
+  definitions, the docs, the plans - is an ordinary target, edited with
+  Read/Edit/Write." The third sentence is not optional: without it a
+  seat facing `skills/dev/run.md` re-derives the halt from the second
+  alone. The settings surface's only writer is the user's own `--apply`
+  run of R080-T007's pre-flight script. The sentence three companions
+  carry today - "never write config - settings, hooks, skills, rules,
+  `CLAUDE.md` - wherever it lives" at `planner-prompt.md` line 70,
+  `doc-writer-prompt.md` line 65 and `implementer-prompt.md` line 103,
+  there with the guarded-paths clause that follows it - is replaced by
+  that wording and never moved: moved as-is it ships the halt into
+  three definitions. A path reading is vacuous here: this repository's
+  checkout root is the config directory, so it would forbid every task
+  this repository has ever run.
 - **The `tools:` key is the harness's**, read from the agent file's
   frontmatter: the Agent tool's own description names
   `.claude/agents/*.md` frontmatter as where an agent type's tools,
@@ -120,8 +136,10 @@ Decisions the items rest on, each homed in the item that writes it:
   that on its first dispatch, by being asked to list its own tools.
 - **A duty statement cites the table, never restates it** (`§ Desired
   state` 6). Each definition's duties line says that the seat's duties
-  are the cells `skills/dev/run.md § Seats` gives it and that a duty
-  the table leaves unassigned is not its own. It names no cell: the
+  are the cells the duty table of `skills/dev/run.md § Seats` gives it
+  and that a duty the table leaves unassigned is not its own - "the
+  duty table" because the section holds a roster table too once item 4
+  lands. It names no cell: the
   table's rows are not a per-seat list - the planner's cell carries
   both layers at the detail round and the acceptance on a re-dispatch,
   the implementer holds one cell, not three - and an enumeration drifts
@@ -158,9 +176,11 @@ invalidates it. `write-plan.md § Steps` says steps 1 and 3 to 5 belong
 to one planner and cites `companions/planner-prompt.md`; after the move
 those steps are the definition's. `companions/documentation.md
 § Verification gate` says to split a large doc across parallel
-reviewers: a seat holds no Agent tool and seats run one at a time
-(`run.md § Seats`), so the split is the dispatcher's and runs as one
-verifier dispatch per section.
+reviewers: a seat holds no Agent tool, so the split is the
+dispatcher's, one verifier dispatch per section. That reason holds
+wherever the gate runs; whether the dispatches are sequential is the
+session's - in a run they are, seats running one at a time (`run.md
+§ Seats`), and the gate also serves a session outside one.
 
 What R080-T007 inherits, none of it this task's to write. `run.md
 § Pre-flight`'s "No plan in scope names a target under `.claude/`" is
@@ -200,14 +220,18 @@ repository's own and the installer copies none of them.
   (`companions/verification-policy.md § Models`, the row named) and its
   tool set, and no `effort:` key: none of the four pins one today
   (`§ Effort mechanics`). Its body is the sections the table names,
-  moved verbatim from the companion, with the config rule above in
-  place of that file's "never write config" sentence and the duties
-  line last. The three writing seats take "**Duties.** Yours are the
-  cells `skills/dev/run.md § Seats` gives the <subject>; a duty the
-  table leaves unassigned is not yours.", `<subject>` being the table's
-  last column; the spec reviewer takes "**Duties.** You read: no cell
-  of `skills/dev/run.md § Seats` is yours, and a finding is reported,
-  never fixed." Each companion's fenced block dispatches `Task tool
+  moved verbatim from the companion, with the config rule above where
+  that file's "never write config" sentence stood - before the duties
+  line for the spec reviewer, which carries none - and the duties line
+  last. The three writing seats take "**Duties.** Yours are the cells
+  the duty table of `skills/dev/run.md § Seats` gives the <subject>; a
+  duty it leaves unassigned is not yours.", `<subject>` being the
+  table's last column; the spec reviewer takes "**Duties.** You read:
+  no cell of the duty table in `skills/dev/run.md § Seats` is yours,
+  and a finding is reported, never fixed." The implementer's `## Your
+  Job` has one home, the definition: the companion keeps no job
+  section, so the fast-tier verify and the commit step move with the
+  rest. Each companion's fenced block dispatches `Task tool
   (dev-<seat>)`.
 
   | Seat | Model (`§ Models` row) | Tools | Sections moved | Duties subject |
@@ -228,17 +252,32 @@ repository's own and the installer copies none of them.
   implementer's model is the Default implementers row, the mechanical
   and judgment-heavy rows reaching the seat as the dispatch's override.
   Approach: write the four definitions, each section unindented out of
-  the fenced block and its cites rewritten repository-relative now that
-  they no longer sit under `skills/dev/` (`skills/dev/run.md § Seats`,
-  `skills/dev/branch-plan.md § Commit cadence`,
-  `skills/dev/write-plan.md`, `skills/dev/git-workflow.md § Commit
-  messages`, `skills/dev/companions/documentation.md`), each `<docs>`
-  or `<plans>` placeholder keeping its `CLAUDE.md § Layout` cite at
-  first use, and an intra-file cite whose target stays in the companion
-  rewritten to name it as the dispatch's - the implementer's "the
-  statuses under ## Report Format are your only channel" reads "the
-  statuses your dispatch's `## Report Format` names are your only
-  channel". The planner's three moved jobs renumber 1 to 3, so Job 3's
+  the fenced block and every cite to a file under `skills/dev/` given
+  that prefix now that the text no longer sits there - `run.md § Seats`
+  and `§ Question resolution`, `branch-plan.md § Body` and `§ Commit
+  cadence`, `write-plan.md` (its steps and `§ Readiness checklist`),
+  `git-workflow.md § Commit messages`, `plan.md § Where things live`,
+  `layout.md § Docs`, `changelog.md`, `companions/documentation.md`'s
+  three sections; `rules/writing-artifacts.md` and `CLAUDE.md` are
+  repository-relative already, and a bare `layout.md` in `agents/`
+  resolves to nothing - each `<docs>` or `<plans>` placeholder keeping
+  its `CLAUDE.md § Layout` cite at first use, and an intra-file cite
+  whose target stays in the companion rewritten to name it as the
+  dispatch's - the implementer's "the statuses under ## Report Format
+  are your only channel" reads "the statuses your dispatch's `## Report
+  Format` names are your only channel". A definition is not a dispatch,
+  so a dispatch placeholder in moved text is either named as the
+  dispatch's or replaced by prose: the planner's "Commit on `<branch>`"
+  reads "Commit on the branch the dispatch names"; the spec reviewer's
+  `git diff <base> <sha> -- <plan path>` keeps its three, the sentence
+  opening "With the `<base>`, `<sha>` and plan path your dispatch
+  names,"; `<task-id>-<slug>.findings.md` is a file pattern, kept as it
+  is, and `/tmp` in the scratch section is a literal path, kept. The
+  implementer's job step 1 reads "Implement exactly what the commit
+  item specifies, on the loop the plan's `type:` selects
+  (`skills/dev/run.md § Dispatch per item` 1)": the mode file is that
+  step's and the plan header names the type, so no placeholder is
+  needed. The planner's three moved jobs renumber 1 to 3, so Job 3's
   "item 1 above" still resolves. Then cut each companion.
   `planner-prompt.md`: Job 2 becomes Job 1 ("Write the plan to `<path
   to the plan file>`. The dispatch names that file: you neither choose
@@ -247,13 +286,15 @@ repository's own and the installer copies none of them.
   `cold-read: passed` record, and line 11 reads `Task tool
   (dev-planner):`.
   `implementer-prompt.md`: lines 1-26 stay (preamble, fence, `##
-  Inputs`), `## Your Job` becomes three lines - implement exactly what
-  the item specifies on the loop of the plan's `type:` mode file
-  (`<mode file>`), then report - `## Report Format` is unchanged, and
-  line 9 reads `Task tool (dev-implementer):`.
-  `spec-reviewer-prompt.md`: `## Your Job` goes, leaving lines 1-31 and
-  the `Report:` block at 65-70, its closing fence included; line 14
-  reads `Task tool (dev-spec-reviewer):`.
+  Inputs`), `## Report Format` follows them unchanged - `## Before You
+  Begin` through `## Before Reporting Back: Self-Review` are the
+  definition's, `## Your Job` whole - and line 9 reads `Task tool
+  (dev-implementer):`.
+  `spec-reviewer-prompt.md`: the `**Purpose:**` paragraph and `## Your
+  Job` go, leaving lines 1-7 and 12-31 - line 8's blank goes with the
+  paragraph under it, so one blank stands between the preamble and the
+  fence - and the `Report:` block at 65-70, its closing fence included;
+  line 14 reads `Task tool (dev-spec-reviewer):`.
   `doc-writer-prompt.md`: lines 1-36 stay - line 37 is the `## Your
   Job` heading the cut takes - and line 35's "(## Your Job, point 3)"
   reads "(`agents/dev-doc-writer.md`: the claim takes the `unverified`
@@ -290,14 +331,19 @@ repository's own and the installer copies none of them.
   `WebFetch`, `WebSearch` - its ground truth is the live system, the
   source, `--help`, config files and vendor docs, so it reaches the
   web; `Bash` is what `companions/verification-policy.md § Verifier
-  isolation` bounds, and `Write` is how it builds that section's
-  throwaway fixtures, since a shell heredoc carrying JSON or JS trips
-  the obfuscation guard and stalls the run on a prompt - it stays
-  read-only toward the checkout, writing only under a throwaway
-  directory outside it, and is never the author of what it verifies;
-  body: the per-claim verdicts and the comprehension pass are
+  isolation` bounds, and `Write` is how it builds the files of that
+  throwaway repo, the definition stating the reason in its own words -
+  a shell heredoc carrying JSON or JS trips the obfuscation guard and
+  stalls the run on a prompt - since `§ Verifier isolation` says
+  nothing about how a fixture is written and the file carrying that
+  fact today becomes `agents/dev-implementer.md`, which no verifier
+  cites; it stays read-only toward the checkout, writing only under a
+  throwaway directory outside it, and is never the author of what it
+  verifies; body: the per-claim verdicts and the comprehension pass are
   `companions/documentation.md § Verification gate`'s and are cited,
-  not restated. Both carry the duties line. At the dispatch sites,
+  not restated. Both carry the config rule, then the duties line, and
+  each `description:` follows the naming decision above. At the
+  dispatch sites,
   `companions/verification-policy.md § Comprehension check` and
   `companions/documentation.md § Verification gate` name the seat and
   its type, so the definition loads.
@@ -306,8 +352,9 @@ repository's own and the installer copies none of them.
   `skills/dev/companions/verification-policy.md § Verifier isolation`,
   the cold reader `skills/dev/write-plan.md` step 6 and
   `skills/dev/companions/implementer-prompt.md § Inputs`; each duties
-  line reads "**Duties.** You read: no cell of `skills/dev/run.md
-  § Seats` is yours, and a gap is reported, never fixed." In
+  line reads "**Duties.** You read: no cell of the duty table in
+  `skills/dev/run.md § Seats` is yours, and a gap is reported, never
+  fixed." In
   `verification-policy.md § Comprehension check`, "dispatch a fresh
   subagent with exactly the implementer's inputs" reads "dispatch the
   cold reader (`agents/dev-cold-reader.md`, the `dev-cold-reader` type)
@@ -319,16 +366,19 @@ repository's own and the installer copies none of them.
   (`run.md § Close` 3) - dispatches". The same section's "split a large
   doc across parallel reviewers by section
   (`dispatching-parallel-agents`)" reads "split a large doc across one
-  verifier dispatch per section": the seat holds no Agent tool and
-  seats run one at a time (`run.md § Seats`), so the split is the
-  dispatcher's and the dispatches are sequential.
+  verifier dispatch per section, the split being the dispatcher's: a
+  seat holds no Agent tool" - the reason is the tool set, which holds
+  wherever the gate runs; in a run the dispatches are sequential
+  (`run.md § Seats`), and the sentence does not say so, the gate
+  serving sessions outside a run too.
 - [ ] `agents/code-reviewer.md` declares its tool set and cites its
   duties, so the roster reads the same for every seat. It gains
   `tools: Read, Glob, Grep, Bash, WebFetch, WebSearch` in the
-  frontmatter and a closing duties line citing `skills/dev/run.md
-  § Seats`. The first four are the set its conduct paragraph already
-  describes in prose: no Agent (it "never invokes the Agent tool, or
-  any subagent"), no `Write`/`Edit` (it is read-only toward the repo),
+  frontmatter, the config rule and a closing duties line citing
+  `skills/dev/run.md § Seats`. The first four are the set its conduct
+  paragraph already describes in prose: no Agent (it "never invokes the
+  Agent tool, or any subagent"), no `Write`/`Edit` (it is read-only
+  toward the repo),
   `Bash` for the `git diff`/`log`/`show` it reads state with. The web
   tools are not in that paragraph, which says nothing about the web,
   and withholding them would narrow the seat: its rules-and-prose
@@ -338,7 +388,8 @@ repository's own and the installer copies none of them.
   `model: fable` and `effort: medium` are unchanged, the values
   `§ Models`' last row and `§ Effort mechanics` already point at.
   Approach: add the `tools:` line after `effort: medium`, and after the
-  `**Output**` paragraph: "**Duties.** You read: no cell of
+  `**Output**` paragraph the config rule (the decision above, verbatim)
+  then "**Duties.** You read: no cell of the duty table in
   `skills/dev/run.md § Seats` is yours, and a finding is reported,
   never fixed." Nothing else in the file changes.
 - [ ] `run.md § Seats` names every seat once and cites both homes, and
@@ -358,9 +409,18 @@ repository's own and the installer copies none of them.
   `agents/dev-planner.md`. The budget is the binding constraint:
   `run.md` is at 299 lines of the 300-line cap, so the section's net
   must not push it over, and the check settles it, not an estimate.
-  Where the edits below do not fit, the room comes from the same
-  rewraps - the closing paragraph's fold and the companion cites the
-  roster replaces.
+  Where the edits below leave the file over 300, one cut is authorized
+  and no other: `§ Question resolution`'s "The planner commits its
+  change locally, nothing being pushed until the runner delivers; a
+  planner reporting DONE_WITH_CONCERNS (`companions/planner-prompt.md
+  § Report Format`) has committed too, so its change takes the read
+  below as DONE's does and its concern reaches the user with the change
+  for approval" (lines 127-130) restates the commit rule this task
+  moves into `agents/dev-planner.md`, and reads "The planner's commit is
+  its definition's (`agents/dev-planner.md`); a DONE_WITH_CONCERNS
+  change takes the read below as DONE's does, its concern reaching the
+  user with the change for approval." - what stays is run flow. Taken
+  only if the file lands over 300 after the edits below.
   Approach: in `§ Seats`, drop the last sentence of the first
   paragraph, which rewraps. After it, a blank and a nine-line table -
   header, separator and seven rows, exempt from
@@ -383,9 +443,9 @@ repository's own and the installer copies none of them.
   `agents/code-reviewer.md`; the steps at left, no companion. The
   closing paragraph's second sentence goes and its first joins the
   supervisor-mode paragraph above the duty table, reading "... A run
-  reaching a duty the table below leaves unassigned halts and reports,
-  never improvises." Then `§ Pre-flight`'s "config is never a seat's to
-  write (`companions/implementer-prompt.md`)" reads
+  reaching a duty the duty table below leaves unassigned halts and
+  reports, never improvises." Then `§ Pre-flight`'s "config is never a
+  seat's to write (`companions/implementer-prompt.md`)" reads
   "(`agents/dev-implementer.md`)", the rule's home now being the
   definitions rather than `§ Seats`; the sentence's own path reading is
   R080-T007's to correct, so nothing else on that line moves.
@@ -418,8 +478,9 @@ repository's own and the installer copies none of them.
   only, and an omitted key inheriting the session's.
   `companions/report-template.md`'s Cost row measures the pair, since
   the standing text moved rather than shrank, and
-  `companions/supervisor-runbook.md § Modes by seat` stops enumerating
-  four seats where there are seven.
+  `companions/supervisor-runbook.md` stops enumerating seats where
+  there are seven, in `§ Modes by seat`'s table and `§ The loop`'s
+  diagram.
   Approach: `verification-policy.md § Models` opens "A seat's model is
   its definition's (`run.md § Seats`); the two rules a definition
   cannot hold stay here.", then `**Implementer tier.**` (the current
@@ -442,11 +503,13 @@ repository's own and the installer copies none of them.
   implementer-prompt.md <before> → <after>; spec-reviewer-prompt.md
   <before> → <after>" reads "seat prompt sizes (wc -w, definition +
   dispatch): implementer <before> → <after>; spec reviewer <before> →
-  <after>". `supervisor-runbook.md § Modes by seat`: the second row's
-  "Planner, implementer, reviewer, doc writer" reads "Any dispatched
-  seat (`run.md § Seats`)", and the loop diagram's seat box reads "any
-  seat of run.md § Seats" in place of its three-role line. The
-  section's "Every seat holds its commands to `branch-plan.md § Commit
+  <after>". `supervisor-runbook.md`: in `§ Modes by seat`, the table's
+  second row's "Planner, implementer, reviewer, doc writer" (line 184)
+  reads "Any dispatched seat (`run.md § Seats`)"; in `§ The loop`, the
+  seat box's three-role line (line 43, `implementer / reviewer / doc
+  writer`) reads `any seat of run.md § Seats`, padded so the box's
+  right border stays in column with the rows above and below. `§ Modes
+  by seat`'s "Every seat holds its commands to `branch-plan.md § Commit
   cadence` point 4" stays: it is the only place that rule reaches all
   seven, only the implementer's and the doc writer's text carrying it
   into a definition.
