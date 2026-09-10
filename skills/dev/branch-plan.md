@@ -1,6 +1,6 @@
 # Branch plan rules
 
-A branch plan is `dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`
+A branch plan is `<plans>/R<NNN>-<slug>/<task-id>-<slug>.md`
 (`plan.md § Directory conventions`). One
 branch = one task. The plan is complete and committed to `main`
 **before** the branch is created.
@@ -36,9 +36,8 @@ file's loop, `doc`/`test`/`mnt` run this alone:
    subset (`companions/declarations.md § Declared commands`); the
    full suite runs once at close (`finish.md`).
 2. **Docs** - none in this commit: every doc the branch ships -
-   `docs/` with its index, the CHANGELOG `## [Unreleased]` entry under
-   `release-routine: yes`, `README.md` for new public surface,
-   `extended-docs: yes` per project `CLAUDE.md § Conventions` - is the
+   `<docs>` with its index, the CHANGELOG `## [Unreleased]` entry under
+   `release-routine: yes`, `README.md` for new public surface - is the
    doc writer's, written once per branch at `run.md § Close` 3
    (`run.md § Seats`).
 3. **Commit** (`git-workflow.md § Commit messages`); mark the plan
@@ -144,10 +143,10 @@ commit and the hand-off (`finish`).
 
 ## Architecture-changing branches
 
-Header `architecture-changing: true` → the plan includes a commit
-updating `DESIGN.md`. Other branches touch `DESIGN.md` only for
-tree-map upkeep (adding a new file to `DESIGN.md § Tree-map`), foldable into
-the final commit without the flag.
+Header `architecture-changing: true` → the plan includes a commit updating
+`DESIGN.md`. Other branches never touch `DESIGN.md`; any branch that adds
+or removes an entry keeps `<layout>` current (`layout.md § Layout file`),
+foldable into the final commit without the flag.
 
 ## Size cap
 
@@ -185,7 +184,7 @@ approved requirements (`run.md § Resolve`).
 
 ### Batches
 
-`dev/plans/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.md` - ordered member list:
+`<plans>/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.md` - ordered member list:
 
     # R062-B001
     - R062-T001 (<slug>)

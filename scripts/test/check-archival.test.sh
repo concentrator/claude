@@ -99,5 +99,21 @@ yes 'body line' | head -20000 >> "$d/dev/plans/R001-x/requirements.md"
 ok_in "$d" && pass "large file parses" || die "large file falsely malformed"
 rm -rf "$d"
 
+# 10. the tree comes from the root CLAUDE.md § Layout declaration: an
+# open initiative under a declared var/plans/ passes, a closed one there
+# is caught
+d=$(mkrepo); printf -- '- Plans: var/plans/\n' > "$d/CLAUDE.md"
+mkdir -p "$d/var/plans/R001-x"
+printf -- '---\napproved: yes\nstatus: open\nkind: feat\n---\n\n# R\n' \
+  > "$d/var/plans/R001-x/requirements.md"
+ok_in "$d" && pass "declared plans tree read" \
+  || die "declared plans tree not read: $(run_in "$d")"
+printf -- '---\napproved: yes\nstatus: done\nkind: feat\n---\n\n# R\n' \
+  > "$d/var/plans/R001-x/requirements.md"
+fails_with "$d" 'git mv var/plans/R001-x var/plans/archive/' \
+  && pass "violation in the declared tree caught" \
+  || die "violation in the declared tree missed: $(run_in "$d")"
+rm -rf "$d"
+
 (( fail == 0 )) && echo "check-archival.test: OK"
 exit $fail

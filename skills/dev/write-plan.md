@@ -1,6 +1,6 @@
 # Writing Plans
 
-Generate a branch plan (`dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`)
+Generate a branch plan (`<plans>/R<NNN>-<slug>/<task-id>-<slug>.md`)
 from a task in its initiative's `tasks.md`. Invoked within the detail
 round (`/dev plan R<NNN>`), or per task via `/dev plan <task-id>` /
 `all`. `/dev plan <slug>` adjusts a plan that already exists, which is
@@ -12,7 +12,7 @@ The session's own, which settle step 2 - the slug, the branch prefix
 and the plan file:
 
 - Task ID (e.g. `R008-T001`; legacy `T-014`) from the parent R's
-  `dev/plans/R<NNN>-<slug>/tasks.md`
+  `<plans>/R<NNN>-<slug>/tasks.md`
 - Task tag: `[feat] | [fix] | [refactor] | [doc] | [test] | [mnt]`
 
 The planner's set is `companions/planner-prompt.md § Inputs`; restating
@@ -26,11 +26,11 @@ settled step 2. The session keeps steps 2, 6 and 7 and writes no plan
 text itself.
 
 1. **Resolve chain.** Read task line; walk back T → R. Read
-   `dev/plans/R<NNN>-<slug>/requirements.md` for acceptance criteria, and the
-   changed feature's `docs/` doc (if any) for its current behavior.
+   `<plans>/R<NNN>-<slug>/requirements.md` for acceptance criteria, and the
+   changed feature's `<docs>` doc (if any) for its current behavior.
 2. **Propose slug** (`git-workflow.md § Trunk` rules); confirm with
    user. The slug names both the plan branch and the plan file
-   `dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`, so it is settled and
+   `<plans>/R<NNN>-<slug>/<task-id>-<slug>.md`, so it is settled and
    the branch created before the dispatch, which names that file.
 3. **Decompose work** into commit-sized checkboxes. Each `[ ]` = one
    commit, ~2–5 minutes of focused work, written as its acceptance -
@@ -57,18 +57,24 @@ text itself.
 5. **Add the mandatory final item** at the end - the completion commit
    (per `branch-plan.md § Closing routine`).
 6. **Cold read** of the planner's output per
-   `companions/verification-policy.md § Comprehension check`, the
-   reader given the plan, the docs and the code: each gap it reports
-   re-dispatches a planner with the gap's text (`plan.md § Adjusting
-   existing plans`); the reader tests the acceptance and the initial
-   approach, so an acceptance fix that adds a decision re-runs the read,
-   an acceptance fix that cites text already in the tree does not, and
-   an approach gap is fixed once and re-runs no read (`run.md § Seats`);
-   when it reports none the header records `cold-read: passed`. The
-   session commits that header edit on the branch the planner
-   committed to - the record is
-   bookkeeping, not plan text. A plan whose `depends-on` names an
-   unmerged task is read at its start instead, when its targets exist,
+   `companions/verification-policy.md § Comprehension check`, the reader given
+   the plan, the docs and the code: each gap it reports re-dispatches a planner
+   with the gap's text (`plan.md § Adjusting existing plans`); the reader tests
+   the acceptance and the initial approach, so an acceptance fix that adds a
+   decision re-runs the read, an acceptance fix that cites text already in the
+   tree does not, and an approach gap is fixed once and re-runs no read
+   (`run.md § Seats`). Two bounds: the first read covers the whole plan, a
+   later one only the items the planner changed and the lines the previous
+   read's gaps named; and the second read is the last - an acceptance gap it
+   still reports goes to `<task-id>-<slug>.findings.md` beside the plan
+   (created if absent) as a note the implementer reads, one bullet per gap
+   with its text, and no planner is re-dispatched. A planner change made
+   after the pass is recorded starts a count of its own, scoped to what it
+   changed. When the read reports none, or at the second read, the header
+   records `cold-read: passed`. The session commits that header edit and the
+   notes on the branch the planner committed to - the record is bookkeeping,
+   not plan text. A plan whose `depends-on` names an unmerged task is read at
+   its start instead, when its targets exist,
    and carries no record until then.
 7. **Confirm with user**, then deliver the committed plan via a
    short-lived plan MR/PR (`plan.md § Where plans live in git`).

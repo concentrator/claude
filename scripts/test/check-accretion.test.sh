@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Tests scripts/ci/check-accretion.sh - the Tier-1 accretion gate. Each
-# case runs the real check in a throwaway git repo (the gate scans
-# dev/plans/**/*.md only, so this test source never trips it).
+# case runs the real check in a throwaway git repo (the gate scans only
+# the plans tree the root CLAUDE.md § Layout declares, so this test
+# source never trips it).
 # Run: bash scripts/test/check-accretion.test.sh
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
@@ -15,7 +16,7 @@ die()  { echo "not ok - $1"; fail=1; }
 
 check_in() { ( cd "$1" && bash "$CHECK" >/dev/null 2>&1 ); }
 hits_in() { ( cd "$1" && bash "$CHECK" 2>&1 ) | grep -c ACCRETION || true; }
-# Fixtures carry the fixed dev/plans/ home.
+# Fixtures carry the default dev/plans/ home (no CLAUDE.md).
 mkrepo()   { local d; d=$(mktemp -d); git -C "$d" init -q; mkdir -p "$d/dev/plans"; printf '%s' "$d"; }
 
 # 1. dated status suffix in a living plan -> fail
@@ -118,6 +119,19 @@ printf -- '---\napproved: 2026-08-06\n---\n\n# R-001\n' \
   > "$d/dev/plans/R-001-x/requirements.md"
 git -C "$d" add -A
 check_in "$d" && die "dated approved not caught" || pass "dated approved caught"
+rm -rf "$d"
+
+# 19. the tree comes from the root CLAUDE.md § Layout declaration: a
+# clean declared var/plans/ passes, a dated marker there is caught
+d=$(mkrepo); printf -- '- Plans: var/plans/\n' > "$d/CLAUDE.md"
+mkdir -p "$d/var/plans"; printf 'clean\n' > "$d/var/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && pass "declared plans tree read" || die "declared plans tree not read"
+printf -- 'Superseded: 2026-07-07 in the declared home.\n' > "$d/var/plans/ROADMAP.md"
+git -C "$d" add -A
+c=$(hits_in "$d")
+[ "$c" = "1" ] && pass "violation in the declared tree caught" \
+  || die "declared-tree violation missed ($c of 1)"
 rm -rf "$d"
 
 (( fail == 0 )) && echo "check-accretion.test: OK"

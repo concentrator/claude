@@ -2,9 +2,9 @@
 
 The keys a project declares in its `CLAUDE.md` - routine commands in
 `§ Agent toolchain`, supervision in the `§ Supervision` that follows
-it - and the exact form each takes. All apply everywhere - both modes,
-every command. Push and MR/PR mechanics that consume them:
-`toolchain.md`.
+it, and paths in the `§ Layout` after them - and the exact form each
+takes. All apply everywhere - both modes, every command. Push and
+MR/PR mechanics that consume them: `toolchain.md`.
 
 ## Declared commands
 
@@ -80,8 +80,8 @@ classify escalates.
 Always asked of the user, under any grant: releases; changes to
 `CLAUDE.md`, `rules/`, or `skills/` - except a `CLAUDE.md` change
 confined to the declaration lines this file defines (`§ Agent
-toolchain`, `§ Supervision`); customer data or disclosure; off-plan
-work; history rewrites; red gates; design and architectural
+toolchain`, `§ Supervision`, `§ Layout`); customer data or disclosure;
+off-plan work; history rewrites; red gates; design and architectural
 decisions.
 Host gates (protected trunk, required checks) stay the hard floor for
 every seat - no admin merges.
@@ -105,3 +105,54 @@ The label answers at the MR/PR, the committer at any commit reached
 later from blame. No commit message, title or body mentions
 supervision: `git-workflow.md § MR/PR messages` governs prose and is
 unchanged by supervision.
+
+## Declared paths
+
+A project declares its key paths in a `## Layout` section directly
+after `## Supervision`, or directly after `## Agent toolchain` where
+the project has no `## Supervision`, so the declaration blocks stay
+contiguous. Rules and seat prompts name these paths by the
+placeholders below; the Tier-1 plan checks and the scripts that write
+or use the trees - the state hook, the installer - read the line:
+
+```
+- Docs: docs/
+- Plans: dev/plans/
+- Session: dev/session/
+- Layout: .claude/LAYOUT.md
+```
+
+Those four values are the defaults and this block is their one home: a
+rule names a declared path by its placeholder, and a script that reads
+the declaration carries its default once, as the fallback of the read.
+Values are repository-relative, a directory with a trailing slash. A
+missing line, or no block at all, means that key's default - unlike
+`Supervisor:`, an absent declaration never halts a run, so a project
+that has not declared keeps working on the defaults.
+
+- **`Docs:`** the project's one documentation directory, internal and
+  external audiences under one contract (`layout.md § Docs`); the
+  default for a new project, and a project keeps the home it has.
+- **`Plans:`** the planning tree - `ROADMAP.md`, the per-initiative
+  `R<NNN>-<slug>/` directories and `archive/` (`plan.md § Where
+  things live`).
+- **`Session:`** the per-session state files, gitignored
+  (`handoff.md § The file`).
+- **`Layout:`** the project's layout file, holding the repository's
+  actual tree; seeded from the canonical structure `layout.md` holds,
+  project-owned and untouched by a tools refresh.
+
+A rule names a declared path by its placeholder - `<docs>`, `<plans>`,
+`<session>`, `<layout>` - bare in prose, the slash only before a child
+(`<docs>/index.md`) or on a tree's node line (`<plans>/`). The
+structure inside a declared root is the canonical structure's and stays
+literal, so `<plans>/R<NNN>-<slug>/tasks.md` and `<docs>/references/`
+read as before with the root resolved here.
+
+The runner's ledger directory is not declared: it is `supervisor/` in
+the session tree's parent directory, gitignored like the session tree
+(`run.md § Ledger`).
+
+`extended-docs:` is retired. One documentation directory per project,
+so a second docs path has no key: the home a project keeps is its
+`Docs:` value.

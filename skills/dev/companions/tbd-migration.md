@@ -1,7 +1,7 @@
 # TBD migration report
 
 For an already-DEV, pre-TBD project - invoked from `migrate.md` (and
-`legacy-migration.md`) when `dev/plans/ROADMAP.md` is present. Produce
+`legacy-migration.md`) when `<plans>/ROADMAP.md` is present. Produce
 a report over
 the three
 areas below. **Approval-gated throughout:** the agent executes each step only after
@@ -27,15 +27,15 @@ History is migrated forward, never rewritten.
 
 ## 2. Structure
 
-Diff the tracked `.claude/` and artifacts trees against
-`skills/dev/layout.md`:
+Diff the tracked `.claude/` and artifacts trees against `<layout>` and
+the canonical `skills/dev/layout.md`:
 
 - **Non-canonical files** - e.g. a `source-spec.md` inside an R-dir.
   Recommend moving spec/input material to `.claude/references/` (its canonical
   home); the user may instead keep it in place as a recorded exception.
 - **Missing expected files** - e.g. `MAINTENANCE.md`.
 - **Strays** - tracked files outside the canonical layout.
-- **Flat task index** - a single flat `dev/plans/tasks.md`.
+- **Flat task index** - a single flat `<plans>/tasks.md`.
   Recommend splitting it into per-R `tasks.md` (each task moved to its
   owning `R<NNN>-<slug>/tasks.md`, status preserved), then removing the
   flat file; T-ids stay global.
@@ -52,4 +52,4 @@ The user approves the moves; the agent executes them - one coherent MR/PR
   `main` at the release commit (`git-workflow.md § Releases -
   tag-on-trunk`; the `release` skill). Flag any fork-release leftovers.
 - **Archive** - offer moving superseded release plans to
-  `dev/plans/archive/` - at the user's option (`plan.md § Archival`).
+  `<plans>/archive/` - at the user's option (`plan.md § Archival`).

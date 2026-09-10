@@ -1,9 +1,10 @@
 # Project layout
 
 Canonical project structure, three locations: guarded config under
-`.claude/`, agent-authored DEV artifacts under `dev/` (`plan.md § Where
-things live`), and the docs tree at `docs/` (§ Docs). Other paths
-inside any of them need explicit justification.
+`.claude/`, agent-authored DEV artifacts under the declared trees
+(`plan.md § Where things live`), and the docs tree at `<docs>` (§ Docs;
+the keys and defaults: `companions/declarations.md § Declared paths`).
+Other paths inside any of them need explicit justification.
 
 ## Config layout (`.claude/`)
 
@@ -13,6 +14,7 @@ What instructs agents.
     ├── REQUIREMENTS.md       # foundational requirements
     ├── DESIGN.md             # architecture and design (≤1000w inline)
     ├── MAINTENANCE.md        # Tier-2 review concerns + sanity routine
+    ├── <layout>              # the repository's actual tree (§ Layout file)
     ├── skills/               # project skill overrides
     │   └── <name>/SKILL.md
     ├── rules/                # project-scoped rules (paths: scoped)
@@ -22,30 +24,29 @@ What instructs agents.
     ├── hooks/                # Claude Code hooks
     ├── adr/                  # architecture decision records
     │   └── NNN-<short-title>.md
-    ├── references/           # external docs/specs (read-only, § References)
+    ├── references/           # external inputs, read-only (§ References)
     │   └── *                 # any format
     ├── settings.json         # Claude Code shared config
     └── settings.local.json   # Claude Code local (gitignored)
 
-## Artifacts layout (`dev/`, `docs/`)
+## Artifacts layout (`<plans>`, `<docs>`)
 
-What agents author: the planning tree under `dev/`, the docs tree at
-the repository root.
+What agents author: the planning tree at `<plans>`, the docs tree at
+`<docs>`.
 
-    dev/
-    └── plans/                # planning hierarchy - plan.md § Where things live
-        ├── ROADMAP.md
-        ├── release-vX.Y.Z.md
-        ├── milestone-<id>.md
-        ├── R<NNN>-<slug>/    # one per roadmap entry
-        │   ├── requirements.md
-        │   ├── tasks.md
-        │   ├── <task-id>-<slug>.md
-        │   ├── <task-id>-<slug>.findings.md
-        │   └── batches/
-        └── archive/
+    <plans>/                  # planning hierarchy - plan.md § Where things live
+    ├── ROADMAP.md
+    ├── release-vX.Y.Z.md
+    ├── milestone-<id>.md
+    ├── R<NNN>-<slug>/        # one per roadmap entry
+    │   ├── requirements.md
+    │   ├── tasks.md
+    │   ├── <task-id>-<slug>.md
+    │   ├── <task-id>-<slug>.findings.md
+    │   └── batches/
+    └── archive/
 
-    docs/                     # the project's documentation (§ Docs)
+    <docs>/                   # the project's documentation (§ Docs)
     ├── index.md
     ├── *.md
     ├── reports/              # probe and test reports (§ Docs)
@@ -58,7 +59,7 @@ Scaffolded at the project root, alongside `.claude/`:
 | File | When | Purpose |
 |---|---|---|
 | `README.md` | required | overview + how to run |
-| `CLAUDE.md` | required | stack, base branch, `## Agent toolchain` (host + build/test/lint), conventions |
+| `CLAUDE.md` | required | stack, base branch, `## Agent toolchain` (host + build/test/lint), `## Layout`, conventions |
 | `.gitignore` | required | must ignore `.env` and `.claude/settings.local.json`; under untracked mode (`companions/untracked-claude.md`) ignores all of `.claude/` and `CLAUDE.md` |
 | `.env.example` | if the project uses env vars | placeholder vars; commit this, never `.env` |
 
@@ -70,17 +71,17 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 ## Creation policy
 
 - **Required at scaffold**: `.claude/REQUIREMENTS.md`,
-  `.claude/DESIGN.md`, `.claude/settings.json`, `dev/plans/`.
+  `.claude/DESIGN.md`, `.claude/settings.json`, `<layout>`, `<plans>`.
 - **Created as workflows need them**: `.claude/skills/`,
   `.claude/rules/`, `.claude/commands/`, `.claude/agents/`,
-  `.claude/MAINTENANCE.md`; `dev/plans/ROADMAP.md`;
+  `.claude/MAINTENANCE.md`; `<plans>/ROADMAP.md`;
   `.claude/hooks/` (shipped by the DEV toolset installer).
-- **Initiative-time**: `dev/plans/R<NNN>-<slug>/` + `requirements.md`
+- **Initiative-time**: `<plans>/R<NNN>-<slug>/` + `requirements.md`
   (`plan.md § Directory conventions`).
 - **Lazy** (created on first use): `.claude/adr/`,
-  `.claude/references/`, `docs/`,
-  `dev/plans/R<NNN>-<slug>/tasks.md` and `batches/` (`plan.md
-  § Levels`, `§ Directory conventions`), `dev/plans/archive/`.
+  `.claude/references/`, `<docs>`,
+  `<plans>/R<NNN>-<slug>/tasks.md` and `batches/` (`plan.md
+  § Levels`, `§ Directory conventions`), `<plans>/archive/`.
 
 ## Disallowed in both trees
 
@@ -93,15 +94,14 @@ templates in `companions/`, `README.md`/`CLAUDE.md` per its own steps.
 
 `.claude/references/` holds external inputs the agent consults: API specs
 (OpenAPI), third-party docs, domain knowledge, schema files. Any
-format. **Read-only** - the agent never modifies these; `docs/` below
+format. **Read-only** - the agent never modifies these; `<docs>` below
 is the project's own, kept-current counterpart.
 
 ## Docs
 
-`docs/`, at the repository root, holds the project's documentation -
-internal and external audiences under one contract, outside the
-planning tree. Its
-per-feature docs (data model, interfaces, business rules, edge cases)
+`<docs>` holds the project's documentation - internal and external
+audiences under one contract, outside the planning tree. Its per-feature
+docs (data model, interfaces, business rules, edge cases)
 sit between `DESIGN.md` (architecture) and the code (line-level), and
 are the Reference application of the global documentation framework
 (`companions/documentation.md`). Their author is the doc-writer seat, at
@@ -111,15 +111,15 @@ invocation with the full input set - if answering needs the source, the doc
 fails.
 
 Two subdirectories hold the docs tree's other types
-(`companions/documentation.md § Diataxis typing`): `docs/reports/`
-for probe and test reports, `docs/references/` for adapted
+(`companions/documentation.md § Diataxis typing`): `<docs>/reports/`
+for probe and test reports, `<docs>/references/` for adapted
 external or codebase material.
 
 The granularity model - a doc per feature, page, section, or block - is a
 per-project choice. Pick the one that fits the project, record it in
 `CLAUDE.md § Conventions`, and apply it consistently.
 
-`docs/index.md` catalogs the docs - one line per doc, its path and
+`<docs>/index.md` catalogs the docs - one line per doc, its path and
 what it covers - consulted before coding to find the feature's doc, and
 updated whenever a doc is added. Project `CLAUDE.md § Conventions` carries a
 one-line pointer to the index, so it is discoverable from the always-loaded
@@ -163,6 +163,28 @@ claim been wrong.
 A project may raise the bar with its own `.claude/rules/feature-docs.md` -
 domain specifics and extra required content; the docs audit grades against it
 where present.
+
+## Layout file
+
+`<layout>` holds the repository's actual tree; the trees above are the
+canonical structure it is seeded from. Its shape: a title, one sentence
+saying it holds the repository's actual tree, and one fenced tree whose
+root line is the repository directory with a trailing slash - a
+project's by its own name, `attack-checker/`; a repository consumed at
+a fixed path uses that path, `~/.claude/` - drawn in the `├── `/`└── `
+style with a `#` role comment on every line. It carries every
+directory and every fixed-name file; a collection of same-kind files -
+the skills under a skills directory, the plans under `R<NNN>-<slug>/`,
+the docs under `<docs>` - is that directory and one pattern line, never
+every tracked file. It goes to the depth of the tree in § Config
+layout.
+
+`start.md` seeds it from the trees above, with the declared values
+substituted and the entries the scaffold creates; `migrate.md` writes it
+from an existing repository's inventory; the branch that adds or removes
+an entry keeps it current (`branch-plan.md § Architecture-changing
+branches`). It is project-owned - the DEV toolset installer never
+writes it.
 
 ## ADRs
 

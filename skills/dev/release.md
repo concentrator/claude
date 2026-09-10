@@ -10,7 +10,7 @@ Generic release flow. Projects override via
 
 ## Procedure
 
-1. **Verify branch merges.** If `dev/plans/release-<version>.md` exists, check
+1. **Verify branch merges.** If `<plans>/release-<version>.md` exists, check
    each branch entry against `git log <default-branch>` - confirm the `[x]`
    marks match merged branches (the marks ride each branch's final commit,
    `branch-plan.md § Closing routine`; verify, never set); flag any planned
@@ -27,7 +27,7 @@ Generic release flow. Projects override via
    long-lived release line).
 6. **Finalize CHANGELOG.** Replace `## [Unreleased]` with `## [vX.Y.Z] -
    <YYYY-MM-DD>`. Drop reverted-change entries.
-7. **Prune roadmap.** Scan `dev/plans/ROADMAP.md` for entries matching CHANGELOG
+7. **Prune roadmap.** Scan `<plans>/ROADMAP.md` for entries matching CHANGELOG
    bullets; propose removal.
 8. **Release notes.** Generate from the CHANGELOG diff. Output filepath.
 9. **Commit on release branch.** Message: `Stamp vX.Y.Z release`.
@@ -36,8 +36,8 @@ Generic release flow. Projects override via
     origin vX.Y.Z`. No release branch kept (`git-workflow.md § Releases`).
 11. **Project-specific publish.** Run the project's publish step per CLAUDE.md
     (npm/cargo/registry). Skip if not applicable.
-12. **Plan cleanup.** If `dev/plans/release-<version>.md` is all `[x]`, offer to
-    move to `dev/plans/archive/`.
+12. **Plan cleanup.** If `<plans>/release-<version>.md` is all `[x]`, offer to
+    move to `<plans>/archive/`.
 
 ## Rules
 

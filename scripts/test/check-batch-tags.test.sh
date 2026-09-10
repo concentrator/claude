@@ -16,7 +16,8 @@ pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 
 out_in() { ( cd "$1" && env -u CI bash "$CHECK" 2>&1 ); }
-# Fixtures carry the fixed dev/plans/ home; the trunk is pinned to main
+# Fixtures carry the default dev/plans/ home (their CLAUDE.md declares
+# no `- Plans:` line); the trunk is pinned to main
 # so trunk resolution is machine-independent.
 mkrepo() {
   local d; d=$(mktemp -d); git -C "$d" init -q -b main
@@ -214,6 +215,23 @@ out=$(out_in "$d"); rc=$?
   && grep -q 'legacy pre-R<NNN>-B-XXX' <<<"$out" \
   && pass "unresolvable verdict names both spellings" \
   || die "unresolvable verdict incomplete: $out"; rm -rf "$d"
+
+# 23. the tree comes from the root CLAUDE.md § Layout declaration: the
+# trunk is listed under a declared var/plans/, so a live batch there
+# passes and a stale one is caught
+d=$(mkrepo); printf -- '- Plans: var/plans/\n' > "$d/CLAUDE.md"
+mkdir -p "$d/var/plans/R-042-pocs/batches"
+printf -- '# B-001\n' > "$d/var/plans/R-042-pocs/batches/B-001.md"
+commit_in "$d" manifest; git -C "$d" tag pre-R042-B-001
+out_in "$d" >/dev/null && pass "declared plans tree read" \
+  || die "declared plans tree not read: $(out_in "$d")"
+printf 'report\n' > "$d/var/plans/R-042-pocs/batches/B-001.report.md"
+commit_in "$d" report
+out=$(out_in "$d"); rc=$?
+[ $rc -ne 0 ] && grep -q 'B-001\.report\.md' <<<"$out" \
+  && pass "stale ref in the declared tree caught" \
+  || die "stale ref in the declared tree missed: $out"
+rm -rf "$d"
 
 (( fail == 0 )) && echo "check-batch-tags.test: OK"
 exit $fail

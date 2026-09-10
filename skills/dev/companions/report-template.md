@@ -1,6 +1,6 @@
 # Batch report template
 
-Written by the checkpoint to `dev/plans/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.report.md`
+Written by the checkpoint to `<plans>/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.report.md`
 (timing + no-report-no-accept: `run.md § Checkpoint`). Fill every
 section; write "none" rather than omitting one - an empty heading reads
 as a skipped step.
@@ -34,7 +34,7 @@ state: <branches merged>/<branches planned>, full tier <green|red>
 
 - CHANGELOG: <entries from all branches read as one release block?
   reworded items, dedupes>
-- README / extended docs: <surface changes consistent?>
+- README: <surface changes consistent?>
 
 ## Cost
 

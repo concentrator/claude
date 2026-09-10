@@ -25,22 +25,25 @@ Baseline files (`layout.md § Baseline files`):
 - `.gitignore` / `.env.example` - seed from the `companions/*.template`
   files; contents per `layout.md § Baseline files`; the `.env` rule and
   the guard that enforces it: `companions/secrets.md`.
-- `dev/plans/` with `ROADMAP.md`.
+- `<plans>` with `ROADMAP.md`.
 - Toolset for no-global contributors: per `migrate.md § 5`.
 
 Full config + artifacts layout and baseline set: `layout.md`.
 
 Ask: **release routine?** Record `release-routine:` in `CLAUDE.md
 § Conventions`. If yes: `CHANGELOG.md`, versioning (default `vX.Y.Z`),
-`dev/plans/release-v0.1.0.md`. Ask about external publishing;
+`<plans>/release-v0.1.0.md`. Ask about external publishing;
 record `publish-external:`. If external, override
 `release` at `<project>/.claude/skills/release/SKILL.md`.
 
-Ask: **extended docs?** Record `extended-docs:` (+ path if yes) in
-`CLAUDE.md § Conventions`. If yes: create directory with placeholder.
+Write `## Layout` after `## Agent toolchain` with the defaults
+(`companions/declarations.md § Declared paths`), seed `<layout>` from
+`layout.md § Layout file`, and append `<session>` and `supervisor/` in
+its parent to `.gitignore`, anchored, as `install-dev.sh` step 7 writes
+them.
 
-If the project will keep `docs/` feature docs (`layout.md § Docs`),
-record a one-line pointer to `docs/index.md` in `§ Conventions`.
+If the project will keep `<docs>` feature docs (`layout.md § Docs`),
+record a one-line pointer to `<docs>/index.md` in `§ Conventions`.
 
 ## 4. Quality infrastructure
 

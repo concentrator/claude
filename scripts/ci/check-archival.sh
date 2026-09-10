@@ -1,16 +1,21 @@
 #!/usr/bin/env bash
 # Tier-1 archival gate (skills/dev/plan.md § Archival): a closed
-# initiative leaves dev/plans/ in the delivery that closes it. A
-# non-archive dev/plans/*/requirements.md whose frontmatter carries
-# `status: done` fails until the dir moves to dev/plans/archive/;
-# `archival: deferred - <reason>` exempts it and the reason is printed.
+# initiative leaves the plans tree the root CLAUDE.md § Layout declares
+# in the delivery that closes it. A non-archive <plans>/*/requirements.md
+# whose frontmatter carries `status: done` fails until the dir moves to
+# <plans>/archive/; `archival: deferred - <reason>` exempts it and the
+# reason is printed.
 # Reads the working tree: the gate judges the state a delivery would
 # leave, not history.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
+P=$(sed -n 's/^- Plans: *//p' CLAUDE.md 2>/dev/null | head -1 || true)
+P=${P:-dev/plans}
+P=${P%/}
+
 fail=0
-for f in dev/plans/*/requirements.md; do
+for f in "$P"/*/requirements.md; do
   [[ -f "$f" ]] || continue
   head -1 "$f" | grep -qx -- '---' || continue   # no frontmatter
   r=$(basename "$(dirname "$f")")
@@ -31,7 +36,7 @@ for f in dev/plans/*/requirements.md; do
     echo "ARCHIVAL: $r defers archival without a reason - write 'archival: deferred - <reason>'"
     fail=1; continue
   fi
-  echo "ARCHIVAL: $r is closed (status: done) but not archived - git mv dev/plans/$r dev/plans/archive/ in the closing delivery"
+  echo "ARCHIVAL: $r is closed (status: done) but not archived - git mv $P/$r $P/archive/ in the closing delivery"
   fail=1
 done
 

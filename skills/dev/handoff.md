@@ -9,20 +9,20 @@ demand; the boundary rules in `branch-plan.md § Session boundary` and
 
 ## The file
 
-`dev/session/<session_id>.md`, gitignored. Its path is
-the `session-state:` field the `branch-state:` prompt line ends with -
-read it from there, never derive it. One file per `claude` process: a
-run has one, since its seats are subagents and hooks fire with the
-runner's `session_id`, and only the runner writes hand-offs to it (a
-seat's state is its report).
+`<session>/<session_id>.md` (`CLAUDE.md § Layout`), gitignored. Its
+path is the `session-state:` field the `branch-state:` prompt line ends
+with - read it from there, never derive it. One file per `claude`
+process: a run has one, since its seats are subagents and hooks fire
+with the runner's `session_id`, and only the runner writes hand-offs to
+it (a seat's state is its report).
 
 **Header** - the first writer creates the file with
 `# <role> session <session_id>`; the hook, which knows no role, writes
 `# session <session_id>`, and the next hand-off rewrites that line with
 the role. Roles: `supervisor` (the runner session of `/dev run`, its
 duties `run.md § Seats`; re-briefed from this note and its ledger,
-`dev/supervisor/<scope>.md`), `solo` (a session outside a run). A seat
-writes none: it ends at its item.
+`supervisor/<scope>.md` beside `<session>`), `solo` (a session outside
+a run). A seat writes none: it ends at its item.
 
 **Blocks** - `## <kind> <UTC timestamp>` followed by `- key: value`
 lines, appended in time order; the last block of each kind is current.

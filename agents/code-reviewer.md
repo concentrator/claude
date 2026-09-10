@@ -12,8 +12,9 @@ or changes the working tree (`checkout`/`switch`/`reset`/`restore`/
 `stash`); read state with `git diff`/`log`/`show` only.
 
 The dispatcher provides the plan path (typically a branch plan under
-`dev/plans/R<NNN>-<slug>/`, or a section reference) along with the
-diff or commit range to review. Read the plan fully and verify the
+`<plans>/R<NNN>-<slug>/` - the plans tree `CLAUDE.md § Layout`
+declares - or a section reference) along with the diff or commit
+range to review. Read the plan fully and verify the
 implementation against it: every planned item present, every deviation
 named and judged (justified improvement or problematic departure). If
 no plan path is provided, ask the dispatcher for it before proceeding.
@@ -45,7 +46,7 @@ say which class you applied:
   against its ground truth per the verification gate
   (`skills/dev/companions/documentation.md § Verification gate`) -
   its source-selection and independence conditions apply as written;
-  report a mismatch as Critical. `docs/` feature docs, `README.md` and
+  report a mismatch as Critical. `<docs>` feature docs, `README.md` and
   the CHANGELOG's `## [Unreleased]` entry take the gate's dedicated
   per-claim pass instead.
 - **Mixed**: the strictest applicable class per file.
@@ -57,7 +58,7 @@ diff touches rules files (`rules/`, `skills/`, `agents/`,
 met.
 
 **Batch mode**: when dispatched with a batch manifest
-(`dev/plans/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.md`) and the full
+(`<plans>/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.md`) and the full
 `batch/R<NNN>-B<NNN>` vs default diff, review at the batch level:
 verify each member branch against its own plan briefly, then focus on
 what per-branch reviews cannot see - cross-branch semantic conflicts,

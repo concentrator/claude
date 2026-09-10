@@ -11,12 +11,19 @@
 # itself all hold refs while a report exists somewhere, and none of
 # them is stale. A pre-* tag or batch/* branch that is not a
 # well-formed composite ref naming an initiative present on the trunk
-# fails as unresolvable. Plans live at dev/plans/ (skills/dev/plan.md
-# § Where things live).
+# fails as unresolvable. Plans live at the tree the root CLAUDE.md
+# § Layout declares (skills/dev/plan.md § Where things live); the
+# worktree's declaration is the one its refs resolve against, a trunk
+# whose tree sits elsewhere being a migration in flight that moves tree
+# and declaration together (skills/dev/companions/root-migration.md § 2).
 set -uo pipefail
 top="$(git rev-parse --show-toplevel)" \
   || { echo "BATCH-TAGS: not inside a git repo"; exit 1; }
 cd "$top"
+
+P=$(sed -n 's/^- Plans: *//p' CLAUDE.md 2>/dev/null | head -1 || true)
+P=${P:-dev/plans}
+P=${P%/}
 
 # The anchor tag is never pushed and the batch branch reaches origin
 # only at accept (§ Rails), so a CI runner or shallow clone sees at
@@ -37,7 +44,7 @@ fi
 if trunk="$(git symbolic-ref -q --short refs/remotes/origin/HEAD)"; then :
 elif git show-ref -q --verify refs/heads/main; then trunk=main
 else trunk=HEAD; fi
-tree="$(git ls-tree -r --name-only "$trunk" -- dev/plans 2>/dev/null || true)"
+tree="$(git ls-tree -r --name-only "$trunk" -- "$P" 2>/dev/null || true)"
 
 fail=0
 report() { echo "BATCH-TAGS: $1"; fail=1; }
@@ -46,8 +53,8 @@ report() { echo "BATCH-TAGS: $1"; fail=1; }
 # composite remainder, $3 = the expected full form, $4 = extra remedy
 # appended to the stale verdict. Ids are matched by digits, so a ref
 # in either spelling resolves against a dir and report in either. The
-# ls-tree listing is already scoped to dev/plans, so the patterns
-# carry no prefix (and need no escaping).
+# ls-tree listing is already scoped to the declared plans tree, so the
+# patterns carry no prefix (and need no escaping).
 judge() {
   local ref="$1" rest="$2" want="$3" hint="${4:-}" nnn mmm rep
   if [[ "$rest" =~ ^R([0-9]{3})-B-?([0-9]{3})$ ]]; then

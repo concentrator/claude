@@ -73,7 +73,7 @@ artifacts and docs paths are declared per project in `CLAUDE.md
 in every project"; the installer's and the worker clone's ignore lines
 follow the target's declared session tree.
 
-- [ ] `companions/declarations.md` defines the path declaration:
+- [x] `companions/declarations.md` defines the path declaration:
   a `## Declared paths` section after `§ Supervisor bounds` giving the
   `## Layout` block's exact form (the four lines above, in that order)
   and its place - after `## Supervision`, or directly after `## Agent
@@ -110,7 +110,7 @@ follow the target's declared session tree.
   sentence: "A `## Layout` section after it declares the docs home,
   the plans and session trees and the layout file
   (`skills/dev/companions/declarations.md § Declared paths`)."
-- [ ] `layout.md` is the canonical structure with no fixed root: its
+- [x] `layout.md` is the canonical structure with no fixed root: its
   intro and the `§ Artifacts layout`, `§ Docs`, `§ Creation policy` and
   `§ References` sentences name `<plans>`, `<docs>` and `<session>`
   where they named `dev/`, `docs/` and the repository root, the
@@ -163,7 +163,7 @@ follow the target's declared session tree.
   `docs/index.md` read `<docs>/reports/`, `<docs>/references/`,
   `<docs>/index.md`. `§ References`' "`docs/` below" reads "`<docs>`
   below". `§ Layout file` goes after `§ Docs` and before `§ ADRs`.
-- [ ] `plan.md § Where things live` says the paths are declared:
+- [x] `plan.md § Where things live` says the paths are declared:
   DEV artifacts live at the paths the project's root `CLAUDE.md
   § Layout` declares (`companions/declarations.md § Declared paths`) -
   `<plans>` (below), `<session>` (`handoff.md`), the docs tree
@@ -194,7 +194,7 @@ follow the target's declared session tree.
   "in `<docs>`". Each remaining path edits in place; `plan.md` is at
   241 lines and the placeholders are shorter than the paths they
   replace.
-- [ ] `start.md`, `migrate.md`, `companions/root-migration.md` and
+- [x] `start.md`, `migrate.md`, `companions/root-migration.md` and
   `companions/gitignore.template` write the declaration and the layout
   file (`§ Desired state` 9). `start.md § 3` writes `## Layout` with
   the four defaults directly after `## Agent toolchain` (the scaffold
@@ -302,7 +302,7 @@ follow the target's declared session tree.
   § 1."; step 4's `docs/index.md` reads `<docs>/index.md`; line 72
   "under `dev/plans/`" reads "under `<plans>`". `migrate.md` stays
   within 300 lines and 80 columns.
-- [ ] The mode files name declared paths by placeholder: `write-plan.md`
+- [x] The mode files name declared paths by placeholder: `write-plan.md`
   (intro, `§ Inputs`, steps 1 and 2), `branch-plan.md` (intro,
   `§ Commit cadence` 2 and `§ Batches`), `finish.md § 1`,
   `release.md` steps 1, 7 and 12, `templates.md` (the per-initiative
@@ -347,7 +347,7 @@ follow the target's declared session tree.
   like it" - 21 characters more; `run.md` is at 300 lines, so the
   paragraph (lines 270-283) is rewrapped to fill its 14 lines, which
   it does at 12 lines of 80 columns.
-- [ ] The cold read has two bounds (`§ Desired state` 2): `write-plan.md`
+- [x] The cold read has two bounds (`§ Desired state` 2): `write-plan.md`
   step 6 states them, and its restatements in
   `companions/verification-policy.md § Comprehension check` and
   `companions/planner-prompt.md § Exit` say the same. Delta read: the
@@ -421,7 +421,7 @@ follow the target's declared session tree.
   stopping rule - two rounds, then judgment-level gaps go to the
   findings file - and a plan change should stay" reads "questions; a
   plan change should stay", rewrapped.
-- [ ] The companions and the reviewer agent name declared paths by
+- [x] The companions and the reviewer agent name declared paths by
   placeholder, seat prompts naming the declaration at the first use so
   a dispatched seat resolves it without `declarations.md`:
   `companions/documentation.md` (five sites), `doc-writer-prompt.md`
@@ -450,10 +450,16 @@ follow the target's declared session tree.
   § Routine`), never a plan target (`run.md § Pre-flight`). After it,
   `git grep -n -E '(^|[^A-Za-z/._-])(docs/|dev/)' -- skills/dev rules
   agents` finds a literal path only in `companions/declarations.md
-  § Declared paths` and in the migration source `dev/docs/`
-  (`migrate.md`'s route, `root-migration.md`'s move and rewrite sets);
-  `.claude/plans/` and `.claude/docs/` never match, the `/` before
-  them excluding them; `git grep -n 'dev/' --
+  § Declared paths`, in the migration source `dev/docs/`
+  (`migrate.md`'s route, `root-migration.md`'s move and rewrite sets)
+  and in the prose that names a project's own `docs/` as a legacy
+  location or a collision - `migrate.md`'s Fresh bullet ("no `plans/`
+  or `docs/` under `.claude/`") and Stale declarations ("a `docs/`
+  beside it a collision") and `root-migration.md § 1 Collisions` ("a
+  `docs/` beside an `extended-docs:` path") - which names a directory
+  of the project, never a default, and stays; `.claude/plans/` and
+  `.claude/docs/` never match, the `/` before them excluding them;
+  `git grep -n 'dev/' --
   skills/dev/companions/'*.json'` finds nothing; and `git grep -n
   'LAYOUT.md' -- skills rules agents` finds the literal default only in
   `companions/declarations.md § Declared paths`. The criterion's sweep of
@@ -464,10 +470,11 @@ follow the target's declared session tree.
   Approach: `documentation.md`: line 6 "Feature docs (`docs/`)" reads
   "Feature docs (`<docs>`)"; lines 26 and 31 "(`docs/reports/`)" and
   "(`docs/references/`)" read "(`<docs>/reports/`)" and
-  "(`<docs>/references/`)"; line 131 "the author, for `docs/`,
-  `README.md` and the CHANGELOG" reads "for `<docs>`, `README.md` and
-  the CHANGELOG"; line 145 "`docs/` feature docs" reads "`<docs>`
-  feature docs". `doc-writer-prompt.md`: "- Docs: `docs/` with its
+  "(`<docs>/references/`)"; line 131 "for `docs/`, `README.md` and the
+  CHANGELOG" reads "for `<docs>`, `README.md` and the CHANGELOG", the
+  "never the author" the sentence turns on kept; line 145 "`docs/`
+  feature docs" reads "`<docs>` feature docs".
+  `doc-writer-prompt.md`: "- Docs: `docs/` with its
   index `docs/index.md`" reads "- Docs: `<docs>`, the docs home the
   project's root `CLAUDE.md § Layout` declares, with its index
   `<docs>/index.md`"; Job 2's "the `docs/` doc and its `docs/index.md`
@@ -491,8 +498,10 @@ follow the target's declared session tree.
   and `<session>` are gitignored too (`git check-ignore -q` on each)";
   the two `dev/` at lines 41 and 43 read "the declared trees";
   `§ What changes` gains "`<layout>` is gitignored with the rest of
-  `.claude/`". `agents/code-reviewer.md` lines 15, 48, 60.
-- [ ] The Tier-1 plan checks read the plans tree from the declaration
+  `.claude/`". `agents/code-reviewer.md` lines 15 - where the plans
+  tree also names `CLAUDE.md § Layout`, the reviewer being a dispatched
+  seat (`run.md § Seats`) - 48 and 60.
+- [x] The Tier-1 plan checks read the plans tree from the declaration
   (`§ Desired state` 9; the criterion's `scripts/ci/` grep):
   `check-plan-integrity.sh`, `check-archival.sh`, `check-accretion.sh`
   and `check-batch-tags.sh` each set `P` from the `- Plans:` line of
@@ -507,9 +516,11 @@ follow the target's declared session tree.
   is a migration in flight that moves tree and declaration together
   (`root-migration.md § 2`). Each check's header comment names the
   declaration where it said the home is fixed and never repeats the
-  default, which the fallback line beneath shows; the residue the
-  criterion's grep accepts in these four checks is one `dev/plans`
-  each, in the fallback. `check-plan-integrity.sh`'s `DEV artifacts
+  default, which the fallback line beneath shows; that fallback,
+  `P=${P:-dev/plans}`, is the one `dev/plans` in each of the four
+  checks, and the criterion's grep never matches it, the `-` before
+  `dev/` being a character its regex excludes, so the grep returns no
+  `scripts/ci/` line. `check-plan-integrity.sh`'s `DEV artifacts
   root:` refusal goes, a stale line being `migrate.md`'s to report.
   Each check's test gains one case: a fixture whose `CLAUDE.md`
   declares `- Plans: var/plans/` with the tree there passes, and a
@@ -544,7 +555,7 @@ follow the target's declared session tree.
   `check-accretion.test.sh`; `out_in` in `check-batch-tags.test.sh`,
   whose fixture commits the `CLAUDE.md` and a `var/plans/` batch dir on
   trunk as `mklive` and `mkstale` do under `dev/plans/`.
-- [ ] The state hook and the installer follow the declaration and the
+- [x] The state hook and the installer follow the declaration and the
   installer touches neither the declaration nor `<layout>`
   (`§ Desired state` 9, "untouched by a tools refresh"; the
   criterion's refresh): `hooks/dev-precompact-state.sh` resolves the
@@ -579,8 +590,10 @@ follow the target's declared session tree.
   `decl`, then `dir=${DEV_STATE_DIR:-$root/${decl:-dev/session}}` with
   the trailing slash stripped (the hook runs `set -uo pipefail`, no
   `-e`, so the read needs no guard); the same read of `- Plans:` into
-  `plans`, default `dev/plans`, and the filter `grep -E '(^|/)plans/.*
-  \.md$'` (line 49) reads `grep -E "^${plans%/}/.*\.md$"`. The test's
+  `plans_dir` - `plans` names the result two lines on, and one name for
+  two meanings is a trap - default `dev/plans`, and the filter
+  `grep -E '(^|/)plans/.*\.md$'` (line 49) reads
+  `grep -E "^$plans_dir/.*\.md$"`. The test's
   new case goes after the clean-tree case (line 80) and before the
   `cd "$D"` at line 82, where the fixture sits on `main` with the
   dirty change stashed: it runs `git -C "$R" checkout -q work`, writes
@@ -594,22 +607,30 @@ follow the target's declared session tree.
   the fixture comment at line 36 "as install-dev.sh
   and the template leave a real repo" reads "as install-dev.sh leaves
   a real repo", the template no longer carrying the line. Installer
-  step 7: read `decl` the same way from `$repo/CLAUDE.md` - the git
+  step 7: read the same way from `$repo/CLAUDE.md` - the git
   toplevel line 214 resolves, where the `.gitignore` it writes is -
-  with `|| true` (the installer runs under `set -e`),
-  `sess=${decl:-dev/session/}`,
-  lines `/${sess%/}/` and `/$(dirname "${sess%/}")/supervisor/` with a
-  leading `/./` normalised so a one-segment tree yields
-  `/supervisor/` (probed: `state/` yields `/state/` and
-  `/supervisor/`); the comment names `CLAUDE.md § Layout`. Step 8's
+  with `|| true` (the installer runs under `set -e`), into `sess`,
+  default `dev/session`, trailing slash stripped; the parent goes to
+  `parent=$(dirname "$sess")` with `if [ "$parent" = "." ]; then
+  parent=""; fi` in place of a `/./` string fixup, since an explicit
+  empty parent reads plainly and cannot trip `set -e`, and the lines
+  are `/$sess/` and `/${parent:+$parent/}supervisor/` (probed under
+  `set -e`: `var/state/` yields `/var/state/` and `/var/supervisor/`,
+  `state/` yields `/state/` and `/supervisor/`, and no `CLAUDE.md`
+  yields the two defaults); the comment names `CLAUDE.md § Layout`.
+  Step 8's
   rows: "| `dev/session/` |" reads "| the `Session:` tree (`CLAUDE.md
   § Layout`) |" and "| `dev/plans/` |" reads "| the `Plans:` tree
   (`CLAUDE.md § Layout`) |". `install-dev.test.sh` line 244's two
-  greps read `Session:` and `Plans:`; the two new cases each `git init`
-  a `mktemp -d` project and `checkout -qb work` (lines 273-274's
-  shape), the second with a `CLAUDE.md` carrying the block and a
-  `.claude/LAYOUT.md`, `cmp` after the second install.
-- [ ] The worker clone excludes the declared session tree:
+  greps read `Session:` and `Plans:`; both new assertions share one
+  fixture rather than taking a project each - the file stands at 291
+  lines against check-code-size's 300-line cap, and two fixtures do not
+  fit - a `git init` project on `checkout -qb work` (lines 273-274's
+  shape) whose root `CLAUDE.md` carries the block and whose
+  `.claude/LAYOUT.md` is `cmp`d after the second install. The same cap
+  merges fixture `G`'s two "ignored once" counts into one assertion,
+  its anchoring checks untouched; the file lands at 299.
+- [x] The worker clone excludes the declared session tree:
   `scripts/worker-workspace.sh`'s project-clone step reads the
   `- Session:` line of each cloned checkout's root `CLAUDE.md`, default
   `dev/session/`, and writes that tree and `supervisor/` in its parent
@@ -642,7 +663,7 @@ follow the target's declared session tree.
   session tree and its supervisor/ sibling" and its grep (227) reads
   `grep -q 'CLAUDE.md § Layout' <<<"$out" && grep -q 'info/exclude'
   <<<"$out"`.
-- [ ] This repository declares its layout and holds its tree in
+- [x] This repository declares its layout and holds its tree in
   `LAYOUT.md`: `CLAUDE.md` gains `## Layout` after `## Supervision`,
   opening with the preface its two sibling blocks carry - this
   repository's own declarations; a project's own `## Layout` wins, and
@@ -684,7 +705,11 @@ follow the target's declared session tree.
   `R<NNN>-T<NNN>-<slug>.findings.md` "task findings", `agents/`
   "dispatched agents", `skills/` "the DEV toolset and the skills
   beside it", and `systematic-debugging/` and the three `*/SKILL.md`
-  entries "bundled" - aligned to the `#` column their siblings use.
+  entries "bundled" - aligned to the `#` column their siblings use,
+  except the five whose name already runs past that column (the two
+  `R<NNN>-T<NNN>-<slug>` plan lines and the three long `*/SKILL.md`
+  entries), which align on a column one past their own run's longest
+  name.
   Three: the three `skills/dev/` file-list lines (DESIGN.md 80-82)
   fold into one pattern line "*.md" with the comment "modes and
   process rules, routed by SKILL.md", between the `SKILL.md` and
@@ -697,7 +722,7 @@ follow the target's declared session tree.
   comment's "DESIGN.md tree-map" reads "the layout file `CLAUDE.md
   § Layout` declares". `ci.yml` line 12: "check-stray matches UTF-8
   tree-map nodes" reads "check-stray matches UTF-8 layout-file nodes".
-- [ ] `DESIGN.md`, `MAINTENANCE.md` and `REQUIREMENTS.md` state the
+- [x] `DESIGN.md`, `MAINTENANCE.md` and `REQUIREMENTS.md` state the
   declared layout for this repository: `DESIGN.md § Self-hosting
   layout` lists `LAYOUT.md` among the root files and says the DEV
   artifacts sit at the declared paths, `dev/` here; `MAINTENANCE.md`'s
@@ -716,21 +741,112 @@ follow the target's declared session tree.
   declares, `dev/` here". `MAINTENANCE.md` line 24: "the `DESIGN.md`
   tree-map matches the tree" reads "`LAYOUT.md` matches the tree";
   rows 129-131 and 134: "`DESIGN.md` tree-map" reads "`LAYOUT.md`";
+  row 134's trailing "§ Self-enforcement" loses its anchor with that
+  rewrite, so it reads "`DESIGN.md § Self-enforcement`";
   the targets rows 58, 59 and 65 read "the `Session:` tree
   (`CLAUDE.md § Layout`)" and "the `Plans:` tree (`CLAUDE.md
   § Layout`)". `REQUIREMENTS.md` lines 33-36: "(`dev/plans/R<NNN>-
   <slug>/`)" reads "(`R<NNN>-<slug>/` under the declared plans tree)"
   and "lives at `dev/plans/`" reads "lives at that tree's root".
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] The declaration's prose states each default once and admits this
+  repository's root: `companions/declarations.md § Declared paths`'
+  `Docs:` bullet no longer restates the `docs/` default the fenced
+  block above it is the one home of (the first decision bullet above;
+  the block's own sentence "this block is their one home"), so the
+  criterion's grep finds `docs/` in `declarations.md` only in that
+  block; `layout.md § Layout file`'s root-line sentence admits the
+  root `LAYOUT.md` carries - a repository consumed at a fixed path
+  uses that path, `~/.claude/` (`DESIGN.md § Self-hosting layout`; the
+  `LAYOUT.md` item above) - beside a project's own name;
+  `companions/untracked-claude.md § What changes` says `<layout>` sits
+  under `.claude/` by default and is gitignored with it, the sentence
+  no longer holding for every declared value; and
+  `scripts/test/check-accretion.test.sh`'s header names the declared
+  plans tree the gate scans in place of `dev/plans/**/*.md`, the
+  check's own header (the Tier-1 item above) already saying so. The
+  three rule files stay within 300 lines and 80 columns. One commit:
+  four sentence fixes to prose about the declaration; the test comment
+  rides with them as prose about the same read, not with the tree.
+  Approach: `declarations.md` lines 133-135, the `Docs:` bullet, read
+  "- **`Docs:`** the project's one documentation directory, internal
+  and external audiences under one contract (`layout.md § Docs`); the
+  default for a new project, and a project keeps the home it has."
+  `layout.md` lines 171-174: "one fenced tree whose root line is the
+  repository directory with a trailing slash - a project's by its own
+  name, `attack-checker/` - drawn in" reads "one fenced tree whose
+  root line is the repository directory with a trailing slash - a
+  project's by its own name, `attack-checker/`; a repository consumed
+  at a fixed path uses that path, `~/.claude/` - drawn in", the
+  paragraph rewrapped (the file is at 209 lines). `untracked-claude.md`
+  lines 44-45: "`<layout>` is gitignored with the rest of `.claude/`"
+  reads "`<layout>` sits under `.claude/` by default and is gitignored
+  with it". `check-accretion.test.sh` lines 3-4: "(the gate scans
+  dev/plans/**/*.md only, so this test source never trips it)" reads
+  "(the gate scans only the plans tree the root CLAUDE.md § Layout
+  declares, so this test source never trips it)".
+- [x] `LAYOUT.md` carries every tracked entry `layout.md § Layout file`
+  requires: under `scripts/`, the worker-host tooling `forge-keys.sh`,
+  `provision-worker.sh`, `worker-credentials.sh`, `worker-setup.sh`
+  and `worker-workspace.sh`; under `scripts/ci/`, the pattern line
+  `check-*.sh` with `code-size-allow.txt` and `run-all.sh`; under
+  `scripts/test/`, the pattern line `*.test.sh` with `run-all.sh`;
+  under `skills/`, `worker-host/` with its `SKILL.md` and
+  `companions/`. Each line carries a role comment taken from the
+  file's own header comment or title (a pattern line's from what its
+  files share), aligned to the `#` column its siblings use;
+  `companions/` is one line with its two files named in the comment,
+  as `skills/dev/companions/` is drawn, the depth `§ Layout file` sets
+  by `§ Config layout`. Entries keep the file's order: alphabetical
+  under `scripts/`, `ci/` and `test/`, and `worker-host/` last under
+  `skills/`, after the bundled and personal skills, as the one skill
+  that is this repository's own operations. Verification: every line
+  `git ls-files scripts skills/worker-host | cut -d/ -f1-3 | sort -u`
+  prints is a drawn entry or matches a drawn pattern line
+  (`scripts/ci/check-*.sh`, `scripts/test/*.test.sh`); today it
+  prints the `ci/` and `test/` children, the five worker-host scripts
+  and the two `skills/worker-host/` lines the file lacks, and after
+  the change nothing the file lacks. No root entry is added, so
+  `MAINTENANCE.md § Doc-sync pairs` obliges no `README.md § Contents`
+  row, and `check-stray.sh` matches first-level nodes only, so the
+  fast tier is green before and after. No check caps `LAYOUT.md`'s
+  line length.
+  Approach: under `scripts/`, `ci/` gains three children, drawn one
+  level deeper as `dev/plans/`'s are: "├── check-*.sh # the Tier-1
+  checks, one per file", "├── code-size-allow.txt # check-code-size.sh
+  exemptions, one path per line" and "└── run-all.sh # the Tier-1
+  gate: every check, fails if any fails"; after `context-cost.py`:
+  "forge-keys.sh # forge key exchange, the operator's half (sourced by
+  provision-worker.sh)"; after `model-quota.sh`: "provision-worker.sh
+  # stands up the worker host, run on the operator's machine"; `test/`,
+  whose `└──` becomes `├──`, gains two children: "├── *.test.sh
+  # script and hook tests, one per subject" and "└── run-all.sh # the
+  test aggregator: every *.test.sh, fails if any fails"; after them:
+  "worker-credentials.sh # worker forge keys and CLI auth, run on the
+  VM", "worker-setup.sh # worker host system setup, run on the VM"
+  and, as the block's new `└──`, "worker-workspace.sh # worker
+  repositories and per-project settings, run on the VM". Under
+  `skills/`, `writing-skills/`'s `└──` becomes `├──` and the block
+  ends "└── worker-host/ # GCP worker host runbook, this repository's
+  own", "├── SKILL.md #   the four scripts and where each runs",
+  "└── companions/ #   provisioning order, pitfalls", the children
+  indented as the `dev/` block's are. Padding is collapsed in the
+  quotes above: each `#` lands on the column `context-cost.py`'s and
+  `dev/`'s do.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup (stale/temp
   data), mark plan complete, mark the task `[x]` in `tasks.md`,
   commit. The acceptance criterion's grep over `rules/`, `skills/`,
   `scripts/ci/` accepts exactly: the defaults in
-  `companions/declarations.md § Declared paths`; `dev/docs/` as a
-  migration source in `migrate.md` and `root-migration.md`; the two
-  hits in skills outside the toolset named in the companions item; one
-  `dev/plans` fallback in each of the four plan checks. The literal
-  `.claude/LAYOUT.md`, which that grep never matches, is accepted in
+  `companions/declarations.md § Declared paths`' fenced block;
+  `dev/docs/` as a migration source in `migrate.md` and
+  `root-migration.md`; the `docs/` the legacy-location and collision
+  prose names in `migrate.md`'s Fresh bullet and Stale declarations
+  and in `root-migration.md § 1 Collisions`; the two hits in skills
+  outside the toolset named in the companions item. It returns no
+  `scripts/ci/` line: the `dev/plans` fallback in each of the four
+  plan checks exists and the grep never matches it, the `-` before it
+  excluding it (the Tier-1 item). The literal `.claude/LAYOUT.md`,
+  which that grep never matches either, is accepted in
   `declarations.md § Declared paths` and `check-stray.sh`'s fallback
   and nowhere else in `skills/`, `rules/`, `agents/`, `scripts/ci/`;
   the permissions template, which a `/` shields from that grep too,

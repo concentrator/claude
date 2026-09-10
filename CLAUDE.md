@@ -41,6 +41,16 @@ project's missing `## Supervision`.
 - Supervisor: AI
 - Supervisor bounds: batch-scoped delivery
 
+## Layout
+
+This repository's own declarations; a project's own `## Layout` wins,
+and a project without one is on the defaults.
+
+- Docs: docs/
+- Plans: dev/plans/
+- Session: dev/session/
+- Layout: LAYOUT.md
+
 ## Code Comments
 
 A comment explains what the code cannot show: the reason behind a

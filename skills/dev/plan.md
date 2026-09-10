@@ -6,13 +6,13 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 
 ## Levels
 
-1. **Roadmap** - `dev/plans/ROADMAP.md` (§ Where things live).
+1. **Roadmap** - `<plans>/ROADMAP.md` (§ Where things live).
    Initiative index. Items: `R001: description`.
-   Each entry owns `dev/plans/R<NNN>-<slug>/`, whose `requirements.md`
+   Each entry owns `<plans>/R<NNN>-<slug>/`, whose `requirements.md`
    carries the initiative's motivation, goals, and acceptance
    criteria (template: templates.md). Closure: see § Approval
    and closure.
-2. **Tasks** - `dev/plans/R<NNN>-<slug>/tasks.md`, one index per
+2. **Tasks** - `<plans>/R<NNN>-<slug>/tasks.md`, one index per
    initiative, created lazily with the R's first task (an R with no tasks
    has none). Concrete units of work. Items:
    `R001-T001 [feat]: description` - the tag in brackets
@@ -20,7 +20,7 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
    type and determines the branch prefix (`git-workflow.md § Trunk`).
    Checkbox closes only when the task's branch is merged.
    The id itself routes: the
-   task's artifacts live in `dev/plans/R<NNN>-<slug>/`, or the same path
+   task's artifacts live in `<plans>/R<NNN>-<slug>/`, or the same path
    under `archive/`. `ROADMAP.md` is the cross-R index - there is no
    flat global task list.
    **Right-size**: a task is a coherent, multi-commit deliverable (a
@@ -28,7 +28,7 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
    steps live in the branch-plan checklist. E.g. "add the size-scaled
    close-review policy" (rule + skill wiring + cross-refs) is one task;
    "fix a typo in a rule" is a commit within one, never a task.
-3. **Branch plan** - `dev/plans/R<NNN>-<slug>/<task-id>-<slug>.md`
+3. **Branch plan** - `<plans>/R<NNN>-<slug>/<task-id>-<slug>.md`
    (e.g. `R062-T001-id-gates.md`; legacy `T-XXX-<slug>.md`).
    Checkboxes per commit. Header: `task: R008-T001`. Checkbox closes at
    commit (`branch-plan.md`).
@@ -93,24 +93,23 @@ its parent's R id (legacy files: § Archival).
 
 ## Where things live
 
-DEV artifacts live at `dev/` in every project, repository-relative and
-never declared or resolved: `dev/plans/` (below) and `dev/session/`
-(`handoff.md`); the docs tree is `docs/` at the repository root
-(`layout.md § Docs`). A `CLAUDE.md`
-still carrying a `DEV artifacts root:` line fails the Tier-1 check
-`ci/check-plan-integrity.sh` (`start.md § 4`) with one line naming
-the move.
-Guarded config is not an artifact: it stays under `.claude/`,
-`REQUIREMENTS.md` and `DESIGN.md` included (`layout.md § Config
-layout`).
+DEV artifacts live at the paths the project's root `CLAUDE.md § Layout`
+declares (`companions/declarations.md § Declared paths`): `<plans>`
+(below) and `<session>` (`handoff.md`); the docs tree is `<docs>`
+(`layout.md § Docs`) and the repository's actual tree is `<layout>`
+(`layout.md § Layout file`). A `CLAUDE.md` still carrying a
+`DEV artifacts root:` or `extended-docs:` line is stale; `migrate.md`
+(Stale declarations) reports each with its rewrite. Guarded config is
+not an artifact: it stays under `.claude/`, `REQUIREMENTS.md` and
+`DESIGN.md` included (`layout.md § Config layout`).
 
 The file tree is `layout.md § Artifacts layout`; its locations are
-exclusive - never place plans or specs in `docs/` or other
+exclusive - never place plans or specs in `<docs>` or other
 project directories.
 
 ## Directory conventions
 
-- One plan directory per roadmap entry: `dev/plans/R<NNN>-<slug>/`, created
+- One plan directory per roadmap entry: `<plans>/R<NNN>-<slug>/`, created
   at initiative time - a new initiative is one act: ROADMAP entry +
   dir + `requirements.md` (`approved: pending`). Slug derives from the
   roadmap entry subject, is fixed at creation, and is never renamed on
@@ -138,7 +137,7 @@ refuses to start the branch until the dependency is merged.
 
 After the rounds, adjust in place:
 
-- **Initiative requirements** (`dev/plans/R<NNN>-<slug>/requirements.md`):
+- **Initiative requirements** (`<plans>/R<NNN>-<slug>/requirements.md`):
   `/dev plan R<NNN>` to extend.
 - **Branch plan (`<slug>`)**: `/dev plan <slug>` dispatches one planner
   per change (`companions/planner-prompt.md`), which states the change
@@ -159,7 +158,7 @@ After the rounds, adjust in place:
 ## Approval and closure
 
 `.claude/REQUIREMENTS.md` and each initiative's
-`dev/plans/R<NNN>-<slug>/requirements.md` carry a frontmatter `approved:`
+`<plans>/R<NNN>-<slug>/requirements.md` carry a frontmatter `approved:`
 field: `pending` when new, `yes` once the user confirms. Nothing
 downstream proceeds while pending. The field records which state the
 requirements are in, not when they got there - the date of an approval
@@ -189,7 +188,7 @@ once verified (e.g. a batch checkpoint - `branch-plan.md § Batches`).
 ## Milestone plans
 
 A milestone spanning several initiatives may carry
-`dev/plans/milestone-<id>.md` - the second root-level cross-initiative
+`<plans>/milestone-<id>.md` - the second root-level cross-initiative
 plan beside the release plan, written via `/dev plan milestone <id>`
 (template: `templates.md`). Optional: a milestone inside one
 initiative is ordered by that `tasks.md`.
@@ -217,7 +216,7 @@ stays useful as evidence; or **spawned** into a new plan or task it
 motivates. A finding another initiative's open task still cites is
 promoted before its own R closes. **Archive**: the closing branch's
 final commit carries the whole directory's move to
-`dev/plans/archive/R<NNN>-<slug>/` - requirements, task index, branch
+`<plans>/archive/R<NNN>-<slug>/` - requirements, task index, branch
 plans, and findings together - so one delivery closes and archives the
 R (Tier-1 `check-archival`; a frontmatter
 `archival: deferred - <reason>` defers the move with cause).

@@ -241,8 +241,8 @@ rm -rf "$DB"
   && pass "hygiene section seeded on a fresh target" || die "no hygiene section on the fresh target"
 [ "$(grep -c '^## Session and planning hygiene' "$P/.claude/MAINTENANCE.md" 2>/dev/null)" = "1" ] \
   && pass "seeding idempotent over re-installs" || die "hygiene section count wrong"
-grep -q 'dev/session/' "$P/.claude/MAINTENANCE.md" 2>/dev/null && grep -q 'dev/plans/' "$P/.claude/MAINTENANCE.md" 2>/dev/null \
-  && pass "targets table names its rows" || die "targets table incomplete"
+grep -q '`Session:` tree' "$P/.claude/MAINTENANCE.md" 2>/dev/null && grep -q '`Plans:` tree' "$P/.claude/MAINTENANCE.md" 2>/dev/null \
+  && pass "targets table names its rows by declaration key" || die "targets table incomplete"
 # Existing MAINTENANCE.md without the heading: appended, prior content intact.
 M=$(mktemp -d); mkdir -p "$M/.claude"
 printf '# Maintenance\n\nproject-specific rules stay.\n' > "$M/.claude/MAINTENANCE.md"
@@ -281,11 +281,19 @@ done
 [ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1
 [ "$(grep -c '^!.claude/hooks/$' "$G/.gitignore")" = "1" ] && pass "gitignore allowlist idempotent" || die "duplicate allowlist entries"
-[ "$(grep -c '^/dev/session/$' "$G/.gitignore")" = "1" ] && pass "session dir ignored once" || die "session ignore line: $(grep -c '^/dev/session/$' "$G/.gitignore")"
+[ "$(grep -c '^/dev/session/$' "$G/.gitignore")" = "1" ] && [ "$(grep -c '^/dev/supervisor/$' "$G/.gitignore")" = "1" ] && pass "default session and supervisor dirs ignored once each" || die "default ignore lines: $(tr '\n' ' ' < "$G/.gitignore")"
 git -C "$G" check-ignore -q "skills/x/session/f" && die "unanchored session ignore" || pass "session ignore is anchored to the root"
-[ "$(grep -c '^/dev/supervisor/$' "$G/.gitignore")" = "1" ] && pass "supervisor dir ignored once" || die "supervisor ignore line: $(grep -c '^/dev/supervisor/$' "$G/.gitignore")"
 git -C "$G" check-ignore -q "skills/x/supervisor/f" && die "unanchored supervisor ignore" || pass "supervisor ignore is anchored to the root"
 rm -rf "$G"
+
+# --- layout declaration (R080-T009): step 7 follows the declared session
+# tree, and an install rewrites neither the declaration nor <layout> ---
+L=$(mktemp -d); git -C "$L" init -q; git -C "$L" checkout -qb work; mkdir -p "$L/.claude"
+printf '## Layout\n\n- Session: var/state/\n- Layout: .claude/LAYOUT.md\n' > "$L/CLAUDE.md"
+printf '# Layout\n\nsrc/\n' > "$L/.claude/LAYOUT.md"; cat "$L/CLAUDE.md" "$L/.claude/LAYOUT.md" > "$L/before"
+bash "$INSTALL" --project "$L" >/dev/null 2>&1 && bash "$INSTALL" --project "$L" >/dev/null 2>&1 || die "install (layout fixture) exits nonzero"
+[ "$(grep -c '^/var/state/$' "$L/.gitignore")" = "1" ] && [ "$(grep -c '^/var/supervisor/$' "$L/.gitignore")" = "1" ] && pass "declared session and supervisor trees ignored once each" || die "declared ignore lines: $(tr '\n' ' ' < "$L/.gitignore")"
+cat "$L/CLAUDE.md" "$L/.claude/LAYOUT.md" | cmp -s - "$L/before" && pass "declaration and <layout> survive two installs byte-identical" || die "installer rewrote the declaration or LAYOUT.md"; rm -rf "$L"
 
 (( fail == 0 )) && echo "install-dev.test: OK"
 exit $fail

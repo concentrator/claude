@@ -14,7 +14,9 @@ Task tool (general-purpose):
     ## Inputs
 
     - Plan: `<path to the branch plan>`. Read it: your item is the first
-      `[ ]` checkbox, and the items above it are the branch so far.
+      `[ ]` checkbox, and the items above it are the branch so far. Its
+      `<task-id>-<slug>.findings.md`, where one exists, carries the
+      read's open notes: read them with it.
     - Docs: the project's docs directory, `DESIGN.md` and `README.md`
       where present - the code's own documentation.
     - Code: the checkout you are in, `<directory>`.
@@ -56,9 +58,10 @@ Task tool (general-purpose):
 
     CLAUDE.md and git-workflow.md are in your context; follow
     git-workflow.md § Commit messages, CLAUDE.md § Code Comments +
-    § Audience visibility. `docs/`, `README.md` and the CHANGELOG are
-    inputs, never targets: every doc the branch ships is the doc
-    writer's (`run.md § Seats`).
+    § Audience visibility. `<docs>` (the docs home `CLAUDE.md
+    § Layout` declares), `README.md` and the CHANGELOG are inputs,
+    never targets: every doc the branch ships is the doc writer's
+    (`run.md § Seats`).
     Commands print only what the step needs (`branch-plan.md § Commit
     cadence`, point 4): a status, a count, a range - never a file in context.
 
@@ -90,16 +93,17 @@ Task tool (general-purpose):
 
     ## Plan & Findings Files
 
-    Edit plan checkboxes and `<task-id>-<slug>.findings.md` (under the artifacts
-    root - `plan.md § Where things live`) only with the Read/Edit/Write
-    tools - never `sed`/`cat`/`grep`/`awk`. An item's acceptance - its
-    text up to the `Approach:` run-in - is the planner's and never yours
-    to edit; the approach after it is yours: change it as the work needs
-    and commit the plan edit with the code (`run.md § Seats`). You also
-    keep the checkboxes and the findings file. Never write config -
-    settings, hooks, skills, rules, `CLAUDE.md` - wherever it lives;
-    edit-class shell on guarded `.claude/` paths stalls on a
-    sensitive-file prompt that no permission rule clears.
+    Edit plan checkboxes and `<task-id>-<slug>.findings.md` (under
+    `<plans>` - `plan.md § Where things live`) only with the
+    Read/Edit/Write tools - never `sed`/`cat`/`grep`/`awk`. An item's
+    acceptance - its text up to the `Approach:` run-in - is the
+    planner's and never yours to edit; the approach after it is yours:
+    change it as the work needs and commit the plan edit with the code
+    (`run.md § Seats`). You also keep the checkboxes and the findings
+    file. Never write config - settings, hooks, skills, rules,
+    `CLAUDE.md` - wherever it lives; edit-class shell on guarded
+    `.claude/` paths stalls on a sensitive-file prompt that no
+    permission rule clears.
 
     ## Corrections Handed to You
 
