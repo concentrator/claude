@@ -16,9 +16,10 @@ relate, and the invariants that keep them coherent.
 ## Self-hosting layout
 
 This repo is consumed as `~/.claude`, so a project's `.claude/` is the
-repo root here: `REQUIREMENTS.md`, `DESIGN.md` and `MAINTENANCE.md` sit
-at the root, the nested `.claude/` holds only Claude Code's project
-settings, and DEV artifacts sit under `dev/` as in every adopter.
+repo root here: `REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md` and
+`LAYOUT.md` sit at the root, the nested `.claude/` holds only Claude
+Code's project settings, and DEV artifacts sit at the paths `CLAUDE.md
+§ Layout` declares, `dev/` here.
 
 ## Tree-map
 

@@ -714,7 +714,7 @@ follow the target's declared session tree.
   comment's "DESIGN.md tree-map" reads "the layout file `CLAUDE.md
   § Layout` declares". `ci.yml` line 12: "check-stray matches UTF-8
   tree-map nodes" reads "check-stray matches UTF-8 layout-file nodes".
-- [ ] `DESIGN.md`, `MAINTENANCE.md` and `REQUIREMENTS.md` state the
+- [x] `DESIGN.md`, `MAINTENANCE.md` and `REQUIREMENTS.md` state the
   declared layout for this repository: `DESIGN.md § Self-hosting
   layout` lists `LAYOUT.md` among the root files and says the DEV
   artifacts sit at the declared paths, `dev/` here; `MAINTENANCE.md`'s
@@ -733,6 +733,8 @@ follow the target's declared session tree.
   declares, `dev/` here". `MAINTENANCE.md` line 24: "the `DESIGN.md`
   tree-map matches the tree" reads "`LAYOUT.md` matches the tree";
   rows 129-131 and 134: "`DESIGN.md` tree-map" reads "`LAYOUT.md`";
+  row 134's trailing "§ Self-enforcement" loses its anchor with that
+  rewrite, so it reads "`DESIGN.md § Self-enforcement`";
   the targets rows 58, 59 and 65 read "the `Session:` tree
   (`CLAUDE.md § Layout`)" and "the `Plans:` tree (`CLAUDE.md
   § Layout`)". `REQUIREMENTS.md` lines 33-36: "(`dev/plans/R<NNN>-

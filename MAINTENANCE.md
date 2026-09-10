@@ -21,7 +21,7 @@ review the diff against the rule set and confirm the concerns below:
   across files (read maximally: any echo of a rule's text is a
   restatement), so a concern names the rule and cites its owning
   document (`rules/claude-md.md § Size and structure`, "No
-  duplication"); the `DESIGN.md` tree-map matches the tree.
+  duplication"); `LAYOUT.md` matches the tree.
 - **Cleanup** - no stray scratch or transient content, and no dead
   prose: every rule, instruction, or sentence the diff adds or touches
   passes three gates - accurate and sensible in context; valuable in a
@@ -55,14 +55,14 @@ Initial defaults - tune per project.
 | Target | Check | Cadence / threshold |
 |---|---|---|
 | Transcripts | retention | `cleanupPeriodDays` (settings) |
-| `dev/session/` | files whose session is gone (`skills/dev/handoff.md`) | weekly, delete |
-| `dev/plans/` | orphaned or closed plan, findings, requirements & batch files; empty `R<NNN>-<slug>` dirs | monthly |
+| the `Session:` tree (`CLAUDE.md § Layout`) | files whose session is gone (`skills/dev/handoff.md`) | weekly, delete |
+| the `Plans:` tree (`CLAUDE.md § Layout`) | orphaned or closed plan, findings, requirements & batch files; empty `R<NNN>-<slug>` dirs | monthly |
 | `.claude/settings.json` + any regrown `settings.local.json` | allow-list mess: one-off / dead / overlapping rules; local entries a tracked tier already carries | weekly |
 | skills/ | dead, unused, broken, or duplicate skills | monthly |
 | rules/, CLAUDE.md, foundational docs & README | stale paths / dead references | on edit + monthly |
 | repo root & `.claude/` | stray temp / build artifacts | weekly |
 | sizes | caps per `claude-md.md § Size and structure` / `skills.md § Size` | on edit |
-| file counts | flag unexpected growth in `dev/plans/`, skills/ | monthly |
+| file counts | flag unexpected growth in the `Plans:` tree (`CLAUDE.md § Layout`), skills/ | monthly |
 
 ### Repair
 
@@ -126,11 +126,11 @@ delivery.
 
 | Changed | Also update |
 |---|---|
-| A `/dev` command added, renamed, or removed | `README.md § Workflow`, `DESIGN.md` tree-map |
-| A `skills/dev/` mode file or companion added, renamed, or removed | `SKILL.md`'s router table, `DESIGN.md` tree-map |
-| A tracked root file or directory added or removed | `README.md § Contents`, `DESIGN.md` tree-map |
+| A `/dev` command added, renamed, or removed | `README.md § Workflow`, `LAYOUT.md` |
+| A `skills/dev/` mode file or companion added, renamed, or removed | `SKILL.md`'s router table, `LAYOUT.md` |
+| A tracked root file or directory added or removed | `README.md § Contents`, `LAYOUT.md` |
 | What `install-dev.sh` copies or registers | `README.md § Installing the toolset elsewhere`, `scripts/test/install-dev.test.sh` (it asserts the copied set) |
 | A `scripts/ci/` check added or removed | `scripts/ci/run-all.sh` (its loop is what registers a check), `DESIGN.md § Self-enforcement` |
-| A `hooks/` guard added or removed | `DESIGN.md` tree-map (`check-stray.sh` reads it) and § Self-enforcement, `README.md § Contents` |
+| A `hooks/` guard added or removed | `LAYOUT.md` (`check-stray.sh` reads it) and `DESIGN.md § Self-enforcement`, `README.md § Contents` |
 | Planning layout or an id or naming convention | `README.md`, `REQUIREMENTS.md § Planning discipline`, `DESIGN.md`, and every `skills/dev/` file stating the convention (`plan.md`, `layout.md`, `branch-plan.md`, `write-plan.md`, `finish.md`, `templates.md`) |
 | Any file moved or renamed | Every inbound reference (grep the tracked tree) |
