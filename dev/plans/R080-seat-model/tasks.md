@@ -143,4 +143,12 @@ the trunk's tree with a message naming the ref, not the mismatch;
 `scripts/test/install-dev.test.sh` sits one line under the 300-line
 cap; `.gitignore`'s comments cite the retired `supervise.md`; the
 installer's step-7 comment says "the target's `CLAUDE.md § Layout`"
-where the code reads the project's root `CLAUDE.md`.
+where the code reads the project's root `CLAUDE.md`. From the R080-T010
+planning act: a host instruction telling an agent to prefer `Bash` for
+file changes reaches every dispatched seat and contradicts both
+`rules/writing-artifacts.md § Bulk edits` and each prompt companion's
+"edit with Read/Edit/Write, never `sed`/`cat`/`awk`" - a planner
+rewrote plan prose with a script under it, and no rule says which
+instruction wins; a cite to a sentence that wraps names its first line
+in two companions and a line range in a third, one convention per
+citation rather than one for the file.
