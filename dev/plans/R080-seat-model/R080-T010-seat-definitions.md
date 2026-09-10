@@ -402,7 +402,7 @@ repository's own and the installer copies none of them.
   then "**Duties.** You read: no cell of the duty table in
   `skills/dev/run.md § Seats` is yours, and a finding is reported,
   never fixed." Nothing else in the file changes.
-- [ ] `run.md § Seats` names every seat once and cites both homes, and
+- [x] `run.md § Seats` names every seat once and cites both homes, and
   the file stays within 300 lines and 80 columns
   (`scripts/ci/check-caps.sh`). The section gains a roster table - one
   row per dispatched seat, giving where the run dispatches it and its
