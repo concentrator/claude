@@ -450,10 +450,16 @@ follow the target's declared session tree.
   § Routine`), never a plan target (`run.md § Pre-flight`). After it,
   `git grep -n -E '(^|[^A-Za-z/._-])(docs/|dev/)' -- skills/dev rules
   agents` finds a literal path only in `companions/declarations.md
-  § Declared paths` and in the migration source `dev/docs/`
-  (`migrate.md`'s route, `root-migration.md`'s move and rewrite sets);
-  `.claude/plans/` and `.claude/docs/` never match, the `/` before
-  them excluding them; `git grep -n 'dev/' --
+  § Declared paths`, in the migration source `dev/docs/`
+  (`migrate.md`'s route, `root-migration.md`'s move and rewrite sets)
+  and in the prose that names a project's own `docs/` as a legacy
+  location or a collision - `migrate.md`'s Fresh bullet ("no `plans/`
+  or `docs/` under `.claude/`") and Stale declarations ("a `docs/`
+  beside it a collision") and `root-migration.md § 1 Collisions` ("a
+  `docs/` beside an `extended-docs:` path") - which names a directory
+  of the project, never a default, and stays; `.claude/plans/` and
+  `.claude/docs/` never match, the `/` before them excluding them;
+  `git grep -n 'dev/' --
   skills/dev/companions/'*.json'` finds nothing; and `git grep -n
   'LAYOUT.md' -- skills rules agents` finds the literal default only in
   `companions/declarations.md § Declared paths`. The criterion's sweep of
@@ -510,9 +516,11 @@ follow the target's declared session tree.
   is a migration in flight that moves tree and declaration together
   (`root-migration.md § 2`). Each check's header comment names the
   declaration where it said the home is fixed and never repeats the
-  default, which the fallback line beneath shows; the residue the
-  criterion's grep accepts in these four checks is one `dev/plans`
-  each, in the fallback. `check-plan-integrity.sh`'s `DEV artifacts
+  default, which the fallback line beneath shows; that fallback,
+  `P=${P:-dev/plans}`, is the one `dev/plans` in each of the four
+  checks, and the criterion's grep never matches it, the `-` before
+  `dev/` being a character its regex excludes, so the grep returns no
+  `scripts/ci/` line. `check-plan-integrity.sh`'s `DEV artifacts
   root:` refusal goes, a stale line being `migrate.md`'s to report.
   Each check's test gains one case: a fixture whose `CLAUDE.md`
   declares `- Plans: var/plans/` with the tree there passes, and a
@@ -740,16 +748,88 @@ follow the target's declared session tree.
   § Layout`)". `REQUIREMENTS.md` lines 33-36: "(`dev/plans/R<NNN>-
   <slug>/`)" reads "(`R<NNN>-<slug>/` under the declared plans tree)"
   and "lives at `dev/plans/`" reads "lives at that tree's root".
+- [ ] The declaration's prose states each default once and admits this
+  repository's root: `companions/declarations.md § Declared paths`'
+  `Docs:` bullet no longer restates the `docs/` default the fenced
+  block above it is the one home of (the first item's rule), so the
+  criterion's grep finds `docs/` in `declarations.md` only in that
+  block; `layout.md § Layout file`'s root-line sentence admits the
+  root `LAYOUT.md` carries - a repository consumed at a fixed path
+  uses that path, `~/.claude/` (`DESIGN.md § Self-hosting layout`; the
+  `LAYOUT.md` item above) - beside a project's own name;
+  `companions/untracked-claude.md § What changes` says `<layout>` sits
+  under `.claude/` by default and is gitignored with it, the sentence
+  no longer holding for every declared value; and
+  `scripts/test/check-accretion.test.sh`'s header names the declared
+  plans tree the gate scans in place of `dev/plans/**/*.md`, the
+  check's own header (the Tier-1 item above) already saying so. The
+  three rule files stay within 300 lines and 80 columns. One commit:
+  four sentence fixes to prose about the declaration; the test comment
+  rides with them as prose about the same read, not with the tree.
+  Approach: `declarations.md` lines 133-135, the `Docs:` bullet, read
+  "- **`Docs:`** the project's one documentation directory, internal
+  and external audiences under one contract (`layout.md § Docs`); the
+  default for a new project, and a project keeps the home it has."
+  `layout.md` lines 171-174: "one fenced tree whose root line is the
+  repository directory with a trailing slash - a project's by its own
+  name, `attack-checker/` - drawn in" reads "one fenced tree whose
+  root line is the repository directory with a trailing slash - a
+  project's by its own name, `attack-checker/`; a repository consumed
+  at a fixed path uses that path, `~/.claude/` - drawn in", the
+  paragraph rewrapped (the file is at 209 lines). `untracked-claude.md`
+  lines 44-45: "`<layout>` is gitignored with the rest of `.claude/`"
+  reads "`<layout>` sits under `.claude/` by default and is gitignored
+  with it". `check-accretion.test.sh` lines 3-4: "(the gate scans
+  dev/plans/**/*.md only, so this test source never trips it)" reads
+  "(the gate scans only the plans tree the root CLAUDE.md § Layout
+  declares, so this test source never trips it)".
+- [ ] `LAYOUT.md` carries every tracked entry `layout.md § Layout file`
+  requires: under `scripts/`, the worker-host tooling `forge-keys.sh`,
+  `provision-worker.sh`, `worker-credentials.sh`, `worker-setup.sh`
+  and `worker-workspace.sh`; under `skills/`, `worker-host/` with its
+  `SKILL.md` and `companions/`. Each line carries a role comment taken
+  from the file's own header comment or title, aligned to the `#`
+  column its siblings use; `companions/` is one line with its two
+  files named in the comment, as `skills/dev/companions/` is drawn,
+  the depth `§ Layout file` sets by `§ Config layout`. Entries keep
+  the file's order: alphabetical under `scripts/`, and `worker-host/`
+  last under `skills/`, after the bundled and personal skills, as the
+  one skill that is this repository's own operations. `git ls-files
+  scripts skills/worker-host` then lists no first- or second-level
+  entry the file lacks. No root entry is added, so `MAINTENANCE.md
+  § Doc-sync pairs` obliges no `README.md § Contents` row, and
+  `check-stray.sh` matches first-level nodes only, so the fast tier is
+  green before and after. No check caps `LAYOUT.md`'s line length.
+  Approach: under `scripts/`, after `context-cost.py`: "forge-keys.sh
+  # forge key exchange, the operator's half (sourced by
+  provision-worker.sh)"; after `model-quota.sh`: "provision-worker.sh
+  # stands up the worker host, run on the operator's machine"; after
+  `test/`, whose `└──` becomes `├──`: "worker-credentials.sh # worker
+  forge keys and CLI auth, run on the VM", "worker-setup.sh # worker
+  host system setup, run on the VM" and, as the block's new `└──`,
+  "worker-workspace.sh # worker repositories and per-project settings,
+  run on the VM". Under `skills/`, `writing-skills/`'s `└──` becomes
+  `├──` and the block ends "└── worker-host/ # GCP worker host runbook,
+  this repository's own", "├── SKILL.md #   the four scripts and where
+  each runs", "└── companions/ #   provisioning order, pitfalls", the
+  children indented as the `dev/` block's are. Padding is collapsed in
+  the quotes above: each `#` lands on the column `context-cost.py`'s
+  and `dev/`'s do.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup (stale/temp
   data), mark plan complete, mark the task `[x]` in `tasks.md`,
   commit. The acceptance criterion's grep over `rules/`, `skills/`,
   `scripts/ci/` accepts exactly: the defaults in
-  `companions/declarations.md § Declared paths`; `dev/docs/` as a
-  migration source in `migrate.md` and `root-migration.md`; the two
-  hits in skills outside the toolset named in the companions item; one
-  `dev/plans` fallback in each of the four plan checks. The literal
-  `.claude/LAYOUT.md`, which that grep never matches, is accepted in
+  `companions/declarations.md § Declared paths`' fenced block;
+  `dev/docs/` as a migration source in `migrate.md` and
+  `root-migration.md`; the `docs/` the legacy-location and collision
+  prose names in `migrate.md`'s Fresh bullet and Stale declarations
+  and in `root-migration.md § 1 Collisions`; the two hits in skills
+  outside the toolset named in the companions item. It returns no
+  `scripts/ci/` line: the `dev/plans` fallback in each of the four
+  plan checks exists and the grep never matches it, the `-` before it
+  excluding it (the Tier-1 item). The literal `.claude/LAYOUT.md`,
+  which that grep never matches either, is accepted in
   `declarations.md § Declared paths` and `check-stray.sh`'s fallback
   and nowhere else in `skills/`, `rules/`, `agents/`, `scripts/ci/`;
   the permissions template, which a `/` shields from that grep too,
