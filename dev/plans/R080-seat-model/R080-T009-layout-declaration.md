@@ -655,7 +655,7 @@ follow the target's declared session tree.
   session tree and its supervisor/ sibling" and its grep (227) reads
   `grep -q 'CLAUDE.md § Layout' <<<"$out" && grep -q 'info/exclude'
   <<<"$out"`.
-- [ ] This repository declares its layout and holds its tree in
+- [x] This repository declares its layout and holds its tree in
   `LAYOUT.md`: `CLAUDE.md` gains `## Layout` after `## Supervision`,
   opening with the preface its two sibling blocks carry - this
   repository's own declarations; a project's own `## Layout` wins, and
@@ -697,7 +697,11 @@ follow the target's declared session tree.
   `R<NNN>-T<NNN>-<slug>.findings.md` "task findings", `agents/`
   "dispatched agents", `skills/` "the DEV toolset and the skills
   beside it", and `systematic-debugging/` and the three `*/SKILL.md`
-  entries "bundled" - aligned to the `#` column their siblings use.
+  entries "bundled" - aligned to the `#` column their siblings use,
+  except the five whose name already runs past that column (the two
+  `R<NNN>-T<NNN>-<slug>` plan lines and the three long `*/SKILL.md`
+  entries), which align on a column one past their own run's longest
+  name.
   Three: the three `skills/dev/` file-list lines (DESIGN.md 80-82)
   fold into one pattern line "*.md" with the comment "modes and
   process rules, routed by SKILL.md", between the `SKILL.md` and
