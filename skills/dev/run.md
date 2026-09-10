@@ -126,21 +126,22 @@ flight - halts the item and re-dispatches the planner (§ Seats) with that text,
 on the item's own branch (`git-workflow.md § Trunk`). The halt reverts the
 item's uncommitted edits - `git checkout -- .` and removal of the untracked
 files the seat created - so the branch stands at its last commit before the
-planner is dispatched. The planner's commit is its definition's
-(`agents/dev-planner.md`); the change of a planner reporting DONE_WITH_CONCERNS
-(`companions/planner-prompt.md § Report Format`) takes the read below as DONE's
-does and its concern reaches the user with the change for approval. The runner
-then runs `write-plan.md` step 6 on the changed plan, the reader a dispatched
-seat (§ Seats), never the runner's own read. Where the change dropped
-`cold-read: passed` - a change adding a decision, `agents/dev-planner.md` - the
-pass is recorded in the runner's own bookkeeping commit on the item's branch,
-while a change that only cites text already in the tree keeps the record, and an
-implementer's approach edit rides the code's commit. The change is the
-**user**'s to approve under either supervisor mode (`companions/declarations.md
-§ Supervisor bounds`; § Seats); a rejection re-dispatches the planner with the
-objection's text, and the next planner commit replaces the text - no revert, and
-the runner edits no plan content. Only then is a fresh implementer dispatched,
-starting from the last commit. A seat never resumes.
+planner is dispatched. The planner commits its change locally, nothing being
+pushed until the runner delivers; a planner reporting DONE_WITH_CONCERNS
+(`companions/planner-prompt.md § Report Format`) has committed too, so its
+change takes the read below as DONE's does and its concern reaches the user with
+the change for approval. The runner then runs `write-plan.md` step 6 on the
+changed plan, the reader a dispatched seat (§ Seats), never the runner's own
+read. Where the change dropped `cold-read: passed` - a change adding a decision,
+`agents/dev-planner.md` - the pass is recorded in the runner's own bookkeeping
+commit on the item's branch, while a change that only cites text already in the
+tree keeps the record, and an implementer's approach edit rides the code's
+commit. The change is the **user**'s to approve under either supervisor mode
+(`companions/declarations.md § Supervisor bounds`; § Seats); a rejection
+re-dispatches the planner with the objection's text, and the next planner commit
+replaces the text - no revert, and the runner edits no plan content. Only then
+is a fresh implementer dispatched, starting from the last commit. A seat never
+resumes.
 
 Every acceptance-level answer takes that route; an approach-level question -
 which files, which sentences, which order - costs no seat and no approval: the
