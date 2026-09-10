@@ -18,10 +18,11 @@ every project on the machine.
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); plus reference skills |
 | `agents/` | Custom agents (e.g. branch-close code reviewer) |
 | `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no secrets into tracked files or commits), the UserPromptSubmit branch-state line, the PreCompact session-state writer, the Stop hand-off nudge, and the SessionStart re-brief |
-| `scripts/` | `ci/` the Tier-1 mechanical gate (`run-all.sh`), `install-dev.sh`, `context-cost.py` the session context-cost reporter, `model-quota.sh` the pinned-dispatch quota gate, `test/` the script tests |
+| `scripts/` | `ci/` the Tier-1 mechanical gate (`run-all.sh`), `install-dev.sh`, `context-cost.py` the session context-cost reporter, `model-quota.sh` the pinned-dispatch quota gate, `test/` the script tests, and the worker-host tooling (`skills/worker-host/`): `provision-worker.sh` stands up the host from the operator's machine and sources `forge-keys.sh`, the operator's half of the forge key exchange; `worker-setup.sh` (system setup), `worker-credentials.sh` (forge keys and CLI auth) and `worker-workspace.sh` (repositories and per-project settings) run on the VM |
 | `.github/`, `.githooks/`, `.gitignore` | The CI gate on pull requests, its advisory local pre-push mirror, and the ignore rules for harness state |
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
-| `DESIGN.md` | Architecture, full tree-map, self-hosting layout |
+| `DESIGN.md` | Architecture, self-hosting layout |
+| `LAYOUT.md` | The repository's actual tree - the layout file `CLAUDE.md § Layout` declares; `scripts/ci/check-stray.sh` checks every tracked top-level entry against it |
 | `MAINTENANCE.md` | The Tier-2 review concerns, plus the sanity routine: cleanup, repair, allow-list hygiene, skill audits |
 | `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) and the gitignored `session/` |
 
@@ -34,8 +35,9 @@ Two modes, defined in `CLAUDE.md`:
   branch plans → commits, every level traceable
   (`R<NNN> → R<NNN>-T<NNN> → branch`). Task ids are composite, with the
   task counter scoped to its initiative, so the id routes to the
-  artifacts: `R062-T001` lives in `dev/plans/R062-<slug>/`, or the same path
-  under `archive/` once the initiative closes.
+  artifacts: `R062-T001` lives in `R062-<slug>/` under the plans tree
+  (§ DEV artifacts; `dev/plans/` here), or the same path under
+  `archive/` once the initiative closes.
 
 Planning takes two rounds: `/dev plan R` shapes an initiative,
 `/dev plan R<NNN>` details its tasks and branch plans. Execution is
@@ -53,19 +55,29 @@ release. Command surface and mode files:
 ## DEV artifacts
 
 Two trees: guarded config - what instructs agents - under `.claude/`,
-and agent-authored artifacts under `dev/` (`plans/`, the gitignored
-`session/`), with the docs tree at `docs/`, the same in every project.
-Structure:
-`skills/dev/layout.md`; paths: `skills/dev/plan.md § Where things
-live`.
+and agent-authored artifacts at the paths the project's root
+`CLAUDE.md § Layout` declares, one line per key: `Docs:` the docs tree,
+`Plans:` the planning tree, `Session:` the gitignored per-session state
+files, `Layout:` the layout file holding the repository's actual tree.
+A missing line or block means that key's default - `docs/`,
+`dev/plans/`, `dev/session/`, `.claude/LAYOUT.md` - so a project that
+has not declared keeps working. The supervisor's ledgers sit in
+`supervisor/` beside the session tree, gitignored like it. This repo's
+global `CLAUDE.md` carries a block of its own (§ Self-hosting); a
+project's block wins. Declaration form:
+`skills/dev/companions/declarations.md § Declared paths`; canonical
+structure: `skills/dev/layout.md`; paths: `skills/dev/plan.md § Where
+things live`.
 
 ## Self-hosting
 
 This repo manages itself with the same DEV discipline it provides:
-changes to the environment flow through `dev/plans/` initiatives like
-any other project. Because the repo root *is* the `.claude/` directory,
-the foundational files live at the root and the DEV artifacts sit
-beside them under `dev/` - see `DESIGN.md § Self-hosting layout`.
+changes to the environment flow through initiatives in its plans tree
+like any other project. Because the repo root *is* the `.claude/`
+directory, the foundational files live at the root, `LAYOUT.md` among
+them, so its `CLAUDE.md § Layout` declares `LAYOUT.md` there and keeps
+the tree defaults: the DEV artifacts sit beside the root files under
+`dev/` - see `DESIGN.md § Self-hosting layout`.
 
 ## Setup on a new machine
 
@@ -110,8 +122,12 @@ It also writes outside the target `.claude/`, append-only in both cases:
 an `@writing.md` import added to the target `CLAUDE.md`, and - for
 `--project` - a `!`-allowlist line in the repo's root `.gitignore` for
 each installed path that repo ignores, so the toolset stays committable,
-plus ignore lines for `dev/session/`, the per-session state files
-(`skills/dev/handoff.md`), and `dev/supervisor/`, the supervisor's
-ledgers (`skills/dev/run.md § Ledger`).
+plus two anchored ignore lines for runtime state: the session tree the
+target's `CLAUDE.md § Layout` declares, where the per-session state
+files live (`skills/dev/handoff.md`), and `supervisor/` beside it, the
+supervisor's ledgers (`skills/dev/run.md § Ledger`) - `/dev/session/`
+and `/dev/supervisor/` for a target without a declaration. The
+declaration and the layout file are the project's: an install leaves
+both exactly as it found them.
 The copied checks are yours to wire into CI; the installer ships them
 without registering them.
