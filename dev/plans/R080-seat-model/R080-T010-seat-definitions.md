@@ -381,7 +381,7 @@ repository's own and the installer copies none of them.
   wherever the gate runs; in a run the dispatches are sequential
   (`run.md § Seats`), and the sentence does not say so, the gate
   serving sessions outside a run too.
-- [ ] `agents/code-reviewer.md` declares its tool set and cites its
+- [x] `agents/code-reviewer.md` declares its tool set and cites its
   duties, so the roster reads the same for every seat. It gains
   `tools: Read, Glob, Grep, Bash, WebFetch, WebSearch` in the
   frontmatter, the config rule and a closing duties line citing
