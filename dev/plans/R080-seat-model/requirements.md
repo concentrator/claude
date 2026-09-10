@@ -121,9 +121,10 @@ input set, started for one item and shut down at its exit.
    implementer marks checkboxes and keeps the approach, and the
    reviewer reads.
 8. **Permissions are declared, validated and applied before the run.**
-   Each seat has a declared permission set: its tool set and the allow
-   rules its commands need, derived from the toolchain declaration and
-   the seat's prompt; the run has one permission mode, the runner's.
+   Each seat has a declared permission set: the tool set its
+   definition carries (point 10) and the allow rules its commands
+   need, derived from the toolchain declaration and the seat's prompt;
+   the run has one permission mode, the runner's.
    Pre-flight resolves the whole set against the tracked tiers,
    applies every adjustment to the project's local settings before
    the first dispatch, and reports
@@ -143,6 +144,21 @@ input set, started for one item and shut down at its exit.
    resolves every path through the declaration and cites `LAYOUT.md`
    for the tree; a literal `docs/` or `dev/` path in a rule is a
    defect.
+10. **Every seat is an agent file; the roster is one list.** Each seat -
+    planner, implementer, spec reviewer, doc writer, code reviewer, and
+    any reviewer added later - has one definition under `agents/`
+    carrying what holds on every dispatch: its name and description, the
+    tools it may use, its model and effort, its standing conduct, and the
+    duties it holds. The prompt companions keep what holds for one
+    dispatch: that dispatch's inputs, the exit contract and the report
+    format. `run.md § Seats` names every seat once in workflow terms and
+    cites its definition and its companion rather than restating either.
+    A seat's tool set is read from its definition, which is what point
+    8's declared set resolves against, and a dispatch names no tool the
+    definition omits. `companions/verification-policy.md § Models` keeps
+    only the two rules a definition cannot hold - which model tier an
+    item's implementer takes, and the capacity fallback when a pinned
+    model is rate-limited - and cites the definitions for every value.
 
 ## Invariants
 

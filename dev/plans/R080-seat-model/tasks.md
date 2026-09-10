@@ -6,8 +6,10 @@ composite (`R080-T###`, counter scoped to this initiative).
 
 Order matters: the docs move first so the doc writer has one target,
 the planner and the duties table after the flow, the layout
-declaration once the doc writer has its target, the permission
-pre-flight after every seat exists, the pilot last.
+declaration once the doc writer has its target, the seat definitions
+once the duties table names every duty, the permission pre-flight once
+each seat's definition carries the tool set it resolves against, the
+pilot last.
 
 ## Open
 
@@ -65,13 +67,21 @@ pre-flight after every seat exists, the pilot last.
   declaration and `LAYOUT.md`; the installer leaves both untouched.
   Depends on R080-T004.
 
+- [ ] **R080-T010 [mnt]**: seat agent definitions - one file per seat
+  under `agents/` with its tools, model, effort, conduct and duties;
+  the prompt companions reduced to the per-dispatch template; `run.md
+  § Seats` naming every seat once and citing both homes; the models
+  table reduced to the tier-selection and capacity-fallback rules.
+  Depends on R080-T006.
+
 - [ ] **R080-T007 [mnt]**: deterministic permission pre-flight - a
   declared permission set per seat (mode plus allow rules) derived
   from the toolchain declaration and the seat prompts; a pre-flight
   script that resolves the set against the tracked tiers, applies
   every adjustment before the first dispatch and reports every gap in
   one message, with its test; the runbook's prompt-clearing rows and
-  failure modes re-read against it. Depends on R080-T004.
+  failure modes re-read against it. Depends on R080-T004 and
+  R080-T010.
 
 - [ ] **R080-T005 [mnt]**: pilot task end to end under the seats -
   pre-flight, cold read, worker dispatch, doc-writer pass, supervised
