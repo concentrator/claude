@@ -33,10 +33,20 @@ repos are versioned there, not mapped.
 │   └── secret-patterns.sh        # the secret predicate, sourced
 ├── scripts/                      # installer, checks, tests, host tooling
 │   ├── ci/                       # Tier-1 checks + run-all.sh
+│   │   ├── check-*.sh            # the Tier-1 checks, one per file
+│   │   ├── code-size-allow.txt   # check-code-size.sh exemptions, one path per line
+│   │   └── run-all.sh            # the Tier-1 gate: every check, fails if any fails
 │   ├── context-cost.py           # session context cost + attribution
+│   ├── forge-keys.sh             # forge key exchange, the operator's half (sourced by provision-worker.sh)
 │   ├── install-dev.sh            # toolset installer (global or --project)
 │   ├── model-quota.sh            # pinned-dispatch quota gate
-│   └── test/                     # script tests + run-all.sh
+│   ├── provision-worker.sh       # stands up the worker host, run on the operator's machine
+│   ├── test/                     # script tests + run-all.sh
+│   │   ├── *.test.sh             # script and hook tests, one per subject
+│   │   └── run-all.sh            # the test aggregator: every *.test.sh, fails if any fails
+│   ├── worker-credentials.sh     # worker forge keys and CLI auth, run on the VM
+│   ├── worker-setup.sh           # worker host system setup, run on the VM
+│   └── worker-workspace.sh       # worker repositories and per-project settings, run on the VM
 ├── .claude/                      # this repository's project settings
 │   └── settings.json             # project tier, tracked
 ├── dev/                          # DEV artifacts (session/, supervisor/ gitignored)
@@ -67,5 +77,8 @@ repos are versioned there, not mapped.
     ├── receiving-code-review/SKILL.md          # bundled
     ├── dispatching-parallel-agents/SKILL.md    # bundled
     ├── skill-creator/SKILL.md    # personal (skill authoring)
-    └── writing-skills/           # personal
+    ├── writing-skills/           # personal
+    └── worker-host/              # GCP worker host runbook, this repository's own
+        ├── SKILL.md              #   the four scripts and where each runs
+        └── companions/           #   provisioning order, pitfalls
 ```

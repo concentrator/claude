@@ -784,7 +784,7 @@ follow the target's declared session tree.
   dev/plans/**/*.md only, so this test source never trips it)" reads
   "(the gate scans only the plans tree the root CLAUDE.md § Layout
   declares, so this test source never trips it)".
-- [ ] `LAYOUT.md` carries every tracked entry `layout.md § Layout file`
+- [x] `LAYOUT.md` carries every tracked entry `layout.md § Layout file`
   requires: under `scripts/`, the worker-host tooling `forge-keys.sh`,
   `provision-worker.sh`, `worker-credentials.sh`, `worker-setup.sh`
   and `worker-workspace.sh`; under `scripts/ci/`, the pattern line
