@@ -222,9 +222,9 @@ grep -q 'forge-cli' <<<"$out" && grep -q 'repo view' <<<"$out" \
   && pass "project-clone hands the checkout to forge-cli" || die "project-clone names no forge-cli check: $out"
 
 # 45. the supervisor's ledger and the session state must never be stageable:
-#     the harness writes dev/supervisor/ and dev/session/ while a worker may
-#     run git add -A, and the cloned .gitignore is whatever commit arrived
-grep -q 'dev/supervisor/' <<<"$out" && grep -q 'info/exclude' <<<"$out" \
+#     the harness writes the declared session tree and its supervisor/
+#     sibling
+grep -q 'CLAUDE.md § Layout' <<<"$out" && grep -q 'info/exclude' <<<"$out" \
   && pass "project-clone excludes the ledger and session dirs" \
   || die "project-clone does not name the ledger exclude: $out"
 

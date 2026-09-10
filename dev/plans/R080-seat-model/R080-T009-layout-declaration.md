@@ -622,7 +622,7 @@ follow the target's declared session tree.
   `.claude/LAYOUT.md` is `cmp`d after the second install. The same cap
   merges fixture `G`'s two "ignored once" counts into one assertion,
   its anchoring checks untouched; the file lands at 299.
-- [ ] The worker clone excludes the declared session tree:
+- [x] The worker clone excludes the declared session tree:
   `scripts/worker-workspace.sh`'s project-clone step reads the
   `- Session:` line of each cloned checkout's root `CLAUDE.md`, default
   `dev/session/`, and writes that tree and `supervisor/` in its parent
