@@ -170,14 +170,14 @@ where present.
 canonical structure it is seeded from. Its shape: a title, one sentence
 saying it holds the repository's actual tree, and one fenced tree whose
 root line is the repository directory with a trailing slash - a
-project's by its own name, `attack-checker/`; a repository consumed
-at a fixed path uses that path, `~/.claude/` - drawn in the
-`├── `/`└── ` style with a `#` role comment on every line. It carries
-every directory and every fixed-name file; a collection of same-kind
-files - the skills under a skills directory, the plans under
-`R<NNN>-<slug>/`, the docs under `<docs>` - is that directory and one
-pattern line, never every tracked file. It goes to the depth of the
-tree in § Config layout.
+project's by its own name, `attack-checker/`; a repository consumed at
+a fixed path uses that path, `~/.claude/` - drawn in the `├── `/`└── `
+style with a `#` role comment on every line. It carries every
+directory and every fixed-name file; a collection of same-kind files -
+the skills under a skills directory, the plans under `R<NNN>-<slug>/`,
+the docs under `<docs>` - is that directory and one pattern line, never
+every tracked file. It goes to the depth of the tree in § Config
+layout.
 
 `start.md` seeds it from the trees above, with the declared values
 substituted and the entries the scaffold creates; `migrate.md` writes it
