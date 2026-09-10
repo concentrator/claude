@@ -119,16 +119,17 @@ registered hooks call them for the session file's path and the fill
 percent), and from `rules/` ships only `writing-artifacts.md`. Re-run it to
 refresh.
 
-It also writes outside the target `.claude/`, append-only in both cases:
-an `@writing.md` import added to the target's `.claude/CLAUDE.md`,
-and - for `--project` - a `!`-allowlist line in the repo's root
-`.gitignore` for each installed path that repo ignores, so the toolset
-stays committable, plus two anchored ignore lines for runtime state:
+Beyond the copied files it appends, in both cases, an `@writing.md`
+line to the install directory's `CLAUDE.md` (`~/.claude/CLAUDE.md`;
+`<path>/.claude/CLAUDE.md` under `--project`), and - for `--project` -
+to the repo's root `.gitignore`: a `!`-allowlist line for each
+installed path that repo ignores, so the toolset stays committable,
+plus two anchored ignore lines for runtime state:
 the session tree the repo's root `CLAUDE.md § Layout` declares, where
 the per-session state files live (`skills/dev/handoff.md`), and
 `supervisor/` beside it, the supervisor's ledgers (`skills/dev/run.md
-§ Ledger`) - `/dev/session/` and `/dev/supervisor/` for a target without
-a declaration. An install leaves the declaration and the layout file
+§ Ledger`) - `/dev/session/` and `/dev/supervisor/` for a project
+without a declaration. An install leaves the declaration and the layout file
 exactly as it found them: they are the project's.
 The copied checks are yours to wire into CI; the installer ships them
 without registering them.

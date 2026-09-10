@@ -55,7 +55,7 @@ pre-flight after every seat exists, the pilot last.
   prompt drops doc targets; `branch-plan.md § Commit cadence`'s docs
   step re-points to the seat.
 
-- [ ] **R080-T009 [mnt]**: declared layout - the project root
+- [x] **R080-T009 [mnt]**: declared layout - the project root
   `CLAUDE.md` declares its key paths (docs home, plans tree, session
   tree, layout file), retiring `extended-docs:`; `.claude/LAYOUT.md`
   holds the full, actual tree, seeded by `start.md` from `layout.md`'s
@@ -117,4 +117,20 @@ notes (`write-plan.md` step 6). The release
 routine (`skills/dev/release.md` step 3) hands the `[Unreleased]`
 CHANGELOG entry to the code reviewer, whose rubric routes it to the
 docs gate (`agents/code-reviewer.md`), and no doc writer runs in a
-release.
+release. In a run the hand-off boundary is the item and an intent
+change (a ruling, a queued change, a blocker), never a dispatch: the
+ledger holds the dispatches and git the landed items, and the
+R080-T009 run wrote 87 blocks for 6 compactions under the current
+list (`handoff.md § Writing the note`, `run.md § Monitor`). The
+per-commit spec check on Fable is the run's largest seat cost; the
+models table is policy, so moving it to Opus is a plan item
+(`companions/verification-policy.md § Models`). From the R080-T009
+close: `scripts/install-dev.sh` still withholds
+`check-plan-integrity.sh` and `check-archival.sh` as depending on this
+repository's layout, a reason the declaration read removed;
+`check-batch-tags.sh` fails a worktree whose `- Plans:` differs from
+the trunk's tree with a message naming the ref, not the mismatch;
+`scripts/test/install-dev.test.sh` sits one line under the 300-line
+cap; `.gitignore`'s comments cite the retired `supervise.md`; the
+installer's step-7 comment says "the target's `CLAUDE.md § Layout`"
+where the code reads the project's root `CLAUDE.md`.

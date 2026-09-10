@@ -832,7 +832,7 @@ follow the target's declared session tree.
   indented as the `dev/` block's are. Padding is collapsed in the
   quotes above: each `#` lands on the column `context-cost.py`'s and
   `dev/`'s do.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup (stale/temp
   data), mark plan complete, mark the task `[x]` in `tasks.md`,
   commit. The acceptance criterion's grep over `rules/`, `skills/`,
