@@ -170,7 +170,8 @@ where present.
 canonical structure it is seeded from. Its shape: a title, one sentence
 saying it holds the repository's actual tree, and one fenced tree whose
 root line is the repository directory with a trailing slash - a
-project's by its own name, `attack-checker/` - drawn in the
+project's by its own name, `attack-checker/`; a repository consumed
+at a fixed path uses that path, `~/.claude/` - drawn in the
 `├── `/`└── ` style with a `#` role comment on every line. It carries
 every directory and every fixed-name file; a collection of same-kind
 files - the skills under a skills directory, the plans under

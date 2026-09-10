@@ -131,8 +131,8 @@ missing line, or no block at all, means that key's default - unlike
 that has not declared keeps working on the defaults.
 
 - **`Docs:`** the project's one documentation directory, internal and
-  external audiences under one contract (`layout.md § Docs`); `docs/`
-  for a new project, and a project keeps the home it has.
+  external audiences under one contract (`layout.md § Docs`); the
+  default for a new project, and a project keeps the home it has.
 - **`Plans:`** the planning tree - `ROADMAP.md`, the per-initiative
   `R<NNN>-<slug>/` directories and `archive/` (`plan.md § Where
   things live`).

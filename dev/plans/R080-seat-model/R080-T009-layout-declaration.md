@@ -748,7 +748,7 @@ follow the target's declared session tree.
   § Layout`)". `REQUIREMENTS.md` lines 33-36: "(`dev/plans/R<NNN>-
   <slug>/`)" reads "(`R<NNN>-<slug>/` under the declared plans tree)"
   and "lives at `dev/plans/`" reads "lives at that tree's root".
-- [ ] The declaration's prose states each default once and admits this
+- [x] The declaration's prose states each default once and admits this
   repository's root: `companions/declarations.md § Declared paths`'
   `Docs:` bullet no longer restates the `docs/` default the fenced
   block above it is the one home of (the first decision bullet above;

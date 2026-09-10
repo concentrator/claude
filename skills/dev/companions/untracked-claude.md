@@ -41,8 +41,8 @@ git, so a `plan/` branch and its MR/PR would carry nothing:
   `.claude/` tree or the declared trees.
 - **`.gitignore`** ignores all of `.claude/`, root `CLAUDE.md`, and the
   declared trees (this inverts the `layout.md § Baseline` default, which
-  ignores only `.env` and `.claude/settings.local.json`); `<layout>` is
-  gitignored with the rest of `.claude/`.
+  ignores only `.env` and `.claude/settings.local.json`); `<layout>`
+  sits under `.claude/` by default and is gitignored with it.
 - **Contributor skill copy** (`start.md § 3`, `migrate.md § 5`) does not
   apply - nothing Claude-related is shipped in the repo.
 
