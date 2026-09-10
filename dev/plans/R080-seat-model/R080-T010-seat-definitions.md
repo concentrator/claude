@@ -214,7 +214,7 @@ every dispatch, while the inputs, exit and report format of a single
 dispatch stay in `skills/dev/companions/`; the definitions are this
 repository's own and the installer copies none of them.
 
-- [ ] The four companion-backed seats split in two: `agents/dev-planner.md`,
+- [x] The four companion-backed seats split in two: `agents/dev-planner.md`,
   `agents/dev-implementer.md`, `agents/dev-spec-reviewer.md` and
   `agents/dev-doc-writer.md` carry what holds on every dispatch, and
   each companion keeps only the dispatch. One move made four times, one
@@ -282,6 +282,13 @@ repository's own and the installer copies none of them.
   step's and the plan header names the type, so no placeholder is
   needed. The planner's three moved jobs renumber 1 to 3, so Job 3's
   "item 1 above" still resolves. Then cut each companion.
+  A moved fragment the table names without a heading - the planner's
+  and the doc writer's dispatch-nothing sentence, the spec reviewer's
+  `**Purpose:**` line - carries none in the definition either: an
+  `## Exit` heading over one sentence would read as a second exit
+  contract beside the companion's. Each `description:` is
+  double-quoted: the guard opening carries a colon, which a plain YAML
+  scalar cannot hold.
   `planner-prompt.md`: Job 2 becomes Job 1 ("Write the plan to `<path
   to the plan file>`. The dispatch names that file: you neither choose
   the slug nor create the branch."), Jobs 1, 3 and 4 and `##

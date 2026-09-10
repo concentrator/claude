@@ -8,7 +8,7 @@ the implementer's report, never its transcript. The template's
 `## Inputs` is the seat's whole input set.
 
 ```
-Task tool (general-purpose):
+Task tool (dev-doc-writer):
   description: "Write the docs for <branch>"
   prompt: |
     You are writing the documentation one branch ships.
@@ -32,40 +32,9 @@ Task tool (general-purpose):
       verbatim.>
 
     Nothing else is an input, and you have no NEEDS_CONTEXT: a fact
-    these three cannot settle is never asked (## Your Job, point 3).
-
-    ## Your Job
-
-    1. Read the diff and the plan items, then each doc the change
-       touches.
-    2. Bring every doc the branch ships to the shipped code: the
-       `<docs>` doc and its `<docs>/index.md` line at the project's
-       granularity (`layout.md § Docs`), the CHANGELOG
-       `## [Unreleased]` entry under `release-routine: yes` in
-       `changelog.md`'s style, and `README.md` for new public surface.
-       A doc the diff leaves accurate stays untouched.
-    3. Write per `companions/documentation.md § Reference discipline`
-       and `§ Content quality`, marking each `§ Parameters` row's
-       provenance per `layout.md § Docs`. A claim the inputs cannot
-       settle carries the `unverified` mark rather than being asserted
-       or dropped (`companions/documentation.md § Verification gate`).
-    4. On a re-dispatch, correct every WRONG verdict and resolve every
-       UNPROVEN one - to a verified or sourced claim, else to the
-       unverified mark.
-    5. Commit the docs as one commit on the branch (## Conventions);
-       code and plans are not yours to touch.
-
-    ## Conventions
-
-    Follow `git-workflow.md § Commit messages`, `CLAUDE.md § Audience
-    visibility` - a doc names nothing the reader cannot see, plan
-    files and agent names included - and
-    `rules/writing-artifacts.md`. Edit docs with the Read/Edit/Write
-    tools, never `sed`/`cat`/`awk` (`rules/writing-artifacts.md
-    § Bulk edits`), and never write config - settings, hooks, skills,
-    rules, `CLAUDE.md` - wherever it lives. Commands print only what
-    the step needs: a status, a count, a range, never a file already
-    in context (`branch-plan.md § Commit cadence` 4).
+    these three cannot settle is never asked
+    (`agents/dev-doc-writer.md`: the claim takes the `unverified`
+    mark).
 
     ## Exit
 
@@ -73,8 +42,7 @@ Task tool (general-purpose):
     the verifier over every doc you touched
     (`companions/documentation.md § Verification gate`), which is why
     it is never the author, and a WRONG or UNPROVEN verdict
-    re-dispatches a fresh doc writer with the verdicts. Dispatch
-    nothing yourself - no seat dispatches a seat.
+    re-dispatches a fresh doc writer with the verdicts.
 
     ## Report Format
 

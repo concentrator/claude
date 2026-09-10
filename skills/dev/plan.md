@@ -140,7 +140,7 @@ After the rounds, adjust in place:
 - **Initiative requirements** (`<plans>/R<NNN>-<slug>/requirements.md`):
   `/dev plan R<NNN>` to extend.
 - **Branch plan (`<slug>`)**: `/dev plan <slug>` dispatches one planner
-  per change (`companions/planner-prompt.md`), which states the change
+  per change (`agents/dev-planner.md`), which states the change
   as a diff of items and makes exactly that change - commits added
   after the final, an acceptance-level question
   (`run.md § Question resolution`), a cold-read gap, the user's
