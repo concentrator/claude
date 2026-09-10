@@ -217,11 +217,17 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"
   done
-  # 7. runtime state: dev/session/ holds per-session files the PreCompact
-  # hook and hand-off notes write (skills/dev/handoff.md), dev/supervisor/
-  # the supervisor's ledgers (skills/dev/run.md § Ledger); never
-  # tracked, so the target's .gitignore takes the anchored lines (idempotent).
-  for line in "/dev/session/" "/dev/supervisor/"; do
+  # 7. runtime state: the session tree holds the per-session files the
+  # PreCompact hook and hand-off notes write (skills/dev/handoff.md), and
+  # `supervisor/` beside it the supervisor's ledgers (skills/dev/run.md
+  # § Ledger); neither is ever tracked, so the target's .gitignore takes
+  # the anchored lines (idempotent). The tree is the one the target's
+  # CLAUDE.md § Layout declares, its default the fallback of the read.
+  sess=$(sed -n 's/^- Session: *//p' "$repo/CLAUDE.md" 2>/dev/null | head -1 || true)
+  sess=${sess:-dev/session}; sess=${sess%/}
+  parent=$(dirname "$sess")
+  if [ "$parent" = "." ]; then parent=""; fi   # a root-level tree: supervisor/ sits at the root
+  for line in "/$sess/" "/${parent:+$parent/}supervisor/"; do
     grep -qxF "$line" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
   done
 fi
@@ -250,8 +256,8 @@ never silently delete something you didn't create.
 
 | Target | Check | Cadence |
 |---|---|---|
-| `dev/session/` | files whose session transcript is gone (`.claude/skills/dev/handoff.md`) | weekly, delete |
-| `dev/plans/` | orphaned or closed plan, findings, requirements and batch files; empty initiative dirs | monthly |
+| the `Session:` tree (`CLAUDE.md § Layout`) | files whose session transcript is gone (`.claude/skills/dev/handoff.md`) | weekly, delete |
+| the `Plans:` tree (`CLAUDE.md § Layout`) | orphaned or closed plan, findings, requirements and batch files; empty initiative dirs | monthly |
 | `.claude/settings.json` + any `settings.local.json` | allow-list mess: one-off, dead or overlapping rules | weekly |
 | repo root and `.claude/` | stray temp or build artifacts | weekly |
 EOF

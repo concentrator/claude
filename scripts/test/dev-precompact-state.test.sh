@@ -4,8 +4,8 @@
 # session under dev/session/, the header and tree block on a
 # dirty branch with an open plan item, appending on a second compaction,
 # the repository-keyed file without a session id, the DEV_STATE_DIR
-# override, the root found from a subdirectory, and silence outside a
-# git repo.
+# override, the session and plans trees the root CLAUDE.md declares, the
+# root found from a subdirectory, and silence outside a git repo.
 # Run: bash scripts/test/dev-precompact-state.test.sh
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
@@ -32,7 +32,7 @@ git -C "$R" config user.email t@e; git -C "$R" config user.name t
 mkdir -p "$R/dev/plans/R" "$R/src"
 printf -- '- [x] done\n- [ ] open one\n' > "$R/dev/plans/R/T1.md"
 printf 'clean\n' > "$R/tracked.sh"
-printf '/dev/session/\n' > "$R/.gitignore"   # as install-dev.sh and the template leave a real repo
+printf '/dev/session/\n' > "$R/.gitignore"   # as install-dev.sh leaves a real repo
 git -C "$R" add -A; git -C "$R" commit -qm init
 git -C "$R" remote add origin "$D/origin"; git -C "$R" push -q origin main
 git -C "$R" checkout -q -b work
@@ -78,6 +78,20 @@ git -C "$R" stash -q; git -C "$R" checkout -q main
 out=$(printf '{"session_id":"s5"}' | bash "$HOOK" 2>/dev/null)
 case "$out" in session-state:*s5.md) pass "file named when no plan changed" ;; *) die "no name without plan changes: '$out'" ;; esac
 grep -q '^- status: clean$' "$R/dev/session/s5.md" && pass "clean tree recorded as clean" || die "clean form missing"
+
+# A declared layout: the hook writes under the `- Session:` tree and reads
+# plans from the `- Plans:` tree, whose name carries no `plans/` segment.
+git -C "$R" checkout -q work
+printf '## Layout\n\n- Session: var/state/\n- Plans: var/tracks/\n' > "$R/CLAUDE.md"
+mkdir -p "$R/var/tracks/R"; printf -- '- [ ] declared open\n' > "$R/var/tracks/R/T1.md"
+git -C "$R" add -A; git -C "$R" commit -qm "declare the layout"
+printf '{"session_id":"s6"}' | bash "$HOOK" >/dev/null 2>&1
+f6="$R/var/state/s6.md"
+[ -f "$f6" ] && pass "declared session tree holds the state file" || die "no state file at $f6"
+grep -q '^- plan: var/tracks/R/T1.md line 1: - \[ \] declared open$' "$f6" \
+  && pass "declared plans tree fills the plan line" || die "plan line: $(grep plan: "$f6")"
+grep -q 'dev/plans/' "$f6" && die "undeclared dev/plans/ still matched" \
+  || pass "no dev/plans/ line once a plans tree is declared"
 
 cd "$D"
 out=$(printf '{}' | bash "$HOOK" 2>/dev/null); rc=$?

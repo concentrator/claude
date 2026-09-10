@@ -547,7 +547,7 @@ follow the target's declared session tree.
   `check-accretion.test.sh`; `out_in` in `check-batch-tags.test.sh`,
   whose fixture commits the `CLAUDE.md` and a `var/plans/` batch dir on
   trunk as `mklive` and `mkstale` do under `dev/plans/`.
-- [ ] The state hook and the installer follow the declaration and the
+- [x] The state hook and the installer follow the declaration and the
   installer touches neither the declaration nor `<layout>`
   (`§ Desired state` 9, "untouched by a tools refresh"; the
   criterion's refresh): `hooks/dev-precompact-state.sh` resolves the
@@ -582,8 +582,10 @@ follow the target's declared session tree.
   `decl`, then `dir=${DEV_STATE_DIR:-$root/${decl:-dev/session}}` with
   the trailing slash stripped (the hook runs `set -uo pipefail`, no
   `-e`, so the read needs no guard); the same read of `- Plans:` into
-  `plans`, default `dev/plans`, and the filter `grep -E '(^|/)plans/.*
-  \.md$'` (line 49) reads `grep -E "^${plans%/}/.*\.md$"`. The test's
+  `plans_dir` - `plans` names the result two lines on, and one name for
+  two meanings is a trap - default `dev/plans`, and the filter
+  `grep -E '(^|/)plans/.*\.md$'` (line 49) reads
+  `grep -E "^$plans_dir/.*\.md$"`. The test's
   new case goes after the clean-tree case (line 80) and before the
   `cd "$D"` at line 82, where the fixture sits on `main` with the
   dirty change stashed: it runs `git -C "$R" checkout -q work`, writes
@@ -597,21 +599,29 @@ follow the target's declared session tree.
   the fixture comment at line 36 "as install-dev.sh
   and the template leave a real repo" reads "as install-dev.sh leaves
   a real repo", the template no longer carrying the line. Installer
-  step 7: read `decl` the same way from `$repo/CLAUDE.md` - the git
+  step 7: read the same way from `$repo/CLAUDE.md` - the git
   toplevel line 214 resolves, where the `.gitignore` it writes is -
-  with `|| true` (the installer runs under `set -e`),
-  `sess=${decl:-dev/session/}`,
-  lines `/${sess%/}/` and `/$(dirname "${sess%/}")/supervisor/` with a
-  leading `/./` normalised so a one-segment tree yields
-  `/supervisor/` (probed: `state/` yields `/state/` and
-  `/supervisor/`); the comment names `CLAUDE.md § Layout`. Step 8's
+  with `|| true` (the installer runs under `set -e`), into `sess`,
+  default `dev/session`, trailing slash stripped; the parent goes to
+  `parent=$(dirname "$sess")` with `if [ "$parent" = "." ]; then
+  parent=""; fi` in place of a `/./` string fixup, since an explicit
+  empty parent reads plainly and cannot trip `set -e`, and the lines
+  are `/$sess/` and `/${parent:+$parent/}supervisor/` (probed under
+  `set -e`: `var/state/` yields `/var/state/` and `/var/supervisor/`,
+  `state/` yields `/state/` and `/supervisor/`, and no `CLAUDE.md`
+  yields the two defaults); the comment names `CLAUDE.md § Layout`.
+  Step 8's
   rows: "| `dev/session/` |" reads "| the `Session:` tree (`CLAUDE.md
   § Layout`) |" and "| `dev/plans/` |" reads "| the `Plans:` tree
   (`CLAUDE.md § Layout`) |". `install-dev.test.sh` line 244's two
-  greps read `Session:` and `Plans:`; the two new cases each `git init`
-  a `mktemp -d` project and `checkout -qb work` (lines 273-274's
-  shape), the second with a `CLAUDE.md` carrying the block and a
-  `.claude/LAYOUT.md`, `cmp` after the second install.
+  greps read `Session:` and `Plans:`; both new assertions share one
+  fixture rather than taking a project each - the file stands at 291
+  lines against check-code-size's 300-line cap, and two fixtures do not
+  fit - a `git init` project on `checkout -qb work` (lines 273-274's
+  shape) whose root `CLAUDE.md` carries the block and whose
+  `.claude/LAYOUT.md` is `cmp`d after the second install. The same cap
+  merges fixture `G`'s two "ignored once" counts into one assertion,
+  its anchoring checks untouched; the file lands at 299.
 - [ ] The worker clone excludes the declared session tree:
   `scripts/worker-workspace.sh`'s project-clone step reads the
   `- Session:` line of each cloned checkout's root `CLAUDE.md`, default
