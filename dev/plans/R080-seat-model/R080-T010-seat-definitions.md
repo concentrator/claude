@@ -108,14 +108,17 @@ Decisions the items rest on, each homed in the item that writes it:
   what the sensitive-file guard fires on. Never the settings surface -
   `settings.json`, `.claude/settings.json`,
   `.claude/settings.local.json`, `hooks/`, `~/.claude.json`. Every
-  other tracked source in the checkout - skills, rules, agent
-  definitions, the docs, the plans - is an ordinary target, edited with
-  Read/Edit/Write." The third sentence is not optional: without it a
+  other path under the config directory - skills, rules, agent
+  definitions, the docs, the plans - is tracked source rather than
+  config: a seat treats it as it treats any file in the checkout, within
+  the tools it holds." The third sentence is not optional - without it a
   seat facing `skills/dev/run.md` re-derives the halt from the second
-  alone. The settings surface's only writer is the user's own `--apply`
-  run of R080-T007's pre-flight script. The sentence three companions
-  carry today - "never write config - settings, hooks, skills, rules,
-  `CLAUDE.md` - wherever it lives" at `planner-prompt.md` line 70,
+  alone - and it names no tool, so the one wording holds for the four
+  seats read-only toward the repository as for the three that write.
+  The settings surface's only writer is the user's own `--apply` run of
+  R080-T007's pre-flight script. The sentence three companions carry
+  today - "never write config - settings, hooks, skills, rules,
+  `CLAUDE.md` - wherever it lives" at `planner-prompt.md` lines 69-71,
   `doc-writer-prompt.md` line 65 and `implementer-prompt.md` line 103,
   there with the guarded-paths clause that follows it - is replaced by
   that wording and never moved: moved as-is it ships the halt into
@@ -410,17 +413,23 @@ repository's own and the installer copies none of them.
   `run.md` is at 299 lines of the 300-line cap, so the section's net
   must not push it over, and the check settles it, not an estimate.
   Where the edits below leave the file over 300, one cut is authorized
-  and no other: `§ Question resolution`'s "The planner commits its
-  change locally, nothing being pushed until the runner delivers; a
-  planner reporting DONE_WITH_CONCERNS (`companions/planner-prompt.md
-  § Report Format`) has committed too, so its change takes the read
-  below as DONE's does and its concern reaches the user with the change
-  for approval" (lines 127-130) restates the commit rule this task
-  moves into `agents/dev-planner.md`, and reads "The planner's commit is
-  its definition's (`agents/dev-planner.md`); a DONE_WITH_CONCERNS
-  change takes the read below as DONE's does, its concern reaching the
-  user with the change for approval." - what stays is run flow. Taken
-  only if the file lands over 300 after the edits below.
+  and no other, and it takes two clauses, not a sentence. In
+  `§ Question resolution`'s "The planner commits its change locally,
+  nothing being pushed until the runner delivers; a planner reporting
+  DONE_WITH_CONCERNS (`companions/planner-prompt.md § Report Format`)
+  has committed too, so its change takes the read below as DONE's does
+  and its concern reaches the user with the change for approval" (lines
+  126-130), the two planner-commit clauses - "commits its change
+  locally, nothing being pushed until the runner delivers" and "has
+  committed too" - restate the commit rule this task moves into
+  `agents/dev-planner.md`, and they alone go; the DONE_WITH_CONCERNS
+  clause stays with its `§ Report Format` cite, that being run flow.
+  The sentence then reads "The planner's commit is its definition's
+  (`agents/dev-planner.md`); the change of a planner reporting
+  DONE_WITH_CONCERNS (`companions/planner-prompt.md § Report Format`)
+  takes the read below as DONE's does and its concern reaches the user
+  with the change for approval." Taken only if the file lands over 300
+  after the edits below.
   Approach: in `§ Seats`, drop the last sentence of the first
   paragraph, which rewraps. After it, a blank and a nine-line table -
   header, separator and seven rows, exempt from
