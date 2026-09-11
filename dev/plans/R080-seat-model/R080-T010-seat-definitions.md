@@ -2,7 +2,6 @@
 task: R080-T010
 type: mnt
 depends-on: R080-T006
-cold-read: passed
 ---
 
 # R080-T010: seat agent definitions
@@ -650,6 +649,77 @@ repository's own and the installer copies none of them.
   opening "A gap is a planner's to fix - "; the closing sentence from
   "This catches `NEEDS_CONTEXT` halts" is unchanged. Verify with
   `bash scripts/ci/run-all.sh`.
+- [ ] R080-T007's entry in `dev/plans/R080-seat-model/tasks.md` claims
+  the `run.md § Pre-flight` correction this task hands it, so the
+  correction outlives this plan's archival. `§ Pre-flight`'s "No plan
+  in scope names a target under `.claude/`" reads a path where its own
+  cite reads a settings surface (`agents/dev-implementer.md`, carrying
+  the config rule the decisions above state), and the rewording is
+  R080-T007's, that section's permission text being its scope; the only
+  record of it today is the "What R080-T007 inherits" paragraph above,
+  which archives with this file. The claim goes in T007's task
+  sentence, not in a backlog line: a backlog line holds a discovery
+  with no owning open task, promoted or dropped at the R's next shape
+  round (`skills/dev/plan.md § Referential integrity`), and this one
+  has an open task whose planner writes its plan from that sentence.
+  `skills/dev/run.md` is untouched here and carries no marker for the
+  pending fix (`rules/writing-artifacts.md § State the present`).
+  Approach: in `dev/plans/R080-seat-model/tasks.md`, the R080-T007
+  entry (lines 77-84) ends "the runbook's prompt-clearing rows and
+  failure modes re-read against it. Depends on R080-T004 and
+  R080-T010."; the new clause joins that semicolon list before the
+  period, so the entry ends: "... the runbook's prompt-clearing rows
+  and failure modes re-read against it; `run.md § Pre-flight`'s "No
+  plan in scope names a target under `.claude/`" reworded to name the
+  settings surface, which is what that sentence's own cite
+  (`agents/dev-implementer.md`) withholds from a seat, every other
+  path under the config directory being tracked source. Depends on
+  R080-T004 and R080-T010." Rewrap the entry; no other entry and no
+  backlog paragraph moves. `tasks.md` is under no line or column cap
+  (`scripts/ci/check-caps.sh` matches `skills/dev/[^/]+\.md` only).
+  Verify with `bash scripts/ci/run-all.sh`.
+- [ ] The R080 backlog line on the spec check's model cites where that
+  model is declared, so the open work it records stays findable. Item
+  5 deleted the models table the line points at:
+  `companions/verification-policy.md § Models` keeps the implementer
+  tier rule and the capacity fallback only, and the spec reviewer's
+  `fable` is its definition's frontmatter
+  (`agents/dev-spec-reviewer.md`). The work the line records is
+  unchanged - moving that seat to Opus is a plan item, not a
+  per-dispatch call - and so is its place in the loop-simplification
+  paragraph; only the cite and the reason behind it change.
+  Approach: in `dev/plans/R080-seat-model/tasks.md`, replace the
+  sentence spanning lines 134-137 (it opens with line 134's closing
+  "The") - "The per-commit spec check on Fable is the run's largest
+  seat cost; the models table is policy, so moving it to Opus is a
+  plan item (`companions/verification-policy.md § Models`)." - with
+  "The per-commit spec check on Fable is the run's largest seat cost;
+  that model is the seat definition's declared value
+  (`agents/dev-spec-reviewer.md`), so moving it to Opus is a plan item
+  rather than a per-dispatch override." Rewrap the sentences either
+  side of it as the paragraph requires; nothing else in the paragraph
+  changes. Verify with `bash scripts/ci/run-all.sh`.
+- [ ] The duty table's doc-writer row names the seat and nothing the
+  roster already carries, so `run.md § Seats` states that seat's
+  cadence once. The roster row (line 25) gives "once per branch
+  (§ Close 3)" in its Dispatched column and the duty row (line 41)
+  repeats it sixteen lines below, which `writing.md § No repetition`
+  bites; cadence is the roster's column, so the duty row keeps the
+  seat name alone and a reader after the cadence reads it off the
+  roster. The planner pair is not the same case and stays: its duty
+  row (line 37) says which plan layer at which occasion - both layers
+  at the detail round, the acceptance on a re-dispatch, an approach
+  gap once - which the roster's Dispatched cell does not carry. No
+  duties line is a casualty: each cites the table rather than a cell,
+  and the row still names the doc writer.
+  Approach: in `skills/dev/run.md`, line 41 - "| Writing the docs |
+  doc writer, once per branch at § Close 3 | the same |" - becomes
+  "| Writing the docs | doc writer | the same |". The edit removes
+  text within one row and adds no line, so the file stays at the
+  300-line cap (`scripts/ci/check-caps.sh`). Nothing else in either
+  table moves, and `branch-plan.md § Commit cadence` 2's "written once
+  per branch at `run.md § Close` 3" is another file's docs step, left
+  alone. Verify with `bash scripts/ci/run-all.sh`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, `LAYOUT.md`'s `agents/`
   block current (`branch-plan.md § Architecture-changing branches`,
