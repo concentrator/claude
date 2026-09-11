@@ -769,7 +769,7 @@ repository's own and the installer copies none of them.
   sentence to the end of the paragraph, item 9's appended sentence
   included; no other sentence's words change and no other paragraph
   moves. Verify with `bash scripts/ci/run-all.sh`.
-- [ ] The duty table's doc-writer row names the seat and nothing the
+- [x] The duty table's doc-writer row names the seat and nothing the
   roster already carries, so `run.md § Seats` states that seat's
   cadence once. The roster row (line 25) gives "once per branch
   (§ Close 3)" in its Dispatched column and the duty row (line 41)

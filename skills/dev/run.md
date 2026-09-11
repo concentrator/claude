@@ -38,7 +38,7 @@ table below leaves unassigned halts and reports, never improvises.
 | Dispatching | user | supervisor |
 | Changing an item's approach | implementer, in the commit that carries the code | the same |
 | Changing an item's acceptance | planner writes, user approves | the same |
-| Writing the docs | doc writer, once per branch at § Close 3 | the same |
+| Writing the docs | doc writer | the same |
 | Clearing a permission prompt | nobody: a prompt is a pre-flight defect | the same |
 | Verifying the boundary | user | supervisor |
 | Merging | user | supervisor within the declared bounds, else user |
