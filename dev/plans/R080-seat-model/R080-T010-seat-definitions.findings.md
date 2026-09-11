@@ -1,9 +1,11 @@
 # R080-T010 findings
 
-Notes the second cold read still reported on the close-fix change
-(`write-plan.md` step 6: the second read is the last, and what it finds
-lands here as a note the implementer reads). One bullet per gap. No
-planner was re-dispatched for these.
+Notes a cold read still reported and no planner fixed, one bullet per
+gap, each labelled by the item it concerns. `write-plan.md` step 6
+sends what a last read finds here rather than to another planner pass.
+The notes on items 6 and 8 come from the second read of the first
+close-fix change; those on items 9 and 11 from the read of the second,
+which the user ruled the last on this plan.
 
 - **Item 6, the testability claim is contradicted by the plan's own
   evidence.** The acceptance says "the one method a seat has for
@@ -58,3 +60,20 @@ planner was re-dispatched for these.
   three survivors, but the section's closing sentence survives too, per
   the approach. Which rationale sentence goes and which stays is
   settled only by the approach text.
+
+- **Item 9, its `tasks.md:77-84` anchor holds only in plan order.** The
+  entry it names sits above every other insertion point on this
+  branch, so the numbers survive as long as item 9 runs before items
+  10 and 12. Run out of order they go stale exactly as item 10's did,
+  and the quoted opening and closing are then the anchor. The plan's
+  order is the order, so this is a caution, not a defect.
+
+- **Item 11, the doc-writer cadence keeps three homes outside
+  `run.md`.** After the edit it stands once in `run.md § Seats`, which
+  is what the acceptance claims, and also in
+  `skills/dev/branch-plan.md:41`, `companions/doc-writer-prompt.md:3`
+  and the `description:` of `agents/dev-doc-writer.md:3`.
+  `writing.md § No repetition` is scoped to one document, so none of
+  the three is a casualty of this item. Recorded because the seat
+  model's aim is one home per fact, and a later task narrowing that
+  will want the list.
