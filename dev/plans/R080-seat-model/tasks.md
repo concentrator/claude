@@ -224,3 +224,22 @@ path from inside another repo copies from that repo; it needs `jq`;
 a project install dirties the tracked `.gitignore`, so "re-run it to
 refresh" is refused until that is committed or `--force` is passed;
 and the hygiene section it seeds lands in `<path>/.claude/MAINTENANCE.md`.
+From the R080-T011 close: CI is no check on a weakened hook, since
+`.github/workflows/ci.yml` runs the branch's own tree and
+`scripts/ci/check-secrets.sh` sources `hooks/secret-patterns.sh` from
+it, while `main`'s protection requires zero approving reviews - so a
+seat that edits a hook and its test together passes the gate and an AI
+supervisor merges it, and the spec reviewer reading the diff against
+the plan item is the real check; say so wherever the floor is described
+(`git-workflow.md § Enforcement`, `requirements.md § Invariants`).
+`R080-T010-seat-definitions.md` calls the user's pre-flight `--apply`
+the settings surface's only writer, where `scripts/install-dev.sh`
+writes the `hooks` key of a target's `settings.json` and
+`scripts/worker-workspace.sh` writes `.claude/settings.local.json`, and
+no pre-flight script exists yet; correct it where R080's close-out can
+reach it. The Config paragraph every seat definition carries names a
+"sensitive-file guard" that matches no hook in `hooks/`, its only other
+mention being a permission-dialog label in
+`companions/supervisor-runbook.md` - name the real mechanism or drop
+the clause. `git-workflow.md § Enforcement` says `main` requires an
+up-to-date branch where the host reports `strict: false`.
