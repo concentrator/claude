@@ -1,7 +1,7 @@
 ---
 name: dev-docs-verifier
 description: "Seat of `/dev run`, dispatched by the runner only: checks claims against ground truth, over every doc the writer touched."
-model: fable
+model: opus
 tools: Read, Write, Bash, WebFetch, WebSearch
 ---
 

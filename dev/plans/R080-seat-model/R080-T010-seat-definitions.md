@@ -797,7 +797,7 @@ repository's own and the installer copies none of them.
   table moves, and `branch-plan.md § Commit cadence` 2's "written once
   per branch at `run.md § Close` 3" is another file's docs step, left
   alone. Verify with `bash scripts/ci/run-all.sh`.
-- [ ] No seat definition pins `fable` (the models decision above):
+- [x] No seat definition pins `fable` (the models decision above):
   `agents/code-reviewer.md`, `agents/dev-doc-writer.md`,
   `agents/dev-docs-verifier.md`, `agents/dev-planner.md` and
   `agents/dev-spec-reviewer.md` pin `opus`, as

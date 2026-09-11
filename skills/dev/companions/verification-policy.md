@@ -170,19 +170,21 @@ otherwise the model `agents/dev-implementer.md` pins. No predicate
 infers `(judgment-heavy)`; only the tag in the plan-item text does.
 
 **Capacity fallback.** A pinned model can be rate-limited, which is not
-a fact about the work. Before dispatching a seat whose definition pins
-`fable`, read the gate:
+a fact about the work. Before a dispatch that sends `fable` - an
+implementer item tagged `(judgment-heavy)`, or the batch close's
+review, which `run.md § Batch close` 1 dispatches on the most capable
+model - read the gate:
 `bash ~/.claude/scripts/model-quota.sh "Fable"` (the endpoint's
 display name for Fable 5) exits 0 while the weekly window has headroom,
 1 at or over its ceiling, 2 when it cannot tell; dispatch `fable` on 0
 only, `opus` otherwise, a missing script included - a wrong `fable`
 stalls the review on a consent dialog, a wrong `opus` costs a weaker
 review. A dispatch that still fails on capacity below the ceiling falls
-back one row - a `fable` seat to `opus`, an `opus` seat to `sonnet`.
-Either way, record the substitution in the batch report or branch
-findings: pinned model, substitute, reason. It is a documented
-degrade, not a decision to negotiate per batch, and not grounds to halt
-delivery.
+back to the next model down - a `fable` dispatch to `opus`, an `opus`
+dispatch to `sonnet`. Either way, record the substitution in the batch
+report or branch findings: pinned model, substitute, reason. It is a
+documented degrade, not a decision to negotiate per batch, and not
+grounds to halt delivery.
 
 The record states what the substitution costs: cheap where
 deterministic gates pin acceptance, the larger call where the

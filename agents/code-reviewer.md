@@ -1,7 +1,7 @@
 ---
 name: code-reviewer
 description: Use after completing a major step to review code against the plan.
-model: fable
+model: opus
 effort: medium
 tools: Read, Bash, WebFetch, WebSearch
 ---

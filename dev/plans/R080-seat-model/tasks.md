@@ -144,11 +144,7 @@ release. In a run the hand-off boundary is the item and an intent
 change (a ruling, a queued change, a blocker), never a dispatch: the
 ledger holds the dispatches and git the landed items, and the
 R080-T009 run wrote 87 blocks for 6 compactions under the current
-list (`handoff.md § Writing the note`, `run.md § Monitor`). The
-per-commit spec check on Fable is the run's largest seat cost; no rule
-selects that seat's model per dispatch as the implementer tier does
-(`companions/verification-policy.md § Models`), so moving it to Opus
-means editing `agents/dev-spec-reviewer.md`, a plan item. From the
+list (`handoff.md § Writing the note`, `run.md § Monitor`). From the
 R080-T009 close: `scripts/install-dev.sh` still withholds
 `check-plan-integrity.sh` and `check-archival.sh` as depending on this
 repository's layout, a reason the declaration read removed;

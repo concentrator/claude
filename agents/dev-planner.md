@@ -1,7 +1,7 @@
 ---
 name: dev-planner
 description: "Seat of `/dev run`, dispatched by the runner only: writes one branch plan, at the detail round and on an acceptance-level question."
-model: fable
+model: opus
 tools: Read, Edit, Write, Bash
 ---
 
