@@ -64,8 +64,9 @@ repos are versioned there, not mapped.
 │   ├── writing-artifacts.md      # DEV-artifact writing rules (**/*.md; shipped)
 │   ├── js.md                     # JS conventions (path-scoped)
 │   └── skills.md                 # SKILL.md maintenance rules
-├── agents/                       # dispatched agents
-│   └── code-reviewer.md          # branch-close quality review agent
+├── agents/                       # the run's seat definitions (skills/dev/run.md § Seats)
+│   ├── code-reviewer.md          # branch-close quality review agent
+│   └── dev-*.md                  # one per dispatched seat
 └── skills/                       # the DEV toolset and the skills beside it
     ├── dev/                      # the DEV toolset
     │   ├── SKILL.md              #   the router

@@ -15,15 +15,15 @@ every project on the machine.
 | `settings.json` | Global Claude Code config: permissions, hooks, plugins, session defaults |
 | `.claude/settings.json` | Project-tier Claude Code config: the push deny carve-out, branch-push allows, durable tool allows, model override |
 | `rules/` | Path-scoped convention rules: the DEV-artifact writing rules (shipped by the installer), JS style, CLAUDE.md/skill maintenance |
-| `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); plus reference skills |
-| `agents/` | Custom agents (e.g. branch-close code reviewer) |
+| `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); beside it the bundled dependency skills the installer ships, the personal skills, and the worker-host runbook (`LAYOUT.md` marks each) |
+| `agents/` | Subagent definitions for the seats of `/dev run`, one per seat the run dispatches (the roster: `skills/dev/run.md § Seats`): each declares the seat's tools and, where it sets one, its model, and carries its standing instructions. This repository's own - `install-dev.sh` copies none of them |
 | `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no secrets into tracked files or commits), the UserPromptSubmit branch-state line, the PreCompact session-state writer, the Stop hand-off nudge, and the SessionStart re-brief |
-| `scripts/` | `ci/` the Tier-1 mechanical gate (`run-all.sh`), `install-dev.sh`, `context-cost.py` the session context-cost reporter, `model-quota.sh` the pinned-dispatch quota gate, `test/` the script tests, and the worker-host tooling (`skills/worker-host/`): `provision-worker.sh` stands up the host from the operator's machine and sources `forge-keys.sh`, the operator's half of the forge key exchange; `worker-setup.sh` (system setup), `worker-credentials.sh` (forge keys and CLI auth) and `worker-workspace.sh` (repositories and per-project settings) run on the VM |
+| `scripts/` | `ci/` the mechanical checks and `test/` the script tests, each behind a `run-all.sh`, together the Tier-1 gate CI runs on every pull request (`DESIGN.md § Self-enforcement`); `install-dev.sh`, `context-cost.py` the session context-cost reporter, `model-quota.sh` the pinned-dispatch quota gate, and the worker-host scripts, which `skills/worker-host/` documents: `provision-worker.sh` stands up the host from the operator's machine and sources `forge-keys.sh`, the operator's half of the forge key exchange; `worker-setup.sh` (system setup), `worker-credentials.sh` (forge keys and CLI auth) and `worker-workspace.sh` (repositories and per-project settings) run on the VM |
 | `.github/`, `.githooks/`, `.gitignore` | The CI gate on pull requests, its advisory local pre-push mirror, and the ignore rules for harness state |
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
 | `DESIGN.md` | Architecture, self-hosting layout |
 | `LAYOUT.md` | The repository's actual tree - the layout file `CLAUDE.md § Layout` declares; `scripts/ci/check-stray.sh` checks every tracked top-level entry against it |
-| `MAINTENANCE.md` | The Tier-2 review concerns, plus the sanity routine: cleanup, repair, allow-list hygiene, skill audits |
+| `MAINTENANCE.md` | The Tier-2 AI review's concerns, plus the sanity routine: cleanup, repair, allow-list hygiene, skill audits |
 | `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) and the gitignored `session/` and `supervisor/` |
 
 ## Workflow
@@ -41,12 +41,14 @@ Two modes, defined in `CLAUDE.md`:
 
 Planning takes two rounds: `/dev plan R` shapes an initiative,
 `/dev plan R<NNN>` details its tasks and branch plans. Execution is
-`/dev run`: a task, a batch or an initiative runs as dispatched seats
+`/dev run`: a task, a batch or an initiative runs as dispatched seats -
+subagents, each started fresh for one item and shut down at its exit -
 under the supervisor the project declares, human or AI, within
 declared bounds. `/dev ship` takes a landed branch to a merged MR/PR;
 `/dev handoff` writes the session's hand-off note, which with the
 PreCompact hook's tree block carries state across compaction (the
-SessionStart hook re-injects the last hand-off block on resume).
+SessionStart hook re-injects the last hand-off block when the session
+resumes or is compacted).
 `/dev start`, `/dev migrate`, and `/dev release` cover
 scaffolding a new project, adopting an existing one, and tagging a
 release. Command surface and mode files:
@@ -83,12 +85,15 @@ layout`.
 ## Setup on a new machine
 
 1. Clone to `~/.claude`.
-2. Start any Claude Code session - marketplace plugins re-download and
-   local state (caches, `*.local.json` overrides) recreates on first
-   run; nothing else to install.
+2. Start any Claude Code session; the toolset itself has no install
+   step, the clone being `~/.claude`. `settings.json` names the
+   marketplace and the enabled plugins; `plugins/`, the caches and the
+   `*.local.json` overrides are gitignored harness state. That the
+   harness re-downloads the plugins and recreates that state on a
+   fresh machine's first run is unverified: not run on a fresh machine.
 3. Arm the advisory local gate: `git config core.hooksPath .githooks`,
-   once per clone, so `.githooks/pre-push` runs the Tier-1 checks and the
-   test suites before a push leaves the machine.
+   once per clone, so `.githooks/pre-push` runs Tier-1 - the checks and
+   the test suites - before a push leaves the machine.
 4. Project-specific skills may be symlinked into `skills/` from their
    own repos; clone those repos to matching paths if needed.
 
@@ -98,8 +103,8 @@ To give another machine or project the DEV toolset - the `/dev` router,
 its mode-file companions, the bundled dependency skills, the writing
 conventions and the DEV-artifact writing rule, the project-agnostic Tier-1 checks (code-size, em-dash,
 accretion, batch-tags - the last two with self-tests), the two
-PreToolUse guards, the branch-state line, the hand-off nudge, and the
-seeded maintenance hygiene section (project installs, when absent) - run
+PreToolUse guards, the branch-state line, the hand-off nudge, the
+SessionStart re-brief, and the seeded maintenance hygiene section (project installs, when absent) - run
 the installer from a checkout of this repo:
 
     scripts/install-dev.sh                   # into ~/.claude (global)

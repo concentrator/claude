@@ -67,7 +67,7 @@ pilot last.
   declaration and `LAYOUT.md`; the installer leaves both untouched.
   Depends on R080-T004.
 
-- [ ] **R080-T010 [mnt]**: seat agent definitions - one file per seat
+- [x] **R080-T010 [mnt]**: seat agent definitions - one file per seat
   under `agents/` with its tools, model, effort, conduct and duties;
   the prompt companions reduced to the per-dispatch template; `run.md
   § Seats` naming every seat once and citing both homes; the models
@@ -76,12 +76,25 @@ pilot last.
 
 - [ ] **R080-T007 [mnt]**: deterministic permission pre-flight - a
   declared permission set per seat (mode plus allow rules) derived
-  from the toolchain declaration and the seat prompts; a pre-flight
-  script that resolves the set against the tracked tiers, applies
-  every adjustment before the first dispatch and reports every gap in
-  one message, with its test; the runbook's prompt-clearing rows and
-  failure modes re-read against it. Depends on R080-T004 and
-  R080-T010.
+  from the toolchain declaration, each seat's definition under
+  `agents/` and its dispatch companion under `skills/dev/companions/`;
+  a pre-flight script that resolves the set against the tracked
+  tiers, applies every adjustment before the first dispatch and
+  reports every gap in one message, with its test; the runbook's
+  prompt-clearing rows and failure modes re-read against it;
+  `run.md § Pre-flight`'s "No plan in scope names a target under
+  `.claude/`" reworded to name the settings surface, which is what
+  that sentence's own cite (`agents/dev-implementer.md`) withholds
+  from a seat, every other path under the config directory being
+  tracked source; the deny floor extended with `git checkout`,
+  `switch`, `reset`, `restore` and `stash`, the only bar that holds a
+  seat off HEAD, a deny surviving `auto` and binding a subagent; under
+  `auto` no per-seat `Bash` allow derivation is needed, each
+  definition's tool set being the scope boundary and `auto` suspending
+  Bash allow rules, so whether one is needed under a supervisor mode
+  that does not suspend them is T007's to settle
+  (`companions/supervisor-runbook.md § Modes by seat`). Depends on
+  R080-T004 and R080-T010.
 
 - [ ] **R080-T005 [mnt]**: pilot task end to end under the seats -
   pre-flight, cold read, worker dispatch, doc-writer pass, supervised
@@ -131,37 +144,65 @@ release. In a run the hand-off boundary is the item and an intent
 change (a ruling, a queued change, a blocker), never a dispatch: the
 ledger holds the dispatches and git the landed items, and the
 R080-T009 run wrote 87 blocks for 6 compactions under the current
-list (`handoff.md § Writing the note`, `run.md § Monitor`). The
-per-commit spec check on Fable is the run's largest seat cost; the
-models table is policy, so moving it to Opus is a plan item
-(`companions/verification-policy.md § Models`). From the R080-T009
-close: `scripts/install-dev.sh` still withholds
+list (`handoff.md § Writing the note`, `run.md § Monitor`). From the
+R080-T009 close: `scripts/install-dev.sh` still withholds
 `check-plan-integrity.sh` and `check-archival.sh` as depending on this
 repository's layout, a reason the declaration read removed;
-`check-batch-tags.sh` fails a worktree whose `- Plans:` differs from
-the trunk's tree with a message naming the ref, not the mismatch;
-`scripts/test/install-dev.test.sh` sits one line under the 300-line
-cap; `.gitignore`'s comments cite the retired `supervise.md`; the
-installer's step-7 comment says "the target's `CLAUDE.md § Layout`"
-where the code reads the project's root `CLAUDE.md`. From the R080-T010
-planning act: a host instruction telling an agent to prefer `Bash` for
-file changes reaches every dispatched seat and contradicts both
+`check-batch-tags.sh` fails a worktree whose `- Plans:` differs from the
+trunk's tree with a message naming the ref, not the mismatch;
+`scripts/test/install-dev.test.sh` sits one line under the 300-line cap;
+`.gitignore`'s comments cite the retired `supervise.md`; the installer's
+step-7 comment says "the target's `CLAUDE.md § Layout`" where the code
+reads the project's root `CLAUDE.md`. From the R080-T010 planning act: a
+host instruction telling an agent to prefer `Bash` for file changes
+reaches every dispatched seat and contradicts both
 `rules/writing-artifacts.md § Bulk edits` and each prompt companion's
-"edit with Read/Edit/Write, never `sed`/`cat`/`awk`" - a planner
-rewrote plan prose with a script under it, and no rule says which
-instruction wins; a cite to a sentence that wraps names its first line
-in two companions and a line range in a third, one convention per
-citation rather than one for the file. A three-arm probe then proved
-where that instruction lands unguarded: the hook pair fires for a
-dispatched seat's `Bash` call as it does for the session's, but
-`hooks/dev-branch-guard.sh` judges a `Bash` call as a git mutation
-only - its write path cases on the `Write|Edit|NotebookEdit` matcher -
-so edit-class shell against a tracked file on a trunk runs untouched
-while the same edit through `Edit` is denied. The fix is a branch in
-the guard, or a third hook on the same `Bash` matcher, denying
-edit-class shell whose target is tracked, its reason line citing
+"edit with Read/Edit/Write, never `sed`/`cat`/`awk`" - a planner rewrote
+plan prose with a script under it, and no rule says which instruction
+wins; a cite to a sentence that wraps names its first line in two
+companions and a line range in a third, one convention per citation
+rather than one for the file. A three-arm probe then proved where that
+instruction lands unguarded: the hook pair fires for a dispatched seat's
+`Bash` call as it does for the session's, but
+`hooks/dev-branch-guard.sh` judges a `Bash` call as a git mutation only
+- its write path cases on the `Write|Edit|NotebookEdit` matcher - so
+edit-class shell against a tracked file on a trunk runs untouched while
+the same edit through `Edit` is denied. The fix is a branch in the
+guard, or a third hook on the same `Bash` matcher, denying edit-class
+shell whose target is tracked, its reason line citing
 `rules/writing-artifacts.md § Bulk edits` and naming `Edit`/`Write` as
 the way through. Also from that probe: a `PreToolUse` deny is
 all-or-nothing per call, so a guard that trips on one edit-class
 fragment stops every command chained with it - a second and harder
 reason for the compound-command rule at `run.md § Dispatch per item`.
+From the R080-T010 run: a `tools:` name this client's registry does not
+provide is dropped silently, with no error - a dispatched seat declaring
+`Read, Glob, Grep, Bash` held `Read, Bash`, and one asked to call them
+reported that neither tool exists - so no definition declares `Glob` or
+`Grep`, at the cost of those seats searching through `Bash` alone;
+re-add both to the sets R080-T010 names on a client that provides them.
+From the R080-T010 run: `R080-T007-perm-preflight.md` predates the seat
+model - its `depends-on` names R080-T004 alone where the task line names
+R080-T010 too, and its `run.md § Pre-flight` item rewrites that section
+without the correction the task line now hands it - so T007's detail
+round re-plans it rather than running it as written. From the
+R080-T010 run: `scripts/install-dev.sh` ships no `agents/`, so an
+installed project reads a `run.md § Seats` citing definitions it does
+not have. From the R080-T010 run: `write-plan.md` step 6's "A planner
+change made after the pass is recorded starts a count of its own"
+reads as unbounded where the same step's earlier rule is not - bound it
+to a change that alters an acceptance, an approach or wording change
+restarting no count. From the R080-T010 run:
+`companions/documentation.md § Verification gate` fixes comprehension
+findings like WRONG claims, while `run.md § Close` 3 halts on a second
+WRONG, so a second gate pass's comprehension findings either halt the
+run or send a third doc writer no rule provides, and a whole-doc pass
+never converges, each rewrite handing the next pass new sentences -
+bind comprehension findings to the sentences the branch wrote and keep
+them out of the halt count. From the R080-T010 docs gate: `README.md
+§ Installing` leaves four installer facts unstated - `install-dev.sh`
+resolves its source from the current directory, so a run by absolute
+path from inside another repo copies from that repo; it needs `jq`;
+a project install dirties the tracked `.gitignore`, so "re-run it to
+refresh" is refused until that is committed or `--force` is passed;
+and the hygiene section it seeds lands in `<path>/.claude/MAINTENANCE.md`.

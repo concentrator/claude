@@ -42,9 +42,15 @@ Decisions the items rest on, each homed in the item that writes it:
   not, and a bare `planner` or `implementer` in that list invites a
   VIBE session to pick one; the prefix says whose they are. The listing
   selects on `description:` as much as on name, so each of the six
-  descriptions carries the same guard: one line opening "Seat of `/dev
-  run`, dispatched by the runner only:" and closing with when the run
-  dispatches it (the roster's Dispatched cell, item 4, in brief).
+  descriptions carries the same guard: one line opening "Seat of `/dev`,
+  dispatched only by its flow:" and closing with when its flow
+  dispatches it (the roster's Dispatched cell, item 4, in brief). The
+  guard names `/dev` and no runner because not every seat is a run's:
+  `/dev plan` dispatches the planner (`plan.md § Adjusting existing
+  plans`), and the session dispatches the cold reader (`write-plan.md
+  § Steps`) and, outside a run, the docs verifier
+  (`companions/documentation.md § Verification gate`). Item 13 writes
+  the opening.
   `code-reviewer` keeps its name and file: five files under
   `skills/dev/`, `skills/dispatching-parallel-agents/SKILL.md`,
   `LAYOUT.md` and a test fixture
@@ -56,19 +62,20 @@ Decisions the items rest on, each homed in the item that writes it:
   name theirs the same way. Without it the definition is never loaded,
   and neither the tool set `§ Desired state` 8 resolves against nor the
   model reaches the dispatch.
-- **Models are carried over, not chosen.** Every value in
-  `companions/verification-policy.md § Models` moves to the definition
-  of the seat that holds it: `fable` for the planner, the spec reviewer,
-  the doc writer and the docs verifier; `opus` for the implementer,
-  which is the Default implementers row, the mechanical and
-  judgment-heavy rows staying as the dispatch override the tier rule
-  applies; `fable` and `effort: medium` already stand in
-  `agents/code-reviewer.md`. The cold reader has no row today and its
-  definition pins no model: a key a definition omits inherits the
-  session's (`§ Effort mechanics`), which is what that dispatch takes
-  now. Effort follows the same rule - only `code-reviewer` pins one
-  today and only it keeps one, since pinning a level per seat would
-  change dispatch behaviour no requirement asks for.
+- **No definition defaults to Fable.** Fable's token cost makes it
+  wrong as a seat's default model, so every definition that pins a
+  model pins `opus`: the planner, the implementer, the spec reviewer,
+  the doc writer, the docs verifier and the code reviewer. `fable` is
+  sent only where a dispatch selects it explicitly - an implementer
+  item tagged `(judgment-heavy)`, and the batch close's review, which
+  `REQUIREMENTS.md` sets on the most capable model - each through the
+  capacity fallback's gate (`companions/verification-policy.md
+  § Models`); the implementer's mechanical items take `sonnet` by the
+  same tier rule. The cold reader's definition pins no model: a key a
+  definition omits inherits the session's (`§ Effort mechanics`). Only
+  `code-reviewer` pins an effort, `medium`, since pinning a level per
+  seat would change dispatch behaviour no requirement asks for. Item 12
+  below writes the values.
 - **The Probes row retires with the table.** Its value is the Default
   implementers row's `opus` and probing is implementer work
   (`companions/implementer-prompt.md § Scratch & Probe Scripts`, moving
@@ -130,13 +137,22 @@ Decisions the items rest on, each homed in the item that writes it:
   `.claude/agents/*.md` frontmatter as where an agent type's tools,
   model and effort come from, and the agent-type listing prints each
   type's set - `code-reviewer`, which declares none, listed with all
-  tools. The names written are the harness's own: `Grep` and `Glob`
-  are subagent tools and are used, `TodoWrite` is not one and no seat
-  lists it, and a name the harness does not know is dropped silently,
-  so a wrong name costs a capability and never a parse error. What the
-  listing does not settle is whether a declared `tools:` key narrows
-  what a dispatch actually holds; the first definition written settles
-  that on its first dispatch, by being asked to list its own tools.
+  tools. A name the client does not provide is dropped silently, with
+  no parse error, so it costs a capability rather than failing loudly,
+  and declaring it widens nothing: a set stops at the names this client
+  provides. `Glob` and `Grep` are not among them. A dispatched seat
+  declaring `Read, Glob, Grep, Bash` held `Read, Bash`; a second, asked
+  to call them, reported that neither tool exists in its set; a third
+  held `Read, Bash, WebFetch, WebSearch` against a declaration carrying
+  both; and the user's own session has neither, in its registry or its
+  deferred one. The earlier reading that found them present asked a
+  seat to list its tools, which is a self-report of the seat's prompt
+  rather than a call, so it measured a different thing. Item 6 below
+  drops both names from the seven definitions and records what that
+  costs. Two things stay as they were: no definition lists `TodoWrite`,
+  and whether a declared `tools:` key narrows what a dispatch holds is
+  still open - the refusal proves only that a missing name drops, and
+  every other report is a self-report.
 - **A duty statement cites the table, never restates it** (`§ Desired
   state` 6). Each definition's duties line says that the seat's duties
   are the cells the duty table of `skills/dev/run.md § Seats` gives it
@@ -161,7 +177,7 @@ branch does not touch `DESIGN.md` (no `architecture-changing:` header);
 `REQUIREMENTS.md`'s "most capable model" and
 `companions/report-template.md`'s "(full diff vs base, most capable
 model)" name the tier the requirement sets, not a dispatch value, and
-the value they resolve to is `agents/code-reviewer.md`'s;
+the batch close's review dispatch sends it (the models decision above);
 `skills/dispatching-parallel-agents/SKILL.md`'s `subagent_type` table
 routes generic work and its `code-reviewer` row stays true;
 `release.md` step 3 and `branch-plan.md § Closing routine` 1 name the
@@ -214,7 +230,7 @@ every dispatch, while the inputs, exit and report format of a single
 dispatch stay in `skills/dev/companions/`; the definitions are this
 repository's own and the installer copies none of them.
 
-- [ ] The four companion-backed seats split in two: `agents/dev-planner.md`,
+- [x] The four companion-backed seats split in two: `agents/dev-planner.md`,
   `agents/dev-implementer.md`, `agents/dev-spec-reviewer.md` and
   `agents/dev-doc-writer.md` carry what holds on every dispatch, and
   each companion keeps only the dispatch. One move made four times, one
@@ -282,6 +298,13 @@ repository's own and the installer copies none of them.
   step's and the plan header names the type, so no placeholder is
   needed. The planner's three moved jobs renumber 1 to 3, so Job 3's
   "item 1 above" still resolves. Then cut each companion.
+  A moved fragment the table names without a heading - the planner's
+  and the doc writer's dispatch-nothing sentence, the spec reviewer's
+  `**Purpose:**` line - carries none in the definition either: an
+  `## Exit` heading over one sentence would read as a second exit
+  contract beside the companion's. Each `description:` is
+  double-quoted: the guard opening carries a colon, which a plain YAML
+  scalar cannot hold.
   `planner-prompt.md`: Job 2 becomes Job 1 ("Write the plan to `<path
   to the plan file>`. The dispatch names that file: you neither choose
   the slug nor create the branch."), Jobs 1, 3 and 4 and `##
@@ -316,7 +339,7 @@ repository's own and the installer copies none of them.
   `## Inputs`. `run.md`'s own cites move in the `run.md` item below, so
   its `Job 3` cite points at a Job that has moved until that item
   lands; the branch is consistent at its close.
-- [ ] The two seats dispatched with no prompt companion get definitions
+- [x] The two seats dispatched with no prompt companion get definitions
   and their dispatch sites name them. `agents/dev-cold-reader.md`:
   `name: dev-cold-reader`, its description, no `model:` and no
   `effort:` - an omitted key inherits the session's, which is what the
@@ -374,7 +397,7 @@ repository's own and the installer copies none of them.
   wherever the gate runs; in a run the dispatches are sequential
   (`run.md § Seats`), and the sentence does not say so, the gate
   serving sessions outside a run too.
-- [ ] `agents/code-reviewer.md` declares its tool set and cites its
+- [x] `agents/code-reviewer.md` declares its tool set and cites its
   duties, so the roster reads the same for every seat. It gains
   `tools: Read, Glob, Grep, Bash, WebFetch, WebSearch` in the
   frontmatter, the config rule and a closing duties line citing
@@ -395,7 +418,7 @@ repository's own and the installer copies none of them.
   then "**Duties.** You read: no cell of the duty table in
   `skills/dev/run.md § Seats` is yours, and a finding is reported,
   never fixed." Nothing else in the file changes.
-- [ ] `run.md § Seats` names every seat once and cites both homes, and
+- [x] `run.md § Seats` names every seat once and cites both homes, and
   the file stays within 300 lines and 80 columns
   (`scripts/ci/check-caps.sh`). The section gains a roster table - one
   row per dispatched seat, giving where the run dispatches it and its
@@ -468,7 +491,7 @@ repository's own and the installer copies none of them.
   `§ Question resolution`'s `§ Report Format` cite point at companion
   sections that stay and are left alone. Verify with
   `bash scripts/ci/run-all.sh`.
-- [ ] `companions/verification-policy.md § Models` keeps only the two
+- [x] `companions/verification-policy.md § Models` keeps only the two
   rules a definition cannot hold, and the run's own bookkeeping follows
   the split. The table goes: every value is now its seat's definition,
   which the section cites. What stays is the implementer tier rule -
@@ -493,8 +516,13 @@ repository's own and the installer copies none of them.
   Approach: `verification-policy.md § Models` opens "A seat's model is
   its definition's (`run.md § Seats`); the two rules a definition
   cannot hold stay here.", then `**Implementer tier.**` (the current
-  `**Routing:**` paragraph, its "Default implementers row (`opus`)"
-  reading "the model `agents/dev-implementer.md` pins") and
+  `**Routing:**` paragraph, naming the models rather than the rows,
+  which the deleted table no longer carries: "Mechanical-commit row
+  (`sonnet`)" reads "(§ Mechanical commits) → `sonnet`",
+  "Judgment-heavy row (`fable`)" reads "`fable`", and "the Default
+  implementers row (`opus`)" reads "the model
+  `agents/dev-implementer.md` pins", as the acceptance above states the
+  rule) and
   `**Capacity fallback.**` unchanged but for "Before dispatching a
   `fable` role" reading "Before dispatching a seat whose definition
   pins `fable`" and "`fable` roles to `opus`, `opus` roles to `sonnet`"
@@ -522,15 +550,420 @@ repository's own and the installer copies none of them.
   cadence` point 4" stays: it is the only place that rule reaches all
   seven, only the implementer's and the doc writer's text carrying it
   into a definition.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] The seven `tools:` lines lose `Glob` and `Grep`, the two names
+  observed absent from this client's registry (the decision above), and
+  R080's backlog carries that observation with its condition and its
+  cost. Reading the seven lines checks the item: `Read, Bash` for the
+  cold reader and the spec reviewer, `Read, Edit, Write, Bash` for the
+  planner and the doc writer, `Read, Edit, Write, NotebookEdit, Bash,
+  Skill` for the implementer, `Read, Write, Bash, WebFetch, WebSearch`
+  for the docs verifier, `Read, Bash, WebFetch, WebSearch` for the code
+  reviewer - items 1 to 3's sets, less those two names, the order of
+  the rest untouched. No other name is checked here and none is
+  claimed sound: `Edit`, `Write`, `NotebookEdit` and `Skill` are
+  unobserved, the one method a seat has for testing them is the
+  self-report the decision above disqualifies, and the fast tier reads
+  no tool name - no check under `scripts/ci/` parses agent frontmatter.
+  A name later found missing is another drop on the same backlog line.
+  Those seven sets supersede where items 1 to 3 state them - item 1's
+  Tools column, item 2's cold-reader and docs-verifier tool lists, item
+  3's quoted `tools:` line - so a close review reading those items
+  against the tree finds `Glob` and `Grep` gone by this item, not
+  missing by failure. The observation has one home, the R's backlog
+  line rather than the seven files it changes
+  (`rules/writing-artifacts.md § One home per finding`), and that line
+  carries the cost with it: those seats now search through `Bash`, the
+  one tool a tool set cannot bound (the decision above).
+  Approach: edit the `tools:` line of `agents/dev-planner.md`,
+  `agents/dev-implementer.md`, `agents/dev-spec-reviewer.md`,
+  `agents/dev-doc-writer.md`, `agents/dev-cold-reader.md`,
+  `agents/dev-docs-verifier.md` and `agents/code-reviewer.md`. No body
+  text is a casualty: `git grep -n -w 'Glob\|Grep' -- agents skills
+  rules scripts` returns twelve lines, the seven `tools:` lines and
+  five that declare nothing - `agents/dev-implementer.md:71`'s "Glob
+  deletes are rejected by the sandbox", a glob-pattern `rm` rather than
+  the tool; `skills/dev/write-plan.md:94`'s "Grep the tree", the verb;
+  and `scripts/test/context-cost.test.sh:199`, `:203` and `:209`, where
+  `Grep` labels a tool block in a synthetic transcript the cost
+  accounting is measured on, an arbitrary name rather than a claim that
+  the tool exists. `-w` keeps "Global" out, and the pathspec omits
+  `dev/plans`, which an unanchored `'*.md'` would sweep for this plan's
+  own text and the archive's. Then append one line at the end of the
+  paragraph that closes `dev/plans/R080-seat-model/tasks.md` - the one
+  opening "Backlog, loop simplification (from the R080-T008 run", after
+  its last sentence, which ends "the compound-command rule at `run.md
+  § Dispatch per item`." - not inside it at the R080-T010 run-in. It
+  reads: "From the R080-T010 run: a `tools:` name this client's
+  registry does not provide is dropped silently, with no error - a
+  dispatched seat declaring `Read, Glob, Grep, Bash` held `Read, Bash`,
+  and one asked to call them reported that neither tool exists - so no
+  definition declares `Glob` or `Grep`, at the cost of those seats
+  searching through `Bash` alone; re-add both to the sets R080-T010
+  names on a client that provides them." "From the R080-T010 run"
+  rather than "close": this item lands before the close item, and the
+  neighbouring lines attribute an observation to the act that produced
+  it. Verify with `bash scripts/ci/run-all.sh`, which guards the rest
+  of the tree rather than the sets, those being read.
+- [x] `agents/dev-docs-verifier.md` cites the verification gate where
+  it restates it today, so the file's own claim to neither restate nor
+  narrow that section holds. The Purpose paragraph reduces to the
+  seat's job, citing `skills/dev/companions/documentation.md
+  § Verification gate` for what ground truth is rather than copying
+  that section's source list, and loses the sentence saying why the
+  seat reaches the web: it changes no behaviour, the web tools being
+  the frontmatter's whether or not it is written. The
+  author-independence line states the bar and cites the same section
+  for the rule instead of repeating its wording. Nothing else moves -
+  the probing paragraph, the config rule and the duties line stand as
+  item 2 wrote them.
+  Approach: the Purpose paragraph (lines 8-12) becomes "**Purpose:**
+  check the claims of the doc your dispatch names against ground truth,
+  which `skills/dev/companions/documentation.md § Verification gate`
+  defines."; `## Your Job`'s first sentence then reads "Run that
+  section as it is written.", the two sentences after it unchanged; and
+  the author-independence line - "You are never the author of what you
+  verify - a doc its author also verified is unverified." - reads "You
+  verify no doc you authored: the independence rule is
+  `skills/dev/companions/documentation.md § Verification gate`'s."
+  Anchor the last two edits on that text rather than on a line number:
+  the Purpose replacement collapses five lines to two, shifting every
+  number under it. Verify with `bash scripts/ci/run-all.sh`.
+- [x] `skills/dev/companions/verification-policy.md § Comprehension
+  check` keeps only what is the dispatcher's, the reader's own conduct
+  living in its definition. What to hand the reader, how a gap routes
+  into a planner re-dispatch, and the `cold-read: passed` record stay;
+  the cold-context rationale and the ask - the two questions - go, the
+  section citing `agents/dev-cold-reader.md` for them and for the rule
+  that a question the inputs cannot answer is a plan gap rather than a
+  reader fault. `write-plan.md` step 6 keeps its wording and is no
+  casualty: it states the input set and the ask as part of the planner
+  flow it owns - the same step routes each gap and records
+  `cold-read: passed` - so what the dispatcher commissions stays with
+  the dispatcher's step, and the conduct has one home. The definition
+  itself is untouched: its body is item 2's above, and the dispatch
+  site is what that item left standing.
+  Approach: the section's text from its opening through the clause "A
+  question the inputs cannot answer is a plan gap, not a reader fault:
+  a planner fixes it -" (lines 146 to 154 - the first two sentences and
+  the third's opening clause, which ends mid-line) becomes
+  "The dispatcher's read of the plan (`write-plan.md` step 6).
+  Dispatch the cold reader (`agents/dev-cold-reader.md`, the
+  `dev-cold-reader` type) with exactly the implementer's inputs - the
+  plan, the docs and the code (`companions/implementer-prompt.md`),
+  never the planning conversation; the two questions it answers and
+  the gap rule are its definition's." The routing sentence keeps its
+  text from "an acceptance gap re-runs the read once" through the
+  `cold-read: passed` record and its `branch-plan.md § Header` cite,
+  opening "A gap is a planner's to fix - "; the closing sentence from
+  "This catches `NEEDS_CONTEXT` halts" is unchanged. Verify with
+  `bash scripts/ci/run-all.sh`.
+- [x] R080-T007's entry in `dev/plans/R080-seat-model/tasks.md` claims
+  everything this task hands that one, and R080's backlog records that
+  T007's existing plan predates the hand-over, so neither reaches
+  T007's detail round through this file alone, which archives at the
+  close. Three things pass over, each stated today in the "What
+  R080-T007 inherits" paragraph above and nowhere else. `§ Pre-flight`'s
+  "No plan in scope names a target under `.claude/`" reads a path where
+  its own cite reads a settings surface (`agents/dev-implementer.md`,
+  carrying the config rule the decisions above state), and that
+  section's permission text is T007's. The deny floor gains `git
+  checkout`, `switch`, `reset`, `restore` and `stash`: a deny survives
+  `auto` (`companions/supervisor-runbook.md § Modes by seat`) and binds
+  a subagent, which is the only thing that holds a seat off HEAD. And
+  under `auto` a per-seat `Bash` allow derivation decides nothing: each
+  definition's tool set is the scope boundary, and `auto` suspends Bash
+  allow rules while leaving deny rules and every non-`Bash` rule of the
+  entry's "mode plus allow rules" in force. That one is handed over as
+  the observation it is, not as a ruling on T007's scope. `auto` is the
+  runner's mode under `Supervisor: AI` alone; under `Supervisor: human`
+  the user session's mode governs and Bash allow rules bind (same
+  section), and T007's declared set carries the mode as well as the
+  rules (its task line), so both modes are its scope and whether a
+  derivation is needed under the second is its question to settle. The
+  entry's "derived from the toolchain declaration and the seat prompts"
+  is reworded on its own ground, which the acceptance states so the
+  change is not read as drift: the phrase names where a seat's commands
+  are read from, and this branch moved standing conduct into `agents/`
+  and left the dispatch in `skills/dev/companions/`. That holds in
+  either mode; the `Bash` question above is separate and conditional
+  and neither clause rests on the other. The three claims go in the task
+  sentence rather than a backlog line - a backlog line holds a
+  discovery with no owning open task, promoted or dropped at the R's
+  next shape round (`skills/dev/plan.md § Referential integrity`),
+  while these have an open task whose planner writes its plan from that
+  sentence - and the stale plan file goes the other way, being that
+  planner's to rewrite at its detail round rather than work the task
+  claims. It rides this item because it is the same hand-over: a
+  planner reading the existing plan first never reaches the task
+  sentence. `skills/dev/run.md` is untouched here and carries no marker
+  for the pending fix (`rules/writing-artifacts.md § State the
+  present`).
+  Approach: in `dev/plans/R080-seat-model/tasks.md`, the R080-T007
+  entry (lines 77-84) opens "deterministic permission pre-flight - a
+  declared permission set per seat (mode plus allow rules) derived from
+  the toolchain declaration and the seat prompts;" and ends "the
+  runbook's prompt-clearing rows and failure modes re-read against it.
+  Depends on R080-T004 and R080-T010." Two edits, the entry rewrapped
+  after them and still one semicolon list closed by that `Depends on`
+  sentence. "derived from the toolchain declaration and the seat
+  prompts" reads "derived from the toolchain declaration, each seat's
+  definition under `agents/` and its dispatch companion under
+  `skills/dev/companions/`". Three clauses then join the list in this
+  order before the period of "re-read against it", each written into
+  the entry as it stands below, joined by "; ", carrying no period of
+  its own and no quotation mark except the two the first clause quotes
+  around the `§ Pre-flight` sentence, which reach `tasks.md` as typed.
+  First: `run.md § Pre-flight`'s "No plan in scope names a target under
+  `.claude/`" reworded to name the settings surface, which is what that
+  sentence's own cite (`agents/dev-implementer.md`) withholds from a
+  seat, every other path under the config directory being tracked
+  source. Second: the deny floor extended with `git checkout`,
+  `switch`, `reset`, `restore` and `stash`, the only bar that holds a
+  seat off HEAD, a deny surviving `auto` and binding a subagent. Third:
+  under `auto` no per-seat `Bash` allow derivation is needed, each
+  definition's tool set being the scope boundary and `auto` suspending
+  Bash allow rules, so whether one is needed under a supervisor mode
+  that does not suspend them is T007's to settle
+  (`companions/supervisor-runbook.md § Modes by seat`).
+  Then append to the loop-simplification backlog paragraph, after its
+  closing sentence (the R080-T010 tools observation, ending "on a
+  client that provides them."): "From the R080-T010 run:
+  `R080-T007-perm-preflight.md` predates the seat model - its
+  `depends-on` names R080-T004 alone where the task line names
+  R080-T010 too, and its `run.md § Pre-flight` item rewrites that
+  section without the correction the task line now hands it - so T007's
+  detail round re-plans it rather than running it as written." The
+  opener is "run" rather than "close review" for item 6's reason: this
+  item lands before the close, and the paragraph's neighbouring lines
+  attribute an observation to the act that produced it. The
+  `supervised: approved` line that file also carries is not repeated
+  there: the backlog paragraph above already names it for T004 to T008
+  (`rules/writing-artifacts.md § One home per finding`). Item 10 below
+  edits a sentence in the middle of the same paragraph, so the two
+  touch different sentences of it. No multi-word `tasks.md` quote in
+  this item or item 10 is contiguous in the file - each wraps a line
+  break - so an `Edit` anchors on a fragment that sits within one line,
+  or retypes the whole entry or the whole sentence; either way the
+  entry and the paragraph are rewrapped after the edit. Nothing else in
+  either paragraph moves; `tasks.md` is under no line or column cap
+  (`scripts/ci/check-caps.sh` matches `skills/dev/[^/]+\.md` only).
+  Verify with `bash scripts/ci/run-all.sh`.
+- [x] The R080 backlog line on the spec check's model cites where that
+  model is declared and why changing it is a plan item, so the open
+  work it records stays findable. Item 5 deleted the models table the
+  line points at: `companions/verification-policy.md § Models` keeps
+  the implementer tier rule and the capacity fallback only, and the
+  spec reviewer's `fable` is its definition's frontmatter
+  (`agents/dev-spec-reviewer.md`). Frontmatter alone is not the reason
+  - a dispatch overrides `model` (`§ Effort mechanics`) - so the line
+  gives the one that holds: the implementer has a written per-dispatch
+  rule selecting its tier and the spec reviewer has none, so nothing
+  but an edit to that definition moves the seat. The work the line
+  records is unchanged, as is its place in the loop-simplification
+  paragraph; the cite and the reason are what change.
+  Approach: in `dev/plans/R080-seat-model/tasks.md`, replace this
+  sentence, unique in the file and wrapped across four lines within
+  the loop-simplification paragraph - "The per-commit spec check on
+  Fable is the run's largest seat cost; the models table is policy, so
+  moving it to Opus is a plan item
+  (`companions/verification-policy.md § Models`)." - with "The
+  per-commit spec check on Fable is the run's largest seat cost; no
+  rule selects that seat's model per dispatch as the implementer tier
+  does (`companions/verification-policy.md § Models`), so moving it to
+  Opus means editing `agents/dev-spec-reviewer.md`, a plan item." It
+  wraps a line break, so it is no literal `Edit` anchor: anchor on a
+  fragment within one line or retype the sentence. Rewrap from that
+  sentence to the end of the paragraph, item 9's appended sentence
+  included; no other sentence's words change and no other paragraph
+  moves. Verify with `bash scripts/ci/run-all.sh`.
+- [x] The duty table's doc-writer row names the seat and nothing the
+  roster already carries, so `run.md § Seats` states that seat's
+  cadence once. The roster row (line 25) gives "once per branch
+  (§ Close 3)" in its Dispatched column and the duty row (line 41)
+  repeats it sixteen lines below, which `writing.md § No repetition`
+  bites; cadence is the roster's column, so the duty row keeps the
+  seat name alone and a reader after the cadence reads it off the
+  roster. The planner pair is not the same case and stays: its duty
+  row (line 37) says which plan layer at which occasion - both layers
+  at the detail round, the acceptance on a re-dispatch, an approach
+  gap once - which the roster's Dispatched cell does not carry. No
+  duties line is a casualty: each cites the table rather than a cell,
+  and the row still names the doc writer.
+  Approach: in `skills/dev/run.md`, line 41 - "| Writing the docs |
+  doc writer, once per branch at § Close 3 | the same |" - becomes
+  "| Writing the docs | doc writer | the same |". The edit removes
+  text within one row and adds no line, so the file stays at the
+  300-line cap (`scripts/ci/check-caps.sh`). Nothing else in either
+  table moves, and `branch-plan.md § Commit cadence` 2's "written once
+  per branch at `run.md § Close` 3" is another file's docs step, left
+  alone. Verify with `bash scripts/ci/run-all.sh`.
+- [x] No seat definition pins `fable` (the models decision above):
+  `agents/code-reviewer.md`, `agents/dev-doc-writer.md`,
+  `agents/dev-docs-verifier.md`, `agents/dev-planner.md` and
+  `agents/dev-spec-reviewer.md` pin `opus`, as
+  `agents/dev-implementer.md` does, and `agents/dev-cold-reader.md`
+  still pins none. The item reads that decision as aimed at Fable as a
+  default, and on that reading two explicit selections keep `fable`. The
+  implementer tier's `(judgment-heavy)` → `fable` rule stays: the tag
+  is a per-item opt-in in the plan's text and no predicate infers it.
+  The batch close's review stays on the most capable model:
+  `REQUIREMENTS.md` sets it there and `run.md § Batch close` 1
+  dispatches `code-reviewer` "most capable", which with the definition
+  at `opus` is an override that one dispatch per batch sends; the other
+  reading lowers that `REQUIREMENTS.md` line, a requirements change and
+  not this item's. `companions/verification-policy.md § Models`'
+  capacity fallback reads on what a dispatch sends, since no
+  definition's pin names a `fable` dispatch any more, and names the two
+  dispatches it gates; the selections stay the tier rule's and
+  `run.md`'s, so the section gains no rule and `§ Desired state` 10's
+  two rules stand. Reading on the dispatch also reaches the tagged
+  implementer dispatch, whose definition pins `opus`, which "a seat
+  whose definition pins `fable`" never named; and the fallback's step
+  is stated without "row", the table whose rows it named being gone
+  with item 5. Its substance is otherwise unchanged. R080's
+  backlog loses the sentence recording the spec check's move to Opus,
+  the work it records landing here. These values supersede where
+  earlier items state them - item 1's Model column, item 2's
+  docs-verifier `model: fable`, item 3's unchanged `model: fable`, item
+  5's two quoted fallback phrases and item 10's backlog sentence - so a
+  close review reading those items against the tree finds them replaced
+  by this item, not missing by failure.
+  Approach: line 4 of each of the five files, `model: fable`, reads
+  `model: opus`; nothing else in them moves. In
+  `skills/dev/companions/verification-policy.md § Models`, the
+  `**Capacity fallback.**` paragraph's "Before dispatching a seat whose
+  definition pins `fable`, read the gate:" reads "Before a dispatch
+  that sends `fable` - an implementer item tagged `(judgment-heavy)`,
+  or the batch close's review, which `run.md § Batch close` 1 dispatches
+  on the most capable model - read the gate:", and its "falls back one
+  row - a `fable` seat to `opus`, an `opus` seat to `sonnet`." reads
+  "falls back to the next model down - a `fable` dispatch to `opus`, an
+  `opus` dispatch to `sonnet`."; the paragraph is rewrapped and no
+  other word of it or of the `**Implementer tier.**` paragraph changes.
+  The first quote wraps from line 173 to 174 and the second from 180 to
+  181, so an `Edit` anchors on a fragment within one line or retypes
+  lines 172 to 181 whole. In
+  `dev/plans/R080-seat-model/tasks.md`, the loop-simplification
+  paragraph's sentence "The per-commit spec check on Fable is the run's
+  largest seat cost; no rule selects that seat's model per dispatch as
+  the implementer tier does (`companions/verification-policy.md
+  § Models`), so moving it to Opus means editing
+  `agents/dev-spec-reviewer.md`, a plan item." goes. It wraps from the
+  end of line 147 through line 151, so no one-line quote of it is a
+  literal anchor: the `Edit` retypes lines 147 to 151 as the file holds
+  them, line breaks included, into the one line "list (`handoff.md
+  § Writing the note`, `run.md § Monitor`). From the", which line 152's
+  "R080-T009 close:" continues unchanged. The gap closes inside that
+  line, so nothing else in the paragraph rewraps.
+  No other hit is a casualty. `git grep -n -i -E 'fable|carried
+  over|most capable' -- ':!**/archive/**'
+  ':!dev/plans/R080-seat-model/R080-T010-seat-definitions.md'` returns,
+  beyond the lines edited above: `REQUIREMENTS.md` line 62,
+  `skills/dev/companions/report-template.md` line 25 and
+  `skills/dev/run.md` line 187, which name the most capable tier the
+  batch close's override keeps true, so `run.md` is untouched;
+  `verification-policy.md`'s tier rule and the gate's `"Fable"` display
+  name, both staying; `scripts/test/model-quota.test.sh`'s `"Fable"`
+  fixtures, which test `scripts/model-quota.sh` - a script taking the
+  display name as its argument and still gating both `fable` dispatches;
+  and `dev/plans/R080-seat-model/R080-T004-doc-writer.md` lines 65 and
+  87 and `R080-T008-planner-seat.md` line 34, the plans of closed tasks,
+  which record what their branches did, are read by no dispatch and
+  were left by item 5 when the table they quote went. This plan's own
+  decision block and its "most capable model" sentence already state
+  the values this item writes. The close item's `git grep -n -E
+  'fable|opus|sonnet' -- skills rules` still returns only
+  `verification-policy.md`'s two rules. Verify with
+  `bash scripts/ci/run-all.sh`.
+- [x] The seat definitions, the roster and `§ Effort mechanics` state
+  only what the tree holds, in wording `writing.md` allows. The six
+  `dev-*` descriptions open "Seat of `/dev`, dispatched only by its
+  flow:" in place of "Seat of `/dev run`, dispatched by the runner
+  only:", which the tree contradicts for three seats (the naming
+  decision above), and the one guard stays identical across the six.
+  `run.md § Seats`' Planner row is dispatched "per plan change
+  (`plan.md § Adjusting existing plans`)", the section whose list
+  names every occasion - a commit added after the final, an
+  acceptance-level question, a cold-read gap, the user's rejection of
+  a change - where the cell named two; the planner's description
+  closes on the same occasion and keeps the plan's first write.
+  `companions/verification-policy.md § Effort mechanics` qualifies
+  `model:` as it qualifies `effort:`, `agents/dev-cold-reader.md`
+  pinning no model. `agents/dev-implementer.md` says `CLAUDE.md` is in
+  the seat's context and has it read `skills/dev/git-workflow.md`,
+  which `CLAUDE.md` names without importing, and its self-review asks
+  whether the tests cover the item's cases rather than whether they
+  are comprehensive (`writing.md § Write like a human`).
+  `agents/dev-docs-verifier.md` loses the clause repeating the sentence
+  before it (`writing.md § No repetition`). The config paragraph stays
+  verbatim in all seven definitions, as the config decision above
+  holds. This text supersedes item 4's Planner cell, item 5's
+  `§ Effort mechanics` wording for its `model:` clause and item 7's
+  "claim to neither restate nor narrow" for that clause only, so a
+  close review reading those items against the tree finds them
+  replaced by this item, not missing by failure. It is a checkbox of
+  its own rather than part of item 12: it touches no line item 12
+  edits, and its one acceptance is the definitions' claims against the
+  tree, where item 12's is the model a dispatch sends.
+  Approach: line 3 of `agents/dev-planner.md`,
+  `agents/dev-cold-reader.md`, `agents/dev-docs-verifier.md`,
+  `agents/dev-implementer.md`, `agents/dev-doc-writer.md` and
+  `agents/dev-spec-reviewer.md` replaces "Seat of `/dev run`,
+  dispatched by the runner only:" with "Seat of `/dev`, dispatched only
+  by its flow:", each closing clause unchanged but the planner's,
+  "writes one branch plan, at the detail round and on an
+  acceptance-level question.", which reads "writes a branch plan or one
+  change to it, one dispatch per plan change."; each value stays
+  double-quoted. `skills/dev/run.md` line 21's Dispatched cell "at the
+  detail round and on an acceptance-level question (§ Question
+  resolution)" reads "at the detail round and per plan change
+  (`plan.md § Adjusting existing plans`)", within the one row, so the
+  file stays at the 300-line cap (`scripts/ci/check-caps.sh`), a table
+  row being exempt from the column ceiling.
+  `skills/dev/companions/verification-policy.md` line 12's "`model:`
+  and, where the seat pins one, `effort:`" reads
+  "`model:` where the seat pins a model and `effort:` where it pins an
+  effort", the effort levels' parenthetical still following `effort:`
+  and the paragraph rewrapped. In `agents/dev-implementer.md`, lines
+  40 to 42's "CLAUDE.md and skills/dev/git-workflow.md are in your
+  context; follow skills/dev/git-workflow.md § Commit messages,
+  CLAUDE.md § Code Comments + § Audience visibility." reads "CLAUDE.md
+  is in your context and skills/dev/git-workflow.md is not: read it,
+  then follow its § Commit messages and CLAUDE.md § Code Comments +
+  § Audience visibility.", the paragraph rewrapped from there, and line
+  152's "- Are tests comprehensive?" reads "- Do the tests cover the
+  item's cases?". In `agents/dev-docs-verifier.md`, line 16's
+  "section's, and this definition neither restates nor narrows them."
+  reads "section's.", the paragraph rewrapped. Each quote that wraps a
+  line break is no literal anchor: an `Edit` anchors on a fragment
+  within one line or retypes the lines named. No other hit is a
+  casualty: `git grep -n 'dispatched by the runner only' --
+  ':!**/archive/**'
+  ':!dev/plans/R080-seat-model/R080-T010-seat-definitions.md'` returns
+  the six `description:` lines alone - no `README.md`, companion or
+  test quotes the opening, and this plan's naming decision states the
+  new one; the same pathspec on 'at the detail round and on' returns
+  only `run.md` line 21 and the planner's description; and the
+  implementer's context sentence, the verifier's clause and "tests
+  comprehensive" stand only in the lines above. Verify with
+  `bash scripts/ci/run-all.sh`.
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, `LAYOUT.md`'s `agents/`
   block current (`branch-plan.md § Architecture-changing branches`,
   which folds layout upkeep into the final commit without the flag),
   cleanup, mark plan complete, mark the task `[x]` in `tasks.md` and
-  add the installer gap there as a backlog line -
-  `scripts/install-dev.sh` ships no `agents/`, so an installed project
-  reads a `run.md § Seats` citing definitions it does not have - then
-  commit. `git grep -n 'general-purpose' -- skills/dev` then returns
+  add this branch's two unowned observations there as backlog lines -
+  the installer gap, `scripts/install-dev.sh` shipping no `agents/`, so
+  an installed project reads a `run.md § Seats` citing definitions it
+  does not have; and the unbounded restart clause in `write-plan.md`
+  step 6, a change after the record restarting the read count only
+  where it changes an acceptance - then commit. Both ride the close
+  because neither has an owning open task
+  (`skills/dev/plan.md § Referential integrity`) and this commit is
+  already the branch's one write of R080's backlog: giving either its
+  own checkbox would rewrap the same paragraph twice, and folding
+  either into item 9 or 10 would give that item a second acceptance.
+  `git grep -n 'general-purpose' -- skills/dev` then returns
   nothing, every dispatch naming its seat's type, and `git grep -n -E
   'fable|opus|sonnet' -- skills rules` returns only
   `companions/verification-policy.md`'s two remaining rules.
@@ -540,6 +973,15 @@ repository's own and the installer copies none of them.
   `dev-*.md` is one pattern line, "one per dispatched seat", as
   `check-*.sh` and `*.test.sh` are drawn (`skills/dev/layout.md
   § Layout file`); `check-stray.sh` matches first-level nodes only, so
-  the fast tier is green before and after. The close review reads every
-  quoted sentence above against the tree and runs the two greps; then
-  the marks and the commit.
+  the fast tier is green before and after. Both backlog lines go at the
+  end of the loop-simplification paragraph in
+  `dev/plans/R080-seat-model/tasks.md`, after the sentences items 9 and
+  10 leave there, the second reading: "From the R080-T010 run:
+  `write-plan.md` step 6's "A planner change made after the pass is
+  recorded starts a count of its own" reads as unbounded where the same
+  step's earlier rule is not - bound it to a change that alters an
+  acceptance, an approach or wording change restarting no count." Its
+  inner double quotes are literal and reach `tasks.md` as typed, and
+  the paragraph is rewrapped from the first appended sentence on. The
+  close review reads every quoted sentence above against the tree and
+  runs the two greps; then the marks and the commit.

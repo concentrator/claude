@@ -40,7 +40,7 @@ back, or when the host is provisioned for it
       v
  +---------------------------------------------------+
  |  SEAT (subagent)     one plan item                |
- |  implementer / reviewer / doc writer              |
+ |  any seat of run.md § Seats                       |
  +---------------------------------------------------+
       |
       v
@@ -181,7 +181,7 @@ browser and phone control without joining.
 | Seat | `Supervisor: AI` | `Supervisor: human` |
 |---|---|---|
 | Runner | `auto` | the user's session's own mode |
-| Planner, implementer, reviewer, doc writer | inherits the runner's | inherits the runner's |
+| Any dispatched seat (`run.md § Seats`) | inherits the runner's | inherits the runner's |
 
 A dispatched seat is a subagent and has no mode of its own: the run
 has one permission mode, the runner's. Under `Supervisor: AI` that is

@@ -21,7 +21,7 @@ it here would drift from it (`§ Readiness checklist`).
 ## Steps
 
 Steps 1 and 3 to 5 belong to one planner dispatched per task
-(`companions/planner-prompt.md`); its step 1 runs once the session has
+(`agents/dev-planner.md`); its step 1 runs once the session has
 settled step 2. The session keeps steps 2, 6 and 7 and writes no plan
 text itself.
 

@@ -44,8 +44,8 @@ state: <branches merged>/<branches planned>, full tier <green|red>
   prior-batch baseline: <tokens> / <commits>
 - spec checks skipped: <count> (<per-commit skip records per
   verification-policy.md § Spec-check skip, or "none">)
-- dispatch-prompt sizes (wc -w): implementer-prompt.md <before> → <after>;
-  spec-reviewer-prompt.md <before> → <after>
+- seat prompt sizes (wc -w, definition + dispatch): implementer <before> →
+  <after>; spec reviewer <before> → <after>
   (prior-batch baseline: <implementer> / <spec-reviewer>)
 - convention drift: <n> by spec-check sensor + <n> by close/batch review
   = <total> (prior-batch baseline: <n>). The sensor is blind on

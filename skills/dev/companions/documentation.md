@@ -132,7 +132,8 @@ the author, for `<docs>`, `README.md` and the CHANGELOG the doc-writer
 seat (`run.md § Seats`) -
 has verified the claims in scope against ground truth: the live system
 for observable facts, the authoritative source (source code, `--help`,
-config files, vendor docs) otherwise. The verifier is a subagent the
+config files, vendor docs) otherwise. The verifier is the docs-verifier
+seat (`agents/dev-docs-verifier.md`, the `dev-docs-verifier` type) the
 session - in a run, the runner (`run.md § Close` 3) - dispatches without
 pausing to confirm - a doc the author also verified is unverified -
 bounded by `verification-policy.md § Verifier isolation`. The prose class
@@ -160,7 +161,8 @@ pass, `run.md § Batch close`);
 - Every UNPROVEN is resolved to VERIFIED/DOCS, or explicitly marked in
   the doc as unverified / expert-needed - never asserted as fact.
 - A claim that cannot be independently checked is UNPROVEN; split a large
-  doc across parallel reviewers by section (`dispatching-parallel-agents`).
+  doc across one verifier dispatch per section, the split being the
+  dispatcher's: a seat holds no Agent tool.
 - Comprehension pass, same reviewer: answer from the doc alone - what is
   ambiguous, what context does the doc assume the reader already has,
   and where does it contradict itself. Findings are fixed like WRONG

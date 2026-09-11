@@ -218,7 +218,7 @@ regardless of size; the full suite runs at batch close (`run.md
 ### Rails
 
 - An item's acceptance is the planner's alone (`run.md § Seats`;
-  `companions/planner-prompt.md`); its approach is the implementer's to
+  `agents/dev-planner.md`); its approach is the implementer's to
   change while working, the plan edit committed with the code. No seat
   makes the closing decisions. The implementer keeps the code, the
   approach, the plan checkboxes and the findings files.
