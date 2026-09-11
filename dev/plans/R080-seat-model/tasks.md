@@ -75,7 +75,7 @@ hooks rule says who writes a guard, the pilot last.
   table reduced to the tier-selection and capacity-fallback rules.
   Depends on R080-T006.
 
-- [ ] **R080-T011 [mnt]**: who writes `hooks/` - the config paragraph
+- [x] **R080-T011 [mnt]**: who writes `hooks/` - the config paragraph
   every seat definition carries withholds `hooks/` alongside the
   settings surface, yet `hooks/` is tracked source the installer ships
   and two planned changes need a guard edit (R080-T007's bar on a

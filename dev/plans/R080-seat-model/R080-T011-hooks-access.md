@@ -186,6 +186,6 @@ propagates the one wording to the seven definitions.
   done | sort -u | wc -l` prints 1. Verify with `bash
   scripts/ci/run-all.sh`.
 
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup, mark the plan
   complete, mark the task `[x]` in `tasks.md`, commit.
