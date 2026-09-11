@@ -7,9 +7,10 @@ composite (`R080-T###`, counter scoped to this initiative).
 Order matters: the docs move first so the doc writer has one target,
 the planner and the duties table after the flow, the layout
 declaration once the doc writer has its target, the seat definitions
-once the duties table names every duty, the permission pre-flight once
-each seat's definition carries the tool set it resolves against, the
-pilot last.
+once the duties table names every duty, the hooks rule once those
+definitions state it in one place, the permission pre-flight once each
+seat's definition carries the tool set it resolves against and the
+hooks rule says who writes a guard, the pilot last.
 
 ## Open
 
@@ -74,6 +75,18 @@ pilot last.
   table reduced to the tier-selection and capacity-fallback rules.
   Depends on R080-T006.
 
+- [ ] **R080-T011 [mnt]**: who writes `hooks/` - the config paragraph
+  every seat definition carries withholds `hooks/` alongside the
+  settings surface, yet `hooks/` is tracked source the installer ships
+  and two planned changes need a guard edit (R080-T007's bar on a
+  seat's HEAD moves, and the backlog's edit-class-shell guard); settle
+  it in the paragraph's one home and propagate to all seven
+  definitions - either a seat writes `hooks/` as tracked source, with
+  the caveat this self-hosting checkout's guards are live and a seat
+  can weaken the guard binding it, or the withholding stands and every
+  rule planning a guard change names the user as its writer. Depends
+  on R080-T010.
+
 - [ ] **R080-T007 [mnt]**: deterministic permission pre-flight - a
   declared permission set per seat (mode plus allow rules) derived
   from the toolchain declaration, each seat's definition under
@@ -86,15 +99,20 @@ pilot last.
   `.claude/`" reworded to name the settings surface, which is what
   that sentence's own cite (`agents/dev-implementer.md`) withholds
   from a seat, every other path under the config directory being
-  tracked source; the deny floor extended with `git checkout`,
-  `switch`, `reset`, `restore` and `stash`, the only bar that holds a
-  seat off HEAD, a deny surviving `auto` and binding a subagent; under
+  tracked source; a seat held off HEAD by a branch in
+  `hooks/dev-branch-guard.sh` rather than by a settings deny on `git
+  checkout`, `switch`, `reset`, `restore` and `stash` - a deny binds
+  the whole session, stopping the flow's own HEAD moves, where the
+  guard reads a command's arguments and so passes `switch -c` on a new
+  branch while stopping a trunk checkout, and hooks fire for a
+  dispatched seat as they do for the session (the R080-T010 probe,
+  below); under
   `auto` no per-seat `Bash` allow derivation is needed, each
   definition's tool set being the scope boundary and `auto` suspending
   Bash allow rules, so whether one is needed under a supervisor mode
   that does not suspend them is T007's to settle
   (`companions/supervisor-runbook.md § Modes by seat`). Depends on
-  R080-T004 and R080-T010.
+  R080-T004, R080-T010 and R080-T011.
 
 - [ ] **R080-T005 [mnt]**: pilot task end to end under the seats -
   pre-flight, cold read, worker dispatch, doc-writer pass, supervised
