@@ -1,7 +1,7 @@
 ---
 task: R080-T007
 type: mnt
-depends-on: R080-T004, R080-T010
+depends-on: R080-T004, R080-T010, R080-T011
 supervised: approved
 ---
 
@@ -35,35 +35,63 @@ declared set.
   definition, the dispatch companion or the `CLAUDE.md § Agent
   toolchain` line that needs it. The mode-independent set gates under
   both supervisor modes, is applyable, and a gap in it stops the run:
-  the deny floor below; the non-Bash allow rules, being the Edit-class
-  rule over the checkout root, the Read rules for paths outside it, the
-  `WebSearch` rule the definitions naming that tool need, and the
-  WebFetch domains a seat's dispatch names; the mode assertion; and
-  never `bypassPermissions`, never `dontAsk`. The mode assertion is narrow -
-  `--permission-mode auto` on the runner's launch command, and each
-  tier's mode key unchanged from its tracked value - and never asserts
-  that `defaultMode` is absent: the user tier's
+  the tracked tiers' push denies; the non-Bash allow rules, being the
+  Edit-class rule over the checkout root, the Read rules for paths
+  outside it, the `WebSearch` rule the definitions naming that tool
+  need, and the WebFetch domains a seat's dispatch names; the mode
+  assertion; and never `bypassPermissions`, never `dontAsk`. The mode
+  assertion is narrow - `--permission-mode auto` on the runner's launch
+  command, and each tier's mode key unchanged from its tracked value -
+  and never asserts that `defaultMode` is absent: the user tier's
   `defaultMode: acceptEdits` is an approved standing decision
   (R056-T002, archived), and the concern is a mode key drifting after a
-  run has started. The deny floor is the tracked tiers' push denies
-  plus five HEAD-moving verbs - `git checkout`, `switch`, `reset`,
-  `restore`, `stash` - the one bar that reaches a dispatched seat (the
-  R080-T007 task line in `tasks.md`): a deny survives `auto`, which
-  suspends Bash allow rules, and binds a subagent, which inherits the
-  runner's permission mode and the same tiers (`run.md § Seats`) and
-  which a tool set cannot hold off git, `Bash` being one tool. Its price
-  is stated where it lands: a deny binds every context in the session,
-  the runner included, so the flow's own HEAD moves take the forms the
-  floor leaves (the next item), and the floor stops the verbs a seat
-  reaches for rather than proving no route exists - a command's intent
-  is the guard hook's to judge (`hooks/dev-branch-guard.sh`). No seat
-  writes the floor in: it enters a tracked tier by the user's hand, the
-  settings surface being what `agents/dev-implementer.md` withholds
-  from a seat, and until it is there the pre-flight reports it missing
-  and the run stops. The same user edit drops what the floor kills in
-  the tracked `settings.json` - its `Bash(git checkout:*)`,
-  `Bash(git reset:*)`, `Bash(git restore:*)`, `Bash(git stash:*)` and
-  `Bash(git switch:*)` allows, dead once a deny covers them.
+  run has started. What holds a seat off HEAD is a branch in
+  `hooks/dev-branch-guard.sh` rather than a settings deny on the
+  HEAD-moving verbs (`git checkout`, `switch`, `reset`, `restore`,
+  `stash`): a deny binds every context in the session, so it stops the
+  flow's own HEAD moves - the halt revert at
+  `run.md § Question resolution`, `finish.md`'s discard and post-merge
+  entries into the default branch, the branch `run.md § Pre-flight` and
+  `release.md` step 5 create - while the guard reads a command's
+  arguments and tells those apart, and it already fires on the `Bash`
+  matcher of the tracked `settings.json` and of every project
+  `scripts/install-dev.sh` writes, for a dispatched seat's call as for
+  the session's (the R080-T010 probe, R080's backlog in `tasks.md`).
+  The predicate, judged per command segment against the repo that
+  segment targets as the push scan's is, denies three shapes: a
+  `checkout` or `switch` entering that repo's default branch while its
+  tracked tree is dirty; a `checkout -b|-B` or `switch -c|-C` whose new
+  branch is named as the default branch; and `git reset` in every
+  spelling with `git stash` in the ones that write - `stash`, `push`,
+  `save`, `drop`, `clear`. It passes `checkout -b` and `switch -c` on
+  any other name, `stash list` and `stash show`, an entry into the
+  default branch from a clean tree, and the path-restore forms
+  `git checkout -- <paths>` and `git restore <paths>`. Both carve-outs
+  are stated where they land: `finish.md`'s two entries run on a clean
+  tree, and on the default branch the guard's own write and commit
+  branches already refuse every mutation, so an entry that loses
+  nothing is not the hazard; and the halt revert is the path-restore
+  form, which no hook can tell from a seat's, so that form stays open
+  and `git restore --staged` remains the route to unstaging that the
+  `reset` deny closes. The guard is a tripwire on the moves that lose
+  work, not a boundary - the character its own header comment claims
+  for the file. Its two reason lines carry the predicate and the rule:
+  `branch-guard: refusing '<cmd>' - it enters the default branch of
+  '<repo>' with uncommitted work; commit or discard first, and a
+  dispatched seat stays on the item's branch (run.md § Seats).` and
+  `branch-guard: refusing 'git <verb>' - reset and stash move HEAD or
+  take work out of the tree; the run's git is the runner's, between
+  dispatches (run.md § Seats).` The guard is a host gate rather than a
+  rule, as workspace trust below is, so its proof is its own test
+  rather than a pre-flight check, and who
+  applies it is R080-T011's to settle rather than this plan's
+  to assume: where T011 lets a seat write `hooks/` as tracked source
+  the item's implementer writes the branch; where the withholding
+  stands the implementer writes the companion and the test, the branch
+  is the **user**'s to apply, and the item halts to the user as the
+  pre-flight does for the settings surface and resumes on their commit.
+  T011 lands first (`depends-on`), so which of the two holds stands in
+  the tree at dispatch.
   The Bash prefix set stays declared and traced but
   binds under `Supervisor: human` alone; under `Supervisor: AI` it is
   reported inert and its absence never stops a run, so a user tier's
@@ -101,8 +129,8 @@ declared set.
   sectioned § What enforces what (the split, and the permission-mode /
   supervisor-mode terminology above), § Mode-independent set (a table:
   rule, class, the definition or toolchain line it traces to),
-  § Deny floor (the five verbs, why a deny is the bar that reaches a
-  seat, and the forms the flow uses instead - the next item's three),
+  § HEAD moves (the guard's predicate and its two reason lines, why a
+  hook and not a deny, and the forms it passes),
   § Bash prefix set (the `Bash(<prefix>:*)` derivation, the prefix
   being the declared command up to its first placeholder; inert under
   `auto`), § Workspace trust, § Seat tool sets (what a tool set gates
@@ -122,12 +150,10 @@ declared set.
   `WebFetch(domain:...)` entry - the class exists with no default
   member and a domain enters it when a seat's dispatch names one -
   while `WebSearch` ships, `agents/code-reviewer.md` and
-  `agents/dev-docs-verifier.md` holding that tool. Its `deny` gains the
-  five floor verbs; its `allow` drops `Bash(git switch:*)` and
-  `Bash(git restore:*)`, which the floor makes dead - deny beats allow
-  across tiers (`toolchain.md § Permission carve-out`) - and gains the
-  prefixes the surviving forms need: `Bash(git symbolic-ref:*)`,
-  `Bash(git read-tree:*)`, `Bash(git fetch:*)`.
+  `agents/dev-docs-verifier.md` holding that tool. Its `deny` keeps
+  `Bash(git push:*)` alone and its `allow` keeps `Bash(git switch:*)`
+  and `Bash(git restore:*)`: the bar on a seat's HEAD moves is the
+  guard, so no rule of the declared set names a HEAD-moving verb.
   `toolchain.md § Permission carve-out`'s closing paragraph ("The
   pre-flight permission gate checks which pattern is in place and
   reports it; it never weakens a deny rule on its own") gains the
@@ -135,47 +161,35 @@ declared set.
   pattern 2's "Zero config; one prompt per batch by design" gains
   "under `Supervisor: human`; under `Supervisor: AI` nobody can answer
   that prompt, so the pre-flight reports it cannot apply".
-
-- [ ] The flow's own HEAD moves survive the deny floor, so the bar that
-  holds a seat off HEAD does not stop the run: every `git checkout`,
-  `switch`, `reset`, `restore` or `stash` the flow files name is
-  replaced by a form the floor leaves, each keeping the effect it has
-  today - a branch created at the current commit and entered, a working
-  tree returned to HEAD, a ref advanced without being entered. The
-  forms are stated once in
-  `companions/seat-permissions.md § Deny floor` and used, not
-  re-explained, at the sites: `run.md § Question resolution`'s halt
-  revert, `run.md § Pre-flight`'s branch creation, `finish.md`'s
-  discard path and its post-merge sync, and `release.md`'s release
-  branch.
-  Approach: the three forms first, in the companion - `git branch
-  <name>` then `git symbolic-ref HEAD refs/heads/<name>` to enter a
-  branch created at the current commit, sound because § Pre-flight has
-  already checked a clean tree on the default branch, so the new branch
-  is at HEAD and no file has to move; `git read-tree --reset -u HEAD`
-  to return the index and the tracked tree to HEAD; `git fetch origin
-  <ref>:<ref>` to advance a ref the session is not on. Then the sites.
-  `run.md` is at 300 of the 300-line cap `scripts/ci/check-caps.sh`
-  holds mode files to, so its two edits are in-place: line 127's
-  "`git checkout -- .`" becomes the read-tree form and the paragraph
-  (lines 123-144) is re-wrapped to absorb the 13 extra characters
-  without gaining a line; § Pre-flight's last bullet ("Batch scope:
-  tag ... create `batch/R<NNN>-B<NNN>` off default") names no command
-  today and gains none, the companion carrying the branch-creation
-  form. `finish.md` (88 lines) and `release.md` (47) have room: the
-  discard line's "Then checkout default, `git branch -D`" and § 4 step
-  1's "Sync the default branch (`git checkout <default>`, `git pull`)"
-  become the fetch form for the ref and the symbolic-ref pair for
-  entering it - the branch delete needs the session off the branch -
-  and `release.md` step 5's `git checkout -b release/vX.Y.Z` becomes
-  the branch-creation form. Keep every rewritten line inside 80
-  columns. These are the whole inventory:
-  `git grep -nE 'git (checkout|switch|reset|restore|stash)'` returns,
-  outside `dev/plans/` and the branch-guard test's command fixtures,
-  only these lines and the allow entries the first item handles, and
-  the discard line, which says "checkout default" in prose, is the one
-  site that grep misses. Prove each form once in a throwaway repo under
-  the scratch directory before the swap.
+  The guard branch sits in `hooks/dev-branch-guard.sh`'s `Bash)` case
+  between the push scan's closing `done` and the commit detector, whose
+  `[[ "$cmd" =~ $crx ]] || exit 0` returns for every command that does
+  not commit, so a branch placed after that line would never see a
+  checkout. It reuses what the case already holds: `opt` to skip global
+  options, the command-head anchoring of `Prx` so text inside an `echo`
+  never triggers, `resolve_target` for the repo, `is_trunk` for the
+  destination, `deny` for the exit, and `exit 0` for an unreadable repo
+  or an unresolvable target, the file failing open throughout. The
+  dirty-tree test is
+  `git -C "$dir" status --porcelain --untracked-files=no`, non-empty
+  meaning dirty. The file is at 261 lines of `check-code-size.sh`'s
+  300-line cap, so the branch has room; a helper it factors out stays
+  inside the 50-line function cap. Its header comment gains one
+  sentence for the rule beside the write, commit and push ones. The
+  cases go in a new `scripts/test/dev-head-guard.test.sh`,
+  `scripts/test/dev-branch-guard.test.sh` standing at 285 of the same
+  cap - the split `dev-push-guard.test.sh` already made, whose header,
+  isolation lines and `run`/`pass`/`die` helpers it copies: an entry
+  into the default branch denied on a dirty tree and allowed on a clean
+  one; `switch -c feat/x` allowed from the default branch;
+  `checkout -b main` denied; `git reset --hard` and a bare `git reset`
+  denied; `git stash` and `git stash drop` denied with `git stash list`
+  allowed; `git checkout -- .` allowed; an entry judged through
+  `git -C <path>` and through a leading `cd`; and an `echo` naming
+  `git checkout main` allowed. `scripts/test/run-all.sh` picks the file
+  up by its glob, and `scripts/install-dev.sh` already ships and
+  registers the hook (`register_hook dev-branch-guard.sh`), so neither
+  needs an edit.
 
 - [ ] `scripts/preflight-permissions.sh` resolves the declared set
   against the tiers and prints one report whose every line names the
@@ -271,10 +285,11 @@ declared set.
   surface are host gates no seat clears (`run.md § Seats`, the asked-of
   row). The same section's plan check names that surface instead of the
   config directory: "No plan in scope names a target under `.claude/`"
-  reads as the settings files, `hooks/` and `~/.claude.json`
-  (`agents/dev-implementer.md`), which no seat writes, every other path
-  under the config directory being tracked source a plan may name -
-  this plan among them.
+  reads as the settings files, `~/.claude.json` and whatever of
+  `hooks/` R080-T011 leaves withheld, quoting the config paragraph of
+  `agents/dev-implementer.md` as that task leaves it rather than
+  restating it, every other path under the config directory being
+  tracked source a plan may name - this plan among them.
   `§ Dispatch per item`'s prompt paragraph carries the two classes the
   ledger needs (`§ Ledger`): a pre-flight defect, which is a gap in the
   mode-independent set, halts the item, is fixed in
