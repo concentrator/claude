@@ -875,7 +875,7 @@ repository's own and the installer copies none of them.
   'fable|opus|sonnet' -- skills rules` still returns only
   `verification-policy.md`'s two rules. Verify with
   `bash scripts/ci/run-all.sh`.
-- [ ] The seat definitions, the roster and `§ Effort mechanics` state
+- [x] The seat definitions, the roster and `§ Effort mechanics` state
   only what the tree holds, in wording `writing.md` allows. The six
   `dev-*` descriptions open "Seat of `/dev`, dispatched only by its
   flow:" in place of "Seat of `/dev run`, dispatched by the runner
@@ -916,11 +916,12 @@ repository's own and the installer copies none of them.
   change to it, one dispatch per plan change."; each value stays
   double-quoted. `skills/dev/run.md` line 21's Dispatched cell "at the
   detail round and on an acceptance-level question (§ Question
-  resolution)" reads "per plan change (`plan.md § Adjusting existing
-  plans`)", within the one row, so the file stays at the 300-line cap
-  (`scripts/ci/check-caps.sh`), a table row being exempt from the
-  column ceiling. `skills/dev/companions/verification-policy.md` line
-  12's "`model:` and, where the seat pins one, `effort:`" reads
+  resolution)" reads "at the detail round and per plan change
+  (`plan.md § Adjusting existing plans`)", within the one row, so the
+  file stays at the 300-line cap (`scripts/ci/check-caps.sh`), a table
+  row being exempt from the column ceiling.
+  `skills/dev/companions/verification-policy.md` line 12's "`model:`
+  and, where the seat pins one, `effort:`" reads
   "`model:` where the seat pins a model and `effort:` where it pins an
   effort", the effort levels' parenthetical still following `effort:`
   and the paragraph rewrapped. In `agents/dev-implementer.md`, lines

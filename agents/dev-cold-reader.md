@@ -1,6 +1,6 @@
 ---
 name: dev-cold-reader
-description: "Seat of `/dev run`, dispatched by the runner only: reads a new or changed plan cold, before it is approved."
+description: "Seat of `/dev`, dispatched only by its flow: reads a new or changed plan cold, before it is approved."
 tools: Read, Bash
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: dev-planner
-description: "Seat of `/dev run`, dispatched by the runner only: writes one branch plan, at the detail round and on an acceptance-level question."
+description: "Seat of `/dev`, dispatched only by its flow: writes a branch plan or one change to it, one dispatch per plan change."
 model: opus
 tools: Read, Edit, Write, Bash
 ---

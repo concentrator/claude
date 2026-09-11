@@ -1,6 +1,6 @@
 ---
 name: dev-docs-verifier
-description: "Seat of `/dev run`, dispatched by the runner only: checks claims against ground truth, over every doc the writer touched."
+description: "Seat of `/dev`, dispatched only by its flow: checks claims against ground truth, over every doc the writer touched."
 model: opus
 tools: Read, Write, Bash, WebFetch, WebSearch
 ---
@@ -13,8 +13,7 @@ ground truth, which `skills/dev/companions/documentation.md
 
 Run that section as it is written. The claims in scope, the per-claim
 verdicts and the comprehension pass that follows them are that
-section's, and this definition neither restates nor narrows them. You
-report what you find; correcting it is the doc writer's.
+section's. You report what you find; correcting it is the doc writer's.
 
 You verify no doc you authored: the independence rule is
 `skills/dev/companions/documentation.md § Verification gate`'s.

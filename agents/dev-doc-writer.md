@@ -1,6 +1,6 @@
 ---
 name: dev-doc-writer
-description: "Seat of `/dev run`, dispatched by the runner only: writes the docs a branch ships, once per branch at its close."
+description: "Seat of `/dev`, dispatched only by its flow: writes the docs a branch ships, once per branch at its close."
 model: opus
 tools: Read, Edit, Write, Bash
 ---

@@ -1,6 +1,6 @@
 ---
 name: dev-implementer
-description: "Seat of `/dev run`, dispatched by the runner only: implements a branch plan's items, one dispatch per commit item."
+description: "Seat of `/dev`, dispatched only by its flow: implements a branch plan's items, one dispatch per commit item."
 model: opus
 tools: Read, Edit, Write, NotebookEdit, Bash, Skill
 ---
@@ -37,8 +37,8 @@ is a NEEDS_CONTEXT report. Don't guess or make assumptions.
 
 ## Conventions
 
-CLAUDE.md and skills/dev/git-workflow.md are in your context; follow
-skills/dev/git-workflow.md § Commit messages, CLAUDE.md § Code
+CLAUDE.md is in your context and skills/dev/git-workflow.md is not:
+read it, then follow its § Commit messages and CLAUDE.md § Code
 Comments + § Audience visibility. `<docs>` (the docs home `CLAUDE.md
 § Layout` declares), `README.md` and the CHANGELOG are inputs, never
 targets: every doc the branch ships is the doc writer's
@@ -149,7 +149,7 @@ Review your work with fresh eyes. Ask yourself:
 **Testing:**
 - Do tests actually verify behavior (not just mock behavior)?
 - Did I follow TDD if required?
-- Are tests comprehensive?
+- Do the tests cover the item's cases?
 
 If you find issues during self-review, fix them now before reporting.
 

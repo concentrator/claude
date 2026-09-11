@@ -18,7 +18,7 @@ the runner runs git only between dispatches.
 
 | Seat | Dispatched | Definition; dispatch |
 | --- | --- | --- |
-| Planner | at the detail round and on an acceptance-level question (§ Question resolution) | `agents/dev-planner.md`; `companions/planner-prompt.md` |
+| Planner | at the detail round and per plan change (`plan.md § Adjusting existing plans`) | `agents/dev-planner.md`; `companions/planner-prompt.md` |
 | Cold reader | over a new or changed plan before it is approved (`write-plan.md` step 6) | `agents/dev-cold-reader.md`; `companions/verification-policy.md § Comprehension check` |
 | Implementer | per commit item (§ Dispatch per item) | `agents/dev-implementer.md`; `companions/implementer-prompt.md` |
 | Spec reviewer | per implementer commit (§ Dispatch per item 3) | `agents/dev-spec-reviewer.md`; `companions/spec-reviewer-prompt.md` |

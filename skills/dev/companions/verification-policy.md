@@ -9,9 +9,9 @@ knobs the runner has and when to apply them.
 ## Effort mechanics
 
 Model and effort route per seat: each definition's frontmatter carries
-`model:` and, where the seat pins one, `effort:`
-(`low`/`medium`/`high`/`xhigh`/`max`; `agents/code-reviewer.md` pins
-`medium`), the roster being `run.md § Seats`. A dispatch overrides
+`model:` where the seat pins a model and `effort:` where it pins an
+effort (`low`/`medium`/`high`/`xhigh`/`max`; `agents/code-reviewer.md`
+pins `medium`), the roster being `run.md § Seats`. A dispatch overrides
 `model` only, which is why the implementer's tier is the dispatch's
 (§ Models) and its definition's value the default; a key a definition
 omits inherits the session's - `effortLevel` the default rather than
