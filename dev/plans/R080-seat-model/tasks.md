@@ -165,3 +165,10 @@ the way through. Also from that probe: a `PreToolUse` deny is
 all-or-nothing per call, so a guard that trips on one edit-class
 fragment stops every command chained with it - a second and harder
 reason for the compound-command rule at `run.md § Dispatch per item`.
+From the R080-T010 run: a `tools:` name this client's registry does not
+provide is dropped silently, with no error - a dispatched seat
+declaring `Read, Glob, Grep, Bash` held `Read, Bash`, and one asked to
+call them reported that neither tool exists - so no definition declares
+`Glob` or `Grep`, at the cost of those seats searching through `Bash`
+alone; re-add both to the sets R080-T010 names on a client that
+provides them.

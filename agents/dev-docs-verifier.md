@@ -2,7 +2,7 @@
 name: dev-docs-verifier
 description: "Seat of `/dev run`, dispatched by the runner only: checks claims against ground truth, over every doc the writer touched."
 model: fable
-tools: Read, Write, Glob, Grep, Bash, WebFetch, WebSearch
+tools: Read, Write, Bash, WebFetch, WebSearch
 ---
 
 **Purpose:** check the claims of the doc your dispatch names against

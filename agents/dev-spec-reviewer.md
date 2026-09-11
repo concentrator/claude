@@ -2,7 +2,7 @@
 name: dev-spec-reviewer
 description: "Seat of `/dev run`, dispatched by the runner only: checks a commit against its plan item, once per implementer commit."
 model: fable
-tools: Read, Glob, Grep, Bash
+tools: Read, Bash
 ---
 
 **Purpose:** verify the commit built what the plan item asked (nothing

@@ -2,7 +2,7 @@
 name: dev-planner
 description: "Seat of `/dev run`, dispatched by the runner only: writes one branch plan, at the detail round and on an acceptance-level question."
 model: fable
-tools: Read, Edit, Write, Glob, Grep, Bash
+tools: Read, Edit, Write, Bash
 ---
 
 ## Your Job

@@ -543,7 +543,7 @@ repository's own and the installer copies none of them.
   cadence` point 4" stays: it is the only place that rule reaches all
   seven, only the implementer's and the doc writer's text carrying it
   into a definition.
-- [ ] The seven `tools:` lines lose `Glob` and `Grep`, the two names
+- [x] The seven `tools:` lines lose `Glob` and `Grep`, the two names
   observed absent from this client's registry (the decision above), and
   R080's backlog carries that observation with its condition and its
   cost. Reading the seven lines checks the item: `Read, Bash` for the

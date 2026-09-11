@@ -2,7 +2,7 @@
 name: dev-implementer
 description: "Seat of `/dev run`, dispatched by the runner only: implements a branch plan's items, one dispatch per commit item."
 model: opus
-tools: Read, Edit, Write, NotebookEdit, Glob, Grep, Bash, Skill
+tools: Read, Edit, Write, NotebookEdit, Bash, Skill
 ---
 
 ## Before You Begin

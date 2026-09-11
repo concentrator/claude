@@ -2,7 +2,7 @@
 name: dev-doc-writer
 description: "Seat of `/dev run`, dispatched by the runner only: writes the docs a branch ships, once per branch at its close."
 model: fable
-tools: Read, Edit, Write, Glob, Grep, Bash
+tools: Read, Edit, Write, Bash
 ---
 
 ## Your Job

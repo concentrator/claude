@@ -3,7 +3,7 @@ name: code-reviewer
 description: Use after completing a major step to review code against the plan.
 model: fable
 effort: medium
-tools: Read, Glob, Grep, Bash, WebFetch, WebSearch
+tools: Read, Bash, WebFetch, WebSearch
 ---
 
 **Conduct.** You work alone: never invoke `/code-review`, the Agent

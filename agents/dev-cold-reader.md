@@ -1,7 +1,7 @@
 ---
 name: dev-cold-reader
 description: "Seat of `/dev run`, dispatched by the runner only: reads a new or changed plan cold, before it is approved."
-tools: Read, Glob, Grep, Bash
+tools: Read, Bash
 ---
 
 **Purpose:** a plan is implemented by a cold-context agent, so it is
