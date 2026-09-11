@@ -243,3 +243,26 @@ mention being a permission-dialog label in
 `companions/supervisor-runbook.md` - name the real mechanism or drop
 the clause. `git-workflow.md § Enforcement` says `main` requires an
 up-to-date branch where the host reports `strict: false`.
+
+Archival, promotion target (`plan.md § Archival`): this initiative
+bought a set of facts about the host that no file in the tree states,
+each with a probe behind it - a `tools:` name the client's registry
+does not provide is dropped silently; hooks fire for a dispatched
+seat's call as for the session's, while `hooks/dev-branch-guard.sh`
+judges a `Bash` call as a git mutation alone; `auto` suspends Bash
+allow rules and routes every command to a classifier, leaving deny
+rules, non-Bash allows and the mode assertion as the only deterministic
+enforcement; hook registration is read at session start where an edit
+to a registered script is live at once; `~/.claude.json`'s
+`hasTrustDialogAccepted` makes a project tier's allow entries inert;
+and CI runs the branch's own tree, so a gate sourcing a file from
+`hooks/` cannot police it. They sit in this backlog and in plan prose,
+which `§ Archival` moves under `archive/` at the R's close, so the
+facts outlive their home. Promote them to
+`docs/references/claude-code-host.md`, an adapted reference
+(`companions/documentation.md § Diataxis typing`), with the probe runs
+behind the observable ones under `docs/reports/`; every claim carries
+the version it was verified against. The declared docs home does not
+exist yet - `CLAUDE.md § Layout` says `Docs: docs/` and the tree has
+none, `layout.md § Creation policy` making it lazy - so this promotion
+creates it.
