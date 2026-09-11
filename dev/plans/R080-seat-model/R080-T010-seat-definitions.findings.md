@@ -85,30 +85,34 @@ UNPROVEN. Its comprehension pass found these on sentences no commit on
 this branch touched; the three on branch-authored sentences were fixed
 before the close.
 
-- [ ] **The installer's working directory.** "from a checkout of this
+- [x] **The installer's working directory.** "from a checkout of this
   repo" hides that `install-dev.sh` resolves its source from the
   current directory (`install-dev.sh:19`, `git rev-parse
   --show-toplevel`): run by absolute path from inside another repo, it
-  copies from that repo.
-- [ ] **`jq` is an unstated prerequisite.** The installer exits without
+  copies from that repo. Promoted to R080's backlog with the next
+  three, as one installer-docs line.
+- [x] **`jq` is an unstated prerequisite.** The installer exits without
   it (`install-dev.sh:20`) and the hooks depend on it; neither
-  `§ Setup` nor `§ Installing` names it.
-- [ ] **"Re-run it to refresh" collides with the dirty-tree guard.** A
+  `§ Setup` nor `§ Installing` names it. Promoted, as above.
+- [x] **"Re-run it to refresh" collides with the dirty-tree guard.** A
   project install dirties the tracked `.gitignore`, so the next re-run
   is refused until that is committed or `--force` is passed. The doc
-  states both facts three paragraphs apart.
-- [ ] **The seeded hygiene section's file is unnamed.** It lands in
+  states both facts three paragraphs apart. Promoted, as above.
+- [x] **The seeded hygiene section's file is unnamed.** It lands in
   `<path>/.claude/MAINTENANCE.md`, not a project-root `MAINTENANCE.md`,
-  which the installer leaves alone.
-- [ ] **`§ Self-hosting` reads as if only `Layout:` is declared.** It
+  which the installer leaves alone. Promoted, as above.
+- [x] **`§ Self-hosting` reads as if only `Layout:` is declared.** It
   says `CLAUDE.md § Layout` keeps `Docs:`, `Plans:` and `Session:` at
   their defaults; that block declares all four, three with
-  default-equal values.
-- [ ] **The DEV chain differs from `CLAUDE.md`'s.** README gives
+  default-equal values. Won't fix: the three values are the defaults,
+  so the sentence is true.
+- [x] **The DEV chain differs from `CLAUDE.md`'s.** README gives
   "initiatives (requirements) → tasks → branch plans → commits" right
   after saying `CLAUDE.md` defines the modes, where the chain is
   "requirements → design → initiatives → tasks → branch plans →
-  commits".
-- [ ] **Assumed vocabulary.** Hook event names, "seat", "supervisor",
+  commits". Won't fix: the README summarises and cites `CLAUDE.md` as
+  the definition.
+- [x] **Assumed vocabulary.** Hook event names, "seat", "supervisor",
   "batch" and "trunk" appear in `§ Contents` before `§ Workflow`
-  explains any of them.
+  explains any of them. Won't fix: `§ Contents` maps paths, and
+  `§ Workflow` two sections on defines the terms.

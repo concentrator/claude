@@ -67,7 +67,7 @@ pilot last.
   declaration and `LAYOUT.md`; the installer leaves both untouched.
   Depends on R080-T004.
 
-- [ ] **R080-T010 [mnt]**: seat agent definitions - one file per seat
+- [x] **R080-T010 [mnt]**: seat agent definitions - one file per seat
   under `agents/` with its tools, model, effort, conduct and duties;
   the prompt companions reduced to the per-dispatch template; `run.md
   § Seats` naming every seat once and citing both homes; the models
@@ -185,4 +185,24 @@ From the R080-T010 run: `R080-T007-perm-preflight.md` predates the seat
 model - its `depends-on` names R080-T004 alone where the task line names
 R080-T010 too, and its `run.md § Pre-flight` item rewrites that section
 without the correction the task line now hands it - so T007's detail
-round re-plans it rather than running it as written.
+round re-plans it rather than running it as written. From the
+R080-T010 run: `scripts/install-dev.sh` ships no `agents/`, so an
+installed project reads a `run.md § Seats` citing definitions it does
+not have. From the R080-T010 run: `write-plan.md` step 6's "A planner
+change made after the pass is recorded starts a count of its own"
+reads as unbounded where the same step's earlier rule is not - bound it
+to a change that alters an acceptance, an approach or wording change
+restarting no count. From the R080-T010 run:
+`companions/documentation.md § Verification gate` fixes comprehension
+findings like WRONG claims, while `run.md § Close` 3 halts on a second
+WRONG, so a second gate pass's comprehension findings either halt the
+run or send a third doc writer no rule provides, and a whole-doc pass
+never converges, each rewrite handing the next pass new sentences -
+bind comprehension findings to the sentences the branch wrote and keep
+them out of the halt count. From the R080-T010 docs gate: `README.md
+§ Installing` leaves four installer facts unstated - `install-dev.sh`
+resolves its source from the current directory, so a run by absolute
+path from inside another repo copies from that repo; it needs `jq`;
+a project install dirties the tracked `.gitignore`, so "re-run it to
+refresh" is refused until that is committed or `--force` is passed;
+and the hygiene section it seeds lands in `<path>/.claude/MAINTENANCE.md`.

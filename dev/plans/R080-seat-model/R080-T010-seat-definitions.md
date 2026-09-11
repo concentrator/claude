@@ -947,7 +947,7 @@ repository's own and the installer copies none of them.
   implementer's context sentence, the verifier's clause and "tests
   comprehensive" stand only in the lines above. Verify with
   `bash scripts/ci/run-all.sh`.
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, `LAYOUT.md`'s `agents/`
   block current (`branch-plan.md § Architecture-changing branches`,
   which folds layout upkeep into the final commit without the flag),
