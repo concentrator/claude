@@ -621,7 +621,7 @@ repository's own and the installer copies none of them.
   Anchor the last two edits on that text rather than on a line number:
   the Purpose replacement collapses five lines to two, shifting every
   number under it. Verify with `bash scripts/ci/run-all.sh`.
-- [ ] `skills/dev/companions/verification-policy.md § Comprehension
+- [x] `skills/dev/companions/verification-policy.md § Comprehension
   check` keeps only what is the dispatcher's, the reader's own conduct
   living in its definition. What to hand the reader, how a gap routes
   into a planner re-dispatch, and the `cold-read: passed` record stay;
