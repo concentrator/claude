@@ -650,32 +650,74 @@ repository's own and the installer copies none of them.
   "This catches `NEEDS_CONTEXT` halts" is unchanged. Verify with
   `bash scripts/ci/run-all.sh`.
 - [ ] R080-T007's entry in `dev/plans/R080-seat-model/tasks.md` claims
-  the `run.md § Pre-flight` correction this task hands it, so the
-  correction outlives this plan's archival. `§ Pre-flight`'s "No plan
-  in scope names a target under `.claude/`" reads a path where its own
-  cite reads a settings surface (`agents/dev-implementer.md`, carrying
-  the config rule the decisions above state), and the rewording is
-  R080-T007's, that section's permission text being its scope; the only
-  record of it today is the "What R080-T007 inherits" paragraph above,
-  which archives with this file. The claim goes in T007's task
-  sentence, not in a backlog line: a backlog line holds a discovery
-  with no owning open task, promoted or dropped at the R's next shape
-  round (`skills/dev/plan.md § Referential integrity`), and this one
-  has an open task whose planner writes its plan from that sentence.
-  `skills/dev/run.md` is untouched here and carries no marker for the
-  pending fix (`rules/writing-artifacts.md § State the present`).
+  everything this task hands that one, and R080's backlog records that
+  T007's existing plan predates the hand-over, so neither reaches
+  T007's detail round through this file alone, which archives at the
+  close. Three things pass over, each stated today in the "What
+  R080-T007 inherits" paragraph above and nowhere else. `§ Pre-flight`'s
+  "No plan in scope names a target under `.claude/`" reads a path where
+  its own cite reads a settings surface (`agents/dev-implementer.md`,
+  carrying the config rule the decisions above state), and that
+  section's permission text is T007's. The deny floor gains `git
+  checkout`, `switch`, `reset`, `restore` and `stash`: a deny survives
+  `auto` (`companions/supervisor-runbook.md § Modes by seat`) and binds
+  a subagent, which is the only thing that holds a seat off HEAD. And
+  T007's per-seat `Bash` allow derivation need not run - each
+  definition's tool set is the scope boundary, and the run's one
+  permission mode, `auto`, suspends Bash allow rules (same section) -
+  which leaves the entry's "mode plus allow rules" standing for every
+  rule that is not a `Bash` prefix. The entry's "derived from the
+  toolchain declaration and the seat prompts" is reworded with them,
+  and the acceptance says why so it is not read as drift: this branch
+  moved standing conduct into `agents/` and left the dispatch in
+  `skills/dev/companions/`, so "the seat prompts" no longer names where
+  a seat's commands are read from. The three claims go in the task
+  sentence rather than a backlog line - a backlog line holds a
+  discovery with no owning open task, promoted or dropped at the R's
+  next shape round (`skills/dev/plan.md § Referential integrity`),
+  while these have an open task whose planner writes its plan from that
+  sentence - and the stale plan file goes the other way, being that
+  planner's to rewrite at its detail round rather than work the task
+  claims. It rides this item because it is the same hand-over: a
+  planner reading the existing plan first never reaches the task
+  sentence. `skills/dev/run.md` is untouched here and carries no marker
+  for the pending fix (`rules/writing-artifacts.md § State the
+  present`).
   Approach: in `dev/plans/R080-seat-model/tasks.md`, the R080-T007
-  entry (lines 77-84) ends "the runbook's prompt-clearing rows and
-  failure modes re-read against it. Depends on R080-T004 and
-  R080-T010."; the new clause joins that semicolon list before the
-  period, so the entry ends: "... the runbook's prompt-clearing rows
-  and failure modes re-read against it; `run.md § Pre-flight`'s "No
+  entry (lines 77-84) opens "deterministic permission pre-flight - a
+  declared permission set per seat (mode plus allow rules) derived from
+  the toolchain declaration and the seat prompts;" and ends "the
+  runbook's prompt-clearing rows and failure modes re-read against it.
+  Depends on R080-T004 and R080-T010." Two edits, the entry rewrapped
+  after them and still one semicolon list closed by that `Depends on`
+  sentence. "derived from the toolchain declaration and the seat
+  prompts" reads "derived from the toolchain declaration, each seat's
+  definition under `agents/` and its dispatch companion under
+  `skills/dev/companions/`". Three clauses then join the list before
+  the period of "re-read against it": "; `run.md § Pre-flight`'s "No
   plan in scope names a target under `.claude/`" reworded to name the
   settings surface, which is what that sentence's own cite
-  (`agents/dev-implementer.md`) withholds from a seat, every other
-  path under the config directory being tracked source. Depends on
-  R080-T004 and R080-T010." Rewrap the entry; no other entry and no
-  backlog paragraph moves. `tasks.md` is under no line or column cap
+  (`agents/dev-implementer.md`) withholds from a seat, every other path
+  under the config directory being tracked source; the deny floor
+  extended with `git checkout`, `switch`, `reset`, `restore` and
+  `stash`, the only bar that holds a seat off HEAD, a deny surviving
+  `auto` and binding a subagent; no per-seat `Bash` allow derivation,
+  each definition's tool set being the scope boundary and `auto`
+  suspending Bash allow rules (`companions/supervisor-runbook.md
+  § Modes by seat`)". Then append to the loop-simplification backlog
+  paragraph, after its closing sentence (the R080-T010 tools
+  observation, ending "on a client that provides them."): "From the
+  R080-T010 close review: `R080-T007-perm-preflight.md` predates the
+  seat model - its `depends-on` names R080-T004 alone where the task
+  line names R080-T010 too, and its `run.md § Pre-flight` item rewrites
+  that section without the correction the task line now hands it - so
+  T007's detail round re-plans it rather than running it as written."
+  The `supervised: approved` line that file also carries is not
+  repeated there: the backlog paragraph above already names it for
+  T004 to T008 (`rules/writing-artifacts.md § One home per finding`).
+  Item 10 below edits a sentence in the middle of the same paragraph,
+  so the two touch different sentences of it. Nothing else in either
+  paragraph moves; `tasks.md` is under no line or column cap
   (`scripts/ci/check-caps.sh` matches `skills/dev/[^/]+\.md` only).
   Verify with `bash scripts/ci/run-all.sh`.
 - [ ] The R080 backlog line on the spec check's model cites where that
