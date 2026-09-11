@@ -49,39 +49,62 @@ declared set.
   `hooks/dev-branch-guard.sh` rather than a settings deny on the
   HEAD-moving verbs (`git checkout`, `switch`, `reset`, `restore`,
   `stash`): a deny binds every context in the session, so it stops the
-  flow's own HEAD moves - the halt revert at
-  `run.md § Question resolution`, `finish.md`'s discard and post-merge
-  entries into the default branch, the branch `run.md § Pre-flight` and
-  `release.md` step 5 create - while the guard reads a command's
+  flow's own HEAD moves - `finish.md`'s discard and post-merge
+  entries into the default branch, and the branch `run.md § Pre-flight`
+  and `release.md` step 5 create - while the guard reads a command's
   arguments and tells those apart, and it already fires on the `Bash`
   matcher of the tracked `settings.json` and of every project
   `scripts/install-dev.sh` writes, for a dispatched seat's call as for
   the session's (the R080-T010 probe, R080's backlog in `tasks.md`).
   The predicate, judged per command segment against the repo that
-  segment targets as the push scan's is, denies three shapes: a
+  segment targets as the push scan's is, denies four shapes: a
   `checkout` or `switch` entering that repo's default branch while its
   tracked tree is dirty; a `checkout -b|-B` or `switch -c|-C` whose new
-  branch is named as the default branch; and `git reset` in every
+  branch is named as the default branch; `git reset` in every
   spelling with `git stash` in the ones that write - `stash`, `push`,
-  `save`, `drop`, `clear`. It passes `checkout -b` and `switch -c` on
-  any other name, `stash list` and `stash show`, an entry into the
-  default branch from a clean tree, and the path-restore forms
-  `git checkout -- <paths>` and `git restore <paths>`. Both carve-outs
-  are stated where they land: `finish.md`'s two entries run on a clean
-  tree, and on the default branch the guard's own write and commit
-  branches already refuse every mutation, so an entry that loses
-  nothing is not the hazard; and the halt revert is the path-restore
-  form, which no hook can tell from a seat's, so that form stays open
-  and `git restore --staged` remains the route to unstaging that the
-  `reset` deny closes. The guard is a tripwire on the moves that lose
-  work, not a boundary - the character its own header comment claims
-  for the file. Its two reason lines carry the predicate and the rule:
+  `save`, `drop`, `clear`; and a whole-tree path restore, which is a
+  `checkout` or `restore` one of whose pathspecs names a whole tree -
+  `.`, `./`, `:/`, `:/.`, or a relative or absolute path resolving to
+  the repo's top level. That last shape is denied in every spelling
+  that carries such a pathspec, with or without a `--` separator and
+  with or without a tree-ish before it, so `git checkout -- .`,
+  `git checkout .`, `git restore .`, `git restore -- :/` and
+  `git checkout HEAD -- <repo root>` are all refused; `.` is refused
+  whatever directory the segment runs from, a subtree-wide discard
+  being the same hazard one level down and the segment's working
+  directory not always readable. It passes `checkout -b` and
+  `switch -c` on any other name, `stash list` and `stash show`, an
+  entry into the default branch from a clean tree, and a restore of
+  explicitly named paths - `git checkout -- <paths>` and
+  `git restore <paths>` - which is what a seat undoing one file uses,
+  naming it, with `git restore --staged <paths>` still the route to
+  unstaging that the `reset` deny closes. A command whose pathspecs
+  the guard cannot read passes, the file failing open here as it does
+  on an unreadable repo. The one carve-out is stated where it lands:
+  `finish.md`'s two entries run on a clean tree, and on the default
+  branch the guard's own write and commit branches already refuse
+  every mutation, so an entry that loses nothing is not the hazard.
+  The one flow site the whole-tree deny reaches is the halt revert at
+  `run.md § Question resolution`, and this branch re-forms it:
+  `run.md:127`'s `git checkout -- .` becomes
+  `git read-tree --reset -u HEAD`, whose verb is `read-tree` and so is
+  reached by no deny here, and which restores the index and the
+  tracked tree to HEAD, taking the seat's staged edits with its
+  unstaged ones as the halt intends; the removal of the untracked
+  files the seat created, stated beside it, is unchanged. The guard is
+  a tripwire on the moves that lose work, not a boundary - the
+  character its own header comment claims for the file. Its three
+  reason lines carry the predicate and the rule:
   `branch-guard: refusing '<cmd>' - it enters the default branch of
   '<repo>' with uncommitted work; commit or discard first, and a
-  dispatched seat stays on the item's branch (run.md § Seats).` and
+  dispatched seat stays on the item's branch (run.md § Seats).`,
   `branch-guard: refusing 'git <verb>' - reset and stash move HEAD or
   take work out of the tree; the run's git is the runner's, between
-  dispatches (run.md § Seats).` The guard is a host gate rather than a
+  dispatches (run.md § Seats).` and
+  `branch-guard: refusing '<cmd>' - it discards every uncommitted
+  change under '<pathspec>'; name the paths to restore, and leave the
+  whole-tree revert to the runner's halt (run.md § Question
+  resolution).` The guard is a host gate rather than a
   rule, as workspace trust below is, so its proof is its own test
   rather than a pre-flight check, and who
   applies it is R080-T011's to settle rather than this plan's
@@ -129,8 +152,9 @@ declared set.
   sectioned § What enforces what (the split, and the permission-mode /
   supervisor-mode terminology above), § Mode-independent set (a table:
   rule, class, the definition or toolchain line it traces to),
-  § HEAD moves (the guard's predicate and its two reason lines, why a
-  hook and not a deny, and the forms it passes),
+  § HEAD moves and whole-tree discards (the guard's predicate and its
+  three reason lines, why a hook and not a deny, the forms it passes,
+  and the halt revert's re-formed command),
   § Bash prefix set (the `Bash(<prefix>:*)` derivation, the prefix
   being the declared command up to its first placeholder; inert under
   `auto`), § Workspace trust, § Seat tool sets (what a tool set gates
@@ -172,10 +196,20 @@ declared set.
   or an unresolvable target, the file failing open throughout. The
   dirty-tree test is
   `git -C "$dir" status --porcelain --untracked-files=no`, non-empty
-  meaning dirty. The file is at 261 lines of `check-code-size.sh`'s
-  300-line cap, so the branch has room; a helper it factors out stays
-  inside the 50-line function cap. Its header comment gains one
-  sentence for the rule beside the write, commit and push ones. The
+  meaning dirty. The whole-tree restore reads the segment's pathspecs
+  in a helper beside it: skip the global options and the verb, drop a
+  tree-ish that a `--` separator marks off, and test each remaining
+  non-option argument against `.`, `./`, `:/`, `:/.` and, through
+  `resolve_target`'s repo path, the top level itself; a word carrying
+  a shell metacharacter or a variable is unreadable and passes. Only
+  `checkout` and `restore` reach the helper - `switch` takes no
+  pathspec - and a `checkout` naming a branch rather than a pathspec
+  is the entry check's, the two branches judging a command
+  independently. The file is at 261 lines of `check-code-size.sh`'s
+  300-line cap, so the branches and the helper have room; each
+  function stays inside the 50-line function cap. Its header comment
+  gains a sentence
+  for each of the two rules beside the write, commit and push ones. The
   cases go in a new `scripts/test/dev-head-guard.test.sh`,
   `scripts/test/dev-branch-guard.test.sh` standing at 285 of the same
   cap - the split `dev-push-guard.test.sh` already made, whose header,
@@ -184,12 +218,25 @@ declared set.
   one; `switch -c feat/x` allowed from the default branch;
   `checkout -b main` denied; `git reset --hard` and a bare `git reset`
   denied; `git stash` and `git stash drop` denied with `git stash list`
-  allowed; `git checkout -- .` allowed; an entry judged through
-  `git -C <path>` and through a leading `cd`; and an `echo` naming
+  allowed; `git checkout -- .`, `git checkout .`, `git restore .` and
+  `git restore -- :/` denied, with `git checkout -- docs/x.md` and
+  `git restore a b` allowed and `git restore --staged a` allowed; a
+  `.` denied from a subdirectory through a leading `cd`;
+  `git read-tree --reset -u HEAD`, the halt revert's own command,
+  allowed; an entry judged through `git -C <path>` and through a
+  leading `cd`; and an `echo` naming
   `git checkout main` allowed. `scripts/test/run-all.sh` picks the file
   up by its glob, and `scripts/install-dev.sh` already ships and
   registers the hook (`register_hook dev-branch-guard.sh`), so neither
   needs an edit.
+  `run.md`'s halt revert is one sentence at line 127, edited in place
+  rather than budgeted against the § Pre-flight lines the runner item
+  below frees: the paragraph at lines 123-144 wraps between 72 and 80
+  columns and closes on an 8-column line, so the ten characters
+  `git read-tree --reset -u HEAD` adds over `git checkout -- .` reflow
+  inside `check-caps.sh`'s 80-column limit with no line added and
+  `run.md` stays at 300. The runner item's edits are at lines 69-81
+  and 117-119, so the two do not touch the same lines.
 
 - [ ] `scripts/preflight-permissions.sh` resolves the declared set
   against the tiers and prints one report whose every line names the
