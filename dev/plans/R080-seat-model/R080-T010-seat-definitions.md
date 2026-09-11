@@ -2,7 +2,6 @@
 task: R080-T010
 type: mnt
 depends-on: R080-T006
-cold-read: passed
 ---
 
 # R080-T010: seat agent definitions
@@ -130,13 +129,22 @@ Decisions the items rest on, each homed in the item that writes it:
   `.claude/agents/*.md` frontmatter as where an agent type's tools,
   model and effort come from, and the agent-type listing prints each
   type's set - `code-reviewer`, which declares none, listed with all
-  tools. The names written are the harness's own: `Grep` and `Glob`
-  are subagent tools and are used, `TodoWrite` is not one and no seat
-  lists it, and a name the harness does not know is dropped silently,
-  so a wrong name costs a capability and never a parse error. What the
-  listing does not settle is whether a declared `tools:` key narrows
-  what a dispatch actually holds; the first definition written settles
-  that on its first dispatch, by being asked to list its own tools.
+  tools. A name the client does not provide is dropped silently, with
+  no parse error, so it costs a capability rather than failing loudly,
+  and declaring it widens nothing: a set stops at the names this client
+  provides. `Glob` and `Grep` are not among them. A dispatched seat
+  declaring `Read, Glob, Grep, Bash` held `Read, Bash`; a second, asked
+  to call them, reported that neither tool exists in its set; a third
+  held `Read, Bash, WebFetch, WebSearch` against a declaration carrying
+  both; and the user's own session has neither, in its registry or its
+  deferred one. The earlier reading that found them present asked a
+  seat to list its tools, which is a self-report of the seat's prompt
+  rather than a call, so it measured a different thing. Item 6 below
+  drops both names from the seven definitions and records what that
+  costs. Two things stay as they were: no definition lists `TodoWrite`,
+  and whether a declared `tools:` key narrows what a dispatch holds is
+  still open - the refusal proves only that a missing name drops, and
+  every other report is a self-report.
 - **A duty statement cites the table, never restates it** (`§ Desired
   state` 6). Each definition's duties line says that the seat's duties
   are the cells the duty table of `skills/dev/run.md § Seats` gives it
@@ -534,6 +542,79 @@ repository's own and the installer copies none of them.
   cadence` point 4" stays: it is the only place that rule reaches all
   seven, only the implementer's and the doc writer's text carrying it
   into a definition.
+- [ ] No definition declares a tool this client does not provide: the
+  seven `tools:` lines lose `Glob` and `Grep`, and R080's backlog
+  carries the observation behind the drop with its condition and its
+  cost. The sets are what items 1 to 3 above wrote, less those two
+  names and unchanged otherwise: `Read, Bash` for the cold reader and
+  the spec reviewer, `Read, Edit, Write, Bash` for the planner and the
+  doc writer, `Read, Edit, Write, NotebookEdit, Bash, Skill` for the
+  implementer, `Read, Write, Bash, WebFetch, WebSearch` for the docs
+  verifier, `Read, Bash, WebFetch, WebSearch` for the code reviewer.
+  The observation has one home, the R's backlog line rather than the
+  seven files it changes (`rules/writing-artifacts.md § One home per
+  finding`), and that line carries the cost with it: those seats now
+  search through `Bash`, the one tool a tool set cannot bound (the
+  decision above).
+  Approach: edit the `tools:` line of `agents/dev-planner.md`,
+  `agents/dev-implementer.md`, `agents/dev-spec-reviewer.md`,
+  `agents/dev-doc-writer.md`, `agents/dev-cold-reader.md`,
+  `agents/dev-docs-verifier.md` and `agents/code-reviewer.md`, the
+  order of the remaining names untouched. No body text is a casualty:
+  `git grep -n 'Glob\|Grep' -- skills rules agents scripts '*.md'`
+  returns, besides those seven lines, `agents/dev-implementer.md`'s
+  "Glob deletes are rejected by the sandbox" - a glob-pattern `rm`,
+  not the tool, so it stays - two uses of "grep" as a verb, and lines
+  matching on "Global". Then append to the R080-T010 paragraph that
+  closes `dev/plans/R080-seat-model/tasks.md`: "From the R080-T010
+  close: a `tools:` name this client's registry does not provide is
+  dropped silently, with no error - a dispatched seat declaring `Read,
+  Glob, Grep, Bash` held `Read, Bash`, and one asked to call them
+  reported that neither tool exists - so no definition declares `Glob`
+  or `Grep`, at the cost of those seats searching through `Bash`
+  alone; re-add both to the sets R080-T010 names on a client that
+  provides them." Verify with `bash scripts/ci/run-all.sh`.
+- [ ] `agents/dev-docs-verifier.md` cites the verification gate where
+  it restates it today, so the file's own claim to neither restate nor
+  narrow that section holds. The Purpose paragraph reduces to the
+  seat's job, citing `skills/dev/companions/documentation.md
+  § Verification gate` for what ground truth is rather than copying
+  that section's source list, and loses the sentence saying why the
+  seat reaches the web: it changes no behaviour, the web tools being
+  the frontmatter's whether or not it is written. The
+  author-independence line states the bar and cites the same section
+  for the rule instead of repeating its wording. Nothing else moves -
+  the probing paragraph, the config rule and the duties line stand as
+  item 2 wrote them.
+  Approach: lines 8-12 become "**Purpose:** check the claims of the
+  doc your dispatch names against ground truth, which
+  `skills/dev/companions/documentation.md § Verification gate`
+  defines."; `## Your Job`'s first sentence then reads "Run that
+  section as it is written.", the two sentences after it unchanged;
+  and the author line (22) reads "You verify no doc you authored: the
+  independence rule is that section's." Verify with
+  `bash scripts/ci/run-all.sh`.
+- [ ] `skills/dev/companions/verification-policy.md § Comprehension
+  check` keeps only what is the dispatcher's, so the cold reader's job
+  has one home. What to hand the reader, how a gap routes into a
+  planner re-dispatch, and the `cold-read: passed` record stay; the
+  cold-context rationale and the ask - the two questions - go, the
+  section citing `agents/dev-cold-reader.md` for them and for the rule
+  that a question the inputs cannot answer is a plan gap rather than a
+  reader fault. The definition itself is untouched: its body is item
+  2's above, and the dispatch site is what that item left standing.
+  Approach: the section's first two sentences (lines 146-154) become
+  "The dispatcher's read of the plan (`write-plan.md` step 6).
+  Dispatch the cold reader (`agents/dev-cold-reader.md`, the
+  `dev-cold-reader` type) with exactly the implementer's inputs - the
+  plan, the docs and the code (`companions/implementer-prompt.md`),
+  never the planning conversation; the two questions it answers and
+  the gap rule are its definition's." The routing sentence keeps its
+  text from "an acceptance gap re-runs the read once" through the
+  `cold-read: passed` record and its `branch-plan.md § Header` cite,
+  opening "A gap is a planner's to fix - "; the closing sentence from
+  "This catches `NEEDS_CONTEXT` halts" is unchanged. Verify with
+  `bash scripts/ci/run-all.sh`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, `LAYOUT.md`'s `agents/`
   block current (`branch-plan.md § Architecture-changing branches`,
