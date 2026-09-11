@@ -2,7 +2,6 @@
 task: R080-T007
 type: mnt
 depends-on: R080-T004, R080-T010, R080-T011
-cold-read: passed
 supervised: approved
 ---
 
@@ -127,11 +126,20 @@ declared set.
   `Bash(git merge:*)` traced to `run.md § Close` 5 and `finish.md` and
   `Bash(git tag:*)` to `run.md § Pre-flight`'s batch tag. The guard is
   a tripwire on the moves that lose work, not a boundary - the
-  character its own header comment claims for the file. Its three
-  reason lines carry the predicate and the rule:
+  character its own header comment claims for the file. Its four
+  reason lines carry the predicate and the rule, one per shape. The
+  second shape has a line of its own because the first line's
+  predicate is false for it: a `-b|-B` or `-c|-C` naming the default
+  branch is refused from a clean tree too, `-B` and `-C` re-pointing
+  an existing local trunk at HEAD and `-b` and `-c` putting the seat
+  on a name the guard's own write and commit branches then treat as
+  the trunk. The lines are
   `branch-guard: refusing '<cmd>' - it enters the default branch of
   '<repo>' with uncommitted work; commit or discard first, and a
   dispatched seat stays on the item's branch (run.md § Seats).`,
+  `branch-guard: refusing '<cmd>' - it creates a branch named as the
+  default branch of '<repo>'; a working branch is named
+  '<prefix>/<slug>' (git-workflow § Trunk).`,
   `branch-guard: refusing '<cmd>' - it discards work no 'git stash
   pop' and no reflog bring back; commit first, or take a spelling that
   keeps it: 'git reset' without '--hard', 'git stash push'
@@ -194,22 +202,36 @@ declared set.
   `Bash(git push:*)`, pattern 1 declares the pair
   `Bash(git push origin <default>:*)` and `Bash(git push --force:*)`
   with `<default>` the repo's own default branch name, and each entry
-  is satisfied only by that exact string in a tracked tier's `deny`.
-  The pattern is read from the tiers, never taken from a flag or from
-  this text: a tracked `deny` carrying the blanket entry is pattern 2,
-  one carrying both narrow entries is pattern 1, one carrying the
-  blanket entry among others is pattern 2 (deny beats allow, so the
-  blanket one governs), and one carrying neither is the missing-deny
-  gap. Extra deny entries beyond the pattern's are never a gap. This
-  repository is on pattern 1, its tracked `.claude/settings.json`
-  carrying the pair.
+  is satisfied only by that exact string in a tracked tier's `deny`,
+  the pair's two entries satisfied from two tracked tiers as readily
+  as from one, each report line naming its own. The pattern is read
+  from the tiers, never taken from a flag or from this text, and it is
+  read off the union of the `deny` sets of every tier the session
+  reads - user, project and local - because deny beats allow across
+  all tiers (`toolchain.md § Permission carve-out`) and the tiers can
+  disagree: a blanket entry in any of the three, tracked or not, makes
+  the session pattern 2, the report naming the tier that carries it,
+  so a user tier's `Bash(git push:*)` beside a project tier's narrow
+  pair is pattern 2 and under `Supervisor: AI` cannot-apply, the
+  project tier's pair notwithstanding; a union carrying both narrow
+  entries and no blanket one is pattern 1; and a union carrying
+  neither is the missing-deny gap. Reading the pattern and satisfying
+  its entries are two steps: a local-tier deny counts toward the read,
+  since it binds the session, and satisfies no declared entry, since a
+  fresh clone loses it (`.gitignore` keeps the local tier out of the
+  repository), so it is reported with its tier and a pair carried by
+  the local tier alone is pattern 1 with both entries missing. Extra
+  deny entries beyond the pattern's are never a gap. This repository
+  is on pattern 1, its tracked `.claude/settings.json` carrying the
+  pair and its user tier, the tracked `settings.json` at the checkout
+  root, carrying no `deny` key.
   Approach: new companion `skills/dev/companions/seat-permissions.md`,
   sectioned § What enforces what (the split, and the permission-mode /
   supervisor-mode terminology above), § Mode-independent set (a table:
   rule, class, and which of the four sources it traces to, named as
   the file and section),
   § HEAD moves and whole-tree discards (the guard's predicate and its
-  three reason lines, why a hook and not a deny, the forms it passes,
+  four reason lines, why a hook and not a deny, the forms it passes,
   and the halt revert's re-formed command),
   § Bash prefix set (the `Bash(<prefix>:*)` derivation, the prefix
   being the declared command up to its first placeholder; inert under
@@ -367,8 +389,8 @@ declared set.
   string match. A deny rule is the one class no coverage rule reaches:
   it is satisfied only by its exact string in a tracked tier's `deny`,
   and which deny strings are declared is the carve-out pattern the
-  first item states, read off those same tiers - so a tier on pattern
-  1 satisfies the declared set with its narrow pair and is never
+  first item states, read off the tiers as that item says - so a tier
+  on pattern 1 satisfies the declared set with its narrow pair and is never
   reported as missing the blanket rule, and a tier with neither
   pattern's set is the missing-deny gap. Cannot-apply, each exiting
   non-zero with nothing written: an untrusted workspace, a needed
