@@ -76,12 +76,25 @@ pilot last.
 
 - [ ] **R080-T007 [mnt]**: deterministic permission pre-flight - a
   declared permission set per seat (mode plus allow rules) derived
-  from the toolchain declaration and the seat prompts; a pre-flight
-  script that resolves the set against the tracked tiers, applies
-  every adjustment before the first dispatch and reports every gap in
-  one message, with its test; the runbook's prompt-clearing rows and
-  failure modes re-read against it. Depends on R080-T004 and
-  R080-T010.
+  from the toolchain declaration, each seat's definition under
+  `agents/` and its dispatch companion under `skills/dev/companions/`;
+  a pre-flight script that resolves the set against the tracked
+  tiers, applies every adjustment before the first dispatch and
+  reports every gap in one message, with its test; the runbook's
+  prompt-clearing rows and failure modes re-read against it;
+  `run.md § Pre-flight`'s "No plan in scope names a target under
+  `.claude/`" reworded to name the settings surface, which is what
+  that sentence's own cite (`agents/dev-implementer.md`) withholds
+  from a seat, every other path under the config directory being
+  tracked source; the deny floor extended with `git checkout`,
+  `switch`, `reset`, `restore` and `stash`, the only bar that holds a
+  seat off HEAD, a deny surviving `auto` and binding a subagent; under
+  `auto` no per-seat `Bash` allow derivation is needed, each
+  definition's tool set being the scope boundary and `auto` suspending
+  Bash allow rules, so whether one is needed under a supervisor mode
+  that does not suspend them is T007's to settle
+  (`companions/supervisor-runbook.md § Modes by seat`). Depends on
+  R080-T004 and R080-T010.
 
 - [ ] **R080-T005 [mnt]**: pilot task end to end under the seats -
   pre-flight, cold read, worker dispatch, doc-writer pass, supervised
@@ -171,4 +184,9 @@ declaring `Read, Glob, Grep, Bash` held `Read, Bash`, and one asked to
 call them reported that neither tool exists - so no definition declares
 `Glob` or `Grep`, at the cost of those seats searching through `Bash`
 alone; re-add both to the sets R080-T010 names on a client that
-provides them.
+provides them. From the R080-T010 run: `R080-T007-perm-preflight.md`
+predates the seat model - its `depends-on` names R080-T004 alone
+where the task line names R080-T010 too, and its `run.md § Pre-flight`
+item rewrites that section without the correction the task line now
+hands it - so T007's detail round re-plans it rather than running it
+as written.

@@ -650,7 +650,7 @@ repository's own and the installer copies none of them.
   opening "A gap is a planner's to fix - "; the closing sentence from
   "This catches `NEEDS_CONTEXT` halts" is unchanged. Verify with
   `bash scripts/ci/run-all.sh`.
-- [ ] R080-T007's entry in `dev/plans/R080-seat-model/tasks.md` claims
+- [x] R080-T007's entry in `dev/plans/R080-seat-model/tasks.md` claims
   everything this task hands that one, and R080's backlog records that
   T007's existing plan predates the hand-over, so neither reaches
   T007's detail round through this file alone, which archives at the
