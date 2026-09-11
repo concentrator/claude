@@ -2,6 +2,7 @@
 task: R080-T007
 type: mnt
 depends-on: R080-T004, R080-T010, R080-T011
+cold-read: passed
 supervised: approved
 ---
 
