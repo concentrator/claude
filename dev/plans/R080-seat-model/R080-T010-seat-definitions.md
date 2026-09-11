@@ -42,9 +42,15 @@ Decisions the items rest on, each homed in the item that writes it:
   not, and a bare `planner` or `implementer` in that list invites a
   VIBE session to pick one; the prefix says whose they are. The listing
   selects on `description:` as much as on name, so each of the six
-  descriptions carries the same guard: one line opening "Seat of `/dev
-  run`, dispatched by the runner only:" and closing with when the run
-  dispatches it (the roster's Dispatched cell, item 4, in brief).
+  descriptions carries the same guard: one line opening "Seat of `/dev`,
+  dispatched only by its flow:" and closing with when its flow
+  dispatches it (the roster's Dispatched cell, item 4, in brief). The
+  guard names `/dev` and no runner because not every seat is a run's:
+  `/dev plan` dispatches the planner (`plan.md § Adjusting existing
+  plans`), and the session dispatches the cold reader (`write-plan.md
+  § Steps`) and, outside a run, the docs verifier
+  (`companions/documentation.md § Verification gate`). Item 13 writes
+  the opening.
   `code-reviewer` keeps its name and file: five files under
   `skills/dev/`, `skills/dispatching-parallel-agents/SKILL.md`,
   `LAYOUT.md` and a test fixture
@@ -810,7 +816,11 @@ repository's own and the installer copies none of them.
   definition's pin names a `fable` dispatch any more, and names the two
   dispatches it gates; the selections stay the tier rule's and
   `run.md`'s, so the section gains no rule and `§ Desired state` 10's
-  two rules stand, and the fallback's substance is unchanged. R080's
+  two rules stand. Reading on the dispatch also reaches the tagged
+  implementer dispatch, whose definition pins `opus`, which "a seat
+  whose definition pins `fable`" never named; and the fallback's step
+  is stated without "row", the table whose rows it named being gone
+  with item 5. Its substance is otherwise unchanged. R080's
   backlog loses the sentence recording the spec check's move to Opus,
   the work it records landing here. These values supersede where
   earlier items state them - item 1's Model column, item 2's
@@ -825,13 +835,14 @@ repository's own and the installer copies none of them.
   definition pins `fable`, read the gate:" reads "Before a dispatch
   that sends `fable` - an implementer item tagged `(judgment-heavy)`,
   or the batch close's review, which `run.md § Batch close` 1 dispatches
-  on the most capable model - read the gate:", and its "a `fable` seat
-  to `opus`, an `opus` seat to `sonnet`." reads "a `fable` dispatch to
-  `opus`, an `opus` dispatch to `sonnet`."; the paragraph is rewrapped
-  and no other word of it or of the `**Implementer tier.**` paragraph
-  changes. The first quote wraps from line 173 to 174, so an `Edit`
-  anchors on a fragment within one line or retypes lines 172 to 181
-  whole; the second sits within line 181. In
+  on the most capable model - read the gate:", and its "falls back one
+  row - a `fable` seat to `opus`, an `opus` seat to `sonnet`." reads
+  "falls back to the next model down - a `fable` dispatch to `opus`, an
+  `opus` dispatch to `sonnet`."; the paragraph is rewrapped and no
+  other word of it or of the `**Implementer tier.**` paragraph changes.
+  The first quote wraps from line 173 to 174 and the second from 180 to
+  181, so an `Edit` anchors on a fragment within one line or retypes
+  lines 172 to 181 whole. In
   `dev/plans/R080-seat-model/tasks.md`, the loop-simplification
   paragraph's sentence "The per-commit spec check on Fable is the run's
   largest seat cost; no rule selects that seat's model per dispatch as
@@ -863,6 +874,77 @@ repository's own and the installer copies none of them.
   the values this item writes. The close item's `git grep -n -E
   'fable|opus|sonnet' -- skills rules` still returns only
   `verification-policy.md`'s two rules. Verify with
+  `bash scripts/ci/run-all.sh`.
+- [ ] The seat definitions, the roster and `§ Effort mechanics` state
+  only what the tree holds, in wording `writing.md` allows. The six
+  `dev-*` descriptions open "Seat of `/dev`, dispatched only by its
+  flow:" in place of "Seat of `/dev run`, dispatched by the runner
+  only:", which the tree contradicts for three seats (the naming
+  decision above), and the one guard stays identical across the six.
+  `run.md § Seats`' Planner row is dispatched "per plan change
+  (`plan.md § Adjusting existing plans`)", the section whose list
+  names every occasion - a commit added after the final, an
+  acceptance-level question, a cold-read gap, the user's rejection of
+  a change - where the cell named two; the planner's description
+  closes on the same occasion and keeps the plan's first write.
+  `companions/verification-policy.md § Effort mechanics` qualifies
+  `model:` as it qualifies `effort:`, `agents/dev-cold-reader.md`
+  pinning no model. `agents/dev-implementer.md` says `CLAUDE.md` is in
+  the seat's context and has it read `skills/dev/git-workflow.md`,
+  which `CLAUDE.md` names without importing, and its self-review asks
+  whether the tests cover the item's cases rather than whether they
+  are comprehensive (`writing.md § Write like a human`).
+  `agents/dev-docs-verifier.md` loses the clause repeating the sentence
+  before it (`writing.md § No repetition`). The config paragraph stays
+  verbatim in all seven definitions, as the config decision above
+  holds. This text supersedes item 4's Planner cell, item 5's
+  `§ Effort mechanics` wording for its `model:` clause and item 7's
+  "claim to neither restate nor narrow" for that clause only, so a
+  close review reading those items against the tree finds them
+  replaced by this item, not missing by failure. It is a checkbox of
+  its own rather than part of item 12: it touches no line item 12
+  edits, and its one acceptance is the definitions' claims against the
+  tree, where item 12's is the model a dispatch sends.
+  Approach: line 3 of `agents/dev-planner.md`,
+  `agents/dev-cold-reader.md`, `agents/dev-docs-verifier.md`,
+  `agents/dev-implementer.md`, `agents/dev-doc-writer.md` and
+  `agents/dev-spec-reviewer.md` replaces "Seat of `/dev run`,
+  dispatched by the runner only:" with "Seat of `/dev`, dispatched only
+  by its flow:", each closing clause unchanged but the planner's,
+  "writes one branch plan, at the detail round and on an
+  acceptance-level question.", which reads "writes a branch plan or one
+  change to it, one dispatch per plan change."; each value stays
+  double-quoted. `skills/dev/run.md` line 21's Dispatched cell "at the
+  detail round and on an acceptance-level question (§ Question
+  resolution)" reads "per plan change (`plan.md § Adjusting existing
+  plans`)", within the one row, so the file stays at the 300-line cap
+  (`scripts/ci/check-caps.sh`), a table row being exempt from the
+  column ceiling. `skills/dev/companions/verification-policy.md` line
+  12's "`model:` and, where the seat pins one, `effort:`" reads
+  "`model:` where the seat pins a model and `effort:` where it pins an
+  effort", the effort levels' parenthetical still following `effort:`
+  and the paragraph rewrapped. In `agents/dev-implementer.md`, lines
+  40 to 42's "CLAUDE.md and skills/dev/git-workflow.md are in your
+  context; follow skills/dev/git-workflow.md § Commit messages,
+  CLAUDE.md § Code Comments + § Audience visibility." reads "CLAUDE.md
+  is in your context and skills/dev/git-workflow.md is not: read it,
+  then follow its § Commit messages and CLAUDE.md § Code Comments +
+  § Audience visibility.", the paragraph rewrapped from there, and line
+  152's "- Are tests comprehensive?" reads "- Do the tests cover the
+  item's cases?". In `agents/dev-docs-verifier.md`, line 16's
+  "section's, and this definition neither restates nor narrows them."
+  reads "section's.", the paragraph rewrapped. Each quote that wraps a
+  line break is no literal anchor: an `Edit` anchors on a fragment
+  within one line or retypes the lines named. No other hit is a
+  casualty: `git grep -n 'dispatched by the runner only' --
+  ':!**/archive/**'
+  ':!dev/plans/R080-seat-model/R080-T010-seat-definitions.md'` returns
+  the six `description:` lines alone - no `README.md`, companion or
+  test quotes the opening, and this plan's naming decision states the
+  new one; the same pathspec on 'at the detail round and on' returns
+  only `run.md` line 21 and the planner's description; and the
+  implementer's context sentence, the verifier's clause and "tests
+  comprehensive" stand only in the lines above. Verify with
   `bash scripts/ci/run-all.sh`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, `LAYOUT.md`'s `agents/`
