@@ -154,10 +154,9 @@ sends what the second read still finds to the findings file; an
 approach gap is fixed once and re-runs no read, the approach being the
 implementer's to change in flight (`run.md § Seats`) - and the header
 then records `cold-read: passed` (`branch-plan.md § Header`). This
-catches `NEEDS_CONTEXT` halts before
-an implementer meets them, while the fix is cheap; nothing dispatches a
-plan without the record, and a plan chained on an unmerged task earns
-it at its start.
+catches `NEEDS_CONTEXT` halts before an implementer meets them, while
+the fix is cheap; nothing dispatches a plan without the record, and a
+plan chained on an unmerged task earns it at its start.
 
 ## Models
 
