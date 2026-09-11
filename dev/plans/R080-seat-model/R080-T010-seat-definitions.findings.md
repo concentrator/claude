@@ -77,3 +77,38 @@ which the user ruled the last on this plan.
   the three is a casualty of this item. Recorded because the seat
   model's aim is one home per fact, and a later task narrowing that
   will want the list.
+
+## Docs gate, comprehension findings on text the branch did not write
+
+The second docs-gate pass over `README.md` returned no WRONG and no
+UNPROVEN. Its comprehension pass found these on sentences no commit on
+this branch touched; the three on branch-authored sentences were fixed
+before the close.
+
+- [ ] **The installer's working directory.** "from a checkout of this
+  repo" hides that `install-dev.sh` resolves its source from the
+  current directory (`install-dev.sh:19`, `git rev-parse
+  --show-toplevel`): run by absolute path from inside another repo, it
+  copies from that repo.
+- [ ] **`jq` is an unstated prerequisite.** The installer exits without
+  it (`install-dev.sh:20`) and the hooks depend on it; neither
+  `§ Setup` nor `§ Installing` names it.
+- [ ] **"Re-run it to refresh" collides with the dirty-tree guard.** A
+  project install dirties the tracked `.gitignore`, so the next re-run
+  is refused until that is committed or `--force` is passed. The doc
+  states both facts three paragraphs apart.
+- [ ] **The seeded hygiene section's file is unnamed.** It lands in
+  `<path>/.claude/MAINTENANCE.md`, not a project-root `MAINTENANCE.md`,
+  which the installer leaves alone.
+- [ ] **`§ Self-hosting` reads as if only `Layout:` is declared.** It
+  says `CLAUDE.md § Layout` keeps `Docs:`, `Plans:` and `Session:` at
+  their defaults; that block declares all four, three with
+  default-equal values.
+- [ ] **The DEV chain differs from `CLAUDE.md`'s.** README gives
+  "initiatives (requirements) → tasks → branch plans → commits" right
+  after saying `CLAUDE.md` defines the modes, where the chain is
+  "requirements → design → initiatives → tasks → branch plans →
+  commits".
+- [ ] **Assumed vocabulary.** Hook event names, "seat", "supervisor",
+  "batch" and "trunk" appear in `§ Contents` before `§ Workflow`
+  explains any of them.
