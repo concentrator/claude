@@ -2,6 +2,7 @@
 task: R080-T011
 type: mnt
 depends-on: R080-T010
+cold-read: passed
 ---
 
 # R080-T011: who writes `hooks/`
