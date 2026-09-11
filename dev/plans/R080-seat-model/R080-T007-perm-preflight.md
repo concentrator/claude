@@ -391,14 +391,11 @@ declared set.
   § Pre-flight from its first bullet - the script's own re-run is what
   proves the apply landed and the remaining pre-flight checks have not
   run yet - while § Resolve's scope, supervisor and ledger stand and
-  are not redone. That the user runs `--apply` rather than the
-  pre-flight applying it is this plan's one deviation from
-  `requirements.md § Desired state` 8, and it is a deviation in actor
-  only: the adjustment still lands before the first dispatch, but
-  `.claude/settings.local.json` is on the settings surface no seat
-  writes (`agents/dev-implementer.md`, its config paragraph;
-  `run.md § Seats`, the asked-of row), so the runner proposes and the
-  user applies. Its test is
+  are not redone. That the **user** runs `--apply` is what
+  `requirements.md § Desired state` 8 asks: the printed line is the
+  command that closes the gap, and `.claude/settings.local.json` is on
+  the settings surface no seat clears (`agents/dev-implementer.md`, its
+  config paragraph; `run.md § Seats`, the asked-of row). Its test is
   `scripts/test/preflight-permissions.test.sh`.
   Approach: the script sits flat at `scripts/preflight-permissions.sh`,
   where every script outside `ci/` and `test/` sits, rather than in a
