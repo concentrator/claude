@@ -145,48 +145,48 @@ change (a ruling, a queued change, a blocker), never a dispatch: the
 ledger holds the dispatches and git the landed items, and the
 R080-T009 run wrote 87 blocks for 6 compactions under the current
 list (`handoff.md § Writing the note`, `run.md § Monitor`). The
-per-commit spec check on Fable is the run's largest seat cost; the
-models table is policy, so moving it to Opus is a plan item
-(`companions/verification-policy.md § Models`). From the R080-T009
-close: `scripts/install-dev.sh` still withholds
+per-commit spec check on Fable is the run's largest seat cost; no rule
+selects that seat's model per dispatch as the implementer tier does
+(`companions/verification-policy.md § Models`), so moving it to Opus
+means editing `agents/dev-spec-reviewer.md`, a plan item. From the
+R080-T009 close: `scripts/install-dev.sh` still withholds
 `check-plan-integrity.sh` and `check-archival.sh` as depending on this
 repository's layout, a reason the declaration read removed;
-`check-batch-tags.sh` fails a worktree whose `- Plans:` differs from
-the trunk's tree with a message naming the ref, not the mismatch;
-`scripts/test/install-dev.test.sh` sits one line under the 300-line
-cap; `.gitignore`'s comments cite the retired `supervise.md`; the
-installer's step-7 comment says "the target's `CLAUDE.md § Layout`"
-where the code reads the project's root `CLAUDE.md`. From the R080-T010
-planning act: a host instruction telling an agent to prefer `Bash` for
-file changes reaches every dispatched seat and contradicts both
+`check-batch-tags.sh` fails a worktree whose `- Plans:` differs from the
+trunk's tree with a message naming the ref, not the mismatch;
+`scripts/test/install-dev.test.sh` sits one line under the 300-line cap;
+`.gitignore`'s comments cite the retired `supervise.md`; the installer's
+step-7 comment says "the target's `CLAUDE.md § Layout`" where the code
+reads the project's root `CLAUDE.md`. From the R080-T010 planning act: a
+host instruction telling an agent to prefer `Bash` for file changes
+reaches every dispatched seat and contradicts both
 `rules/writing-artifacts.md § Bulk edits` and each prompt companion's
-"edit with Read/Edit/Write, never `sed`/`cat`/`awk`" - a planner
-rewrote plan prose with a script under it, and no rule says which
-instruction wins; a cite to a sentence that wraps names its first line
-in two companions and a line range in a third, one convention per
-citation rather than one for the file. A three-arm probe then proved
-where that instruction lands unguarded: the hook pair fires for a
-dispatched seat's `Bash` call as it does for the session's, but
-`hooks/dev-branch-guard.sh` judges a `Bash` call as a git mutation
-only - its write path cases on the `Write|Edit|NotebookEdit` matcher -
-so edit-class shell against a tracked file on a trunk runs untouched
-while the same edit through `Edit` is denied. The fix is a branch in
-the guard, or a third hook on the same `Bash` matcher, denying
-edit-class shell whose target is tracked, its reason line citing
+"edit with Read/Edit/Write, never `sed`/`cat`/`awk`" - a planner rewrote
+plan prose with a script under it, and no rule says which instruction
+wins; a cite to a sentence that wraps names its first line in two
+companions and a line range in a third, one convention per citation
+rather than one for the file. A three-arm probe then proved where that
+instruction lands unguarded: the hook pair fires for a dispatched seat's
+`Bash` call as it does for the session's, but
+`hooks/dev-branch-guard.sh` judges a `Bash` call as a git mutation only
+- its write path cases on the `Write|Edit|NotebookEdit` matcher - so
+edit-class shell against a tracked file on a trunk runs untouched while
+the same edit through `Edit` is denied. The fix is a branch in the
+guard, or a third hook on the same `Bash` matcher, denying edit-class
+shell whose target is tracked, its reason line citing
 `rules/writing-artifacts.md § Bulk edits` and naming `Edit`/`Write` as
 the way through. Also from that probe: a `PreToolUse` deny is
 all-or-nothing per call, so a guard that trips on one edit-class
 fragment stops every command chained with it - a second and harder
 reason for the compound-command rule at `run.md § Dispatch per item`.
 From the R080-T010 run: a `tools:` name this client's registry does not
-provide is dropped silently, with no error - a dispatched seat
-declaring `Read, Glob, Grep, Bash` held `Read, Bash`, and one asked to
-call them reported that neither tool exists - so no definition declares
-`Glob` or `Grep`, at the cost of those seats searching through `Bash`
-alone; re-add both to the sets R080-T010 names on a client that
-provides them. From the R080-T010 run: `R080-T007-perm-preflight.md`
-predates the seat model - its `depends-on` names R080-T004 alone
-where the task line names R080-T010 too, and its `run.md § Pre-flight`
-item rewrites that section without the correction the task line now
-hands it - so T007's detail round re-plans it rather than running it
-as written.
+provide is dropped silently, with no error - a dispatched seat declaring
+`Read, Glob, Grep, Bash` held `Read, Bash`, and one asked to call them
+reported that neither tool exists - so no definition declares `Glob` or
+`Grep`, at the cost of those seats searching through `Bash` alone;
+re-add both to the sets R080-T010 names on a client that provides them.
+From the R080-T010 run: `R080-T007-perm-preflight.md` predates the seat
+model - its `depends-on` names R080-T004 alone where the task line names
+R080-T010 too, and its `run.md § Pre-flight` item rewrites that section
+without the correction the task line now hands it - so T007's detail
+round re-plans it rather than running it as written.

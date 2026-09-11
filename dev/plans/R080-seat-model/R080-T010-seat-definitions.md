@@ -741,7 +741,7 @@ repository's own and the installer copies none of them.
   either paragraph moves; `tasks.md` is under no line or column cap
   (`scripts/ci/check-caps.sh` matches `skills/dev/[^/]+\.md` only).
   Verify with `bash scripts/ci/run-all.sh`.
-- [ ] The R080 backlog line on the spec check's model cites where that
+- [x] The R080 backlog line on the spec check's model cites where that
   model is declared and why changing it is a plan item, so the open
   work it records stays findable. Item 5 deleted the models table the
   line points at: `companions/verification-policy.md § Models` keeps
