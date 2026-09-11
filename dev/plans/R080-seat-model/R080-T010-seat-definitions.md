@@ -662,16 +662,23 @@ repository's own and the installer copies none of them.
   checkout`, `switch`, `reset`, `restore` and `stash`: a deny survives
   `auto` (`companions/supervisor-runbook.md § Modes by seat`) and binds
   a subagent, which is the only thing that holds a seat off HEAD. And
-  T007's per-seat `Bash` allow derivation need not run - each
-  definition's tool set is the scope boundary, and the run's one
-  permission mode, `auto`, suspends Bash allow rules (same section) -
-  which leaves the entry's "mode plus allow rules" standing for every
-  rule that is not a `Bash` prefix. The entry's "derived from the
-  toolchain declaration and the seat prompts" is reworded with them,
-  and the acceptance says why so it is not read as drift: this branch
-  moved standing conduct into `agents/` and left the dispatch in
-  `skills/dev/companions/`, so "the seat prompts" no longer names where
-  a seat's commands are read from. The three claims go in the task
+  under `auto` a per-seat `Bash` allow derivation decides nothing: each
+  definition's tool set is the scope boundary, and `auto` suspends Bash
+  allow rules while leaving deny rules and every non-`Bash` rule of the
+  entry's "mode plus allow rules" in force. That one is handed over as
+  the observation it is, not as a ruling on T007's scope. `auto` is the
+  runner's mode under `Supervisor: AI` alone; under `Supervisor: human`
+  the user session's mode governs and Bash allow rules bind (same
+  section), and T007's declared set carries the mode as well as the
+  rules (its task line), so both modes are its scope and whether a
+  derivation is needed under the second is its question to settle. The
+  entry's "derived from the toolchain declaration and the seat prompts"
+  is reworded on its own ground, which the acceptance states so the
+  change is not read as drift: the phrase names where a seat's commands
+  are read from, and this branch moved standing conduct into `agents/`
+  and left the dispatch in `skills/dev/companions/`. That holds in
+  either mode; the `Bash` question above is separate and conditional
+  and neither clause rests on the other. The three claims go in the task
   sentence rather than a backlog line - a backlog line holds a
   discovery with no owning open task, promoted or dropped at the R's
   next shape round (`skills/dev/plan.md § Referential integrity`),
@@ -693,54 +700,74 @@ repository's own and the installer copies none of them.
   sentence. "derived from the toolchain declaration and the seat
   prompts" reads "derived from the toolchain declaration, each seat's
   definition under `agents/` and its dispatch companion under
-  `skills/dev/companions/`". Three clauses then join the list before
-  the period of "re-read against it": "; `run.md § Pre-flight`'s "No
-  plan in scope names a target under `.claude/`" reworded to name the
-  settings surface, which is what that sentence's own cite
-  (`agents/dev-implementer.md`) withholds from a seat, every other path
-  under the config directory being tracked source; the deny floor
-  extended with `git checkout`, `switch`, `reset`, `restore` and
-  `stash`, the only bar that holds a seat off HEAD, a deny surviving
-  `auto` and binding a subagent; no per-seat `Bash` allow derivation,
-  each definition's tool set being the scope boundary and `auto`
-  suspending Bash allow rules (`companions/supervisor-runbook.md
-  § Modes by seat`)". Then append to the loop-simplification backlog
-  paragraph, after its closing sentence (the R080-T010 tools
-  observation, ending "on a client that provides them."): "From the
-  R080-T010 close review: `R080-T007-perm-preflight.md` predates the
-  seat model - its `depends-on` names R080-T004 alone where the task
-  line names R080-T010 too, and its `run.md § Pre-flight` item rewrites
-  that section without the correction the task line now hands it - so
-  T007's detail round re-plans it rather than running it as written."
-  The `supervised: approved` line that file also carries is not
-  repeated there: the backlog paragraph above already names it for
-  T004 to T008 (`rules/writing-artifacts.md § One home per finding`).
-  Item 10 below edits a sentence in the middle of the same paragraph,
-  so the two touch different sentences of it. Nothing else in either
-  paragraph moves; `tasks.md` is under no line or column cap
+  `skills/dev/companions/`". Three clauses then join the list in this
+  order before the period of "re-read against it", each written into
+  the entry as it stands below, joined by "; ", carrying no period of
+  its own and no quotation mark except the two the first clause quotes
+  around the `§ Pre-flight` sentence, which reach `tasks.md` as typed.
+  First: `run.md § Pre-flight`'s "No plan in scope names a target under
+  `.claude/`" reworded to name the settings surface, which is what that
+  sentence's own cite (`agents/dev-implementer.md`) withholds from a
+  seat, every other path under the config directory being tracked
+  source. Second: the deny floor extended with `git checkout`,
+  `switch`, `reset`, `restore` and `stash`, the only bar that holds a
+  seat off HEAD, a deny surviving `auto` and binding a subagent. Third:
+  under `auto` no per-seat `Bash` allow derivation is needed, each
+  definition's tool set being the scope boundary and `auto` suspending
+  Bash allow rules, so whether one is needed under a supervisor mode
+  that does not suspend them is T007's to settle
+  (`companions/supervisor-runbook.md § Modes by seat`).
+  Then append to the loop-simplification backlog paragraph, after its
+  closing sentence (the R080-T010 tools observation, ending "on a
+  client that provides them."): "From the R080-T010 run:
+  `R080-T007-perm-preflight.md` predates the seat model - its
+  `depends-on` names R080-T004 alone where the task line names
+  R080-T010 too, and its `run.md § Pre-flight` item rewrites that
+  section without the correction the task line now hands it - so T007's
+  detail round re-plans it rather than running it as written." The
+  opener is "run" rather than "close review" for item 6's reason: this
+  item lands before the close, and the paragraph's neighbouring lines
+  attribute an observation to the act that produced it. The
+  `supervised: approved` line that file also carries is not repeated
+  there: the backlog paragraph above already names it for T004 to T008
+  (`rules/writing-artifacts.md § One home per finding`). Item 10 below
+  edits a sentence in the middle of the same paragraph, so the two
+  touch different sentences of it. No multi-word `tasks.md` quote in
+  this item or item 10 is contiguous in the file - each wraps a line
+  break - so an `Edit` anchors on a fragment that sits within one line,
+  or retypes the whole entry or the whole sentence; either way the
+  entry and the paragraph are rewrapped after the edit. Nothing else in
+  either paragraph moves; `tasks.md` is under no line or column cap
   (`scripts/ci/check-caps.sh` matches `skills/dev/[^/]+\.md` only).
   Verify with `bash scripts/ci/run-all.sh`.
 - [ ] The R080 backlog line on the spec check's model cites where that
-  model is declared, so the open work it records stays findable. Item
-  5 deleted the models table the line points at:
-  `companions/verification-policy.md § Models` keeps the implementer
-  tier rule and the capacity fallback only, and the spec reviewer's
-  `fable` is its definition's frontmatter
-  (`agents/dev-spec-reviewer.md`). The work the line records is
-  unchanged - moving that seat to Opus is a plan item, not a
-  per-dispatch call - and so is its place in the loop-simplification
-  paragraph; only the cite and the reason behind it change.
-  Approach: in `dev/plans/R080-seat-model/tasks.md`, replace the
-  sentence spanning lines 134-137 (it opens with line 134's closing
-  "The") - "The per-commit spec check on Fable is the run's largest
-  seat cost; the models table is policy, so moving it to Opus is a
-  plan item (`companions/verification-policy.md § Models`)." - with
-  "The per-commit spec check on Fable is the run's largest seat cost;
-  that model is the seat definition's declared value
-  (`agents/dev-spec-reviewer.md`), so moving it to Opus is a plan item
-  rather than a per-dispatch override." Rewrap the sentences either
-  side of it as the paragraph requires; nothing else in the paragraph
-  changes. Verify with `bash scripts/ci/run-all.sh`.
+  model is declared and why changing it is a plan item, so the open
+  work it records stays findable. Item 5 deleted the models table the
+  line points at: `companions/verification-policy.md § Models` keeps
+  the implementer tier rule and the capacity fallback only, and the
+  spec reviewer's `fable` is its definition's frontmatter
+  (`agents/dev-spec-reviewer.md`). Frontmatter alone is not the reason
+  - a dispatch overrides `model` (`§ Effort mechanics`) - so the line
+  gives the one that holds: the implementer has a written per-dispatch
+  rule selecting its tier and the spec reviewer has none, so nothing
+  but an edit to that definition moves the seat. The work the line
+  records is unchanged, as is its place in the loop-simplification
+  paragraph; the cite and the reason are what change.
+  Approach: in `dev/plans/R080-seat-model/tasks.md`, replace this
+  sentence, unique in the file and wrapped across four lines within
+  the loop-simplification paragraph - "The per-commit spec check on
+  Fable is the run's largest seat cost; the models table is policy, so
+  moving it to Opus is a plan item
+  (`companions/verification-policy.md § Models`)." - with "The
+  per-commit spec check on Fable is the run's largest seat cost; no
+  rule selects that seat's model per dispatch as the implementer tier
+  does (`companions/verification-policy.md § Models`), so moving it to
+  Opus means editing `agents/dev-spec-reviewer.md`, a plan item." It
+  wraps a line break, so it is no literal `Edit` anchor: anchor on a
+  fragment within one line or retype the sentence. Rewrap from that
+  sentence to the end of the paragraph, item 9's appended sentence
+  included; no other sentence's words change and no other paragraph
+  moves. Verify with `bash scripts/ci/run-all.sh`.
 - [ ] The duty table's doc-writer row names the seat and nothing the
   roster already carries, so `run.md § Seats` states that seat's
   cadence once. The roster row (line 25) gives "once per branch
@@ -767,10 +794,18 @@ repository's own and the installer copies none of them.
   block current (`branch-plan.md § Architecture-changing branches`,
   which folds layout upkeep into the final commit without the flag),
   cleanup, mark plan complete, mark the task `[x]` in `tasks.md` and
-  add the installer gap there as a backlog line -
-  `scripts/install-dev.sh` ships no `agents/`, so an installed project
-  reads a `run.md § Seats` citing definitions it does not have - then
-  commit. `git grep -n 'general-purpose' -- skills/dev` then returns
+  add this branch's two unowned observations there as backlog lines -
+  the installer gap, `scripts/install-dev.sh` shipping no `agents/`, so
+  an installed project reads a `run.md § Seats` citing definitions it
+  does not have; and the unbounded restart clause in `write-plan.md`
+  step 6, a change after the record restarting the read count only
+  where it changes an acceptance - then commit. Both ride the close
+  because neither has an owning open task
+  (`skills/dev/plan.md § Referential integrity`) and this commit is
+  already the branch's one write of R080's backlog: giving either its
+  own checkbox would rewrap the same paragraph twice, and folding
+  either into item 9 or 10 would give that item a second acceptance.
+  `git grep -n 'general-purpose' -- skills/dev` then returns
   nothing, every dispatch naming its seat's type, and `git grep -n -E
   'fable|opus|sonnet' -- skills rules` returns only
   `companions/verification-policy.md`'s two remaining rules.
@@ -780,6 +815,15 @@ repository's own and the installer copies none of them.
   `dev-*.md` is one pattern line, "one per dispatched seat", as
   `check-*.sh` and `*.test.sh` are drawn (`skills/dev/layout.md
   § Layout file`); `check-stray.sh` matches first-level nodes only, so
-  the fast tier is green before and after. The close review reads every
-  quoted sentence above against the tree and runs the two greps; then
-  the marks and the commit.
+  the fast tier is green before and after. Both backlog lines go at the
+  end of the loop-simplification paragraph in
+  `dev/plans/R080-seat-model/tasks.md`, after the sentences items 9 and
+  10 leave there, the second reading: "From the R080-T010 run:
+  `write-plan.md` step 6's "A planner change made after the pass is
+  recorded starts a count of its own" reads as unbounded where the same
+  step's earlier rule is not - bound it to a change that alters an
+  acceptance, an approach or wording change restarting no count." Its
+  inner double quotes are literal and reach `tasks.md` as typed, and
+  the paragraph is rewrapped from the first appended sentence on. The
+  close review reads every quoted sentence above against the tree and
+  runs the two greps; then the marks and the commit.
