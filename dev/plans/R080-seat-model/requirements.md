@@ -120,16 +120,17 @@ input set, started for one item and shut down at its exit.
    never re-runs the read. No other seat edits acceptance text; the
    implementer marks checkboxes and keeps the approach, and the
    reviewer reads.
-8. **Permissions are declared, validated and applied before the run.**
+8. **Permissions are declared and settled before the run.**
    Each seat has a declared permission set: the tool set its
    definition carries (point 10) and the allow rules its commands
    need, derived from the toolchain declaration and the seat's prompt;
    the run has one permission mode, the runner's.
-   Pre-flight resolves the whole set against the tracked tiers,
-   applies every adjustment to the project's local settings before
-   the first dispatch, and reports
-   every gap in one message; anything it cannot apply stops the run
-   before it starts. The run raises no prompt the declared set did not
+   Pre-flight resolves the whole set against the tracked tiers before
+   the first dispatch and reports
+   every gap in one message, naming the command that closes it; the
+   settings surface being a host gate no seat clears, the user applies
+   what is missing, and a gap still open stops the run before it
+   starts. The run raises no prompt the declared set did not
    predict and tells no seat it is at the keyboard: a prompt that
    appears is a pre-flight defect, fixed in the declared set, never
    cleared by hand and moved past.
@@ -232,9 +233,10 @@ initiatives close.
       and every duty statement elsewhere cites it; verified by reading
       the table against § Desired state 6 and grepping the seat names
       across `skills/dev/` for an uncited duty.
-- [ ] The pilot's pre-flight applied every permission adjustment
-      before the first dispatch and the run raised no prompt outside
-      the declared set; verified by the pre-flight report and a pilot
+- [ ] The pilot's pre-flight reported every permission gap before the
+      first dispatch, the user applied what it named, and the run
+      raised no prompt outside the declared set; verified by the
+      pre-flight report, a re-run of it reporting none, and a pilot
       ledger with no prompt-cleared entry.
 
 ## Constraints
