@@ -178,11 +178,11 @@ model - read the gate:
 display name for Fable 5) exits 0 while the weekly window has headroom,
 1 at or over its ceiling, 2 when it cannot tell; dispatch `fable` on 0
 only, `opus` otherwise, a missing script included - a wrong `fable`
-stalls the review on a consent dialog, a wrong `opus` costs a weaker
-review. A dispatch that still fails on capacity below the ceiling falls
+stalls the dispatch on a consent dialog, a wrong `opus` costs a weaker
+result. A dispatch that still fails on capacity below the ceiling falls
 back to the next model down - a `fable` dispatch to `opus`, an `opus`
 dispatch to `sonnet`. Either way, record the substitution in the batch
-report or branch findings: pinned model, substitute, reason. It is a
+report or branch findings: dispatched model, substitute, reason. It is a
 documented degrade, not a decision to negotiate per batch, and not
 grounds to halt delivery.
 
