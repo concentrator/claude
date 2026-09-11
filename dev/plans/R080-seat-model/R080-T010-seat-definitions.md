@@ -2,6 +2,7 @@
 task: R080-T010
 type: mnt
 depends-on: R080-T006
+cold-read: passed
 ---
 
 # R080-T010: seat agent definitions
