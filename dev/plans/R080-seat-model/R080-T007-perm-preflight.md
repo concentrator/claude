@@ -1,7 +1,7 @@
 ---
 task: R080-T007
 type: mnt
-depends-on: R080-T004
+depends-on: R080-T004, R080-T010
 supervised: approved
 ---
 
@@ -31,30 +31,63 @@ approval, both of them runbook-recorded events rather than gaps in a
 declared set.
 
 - [ ] `companions/seat-permissions.md` declares the run's permission
-  set split by what enforces it, each rule traced to the seat prompt or
-  the `CLAUDE.md § Agent toolchain` line that needs it. The
-  mode-independent set gates under both supervisor modes, is applyable,
-  and a gap in it stops the run: the project tier's two deny rules; the
-  non-Bash allow rules, being the Edit-class rule over the checkout
-  root, the Read rules for paths outside it, and the WebFetch domains a
-  seat's dispatch names; the mode assertion; and never
-  `bypassPermissions`, never `dontAsk`. The mode assertion is narrow -
+  set split by what enforces it, each rule traced to the seat
+  definition, the dispatch companion or the `CLAUDE.md § Agent
+  toolchain` line that needs it. The mode-independent set gates under
+  both supervisor modes, is applyable, and a gap in it stops the run:
+  the deny floor below; the non-Bash allow rules, being the Edit-class
+  rule over the checkout root, the Read rules for paths outside it, the
+  `WebSearch` rule the definitions naming that tool need, and the
+  WebFetch domains a seat's dispatch names; the mode assertion; and
+  never `bypassPermissions`, never `dontAsk`. The mode assertion is narrow -
   `--permission-mode auto` on the runner's launch command, and each
   tier's mode key unchanged from its tracked value - and never asserts
   that `defaultMode` is absent: the user tier's
   `defaultMode: acceptEdits` is an approved standing decision
   (R056-T002, archived), and the concern is a mode key drifting after a
-  run has started. The Bash prefix set stays declared and traced but
+  run has started. The deny floor is the tracked tiers' push denies
+  plus five HEAD-moving verbs - `git checkout`, `switch`, `reset`,
+  `restore`, `stash` - the one bar that reaches a dispatched seat (the
+  R080-T007 task line in `tasks.md`): a deny survives `auto`, which
+  suspends Bash allow rules, and binds a subagent, which inherits the
+  runner's permission mode and the same tiers (`run.md § Seats`) and
+  which a tool set cannot hold off git, `Bash` being one tool. Its price
+  is stated where it lands: a deny binds every context in the session,
+  the runner included, so the flow's own HEAD moves take the forms the
+  floor leaves (the next item), and the floor stops the verbs a seat
+  reaches for rather than proving no route exists - a command's intent
+  is the guard hook's to judge (`hooks/dev-branch-guard.sh`). No seat
+  writes the floor in: it enters a tracked tier by the user's hand, the
+  settings surface being what `agents/dev-implementer.md` withholds
+  from a seat, and until it is there the pre-flight reports it missing
+  and the run stops. The same user edit drops what the floor kills in
+  the tracked `settings.json` - its `Bash(git checkout:*)`,
+  `Bash(git reset:*)`, `Bash(git restore:*)`, `Bash(git stash:*)` and
+  `Bash(git switch:*)` allows, dead once a deny covers them.
+  The Bash prefix set stays declared and traced but
   binds under `Supervisor: human` alone; under `Supervisor: AI` it is
-  reported inert and its absence never stops a run, so the 80 Bash
-  entries in a user tier are the human-supervised path, not what makes
-  an autonomous run promptless. Workspace trust is declared as a host
-  gate rather than a rule (the next item). A seat's tool set is its
-  agent definition's `tools:` key; the planner, implementer, spec
-  reviewer and doc writer are dispatched as `Task tool
-  (general-purpose)` and `agents/code-reviewer.md` carries no `tools:`
-  key, so every seat's tool set is all tools and the scope boundary is
-  the dispatch's input list plus the allow rules, never a tool list.
+  reported inert and its absence never stops a run, so a user tier's
+  Bash entries are the human-supervised path, not what makes an
+  autonomous run promptless. Workspace trust is declared as a host
+  gate rather than a rule (the script item below). A seat's tool set is
+  its definition's `tools:` key and every seat has one, the roster
+  being `run.md § Seats`, so the tool set is the per-seat scope
+  boundary - no seat holds a tool its definition omits - and the
+  declared set gates the tools the definitions do name: the Edit-class
+  rule reaches only the seats whose definitions carry an edit tool, the
+  cold reader and the spec reviewer holding `Read, Bash` alone, and the
+  non-Bash allow class covers `WebSearch` and the WebFetch domains for
+  the two seats holding those tools (`agents/code-reviewer.md`,
+  `agents/dev-docs-verifier.md`) plus `Skill(<name>)` where a dispatch
+  names a skill (`agents/dev-implementer.md`). No `Bash` allow rule is
+  derived per seat under either supervisor mode: an allow rule lives in
+  a settings tier the whole session reads and a definition carries
+  `tools:` and no permission key, so the Bash prefix set is one
+  run-wide set, suspended under `auto` and binding under
+  `Supervisor: human`. Every seat holds `Bash` and none holds `Glob` or
+  `Grep` - a `tools:` name this client's registry does not provide is
+  dropped silently (R080's backlog in `tasks.md`) - so the seats search
+  through `Bash` and the prefix set carries the search commands.
   Both push carve-out patterns stay and
   `companions/toolchain.md § Permission carve-out` makes them
   conditional on the supervisor mode rather than retiring one: pattern
@@ -67,12 +100,17 @@ declared set.
   Approach: new companion `skills/dev/companions/seat-permissions.md`,
   sectioned § What enforces what (the split, and the permission-mode /
   supervisor-mode terminology above), § Mode-independent set (a table:
-  rule, class, the prompt or toolchain line it traces to),
+  rule, class, the definition or toolchain line it traces to),
+  § Deny floor (the five verbs, why a deny is the bar that reaches a
+  seat, and the forms the flow uses instead - the next item's three),
   § Bash prefix set (the `Bash(<prefix>:*)` derivation, the prefix
   being the declared command up to its first placeholder; inert under
-  `auto`), § Workspace trust, § Seat tool sets, § Machine-readable
-  form. That form stays `companions/auto-permissions.template.json`
-  under its current name and shape, a settings object with
+  `auto`), § Workspace trust, § Seat tool sets (what a tool set gates
+  and what it leaves to the rules, each seat's own set cited to its
+  file under `agents/` rather than copied, a copy drifting from the
+  definition), § Machine-readable form. That form stays
+  `companions/auto-permissions.template.json` under its current name
+  and shape, a settings object with
   `permissions.allow` and `permissions.deny`:
   `scripts/worker-workspace.sh:143` reads it by absolute path,
   hard-fails if it is absent and consumes those two keys, and
@@ -82,8 +120,14 @@ declared set.
   beginning `Bash(` belongs to the Bash prefix set and every other
   entry to the mode-independent allow set. The template ships no
   `WebFetch(domain:...)` entry - the class exists with no default
-  member, a domain entering it when a seat's dispatch names one, and
-  no seat prompt in this repository names WebFetch today.
+  member and a domain enters it when a seat's dispatch names one -
+  while `WebSearch` ships, `agents/code-reviewer.md` and
+  `agents/dev-docs-verifier.md` holding that tool. Its `deny` gains the
+  five floor verbs; its `allow` drops `Bash(git switch:*)` and
+  `Bash(git restore:*)`, which the floor makes dead - deny beats allow
+  across tiers (`toolchain.md § Permission carve-out`) - and gains the
+  prefixes the surviving forms need: `Bash(git symbolic-ref:*)`,
+  `Bash(git read-tree:*)`, `Bash(git fetch:*)`.
   `toolchain.md § Permission carve-out`'s closing paragraph ("The
   pre-flight permission gate checks which pattern is in place and
   reports it; it never weakens a deny rule on its own") gains the
@@ -91,6 +135,47 @@ declared set.
   pattern 2's "Zero config; one prompt per batch by design" gains
   "under `Supervisor: human`; under `Supervisor: AI` nobody can answer
   that prompt, so the pre-flight reports it cannot apply".
+
+- [ ] The flow's own HEAD moves survive the deny floor, so the bar that
+  holds a seat off HEAD does not stop the run: every `git checkout`,
+  `switch`, `reset`, `restore` or `stash` the flow files name is
+  replaced by a form the floor leaves, each keeping the effect it has
+  today - a branch created at the current commit and entered, a working
+  tree returned to HEAD, a ref advanced without being entered. The
+  forms are stated once in
+  `companions/seat-permissions.md § Deny floor` and used, not
+  re-explained, at the sites: `run.md § Question resolution`'s halt
+  revert, `run.md § Pre-flight`'s branch creation, `finish.md`'s
+  discard path and its post-merge sync, and `release.md`'s release
+  branch.
+  Approach: the three forms first, in the companion - `git branch
+  <name>` then `git symbolic-ref HEAD refs/heads/<name>` to enter a
+  branch created at the current commit, sound because § Pre-flight has
+  already checked a clean tree on the default branch, so the new branch
+  is at HEAD and no file has to move; `git read-tree --reset -u HEAD`
+  to return the index and the tracked tree to HEAD; `git fetch origin
+  <ref>:<ref>` to advance a ref the session is not on. Then the sites.
+  `run.md` is at 300 of the 300-line cap `scripts/ci/check-caps.sh`
+  holds mode files to, so its two edits are in-place: line 127's
+  "`git checkout -- .`" becomes the read-tree form and the paragraph
+  (lines 123-144) is re-wrapped to absorb the 13 extra characters
+  without gaining a line; § Pre-flight's last bullet ("Batch scope:
+  tag ... create `batch/R<NNN>-B<NNN>` off default") names no command
+  today and gains none, the companion carrying the branch-creation
+  form. `finish.md` (88 lines) and `release.md` (47) have room: the
+  discard line's "Then checkout default, `git branch -D`" and § 4 step
+  1's "Sync the default branch (`git checkout <default>`, `git pull`)"
+  become the fetch form for the ref and the symbolic-ref pair for
+  entering it - the branch delete needs the session off the branch -
+  and `release.md` step 5's `git checkout -b release/vX.Y.Z` becomes
+  the branch-creation form. Keep every rewritten line inside 80
+  columns. These are the whole inventory:
+  `git grep -nE 'git (checkout|switch|reset|restore|stash)'` returns,
+  outside `dev/plans/` and the branch-guard test's command fixtures,
+  only these lines and the allow entries the first item handles, and
+  the discard line, which says "checkout default" in prose, is the one
+  site that grep misses. Prove each form once in a throwaway repo under
+  the scratch directory before the swap.
 
 - [ ] `scripts/preflight-permissions.sh` resolves the declared set
   against the tiers and prints one report whose every line names the
@@ -115,7 +200,8 @@ declared set.
   wildcard contains the declared path (so a tracked
   `Edit(//<root>/**)` satisfies a declared `Edit(//<root>/dev/plans/**)`
   rather than reporting a false gap), a WebFetch rule by an exact
-  domain match. Cannot-apply, each exiting non-zero with nothing
+  domain match, and a bare tool rule such as `WebSearch` by an exact
+  string match. Cannot-apply, each exiting non-zero with nothing
   written: an untrusted workspace, a needed allow rule a tracked tier
   denies, pattern 2 under `Supervisor: AI`, `bypassPermissions` or
   `dontAsk` in any tier, a missing `.claude/` directory, an unwritable
@@ -181,8 +267,14 @@ declared set.
   `run.md § Pre-flight`'s permission bullet becomes the script's
   invocation in report mode before the first dispatch, its report the
   pre-flight's, a gap stopping the run and printing the `--apply` line
-  for the **user** to run, since workspace trust and `.claude/` are
-  host gates no seat clears (`run.md § Seats`, the asked-of row).
+  for the **user** to run, since workspace trust and the settings
+  surface are host gates no seat clears (`run.md § Seats`, the asked-of
+  row). The same section's plan check names that surface instead of the
+  config directory: "No plan in scope names a target under `.claude/`"
+  reads as the settings files, `hooks/` and `~/.claude.json`
+  (`agents/dev-implementer.md`), which no seat writes, every other path
+  under the config directory being tracked source a plan may name -
+  this plan among them.
   `§ Dispatch per item`'s prompt paragraph carries the two classes the
   ledger needs (`§ Ledger`): a pre-flight defect, which is a gap in the
   mode-independent set, halts the item, is fixed in
@@ -200,23 +292,28 @@ declared set.
   `Supervisor: AI` escalates to the user rather than being keyed past,
   and `Keystroke authority` keeps its two rules that have nothing to do
   with permission prompts.
-  Approach: `run.md` is at 299 of the 300-line, 80-column cap
+  Approach: `run.md` stands at 300 of the 300-line, 80-column cap
   `scripts/ci/check-caps.sh` holds mode files to, so the edit is
-  budgeted: § Pre-flight's first bullet goes from 10 lines to 7,
-  naming `.claude/scripts/preflight-permissions.sh --project .
-  --supervisor <declared> --runner-mode <the runner's launch mode>`,
-  the tier-naming report, the `--apply` line for the user, the two host
-  gates and the surviving "No `## Agent toolchain` section → halt,
+  net-zero and budgeted: § Pre-flight's first bullet (lines 69-77) goes
+  from 9 lines to 4, naming `.claude/scripts/preflight-permissions.sh
+  --project . --supervisor <declared> --runner-mode <the runner's
+  launch mode>`, the tier-naming report, the `--apply` line for the
+  user and the surviving "No `## Agent toolchain` section → halt,
   ask"; the placeholder-substitution clause and the VCS-host-CLI clause
   go with the bullet, the first to the script and the second to
   `companions/toolchain.md § Push + MR/PR`, which already carries the
-  absent-host fallback. § Dispatch per item's closing paragraph (lines
-  114-116) goes from 3 lines to 7 with the two classes and the
-  mode-conditional shaping rule, landing the file at 300; the wrap may
-  be re-cut so long as `check-caps.sh` passes. § Seats' prompt row
-  reads "nobody: a pre-flight defect halts, a classifier event retries
-  once then reaches the user (§ Dispatch per item)" on its one line,
-  table rows being exempt from the column limit. In the runbook, a
+  absent-host fallback. Of the five lines that frees, the
+  settings-surface bullet (lines 78-81) takes one and § Dispatch per
+  item's closing paragraph (lines 117-119) the other four, going from 3
+  lines to 7 with the two classes and the mode-conditional shaping
+  rule; the file lands back at 300 and the wrap may be re-cut across
+  the three passages so long as `check-caps.sh` passes. The duty
+  table's prompt row (`| Clearing a permission prompt | nobody: a
+  prompt is a pre-flight defect | the same |`) reads "nobody: a
+  pre-flight defect halts the item, a classifier event retries once
+  then reaches the user (§ Dispatch per item)" in its
+  `Supervisor: human` cell and keeps `the same` in the other, table
+  rows being exempt from the column limit. In the runbook, a
   companion and so exempt from both caps: § Modes by seat's
   auto-mode paragraph gains the `companions/seat-permissions.md` cite
   and the sentence that the mode-independent set, not the suspended
@@ -254,11 +351,11 @@ declared set.
   `check-code-size.sh`'s 300-line cap, so it gains exactly one line
   beside the copy assertions at lines 35-41, asserting the script is
   executable and its self-test present in one condition, and lands at
-  300. `LAYOUT.md` gains
-  "│   ├── preflight-permissions.sh  # the /dev run permission
-  pre-flight" between `model-quota.sh` and `provision-worker.sh`, the
-  `#` on the column its siblings use, which the 24-character name
-  reaches with two spaces; the test needs no line, the
+  300. `LAYOUT.md` gains a `preflight-permissions.sh` node commented
+  "the /dev run permission pre-flight" between `model-quota.sh` and
+  `provision-worker.sh`, the `#` on the column its siblings use, which
+  the 24-character name reaches with six spaces; the test needs no
+  line, the
   `scripts/test/*.test.sh` pattern line covering it, and
   `check-stray.sh` matches first-level nodes only, so the fast tier is
   green before and after. `worker-workspace.sh`'s `settings()` comment
@@ -266,7 +363,8 @@ declared set.
   seed, written once on a fresh VM checkout before any run, and the
   pre-flight's `--apply` merges into the same file afterwards, so the
   two never race. The template's name and shape are unchanged by this
-  branch, so line 143's read and case 13 of
+  branch - only its entries move (first item) - so line 143's read and
+  case 13 of
   `scripts/test/worker-workspace.test.sh` keep passing untouched.
 
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
