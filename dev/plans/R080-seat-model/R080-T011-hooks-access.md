@@ -127,7 +127,7 @@ propagates the one wording to the seven definitions.
   (`scripts/ci/check-caps.sh` matches `skills/dev/[^/]+\.md` only).
   Verify with `bash scripts/ci/run-all.sh`.
 
-- [ ] The config paragraph's second sentence attributes a hook's
+- [x] The config paragraph's second sentence attributes a hook's
   registration to `scripts/install-dev.sh`, and its fourth names the
   hazard the task line states - a seat can weaken the guard binding
   it - beside the mechanism; the paragraph still reads byte-identically
