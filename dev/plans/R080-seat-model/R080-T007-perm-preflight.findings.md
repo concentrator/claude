@@ -55,15 +55,6 @@ plan.
   clean tree, and no rationale for that shape appears in the item.
   Either a fourth line or a stated sharing with its wording is needed.
 
-- **Item 2, the requirement 8 deviation is declared but reconciled
-  nowhere.** The item calls itself "this plan's one deviation from
-  `requirements.md § Desired state` 8". That requirement and its
-  acceptance criterion both say the pre-flight applies every adjustment,
-  where this plan has it propose and the user apply, the settings
-  surface being a host gate. No item and no backlog line amends either,
-  so R080-T005's criterion stays unmeetable as written. A plan cannot
-  amend a requirement; who does is not settled by the plan's inputs.
-
 - **Item 1, the carve-out pattern is read per tier and tiers can
   disagree.** "A tracked `deny` carrying the blanket entry is pattern 2
   ... one carrying both narrow entries is pattern 1" says nothing about
