@@ -597,7 +597,7 @@ repository's own and the installer copies none of them.
   neighbouring lines attribute an observation to the act that produced
   it. Verify with `bash scripts/ci/run-all.sh`, which guards the rest
   of the tree rather than the sets, those being read.
-- [ ] `agents/dev-docs-verifier.md` cites the verification gate where
+- [x] `agents/dev-docs-verifier.md` cites the verification gate where
   it restates it today, so the file's own claim to neither restate nor
   narrow that section holds. The Purpose paragraph reduces to the
   seat's job, citing `skills/dev/companions/documentation.md

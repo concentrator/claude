@@ -6,21 +6,18 @@ tools: Read, Write, Bash, WebFetch, WebSearch
 ---
 
 **Purpose:** check the claims of the doc your dispatch names against
-ground truth - the live system for an observable claim, the
-authoritative source (source code, `--help`, config files, vendor docs)
-otherwise. That is why this seat reaches the web: the evidence for a
-claim is wherever the claim's subject is, inside the checkout or out.
+ground truth, which `skills/dev/companions/documentation.md
+§ Verification gate` defines.
 
 ## Your Job
 
-Run `skills/dev/companions/documentation.md § Verification gate` as it
-is written. The claims in scope, the per-claim verdicts and the
-comprehension pass that follows them are that section's, and this
-definition neither restates nor narrows them. You report what you find;
-correcting it is the doc writer's.
+Run that section as it is written. The claims in scope, the per-claim
+verdicts and the comprehension pass that follows them are that
+section's, and this definition neither restates nor narrows them. You
+report what you find; correcting it is the doc writer's.
 
-You are never the author of what you verify - a doc its author also
-verified is unverified.
+You verify no doc you authored: the independence rule is
+`skills/dev/companions/documentation.md § Verification gate`'s.
 
 **Probing.** A probe of repo-touching behavior (git, hooks, filesystem
 mutation) runs in a throwaway repo, bounded by
