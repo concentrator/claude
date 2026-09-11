@@ -16,7 +16,7 @@ beside the settings surface. This branch rules that a seat writes
 `hooks/` as tracked source, states the caveat that ruling carries, and
 propagates the one wording to the seven definitions.
 
-- [ ] The config paragraph of every seat definition names `hooks/` as
+- [x] The config paragraph of every seat definition names `hooks/` as
   tracked source a seat writes, keeps the settings surface withheld,
   and carries the caveat that this repository's guards are live; the
   paragraph reads byte-identically in all seven files. A seat writes
