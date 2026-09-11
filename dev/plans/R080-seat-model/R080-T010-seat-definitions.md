@@ -56,19 +56,20 @@ Decisions the items rest on, each homed in the item that writes it:
   name theirs the same way. Without it the definition is never loaded,
   and neither the tool set `§ Desired state` 8 resolves against nor the
   model reaches the dispatch.
-- **Models are carried over, not chosen.** Every value in
-  `companions/verification-policy.md § Models` moves to the definition
-  of the seat that holds it: `fable` for the planner, the spec reviewer,
-  the doc writer and the docs verifier; `opus` for the implementer,
-  which is the Default implementers row, the mechanical and
-  judgment-heavy rows staying as the dispatch override the tier rule
-  applies; `fable` and `effort: medium` already stand in
-  `agents/code-reviewer.md`. The cold reader has no row today and its
-  definition pins no model: a key a definition omits inherits the
-  session's (`§ Effort mechanics`), which is what that dispatch takes
-  now. Effort follows the same rule - only `code-reviewer` pins one
-  today and only it keeps one, since pinning a level per seat would
-  change dispatch behaviour no requirement asks for.
+- **No definition defaults to Fable.** Fable's token cost makes it
+  wrong as a seat's default model, so every definition that pins a
+  model pins `opus`: the planner, the implementer, the spec reviewer,
+  the doc writer, the docs verifier and the code reviewer. `fable` is
+  sent only where a dispatch selects it explicitly - an implementer
+  item tagged `(judgment-heavy)`, and the batch close's review, which
+  `REQUIREMENTS.md` sets on the most capable model - each through the
+  capacity fallback's gate (`companions/verification-policy.md
+  § Models`); the implementer's mechanical items take `sonnet` by the
+  same tier rule. The cold reader's definition pins no model: a key a
+  definition omits inherits the session's (`§ Effort mechanics`). Only
+  `code-reviewer` pins an effort, `medium`, since pinning a level per
+  seat would change dispatch behaviour no requirement asks for. Item 12
+  below writes the values.
 - **The Probes row retires with the table.** Its value is the Default
   implementers row's `opus` and probing is implementer work
   (`companions/implementer-prompt.md § Scratch & Probe Scripts`, moving
@@ -170,7 +171,7 @@ branch does not touch `DESIGN.md` (no `architecture-changing:` header);
 `REQUIREMENTS.md`'s "most capable model" and
 `companions/report-template.md`'s "(full diff vs base, most capable
 model)" name the tier the requirement sets, not a dispatch value, and
-the value they resolve to is `agents/code-reviewer.md`'s;
+the batch close's review dispatch sends it (the models decision above);
 `skills/dispatching-parallel-agents/SKILL.md`'s `subagent_type` table
 routes generic work and its `code-reviewer` row stays true;
 `release.md` step 3 and `branch-plan.md § Closing routine` 1 name the
@@ -790,6 +791,79 @@ repository's own and the installer copies none of them.
   table moves, and `branch-plan.md § Commit cadence` 2's "written once
   per branch at `run.md § Close` 3" is another file's docs step, left
   alone. Verify with `bash scripts/ci/run-all.sh`.
+- [ ] No seat definition pins `fable` (the models decision above):
+  `agents/code-reviewer.md`, `agents/dev-doc-writer.md`,
+  `agents/dev-docs-verifier.md`, `agents/dev-planner.md` and
+  `agents/dev-spec-reviewer.md` pin `opus`, as
+  `agents/dev-implementer.md` does, and `agents/dev-cold-reader.md`
+  still pins none. The item reads that decision as aimed at Fable as a
+  default, and on that reading two explicit selections keep `fable`. The
+  implementer tier's `(judgment-heavy)` → `fable` rule stays: the tag
+  is a per-item opt-in in the plan's text and no predicate infers it.
+  The batch close's review stays on the most capable model:
+  `REQUIREMENTS.md` sets it there and `run.md § Batch close` 1
+  dispatches `code-reviewer` "most capable", which with the definition
+  at `opus` is an override that one dispatch per batch sends; the other
+  reading lowers that `REQUIREMENTS.md` line, a requirements change and
+  not this item's. `companions/verification-policy.md § Models`'
+  capacity fallback reads on what a dispatch sends, since no
+  definition's pin names a `fable` dispatch any more, and names the two
+  dispatches it gates; the selections stay the tier rule's and
+  `run.md`'s, so the section gains no rule and `§ Desired state` 10's
+  two rules stand, and the fallback's substance is unchanged. R080's
+  backlog loses the sentence recording the spec check's move to Opus,
+  the work it records landing here. These values supersede where
+  earlier items state them - item 1's Model column, item 2's
+  docs-verifier `model: fable`, item 3's unchanged `model: fable`, item
+  5's two quoted fallback phrases and item 10's backlog sentence - so a
+  close review reading those items against the tree finds them replaced
+  by this item, not missing by failure.
+  Approach: line 4 of each of the five files, `model: fable`, reads
+  `model: opus`; nothing else in them moves. In
+  `skills/dev/companions/verification-policy.md § Models`, the
+  `**Capacity fallback.**` paragraph's "Before dispatching a seat whose
+  definition pins `fable`, read the gate:" reads "Before a dispatch
+  that sends `fable` - an implementer item tagged `(judgment-heavy)`,
+  or the batch close's review, which `run.md § Batch close` 1 dispatches
+  on the most capable model - read the gate:", and its "a `fable` seat
+  to `opus`, an `opus` seat to `sonnet`." reads "a `fable` dispatch to
+  `opus`, an `opus` dispatch to `sonnet`."; the paragraph is rewrapped
+  and no other word of it or of the `**Implementer tier.**` paragraph
+  changes. The first quote wraps from line 173 to 174, so an `Edit`
+  anchors on a fragment within one line or retypes lines 172 to 181
+  whole; the second sits within line 181. In
+  `dev/plans/R080-seat-model/tasks.md`, the loop-simplification
+  paragraph's sentence "The per-commit spec check on Fable is the run's
+  largest seat cost; no rule selects that seat's model per dispatch as
+  the implementer tier does (`companions/verification-policy.md
+  § Models`), so moving it to Opus means editing
+  `agents/dev-spec-reviewer.md`, a plan item." goes. It wraps from the
+  end of line 147 through line 151, so no one-line quote of it is a
+  literal anchor: the `Edit` retypes lines 147 to 151 as the file holds
+  them, line breaks included, into the one line "list (`handoff.md
+  § Writing the note`, `run.md § Monitor`). From the", which line 152's
+  "R080-T009 close:" continues unchanged. The gap closes inside that
+  line, so nothing else in the paragraph rewraps.
+  No other hit is a casualty. `git grep -n -i -E 'fable|carried
+  over|most capable' -- ':!**/archive/**'
+  ':!dev/plans/R080-seat-model/R080-T010-seat-definitions.md'` returns,
+  beyond the lines edited above: `REQUIREMENTS.md` line 62,
+  `skills/dev/companions/report-template.md` line 25 and
+  `skills/dev/run.md` line 187, which name the most capable tier the
+  batch close's override keeps true, so `run.md` is untouched;
+  `verification-policy.md`'s tier rule and the gate's `"Fable"` display
+  name, both staying; `scripts/test/model-quota.test.sh`'s `"Fable"`
+  fixtures, which test `scripts/model-quota.sh` - a script taking the
+  display name as its argument and still gating both `fable` dispatches;
+  and `dev/plans/R080-seat-model/R080-T004-doc-writer.md` lines 65 and
+  87 and `R080-T008-planner-seat.md` line 34, the plans of closed tasks,
+  which record what their branches did, are read by no dispatch and
+  were left by item 5 when the table they quote went. This plan's own
+  decision block and its "most capable model" sentence already state
+  the values this item writes. The close item's `git grep -n -E
+  'fable|opus|sonnet' -- skills rules` still returns only
+  `verification-policy.md`'s two rules. Verify with
+  `bash scripts/ci/run-all.sh`.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, `LAYOUT.md`'s `agents/`
   block current (`branch-plan.md § Architecture-changing branches`,
