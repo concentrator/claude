@@ -127,6 +127,65 @@ propagates the one wording to the seven definitions.
   (`scripts/ci/check-caps.sh` matches `skills/dev/[^/]+\.md` only).
   Verify with `bash scripts/ci/run-all.sh`.
 
+- [ ] The config paragraph's second sentence attributes a hook's
+  registration to `scripts/install-dev.sh`, and its fourth names the
+  hazard the task line states - a seat can weaken the guard binding
+  it - beside the mechanism; the paragraph still reads byte-identically
+  in all seven definitions. The registration sentence is scoped to what
+  the tree does: `scripts/install-dev.sh` writes `$target/settings.json`
+  (line 81; `~/.claude/settings.json` at global scope, a project's
+  `.claude/settings.json` at project scope) and nothing else in the
+  tree registers a hook, but the host also honours a `hooks` key in
+  `settings.local.json`, so "a hook is registered in the `hooks` key of
+  the first two" reads as a claim about the host and lets a seat infer
+  that the third file carries none. No permission follows from the
+  scope - the whole surface is withheld either way - so the sentence
+  names the installer as the registrar rather than stating the host's
+  rule. The caveat sentence names the hazard because the task line
+  (`tasks.md`, R080-T011: "a seat can weaken the guard binding it")
+  frames the caveat so, and the landed sentence leaves the weakening to
+  inference from "binds the session from the moment it is saved". The
+  first and third sentences are unchanged. No sentence outside the
+  seven cites either reworded sentence: `git grep -n 'first
+  two\|binds the session' -- skills rules agents README.md DESIGN.md
+  MAINTENANCE.md LAYOUT.md CLAUDE.md dev/plans/R080-seat-model`
+  returns, beyond the seven, unrelated phrases in
+  `R080-T006-seat-duties.md`, `R080-T007-perm-preflight.findings.md`
+  and `R080-T010-seat-definitions.md`. In each of the seven files the
+  paragraph reads, at the line breaks shown:
+
+  > **Config.** No edit-class shell - `sed -i`, `tee`, a redirection -
+  > against anything under the config directory: that is what the
+  > sensitive-file guard fires on. Never the settings surface -
+  > `settings.json`, `.claude/settings.json`, `.claude/settings.local.json`,
+  > `~/.claude.json`; `scripts/install-dev.sh` registers a hook in the
+  > `hooks` key of the first two, so adding or removing one there is the
+  > user's. Every other path under the config directory - skills, rules,
+  > agent definitions, the docs, the plans, and `hooks/`, the source
+  > `scripts/install-dev.sh` ships - is tracked source rather than config: a
+  > seat treats it as it treats any file in the checkout, within the tools
+  > it holds. This repository's `settings.json` registers
+  > `~/.claude/hooks/`, the checkout itself, so an edit to a guard binds the
+  > session from the moment it is saved and a seat can weaken the guard
+  > binding it: a guard changes only as the plan item states it, with the
+  > test that pins the change.
+
+  Approach: in `agents/code-reviewer.md` (lines 77-90),
+  `agents/dev-cold-reader.md` (30-43), `agents/dev-doc-writer.md`
+  (42-55), `agents/dev-docs-verifier.md` (29-42),
+  `agents/dev-implementer.md` (87-100), `agents/dev-planner.md` (45-58)
+  and `agents/dev-spec-reviewer.md` (47-60), one `Edit` each replaces
+  the paragraph from `**Config.**` through "pins the change." with the
+  text above, retyped whole rather than patched by sentence, the blank
+  line above and below it kept. This time the blockquote's line breaks
+  are prescriptive as well as its words: they are the 72-column greedy
+  fill that never breaks on a hyphen, the same fill that produces the
+  landed paragraph's breaks, so the fifteen lines go in as shown, minus
+  the `> ` prefix. Then confirm identity: `for f in agents/*.md; do awk
+  '/^\*\*Config\.\*\*/{p=1} p{print} p&&/^$/{exit}' "$f" | shasum;
+  done | sort -u | wc -l` prints 1. Verify with `bash
+  scripts/ci/run-all.sh`.
+
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup, mark the plan
   complete, mark the task `[x]` in `tasks.md`, commit.
