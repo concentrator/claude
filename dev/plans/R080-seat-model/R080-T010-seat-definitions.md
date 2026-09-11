@@ -542,38 +542,60 @@ repository's own and the installer copies none of them.
   cadence` point 4" stays: it is the only place that rule reaches all
   seven, only the implementer's and the doc writer's text carrying it
   into a definition.
-- [ ] No definition declares a tool this client does not provide: the
-  seven `tools:` lines lose `Glob` and `Grep`, and R080's backlog
-  carries the observation behind the drop with its condition and its
-  cost. The sets are what items 1 to 3 above wrote, less those two
-  names and unchanged otherwise: `Read, Bash` for the cold reader and
-  the spec reviewer, `Read, Edit, Write, Bash` for the planner and the
-  doc writer, `Read, Edit, Write, NotebookEdit, Bash, Skill` for the
-  implementer, `Read, Write, Bash, WebFetch, WebSearch` for the docs
-  verifier, `Read, Bash, WebFetch, WebSearch` for the code reviewer.
-  The observation has one home, the R's backlog line rather than the
-  seven files it changes (`rules/writing-artifacts.md § One home per
-  finding`), and that line carries the cost with it: those seats now
-  search through `Bash`, the one tool a tool set cannot bound (the
-  decision above).
+- [ ] The seven `tools:` lines lose `Glob` and `Grep`, the two names
+  observed absent from this client's registry (the decision above), and
+  R080's backlog carries that observation with its condition and its
+  cost. Reading the seven lines checks the item: `Read, Bash` for the
+  cold reader and the spec reviewer, `Read, Edit, Write, Bash` for the
+  planner and the doc writer, `Read, Edit, Write, NotebookEdit, Bash,
+  Skill` for the implementer, `Read, Write, Bash, WebFetch, WebSearch`
+  for the docs verifier, `Read, Bash, WebFetch, WebSearch` for the code
+  reviewer - items 1 to 3's sets, less those two names, the order of
+  the rest untouched. No other name is checked here and none is
+  claimed sound: `Edit`, `Write`, `NotebookEdit` and `Skill` are
+  unobserved, the one method a seat has for testing them is the
+  self-report the decision above disqualifies, and the fast tier reads
+  no tool name - no check under `scripts/ci/` parses agent frontmatter.
+  A name later found missing is another drop on the same backlog line.
+  Those seven sets supersede where items 1 to 3 state them - item 1's
+  Tools column, item 2's cold-reader and docs-verifier tool lists, item
+  3's quoted `tools:` line - so a close review reading those items
+  against the tree finds `Glob` and `Grep` gone by this item, not
+  missing by failure. The observation has one home, the R's backlog
+  line rather than the seven files it changes
+  (`rules/writing-artifacts.md § One home per finding`), and that line
+  carries the cost with it: those seats now search through `Bash`, the
+  one tool a tool set cannot bound (the decision above).
   Approach: edit the `tools:` line of `agents/dev-planner.md`,
   `agents/dev-implementer.md`, `agents/dev-spec-reviewer.md`,
   `agents/dev-doc-writer.md`, `agents/dev-cold-reader.md`,
-  `agents/dev-docs-verifier.md` and `agents/code-reviewer.md`, the
-  order of the remaining names untouched. No body text is a casualty:
-  `git grep -n 'Glob\|Grep' -- skills rules agents scripts '*.md'`
-  returns, besides those seven lines, `agents/dev-implementer.md`'s
-  "Glob deletes are rejected by the sandbox" - a glob-pattern `rm`,
-  not the tool, so it stays - two uses of "grep" as a verb, and lines
-  matching on "Global". Then append to the R080-T010 paragraph that
-  closes `dev/plans/R080-seat-model/tasks.md`: "From the R080-T010
-  close: a `tools:` name this client's registry does not provide is
-  dropped silently, with no error - a dispatched seat declaring `Read,
-  Glob, Grep, Bash` held `Read, Bash`, and one asked to call them
-  reported that neither tool exists - so no definition declares `Glob`
-  or `Grep`, at the cost of those seats searching through `Bash`
-  alone; re-add both to the sets R080-T010 names on a client that
-  provides them." Verify with `bash scripts/ci/run-all.sh`.
+  `agents/dev-docs-verifier.md` and `agents/code-reviewer.md`. No body
+  text is a casualty: `git grep -n -w 'Glob\|Grep' -- agents skills
+  rules scripts` returns twelve lines, the seven `tools:` lines and
+  five that declare nothing - `agents/dev-implementer.md:71`'s "Glob
+  deletes are rejected by the sandbox", a glob-pattern `rm` rather than
+  the tool; `skills/dev/write-plan.md:94`'s "Grep the tree", the verb;
+  and `scripts/test/context-cost.test.sh:199`, `:203` and `:209`, where
+  `Grep` labels a tool block in a synthetic transcript the cost
+  accounting is measured on, an arbitrary name rather than a claim that
+  the tool exists. `-w` keeps "Global" out, and the pathspec omits
+  `dev/plans`, which an unanchored `'*.md'` would sweep for this plan's
+  own text and the archive's. Then append one line at the end of the
+  paragraph that closes `dev/plans/R080-seat-model/tasks.md` - the one
+  opening "Backlog, loop simplification (from the R080-T008 run", after
+  its last sentence, which ends "the compound-command rule at `run.md
+  § Dispatch per item`." - not inside it at the R080-T010 run-in. It
+  reads: "From the R080-T010 run: a `tools:` name this client's
+  registry does not provide is dropped silently, with no error - a
+  dispatched seat declaring `Read, Glob, Grep, Bash` held `Read, Bash`,
+  and one asked to call them reported that neither tool exists - so no
+  definition declares `Glob` or `Grep`, at the cost of those seats
+  searching through `Bash` alone; re-add both to the sets R080-T010
+  names on a client that provides them." "From the R080-T010 run"
+  rather than "close": this item lands before the close item, and the
+  neighbouring lines attribute an observation to the act that produced
+  it. Verify with `bash scripts/ci/run-all.sh`, which guards the rest
+  of the tree rather than the sets, those being read.
 - [ ] `agents/dev-docs-verifier.md` cites the verification gate where
   it restates it today, so the file's own claim to neither restate nor
   narrow that section holds. The Purpose paragraph reduces to the
@@ -586,24 +608,36 @@ repository's own and the installer copies none of them.
   for the rule instead of repeating its wording. Nothing else moves -
   the probing paragraph, the config rule and the duties line stand as
   item 2 wrote them.
-  Approach: lines 8-12 become "**Purpose:** check the claims of the
-  doc your dispatch names against ground truth, which
-  `skills/dev/companions/documentation.md § Verification gate`
+  Approach: the Purpose paragraph (lines 8-12) becomes "**Purpose:**
+  check the claims of the doc your dispatch names against ground truth,
+  which `skills/dev/companions/documentation.md § Verification gate`
   defines."; `## Your Job`'s first sentence then reads "Run that
-  section as it is written.", the two sentences after it unchanged;
-  and the author line (22) reads "You verify no doc you authored: the
-  independence rule is that section's." Verify with
-  `bash scripts/ci/run-all.sh`.
+  section as it is written.", the two sentences after it unchanged; and
+  the author-independence line - "You are never the author of what you
+  verify - a doc its author also verified is unverified." - reads "You
+  verify no doc you authored: the independence rule is
+  `skills/dev/companions/documentation.md § Verification gate`'s."
+  Anchor the last two edits on that text rather than on a line number:
+  the Purpose replacement collapses five lines to two, shifting every
+  number under it. Verify with `bash scripts/ci/run-all.sh`.
 - [ ] `skills/dev/companions/verification-policy.md § Comprehension
-  check` keeps only what is the dispatcher's, so the cold reader's job
-  has one home. What to hand the reader, how a gap routes into a
-  planner re-dispatch, and the `cold-read: passed` record stay; the
-  cold-context rationale and the ask - the two questions - go, the
+  check` keeps only what is the dispatcher's, the reader's own conduct
+  living in its definition. What to hand the reader, how a gap routes
+  into a planner re-dispatch, and the `cold-read: passed` record stay;
+  the cold-context rationale and the ask - the two questions - go, the
   section citing `agents/dev-cold-reader.md` for them and for the rule
   that a question the inputs cannot answer is a plan gap rather than a
-  reader fault. The definition itself is untouched: its body is item
-  2's above, and the dispatch site is what that item left standing.
-  Approach: the section's first two sentences (lines 146-154) become
+  reader fault. `write-plan.md` step 6 keeps its wording and is no
+  casualty: it states the input set and the ask as part of the planner
+  flow it owns - the same step routes each gap and records
+  `cold-read: passed` - so what the dispatcher commissions stays with
+  the dispatcher's step, and the conduct has one home. The definition
+  itself is untouched: its body is item 2's above, and the dispatch
+  site is what that item left standing.
+  Approach: the section's text from its opening through the clause "A
+  question the inputs cannot answer is a plan gap, not a reader fault:
+  a planner fixes it -" (lines 146 to 154 - the first two sentences and
+  the third's opening clause, which ends mid-line) becomes
   "The dispatcher's read of the plan (`write-plan.md` step 6).
   Dispatch the cold reader (`agents/dev-cold-reader.md`, the
   `dev-cold-reader` type) with exactly the implementer's inputs - the
