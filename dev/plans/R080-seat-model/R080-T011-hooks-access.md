@@ -22,14 +22,15 @@ propagates the one wording to the seven definitions.
   `hooks/` because the tree treats it as source by every measure it
   applies to source: each guard has a test under `scripts/test/` that
   `Test (full)` and the PR's CI run (`.github/workflows/ci.yml` runs
-  `scripts/test/run-all.sh`), `scripts/install-dev.sh` step 3 copies
-  and registers it for adopters, `scripts/ci/check-secrets.sh` sources
-  `hooks/secret-patterns.sh`, `MAINTENANCE.md § Doc-sync pairs` has a
-  row for a guard added or removed, and the R080-T009 run landed an
-  edit to `hooks/dev-precompact-state.sh` on its branch (its commit
-  "Read the session and plans trees from CLAUDE.md"), the host's
-  sensitive-file guard stopping nothing - it fires on edit-class
-  shell, which the paragraph's first sentence already bars. The
+  `scripts/test/run-all.sh`), `scripts/install-dev.sh` step 3 ships
+  every file of it to adopters - all copied, five hooks also
+  registered, the session-state writer and the context-fill helper
+  copied alone, as its comments say - `scripts/ci/check-secrets.sh`
+  sources `hooks/secret-patterns.sh`, `MAINTENANCE.md § Doc-sync
+  pairs` has a row for a guard added or removed, and the R080-T009
+  branch carries an edit to `hooks/dev-precompact-state.sh` (its
+  commit "Read the session and plans trees from CLAUDE.md"), a hook
+  edited on a task branch as any source file is. The
   withholding's stated reason does not reach `hooks/`: the settings
   surface is withheld because its only writer is the user's `--apply`
   run of R080-T007's pre-flight (`R080-T010-seat-definitions.md`, the
@@ -46,10 +47,12 @@ propagates the one wording to the seven definitions.
   edit-class-shell guard both, and would leave a guard's test red
   until the user commits (`R080-T007-perm-preflight.findings.md`, the
   fork's open order). What stays the user's is a hook's registration:
-  the `hooks` key of `settings.json`, which the surface still
-  withholds. So a seat adds a branch to a registered hook, or writes a
-  new hook file with its `register_*` line in `scripts/install-dev.sh`
-  for adopters, and the user registers a new file in this repository's
+  the `hooks` key of `settings.json` - of a project's
+  `.claude/settings.json` under `scripts/install-dev.sh`'s project
+  scope - which the surface still withholds. So a seat adds a branch
+  to a registered hook, or writes a new hook file with its
+  `register_*` or copy line in `scripts/install-dev.sh` for adopters,
+  and the user registers a new file in this repository's
   `settings.json`. The caveat is the live guard: this repository's
   `settings.json` registers `~/.claude/hooks/<name>`, the checkout
   itself, so an edit to a guard binds the runner's session from the
@@ -65,26 +68,33 @@ propagates the one wording to the seven definitions.
   > against anything under the config directory: that is what the
   > sensitive-file guard fires on. Never the settings surface -
   > `settings.json`, `.claude/settings.json`,
-  > `.claude/settings.local.json`, `~/.claude.json` - which is also
-  > where a hook is registered, so adding or removing one there is the
-  > user's. Every other path under the config directory - skills,
-  > rules, agent definitions, the docs, the plans, and `hooks/`, the
-  > source `scripts/install-dev.sh` ships - is tracked source rather
-  > than config: a seat treats it as it treats any file in the
-  > checkout, within the tools it holds. This repository's
-  > `settings.json` registers `~/.claude/hooks/`, the checkout itself,
-  > so an edit to a guard binds the session from the moment it is
-  > saved: a guard changes only as the plan item states it, with the
-  > test that pins the change.
+  > `.claude/settings.local.json`, `~/.claude.json`; a hook is
+  > registered in the `hooks` key of the first two, so adding or
+  > removing one there is the user's. Every other path under the
+  > config directory - skills, rules, agent definitions, the docs, the
+  > plans, and `hooks/`, the source `scripts/install-dev.sh` ships - is
+  > tracked source rather than config: a seat treats it as it treats
+  > any file in the checkout, within the tools it holds. This
+  > repository's `settings.json` registers `~/.claude/hooks/`, the
+  > checkout itself, so an edit to a guard binds the session from the
+  > moment it is saved: a guard changes only as the plan item states
+  > it, with the test that pins the change.
 
   The first and third sentences keep their wording but for the list;
-  the second loses `hooks/` and gains the registration clause; the
-  fourth is new. No sentence outside the seven is a casualty:
-  `git grep -n 'hooks/' -- skills rules agents README.md DESIGN.md
-  MAINTENANCE.md LAYOUT.md` returns, beyond the seven, cites in
-  `layout.md`, `handoff.md`, `companions/secrets.md`,
-  `companions/root-migration.md` and `companions/untracked-claude.md`
-  that describe a hook and name no writer. `run.md § Pre-flight`'s
+  the second loses `hooks/` and gains the registration clause, which
+  names the two files a hook is registered in: `scripts/install-dev.sh`
+  writes `$target/settings.json` - `~/.claude/settings.json` at global
+  scope, a project's `.claude/settings.json` at project scope - and no
+  text in the tree registers one in `settings.local.json` or
+  `~/.claude.json`; the fourth is new. No sentence outside the seven is
+  a casualty: `git grep -n 'hooks/' -- skills rules agents README.md
+  DESIGN.md MAINTENANCE.md LAYOUT.md` returns, beyond the seven, cites
+  in `layout.md`, `handoff.md`, `companions/secrets.md`,
+  `companions/root-migration.md` and `companions/untracked-claude.md`,
+  the `hooks/` rows of `LAYOUT.md`, `MAINTENANCE.md § Doc-sync pairs`
+  and `README.md § Contents`, and `.githooks/` substring hits in
+  `DESIGN.md`, `LAYOUT.md`, `MAINTENANCE.md` and `README.md`; each
+  describes a hook and names no writer. `run.md § Pre-flight`'s
   "config is never a seat's to write (`agents/dev-implementer.md`)"
   cites this paragraph and is R080-T007's runner item to reword to the
   surface the paragraph names, that item reading the paragraph as this
@@ -102,9 +112,14 @@ propagates the one wording to the seven definitions.
   `agents/dev-implementer.md` (87-94), `agents/dev-planner.md` (45-52)
   and `agents/dev-spec-reviewer.md` (47-54), one `Edit` each replaces
   the paragraph from `**Config.**` through "within the tools it holds."
-  with the text above, wrapped at the files' own 72 columns, the blank
-  line above and below it kept; the paragraph is retyped whole rather
-  than patched by fragment, its quoted sentences wrapping line breaks.
+  with the text above, rewrapped at 72 columns - the width the Config
+  paragraph holds in each file, not a whole-file width: the frontmatter
+  `description:` lines run past 72 - the blank line above and below it
+  kept. The paragraph is retyped whole rather than patched by
+  fragment. The blockquote's words are prescriptive and its line
+  breaks are not - they are wrapped narrower to sit inside the plan's
+  indentation; the 72-column rewrap sets the breaks, identical in the
+  seven files, and the identity check next is the only check on them.
   Then confirm identity: `for f in agents/*.md; do awk
   '/^\*\*Config\.\*\*/{p=1} p{print} p&&/^$/{exit}' "$f" | shasum;
   done | sort -u | wc -l` prints 1. No cap binds `agents/`
