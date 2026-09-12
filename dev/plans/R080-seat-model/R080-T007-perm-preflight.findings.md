@@ -47,39 +47,41 @@ plan.
   read-tree`, all under `auto`) fits neither class, the classifier-event
   class being defined as landing inside a seat's `Bash` call.
 
-- **Item 1, four denied shapes and three reason lines.** The item says
-  the branch "denies four shapes ... Its three reason lines carry the
-  predicate and the rule". The trunk-entry line reads "it enters the
-  default branch of `<repo>` with uncommitted work", which is false for
-  the second shape, a `-b|-B|-c|-C` naming the default branch from a
-  clean tree, and no rationale for that shape appears in the item.
-  Either a fourth line or a stated sharing with its wording is needed.
-
-- **Item 1, the carve-out pattern is read per tier and tiers can
-  disagree.** "A tracked `deny` carrying the blanket entry is pattern 2
-  ... one carrying both narrow entries is pattern 1" says nothing about
-  a user tier on one pattern and a project tier on the other, where the
-  union is the session's reality; the text implies pattern 2 by "deny
-  beats allow" without saying so. Unstated too: whether a deny in the
-  untracked local tier participates. It binds the session; the script
-  reads only tracked tiers for denies.
-
-- **Item 1, the withheld-`hooks/` fork leaves its order open.** "The
-  implementer writes the companion and the test, the branch is the
-  user's to apply, and the item halts to the user when it is reached and
-  resumes on their commit" admits two orders: the implementer commits
-  first and the hook test is red in `Test (full)` until the user
-  commits, or the halt comes first and the implementer follows. R080-T011
-  is `[ ]`, so the tree cannot settle which fork holds yet.
+- **Item 1, which content of a tracked tier satisfies a deny entry.**
+  "Each entry is satisfied only by that exact string in a tracked tier's
+  `deny` ... Tracked is the literal word: the tier's file is git-tracked
+  in the repository owning it ... so the project tier satisfies an entry
+  once its `.claude/settings.json` is committed" carries two readings
+  that pass different trees: the file is tracked and the string is read
+  from the working-tree file, so an uncommitted deny added to a tracked
+  file satisfies; or the string must be in the committed content
+  (`git show HEAD:$rel`, how item 2's approach reads the mode key). The
+  literal-word sentence points to the first, the rationale "a fresh
+  clone keeps it" and the word "committed" to the second, and item 2's
+  approach names `HEAD:$rel` for the mode key alone. Which content a
+  deny entry is read from is the implementer's to settle in the approach
+  text.
 
 ## Approach notes
 
-- **Item 2, the default branch's name.** How the script learns
-  `<default>` for the pattern-1 deny strings is unstated; no declaration
-  in `companions/declarations.md` or `companions/toolchain.md` gives it,
-  and `hooks/dev-branch-guard.sh`'s `is_trunk` chain - `origin/HEAD`,
-  `init.defaultBranch`, then the main/master literals - is the only
-  precedent.
+- **Item 1, where the entry branch gets `<repo>`.** The approach says
+  "`<repo>` is `$top`, the physical top level the entry check resolved",
+  but the entry branch it describes names `resolve_target` and the
+  `git -C "$dir" status` test and computes no `$top`; only the restore
+  helper does, with `rev-parse --show-toplevel` then `cd && pwd -P`.
+  Reusing that computation in the entry branch is the obvious reading.
+
+- **Item 2, the tier list in `missing (untracked in <tiers>)`.** With
+  two untracked tiers carrying the entry - an adopter's user tier beside
+  local - the separator and the order are unstated. Tier order
+  `user, project, local`, comma-separated, is the obvious reading.
+
+- **Item 1, the adopter claim about `$HOME`.** "None in an adopter,
+  whose `$HOME/.claude/settings.json` no repository tracks" is a claim
+  about adopters rather than a rule: a `$HOME` that is itself a
+  dotfiles checkout tracks that file, and the literal rule then counts
+  the user tier as satisfying. The rule as written is what to build; the
+  sentence needs no fix unless the plan means to exclude that case.
 
 - **Item 2, the toolchain parse.** "A span holding no space is a CLI
   name ... and contributes no prefix" also drops a one-word command
