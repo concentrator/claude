@@ -135,19 +135,28 @@ declared set.
   on a name the guard's own write and commit branches then treat as
   the trunk. The lines are
   `branch-guard: refusing '<cmd>' - it enters the default branch of
-  '<repo>' with uncommitted work; commit or discard first, and a
-  dispatched seat stays on the item's branch (run.md § Seats).`,
+  '<repo>' with uncommitted work; commit or discard first - work
+  reaches the trunk through a working branch and an MR/PR, never
+  carried onto it (git-workflow § Trunk).`,
   `branch-guard: refusing '<cmd>' - it creates a branch named as the
   default branch of '<repo>'; a working branch is named
   '<prefix>/<slug>' (git-workflow § Trunk).`,
   `branch-guard: refusing '<cmd>' - it discards work no 'git stash
   pop' and no reflog bring back; commit first, or take a spelling that
   keeps it: 'git reset' without '--hard', 'git stash push'
-  (run.md § Seats).` and
+  (seat-permissions § HEAD moves and whole-tree discards).` and
   `branch-guard: refusing '<cmd>' - it discards every uncommitted
   change under '<pathspec>'; name the paths to restore, and leave the
   whole-tree revert to the runner's halt (run.md § Question
-  resolution).` The guard is a host gate rather than a
+  resolution).` Each cite lands on text that states the rule: the
+  first line's on `git-workflow.md § Trunk`'s "every change reaches
+  `main` through a short-lived branch and a CI-gated MR/PR", the
+  third's on the companion section this item creates, which is where
+  the discard rule is written, `run.md § Seats` stating neither. In
+  those strings `<cmd>`, `<repo>` and `<pathspec>` are the guard's to
+  fill at runtime, and `<prefix>/<slug>` prints as written, being
+  `git-workflow.md § Trunk`'s own notation for a branch name rather
+  than a value the guard holds. The guard is a host gate rather than a
   rule, as workspace trust below is, so its proof is its own test
   rather than a pre-flight check, and who
   applies it is R080-T011's to settle rather than this plan's
@@ -201,10 +210,21 @@ declared set.
   and neither covering the other: pattern 2 declares
   `Bash(git push:*)`, pattern 1 declares the pair
   `Bash(git push origin <default>:*)` and `Bash(git push --force:*)`
-  with `<default>` the repo's own default branch name, and each entry
-  is satisfied only by that exact string in a tracked tier's `deny`,
-  the pair's two entries satisfied from two tracked tiers as readily
-  as from one, each report line naming its own. The pattern is read
+  with `<default>` the repo's own default branch name, resolved as the
+  script item states, and each entry is satisfied only by that exact
+  string in a tracked tier's `deny`, the pair's two entries satisfied
+  from two tracked tiers as readily as from one, each report line
+  naming its own. Tracked is the literal word: the tier's file is
+  git-tracked in the repository owning it, as the script item's tier
+  comparison decides (`ls-files --error-unmatch`), so the project tier
+  satisfies an entry once its `.claude/settings.json` is committed, and
+  the user tier satisfies one here, where it is this repository's own
+  `settings.json`, and none in an adopter, whose
+  `$HOME/.claude/settings.json` no repository tracks - the push deny is
+  the project's declaration, which `toolchain.md § Permission
+  carve-out` puts in the tracked project tier so a fresh clone keeps
+  it, and a deny living only in one machine's user tier binds that
+  machine's session and no clone's. The pattern is read
   from the tiers, never taken from a flag or from this text, and it is
   read off the union of the `deny` sets of every tier the session
   reads - user, project and local - because deny beats allow across
@@ -213,14 +233,25 @@ declared set.
   the session pattern 2, the report naming the tier that carries it,
   so a user tier's `Bash(git push:*)` beside a project tier's narrow
   pair is pattern 2 and under `Supervisor: AI` cannot-apply, the
-  project tier's pair notwithstanding; a union carrying both narrow
-  entries and no blanket one is pattern 1; and a union carrying
-  neither is the missing-deny gap. Reading the pattern and satisfying
-  its entries are two steps: a local-tier deny counts toward the read,
-  since it binds the session, and satisfies no declared entry, since a
-  fresh clone loses it (`.gitignore` keeps the local tier out of the
-  repository), so it is reported with its tier and a pair carried by
-  the local tier alone is pattern 1 with both entries missing. Extra
+  project tier's pair notwithstanding; and a union carrying no blanket
+  entry is pattern 1 whatever it carries of the pair - both entries,
+  one, or neither - the declared set being the pair and each entry
+  reported on its own line, so one narrow entry alone is pattern 1
+  with the other entry missing, and a union carrying neither is the
+  missing-deny gap, which is pattern 1 with both lines missing. That
+  report prints the two missing strings and names the tracked project
+  tier's `deny` as their home, never an `--apply` line, `--apply`
+  writing no deny; `toolchain.md § Permission carve-out` is where a
+  `Supervisor: human` project takes pattern 2 instead. Reading the
+  pattern and satisfying its entries are two steps: a local-tier deny
+  counts toward the read, since it binds the session, and satisfies no
+  declared entry, since a fresh clone loses it (`.gitignore` keeps the
+  local tier out of the repository), so its line reads
+  `missing (untracked in local)` - the status the script item gives an
+  entry carried by untracked tiers alone, an adopter's user-tier
+  blanket reading `missing (untracked in user)` the same way - and a
+  pair carried by the local tier alone is pattern 1 with both entries
+  missing. Extra
   deny entries beyond the pattern's are never a gap. This repository
   is on pattern 1, its tracked `.claude/settings.json` carrying the
   pair and its user tier, the tracked `settings.json` at the checkout
@@ -292,13 +323,27 @@ declared set.
   options, the command-head anchoring of `Prx` so text inside an `echo`
   never triggers, `resolve_target` for the repo, `is_trunk` for the
   destination, `deny` for the exit, and `exit 0` for an unreadable repo
-  or an unresolvable target, the file failing open throughout. The
+  or an unresolvable target, the file failing open throughout. What
+  fills the reason lines: `<cmd>` is the offending command segment -
+  the text from its command-head `git` to the segment's end at the
+  next `;`, `&`, `|` or newline, whitespace-trimmed, which is the slice
+  the predicate judged - neither the verb alone (the push lines print
+  the literal `'git push'` because their predicate is the verb) nor
+  the whole `$cmd`; `<repo>` is `$top`, the physical top level the
+  entry check resolved; `<pathspec>` is the offending pathspec as the
+  segment spells it. The
   dirty-tree test is
   `git -C "$dir" status --porcelain --untracked-files=no`, non-empty
   meaning dirty. The reset/stash branch needs no repo at all, being a
   token read over the segment - `--hard`, `--merge`, `--keep` after
   `reset`; `drop`, `clear` as the word after `stash` - so it sits
-  first, ahead of anything that resolves a path. The whole-tree
+  first, ahead of anything that resolves a path. Inside the entry
+  branch the create test runs before the dirty-tree test: a
+  `checkout`/`switch` segment carrying `-b|-B|-c|-C` is judged by its
+  new name alone and never by the tree, so a dirty-tree
+  `checkout -B main` gets the second reason line, the one that names
+  its hazard, and the entry line is reached only by a segment naming
+  an existing branch. The whole-tree
   restore reads the segment's pathspecs in a helper beside it: skip
   the global options and the verb, drop a tree-ish that a `--`
   separator marks off, and judge each remaining non-option argument in
@@ -380,21 +425,24 @@ declared set.
   additionally binds the Bash prefix set, accepts pattern 2, and drops
   the permission-mode assertion, the runner then being the user's own
   session in its own mode. A rule is satisfied by any tier that covers
-  it: a Bash prefix rule by a tracked prefix that covers it, a path
+  it: a Bash prefix rule by a prefix in any tier that covers it, a path
   rule by a rule of the same tool whose literal prefix before its first
-  wildcard contains the declared path (so a tracked
-  `Edit(//<root>/**)` satisfies a declared `Edit(//<root>/dev/plans/**)`
+  wildcard contains the declared path (so an
+  `Edit(//<root>/**)` in any tier satisfies a declared
+  `Edit(//<root>/dev/plans/**)`
   rather than reporting a false gap), a WebFetch rule by an exact
   domain match, and a bare tool rule such as `WebSearch` by an exact
   string match. A deny rule is the one class no coverage rule reaches:
   it is satisfied only by its exact string in a tracked tier's `deny`,
-  and which deny strings are declared is the carve-out pattern the
-  first item states, read off the tiers as that item says - so a tier
-  on pattern 1 satisfies the declared set with its narrow pair and is never
-  reported as missing the blanket rule, and a tier with neither
-  pattern's set is the missing-deny gap. Cannot-apply, each exiting
-  non-zero with nothing written: an untrusted workspace, a needed
-  allow rule a tracked tier denies, a missing deny rule, pattern 2
+  tracked in the first item's literal sense, and which deny strings
+  are declared is the carve-out pattern the first item states, read
+  off the tiers as that item says - so a tier on pattern 1 satisfies
+  the declared set with its narrow pair and is never reported as
+  missing the blanket rule, and a tier with neither pattern's set is
+  the missing-deny gap. Cannot-apply, each exiting non-zero with
+  nothing written: an untrusted workspace, a needed allow rule a
+  tracked tier denies, a missing deny rule, a default branch the
+  script cannot resolve and so no pattern-1 string to check, pattern 2
   under `Supervisor: AI`, `bypassPermissions` or
   `dontAsk` in any tier, a missing `.claude/` directory, an unwritable
   local tier, a failed permission-mode assertion, and `jq` absent - a
@@ -468,9 +516,25 @@ declared set.
   and `Bash(gh pr merge:*)`. An absent host CLI is the push-only
   fallback of `companions/toolchain.md § Push + MR/PR`, not a gap.
   Check order:
-  trust, then the mode assertion and the never-list, then the deny
-  rules, then the non-Bash allow rules, then the Bash prefix set, then
-  the carve-out pattern. The mode-assertion half the script can decide
+  trust, then the mode assertion and the never-list, then the
+  carve-out pattern read and, in the same step, the deny rules it
+  declares, then the non-Bash allow rules, then the Bash prefix set.
+  The pattern read needs `<default>`, resolved in the project's repo
+  as `is_trunk` in `hooks/dev-branch-guard.sh` resolves it up to its
+  literal fallback: `git -C "$project" symbolic-ref --short
+  refs/remotes/origin/HEAD` with its `origin/` stripped, else
+  `git -C "$project" config init.defaultBranch`, and neither
+  resolving is the cannot-apply above with the remedy
+  `git remote set-head origin --auto` printed - the guard's
+  `main`/`master` fallback stays the guard's, a tripwire that fails
+  open being free to guess where a gate that must name one string is
+  not. This checkout resolves through the second step (`origin/HEAD`
+  is not a symbolic ref here; `init.defaultBranch` is `main`), and
+  every fixture pins the first with
+  `git -C <fixture> symbolic-ref refs/remotes/origin/HEAD
+  refs/remotes/origin/main`, which resolves with no remote configured
+  and keeps the test host's `init.defaultBranch` out of the expected
+  string. The mode-assertion half the script can decide
   is the tier comparison, and each tier resolves its own repo rather
   than assuming the project's: `top=$(git -C "$(dirname "$tier")"
   rev-parse --show-toplevel)`, then `rel=${tier#"$top"/}`, then
@@ -485,7 +549,10 @@ declared set.
   tracked value to have drifted from. A present `defaultMode` is never
   a defect on its own. Report lines carry one
   status each: `present (user|project|local)`, `missing`,
-  `inert (auto)`, `applied (local)`, `cannot apply: <reason>`. Test
+  `missing (untracked in <tiers>)` for a deny entry that only
+  untracked tiers carry, the tiers named as `user`, `project` or
+  `local`, `inert (auto)`, `applied (local)`,
+  `cannot apply: <reason>`. Test
   cases, fixture trees under `mktemp -d` (untrusted by construction,
   which is what makes case 1 free): an untrusted tree reports
   cannot-apply, stops and writes nothing; a full set exits zero with
