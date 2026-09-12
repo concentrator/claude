@@ -2,7 +2,6 @@
 task: R080-T007
 type: mnt
 depends-on: R080-T004, R080-T010, R080-T011
-cold-read: passed
 supervised: approved
 ---
 
@@ -213,12 +212,17 @@ declared set.
   `Bash(git push origin <default>:*)` and `Bash(git push --force:*)`
   with `<default>` the repo's own default branch name, resolved as the
   script item states, and each entry is satisfied only by that exact
-  string in a tracked tier's `deny`, the pair's two entries satisfied
+  string in a tracked tier's committed `deny` - the content
+  `git show HEAD:<tier>` returns, which is what a fresh clone gets, so
+  a deny added to a tracked file and not yet committed satisfies
+  nothing - the pair's two entries satisfied
   from two tracked tiers as readily as from one, each report line
   naming its own. Tracked is the literal word: the tier's file is
   git-tracked in the repository owning it, as the script item's tier
-  comparison decides (`ls-files --error-unmatch`), so the project tier
-  satisfies an entry once its `.claude/settings.json` is committed, and
+  comparison decides (`ls-files --error-unmatch`), and its committed
+  content is what that comparison reads (`show HEAD:$rel`), so the
+  project tier satisfies an entry once its `.claude/settings.json` is
+  committed with the entry in it, and
   the user tier satisfies one here, where it is this repository's own
   `settings.json`, and none in an adopter, whose
   `$HOME/.claude/settings.json` no repository tracks - the push deny is
@@ -228,7 +232,8 @@ declared set.
   machine's session and no clone's. The pattern is read
   from the tiers, never taken from a flag or from this text, and it is
   read off the union of the `deny` sets of every tier the session
-  reads - user, project and local - because deny beats allow across
+  reads - user, project and local, each as the working-tree file the
+  session reads it from - because deny beats allow across
   all tiers (`toolchain.md § Permission carve-out`) and the tiers can
   disagree: a blanket entry in any of the three, tracked or not, makes
   the session pattern 2, the report naming the tier that carries it,
@@ -249,8 +254,10 @@ declared set.
   declared entry, since a fresh clone loses it (`.gitignore` keeps the
   local tier out of the repository), so its line reads
   `missing (untracked in local)` - the status the script item gives an
-  entry carried by untracked tiers alone, an adopter's user-tier
-  blanket reading `missing (untracked in user)` the same way - and a
+  entry no tier's committed content carries, an adopter's user-tier
+  blanket reading `missing (untracked in user)` the same way and a
+  tracked project tier's uncommitted entry
+  `missing (untracked in project)` - and a
   pair carried by the local tier alone is pattern 1 with both entries
   missing. Extra
   deny entries beyond the pattern's are never a gap. This repository
@@ -434,8 +441,11 @@ declared set.
   rather than reporting a false gap), a WebFetch rule by an exact
   domain match, and a bare tool rule such as `WebSearch` by an exact
   string match. A deny rule is the one class no coverage rule reaches:
-  it is satisfied only by its exact string in a tracked tier's `deny`,
-  tracked in the first item's literal sense, and which deny strings
+  it is satisfied only by its exact string in the committed `deny` of
+  a tracked tier - tracked in the first item's literal sense, and
+  committed being `HEAD:$rel`, the content the mode-key comparison
+  below reads - while the pattern is read off the tiers' working-tree
+  files, the content the session reads, and which deny strings
   are declared is the carve-out pattern the first item states, read
   off the tiers as that item says - so a tier on pattern 1 satisfies
   the declared set with its narrow pair and is never reported as
@@ -543,15 +553,19 @@ declared set.
   tracked, then `git -C "$top" show "HEAD:$rel"` for the tracked
   value. That is what lets the user tier be tracked here, where
   `$HOME/.claude/settings.json` is this repository's own
-  `settings.json`, and untracked in an adopter. Three verdicts, and
+  `settings.json`, and untracked in an adopter. The deny check reads
+  the same `HEAD:$rel` content, so a fixture's tracked tier is
+  committed rather than staged - a staged file is tracked to
+  `ls-files` and absent from `HEAD`. Three verdicts, and
   only the middle one is a defect: `unchanged` passes, `drifted`
   is the failed permission-mode assertion on the cannot-apply list,
   and `untracked` passes with the tier's value printed, there being no
   tracked value to have drifted from. A present `defaultMode` is never
   a defect on its own. Report lines carry one
   status each: `present (user|project|local)`, `missing`,
-  `missing (untracked in <tiers>)` for a deny entry that only
-  untracked tiers carry, the tiers named as `user`, `project` or
+  `missing (untracked in <tiers>)` for a deny entry no tier's
+  committed content carries - an untracked tier's, or a tracked
+  tier's uncommitted edit - the tiers named as `user`, `project` or
   `local`, `inert (auto)`, `applied (local)`,
   `cannot apply: <reason>`. Test
   cases, fixture trees under `mktemp -d` (untrusted by construction,
