@@ -242,7 +242,16 @@ reach it. The Config paragraph every seat definition carries names a
 mention being a permission-dialog label in
 `companions/supervisor-runbook.md` - name the real mechanism or drop
 the clause. `git-workflow.md § Enforcement` says `main` requires an
-up-to-date branch where the host reports `strict: false`.
+up-to-date branch where the host reports `strict: false`. From the
+R080-T007 plan round: `requirements.md` reads the tier set two ways
+R080-T007 now contradicts - `§ Invariants` says the permission set
+"widens allow rules within a tracked tier" where `--apply` writes the
+gitignored local tier, and `§ Desired state` 8 says pre-flight
+"resolves the whole set against the tracked tiers" where that task's
+first item reads the carve-out pattern off the untracked local tier
+too; settle both sentences against the read the task lands.
+`agents/dev-cold-reader.md` carries no `model:` key where the other six
+seat definitions carry `model: opus`.
 
 Archival, promotion target (`plan.md § Archival`): this initiative
 bought a set of facts about the host that no file in the tree states,
