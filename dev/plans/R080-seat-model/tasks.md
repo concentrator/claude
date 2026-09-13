@@ -262,7 +262,11 @@ judges a `Bash` call as a git mutation alone; `auto` suspends Bash
 allow rules and routes every command to a classifier, leaving deny
 rules, non-Bash allows and the mode assertion as the only deterministic
 enforcement; hook registration is read at session start where an edit
-to a registered script is live at once; `~/.claude.json`'s
+to a registered script is live at once, while a settings tier is
+re-read live in both directions - a `deny` added to
+`.claude/settings.local.json` mid-session blocked the matching command
+and lifting the key unblocked it, an unrelated command running
+throughout; `~/.claude.json`'s
 `hasTrustDialogAccepted` makes a project tier's allow entries inert;
 and CI runs the branch's own tree, so a gate sourcing a file from
 `hooks/` cannot police it. They sit in this backlog and in plan prose,

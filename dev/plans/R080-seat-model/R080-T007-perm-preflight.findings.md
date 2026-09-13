@@ -47,19 +47,18 @@ plan.
   read-tree`, all under `auto`) fits neither class, the classifier-event
   class being defined as landing inside a seat's `Bash` call.
 
-- **Item 2, when the client reads a settings tier.** The one-content
-  rule rests on "the tier's working-tree file, which is what the
-  session's own permission check reads and so what binds the run", and
-  the resume that follows has the user edit the tracked project tier at
-  the halt, re-enter `§ Pre-flight`, and the run continue with no
-  restart. Nothing in the plan's inputs establishes when the client
-  reads a tier. If tiers are read at session start, the script reports
-  the deny present while the halted runner session is not bound by it,
-  and deny rules are the hard floor (`requirements.md § Invariants`).
-  What settles it is a client-behavior fact the plan can cite, or a
-  resume that names a session restart. The allow half of the assumption
-  is pre-existing in `run.md § Pre-flight`; the deny half is this
-  branch's.
+- **Item 2, when the client reads a settings tier: settled, the plan
+  stands.** The one-content rule rests on the tier's working-tree file
+  being what the session's own permission check reads, and the resume
+  that follows has the user edit a tier at the halt and re-enter
+  `§ Pre-flight` with no restart. A probe on this host settles it: with
+  `deny: ["Bash(git tag:*)"]` added to `.claude/settings.local.json`
+  mid-session, `git tag --list` was denied while `git status --short`
+  ran; with the key removed, `git tag --list` ran. The client re-reads
+  a tier live, in both directions, so a deny the pre-flight reports
+  present is a deny that binds the halted session. Cite the fact rather
+  than re-deriving it; it is R080's to promote
+  (`tasks.md § Archival, promotion target`).
 
 - **Item 2, how a deny string is matched against a needed allow rule.**
   The cannot-apply list carries "a needed allow rule any tier denies",
