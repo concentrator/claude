@@ -2,7 +2,6 @@
 task: R080-T007
 type: mnt
 depends-on: R080-T004, R080-T010, R080-T011
-cold-read: passed
 supervised: approved
 ---
 
@@ -482,9 +481,15 @@ declared set.
   and writes no deny rule, no mode key and nothing in `~/.claude.json`.
   Convergence is named: the resolver reads the local tier as a
   satisfying tier, so an applied rule reads back as present in it and a
-  re-run exits zero, and a rule that proves durable is promoted into
-  the tracked project tier by `MAINTENANCE.md § Generalize allow rules`
-  step 5, never by the script. Where a stopped run resumes is stated
+  re-run exits zero. The script writes the local tier and no other, and
+  a rule that proves durable moves into the tracked project tier as the
+  project's own change under `companions/toolchain.md § Permission
+  carve-out`'s placement rule, which puts a declaration a fresh clone
+  keeps in the tracked tier and leaves the local one to what is
+  deliberately machine-local; the shadowed local copy then goes at the
+  weekly `MAINTENANCE.md § Generalize allow rules` step 5, which keeps
+  the broader tier's rule and deletes the shadowed one. Nothing the
+  script does turns on that route. Where a stopped run resumes is stated
   with the stop: the halt is `run.md § Pre-flight`'s, before the first
   dispatch, with no branch created and no edit made, so the **user**
   runs the printed `--apply` line and the run resumes by re-entering
@@ -872,6 +877,189 @@ declared set.
   case 13 of
   `scripts/test/worker-workspace.test.sh` keep passing untouched.
 
+- [ ] The declared set names the verbs the flow runs, so no
+  `skills/dev/` step raises a prompt under `Supervisor: human` that the
+  set does not predict. `Bash(git checkout:*)` and `Bash(git pull:*)`
+  join the Bash prefix set and the template's `allow`, traced to
+  `finish.md § 4` step 1's "Sync the default branch (`git checkout
+  <default>`, `git pull`)", `finish.md § 3`'s discard entry into the
+  default branch, and `release.md § Procedure` step 5's
+  `git checkout -b release/vX.Y.Z`; no flow step is respelled to match a
+  rule. The `Bash(git switch:*)` row keeps the one source that holds,
+  `run.md § Pre-flight`'s branch cut off the default, which spells no
+  verb, so § Bash prefix set and § HEAD moves and whole-tree discards
+  stop disagreeing about which verb `finish.md` and `release.md` run.
+  Declaring the two verbs is safe by this plan's own argument: no deny
+  entry of the declared set names a HEAD-moving verb, and a deny
+  decision from `hooks/dev-branch-guard.sh` overrides an allow rule, so
+  the four shapes § HEAD moves and whole-tree discards refuses stay
+  refused. `Bash(mkdir:*)`, `Bash(date:*)` and `Bash(printf:*)` join the
+  same two places for the ledger the runner keeps itself
+  (`run.md § Ledger`: `mkdir -p` at § Resolve, the timestamp read from
+  `date -u` at write time, the append through `printf '%s\n' ... >>`)
+  and for the stamp `handoff.md § The file` spells. The checkpoint push
+  is declared where a declaration can bind it: pattern 1 declares,
+  beside its narrow deny pair, one `Bash(git push -u origin <prefix>/*)`
+  per branch prefix of `git-workflow.md § Trunk`, which is the allow
+  list `toolchain.md § Permission carve-out` pattern 1 already
+  prescribes and this repository's `.claude/settings.json` already
+  carries, traced to `finish.md § 3` step 2's
+  `git push -u origin <branch>` at `run.md § Checkpoint`'s accept. Each
+  string carries a `<prefix>/`, so it reaches neither a push to the
+  default branch, whose name carries no prefix, nor a force push, and
+  the guard's push scan refuses both in any spelling besides. Pattern 2
+  declares none of them: its blanket deny beats every allow across all
+  tiers, so its checkpoint push stays the one manual push per batch that
+  pattern is (`toolchain.md § Permission carve-out` 2), and a declared
+  allow every pattern-2 tier denies would turn every pattern-2 session
+  into a cannot-apply. These are Bash prefix rules like the rest,
+  binding under `Supervisor: human` and inert under `auto`, and no seat
+  definition and no § Seat tool sets row changes: the push is the
+  runner's own step under the fourth source, so `branch-plan.md
+  § Rails`' "Seats never push" stands as written. § Bash prefix set
+  states how the set stays whole: it is walked in both directions, every
+  declared rule traced to a flow step and every command a flow step runs
+  traced to a rule, the one-directional walk being what left the flow's
+  own verbs undeclared.
+  Approach: `skills/dev/companions/auto-permissions.template.json` gains
+  `Bash(git checkout:*)` and `Bash(git pull:*)` beside
+  `Bash(git switch:*)` in `allow`, and `Bash(mkdir:*)`, `Bash(date:*)`
+  and `Bash(printf:*)` in the shell-command group beside
+  `Bash(echo:*)`; its `deny` is untouched, and the push allow is no
+  template entry, being pattern 1's alone and pattern 2 the template's
+  starting point (the script item below resolves it).
+  `seat-permissions.md § Bash prefix set` gains one table row per new
+  rule with its source named as file and section, rewrites the
+  `Bash(git switch:*)` row's source to `run.md § Pre-flight` alone, and
+  takes the both-directions sentence after the table's closing
+  paragraph. § Mode-independent set's carve-out paragraphs gain the
+  sentence that pattern 1 declares the checkpoint-push allow set beside
+  its deny pair while pattern 2 declares neither, pointing at the
+  § Bash prefix set row rather than repeating the strings. § HEAD moves
+  and whole-tree discards is untouched: its `Bash(git checkout:*)`
+  sentence is about the deny that stays absent. The template stays a
+  valid settings object (`jq -e .`), and the two files are the one
+  declaration in its prose and machine-readable forms (§ Machine-readable
+  form), so they land in one commit rather than a template entry
+  standing untraced or a traced row with no machine form.
+
+- [ ] § What enforces what says what the pre-flight reports: under
+  `Supervisor: AI` an absent Bash prefix rule reports `inert (auto)` and
+  never stops the run, while a rule a tier carries still reports
+  `present (<tier>)` naming that tier, so the file no longer reads as
+  the whole Bash prefix set being reported inert. The script and its
+  test are unchanged, the sentence being the whole defect: `resolve`
+  reaches its `inert` line only after no tier answered, which item 2's
+  acceptance and its inert case already pin.
+  Approach: one clause in the § What enforces what bullet on the Bash
+  prefix set in `skills/dev/companions/seat-permissions.md`; the
+  sentences around it - binding under `Supervisor: human` alone, a
+  user tier's Bash entries being the human-supervised path - stand.
+
+- [ ] The pre-flight resolves the rules the template declares for every
+  project path, one carrying `&` or `|` included: a project at
+  `.../fx2/a&b` yields `Edit(//private/tmp/.../fx2/a&b/**)`. Today's
+  `sed -e "s|__PROJECT_DIR__|...|g"` expands `&` to the whole match and
+  yields `Edit(//.../fx2/a__PROJECT_DIR__b/**)`, which `--apply` writes
+  into the local tier and then reads back `present`, so the gate passes
+  with the real `Edit` grant never made, and a `|` in the path or in
+  `$HOME` breaks the delimiter outright - the opposite of the
+  convergence item 2 states. The case is pinned before it is fixed: the
+  test gains a fixture whose project path carries `&` in a segment,
+  asserting the reported `Edit` rule spells that fixture's own path and
+  that `--apply` then a re-run exits zero, and it is observed failing
+  first.
+  Approach: in `scripts/preflight-permissions.sh` the two-line read at
+  lines 243-244 becomes the `jq -r` read on its own line and the two
+  substitutions on the next,
+  `declared=${declared//__PROJECT_DIR__/${project#/}};
+  declared=${declared//__HOME__/${HOME#/}}` - bash leaves `&` inert in a
+  replacement and has no delimiter to break (probed on this host,
+  including `/bin/bash` 3.2). Net-zero against
+  `scripts/ci/check-code-size.sh`'s 300-line file cap, which the script
+  stands short of, and no `code-size-allow.txt` entry is taken. In
+  `scripts/test/preflight-permissions.test.sh` the case builds its
+  fixture through `newfix` with an `&` in a path segment of `PROJ`,
+  reusing the existing full-set assertions rather than a new shape.
+  Measured with `wc -l` and `bash scripts/ci/run-all.sh`.
+
+- [ ] Under carve-out pattern 1 the pre-flight resolves the
+  checkpoint-push allow set the declaration item states, so a
+  `Supervisor: human` run learns before the first dispatch whether
+  `finish.md § 3` step 2's `git push -u origin <branch>` will prompt at
+  `run.md § Checkpoint`'s accept, which is the one place a supervised
+  run cannot answer a prompt (`toolchain.md § Permission carve-out` 1).
+  Each string reports per tier like every other Bash rule:
+  `present (project)` in this repository, `missing` with the `--apply`
+  line where a pattern-1 project lacks it, and `inert (auto)` under
+  `Supervisor: AI`, where `auto` suspends Bash allow rules and the
+  classifier judges the push. A pattern-2 session declares none of them
+  and its report is unchanged.
+  Approach: `carve_out`'s pattern-1 branch in
+  `scripts/preflight-permissions.sh`, after its `say ok`, appends one
+  `Bash(git push -u origin <p>/*)` per prefix of `git-workflow.md
+  § Trunk` to the global `declared` in a single-line `for` loop;
+  `carve_out` runs at line 275, before the Bash prefix loop reads
+  `declared` at lines 282-285, and pattern 2 returns at line 128 ahead
+  of the append. The § Trunk cite rides the function's existing header
+  comment, which already names `toolchain.md § Permission carve-out`,
+  so the file takes one line and stays inside the 300-line cap after
+  the item above. `scripts/test/preflight-permissions.test.sh` extends
+  its pattern fixtures rather than building new trees: the pattern-1
+  fixture whose project tier carries the strings exits zero with one
+  reading `present (project)`, a pattern-1 fixture without them reports
+  one `missing` under `--supervisor human` and `inert (auto)` under
+  `AI`, and the pattern-2 fixture's report carries no
+  `git push -u origin` line.
+
+- [ ] The shipped self-test runs where it ships: it resolves its
+  subject and the template from `${BASH_SOURCE[0]}` rather than from
+  `git rev-parse --show-toplevel`, so under
+  `<project>/.claude/scripts/test/` it finds
+  `<project>/.claude/scripts/preflight-permissions.sh` and
+  `<project>/.claude/skills/dev/companions/auto-permissions.template.json`
+  - `install-dev.sh` copies `skills/dev` wholesale, so the companion
+  tree is there - while in this checkout the same two levels up from
+  `scripts/test/` stay the repository root. Today the copy fails where
+  item 4 ships it, its `git rev-parse` answering the adopter's
+  repository root instead of their `.claude/`. The pin holds it there:
+  `install-dev.test.sh`'s BASH_SOURCE assertion covers every copied
+  self-test rather than the two it names, and that file stays within
+  `check-code-size.sh`'s 300-line cap, which it currently sits on.
+  Approach: `ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)`
+  replaces line 14 of `scripts/test/preflight-permissions.test.sh`,
+  `SCRIPT` and `TPL` below it unchanged, matching
+  `scripts/test/check-accretion.test.sh:11` and
+  `check-batch-tags.test.sh:12`. In `scripts/test/install-dev.test.sh`
+  the two chained `grep -q 'BASH_SOURCE'` lines at 43-44 become one
+  condition over the copied directory,
+  `[ -z "$(grep -L BASH_SOURCE "$P"/.claude/scripts/test/*.test.sh)" ]`,
+  keeping the `pass`/`die` pair below it and leaving the file one line
+  shorter than it is today, so the pin is afforded with room to spare
+  (`grep -L` prints the files without the match; probed empty when all
+  match). Measured with `wc -l` and `bash scripts/ci/run-all.sh`, and
+  the shipped copy is exercised by running the installed test from a
+  `--project` install tree.
+
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup, mark the plan
-  complete, mark the task `[x]` in `tasks.md`, commit.
+  complete, mark the task `[x]` in `tasks.md`, commit. The same commit
+  adds four lines to R080's backlog in `tasks.md`, this close's
+  leavings, each naming what and why. `hooks/dev-branch-guard.sh`'s
+  HEAD-move scan splits a command textually
+  (`hscan="${cmd//$'\n'/;}"`), so a
+  `git commit -m "...git reset --hard..."` or a heredoc whose body
+  carries a reset line is refused though nothing destructive runs, and
+  the header promises fail-open; the push scan has the same class, so
+  the fix is a shared segment splitter rather than a patch here.
+  `git clean -fd` discards untracked work the way the four denied
+  shapes discard tracked work and is reached by no declared rule and no
+  guard branch. `scripts/preflight-permissions.sh` chmods the local
+  tier 644 unconditionally after the `mv` from a 0600 `mktemp`,
+  relaxing a deliberately restrictive mode where it should capture the
+  existing file's mode and restore it, defaulting to 644 where the file
+  did not exist. Neither `branch-plan.md § Commit cadence` nor
+  `companions/implementer-prompt.md` cites `git-workflow.md § Commit
+  messages`, so an implementer seat invents the body convention: four
+  messages drifted in this run, and none once a dispatch named the
+  rule.

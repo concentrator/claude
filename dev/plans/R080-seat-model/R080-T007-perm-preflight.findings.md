@@ -29,16 +29,6 @@ plan.
   the `settings()` comment, so the over-strong claim would land in
   `scripts/worker-workspace.sh`.
 
-- **Item 2, the convergence sentence's `MAINTENANCE.md` cite; routed to
-  this branch's close.** It cites `§ Generalize allow rules` step 5 for
-  promoting a durable rule into the tracked project tier, where step 5
-  reads "Rule covered by a broader tier (global ⊃ project ⊃ local) →
-  keep the broad one, delete the shadowed" - it deletes a shadowed rule
-  and adds nothing to the broader tier (`MAINTENANCE.md:96-97`,
-  verified), and no other step in the section promotes. The cite needs
-  another step or another home. Nothing in the script turns on it: the
-  operative claim, that the script writes only the local tier, holds.
-
 - **Item 4, the shipped self-test does not run from the install
   location.** The script itself does: a `--project` install into a fresh
   tree runs `.claude/scripts/preflight-permissions.sh` and gets the trust
