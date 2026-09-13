@@ -73,7 +73,12 @@ it. Two working patterns:
 
 2. **Keep the blanket deny** - checkpoint asks, the user approves the
    single `git push -u origin batch/R<NNN>-B<NNN>` manually per batch.
-   Zero config; one prompt per batch by design.
+   Zero config; one prompt per batch by design under
+   `Supervisor: human`. Under `Supervisor: AI` nobody can answer that
+   prompt, so the pre-flight reports it cannot apply.
 
 The pre-flight permission gate checks which pattern is in place and
-reports it; it never weakens a deny rule on its own.
+reports it; it never weakens a deny rule on its own. Which deny strings
+the pattern declares, and how the pattern is read off the tiers the
+session reads, are `companions/seat-permissions.md § Mode-independent
+set`.

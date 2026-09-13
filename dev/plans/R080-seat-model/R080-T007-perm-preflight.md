@@ -31,7 +31,7 @@ nondeterministic and a long transcript can fall back to manual
 approval, both of them runbook-recorded events rather than gaps in a
 declared set.
 
-- [ ] `companions/seat-permissions.md` declares the run's permission
+- [x] `companions/seat-permissions.md` declares the run's permission
   set split by what enforces it, each rule traced to one of four
   sources: a seat definition under `agents/`, a dispatch companion
   under `companions/`, the project's `CLAUDE.md § Agent toolchain`
@@ -312,12 +312,20 @@ declared set.
   named - `git status|diff|log|show|branch|rev-parse` and the search
   and read commands to the seats' `tools:` keys and the absent
   `Glob`/`Grep`, `git add|commit` to `branch-plan.md § Commit
-  cadence`, `git switch|restore|merge|tag` to the `skills/dev/` steps
-  that run them, `echo` to `§ Commit cadence` point 4, the `/tmp`
+  cadence`, `git switch|merge|tag` to the `skills/dev/` steps
+  that run them and `git restore` to the named-path restore § HEAD
+  moves and whole-tree discards keeps open, `echo` to `§ Commit
+  cadence` point 4, the `/tmp`
   read and edit rules to `agents/dev-implementer.md § Scratch & Probe
-  Scripts`, the `Read(//__HOME__/.claude/...)` rules to the dispatch
-  companions that name those trees, and `gh pr view` / `glab mr view`
+  Scripts`, the `skills/**` and `rules/**` read rules to the seat
+  definitions that send a seat to those trees (`agents/dev-planner.md`,
+  `agents/dev-doc-writer.md`, `agents/dev-implementer.md`), and
+  `gh pr view` / `glab mr view`
   to `CLAUDE.md § Agent toolchain`'s State-check line.
+  `Read(//__HOME__/.claude/settings.json)` is the entry the walk drops
+  beside `Bash(cd:*)`, no source naming a seat that reads a settings
+  tier, and `WebSearch` is the entry it adds beside
+  `Bash(git read-tree:*)`, for the two definitions holding that tool.
   `toolchain.md § Permission carve-out`'s closing paragraph ("The
   pre-flight permission gate checks which pattern is in place and
   reports it; it never weakens a deny rule on its own") gains the
@@ -339,8 +347,11 @@ declared set.
   next `;`, `&`, `|` or newline, whitespace-trimmed, which is the slice
   the predicate judged - neither the verb alone (the push lines print
   the literal `'git push'` because their predicate is the verb) nor
-  the whole `$cmd`; `<repo>` is `$top`, the physical top level the
-  entry check resolved; `<pathspec>` is the offending pathspec as the
+  the whole `$cmd`; `<repo>` is `$top`, which the entry check resolves
+  itself as the restore helper does - `resolve_target` gives it a
+  `-C`/`cd` argument, not a top level - through
+  `rev-parse --show-toplevel` and `cd "$top" && pwd -P`; `<pathspec>` is
+  the offending pathspec as the
   segment spells it. The
   dirty-tree test is
   `git -C "$dir" status --porcelain --untracked-files=no`, non-empty
@@ -372,14 +383,13 @@ declared set.
   Only `checkout` and `restore` reach the helper - `switch` takes no
   pathspec - and a `checkout` naming a branch rather than a pathspec
   is the entry check's, the three branches judging a command
-  independently. The file is at 261 lines of `check-code-size.sh`'s
-  300-line cap, so 39 lines carry the three branches, the helper, the
-  header sentences and the reason strings; each function stays inside
-  the 50-line function cap, which binds the helper and not the `Bash)`
-  case body. Measure with `wc -l` after writing, and where it
-  overruns, the file takes a `scripts/ci/code-size-allow.txt` entry
+  independently. The three branches, the helper, the header sentences
+  and the reason strings carry the file past `check-code-size.sh`'s
+  300-line cap, so it takes a `scripts/ci/code-size-allow.txt` entry
   reasoned "PreToolUse hook registered by path; one file by
-  construction" rather than the reason strings being cut short. Its
+  construction" rather than the reason strings being cut short; the
+  helper stays inside the 50-line function cap, which binds it and not
+  the `Bash)` case body. Its
   header comment gains a sentence for each of the three new branches
   beside the write, commit and push ones. The
   cases go in a new `scripts/test/dev-head-guard.test.sh`,
@@ -414,7 +424,10 @@ declared set.
   `git read-tree --reset -u HEAD` (29) adds over `git checkout -- .`
   (17) reflow
   inside `check-caps.sh`'s 80-column limit with no line added and
-  `run.md` stays at 300. The runner item's edits are at lines 69-81
+  `run.md` stays at 300, the re-wrap breaking the
+  `companions/declarations.md § Supervisor bounds` cite across two
+  lines at its inner space, as `run.md:75` already breaks one that long.
+  The runner item's edits are at lines 69-81
   and 117-119, so the two do not touch the same lines.
 
 - [ ] `scripts/preflight-permissions.sh` resolves the declared set
