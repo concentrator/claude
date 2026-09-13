@@ -695,7 +695,7 @@ declared set.
   50-line function cap; `scripts/test/run-all.sh` picks the test up by
   its glob, so `Test (full)` runs it with no wiring.
 
-- [ ] The runner runs the script and routes what it cannot predict:
+- [x] The runner runs the script and routes what it cannot predict:
   `run.md § Pre-flight`'s permission bullet becomes the script's
   invocation in report mode before the first dispatch, its report the
   pre-flight's, a gap stopping the run and printing the `--apply` line
@@ -741,58 +741,76 @@ declared set.
   and `Keystroke authority` keeps its two rules that have nothing to do
   with permission prompts.
   Approach: `run.md` stands at 300 of the 300-line, 80-column cap
-  `scripts/ci/check-caps.sh` holds mode files to, so the edit is
-  net-zero and budgeted: § Pre-flight's first bullet (lines 69-77) goes
-  from 9 lines to 4, naming the script by the one path rule that
-  resolves in both readerships - it sits in the config directory the
-  toolset is installed into, so `<config>/scripts/`, which is
-  `.claude/scripts/` from an adopter's project root and `scripts/`
-  in this repository, whose checkout is that directory - then
-  `--project .` (the script canonicalizes it), `--supervisor
-  <declared>`, `--runner-mode <the runner's launch mode>`, the
-  tier-naming report, the `--apply` line for the
-  user and the surviving "No `## Agent toolchain` section → halt,
-  ask"; the placeholder-substitution clause and the VCS-host-CLI clause
-  go with the bullet, the first to the script and the second to
+  `scripts/ci/check-caps.sh` holds mode files to, so the edit is net-zero
+  and budgeted: § Pre-flight's first bullet goes from 9 lines to 4, naming
+  the script by the one path rule that resolves in both readerships -
+  `<config>/scripts/`, the directory the toolset is installed into, which
+  is `scripts/` in this repository and `.claude/scripts/` from an
+  adopter's project root, glossed once in `companions/seat-permissions.md`
+  where `run.md` has no room for it - then `--project .` (the script
+  canonicalizes it), `--supervisor <declared>`, `--runner-mode <the
+  runner's launch mode>`, the tier-naming report, the `--apply` line for
+  the user and the surviving "No toolchain section → halt, ask"; the
+  placeholder-substitution clause and the VCS-host-CLI clause go with the
+  bullet, the first to the script and the second to
   `companions/toolchain.md § Push + MR/PR`, which already carries the
-  absent-host fallback. Of the five lines that frees, the
-  settings-surface bullet (lines 78-81) takes two for the
-  seat-versus-user split and § Dispatch per item's closing paragraph
-  (lines 117-119) the other three, going from 3 lines to 6: the two
-  class names with their routes in one sentence each and the
-  mode-conditional shaping rule, citing
+  absent-host fallback and gains the sentence that an absent CLI is that
+  fallback rather than a permission gap. Of the five lines that frees, the
+  settings-surface bullet takes two for the seat-versus-user split and
+  § Dispatch per item's closing paragraph the other three, going from 3
+  lines to 6: the two class names with their routes in one sentence each
+  and the mode-conditional shaping rule, citing
   `companions/seat-permissions.md § Prompt classes` for the reasoning
-  behind the classifier route - why no retry is held, which report
-  status carries it, which ledger event records it - since a companion
-  is exempt from both caps and `run.md` is not. Measure with `wc -l`
-  and `check-caps.sh` after the three passages are written; the file
-  lands back at 300 and the wrap may be re-cut across them so long as
-  the check passes. The duty
-  table's prompt row (`| Clearing a permission prompt | nobody: a
-  prompt is a pre-flight defect | the same |`) reads "nobody: a
-  pre-flight defect halts the item; a classifier denial reaches the
-  user as the seat's BLOCKED report (§ Dispatch per item)" in its
-  `Supervisor: human` cell and keeps `the same` in the other, table
-  rows being exempt from the column limit. In the runbook, a
-  companion and so exempt from both caps: § Modes by seat's
-  auto-mode paragraph gains the `companions/seat-permissions.md` cite
-  and the sentence that the mode-independent set, not the suspended
-  Bash rules, is what a promptless run rests on, its
-  `bypassPermissions` / `dontAsk` and "Deny rules survive auto mode"
-  paragraphs kept as that set's own never-list and cited to the
-  declaration; § Failure modes' transcript-overflow entry gains "under
-  `Supervisor: AI` nobody in the pane can answer it: escalate to the
-  user over Remote Control", and its `defaultMode` entry reads as a
-  mode key drifting from its tracked value after a run starts, a key
-  that is part of the tracked value not being a defect. `Keystroke
-  authority` stays the bolded paragraph closing § tmux recipes: its
-  no-key-past-a-permission-prompt sentence reads as the two classes
-  above, and its other two rules - the user must not type instructions
-  into the runner's box, and a keystroke is not the fix for a deadlock
-  - stand unchanged. § Two variants and § tmux recipes are otherwise
-  untouched: the variants table has no who-clears-prompts row and the
-  recipes hold three code blocks, capture-pane and two until-loops,
-  with no send-keys recipe to drop.
+  behind the classifier route, since a companion is exempt from both caps
+  and `run.md` is not. The settings surface is named and never restated:
+  `agents/dev-implementer.md`'s config paragraph, as R080-T011 left it,
+  withholds the four settings files and `~/.claude.json` alone, so
+  `hooks/` is tracked source a plan may name. Measured with `wc -l` and
+  `check-caps.sh` after the three passages: the file lands back at 300.
+  The findings' three notes on this item settle as one route. (a) The seat
+  follows `§ Failure modes` as it stands rather than a reshape written
+  over it: a denial proper is retried once, identical, per its third
+  entry, and only a "could not evaluate" is answered by rewriting the
+  call, per its first. So `run.md` reads "the seat's to handle" rather
+  than "reshapes"; the third entry stays and gains its exit, a seat's
+  second denial being its BLOCKED report and the runner's own denied
+  command halting the run; and "no count of events is kept anywhere" is
+  the run's tally, the one retry sitting inside the call the seat is
+  already in. (b) That instruction reaches the seat through a file the
+  seat does read: `companions/implementer-prompt.md` gains § A Denied
+  Call, the dispatch companion being this branch's to change. The other
+  seats' companions are left alone - an untold seat's route is the same
+  BLOCKED report, one retry poorer. (c) A classifier BLOCKED is neither of
+  `branch-plan.md § Stop conditions`' two blocker rows, so the table gains
+  its own: halt and report, the item's work standing and no planner
+  dispatched, which is what `run.md`'s "the work intact (§ Checkpoint)"
+  points at. A denial of the runner's own command takes the same route,
+  stated in `companions/seat-permissions.md § Prompt classes`, whose class
+  also widens from a seat's `Bash` call to any call of the seat's - a
+  classifier denial of an `Edit` is what this branch's own dispatch met.
+  The duty table's prompt row reads "nobody: a pre-flight defect halts the
+  item; a classifier denial reaches the user as the seat's BLOCKED report
+  (§ Dispatch per item)" in its `Supervisor: human` cell and keeps `the
+  same` in the other, table rows being exempt from the column limit. In
+  the runbook, a companion and so exempt from both caps: § Modes by seat's
+  auto-mode paragraph gains the `companions/seat-permissions.md` cite and
+  the sentence that the mode-independent set, not the suspended Bash
+  rules, is what a promptless run rests on, its `bypassPermissions` /
+  `dontAsk` and "Deny rules survive auto mode" paragraphs kept as that
+  set's own never-list and cited to the declaration; § Failure modes'
+  transcript-overflow entry gains "under `Supervisor: AI` nobody in the
+  pane can answer it: escalate to the user over Remote Control", and its
+  `defaultMode` entry reads as a mode key drifting from its tracked value
+  after a run starts, a key that is part of the tracked value not being a
+  defect. `Keystroke authority` stays the bolded paragraph closing § tmux
+  recipes: its no-key-past-a-permission-prompt sentence reads as the two
+  classes above with the manual-approval fallback beside them, and its
+  other two rules - the user must not type instructions into the runner's
+  box, and a keystroke is not the fix for a deadlock - stand unchanged.
+  § Two variants and § tmux recipes are otherwise untouched: the variants
+  table has no who-clears-prompts row and the recipes hold three code
+  blocks, capture-pane and two until-loops, with no send-keys recipe to
+  drop.
 
 - [ ] The script ships to adopters, so an adopter's `run.md` does not
   name a script its checkout lacks: `scripts/install-dev.sh` copies

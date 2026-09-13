@@ -2,7 +2,10 @@
 
 The run's permission set: declared once, split by what enforces it, and
 settled before the first dispatch. `run.md § Pre-flight` resolves it
-against the settings tiers through `<config>/scripts/preflight-permissions.sh`.
+against the settings tiers through `<config>/scripts/preflight-permissions.sh`,
+`<config>` being the directory the toolset is installed into: `scripts/` in this
+repository, whose checkout is that directory, and `.claude/scripts/` from an
+adopter's project root.
 
 Every rule here traces to one of four sources: a seat definition under
 `agents/`, a dispatch companion under `companions/`, the project's
@@ -249,14 +252,26 @@ halts the item, its fix is a rule in this file and the tier that carries
 it, and nobody clears it (`run.md § Seats`, the prompt row).
 
 A **classifier event** under `auto` is no gap in any declared set: the
-denial lands inside a dispatched seat's own `Bash` call and no other
-seat can see it, the seat's only channel being its report, whose
-statuses (`companions/implementer-prompt.md § Report Format`) carry no
-classifier class. So no retry is the runner's to hold: the seat handles
-the command itself (`companions/supervisor-runbook.md § Failure modes`),
-and where it cannot it reports BLOCKED with the classifier's text, which
-halts the item to the user. The runner ledgers a `prompt` event
-(`run.md § Ledger`) and no count of events is kept anywhere.
+denial lands inside a dispatched seat's own call and no other seat can
+see it, the seat's only channel being its report, whose statuses
+(`companions/implementer-prompt.md § Report Format`) carry no classifier
+class. So no retry is the runner's to hold: the seat handles the call
+itself, retrying it once identically, denials being nondeterministic,
+and rewriting it to be classifier-readable where the classifier could
+not evaluate it (`companions/supervisor-runbook.md § Failure modes`).
+What tells the seat that is its own dispatch
+(`companions/implementer-prompt.md`), the runbook being no seat's
+input. A second denial is an answer: the seat reports BLOCKED with the
+classifier's text, which halts the item and reports with its work intact
+(`run.md § Dispatch per item`), and the runner ledgers a `prompt` event
+(`run.md § Ledger`). That retry sits inside the seat's own call; no
+count of these events is kept anywhere.
+
+A denial of the runner's own command - `git merge`, `git tag`, the
+halt's `git read-tree` - lands in the runner's call rather than a
+seat's and takes the same route: one identical retry, and a second
+denial halts the run and reports, nobody being able to clear a denial
+for it.
 
 ## Seat tool sets
 

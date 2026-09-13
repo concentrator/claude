@@ -38,7 +38,10 @@ report file stays in the repo).
 
 No VCS-host CLI in the project toolchain → push the branch, print the
 creation URL/instructions for the user. Never silently skip the
-push; deferring is an explicit user choice at the checkpoint.
+push; deferring is an explicit user choice at the checkpoint. The
+pre-flight reads the project's declared commands into the Bash prefix
+set (`companions/seat-permissions.md § Bash prefix set`), so an absent
+host CLI is this fallback rather than a permission gap.
 
 ## Permission carve-out for the checkpoint push
 

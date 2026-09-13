@@ -24,6 +24,17 @@ Task tool (dev-implementer):
     Nothing else is an input. A question these three cannot answer is
     reported as NEEDS_CONTEXT, never guessed.
 
+    ## A Denied Call
+
+    A call of yours may be denied by the permission mode's classifier
+    rather than by a rule. Denials are nondeterministic, so retry the
+    call once, identical; where the denial says the classifier could
+    not evaluate it, re-write the call so it can be read - no base64
+    piped into a shell, no script copied to a host and executed - and
+    run that. A second denial is an answer: report BLOCKED with the
+    classifier's text. Nobody else sees the denial, and nobody else
+    clears it.
+
     ## Report Format
 
     When done, report:

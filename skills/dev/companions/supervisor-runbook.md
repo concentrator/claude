@@ -152,7 +152,10 @@ instead of waiting longer.
 an answer; text typed into its input box is a dispatch. No key goes
 past a permission prompt: the prompt is a pre-flight defect the runner
 halts on and reports, and the user fixes the declared set and re-runs
-(`run.md § Seats`; `run.md § Dispatch per item`). Nor may the user
+(`run.md § Seats`; `run.md § Dispatch per item`). The other two routes
+are no keystroke's either: a classifier denial raises no prompt and is
+the seat's own to handle or report BLOCKED on, and a manual-approval
+fallback escalates to the user (§ Failure modes). Nor may the user
 type instructions into the box: that makes the user a second
 dispatcher, and the transcript records no channel for any input, so
 nothing afterwards can tell the two apart. Nor is a keystroke the fix
@@ -188,17 +191,21 @@ has one permission mode, the runner's. Under `Supervisor: AI` that is
 `auto`: the runner's own tooling is compound shell - until-loops,
 pipelines - which prefix rules cannot match, and auto suspends Bash
 allow rules and routes every shell command to a classifier that judges
-what the command does, so the runner is never blocked. Under
-`Supervisor: human` the user's session's mode governs; under either
-mode a prompt the declared set did not predict is a pre-flight defect
-that nobody clears (`run.md § Seats`).
+what the command does, so the runner is never blocked. What a
+promptless run rests on is then the mode-independent set of
+`companions/seat-permissions.md`, never the Bash allow rules auto
+suspends. Under `Supervisor: human` the user's session's mode governs;
+under either mode a prompt the declared set did not predict is a
+pre-flight defect that nobody clears (`run.md § Seats`).
 
-Never `bypassPermissions`: it discards deny rules along with everything
-else. Never `dontAsk`: it denies rather than approves, so every prompt
-becomes a hard failure instead of a question.
+That set's never-list (`seat-permissions.md § Mode-independent set`):
+never `bypassPermissions`, which discards deny rules along with
+everything else, and never `dontAsk`, which denies rather than
+approves, so every prompt becomes a hard failure instead of a question.
 
-Deny rules survive auto mode. Only Bash *allow* rules are suspended, so
-a `git push origin main` or force-push deny still bites.
+Deny rules survive auto mode - under it they are how the set is
+enforced. Only Bash *allow* rules are suspended, so a
+`git push origin main` or force-push deny still bites.
 
 Every seat holds its commands to `branch-plan.md § Commit cadence`
 point 4: print what the step needs, never a file already in context.
@@ -212,7 +219,8 @@ point 4: print what the step needs, never a file already in context.
 - **Prompts reappear in a long runner session** ("Auto mode
   classifier transcript exceeded context window - falling back to
   manual approval"): the classifier transcript overflowed, not a mode
-  change.
+  change. Under `Supervisor: AI` nobody in the pane can answer it:
+  escalate to the user over Remote Control (§ Remote Control).
 - **Over ssh**, use a `pkill` pattern that cannot match its own shell
   (`pkill -f '[r]esmon'`) and run a long-lived helper in its own
   `tmux` session, never with `&`
@@ -225,14 +233,21 @@ point 4: print what the step needs, never a file already in context.
   shown, never the label.
 - **Composer placeholder text renders as if typed** - dim suggested
   text at the prompt line in a pane capture is never input; leave it.
-- **The classifier denies a previously-allowed command**: denials are
+- **The classifier denies a previously-allowed call**: denials are
   nondeterministic - retry once, identical; a second denial is an
-  answer.
+  answer. A seat's answer is its BLOCKED report carrying the
+  classifier's text, which halts the item (`run.md § Dispatch per
+  item`); the runner's own denied command halts the run the same way,
+  nobody being able to clear a denial for it.
 - **A watch command wakes falsely after an edit**: digest-based
   dedupe hashes the command's own output shape, so freeze a watch
   command verbatim for the life of its watch.
-- **`defaultMode` appears in the tracked `settings.json`** after a
-  run starts: do not stage it.
+- **A tier's mode key drifts from its tracked value** after a run
+  starts - a `defaultMode` appearing in the tracked `settings.json`,
+  or its value changing: do not stage it. A `defaultMode` that is part
+  of the tracked value is no defect - the drift is what the pre-flight's
+  mode assertion fails on (`seat-permissions.md § Mode-independent
+  set`).
 - **The MR view omits the pipeline** (`glab mr view` returns
   `pipeline: null` on a live MR): CI evidence is a direct
   pipelines-endpoint read, its ref and sha matched to the MR head, so
