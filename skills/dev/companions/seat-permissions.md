@@ -75,6 +75,16 @@ one and neither covering the other. Pattern 2 declares
 `Bash(git push origin <default>:*)` and `Bash(git push --force:*)`, with
 `<default>` the repo's own default branch name.
 
+Pattern 1 declares the checkpoint-push allow block beside that pair -
+the push strings `toolchain.md § Permission carve-out` 1 prints, which
+is their one home (§ Bash prefix set). They are Bash prefix rules rather
+than mode-independent ones: they bind under `Supervisor: human` and go
+inert under `auto`, where the classifier judges the push. Pattern 2
+declares none of them. Its blanket deny beats every allow across all
+tiers, so its checkpoint push stays the one manual push per batch that
+pattern is, and a declared allow every pattern-2 tier denies would turn
+every pattern-2 session into a cannot-apply.
+
 The pattern is read from the tiers, never from a flag or from this text:
 off the union of the `deny` sets of every tier the session reads - user,
 project and local - because deny beats allow across all tiers
@@ -217,11 +227,16 @@ and a definition carries `tools:` and no permission key.
 | `Bash(sed:*)`, `Bash(grep:*)`, `Bash(head:*)`, `Bash(tail:*)`, `Bash(awk:*)`, `Bash(wc:*)`, `Bash(cat:*)`, `Bash(ls:*)` | the same definitions: no seat holds `Glob` or `Grep`, so these are what the seats read and search with |
 | `Bash(echo:*)` | `branch-plan.md § Commit cadence` point 4 |
 | `Bash(git add:*)`, `Bash(git commit:*)` | `branch-plan.md § Commit cadence` 3 |
-| `Bash(git switch:*)` | `run.md § Pre-flight`, the branch cut off the default; `finish.md`'s discard and post-merge entries |
+| `Bash(git switch:*)` | `run.md § Pre-flight`'s branch cut off the default, which spells no verb: both spellings that cut a branch are declared, `git checkout -b` and `git switch -c`, and the guard's second shape judges them alike |
+| `Bash(git checkout:*)`, `Bash(git pull:*)` | `finish.md § 4` step 1's sync of the default branch, and `finish.md § 3`'s discard entry into it |
 | `Bash(git restore:*)` | § HEAD moves and whole-tree discards: a seat undoing one named file, and the `--staged` unstage route |
 | `Bash(git merge:*)` | `run.md § Close` 5 and `finish.md` |
 | `Bash(git tag:*)` | `run.md § Pre-flight`'s batch tag |
 | `Bash(git read-tree:*)` | `run.md § Question resolution`'s halt revert |
+| `Bash(git check-ignore:*)` | `companions/untracked-claude.md § Detection`, which `finish.md § 1`'s bookkeeping line reaches |
+| `Bash(git grep:*)` | `companions/verification-policy.md § Verification modality`'s negative-search rule, the instrument the docs verifier is sent to through `companions/documentation.md § Verification gate` (`agents/dev-docs-verifier.md`) |
+| `Bash(mkdir:*)`, `Bash(date:*)`, `Bash(printf:*)` | `run.md § Ledger`, the runner's own bookkeeping: `mkdir -p` at § Resolve, the timestamp read from `date -u` at write time, the append through `printf '%s\n' ... >>`; and the stamp `handoff.md § Writing the note` spells |
+| one `Bash(git push -u origin <prefix>/*)` per prefix, the strings' one home being `toolchain.md § Permission carve-out` 1 | `finish.md § 3` step 2's `git push -u origin <branch>` at `run.md § Checkpoint`'s accept; declared under carve-out pattern 1 alone |
 | `Bash(gh pr view:*)`, `Bash(glab mr view:*)` | `CLAUDE.md § Agent toolchain`'s State-check line |
 | the project's declared commands | `CLAUDE.md § Agent toolchain` |
 
@@ -231,6 +246,24 @@ written: `sed`, `awk`, `cat`, `head`, `tail`, `wc` and `grep` are what
 the seats read and search with, while `agents/dev-implementer.md § Plan
 & Findings Files` keeps them off the plan and findings files and its
 config paragraph keeps edit-class shell off the config directory.
+`echo`, `printf` and `mkdir` stand beside them as the write-capable
+verbs: the first two write wherever a redirection points and the third
+creates a directory anywhere the session can write, all three declared
+for the runner's own bookkeeping and under those same bars, so the rows
+widen the class `echo` opened rather than opening one. The push block
+is that shape from the runner's side - the push is `run.md
+§ Checkpoint`'s accept, so `branch-plan.md § Rails`' "Seats never push"
+stands as written and no seat definition and no § Seat tool sets row
+changes for it.
+
+A rule enters this set only with the step or dispatch companion that
+runs it named, and the walk goes both ways: a step whose commands change
+is read against the set in the other direction too, each command looked
+up rather than the rules alone being read outward. So the next change to
+either side walks both ways. The rule promises no completeness - the
+commands a run's work products call cannot be enumerated in advance -
+and a command no declared rule reaches goes to the owning initiative's
+backlog rather than to a named-exclusion list here.
 
 ## Workspace trust
 
@@ -307,8 +340,10 @@ The template ships no `WebFetch(domain:...)` entry, that class having no
 default member, while `WebSearch` ships. Its `deny` keeps
 `Bash(git push:*)` alone, the template being what a fresh adopter starts
 from and pattern 2 that starting point; pattern 1 is a tier edit
-`toolchain.md § Permission carve-out` shows, never a template one. Its
-`allow` keeps `Bash(git switch:*)` and `Bash(git restore:*)`: the bar on
+`toolchain.md § Permission carve-out` shows, never a template one, its
+deny pair and its checkpoint-push allow block alike. Its
+`allow` keeps `Bash(git switch:*)`, `Bash(git checkout:*)` and
+`Bash(git restore:*)`: the bar on
 a seat's HEAD moves is the guard above, so no deny rule of the declared
 set names a HEAD-moving verb, and the allow rules that do are what the
 flow's own moves need.

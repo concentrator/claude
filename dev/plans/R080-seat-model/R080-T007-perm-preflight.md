@@ -878,7 +878,7 @@ declared set.
   case 13 of
   `scripts/test/worker-workspace.test.sh` keep passing untouched.
 
-- [ ] These verbs are declared, added to the Bash prefix set and the
+- [x] These verbs are declared, added to the Bash prefix set and the
   template's `allow`, each traced to a named file and section that runs
   it (`requirements.md § Desired state` 8):
   `Bash(git checkout:*)` and `Bash(git pull:*)`, traced to
@@ -963,8 +963,10 @@ declared set.
   `Bash(echo:*)`; its `deny` is untouched, and the push allow is no
   template entry, being pattern 1's alone and pattern 2 the template's
   starting point (the script item below resolves it).
-  `seat-permissions.md § Bash prefix set` gains one table row per new
-  rule with its source named as file and section, one row for the push
+  `seat-permissions.md § Bash prefix set` gains a table row per new
+  source with that source named as file and section, the rules sharing
+  one grouped into a single row as the table's existing rows already
+  group `git status`/`diff`/`log` and the search verbs; one row for the push
   block naming `toolchain.md § Permission carve-out` 1 as the strings'
   home rather than listing them, with `finish.md § 3` step 2 at
   `run.md § Checkpoint`'s accept as its source; rewrites the
@@ -981,11 +983,16 @@ declared set.
   that stays absent; § Machine-readable form's sentence "Its `allow`
   keeps `Bash(git switch:*)` and `Bash(git restore:*)`" is rewritten to
   name `Bash(git checkout:*)` with them, the reasoning after the colon
-  standing. `toolchain.md § Permission carve-out` 1's "Cover the
+  standing, and its "pattern 1 is a tier edit ..., never a template one"
+  clause gains "its deny pair and its checkpoint-push allow block
+  alike", which is what keeps the push strings out of the template.
+  `toolchain.md § Permission carve-out` 1's "Cover the
   prefixes the project actually uses" paragraph gains one sentence: the
-  block is the run's push prefixes, one per prefix of
+  push strings are the run's prefixes, one per prefix of
   `git-workflow.md § Trunk` except `release`, whose branch `release.md`
-  step 10 pushes by hand. `worker-workspace.sh`'s seed (lines 179-182)
+  step 10 pushes by hand, with `Bash(glab mr create:*)` named as the
+  change-request rule beside them so the sentence does not read as
+  covering the whole block. `worker-workspace.sh`'s seed (lines 179-182)
   is unchanged, already those eight. The template stays a valid
   settings object (`jq -e .`), and the three files are the one
   declaration in its prose and machine-readable forms
