@@ -136,6 +136,15 @@ project_clone() {
 # prompt. Built from companions/auto-permissions.template.json with
 # __PROJECT_DIR__ and __HOME__ substituted; the rules carry a // prefix,
 # so the paths go in without their leading slash.
+#
+# The wholesale > write is the seed: it lands once on a fresh VM checkout,
+# before any run, while preflight-permissions.sh --apply merges into the same
+# file later, so the two never race. The pair written into deny is the worker's
+# carve-out - the strings the pre-flight resolves pattern 1's declared entries
+# against (companions/seat-permissions.md), each reported against the
+# first tier that carries it, so a project whose own tracked tier already has
+# the pair is answered from there; a project whose default branch is not main
+# changes the seed's first string here.
 settings() {
   local dry=0
   [ "${1:-}" = "--dry-run" ] && dry=1

@@ -40,6 +40,7 @@ repos are versioned there, not mapped.
 │   ├── forge-keys.sh             # forge key exchange, the operator's half (sourced by provision-worker.sh)
 │   ├── install-dev.sh            # toolset installer (global or --project)
 │   ├── model-quota.sh            # pinned-dispatch quota gate
+│   ├── preflight-permissions.sh  # the /dev run permission pre-flight
 │   ├── provision-worker.sh       # stands up the worker host, run on the operator's machine
 │   ├── test/                     # script tests + run-all.sh
 │   │   ├── *.test.sh             # script and hook tests, one per subject

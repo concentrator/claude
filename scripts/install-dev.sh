@@ -173,17 +173,22 @@ chmod +x "$target/hooks/dev-context-fill.sh"
 #    and the self-test is how an adopter validates that edit. Adopter
 #    tuning survives a re-run: the code-size allowlist is written only
 #    when absent, and an existing MARKERS line is carried across the
-#    accretion-check copy.
+#    accretion-check copy. The permission pre-flight ships beside them
+#    because skills/dev/run.md § Pre-flight names it: an adopter's runner
+#    would otherwise cite a script its checkout lacks.
 mkdir -p "$target/scripts/ci" "$target/scripts/test"
 markers=""
 [ -f "$target/scripts/ci/check-accretion.sh" ] \
   && markers="$(grep -m1 '^MARKERS=' "$target/scripts/ci/check-accretion.sh" || true)"
 for f in ci/check-code-size.sh ci/check-no-em-dash.sh ci/check-accretion.sh \
          ci/check-batch-tags.sh \
-         test/check-accretion.test.sh test/check-batch-tags.test.sh; do
+         preflight-permissions.sh \
+         test/check-accretion.test.sh test/check-batch-tags.test.sh \
+         test/preflight-permissions.test.sh; do
   cp "$SRC/scripts/$f" "$target/scripts/$f"
 done
 chmod +x "$target"/scripts/ci/check-*.sh
+chmod +x "$target/scripts/preflight-permissions.sh"
 if [ -n "$markers" ]; then
   tmp="$(mktemp)"
   while IFS= read -r line; do
@@ -267,5 +272,5 @@ fi
 
 echo "install-dev: DEV toolset installed into $target ($scope)"
 echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh, check-accretion.sh, check-batch-tags.sh)"
-echo "install-dev: self-tests in $target/scripts/test/ - wire checks and self-tests into your CI"
+echo "install-dev: self-tests in $target/scripts/test/ - wire checks and self-tests into your CI; the /dev run's permission pre-flight is $target/scripts/preflight-permissions.sh"
 if [ -n "$seeded" ]; then echo "install-dev: maintenance hygiene section seeded into $seeded"; fi

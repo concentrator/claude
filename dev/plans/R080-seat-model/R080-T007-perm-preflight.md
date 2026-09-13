@@ -812,7 +812,7 @@ declared set.
   blocks, capture-pane and two until-loops, with no send-keys recipe to
   drop.
 
-- [ ] The script ships to adopters, so an adopter's `run.md` does not
+- [x] The script ships to adopters, so an adopter's `run.md` does not
   name a script its checkout lacks: `scripts/install-dev.sh` copies
   `preflight-permissions.sh` and its self-test alongside the four
   checks and two self-tests it already copies, `LAYOUT.md` gains the
@@ -850,7 +850,8 @@ declared set.
   300. `LAYOUT.md` gains a `preflight-permissions.sh` node commented
   "the /dev run permission pre-flight" between `model-quota.sh` and
   `provision-worker.sh`, the `#` on the column its siblings use, which
-  the 24-character name reaches with six spaces; the test needs no
+  every node in the file puts at 34 characters and the 24-character name
+  reaches with two spaces; the test needs no
   line, the
   `scripts/test/*.test.sh` pattern line covering it, and
   `check-stray.sh` matches first-level nodes only, so the fast tier is
@@ -861,7 +862,12 @@ declared set.
   two never race; and the pair the `jq` filter writes into `deny` is
   the worker's carve-out, the strings the pre-flight resolves pattern
   1's declared entries against, which a project whose default branch
-  is not `main` changes here. The template's name and shape are unchanged by this
+  is not `main` changes here. The second sentence states the tier order
+  rather than the acceptance's `present (local)`: each entry is reported
+  against the first tier that carries it, so a project whose own tracked
+  tier already carries the pair - as this repository's does - is answered
+  from there and the shipped comment does not claim otherwise (findings,
+  the item-4 note). The template's name and shape are unchanged by this
   branch - only its entries move (first item) - so line 143's read and
   case 13 of
   `scripts/test/worker-workspace.test.sh` keep passing untouched.

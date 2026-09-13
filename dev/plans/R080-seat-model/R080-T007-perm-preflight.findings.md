@@ -39,6 +39,19 @@ plan.
   another step or another home. Nothing in the script turns on it: the
   operative claim, that the script writes only the local tier, holds.
 
+- **Item 4, the shipped self-test does not run from the install
+  location.** The script itself does: a `--project` install into a fresh
+  tree runs `.claude/scripts/preflight-permissions.sh` and gets the trust
+  verdict (probed). Its copied self-test resolves its subject as
+  `$(git rev-parse --show-toplevel)/scripts/preflight-permissions.sh`,
+  which is the adopter's repo root rather than their `.claude/`, so it
+  fails where it ships - the defect `install-dev.test.sh:42-45` pins for
+  the accretion and batch-tags self-tests, whose `BASH_SOURCE`
+  resolution the pre-flight test does not copy. Out of item 4's reach:
+  the fix edits item 2's test file, and the assertion that would pin it
+  needs a line in `install-dev.test.sh`, which item 4 leaves at its
+  300-line cap.
+
 ## Approach notes
 
 - **Item 4, the LAYOUT node's padding.** "Which the 24-character name
