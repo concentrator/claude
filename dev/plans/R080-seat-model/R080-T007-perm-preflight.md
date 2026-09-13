@@ -211,59 +211,60 @@ declared set.
   `Bash(git push:*)`, pattern 1 declares the pair
   `Bash(git push origin <default>:*)` and `Bash(git push --force:*)`
   with `<default>` the repo's own default branch name, resolved as the
-  script item states, and each entry is satisfied only by that exact
-  string in a tracked tier's committed `deny` - the content
-  `git show HEAD:<tier>` returns, which is what a fresh clone gets, so
-  a deny added to a tracked file and not yet committed satisfies
-  nothing - the pair's two entries satisfied
-  from two tracked tiers as readily as from one, each report line
-  naming its own. Tracked is the literal word: the tier's file is
-  git-tracked in the repository owning it, as the script item's tier
-  comparison decides (`ls-files --error-unmatch`), and its committed
-  content is what that comparison reads (`show HEAD:$rel`), so the
-  project tier satisfies an entry once its `.claude/settings.json` is
-  committed with the entry in it, and
-  the user tier satisfies one here, where it is this repository's own
-  `settings.json`, and none in an adopter, whose
-  `$HOME/.claude/settings.json` no repository tracks - the push deny is
-  the project's declaration, which `toolchain.md § Permission
-  carve-out` puts in the tracked project tier so a fresh clone keeps
-  it, and a deny living only in one machine's user tier binds that
-  machine's session and no clone's. The pattern is read
-  from the tiers, never taken from a flag or from this text, and it is
-  read off the union of the `deny` sets of every tier the session
-  reads - user, project and local, each as the working-tree file the
-  session reads it from - because deny beats allow across
-  all tiers (`toolchain.md § Permission carve-out`) and the tiers can
-  disagree: a blanket entry in any of the three, tracked or not, makes
-  the session pattern 2, the report naming the tier that carries it,
-  so a user tier's `Bash(git push:*)` beside a project tier's narrow
-  pair is pattern 2 and under `Supervisor: AI` cannot-apply, the
-  project tier's pair notwithstanding; and a union carrying no blanket
+  script item states. The pattern is read from the tiers, never taken
+  from a flag or from this text: it is read off the union of the
+  `deny` sets of every tier the session reads - user, project and
+  local - because deny beats allow across all tiers
+  (`toolchain.md § Permission carve-out`) and the tiers can disagree.
+  An entry is satisfied by its exact string in the `deny` of any one
+  of those same tiers, and one content answers both questions: the
+  tier's working-tree file, which is what the session's own permission
+  check reads and so what binds the run. No git state enters either
+  read - a deny in an untracked local tier binds the session as a
+  committed project-tier one does, and a deny added to a tracked tier
+  binds it before it is committed - so the pattern the report names
+  and the entries that pattern declares are never read from two
+  different contents of one file. The word "tracked" carries no rule
+  here: `run.md § Pre-flight`'s "carried by a tracked tier" names the
+  user and project tiers against the local one, and the runner item
+  below rewrites that bullet. Where a deny lives for the next clone is
+  `toolchain.md § Permission carve-out`'s placement rule, which puts
+  the project's declaration in the tracked project tier; the
+  pre-flight names the tier carrying each entry and gates on nothing
+  else, a run being protected by the file the session reads rather
+  than by that file's git history. So a blanket entry in any of the
+  three makes the session pattern 2, the report naming the tier that
+  carries it and that same tier satisfying pattern 2's one declared
+  entry: a user tier's `Bash(git push:*)` beside a project tier's
+  narrow pair is pattern 2, `present (user)`, accepted under
+  `Supervisor: human` and cannot-apply under `Supervisor: AI`, the
+  project tier's pair notwithstanding. A union carrying no blanket
   entry is pattern 1 whatever it carries of the pair - both entries,
   one, or neither - the declared set being the pair and each entry
   reported on its own line, so one narrow entry alone is pattern 1
   with the other entry missing, and a union carrying neither is the
-  missing-deny gap, which is pattern 1 with both lines missing. That
-  report prints the two missing strings and names the tracked project
-  tier's `deny` as their home, never an `--apply` line, `--apply`
-  writing no deny; `toolchain.md § Permission carve-out` is where a
-  `Supervisor: human` project takes pattern 2 instead. Reading the
-  pattern and satisfying its entries are two steps: a local-tier deny
-  counts toward the read, since it binds the session, and satisfies no
-  declared entry, since a fresh clone loses it (`.gitignore` keeps the
-  local tier out of the repository), so its line reads
-  `missing (untracked in local)` - the status the script item gives an
-  entry no tier's committed content carries, an adopter's user-tier
-  blanket reading `missing (untracked in user)` the same way and a
-  tracked project tier's uncommitted entry
-  `missing (untracked in project)` - and a
-  pair carried by the local tier alone is pattern 1 with both entries
-  missing. Extra
-  deny entries beyond the pattern's are never a gap. This repository
-  is on pattern 1, its tracked `.claude/settings.json` carrying the
-  pair and its user tier, the tracked `settings.json` at the checkout
-  root, carrying no `deny` key.
+  missing-deny gap, which is pattern 1 with both lines missing. The
+  pair's two entries are satisfied from two tiers as readily as from
+  one, each line naming its own, and a pair carried by the local tier
+  alone is pattern 1 with both entries `present (local)` - the shape a
+  provisioned worker arrives in, its seeded local tier the carve-out
+  it runs under (the shipping item below). The missing-deny report
+  prints each missing string and names the tracked project tier's
+  `deny` as its home, never an `--apply` line, `--apply` writing no
+  deny; that file edit is the whole remedy, with no commit and no
+  branch, which is what lets the user run it at the halt
+  `run.md § Pre-flight` takes with no branch created and no edit made.
+  A remedy asking for a commit would ask for one on the default branch
+  the halted run stands on, where `git-workflow.md § Trunk` routes
+  every change through a working branch and an MR/PR and this branch's
+  own guard refuses a seat's `git commit`. Committing the tier so a
+  fresh clone keeps it is the project's own change on a branch of its
+  own, not a step the stopped run waits for.
+  `toolchain.md § Permission carve-out` is where a `Supervisor: human`
+  project takes pattern 2 instead. Extra deny entries beyond the
+  pattern's are never a gap. This repository is on pattern 1, its
+  `.claude/settings.json` carrying the pair and its user tier, the
+  `settings.json` at the checkout root, carrying no `deny` key.
   Approach: new companion `skills/dev/companions/seat-permissions.md`,
   sectioned § What enforces what (the split, and the permission-mode /
   supervisor-mode terminology above), § Mode-independent set (a table:
@@ -441,18 +442,22 @@ declared set.
   rather than reporting a false gap), a WebFetch rule by an exact
   domain match, and a bare tool rule such as `WebSearch` by an exact
   string match. A deny rule is the one class no coverage rule reaches:
-  it is satisfied only by its exact string in the committed `deny` of
-  a tracked tier - tracked in the first item's literal sense, and
-  committed being `HEAD:$rel`, the content the mode-key comparison
-  below reads - while the pattern is read off the tiers' working-tree
-  files, the content the session reads, and which deny strings
-  are declared is the carve-out pattern the first item states, read
-  off the tiers as that item says - so a tier on pattern 1 satisfies
-  the declared set with its narrow pair and is never reported as
-  missing the blanket rule, and a tier with neither pattern's set is
-  the missing-deny gap. Cannot-apply, each exiting non-zero with
-  nothing written: an untrusted workspace, a needed allow rule a
-  tracked tier denies, a missing deny rule, a default branch the
+  it is satisfied only by its exact string in the `deny` of a tier the
+  session reads, and which deny strings are declared is the carve-out
+  pattern the first item states, read off the tiers as that item says
+  - so a tier on pattern 1 satisfies the declared set with its narrow
+  pair and is never reported as missing the blanket rule, and a tier
+  with neither pattern's set is the missing-deny gap. Every class
+  resolves against one content, the same one the pattern read takes:
+  each tier's working-tree file, which is what the session's own
+  permission check reads and what `--apply` writes into, so an applied
+  rule reads back as present (convergence below) and no two checks
+  disagree about what a tier holds. Git state enters one check and
+  decides no rule - the mode-key comparison below, which needs a
+  tier's committed value to compare the working-tree one against.
+  Cannot-apply, each exiting non-zero with
+  nothing written: an untrusted workspace, a needed allow rule any
+  tier denies, a missing deny rule, a default branch the
   script cannot resolve and so no pattern-1 string to check, pattern 2
   under `Supervisor: AI`, `bypassPermissions` or
   `dontAsk` in any tier, a missing `.claude/` directory, an unwritable
@@ -472,7 +477,15 @@ declared set.
   § Pre-flight from its first bullet - the script's own re-run is what
   proves the apply landed and the remaining pre-flight checks have not
   run yet - while § Resolve's scope, supervisor and ledger stand and
-  are not redone. That the **user** runs `--apply` is what
+  are not redone. A missing deny stops the run at the same halt and
+  resumes the same way on a different remedy: no `--apply` line, the
+  script writing no deny, but the missing string and the tracked
+  project tier's `deny` as its home for the **user** to edit before
+  re-entering § Pre-flight. That edit alone clears the gap, the
+  resolver reading the tier's working-tree file, so the resume waits
+  on no commit and the halt asks for none on the default branch it is
+  standing on (`git-workflow.md § Trunk`). That the **user** runs
+  `--apply` is what
   `requirements.md § Desired state` 8 asks: the printed line is the
   command that closes the gap, and `.claude/settings.local.json` is on
   the settings surface no seat clears (`agents/dev-implementer.md`, its
@@ -546,41 +559,66 @@ declared set.
   refs/remotes/origin/main`, which resolves with no remote configured
   and keeps the test host's `init.defaultBranch` out of the expected
   string. The mode-assertion half the script can decide
-  is the tier comparison, and each tier resolves its own repo rather
-  than assuming the project's: `top=$(git -C "$(dirname "$tier")"
+  is the tier comparison, the one check that reads anything but the
+  working-tree files, and each tier resolves its own repo rather than
+  assuming the project's. The tier path is canonicalized first,
+  `tier="$(cd "$(dirname "$tier")" && pwd -P)/$(basename "$tier")"`,
+  because the strip below is textual while `--show-toplevel` returns a
+  physical path, so a symlinked `$HOME` would otherwise leave `rel`
+  absolute; then `top=$(git -C "$(dirname "$tier")"
   rev-parse --show-toplevel)`, then `rel=${tier#"$top"/}`, then
   `git -C "$top" ls-files --error-unmatch "$rel"` to say whether it is
   tracked, then `git -C "$top" show "HEAD:$rel"` for the tracked
   value. That is what lets the user tier be tracked here, where
   `$HOME/.claude/settings.json` is this repository's own
-  `settings.json`, and untracked in an adopter. The deny check reads
-  the same `HEAD:$rel` content, so a fixture's tracked tier is
-  committed rather than staged - a staged file is tracked to
-  `ls-files` and absent from `HEAD`. Three verdicts, and
+  `settings.json`, and untracked in an adopter. Three verdicts, and
   only the middle one is a defect: `unchanged` passes, `drifted`
   is the failed permission-mode assertion on the cannot-apply list,
   and `untracked` passes with the tier's value printed, there being no
-  tracked value to have drifted from. A present `defaultMode` is never
+  tracked value to have drifted from. Every failure in that sequence
+  lands on `untracked` - none on `drifted`, and none on the
+  cannot-apply list's "cannot read the tiers", which is about the tier
+  files the rest of the script reads: a tier under no repository,
+  whose `rev-parse` fails; a tier `ls-files` calls untracked; and a
+  tier staged but never committed, which `ls-files` calls tracked
+  while `show "HEAD:$rel"` exits 128 (`exists on disk, but not in
+  'HEAD'`, or `invalid object name 'HEAD'` where the repository has no
+  commit yet), so the verdict keys on the non-zero exit and not on the
+  message. A tier already in `HEAD` carrying a staged edit is not that
+  case: `show` returns its committed value and the comparison runs
+  against it as always. A present `defaultMode` is never
   a defect on its own. Report lines carry one
   status each: `present (user|project|local)`, `missing`,
-  `missing (untracked in <tiers>)` for a deny entry no tier's
-  committed content carries - an untracked tier's, or a tracked
-  tier's uncommitted edit - the tiers named as `user`, `project` or
-  `local`, `inert (auto)`, `applied (local)`,
-  `cannot apply: <reason>`. Test
+  `inert (auto)`, `applied (local)`, `cannot apply: <reason>`. The
+  tiers are searched in the order `user`, `project`, `local` and the
+  status names the first that carries the rule, so a rule two tiers
+  carry is one line naming one tier; `missing` is the whole of the gap
+  status, no tier being named for a string no tier holds. Test
   cases, fixture trees under `mktemp -d` (untrusted by construction,
   which is what makes case 1 free): an untrusted tree reports
   cannot-apply, stops and writes nothing; a full set exits zero with
   every line naming its tier; a missing non-Bash rule is reported and
   then written by `--apply` with the file's other keys intact; a re-run
-  after `--apply` exits zero; a tracked `Edit(//<root>/**)` covers a
+  after `--apply` exits zero; a tier's `Edit(//<root>/**)` covers a
   declared child path and is not rewritten; an absent Bash prefix is
   inert and exits zero under `--supervisor AI` and missing and non-zero
   under `--supervisor human`; pattern 2 is accepted under `human` and
-  cannot-apply under `AI`; a tracked tier carrying pattern 1's narrow
+  cannot-apply under `AI`; a project tier carrying pattern 1's narrow
   pair satisfies the declared deny and is not reported as missing the
   blanket rule; a tier carrying neither pattern's deny set is
-  cannot-apply and `--apply` writes no deny; `--runner-mode unknown`
+  cannot-apply and `--apply` writes no deny; the untracked local tier
+  carrying the pair alone satisfies it, both lines reading
+  `present (local)` and the run exiting zero, which is the shape a
+  provisioned worker arrives in (the shipping item); a tracked project
+  tier whose working-tree `deny` carries the pair while its committed
+  content carries none satisfies it too, no rule reading git state; a
+  tier staged and never committed passes, its `deny` satisfying and
+  its `defaultMode` printed as untracked, which pins the `show`
+  exit-128 route; a user tier carrying `Bash(git push:*)` beside a
+  project tier carrying the narrow pair is pattern 2 satisfied from
+  the user tier, accepted under `human` and cannot-apply under `AI`; a
+  rule two tiers carry is one line reading `present (user)`;
+  `--runner-mode unknown`
   is cannot-apply under `AI` and ignored under `human`; a tier whose
   `defaultMode` drifted from its tracked value is cannot-apply while
   an untracked tier passes with its value printed;
@@ -695,7 +733,25 @@ declared set.
   checks and two self-tests it already copies, `LAYOUT.md` gains the
   script's node, and `scripts/worker-workspace.sh` records why its
   wholesale write of `.claude/settings.local.json` and the pre-flight's
-  merge into the same file do not collide.
+  merge into the same file do not collide, and what a provisioned
+  worker's pre-flight reads in it. `settings()` does not ship the
+  template's `deny` as it stands: its `jq` filter replaces it with
+  pattern 1's pair, `.permissions.deny = ["Bash(git push origin
+  main:*)", "Bash(git push --force:*)"]`, so a worker's session is on
+  pattern 1 rather than the template's pattern 2 and its seeded local
+  tier satisfies both entries - `present (local)` under the first
+  item's rule, which reads the tier's working-tree file and asks
+  nothing of git - which is how a worker passes the gate under
+  `Supervisor: AI` with nothing committed and no user at the keyboard.
+  The seed spells that default branch as the literal `main`, so a
+  project whose default branch is something else has the pair's first
+  entry reported missing against the `<default>` the script resolves,
+  and the seed's string is that project's to change. A project whose
+  own tracked tier carries the blanket `Bash(git push:*)` is pattern 2
+  on the worker all the same, the seeded pair adding to that deny
+  rather than replacing it, and that is a true cannot-apply under
+  `Supervisor: AI`: the project narrows its tracked deny
+  (`toolchain.md § Permission carve-out`) before a worker runs.
   Approach: `install-dev.sh` step 4's copy loop (lines 181-185) gains
   `preflight-permissions.sh` and `test/preflight-permissions.test.sh`,
   a `chmod +x "$target/scripts/preflight-permissions.sh"` follows the
@@ -714,10 +770,13 @@ declared set.
   `scripts/test/*.test.sh` pattern line covering it, and
   `check-stray.sh` matches first-level nodes only, so the fast tier is
   green before and after. `worker-workspace.sh`'s `settings()` comment
-  (lines 133-138) gains one sentence: the wholesale `>` write is the
+  (lines 133-138) gains two sentences: the wholesale `>` write is the
   seed, written once on a fresh VM checkout before any run, and the
   pre-flight's `--apply` merges into the same file afterwards, so the
-  two never race. The template's name and shape are unchanged by this
+  two never race; and the pair the `jq` filter writes into `deny` is
+  the worker's carve-out, the strings the pre-flight resolves pattern
+  1's declared entries against, which a project whose default branch
+  is not `main` changes here. The template's name and shape are unchanged by this
   branch - only its entries move (first item) - so line 143's read and
   case 13 of
   `scripts/test/worker-workspace.test.sh` keep passing untouched.
