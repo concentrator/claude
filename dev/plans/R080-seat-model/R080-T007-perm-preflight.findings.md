@@ -47,20 +47,52 @@ plan.
   read-tree`, all under `auto`) fits neither class, the classifier-event
   class being defined as landing inside a seat's `Bash` call.
 
-- **Item 1, which content of a tracked tier satisfies a deny entry.**
-  "Each entry is satisfied only by that exact string in a tracked tier's
-  `deny` ... Tracked is the literal word: the tier's file is git-tracked
-  in the repository owning it ... so the project tier satisfies an entry
-  once its `.claude/settings.json` is committed" carries two readings
-  that pass different trees: the file is tracked and the string is read
-  from the working-tree file, so an uncommitted deny added to a tracked
-  file satisfies; or the string must be in the committed content
-  (`git show HEAD:$rel`, how item 2's approach reads the mode key). The
-  literal-word sentence points to the first, the rationale "a fresh
-  clone keeps it" and the word "committed" to the second, and item 2's
-  approach names `HEAD:$rel` for the mode key alone. Which content a
-  deny entry is read from is the implementer's to settle in the approach
-  text.
+- **Item 2, when the client reads a settings tier.** The one-content
+  rule rests on "the tier's working-tree file, which is what the
+  session's own permission check reads and so what binds the run", and
+  the resume that follows has the user edit the tracked project tier at
+  the halt, re-enter `§ Pre-flight`, and the run continue with no
+  restart. Nothing in the plan's inputs establishes when the client
+  reads a tier. If tiers are read at session start, the script reports
+  the deny present while the halted runner session is not bound by it,
+  and deny rules are the hard floor (`requirements.md § Invariants`).
+  What settles it is a client-behavior fact the plan can cite, or a
+  resume that names a session restart. The allow half of the assumption
+  is pre-existing in `run.md § Pre-flight`; the deny half is this
+  branch's.
+
+- **Item 2, how a deny string is matched against a needed allow rule.**
+  The cannot-apply list carries "a needed allow rule any tier denies",
+  where every other class has an explicit matching rule - prefix
+  coverage for Bash, literal-prefix containment for paths, exact for
+  WebFetch and bare tools, exact string for the declared deny set - and
+  the same paragraph says "A deny rule is the one class no coverage rule
+  reaches", which is about satisfying the declared entries rather than
+  testing a tier's deny against an allow. Exact string, prefix overlap,
+  or the containment rule read the other way is the implementer's to
+  pick, and it decides whether a worker's `Bash(git push origin main:*)`
+  deny conflicts with an allow rule.
+
+- **Item 2, whether an unresolvable default branch stops a pattern-2
+  session.** "A default branch the script cannot resolve and so no
+  pattern-1 string to check" implies the cannot-apply fires only where a
+  pattern-1 string must be built, while the check-order sentence ("The
+  pattern read needs `<default>`") reads as unconditional. Live here,
+  not a corner: `git symbolic-ref --short refs/remotes/origin/HEAD`
+  exits 128 in this checkout, so an adopter on pattern 2 with no
+  `init.defaultBranch` either passes or is stopped depending on the
+  choice.
+
+- **Item 4, `present (local)` is stated without its qualifier.** "Its
+  seeded local tier satisfies both entries - `present (local)` under the
+  first item's rule" holds only where no earlier tier carries the pair;
+  item 1 states the same claim with that qualifier and item 4 drops it.
+  A worker cloning a project whose tracked `.claude/settings.json`
+  carries the pair - as this repository's does - prints
+  `present (project)` under the tier order. The gate still passes, so
+  the defect is the sentence; but item 4's approach makes these words
+  the `settings()` comment, so the over-strong claim would land in
+  `scripts/worker-workspace.sh`.
 
 ## Approach notes
 
@@ -71,17 +103,33 @@ plan.
   helper does, with `rev-parse --show-toplevel` then `cd && pwd -P`.
   Reusing that computation in the entry branch is the obvious reading.
 
-- **Item 2, the tier list in `missing (untracked in <tiers>)`.** With
-  two untracked tiers carrying the entry - an adopter's user tier beside
-  local - the separator and the order are unstated. Tier order
-  `user, project, local`, comma-separated, is the obvious reading.
+- **Item 2, the report-status list does not cover the lines the item
+  needs.** "Report lines carry one status each: `present (…)`,
+  `missing`, `inert (auto)`, `applied (local)`, `cannot apply:
+  <reason>`" leaves four kinds of line homeless. The mode-assertion
+  lines use another vocabulary - two test cases in the same paragraph
+  assert a `defaultMode` "printed as untracked" and "an untracked tier
+  passes with its value printed". Most cannot-apply reasons attach to no
+  rule at all (untrusted workspace, `jq` absent, missing `.claude/`, an
+  unwritable local tier, an unresolvable default branch), so whether
+  `cannot apply` is a standalone line, a trailing verdict or a header is
+  unstated. For pattern 2 under `Supervisor: AI` the items disagree in
+  shape: item 1 reads that entry `present (user)` where item 2 lists the
+  case as cannot-apply, and one line cannot carry both under "one status
+  each". And the missing-deny remedy and the pattern name itself have no
+  place in the grammar. No test case pins report text.
 
-- **Item 1, the adopter claim about `$HOME`.** "None in an adopter,
-  whose `$HOME/.claude/settings.json` no repository tracks" is a claim
-  about adopters rather than a rule: a `$HOME` that is itself a
-  dotfiles checkout tracks that file, and the literal rule then counts
-  the user tier as satisfying. The rule as written is what to build; the
-  sentence needs no fix unless the plan means to exclude that case.
+- **Item 2, the tier-path canonicalization states no failure route.**
+  `tier="$(cd "$(dirname "$tier")" && pwd -P)/$(basename "$tier")"`
+  carries none, where `--project` two paragraphs above has "a failure
+  exiting non-zero". Two cases fall through: a tier whose directory is
+  absent, where the substitution yields `/settings.json` and reaches
+  `untracked` only by accident; and a tier file that does not exist,
+  which is the ordinary state of `.claude/settings.local.json` before
+  the first `--apply`, where "`untracked` passes with the tier's value
+  printed" has no value to print. Whether the script runs under `set -e`
+  - which decides whether the failed `cd` aborts or falls through - is
+  also unstated.
 
 - **Item 2, the toolchain parse.** "A span holding no space is a CLI
   name ... and contributes no prefix" also drops a one-word command
@@ -102,8 +150,10 @@ plan.
   reaches with six spaces" miscounts: siblings put `#` at 34 characters,
   which a 24-character name reaches with two spaces.
 
-- **Item 2, the tier comparison's path.** `rel=${tier#"$top"/}` assumes
-  the tier path is already physical. `--show-toplevel` returns a
-  physical path, so a symlinked `$HOME` component reads every tier as
-  `untracked` and passes. It fails open, and one canonicalizing `pwd -P`
-  closes it, as `--project` already has.
+- **Item 2, the convergence sentence's `MAINTENANCE.md` cite.** It
+  cites `§ Generalize allow rules` step 5 for promoting a durable rule
+  into the tracked project tier, where step 5 reads "Rule covered by a
+  broader tier (global ⊃ project ⊃ local) → keep the broad one, delete
+  the shadowed" - it deletes a shadowed rule and adds nothing to the
+  broader tier (`MAINTENANCE.md:96-97`, verified). The cite needs
+  another step or another home.
