@@ -430,7 +430,7 @@ declared set.
   The runner item's edits are at lines 69-81
   and 117-119, so the two do not touch the same lines.
 
-- [ ] `scripts/preflight-permissions.sh` resolves the declared set
+- [x] `scripts/preflight-permissions.sh` resolves the declared set
   against the tiers and prints one report whose every line names the
   tier that satisfied the rule, so a report that read one tier cannot
   pass as a full answer. Workspace trust is its first check and never
@@ -532,7 +532,11 @@ declared set.
   `$HOME/.claude/settings.json`), `<project>/.claude/settings.json`,
   `<project>/.claude/settings.local.json`, and `PREFLIGHT_CLAUDE_JSON`
   (default `$HOME/.claude.json`) for the trust read; the two
-  environment variables exist for the test's fixture trees. Placeholder
+  environment variables exist for the test's fixture trees. The
+  template is reached from the script's own directory,
+  `<script dir>/../skills/dev/companions/`, which holds in this
+  checkout and in the `.claude/` an adopter's `install-dev.sh` writes,
+  and an unreadable one is a stop. Placeholder
   substitution moves here from `run.md § Pre-flight`, which owns it
   today: `__PROJECT_DIR__` and `__HOME__` become absolute paths without
   their leading slash, the template's rules carrying the `//` prefix
@@ -540,25 +544,48 @@ declared set.
   The Bash prefix set is the template's `Bash(` entries plus the
   project's `CLAUDE.md § Agent toolchain` commands. That section is
   prose bullets, so the parse is stated on the text rather than on a
-  format: every backticked span inside the section is a candidate, a
-  bullet may carry more than one, and prose outside the backticks -
-  a parenthetical, a label - is not read. A span holding no space is a
-  CLI name rather than a command ("VCS host: GitHub, CLI `gh`") and
+  format: a candidate is a backticked span inside one of the section's
+  bullets - the bullet line and the indented lines wrapping it, a
+  bullet carrying more than one - and the section's own prose is not
+  read, backticks and all, this repository's opening sentence citing
+  `## Agent toolchain` itself in them; prose outside the backticks, a
+  parenthetical or a label, is not read either. A span holding no
+  space is a CLI name rather than a command ("VCS host: GitHub, CLI
+  `gh`") and
   contributes no prefix of its own, the commands that CLI runs
-  arriving from the other bullets. Every other span becomes one
+  arriving from the other bullets; the same rule drops a one-word
+  command, which no reading of the text tells from a CLI name, so a
+  project declaring one states it with an argument or carries the rule
+  in its tier. Every other span becomes one
   `Bash(<prefix>:*)` rule whose prefix is the span up to its first
   placeholder, trailing space trimmed. On this repository that yields
   `Bash(bash scripts/ci/run-all.sh:*)`,
-  `Bash(bash scripts/test/run-all.sh:*)` (the second span of the
-  Test (full) bullet), `Bash(gh pr create:*)`, `Bash(gh pr view:*)`
+  `Bash(bash scripts/test/run-all.sh:*)`, `Bash(gh pr create:*)`,
+  `Bash(gh pr view:*)`
   and `Bash(gh pr merge:*)`. An absent host CLI is the push-only
   fallback of `companions/toolchain.md § Push + MR/PR`, not a gap.
-  Check order:
-  trust, then the mode assertion and the never-list, then the
+  Check order: the preconditions first - `jq`, `--project`, trust, the
+  `.claude/` directory, a writable local tier, a tier that parses -
+  each stopping at once with no rule resolved, nothing written and its
+  own remedy printed, a pre-flight that cannot read the tiers or write
+  the file `--apply` targets having no report to give. Then the mode
+  assertion and the never-list, then the
   carve-out pattern read and, in the same step, the deny rules it
-  declares, then the non-Bash allow rules, then the Bash prefix set.
-  The pattern read needs `<default>`, resolved in the project's repo
-  as `is_trunk` in `hooks/dev-branch-guard.sh` resolves it up to its
+  declares, then the non-Bash allow rules, then the Bash prefix set,
+  these accumulating into the one report and the one exit. A tier's
+  deny bars a needed allow rule where the deny string covers that rule
+  under the same relation the allow classes use - its exact string, or
+  a broader one that swallows it - so a `Bash(git:*)` deny bars the
+  declared `Bash(git log:*)` while the narrow push pair, which no
+  declared allow rule sits under, bars nothing; the other direction is
+  no conflict, a deny narrower than a declared allow rule being the
+  deliberate narrowing `toolchain.md § Permission carve-out`
+  prescribes.
+  Pattern 1's pair needs `<default>` and pattern 2 never asks for it,
+  so the resolution sits inside the pattern-1 branch and an
+  unresolvable default branch stops no pattern-2 session. It resolves
+  in the project's repo as `is_trunk` in
+  `hooks/dev-branch-guard.sh` resolves it up to its
   literal fallback: `git -C "$project" symbolic-ref --short
   refs/remotes/origin/HEAD` with its `origin/` stripped, else
   `git -C "$project" config init.defaultBranch`, and neither
@@ -572,10 +599,17 @@ declared set.
   `git -C <fixture> symbolic-ref refs/remotes/origin/HEAD
   refs/remotes/origin/main`, which resolves with no remote configured
   and keeps the test host's `init.defaultBranch` out of the expected
-  string. The mode-assertion half the script can decide
-  is the tier comparison, the one check that reads anything but the
+  string. The assertion's launch-mode half is `--supervisor AI`'s
+  alone; its tier comparison runs under both supervisor modes, a key
+  drifting mid-run being no less a defect where a human supervises.
+  That comparison is the half the script can decide, the one check
+  that reads anything but the
   working-tree files, and each tier resolves its own repo rather than
-  assuming the project's. The tier path is canonicalized first,
+  assuming the project's. It runs only for a tier whose file exists -
+  a tier that does not exist has no value to print and takes no line -
+  so the canonicalization's `cd` always has a directory to reach; the
+  script runs under `set -uo pipefail` and never `set -e`, every stop
+  being an explicit exit. The tier path is canonicalized first,
   `tier="$(cd "$(dirname "$tier")" && pwd -P)/$(basename "$tier")"`,
   because the strip below is textual while `--show-toplevel` returns a
   physical path, so a symlinked `$HOME` would otherwise leave `rel`
@@ -601,17 +635,36 @@ declared set.
   message. A tier already in `HEAD` carrying a staged edit is not that
   case: `show` returns its committed value and the comparison runs
   against it as always. A present `defaultMode` is never
-  a defect on its own. Report lines carry one
-  status each: `present (user|project|local)`, `missing`,
-  `inert (auto)`, `applied (local)`, `cannot apply: <reason>`. The
-  tiers are searched in the order `user`, `project`, `local` and the
+  a defect on its own. Every report line is one status in a padded
+  first column and one subject. The statuses are
+  `present (user|project|local)`, `missing`, `inert (auto)`,
+  `applied (local)`, `unchanged`, `untracked`, `ok` and
+  `cannot apply: <reason>`; the subject is the declared rule where the
+  line resolves one, and otherwise the check's own name - `workspace
+  trust`, `permission mode`, `mode key (<tier>): <value>`,
+  `never-list`, `carve-out pattern <n>`, `local tier`, `tier read` -
+  which is what gives a check that resolves no rule its line. A remedy
+  is no status: the remedies print after the report under one
+  `remedy:` header, which is where the `--apply` line and the
+  missing-deny tier edit land. So pattern 2 under `Supervisor: AI` is
+  two lines rather than one overloaded status - the entry's own
+  `present (<tier>)` and the pattern's `cannot apply:` - and the test
+  pins both. Where a cannot-apply verdict stands nothing is written
+  and only its remedies print, the `--apply` line waiting on the
+  re-run the user's tier edit precedes; where `--apply` does write,
+  the lines it closed read `applied (local)` and the run exits zero.
+  The tiers are searched in the order `user`, `project`, `local` and the
   status names the first that carries the rule, so a rule two tiers
   carry is one line naming one tier; `missing` is the whole of the gap
   status, no tier being named for a string no tier holds. Test
   cases, fixture trees under `mktemp -d` (untrusted by construction,
   which is what makes case 1 free): an untrusted tree reports
   cannot-apply, stops and writes nothing; a full set exits zero with
-  every line naming its tier; a missing non-Bash rule is reported and
+  every line naming its tier, which is the toolchain parse's case too,
+  its fixture `CLAUDE.md` carrying a plain bullet span, a placeholder
+  span, a lone CLI name, a backticked section cite in the section's
+  own prose and a span in the section after it, of which only the
+  first two become rules; a missing non-Bash rule is reported and
   then written by `--apply` with the file's other keys intact; a re-run
   after `--apply` exits zero; a tier's `Edit(//<root>/**)` covers a
   declared child path and is not rewritten; an absent Bash prefix is
