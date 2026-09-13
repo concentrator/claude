@@ -21,13 +21,14 @@ plan.
 - **Item 4, `present (local)` is stated without its qualifier.** "Its
   seeded local tier satisfies both entries - `present (local)` under the
   first item's rule" holds only where no earlier tier carries the pair;
-  item 1 states the same claim with that qualifier and item 4 drops it.
-  A worker cloning a project whose tracked `.claude/settings.json`
-  carries the pair - as this repository's does - prints
-  `present (project)` under the tier order. The gate still passes, so
-  the defect is the sentence; but item 4's approach makes these words
-  the `settings()` comment, so the over-strong claim would land in
-  `scripts/worker-workspace.sh`.
+  item 1 states the same claim with that qualifier and item 4's
+  acceptance drops it. A worker cloning a project whose tracked
+  `.claude/settings.json` carries the pair - as this repository's does -
+  prints `present (project)` under the tier order. The gate still
+  passes, and the shipped text is already qualified: item 4's approach
+  states the tier order instead, and `scripts/worker-workspace.sh`'s
+  `settings()` comment reads "each reported against the first tier that
+  carries it". The over-strong wording is the acceptance sentence alone.
 
 ## Approach notes
 
