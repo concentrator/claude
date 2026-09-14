@@ -71,7 +71,7 @@ Two tiers gate every change into `main` (hooks ship to adopters via
 
 PreToolUse hooks guard ahead of both tiers: no trunk writes, commits
 or pushes, force pushes nowhere, no entry into a default branch with
-uncommitted work, no discard of tracked work that neither `git stash
+uncommitted tracked work, no discard of tracked work that neither `git stash
 pop` nor the reflog brings back, no secrets into tracked files or
 commits (the secrets guard fails closed without its pattern library).
 The state hooks keep branch and tree in view, save them to the session

@@ -16,9 +16,10 @@
 # open.
 #
 # It also refuses three moves that lose work, judged per command segment
-# against the repo that segment targets: an entry into a repo's default
-# branch while its tracked tree is dirty, and a branch created under that
-# name; an irrecoverable discard - `git reset --hard/--merge/--keep` and
+# against the repo that segment targets: a `checkout`/`switch` into a
+# repo's default branch while its tracked tree is dirty, and a
+# `checkout -b|-B` or `switch -c|-C` creating a branch under that name;
+# an irrecoverable discard - `git reset --hard/--merge/--keep` and
 # `git stash drop/clear`, which no `stash pop` and no reflog bring back;
 # and a whole-tree `checkout`/`restore` pathspec (`.`, `:/`, the repo's
 # own top level), the named-path spellings passing

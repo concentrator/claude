@@ -17,7 +17,7 @@ every project on the machine.
 | `rules/` | Path-scoped convention rules: the DEV-artifact writing rules (shipped by the installer), JS style, CLAUDE.md/skill maintenance |
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); beside it the bundled dependency skills the installer ships, the personal skills, and the worker-host runbook (`LAYOUT.md` marks each) |
 | `agents/` | Subagent definitions for the seats of `/dev run`, one per seat the run dispatches (the roster: `skills/dev/run.md § Seats`): each declares the seat's tools and, where it sets one, its model, and carries its standing instructions. This repository's own - `install-dev.sh` copies none of them |
-| `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no entry into a repo's default branch with uncommitted work and no branch created under that name; no discard that loses work - `git reset --hard/--merge/--keep`, `git stash drop/clear`, a whole-tree `checkout`/`restore` pathspec; no secrets into tracked files or commits), the UserPromptSubmit branch-state line, the PreCompact session-state writer, the Stop hand-off nudge, and the SessionStart re-brief |
+| `hooks/` | PreToolUse guards (no trunk writes, commits, or pushes; no `checkout`/`switch` into a repo's default branch with uncommitted tracked work and no `checkout -b\|-B` or `switch -c\|-C` creating a branch under that name; no discard that loses work - `git reset --hard/--merge/--keep`, `git stash drop/clear`, a whole-tree `checkout`/`restore` pathspec; no secrets into tracked files or commits), the UserPromptSubmit branch-state line, the PreCompact session-state writer, the Stop hand-off nudge, and the SessionStart re-brief |
 | `scripts/` | `ci/` the mechanical checks and `test/` the script tests, each behind a `run-all.sh`, together the Tier-1 gate CI runs on every pull request (`DESIGN.md § Self-enforcement`); `install-dev.sh`, `context-cost.py` the session context-cost reporter, `model-quota.sh` the pinned-dispatch quota gate, `preflight-permissions.sh` the `/dev run` permission pre-flight, and the worker-host scripts, which `skills/worker-host/` documents: `provision-worker.sh` stands up the host from the operator's machine and sources `forge-keys.sh`, the operator's half of the forge key exchange; `worker-setup.sh` (system setup), `worker-credentials.sh` (forge keys and CLI auth) and `worker-workspace.sh` (repositories and per-project settings) run on the VM |
 | `.github/`, `.githooks/`, `.gitignore` | The CI gate on pull requests, its advisory local pre-push mirror, and the ignore rules for harness state |
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
@@ -46,9 +46,9 @@ subagents, each started fresh for one item and shut down at its exit -
 under the supervisor the project declares, human or AI, within
 declared bounds. Before its first dispatch a run resolves the
 permission set the toolset declares against the three settings tiers a
-session reads, reporting the tier that carries each rule; a gap halts
-the run and prints the command that closes it, which is the user's to
-run. `/dev ship` takes a landed branch to a merged MR/PR;
+session reads: `scripts/preflight-permissions.sh` reports the tier that
+carries each rule, and a gap halts the run and prints the `--apply`
+command that closes it, which is the user's to run. `/dev ship` takes a landed branch to a merged MR/PR;
 `/dev handoff` writes the session's hand-off note, which with the
 PreCompact hook's tree block carries state across compaction (the
 SessionStart hook re-injects the last hand-off block when the session
