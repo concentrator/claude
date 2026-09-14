@@ -2,7 +2,6 @@
 task: R080-T007
 type: mnt
 depends-on: R080-T004, R080-T010, R080-T011
-cold-read: passed
 supervised: approved
 ---
 
@@ -1139,6 +1138,67 @@ declared set.
   match). Measured with `wc -l` and `bash scripts/ci/run-all.sh`, and
   the shipped copy is exercised by running the installed test from a
   `--project` install tree.
+
+- [ ] `scripts/worker-workspace.sh`'s `settings` seeds the rules the
+  template declares for the project path it is given, one carrying `&`
+  or `|` included: a worker whose project sits at `.../a&b` gets
+  `Edit(//.../a&b/**)` in its `.claude/settings.local.json`. Line 174's
+  `sed -e "s|__PROJECT_DIR__|${pd#/}|g" -e "s|__HOME__|${HOME#/}|g"` is
+  the defect the pre-flight item above fixed, standing in the one other
+  place the template is substituted: `&` expands to the whole match, so
+  the seed writes `Edit(//.../a__PROJECT_DIR__b/**)`, and a `|` in the
+  path or in `$HOME` breaks the delimiter. Unlike the pre-flight, nothing
+  downstream shows it: the malformed rule is valid JSON, so `jq -e .`
+  passes it, the function prints `written, <n> allow rules, workspace
+  trusted` and exits zero, and `workspace_state` trusts the real path
+  while the `Edit` grant names one that does not exist. What the seed is
+  for - a worker passing the gate with nothing committed and no user at
+  the keyboard (the shipping item) - fails on such a path, the
+  pre-flight reporting the `Edit` rule `missing` and halting for an
+  `--apply` nobody is there to run. The case is pinned before it is
+  fixed: `scripts/test/worker-workspace.test.sh` gains a real run of
+  `settings` against a fixture whose project directory carries `&`,
+  asserting the written tier's `Edit` rule spells that directory and no
+  placeholder survives, and it is observed failing first.
+  Approach: line 174 becomes `local base; base=$(cat "$tpl")` with the
+  two substitutions on the next line,
+  `base=${base//__PROJECT_DIR__/${pd#/}};
+  base=${base//__HOME__/${HOME#/}}`, the pipe into `jq` at line 175 and
+  the siblings rule untouched - `--arg siblings` already carries the
+  path through `jq` and lands intact on an `&` path. Bash leaves `&`
+  inert in a replacement and has no delimiter to break, and the nested
+  `${pd#/}` inside the replacement works on the host's `/bin/bash`
+  3.2.57, probed by running that shape under `/bin/bash` explicitly
+  against an `a&b` fixture, as the pre-flight item probed it. The
+  function's header comment names no `sed`, so it stands. Caps:
+  `check-caps.sh` reads `CLAUDE.md`, `DESIGN.md`, `SKILL.md` and the
+  mode files and neither of these two, and against
+  `scripts/ci/check-code-size.sh` the script stands at 224 of the
+  300-line file cap and `settings()` at 44 (lines 148-191) of the
+  50-line function cap, so the one added line fits with no
+  `code-size-allow.txt` entry. The test's settings cases (lines 241-264)
+  are dry runs only: case 15 builds `h=$(mktemp -d); mkdir -p
+  "$h/proj/.claude"` and passes `HOME="$h" WORKER_PROJECT_DIR="$h/proj"`,
+  so the project path is the caller's to name and carries `&` as
+  `newfix 'a&b'` does in the pre-flight test. A real run needs two more
+  things the dry run does not: the template under the fixture `$HOME`,
+  `settings` reading
+  `$HOME/.claude/skills/dev/companions/auto-permissions.template.json`
+  and hard-failing without it, and a `$HOME/.claude.json` to write, which
+  the fixture `HOME` keeps off the host. So case 46 (the file's next id)
+  follows case 15: `mkdir -p "$h/.claude/skills/dev/companions"
+  "$h/a&b/.claude"`, copy the template from
+  `$(git rev-parse --show-toplevel)/skills/dev/companions/` the way line
+  9 resolves `WSSCRIPT`, run `env PATH=/usr/bin:/bin HOME="$h"
+  WORKER_PROJECT_DIR="$h/a&b" bash "$WSSCRIPT" settings` - `jq` is
+  `/usr/bin/jq`, inside the `PATH` the file's other real runs use - then
+  assert over `jq -r '.permissions.allow[]'` of
+  `$h/a&b/.claude/settings.local.json` that `Edit(//${h#/}/a&b/**)` is
+  present, `__PROJECT_DIR__` absent, and the siblings rule
+  `Read(//${h#/}/**)` present, which pins the `jq` half unchanged;
+  `rm -rf "$h"` closes it as case 15 does. The file stands at 266 of the
+  300-line cap, so the dozen lines fit. Measured with `wc -l` and
+  `bash scripts/ci/run-all.sh`.
 
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup, mark the plan
