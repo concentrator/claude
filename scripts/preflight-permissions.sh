@@ -241,8 +241,8 @@ for f in "$UT" "$PT" "$LT"; do
   [ -f "$f" ] || continue
   jq -e . "$f" >/dev/null 2>&1 || stop "$f is not valid JSON" "tier read" "fix the file"
 done
-declared=$(jq -r '.permissions.allow[]' "$TEMPLATE" 2>/dev/null)
-declared=${declared//__PROJECT_DIR__/${project#/}}; declared=${declared//__HOME__/${HOME#/}}
+declared=$(jq -r --arg p "${project#/}" --arg h "${HOME#/}" '.permissions.allow[] |
+  gsub("__PROJECT_DIR__"; $p) | gsub("__HOME__"; $h)' "$TEMPLATE" 2>/dev/null)
 [ -n "$declared" ] || stop "the permission template is unreadable" "$TEMPLATE" \
   "reinstall the toolset (scripts/install-dev.sh)"
 say ok "workspace trust"

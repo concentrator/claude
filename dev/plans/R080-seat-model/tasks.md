@@ -87,7 +87,7 @@ hooks rule says who writes a guard, the pilot last.
   rule planning a guard change names the user as its writer. Depends
   on R080-T010.
 
-- [x] **R080-T007 [mnt]**: deterministic permission pre-flight - a
+- [ ] **R080-T007 [mnt]**: deterministic permission pre-flight - a
   declared permission set per seat (mode plus allow rules) derived
   from the toolchain declaration, each seat's definition under
   `agents/` and its dispatch companion under `skills/dev/companions/`;

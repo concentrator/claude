@@ -1393,7 +1393,7 @@ declared set.
   misstated: what R080 rules is whether the heuristic tightens, not a
   defect to patch.
 
-- [ ] Both placeholder substitutions resolve a project path or a
+- [x] Both placeholder substitutions resolve a project path or a
   `$HOME` carrying `&` to that path itself, with no dependence on the
   bash version, so the pre-flight gates on the `Edit` grant it
   reports and the worker seed writes the rule it counts. The two sites
@@ -1489,11 +1489,13 @@ declared set.
   "${project#/}" --arg h "${HOME#/}" '.permissions.allow[] |
   gsub("__PROJECT_DIR__"; $p) | gsub("__HOME__"; $h)' "$TEMPLATE"
   2>/dev/null)`, with the `[ -n "$declared" ] || stop` under it
-  unchanged and still catching an unreadable template. Two lines
+  unchanged and still catching an unreadable template. Two commands
   becoming one is the budget as much as the shape: the file stands at
   299 of `scripts/ci/check-code-size.sh`'s 300-line file cap, one line
   of headroom, so a pure-bash rewrite has that one line to spend and no
-  `code-size-allow.txt` entry is taken. In `scripts/worker-workspace.sh`
+  `code-size-allow.txt` entry is taken. The one command wraps over the
+  same two source lines, at the line lengths the file already runs to,
+  and the file holds at 299. In `scripts/worker-workspace.sh`
   those two
   lines go and the `jq` call under them reads the template by path,
   `"$tpl"` after the filter in place of the `printf '%s' "$base" |`
@@ -1506,8 +1508,9 @@ declared set.
   declaration item keeps free of them. That `|=` narrows one behavior
   the filter has today, and the narrowing is taken deliberately: `+=`
   builds `permissions.allow` out of a null, while iterating a null
-  raises `Cannot iterate over null` and returns 1, which the `|| return
-  1` already on the pipeline turns into a failed `settings()`. The
+  raises `Cannot iterate over null` and exits 5 (probed on this host's
+  jq 1.7.1), which the `|| return 1` already on the call turns into a
+  failed `settings()`. The
   template ships both `permissions` keys and `settings()` stops before
   the filter when the template is unreadable, so the case is a template
   that parses without `permissions.allow` - and failing loudly on it

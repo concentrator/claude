@@ -171,17 +171,17 @@ settings() {
   [ -f "$tpl" ] || { printf 'settings: template missing at %s\n' "$tpl" >&2; return 1; }
   mkdir -p "$pd/.claude"
 
-  local base; base=$(cat "$tpl")
-  base=${base//__PROJECT_DIR__/${pd#/}}; base=${base//__HOME__/${HOME#/}}
-  printf '%s' "$base" | jq --arg siblings "//$(dirname "${pd#/}")/**" \
-    '.permissions.allow += [
+  jq --arg pd "${pd#/}" --arg h "${HOME#/}" --arg siblings "//$(dirname "${pd#/}")/**" \
+    '(.permissions.allow[] |= (gsub("__PROJECT_DIR__"; $pd) | gsub("__HOME__"; $h))) |
+    .permissions.allow += [
       "Read(" + $siblings + ")",
       "Bash(npm *)", "Bash(node *)", "Bash(npx *)", "Bash(glab *)", "Bash(gh *)",
       "Bash(git push -u origin batch/*)", "Bash(git push -u origin doc/*)",
       "Bash(git push -u origin feat/*)",  "Bash(git push -u origin fix/*)",
       "Bash(git push -u origin refactor/*)", "Bash(git push -u origin mnt/*)",
       "Bash(git push -u origin test/*)",  "Bash(git push -u origin plan/*)"
-    ] | .permissions.deny = ["Bash(git push origin main:*)", "Bash(git push --force:*)"]' > "$out" || return 1
+    ] | .permissions.deny = ["Bash(git push origin main:*)", "Bash(git push --force:*)"]' \
+    "$tpl" > "$out" || return 1
 
   jq -e . "$out" >/dev/null 2>&1 || { printf 'settings: %s is not valid JSON\n' "$out" >&2; return 1; }
 
