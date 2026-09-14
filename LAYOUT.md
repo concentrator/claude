@@ -23,7 +23,7 @@ repos are versioned there, not mapped.
 ├── .githooks/                    # advisory local gate (core.hooksPath)
 │   └── pre-push                  # advisory local Tier-1 mirror
 ├── hooks/                        # Claude Code hooks, wired in settings.json
-│   ├── dev-branch-guard.sh       # PreToolUse: no trunk mutations
+│   ├── dev-branch-guard.sh       # PreToolUse: no trunk mutations, no lost work
 │   ├── dev-branch-state.sh       # UserPromptSubmit: branch/tree state
 │   ├── dev-context-fill.sh       # context-fill percent helper
 │   ├── dev-handoff-nudge.sh      # Stop: hand-off nudge
