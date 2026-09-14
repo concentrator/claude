@@ -404,7 +404,19 @@ main..HEAD`, which no flow step runs, leaving the cap resting on a
 runner's recollection across a branch whose commits span many seats.
 What R080 rules there is whether § Size cap gets a mechanical check -
 a flow step or a hook reading that count at a named point - or stays
-the judgement the runner is trusted to make.
+the judgement the runner is trusted to make. A user proposal, not a
+settled call: make the supervisor seat switchable per session without a
+tracked commit, `CLAUDE.md § Supervision`'s `Supervisor:` line being its
+only home today, so flipping AI to human takes a branch and a plan
+MR/PR. `companions/declarations.md § Supervisor bounds` bars the obvious
+route - "authority never moves there", of the untracked
+`.claude/supervisor.md` - and the reason holds: an untracked file
+granting merge rights leaves no trace in history, and anything that can
+write a file could promote itself into the merge seat. The shape
+proposed instead is a tracked ceiling with an untracked or run-time
+selection at or below it, the seat taken recorded in the run's ledger.
+What R080 rules is whether that shape is right and which artifact
+carries the selection.
 
 Archival, promotion target (`plan.md § Archival`): this initiative
 bought a set of facts about the host that no file in the tree states,
