@@ -1393,8 +1393,8 @@ declared set.
   defect to patch.
 
 - [ ] Both placeholder substitutions resolve a project path or a
-  `$HOME` carrying `&` to that path itself under every bash the toolset
-  runs on, CI's included, so the pre-flight gates on the `Edit` grant it
+  `$HOME` carrying `&` to that path itself, with no dependence on the
+  bash version, so the pre-flight gates on the `Edit` grant it
   reports and the worker seed writes the rule it counts. The two sites
   are `scripts/preflight-permissions.sh`'s `declared=$(jq -r
   '.permissions.allow[]' "$TEMPLATE" ...)` read and the substitution
@@ -1421,21 +1421,35 @@ declared set.
   What is checkable here is the property instead, and that is what the
   commit delivers: no substitution in either script goes through a bash
   replacement whose replacement half is a variable expansion, so no
-  result turns on the bash version; the two suites and
-  `bash scripts/ci/run-all.sh` stay green on this host; and the script
-  item's `--apply` convergence holds, an applied rule still reading back
-  `present (local)`. The sweep that bounds the fix to those two sites:
-  every other `${var//.../...}` under `scripts/` and `hooks/` has a
-  shell-literal, `&`-free replacement (`hooks/dev-branch-guard.sh`'s
-  three `${cmd//$'\n'/;}` splits, `scripts/ci/check-batch-tags.sh`'s
-  `${want/B<NNN>/B-XXX}`), as does every surviving `sed`
-  s-substitution (`scripts/test/install-dev.test.sh`'s `MARKERS=`
-  rewrite, `hooks/dev-precompact-state.sh`'s two `s/;/; /g`), so no
+  result turns on the bash version. One `grep` reads that property and
+  is the commit's red-to-green evidence in place of a suite -
+  `grep -nE '\$\{[A-Za-z_][A-Za-z0-9_]*//?[^}/]*/'
+  scripts/preflight-permissions.sh scripts/worker-workspace.sh`, which
+  matches the two substitution lines named above before the commit and
+  nothing after. Beside it, two conditions this host can still hold the
+  commit to: the two suites and `bash scripts/ci/run-all.sh` stay
+  green, and the script item's `--apply` convergence stands, an applied
+  rule still reading back `present (local)`. The sweep that bounds the fix to those two sites
+  reads both substitution forms across `scripts/` and `hooks/` - the
+  parameter expansions `${var/...}` and `${var//...}`, and `sed`'s `s`
+  command - and asks of each whether its replacement half expands a
+  shell variable, that being the only way a path reaches text a bash or
+  a `sed` re-scans. Four parameter-expansion sites answer no, each
+  replacing with a shell literal: `hooks/dev-branch-guard.sh`'s three
+  newline splits, two of them on `$cmd` (lines 176 and 257) and one on
+  `$before` (line 320), and `scripts/ci/check-batch-tags.sh`'s
+  `${want/B<NNN>/B-XXX}`. Every surviving `sed` s-substitution answers
+  no as a class rather than one site at a time - each replacement half
+  is empty, a backreference, or fixed text, and not one interpolates a
+  variable - so the class is stated and not listed, an enumeration of
+  line-extraction `sed`s being the kind that goes stale unread. No
   third site carries the hazard. One piece of text the fix invalidates
-  and rewrites: case 46's comment names `sed` as the cause, which this
-  branch already replaced, so its first sentence states the hazard by
+  and rewrites: at `scripts/test/worker-workspace.test.sh:266-267` case
+  46's comment names `sed` as the cause in its second sentence, a tool
+  this branch already replaced, so that sentence states the hazard by
   what a substitution does with `&` rather than by the tool that did
-  it. The two `&` items above keep their text, their commits having
+  it, while the first sentence, which names the case, stands.
+  The two `&` items above keep their text, their commits having
   landed and a mark recording what happened
   (`branch-plan.md § Body`); their approach paragraphs' claim that bash
   leaves `&` inert in a replacement is what this item's acceptance
@@ -1458,11 +1472,17 @@ declared set.
   1.7.1: `jq -r --arg p 'tmp/a&b' '[.[] |
   gsub("__PROJECT_DIR__"; $p)] | .[]'` over
   `["E(//__PROJECT_DIR__/**)"]` prints `E(//tmp/a&b/**)`, and
-  `jq -rn --arg p 'tmp/a&b' '$p'` prints the path unchanged. CI proves
-  nothing about jq either way - a tier `sat()` built with the same
-  `gsub` and a script that mangled its own string would fail case 2b
-  exactly as a correct tier does - so the jq half's proof on CI's host
-  arrives with CI, and the acceptance's property is what holds here.
+  `jq -rn --arg p 'tmp/a&b' '$p'` prints the path unchanged. CI decides
+  the jq half rather than leaving it open: case 2b asserts against
+  `${PROJ#/}`, a path the test builds in bash and never sends through
+  `jq`, so a `gsub` expanding `&` on CI's host fails that `want` and
+  the `nowant` on `__PROJECT_DIR__` beside it. What a red case 2b does
+  not say is which half mangled the string - the fixture tier `sat()`
+  builds with the same `gsub` fails it exactly as a script mangling its
+  own replacement would - so a failure there is a diagnosis to make,
+  not an answer. The jq half's proof arrives with the pushed run (the
+  final item below), and what is checkable on this host is the
+  acceptance's property.
   In `scripts/preflight-permissions.sh` the read and the substitution
   line collapse into one read, `declared=$(jq -r --arg p
   "${project#/}" --arg h "${HOME#/}" '.permissions.allow[] |
@@ -1470,9 +1490,10 @@ declared set.
   2>/dev/null)`, with the `[ -n "$declared" ] || stop` under it
   unchanged and still catching an unreadable template. Two lines
   becoming one is the budget as much as the shape: the file stands at
-  299 of `scripts/ci/check-code-size.sh`'s 300-line file cap, so no
-  `code-size-allow.txt` entry is taken and a multi-line pure-bash
-  rewrite does not fit. In `scripts/worker-workspace.sh` those two
+  299 of `scripts/ci/check-code-size.sh`'s 300-line file cap, one line
+  of headroom, so a pure-bash rewrite has that one line to spend and no
+  `code-size-allow.txt` entry is taken. In `scripts/worker-workspace.sh`
+  those two
   lines go and the `jq` call under them reads the template by path,
   `"$tpl"` after the filter in place of the `printf '%s' "$base" |`
   pipe, gaining `--arg pd "${pd#/}" --arg h "${HOME#/}"` and a leading
@@ -1481,18 +1502,53 @@ declared set.
   `.permissions.allow += [...]`. Addressing `allow` is what the
   template affords: both placeholders sit in `permissions.allow` alone
   (`companions/auto-permissions.template.json`), whose `deny` the
-  declaration item keeps free of them. `--arg siblings` is untouched,
+  declaration item keeps free of them. That `|=` narrows one behavior
+  the filter has today, and the narrowing is taken deliberately: `+=`
+  builds `permissions.allow` out of a null, while iterating a null
+  raises `Cannot iterate over null` and returns 1, which the `|| return
+  1` already on the pipeline turns into a failed `settings()`. The
+  template ships both `permissions` keys and `settings()` stops before
+  the filter when the template is unreadable, so the case is a template
+  that parses without `permissions.allow` - and failing loudly on it
+  beats seeding a worker with a settings file the substitution never
+  touched. `--arg siblings` is untouched,
   already carrying an `&` path through, as is the dry-run branch's
   `printf '  - substitute __PROJECT_DIR__=%s __HOME__=%s\n'`, which
   prints the values rather than substituting. `settings()` stands at 45
   of the 50-line function cap and its file at 225 of 300, so that side
-  is not budget-bound. Measured with `wc -l`,
+  is not budget-bound. Measured with the acceptance's `grep` over the
+  two scripts, `wc -l`,
   `bash scripts/ci/run-all.sh`, and both suites run directly.
 
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` over the commits this reopening adds, `bash
   scripts/ci/run-all.sh` green, cleanup, mark the plan complete, mark
-  the task `[x]` in `tasks.md`, commit. Placing that task mark last is
+  the task `[x]` in `tasks.md`, commit. No local run is this
+  reopening's close evidence: the defect the item above fixes is
+  invisible to every gate on this host (that item's acceptance), and
+  `run-all.sh` is the lint tier besides, running no suite at all. Both
+  stay required, no commit landing on a red fast tier
+  (`branch-plan.md § Rails`), and neither is sufficient. So
+  the branch's close condition is the pushed branch's own CI run going
+  green on the head sha that carries this item's commit - the `tier1`
+  job of `.github/workflows/ci.yml`, which runs the lint tier and
+  `scripts/test/run-all.sh` on `ubuntu-latest`, the bash the local runs
+  never reach. The **runner** reads it at `run.md § Boundary
+  verification` 4, after the checkpoint-accept push
+  (`run.md § Checkpoint`) and before the merge-or-ask step, with
+  `CLAUDE.md § Agent toolchain`'s State-check command,
+  `gh pr view <n> --json state,mergedAt,statusCheckRollup`; under
+  `Supervisor: human` the same read is `finish.md § 3` steps 3 and 4.
+  No seat closes on that evidence, seats never pushing
+  (`branch-plan.md § Rails`), so this item's commit is the branch's
+  last commit and not its close. The branch's open MR/PR is #540, whose
+  `tier1` run is red on the pre-fix head - the defect showing where it
+  is visible - so the green that closes the branch is a run against the
+  new head, and a run still red there is the red-tier halt
+  (`run.md § Checkpoint`), which keeps the work intact and reopens the
+  branch under `branch-plan.md § Scope changes mid-branch` as this
+  reopening already did, the task mark clearing again with it. Placing
+  that task mark last is
   why this item exists: the branch's previous final commit ("Complete
   R080-T007: permission pre-flight") wrote `[x]` on `R080-T007` in
   `dev/plans/R080-seat-model/tasks.md` while the substitution defect
