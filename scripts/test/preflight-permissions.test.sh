@@ -61,10 +61,12 @@ sat() {
 # In-place jq edit of a tier.
 edit() { local f=$1; shift; jq "$@" "$f" > "$f.new" && mv "$f.new" "$f"; }
 
+# $SUT runs a fixture copy of the script instead of the tracked one, for a
+# case whose template must be damaged (case 19).
 runp() {
   OUT=$(HOME="$FIX" PREFLIGHT_USER_SETTINGS="$FIX/user.json" \
         PREFLIGHT_CLAUDE_JSON="$FIX/claude.json" \
-        bash "$SCRIPT" --project "$PROJ" "$@" 2>&1); RC=$?
+        bash "${SUT:-$SCRIPT}" --project "$PROJ" "$@" 2>&1); RC=$?
 }
 # Report lines are column-padded; assertions read them space-collapsed.
 has()  { printf '%s\n' "$OUT" | tr -s ' ' | grep -qF -- "$1"; }
@@ -254,6 +256,25 @@ else
   want "writable" "the unwritable tier is named"
 fi
 chmod u+w "$PROJ/.claude"
+
+# --- 19. a template that resolves only in part stops the run ---
+# jq aborts a filter error after emitting the rules before it, so a template
+# carrying a non-string in .permissions.allow yields a short declared set that
+# is not empty - the run must stop on jq's status, not report the survivors as
+# a whole set. The script is copied so $TEMPLATE resolves beside the copy and
+# the tracked template is left alone.
+newfix; sat "$PT" "$PAIR"
+mkdir -p "$FIX/scripts" "$FIX/skills/dev/companions"
+cp "$SCRIPT" "$FIX/scripts/"; SUT="$FIX/scripts/preflight-permissions.sh"
+jq '.permissions.allow[1] = {"not": "a string"}' "$TPL" \
+  > "$FIX/skills/dev/companions/auto-permissions.template.json"
+runp --supervisor AI --runner-mode auto
+rcn "a template resolving only in part stops the run"
+want "cannot apply: the permission template resolved no declared set" \
+  "the stop names the partial resolve"
+want "not a string" "jq's own message reaches the operator"
+nowant "present (" "a partial resolve reports no rule"
+unset SUT
 
 (( fail == 0 )) && echo "preflight-permissions.test: ALL OK"
 exit $fail
