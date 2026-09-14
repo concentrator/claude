@@ -2,7 +2,6 @@
 task: R080-T007
 type: mnt
 depends-on: R080-T004, R080-T010, R080-T011
-cold-read: passed
 supervised: approved
 ---
 
@@ -1527,7 +1526,21 @@ declared set.
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine` over the commits this reopening adds, `bash
   scripts/ci/run-all.sh` green, cleanup, mark the plan complete, mark
-  the task `[x]` in `tasks.md`, commit. No local run is this
+  the task `[x]` in `tasks.md`, commit. That stage list is not the
+  commit's contents: three paths are staged by name - this plan file,
+  `dev/plans/R080-seat-model/tasks.md`, and
+  `dev/plans/R080-seat-model/R080-T007-perm-preflight.findings.md`,
+  whose triage this branch already resolved in the working tree and
+  never committed, and which `§ Closing routine` 7 puts in the final
+  commit. Staging the first two alone leaves the branch dirty, which
+  `finish.md § 3` stops on, and `git add -A` in their place sweeps in
+  untracked directories no plan item names. The plan's `cold-read`
+  frontmatter key rides the commit in whatever state the tree holds it,
+  neither written nor reverted here: that key is the cold read's
+  record, written by the session that runs the read of the planner pass
+  preceding this item (`write-plan.md` step 6), so its state at commit
+  time is that read's verdict rather than a value this item asserts.
+  The commit leaves no modified tracked file behind. No local run is this
   reopening's close evidence: the defect the item above fixes is
   invisible to every gate on this host (that item's acceptance), and
   `bash scripts/ci/run-all.sh` is the lint tier besides, running no
@@ -1559,8 +1572,8 @@ declared set.
   R080-T007: permission pre-flight") wrote `[x]` on `R080-T007` in
   `dev/plans/R080-seat-model/tasks.md` while the substitution defect
   stood, which is the completion `§ Closing routine` 7 orders the mark
-  last to avoid asserting. So the mark, cleared to `[ ]` by the item
-  above when the branch reopened, is written back here and nowhere
+  last to avoid asserting. So the mark, which the item above's commit
+  cleared to `[ ]`, is written back here and nowhere
   earlier, and the previous final item keeps its `[x]`, its commit
   having landed. Nothing else carries a mark to move: `ROADMAP.md`'s
   R080 entry is the initiative's, marked at R closure, and R080-T005 is
@@ -1570,7 +1583,7 @@ declared set.
   `DESIGN.md`, `LAYOUT.md` and `README.md`, none of which states how a
   placeholder is substituted, and the item above restores the behavior
   the pre-flight and the seed already promise rather than changing it,
-  so that pass stands (`run.md § Close` 3). The same commit adds four
+  so that pass stands (`run.md § Close` 3). The same commit adds five
   leavings to the `Backlog, from the R080-T007 close:` paragraph in
   `tasks.md`, each naming what it leaves and why. The shell: this
   repository's shell code is written, probed and run
@@ -1606,22 +1619,37 @@ declared set.
   case is correctly absent from the fix item's acceptance. What R080
   rules is whether a fixture may sit anywhere a declared rule already
   covers.
-  Two files at their cap with a split deferred:
-  `scripts/preflight-permissions.sh` stands at 300 of
-  `scripts/ci/check-code-size.sh`'s 300-line file cap, the truncation
-  fix having spent its last spare line, and
-  `scripts/test/preflight-permissions.test.sh` at 280 of the same cap,
-  the regression case having cost 21 lines. Neither took a
-  `code-size-allow.txt` entry. So the next change to either needs a
-  restructure, a split, or an allow-list decision, and which of the
-  three it takes is a planning call rather than an implementer's.
+  Two files against their cap with a split deferred:
+  `scripts/preflight-permissions.sh` sits on `scripts/ci/check-code-size.sh`'s
+  300-line file cap with no line left to spend, the last one going to
+  "Stop R080-T007's pre-flight on a partial template", and
+  `scripts/test/preflight-permissions.test.sh` runs close behind it
+  after the regression case "Pin R080-T007's stop on a partial
+  template" added. That script is what computes and enforces both
+  counts; neither file took a `code-size-allow.txt` entry. So the next
+  change to either needs a restructure, a split, or an allow-list
+  decision, and which of the three it takes is a planning call rather
+  than an implementer's.
+  A split prompt that never fired: `branch-plan.md § Size cap` prompts
+  to split past 30 commits, and this branch crossed 30 during the close
+  fix pass with no prompt raised. Nothing is split here - the branch is
+  one commit from its close - so the leaving is the threshold passing
+  unremarked, not this branch's size. The count is read with `git
+  rev-list --count main..HEAD`, which no flow step runs, leaving the
+  cap resting on a runner's recollection across a branch whose commits
+  span many seats. What R080 rules is whether § Size cap gets a
+  mechanical check - a flow step or a hook reading that count at a
+  named point - or stays a judgement the runner is trusted to make.
   Approach: the close's steps are `branch-plan.md § Closing routine`'s
-  and are not restated here; only the files this item edits are named.
+  and are not restated here; only the files the commit carries are
+  named.
   In `dev/plans/R080-seat-model/tasks.md` the `R080-T007` line's `[ ]`
   returns to `[x]`, and the backlog paragraph opening "Backlog, from
-  the R080-T007 close:" takes the four leavings as its closing
+  the R080-T007 close:" takes the five leavings as its closing
   sentences, which keeps it ahead of the `Archival, promotion target`
   paragraph the file's ordering puts last. In this plan file, this item's
   checkbox. Any finding the close review raises goes to
   `R080-T007-perm-preflight.findings.md`, whose entries are all `[x]`
-  and are not reopened.
+  and are not reopened; that file is staged as it stands, its triage
+  being the close's, and the three paths go to `git add` one by one
+  with `git status --porcelain` read before and after.
