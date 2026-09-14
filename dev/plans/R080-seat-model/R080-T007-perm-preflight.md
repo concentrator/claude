@@ -1320,3 +1320,75 @@ declared set.
   invents the body convention: four messages drifted in this run while
   `branch-plan.md` carried the cite, and none once a dispatch named the
   rule.
+  The self-test's own assertion helpers read an aborted run as the
+  behavior they assert: in
+  `scripts/test/preflight-permissions.test.sh`, `rcn()` takes the 127 a
+  missing file returns as the non-zero exit it wanted and `nowant()`
+  passes whenever its `grep` finds nothing, so a syntax error, a host
+  without `jq` or any other early exit satisfies every `rcn` and
+  `nowant` site in the file - the subject guard the item above adds
+  closes the missing-subject case and no other. Tightening them is a
+  per-case review of which negative assertions legitimately produce
+  short output, so the leaving is a task of its own in R080 rather than
+  a widening of that guard
+  (`R080-T007-perm-preflight.findings.md § Close triage`).
+  A hook deny beats a settings allow and no test pins it: the root
+  `settings.json` allows `Bash(git checkout:*)` and registers
+  `hooks/dev-branch-guard.sh` on its `Bash` PreToolUse matcher, and the
+  guard's refusal of an entry into a dirty default branch stands over
+  that allow. The precedence carries the whole pre-flight - a rule the
+  report calls `present` is still refusable at the call - and nothing
+  under `scripts/test/` reaches it, the three guard suites feeding the
+  hook its JSON on stdin and reading its decision rather than the
+  client's resolution of a deny against an allow.
+  `companions/verification-policy.md § Verifier isolation` binds every
+  verifier and no verifier's dispatch companion repeats it: it sends a
+  repo-touching probe to a throwaway tree with `GIT_DIR`,
+  `GIT_WORK_TREE` and `GIT_INDEX_FILE` unset and keeps destructive git
+  off a verifier entirely, and a review seat on this branch ran
+  `git checkout main` in the live checkout against a dirty tree all the
+  same. This repository's own guard refused it and nothing was lost, so
+  the rule held because a hook fired; every later dispatch on the
+  branch then carried a warning naming the breach, which is dispatch
+  text doing work a seat companion could do once.
+  An approach's line cites go stale against the code they name: item 8
+  above cites `scripts/preflight-permissions.sh:275` and `:282-285`,
+  which this branch's own commits moved to 276 and 283-286. Harmless to
+  an implementer working from the code, misleading to a later reader,
+  and the class is what to rule on - a line number is no durable id,
+  while `rules/writing-artifacts.md § Name things by their durable id`
+  governs hashes and says nothing of line cites - so either an approach
+  cites an anchor instead, or a stale line cite is accepted as approach
+  text the implementer is free to correct (`run.md § Seats`).
+  The fast tier never exercises the installed copy:
+  `scripts/ci/run-all.sh` runs its checks over this checkout and no
+  installer, so what an adopter's `.claude/` runs - the shipped
+  self-test resolving its subject from `${BASH_SOURCE[0]}`, and the
+  subject guard above - is proven only by a hand-run
+  `bash scripts/install-dev.sh --project <dir>` with the subject moved
+  aside, which is how the worker-seed and subject-guard defects
+  surfaced. `scripts/test/install-dev.test.sh` asserts that the
+  pre-flight self-test is copied and resolves relatively and runs the
+  copied `check-accretion` and `check-batch-tags` suites, never the
+  copied pre-flight one, so which tier owns that run is open.
+  The auto-mode instruction a session injects into a seat's prompt
+  directs it to make file changes with `sed`, heredocs and short
+  scripts, which `rules/writing-artifacts.md § Bulk edits` forbids on
+  Markdown: the seats that met both on this branch followed the repo
+  rule and reported the conflict rather than resolving it silently,
+  which is the right conduct and a tax paid once per dispatch, each
+  seat rediscovering and re-reporting it. Stating the precedence once
+  where a seat already reads - the dispatch companions under
+  `companions/`, or § Bulk edits itself - retires the rediscovery.
+  The guard's by-name entry test is fail-open on indirect spellings: it
+  compares the first bare token after the verb with `is_trunk`, a
+  literal string equality, so `git checkout -`, `git switch -`,
+  `git checkout @{-1}` and `git checkout main --` all allow on a
+  tracked-dirty tree, as do `git branch main`,
+  `git branch -f main HEAD` and `git worktree add ../wt main`, the verb
+  alternation reading `checkout|switch|restore|reset|stash` alone. The
+  file's header calls it fail-open and
+  `seat-permissions.md § HEAD moves and whole-tree discards` states
+  each shape by its verbs, so the bound is recorded rather than
+  misstated: what R080 rules is whether the heuristic tightens, not a
+  defect to patch.
