@@ -14,6 +14,8 @@ export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)
 SCRIPT="$ROOT/scripts/preflight-permissions.sh"
 TPL="$ROOT/skills/dev/companions/auto-permissions.template.json"
+[ -f "$SCRIPT" ] || { echo "not ok - $SCRIPT not found"; exit 1; }
+[ -f "$TPL" ] || { echo "not ok - $TPL not found"; exit 1; }
 PAIR='["Bash(git push origin main:*)","Bash(git push --force:*)"]'
 fail=0
 pass() { echo "ok - $1"; }

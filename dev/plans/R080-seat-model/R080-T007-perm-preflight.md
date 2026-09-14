@@ -1205,7 +1205,7 @@ declared set.
   300-line cap, so the dozen lines fit. Measured with `wc -l` and
   `bash scripts/ci/run-all.sh`.
 
-- [ ] The shipped self-test stops before its first case when its
+- [x] The shipped self-test stops before its first case when its
   subject is absent: an adopter whose `.claude/` lacks
   `scripts/preflight-permissions.sh` or
   `skills/dev/companions/auto-permissions.template.json` reads one
