@@ -45,13 +45,16 @@ newfix() {
 trust() { printf '{"projects":{"%s":{"hasTrustDialogAccepted":%s}}}\n' "$PROJ" "$1" > "$FIX/claude.json"; }
 
 # A tier satisfying the whole declared set: the template's rules with the
-# placeholders substituted, the fixture's two toolchain prefixes, and $2 as
-# the deny set.
+# placeholders substituted, the fixture's two toolchain prefixes, pattern 1's
+# checkpoint-push block - no template entry of its own, the template being
+# pattern 2's starting point - and $2 as the deny set.
 sat() {
   jq --arg p "${PROJ#/}" --arg h "${FIX#/}" --argjson d "$2" \
     '{permissions: {allow: ([.permissions.allow[]
        | gsub("__PROJECT_DIR__"; $p) | gsub("__HOME__"; $h)]
-       + ["Bash(bash t.sh:*)", "Bash(gh pr view:*)"]), deny: $d}}' "$TPL" > "$1"
+       + ["Bash(bash t.sh:*)", "Bash(gh pr view:*)"]
+       + (["batch", "doc", "feat", "fix", "refactor", "mnt", "test", "plan"]
+          | map("Bash(git push -u origin " + . + "/*)"))), deny: $d}}' "$TPL" > "$1"
 }
 # In-place jq edit of a tier.
 edit() { local f=$1; shift; jq "$@" "$f" > "$f.new" && mv "$f.new" "$f"; }
@@ -84,6 +87,7 @@ rc0 "a full set exits zero"
 want "present (project) Edit(//${PROJ#/}/**)" "the Edit rule names its tier"
 want "present (project) Bash(bash t.sh:*)" "a toolchain prefix is declared"
 want "present (project) Bash(gh pr view:*)" "the State-check prefix is declared"
+want "present (project) Bash(git push -u origin batch/*)" "pattern 1 declares the checkpoint push"
 nowant "never run me" "a span outside the toolchain section is not read"
 nowant "Bash(## Agent toolchain:*)" "a span in the section's prose is not a command"
 nowant "Bash(gh:*)" "a one-word span is a CLI name, not a prefix"
@@ -125,8 +129,17 @@ rc0 "a broader rule covers the declared child path"
 want "present (project) Edit(//${PROJ#/}/**)" "the covered rule names the covering tier"
 [ ! -f "$LT" ] && pass "a covered rule is not rewritten" || die "a covered rule was applied"
 
-# --- 6. the Bash prefix set binds under human alone ---
-newfix; sat "$PT" "$PAIR"; edit "$PT" 'del(.permissions.allow[] | select(. == "Bash(git log:*)"))'
+# --- 6. the Bash prefix set binds under human alone, checkpoint push included ---
+newfix; sat "$PT" "$PAIR"
+edit "$PT" 'del(.permissions.allow[] | select(startswith("Bash(git push -u origin")))'
+runp --supervisor human --runner-mode default
+rcn "an absent checkpoint-push string stops a human-supervised run"
+want "missing Bash(git push -u origin batch/*)" "an absent push string is missing under human"
+want "--apply" "the missing push string takes the --apply remedy"
+runp --supervisor AI --runner-mode auto
+rc0 "an absent push string does not stop an AI-supervised run"
+want "inert (auto) Bash(git push -u origin batch/*)" "an absent push string is inert under AI"
+edit "$PT" 'del(.permissions.allow[] | select(. == "Bash(git log:*)"))'
 runp --supervisor AI --runner-mode auto
 rc0 "an absent Bash prefix does not stop an AI-supervised run"
 want "inert (auto) Bash(git log:*)" "an absent prefix is inert under AI"
@@ -155,6 +168,7 @@ runp --supervisor human --runner-mode default
 rc0 "pattern 2 is accepted under human"
 want "present (project) Bash(git push:*)" "pattern 2's entry names its tier"
 nowant "Bash(git push origin main:*)" "pattern 2 declares no pattern-1 string"
+nowant "Bash(git push -u origin" "pattern 2 declares no checkpoint-push rule"
 runp --supervisor AI --runner-mode auto
 rcn "pattern 2 is cannot-apply under AI"
 want "pattern 2" "the pattern-2 verdict names the pattern"

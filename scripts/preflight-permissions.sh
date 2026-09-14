@@ -110,12 +110,12 @@ check_deny() {
   remedy "add \"$1\" to the deny of $PT"
 }
 
-# Which carve-out pattern the tiers are on, and the deny set it declares
-# (companions/toolchain.md § Permission carve-out). A blanket entry in any
-# tier is pattern 2; otherwise pattern 1, whose pair needs the project's own
-# default branch - the one resolution pattern 2 never asks for.
+# Which carve-out pattern the tiers are on, and the rules it declares
+# (companions/toolchain.md § Permission carve-out). A blanket deny in any tier
+# is pattern 2; otherwise pattern 1, whose deny pair needs the default branch
+# pattern 2 never asks for, and whose allow block is one push rule per prefix.
 carve_out() {
-  local t def
+  local t def p
   if t=$(tier_of "Bash(git push:*)" deny); then
     if [ "$supervisor" = AI ]; then
       blocked "nobody can answer pattern 2's prompt under Supervisor: AI" \
@@ -139,6 +139,7 @@ carve_out() {
   say ok "carve-out pattern 1 (default branch $def)"
   check_deny "Bash(git push origin $def:*)"
   check_deny "Bash(git push --force:*)"
+  for p in batch doc feat fix refactor mnt test plan; do declared="$declared"$'\n'"Bash(git push -u origin $p/*)"; done
 }
 
 # One declared allow rule. $2 is `bind` or `inert` - the Bash prefix set is

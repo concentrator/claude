@@ -1052,7 +1052,7 @@ declared set.
   full-set assertions rather than a new shape.
   Measured with `wc -l` and `bash scripts/ci/run-all.sh`.
 
-- [ ] Under carve-out pattern 1 the pre-flight resolves the
+- [x] Under carve-out pattern 1 the pre-flight resolves the
   checkpoint-push allow block the declaration item states, so the push
   `finish.md § 3` step 2 makes at `run.md § Checkpoint`'s accept is
   settled before the first dispatch like every other declared command
@@ -1109,7 +1109,11 @@ declared set.
   select(startswith("Bash(git push -u origin")))'`) reports
   `missing Bash(git push -u origin batch/*)` with the `--apply` line
   under `--supervisor human` and `inert (auto)` under `AI`; and case
-  7's pattern-2 report carries no `git push -u origin` line.
+  7's pattern-2 report carries no `git push -u origin` line. The second
+  is case 6's own fixture, its deletion and its two runs ordered ahead
+  of case 6's `Bash(git log:*)` deletion, so the `--apply` line the
+  assertion reads is the push gap's alone rather than a line the other
+  gap prints anyway.
 
 - [ ] The shipped self-test runs where it ships: it resolves its
   subject and the template from `${BASH_SOURCE[0]}` rather than from
