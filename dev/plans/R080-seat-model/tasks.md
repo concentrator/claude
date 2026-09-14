@@ -87,7 +87,7 @@ hooks rule says who writes a guard, the pilot last.
   rule planning a guard change names the user as its writer. Depends
   on R080-T010.
 
-- [ ] **R080-T007 [mnt]**: deterministic permission pre-flight - a
+- [x] **R080-T007 [mnt]**: deterministic permission pre-flight - a
   declared permission set per seat (mode plus allow rules) derived
   from the toolchain declaration, each seat's definition under
   `agents/` and its dispatch companion under `skills/dev/companions/`;
@@ -352,7 +352,56 @@ alternation reading `checkout|switch|restore|reset|stash` alone; the
 file's header calls it fail-open and `seat-permissions.md § HEAD moves
 and whole-tree discards` states each shape by its verbs, so the bound is
 recorded rather than misstated, and what R080 rules is whether the
-heuristic tightens rather than a defect to patch.
+heuristic tightens rather than a defect to patch. This repository's
+shell code is written, probed and run locally on a `/bin/bash` two
+major versions behind the one CI runs, so a shell-semantics defect is
+green on every local run and red on every CI run, which is how the `&`
+expansion passed two plan items, a close review and a full local
+suite; what R080 rules is where a second shell comes from - a declared
+version floor, a CI-only class of assertion, or a probe step that
+names the gap - rather than this branch's two lines. A task mark
+asserted a completion for three commits: `R080-T007` read `[x]` here
+after the branch reopened, through "Reopen R080-T007 for the &
+substitution defect" and the gap fix and cold-read record that
+followed it, and cleared to `[ ]` only in the fix commit; the end
+state is coherent and rewriting history was declined, but the flip
+belongs in the reopening commit itself, since `§ Closing routine` 7
+orders the task mark last precisely so a `[x]` never asserts a
+completion the branch has not reached and a reopening is that same
+hazard read backwards, so what R080 rules is whether
+`branch-plan.md § Scope changes mid-branch`, which today names only
+the new checkboxes and the new final commit, states the mark's
+clearing as the reopening's own step. A test case cannot fail where
+its fixture sits: `scripts/test/preflight-permissions.test.sh`'s "an
+`&` path opens no gap to apply" survives a mangled `Edit` rule,
+because the fixture tier carries the template's own `Edit(//tmp/**)`
+and `Edit(//private/tmp/**)`, whose literal prefixes cover any
+declared project path under those two trees, so the pre-flight reports
+the mangled rule `present`, `--apply` writes no local tier, and the
+assertion holds either way; it bites only where the host's `mktemp -d`
+lands outside both, as this one's `/var/folders` does, the masking is
+the test's rather than the fix's, and what R080 rules is whether a
+fixture may sit anywhere a declared rule already covers. Two files
+stand against their cap with a split deferred:
+`scripts/preflight-permissions.sh` sits on
+`scripts/ci/check-code-size.sh`'s 300-line file cap with no line left
+to spend, the last one going to "Stop R080-T007's pre-flight on a
+partial template", and `scripts/test/preflight-permissions.test.sh`
+runs close behind it after the regression case "Pin R080-T007's stop
+on a partial template" added; that script is what computes and
+enforces both counts, neither file took a `code-size-allow.txt` entry,
+and the next change to either needs a restructure, a split, or an
+allow-list decision, which is a planning call rather than an
+implementer's. A split prompt never fired: `branch-plan.md § Size cap`
+prompts to split past 30 commits, and this branch crossed 30 during
+the close fix pass with no prompt raised; nothing is split here, so
+the leaving is the threshold passing unremarked rather than this
+branch's size, and the count is read with `git rev-list --count
+main..HEAD`, which no flow step runs, leaving the cap resting on a
+runner's recollection across a branch whose commits span many seats.
+What R080 rules there is whether § Size cap gets a mechanical check -
+a flow step or a hook reading that count at a named point - or stays
+the judgement the runner is trusted to make.
 
 Archival, promotion target (`plan.md § Archival`): this initiative
 bought a set of facts about the host that no file in the tree states,
