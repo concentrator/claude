@@ -32,10 +32,11 @@ by enforcement rather than by seat.
 - The **mode-independent set** gates under both supervisor modes, is
   applyable, and a gap in it stops the run.
 - The **Bash prefix set** stays declared and traced but binds under
-  `Supervisor: human` alone. Under `Supervisor: AI` the pre-flight
-  reports it inert and its absence never stops a run, so a user tier's
-  Bash entries are the human-supervised path rather than what makes an
-  autonomous run promptless.
+  `Supervisor: human` alone. Under `Supervisor: AI` an absent rule
+  reports `inert (auto)` and never stops the run, while a rule a tier
+  carries still reports `present (<tier>)` naming that tier, so a user
+  tier's Bash entries are the human-supervised path rather than what
+  makes an autonomous run promptless.
 
 No declaration makes an autonomous run promptless on its own: a
 classifier denial is nondeterministic and a long transcript can fall

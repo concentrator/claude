@@ -119,6 +119,7 @@ newfix; sat "$PT" "$PAIR"; edit "$PT" 'del(.permissions.allow[] | select(. == "B
 runp --supervisor AI --runner-mode auto
 rc0 "an absent Bash prefix does not stop an AI-supervised run"
 want "inert (auto) Bash(git log:*)" "an absent prefix is inert under AI"
+want "present (project) Bash(git status:*)" "a carried prefix names its tier under AI"
 runp --supervisor human --runner-mode default
 rcn "the same prefix stops a human-supervised run"
 want "missing Bash(git log:*)" "an absent prefix is missing under human"

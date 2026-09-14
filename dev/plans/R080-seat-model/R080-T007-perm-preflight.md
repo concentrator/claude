@@ -1000,7 +1000,7 @@ declared set.
   template entry standing untraced or a traced row with no machine
   form.
 
-- [ ] § What enforces what says what the pre-flight reports: under
+- [x] § What enforces what says what the pre-flight reports: under
   `Supervisor: AI` an absent Bash prefix rule reports `inert (auto)` and
   never stops the run, while a rule a tier carries still reports
   `present (<tier>)` naming that tier, so the file no longer reads as
