@@ -38,7 +38,7 @@ plan.
 
 - [x] **The pre-flight self-test's assertion helpers pass vacuously on
   any early exit.** Promoted: it is R080 backlog, named in the final
-  commit's backlog paragraph. `rcn() { [ "$RC" -ne 0 ] && pass "$1" || die "$1"; }`
+  commit's backlog paragraph. `rcn()` tests `[ "$RC" -ne 0 ]`, so it
   treats the 127 `bash` returns for a missing file as the non-zero exit
   it wanted, and `nowant()` passes whenever its `grep` finds nothing, so
   both read an aborted run as the behavior they assert. The subject

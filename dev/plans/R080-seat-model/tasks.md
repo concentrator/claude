@@ -267,8 +267,8 @@ its `.claude/settings.json` with `run-all.sh` and `check-caps.sh` alone,
 so the gate cannot gate its own invocation; `bash
 ~/.claude/scripts/model-quota.sh "Fable"`, read before any `fable`
 dispatch (`companions/verification-policy.md § Models`); the
-untracked-file removal at `run.md § Question resolution`, whose `git
-clean -fd` discards untracked work the way the four denied shapes
+untracked-file removal at `run.md § Question resolution`, whose verb,
+`git clean -fd`, discards untracked work the way the four denied shapes
 discard tracked work and is reached by no guard branch, so the verb
 lands with its guard or not at all; the re-brief's "Then delete the
 file" (`handoff.md § Reading it back`); a remote branch deletion outside
