@@ -1115,7 +1115,7 @@ declared set.
   assertion reads is the push gap's alone rather than a line the other
   gap prints anyway.
 
-- [ ] The shipped self-test runs where it ships: it resolves its
+- [x] The shipped self-test runs where it ships: it resolves its
   subject and the template from `${BASH_SOURCE[0]}` rather than from
   `git rev-parse --show-toplevel`, so under
   `<project>/.claude/scripts/test/` it finds

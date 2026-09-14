@@ -11,7 +11,7 @@ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 # Host git config must not leak into fixtures (the script resolves the
 # default branch; NOSYSTEM for Apple git's vendor config).
 export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
-ROOT=$(git rev-parse --show-toplevel)
+ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)
 SCRIPT="$ROOT/scripts/preflight-permissions.sh"
 TPL="$ROOT/skills/dev/companions/auto-permissions.template.json"
 PAIR='["Bash(git push origin main:*)","Bash(git push --force:*)"]'
