@@ -87,7 +87,7 @@ hooks rule says who writes a guard, the pilot last.
   rule planning a guard change names the user as its writer. Depends
   on R080-T010.
 
-- [ ] **R080-T007 [mnt]**: deterministic permission pre-flight - a
+- [x] **R080-T007 [mnt]**: deterministic permission pre-flight - a
   declared permission set per seat (mode plus allow rules) derived
   from the toolchain declaration, each seat's definition under
   `agents/` and its dispatch companion under `skills/dev/companions/`;
@@ -252,6 +252,107 @@ first item reads the carve-out pattern off the untracked local tier
 too; settle both sentences against the read the task lands.
 `agents/dev-cold-reader.md` carries no `model:` key where the other six
 seat definitions carry `model: opus`.
+
+Backlog, from the R080-T007 close: `hooks/dev-branch-guard.sh`'s
+HEAD-move scan splits a command textually (`hscan="${cmd//$'\n'/;}"`),
+so a `git commit -m "...git reset --hard..."` or a heredoc whose body
+carries a reset line is refused though nothing destructive runs, against
+a header that promises fail-open; the push scan splits the same way, so
+the fix is a shared segment splitter rather than a patch in one branch.
+A `/dev run` runs commands the declared set does not reach, each to be
+declared with its source or ruled out with its verb chosen: the
+pre-flight's own invocation at `run.md § Pre-flight`, which this
+repository's root `settings.json` meets with `Bash(bash -n:*)` alone and
+its `.claude/settings.json` with `run-all.sh` and `check-caps.sh` alone,
+so the gate cannot gate its own invocation; `bash
+~/.claude/scripts/model-quota.sh "Fable"`, read before any `fable`
+dispatch (`companions/verification-policy.md § Models`); the
+untracked-file removal at `run.md § Question resolution`, whose `git
+clean -fd` discards untracked work the way the four denied shapes
+discard tracked work and is reached by no guard branch, so the verb
+lands with its guard or not at all; the re-brief's "Then delete the
+file" (`handoff.md § Reading it back`); a remote branch deletion outside
+the merge command's `--delete-branch` (`finish.md § 4` step 4), a push
+no declared string reaches and a delete-push string being a carve-out
+entry `toolchain.md § Permission carve-out` does not state, its local
+half covered by `Bash(git branch:*)`; and the work-product class no
+declared set can enumerate in advance, down to the
+`node --env-file=.env /tmp/probe.mjs` that `agents/dev-implementer.md
+§ Scratch & Probe Scripts` tells a seat to write and run with no
+`Bash(node:*)` declared. `scripts/preflight-permissions.sh` prints the
+`--apply` line it tells the user to run unquoted, so that line breaks on
+a project path carrying `&` or a space - the very shape the `a&b`
+fixture pins for the substitution fix. The same script chmods the local
+tier 644 unconditionally after the `mv` from a 0600 `mktemp`, relaxing a
+deliberately restrictive mode where it should capture the existing
+file's mode and restore it, defaulting to 644 where the file did not
+exist. `branch-plan.md § Commit cadence` 3 cites `git-workflow.md
+§ Commit messages` and `companions/implementer-prompt.md` does not,
+though that companion is the seat's own instruction sheet and the one
+file an implementer certainly reads, so a seat invents the body
+convention: four messages drifted in this run while only
+`branch-plan.md` carried the cite, and none once a dispatch named the
+rule. The pre-flight self-test's assertion helpers read an aborted run
+as the behavior they assert - `rcn()` takes the 127 a missing file
+returns as the non-zero exit it wanted, and `nowant()` passes whenever
+its `grep` finds nothing - so a syntax error, a host without `jq` or any
+other early exit satisfies every `rcn` and `nowant` site in
+`scripts/test/preflight-permissions.test.sh`; the subject guard this
+branch added closes the missing-subject case and no other, and
+tightening the helpers is a per-case review of which negative assertions
+legitimately produce short output, so it is a task of its own
+(`R080-T007-perm-preflight.findings.md § Close triage`). A hook deny
+beats a settings allow and no test pins it: the root `settings.json`
+allows `Bash(git checkout:*)` and registers `hooks/dev-branch-guard.sh`
+on its `Bash` PreToolUse matcher, and the guard's refusal of an entry
+into a dirty default branch stands over that allow - the precedence
+carries the whole pre-flight, a rule the report calls `present` being
+still refusable at the call - while the three guard suites feed the hook
+its JSON on stdin and read its decision rather than the client's
+resolution of a deny against an allow.
+`companions/verification-policy.md § Verifier isolation` binds every
+verifier and no verifier's dispatch companion repeats it: a review seat
+on this branch ran `git checkout main` in the live checkout against a
+dirty tree, this repository's own guard refused it and nothing was lost,
+and every later dispatch then carried a warning naming the breach, which
+is dispatch text doing work a seat companion could do once. An
+approach's line cites go stale against the code they name: this plan's
+item 8 cites `scripts/preflight-permissions.sh:275` and `:282-285`,
+which the branch's own commits moved to 276 and 283-286 - harmless to an
+implementer working from the code, misleading to a later reader - and
+the class is what to rule on, a line number being no durable id while
+`rules/writing-artifacts.md § Name things by their durable id` governs
+hashes and says nothing of line cites: either an approach cites an
+anchor instead, or a stale line cite is accepted as approach text the
+implementer is free to correct (`run.md § Seats`). The fast tier never
+exercises the installed copy: `scripts/ci/run-all.sh` runs its checks
+over this checkout and no installer, so what an adopter's `.claude/`
+runs - the shipped self-test resolving its subject from
+`${BASH_SOURCE[0]}`, and that test's subject guard - is proven only by a
+hand-run `bash scripts/install-dev.sh --project <dir>` with the subject
+moved aside, which is how the worker-seed and subject-guard defects
+surfaced; `scripts/test/install-dev.test.sh` runs the copied
+`check-accretion` and `check-batch-tags` suites and never the copied
+pre-flight one, so which tier owns that run is open. The auto-mode
+instruction a session injects into a seat's prompt directs it to make
+file changes with `sed`, heredocs and short scripts, which
+`rules/writing-artifacts.md § Bulk edits` forbids on Markdown: the seats
+that met both on this branch followed the repo rule and reported the
+conflict rather than resolving it silently, which is the right conduct
+and a tax paid once per dispatch, each seat rediscovering and
+re-reporting it - stating the precedence once where a seat already
+reads, the dispatch companions under `companions/` or § Bulk edits
+itself, retires the rediscovery. The guard's by-name entry test is
+fail-open on indirect spellings: it compares the first bare token after
+the verb with `is_trunk`, a literal string equality, so `git checkout
+-`, `git switch -`, `git checkout @{-1}` and `git checkout main --` all
+allow on a tracked-dirty tree, as do `git branch main`,
+`git branch -f main HEAD` and `git worktree add ../wt main`, the verb
+alternation reading `checkout|switch|restore|reset|stash` alone; the
+file's header calls it fail-open and `seat-permissions.md § HEAD moves
+and whole-tree discards` states each shape by its verbs, so the bound is
+recorded rather than misstated, and what R080 rules is whether the
+heuristic tightens rather than a defect to patch.
 
 Archival, promotion target (`plan.md § Archival`): this initiative
 bought a set of facts about the host that no file in the tree states,

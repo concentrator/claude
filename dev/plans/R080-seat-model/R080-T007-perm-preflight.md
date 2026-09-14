@@ -1257,7 +1257,7 @@ declared set.
   spare line - it stands at 299 of the same cap - stays unspent.
   Measured with `wc -l` and `bash scripts/ci/run-all.sh`.
 
-- [ ] Complete the branch: close review per `branch-plan.md § Closing
+- [x] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup, mark the plan
   complete, mark the task `[x]` in `tasks.md`, commit. The same commit
   adds this close's leavings to R080's backlog in `tasks.md` as one
@@ -1306,7 +1306,7 @@ declared set.
   declared. That last class is why the declaration item claims no
   completeness for the set.
   `scripts/preflight-permissions.sh` prints its `--apply` remedy
-  unquoted (line 292), so the line it tells the **user** to run breaks
+  unquoted (line 293), so the line it tells the **user** to run breaks
   on a project path carrying `&` or a space - the very shape the `a&b`
   fixture pins for the substitution fix.
   The same script chmods the local
