@@ -2,7 +2,6 @@
 task: R080-T007
 type: mnt
 depends-on: R080-T004, R080-T010, R080-T011
-cold-read: passed
 supervised: approved
 ---
 
@@ -1204,6 +1203,58 @@ declared set.
   `rm -rf "$h"` closes it as case 15 does. The file stands at 266 of the
   300-line cap, so the dozen lines fit. Measured with `wc -l` and
   `bash scripts/ci/run-all.sh`.
+
+- [ ] The shipped self-test stops before its first case when its
+  subject is absent: an adopter whose `.claude/` lacks
+  `scripts/preflight-permissions.sh` or
+  `skills/dev/companions/auto-permissions.template.json` reads one
+  `not ok` line naming the missing path, exit 1, and no `ok` line.
+  Today `scripts/test/preflight-permissions.test.sh` sets `ROOT`,
+  `SCRIPT` and `TPL` (lines 14-16) and runs every case against them
+  unchecked, and two of its assertion classes pass on nothing: `rcn()`
+  is `[ "$RC" -ne 0 ]` and `bash <absent script>` exits 127, so every
+  "cannot-apply" and "stops the run" assertion passes; `nowant()`
+  passes whenever its string is absent, and every string is absent from
+  empty output. Measured in a `--project` install tree with the script
+  moved aside: 26 of the 79 assertions print `ok` and the suite exits 1
+  on the other 53 with the cause named nowhere; with the template moved
+  aside instead, 30 print `ok` and the absence surfaces only as twenty
+  `jq: error: Could not open file ...` lines on stderr, no assertion
+  failing for it. The guard covers both paths and exits, in the form
+  the two shipped siblings already carry, and it is not written with
+  the file's `die()`: that function sets `fail=1` and returns, so a
+  guard built on it would run all 79 assertions and print the same
+  false lines. `rcn()` and `nowant()` themselves are unchanged.
+  Approach: two lines after line 16 of
+  `scripts/test/preflight-permissions.test.sh`, one per subject in the
+  form of `scripts/test/check-accretion.test.sh:12`:
+  `[ -f "$SCRIPT" ] || { echo "not ok - $SCRIPT not found"; exit 1; }`,
+  then the same line over `$TPL`. They sit ahead of line 23's
+  `mktemp -d` and its `trap`, so the early exit creates no fixture
+  directory and leaves none behind, and ahead of the `fail`/`pass`/`die`
+  definitions, which the guard does not use. The header comment gains
+  no sentence, the guard stating what it does. `scripts/test/run-all.sh`
+  runs each suite with `bash "$t" || fail=1`, so the exit is a red full
+  tier with the one line as its whole output for this file. Proof, with
+  the subject genuinely absent rather than a variable overridden:
+  `bash scripts/install-dev.sh --project <scratch>` into a fresh
+  `git init` directory, move `<scratch>/.claude/scripts/preflight-permissions.sh`
+  aside, run the copied
+  `<scratch>/.claude/scripts/test/preflight-permissions.test.sh`, and
+  confirm its output is the one `not ok - ... not found` line, exit 1,
+  no `ok`; restore it, move
+  `<scratch>/.claude/skills/dev/companions/auto-permissions.template.json`
+  aside, and confirm the same for the template with no `jq: error` line;
+  restore that, and confirm the copied suite and
+  `bash scripts/test/preflight-permissions.test.sh` in this checkout
+  both end in `ALL OK`. Budget: the file stands at 257 of
+  `scripts/ci/check-code-size.sh`'s 300-line file cap, so the two lines
+  land it at 259 with 41 to spare, no function grows, and no
+  `code-size-allow.txt` entry is taken. `scripts/test/install-dev.test.sh`
+  is untouched: it asserts what the installer copies, and the guard is
+  the copied file's own behavior, proven by the run above; its one
+  spare line - it stands at 299 of the same cap - stays unspent.
+  Measured with `wc -l` and `bash scripts/ci/run-all.sh`.
 
 - [ ] Complete the branch: close review per `branch-plan.md § Closing
   routine`, `bash scripts/ci/run-all.sh` green, cleanup, mark the plan
