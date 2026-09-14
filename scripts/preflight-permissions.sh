@@ -242,9 +242,10 @@ for f in "$UT" "$PT" "$LT"; do
   jq -e . "$f" >/dev/null 2>&1 || stop "$f is not valid JSON" "tier read" "fix the file"
 done
 declared=$(jq -r --arg p "${project#/}" --arg h "${HOME#/}" '.permissions.allow[] |
-  gsub("__PROJECT_DIR__"; $p) | gsub("__HOME__"; $h)' "$TEMPLATE" 2>/dev/null)
-[ -n "$declared" ] || stop "the permission template is unreadable" "$TEMPLATE" \
-  "reinstall the toolset (scripts/install-dev.sh)"
+  gsub("__PROJECT_DIR__"; $p) | gsub("__HOME__"; $h)' "$TEMPLATE"); rc=$?
+# jq aborts a filter error after emitting the earlier rules, so the status and
+# not an empty $declared is what tells a truncated read from a whole one.
+[ "$rc" -eq 0 ] && [ -n "$declared" ] || stop "the permission template resolved no declared set (jq exit $rc)" "$TEMPLATE" "read jq's message above; reinstall the toolset (scripts/install-dev.sh) if the template is damaged"
 say ok "workspace trust"
 
 u_allow=$(tier_list "$UT" allow); u_deny=$(tier_list "$UT" deny); u_mode=$(tier_mode "$UT")
