@@ -1144,7 +1144,7 @@ declared set.
   the shipped copy is exercised by running the installed test from a
   `--project` install tree.
 
-- [ ] `scripts/worker-workspace.sh`'s `settings` seeds the rules the
+- [x] `scripts/worker-workspace.sh`'s `settings` seeds the rules the
   template declares for the project path it is given, one carrying `&`
   or `|` included: a worker whose project sits at `.../a&b` gets
   `Edit(//.../a&b/**)` in its `.claude/settings.local.json`. Line 174's

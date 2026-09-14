@@ -171,7 +171,8 @@ settings() {
   [ -f "$tpl" ] || { printf 'settings: template missing at %s\n' "$tpl" >&2; return 1; }
   mkdir -p "$pd/.claude"
 
-  local base; base=$(sed -e "s|__PROJECT_DIR__|${pd#/}|g" -e "s|__HOME__|${HOME#/}|g" "$tpl")
+  local base; base=$(cat "$tpl")
+  base=${base//__PROJECT_DIR__/${pd#/}}; base=${base//__HOME__/${HOME#/}}
   printf '%s' "$base" | jq --arg siblings "//$(dirname "${pd#/}")/**" \
     '.permissions.allow += [
       "Read(" + $siblings + ")",
