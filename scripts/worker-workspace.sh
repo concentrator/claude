@@ -136,6 +136,15 @@ project_clone() {
 # prompt. Built from companions/auto-permissions.template.json with
 # __PROJECT_DIR__ and __HOME__ substituted; the rules carry a // prefix,
 # so the paths go in without their leading slash.
+#
+# The wholesale > write is the seed: it lands once on a fresh VM checkout,
+# before any run, while preflight-permissions.sh --apply merges into the same
+# file later, so the two never race. The pair written into deny is the worker's
+# carve-out - the strings the pre-flight resolves pattern 1's declared entries
+# against (companions/seat-permissions.md), each reported against the
+# first tier that carries it, so a project whose own tracked tier already has
+# the pair is answered from there; a project whose default branch is not main
+# changes the seed's first string here.
 settings() {
   local dry=0
   [ "${1:-}" = "--dry-run" ] && dry=1
@@ -162,16 +171,17 @@ settings() {
   [ -f "$tpl" ] || { printf 'settings: template missing at %s\n' "$tpl" >&2; return 1; }
   mkdir -p "$pd/.claude"
 
-  local base; base=$(sed -e "s|__PROJECT_DIR__|${pd#/}|g" -e "s|__HOME__|${HOME#/}|g" "$tpl")
-  printf '%s' "$base" | jq --arg siblings "//$(dirname "${pd#/}")/**" \
-    '.permissions.allow += [
+  jq --arg pd "${pd#/}" --arg h "${HOME#/}" --arg siblings "//$(dirname "${pd#/}")/**" \
+    '(.permissions.allow[] |= (gsub("__PROJECT_DIR__"; $pd) | gsub("__HOME__"; $h))) |
+    .permissions.allow += [
       "Read(" + $siblings + ")",
       "Bash(npm *)", "Bash(node *)", "Bash(npx *)", "Bash(glab *)", "Bash(gh *)",
       "Bash(git push -u origin batch/*)", "Bash(git push -u origin doc/*)",
       "Bash(git push -u origin feat/*)",  "Bash(git push -u origin fix/*)",
       "Bash(git push -u origin refactor/*)", "Bash(git push -u origin mnt/*)",
       "Bash(git push -u origin test/*)",  "Bash(git push -u origin plan/*)"
-    ] | .permissions.deny = ["Bash(git push origin main:*)", "Bash(git push --force:*)"]' > "$out" || return 1
+    ] | .permissions.deny = ["Bash(git push origin main:*)", "Bash(git push --force:*)"]' \
+    "$tpl" > "$out" || return 1
 
   jq -e . "$out" >/dev/null 2>&1 || { printf 'settings: %s is not valid JSON\n' "$out" >&2; return 1; }
 

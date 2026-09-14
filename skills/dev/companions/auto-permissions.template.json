@@ -5,7 +5,8 @@
 
       "Read(//__HOME__/.claude/skills/**)",
       "Read(//__HOME__/.claude/rules/**)",
-      "Read(//__HOME__/.claude/settings.json)",
+
+      "WebSearch",
 
       "Bash(git status:*)",
       "Bash(git diff:*)",
@@ -13,11 +14,16 @@
       "Bash(git show:*)",
       "Bash(git branch:*)",
       "Bash(git rev-parse:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(git grep:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git switch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
       "Bash(git merge:*)",
       "Bash(git restore:*)",
+      "Bash(git read-tree:*)",
       "Bash(git tag:*)",
 
       "Bash(gh pr view:*)",
@@ -30,8 +36,10 @@
       "Bash(awk:*)",
       "Bash(wc:*)",
       "Bash(cat:*)",
-      "Bash(cd:*)",
       "Bash(echo:*)",
+      "Bash(printf:*)",
+      "Bash(mkdir:*)",
+      "Bash(date:*)",
       "Bash(ls:*)",
 
       "Read(//tmp/**)",

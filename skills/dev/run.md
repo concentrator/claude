@@ -39,7 +39,7 @@ table below leaves unassigned halts and reports, never improvises.
 | Changing an item's approach | implementer, in the commit that carries the code | the same |
 | Changing an item's acceptance | planner writes, user approves | the same |
 | Writing the docs | doc writer | the same |
-| Clearing a permission prompt | nobody: a prompt is a pre-flight defect | the same |
+| Clearing a permission prompt | nobody: a pre-flight defect halts the item; a classifier denial reaches the user as the seat's BLOCKED report (§ Dispatch per item) | the same |
 | Verifying the boundary | user | supervisor |
 | Merging | user | supervisor within the declared bounds, else user |
 | Being asked | user: pre-flight permission proposals, acceptance changes, the always-ask escalations | the same |
@@ -66,19 +66,16 @@ table below leaves unassigned halts and reports, never improvises.
 
 ## Pre-flight
 
-- Permissions: every `companions/auto-permissions.template.json` rule
-  (`__PROJECT_DIR__`/`__HOME__` → abs paths without their leading
-  slash - the rules carry the `//` prefix) plus the CLAUDE.md
-  `## Agent toolchain` rules, incl. a VCS-host CLI (`glab`/`gh`;
-  absent → push-only, manual MR/PR), is carried by a tracked tier
-  (user-global `settings.json`, project `.claude/settings.json`) or
-  deliberately narrowed by one (`companions/toolchain.md § Permission
-  carve-out`); the rest are proposed into `.claude/settings.local.json`,
-  applied on approval (**user**; § Seats). No toolchain section → halt, ask.
-- No plan in scope names a target under `.claude/`: config is never a seat's to
-  write (`agents/dev-implementer.md`). Every pre-flight check runs
-  before any action; failures are reported together in one message, and the run
-  halts with no branch created and no edit made.
+- Permissions: `<config>/scripts/preflight-permissions.sh --project .
+  --supervisor <declared> --runner-mode <the runner's launch mode>` reports
+  every rule with the tier carrying it; a gap halts the run and prints the
+  `--apply` line for the **user** (§ Seats). No toolchain section → halt, ask.
+- No plan in scope gives a **seat** a settings-surface target
+  (`agents/dev-implementer.md`, its config paragraph); the rest of `.claude/` is
+  tracked source a plan may name, and an item naming the **user** as the writer
+  is admitted, halting to the user when reached and resuming on their commit.
+  Every pre-flight check runs before any action; failures are reported together
+  in one message, and the run halts with no branch created and no edit made.
 - Default branch, clean tree, fast tier green
   (`companions/declarations.md § Declared commands`).
 - Batch scope: tag `pre-R<NNN>-B<NNN>` (e.g. `pre-R062-B001`); create
@@ -114,9 +111,12 @@ branch per plan - and per commit checkbox:
 4. The implementer marks `[x]` in its commit (`branch-plan.md § Commit cadence`
    3); the runner confirms the mark landed before the spec check.
 
-A prompt the declared set did not predict - a compound command offers
-no prefix for a Bash rule to match - halts the item as a pre-flight
-defect, cleared by nobody (§ Seats, the prompt row).
+Two prompt classes (`companions/seat-permissions.md § Prompt classes`). A
+pre-flight defect - a gap in the mode-independent set - halts the item, cleared
+by nobody (§ Seats, the prompt row). A classifier denial under `auto` is the
+seat's to handle; where it cannot, its BLOCKED report halts and reports, the
+work intact (§ Checkpoint), ledgered a `prompt` event (§ Ledger). Commands match
+a declared prefix outside `auto` and are classifier-readable under it.
 
 ## Question resolution
 
@@ -124,24 +124,24 @@ An acceptance-level question - an implementer's blocker, a concern or a spec
 ambiguity whose answer changes an item's acceptance, a cold-read gap found in
 flight - halts the item and re-dispatches the planner (§ Seats) with that text,
 on the item's own branch (`git-workflow.md § Trunk`). The halt reverts the
-item's uncommitted edits - `git checkout -- .` and removal of the untracked
-files the seat created - so the branch stands at its last commit before the
-planner is dispatched. The planner commits its change locally, nothing being
-pushed until the runner delivers; a planner reporting DONE_WITH_CONCERNS
-(`companions/planner-prompt.md § Report Format`) has committed too, so its
-change takes the read below as DONE's does and its concern reaches the user with
-the change for approval. The runner then runs `write-plan.md` step 6 on the
-changed plan, the reader a dispatched seat (§ Seats), never the runner's own
-read. Where the change dropped `cold-read: passed` - a change adding a decision,
-`agents/dev-planner.md` - the pass is recorded in the runner's own bookkeeping
-commit on the item's branch, while a change that only cites text already in the
-tree keeps the record, and an implementer's approach edit rides the code's
-commit. The change is the **user**'s to approve under either supervisor mode
-(`companions/declarations.md § Supervisor bounds`; § Seats); a rejection
-re-dispatches the planner with the objection's text, and the next planner commit
-replaces the text - no revert, and the runner edits no plan content. Only then
-is a fresh implementer dispatched, starting from the last commit. A seat never
-resumes.
+item's uncommitted edits - `git read-tree --reset -u HEAD` and removal of the
+untracked files the seat created - so the branch stands at its last commit
+before the planner is dispatched. The planner commits its change locally,
+nothing being pushed until the runner delivers; a planner reporting
+DONE_WITH_CONCERNS (`companions/planner-prompt.md § Report Format`) has
+committed too, so its change takes the read below as DONE's does and its concern
+reaches the user with the change for approval. The runner then runs
+`write-plan.md` step 6 on the changed plan, the reader a dispatched seat
+(§ Seats), never the runner's own read. Where the change dropped
+`cold-read: passed` - a change adding a decision, `agents/dev-planner.md` - the
+pass is recorded in the runner's own bookkeeping commit on the item's branch,
+while a change that only cites text already in the tree keeps the record, and an
+implementer's approach edit rides the code's commit. The change is the
+**user**'s to approve under either supervisor mode (`companions/declarations.md
+§ Supervisor bounds`; § Seats); a rejection re-dispatches the planner with the
+objection's text, and the next planner commit replaces the text - no revert, and
+the runner edits no plan content. Only then is a fresh implementer dispatched,
+starting from the last commit. A seat never resumes.
 
 Every acceptance-level answer takes that route; an approach-level question -
 which files, which sentences, which order - costs no seat and no approval: the

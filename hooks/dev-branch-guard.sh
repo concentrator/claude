@@ -15,6 +15,17 @@
 # (`git init`) and a compound `checkout -b && commit` are allowed. Fails
 # open.
 #
+# It also refuses three moves that lose work, judged per command segment
+# against the repo that segment targets: a `checkout`/`switch` into a
+# repo's default branch while its tracked tree is dirty, and a
+# `checkout -b|-B` or `switch -c|-C` creating a branch under that name;
+# an irrecoverable discard - `git reset --hard/--merge/--keep` and
+# `git stash drop/clear`, which no `stash pop` and no reflog bring back;
+# and a whole-tree `checkout`/`restore` pathspec (`.`, `:/`, the repo's
+# own top level), the named-path spellings passing
+# (skills/dev/companions/seat-permissions.md § HEAD moves and whole-tree
+# discards).
+#
 # This is a best-effort local tripwire against an accidental trunk mutation,
 # not a boundary against a crafted evasion - the real gate is host branch
 # protection + CI (git-workflow.md § Enforcement). It reads an arbitrary
@@ -205,6 +216,97 @@ case "$tool" in
           && deny "branch-guard: refusing a bare 'git push' on '$pbr' - it targets the default branch; deliver via an MR/PR (git-workflow § Enforcement)."
       fi
       pscan="$pbefore"
+    done
+
+    # tree_wide <dir> <segment token>... - print the pathspec naming the
+    # whole tree of the repo at <dir>, rc 0; rc 1 when none does. Options
+    # are skipped, and a tree-ish a `--` separator marks off is dropped.
+    # Two stages per remaining word: the literal forms, matched as text, so
+    # `.` is refused whatever directory the segment runs from; then a
+    # physical comparison against the repo's top level. Anything
+    # unreadable - no repo, a pathspec that is not a directory, a word
+    # carrying an expansion - passes.
+    tree_wide() {
+      local dir="$1" top= p rp sep=0 after=0
+      shift
+      for p in "$@"; do [ "$p" = -- ] && sep=1; done
+      for p in "$@"; do
+        [ "$p" = -- ] && { after=1; continue; }
+        (( sep )) && (( ! after )) && continue    # tree-ish/options before --
+        case "$p" in
+          -*) continue ;;
+          . | ./ | :/ | :/.) printf '%s' "$p"; return 0 ;;
+          *[\$\`\"\'\*\?\[]*) continue ;;
+        esac
+        if [ -z "$top" ]; then
+          top=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null) || return 1
+          [ -n "$top" ] || return 1
+          top=$(cd "$top" 2>/dev/null && pwd -P) || return 1
+        fi
+        rp=$(cd "$dir" 2>/dev/null && cd "$p" 2>/dev/null && pwd -P) || continue
+        [ "$rp" = "$top" ] && { printf '%s' "$p"; return 0; }
+      done
+      return 1
+    }
+
+    # HEAD moves and whole-tree discards (R080-T007). Same last-to-first
+    # segment walk as the push scan, command-head anchored so text inside
+    # an `echo` never triggers; the three branches judge a segment
+    # independently and every unresolvable repo or target passes.
+    Hrx="^(.*)(^|[;&|])[[:space:]]*git${opt}[[:space:]]+(checkout|switch|restore|reset|stash)([[:space:]]|\$)"
+    hscan="${cmd//$'\n'/;}"
+    while [[ "$hscan" =~ $Hrx ]]; do
+      hhead="${BASH_REMATCH[0]}" hpre="${BASH_REMATCH[1]}" hverb="${BASH_REMATCH[5]}"
+      hseg="${hscan:${#hhead}}"; hseg="${hseg%%[;&|]*}"
+      hbefore="${hhead%"$hverb"*}"
+      hscan="$hpre"
+      # The reason lines' <cmd>: the slice the predicate judged - this
+      # segment's command-head `git` to the segment's end, trimmed.
+      hcmd="${hhead:${#hpre}}$hseg"; hcmd="${hcmd#[;&|]}"
+      hcmd="${hcmd#"${hcmd%%[![:space:]]*}"}"; hcmd="${hcmd%"${hcmd##*[![:space:]]}"}"
+      set -f; hargs=($hseg); set +f
+      (( ${#hargs[@]} )) || continue
+      # 1) An irrecoverable discard - a token read over the segment, so it
+      # needs no repo and runs ahead of anything that resolves a path.
+      if [ "$hverb" = reset ] || [ "$hverb" = stash ]; then
+        for tok in "${hargs[@]}"; do
+          case "$hverb:$tok" in
+            reset:--hard | reset:--merge | reset:--keep | stash:drop | stash:clear)
+              deny "branch-guard: refusing '$hcmd' - it discards work no 'git stash pop' and no reflog bring back; commit first, or take a spelling that keeps it: 'git reset' without '--hard', 'git stash push' (seat-permissions § HEAD moves and whole-tree discards)." ;;
+          esac
+          [ "$hverb" = stash ] && break     # only the word after `stash` is its subcommand
+        done
+        continue
+      fi
+      hdir=$(resolve_target "$hbefore") || continue
+      # 2) An entry into the default branch, or a branch created under its
+      # name. The create test runs first: a `-b|-B|-c|-C` segment is judged
+      # by its new name alone, never by the tree.
+      if [ "$hverb" != restore ]; then
+        hnew= hdst= hsep=0 hwant=0
+        for tok in "${hargs[@]}"; do
+          if (( hwant )); then hnew="$tok"; break; fi
+          case "$tok" in
+            --) hsep=1; break ;;
+            -b | -B | -c | -C) hwant=1 ;;
+            -*) ;;
+            *) [ -n "$hdst" ] || hdst="$tok" ;;
+          esac
+        done
+        htop=$(git -C "$hdir" rev-parse --show-toplevel 2>/dev/null)
+        [ -n "$htop" ] && htop=$(cd "$htop" 2>/dev/null && pwd -P)
+        if [ -n "$htop" ] && [ -n "$hnew" ]; then
+          is_trunk "$htop" "$hnew" \
+            && deny "branch-guard: refusing '$hcmd' - it creates a branch named as the default branch of '$htop'; a working branch is named '<prefix>/<slug>' (git-workflow § Trunk)."
+        elif [ -n "$htop" ] && [ -n "$hdst" ] && (( hsep == 0 )) && is_trunk "$htop" "$hdst" \
+          && [ -n "$(git -C "$hdir" status --porcelain --untracked-files=no 2>/dev/null)" ]; then
+          deny "branch-guard: refusing '$hcmd' - it enters the default branch of '$htop' with uncommitted work; commit or discard first - work reaches the trunk through a working branch and an MR/PR, never carried onto it (git-workflow § Trunk)."
+        fi
+      fi
+      # 3) A whole-tree path restore. `switch` takes no pathspec.
+      if [ "$hverb" != switch ] && hbad=$(tree_wide "$hdir" "${hargs[@]}"); then
+        deny "branch-guard: refusing '$hcmd' - it discards every uncommitted change under '$hbad'; name the paths to restore, and leave the whole-tree revert to the runner's halt (run.md § Question resolution)."
+      fi
     done
 
     # Only guard commands that actually commit. The boundary after

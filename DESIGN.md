@@ -70,8 +70,11 @@ Two tiers gate every change into `main` (hooks ship to adopters via
   § Closing routine`); they are enumerated there and nowhere else.
 
 PreToolUse hooks guard ahead of both tiers: no trunk writes, commits
-or pushes, force pushes nowhere, no secrets into tracked files or
-commits (the secrets guard fails closed without its pattern library).
+or pushes, force pushes nowhere, no `checkout`/`switch` into a branch
+named as a default branch with uncommitted tracked work, no discard of
+tracked work that neither `git stash pop` nor the reflog brings back,
+no secrets into tracked files or commits (the secrets guard fails
+closed without its pattern library).
 The state hooks keep branch and tree in view, save them to the session
 file before compaction, and re-brief on resume from its last hand-off
 block (`skills/dev/handoff.md`).

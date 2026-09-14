@@ -39,9 +39,9 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -x "$P/.claude/scripts/ci/check-batch-tags.sh" ] && pass "batch-tags check copied + exec" || die "no batch-tags check"
 [ -f "$P/.claude/scripts/test/check-accretion.test.sh" ]  && pass "accretion self-test copied" || die "no accretion self-test"
 [ -f "$P/.claude/scripts/test/check-batch-tags.test.sh" ] && pass "batch-tags self-test copied" || die "no batch-tags self-test"
-grep -q 'BASH_SOURCE' "$P/.claude/scripts/test/check-accretion.test.sh" \
-  && grep -q 'BASH_SOURCE' "$P/.claude/scripts/test/check-batch-tags.test.sh" \
-  && pass "copied self-tests resolve their check relatively" \
+[ -x "$P/.claude/scripts/preflight-permissions.sh" ] && [ -f "$P/.claude/scripts/test/preflight-permissions.test.sh" ] && pass "permission pre-flight copied + exec, with its self-test" || die "no permission pre-flight or self-test"
+[ -z "$(grep -L BASH_SOURCE "$P"/.claude/scripts/test/*.test.sh)" ] \
+  && pass "copied self-tests resolve their subject relatively" \
   || die "copied self-test pinned to the repo root"
 
 # --- copied gates bite from the install location ---

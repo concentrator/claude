@@ -242,6 +242,7 @@ regardless of size; the full suite runs at batch close (`run.md
 |---|---|
 | Blocker the plan can absorb (§ Scope discoveries), or an implementer's acceptance-level NEEDS_CONTEXT | Halt the item, planner re-dispatch (`run.md § Question resolution`) |
 | Blocker invalidating the task's premise | Halt, report |
+| Seat reports BLOCKED on a classifier denial (`run.md § Dispatch per item`) | Halt, report; the item's work stands, no planner answering a denial |
 | Planner reports BLOCKED or NEEDS_CONTEXT on its re-dispatch | Halt, report |
 | Doc writer reports BLOCKED, or the docs gate's verifier reports WRONG or UNPROVEN on the same branch twice | Halt, report |
 | Spec check rejects the same commit twice | Halt, report |

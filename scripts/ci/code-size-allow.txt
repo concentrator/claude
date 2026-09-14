@@ -2,3 +2,5 @@
 # the reason. Exempts a path from both the file-size and function-size checks.
 # Keep this list short and each entry justified; prefer refactoring to adding.
 
+hooks/dev-branch-guard.sh  # PreToolUse hook registered by path; one file by construction
+

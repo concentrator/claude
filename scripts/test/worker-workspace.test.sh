@@ -263,4 +263,31 @@ env PATH=/usr/bin:/bin HOME="$h" WORKER_PROJECT_DIR="$h/proj" bash "$WSSCRIPT" s
   || die "dry run wrote settings.local.json"
 rm -rf "$h"
 
+# 46. a real run whose project path carries an &. A substitution that re-scans
+#     its replacement half expands & to the whole match, so the seed would grant
+#     Edit on a directory that does not exist - and nothing downstream says so:
+#     the rule is still valid JSON, so jq -e passes it, and workspace_state
+#     trusts the real path either way.
+h=$(mktemp -d); mkdir -p "$h/.claude/skills/dev/companions" "$h/a&b/.claude"
+cp "$(git rev-parse --show-toplevel)/skills/dev/companions/auto-permissions.template.json" \
+  "$h/.claude/skills/dev/companions/"
+out=$(env PATH=/usr/bin:/bin HOME="$h" WORKER_PROJECT_DIR="$h/a&b" bash "$WSSCRIPT" settings 2>&1)
+sf="$h/a&b/.claude/settings.local.json"
+allow=$(jq -r '.permissions.allow[]' "$sf" 2>/dev/null)
+edit=$(grep -F 'Edit(//' <<<"$allow" | head -1)
+grep -qxF -- "Edit(//${h#/}/a&b/**)" <<<"$allow" \
+  && pass "settings seeds the project path as given, & included" \
+  || die "seeded Edit rule misnames the project: ${edit:-nothing written} ($out)"
+grep -qxF -- "Read(//${h#/}/**)" <<<"$allow" \
+  && pass "the siblings rule survives an & path" || die "siblings rule wrong: $allow"
+
+# 47. no placeholder survives anywhere in the written file. The substitution
+#     reaches .permissions.allow[] alone, and settings() reads the installed
+#     template rather than the tracked one, so a placeholder anywhere else in it
+#     would land in the seed unseen - still valid JSON, still past the jq -e.
+! grep -qE '__PROJECT_DIR__|__HOME__' "$sf" \
+  && pass "no placeholder survives into the seeded settings" \
+  || die "a placeholder survived: $(grep -nE '__PROJECT_DIR__|__HOME__' "$sf")"
+rm -rf "$h"
+
 exit $fail
