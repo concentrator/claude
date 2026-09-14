@@ -2,7 +2,6 @@
 task: R080-T007
 type: mnt
 depends-on: R080-T004, R080-T010, R080-T011
-cold-read: passed
 supervised: approved
 ---
 
@@ -1392,3 +1391,140 @@ declared set.
   each shape by its verbs, so the bound is recorded rather than
   misstated: what R080 rules is whether the heuristic tightens, not a
   defect to patch.
+
+- [ ] Both placeholder substitutions resolve a project path or a
+  `$HOME` carrying `&` to that path itself under every bash the toolset
+  runs on, CI's included, so the pre-flight gates on the `Edit` grant it
+  reports and the worker seed writes the rule it counts. The two sites
+  are `scripts/preflight-permissions.sh`'s `declared=$(jq -r
+  '.permissions.allow[]' "$TEMPLATE" ...)` read and the substitution
+  line under it, and `scripts/worker-workspace.sh`'s `local base;
+  base=$(cat "$tpl")` line in `settings()` and the substitution line
+  under that. Both substitute through
+  `${var//__PROJECT_DIR__/${path#/}}`, and bash 5.2 expands an `&` in
+  the replacement half to the text the pattern matched - the same
+  semantics as the `sed` the two `&` items above replaced, inherited
+  intact - so a project at `a&b` yields `a__PROJECT_DIR__b`. The cases
+  that pin it exist and none is added: `preflight-permissions.test.sh`
+  case 2b's "the Edit rule spells the fixture's own path" and "no
+  placeholder survives the substitution", and
+  `worker-workspace.test.sh` case 46's "settings seeds the project path
+  as given, & included". All three are red on CI and green here, and
+  that split is the item's working condition rather than a symptom to
+  chase: this host's `/bin/bash` is 3.2.57, where a replacement's `&`
+  is literal - probed, `/bin/bash -c 'p="x/a&b";
+  t="E(//__PROJECT_DIR__/**)"; echo "${t//__PROJECT_DIR__/$p}"'` prints
+  `E(//x/a&b/**)` - and no bash 5 is installed, while CI runs
+  `ubuntu-latest` (`.github/workflows/ci.yml`). So the failure
+  reproduces on CI alone: a local red-then-green is not available to
+  this item, and a green local suite is no evidence the defect is gone.
+  What is checkable here is the property instead, and that is what the
+  commit delivers: no substitution in either script goes through a bash
+  replacement whose replacement half is a variable expansion, so no
+  result turns on the bash version; the two suites and
+  `bash scripts/ci/run-all.sh` stay green on this host; and the script
+  item's `--apply` convergence holds, an applied rule still reading back
+  `present (local)`. The sweep that bounds the fix to those two sites:
+  every other `${var//.../...}` under `scripts/` and `hooks/` has a
+  shell-literal, `&`-free replacement (`hooks/dev-branch-guard.sh`'s
+  three `${cmd//$'\n'/;}` splits, `scripts/ci/check-batch-tags.sh`'s
+  `${want/B<NNN>/B-XXX}`), as does every surviving `sed`
+  s-substitution (`scripts/test/install-dev.test.sh`'s `MARKERS=`
+  rewrite, `hooks/dev-precompact-state.sh`'s two `s/;/; /g`), so no
+  third site carries the hazard. One piece of text the fix invalidates
+  and rewrites: case 46's comment names `sed` as the cause, which this
+  branch already replaced, so its first sentence states the hazard by
+  what a substitution does with `&` rather than by the tool that did
+  it. The two `&` items above keep their text, their commits having
+  landed and a mark recording what happened
+  (`branch-plan.md § Body`); their approach paragraphs' claim that bash
+  leaves `&` inert in a replacement is what this item's acceptance
+  replaces, and it held for the 3.2 they probed. Both sites land in one
+  commit: they are one defect, and splitting them across two items is
+  what let the second inherit the first's reasoning. The same commit
+  clears `R080-T007`'s `[x]` to `[ ]` in
+  `dev/plans/R080-seat-model/tasks.md`, the branch having reopened
+  under `branch-plan.md § Scope changes mid-branch`; the final item
+  below writes it back.
+  Approach: `jq` performs both substitutions. Both scripts already
+  require it - the pre-flight stops when it is absent (the script item
+  above, its cannot-apply list) and `settings()` pipes the template
+  through it - so this adds no dependency, and the replacement half
+  stops being shell text that any bash re-scans. `jq`'s `gsub(re; str)`
+  takes its second argument as a value, `&` carrying no matched-text
+  meaning there, and `--arg` passes the path in rather than a string to
+  be parsed; the two placeholders carry no regex metacharacter, so the
+  first argument matches them literally. Probed on this host's jq
+  1.7.1: `jq -r --arg p 'tmp/a&b' '[.[] |
+  gsub("__PROJECT_DIR__"; $p)] | .[]'` over
+  `["E(//__PROJECT_DIR__/**)"]` prints `E(//tmp/a&b/**)`, and
+  `jq -rn --arg p 'tmp/a&b' '$p'` prints the path unchanged. CI proves
+  nothing about jq either way - a tier `sat()` built with the same
+  `gsub` and a script that mangled its own string would fail case 2b
+  exactly as a correct tier does - so the jq half's proof on CI's host
+  arrives with CI, and the acceptance's property is what holds here.
+  In `scripts/preflight-permissions.sh` the read and the substitution
+  line collapse into one read, `declared=$(jq -r --arg p
+  "${project#/}" --arg h "${HOME#/}" '.permissions.allow[] |
+  gsub("__PROJECT_DIR__"; $p) | gsub("__HOME__"; $h)' "$TEMPLATE"
+  2>/dev/null)`, with the `[ -n "$declared" ] || stop` under it
+  unchanged and still catching an unreadable template. Two lines
+  becoming one is the budget as much as the shape: the file stands at
+  299 of `scripts/ci/check-code-size.sh`'s 300-line file cap, so no
+  `code-size-allow.txt` entry is taken and a multi-line pure-bash
+  rewrite does not fit. In `scripts/worker-workspace.sh` those two
+  lines go and the `jq` call under them reads the template by path,
+  `"$tpl"` after the filter in place of the `printf '%s' "$base" |`
+  pipe, gaining `--arg pd "${pd#/}" --arg h "${HOME#/}"` and a leading
+  `(.permissions.allow[] |= (gsub("__PROJECT_DIR__"; $pd) |
+  gsub("__HOME__"; $h))) |` ahead of the existing
+  `.permissions.allow += [...]`. Addressing `allow` is what the
+  template affords: both placeholders sit in `permissions.allow` alone
+  (`companions/auto-permissions.template.json`), whose `deny` the
+  declaration item keeps free of them. `--arg siblings` is untouched,
+  already carrying an `&` path through, as is the dry-run branch's
+  `printf '  - substitute __PROJECT_DIR__=%s __HOME__=%s\n'`, which
+  prints the values rather than substituting. `settings()` stands at 45
+  of the 50-line function cap and its file at 225 of 300, so that side
+  is not budget-bound. Measured with `wc -l`,
+  `bash scripts/ci/run-all.sh`, and both suites run directly.
+
+- [ ] Complete the branch: close review per `branch-plan.md § Closing
+  routine` over the commits this reopening adds, `bash
+  scripts/ci/run-all.sh` green, cleanup, mark the plan complete, mark
+  the task `[x]` in `tasks.md`, commit. Placing that task mark last is
+  why this item exists: the branch's previous final commit ("Complete
+  R080-T007: permission pre-flight") wrote `[x]` on `R080-T007` in
+  `dev/plans/R080-seat-model/tasks.md` while the substitution defect
+  stood, which is the completion `§ Closing routine` 7 orders the mark
+  last to avoid asserting. So the mark, cleared to `[ ]` by the item
+  above when the branch reopened, is written back here and nowhere
+  earlier, and the previous final item keeps its `[x]`, its commit
+  having landed. Nothing else carries a mark to move: `ROADMAP.md`'s
+  R080 entry is the initiative's, marked at R closure, and R080-T005 is
+  still `[ ]` in `tasks.md`, so this is not the R's last open task and
+  the closure check (`plan.md § Approval and closure`) does not fire.
+  No doc rides this close either: the branch's doc-writer pass wrote
+  `DESIGN.md`, `LAYOUT.md` and `README.md`, none of which states how a
+  placeholder is substituted, and the item above restores the behavior
+  the pre-flight and the seed already promise rather than changing it,
+  so that pass stands (`run.md § Close` 3). The same commit adds one
+  leaving to the `Backlog, from the R080-T007 close:` paragraph in
+  `tasks.md`: this repository's shell code is written, probed and run
+  locally on a `/bin/bash` two major versions behind the one CI runs,
+  so a shell-semantics defect is green on every local run and red on
+  every CI run, which is how the `&` expansion passed two plan items, a
+  close review and a full local suite. What R080 rules is where a
+  second shell comes from - a declared version floor, a CI-only class
+  of assertion, or a probe step that names the gap - rather than this
+  branch's two lines.
+  Approach: the close's steps are `branch-plan.md § Closing routine`'s
+  and are not restated here; only the files this item edits are named.
+  In `dev/plans/R080-seat-model/tasks.md` the `R080-T007` line's `[ ]`
+  returns to `[x]`, and the backlog paragraph opening "Backlog, from
+  the R080-T007 close:" takes the leaving as its closing sentences,
+  which keeps it ahead of the `Archival, promotion target` paragraph
+  the file's ordering puts last. In this plan file, this item's
+  checkbox. Any finding the close review raises goes to
+  `R080-T007-perm-preflight.findings.md`, whose entries are all `[x]`
+  and are not reopened.
