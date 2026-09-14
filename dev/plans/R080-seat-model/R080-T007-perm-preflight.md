@@ -1530,9 +1530,11 @@ declared set.
   the task `[x]` in `tasks.md`, commit. No local run is this
   reopening's close evidence: the defect the item above fixes is
   invisible to every gate on this host (that item's acceptance), and
-  `run-all.sh` is the lint tier besides, running no suite at all. Both
-  stay required, no commit landing on a red fast tier
-  (`branch-plan.md § Rails`), and neither is sufficient. So
+  `bash scripts/ci/run-all.sh` is the lint tier besides, running no
+  suite at all. Both local gates stay required all the same - that lint
+  tier, which no commit lands on red (`branch-plan.md § Rails`), and
+  `bash scripts/test/run-all.sh`, the branch's one full local run
+  (`finish.md § 1`) - and neither of them closes this reopening. So
   the branch's close condition is the pushed branch's own CI run going
   green on the head sha that carries this item's commit - the `tier1`
   job of `.github/workflows/ci.yml`, which runs the lint tier and
@@ -1568,9 +1570,10 @@ declared set.
   `DESIGN.md`, `LAYOUT.md` and `README.md`, none of which states how a
   placeholder is substituted, and the item above restores the behavior
   the pre-flight and the seed already promise rather than changing it,
-  so that pass stands (`run.md § Close` 3). The same commit adds one
-  leaving to the `Backlog, from the R080-T007 close:` paragraph in
-  `tasks.md`: this repository's shell code is written, probed and run
+  so that pass stands (`run.md § Close` 3). The same commit adds four
+  leavings to the `Backlog, from the R080-T007 close:` paragraph in
+  `tasks.md`, each naming what it leaves and why. The shell: this
+  repository's shell code is written, probed and run
   locally on a `/bin/bash` two major versions behind the one CI runs,
   so a shell-semantics defect is green on every local run and red on
   every CI run, which is how the `&` expansion passed two plan items, a
@@ -1578,13 +1581,47 @@ declared set.
   second shell comes from - a declared version floor, a CI-only class
   of assertion, or a probe step that names the gap - rather than this
   branch's two lines.
+  A task mark that asserted a completion for three commits:
+  `R080-T007` read `[x]` in `dev/plans/R080-seat-model/tasks.md` after
+  the branch reopened - through "Reopen R080-T007 for the &
+  substitution defect" and the gap fix and cold-read record that
+  followed it - and cleared to `[ ]` only in the fix commit. The end
+  state is coherent and rewriting history was declined, but the flip
+  belongs in the reopening commit itself: `§ Closing routine` 7 orders
+  the task mark last precisely so a `[x]` never asserts a completion
+  the branch has not reached, and a reopening is that same hazard read
+  backwards. What R080 rules is whether `branch-plan.md § Scope changes
+  mid-branch`, which today names only the new checkboxes and the new
+  final commit, states the mark's clearing as the reopening's own step.
+  A test case that cannot fail where its fixture sits:
+  `scripts/test/preflight-permissions.test.sh`'s "an `&` path opens no
+  gap to apply" survives a mangled `Edit` rule, because the fixture
+  tier carries the template's own `Edit(//tmp/**)` and
+  `Edit(//private/tmp/**)`, whose literal prefixes cover any declared
+  project path under those two trees - so the pre-flight reports the
+  mangled rule `present`, `--apply` writes no local tier, and the
+  assertion holds either way. It bites only where the host's
+  `mktemp -d` lands outside both, as this one's `/var/folders` does.
+  The masking is the test's rather than the fix's, which is why the
+  case is correctly absent from the fix item's acceptance. What R080
+  rules is whether a fixture may sit anywhere a declared rule already
+  covers.
+  Two files at their cap with a split deferred:
+  `scripts/preflight-permissions.sh` stands at 300 of
+  `scripts/ci/check-code-size.sh`'s 300-line file cap, the truncation
+  fix having spent its last spare line, and
+  `scripts/test/preflight-permissions.test.sh` at 280 of the same cap,
+  the regression case having cost 21 lines. Neither took a
+  `code-size-allow.txt` entry. So the next change to either needs a
+  restructure, a split, or an allow-list decision, and which of the
+  three it takes is a planning call rather than an implementer's.
   Approach: the close's steps are `branch-plan.md § Closing routine`'s
   and are not restated here; only the files this item edits are named.
   In `dev/plans/R080-seat-model/tasks.md` the `R080-T007` line's `[ ]`
   returns to `[x]`, and the backlog paragraph opening "Backlog, from
-  the R080-T007 close:" takes the leaving as its closing sentences,
-  which keeps it ahead of the `Archival, promotion target` paragraph
-  the file's ordering puts last. In this plan file, this item's
+  the R080-T007 close:" takes the four leavings as its closing
+  sentences, which keeps it ahead of the `Archival, promotion target`
+  paragraph the file's ordering puts last. In this plan file, this item's
   checkbox. Any finding the close review raises goes to
   `R080-T007-perm-preflight.findings.md`, whose entries are all `[x]`
   and are not reopened.
