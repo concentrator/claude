@@ -1023,7 +1023,7 @@ declared set.
   `want "present (project) Bash(git status:*)"` line beside the
   `inert (auto)` assertion.
 
-- [ ] The pre-flight resolves the rules the template declares for every
+- [x] The pre-flight resolves the rules the template declares for every
   project path, one carrying `&` or `|` included: a project at
   `.../fx2/a&b` yields `Edit(//private/tmp/.../fx2/a&b/**)`. Today's
   `sed -e "s|__PROJECT_DIR__|...|g"` expands `&` to the whole match and

@@ -25,9 +25,10 @@ trap 'chmod -R u+w "$W" 2>/dev/null; rm -rf "$W"' EXIT
 n=0
 
 # A fresh fixture: a git-initialised project with a toolchain section, a
-# trusted workspace and an empty user tier. Sets FIX, PROJ, PT, LT.
+# trusted workspace and an empty user tier. Sets FIX, PROJ, PT, LT. $1 names
+# the project directory, for a case that needs a particular path.
 newfix() {
-  n=$((n + 1)); FIX="$W/$n"; PROJ="$FIX/proj"
+  n=$((n + 1)); FIX="$W/$n"; PROJ="$FIX/${1:-proj}"
   PT="$PROJ/.claude/settings.json"; LT="$PROJ/.claude/settings.local.json"
   mkdir -p "$PROJ/.claude"
   git -c init.defaultBranch=main -C "$PROJ" init -q
@@ -87,6 +88,16 @@ nowant "never run me" "a span outside the toolchain section is not read"
 nowant "Bash(## Agent toolchain:*)" "a span in the section's prose is not a command"
 nowant "Bash(gh:*)" "a one-word span is a CLI name, not a prefix"
 nowant "missing" "a full set reports no gap"
+
+# --- 2b. a project path carrying `&` resolves to the path itself ---
+newfix 'a&b'; sat "$PT" "$PAIR"
+runp --supervisor human --runner-mode default --apply
+rc0 "a project path carrying & exits zero"
+want "present (project) Edit(//${PROJ#/}/**)" "the Edit rule spells the fixture's own path"
+nowant "__PROJECT_DIR__" "no placeholder survives the substitution"
+[ ! -f "$LT" ] && pass "an & path opens no gap to apply" || die "an & path was applied around"
+runp --supervisor human --runner-mode default
+rc0 "a re-run on an & path exits zero"
 
 # --- 3/4. a missing allow rule is reported, applied, and reads back ---
 newfix; sat "$PT" "$PAIR"; edit "$PT" 'del(.permissions.allow[] | select(. == "WebSearch"))'
