@@ -114,10 +114,13 @@ hooks rule says who writes a guard, the pilot last.
   (`companions/supervisor-runbook.md § Modes by seat`). Depends on
   R080-T004, R080-T010 and R080-T011.
 
-- [ ] **R080-T005 [mnt]**: pilot task end to end under the seats -
-  pre-flight, cold read, worker dispatch, doc-writer pass, supervised
-  merge, no prompt outside the declared set; fixes from the pilot land
-  on the same branch. Depends on R080-T007 and R080-T009.
+- [ ] **R080-T005 [mnt]**: harvest the pilot run - R080-T007 ran the
+  seat flow end to end in this repository (pre-flight, cold reads,
+  planner re-dispatches, implementer and spec-check cycles, doc-writer
+  pass, close review, supervised merge), so this task fixes what that
+  run surfaced in the flow files and the seat definitions and evidences
+  R080's acceptance criteria from it rather than staging a second run.
+  Depends on R080-T007 and R080-T009.
 
 Backlog: R080-T001, T002 and T004 to T008 still carry a
 `supervised: approved` header line the plan header no longer admits
