@@ -21,7 +21,7 @@ the close triages what is still open.
   form the file already uses, or a line recovered elsewhere in
   § Pre-flight - and the choice is the approach's to record.
 
-- [ ] **Item 5's evidence arms do not cover a third shape the pilot
+- [x] **Item 5's evidence arms do not cover a third shape the pilot
   history holds, and its stop rule makes the outcome undecidable.**
   Acceptance-level. The item describes two shapes: acceptance text
   changing in commits that carry no code, and approach edits riding the
@@ -40,7 +40,7 @@ the close triages what is still open.
   pilot branch carry no code, and every code-carrying implementer
   commit's only acceptance-region change is its checkbox.
 
-- [ ] **Item 3's "all four verifier-class seats" rests on a paragraph
+- [x] **Item 3's "all four verifier-class seats" rests on a paragraph
   `agents/dev-docs-verifier.md` does not have.** Acceptance-level. The
   item says the whole verifier bound is what that file "alone carries
   today across its conduct and its § Probing", and that striking the
@@ -56,7 +56,7 @@ the close triages what is still open.
   shorter clause suffices and drops the "whole verifier bound" framing
   for it.
 
-- [ ] **Item 4's criterion-3 evidence omits one of the criterion's own
+- [x] **Item 4's criterion-3 evidence omits one of the criterion's own
   four verifications.** Acceptance-level, one clause. Criterion 3 as
   amended verifies by the plan's `cold-read: passed` header, **the
   commit that recorded it**, the doc-writer commit, and
@@ -66,7 +66,7 @@ the close triages what is still open.
   plan names it elsewhere: "Record the cold-read pass for the reopened
   items".
 
-- [ ] **Item 6's criterion-7 backlog line records a hole without its
+- [x] **Item 6's criterion-7 backlog line records a hole without its
   consequence.** Acceptance-level. The item has the implementer append
   the reviewer's missing duty row to `tasks.md`'s backlog, which is the
   right destination, but nothing in it says that `run.md:33` - "A run
@@ -76,3 +76,85 @@ the close triages what is still open.
   gets a note about a table hole and no signal that the live flow has
   been improvising past it, which is the fact that justifies deferring
   a one-line edit to a file at its cap.
+
+- [ ] **Item 5's three-class sort leaves out a fourth class the tree
+  holds: the runner's standalone bookkeeping commits.** Acceptance-level.
+  The item sorts the pilot plan file's history into planner, implementer
+  and runner-final commits "and no fourth". The tree holds commits whose
+  only plan-file change is `+cold-read: passed` and which carry no code -
+  six inside PR #540 ("Record the cold-read pass for the reopened items",
+  "... for the subject-guard item", "... for the worker-seed item",
+  "Record R080-T007's cold-read pass on the close items", "... and last
+  notes", "... and notes"), seven across the whole file history. They are
+  the runner's, not the planner's: `run.md § Question resolution`, the
+  item's own cite, says the pass "is recorded in the runner's own
+  bookkeeping commit on the item's branch". The item's only clause for
+  them - "A `cold-read: passed` key riding such a commit is bookkeeping,
+  not plan text" - reads on the runner's *mandatory final* commit, which
+  does carry the key alongside its `[x]`; a commit whose entire content
+  is the key is not a key riding a commit. Under the item's stop rule,
+  which now names "a commit touching the plan file outside those three
+  classes", one implementer marks criterion 5 and another halts the
+  branch - the same undecidability the note above reported, in a new
+  shape. Fix direction: sort plan-file *changes* rather than commits, or
+  name the bookkeeping commit as a fourth class.
+
+- [ ] **Item 3's acceptance enumerates a bound neither existing half
+  carries, so the approach cannot compose it.** Acceptance-level, with an
+  approach knock-on. The acceptance has each definition state that a
+  probe runs in a throwaway tree "with `GIT_DIR`, `GIT_WORK_TREE` and
+  `GIT_INDEX_FILE` unset ..., where mutating git is the probe's own
+  subject". `agents/code-reviewer.md` has no probing clause at all, and
+  `agents/dev-docs-verifier.md § Probing` says only "runs in a throwaway
+  repo, bounded by ... § Verifier isolation": the three variable names
+  live in `companions/verification-policy.md § Verifier isolation` alone.
+  So the approach's "composed from the two halves that exist" cannot
+  produce what the acceptance enumerates, and an implementer cannot tell
+  whether each file spells the three variables out or cites the section
+  holding them. Second edge of the same sentence: the approach gives
+  `dev-docs-verifier.md` the git clause only, so it keeps "toward the
+  checkout you stay read-only" without "no writes, no file edits" and
+  without the env vars, which makes the approach's "so the four read
+  alike" unachievable as written. Settling enumerate-vs-cite settles both.
+
+- [ ] **Item 6's "criterion 7's read is recorded unmarked" names no
+  destination for the record.** Acceptance-level, minor. The approach
+  writes nothing for criterion 7 in `requirements.md` - it names
+  criterion 8's mark and evidence line, then the `tasks.md` backlog
+  sentence - so an implementer can read "recorded" as an `Evidence:`-style
+  line under a still-`[ ]` criterion 7. The approach's silence is the
+  likelier reading; the acceptance should say the record lives in
+  `tasks.md` only.
+
+- [ ] **Item 5's criterion-6 grep pre-clears one hit class and the
+  tightened stop rule turns the rest into judgment calls.**
+  Acceptance-level, minor, carried over rather than introduced. A literal
+  grep for a project's docs, plans or session tree by path also returns
+  `companions/declarations.md`'s own `- Docs: docs/`, `- Plans:
+  dev/plans/`, `- Session: dev/session/` block and the `P=${P:-dev/plans}`
+  fallbacks in `check-plan-integrity.sh`, `check-archival.sh`,
+  `check-accretion.sh` and `check-batch-tags.sh`. Both are admitted -
+  `declarations.md § Declared paths` calls that block "their one home"
+  and has a reading script carry "its default once, as the fallback of
+  the read" - so the check is resolvable from the tree, but the item
+  pre-clears only the `dev/docs` migration-source class. One clause
+  citing that section closes it.
+
+- [ ] **Item 4's approach names the plan MR/PR by description, not by
+  number.** Approach-level, so the implementer's to settle in the commit
+  that carries the edit (`run.md § Seats`). The record commit sits on
+  PR #536 (`plan/r080-t007-preflight`), derivable only by walking merges
+  or querying `gh`, while the approach closes with "the run itself as
+  PR #540" - so the evidence line would cite one run by number and one by
+  a bare description, against `rules/writing-artifacts.md § Name things by
+  their durable id`. Name the number, or say the evidence line cites that
+  commit by subject alone.
+
+- [ ] **Item 5's list of what the runner's final commit changes is three
+  items long where the plan file holds two.** Wording, lowest. It reads
+  "its `[x]` and the plan-complete and task marks `branch-plan.md
+  § Closing routine` 7 assigns the runner", but in the plan file that
+  commit made two changes - the `[x]` and the line-cite fix - while the
+  task mark lands in `tasks.md` and "plan complete" has no separate
+  marker, being the same `[x]`. Harmless to the class sort; it makes the
+  evidence line's three-way list unverifiable against the plan file alone.
