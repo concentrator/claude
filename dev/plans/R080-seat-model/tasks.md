@@ -353,16 +353,10 @@ into a dirty default branch stands over that allow - the precedence
 carries the whole pre-flight, a rule the report calls `present` being
 still refusable at the call - while the three guard suites feed the hook
 its JSON on stdin and read its decision rather than the client's
-resolution of a deny against an allow.
-`companions/verification-policy.md § Verifier isolation` binds every
-verifier and no verifier's dispatch companion repeats it: a review seat
-on this branch ran `git checkout main` in the live checkout against a
-dirty tree, this repository's own guard refused it and nothing was lost,
-and every later dispatch then carried a warning naming the breach, which
-is dispatch text doing work a seat companion could do once. An
-approach's line cites go stale against the code they name: this plan's
-item 8 cites `scripts/preflight-permissions.sh:275` and `:282-285`,
-which the branch's own commits moved to 276 and 283-286 - harmless to an
+resolution of a deny against an allow. An approach's line cites go stale
+against the code they name: this plan's item 8 cites
+`scripts/preflight-permissions.sh:275` and `:282-285`, which the
+branch's own commits moved to 276 and 283-286 - harmless to an
 implementer working from the code, misleading to a later reader - and
 the class is what to rule on, a line number being no durable id while
 `rules/writing-artifacts.md § Name things by their durable id` governs

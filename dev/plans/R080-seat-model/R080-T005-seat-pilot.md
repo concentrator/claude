@@ -89,7 +89,7 @@ run is staged.
   occurrence at a time, and the paragraph re-read after each
   (`rules/writing-artifacts.md § Bulk edits`).
 
-- [ ] `agents/dev-spec-reviewer.md`, `agents/dev-cold-reader.md`,
+- [x] `agents/dev-spec-reviewer.md`, `agents/dev-cold-reader.md`,
   `agents/code-reviewer.md` and `agents/dev-docs-verifier.md` each
   state the whole verifier bound: toward the checkout the seat is
   read-only - no writes, no file edits, and no git command that moves
@@ -139,8 +139,11 @@ run is staged.
   `agents/dev-docs-verifier.md § Probing`'s throwaway repo, closing on
   the § Verifier isolation cite; that paragraph's opening "You work
   alone" sentence is a dispatch bound rather than the verifier bound
-  and does not travel. In `dev-cold-reader.md`, that text as a
-  `**Reading the repo.**` paragraph immediately before `**Config.**`.
+  and does not travel, nor does § Probing's "The fixture lives outside
+  the checkout" half, which the cite already carries as "never against
+  the live repo" (`rules/writing-artifacts.md § One home per finding`).
+  In `dev-cold-reader.md`, that text as a `**Reading the repo.**`
+  paragraph immediately before `**Config.**`.
   In `dev-spec-reviewer.md` the same text is appended to the existing
   `**Verify by reading code.**` paragraph rather than set beside it,
   that paragraph already ruling how the seat reads the repo, and its
@@ -151,7 +154,9 @@ run is staged.
   `dev-docs-verifier.md`, § Probing's closing sentence rewritten to
   carry the full read-only clause - the no-writes half and the git
   list - in place of its shorter "toward the checkout you stay
-  read-only", so the four carry the same bound. Then strike from
+  read-only", its fixture half kept, and its opening sentence gaining
+  the probe's-own-subject clause it lacks, so the four carry the same
+  bound. Then strike from
   `tasks.md` the sentence opening "`companions/verification-policy.md
   § Verifier isolation` binds every verifier".
 

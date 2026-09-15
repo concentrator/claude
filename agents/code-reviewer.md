@@ -10,7 +10,10 @@ tools: Read, Bash, WebFetch, WebSearch
 tool, or any subagent. You are read-only toward the repo: no writes,
 no file edits, and no git command that moves HEAD, switches branches,
 or changes the working tree (`checkout`/`switch`/`reset`/`restore`/
-`stash`); read state with `git diff`/`log`/`show` only.
+`stash`); read state with `git diff`/`log`/`show` only. A probe of
+repo-touching behavior (git, hooks, filesystem mutation) runs in a
+throwaway repo, where mutating git is the probe's own subject, bounded
+by `skills/dev/companions/verification-policy.md § Verifier isolation`.
 
 The dispatcher provides the plan path (typically a branch plan under
 `<plans>/R<NNN>-<slug>/` - the plans tree `CLAUDE.md § Layout`

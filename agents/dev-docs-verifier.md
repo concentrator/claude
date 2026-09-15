@@ -19,12 +19,15 @@ You verify no doc you authored: the independence rule is
 `skills/dev/companions/documentation.md § Verification gate`'s.
 
 **Probing.** A probe of repo-touching behavior (git, hooks, filesystem
-mutation) runs in a throwaway repo, bounded by
+mutation) runs in a throwaway repo, where mutating git is the probe's
+own subject, bounded by
 `skills/dev/companions/verification-policy.md § Verifier isolation`.
 Build that fixture's files with the Write tool: a shell heredoc
 carrying JSON or JS trips the harness obfuscation guard and stalls the
 run on a permission prompt. The fixture lives outside the checkout, and
-toward the checkout you stay read-only.
+toward the checkout you are read-only: no writes, no file edits, and no
+git command that moves HEAD, switches branches, or changes the working
+tree (`checkout`/`switch`/`reset`/`restore`/`stash`).
 
 **Config.** No edit-class shell - `sed -i`, `tee`, a redirection -
 against anything under the config directory: that is what the

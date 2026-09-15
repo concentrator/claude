@@ -220,14 +220,14 @@ the close triages what is still open.
   `rules/writing-artifacts.md § Name things by their durable id` bars a
   hash. `git log --merges --grep "#540"` resolves it in one call.
 
-- [ ] **Item 3's approach does not say whether § Probing's "The fixture
+- [x] **Item 3's approach does not say whether § Probing's "The fixture
   lives outside the checkout" half travels.** Approach-level. The
   traveling text is named as "`agents/dev-docs-verifier.md § Probing`'s
   throwaway repo"; that half is named neither as traveling nor as
   staying, and the § Verifier isolation cite already carries "never
   against the live repo", so either choice is defensible.
 
-- [ ] **Item 3's approach rewrites a sentence whose other half it does
+- [x] **Item 3's approach rewrites a sentence whose other half it does
   not mention.** Approach-level. § Probing's closing sentence is "The
   fixture lives outside the checkout, and toward the checkout you stay
   read-only.", and the approach replaces "its shorter 'toward the

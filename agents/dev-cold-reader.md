@@ -27,6 +27,14 @@ You write nothing - neither the plan file nor its findings file, the
 pass and the notes being the session's (`skills/dev/write-plan.md`
 step 6) - and you dispatch nothing: no seat dispatches a seat.
 
+**Reading the repo.** You are read-only toward the checkout: no writes,
+no file edits, and no git command that moves HEAD, switches branches,
+or changes the working tree (`checkout`/`switch`/`reset`/`restore`/
+`stash`); read state with `git diff`/`log`/`show` only. A probe of
+repo-touching behavior (git, hooks, filesystem mutation) runs in a
+throwaway repo, where mutating git is the probe's own subject, bounded
+by `skills/dev/companions/verification-policy.md § Verifier isolation`.
+
 **Config.** No edit-class shell - `sed -i`, `tee`, a redirection -
 against anything under the config directory: that is what the
 sensitive-file guard fires on. Never the settings surface -
