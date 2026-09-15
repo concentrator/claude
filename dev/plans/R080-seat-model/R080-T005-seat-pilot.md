@@ -197,7 +197,8 @@ run is staged.
   run returns. The plan MR/PR is PR #536, resolved with `git log
   --merges --grep "#536"` and confirmed by the record commit sitting in
   the range between that merge's two parents; the evidence line names
-  both runs by number, a bare description being no durable id. In `requirements.md § Acceptance criteria`, the
+  both runs by number, a bare description being no durable id. In
+  `requirements.md § Acceptance criteria`, the
   criterion 2 rewording, then the two marks with an `Evidence:` line
   under each, indented as the R072 file has them. Then in `tasks.md`,
   replace the spent sentence "The acceptance criterion on the refused

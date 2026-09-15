@@ -169,9 +169,9 @@ plan MR/PR. `requirements.md`'s criterion 2 stays unmarked and its dry
 run on a plan lacking the cold-read record is still owed: the pilot
 branch evidences `run.md § Resolve` 1 obeyed and no refusal, each
 record-less window on it holding plan-text commits alone. From the
-R080-T008 close
-review: the T008 task line above still says a blocker re-dispatches
-the planner "with the worker paused" where `skills/dev/run.md
+R080-T008 close review: the T008 task line above still says a blocker
+re-dispatches the planner "with the worker paused" where
+`skills/dev/run.md
 § Question resolution` halts the item and dispatches a fresh
 implementer; `requirements.md § Desired state` 1 still has the
 supervisor answering implementation-level questions; a plan change
