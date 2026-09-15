@@ -114,10 +114,53 @@ hooks rule says who writes a guard, the pilot last.
   (`companions/supervisor-runbook.md § Modes by seat`). Depends on
   R080-T004, R080-T010 and R080-T011.
 
-- [ ] **R080-T005 [mnt]**: pilot task end to end under the seats -
-  pre-flight, cold read, worker dispatch, doc-writer pass, supervised
-  merge, no prompt outside the declared set; fixes from the pilot land
-  on the same branch. Depends on R080-T007 and R080-T009.
+- [ ] **R080-T005 [mnt]**: harvest the pilot run - R080-T007 ran the
+  seat flow end to end in this repository (pre-flight, cold reads,
+  planner re-dispatches, implementer and spec-check cycles, doc-writer
+  pass, close review, supervised merge), so this task fixes what that
+  run surfaced in the flow files and the seat definitions and evidences
+  R080's acceptance criteria from it rather than staging a second run.
+  Depends on R080-T007 and R080-T009.
+
+- [ ] **R080-T013 [fix]**: settle the `## Agent toolchain` contract and
+  harden the pre-flight against it. `rules/claude-md.md § Agent
+  toolchain declaration` has a project declare its commands "as
+  `permissions.allow` rules", while `companions/declarations.md
+  § Declared commands`, the syntax home that line cites, declares
+  commands the run "uses for `permissions.allow`" and `finish` runs
+  instead of probing the host - and `scripts/preflight-permissions.sh`
+  reads the section the second way, harvesting backticked spans and
+  wrapping each in `Bash(...:*)`, so a project that followed the rule
+  got `Bash(Bash(npm test:*):*)` written into its local tier by
+  `--apply`. The commands contract wins, that section declaring roles
+  beyond permission syntax; the rule is reworded to commands the
+  pre-flight derives rules from, `declarations.md` gains the list
+  format its citers assume, and `toolchain_rules()` passes a
+  tool-rule-shaped span through untouched, skips a span holding `&&`,
+  `||`, `;` or `|` with a warning naming its parts - `Test (fast)`
+  declared as two chained commands yields one rule that can never match
+  - and stops on a top-level `deny`, `allow` or `ask` key in any tier
+  it reads, a shape that silently emptied a project's deny list and
+  left the branch-guard hook as the only thing refusing a force push.
+  Each with a case in `scripts/test/preflight-permissions.test.sh`.
+  Depends on R080-T007.
+
+- [ ] **R080-T014 [mnt]**: session-scoped supervisor selection, the
+  user proposal in the backlog below. `CLAUDE.md § Supervision`'s
+  `Supervisor:` line is the seat's only home, so flipping AI to human
+  costs a branch and a plan MR/PR, while `companions/declarations.md
+  § Supervisor bounds` bars the obvious route outright - "authority
+  never moves there", of the untracked `.claude/supervisor.md`, which
+  `run.md § Resolve` 2 already reads for the bounds text. The shape to
+  settle is a tracked ceiling with a selection at or below it and never
+  above, the seat taken recorded in the run's ledger (`run.md
+  § Ledger`); which artifact carries the selection - the untracked file
+  or a run-time argument - is this task's first decision.
+  `scripts/preflight-permissions.sh` reads the declared seat too,
+  asserting the runner's `auto` mode under `Supervisor: AI` and
+  asserting nothing under `human`, so the selection reaches the
+  pre-flight or the gate asserts against the wrong seat. Depends on
+  R080-T007.
 
 Backlog: R080-T001, T002 and T004 to T008 still carry a
 `supervised: approved` header line the plan header no longer admits
@@ -401,7 +444,19 @@ main..HEAD`, which no flow step runs, leaving the cap resting on a
 runner's recollection across a branch whose commits span many seats.
 What R080 rules there is whether § Size cap gets a mechanical check -
 a flow step or a hook reading that count at a named point - or stays
-the judgement the runner is trusted to make.
+the judgement the runner is trusted to make. A user proposal, not a
+settled call: make the supervisor seat switchable per session without a
+tracked commit, `CLAUDE.md § Supervision`'s `Supervisor:` line being its
+only home today, so flipping AI to human takes a branch and a plan
+MR/PR. `companions/declarations.md § Supervisor bounds` bars the obvious
+route - "authority never moves there", of the untracked
+`.claude/supervisor.md` - and the reason holds: an untracked file
+granting merge rights leaves no trace in history, and anything that can
+write a file could promote itself into the merge seat. The shape
+proposed instead is a tracked ceiling with an untracked or run-time
+selection at or below it, the seat taken recorded in the run's ledger.
+What R080 rules is whether that shape is right and which artifact
+carries the selection.
 
 Archival, promotion target (`plan.md § Archival`): this initiative
 bought a set of facts about the host that no file in the tree states,

@@ -210,17 +210,20 @@ initiatives close.
       a plan lacking the record.
 - [ ] The pilot's plan passed a cold read before it was approved and
       its docs were written by a doc-writer dispatch; verified by the
-      cold-read result and the doc-writer report in the supervisor's
-      ledger, and by the implementer dispatch text naming no doc
+      plan's `cold-read: passed` header and the commit that recorded
+      it, by the doc-writer commit on the pilot branch, and by
+      `companions/implementer-prompt.md`'s input set naming no doc
       target.
 - [ ] Each seat's dispatch text lists its inputs and nothing outside
       them; verified by reading the four prompts against § Desired
       state 4.
 - [ ] Every branch plan written, and every acceptance change made,
       after this R lands came from a planner dispatch; verified by the
-      pilot's ledger holding a planner entry for its plan and for any
-      mid-branch acceptance change, while approach edits ride the
-      implementer's commits.
+      pilot plan file's history - acceptance text changing only in
+      commits that carry no code, approach edits riding the implementer
+      commits that carry theirs, and the checkbox mark the one change
+      above an `Approach:` run-in an implementer commit makes
+      (§ Desired state 7).
 - [ ] Every docs, plans, session or layout path a rule, skill or CI
       check names resolves through the project root `CLAUDE.md`
       declaration, and `.claude/LAYOUT.md` holds the full tree, in this
@@ -231,13 +234,18 @@ initiatives close.
       literal path, and by a refresh of one installed project.
 - [ ] Each seat's duties under each supervisor mode are in one table
       and every duty statement elsewhere cites it; verified by reading
-      the table against § Desired state 6 and grepping the seat names
+      the table against § Desired state 6 on both of that point's axes -
+      every duty it names has a row, and every seat it names holds a
+      cell, the reviewer included - and by grepping the seat names
       across `skills/dev/` for an uncited duty.
-- [ ] The pilot's pre-flight reported every permission gap before the
-      first dispatch, the user applied what it named, and the run
-      raised no prompt outside the declared set; verified by the
-      pre-flight report, a re-run of it reporting none, and a pilot
-      ledger with no prompt-cleared entry.
+- [ ] The pre-flight resolves the whole declared set and reports every
+      permission gap in one message with the command that closes it,
+      every gap it reports is closed in the declared set before the run
+      goes on, and the run raises no prompt outside that set; verified
+      on the pilot, which built the pre-flight during its own run, by a
+      re-run of the script reporting no gap, by the commits that closed
+      the gaps it named, and by the pilot's plan carrying no item
+      halted on a prompt.
 
 ## Constraints
 
