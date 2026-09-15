@@ -61,7 +61,7 @@ run is staged.
   `scripts/preflight-permissions.sh`, the block under "the mode
   assertion and the never-list".
 
-- [ ] `rules/writing-artifacts.md § Bulk edits` settles which
+- [x] `rules/writing-artifacts.md § Bulk edits` settles which
   instruction wins where a host or session injection directs a seat to
   change files with `sed`, heredocs or a short script: on Markdown this
   rule stands, and a seat meeting both follows it and owes its

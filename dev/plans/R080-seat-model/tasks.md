@@ -216,11 +216,12 @@ trunk's tree with a message naming the ref, not the mismatch;
 step-7 comment says "the target's `CLAUDE.md § Layout`" where the code
 reads the project's root `CLAUDE.md`. From the R080-T010 planning act: a
 host instruction telling an agent to prefer `Bash` for file changes
-reaches every dispatched seat and contradicts both
-`rules/writing-artifacts.md § Bulk edits` and each prompt companion's
-"edit with Read/Edit/Write, never `sed`/`cat`/`awk`" - a planner rewrote
-plan prose with a script under it, and no rule says which instruction
-wins; a cite to a sentence that wraps names its first line in two
+reaches every dispatched seat and contradicts each prompt companion's
+"edit with Read/Edit/Write, never `sed`/`cat`/`awk`", which no file
+class bounds - a planner rewrote plan prose with a script under it, and
+no rule says which instruction wins outside Markdown, where
+`rules/writing-artifacts.md § Bulk edits` settles it; a cite to a
+sentence that wraps names its first line in two
 companions and a line range in a third, one convention per citation
 rather than one for the file. A three-arm probe then proved where that
 instruction lands unguarded: the hook pair fires for a dispatched seat's
@@ -376,17 +377,9 @@ hand-run `bash scripts/install-dev.sh --project <dir>` with the subject
 moved aside, which is how the worker-seed and subject-guard defects
 surfaced; `scripts/test/install-dev.test.sh` runs the copied
 `check-accretion` and `check-batch-tags` suites and never the copied
-pre-flight one, so which tier owns that run is open. The auto-mode
-instruction a session injects into a seat's prompt directs it to make
-file changes with `sed`, heredocs and short scripts, which
-`rules/writing-artifacts.md § Bulk edits` forbids on Markdown: the seats
-that met both on this branch followed the repo rule and reported the
-conflict rather than resolving it silently, which is the right conduct
-and a tax paid once per dispatch, each seat rediscovering and
-re-reporting it - stating the precedence once where a seat already
-reads, the dispatch companions under `companions/` or § Bulk edits
-itself, retires the rediscovery. The guard's by-name entry test is
-fail-open on indirect spellings: it compares the first bare token after
+pre-flight one, so which tier owns that run is open. The guard's
+by-name entry test is fail-open on indirect spellings: it compares the
+first bare token after
 the verb with `is_trunk`, a literal string equality, so `git checkout
 -`, `git switch -`, `git checkout @{-1}` and `git checkout main --` all
 allow on a tracked-dirty tree, as do `git branch main`,
