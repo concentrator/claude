@@ -2,7 +2,6 @@
 task: R080-T005
 type: mnt
 depends-on: R080-T007, R080-T009
-cold-read: passed
 ---
 
 # R080-T005: harvest the pilot run
@@ -94,13 +93,19 @@ run is staged.
   state the whole verifier bound: toward the checkout the seat is
   read-only - no writes, no file edits, and no git command that moves
   HEAD, switches a branch or changes the working tree - and a probe of
-  repo-touching behavior runs in a throwaway tree with `GIT_DIR`,
-  `GIT_WORK_TREE` and `GIT_INDEX_FILE` unset
-  (`companions/verification-policy.md § Verifier isolation`), where
-  mutating git is the probe's own subject. Today the bound exists in
-  halves and in two files. `code-reviewer.md`'s conduct paragraph
-  carries the read-only clauses and the HEAD-moving git list and stops
-  there, with no probing clause and no § Verifier isolation cite;
+  repo-touching behavior runs in a throwaway tree, where mutating git
+  is the probe's own subject, bounded by
+  `companions/verification-policy.md § Verifier isolation`. Each file
+  names the throwaway tree and cites the section for its terms rather
+  than restating them: the scrubbed git environment the section
+  specifies - `GIT_DIR`, `GIT_WORK_TREE` and `GIT_INDEX_FILE` unset -
+  stays there, its one home (`rules/writing-artifacts.md § One home
+  per finding`), and the cite is the shape
+  `dev-docs-verifier.md § Probing` already uses. Today the bound
+  exists in halves and in two files. `code-reviewer.md`'s conduct
+  paragraph carries the read-only clauses and the HEAD-moving git list
+  and stops there, with no probing clause and no § Verifier isolation
+  cite;
   `dev-docs-verifier.md § Probing` carries the throwaway tree, that
   cite and the shorter "toward the checkout you stay read-only", and
   nothing of the git list - the clause a review seat's `git checkout
@@ -124,9 +129,10 @@ run is staged.
   `agents/dev-docs-verifier.md § Probing`'s throwaway tree - and
   closing on the § Verifier isolation cite; in `code-reviewer.md`, the
   probing clause and that cite appended to its conduct paragraph; in
-  `dev-docs-verifier.md`, the git clause added to § Probing's closing
-  sentence, the one already bounded to the checkout, so the four read
-  alike. Then strike from
+  `dev-docs-verifier.md`, § Probing's closing sentence rewritten to
+  carry the full read-only clause - the no-writes half and the git
+  list - in place of its shorter "toward the checkout you stay
+  read-only", so the four read alike. Then strike from
   `tasks.md` the sentence opening "`companions/verification-policy.md
   § Verifier isolation` binds every verifier".
 
@@ -182,7 +188,7 @@ run is staged.
   against `requirements.md § Desired state` 4, every one carrying an
   `## Inputs` block that its prose calls the seat's whole set. Criterion
   5's is the pilot plan file's history across PR #540, whose commits
-  sort into three classes and no fourth. Planner commits carry no code
+  sort into four classes and no fifth. Planner commits carry no code
   and hold every acceptance-text change. Implementer commits carry the
   code, their approach edits riding it, and the one change above an
   `Approach:` run-in such a commit makes is its own `[ ]` to `[x]`
@@ -199,8 +205,16 @@ run is staged.
   stale line cite is a class R080's backlog already holds open ("An
   approach's line cites go stale against the code they name"). The
   evidence line names it rather than hiding it, as criterion 8's names
-  its exposure. A `cold-read: passed` key riding such a commit is
-  bookkeeping, not plan text (`run.md § Question resolution`). No
+  its exposure. The fourth class is the runner's bookkeeping commits,
+  several of them inside PR #540: each carries no code and no
+  acceptance text, its whole plan-file change being the
+  `cold-read: passed` header key a planner change dropped and the
+  re-run read re-earned; `run.md § Question resolution` puts that
+  record in the runner's own bookkeeping commit on the item's branch,
+  which is why no planner commit carries it. The key is the
+  session's record rather than plan text, on those commits and on the
+  final commit carrying it beside its `[x]`, so neither reads as an
+  acceptance change against the criterion. No
   commit on the branch names its
   seat, `git-workflow.md § Commit messages` admitting no trailer, so the
   evidence line claims the shape and no writer beyond it. Criterion 6's
@@ -209,7 +223,16 @@ run is staged.
   project's docs, plans or session tree by a literal path -
   `git ls-files dev/docs` is empty and `dev/docs` survives only in
   `migrate.md` and `companions/root-migration.md` as a migration
-  source - together with the installed-project half, which
+  source. Two further hit classes the grep returns are admitted, both
+  by `companions/declarations.md § Declared paths`: that section's own
+  `- Docs:` / `- Plans:` / `- Session:` block, which it calls their
+  one home, and the `P=${P:-dev/plans}` line in
+  `check-plan-integrity.sh`, `check-archival.sh`,
+  `check-accretion.sh` and `check-batch-tags.sh`, each the one default
+  that section lets a reading script carry as the fallback of its
+  read. A hit outside those three classes is a rule or check
+  resolving no path through the declaration, which the criterion
+  refuses. The grep runs with the installed-project half, which
   `scripts/test/install-dev.test.sh` pins in its case asserting that a
   project's declaration and `LAYOUT.md` survive two installs
   byte-identical, a refresh over a fixture project being the run that
@@ -220,13 +243,16 @@ run is staged.
   live outside the checkout. Edit `requirements.md § Acceptance
   criteria` alone, three marks and three `Evidence:` lines. Where a
   check returns something the criterion does not admit - a commit
-  touching the plan file outside those three classes included - the
+  touching the plan file outside those four classes included - the
   item stops and reports rather than marking (`branch-plan.md § Scope
   discoveries`).
 
 - [ ] Criterion 8 is marked and evidenced, and criterion 7's read is
-  recorded unmarked: the duty table gives the reviewer no cell, so the
-  criterion fails on the seat axis and `tasks.md` carries the gap.
+  recorded in `tasks.md` alone: the duty table gives the reviewer no
+  cell, so the criterion fails on the seat axis and the backlog line
+  carries the gap. `requirements.md` gains nothing under criterion 7 -
+  its box stays `[ ]` with no mark and no `Evidence:` line, an
+  unevidenced criterion carrying no record of the read that failed it.
   Criterion 7's read is `run.md § Seats`' duty table against
   `requirements.md § Desired state` 6 on both axes - every duty that
   section names has a row and a seat in each mode's cell, the table
