@@ -21,7 +21,7 @@ them, R080's acceptance criteria evidenced from it where it reaches
 them, and the R's remaining close-out work named as a task. No second
 run is staged.
 
-- [ ] `run.md § Pre-flight` asks the runner for a value it can produce.
+- [x] `run.md § Pre-flight` asks the runner for a value it can produce.
   The pre-flight invocation's `--runner-mode` argument reads `<the
   declared mode>` where it reads `<the runner's launch mode>` today and
   carries a cite to `companions/supervisor-runbook.md § Modes by seat`,
@@ -45,14 +45,15 @@ run is staged.
   in `R080-T007-perm-preflight.md`'s approach text, which archives with
   the R (`plan.md § Archival`), leaving the flow no home for it.
   Approach: in `run.md § Pre-flight`'s first bullet, the placeholder
-  swap plus the cite, the bullet rewrapped to its present four lines -
-  `run.md` stands at the 300-line cap `scripts/ci/check-caps.sh`
-  enforces on `skills/dev/*.md`, with the 80-character line ceiling
-  beside it, so the edit adds no line. The swap frees 7 characters and
-  tightening "reports every rule with the tier carrying it" to "reports
-  each rule's tier" pays for the rest; `bash scripts/ci/check-caps.sh`
-  confirms. The rule's three clauses land in
-  `companions/supervisor-runbook.md § Modes by seat` as one paragraph
+  swap plus the cite, the bullet rewrapped to five lines: the cite
+  costs more than the swap frees, and no wrapping holds it to four. The
+  gained line is affordable and needs no tightening to pay for it: the
+  commit "Raise the dev mode-file cap to 350 lines" lifted the line cap
+  `scripts/ci/check-caps.sh` enforces on `skills/dev/*.md`, a commit the
+  findings file's first note predates, so the bullet's other wording
+  stands. The 80-character ceiling beside it still binds, and `bash
+  scripts/ci/check-caps.sh` confirms both. The rule's three clauses land
+  in `companions/supervisor-runbook.md § Modes by seat` as one paragraph
   after the one closing "a pre-flight defect that nobody clears" and
   before the one opening "That set's never-list", with the fallback
   added to the `Runner` row's `Supervisor: human` cell; companions carry

@@ -183,7 +183,7 @@ browser and phone control without joining.
 
 | Seat | `Supervisor: AI` | `Supervisor: human` |
 |---|---|---|
-| Runner | `auto` | the user's session's own mode |
+| Runner | `auto` | the user's session's own mode, else `unknown` |
 | Any dispatched seat (`run.md § Seats`) | inherits the runner's | inherits the runner's |
 
 A dispatched seat is a subagent and has no mode of its own: the run
@@ -197,6 +197,14 @@ promptless run rests on is then the mode-independent set of
 suspends. Under `Supervisor: human` the user's session's mode governs;
 under either mode a prompt the declared set did not predict is a
 pre-flight defect that nobody clears (`run.md § Seats`).
+
+The `--runner-mode` the pre-flight takes (`run.md § Pre-flight`) is the
+mode this table gives the runner: the value is self-attested, no session
+being able to read its own launch flags, so the runner states what its
+row names rather than observing the host. A runner that cannot state one
+passes `unknown`, which fails the pre-flight's mode assertion under
+`Supervisor: AI`, where only `auto` passes, and is ignored under
+`Supervisor: human`, where no mode is asserted.
 
 That set's never-list (`seat-permissions.md § Mode-independent set`):
 never `bypassPermissions`, which discards deny rules along with

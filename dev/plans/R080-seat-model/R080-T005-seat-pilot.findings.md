@@ -5,7 +5,7 @@ gap. `write-plan.md` step 6 sends what a second read finds here rather
 than to another planner pass. The implementer reads them with the plan;
 the close triages what is still open.
 
-- [ ] **Item 1's line budget is about 28 characters short, and `run.md`
+- [x] **Item 1's line budget is about 28 characters short, and `run.md`
   fails its cap if the item is followed literally.** Approach-level, so
   it is the implementer's to fix in the commit that carries the edit
   (`run.md § Seats`). The approach says the swap frees 7 characters and
