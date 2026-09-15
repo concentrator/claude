@@ -402,7 +402,7 @@ run is staged.
   sentence to the paragraph opening "Backlog, from the R080-T007
   close:", where the run's other leavings sit.
 
-- [ ] Complete the branch: cleanup (stale/temp data), mark the plan
+- [x] Complete the branch: cleanup (stale/temp data), mark the plan
   complete, mark `R080-T005` `[x]` in `tasks.md`, commit. The R080
   closure check does not run here: `plan.md § Approval and closure`
   runs it on the branch completing the R's last open task, and the

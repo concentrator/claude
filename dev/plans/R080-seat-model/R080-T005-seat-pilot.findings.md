@@ -150,17 +150,29 @@ the close triages what is still open.
   their durable id`. Name the number, or say the evidence line cites that
   commit by subject alone.
 
-- [ ] **Item 5's list of what the runner's final commit changes is three
-  items long where the plan file holds two.** Wording, lowest. It reads
-  "its `[x]` and the plan-complete and task marks `branch-plan.md
-  § Closing routine` 7 assigns the runner", but in the plan file that
-  commit made two changes - the `[x]` and the line-cite fix - while the
-  task mark lands in `tasks.md` and "plan complete" has no separate
-  marker, being the same `[x]`. Harmless to the class sort; it makes the
-  evidence line's three-way list unverifiable against the plan file alone.
+- [x] **Item 5's list of what the runner's final commit changes is three
+  items long where the plan file holds two.** Closed as delivered: the
+  approach dropped the three-way list, and criterion 5's `Evidence:`
+  line names what the two final commits changed - the `[x]`, the
+  `cold-read: passed` key on the second, the task mark in `tasks.md`,
+  and the stale line cite corrected in the first - each readable
+  against the plan file and `tasks.md`. Wording, lowest. It reads "its
+  `[x]` and the plan-complete and task marks `branch-plan.md § Closing
+  routine` 7 assigns the runner", but in the plan file that commit made
+  two changes - the `[x]` and the line-cite fix - while the task mark
+  lands in `tasks.md` and "plan complete" has no separate marker, being
+  the same `[x]`. Harmless to the class sort; it makes the evidence
+  line's three-way list unverifiable against the plan file alone.
 
-- [ ] **Item 5: criterion 6's layout axis has no check and falls outside
-  the predicate.** Acceptance-level. The item checks "no rule that names
+- [x] **Item 5: criterion 6's layout axis has no check and falls outside
+  the predicate.** Closed as delivered on all three fix directions: the
+  approach's grep pattern takes `LAYOUT.md` and folds `check-stray.sh`'s
+  `L=${L:-.claude/LAYOUT.md}` into the same admitted fallback class as
+  the four `P=${P:-dev/plans}` defaults, and criterion 6's `Evidence:`
+  line reads on the layout axis with the rest and names both halves of
+  the LAYOUT clause - `check-stray.sh` for this repository, and
+  `scripts/test/install-dev.test.sh`'s two-install case for an installed
+  project. Acceptance-level. The item checks "no rule that names
   a project's docs, plans or session tree by a literal path", and its
   predicate names the same three axes. Criterion 6 itself reads "docs,
   plans, session **or layout**", and adds that `.claude/LAYOUT.md` holds
@@ -179,31 +191,41 @@ the close triages what is still open.
   whether the criterion-6 evidence line covers the LAYOUT half and by
   which run.
 
-- [ ] **Item 5: the pinned range's descriptive clause does not match the
-  tree, though the pin itself is unambiguous.** Acceptance-level. The
-  item pins criterion 5's commit set to the range between PR #540's
-  merge commit's two parents, described as "the branch as merged, which
-  carries the plan-MR/PR-era commits that opened it". The range does
-  carry the six named commits, but they are not the commits that opened
-  the plan: the pilot plan file was created in "Detail R080: eight tasks
-  and their branch plans", and nine plan-file commits precede the
-  range's start, including two acceptance rewrites ("Rewrite R080-T007
-  around what enforces the set", "Re-plan R080-T007 against the seat
-  definitions") and the very commit item 4 cites as criterion 3's
-  record, "Record R080-T007's cold read and its open notes". Criterion 5
-  asks after "Every branch plan written, and every acceptance change
-  made, after this R lands", so an evidence line written off this range
-  covers the merged branch and not the plan's writing. The implementer
-  cannot tell whether the exclusion is deliberate scoping, which would
-  want saying in the evidence line, or an error in the pin. Fix
-  direction: one clause saying the range is the merged branch and that
-  the detail-round and earlier plan-MR commits sit outside it, or a
-  wider pin.
+- [x] **Item 5: the pinned range's descriptive clause does not match the
+  tree, though the pin itself is unambiguous.** Closed as delivered on
+  the first fix direction: the pin stands and criterion 5's `Evidence:`
+  line calls the range the branch as merged, naming the six
+  plan-MR/PR-era commits it carries and saying the detail round that
+  wrote the plan and the earlier plan-MR/PR commits sit before it.
+  Acceptance-level. The item pins criterion 5's commit set to the range
+  between PR #540's merge commit's two parents, described as "the branch
+  as merged, which carries the plan-MR/PR-era commits that opened it".
+  The range does carry the six named commits, but they are not the
+  commits that opened the plan: the pilot plan file was created in
+  "Detail R080: eight tasks and their branch plans", and nine plan-file
+  commits precede the range's start, including two acceptance rewrites
+  ("Rewrite R080-T007 around what enforces the set", "Re-plan R080-T007
+  against the seat definitions") and the very commit item 4 cites as
+  criterion 3's record, "Record R080-T007's cold read and its open
+  notes". Criterion 5 asks after "Every branch plan written, and every
+  acceptance change made, after this R lands", so an evidence line
+  written off this range covers the merged branch and not the plan's
+  writing. The implementer cannot tell whether the exclusion is
+  deliberate scoping, which would want saying in the evidence line, or
+  an error in the pin. Fix direction: one clause saying the range is the
+  merged branch and that the detail-round and earlier plan-MR commits
+  sit outside it, or a wider pin.
 
-- [ ] **Item 3: the two seats without `Write` are sent down a route
-  whose hazard note stays in another file.** Observation rather than
-  gap, low. The item rules the spec reviewer's and cold reader's fixture
-  "a fixture their Bash builds and no `Write`-built one", and keeps the
+- [x] **Item 3: the two seats without `Write` are sent down a route
+  whose hazard note stays in another file.** Closed won't-fix: item 3's
+  acceptance rules that sentence into `agents/dev-docs-verifier.md`
+  alone, so the residue is the ruling's rather than a gap this branch
+  closes, and the tree matches the ruling - the sentence sits in that
+  file and in `agents/dev-implementer.md`, the two seats holding
+  `Write`. Whether the warning should reach the two Bash-only seats is
+  the R080 close-out's to route. Observation rather than gap, low. The
+  item rules the spec reviewer's and cold reader's fixture "a fixture
+  their Bash builds and no `Write`-built one", and keeps the
   heredoc-versus-`Write` sentence in `agents/dev-docs-verifier.md`
   alone. That sentence's reason is a live hazard - a shell heredoc
   carrying JSON or JS trips the harness obfuscation guard and stalls the

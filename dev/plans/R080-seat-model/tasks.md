@@ -115,7 +115,7 @@ promotion last.
   (`companions/supervisor-runbook.md § Modes by seat`). Depends on
   R080-T004, R080-T010 and R080-T011.
 
-- [ ] **R080-T005 [mnt]**: harvest the pilot run - R080-T007 ran the
+- [x] **R080-T005 [mnt]**: harvest the pilot run - R080-T007 ran the
   seat flow end to end in this repository (pre-flight, cold reads,
   planner re-dispatches, implementer and spec-check cycles, doc-writer
   pass, close review, supervised merge), so this task fixes what that
