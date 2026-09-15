@@ -140,7 +140,7 @@ the close triages what is still open.
   pre-clears only the `dev/docs` migration-source class. One clause
   citing that section closes it.
 
-- [ ] **Item 4's approach names the plan MR/PR by description, not by
+- [x] **Item 4's approach names the plan MR/PR by description, not by
   number.** Approach-level, so the implementer's to settle in the commit
   that carries the edit (`run.md § Seats`). The record commit sits on
   PR #536 (`plan/r080-t007-preflight`), derivable only by walking merges

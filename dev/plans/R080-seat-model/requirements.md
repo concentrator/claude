@@ -198,22 +198,32 @@ initiatives close.
 
 ## Acceptance criteria
 
-- [ ] One runner: `/dev run` is the only command that starts planned
+- [x] One runner: `/dev run` is the only command that starts planned
       work, `/dev code`, `/dev auto`, `/dev supervise` and `/dev docs`
       appear in no rule, skill, template, or CI check;
       `Supervisor: human | AI` is the only supervision-role
       declaration, and `Operator mode:`, `agentic:`, `supervised:`
       appear nowhere either; verified by grep across `CLAUDE.md`,
       `rules/`, `skills/`, `scripts/ci/`.
-- [ ] A plan with no recorded cold read is refused by `/dev code` and
-      by the unattended flow's resolve step; verified by a dry run on
-      a plan lacking the record.
-- [ ] The pilot's plan passed a cold read before it was approved and
+  Evidence: the grep across `CLAUDE.md`, `rules/`, `skills/` and
+  `scripts/ci/` for the four retired commands and for the three retired
+  declaration keys returns nothing.
+- [ ] A plan with no recorded cold read is refused by `/dev run`'s
+      resolve step; verified by a dry run on a plan lacking the record.
+- [x] The pilot's plan passed a cold read before it was approved and
       its docs were written by a doc-writer dispatch; verified by the
       plan's `cold-read: passed` header and the commit that recorded
       it, by the doc-writer commit on the pilot branch, and by
       `companions/implementer-prompt.md`'s input set naming no doc
       target.
+  Evidence: `R080-T007-perm-preflight.md` carries `cold-read: passed`,
+  recorded by "Record R080-T007's cold read and its open notes" on the
+  plan MR/PR (PR #536), which carried the read the plan was approved
+  on; the doc writer's "Document the permission pre-flight and guard
+  shapes" wrote `DESIGN.md`, `README.md` and `LAYOUT.md` on the pilot
+  branch (PR #540); and `companions/implementer-prompt.md` takes the
+  docs as an input and names no doc target, as
+  `agents/dev-implementer.md § Conventions` does.
 - [ ] Each seat's dispatch text lists its inputs and nothing outside
       them; verified by reading the four prompts against § Desired
       state 4.

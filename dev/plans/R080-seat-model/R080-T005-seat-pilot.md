@@ -160,7 +160,7 @@ run is staged.
   `tasks.md` the sentence opening "`companions/verification-policy.md
   § Verifier isolation` binds every verifier".
 
-- [ ] `requirements.md § Acceptance criteria` carries criteria 1 and 3
+- [x] `requirements.md § Acceptance criteria` carries criteria 1 and 3
   marked and evidenced, in the `[x]` plus `Evidence:` shape
   `dev/plans/archive/R072-workflow-slim/requirements.md` uses, and
   criterion 2 reworded but unmarked. Criterion 2 loses the retired
@@ -194,7 +194,10 @@ run is staged.
   Approach: run each check before its line is written - the grep, `git
   log` over PR #540's commits and over the plan MR/PR's, which is where
   the record commit sits, the header read - and write only what the
-  run returns. In `requirements.md § Acceptance criteria`, the
+  run returns. The plan MR/PR is PR #536, resolved with `git log
+  --merges --grep "#536"` and confirmed by the record commit sitting in
+  the range between that merge's two parents; the evidence line names
+  both runs by number, a bare description being no durable id. In `requirements.md § Acceptance criteria`, the
   criterion 2 rewording, then the two marks with an `Evidence:` line
   under each, indented as the R072 file has them. Then in `tasks.md`,
   replace the spent sentence "The acceptance criterion on the refused
