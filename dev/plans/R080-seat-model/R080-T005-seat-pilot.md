@@ -93,10 +93,19 @@ run is staged.
   state the whole verifier bound: toward the checkout the seat is
   read-only - no writes, no file edits, and no git command that moves
   HEAD, switches a branch or changes the working tree - and a probe of
-  repo-touching behavior runs in a throwaway tree, where mutating git
+  repo-touching behavior runs in a throwaway repo, where mutating git
   is the probe's own subject, bounded by
-  `companions/verification-policy.md § Verifier isolation`. Each file
-  names the throwaway tree and cites the section for its terms rather
+  `companions/verification-policy.md § Verifier isolation`. That clause
+  bounds where such a probe runs and grants no tool: each seat probes
+  within its own `tools:` line, so the spec reviewer's and the cold
+  reader's `tools: Read, Bash` admit a fixture their Bash builds and no
+  `Write`-built one, and
+  `dev-docs-verifier.md § Probing`'s heredoc-versus-`Write` sentence
+  stays in that file alone as the note of the one seat holding `Write`.
+  The cold reader's "You write nothing" is bounded by its own text to
+  the plan file and its findings file and so does not reach a fixture
+  outside the checkout. Each file
+  names the throwaway repo and cites the section for its terms rather
   than restating them: the scrubbed git environment the section
   specifies - `GIT_DIR`, `GIT_WORK_TREE` and `GIT_INDEX_FILE` unset -
   stays there, its one home (`rules/writing-artifacts.md § One home
@@ -106,7 +115,7 @@ run is staged.
   paragraph carries the read-only clauses and the HEAD-moving git list
   and stops there, with no probing clause and no § Verifier isolation
   cite;
-  `dev-docs-verifier.md § Probing` carries the throwaway tree, that
+  `dev-docs-verifier.md § Probing` carries the throwaway repo, that
   cite and the shorter "toward the checkout you stay read-only", and
   nothing of the git list - the clause a review seat's `git checkout
   main` into the live dirty checkout motivated in the pilot run. The
@@ -122,17 +131,26 @@ run is staged.
   file costs no budget: `scripts/ci/check-caps.sh` caps `CLAUDE.md`,
   `DESIGN.md`, the skill bodies and `skills/dev/*.md`, and nothing
   under `agents/`.
-  Approach: in `dev-spec-reviewer.md` and `dev-cold-reader.md`, a
-  `**Reading the repo.**` paragraph immediately before
-  `**Config.**`, composed from the two
-  halves that exist - `agents/code-reviewer.md`'s conduct clauses and
-  `agents/dev-docs-verifier.md § Probing`'s throwaway tree - and
-  closing on the § Verifier isolation cite; in `code-reviewer.md`, the
+  Approach: the text that travels is `agents/code-reviewer.md`'s
+  conduct paragraph from "You are read-only toward the repo" on - the
+  `(checkout/switch/reset/restore/stash)` parenthetical and the "read
+  state with `git diff`/`log`/`show` only" clause included - plus
+  `agents/dev-docs-verifier.md § Probing`'s throwaway repo, closing on
+  the § Verifier isolation cite; that paragraph's opening "You work
+  alone" sentence is a dispatch bound rather than the verifier bound
+  and does not travel. In `dev-cold-reader.md`, that text as a
+  `**Reading the repo.**` paragraph immediately before `**Config.**`.
+  In `dev-spec-reviewer.md` the same text is appended to the existing
+  `**Verify by reading code.**` paragraph rather than set beside it,
+  that paragraph already ruling how the seat reads the repo, and its
+  Read-tool and plain-`git show` sentence standing in for the
+  read-state clause rather than being followed by it. In
+  `code-reviewer.md`, the
   probing clause and that cite appended to its conduct paragraph; in
   `dev-docs-verifier.md`, § Probing's closing sentence rewritten to
   carry the full read-only clause - the no-writes half and the git
   list - in place of its shorter "toward the checkout you stay
-  read-only", so the four read alike. Then strike from
+  read-only", so the four carry the same bound. Then strike from
   `tasks.md` the sentence opening "`companions/verification-policy.md
   § Verifier isolation` binds every verifier".
 
@@ -187,7 +205,13 @@ run is staged.
   `spec-reviewer-prompt.md` and `doc-writer-prompt.md` - each read
   against `requirements.md § Desired state` 4, every one carrying an
   `## Inputs` block that its prose calls the seat's whole set. Criterion
-  5's is the pilot plan file's history across PR #540, whose commits
+  5's is the pilot plan file's history over the commits PR #540
+  merged, the set pinned as the range between that merge commit's
+  first and second parents - the branch as merged, which carries the
+  plan-MR/PR-era commits that opened it, from "Settle R080-T007's
+  fourth reason line and tier read" through "Record R080-T007's
+  cold-read pass and last notes" - six that `gh pr view 540`'s commit
+  list need not carry, and that the range settles in. Those commits
   sort into four classes and no fifth. Planner commits carry no code
   and hold every acceptance-text change. Implementer commits carry the
   code, their approach edits riding it, and the one change above an
@@ -199,14 +223,15 @@ run is staged.
   acceptance: its `[x]` and the plan-complete and task marks
   `branch-plan.md § Closing routine` 7 assigns the runner, plus, in the
   first of the pilot's two final commits - the reopening gave it a
-  second - one stale line-number cite corrected in the same item. That correction is the third class's only
+  second - one stale line-number cite corrected in the same item. That
+  correction is the third class's only
   content beyond the assigned marks, and the criterion is marked rather
   than halted on it: it changes nothing the item must deliver, and a
   stale line cite is a class R080's backlog already holds open ("An
   approach's line cites go stale against the code they name"). The
   evidence line names it rather than hiding it, as criterion 8's names
   its exposure. The fourth class is the runner's bookkeeping commits,
-  several of them inside PR #540: each carries no code and no
+  several of them in that range: each carries no code and no
   acceptance text, its whole plan-file change being the
   `cold-read: passed` header key a planner change dropped and the
   re-run read re-earned; `run.md § Question resolution` puts that
@@ -230,15 +255,27 @@ run is staged.
   `check-plan-integrity.sh`, `check-archival.sh`,
   `check-accretion.sh` and `check-batch-tags.sh`, each the one default
   that section lets a reading script carry as the fallback of its
-  read. A hit outside those three classes is a rule or check
-  resolving no path through the declaration, which the criterion
-  refuses. The grep runs with the installed-project half, which
+  read. The grep's pattern is the implementer's and so is its hit set,
+  which is why the hits are judged by a predicate rather than by a
+  class list: a hit fails the criterion only where it is a rule or a
+  check sending a seat or a script to a live project's docs, plans or
+  session tree by a literal path instead of through the declaration.
+  A hit naming a pre-declaration layout as a migration source
+  (`skills/dev/migrate.md`, `companions/root-migration.md`), one in a
+  comment rather than an instruction (`check-accretion.sh`'s
+  `plans/archive/` line), and one naming no project tree at all - a
+  URL path or an example filename in a skill outside `skills/dev/` -
+  each passes, as the two admitted classes do. The grep runs with the
+  installed-project half, which
   `scripts/test/install-dev.test.sh` pins in its case asserting that a
   project's declaration and `LAYOUT.md` survive two installs
   byte-identical, a refresh over a fixture project being the run that
   could fail.
-  Approach: run the four reads, the `git log` over the plan file and
-  both greps, then the installer test case, before writing; the test
+  Approach: run the four reads; the `git log` over the plan file across
+  that merge range; the criterion-6 literal-path grep over `rules/`,
+  `skills/` and `scripts/ci/`; the `dev/docs` grep behind the
+  two-file survival claim; and `git ls-files dev/docs` - then the
+  installer test case, before writing; the test
   runs through `bash scripts/test/install-dev.test.sh`, whose fixtures
   live outside the checkout. Edit `requirements.md § Acceptance
   criteria` alone, three marks and three `Evidence:` lines. Where a
@@ -247,10 +284,14 @@ run is staged.
   item stops and reports rather than marking (`branch-plan.md § Scope
   discoveries`).
 
-- [ ] Criterion 8 is marked and evidenced, and criterion 7's read is
-  recorded in `tasks.md` alone: the duty table gives the reviewer no
-  cell, so the criterion fails on the seat axis and the backlog line
-  carries the gap. `requirements.md` gains nothing under criterion 7 -
+- [ ] Criterion 8 is marked and evidenced, and what criterion 7's read
+  failed on is recorded in `tasks.md` alone: the duty table gives the
+  reviewer no cell, so the criterion fails on the seat axis and the
+  backlog line carries that gap. Of the read described below, that
+  failing half alone is written down: the passing half evidences no
+  criterion, 7 staying unmarked, and a backlog paragraph carries open
+  work rather than a verification log.
+  `requirements.md` gains nothing under criterion 7 -
   its box stays `[ ]` with no mark and no `Evidence:` line, an
   unevidenced criterion carrying no record of the read that failed it.
   Criterion 7's read is `run.md § Seats`' duty table against
