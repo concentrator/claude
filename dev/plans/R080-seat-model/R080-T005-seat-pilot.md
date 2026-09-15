@@ -209,7 +209,7 @@ run is staged.
   (`rules/writing-artifacts.md § Name
   things by their durable id`), and the run itself as PR #540.
 
-- [ ] Criteria 4 to 6 are marked and evidenced in the same shape.
+- [x] Criteria 4 to 6 are marked and evidenced in the same shape.
   Criterion 4's evidence is the four dispatch companions -
   `companions/planner-prompt.md`, `implementer-prompt.md`,
   `spec-reviewer-prompt.md` and `doc-writer-prompt.md` - each read
@@ -282,13 +282,25 @@ run is staged.
   byte-identical, a refresh over a fixture project being the run that
   could fail.
   Approach: run the four reads; the `git log` over the plan file across
-  that merge range; the criterion-6 literal-path grep over `rules/`,
+  that merge range, the merge commit resolved with `git log --merges
+  --grep "#540"`; the criterion-6 literal-path grep over `rules/`,
   `skills/` and `scripts/ci/`; the `dev/docs` grep behind the
   two-file survival claim; and `git ls-files dev/docs` - then the
   installer test case, before writing; the test
   runs through `bash scripts/test/install-dev.test.sh`, whose fixtures
-  live outside the checkout. Edit `requirements.md § Acceptance
-  criteria` alone, three marks and three `Evidence:` lines. Where a
+  live outside the checkout. The grep's pattern takes `dev/docs`,
+  `dev/plans` and `dev/session`, a bare `docs/`, `plans/` or `session/`
+  and `LAYOUT.md`, so the layout axis rides the same run and
+  `check-stray.sh`'s `L=${L:-.claude/LAYOUT.md}` lands in the same
+  admitted fallback class as the four `P=${P:-dev/plans}` defaults,
+  `companions/declarations.md § Declared paths` stating the class by
+  the read rather than by the key. Edit `requirements.md § Acceptance
+  criteria` alone, three marks and three `Evidence:` lines. Criterion
+  5's line names the pinned range as the branch as merged and says the
+  detail round that wrote the plan and the earlier plan-MR/PR commits
+  sit before it, and it names what the two final commits changed in the
+  plan file and in `tasks.md` rather than the acceptance's three-way
+  list, the plan file carrying no plan-complete mark beside the `[x]`. Where a
   check returns something the criterion does not admit - a commit
   touching the plan file outside those four classes included - the
   item stops and reports rather than marking (`branch-plan.md § Scope

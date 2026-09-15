@@ -213,7 +213,7 @@ the close triages what is still open.
   text, so this is a consequence the item chose rather than a question
   it left open.
 
-- [ ] **Item 5's approach names no way to resolve the merge commit.**
+- [x] **Item 5's approach names no way to resolve the merge commit.**
   Approach-level, so the implementer's to settle in the commit that
   carries the edit (`run.md § Seats`). "The `git log` over the plan file
   across that merge range" needs the merge commit, and
