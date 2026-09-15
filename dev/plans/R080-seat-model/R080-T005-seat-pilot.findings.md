@@ -77,7 +77,7 @@ the close triages what is still open.
   been improvising past it, which is the fact that justifies deferring
   a one-line edit to a file at its cap.
 
-- [ ] **Item 5's three-class sort leaves out a fourth class the tree
+- [x] **Item 5's three-class sort leaves out a fourth class the tree
   holds: the runner's standalone bookkeeping commits.** Acceptance-level.
   The item sorts the pilot plan file's history into planner, implementer
   and runner-final commits "and no fourth". The tree holds commits whose
@@ -99,7 +99,7 @@ the close triages what is still open.
   shape. Fix direction: sort plan-file *changes* rather than commits, or
   name the bookkeeping commit as a fourth class.
 
-- [ ] **Item 3's acceptance enumerates a bound neither existing half
+- [x] **Item 3's acceptance enumerates a bound neither existing half
   carries, so the approach cannot compose it.** Acceptance-level, with an
   approach knock-on. The acceptance has each definition state that a
   probe runs in a throwaway tree "with `GIT_DIR`, `GIT_WORK_TREE` and
@@ -117,7 +117,7 @@ the close triages what is still open.
   without the env vars, which makes the approach's "so the four read
   alike" unachievable as written. Settling enumerate-vs-cite settles both.
 
-- [ ] **Item 6's "criterion 7's read is recorded unmarked" names no
+- [x] **Item 6's "criterion 7's read is recorded unmarked" names no
   destination for the record.** Acceptance-level, minor. The approach
   writes nothing for criterion 7 in `requirements.md` - it names
   criterion 8's mark and evidence line, then the `tasks.md` backlog
@@ -126,7 +126,7 @@ the close triages what is still open.
   likelier reading; the acceptance should say the record lives in
   `tasks.md` only.
 
-- [ ] **Item 5's criterion-6 grep pre-clears one hit class and the
+- [x] **Item 5's criterion-6 grep pre-clears one hit class and the
   tightened stop rule turns the rest into judgment calls.**
   Acceptance-level, minor, carried over rather than introduced. A literal
   grep for a project's docs, plans or session tree by path also returns
@@ -158,3 +158,85 @@ the close triages what is still open.
   task mark lands in `tasks.md` and "plan complete" has no separate
   marker, being the same `[x]`. Harmless to the class sort; it makes the
   evidence line's three-way list unverifiable against the plan file alone.
+
+- [ ] **Item 5: criterion 6's layout axis has no check and falls outside
+  the predicate.** Acceptance-level. The item checks "no rule that names
+  a project's docs, plans or session tree by a literal path", and its
+  predicate names the same three axes. Criterion 6 itself reads "docs,
+  plans, session **or layout**", and adds that `.claude/LAYOUT.md` holds
+  the full tree "in this repository and in every installed project". Two
+  consequences on the tree: `scripts/ci/check-stray.sh` reads the
+  declaration and then carries `L=${L:-.claude/LAYOUT.md}`, the same
+  fallback class `companions/declarations.md § Declared paths` admits,
+  but the item's admitted list names only `P=${P:-dev/plans}` in four
+  other scripts, so the implementer meets an admitted-looking hit the
+  item does not name and whose axis the predicate omits; and nothing in
+  the item's check list evidences the this-repository half of the LAYOUT
+  clause, though `check-stray.sh` is the check that pins it. Same shape
+  as the criterion-3 under-coverage the planner fixed in item 4. Fix
+  direction: widen the predicate's axis to include layout, fold
+  `check-stray.sh`'s default into the admitted fallback class, and say
+  whether the criterion-6 evidence line covers the LAYOUT half and by
+  which run.
+
+- [ ] **Item 5: the pinned range's descriptive clause does not match the
+  tree, though the pin itself is unambiguous.** Acceptance-level. The
+  item pins criterion 5's commit set to the range between PR #540's
+  merge commit's two parents, described as "the branch as merged, which
+  carries the plan-MR/PR-era commits that opened it". The range does
+  carry the six named commits, but they are not the commits that opened
+  the plan: the pilot plan file was created in "Detail R080: eight tasks
+  and their branch plans", and nine plan-file commits precede the
+  range's start, including two acceptance rewrites ("Rewrite R080-T007
+  around what enforces the set", "Re-plan R080-T007 against the seat
+  definitions") and the very commit item 4 cites as criterion 3's
+  record, "Record R080-T007's cold read and its open notes". Criterion 5
+  asks after "Every branch plan written, and every acceptance change
+  made, after this R lands", so an evidence line written off this range
+  covers the merged branch and not the plan's writing. The implementer
+  cannot tell whether the exclusion is deliberate scoping, which would
+  want saying in the evidence line, or an error in the pin. Fix
+  direction: one clause saying the range is the merged branch and that
+  the detail-round and earlier plan-MR commits sit outside it, or a
+  wider pin.
+
+- [ ] **Item 3: the two seats without `Write` are sent down a route
+  whose hazard note stays in another file.** Observation rather than
+  gap, low. The item rules the spec reviewer's and cold reader's fixture
+  "a fixture their Bash builds and no `Write`-built one", and keeps the
+  heredoc-versus-`Write` sentence in `agents/dev-docs-verifier.md`
+  alone. That sentence's reason is a live hazard - a shell heredoc
+  carrying JSON or JS trips the harness obfuscation guard and stalls the
+  run on a permission prompt - which reaches any Bash-built fixture. So
+  the two seats without `Write` get the route and not the warning.
+  Nothing blocks the implementer: the ruling is explicit and the edit is
+  text, so this is a consequence the item chose rather than a question
+  it left open.
+
+- [ ] **Item 5's approach names no way to resolve the merge commit.**
+  Approach-level, so the implementer's to settle in the commit that
+  carries the edit (`run.md § Seats`). "The `git log` over the plan file
+  across that merge range" needs the merge commit, and
+  `rules/writing-artifacts.md § Name things by their durable id` bars a
+  hash. `git log --merges --grep "#540"` resolves it in one call.
+
+- [ ] **Item 3's approach does not say whether § Probing's "The fixture
+  lives outside the checkout" half travels.** Approach-level. The
+  traveling text is named as "`agents/dev-docs-verifier.md § Probing`'s
+  throwaway repo"; that half is named neither as traveling nor as
+  staying, and the § Verifier isolation cite already carries "never
+  against the live repo", so either choice is defensible.
+
+- [ ] **Item 3's approach rewrites a sentence whose other half it does
+  not mention.** Approach-level. § Probing's closing sentence is "The
+  fixture lives outside the checkout, and toward the checkout you stay
+  read-only.", and the approach replaces "its shorter 'toward the
+  checkout you stay read-only'", so the rewrite has to preserve the
+  fixture half. Wording is the implementer's.
+
+- [ ] **Item 6's approach reads as if the backlog sentence should state
+  a ruling.** Approach-level. "One sentence carrying the hole, the halt
+  sentence it sits under, and the ruling that closes it" invites writing
+  the ruling; the acceptance settles it the other way - what moves is "a
+  ruling, not a one-line edit" - so the sentence names the candidates
+  and leaves the decision to the R's close-out.
