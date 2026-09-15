@@ -122,6 +122,46 @@ hooks rule says who writes a guard, the pilot last.
   R080's acceptance criteria from it rather than staging a second run.
   Depends on R080-T007 and R080-T009.
 
+- [ ] **R080-T013 [fix]**: settle the `## Agent toolchain` contract and
+  harden the pre-flight against it. `rules/claude-md.md § Agent
+  toolchain declaration` has a project declare its commands "as
+  `permissions.allow` rules", while `companions/declarations.md
+  § Declared commands`, the syntax home that line cites, declares
+  commands the run "uses for `permissions.allow`" and `finish` runs
+  instead of probing the host - and `scripts/preflight-permissions.sh`
+  reads the section the second way, harvesting backticked spans and
+  wrapping each in `Bash(...:*)`, so a project that followed the rule
+  got `Bash(Bash(npm test:*):*)` written into its local tier by
+  `--apply`. The commands contract wins, that section declaring roles
+  beyond permission syntax; the rule is reworded to commands the
+  pre-flight derives rules from, `declarations.md` gains the list
+  format its citers assume, and `toolchain_rules()` passes a
+  tool-rule-shaped span through untouched, skips a span holding `&&`,
+  `||`, `;` or `|` with a warning naming its parts - `Test (fast)`
+  declared as two chained commands yields one rule that can never match
+  - and stops on a top-level `deny`, `allow` or `ask` key in any tier
+  it reads, a shape that silently emptied a project's deny list and
+  left the branch-guard hook as the only thing refusing a force push.
+  Each with a case in `scripts/test/preflight-permissions.test.sh`.
+  Depends on R080-T007.
+
+- [ ] **R080-T014 [mnt]**: session-scoped supervisor selection, the
+  user proposal in the backlog below. `CLAUDE.md § Supervision`'s
+  `Supervisor:` line is the seat's only home, so flipping AI to human
+  costs a branch and a plan MR/PR, while `companions/declarations.md
+  § Supervisor bounds` bars the obvious route outright - "authority
+  never moves there", of the untracked `.claude/supervisor.md`, which
+  `run.md § Resolve` 2 already reads for the bounds text. The shape to
+  settle is a tracked ceiling with a selection at or below it and never
+  above, the seat taken recorded in the run's ledger (`run.md
+  § Ledger`); which artifact carries the selection - the untracked file
+  or a run-time argument - is this task's first decision.
+  `scripts/preflight-permissions.sh` reads the declared seat too,
+  asserting the runner's `auto` mode under `Supervisor: AI` and
+  asserting nothing under `human`, so the selection reaches the
+  pre-flight or the gate asserts against the wrong seat. Depends on
+  R080-T007.
+
 Backlog: R080-T001, T002 and T004 to T008 still carry a
 `supervised: approved` header line the plan header no longer admits
 (`skills/dev/branch-plan.md § Header`); strip it on the R080 close-out
