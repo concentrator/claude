@@ -306,7 +306,7 @@ run is staged.
   item stops and reports rather than marking (`branch-plan.md § Scope
   discoveries`).
 
-- [ ] Criterion 8 is marked and evidenced, and what criterion 7's read
+- [x] Criterion 8 is marked and evidenced, and what criterion 7's read
   failed on is recorded in `tasks.md` alone: the duty table gives the
   reviewer no cell, so the criterion fails on the seat axis and the
   backlog line carries that gap. Of the read described below, that
@@ -359,10 +359,14 @@ run is staged.
   the seat-name grep; read the table and § Desired state 6 side by
   side. In `requirements.md § Acceptance criteria`, criterion 8's mark
   and its `Evidence:` line; then in `tasks.md`, the reviewer's missing
-  duty row appended to the paragraph opening "Backlog: R080-T001",
-  where the close-out's other bookkeeping sits - one sentence carrying
-  the hole, the halt sentence it sits under, and the ruling that closes
-  it. Where a check other
+  duty row recorded in the paragraph opening "Backlog: R080-T001",
+  where the close-out's other bookkeeping sits - two sentences, the
+  first carrying the hole and the halt sentence it sits under, the
+  second naming the three candidates a ruling would move rather than
+  ruling among them, which is the acceptance's own settlement. They
+  land beside the criterion-2 sentence rather than at the paragraph's
+  end, which closes a labelled "From the R080-T008 close review:"
+  chain that a sentence appended after it would read into. Where a check other
   than that recorded gap returns something its criterion does not
   admit, the item stops and reports rather than marking
   (`branch-plan.md § Scope discoveries`).

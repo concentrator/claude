@@ -168,7 +168,20 @@ Backlog: R080-T001, T002 and T004 to T008 still carry a
 plan MR/PR. `requirements.md`'s criterion 2 stays unmarked and its dry
 run on a plan lacking the cold-read record is still owed: the pilot
 branch evidences `run.md § Resolve` 1 obeyed and no refusal, each
-record-less window on it holding plan-text commits alone. From the
+record-less window on it holding plan-text commits alone. Criterion 7
+stays unmarked on its seat axis: `skills/dev/run.md § Seats`' duty
+table gives the reviewer no cell, no row assigning the reading of a
+diff against an item's acceptance, and the sentence above that table -
+a run reaching a duty it leaves unassigned halts and reports, never
+improvises - makes the hole bite every spec check the flow dispatches
+(`run.md § Dispatch per item` 3), this branch's included, so the live
+flow has been improvising past it since the table landed. Closing it is
+a ruling rather than a one-line edit: a reviewer row contradicts the
+`**Duties.**` sentence all four verifier-class definitions carry, "no
+cell of the duty table in `skills/dev/run.md § Seats` is yours", and
+`requirements.md § Desired state` 6's own duty list names no reviewing
+duty for such a row to hold, so what moves - the criterion's seat axis,
+the table, or those definitions - is the R080 close-out's call. From the
 R080-T008 close review: the T008 task line above still says a blocker
 re-dispatches the planner "with the worker paused" where
 `skills/dev/run.md

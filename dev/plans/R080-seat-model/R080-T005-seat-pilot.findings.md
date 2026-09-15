@@ -234,7 +234,7 @@ the close triages what is still open.
   checkout you stay read-only'", so the rewrite has to preserve the
   fixture half. Wording is the implementer's.
 
-- [ ] **Item 6's approach reads as if the backlog sentence should state
+- [x] **Item 6's approach reads as if the backlog sentence should state
   a ruling.** Approach-level. "One sentence carrying the hole, the halt
   sentence it sits under, and the ruling that closes it" invites writing
   the ruling; the acceptance settles it the other way - what moves is "a

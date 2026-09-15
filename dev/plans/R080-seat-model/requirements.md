@@ -302,7 +302,7 @@ initiatives close.
       every duty it names has a row, and every seat it names holds a
       cell, the reviewer included - and by grepping the seat names
       across `skills/dev/` for an uncited duty.
-- [ ] The pre-flight resolves the whole declared set and reports every
+- [x] The pre-flight resolves the whole declared set and reports every
       permission gap in one message with the command that closes it,
       every gap it reports is closed in the declared set before the run
       goes on, and the run raises no prompt outside that set; verified
@@ -310,6 +310,22 @@ initiatives close.
       re-run of the script reporting no gap, by the commits that closed
       the gaps it named, and by the pilot's plan carrying no item
       halted on a prompt.
+  Evidence: `bash scripts/preflight-permissions.sh --project .
+  --supervisor AI --runner-mode auto` exits 0 over one report of the
+  whole declared set with no `missing` row, so the re-run names no gap.
+  The gaps the pilot's own pre-flight named were closed in the declared
+  set by "Declare the verbs the flow already runs" and "Declare the
+  checkpoint push under carve-out pattern 1" (PR #540), and
+  `R080-T007-perm-preflight.md` carries every item `[x]` with its one
+  reopening naming a shell substitution defect ("Reopen R080-T007 for
+  the & substitution defect"), so no item halted on a prompt, which is
+  what a prompt outside the set forces (`run.md § Dispatch per item`).
+  The set is narrower than the run: commands a `/dev run` reaches that
+  no declared string covers, the list the R080 backlog holds open,
+  raise no prompt under `auto`, which suspends Bash allow rules
+  (`companions/supervisor-runbook.md § Modes by seat`), so they are a
+  `Supervisor: human` exposure rather than something the pilot could
+  observe.
 
 ## Constraints
 
