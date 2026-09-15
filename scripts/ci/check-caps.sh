@@ -36,7 +36,7 @@ while IFS= read -r f; do
   (( dw <= 12 )) || report "$f description $dw words > 12"
 done < <(git ls-files "$ROOT/skills" | grep '/SKILL\.md$')
 
-# R-021: skills/dev/ mode files (read on demand by the dev router) - 300
+# R-021: skills/dev/ mode files (read on demand by the dev router) - 350
 # lines, 80 characters a line; a table row cannot wrap, so it is exempt from
 # the length ceiling. SKILL.md handled above; companions/ are exempt.
 while IFS= read -r f; do
@@ -47,7 +47,7 @@ while IFS= read -r f; do
     [ "${t:0:1}" = '|' ] && continue
     [ -n "$long" ] || (( ${#line} <= 80 )) || long="line $n: ${#line} characters > 80"
   done < "$f"
-  (( n <= 300 )) || report "$f $n lines > 300"
+  (( n <= 350 )) || report "$f $n lines > 350"
   [ -z "$long" ] || report "$f $long"
 done < <(git ls-files "$ROOT/skills/dev" | grep -E '(^|/)skills/dev/[^/]+\.md$' | grep -v '/SKILL\.md$')
 

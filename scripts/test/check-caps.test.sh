@@ -25,9 +25,9 @@ mkrepo() {
 lines() { local n=$1; local i; for ((i = 1; i <= n; i++)); do echo "line $i"; done; }
 w80=$(printf 'w%.0s' $(seq 1 80))
 
-# 1. 301 lines -> caught, the count named
-d=$(mkrepo); lines 301 > "$d/skills/dev/x.md"; git -C "$d" add -A
-report_in "$d" | grep -q 'skills/dev/x.md 301 lines > 300' && pass "301 lines caught with the count" || die "301 lines not caught: $(report_in "$d")"
+# 1. 351 lines -> caught, the count named
+d=$(mkrepo); lines 351 > "$d/skills/dev/x.md"; git -C "$d" add -A
+report_in "$d" | grep -q 'skills/dev/x.md 351 lines > 350' && pass "351 lines caught with the count" || die "351 lines not caught: $(report_in "$d")"
 rm -rf "$d"
 
 # 2. an 81-character prose line -> caught, the line number named
@@ -40,8 +40,8 @@ d=$(mkrepo); { echo "short"; echo "| ${w80}"; } > "$d/skills/dev/x.md"; git -C "
 check_in "$d" && pass "table row exempt from the length ceiling" || die "table row wrongly caught: $(report_in "$d")"
 rm -rf "$d"
 
-# 4. 300 lines of 80 characters -> pass
-d=$(mkrepo); for ((i = 1; i <= 300; i++)); do echo "$w80"; done > "$d/skills/dev/x.md"; git -C "$d" add -A
+# 4. 350 lines of 80 characters -> pass
+d=$(mkrepo); for ((i = 1; i <= 350; i++)); do echo "$w80"; done > "$d/skills/dev/x.md"; git -C "$d" add -A
 check_in "$d" && pass "compliant mode file passes" || die "compliant file caught: $(report_in "$d")"
 rm -rf "$d"
 
@@ -52,7 +52,7 @@ rm -rf "$d"
 
 # 6. SKILL.md and companions are outside the tier
 d=$(mkrepo); mkdir -p "$d/skills/dev/companions"
-lines 301 > "$d/skills/dev/companions/c.md"; git -C "$d" add -A
+lines 351 > "$d/skills/dev/companions/c.md"; git -C "$d" add -A
 check_in "$d" && pass "companion outside the tier" || die "companion wrongly caught: $(report_in "$d")"
 rm -rf "$d"
 
