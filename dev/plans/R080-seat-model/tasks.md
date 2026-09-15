@@ -10,7 +10,8 @@ declaration once the doc writer has its target, the seat definitions
 once the duties table names every duty, the hooks rule once those
 definitions state it in one place, the permission pre-flight once each
 seat's definition carries the tool set it resolves against and the
-hooks rule says who writes a guard, the pilot last.
+hooks rule says who writes a guard, the pilot next, the archival
+promotion last.
 
 ## Open
 
@@ -121,6 +122,14 @@ hooks rule says who writes a guard, the pilot last.
   run surfaced in the flow files and the seat definitions and evidences
   R080's acceptance criteria from it rather than staging a second run.
   Depends on R080-T007 and R080-T009.
+
+- [ ] **R080-T012 [doc]**: archival promotion - the host facts this
+  initiative bought are promoted to the declared docs home before the
+  R's directory moves, on the terms the "Archival, promotion target"
+  paragraph below states (`plan.md § Archival`); a multi-commit
+  deliverable, so a task rather than a commit item (`plan.md
+  § Levels`), and the docs it ships are a doc writer's on its own
+  branch (`branch-plan.md § Commit cadence` 2). Depends on R080-T005.
 
 - [ ] **R080-T013 [fix]**: settle the `## Agent toolchain` contract and
   harden the pre-flight against it. `rules/claude-md.md § Agent
@@ -459,7 +468,13 @@ write a file could promote itself into the merge seat. The shape
 proposed instead is a tracked ceiling with an untracked or run-time
 selection at or below it, the seat taken recorded in the run's ledger.
 What R080 rules is whether that shape is right and which artifact
-carries the selection.
+carries the selection. The deferred cold-read record's mechanics are
+assembled from three files - `write-plan.md` step 6 for which planner
+change drops the record and what the second read ends, `run.md
+§ Question resolution` for the runner's bookkeeping commit that
+restores it, and `agents/dev-planner.md` for the planner's half - so a
+run needing the whole rule reads all three, and what R080 rules is
+whether one of them states it once and the other two cite it.
 
 Archival, promotion target (`plan.md § Archival`): this initiative
 bought a set of facts about the host that no file in the tree states,

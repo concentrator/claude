@@ -371,7 +371,7 @@ run is staged.
   admit, the item stops and reports rather than marking
   (`branch-plan.md § Scope discoveries`).
 
-- [ ] `tasks.md` names the two things the pilot left with no owner. The
+- [x] `tasks.md` names the two things the pilot left with no owner. The
   archival promotion its own § Archival paragraph specifies - the host
   facts moving to `docs/references/claude-code-host.md` with the probe
   runs under `docs/reports/`, a promotion that creates the declared docs
