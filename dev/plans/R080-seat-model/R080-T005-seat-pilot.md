@@ -2,7 +2,6 @@
 task: R080-T005
 type: mnt
 depends-on: R080-T007, R080-T009
-cold-read: passed
 ---
 
 # R080-T005: harvest the pilot run
@@ -89,34 +88,44 @@ run is staged.
   occurrence at a time, and the paragraph re-read after each
   (`rules/writing-artifacts.md § Bulk edits`).
 
-- [ ] `agents/dev-spec-reviewer.md`, `agents/dev-cold-reader.md` and
-  `agents/code-reviewer.md` each state the whole verifier bound, which
-  `agents/dev-docs-verifier.md` alone carries today across its conduct
-  and its § Probing: the seat is read-only toward the checkout, runs
-  no git that moves HEAD, switches
-  a branch or changes the working tree, and probes repo-touching
-  behavior only in a throwaway tree with `GIT_DIR`, `GIT_WORK_TREE` and
-  `GIT_INDEX_FILE` unset (`companions/verification-policy.md
-  § Verifier isolation`). The first two hold `Bash` and say only "You
-  read", which is what left the bound to hand-written dispatch text
-  after a review seat ran `git checkout main` against the dirty live
-  checkout in the pilot run. The code reviewer is in scope for the
-  probing half alone: its conduct paragraph carries the read-only
-  clauses and stops there, while it holds `Bash`, runs at every branch
-  close and at batch close (`run.md § Seats`), and checks changed
-  claims against ground truth, which is § Verifier isolation's own
-  case. The definition is the home: it carries what holds
+- [ ] `agents/dev-spec-reviewer.md`, `agents/dev-cold-reader.md`,
+  `agents/code-reviewer.md` and `agents/dev-docs-verifier.md` each
+  state the whole verifier bound: toward the checkout the seat is
+  read-only - no writes, no file edits, and no git command that moves
+  HEAD, switches a branch or changes the working tree - and a probe of
+  repo-touching behavior runs in a throwaway tree with `GIT_DIR`,
+  `GIT_WORK_TREE` and `GIT_INDEX_FILE` unset
+  (`companions/verification-policy.md § Verifier isolation`), where
+  mutating git is the probe's own subject. Today the bound exists in
+  halves and in two files. `code-reviewer.md`'s conduct paragraph
+  carries the read-only clauses and the HEAD-moving git list and stops
+  there, with no probing clause and no § Verifier isolation cite;
+  `dev-docs-verifier.md § Probing` carries the throwaway tree, that
+  cite and the shorter "toward the checkout you stay read-only", and
+  nothing of the git list - the clause a review seat's `git checkout
+  main` into the live dirty checkout motivated in the pilot run. The
+  other two hold `Bash` and carry neither half: the spec reviewer says
+  only "Verify by reading code", the cold reader "You write nothing",
+  of the plan file and its findings file. So each of the four gains the
+  half it lacks, and the docs verifier's `Write` tool and its fixture's
+  own git survive, the bound being written toward the checkout. The
+  definition is the home: it carries what holds
   on every dispatch (`requirements.md § Desired state` 10), so the
   leaving's "no verifier's dispatch companion repeats it" closes across
-  all four verifier-class seats and drops from `tasks.md`.
+  all four verifier-class seats and drops from `tasks.md`. The fourth
+  file costs no budget: `scripts/ci/check-caps.sh` caps `CLAUDE.md`,
+  `DESIGN.md`, the skill bodies and `skills/dev/*.md`, and nothing
+  under `agents/`.
   Approach: in `dev-spec-reviewer.md` and `dev-cold-reader.md`, a
   `**Reading the repo.**` paragraph immediately before
   `**Config.**`, composed from the two
   halves that exist - `agents/code-reviewer.md`'s conduct clauses and
   `agents/dev-docs-verifier.md § Probing`'s throwaway tree - and
   closing on the § Verifier isolation cite; in `code-reviewer.md`, the
-  probing clause and that cite appended to its conduct paragraph, so
-  the three read alike. Then strike from
+  probing clause and that cite appended to its conduct paragraph; in
+  `dev-docs-verifier.md`, the git clause added to § Probing's closing
+  sentence, the one already bounded to the checkout, so the four read
+  alike. Then strike from
   `tasks.md` the sentence opening "`companions/verification-policy.md
   § Verifier isolation` binds every verifier".
 
@@ -128,10 +137,12 @@ run is staged.
   flow having retired into it, which is the reword
   `tasks.md`'s backlog rules ("reword to `/dev run` there too"). Its
   verification, a dry run on a plan lacking the record, is not
-  something the pilot produced: the one record-less window on that
-  branch - opened by the planner commit "Reopen R080-T007 for the &
-  substitution defect" and closed by the bookkeeping commit "Record the
-  cold-read pass for the reopened items" - held no implementer dispatch,
+  something the pilot produced: each record-less window on that branch
+  - opened by a planner change dropping the record and closed by the
+  bookkeeping commit restoring it (`run.md § Question resolution`), one
+  such pair being "Reopen R080-T007 for the & substitution defect" and
+  "Record the cold-read pass for the reopened items" - holds plan-text
+  commits alone and no implementer dispatch,
   so the branch evidences `run.md § Resolve` 1 obeyed and no refusal,
   and a criterion asking for a refusal is not evidenceable from this
   run. The dry run stays owed, and a backlog line carries it to the R's
@@ -140,12 +151,18 @@ run is staged.
   and the three retired declaration keys, which returns nothing.
   Criterion 3's is
   `R080-T007-perm-preflight.md`'s `cold-read: passed` header, the
-  doc-writer commit "Document the permission pre-flight and guard
+  commit that recorded it - "Record R080-T007's cold read and its open
+  notes", on the plan MR/PR that carried the read the plan was approved
+  on, the record being the session's bookkeeping rather than plan text
+  (`run.md § Question resolution`), and the later planner changes that
+  dropped and re-earned it being a cycle the criterion does not reach -
+  the doc-writer commit "Document the permission pre-flight and guard
   shapes", and the doc target no implementer dispatch can name
   (`companions/implementer-prompt.md`, its input set;
   `agents/dev-implementer.md § Conventions`, where the docs are inputs).
   Approach: run each check before its line is written - the grep, `git
-  log` over PR #540's commits, the header read - and write only what the
+  log` over PR #540's commits and over the plan MR/PR's, which is where
+  the record commit sits, the header read - and write only what the
   run returns. In `requirements.md § Acceptance criteria`, the
   criterion 2 rewording, then the two marks with an `Evidence:` line
   under each, indented as the R072 file has them. Then in `tasks.md`,
@@ -163,12 +180,27 @@ run is staged.
   `spec-reviewer-prompt.md` and `doc-writer-prompt.md` - each read
   against `requirements.md § Desired state` 4, every one carrying an
   `## Inputs` block that its prose calls the seat's whole set. Criterion
-  5's is the pilot plan file's history across PR #540: acceptance text
-  changes land in commits that carry no code, approach edits ride the
-  implementer commits that carry theirs, and the one change above an
-  `Approach:` run-in an implementer commit makes is its own `[ ]` to
-  `[x]` mark, which `requirements.md § Desired state` 7 leaves to it -
-  the split `run.md § Seats` assigns. No commit on the branch names its
+  5's is the pilot plan file's history across PR #540, whose commits
+  sort into three classes and no fourth. Planner commits carry no code
+  and hold every acceptance-text change. Implementer commits carry the
+  code, their approach edits riding it, and the one change above an
+  `Approach:` run-in such a commit makes is its own `[ ]` to `[x]`
+  mark, which `requirements.md § Desired state` 7 leaves to it - the
+  split `run.md § Seats` assigns. The runner's mandatory final commit
+  (`run.md § Close` 4) carries no code either and changes the final
+  item, which has no `Approach:` run-in and so reads wholly as
+  acceptance: its `[x]` and the plan-complete and task marks
+  `branch-plan.md § Closing routine` 7 assigns the runner, plus, in the
+  first of the pilot's two final commits - the reopening gave it a
+  second - one stale line-number cite corrected in the same item. That correction is the third class's only
+  content beyond the assigned marks, and the criterion is marked rather
+  than halted on it: it changes nothing the item must deliver, and a
+  stale line cite is a class R080's backlog already holds open ("An
+  approach's line cites go stale against the code they name"). The
+  evidence line names it rather than hiding it, as criterion 8's names
+  its exposure. A `cold-read: passed` key riding such a commit is
+  bookkeeping, not plan text (`run.md § Question resolution`). No
+  commit on the branch names its
   seat, `git-workflow.md § Commit messages` admitting no trailer, so the
   evidence line claims the shape and no writer beyond it. Criterion 6's
   is the grep over `rules/`, `skills/` and `scripts/ci/` returning no
@@ -186,8 +218,9 @@ run is staged.
   runs through `bash scripts/test/install-dev.test.sh`, whose fixtures
   live outside the checkout. Edit `requirements.md § Acceptance
   criteria` alone, three marks and three `Evidence:` lines. Where a
-  check returns something the criterion does not admit, the item stops
-  and reports rather than marking (`branch-plan.md § Scope
+  check returns something the criterion does not admit - a commit
+  touching the plan file outside those three classes included - the
+  item stops and reports rather than marking (`branch-plan.md § Scope
   discoveries`).
 
 - [ ] Criterion 8 is marked and evidenced, and criterion 7's read is
@@ -200,9 +233,23 @@ run is staged.
   cell, the roster above the table naming the spec reviewer and the
   code reviewer while no row assigns reading a diff against an item's
   acceptance - plus the grep of the seat names across `skills/dev/`
-  returning no duty statement that cites no table. The missing row is
-  one line and `run.md` stands at its 300-line cap, so adding it is the
-  R080 close-out's, not this branch's. Criterion 8's evidence is three
+  returning no duty statement that cites no table. The hole is not
+  inert, and the backlog line records that with it: `run.md § Seats`
+  has a run reaching a duty the table leaves unassigned halt and
+  report, never improvise, so on the criterion's reading every spec
+  check the flow dispatches (`run.md § Dispatch per item` 3) reaches
+  one, this branch's included, and the live flow has been improvising
+  past that sentence since the table landed. Closing it is still the
+  R080 close-out's rather than this branch's, and not for the line
+  budget - the commit "Raise the dev mode-file cap to 350 lines" left
+  `run.md` room the cap check confirms (`bash
+  scripts/ci/check-caps.sh`) - but because the row contradicts
+  the `**Duties.**` sentence all four verifier-class definitions carry,
+  "no cell of the duty table in `skills/dev/run.md § Seats` is yours",
+  and `requirements.md § Desired state` 6's own duty list names no
+  reviewing duty for the row to hold: what moves - the criterion's seat
+  axis, the table, or those definitions - is a ruling, not a one-line
+  edit. Criterion 8's evidence is three
   tree-verifiable parts: `bash scripts/preflight-permissions.sh
   --project . --supervisor AI --runner-mode auto` exits 0 with no gap
   line, which is the re-run reporting none; the gaps the pilot's
@@ -223,7 +270,9 @@ run is staged.
   side. In `requirements.md § Acceptance criteria`, criterion 8's mark
   and its `Evidence:` line; then in `tasks.md`, the reviewer's missing
   duty row appended to the paragraph opening "Backlog: R080-T001",
-  where the close-out's other bookkeeping sits. Where a check other
+  where the close-out's other bookkeeping sits - one sentence carrying
+  the hole, the halt sentence it sits under, and the ruling that closes
+  it. Where a check other
   than that recorded gap returns something its criterion does not
   admit, the item stops and reports rather than marking
   (`branch-plan.md § Scope discoveries`).
