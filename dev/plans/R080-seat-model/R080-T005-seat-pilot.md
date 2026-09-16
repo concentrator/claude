@@ -513,7 +513,7 @@ run is staged.
   occurrence at a time, each paragraph re-read after its edit
   (`rules/writing-artifacts.md § Bulk edits`).
 
-- [ ] `tasks.md`'s opening order paragraph stops asserting a position
+- [x] `tasks.md`'s opening order paragraph stops asserting a position
   the file does not hold. It ends "the pilot next, the archival
   promotion last", while the `## Open` list it introduces - the list
   its own opening words, "Order matters", govern - carries
@@ -543,7 +543,12 @@ run is staged.
   `branch-plan.md § Body`).
   Approach: one anchored `Edit` on the paragraph's closing clause,
   re-wrapped to the file's width and the paragraph re-read after it
-  (`rules/writing-artifacts.md § Bulk edits`). Nothing else in
+  (`rules/writing-artifacts.md § Bulk edits`). The clause reads "the
+  archival promotion before the R is archived" and carries no
+  `plan.md § Archival` cite of its own: it states the bound in words,
+  and the cite's home in this file is the `R080-T012` bullet the order
+  paragraph introduces (`writing.md § No repetition`,
+  `rules/writing-artifacts.md § One home per finding`). Nothing else in
   `tasks.md` changes: not the list, not the `R080-T012` bullet, not a
   mark.
 

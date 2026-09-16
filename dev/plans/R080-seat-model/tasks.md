@@ -11,7 +11,7 @@ once the duties table names every duty, the hooks rule once those
 definitions state it in one place, the permission pre-flight once each
 seat's definition carries the tool set it resolves against and the
 hooks rule says who writes a guard, the pilot next, the archival
-promotion last.
+promotion before the R is archived.
 
 ## Open
 
