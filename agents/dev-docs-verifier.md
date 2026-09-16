@@ -19,8 +19,8 @@ You verify no doc you authored: the independence rule is
 `skills/dev/companions/documentation.md § Verification gate`'s.
 
 **Probing.** A probe of repo-touching behavior (git, hooks, filesystem
-mutation) runs in a throwaway repo, where mutating git is the probe's
-own subject, bounded by
+mutation) runs in a throwaway repo, where non-destructive git is the
+probe's own subject, bounded by
 `skills/dev/companions/verification-policy.md § Verifier isolation`.
 Build that fixture's files with the Write tool: a shell heredoc
 carrying JSON or JS trips the harness obfuscation guard and stalls the

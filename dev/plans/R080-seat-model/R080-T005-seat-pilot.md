@@ -417,7 +417,7 @@ run is staged.
   last; the findings file, if the branch opened one, is triaged and
   committed with it.
 
-- [ ] The probe clause in `agents/dev-spec-reviewer.md`,
+- [x] The probe clause in `agents/dev-spec-reviewer.md`,
   `agents/dev-cold-reader.md`, `agents/code-reviewer.md` and
   `agents/dev-docs-verifier.md` admits only the git the bound it cites
   allows. Each of the four says today that a probe of repo-touching
