@@ -431,17 +431,29 @@ run is staged.
   § Verifier isolation is not edited: the destructive list is that
   section's one home (`rules/writing-artifacts.md § One home per
   finding`), and the four clauses end up reading identically, as they
-  do today (item 3 above). No probe is lost by the narrowing. The
-  repo-touching behavior these seats probe is
-  `hooks/dev-branch-guard.sh`, a `PreToolUse` decision function that
-  reads a tool call's JSON on stdin and emits an allow or a deny
+  do today (item 3 above). The narrowing costs no probe these seats
+  run today: the repo-touching behavior they probe in this repository
+  is `hooks/dev-branch-guard.sh`, a `PreToolUse` decision function
+  that reads a tool call's JSON on stdin and emits an allow or a deny
   without ever running the command it judges, so a destructive
-  spelling is probed as a string; building its fixture takes `init`,
-  `add`, `commit` and `checkout -b`, and tearing the fixture down is
-  `rm -rf` of a directory outside the checkout, filesystem rather than
-  git. Item 3's acceptance, which quotes the wider clause, keeps its
-  text and its mark: an item records the commit it delivered
-  (`branch-plan.md § Body`).
+  spelling is probed as a string, and building its fixture takes
+  `init`, `add`, `commit` and `checkout -b`. What some later probe of
+  another subject would need is not claimed here and need not be:
+  `§ Verifier isolation` bars destructive git whatever the sentence
+  beside it says, so the narrowing withdraws nothing the cite left
+  standing. Teardown lands in no file - the four clauses gain no
+  teardown sentence and `§ Verifier isolation` is not edited, so its
+  "a verifier that needs cleanup stops and reports" stands as
+  written, over the destructive git it names. That the pilot's
+  fixture is torn down with `rm -rf` of a directory outside the
+  checkout is stated here as why today's probe reaches for no
+  destructive git, never as a rule: a reading meant to bind a seat
+  would need a home of its own, and this item gives it none. Item 3's
+  acceptance, which quotes the wider clause, keeps its text and its
+  mark - it states what its commit delivered, the mark records that
+  the commit landed (`branch-plan.md § Body`), and acceptance text is
+  no other seat's to edit (`requirements.md § Desired state` 7,
+  `run.md § Seats`).
   Approach: one anchored `Edit` per file over that clause, the same
   replacement in all four - "where non-destructive git is the probe's
   own subject", the barred verbs left to the cite rather than
@@ -501,7 +513,13 @@ run is staged.
   `R080-T012`, the promotion, above `R080-T013` and `R080-T014`. The
   claim drops rather than the bullet moving: no line of the list
   moves, no mark changes, and `R080-T012`, `R080-T013` and
-  `R080-T014` stay `[ ]`. The
+  `R080-T014` stay `[ ]`. Nothing earlier in the sentence moves
+  either: "the pilot next" stands as written, naming the place the
+  pilot and its harvest took. `R080-T013` and `R080-T014` gain no
+  clause of their own, deliberately - the sentence records the
+  sequence the R's merged tasks ran in, those two arrived from the
+  pilot's close with no order settled against `R080-T012`, and
+  settling one is an ordering decision this item does not make. The
   sentence re-ends on the bound the promotion actually has - `plan.md
   § Archival`, where archival runs at initiative close, a closing task
   promotes but never moves files, and the closing branch's final
@@ -510,7 +528,12 @@ run is staged.
   that the promotion precedes the R's archival, which holds whatever
   order the task list takes and cannot go stale when R080 gains
   another task. That is the bound `R080-T012`'s own line already
-  cites.
+  cites. Item 7 above, whose closing sentence put the ending this
+  item drops into the file, keeps its acceptance text and its mark on
+  the terms item 9 states: it records what its commit delivered, and
+  `tasks.md` is what this item edits, never a delivered item
+  (`requirements.md § Desired state` 7, `run.md § Seats`;
+  `branch-plan.md § Body`).
   Approach: one anchored `Edit` on the paragraph's closing clause,
   re-wrapped to the file's width and the paragraph re-read after it
   (`rules/writing-artifacts.md § Bulk edits`). Nothing else in
