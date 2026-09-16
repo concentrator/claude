@@ -10,7 +10,8 @@ declaration once the doc writer has its target, the seat definitions
 once the duties table names every duty, the hooks rule once those
 definitions state it in one place, the permission pre-flight once each
 seat's definition carries the tool set it resolves against and the
-hooks rule says who writes a guard, the pilot last.
+hooks rule says who writes a guard, the pilot next, the archival
+promotion before the R is archived.
 
 ## Open
 
@@ -114,13 +115,21 @@ hooks rule says who writes a guard, the pilot last.
   (`companions/supervisor-runbook.md § Modes by seat`). Depends on
   R080-T004, R080-T010 and R080-T011.
 
-- [ ] **R080-T005 [mnt]**: harvest the pilot run - R080-T007 ran the
+- [x] **R080-T005 [mnt]**: harvest the pilot run - R080-T007 ran the
   seat flow end to end in this repository (pre-flight, cold reads,
   planner re-dispatches, implementer and spec-check cycles, doc-writer
   pass, close review, supervised merge), so this task fixes what that
   run surfaced in the flow files and the seat definitions and evidences
   R080's acceptance criteria from it rather than staging a second run.
   Depends on R080-T007 and R080-T009.
+
+- [ ] **R080-T012 [doc]**: archival promotion - the host facts this
+  initiative bought are promoted to the declared docs home before the
+  R's directory moves, on the terms the "Archival, promotion target"
+  paragraph below states (`plan.md § Archival`); a multi-commit
+  deliverable, so a task rather than a commit item (`plan.md
+  § Levels`), and the docs it ships are a doc writer's on its own
+  branch (`branch-plan.md § Commit cadence` 2). Depends on R080-T005.
 
 - [ ] **R080-T013 [fix]**: settle the `## Agent toolchain` contract and
   harden the pre-flight against it. `rules/claude-md.md § Agent
@@ -165,10 +174,26 @@ hooks rule says who writes a guard, the pilot last.
 Backlog: R080-T001, T002 and T004 to T008 still carry a
 `supervised: approved` header line the plan header no longer admits
 (`skills/dev/branch-plan.md § Header`); strip it on the R080 close-out
-plan MR/PR. The acceptance criterion on the refused plan names
-`/dev code`; reword to `/dev run` there too. From the R080-T008 close
-review: the T008 task line above still says a blocker re-dispatches
-the planner "with the worker paused" where `skills/dev/run.md
+plan MR/PR. `requirements.md`'s criterion 2 stays unmarked and its dry
+run on a plan lacking the cold-read record is still owed: the pilot
+branch evidences `run.md § Resolve` 1 obeyed and no refusal, each
+record-less window on it holding plan-text commits alone. Criterion 7
+stays unmarked on its seat axis: `skills/dev/run.md § Seats`' duty
+table gives the reviewer no cell, no row assigning the reading of a
+diff against an item's acceptance, and the sentence above that table -
+a run reaching a duty it leaves unassigned halts and reports, never
+improvises - makes the hole bite every spec check the flow dispatches
+(`run.md § Dispatch per item` 3), this branch's included, so the live
+flow has been improvising past it since the table landed. Closing it is
+a ruling rather than a one-line edit: a reviewer row contradicts the
+`**Duties.**` sentence all four verifier-class definitions carry, "no
+cell of the duty table in `skills/dev/run.md § Seats` is yours", and
+`requirements.md § Desired state` 6's own duty list names no reviewing
+duty for such a row to hold, so what moves - the criterion's seat axis,
+the table, or those definitions - is the R080 close-out's call. From the
+R080-T008 close review: the T008 task line above still says a blocker
+re-dispatches the planner "with the worker paused" where
+`skills/dev/run.md
 § Question resolution` halts the item and dispatches a fresh
 implementer; `requirements.md § Desired state` 1 still has the
 supervisor answering implementation-level questions; a plan change
@@ -216,11 +241,12 @@ trunk's tree with a message naming the ref, not the mismatch;
 step-7 comment says "the target's `CLAUDE.md § Layout`" where the code
 reads the project's root `CLAUDE.md`. From the R080-T010 planning act: a
 host instruction telling an agent to prefer `Bash` for file changes
-reaches every dispatched seat and contradicts both
-`rules/writing-artifacts.md § Bulk edits` and each prompt companion's
-"edit with Read/Edit/Write, never `sed`/`cat`/`awk`" - a planner rewrote
-plan prose with a script under it, and no rule says which instruction
-wins; a cite to a sentence that wraps names its first line in two
+reaches every dispatched seat and contradicts each prompt companion's
+"edit with Read/Edit/Write, never `sed`/`cat`/`awk`", which no file
+class bounds - a planner rewrote plan prose with a script under it, and
+no rule says which instruction wins outside Markdown, where
+`rules/writing-artifacts.md § Bulk edits` settles it; a cite to a
+sentence that wraps names its first line in two
 companions and a line range in a third, one convention per citation
 rather than one for the file. A three-arm probe then proved where that
 instruction lands unguarded: the hook pair fires for a dispatched seat's
@@ -352,16 +378,10 @@ into a dirty default branch stands over that allow - the precedence
 carries the whole pre-flight, a rule the report calls `present` being
 still refusable at the call - while the three guard suites feed the hook
 its JSON on stdin and read its decision rather than the client's
-resolution of a deny against an allow.
-`companions/verification-policy.md § Verifier isolation` binds every
-verifier and no verifier's dispatch companion repeats it: a review seat
-on this branch ran `git checkout main` in the live checkout against a
-dirty tree, this repository's own guard refused it and nothing was lost,
-and every later dispatch then carried a warning naming the breach, which
-is dispatch text doing work a seat companion could do once. An
-approach's line cites go stale against the code they name: this plan's
-item 8 cites `scripts/preflight-permissions.sh:275` and `:282-285`,
-which the branch's own commits moved to 276 and 283-286 - harmless to an
+resolution of a deny against an allow. An approach's line cites go stale
+against the code they name: this plan's item 8 cites
+`scripts/preflight-permissions.sh:275` and `:282-285`, which the
+branch's own commits moved to 276 and 283-286 - harmless to an
 implementer working from the code, misleading to a later reader - and
 the class is what to rule on, a line number being no durable id while
 `rules/writing-artifacts.md § Name things by their durable id` governs
@@ -376,17 +396,9 @@ hand-run `bash scripts/install-dev.sh --project <dir>` with the subject
 moved aside, which is how the worker-seed and subject-guard defects
 surfaced; `scripts/test/install-dev.test.sh` runs the copied
 `check-accretion` and `check-batch-tags` suites and never the copied
-pre-flight one, so which tier owns that run is open. The auto-mode
-instruction a session injects into a seat's prompt directs it to make
-file changes with `sed`, heredocs and short scripts, which
-`rules/writing-artifacts.md § Bulk edits` forbids on Markdown: the seats
-that met both on this branch followed the repo rule and reported the
-conflict rather than resolving it silently, which is the right conduct
-and a tax paid once per dispatch, each seat rediscovering and
-re-reporting it - stating the precedence once where a seat already
-reads, the dispatch companions under `companions/` or § Bulk edits
-itself, retires the rediscovery. The guard's by-name entry test is
-fail-open on indirect spellings: it compares the first bare token after
+pre-flight one, so which tier owns that run is open. The guard's
+by-name entry test is fail-open on indirect spellings: it compares the
+first bare token after
 the verb with `is_trunk`, a literal string equality, so `git checkout
 -`, `git switch -`, `git checkout @{-1}` and `git checkout main --` all
 allow on a tracked-dirty tree, as do `git branch main`,
@@ -456,7 +468,31 @@ write a file could promote itself into the merge seat. The shape
 proposed instead is a tracked ceiling with an untracked or run-time
 selection at or below it, the seat taken recorded in the run's ledger.
 What R080 rules is whether that shape is right and which artifact
-carries the selection.
+carries the selection. The deferred cold-read record's mechanics are
+assembled from three files - `write-plan.md` step 6 for which planner
+change drops the record and what the second read ends, `run.md
+§ Question resolution` for the runner's bookkeeping commit that
+restores it, and `agents/dev-planner.md` for the planner's half - so a
+run needing the whole rule reads all three, and what R080 rules is
+whether one of them states it once and the other two cite it.
+`agents/dev-spec-reviewer.md`, `agents/dev-cold-reader.md` and
+`agents/code-reviewer.md` are told to build a probe fixture with `Bash`
+and are never told that a shell heredoc carrying JSON or JS trips the
+harness obfuscation guard and stalls the run on a permission prompt:
+that warning sits in `agents/dev-implementer.md` and
+`agents/dev-docs-verifier.md` alone, the two definitions that route the
+fixture through `Write`. So the three seats without `Write` get the
+route and not the warning, and what R080 rules is whether the warning
+travels to them or their fixture route changes. Two rule scopes
+R080-T005's reopening left unsettled: whether `branch-plan.md § Rails`'
+grant of the findings files to the implementer reaches a note triaged
+`[x]` at an earlier close, which that branch's correction of note 14 in
+its own findings file assumed while `rules/writing-artifacts.md § State
+the present` reads a findings record as dated; and whether
+`companions/verification-policy.md § Verifier isolation`'s unqualified
+"a verifier that needs cleanup stops and reports" bars the `rm -rf`
+teardown of a fixture outside the checkout, or only the destructive git
+named in the clause before it.
 
 Archival, promotion target (`plan.md § Archival`): this initiative
 bought a set of facts about the host that no file in the tree states,

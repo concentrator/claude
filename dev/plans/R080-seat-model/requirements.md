@@ -198,33 +198,75 @@ initiatives close.
 
 ## Acceptance criteria
 
-- [ ] One runner: `/dev run` is the only command that starts planned
+- [x] One runner: `/dev run` is the only command that starts planned
       work, `/dev code`, `/dev auto`, `/dev supervise` and `/dev docs`
       appear in no rule, skill, template, or CI check;
       `Supervisor: human | AI` is the only supervision-role
       declaration, and `Operator mode:`, `agentic:`, `supervised:`
       appear nowhere either; verified by grep across `CLAUDE.md`,
       `rules/`, `skills/`, `scripts/ci/`.
-- [ ] A plan with no recorded cold read is refused by `/dev code` and
-      by the unattended flow's resolve step; verified by a dry run on
-      a plan lacking the record.
-- [ ] The pilot's plan passed a cold read before it was approved and
+  Evidence: the grep across `CLAUDE.md`, `rules/`, `skills/` and
+  `scripts/ci/` for the four retired commands and for the three retired
+  declaration keys returns nothing.
+- [ ] A plan with no recorded cold read is refused by `/dev run`'s
+      resolve step; verified by a dry run on a plan lacking the record.
+- [x] The pilot's plan passed a cold read before it was approved and
       its docs were written by a doc-writer dispatch; verified by the
       plan's `cold-read: passed` header and the commit that recorded
       it, by the doc-writer commit on the pilot branch, and by
       `companions/implementer-prompt.md`'s input set naming no doc
       target.
-- [ ] Each seat's dispatch text lists its inputs and nothing outside
+  Evidence: `R080-T007-perm-preflight.md` carries `cold-read: passed`,
+  recorded by "Record R080-T007's cold read and its open notes" on the
+  plan MR/PR (PR #536), which carried the read the plan was approved
+  on; the doc writer's "Document the permission pre-flight and guard
+  shapes" wrote `DESIGN.md`, `README.md` and `LAYOUT.md` on the pilot
+  branch (PR #540); and `companions/implementer-prompt.md` takes the
+  docs as an input and names no doc target, as
+  `agents/dev-implementer.md § Conventions` does.
+- [x] Each seat's dispatch text lists its inputs and nothing outside
       them; verified by reading the four prompts against § Desired
       state 4.
-- [ ] Every branch plan written, and every acceptance change made,
+  Evidence: `companions/planner-prompt.md`, `implementer-prompt.md`,
+  `spec-reviewer-prompt.md` and `doc-writer-prompt.md` each carry an
+  `## Inputs` block their prose calls the seat's whole set, closing on
+  "Nothing else is an input", and each list is § Desired state 4's: the
+  planner's requirements, task line, docs, code and the initiative's
+  other plans; the implementer's plan, docs and code; the reviewer's
+  plan, the whole acceptance list, the diff and the branch base its
+  plan-file diff reads against; the doc writer's diff, plan items and
+  docs, with no doc citing a plan. The planner's and the doc writer's
+  blocks each close on a re-dispatch line carrying that dispatch's own
+  gap or verdict text and nothing else.
+- [x] Every branch plan written, and every acceptance change made,
       after this R lands came from a planner dispatch; verified by the
       pilot plan file's history - acceptance text changing only in
       commits that carry no code, approach edits riding the implementer
       commits that carry theirs, and the checkbox mark the one change
       above an `Approach:` run-in an implementer commit makes
       (§ Desired state 7).
-- [ ] Every docs, plans, session or layout path a rule, skill or CI
+  Evidence: over the pilot branch as merged - the range between PR
+  #540's merge commit's first and second parents - 34 commits touch
+  `R080-T007-perm-preflight.md`, in four classes and no fifth. Fourteen
+  planner commits carry no code and hold every acceptance-text change.
+  Twelve implementer commits carry the code, their approach edits
+  riding it, and each one's only change above an `Approach:` run-in is
+  its own `[ ]` to `[x]`. Six runner bookkeeping commits carry no code
+  and no acceptance text, their whole plan-file change being the
+  `cold-read: passed` header a planner change dropped (`run.md
+  § Question resolution`). The two final commits (`run.md § Close` 4)
+  carry no code and change the final item, which has no `Approach:`
+  run-in: its `[x]`, that header key on the second, the task mark in
+  `tasks.md`, and in "Complete R080-T007: permission pre-flight" one
+  stale line-number cite corrected in the same item - a class the R080
+  backlog holds open, changing nothing the item delivers. The range is
+  the branch as merged: it carries six plan-MR/PR-era commits, from
+  "Settle R080-T007's fourth reason line and tier read" through "Record
+  R080-T007's cold-read pass and last notes", while the detail round
+  that wrote the plan and the earlier plan-MR/PR commits sit before it.
+  No commit names its seat, `git-workflow.md § Commit messages`
+  admitting no trailer, so the shape is what the history shows.
+- [x] Every docs, plans, session or layout path a rule, skill or CI
       check names resolves through the project root `CLAUDE.md`
       declaration, and `.claude/LAYOUT.md` holds the full tree, in this
       repository and in every installed project; `dev/docs/` appears
@@ -232,13 +274,35 @@ initiatives close.
       docs sit there leaves its docs home and tree as declared.
       Verified by grep across `rules/`, `skills/`, `scripts/ci/` for a
       literal path, and by a refresh of one installed project.
+  Evidence: the grep over `rules/`, `skills/` and `scripts/ci/` for a
+  literal docs, plans, session or layout path returns no rule and no
+  check sending a seat or a script to a live project's tree by one.
+  `companions/declarations.md § Declared paths` admits what it returns:
+  its own `- Docs:` / `- Plans:` / `- Session:` / `- Layout:` block,
+  which that section calls their one home, and the one default a
+  reading script carries as the fallback of its read -
+  `P=${P:-dev/plans}` in `check-plan-integrity.sh`,
+  `check-archival.sh`, `check-accretion.sh` and `check-batch-tags.sh`,
+  and `L=${L:-.claude/LAYOUT.md}` in `check-stray.sh`. The remaining
+  hits name a pre-declaration layout as a migration source
+  (`skills/dev/migrate.md`, `companions/root-migration.md`), sit in a
+  comment rather than an instruction (`check-accretion.sh`'s
+  `plans/archive/` line), or name no project tree at all - a URL path
+  or an example filename in a skill outside `skills/dev/`.
+  `git ls-files dev/docs` is empty and `dev/docs` survives in those two
+  migration files alone. `check-stray.sh` reads the declaration and
+  holds every tracked top-level entry of this repository to a node of
+  the declared `LAYOUT.md`; for the installed half,
+  `scripts/test/install-dev.test.sh`'s "declaration and <layout>
+  survive two installs byte-identical" case passes over a fixture
+  project.
 - [ ] Each seat's duties under each supervisor mode are in one table
       and every duty statement elsewhere cites it; verified by reading
       the table against § Desired state 6 on both of that point's axes -
       every duty it names has a row, and every seat it names holds a
       cell, the reviewer included - and by grepping the seat names
       across `skills/dev/` for an uncited duty.
-- [ ] The pre-flight resolves the whole declared set and reports every
+- [x] The pre-flight resolves the whole declared set and reports every
       permission gap in one message with the command that closes it,
       every gap it reports is closed in the declared set before the run
       goes on, and the run raises no prompt outside that set; verified
@@ -246,6 +310,22 @@ initiatives close.
       re-run of the script reporting no gap, by the commits that closed
       the gaps it named, and by the pilot's plan carrying no item
       halted on a prompt.
+  Evidence: `bash scripts/preflight-permissions.sh --project .
+  --supervisor AI --runner-mode auto` exits 0 over one report of the
+  whole declared set with no `missing` row, so the re-run names no gap.
+  The gaps the pilot's own pre-flight named were closed in the declared
+  set by "Declare the verbs the flow already runs" and "Declare the
+  checkpoint push under carve-out pattern 1" (PR #540), and
+  `R080-T007-perm-preflight.md` carries every item `[x]` with its one
+  reopening naming a shell substitution defect ("Reopen R080-T007 for
+  the & substitution defect"), so no item halted on a prompt, which is
+  what a prompt outside the set forces (`run.md § Dispatch per item`).
+  The set is narrower than the run: commands a `/dev run` reaches that
+  no declared string covers, the list the R080 backlog holds open,
+  raise no prompt under `auto`, which suspends Bash allow rules
+  (`companions/supervisor-runbook.md § Modes by seat`), so they are a
+  `Supervisor: human` exposure rather than something the pilot could
+  observe.
 
 ## Constraints
 
