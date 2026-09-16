@@ -2,7 +2,6 @@
 task: R080-T005
 type: mnt
 depends-on: R080-T007, R080-T009
-cold-read: passed
 ---
 
 # R080-T005: harvest the pilot run
@@ -416,3 +415,125 @@ run is staged.
   Approach: `branch-plan.md § Closing routine` in order, the task mark
   last; the findings file, if the branch opened one, is triaged and
   committed with it.
+
+- [ ] The probe clause in `agents/dev-spec-reviewer.md`,
+  `agents/dev-cold-reader.md`, `agents/code-reviewer.md` and
+  `agents/dev-docs-verifier.md` admits only the git the bound it cites
+  allows. Each of the four says today that a probe of repo-touching
+  behavior runs in a throwaway repo, "where mutating git is the
+  probe's own subject", bounded by `companions/verification-policy.md
+  § Verifier isolation` - and that section bars destructive git
+  (`reset --hard`, `clean`, ref deletion) outright, "cleanup of its own
+  mess included - a verifier that needs cleanup stops and reports".
+  The two compose only if "mutating" excludes "destructive", which
+  neither text says, so each definition grants in its own sentence what
+  the cite beside it withdraws. The four definitions narrow and
+  § Verifier isolation is not edited: the destructive list is that
+  section's one home (`rules/writing-artifacts.md § One home per
+  finding`), and the four clauses end up reading identically, as they
+  do today (item 3 above). No probe is lost by the narrowing. The
+  repo-touching behavior these seats probe is
+  `hooks/dev-branch-guard.sh`, a `PreToolUse` decision function that
+  reads a tool call's JSON on stdin and emits an allow or a deny
+  without ever running the command it judges, so a destructive
+  spelling is probed as a string; building its fixture takes `init`,
+  `add`, `commit` and `checkout -b`, and tearing the fixture down is
+  `rm -rf` of a directory outside the checkout, filesystem rather than
+  git. Item 3's acceptance, which quotes the wider clause, keeps its
+  text and its mark: an item records the commit it delivered
+  (`branch-plan.md § Body`).
+  Approach: one anchored `Edit` per file over that clause, the same
+  replacement in all four - "where non-destructive git is the probe's
+  own subject", the barred verbs left to the cite rather than
+  restated. The clause sits in `dev-spec-reviewer.md`'s `**Verify by
+  reading code.**` paragraph, in `dev-cold-reader.md`'s `**Reading the
+  repo.**` paragraph, in `code-reviewer.md`'s `**Conduct.**`
+  paragraph, and in `dev-docs-verifier.md § Probing`'s opening
+  sentence, where it wraps across its lines differently from the other
+  three, so each anchor is that file's own wrapping. Re-wrap each
+  paragraph to its file's width and re-read it after the edit
+  (`rules/writing-artifacts.md § Bulk edits`);
+  `scripts/ci/check-caps.sh` caps nothing under `agents/`, so no line
+  budget is at stake.
+
+- [ ] The two records of the probe-fixture leaving count the seats it
+  reaches: three, not two. `tasks.md`'s paragraph opening "Backlog,
+  from the R080-T007 close:" closes on a sentence naming
+  `agents/dev-spec-reviewer.md` and `agents/dev-cold-reader.md` as the
+  seats told to build a probe fixture with `Bash` and never told that
+  a shell heredoc carrying JSON or JS trips the harness obfuscation
+  guard and stalls the run on a permission prompt; note 14 of
+  `dev/plans/R080-seat-model/R080-T005-seat-pilot.findings.md` - "Item
+  3: the two seats without `Write` are sent down a route whose hazard
+  note stays in another file" - counts the same two.
+  `agents/code-reviewer.md` declares `tools: Read, Bash, WebFetch,
+  WebSearch`, no `Write`, and item 3 above gave it the same probe
+  clause, so it is the third seat on that route. Both places read
+  three verifier-class seats and name `agents/code-reviewer.md` beside
+  the other two. Nothing else about the leaving moves: it stays the
+  R080 close-out's to route, and what R080 rules is still whether the
+  warning travels to the seats without `Write` or their fixture route
+  changes. Note 14's other claims hold as written and stay - four
+  definitions declare `Write` (`dev-planner.md`, `dev-implementer.md`,
+  `dev-doc-writer.md`, `dev-docs-verifier.md`), and the heredoc
+  sentence sits in `dev-implementer.md` and `dev-docs-verifier.md`
+  alone, which is also what `tasks.md`'s "the two definitions that
+  route the fixture through `Write`" counts - as does the note's
+  quotation of item 3, which rules the spec reviewer's and the cold
+  reader's fixture and names no third seat. What is corrected is each
+  record's own count of the seats on the route, never a quoted or a
+  `Write`-holding count. The findings file's other 17 notes and all 18
+  marks are untouched.
+  Approach: in `tasks.md`, two anchored `Edit`s on that closing
+  sentence - its opening pair of file names, and its "So the two seats
+  without `Write`" clause. In the findings file, the same correction
+  in note 14's bold title, in its "Whether the warning should reach
+  the two Bash-only seats" clause and in its "So the two seats without
+  `Write`" sentence, plus the third seat named where that last
+  sentence states the consequence, `agents/code-reviewer.md` holding
+  `Bash` and no `Write`. One occurrence at a time, each paragraph
+  re-read after its edit (`rules/writing-artifacts.md § Bulk edits`).
+
+- [ ] `tasks.md`'s opening order paragraph stops asserting a position
+  the file does not hold. It ends "the pilot next, the archival
+  promotion last", while the `## Open` list it introduces - the list
+  its own opening words, "Order matters", govern - carries
+  `R080-T012`, the promotion, above `R080-T013` and `R080-T014`. The
+  claim drops rather than the bullet moving: no line of the list
+  moves, no mark changes, and `R080-T012`, `R080-T013` and
+  `R080-T014` stay `[ ]`. The
+  sentence re-ends on the bound the promotion actually has - `plan.md
+  § Archival`, where archival runs at initiative close, a closing task
+  promotes but never moves files, and the closing branch's final
+  commit carries the whole directory's move to
+  `<plans>/archive/R<NNN>-<slug>/` - so what the sentence states is
+  that the promotion precedes the R's archival, which holds whatever
+  order the task list takes and cannot go stale when R080 gains
+  another task. That is the bound `R080-T012`'s own line already
+  cites.
+  Approach: one anchored `Edit` on the paragraph's closing clause,
+  re-wrapped to the file's width and the paragraph re-read after it
+  (`rules/writing-artifacts.md § Bulk edits`). Nothing else in
+  `tasks.md` changes: not the list, not the `R080-T012` bullet, not a
+  mark.
+
+- [ ] Complete the branch: cleanup (stale/temp data), mark the plan
+  complete, `R080-T005` `[x]` in `tasks.md`, commit. This is the
+  branch's second final commit, the three items above being a
+  reopening after the first, which `branch-plan.md § Scope changes
+  mid-branch` closes with a new final commit of its own. The task mark
+  is asserted rather than flipped: `R080-T005` reads `[x]` from the
+  first final commit and the reopening does not clear it, whether a
+  reopening should clear the mark being a question the R080 backlog
+  holds open against `§ Scope changes mid-branch`. The R080 closure
+  check does not run here either: `R080-T012` stays open, so no
+  ROADMAP mark and no archive move ride this branch and the R stays
+  open on its own evidence (`plan.md § Approval and closure`, `plan.md
+  § Archival`).
+  Approach: `branch-plan.md § Closing routine` in order, the task mark
+  last; stage by name - this plan file, the initiative's `tasks.md`
+  and this branch's findings file, whose note 14 the second item above
+  edits - so the commit leaves no modified tracked file behind and
+  sweeps in no untracked path. `bash scripts/ci/run-all.sh` green
+  before the commit, as it is before every commit on the branch
+  (`branch-plan.md § Rails`).
