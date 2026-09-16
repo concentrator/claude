@@ -2,6 +2,7 @@
 task: R080-T005
 type: mnt
 depends-on: R080-T007, R080-T009
+cold-read: passed
 ---
 
 # R080-T005: harvest the pilot run
