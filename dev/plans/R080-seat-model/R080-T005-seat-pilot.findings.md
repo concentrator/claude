@@ -217,23 +217,27 @@ the close triages what is still open.
   sit outside it, or a wider pin.
 
 - [x] **Item 3: the two seats without `Write` are sent down a route
-  whose hazard note stays in another file.** Closed won't-fix: item 3's
-  acceptance rules that sentence into `agents/dev-docs-verifier.md`
-  alone, so the residue is the ruling's rather than a gap this branch
-  closes, and the tree matches the ruling - the sentence sits in that
-  file and in `agents/dev-implementer.md`, the two seats holding
-  `Write`. Whether the warning should reach the two Bash-only seats is
-  the R080 close-out's to route. Observation rather than gap, low. The
-  item rules the spec reviewer's and cold reader's fixture "a fixture
-  their Bash builds and no `Write`-built one", and keeps the
-  heredoc-versus-`Write` sentence in `agents/dev-docs-verifier.md`
-  alone. That sentence's reason is a live hazard - a shell heredoc
-  carrying JSON or JS trips the harness obfuscation guard and stalls the
-  run on a permission prompt - which reaches any Bash-built fixture. So
-  the two seats without `Write` get the route and not the warning.
-  Nothing blocks the implementer: the ruling is explicit and the edit is
-  text, so this is a consequence the item chose rather than a question
-  it left open.
+  whose hazard note stays in another file.** Promoted to the R080
+  backlog: item 3's acceptance rules that sentence into
+  `agents/dev-docs-verifier.md` alone - the one verifier-class seat
+  holding `Write` - so the residue is the ruling's rather than a gap
+  this branch closes, and the tree matches the ruling, the sentence
+  sitting in that file and in `agents/dev-implementer.md`. Four seat
+  definitions declare `Write` - `dev-planner.md`, `dev-implementer.md`,
+  `dev-doc-writer.md` and `dev-docs-verifier.md` - and only those two
+  carry the sentence. Whether the warning should reach the two
+  Bash-only seats is the R080 close-out's to route, and the leaving now
+  sits in `tasks.md`'s "Backlog, from the R080-T007 close" paragraph.
+  Observation rather than gap, low. The item rules the spec reviewer's
+  and cold reader's fixture "a fixture their Bash builds and no
+  `Write`-built one", and keeps the heredoc-versus-`Write` sentence in
+  `agents/dev-docs-verifier.md` alone. That sentence's reason is a live
+  hazard - a shell heredoc carrying JSON or JS trips the harness
+  obfuscation guard and stalls the run on a permission prompt - which
+  reaches any Bash-built fixture. So the two seats without `Write` get
+  the route and not the warning. Nothing blocks the implementer: the
+  ruling is explicit and the edit is text, so this is a consequence the
+  item chose rather than a question it left open.
 
 - [x] **Item 5's approach names no way to resolve the merge commit.**
   Approach-level, so the implementer's to settle in the commit that

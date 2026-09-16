@@ -475,6 +475,15 @@ change drops the record and what the second read ends, `run.md
 restores it, and `agents/dev-planner.md` for the planner's half - so a
 run needing the whole rule reads all three, and what R080 rules is
 whether one of them states it once and the other two cite it.
+`agents/dev-spec-reviewer.md` and `agents/dev-cold-reader.md` are told
+to build a probe fixture with `Bash` and are never told that a shell
+heredoc carrying JSON or JS trips the harness obfuscation guard and
+stalls the run on a permission prompt: that warning sits in
+`agents/dev-implementer.md` and `agents/dev-docs-verifier.md` alone,
+the two definitions that route the fixture through `Write`. So the two
+seats without `Write` get the route and not the warning, and what R080
+rules is whether the warning travels to them or their fixture route
+changes.
 
 Archival, promotion target (`plan.md § Archival`): this initiative
 bought a set of facts about the host that no file in the tree states,
