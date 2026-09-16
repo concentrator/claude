@@ -469,7 +469,7 @@ run is staged.
   `scripts/ci/check-caps.sh` caps nothing under `agents/`, so no line
   budget is at stake.
 
-- [ ] The two records of the probe-fixture leaving count the seats it
+- [x] The two records of the probe-fixture leaving count the seats it
   reaches: three, not two. `tasks.md`'s paragraph opening "Backlog,
   from the R080-T007 close:" closes on a sentence naming
   `agents/dev-spec-reviewer.md` and `agents/dev-cold-reader.md` as the
@@ -497,15 +497,21 @@ run is staged.
   record's own count of the seats on the route, never a quoted or a
   `Write`-holding count. The findings file's other 17 notes and all 18
   marks are untouched.
-  Approach: in `tasks.md`, two anchored `Edit`s on that closing
-  sentence - its opening pair of file names, and its "So the two seats
-  without `Write`" clause. In the findings file, the same correction
-  in note 14's bold title, in its "Whether the warning should reach
-  the two Bash-only seats" clause and in its "So the two seats without
-  `Write`" sentence, plus the third seat named where that last
-  sentence states the consequence, `agents/code-reviewer.md` holding
-  `Bash` and no `Write`. One occurrence at a time, each paragraph
-  re-read after its edit (`rules/writing-artifacts.md § Bulk edits`).
+  Approach: in `tasks.md`, two anchored `Edit`s at the paragraph's
+  close, one per sentence - the sentence naming the seats, whose pair
+  of file names becomes three, and the sentence after it, the one the
+  paragraph closes on, whose "the two seats without `Write`" becomes
+  three. Each anchor is the file's own wrapping rather than the quoted
+  clause, which wraps across lines. In the findings file, the same
+  correction in note 14's bold title, in its "Whether the warning
+  should reach the two Bash-only seats" clause and in its "So the two
+  seats without `Write`" sentence, plus the third seat named where
+  that last sentence states the consequence, `agents/code-reviewer.md`
+  holding `Bash` and no `Write`. The Bash-only clause is reworded
+  rather than counted up - that seat holds `WebFetch` and `WebSearch`
+  besides `Bash` - and reads "the three seats without `Write`". One
+  occurrence at a time, each paragraph re-read after its edit
+  (`rules/writing-artifacts.md § Bulk edits`).
 
 - [ ] `tasks.md`'s opening order paragraph stops asserting a position
   the file does not hold. It ends "the pilot next, the archival
