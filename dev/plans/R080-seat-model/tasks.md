@@ -483,7 +483,16 @@ that warning sits in `agents/dev-implementer.md` and
 `agents/dev-docs-verifier.md` alone, the two definitions that route the
 fixture through `Write`. So the three seats without `Write` get the
 route and not the warning, and what R080 rules is whether the warning
-travels to them or their fixture route changes.
+travels to them or their fixture route changes. Two rule scopes
+R080-T005's reopening left unsettled: whether `branch-plan.md § Rails`'
+grant of the findings files to the implementer reaches a note triaged
+`[x]` at an earlier close, which that branch's correction of note 14 in
+its own findings file assumed while `rules/writing-artifacts.md § State
+the present` reads a findings record as dated; and whether
+`companions/verification-policy.md § Verifier isolation`'s unqualified
+"a verifier that needs cleanup stops and reports" bars the `rm -rf`
+teardown of a fixture outside the checkout, or only the destructive git
+named in the clause before it.
 
 Archival, promotion target (`plan.md § Archival`): this initiative
 bought a set of facts about the host that no file in the tree states,

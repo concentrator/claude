@@ -552,7 +552,7 @@ run is staged.
   `tasks.md` changes: not the list, not the `R080-T012` bullet, not a
   mark.
 
-- [ ] Complete the branch: cleanup (stale/temp data), mark the plan
+- [x] Complete the branch: cleanup (stale/temp data), mark the plan
   complete, `R080-T005` `[x]` in `tasks.md`, commit. This is the
   branch's second final commit, the three items above being a
   reopening after the first, which `branch-plan.md § Scope changes
@@ -565,10 +565,18 @@ run is staged.
   ROADMAP mark and no archive move ride this branch and the R stays
   open on its own evidence (`plan.md § Approval and closure`, `plan.md
   § Archival`).
-  Approach: `branch-plan.md § Closing routine` in order, the task mark
-  last; stage by name - this plan file, the initiative's `tasks.md`
-  and this branch's findings file, whose note 14 the second item above
-  edits - so the commit leaves no modified tracked file behind and
-  sweeps in no untracked path. `bash scripts/ci/run-all.sh` green
-  before the commit, as it is before every commit on the branch
-  (`branch-plan.md § Rails`).
+  Approach: `branch-plan.md § Closing routine`'s mandatory final item,
+  quoted at step 7 - cleanup, the plan complete, the task mark, the
+  commit - is this item's whole executable part, the task mark last;
+  the routine's close review, findings-triage prompts and doc-writer
+  pass are dispatches no seat makes. The findings file's five open
+  notes are triaged as the close ruled: two closed as delivered, one
+  discarded won't-fix, and two promoted as one sentence appended to
+  `tasks.md`'s paragraph opening "Backlog, from the R080-T007 close:"
+  rather than as a task line, a new task id being a planning decision.
+  Stage by name - this plan file, the initiative's `tasks.md` and this
+  branch's findings file, which that triage is the only edit to - so
+  the commit leaves no modified tracked file behind and sweeps in no
+  untracked path. `bash scripts/ci/run-all.sh` green before the commit,
+  as it is before every commit on the branch (`branch-plan.md
+  § Rails`).

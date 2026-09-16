@@ -269,16 +269,23 @@ the close triages what is still open.
   ruling, not a one-line edit" - so the sentence names the candidates
   and leaves the decision to the R's close-out.
 
-- [ ] **Item 11 leaves the replacement clause's wording and cite to the
-  implementer.** Acceptance-level, surviving the reopening's last read.
-  The acceptance says the sentence re-ends on the bound `plan.md
-  § Archival` carries, without stating the clause or whether it repeats
-  that cite where `R080-T012`'s own bullet already carries it -
-  against which `writing.md § No repetition` and § One home per finding
-  both push. The implementer settles it.
+- [x] **Item 11 leaves the replacement clause's wording and cite to the
+  implementer.** Closed as delivered: the clause states the bound in
+  words - "before the R is archived" - and carries no `plan.md
+  § Archival` cite, `R080-T012`'s own bullet in the same file already
+  carrying it (`writing.md § No repetition`, `rules/writing-artifacts.md
+  § One home per finding`); item 11's approach text records the reason
+  and the spec check verified the premise. Acceptance-level, surviving
+  the reopening's last read. The acceptance says the sentence re-ends
+  on the bound `plan.md § Archival` carries, without stating the clause
+  or whether it repeats that cite where `R080-T012`'s own bullet already
+  carries it - against which `writing.md § No repetition` and § One home
+  per finding both push. The implementer settles it.
 
-- [ ] **Item 10 names no rule putting a triaged findings note in an
-  implementer's hands.** Acceptance-level, surviving the last read.
+- [x] **Item 10 names no rule putting a triaged findings note in an
+  implementer's hands.** Promoted to the R080 close-out backlog, where
+  the leaving now sits in `tasks.md`'s paragraph opening "Backlog, from
+  the R080-T007 close:". Acceptance-level, surviving the last read.
   Items 9 and 11 fence delivered acceptance text with cites;
   item 10 directs rewriting note 14 of a file whose 18 notes were all
   triaged `[x]` at the first close (`branch-plan.md § Closing routine`
@@ -286,25 +293,33 @@ the close triages what is still open.
   acceptance fences the marks and the other notes but never says why
   the note's text is this item's to correct.
 
-- [ ] **Item 10 describes the backlog paragraph as closing one sentence
-  early.** Acceptance-level, surviving the last read. The paragraph
-  closes on "So the two seats without `Write` get the route and not the
-  warning...", not on the sentence naming the two files. Both sentences
-  are edited either way, so nothing is ambiguous about what changes.
+- [x] **Item 10 describes the backlog paragraph as closing one sentence
+  early.** Closed as delivered: item 10's approach text states the
+  close correctly and the miscount narrowed no edit. Acceptance-level,
+  surviving the last read. The paragraph closes on "So the two seats
+  without `Write` get the route and not the warning...", not on the
+  sentence naming the two files. Both sentences are edited either way,
+  so nothing is ambiguous about what changes.
 
-- [ ] **Item 9 asserts a reading of § Verifier isolation's cleanup
-  clause rather than settling it.** Acceptance-level, surviving the last
-  read. "Cleanup of its own mess included" attaches to destructive git,
-  but the halt that follows is unqualified, so the broad reading would
-  bar the `rm -rf` fixture teardown the same paragraph calls the pilot's
-  practice. Nothing is unexecutable either way; the scope question has
-  no home on this branch and belongs to the rule's own file.
+- [x] **Item 9 asserts a reading of § Verifier isolation's cleanup
+  clause rather than settling it.** Promoted to the R080 close-out
+  backlog, where the leaving now sits in `tasks.md`'s paragraph opening
+  "Backlog, from the R080-T007 close:". Acceptance-level, surviving the
+  last read. "Cleanup of its own mess included" attaches to destructive
+  git, but the halt that follows is unqualified, so the broad reading
+  would bar the `rm -rf` fixture teardown the same paragraph calls the
+  pilot's practice. Nothing is unexecutable either way; the scope
+  question has no home on this branch and belongs to the rule's own
+  file.
 
-- [ ] **Item 9 states its probe class more widely than it observed.**
-  Acceptance-level, surviving the last read. The narrowing costs no
-  probe these seats run today, but the sentence claims the
-  repo-touching behavior they probe *is* `hooks/dev-branch-guard.sh`,
-  where `scripts/ci/check-stray.sh`, `check-archival.sh`,
-  `check-plan-integrity.sh`, `check-accretion.sh`, `check-batch-tags.sh`
-  and `scripts/test/install-dev.test.sh` also build or read git repos.
-  None needs destructive git, so the conclusion survives the correction.
+- [x] **Item 9 states its probe class more widely than it observed.**
+  Discarded, won't fix: the sentence is acceptance prose, which archives
+  with the R and binds nothing after it, and the item's conclusion
+  stands whichever way the class is read. Acceptance-level, surviving
+  the last read. The narrowing costs no probe these seats run today, but
+  the sentence claims the repo-touching behavior they probe *is*
+  `hooks/dev-branch-guard.sh`, where `scripts/ci/check-stray.sh`,
+  `check-archival.sh`, `check-plan-integrity.sh`, `check-accretion.sh`,
+  `check-batch-tags.sh` and `scripts/test/install-dev.test.sh` also
+  build or read git repos. None needs destructive git, so the
+  conclusion survives the correction.
