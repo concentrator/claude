@@ -28,13 +28,14 @@ approved: pending
 In rules, skills, and docs, write it path-qualified wherever bare
 `requirements.md` could be read against root `REQUIREMENTS.md`.
 
-All variants share the frontmatter. Body sections depend on `kind:`.
-The title names the parent R - the file has no id of its own.
+One shape for every `kind:`. The title names the parent R - the file
+has no id of its own. The goal and outcomes come from the user: no
+implementation detail unless the user supplied it, and no links, dates,
+PR refs or measured values (`scripts/ci/check-plan-text.sh`). Outcomes
+are the initiative's acceptance criteria, read for meaning, not wording.
 
 The shape round emits a draft `tasks.md` alongside this file, same
 gate (`plan.md § Planning rounds`).
-
-Frontmatter:
 
 ```
 ---
@@ -43,53 +44,32 @@ kind: feat | bug | refactor | doc | test | mnt
 ---
 
 # R001: <short title>
+
+## Goal                - what the user wants to get, and why
+## Inputs and outputs  - optional
+## Outcomes            - numbered; what is true when done
+## Constraints         - optional; only specifics the user supplied
 ```
 
-### `kind: feat`
+## Per-initiative `tasks.md`
 
 ```
-## Motivation
-## Goals
-## Non-goals
-## User experience       - flows, surfaces, edge cases
-## Acceptance criteria   - testable behaviors (checkboxes)
-## Constraints
-## Open questions
-## References            - related initiative and task ids
+# R001 tasks - <short title>
+
+Why: <one or two lines>
+
+## Open
+
+- [ ] **R001-T001 [tag]**: <what to do, one or two lines>
 ```
 
-### `kind: bug`
+A task says what to do, never how: no probe results, numbers, dates,
+links or references to other plans.
 
-```
-## Observed behavior     - what happens now
-## Expected behavior     - what should happen
-## Reproduction steps
-## Impact                - who/how affected, severity
-## Acceptance criteria   - testable behaviors confirming the fix
-## Constraints
-## Open questions
-## References
-```
+## Roadmap entry
 
-### `kind: refactor`
-
-```
-## Current state         - pain points, motivation
-## Desired state
-## Invariants            - what must NOT change (behavior, performance)
-## Scope                 - affected modules/files
-## Acceptance criteria   - observable confirmation (tests pass, structure holds)
-## Constraints
-## Open questions
-## References
-```
-
-`doc`, `test`, and `mnt` initiatives use the `refactor` body shape; the
-three shapes above are the only ones.
-
-The **Acceptance criteria** section is load-bearing across all kinds:
-source for manual / automated tests, and the fallback reference when
-downstream tasks lack detail.
+`- [ ] R001: <title> - <what the initiative delivers>`, at most three
+lines.
 
 ## Release plan `release-vX.Y.Z.md`
 

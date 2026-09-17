@@ -41,8 +41,8 @@ change traces back to a motivating requirement. The environment must:
 - Gate every initiative on explicit approval (`approved:` in its
   requirements frontmatter) before any downstream work begins.
 - Close an initiative at a single point: all child tasks `[x]` **and**
-  every acceptance criterion verified with evidence, stamped
-  `status: done`. Criteria only a later event can confirm (e.g. a batch
+  the user confirming every outcome is met, the evidence in the closing
+  MR/PR. Criteria only a later event can confirm (e.g. a batch
   checkpoint) keep the initiative open until that event re-triggers
   verification.
 - Route work lacking a fitting open initiative into a new R stub rather

@@ -13,8 +13,8 @@ act of `plan.md § Directory conventions`. The discovery method behind
 3. **Clarify** - questions one at a time, multiple-choice when possible:
    purpose, constraints, success criteria. Stop when you could write the
    acceptance criteria.
-4. **Approaches** - propose 2–3 with trade-offs; lead with your
-   recommendation. YAGNI ruthlessly.
+4. **Approaches** - only when the user asks for options: 2–3 with
+   trade-offs, recommendation first.
 5. **Draft** - pick the next free `R<NNN>` id, create the plan branch
    (`plan.md § Where plans live in git`), then draft: requirements
    sections per `templates.md § Per-initiative`.
@@ -33,13 +33,11 @@ act of `plan.md § Directory conventions`. The discovery method behind
 - No code, no scaffolding, no implementation skill - regardless of
   perceived simplicity. A small idea still gets an initiative; its
   requirements can be short.
-- Stay at requirement altitude: behavior, surfaces, edge cases,
-  acceptance criteria. Architecture belongs in `DESIGN.md`; commit
-  decomposition belongs to branch planning.
-- Acceptance criteria state properties verifiable at close, never
-  snapshot counts - the work changes the corpus the criteria measure.
-  Enumerations are shaping-time evidence; the criterion cites the
-  check that verifies the property.
+- Stay at requirement altitude: the goal, inputs and outputs, and
+  outcomes in the user's words. Implementation detail enters only when
+  the user supplies it; architecture belongs in `DESIGN.md`, commit
+  decomposition to branch planning.
+- Outcomes state properties verifiable at close, never snapshot counts.
 - Proportion the draft to the observed failure
   (`plan.md § Proportionality`): ask what can be deleted before adding.
 - Anchor the design to the named, time-proven standard for the problem;

@@ -39,6 +39,7 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -x "$P/.claude/scripts/ci/check-batch-tags.sh" ] && pass "batch-tags check copied + exec" || die "no batch-tags check"
 [ -f "$P/.claude/scripts/test/check-accretion.test.sh" ]  && pass "accretion self-test copied" || die "no accretion self-test"
 [ -f "$P/.claude/scripts/test/check-batch-tags.test.sh" ] && pass "batch-tags self-test copied" || die "no batch-tags self-test"
+[ -x "$P/.claude/scripts/ci/check-plan-text.sh" ] && [ -f "$P/.claude/scripts/test/check-plan-text.test.sh" ] && pass "plan-text check copied + exec, with its self-test" || die "no plan-text check or self-test"
 [ -x "$P/.claude/scripts/preflight-permissions.sh" ] && [ -f "$P/.claude/scripts/test/preflight-permissions.test.sh" ] && pass "permission pre-flight copied + exec, with its self-test" || die "no permission pre-flight or self-test"
 [ -z "$(grep -L BASH_SOURCE "$P"/.claude/scripts/test/*.test.sh)" ] \
   && pass "copied self-tests resolve their subject relatively" \
@@ -108,13 +109,13 @@ for t in check-accretion check-batch-tags; do
 done
 rm -rf "$VH"
 
-# --- a tuned MARKERS list survives re-install ---
-T=$(mktemp); sed "s/^MARKERS=.*/MARKERS='justonemarker'/" \
-  "$P/.claude/scripts/ci/check-accretion.sh" > "$T" \
-  && mv "$T" "$P/.claude/scripts/ci/check-accretion.sh"
+# --- tuned MARKERS and FROM lines survive re-install ---
+for kv in "check-accretion.sh MARKERS 'justonemarker'" "check-plan-text.sh FROM 'R777'"; do
+  set -- $kv; T=$(mktemp); sed "s/^$2=.*/$2=$3/" "$P/.claude/scripts/ci/$1" > "$T" && mv "$T" "$P/.claude/scripts/ci/$1"
+done
 bash "$INSTALL" --project "$P" >/dev/null 2>&1
-grep -q "^MARKERS='justonemarker'" "$P/.claude/scripts/ci/check-accretion.sh" \
-  && pass "tuned MARKERS survives re-install" || die "re-install clobbered MARKERS"
+grep -q "^MARKERS='justonemarker'" "$P/.claude/scripts/ci/check-accretion.sh" && pass "tuned MARKERS survives re-install" || die "re-install clobbered MARKERS"
+grep -q "^FROM='R777'" "$P/.claude/scripts/ci/check-plan-text.sh" && pass "tuned FROM survives re-install" || die "re-install clobbered FROM"
 [ -f "$P/.claude/writing.md" ]                     && pass "writing.md copied" || die "no writing.md"
 [ -f "$P/.claude/rules/writing-artifacts.md" ] && pass "writing-artifacts rule copied" || die "no writing-artifacts rule"
 grep -qxF '@writing.md' "$P/.claude/CLAUDE.md" 2>/dev/null && pass "writing.md imported in CLAUDE.md" || die "writing.md not imported"

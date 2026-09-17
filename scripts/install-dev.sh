@@ -172,31 +172,39 @@ chmod +x "$target/hooks/dev-context-fill.sh"
 #    both are tuned per project (the MARKERS list, the ref namespaces)
 #    and the self-test is how an adopter validates that edit. Adopter
 #    tuning survives a re-run: the code-size allowlist is written only
-#    when absent, and an existing MARKERS line is carried across the
-#    accretion-check copy. The permission pre-flight ships beside them
+#    when absent, and an existing MARKERS line (accretion) or FROM line
+#    (plan-text) is carried across the copy. A first plan-text install
+#    sets FROM to the project's next free initiative id, so its existing
+#    initiatives stay out of the gate. The permission pre-flight ships beside them
 #    because skills/dev/run.md § Pre-flight names it: an adopter's runner
 #    would otherwise cite a script its checkout lacks.
 mkdir -p "$target/scripts/ci" "$target/scripts/test"
-markers=""
-[ -f "$target/scripts/ci/check-accretion.sh" ] \
-  && markers="$(grep -m1 '^MARKERS=' "$target/scripts/ci/check-accretion.sh" || true)"
+tuned() { [ -f "$target/scripts/ci/$1" ] && grep -m1 "^$2=" "$target/scripts/ci/$1" || true; }
+put_line() { # file, key, full line
+  local tmp; tmp="$(mktemp)"
+  while IFS= read -r line; do
+    case "$line" in "$2="*) printf '%s\n' "$3" ;; *) printf '%s\n' "$line" ;; esac
+  done < "$target/scripts/ci/$1" > "$tmp"
+  mv "$tmp" "$target/scripts/ci/$1"
+}
+markers="$(tuned check-accretion.sh MARKERS)"
+from="$(tuned check-plan-text.sh FROM)"
+if [ -z "$from" ]; then
+  last=$(grep -ohE '^- \[[ x]\] R-?[0-9]{3}' "${target%/.claude}/dev/plans/ROADMAP.md" 2>/dev/null \
+    | grep -oE '[0-9]{3}' | sort -n | tail -1 || true)
+  from="FROM='R$(printf '%03d' $((10#${last:-0} + 1)))'"
+fi
 for f in ci/check-code-size.sh ci/check-no-em-dash.sh ci/check-accretion.sh \
-         ci/check-batch-tags.sh \
+         ci/check-batch-tags.sh ci/check-plan-text.sh \
          preflight-permissions.sh \
          test/check-accretion.test.sh test/check-batch-tags.test.sh \
-         test/preflight-permissions.test.sh; do
+         test/check-plan-text.test.sh test/preflight-permissions.test.sh; do
   cp "$SRC/scripts/$f" "$target/scripts/$f"
 done
+[ -n "$markers" ] && put_line check-accretion.sh MARKERS "$markers"
+put_line check-plan-text.sh FROM "$from"
 chmod +x "$target"/scripts/ci/check-*.sh
 chmod +x "$target/scripts/preflight-permissions.sh"
-if [ -n "$markers" ]; then
-  tmp="$(mktemp)"
-  while IFS= read -r line; do
-    case "$line" in MARKERS=*) printf '%s\n' "$markers" ;; *) printf '%s\n' "$line" ;; esac
-  done < "$target/scripts/ci/check-accretion.sh" > "$tmp"
-  mv "$tmp" "$target/scripts/ci/check-accretion.sh"
-  chmod +x "$target/scripts/ci/check-accretion.sh"
-fi
 if [ ! -f "$target/scripts/ci/code-size-allow.txt" ]; then
   cat > "$target/scripts/ci/code-size-allow.txt" <<'EOF'
 # check-code-size.sh exemptions: one tracked path per line; text after `#` is
@@ -271,6 +279,6 @@ EOF
 fi
 
 echo "install-dev: DEV toolset installed into $target ($scope)"
-echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh, check-accretion.sh, check-batch-tags.sh)"
+echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh, check-accretion.sh, check-batch-tags.sh, check-plan-text.sh)"
 echo "install-dev: self-tests in $target/scripts/test/ - wire checks and self-tests into your CI; the /dev run's permission pre-flight is $target/scripts/preflight-permissions.sh"
 if [ -n "$seeded" ]; then echo "install-dev: maintenance hygiene section seeded into $seeded"; fi
