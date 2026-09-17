@@ -18,8 +18,8 @@ the runner runs git only between dispatches.
 
 | Seat | Dispatched | Definition; dispatch |
 | --- | --- | --- |
-| Planner | at the detail round and per plan change (`plan.md § Adjusting existing plans`) | `agents/dev-planner.md`; `companions/planner-prompt.md` |
-| Cold reader | over a new or changed plan before it is approved (`write-plan.md` step 6) | `agents/dev-cold-reader.md`; `companions/verification-policy.md § Comprehension check` |
+| Planner | at the detail round, and to fix a strict plan's cold-read gaps once (`write-plan.md` step 6) | `agents/dev-planner.md`; `companions/planner-prompt.md` |
+| Cold reader | once over a new strict plan before it is approved (`write-plan.md` step 6) | `agents/dev-cold-reader.md`; `companions/verification-policy.md § Comprehension check` |
 | Implementer | per commit item (§ Dispatch per item) | `agents/dev-implementer.md`; `companions/implementer-prompt.md` |
 | Doc writer | once per branch whose diff changes user-facing behavior (§ Close 3) | `agents/dev-doc-writer.md`; `companions/doc-writer-prompt.md` |
 | Docs verifier | over every doc the writer touched (§ Close 3) | `agents/dev-docs-verifier.md`; `companions/documentation.md § Verification gate` |
@@ -31,21 +31,21 @@ user; nothing is reviewed a second time.
 
 Under `Supervisor: human` the user's own session is the supervisor, so the user
 holds every supervisor cell; under `Supervisor: AI` the runner is, and the user
-holds the asked-of row, the acceptance-approval cell and the merges outside the
+holds the asked-of row, the plan-edit cell and the merges outside the
 declared bounds (the Merging row's "else user"). A run reaching a duty the duty
 table below leaves unassigned halts and reports, never improvises.
 
 | Duty | `Supervisor: human` | `Supervisor: AI` |
 | --- | --- | --- |
-| Writing and updating a plan | planner: both layers at the detail round, the acceptance on a re-dispatch, an approach gap once; runner: the user's answer to an acceptance question (§ Question resolution) | the same |
+| Writing a plan | planner, at the detail round; runner: the user's approved edits (§ Question resolution) | the same |
 | Dispatching | user | supervisor |
-| Changing an item's approach | implementer, in the commit that carries the code | the same |
-| Changing an item's acceptance | user decides | the same |
+| Taking a different route to an item's outcome | implementer, in the code, reporting the divergence | the same |
+| Changing plan text | user approves (`branch-plan.md § Plan edits`) | the same |
 | Writing the docs | doc writer | the same |
 | Clearing a permission prompt | nobody: a pre-flight defect halts the item; a classifier denial reaches the user as the seat's BLOCKED report (§ Dispatch per item) | the same |
 | Verifying the boundary | user | supervisor |
 | Merging | user | supervisor within the declared bounds, else user |
-| Being asked | user: pre-flight permission proposals, acceptance changes, the always-ask escalations | the same |
+| Being asked | user: pre-flight permission proposals, plan edits, the always-ask escalations | the same |
 
 ## Resolve
 
@@ -54,14 +54,10 @@ table below leaves unassigned halts and reports, never improvises.
    task `[ ]` in `tasks.md`, no report), else the next open task whose plan
    is read. An initiative runs its open batch, else its open tasks in
    `tasks.md` order, each a task-scoped run. Scope selects pre-approved work:
-   anything lacking approved requirements or `cold-read: passed`
-   (`branch-plan.md § Header`) is reported NOT READY, never dispatched, the
-   report naming the missing record; a plan whose `depends-on` is unmerged the
-   same. The check runs at every implementer dispatch, not at scope start
-   alone - the reader seat's dispatch is not one, its read being what earns
-   the record - so a plan changed mid-branch is admitted again once the record
-   stands, kept through a cite-only change or restored by the bookkeeping
-   commit (§ Question resolution).
+   anything lacking approved requirements or a merged plan, or a strict plan
+   lacking `cold-read: passed` (`branch-plan.md § Header`), is reported NOT
+   READY, never dispatched, the report naming the missing record; a plan whose
+   `depends-on` is unmerged the same.
 2. **Supervisor** - read `CLAUDE.md § Supervision`: the `Supervisor:`
    line and the bounds, plus `.claude/supervisor.md` where referenced.
    No block, or no `Supervisor:` line → halt, naming it.
@@ -115,21 +111,21 @@ a declared prefix outside `auto` and are classifier-readable under it.
 
 ## Question resolution
 
-An acceptance-level question - an implementer's blocker, or a concern whose
-answer changes an item's acceptance - halts the item and goes to the **user**
-as the seat's text, under either supervisor mode. The halt reverts the item's
+A question the plan cannot answer - an implementer's blocker, a concern
+whose answer changes what an item delivers, a proposed plan edit
+(`branch-plan.md § Plan edits`) - halts the item and goes to the **user** as
+the seat's text, under either supervisor mode. The halt reverts the item's
 uncommitted edits - `git read-tree --reset -u HEAD` and removal of the
 untracked files the seat created - so the branch stands at its last commit.
-The runner writes the user's answer into the item's acceptance, or as a new
+The runner writes the user's answer into the plan, as item text or a new
 checkbox, in a bookkeeping commit on the item's branch; the answer is the
-user's, so the `cold-read: passed` record stands. A fresh implementer then
+user's, so a `cold-read: passed` record stands. A fresh implementer then
 starts from that commit. A seat never resumes.
 
-An approach-level question - which files, which sentences, which order -
-costs no seat and no approval: the implementer resolves it in the item's
-approach text and commits the plan edit with the code (§ Seats). An
-implementer's inputs are the plan, the docs and the code
-(`companions/implementer-prompt.md`), so an answer reaches the next
+A route question - which files, which order, toward the same outcome -
+costs no seat and no approval: the implementer decides it in the code and
+reports the divergence. An implementer's inputs are the plan, the docs and
+the code (`companions/implementer-prompt.md`), so an answer reaches the next
 implementer only as plan text. Each answer is ledgered with the runner's
 commit (§ Ledger) and carried into the report's `## Supervisor decisions`
 section at checkpoint.

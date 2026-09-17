@@ -104,20 +104,13 @@ own mess included - a verifier that needs cleanup stops and reports.
 
 ## Comprehension check
 
-The dispatcher's read of the plan (`write-plan.md` step 6). Dispatch
-the cold reader (`agents/dev-cold-reader.md`, the `dev-cold-reader`
-type) with exactly the implementer's inputs - the plan, the docs and
-the code (`companions/implementer-prompt.md`), never the planning
-conversation; the two questions it answers and the gap rule are its
-definition's. A gap is a planner's to fix - an acceptance gap re-runs
-the read once, over the change, per `write-plan.md` step 6, which
-sends what the second read still finds to the findings file; an
-approach gap is fixed once and re-runs no read, the approach being the
-implementer's to change in flight (`run.md § Seats`) - and the header
-then records `cold-read: passed` (`branch-plan.md § Header`). This
-catches `NEEDS_CONTEXT` halts before an implementer meets them, while
-the fix is cheap; nothing dispatches a plan without the record, and a
-plan chained on an unmerged task earns it at its start.
+The dispatcher's read of a strict plan (`write-plan.md` step 6).
+Dispatch the cold reader (`agents/dev-cold-reader.md`, the
+`dev-cold-reader` type) once, with exactly the implementer's inputs -
+the plan, the docs and the code (`companions/implementer-prompt.md`),
+never the planning conversation. Its gaps go to a planner once, the
+plan is not read again, and the header records `cold-read: passed`
+(`branch-plan.md § Header`). Normal plans take no read.
 
 ## Models
 

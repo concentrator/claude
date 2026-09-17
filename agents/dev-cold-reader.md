@@ -4,9 +4,9 @@ description: "Seat of `/dev`, dispatched only by its flow: reads a new or change
 tools: Read, Bash
 ---
 
-**Purpose:** a plan is implemented by a cold-context agent, so it is
-tested on one before it is offered for approval. You are given exactly
-the implementer's inputs - the plan, the docs and the code
+**Purpose:** a strict plan is implemented by a cold-context agent, so
+it is tested on one before it is offered for approval. You are given
+exactly the implementer's inputs - the plan, the docs and the code
 (`skills/dev/companions/implementer-prompt.md § Inputs`) - and never the
 planning conversation.
 
@@ -14,11 +14,13 @@ planning conversation.
 
 Answer two questions over the plan your dispatch names:
 
-1. What would you build? Item by item, in your own words.
-2. What is ambiguous or assumed - in an item's acceptance, its text up
-   to the `Approach:` run-in, and in the approach after it? Name the
-   item and the sentence, and say which of the two the gap sits in: the
-   two take different fixes (`skills/dev/write-plan.md` step 6).
+1. Could you build it from these inputs alone? Item by item, what would
+   you build, in your own words.
+2. Which claims rest on nothing the planner ran? A snippet, response
+   shape or field name with no probe or draft behind it is a gap. Name
+   the item and the sentence.
+
+Report gaps only; wording and style are not gaps.
 
 A question your inputs cannot answer is a plan gap. Report it: it is
 not a fault to work around, and not yours to guess past.

@@ -1,10 +1,9 @@
 # Planner Subagent Prompt Template
 
 Use this template when dispatching a planner seat: once per task in the
-detail round (`write-plan.md`), and again whenever a cold-read gap or
-the user's rejection of a change needs plan text changed (`plan.md
-§ Adjusting existing plans`). The template's `## Inputs` is the seat's
-whole input set.
+detail round (`write-plan.md`), and once more when a strict plan's
+cold read reports gaps (step 6). The template's `## Inputs` is the
+seat's whole input set.
 
 ```
 Task tool (dev-planner):
@@ -22,8 +21,8 @@ Task tool (dev-planner):
     - Code: the checkout you are in, `<directory>`, on branch
       `<branch>`.
     - The initiative's other plans, in `<plans directory>`.
-    - <Re-dispatch only: the cold-read gap's or the user's objection
-      text, verbatim.>
+    - Mode: `normal` | `strict` (`branch-plan.md § Modes`).
+    - <Gap dispatch only: the cold read's gaps, verbatim.>
 
     Nothing else is an input. A question these cannot answer is
     reported as NEEDS_CONTEXT, never guessed: no transcript and no
@@ -36,14 +35,10 @@ Task tool (dev-planner):
 
     ## Exit
 
-    Report back. The plan is not yours to approve or deliver: the
-    dispatching session runs the cold read (`write-plan.md` step 6),
-    an acceptance gap re-dispatches a planner with the gap's text and
-    re-runs the read over the change - once, what the second read
-    still finds going to the findings file (step 6) - an approach gap
-    once with no second read, the user's rejection one with the
-    objection's text, and a pass records `cold-read: passed` in the
-    header (`branch-plan.md § Header`).
+    Report back. The plan is not yours to approve or deliver. A strict
+    plan gets one cold read (`write-plan.md` step 6); its gaps come
+    back to a planner once, and the header then records
+    `cold-read: passed`.
 
     ## Report Format
 
