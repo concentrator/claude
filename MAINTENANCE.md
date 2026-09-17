@@ -129,7 +129,7 @@ delivery.
 | A `/dev` command added, renamed, or removed | `README.md § Workflow`, `LAYOUT.md` |
 | A `skills/dev/` mode file or companion added, renamed, or removed | `SKILL.md`'s router table, `LAYOUT.md` |
 | A tracked root file or directory added or removed | `README.md § Contents`, `LAYOUT.md` |
-| What `install-dev.sh` copies or registers | `README.md § Installing the toolset elsewhere`, `scripts/test/install-dev.test.sh` (it asserts the copied set) |
+| What `install-dev.sh` copies or registers | `README.md § Installing the toolset elsewhere`, `scripts/test/install-dev.test.sh` and `install-dev-minimal.test.sh` (they assert the copied sets) |
 | A `scripts/ci/` check added or removed | `scripts/ci/run-all.sh` (its loop is what registers a check), `DESIGN.md § Self-enforcement` |
 | A `hooks/` guard added or removed | `LAYOUT.md` (`check-stray.sh` reads it) and `DESIGN.md § Self-enforcement`, `README.md § Contents` |
 | Planning layout or an id or naming convention | `README.md`, `REQUIREMENTS.md § Planning discipline`, `DESIGN.md`, and every `skills/dev/` file stating the convention (`plan.md`, `layout.md`, `branch-plan.md`, `write-plan.md`, `finish.md`, `templates.md`) |

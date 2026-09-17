@@ -115,6 +115,13 @@ the installer from a checkout of this repo:
     scripts/install-dev.sh                   # into ~/.claude (global)
     scripts/install-dev.sh --project <path>  # into <path>/.claude
 
+`--minimal` serves contributors who work a project's existing plans
+without `/dev`: it ships everything above except the `/dev` router, the
+planning and run mode files and the bundled skills. The skill files it
+keeps are the delivery ones: `finish.md`, `handoff.md`,
+`git-workflow.md`, and the `declarations`, `toolchain`,
+`untracked-claude` and `secrets` companions.
+
 A `--project` install into a git repo refuses a dirty tracked tree or a
 default-branch HEAD, so the copy ships as its own reviewable change;
 `--force` bypasses the guard.
