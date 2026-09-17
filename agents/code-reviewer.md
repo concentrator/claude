@@ -49,7 +49,7 @@ say which class you applied:
   - Performance: critical loops, query cost, and allocation in hot
     paths - flagged only where the diff plausibly regresses them.
   - Maintainability: naming and structure match the surrounding code,
-    no duplication introduced, comments only where code cannot speak
+    no duplication introduced, no comments beyond library API type docs
     (`CLAUDE.md § Code Comments`).
 
   A missing test is flagged only when system integrity is at risk -

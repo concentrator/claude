@@ -15,7 +15,7 @@ plans and reviews instead of delivering. Built in VIBE mode.
   requirements and tasks, enforced by the existing lint.
 - [x] **R081-T005 [mnt]**: Task report - one file per task shared by
   implementer and reviewer.
-- [ ] **R081-T006 [mnt]**: Code comments convention - none by default,
+- [x] **R081-T006 [mnt]**: Code comments convention - none by default,
   library API exception.
 - [ ] **R081-T007 [mnt]**: Measure - compare token use on a comparable
   task before and after.
