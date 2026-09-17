@@ -55,11 +55,10 @@ and a project without one is on the defaults.
 
 ## Code Comments
 
-A comment explains what the code cannot show: the reason behind a
-non-obvious choice, a constraint, a workaround. Code says what it does;
-a comment never restates it. A behavior change updates or removes the
-comment describing the old behavior; a stale comment is worse than none.
-Code and data files carry no history or annotation fields
+Code carries no comments. The exception is a consumer-facing library
+API, which may keep trimmed type docs: what a parameter, return value or
+error means, updated with the behavior they describe. Code and data
+files carry no history or annotation fields
 (`rules/writing-artifacts.md § One home per finding`).
 
 ## Audience visibility
