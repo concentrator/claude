@@ -291,7 +291,7 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [ ] R073: Planning moves to Jira - epics/tickets replace the repo's
       planning layer, the worker sees only its ticket and reports in
       comments, one ticket one branch, `dev/` and its CI checks
-      retire; depends on R080, drops R071 as moot.
+      retire; depends on R080, drops R071 as moot. Frozen.
 - [x] R074: Session-state hand-off enforcement - compacted sessions
       leave the `dev/session/` hand-off half unwritten, so intent is
       lost to the summary: a context-fill warning line in
@@ -333,4 +333,8 @@ Initiative index. Items: `R-001: description`; each entry owns
       planner seat exiting through a mandatory cold read, a doc-writer
       seat, a fixed input set per seat, one duties table per mode,
       permissions settled pre-flight, docs at a single top-level
-      `docs/`; builds on R072-T002.
+      `docs/`; builds on R072-T002. Frozen.
+- [ ] R081: Lean planning - the DEV chain stays, its cost drops:
+      agents do only what was asked, short stable requirements and
+      tasks, normal and strict plan modes, one report per task,
+      bounded review loops, no code comments by default.
