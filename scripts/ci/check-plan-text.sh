@@ -3,6 +3,7 @@
 # short and stable (skills/dev/templates.md). Fails on URLs and markdown
 # links, ISO dates, #NNN refs, commit hashes, ids of another initiative,
 # and size: requirements.md over 40 lines, a task or roadmap entry over 3.
+# A task report's checkbox needs an Evidence: line (observed|test|contract).
 # Initiatives numbered below FROM are legacy and skipped.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
@@ -67,6 +68,15 @@ while IFS= read -r d; do
   (( 10#${id#R} >= from )) || continue
   [ -f "$d/requirements.md" ] && scan "$d/requirements.md" "$id" req
   [ -f "$d/tasks.md" ] && scan "$d/tasks.md" "$id" tasks
+  for r in "$d"/*.report.md; do
+    [ -f "$r" ] || continue
+    awk -v f="$r" '
+      function close_box() { if (box && !ev) { printf "PLAN-TEXT: %s:%d: finding without Evidence: observed|test|contract\n", f, box; hit = 1 } box = 0 }
+      /^- \[[ x]\]/ { close_box(); box = NR; ev = 0; next }
+      box && /^  +Evidence: (observed|test|contract) / { ev = 1; next }
+      box && !/^  / { close_box() }
+      END { close_box(); exit hit }' "$r" || fail=1
+  done
 done < <(git ls-files "$P" | sed -n "s#^\($P/R[0-9][0-9][0-9]-[^/]*\)/.*#\1#p" | sort -u)
 
 [ "$fail" -eq 0 ] && echo "check-plan-text: OK"

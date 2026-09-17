@@ -9,7 +9,7 @@ merge-or-ask step of `run.md` replaces the ship question.
 ## 1. Verify
 
 - `<plans>/R<NNN>-<slug>/<task-id>-<slug>.md`: every `[ ]`
-  is `[x]`; findings file triaged.
+  is `[x]`; task report triaged.
 - Bookkeeping marks landed in the closing commits (`branch-plan.md
   § Closing routine`; untracked: `companions/untracked-claude.md`).
 - Close review per `branch-plan.md § Closing routine`.

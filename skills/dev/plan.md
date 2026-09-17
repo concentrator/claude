@@ -195,7 +195,7 @@ initiative is ordered by that `tasks.md`.
 ## Archival
 
 Archival runs at **initiative** close; a closing task promotes but
-never moves files. At close every findings file meets one of four
+never moves files. At close every task report meets one of four
 endings: **archived uncited** with its directory; **promoted** - its
 durable facts move to their permanent home (component behavior to
 docs, external-system facts to adapted references, binding limits to
@@ -206,7 +206,7 @@ motivates. A finding another initiative's open task still cites is
 promoted before its own R closes. **Archive**: the closing branch's
 final commit carries the whole directory's move to
 `<plans>/archive/R<NNN>-<slug>/` - requirements, task index, branch
-plans, and findings together - so one delivery closes and archives the
+plans, and task reports together - so one delivery closes and archives the
 R (Tier-1 `check-archival`; a frontmatter
 `archival: deferred - <reason>` defers the move with cause).
 Docs never link findings or plan files, live or archived

@@ -38,11 +38,11 @@ commands`).
     MR/PR and a rebase to move two lines, and the correction reviews
     better next to the work that motivated it. A change reaching beyond
     the branch's own task - another R, the ROADMAP, requirements - still
-    takes a `plan/` branch. Who may make the edit is unchanged: the
-    planner edits acceptance text, the implementer the approach, the
-    checkboxes and the findings files (`run.md § Seats`; `branch-plan.md
-    § Rails`), and an ambiguous item is still a halt (`branch-plan.md
-    § Scope discoveries`).
+    takes a `plan/` branch. Who may make the edit is unchanged: plan
+    text only on the user's approval, the implementer the checkboxes
+    and the task report (`branch-plan.md § Plan edits`, `§ Rails`), and
+    an ambiguous item is still a halt (`branch-plan.md § Scope
+    discoveries`).
 - Slug: code / `doc` / `test` / `mnt` branches carry no id (it lives in
   the plan file + MR/PR); `plan/` branches reference the initiative -
   `plan/r<NNN>-<action>` (R-id, full three digits: `r014`, never `r12`;

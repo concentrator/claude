@@ -111,7 +111,7 @@ an Element.
 - **Closed link scope**: a doc links only sibling documents inside the
   docs tree, other files of the same project (`config/`, `scripts/`,
   `src/`), or external URLs - never plan files (live or archived),
-  findings files, or `.claude/` paths. Those name artifacts that move,
+  task reports, or `.claude/` paths. Those name artifacts that move,
   are archived, or are retired, so the citation drifts while still
   reading as precise. An `archive/` directory inside the docs tree is
   exempt. A project's docs gate checks this mechanically where the

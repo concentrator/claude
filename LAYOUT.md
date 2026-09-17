@@ -57,7 +57,7 @@ repos are versioned there, not mapped.
 │   │   │   ├── requirements.md   # initiative requirements
 │   │   │   ├── tasks.md          # this initiative's task index (lazy)
 │   │   │   ├── R<NNN>-T<NNN>-<slug>.md          # branch plans, one per task
-│   │   │   ├── R<NNN>-T<NNN>-<slug>.findings.md # task findings
+│   │   │   ├── R<NNN>-T<NNN>-<slug>.report.md # task report
 │   │   │   └── batches/          # R<NNN>-B<NNN> manifests + reports (lazy)
 │   │   └── archive/              # closed initiatives, frozen history
 ├── rules/                        # path-scoped convention rules

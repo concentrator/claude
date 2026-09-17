@@ -19,7 +19,7 @@ state: <branches merged>/<branches planned>, full tier <green|red>
 - tests: <command + summary line, e.g. "npm test: 124 pass / 0 fail">
 - review findings: <each finding + resolution: fixed in <sha> |
   queued judgment call | dismissed (reason); or "folded into batch review (small branch)">
-- findings file: <open items count, or "none">
+- task report: <open items count, or "none">
 
 ## Batch review (full diff vs base, most capable model)
 

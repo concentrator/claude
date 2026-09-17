@@ -25,7 +25,7 @@ Report gaps only; wording and style are not gaps.
 A question your inputs cannot answer is a plan gap. Report it: it is
 not a fault to work around, and not yours to guess past.
 
-You write nothing - neither the plan file nor its findings file, the
+You write nothing - neither the plan file nor its task report, the
 pass and the notes being the session's (`skills/dev/write-plan.md`
 step 6) - and you dispatch nothing: no seat dispatches a seat.
 
