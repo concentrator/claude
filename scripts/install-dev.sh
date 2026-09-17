@@ -4,6 +4,7 @@
 # Usage:
 #   install-dev.sh                 install into ~/.claude (global)
 #   install-dev.sh --project <p>   install into <p>/.claude (project copy)
+#   --minimal                      ship the minimal set (below)
 #   --force                        bypass the pre-write project guard
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
@@ -13,17 +14,21 @@
 # writing conventions (@imported by CLAUDE.md), and - on a project
 # install - the maintenance hygiene section when the target doc lacks it.
 # Does NOT ship the user's personal convention rules.
+# --minimal serves contributors who work existing plans without /dev: of
+# the skills it ships only the delivery files (MINIMAL_DEV); everything
+# else is the same as the full set.
 # Idempotent + re-runnable.
 set -euo pipefail
 
 SRC="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "install-dev: run from a checkout of the toolset repo" >&2; exit 1; }
 command -v jq >/dev/null || { echo "install-dev: jq is required" >&2; exit 1; }
-target="$HOME/.claude"; scope="global"; force=0
+target="$HOME/.claude"; scope="global"; force=0; set=full
 while [ $# -gt 0 ]; do
   case "$1" in
     --project) target="${2:?--project needs a path}/.claude"; scope="project"; shift ;;
+    --minimal) set=minimal ;;
     --force) force=1 ;;
-    *) echo "usage: install-dev.sh [--project <path>] [--force]" >&2; exit 2 ;;
+    *) echo "usage: install-dev.sh [--project <path>] [--minimal] [--force]" >&2; exit 2 ;;
   esac
   shift
 done
@@ -56,18 +61,26 @@ if [ "$scope" = project ] && [ "$force" -eq 0 ] \
 fi
 
 BUNDLED="test-driven-development systematic-debugging verification-before-completion receiving-code-review dispatching-parallel-agents"
+MINIMAL_DEV="finish.md handoff.md git-workflow.md companions/declarations.md companions/toolchain.md companions/untracked-claude.md companions/secrets.md"
 
 mkdir -p "$target/skills" "$target/hooks"
 
-# 1. the /dev router + companions
+# 1. the /dev router + companions (minimal: the delivery files only, no router)
 rm -rf "$target/skills/dev"
-cp -R "$SRC/skills/dev" "$target/skills/dev"
+if [ "$set" = full ]; then
+  cp -R "$SRC/skills/dev" "$target/skills/dev"
+else
+  mkdir -p "$target/skills/dev/companions"
+  for f in $MINIMAL_DEV; do cp "$SRC/skills/dev/$f" "$target/skills/dev/$f"; done
+fi
 
 # 2. bundled dependency skills (the companions reference these by name)
-for s in $BUNDLED; do
-  rm -rf "$target/skills/$s"
-  cp -R "$SRC/skills/$s" "$target/skills/$s"
-done
+if [ "$set" = full ]; then
+  for s in $BUNDLED; do
+    rm -rf "$target/skills/$s"
+    cp -R "$SRC/skills/$s" "$target/skills/$s"
+  done
+fi
 
 # 3. hooks: copy + register the branch-guard and the secrets guard
 #    (PreToolUse) and the branch-state line (UserPromptSubmit)
@@ -278,7 +291,7 @@ EOF
   fi
 fi
 
-echo "install-dev: DEV toolset installed into $target ($scope)"
+echo "install-dev: DEV toolset ($set) installed into $target ($scope)"
 echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh, check-accretion.sh, check-batch-tags.sh, check-plan-text.sh)"
 echo "install-dev: self-tests in $target/scripts/test/ - wire checks and self-tests into your CI; the /dev run's permission pre-flight is $target/scripts/preflight-permissions.sh"
 if [ -n "$seeded" ]; then echo "install-dev: maintenance hygiene section seeded into $seeded"; fi
