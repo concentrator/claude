@@ -161,11 +161,10 @@ recorded as `cold-read: passed` (`write-plan.md` step 6), a plan whose
 An R entry closes (`[x]` in ROADMAP) only when **both** hold:
 
 - all child tasks are `[x]`, and
-- every acceptance criterion in its `requirements.md` is verified, with
-  one-line evidence per criterion in that file.
+- the user confirms every outcome in its `requirements.md` is met.
 
-The ROADMAP `[x]` is the closure record; the evidence lines say what
-verified each criterion.
+The ROADMAP `[x]` is the closure record; the evidence for each outcome
+goes in the closing MR/PR body, never in `requirements.md`.
 
 The check runs on the branch completing the R's last open task, in its
 mandatory final commit (`branch-plan.md § Closing routine`), judged

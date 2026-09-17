@@ -335,6 +335,5 @@ Initiative index. Items: `R-001: description`; each entry owns
       permissions settled pre-flight, docs at a single top-level
       `docs/`; builds on R072-T002. Frozen.
 - [ ] R081: Lean planning - the DEV chain stays, its cost drops:
-      agents do only what was asked, short stable requirements and
-      tasks, normal and strict plan modes, one report per task,
-      bounded review loops, no code comments by default.
+      agents do only what was asked, short stable plan artifacts, plan
+      modes, task reports, bounded loops, no code comments by default.
