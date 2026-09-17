@@ -17,7 +17,6 @@ state: <branches merged>/<branches planned>, full tier <green|red>
 ### <prefix>/<slug> (<task-id>)
 - commits: <n> (<first sha>..<last sha>)
 - tests: <command + summary line, e.g. "npm test: 124 pass / 0 fail">
-- spec checks: <n> passed, <n> rejected→fixed
 - review findings: <each finding + resolution: fixed in <sha> |
   queued judgment call | dismissed (reason); or "folded into batch review (small branch)">
 - findings file: <open items count, or "none">
@@ -38,22 +37,14 @@ state: <branches merged>/<branches planned>, full tier <green|red>
 
 ## Cost
 
-- total subagent tokens: <N> (implementer: <n> / spec-check: <n> /
-  reviews: <n> / other: <n> - attribute where logs distinguish roles;
-  collapse unattributable into "other")
+- total subagent tokens: <N> (implementer: <n> / reviews: <n> /
+  other: <n> - attribute where logs distinguish roles; collapse
+  unattributable into "other")
   prior-batch baseline: <tokens> / <commits>
-- spec checks skipped: <count> (<per-commit skip records per
-  verification-policy.md § Spec-check skip, or "none">)
 - seat prompt sizes (wc -w, definition + dispatch): implementer <before> →
-  <after>; spec reviewer <before> → <after>
-  (prior-batch baseline: <implementer> / <spec-reviewer>)
-- convention drift: <n> by spec-check sensor + <n> by close/batch review
-  = <total> (prior-batch baseline: <n>). The sensor is blind on
-  spec-check-skipped commits, so close/batch-review drift is counted too
-  to complete the picture (verification-policy.md § Convention drift outcome)
-- defect outcomes: spec rejections reaching merge: <n>
-  (prior-batch baseline: <n> merge-reaching spec rejections);
-  review findings surfaced: <n> fixed / <n> queued / <n> dismissed
+  <after> (prior-batch baseline: <implementer>)
+- defect outcomes: review findings surfaced: <n> fixed / <n> queued /
+  <n> dismissed
 
 ## R acceptance criteria
 
@@ -63,8 +54,8 @@ previously verified">
 
 ## Supervisor decisions
 
-<the queued calls the supervisor resolved and the acceptance changes
-the user approved (`run.md § Seats`, `§ Question resolution`), each
+<the queued calls the supervisor resolved and the acceptance questions
+the user answered (`run.md § Seats`, `§ Question resolution`), each
 with the chosen option and rationale, carried in at checkpoint; or
 "none" when there were none. The runner's ledger (`run.md § Ledger`)
 is this section's evidence, not its copy>

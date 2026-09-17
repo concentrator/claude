@@ -142,8 +142,7 @@ After the rounds, adjust in place:
 - **Branch plan (`<slug>`)**: `/dev plan <slug>` dispatches one planner
   per change (`agents/dev-planner.md`), which states the change
   as a diff of items and makes exactly that change - commits added
-  after the final, an acceptance-level question
-  (`run.md § Question resolution`), a cold-read gap, the user's
+  after the final, a cold-read gap, the user's
   rejection of a change; an item's approach is the implementer's,
   changed in its own commit with no planner (`run.md § Seats`). The
   session runs the cold read (`write-plan.md` step 6) over the result

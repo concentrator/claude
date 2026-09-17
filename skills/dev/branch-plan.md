@@ -66,10 +66,11 @@ code, the task's premise is invalidated, an item's acceptance is
 ambiguous, or verification keeps failing after repeated fixes:
 - **Stop.** A blocker the plan can absorb - an item whose acceptance is
   ambiguous, a missing step - halts the item: the runner reverts its
-  uncommitted edits and re-dispatches the planner with the blocker's
-  text (`run.md § Question resolution`), and the fresh implementer
-  starts from the last commit. An invalidated premise halts the branch
-  instead, for the user to route to a new task, a new R, or an abort.
+  uncommitted edits and asks the user with the blocker's text
+  (`run.md § Question resolution`), and the fresh implementer starts
+  from the commit that records the answer. An invalidated premise halts
+  the branch instead, for the user to route to a new task, a new R, or
+  an abort.
   An approach question - files, sentences, order - is no blocker:
   settle it in the item's approach text (`run.md § Seats`). Never
   inline-fix beyond a true typo in code you're writing.
@@ -100,8 +101,7 @@ commit and the hand-off (`finish`).
    behavior-preserving code runs `/simplify` instead; mixed diffs go
    to the reviewer, adding `/simplify` only at the user's request.
    A second verification agent only when
-   the reviewer reports the escalation condition met - a Critical
-   finding, or a diff touching rules files or CI scripts
+   the reviewer reports a Critical finding
    (`companions/verification-policy.md § Verifier isolation`);
    `/code-review` is a manual escalation - suggest, never run.
    Bookkeeping (plan marks) keys no review. Also the
@@ -240,12 +240,12 @@ regardless of size; the full suite runs at batch close (`run.md
 
 | Event | Action |
 |---|---|
-| Blocker the plan can absorb (§ Scope discoveries), or an implementer's acceptance-level NEEDS_CONTEXT | Halt the item, planner re-dispatch (`run.md § Question resolution`) |
+| Blocker the plan can absorb (§ Scope discoveries), or an implementer's acceptance-level NEEDS_CONTEXT | Halt the item, ask the user (`run.md § Question resolution`) |
 | Blocker invalidating the task's premise | Halt, report |
 | Seat reports BLOCKED on a classifier denial (`run.md § Dispatch per item`) | Halt, report; the item's work stands, no planner answering a denial |
 | Planner reports BLOCKED or NEEDS_CONTEXT on its re-dispatch | Halt, report |
-| Doc writer reports BLOCKED, or the docs gate's verifier reports WRONG or UNPROVEN on the same branch twice | Halt, report |
-| Spec check rejects the same commit twice | Halt, report |
+| Doc writer reports BLOCKED | Halt, report |
+| A review's fix round leaves findings open (`run.md § Seats`, loop bound) | Report to the user |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
 | Non-blocker discovery | `<task-id>-<slug>.findings.md`, continue |

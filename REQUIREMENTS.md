@@ -69,9 +69,9 @@ seats without touching the default branch:
   default branch is never automated; deferring the push is an explicit
   user choice; seats never push.
 - Verification depth is tuned for cost without dropping the safety
-  floor: mechanical commits may skip the per-commit spec check (the
-  close review is the net), small branches fold their review into the
-  batch review, and models route per role.
+  floor: the close review checks each branch against its plan, every
+  review runs one pass and one fix round, small branches fold their
+  review into the batch review, and models route per role.
 
 Mechanics: `skills/dev/run.md`, `skills/dev/branch-plan.md § Agentic
 execution`, `skills/dispatching-parallel-agents/`.

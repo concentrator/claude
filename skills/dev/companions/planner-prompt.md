@@ -1,9 +1,8 @@
 # Planner Subagent Prompt Template
 
 Use this template when dispatching a planner seat: once per task in the
-detail round (`write-plan.md`), and again whenever an acceptance-level
-question (`run.md § Question resolution`), a cold-read gap or the
-user's rejection of a change needs plan text changed (`plan.md
+detail round (`write-plan.md`), and again whenever a cold-read gap or
+the user's rejection of a change needs plan text changed (`plan.md
 § Adjusting existing plans`). The template's `## Inputs` is the seat's
 whole input set.
 
@@ -23,8 +22,8 @@ Task tool (dev-planner):
     - Code: the checkout you are in, `<directory>`, on branch
       `<branch>`.
     - The initiative's other plans, in `<plans directory>`.
-    - <Re-dispatch only: the acceptance-level question's, the
-      cold-read gap's or the user's objection text, verbatim.>
+    - <Re-dispatch only: the cold-read gap's or the user's objection
+      text, verbatim.>
 
     Nothing else is an input. A question these cannot answer is
     reported as NEEDS_CONTEXT, never guessed: no transcript and no

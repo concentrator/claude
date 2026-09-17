@@ -5,7 +5,7 @@ plans and reviews instead of delivering. Built in VIBE mode.
 
 ## Open
 
-- [ ] **R081-T001 [mnt]**: Bound the loops - fewer seat dispatches per
+- [x] **R081-T001 [mnt]**: Bound the loops - fewer seat dispatches per
   task, one review pass, one fix round, then the user.
 - [ ] **R081-T002 [mnt]**: Plan modes - normal as default, strict as
   proven draft; plans editable as working files.

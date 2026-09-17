@@ -1,7 +1,8 @@
 # Doc Writer Subagent Prompt Template
 
-Use this template when dispatching a doc-writer seat: once per branch,
-after every implementer commit has landed - the close review's approved
+Use this template when dispatching a doc-writer seat: once per branch
+whose diff changes user-facing behavior, after every implementer commit
+has landed - the close review's approved
 fixes included - at `run.md § Close` 3. Its inputs are the branch diff,
 the branch's plan items and the existing docs, and nothing else: never
 the implementer's report, never its transcript. The template's
@@ -16,9 +17,8 @@ Task tool (dev-doc-writer):
     ## Inputs
 
     - Diff: `git diff <base> HEAD`, `<base>` being the commit the
-      branch was cut from (`run.md § Dispatch per item` 3, its second
-      base) - so in a batch-scoped run no other branch's work reaches
-      you.
+      branch was cut from - so in a batch-scoped run no other branch's
+      work reaches you.
     - Plan items: every item of `<path to the branch plan>`, all of
       them this branch's. Read them for the decisions they carry; a
       doc never cites a plan.
@@ -42,7 +42,8 @@ Task tool (dev-doc-writer):
     the verifier over every doc you touched
     (`companions/documentation.md § Verification gate`), which is why
     it is never the author, and a WRONG or UNPROVEN verdict
-    re-dispatches a fresh doc writer with the verdicts.
+    re-dispatches one fresh doc writer with the verdicts, whose result
+    goes to the user rather than to a second verification.
 
     ## Report Format
 

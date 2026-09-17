@@ -52,9 +52,9 @@ The runner cycles until the scope is delivered:
 ```
   +--> dispatch the next item's seat
   |         |
-  |         +-- DONE?                -> spec check, mark, next ---------------------------+
+  |         +-- DONE?                -> mark, next ---------------------------------------+
   |         |                                                                             |
-  |         +-- acceptance question? -> planner change, user approves, fresh implementer -+
+  |         +-- acceptance question? -> user answers, plan edited, fresh implementer -----+
   |         |
   |         +-- last item?           -> close, checkpoint, push, MR/PR
   |                                  |
@@ -77,8 +77,8 @@ The runner cycles until the scope is delivered:
    (`run.md § Dispatch per item`).
 3. **Runner** routes an acceptance-level question through `run.md
    § Question resolution` (`run.md § Seats`): the item halts, the
-   planner changes the plan, the **user** approves the change under
-   either supervisor mode, and a fresh implementer follows.
+   **user** answers under either supervisor mode, the runner writes the
+   answer into the plan, and a fresh implementer follows.
 4. **Runner** verifies the boundary from CI and artifacts
    (`run.md § Boundary verification`), then merges the green in-class
    MR/PR or asks the user (`run.md § Merge or ask`).

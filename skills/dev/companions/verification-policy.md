@@ -32,45 +32,6 @@ evaluated from the plan-item text alone, before dispatch:
    design choice is any decision the implementer must make that the item
    text does not settle.
 
-**Post-implementation guard:** after the implementer reports back, the
-runner checks the "Files changed" line in the report. If the set of
-files the implementer actually touched exceeds the files named in the
-plan item, the mechanical classification is void and the spec check runs
-after all - regardless of how the item read before dispatch.
-
-## Spec-check skip
-
-Two classes of commit skip the per-commit spec check: a commit
-classified mechanical (per the predicate above, guard not voided), and
-a commit superseded by a plan change (`run.md § Dispatch per item` 2),
-whose redo the planner adds as a new checkbox, leaving the spec check
-to read the fresh implementer's commit. Drift from the plan is caught
-by the branch-close review instead.
-
-**Recording:** for every skipped spec check the runner records a
-line and carries the records verbatim into the report's Cost section:
-
-    <commit-sha or plan-item id>: spec check skipped: mechanical
-    <commit-sha or plan-item id>: spec check skipped: superseded by plan change
-
-**Scope of this rule:** only the per-commit spec check is skipped.
-Everything else is unchanged:
-
-- Non-mechanical commits keep the full spec-check flow.
-- The stop conditions in `skills/dev/branch-plan.md § Stop conditions` are
-  untouched.
-- "Spec check rejects the same commit twice → halt" still applies
-  wherever a spec check runs.
-
-**Convention drift outcome:** a spec-check report of "⚠️ Convention
-drift only" is not a rejection - it never counts toward the
-two-rejection halt. The runner fixes the drift directly on the
-member branch and carries the count into the report's Cost section.
-The spec-check sensor is blind on spec-check-skipped (mechanical)
-commits, so convention drift surfaced by the branch-close or batch
-review is counted in the same Cost-line total (report-template.md
-§ Cost) to keep the drift picture complete.
-
 ## Close folding
 
 A branch is **small** iff its committed plan file satisfies both conditions,
