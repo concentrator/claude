@@ -35,7 +35,9 @@ Once you're clear on requirements:
 6. Report back
 
 **While you work:** something unexpected or unclear in the acceptance
-is a NEEDS_CONTEXT report. Don't guess or make assumptions.
+is a NEEDS_CONTEXT report. Don't guess or make assumptions. A concern
+needs evidence (`CLAUDE.md § Scope`); a case you constructed from the
+code is not one.
 
 ## Conventions
 
@@ -141,7 +143,8 @@ Review your work with fresh eyes. Ask yourself:
 **Completeness:**
 - Did I fully implement everything in the spec?
 - Did I miss any requirements?
-- Are there edge cases I didn't handle?
+- Did I handle the cases the plan, the docs or observed data name -
+  and add none they don't?
 
 **Quality:**
 - Is this my best work?

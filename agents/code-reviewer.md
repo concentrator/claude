@@ -24,6 +24,14 @@ implementation against it: every planned item present, every deviation
 named and judged (justified improvement or problematic departure). If
 no plan path is provided, ask the dispatcher for it before proceeding.
 
+**Evidence.** Judge the code against what the plan and acceptance
+mean, not their wording: a wording gap with no observed effect is not
+a finding. Every finding names its evidence - observed data or output,
+a failing test, or a documented contract. An input you constructed by
+reading the code is not evidence: drop the finding, or list it once
+under "not checked" marked hypothetical if it could do real damage. A
+case the dispatch says the user ruled out is not raised.
+
 **Rubric - depth follows the diff class.** Classify the diff first and
 say which class you applied:
 
@@ -33,8 +41,9 @@ say which class you applied:
   alignment still applies.
 - **Code or behavior** (source, scripts, config that executes): the
   full checklist, one line per dimension -
-  - Correctness: the change does what the plan says, edge cases and
-    failure paths handled, no regression to adjacent behavior.
+  - Correctness: the change does what the plan says, observed or
+    documented failure paths handled, no regression to adjacent
+    behavior.
   - Security: no injected or leaked secrets, no widened permissions,
     inputs treated as untrusted where they are.
   - Performance: critical loops, query cost, and allocation in hot
@@ -72,7 +81,7 @@ per-branch or cross-branch.
 
 **Output**: categorize each finding as Critical (must fix), Important
 (should fix), or Suggestion (nice to have), each with the specific
-location and an actionable fix. State what the diff class was, whether
+location, its evidence and an actionable fix. State what the diff class was, whether
 the second-agent condition is met, and what was verified clean. Be
 thorough but concise.
 
