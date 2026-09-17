@@ -12,20 +12,60 @@ branch = one task. The plan is complete and committed to `main`
     architecture-changing: true     # optional - triggers DESIGN.md
                                     #   update commit
     depends-on: R008-T001           # optional - blocks `/dev run` until merged
-    cold-read: passed               # required - the dispatcher's read of
-                                    #   the plan (`write-plan.md` step 6);
-                                    #   absent = refused by `/dev run`
+    mode: normal                    # required - normal | strict (§ Modes)
+    cold-read: passed               # strict only - the dispatcher's read
+                                    #   (`write-plan.md` step 6); absent
+                                    #   on a strict plan = refused by
+                                    #   `/dev run`
 
 ## Body
 
 A checkbox list: each `[ ]` = one commit, naming the change and
 carrying the decisions its docs will need - the doc writer's to read,
-never the docs' to cite (`run.md § Seats`). Each item is its
-acceptance - what the commit delivers against the requirements, one or
-a few sentences - followed by an `Approach:` run-in and the approach:
-which files, which sentences, which order. The acceptance is the
-planner's, the approach the implementer's (§ Rails). Marks record what
-happened, never intent - a commit that didn't land stays `[ ]`.
+never the docs' to cite (`run.md § Seats`). Each item states what the
+commit delivers against the requirements, one or a few sentences,
+followed by an `Approach:` run-in with the suggested files and order.
+Marks record what happened, never intent - a commit that didn't land
+stays `[ ]`.
+
+## Modes
+
+**Normal** (default): the plan says what each item delivers and
+suggests how. The implementer probes and decides the route.
+
+**Strict**: the planner proves the plan with a throwaway draft before
+writing it (`write-plan.md` step 3), and the plan carries what the
+draft taught:
+
+    ## Read first
+    - <doc path or spec URL the implementer reads before starting>
+
+    ## Probes
+    ### <surface, e.g. POST /v2/route>
+    Request: <the call that worked>
+    Response: <observed body, trimmed>
+    Errors hit: <what failed and what fixed it>
+    Trap: <behavior that would mislead an implementer>
+
+    ## Items
+    - [ ] <what the commit delivers>
+      Draft: <working snippet from the draft>
+      Tests: <what to cover>
+      Watch: <critical area or edge case actually seen>
+
+`## Probes` is shared by the items, which name the probe heading they
+rely on. The implementer develops the draft into production code with
+tests and checks the planner's claims rather than trusting them. A
+strict plan needs `cold-read: passed` to run.
+
+## Plan edits
+
+No seat edits plan text on its own decision. An implementer taking a
+different route to the same outcome follows it in the code and reports
+the divergence and its reason; the plan is a temporary file and need
+not track the code. A change to plan text is proposed to the user and
+applied only on approval (`run.md § Question resolution`). Checkbox
+marks are bookkeeping, not plan edits.
 
 ## Commit cadence (all types)
 
@@ -71,9 +111,9 @@ ambiguous, or verification keeps failing after repeated fixes:
   from the commit that records the answer. An invalidated premise halts
   the branch instead, for the user to route to a new task, a new R, or
   an abort.
-  An approach question - files, sentences, order - is no blocker:
-  settle it in the item's approach text (`run.md § Seats`). Never
-  inline-fix beyond a true typo in code you're writing.
+  A route question - files, order - is no blocker: decide it in the
+  code and report the divergence (§ Plan edits). Never inline-fix
+  beyond a true typo in code you're writing.
 
 **Non-blocker** - improvement, refactor idea, tangential test gap, code
 smell, naming inconsistency:
@@ -85,10 +125,9 @@ smell, naming inconsistency:
 
 ## Scope changes mid-branch
 
-Changes needed after the final commit dispatch the planner on the same
-branch (`plan.md § Adjusting existing plans`): no implementer is
-running, so there is none to halt, and the plan gains new checkboxes
-plus a new final commit. Each new item then gets a fresh implementer.
+Changes needed after the final commit are proposed to the user
+(§ Plan edits); on approval the plan gains new checkboxes plus a new
+final commit, and each new item gets a fresh implementer.
 
 ## Closing routine
 
@@ -178,9 +217,9 @@ is a batch of one, its branch the MR/PR. A batch-scoped run
 through the checkpoint below; a task-scoped run closes through
 § Closing routine + `finish`.
 
-A plan is admitted to a run by its `cold-read: passed` record alone -
-the dispatcher's read of the plan (`write-plan.md` step 6) - over
-approved requirements (`run.md § Resolve`).
+A plan is admitted to a run once it is merged over approved
+requirements, a strict plan also needing its `cold-read: passed`
+record (`run.md § Resolve`).
 
 ### Batches
 
@@ -217,11 +256,9 @@ regardless of size; the full suite runs at batch close (`run.md
 
 ### Rails
 
-- An item's acceptance is the planner's alone (`run.md § Seats`;
-  `agents/dev-planner.md`); its approach is the implementer's to
-  change while working, the plan edit committed with the code. No seat
-  makes the closing decisions. The implementer keeps the code, the
-  approach, the plan checkboxes and the findings files.
+- Plan text changes only on the user's approval (§ Plan edits). No
+  seat makes the closing decisions. The implementer keeps the code,
+  the plan checkboxes and the findings files.
 - Pre-flight creates `batch/R<NNN>-B<NNN>` off latest `main` and sets the
   `pre-R<NNN>-B<NNN>` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.

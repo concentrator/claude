@@ -29,8 +29,8 @@ The tree is `LAYOUT.md` (`skills/dev/layout.md § Layout file`).
 
 Self-development uses the planning hierarchy per `skills/dev/plan.md`,
 unchanged - structure is never simplified, only description detail. A
-plan leaves planning by its cold read (`skills/dev/write-plan.md` step
-6), the one record a run requires.
+plan runs once merged; a strict plan also needs its cold read
+(`skills/dev/branch-plan.md § Modes`).
 
 ## Git & delivery model
 
@@ -98,5 +98,5 @@ per `skills/dev/layout.md`).
 
 - The `agentic:`/`supervised:` plan stamps went with the second
   runner: each certified readiness for a flow with no one to ask, and
-  in one flow whose seats can ask, the dispatcher's cold read of the
-  plan is the only admission a plan needs.
+  in one flow whose seats can ask, a merged plan (plus the cold read
+  for a strict one) is the only admission a plan needs.

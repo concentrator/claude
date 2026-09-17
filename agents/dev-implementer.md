@@ -12,8 +12,10 @@ If you have questions about:
 - Dependencies or assumptions
 - Anything unclear in the commit item
 
-An approach question - which files, which sentences, which order - is
-yours to settle in the item's approach text, not a report.
+A route question - which files, which order, toward the same outcome -
+is yours to decide in the code; report the divergence from the plan and
+its reason. In a strict plan, the draft, probes and warnings are the
+planner's claims: check them, don't trust them.
 
 Report them as NEEDS_CONTEXT before starting work: the statuses your
 dispatch's `## Report Format` names are your only channel.
@@ -51,8 +53,7 @@ in context.
 
 - The file structure in the plan is where the approach starts, not a
   boundary: split a file that has outgrown its job, or add one the work
-  needs; say so in the item's approach text
-  (see ## Plan & Findings Files).
+  needs; say so in your report.
 - Don't restructure things outside your task; note concerns about
   large/tangled existing files in your report.
 
@@ -78,11 +79,10 @@ shared /tmp is destructive. /tmp is ephemeral; cleanup is not your job.
 Edit plan checkboxes and `<task-id>-<slug>.findings.md` (under
 `<plans>`, the plans tree `CLAUDE.md § Layout` declares -
 `skills/dev/plan.md § Where things live`) only with the Read/Edit/Write
-tools - never `sed`/`cat`/`grep`/`awk`. An item's acceptance - its text
-up to the `Approach:` run-in - is the planner's and never yours to
-edit; the approach after it is yours: change it as the work needs and
-commit the plan edit with the code (`skills/dev/run.md § Seats`). You
-also keep the checkboxes and the findings file.
+tools - never `sed`/`cat`/`grep`/`awk`. Plan text is never yours to
+edit: propose an edit as NEEDS_CONTEXT, and the user decides
+(`skills/dev/branch-plan.md § Plan edits`). You keep the checkboxes and
+the findings file.
 
 **Config.** No edit-class shell - `sed -i`, `tee`, a redirection -
 against anything under the config directory: that is what the
@@ -127,7 +127,7 @@ no work. You will not be penalized for escalating.
 
 **How to escalate:** Report back with status BLOCKED or NEEDS_CONTEXT. Describe
 specifically what you're stuck on, what you've tried, and what kind of help you need.
-The runner routes an acceptance-level question through
+The runner routes the question through
 `skills/dev/run.md § Question resolution` (`skills/dev/run.md
 § Seats`): the user answers, the runner writes the answer into the
 plan and a fresh implementer works it; no answer

@@ -139,18 +139,9 @@ After the rounds, adjust in place:
 
 - **Initiative requirements** (`<plans>/R<NNN>-<slug>/requirements.md`):
   `/dev plan R<NNN>` to extend.
-- **Branch plan (`<slug>`)**: `/dev plan <slug>` dispatches one planner
-  per change (`agents/dev-planner.md`), which states the change
-  as a diff of items and makes exactly that change - commits added
-  after the final, a cold-read gap, the user's
-  rejection of a change; an item's approach is the implementer's,
-  changed in its own commit with no planner (`run.md § Seats`). The
-  session runs the cold read (`write-plan.md` step 6) over the result
-  and presents it for the user's approval (`run.md § Seats`) before the
-  plan MR/PR - or before the item's next dispatch where the change
-  rides the item's own branch
-  (`branch-plan.md § Scope changes mid-branch`) - so the record vouches
-  for the current text.
+- **Branch plan (`<slug>`)**: `/dev plan <slug>` edits the plan as the
+  user asks, and only with their approval (`branch-plan.md § Plan
+  edits`). An edit is not cold-read again.
 - **Roadmap items, tasks** (single-line entries): direct file edit.
 - Never rewrite history retroactively.
 
@@ -163,7 +154,7 @@ downstream proceeds while pending. The field records which state the
 requirements are in, not when they got there - the date of an approval
 is in the commit and MR/PR that carried it; which review an approval
 came from is resolvable from the commit that added it. A detail round
-is offered for approval only with every plan's cold read passed and
+is offered for approval only with every strict plan's cold read
 recorded as `cold-read: passed` (`write-plan.md` step 6), a plan whose
 `depends-on` names an unmerged task excepted: it is read at its start.
 

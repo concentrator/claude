@@ -7,7 +7,7 @@ plans and reviews instead of delivering. Built in VIBE mode.
 
 - [x] **R081-T001 [mnt]**: Bound the loops - fewer seat dispatches per
   task, one review pass, one fix round, then the user.
-- [ ] **R081-T002 [mnt]**: Plan modes - normal as default, strict as
+- [x] **R081-T002 [mnt]**: Plan modes - normal as default, strict as
   proven draft; plans editable as working files.
 - [ ] **R081-T003 [mnt]**: Scope discipline - ask instead of guess, no
   unasked work, review findings tied to user-authored requirements.
