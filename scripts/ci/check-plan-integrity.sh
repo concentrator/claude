@@ -70,7 +70,7 @@ while IFS= read -r f; do
   for dep in $(sed -E 's/R[0-9]{3}-T[0-9]{3}//g' <<<"$deps" | grep -oE 'T-[0-9]{3}'); do
     has "$dep" "$task_ts" || report "$f depends-on $dep not in any tasks.md"
   done
-done < <(git ls-files "$P" | grep -E '/(T-[0-9]{3}|R[0-9]{3}-T[0-9]{3})-[^/]+\.md$' | grep -v '\.findings\.md$')
+done < <(git ls-files "$P" | grep -E '/(T-[0-9]{3}|R[0-9]{3}-T[0-9]{3})-[^/]+\.md$' | grep -vE '\.(findings|report)\.md$')
 
 (( fail == 0 )) && echo "check-plan-integrity: OK"
 exit $fail

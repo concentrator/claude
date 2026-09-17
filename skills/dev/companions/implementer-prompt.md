@@ -15,8 +15,9 @@ Task tool (dev-implementer):
 
     - Plan: `<path to the branch plan>`. Read it: your item is the first
       `[ ]` checkbox, and the items above it are the branch so far. Its
-      `<task-id>-<slug>.findings.md`, where one exists, carries the
-      read's open notes: read them with it.
+      task report `<task-id>-<slug>.report.md`, where one exists,
+      carries the earlier items' divergences and findings: read it
+      with the plan.
     - Docs: the project's docs directory, `DESIGN.md` and `README.md`
       where present - the code's own documentation.
     - Code: the checkout you are in, `<directory>`.

@@ -42,6 +42,12 @@ expect "commit hash caught"    tasks.md        "Fixed by b0182f8."         "comm
 expect "foreign id caught"     tasks.md        "Builds on R000-T002."       "id of another initiative: R000"
 expect "long task entry caught" tasks.md "$(printf -- '- [ ] **%s-T002 [mnt]**: a\n  b\n  c\n  d' "$OWN")" "entry over 3 lines"
 
+expect "finding without evidence caught" "$OWN-T001-x.report.md" "$(printf -- '- [ ] shape may differ\n  Evidence: hypothetical reading of code')" "finding without Evidence"
+d=$(mkrepo)
+printf -- '- [ ] 400 on empty body\n  Evidence: observed curl response in the probe\n' > "$d/dev/plans/$OWN-x/$OWN-T001-x.report.md"
+out=$(run_in "$d") && pass "finding with evidence passes" || die "finding with evidence failed: $out"
+rm -rf "$d"
+
 d=$(mkrepo)
 for i in $(seq 1 40); do echo "line $i"; done >> "$d/dev/plans/$OWN-x/requirements.md"
 out=$(run_in "$d"); case "$out" in *"over 40 lines"*) pass "long requirements caught" ;; *) die "long requirements: $out" ;; esac

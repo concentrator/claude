@@ -13,7 +13,7 @@ plans and reviews instead of delivering. Built in VIBE mode.
   unasked work, review findings tied to user-authored requirements.
 - [x] **R081-T004 [mnt]**: Planning artifact format - short
   requirements and tasks, enforced by the existing lint.
-- [ ] **R081-T005 [mnt]**: Task report - one file per task shared by
+- [x] **R081-T005 [mnt]**: Task report - one file per task shared by
   implementer and reviewer.
 - [ ] **R081-T006 [mnt]**: Code comments convention - none by default,
   library API exception.

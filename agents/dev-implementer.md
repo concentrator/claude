@@ -76,15 +76,18 @@ deletes are rejected by the sandbox, an `rm` segment turns an
 otherwise-allowed compound command into a prompt, and bulk-clearing
 shared /tmp is destructive. /tmp is ephemeral; cleanup is not your job.
 
-## Plan & Findings Files
+## Plan & Task Report
 
-Edit plan checkboxes and `<task-id>-<slug>.findings.md` (under
+Edit plan checkboxes and the task report `<task-id>-<slug>.report.md` (under
 `<plans>`, the plans tree `CLAUDE.md § Layout` declares -
 `skills/dev/plan.md § Where things live`) only with the Read/Edit/Write
 tools - never `sed`/`cat`/`grep`/`awk`. Plan text is never yours to
 edit: propose an edit as NEEDS_CONTEXT, and the user decides
 (`skills/dev/branch-plan.md § Plan edits`). You keep the checkboxes and
-the findings file.
+the report's `## Implementer` section, appended in the commit that
+carries the code: divergences from the plan with their reason, and
+findings outside the item's scope, each a checkbox with an `Evidence:`
+line (`skills/dev/branch-plan.md § Task report`).
 
 **Config.** No edit-class shell - `sed -i`, `tee`, a redirection -
 against anything under the config directory: that is what the

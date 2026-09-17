@@ -17,13 +17,13 @@ change replaces the text it amends - the old wording, its date, and the
 rationale live in the commit and MR/PR. Approval attaches to the
 decision, not its wording, so rewriting prose around an unchanged
 decision needs no re-approval. A measurement's job ends when the
-decision it fed lands - it stays in its dated findings file and is
+decision it fed lands - it stays in its task report and is
 archived with its task. `archive/` directories are exempt.
 
 ## One home per finding
 
 A finding - a measurement, a decision, change history - lives in its owning
-artifact (task entry, findings file, commit/MR message), never inline in a
+artifact (task entry, task report, commit/MR message), never inline in a
 file the change happens to touch: no history or annotation fields in data
 or code files, no status notes parked in index docs. Cite the owning
 artifact instead.
@@ -34,7 +34,7 @@ A derived value - a count, total, or remaining-budget figure - is stated
 in at most one authoritative place; everything else references it. Never
 annotate data with its own count - the data is the count. Never copy a
 measured or computed value into static prose - cite the test, script, or
-findings file that produces it. Fixed constraints (limits, versions,
+task report that produces it. Fixed constraints (limits, versions,
 ports) are facts, not tallies: state them where they bind.
 
 A number is born in its final form: binding → config or code,

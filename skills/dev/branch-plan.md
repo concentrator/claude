@@ -119,9 +119,36 @@ ambiguous, or verification keeps failing after repeated fixes:
 smell, naming inconsistency:
 - In this branch's scope → fix here as a commit, never deferred to a
   finding.
-- Another component's → append to the plan's sibling
-  `<task-id>-<slug>.findings.md`, continue coding, triage at close.
+- Another component's → append to the task report (§ Task report),
+  continue coding, triage at close.
 - Never silently expand scope.
+
+## Task report
+
+`<task-id>-<slug>.report.md` beside the plan, a working file that lives
+as long as the R:
+
+    # R0NN-T00N report
+
+    ## Implementer
+    ### Divergences
+    - <where the code left the plan, and why>
+    ### Findings
+    - [ ] <discovery outside the item's scope>
+      Evidence: observed <output> | test <failing test> | contract <spec>
+
+    ## Review
+    - [ ] <issue> (Critical | Important | Suggestion) - <file:line>
+      Evidence: observed ... | test ... | contract ...
+
+The implementer appends its section in the commit that carries the
+code. The reviewer is read-only: the runner, or the session outside a
+run, writes the close review's findings under `## Review`. At close
+every `[ ]` becomes `[x]` - fixed, `-> backlog`, or `won't fix:
+<reason>` - and the final commit carries the resolved report. A
+checkbox without an `Evidence:` line of one of the three types fails
+`scripts/ci/check-plan-text.sh`. Legacy `<task-id>-<slug>.findings.md`
+files are read as reports.
 
 ## Scope changes mid-branch
 
@@ -151,9 +178,10 @@ commit and the hand-off (`finish`).
 4. Apply approved fixes as commits.
 5. Capture the branch outcome: a summary against the task's acceptance
    criteria; surface manual-testing/automation needs (`finish § 2`).
-6. **Triage `<task-id>-<slug>.findings.md`** - in-scope findings
-   resolve here as commits, not deferrals (§ Scope discoveries).
-   For each remaining `[ ]`, prompt user:
+6. **Triage the task report** (§ Task report): the close review's
+   findings are written under `## Review`; in-scope items resolve here
+   as commits, not deferrals (§ Scope discoveries). For each remaining
+   `[ ]`, prompt user:
    - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
@@ -172,7 +200,7 @@ commit and the hand-off (`finish`).
    find work: a `[x]` written before it asserts a completion the branch
    has not reached.
 
-   The commit includes the resolved findings file. Closing the R's last
+   The commit includes the resolved task report. Closing the R's last
    open task → the closure check (`plan.md § Approval and closure`):
    present its verdict and ask - the closure marks, ROADMAP `[x]`, and
    the archive move (`plan.md § Archival`) land in the final commit only
@@ -206,7 +234,7 @@ boundary and re-briefs from `handoff.md` and its ledger (`run.md
 
 Doc loading keys to the boundary: one load phase at the unit's
 start; sectional reads, not whole files; no re-reads within the
-unit; outputs (reports, findings files) wait for triage.
+unit; outputs (reports) wait for triage.
 
 ## Agentic execution
 
@@ -258,7 +286,7 @@ regardless of size; the full suite runs at batch close (`run.md
 
 - Plan text changes only on the user's approval (§ Plan edits). No
   seat makes the closing decisions. The implementer keeps the code,
-  the plan checkboxes and the findings files.
+  the plan checkboxes and the task report's implementer section.
 - Pre-flight creates `batch/R<NNN>-B<NNN>` off latest `main` and sets the
   `pre-R<NNN>-B<NNN>` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.
@@ -285,5 +313,5 @@ regardless of size; the full suite runs at batch close (`run.md
 | A review's fix round leaves findings open (`run.md § Seats`, loop bound) | Report to the user |
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
-| Non-blocker discovery | `<task-id>-<slug>.findings.md`, continue |
+| Non-blocker discovery | task report (§ Task report), continue |
 | Batch complete | Close phase on `batch/R<NNN>-B<NNN>`, then checkpoint (accept opens the MR/PR), wait for user |

@@ -42,7 +42,7 @@ What agents author: the planning tree at `<plans>`, the docs tree at
     │   ├── requirements.md
     │   ├── tasks.md
     │   ├── <task-id>-<slug>.md
-    │   ├── <task-id>-<slug>.findings.md
+    │   ├── <task-id>-<slug>.report.md
     │   └── batches/
     └── archive/
 
