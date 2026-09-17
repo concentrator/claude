@@ -9,7 +9,7 @@ plans and reviews instead of delivering. Built in VIBE mode.
   task, one review pass, one fix round, then the user.
 - [x] **R081-T002 [mnt]**: Plan modes - normal as default, strict as
   proven draft; plans editable as working files.
-- [ ] **R081-T003 [mnt]**: Scope discipline - ask instead of guess, no
+- [x] **R081-T003 [mnt]**: Scope discipline - ask instead of guess, no
   unasked work, review findings tied to user-authored requirements.
 - [ ] **R081-T004 [mnt]**: Planning artifact format - short
   requirements and tasks, enforced by the existing lint.
