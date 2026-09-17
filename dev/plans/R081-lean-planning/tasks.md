@@ -17,5 +17,5 @@ plans and reviews instead of delivering. Built in VIBE mode.
   implementer and reviewer.
 - [x] **R081-T006 [mnt]**: Code comments convention - none by default,
   library API exception.
-- [ ] **R081-T007 [mnt]**: Measure - compare token use on a comparable
+- [x] **R081-T007 [mnt]**: Measure - compare token use on a comparable
   task before and after.
