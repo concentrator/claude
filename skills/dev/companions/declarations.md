@@ -60,9 +60,9 @@ work as far as a green MR/PR and holds one decision class:
   delivery as a missing report does;
 - queued judgment calls at implementation level, each recorded in the
   report's supervisor-decisions section and ledgered (`run.md
-  § Ledger`); an acceptance-level question instead takes the planner's
-  change and the **user**'s approval under either mode (`run.md
-  § Seats`, `§ Question resolution`).
+  § Ledger`); an acceptance-level question instead goes to the
+  **user** under either mode (`run.md § Seats`, `§ Question
+  resolution`).
 
 **The grant includes the merge.** Within the declared bound the
 supervisor's last act on a green in-class MR/PR is the merge, carrying

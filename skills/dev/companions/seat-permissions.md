@@ -224,7 +224,7 @@ and a definition carries `tools:` and no permission key.
 
 | Rule | Source |
 | --- | --- |
-| `Bash(git status:*)`, `Bash(git diff:*)`, `Bash(git log:*)`, `Bash(git show:*)`, `Bash(git branch:*)`, `Bash(git rev-parse:*)` | the seat definitions: every seat holds `Bash`, the read-only seats hold `Read, Bash` alone (`agents/dev-cold-reader.md`, `agents/dev-spec-reviewer.md`), and `agents/code-reviewer.md` reads state with `git diff`/`log`/`show` |
+| `Bash(git status:*)`, `Bash(git diff:*)`, `Bash(git log:*)`, `Bash(git show:*)`, `Bash(git branch:*)`, `Bash(git rev-parse:*)` | the seat definitions: every seat holds `Bash`, the read-only seat holds `Read, Bash` alone (`agents/dev-cold-reader.md`), and `agents/code-reviewer.md` reads state with `git diff`/`log`/`show` |
 | `Bash(sed:*)`, `Bash(grep:*)`, `Bash(head:*)`, `Bash(tail:*)`, `Bash(awk:*)`, `Bash(wc:*)`, `Bash(cat:*)`, `Bash(ls:*)` | the same definitions: no seat holds `Glob` or `Grep`, so these are what the seats read and search with |
 | `Bash(echo:*)` | `branch-plan.md § Commit cadence` point 4 |
 | `Bash(git add:*)`, `Bash(git commit:*)` | `branch-plan.md § Commit cadence` 3 |
@@ -317,7 +317,7 @@ drifting from the definition.
 
 The declared set gates the tools the definitions do name. The Edit-class
 rule reaches only the seats whose definitions carry an edit tool, the
-cold reader and the spec reviewer holding `Read, Bash` alone; the
+cold reader holding `Read, Bash` alone; the
 non-Bash allow class covers `WebSearch` and the WebFetch domains for the
 two seats holding those tools, and `Skill(<name>)` where a dispatch
 names a skill. Every seat holds `Bash` and none holds `Glob` or `Grep` -

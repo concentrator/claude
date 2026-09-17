@@ -57,10 +57,8 @@ say which class you applied:
 - **Mixed**: the strictest applicable class per file.
 
 **Escalation for the dispatcher**: a second verification agent is
-warranted only when this review reports a Critical finding, or the
-diff touches rules files (`rules/`, `skills/`, `agents/`,
-`CLAUDE.md`) or CI scripts. Say explicitly whether that condition is
-met.
+warranted only when this review reports a Critical finding. Say
+explicitly whether that condition is met.
 
 **Batch mode**: when dispatched with a batch manifest
 (`<plans>/R<NNN>-<slug>/batches/R<NNN>-B<NNN>.md`) and the full

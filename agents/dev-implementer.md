@@ -129,8 +129,8 @@ no work. You will not be penalized for escalating.
 specifically what you're stuck on, what you've tried, and what kind of help you need.
 The runner routes an acceptance-level question through
 `skills/dev/run.md § Question resolution` (`skills/dev/run.md
-§ Seats`): a planner changes the acceptance, the user approves the
-change and a fresh implementer works the re-read plan; no answer
+§ Seats`): the user answers, the runner writes the answer into the
+plan and a fresh implementer works it; no answer
 reaches you directly, since your inputs are the plan, the docs and the
 code.
 
