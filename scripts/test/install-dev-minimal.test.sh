@@ -17,7 +17,7 @@ die()  { echo "not ok - $1"; fail=1; }
 N=$(mktemp -d)
 bash "$INSTALL" --project "$N" >/dev/null 2>&1 && bash "$INSTALL" --project "$N" --minimal >/dev/null 2>&1 || die "minimal install exits nonzero"
 got=$(cd "$N/.claude/skills/dev" && find . -type f | sed 's|^\./||' | sort | tr '\n' ' ')
-want="companions/declarations.md companions/secrets.md companions/toolchain.md companions/untracked-claude.md finish.md git-workflow.md handoff.md "
+want="companions/auto-permissions.template.json companions/declarations.md companions/secrets.md companions/toolchain.md companions/untracked-claude.md finish.md git-workflow.md handoff.md "
 [ "$got" = "$want" ] && pass "minimal ships only the delivery skill files" || die "minimal skills/dev holds: $got"
 M2=$(mktemp -d); bash "$INSTALL" --project "$M2" --minimal >/dev/null 2>&1 || die "fresh minimal install exits nonzero"
 [ "$(ls "$M2/.claude/skills")" = "dev" ] && pass "minimal ships no bundled skills" || die "minimal skills/ holds: $(ls "$M2/.claude/skills" | tr '\n' ' ')"
@@ -27,6 +27,9 @@ for f in hooks/dev-branch-guard.sh hooks/dev-secrets-guard.sh hooks/dev-branch-s
   [ -f "$M2/.claude/$f" ] || miss="$miss $f"
 done
 [ -z "$miss" ] && pass "minimal keeps hooks, checks, pre-flight, writing and maintenance" || die "minimal missing:$miss"
+out=$(bash "$M2/.claude/scripts/test/preflight-permissions.test.sh" 2>&1); rc=$?
+[ $rc -eq 0 ] && pass "vendored pre-flight self-test passes from a minimal install" \
+  || die "vendored pre-flight self-test failed under minimal: $(grep -m2 'not ok' <<<"$out")"
 jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(test("dev-branch-guard"))' "$M2/.claude/settings.json" >/dev/null \
   && pass "minimal registers the hooks" || die "minimal registered no branch-guard"
 rm -rf "$N" "$M2"
