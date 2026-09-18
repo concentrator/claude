@@ -61,7 +61,9 @@ if [ "$scope" = project ] && [ "$force" -eq 0 ] \
 fi
 
 BUNDLED="test-driven-development systematic-debugging verification-before-completion receiving-code-review dispatching-parallel-agents"
-MINIMAL_DEV="finish.md handoff.md git-workflow.md companions/declarations.md companions/toolchain.md companions/untracked-claude.md companions/secrets.md"
+# The template is the permission pre-flight's input, read at run time
+# (scripts/preflight-permissions.sh), not documentation.
+MINIMAL_DEV="finish.md handoff.md git-workflow.md companions/declarations.md companions/toolchain.md companions/untracked-claude.md companions/secrets.md companions/auto-permissions.template.json"
 
 mkdir -p "$target/skills" "$target/hooks"
 
