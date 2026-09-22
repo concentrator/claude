@@ -17,7 +17,7 @@ mode: normal
   step-4 comment's `FROM` sentences.
   Approach: `scripts/install-dev.sh`, then the `FROM` half of the
   re-install case in `scripts/test/install-dev.test.sh`.
-- [ ] A backlog line in a changed `tasks.md` is one line: outside task
+- [x] A backlog line in a changed `tasks.md` is one line: outside task
   entries, headings and the `Why:` paragraph, a line continuing the one
   above it, or indented under a non-task bullet, fails `backlog line over
   1 line`.

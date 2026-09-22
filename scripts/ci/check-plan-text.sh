@@ -2,7 +2,8 @@
 # Tier-1 plan-text gate: ROADMAP entries, requirements.md and tasks.md stay
 # short and stable (skills/dev/templates.md). Fails on URLs and markdown
 # links, ISO dates, #NNN refs, commit hashes, ids of another initiative,
-# and size: requirements.md over 40 lines, a task or roadmap entry over 3.
+# and size: requirements.md over 40 lines, a task or roadmap entry over 3,
+# a tasks.md backlog line over 1.
 # A task report's checkbox needs an Evidence: line (observed|test|contract).
 # Only the plan files a branch changes against its merge-base with the
 # default branch are checked, working tree included, archive excluded.
@@ -73,6 +74,20 @@ report() { # file
     END { close_box(); exit hit }' "$1" || fail=1
 }
 
+backlog() { # file
+  awk -v f="$1" '
+    function over() { if (!told) printf "PLAN-TEXT: %s:%d: backlog line over 1 line\n", f, at; told = 1; hit = 1 }
+    /^- \[/ { task = 1; ctx = ""; ub = 0; next }
+    task && /^  / { next }
+    { task = 0 }
+    !/[^ \t]/ { ctx = ""; next }
+    /^(#|Why:)/ { ctx = /^Why:/ ? "why" : ""; ub = 0; next }
+    ctx == "why" { next }
+    (ctx == "line" && !/^[-*] /) || (ub && /^[ \t]/) { over(); ctx = "line"; next }
+    { at = NR; told = 0; ub = /^[-*] /; ctx = "line" }
+    END { exit hit }' "$1" || fail=1
+}
+
 while IFS= read -r f; do
   [ -f "$f" ] || continue
   rel=${f#"$P"/}
@@ -81,7 +96,7 @@ while IFS= read -r f; do
   id=R${BASH_REMATCH[1]}
   case ${BASH_REMATCH[2]} in
     requirements.md) scan "$f" "$id" req ;;
-    tasks.md) scan "$f" "$id" tasks ;;
+    tasks.md) scan "$f" "$id" tasks; backlog "$f" ;;
     *.report.md) report "$f" ;;
   esac
 done < <({ git diff --name-only "$base" -- "$P"; git ls-files --others --exclude-standard -- "$P"; } | sort -u)

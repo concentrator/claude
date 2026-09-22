@@ -45,6 +45,12 @@ expect "PR ref caught"         "$OWN-x/requirements.md" "Shipped in #545."      
 expect "commit hash caught"    "$OWN-x/tasks.md"        "Fixed by b0182f8."         "commit hash"
 expect "foreign id caught"     "$OWN-x/tasks.md"        "Builds on R000-T002."      "id of another initiative: R000"
 expect "long task entry caught" "$OWN-x/tasks.md" "$(printf -- '- [ ] **%s-T002 [mnt]**: a\n  b\n  c\n  d' "$OWN")" "entry over 3 lines"
+expect "wrapped backlog paragraph caught" "$OWN-x/tasks.md" "$(printf '\nBacklog: a note\nwrapped onto a second line.')" "tasks.md:5: backlog line over 1 line"
+expect "wrapped backlog bullet caught" "$OWN-x/tasks.md" "$(printf '\n- a backlog note\n  wrapped under its bullet.')" "tasks.md:5: backlog line over 1 line"
+d=$(mkrepo)
+printf '# %s tasks\n\nWhy: a reason that\nwraps.\n\n## Open\n\n- [ ] **%s-T001 [mnt]**: a\n  b.\n\n- one backlog note.\n- another one.\n\nBacklog: a line.\n' "$OWN" "$OWN" > "$d/dev/plans/$OWN-x/tasks.md"
+out=$(run_in "$d") && pass "one-line backlog lines pass" || die "one-line backlog lines failed: $out"
+rm -rf "$d"
 expect "changed legacy initiative checked" "R090-old/requirements.md" "More." "PLAN-TEXT: dev/plans/R090-old/requirements.md:1: link"
 expect "R-NNN dir checked"     "R-083-y/tasks.md"       "Builds on R000-T002."      "id of another initiative: R000"
 
