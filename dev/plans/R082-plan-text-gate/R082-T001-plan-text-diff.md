@@ -42,7 +42,7 @@ mode: normal
   7-line fixture; ROADMAP R-054, R-057 and R080 regain the meaning the
   review names; the gate's header comment loses the lines this branch
   added.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)
