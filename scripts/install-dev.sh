@@ -249,6 +249,13 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
   for line in "/$sess/" "/${parent:+$parent/}supervisor/"; do
     grep -qxF "$line" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
   done
+  gate="bash $(git -C "$target" rev-parse --show-prefix)scripts/ci/check-plan-text.sh"
+  tier=$(grep -m1 -n '^- Test (fast):' "$repo/CLAUDE.md" 2>/dev/null || grep -m1 -n '^- Test:' "$repo/CLAUDE.md" 2>/dev/null || true)
+  if [ -n "$tier" ]; then
+    tmp="$(mktemp)"
+    awk -v n="${tier%%:*}" -v add=", then \`$gate\`" 'NR == n { $0 = $0 add } 1' "$repo/CLAUDE.md" > "$tmp"
+    mv "$tmp" "$repo/CLAUDE.md"
+  fi
 fi
 
 # 8. maintenance: seed the hygiene section - the cleanup rules for the

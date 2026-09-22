@@ -18,7 +18,7 @@ so every per-commit run in the project runs the gate. Project CI
 config stays the project's. The gate this wires is the one R082-T001
 delivers, and both tasks edit `scripts/install-dev.sh`.
 
-- [ ] A `--project` install into a git repo, full or `--minimal`, appends
+- [x] A `--project` install into a git repo, full or `--minimal`, appends
   `, then` and `bash <path>/scripts/ci/check-plan-text.sh` (repo-relative
   path, its own backtick span) to the root `CLAUDE.md` `Test (fast):` line,
   else to its `Test:` line.
