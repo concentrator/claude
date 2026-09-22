@@ -1,24 +1,26 @@
 #!/usr/bin/env bash
-# Tier-1 plan-text gate: ROADMAP entries, requirements.md and tasks.md stay
-# short and stable (skills/dev/templates.md). Fails on URLs and markdown
-# links, ISO dates, #NNN refs, commit hashes, ids of another initiative,
-# and size: requirements.md over 40 lines, a task or roadmap entry over 3.
-# A task report's checkbox needs an Evidence: line (observed|test|contract).
-# Initiatives numbered below FROM are legacy and skipped.
+# Tier-1 plan-text gate on the plan files a branch changes, archive excluded:
+# ROADMAP entries, requirements.md, tasks.md and branch plans stay short and
+# stable (skills/dev/templates.md). Fails on links, ISO dates, #NNN refs,
+# commit hashes, ids of another initiative, oversize entries, a task report
+# checkbox without an Evidence: line, and an added *.findings.md.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
-
-# FROM is the per-project tuning point: the first initiative held to the gate.
-FROM='R081'
 
 P=$(sed -n 's/^- Plans: *//p' CLAUDE.md 2>/dev/null | head -1 || true)
 P=${P:-dev/plans}
 P=${P%/}
-from=$((10#${FROM#R}))
 fail=0
 
-scan() { # file own-id mode(req|tasks|roadmap)
-  awk -v f="$1" -v own="$2" -v mode="$3" -v from="$from" '
+base=
+for ref in origin/main origin/master main master; do
+  base=$(git merge-base HEAD "$ref" 2>/dev/null) && break
+  base=
+done
+[ -n "$base" ] || { echo "check-plan-text: SKIP (no default branch)"; exit 0; }
+
+scan() { # file own-id mode(req|tasks|roadmap|plan)
+  awk -v f="$1" -v own="$2" -v mode="$3" '
     function bad(n, why) { printf "PLAN-TEXT: %s:%d: %s\n", f, n, why; hit = 1 }
     function check(n, s,   t, id) {
       if (s ~ /https?:\/\// || s ~ /\]\(/) bad(n, "link")
@@ -37,22 +39,23 @@ scan() { # file own-id mode(req|tasks|roadmap)
         t = substr(t, RSTART + RLENGTH)
       }
     }
-    function close_entry() { if (start && len > 3) bad(start, "entry over 3 lines"); start = 0 }
+    BEGIN { max = mode == "plan" ? 6 : 3 }
+    function close_entry() { if (start && len > max) bad(start, (mode == "plan" ? "item" : "entry") " over " max " lines"); start = 0 }
     mode == "roadmap" {
       if ($0 ~ /^- \[[ x]\] R-?[0-9][0-9][0-9]/) {
         close_entry(); match($0, /R-?[0-9][0-9][0-9]/)
         own = substr($0, RSTART, RLENGTH); sub(/-/, "", own)
-        active = (substr(own, 2) + 0 >= from); len = 0
-        if (active) start = NR
+        active = 1; len = 0; start = NR
       } else if ($0 !~ /^      / && $0 !~ /^  [^ ]/) { close_entry(); active = 0 }
       if (active) { len++; check(NR, $0) }
       next
     }
-    mode == "tasks" {
+    mode == "tasks" || mode == "plan" {
       if ($0 ~ /^- \[/) { close_entry(); start = NR; len = 0 }
       else if ($0 !~ /^  /) close_entry()
       if (start) len++
     }
+    mode == "plan" { next }
     { check(NR, $0) }
     END {
       close_entry()
@@ -61,23 +64,44 @@ scan() { # file own-id mode(req|tasks|roadmap)
     }' "$1" || fail=1
 }
 
-[ -f "$P/ROADMAP.md" ] && scan "$P/ROADMAP.md" "" roadmap
-while IFS= read -r d; do
-  base=${d##*/}; id=${base%%-*}
-  [[ $id =~ ^R[0-9]{3}$ ]] || continue
-  (( 10#${id#R} >= from )) || continue
-  [ -f "$d/requirements.md" ] && scan "$d/requirements.md" "$id" req
-  [ -f "$d/tasks.md" ] && scan "$d/tasks.md" "$id" tasks
-  for r in "$d"/*.report.md; do
-    [ -f "$r" ] || continue
-    awk -v f="$r" '
-      function close_box() { if (box && !ev) { printf "PLAN-TEXT: %s:%d: finding without Evidence: observed|test|contract\n", f, box; hit = 1 } box = 0 }
-      /^- \[[ x]\]/ { close_box(); box = NR; ev = 0; next }
-      box && /^  +Evidence: (observed|test|contract) / { ev = 1; next }
-      box && !/^  / { close_box() }
-      END { close_box(); exit hit }' "$r" || fail=1
-  done
-done < <(git ls-files "$P" | sed -n "s#^\($P/R[0-9][0-9][0-9]-[^/]*\)/.*#\1#p" | sort -u)
+report() { # file
+  awk -v f="$1" '
+    function close_box() { if (box && !ev) { printf "PLAN-TEXT: %s:%d: finding without Evidence: observed|test|contract\n", f, box; hit = 1 } box = 0 }
+    /^- \[[ x]\]/ { close_box(); box = NR; ev = 0; next }
+    box && /^  +Evidence: (observed|test|contract) / { ev = 1; next }
+    box && !/^  / { close_box() }
+    END { close_box(); exit hit }' "$1" || fail=1
+}
+
+backlog() { # file
+  awk -v f="$1" '
+    function over() { if (!told) printf "PLAN-TEXT: %s:%d: backlog line over 1 line\n", f, at; told = 1; hit = 1 }
+    /^- \[/ { task = 1; ctx = ""; ub = 0; next }
+    task && /^  / { next }
+    { task = 0 }
+    !/[^ \t]/ { ctx = ""; next }
+    /^(#|Why:)/ { ctx = /^Why:/ ? "why" : ""; ub = 0; next }
+    ctx == "why" { next }
+    (ctx == "line" && !/^[-*] /) || (ub && /^[ \t]/) { over(); ctx = "line"; next }
+    { at = NR; told = 0; ub = /^[-*] /; ctx = "line" }
+    END { exit hit }' "$1" || fail=1
+}
+
+while IFS=$'\t' read -r st f to; do
+  f=${to:-$f}
+  [ -f "$f" ] || continue
+  rel=${f#"$P"/}
+  case $rel in archive/*) continue ;; ROADMAP.md) scan "$f" "" roadmap; continue ;; esac
+  [[ $rel == *.findings.md ]] && { [[ $st == A ]] && echo "PLAN-TEXT: $f: findings file: use the task report" && fail=1; continue; }
+  [[ $rel =~ ^R-?([0-9]{3})-[^/]*/([^/]+)$ ]] || continue
+  id=R${BASH_REMATCH[1]}
+  case ${BASH_REMATCH[2]} in
+    requirements.md) scan "$f" "$id" req ;;
+    tasks.md) scan "$f" "$id" tasks; backlog "$f" ;;
+    *.report.md) report "$f" ;;
+    *.md) scan "$f" "$id" plan ;;
+  esac
+done < <({ git diff --name-status -M "$base" -- "$P"; git ls-files --others --exclude-standard -- "$P" | awk '{ print "A\t" $0 }'; } | sort -u)
 
 [ "$fail" -eq 0 ] && echo "check-plan-text: OK"
 exit "$fail"

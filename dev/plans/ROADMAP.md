@@ -22,8 +22,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       CI + pre-push self-enforcement.
 - [ ] R-007: Per-batch complexity level - `normal`/`high` dial over the
       verification levers (model tier, spec-check skip, close-folding,
-      effort, loop rigor); attaches to R-006's batch unit.
-      (stub - shape via `/dev plan R-007`)
+      effort, loop rigor) on the batch unit; a stub for `/dev plan R-007`.
 - [x] R-008: Wallarm reference skill - superseded: the Wallarm reference
       skills live in the `skills/` repo, not `~/.claude/skills/`.
 - [x] R-009: Adopter-project TBD migration - already-DEV pre-TBD
@@ -40,7 +39,7 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R-014: Per-initiative task indexes - each R-dir owns a
       lazily-created `tasks.md`; ROADMAP stays the cross-R index.
 - [x] R-015: Embeddable self-contained DEV toolchain - superseded by
-      R-021 (no vendoring).
+      the isolated DEV toolset (no vendoring).
 - [x] R-016: Lean DEV planning & delivery - two planning rounds,
       right-sized multi-commit tasks, size-scaled close review.
 - [x] R-017: migrating-to-dev legacy detection - inventory runs
@@ -49,14 +48,13 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R-018: Bootstrap exception defined narrowly - only the initial
       `main`-creating commit before protection; `start` protects after
       it; migration delivers via branch + MR/PR.
-- [x] R-019: Vendor embed onto a non-empty `.claude/` - mooted by R-021
-      (no vendoring).
+- [x] R-019: Vendor embed onto a non-empty `.claude/` - mooted by the
+      isolated DEV toolset (no vendoring).
 - [x] R-020: Consolidate branch-close into `branch-plan.md` - absorbed
-      by R-021 (`finish.md`) and R-024 (verify gate).
-- [x] R-021: Isolated, self-contained DEV toolset - the `/dev` router
-      over inert `skills/dev/` mode files; trunk discipline via the
-      branch-guard hook; distribution via skill precedence, no
-      vendoring.
+      by `finish.md` and its verify gate.
+- [x] R-021: Isolated, self-contained DEV toolset - the `/dev` router over
+      inert `skills/dev/` mode files; trunk discipline via the branch-guard
+      hook; distribution via skill precedence, no vendoring.
 - [x] R-022: Config conventions & guardrails - secrets gatekeeper hook,
       code-size gates, scaffold required-files, routine-commands
       convention.
@@ -66,13 +64,13 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R-024: DEV confirmation and outcome gates - plan approval never
       auto-starts code; `finish` verifies before merge options; precise
       branch guard.
-- [x] R-025: Explicit review checklist - superseded by R072-T001: the
-      dimensions are checklist lines in the `code-reviewer` rubric.
+- [x] R-025: Explicit review checklist - superseded: the dimensions are
+      checklist lines in the `code-reviewer` rubric.
 - [x] R-026: Writing conventions - em dashes banned in every tracked
       file (Tier-1 check + one-time sweep); prose style as Tier-2
       review criteria.
 - [x] R-027: Conflict-free Tier-2 ledger - per-commit stamp store
-      replaced the appended ledger; retired with the ledger by R-029.
+      replaced the appended ledger; retired with the ledger.
 - [x] R-028: Self-enforcement layer hygiene - `scripts/test/run-all.sh`
       wired into CI and pre-push, blocking.
 - [x] R-029: Retire the Tier-2 ledger - gate, store, and stamp step
@@ -85,8 +83,7 @@ Initiative index. Items: `R-001: description`; each entry owns
       markers, tested examples (`layout.md § Docs`).
 - [x] R-033: Documentation conventions (Diataxis) - global framework +
       independent-agent per-claim verification gate
-      (`companions/documentation.md`); supersedes R-023/R-030/R-031/
-      R-032.
+      (`companions/documentation.md`); supersedes the earlier docs layer.
 - [x] R-034: Branch-guard foreign-path scope - deny only paths inside
       the owning repo and not ignored; fail-open.
 - [x] R-035: Atomic branch-close bookkeeping - task/R marks ride the
@@ -100,240 +97,126 @@ Initiative index. Items: `R-001: description`; each entry owns
       JSON-emitting MR/PR state check per host.
 - [x] R-039: Single-home the /dev system - one owner per rule with
       pointers; twins single-sourced; execution files as cadence deltas.
-- [x] R-040: Supervisor-orchestrated autonomous DEV - one repo-less
-      supervisor agent over a declared portfolio drives one Claude
-      Code worker session per project beside itself, on the operator's
-      machine or on a worker host: dispatches planned work, verifies boundaries
-      with existing gates, merges green pre-approved work within
-      declared per-project bounds (batch-scoped delivery default,
-      host-label signature), escalates the rest; the user resolves
-      escalations at periodic syncs.
+- [x] R-040: Supervisor-orchestrated autonomous DEV - a repo-less
+      supervisor drives one worker session per project, merges green
+      pre-approved work within declared bounds, escalates the rest.
 - [x] R-042: Planning-round PoCs - dropped: will not implement.
-- [x] R-043: Ship the accretion check to adopters - the reference
-      `check-accretion.sh` + self-test, hardened with aikido's audit
-      findings, become a copyable adopter check (the R-026 em-dash
-      model) vendored by `install-dev.sh` and offered by `start`
-      scaffolding and the `migrate` reconcile proposal; marker list is
-      the only per-project tuning.
-- [x] R-041: Docs reconcile (this repo) - apply the docs lifecycle to
-      the repo that authored it: archive the closed initiatives out of
-      `plans/`, compact `ROADMAP.md` and open plan artifacts to state
-      the present, verify `check-plan-integrity` across the move, and
-      add the accretion check to the Tier-1 suite. Mirrors the
-      adopter-side reconcile pattern.
+- [x] R-043: Ship the accretion check to adopters - the hardened
+      `check-accretion.sh` + self-test, vendored by `install-dev.sh`,
+      offered by `start` and `migrate`; markers the only tuning.
+- [x] R-041: Docs reconcile (this repo) - archive the closed initiatives,
+      compact `ROADMAP.md` and open plans to state the present, verify
+      `check-plan-integrity` across the move, add the accretion check.
 - [x] R-045: DEV artifacts root - planning artifacts move out of the
-      guarded `.claude/` tree to a declared root (default `dev/`), so a
-      headless worker can write plans, findings, and batch reports;
-      config that instructs agents stays in `.claude/`. `migrate`
-      carries existing adopters over.
-- [x] R-046: DEV system-source hygiene - the toolset's own docs state
-      the conventions it runs on, and a doc-sync review concern owns the
-      staleness a change induces in files it does not touch; re-home the
-      `§ Agent toolchain` declaration syntax out of the push-mechanics
-      companion; add a dedicated `check-plan-integrity` script test.
-- [x] R-047: Branch-close routing - the final round over the recurring
-      close-time gaps: the close review dispatches on what the diff
-      contains rather than the task tag, the verification gate states
-      what clears it per prose class, `finish § 2` names a verify action
-      per diff content, and the push-scoping contradiction between
-      `toolchain.md` and `finish § 3` is resolved.
-- [x] R-044: Batch rollback-anchor identity - the `pre-B-XXX` rollback
-      tag carries its initiative (`pre-R042-B-001`), so per-initiative
-      batch ids stop colliding in git's flat tag namespace; a gate
-      catches an anchor that outlived its batch, enforcing locally and
-      skipping where tags are not visible.
-- [x] R-049: Vendored-gate hygiene - the quoted-filename sweep of the
-      sibling `git ls-files` checks (NUL-delimited enumeration) and a
-      copyable runner for the vendored gate set; promoted from
-      R-043's close reviews. Won't fix: machinery polish that fails
-      the R-053 proportionality test - no observed failure.
+      guarded `.claude/` tree to a declared root (default `dev/`) a
+      headless worker can write; `migrate` carries adopters over.
+- [x] R-046: DEV system-source hygiene - the toolset's docs state its
+      conventions, a doc-sync review concern owns induced staleness, the
+      `§ Agent toolchain` syntax is re-homed, `check-plan-integrity` tested.
+- [x] R-047: Branch-close routing - the close review dispatches on diff
+      content, the verify gate and `finish § 2` name what clears each
+      prose class, and the push-scoping contradiction is resolved.
+- [x] R-044: Batch rollback-anchor identity - the `pre-B-XXX` tag carries
+      its initiative, so batch ids stop colliding; a gate catches an
+      anchor that outlived its batch where tags are visible.
+- [x] R-049: Vendored-gate hygiene - NUL-delimited enumeration for the
+      sibling `git ls-files` checks and a copyable vendored-gate runner.
+      Won't fix: fails the proportionality test, no observed failure.
 - [x] R-048: Batch branch identity - `batch/B-XXX` refs carry the same
-      per-initiative collision the R-044 anchor rename fixed, and the
-      branch is pushed at accept; promoted from R044-T001's close
-      review.
-- [x] R-050: Context budget - bound the working window so a trivial tool
-      step stops re-billing it, make the session boundary the delivery
-      unit (task or branch in `code`, batch in `auto` and for a
-      supervised worker), and drop context-resident waste: shell
-      composites, doc reloads inside a unit, long-running subagents. A
-      tracked measurement tool makes the effect checkable. Sibling of
-      R-005, which took the verification half of the same goal.
-- [x] R-051: Verifier isolation - fixture git commands in
-      `scripts/test/` operate on the host repo whenever `GIT_DIR` is
-      absolute, because `git -C` does not override it. One run rewrote a
-      branch, planted five refs and set `core.bare` while the suite
-      reported ALL OK; `install-dev.sh` ships one of these tests, so
-      adopters carry the same trap.
-      `companions/verification-policy.md § Verifier isolation` already
-      requires the scrub that no test performs.
-
-- [x] R-052: Branch discipline and commit target resolution - the branch
-      guard fires in nearly every session from two unrelated causes: the
-      planning flow writes before it branches, and a commit into a
-      disposable fixture repo is attributed to the session repo because
-      the commit path still resolves from the cwd that R-036 removed from
-      the write path. Scope is the cheapest reliable fix for the two
-      misfires, bounded by R-053's proportionality rule: no new
-      subsystem, no state file. Supervise mode and worktrees stay as
-      they are - supervisor plus worker on a remote host is the target
-      model.
-- [x] R-053: Proportional engineering - a planning rule, not a gate:
-      one observed failure earns one fix and one test; deeper proofs
-      are reserved for the guards that protect real work; hardening
-      against a hazard that has never fired needs explicit approval.
-      The existing test suite is trimmed to the same standard.
-- [x] R-054: Prune the local permission allowlist -
-      `.claude/settings.local.json` is cut to durable tool classes:
-      one-shot session literals and arbitrary-execution wildcards go,
-      the batch-push deny carve-out and model override stay, nothing
-      ships to police regrowth.
-- [x] R-055: Archive an initiative when it closes - the archive move's
-      only vehicle is the closure's plan MR/PR, which the usual
-      closure path (closure riding the last task's final commit)
-      never opens; `finish.md § 4` opens it whenever the merge closed
-      the initiative, and the unarchived backlog (R-049, R-054) is
-      swept to `plans/archive/`.
-- [x] R-056: Settings tiering and session defaults - durable
-      repo-scoped permission rules (the default-branch/force-push deny
-      carve-out, the batch-push allow, the durable tool allows, the
-      model override) move from the gitignored `settings.local.json`
-      to a tracked `.claude/settings.json` so a fresh clone keeps
-      them; the local file is dropped, one-shot approvals with it; the
-      tracked user-global `settings.json` switches `defaultMode` to
-      `acceptEdits`.
-- [x] R-057: Cap the close review - the routed close review becomes
-      the repo's `code-reviewer` agent (one reviewer, a second
-      verifier only on a Critical finding) in place of the built-in
-      `/code-review`, which turns manual-only: the flow may suggest
-      it, never run it; subagents never invoke it or spawn further
-      subagents; a low-priority targeted reviewer set (security,
-      maintainability/style, performance) is defined for later
-      routing.
-- [x] R-058: Guard hardening - the guards the `acceptEdits` default
-      leans on have verified gaps. Push: the deny rules are prefix
-      matches, so equivalent spellings (`push origin HEAD:main`,
-      `+main`, `-f`, trailing `--force`) fall through to the global
-      `Bash(git:*)` allow, and server-side protection backstops `main`
-      only. Secrets: the guard is a fixed regex heuristic and the
-      interactive edit prompt that backstopped it is gone; no Tier-1
-      check scans for secrets. Branch guard: `is_trunk()` recognizes
-      only `main`/`master`, and targets with no owning repo are
-      allowed unconditionally. Settings semantics cannot express
-      these; likely hook-level rules plus a Tier-1 secrets scan.
-- [x] R-059: Relax the commit-message rule - git is the right home for
-      change history, and the single-line rule pushes it into findings
-      and plan files instead. `git-workflow.md § Commit messages`
-      keeps the subject constraints (imperative, ~50 chars, no joined
-      clauses, no trailers) and allows an optional compact body for
-      the what/why the subject cannot carry; texts that key off the
-      single-line rule (branch plans, templates) reconcile with it.
-- [x] R-060: Milestone execution plans - a milestone spanning several
-      initiatives may carry `plans/milestone-<id>.md`, the second
-      root-level cross-initiative plan beside the release plan,
-      authored by `/dev plan milestone <id>`. It records order, never
-      scope: the boundary stays in the project's `ROADMAP.md`, every
-      entry is an existing task id, a gap it names gets a task, and
-      the tasks' `depends-on` edges stay authoritative, so a
-      contradicting order is a defect in the milestone file. Closes the
-      gap that leaves a cross-initiative sequence derivable but never
-      citable.
-- [x] R-061: Unified plan ids - one shape for every plan id created
-      from now on: `R<NNN>`, `R<NNN>-T<NNN>`, `R<NNN>-B<NNN>`, a single
-      hyphen joining components and none inside one. Existing ids,
-      directories and refs are legacy: frozen, valid, never renamed.
-      The two id-parsing gates accept both shapes; the rule's one home
-      is `plan.md § ID format`.
-- [x] R062: Headroom in plan.md - superseded by R066, whose citation
-      of the layout tree from `plan.md` freed the room.
+      per-initiative collision the anchor rename fixed, and the branch
+      is pushed at accept.
+- [x] R-050: Context budget - bound the working window, make the session
+      the delivery unit (task or branch in `code`, batch in `auto`), drop
+      context-resident waste; a tracked tool measures the effect.
+- [x] R-051: Verifier isolation - `scripts/test/` fixture git commands
+      hit the host repo when `GIT_DIR` is absolute (`git -C` does not
+      override it); the tests, `install-dev.sh`'s shipped one too, scrub it.
+- [x] R-052: Branch discipline and commit target resolution - the
+      cheapest fix for two branch-guard misfires: planning writes before
+      it branches, and a commit's repo resolves from the session cwd.
+- [x] R-053: Proportional engineering - a planning rule, not a gate: one
+      observed failure earns one fix and one test; an unfired hazard needs
+      explicit approval; the test suite is trimmed to the same standard.
+- [x] R-054: Prune the local permission allowlist - durable tool classes,
+      the batch-push deny carve-out and model override stay; one-shot
+      literals and arbitrary-execution wildcards go; no regrowth check.
+- [x] R-055: Archive an initiative when it closes - `finish.md § 4` opens
+      the closure's plan MR/PR whenever the merge closed the initiative;
+      the unarchived backlog is swept to `plans/archive/`.
+- [x] R-056: Settings tiering and session defaults - durable repo-scoped
+      permission rules move from the dropped `settings.local.json` to a
+      tracked `.claude/settings.json`; `defaultMode` becomes `acceptEdits`.
+- [x] R-057: Cap the close review - the `code-reviewer` agent (a second
+      verifier only on a Critical) replaces `/code-review`, now manual-only;
+      no subagent runs it or spawns more; a targeted reviewer set is defined.
+- [x] R-058: Guard hardening - close the verified gaps the `acceptEdits`
+      default leans on: prefix-match push denies, a regex-only secrets
+      guard with no Tier-1 scan, a branch guard knowing only main/master.
+- [x] R-059: Relax the commit-message rule - `git-workflow.md § Commit
+      messages` keeps the subject constraints and allows a compact body,
+      so change history lives in git, not in findings or plan files.
+- [x] R-060: Milestone execution plans - `plans/milestone-<id>.md`, by
+      `/dev plan milestone <id>`, records a cross-initiative order over
+      existing task ids; scope stays in `ROADMAP.md`, `depends-on` wins.
+- [x] R-061: Unified plan ids - `R<NNN>`, `R<NNN>-T<NNN>`, `R<NNN>-B<NNN>`
+      for every new id; existing ids are legacy, frozen and valid; both
+      shapes parse; the rule's home is `plan.md § ID format`.
+- [x] R062: Headroom in plan.md - superseded: citing the layout tree
+      from `plan.md` freed the room.
 - [x] R063: Tier-2 review text and guard fail-closed - runnable review
       clauses citing their owners; hook guards that run from any
       directory and fail closed.
 - [x] R064: Fixed dev/ home - `dev/` is the one home of DEV artifacts
       in every project, this repository included; the configurable
       artifacts root and its resolver are removed.
-- [x] R065: Trim the session-loaded prose - the DEV-only sections of
-      `writing.md` become a path-scoped, shipped rule, and
-      `delegation.md` and `rules/git-workflow.md` fold into one line
-      each in `CLAUDE.md`, so a session loads only universal prose.
-- [x] R066: Slim the DEV skill - the visual companion and the runbook's
-      pilot measurements leave `skills/dev/`, every rule keeps one home,
-      stale text and rationale go; per-command read cost drops and
-      `plan.md` regains headroom (supersedes R062).
-- [x] R067: Shipped toolset portability - the self-tests
-      `install-dev.sh` ships as tracked files carry nothing a git host
-      may reject; the accretion self-test's Cyrillic fixture name,
-      which blocked one adopter's push outright, becomes a non-ASCII
-      name outside the Cyrillic block.
-- [x] R068: Docs as snapshot - the documentation framework rules docs
-      as snapshots of current state: no chronology or planning ids, a
-      closed link scope (sibling docs or external URLs), report and
-      adapted-reference doc types inside the docs tree, and findings
-      that end archived, promoted, transformed to reports, or spawned
-      as tasks - never linked from docs.
-- [x] R069: Supervised-run hardening - the R040-T026 run's lessons
-      land as rules in supervise.md and the supervisor runbook:
-      prompt-clearing ownership with a stall window, a flat-activity
-      alarm, write-time ledger timestamps, the pipelines-endpoint
-      merge-evidence fallback, a pre-finish context re-brief, the
-      channel-traps list, and a gating pre-flight.
-- [x] R070: Archival gate - closure and archival become one delivery:
-      the closing branch's final commit carries the archive move, a
-      Tier-1 check fails any closed initiative left outside archive/,
-      and archival: deferred with a reason is the one visible
-      exemption.
+- [x] R065: Trim the session-loaded prose - a session loads only universal
+      prose: `writing.md`'s DEV-only sections become a shipped path-scoped
+      rule; `delegation.md`, `rules/git-workflow.md` fold into `CLAUDE.md`.
+- [x] R066: Slim the DEV skill - the visual companion and pilot
+      measurements leave `skills/dev/`, every rule keeps one home, stale
+      text goes; per-command read cost drops, `plan.md` regains headroom.
+- [x] R067: Shipped toolset portability - the self-tests `install-dev.sh`
+      ships carry nothing a git host may reject; the accretion fixture's
+      Cyrillic name, which blocked an adopter's push, leaves that block.
+- [x] R068: Docs as snapshot - docs state current state: no chronology or
+      planning ids, links only to sibling docs or external URLs, report
+      and adapted-reference types, findings never linked from docs.
+- [x] R069: Supervised-run hardening - a supervised run's lessons land in
+      supervise.md and the supervisor runbook: prompt-clearing ownership,
+      activity alarms, merge-evidence fallback, a pre-finish re-brief.
+- [x] R070: Archival gate - the closing branch's final commit carries the
+      archive move; a Tier-1 check fails a closed initiative outside
+      archive/, `archival: deferred` with a reason the one exemption.
 - [ ] R071: Install-shipped archival gate - install-dev.sh copies
-      check-archival.sh and its run-all registration so adopter
-      projects get the same archival enforcement, asserted by
-      install-dev.test.sh.
+      check-archival.sh and its run-all registration to adopters,
+      asserted by install-dev.test.sh.
 - [x] R072: Slim the per-task workflow - size-scaled close review,
       two-seat supervision (operator merges into the supervisor),
-      proportional tests; supersedes R-057's remainder and R-025.
-- [ ] R073: Planning moves to Jira - epics/tickets replace the repo's
-      planning layer, the worker sees only its ticket and reports in
-      comments, one ticket one branch, `dev/` and its CI checks
-      retire; depends on R080, drops R071 as moot. Frozen.
-- [x] R074: Session-state hand-off enforcement - compacted sessions
-      leave the `dev/session/` hand-off half unwritten, so intent is
-      lost to the summary: a context-fill warning line in
-      `dev-branch-state.sh` (threshold below the auto-compact point,
-      fill computed from the transcript's usage records, reads fail
-      open), a `Stop`-hook nudge covering autonomous turns, the
-      PreCompact tree block unchanged as the floor.
-- [x] R075: Installer delivery guard - a plain `--project` install
-      writes uncommitted toolset state onto the target's checked-out
-      branch: the installer refuses a dirty tree or a default-branch
-      HEAD before writing, naming the remedy (`--force` overrides);
-      commits, branching, and MR/PR stay with the operator.
-- [ ] R076: Global-config write fence - a child-project session can
-      edit `~/.claude` tracked content whenever this repo sits on a
-      branch (`dev-branch-guard` only covers its trunk), so an adopter
-      session drafting a rules change can write it upstream unasked: a
-      guard denies writes into `~/.claude` from any session whose
-      project root is elsewhere, the denial routing the proposal to a
-      report file in the writer's own repo for upstream triage.
-- [x] R077: Ship the maintenance routine - MAINTENANCE.md says each
-      project's `.claude/MAINTENANCE.md` carries the generic Routine,
-      but the installer ships none of it (aikido lacked the
-      `dev/session/` sweep until added by hand, its MR !219): the
-      installer delivers the generic targets table for the project doc
-      to carry, and the claim is reworded to match the mechanism.
-- [x] R078: Hand-off continuity - the R074 nudge makes the hand-off
-      get written, but reading it after compaction stays advisory (a
-      path pointer the resumed model may skip) and the five keys drop
-      mid-task facts, so post-compaction outcomes can contradict
-      mid-session agreements: a `notes` key for facts no artifact
-      owns, and a `SessionStart` hook injecting the last hand-off
-      block into the resumed context.
-- [x] R079: Undated stamps - the agentic/supervised stamp date
-      duplicates the approving commit and nothing reads it; the
-      stamps go dateless, plan.md's self-contradiction on approval
-      dates resolves, the one live dated stamp migrates.
-- [ ] R080: Work by seats - one runner for planned work under a
-      declared supervisor, the session never implementing itself; a
-      planner seat exiting through a mandatory cold read, a doc-writer
-      seat, a fixed input set per seat, one duties table per mode,
-      permissions settled pre-flight, docs at a single top-level
-      `docs/`; builds on R072-T002. Frozen.
+      proportional tests; supersedes the earlier close-review work.
+- [ ] R073: Planning moves to Jira - tickets replace the repo's planning
+      layer, one ticket one branch, reports in comments; `dev/` and its CI
+      retire; follows the seats work, moots the archival install. Frozen.
+- [x] R074: Session-state hand-off enforcement - compaction lost intent
+      to the summary: a context-fill warning in `dev-branch-state.sh`, a
+      `Stop`-hook nudge for autonomous turns, the PreCompact block the floor.
+- [x] R075: Installer delivery guard - a `--project` install refuses a
+      dirty tree or a default-branch HEAD, naming the remedy (`--force`
+      overrides); commits, branching, and MR/PR stay with the operator.
+- [ ] R076: Global-config write fence - a guard denies writes into
+      `~/.claude` from a session whose project root is elsewhere, routing
+      the proposal to a report file in the writer's repo for triage.
+- [x] R077: Ship the maintenance routine - the installer delivers the
+      generic `MAINTENANCE.md` targets table for each project doc to
+      carry, and the claim that projects carry the Routine matches it.
+- [x] R078: Hand-off continuity - reading the hand-off after compaction
+      stops being advisory: a `notes` key for facts no artifact owns, and
+      a `SessionStart` hook injecting the last hand-off block on resume.
+- [x] R079: Undated stamps - the agentic/supervised stamps go dateless,
+      plan.md's contradiction on approval dates resolves, the one live
+      dated stamp migrates.
+- [ ] R080: Work by seats - a non-implementing runner drives planned work
+      under a declared supervisor; planner (cold-read exit) and doc-writer
+      seats, per-seat inputs, a duties table per mode, one `docs/`. Frozen.
 - [x] R081: Lean planning - the DEV chain stays, its cost drops:
       agents do only what was asked, short stable plan artifacts, plan
       modes, task reports, bounded loops, no code comments by default.

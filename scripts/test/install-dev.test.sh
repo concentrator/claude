@@ -109,13 +109,11 @@ for t in check-accretion check-batch-tags; do
 done
 rm -rf "$VH"
 
-# --- tuned MARKERS and FROM lines survive re-install ---
-for kv in "check-accretion.sh MARKERS 'justonemarker'" "check-plan-text.sh FROM 'R777'"; do
-  set -- $kv; T=$(mktemp); sed "s/^$2=.*/$2=$3/" "$P/.claude/scripts/ci/$1" > "$T" && mv "$T" "$P/.claude/scripts/ci/$1"
-done
+# --- tuned MARKERS line survives re-install; the plan-text gate lands as shipped ---
+T=$(mktemp); sed "s/^MARKERS=.*/MARKERS='justonemarker'/" "$P/.claude/scripts/ci/check-accretion.sh" > "$T" && mv "$T" "$P/.claude/scripts/ci/check-accretion.sh"
 bash "$INSTALL" --project "$P" >/dev/null 2>&1
 grep -q "^MARKERS='justonemarker'" "$P/.claude/scripts/ci/check-accretion.sh" && pass "tuned MARKERS survives re-install" || die "re-install clobbered MARKERS"
-grep -q "^FROM='R777'" "$P/.claude/scripts/ci/check-plan-text.sh" && pass "tuned FROM survives re-install" || die "re-install clobbered FROM"
+cmp -s "$PWD/scripts/ci/check-plan-text.sh" "$P/.claude/scripts/ci/check-plan-text.sh" && pass "plan-text gate installed as shipped" || die "installed plan-text gate differs from the shipped one"
 [ -f "$P/.claude/writing.md" ]                     && pass "writing.md copied" || die "no writing.md"
 [ -f "$P/.claude/rules/writing-artifacts.md" ] && pass "writing-artifacts rule copied" || die "no writing-artifacts rule"
 grep -qxF '@writing.md' "$P/.claude/CLAUDE.md" 2>/dev/null && pass "writing.md imported in CLAUDE.md" || die "writing.md not imported"
