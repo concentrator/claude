@@ -35,8 +35,22 @@ stats-cache.json
 # Plugins (marketplace-managed)
 plugins/
 
-# Project-specific skills, symlinked from external repos (versioned there)
-skills/wallarm-*
+# Skills: only the toolset's own are tracked; synced and symlinked ones are machine-local
+/skills/*
+!/skills/dev/
+!/skills/test-driven-development/
+!/skills/systematic-debugging/
+!/skills/verification-before-completion/
+!/skills/receiving-code-review/
+!/skills/dispatching-parallel-agents/
+!/skills/skill-creator/
+!/skills/writing-skills/
+!/skills/worker-host/
+
+# Machine-local harness output
+/wallarm-knowledge
+/feedback/
+policy-limits.json.stamp.json
 
 # DEV runtime state - hooks/dev-precompact-state.sh, skills/dev/handoff.md,
 # skills/dev/supervise.md § Ledger
