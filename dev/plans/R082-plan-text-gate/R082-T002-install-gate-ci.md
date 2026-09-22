@@ -30,7 +30,7 @@ delivers, and both tasks edit `scripts/install-dev.sh`.
   `CLAUDE.md` alone.
   Approach: `scripts/test/install-dev.test.sh` cases for re-install, absent
   line plus its notice, global install.
-- [ ] A `--project` install into a git repo prints one line saying the
+- [x] A `--project` install into a git repo prints one line saying the
   project's CI must run the fast tier; it edits no project CI config.
   Approach: the closing echo of `scripts/install-dev.sh`; assert the line
   in the item-1 cases.

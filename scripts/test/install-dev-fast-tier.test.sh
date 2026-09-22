@@ -10,17 +10,19 @@ die()  { echo "not ok - $1"; fail=1; }
 
 F=$(mktemp -d); git -C "$F" init -q; git -C "$F" checkout -qb work
 printf '## Agent toolchain\n\n- Test (fast): `make lint`\n- Test (full): `make test`\n' > "$F/CLAUDE.md"
-bash "$INSTALL" --project "$F" >/dev/null 2>&1 || die "install (fast-tier fixture) exits nonzero"
+out=$(bash "$INSTALL" --project "$F" 2>&1) || die "install (fast-tier fixture) exits nonzero"
 grep -qxF -- '- Test (fast): `make lint`, then `bash .claude/scripts/ci/check-plan-text.sh`' "$F/CLAUDE.md" \
   && pass "gate appended to the Test (fast) line" || die "Test (fast) line: $(grep -F 'Test (fast)' "$F/CLAUDE.md")"
 grep -qxF -- '- Test (full): `make test`' "$F/CLAUDE.md" && pass "Test (full) line untouched" || die "Test (full) line rewritten"
+[ "$(grep -c 'CI must run the fast tier' <<<"$out")" = 1 ] && pass "project install prints the CI notice" || die "CI notice: $out"
 rm -rf "$F"
 
 T=$(mktemp -d); git -C "$T" init -q; git -C "$T" checkout -qb work
 printf '## Agent toolchain\n\n- Test: `npm test`\n' > "$T/CLAUDE.md"
-bash "$INSTALL" --project "$T" --minimal >/dev/null 2>&1 || die "install (Test fixture, minimal) exits nonzero"
+out=$(bash "$INSTALL" --project "$T" --minimal 2>&1) || die "install (Test fixture, minimal) exits nonzero"
 grep -qxF -- '- Test: `npm test`, then `bash .claude/scripts/ci/check-plan-text.sh`' "$T/CLAUDE.md" \
   && pass "minimal install appends the gate to the Test line" || die "Test line: $(grep -F 'Test:' "$T/CLAUDE.md")"
+[ "$(grep -c 'CI must run the fast tier' <<<"$out")" = 1 ] && pass "minimal install prints the CI notice" || die "minimal CI notice: $out"
 rm -rf "$T"
 
 RI=$(mktemp -d); git -C "$RI" init -q; git -C "$RI" checkout -qb work
