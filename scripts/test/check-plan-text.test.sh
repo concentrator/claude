@@ -87,9 +87,10 @@ out=$(run_in "$d") && pass "finding with evidence passes" || die "finding with e
 rm -rf "$d"
 
 expect "added findings file caught" "$OWN-x/$OWN-T001-x.findings.md" "- a note" "PLAN-TEXT: dev/plans/$OWN-x/$OWN-T001-x.findings.md: findings file: use the task report"
-with_findings() { # repo: main gains a findings file the branch then merges
+item() { printf -- '- [ ] an item\n'; for i in $(seq 2 "$1"); do printf '  line %s\n' "$i"; done; }
+with_findings() { # repo: main gains a findings file with a 7-line item, the branch then merges
   git -C "$1" checkout -q main
-  printf -- '- an old finding\n' > "$1/dev/plans/R090-old/R090-T001-old.findings.md"
+  item 7 > "$1/dev/plans/R090-old/R090-T001-old.findings.md"
   commit_in "$1" findings
   git -C "$1" checkout -q feat
   git -C "$1" -c user.email=t@t -c user.name=t merge -q --no-edit main
@@ -103,7 +104,6 @@ git -C "$d" mv dev/plans/R090-old/R090-T001-old.findings.md dev/plans/R090-old/R
 out=$(run_in "$d") && pass "renamed findings file passes" || die "renamed findings file failed: $out"
 rm -rf "$d"
 
-item() { printf -- '- [ ] an item\n'; for i in $(seq 2 "$1"); do printf '  line %s\n' "$i"; done; }
 d=$(mkrepo)
 item 6 > "$d/dev/plans/$OWN-x/$OWN-T001-x.md"
 out=$(run_in "$d") && pass "6-line plan item passes" || die "6-line plan item failed: $out"

@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
-# Tier-1 plan-text gate: ROADMAP entries, requirements.md and tasks.md stay
-# short and stable (skills/dev/templates.md). Fails on URLs and markdown
-# links, ISO dates, #NNN refs, commit hashes, ids of another initiative,
-# and size: requirements.md over 40 lines, a task or roadmap entry over 3,
-# a tasks.md backlog line over 1, a branch plan checkbox item over 6.
-# A task report's checkbox needs an Evidence: line (observed|test|contract);
-# an added *.findings.md fails, findings go to the task report.
-# Only the plan files a branch changes against its merge-base with the
-# default branch are checked, working tree included, archive excluded.
+# Tier-1 plan-text gate on the plan files a branch changes, archive excluded:
+# ROADMAP entries, requirements.md, tasks.md and branch plans stay short and
+# stable (skills/dev/templates.md). Fails on links, ISO dates, #NNN refs,
+# commit hashes, ids of another initiative, oversize entries, a task report
+# checkbox without an Evidence: line, and an added *.findings.md.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
@@ -96,7 +92,7 @@ while IFS=$'\t' read -r st f to; do
   [ -f "$f" ] || continue
   rel=${f#"$P"/}
   case $rel in archive/*) continue ;; ROADMAP.md) scan "$f" "" roadmap; continue ;; esac
-  [[ $st == A && $rel == *.findings.md ]] && { echo "PLAN-TEXT: $f: findings file: use the task report"; fail=1; continue; }
+  [[ $rel == *.findings.md ]] && { [[ $st == A ]] && echo "PLAN-TEXT: $f: findings file: use the task report" && fail=1; continue; }
   [[ $rel =~ ^R-?([0-9]{3})-[^/]*/([^/]+)$ ]] || continue
   id=R${BASH_REMATCH[1]}
   case ${BASH_REMATCH[2]} in

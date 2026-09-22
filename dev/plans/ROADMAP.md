@@ -137,18 +137,18 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R-053: Proportional engineering - a planning rule, not a gate: one
       observed failure earns one fix and one test; an unfired hazard needs
       explicit approval; the test suite is trimmed to the same standard.
-- [x] R-054: Prune the local permission allowlist - `settings.local.json`
-      keeps durable tool classes, the batch-push deny carve-out and model
-      override; one-shot literals and wildcards go, no regrowth check.
+- [x] R-054: Prune the local permission allowlist - durable tool classes,
+      the batch-push deny carve-out and model override stay; one-shot
+      literals and arbitrary-execution wildcards go; no regrowth check.
 - [x] R-055: Archive an initiative when it closes - `finish.md § 4` opens
       the closure's plan MR/PR whenever the merge closed the initiative;
       the unarchived backlog is swept to `plans/archive/`.
 - [x] R-056: Settings tiering and session defaults - durable repo-scoped
       permission rules move from the dropped `settings.local.json` to a
       tracked `.claude/settings.json`; `defaultMode` becomes `acceptEdits`.
-- [x] R-057: Cap the close review - the repo's `code-reviewer` agent (a
-      second verifier only on a Critical) replaces the built-in
-      `/code-review`, now manual-only; a targeted reviewer set is defined.
+- [x] R-057: Cap the close review - the `code-reviewer` agent (a second
+      verifier only on a Critical) replaces `/code-review`, now manual-only;
+      no subagent runs it or spawns more; a targeted reviewer set is defined.
 - [x] R-058: Guard hardening - close the verified gaps the `acceptEdits`
       default leans on: prefix-match push denies, a regex-only secrets
       guard with no Tier-1 scan, a branch guard knowing only main/master.
@@ -214,9 +214,9 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R079: Undated stamps - the agentic/supervised stamps go dateless,
       plan.md's contradiction on approval dates resolves, the one live
       dated stamp migrates.
-- [ ] R080: Work by seats - a runner that never implements drives planned
-      work under a declared supervisor: planner and doc-writer seats, fixed
-      inputs per seat, one duties table per mode, one `docs/`. Frozen.
+- [ ] R080: Work by seats - a non-implementing runner drives planned work
+      under a declared supervisor; planner (cold-read exit) and doc-writer
+      seats, per-seat inputs, a duties table per mode, one `docs/`. Frozen.
 - [x] R081: Lean planning - the DEV chain stays, its cost drops:
       agents do only what was asked, short stable plan artifacts, plan
       modes, task reports, bounded loops, no code comments by default.
