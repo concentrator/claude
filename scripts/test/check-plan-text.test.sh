@@ -86,6 +86,23 @@ printf -- '- [ ] 400 on empty body\n  Evidence: observed curl response in the pr
 out=$(run_in "$d") && pass "finding with evidence passes" || die "finding with evidence failed: $out"
 rm -rf "$d"
 
+expect "added findings file caught" "$OWN-x/$OWN-T001-x.findings.md" "- a note" "PLAN-TEXT: dev/plans/$OWN-x/$OWN-T001-x.findings.md: findings file: use the task report"
+with_findings() { # repo: main gains a findings file the branch then merges
+  git -C "$1" checkout -q main
+  printf -- '- an old finding\n' > "$1/dev/plans/R090-old/R090-T001-old.findings.md"
+  commit_in "$1" findings
+  git -C "$1" checkout -q feat
+  git -C "$1" -c user.email=t@t -c user.name=t merge -q --no-edit main
+}
+d=$(mkrepo); with_findings "$d"
+printf -- '- another finding\n' >> "$d/dev/plans/R090-old/R090-T001-old.findings.md"
+out=$(run_in "$d") && pass "existing findings file passes" || die "existing findings file failed: $out"
+rm -rf "$d"
+d=$(mkrepo); with_findings "$d"
+git -C "$d" mv dev/plans/R090-old/R090-T001-old.findings.md dev/plans/R090-old/R090-T001-kept.findings.md
+out=$(run_in "$d") && pass "renamed findings file passes" || die "renamed findings file failed: $out"
+rm -rf "$d"
+
 d=$(mkrepo)
 for i in $(seq 1 40); do echo "line $i"; done >> "$d/dev/plans/$OWN-x/requirements.md"
 out=$(run_in "$d"); case "$out" in *"over 40 lines"*) pass "long requirements caught" ;; *) die "long requirements: $out" ;; esac

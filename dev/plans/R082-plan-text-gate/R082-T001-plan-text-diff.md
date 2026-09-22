@@ -23,7 +23,7 @@ mode: normal
   1 line`.
   Approach: the `tasks` mode of `scan`; test a wrapped paragraph, a wrapped
   bullet, and one-line bullets that pass.
-- [ ] A branch that adds a `*.findings.md` under `<plans>` fails `findings
+- [x] A branch that adds a `*.findings.md` under `<plans>` fails `findings
   file: use the task report`; an existing or renamed one passes.
   Approach: the added status of the item-1 diff with rename detection; a
   test case each.

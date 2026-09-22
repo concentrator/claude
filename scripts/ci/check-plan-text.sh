@@ -4,7 +4,8 @@
 # links, ISO dates, #NNN refs, commit hashes, ids of another initiative,
 # and size: requirements.md over 40 lines, a task or roadmap entry over 3,
 # a tasks.md backlog line over 1.
-# A task report's checkbox needs an Evidence: line (observed|test|contract).
+# A task report's checkbox needs an Evidence: line (observed|test|contract);
+# an added *.findings.md fails, findings go to the task report.
 # Only the plan files a branch changes against its merge-base with the
 # default branch are checked, working tree included, archive excluded.
 set -uo pipefail
@@ -88,10 +89,12 @@ backlog() { # file
     END { exit hit }' "$1" || fail=1
 }
 
-while IFS= read -r f; do
+while IFS=$'\t' read -r st f to; do
+  f=${to:-$f}
   [ -f "$f" ] || continue
   rel=${f#"$P"/}
   case $rel in archive/*) continue ;; ROADMAP.md) scan "$f" "" roadmap; continue ;; esac
+  [[ $st == A && $rel == *.findings.md ]] && { echo "PLAN-TEXT: $f: findings file: use the task report"; fail=1; continue; }
   [[ $rel =~ ^R-?([0-9]{3})-[^/]*/([^/]+)$ ]] || continue
   id=R${BASH_REMATCH[1]}
   case ${BASH_REMATCH[2]} in
@@ -99,7 +102,7 @@ while IFS= read -r f; do
     tasks.md) scan "$f" "$id" tasks; backlog "$f" ;;
     *.report.md) report "$f" ;;
   esac
-done < <({ git diff --name-only "$base" -- "$P"; git ls-files --others --exclude-standard -- "$P"; } | sort -u)
+done < <({ git diff --name-status -M "$base" -- "$P"; git ls-files --others --exclude-standard -- "$P" | awk '{ print "A\t" $0 }'; } | sort -u)
 
 [ "$fail" -eq 0 ] && echo "check-plan-text: OK"
 exit "$fail"
