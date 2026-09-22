@@ -32,7 +32,7 @@ mode: normal
   fails `item over 6 lines`; `skills/dev/branch-plan.md § Body` states it.
   Approach: a `plan` mode in `scan`; test 6- and 7-line items. `scan` is
   45 lines against the 50-line cap of `scripts/ci/check-code-size.sh`.
-- [ ] `<plans>/ROADMAP.md` passes the gate, so the next branch adding or
+- [x] `<plans>/ROADMAP.md` passes the gate, so the next branch adding or
   closing an entry is not failed by legacy text: every entry at most 3
   lines, naming no other initiative's id, its meaning kept.
   Approach: run the gate with the file changed and trim each entry it
