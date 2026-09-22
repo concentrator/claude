@@ -24,7 +24,7 @@ delivers, and both tasks edit `scripts/install-dev.sh`.
   else to its `Test:` line.
   Approach: a step beside step 7 of `scripts/install-dev.sh`, reading
   `CLAUDE.md` as step 7 reads `Session:`; test both lines, and `--minimal`.
-- [ ] A line already naming `check-plan-text.sh` stays as it is. With no
+- [x] A line already naming `check-plan-text.sh` stays as it is. With no
   such line or no `CLAUDE.md`, the install writes nothing and prints one
   line naming the line to add. A global or non-git install leaves every
   `CLAUDE.md` alone.
