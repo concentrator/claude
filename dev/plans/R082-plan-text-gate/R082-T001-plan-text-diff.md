@@ -6,7 +6,7 @@ mode: normal
 
 # R082-T001: gate the plan files a branch changes
 
-- [ ] `scripts/ci/check-plan-text.sh` checks only the `<plans>` files a
+- [x] `scripts/ci/check-plan-text.sh` checks only the `<plans>` files a
   branch changes against its merge-base with the default branch, working
   tree included, `<plans>/archive/` excluded; `FROM` goes; `R<NNN>-` and
   `R-NNN-` dirs both match; no default branch prints a named SKIP.

@@ -6,43 +6,75 @@ set -uo pipefail
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 CHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")/../ci" && pwd)/check-plan-text.sh"
 [ -f "$CHECK" ] || { echo "not ok - $CHECK not found"; exit 1; }
-OWN=$(sed -n "s/^FROM='\\(R[0-9]*\\)'.*/\\1/p" "$CHECK")
-[ -n "$OWN" ] || { echo "not ok - no FROM line in $CHECK"; exit 1; }
+OWN=R100
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
+commit_in() { git -C "$1" add -A; git -C "$1" -c user.email=t@t -c user.name=t commit -qm "$2"; }
 
-mkrepo() {
-  local d; d=$(mktemp -d); git -C "$d" init -q
-  mkdir -p "$d/dev/plans/$OWN-x" "$d/dev/plans/R000-old"
+mkrepo() { # main holds a roadmap and a legacy initiative; the branch adds $OWN-x
+  local d; d=$(mktemp -d); git -C "$d" init -q -b "${1:-main}"
+  mkdir -p "$d/dev/plans/R090-old"
   printf '# Roadmap\n\n- [ ] %s: Title - what it delivers.\n' "$OWN" > "$d/dev/plans/ROADMAP.md"
+  printf 'See https://example.com on 2026-01-01, #12, R001.\n' > "$d/dev/plans/R090-old/requirements.md"
+  commit_in "$d" init
+  git -C "$d" checkout -q -b feat
+  mkdir -p "$d/dev/plans/$OWN-x"
   printf '# %s: Title\n\n## Goal\n\nA goal.\n' "$OWN" > "$d/dev/plans/$OWN-x/requirements.md"
   printf '# %s tasks\n\n- [ ] **%s-T001 [mnt]**: do a thing.\n' "$OWN" "$OWN" > "$d/dev/plans/$OWN-x/tasks.md"
-  printf 'See https://example.com on 2026-01-01, #12, R000.\n' > "$d/dev/plans/R000-old/requirements.md"
   printf '%s' "$d"
 }
 run_in() { ( cd "$1" && git add -A && bash "$CHECK" 2>&1 ); }
 
 d=$(mkrepo)
-out=$(run_in "$d") && pass "clean artifacts pass, legacy initiative skipped" || die "clean failed: $out"
+out=$(run_in "$d") && pass "clean changes pass, unchanged legacy text skipped" || die "clean failed: $out"
 rm -rf "$d"
 
-expect() { # description, file under $OWN-x, content, expected reason
+expect() { # description, file under dev/plans, content, expected reason
   local d out; d=$(mkrepo)
-  printf '%s\n' "$3" >> "$d/dev/plans/$OWN-x/$2"
+  mkdir -p "$(dirname "$d/dev/plans/$2")"
+  printf '%s\n' "$3" >> "$d/dev/plans/$2"
   out=$(run_in "$d")
   case "$out" in *"$4"*) pass "$1" ;; *) die "$1: $out" ;; esac
   rm -rf "$d"
 }
-expect "URL caught"            requirements.md "Spec: https://example.com" "link"
-expect "markdown link caught"  tasks.md        "See [doc](docs/x.md)"      "link"
-expect "date caught"           tasks.md        "Probed 2026-09-17."        "date"
-expect "PR ref caught"         requirements.md "Shipped in #545."          "#NNN ref"
-expect "commit hash caught"    tasks.md        "Fixed by b0182f8."         "commit hash"
-expect "foreign id caught"     tasks.md        "Builds on R000-T002."       "id of another initiative: R000"
-expect "long task entry caught" tasks.md "$(printf -- '- [ ] **%s-T002 [mnt]**: a\n  b\n  c\n  d' "$OWN")" "entry over 3 lines"
+expect "URL caught"            "$OWN-x/requirements.md" "Spec: https://example.com" "link"
+expect "markdown link caught"  "$OWN-x/tasks.md"        "See [doc](docs/x.md)"      "link"
+expect "date caught"           "$OWN-x/tasks.md"        "Probed 2026-09-17."        "date"
+expect "PR ref caught"         "$OWN-x/requirements.md" "Shipped in #545."          "#NNN ref"
+expect "commit hash caught"    "$OWN-x/tasks.md"        "Fixed by b0182f8."         "commit hash"
+expect "foreign id caught"     "$OWN-x/tasks.md"        "Builds on R000-T002."      "id of another initiative: R000"
+expect "long task entry caught" "$OWN-x/tasks.md" "$(printf -- '- [ ] **%s-T002 [mnt]**: a\n  b\n  c\n  d' "$OWN")" "entry over 3 lines"
+expect "changed legacy initiative checked" "R090-old/requirements.md" "More." "PLAN-TEXT: dev/plans/R090-old/requirements.md:1: link"
+expect "R-NNN dir checked"     "R-083-y/tasks.md"       "Builds on R000-T002."      "id of another initiative: R000"
 
-expect "finding without evidence caught" "$OWN-T001-x.report.md" "$(printf -- '- [ ] shape may differ\n  Evidence: hypothetical reading of code')" "finding without Evidence"
+d=$(mkrepo)
+mkdir -p "$d/dev/plans/R-083-y"
+printf -- '- [ ] **R-083-T001 [mnt]**: own id.\n' > "$d/dev/plans/R-083-y/tasks.md"
+out=$(run_in "$d") && pass "R-NNN dir's own id passes" || die "R-NNN own id failed: $out"
+rm -rf "$d"
+
+d=$(mkrepo)
+mkdir -p "$d/dev/plans/archive/R050-z"
+printf 'See https://example.com.\n' > "$d/dev/plans/archive/R050-z/requirements.md"
+printf -- '- [ ] **R050-T001**: https://example.com\n' > "$d/dev/plans/archive/ROADMAP.md"
+out=$(run_in "$d") && pass "archive excluded" || die "archive checked: $out"
+rm -rf "$d"
+
+d=$(mkrepo)
+printf 'Spec: https://example.com\n' >> "$d/dev/plans/$OWN-x/requirements.md"
+commit_in "$d" branch-work
+out=$(run_in "$d"); case "$out" in *"link"*) pass "committed branch change caught" ;; *) die "committed change: $out" ;; esac
+rm -rf "$d"
+
+d=$(mkrepo trunk)
+printf 'Spec: https://example.com\n' >> "$d/dev/plans/$OWN-x/requirements.md"
+out=$(run_in "$d"); rc=$?
+[ $rc -eq 0 ] && grep -q 'check-plan-text: SKIP (no default branch)' <<<"$out" \
+  && pass "no default branch skips by name" || die "no default branch (rc=$rc): $out"
+rm -rf "$d"
+
+expect "finding without evidence caught" "$OWN-x/$OWN-T001-x.report.md" "$(printf -- '- [ ] shape may differ\n  Evidence: hypothetical reading of code')" "finding without Evidence"
 d=$(mkrepo)
 printf -- '- [ ] 400 on empty body\n  Evidence: observed curl response in the probe\n' > "$d/dev/plans/$OWN-x/$OWN-T001-x.report.md"
 out=$(run_in "$d") && pass "finding with evidence passes" || die "finding with evidence failed: $out"
