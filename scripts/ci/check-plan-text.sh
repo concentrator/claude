@@ -3,7 +3,7 @@
 # short and stable (skills/dev/templates.md). Fails on URLs and markdown
 # links, ISO dates, #NNN refs, commit hashes, ids of another initiative,
 # and size: requirements.md over 40 lines, a task or roadmap entry over 3,
-# a tasks.md backlog line over 1.
+# a tasks.md backlog line over 1, a branch plan checkbox item over 6.
 # A task report's checkbox needs an Evidence: line (observed|test|contract);
 # an added *.findings.md fails, findings go to the task report.
 # Only the plan files a branch changes against its merge-base with the
@@ -23,7 +23,7 @@ for ref in origin/main origin/master main master; do
 done
 [ -n "$base" ] || { echo "check-plan-text: SKIP (no default branch)"; exit 0; }
 
-scan() { # file own-id mode(req|tasks|roadmap)
+scan() { # file own-id mode(req|tasks|roadmap|plan)
   awk -v f="$1" -v own="$2" -v mode="$3" '
     function bad(n, why) { printf "PLAN-TEXT: %s:%d: %s\n", f, n, why; hit = 1 }
     function check(n, s,   t, id) {
@@ -43,7 +43,8 @@ scan() { # file own-id mode(req|tasks|roadmap)
         t = substr(t, RSTART + RLENGTH)
       }
     }
-    function close_entry() { if (start && len > 3) bad(start, "entry over 3 lines"); start = 0 }
+    BEGIN { max = mode == "plan" ? 6 : 3 }
+    function close_entry() { if (start && len > max) bad(start, (mode == "plan" ? "item" : "entry") " over " max " lines"); start = 0 }
     mode == "roadmap" {
       if ($0 ~ /^- \[[ x]\] R-?[0-9][0-9][0-9]/) {
         close_entry(); match($0, /R-?[0-9][0-9][0-9]/)
@@ -53,11 +54,12 @@ scan() { # file own-id mode(req|tasks|roadmap)
       if (active) { len++; check(NR, $0) }
       next
     }
-    mode == "tasks" {
+    mode == "tasks" || mode == "plan" {
       if ($0 ~ /^- \[/) { close_entry(); start = NR; len = 0 }
       else if ($0 !~ /^  /) close_entry()
       if (start) len++
     }
+    mode == "plan" { next }
     { check(NR, $0) }
     END {
       close_entry()
@@ -101,6 +103,7 @@ while IFS=$'\t' read -r st f to; do
     requirements.md) scan "$f" "$id" req ;;
     tasks.md) scan "$f" "$id" tasks; backlog "$f" ;;
     *.report.md) report "$f" ;;
+    *.md) scan "$f" "$id" plan ;;
   esac
 done < <({ git diff --name-status -M "$base" -- "$P"; git ls-files --others --exclude-standard -- "$P" | awk '{ print "A\t" $0 }'; } | sort -u)
 

@@ -27,7 +27,7 @@ mode: normal
   file: use the task report`; an existing or renamed one passes.
   Approach: the added status of the item-1 diff with rename detection; a
   test case each.
-- [ ] Any other changed `.md` in an initiative dir outside `batches/` is a
+- [x] Any other changed `.md` in an initiative dir outside `batches/` is a
   branch plan: a checkbox item over 6 lines with its indented continuation
   fails `item over 6 lines`; `skills/dev/branch-plan.md § Body` states it.
   Approach: a `plan` mode in `scan`; test 6- and 7-line items. `scan` is

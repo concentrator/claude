@@ -103,6 +103,18 @@ git -C "$d" mv dev/plans/R090-old/R090-T001-old.findings.md dev/plans/R090-old/R
 out=$(run_in "$d") && pass "renamed findings file passes" || die "renamed findings file failed: $out"
 rm -rf "$d"
 
+item() { printf -- '- [ ] an item\n'; for i in $(seq 2 "$1"); do printf '  line %s\n' "$i"; done; }
+d=$(mkrepo)
+item 6 > "$d/dev/plans/$OWN-x/$OWN-T001-x.md"
+out=$(run_in "$d") && pass "6-line plan item passes" || die "6-line plan item failed: $out"
+rm -rf "$d"
+expect "7-line plan item caught" "$OWN-x/$OWN-T001-x.md" "$(item 7)" "PLAN-TEXT: dev/plans/$OWN-x/$OWN-T001-x.md:1: item over 6 lines"
+d=$(mkrepo)
+mkdir -p "$d/dev/plans/$OWN-x/batches"
+item 7 > "$d/dev/plans/$OWN-x/batches/B001.md"
+out=$(run_in "$d") && pass "batches excluded from the plan check" || die "batches checked: $out"
+rm -rf "$d"
+
 d=$(mkrepo)
 for i in $(seq 1 40); do echo "line $i"; done >> "$d/dev/plans/$OWN-x/requirements.md"
 out=$(run_in "$d"); case "$out" in *"over 40 lines"*) pass "long requirements caught" ;; *) die "long requirements: $out" ;; esac
