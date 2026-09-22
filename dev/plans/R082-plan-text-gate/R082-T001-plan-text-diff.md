@@ -37,6 +37,11 @@ mode: normal
   lines, naming no other initiative's id, its meaning kept.
   Approach: run the gate with the file changed and trim each entry it
   names; a legacy `R-NNN` entry keeps its own id.
+- [ ] The close review's five findings resolve, each marked `[x]` in the
+  report: an existing or renamed findings file is skipped, pinned by a
+  7-line fixture; ROADMAP R-054, R-057 and R080 regain the meaning the
+  review names; the gate's header comment loses the lines this branch
+  added.
 - [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
