@@ -187,10 +187,8 @@ chmod +x "$target/hooks/dev-context-fill.sh"
 #    both are tuned per project (the MARKERS list, the ref namespaces)
 #    and the self-test is how an adopter validates that edit. Adopter
 #    tuning survives a re-run: the code-size allowlist is written only
-#    when absent, and an existing MARKERS line (accretion) or FROM line
-#    (plan-text) is carried across the copy. A first plan-text install
-#    sets FROM to the project's next free initiative id, so its existing
-#    initiatives stay out of the gate. The permission pre-flight ships beside them
+#    when absent, and an existing MARKERS line (accretion) is carried
+#    across the copy. The permission pre-flight ships beside them
 #    because skills/dev/run.md § Pre-flight names it: an adopter's runner
 #    would otherwise cite a script its checkout lacks.
 mkdir -p "$target/scripts/ci" "$target/scripts/test"
@@ -203,12 +201,6 @@ put_line() { # file, key, full line
   mv "$tmp" "$target/scripts/ci/$1"
 }
 markers="$(tuned check-accretion.sh MARKERS)"
-from="$(tuned check-plan-text.sh FROM)"
-if [ -z "$from" ]; then
-  last=$(grep -ohE '^- \[[ x]\] R-?[0-9]{3}' "${target%/.claude}/dev/plans/ROADMAP.md" 2>/dev/null \
-    | grep -oE '[0-9]{3}' | sort -n | tail -1 || true)
-  from="FROM='R$(printf '%03d' $((10#${last:-0} + 1)))'"
-fi
 for f in ci/check-code-size.sh ci/check-no-em-dash.sh ci/check-accretion.sh \
          ci/check-batch-tags.sh ci/check-plan-text.sh \
          preflight-permissions.sh \
@@ -217,7 +209,6 @@ for f in ci/check-code-size.sh ci/check-no-em-dash.sh ci/check-accretion.sh \
   cp "$SRC/scripts/$f" "$target/scripts/$f"
 done
 [ -n "$markers" ] && put_line check-accretion.sh MARKERS "$markers"
-put_line check-plan-text.sh FROM "$from"
 chmod +x "$target"/scripts/ci/check-*.sh
 chmod +x "$target/scripts/preflight-permissions.sh"
 if [ ! -f "$target/scripts/ci/code-size-allow.txt" ]; then

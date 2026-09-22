@@ -12,7 +12,7 @@ mode: normal
   `R-NNN-` dirs both match; no default branch prints a named SKIP.
   Approach: the base lookup of `hooks/dev-precompact-state.sh`; test repos
   commit `main` then branch; `.github/workflows/ci.yml` gets fetch-depth 0.
-- [ ] A project install copies the gate as shipped: `scripts/install-dev.sh`
+- [x] A project install copies the gate as shipped: `scripts/install-dev.sh`
   drops the `FROM` carry, the first-install `FROM` computation and the
   step-4 comment's `FROM` sentences.
   Approach: `scripts/install-dev.sh`, then the `FROM` half of the
