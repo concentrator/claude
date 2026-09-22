@@ -24,6 +24,10 @@ mode: normal
   have the planner write both files; `branch-plan.md § Task report`
   gives the skeleton; `companions/implementer-prompt.md` drops "where
   one exists".
+- [ ] A changed branch plan with no `<task-id>-<slug>.report.md` beside
+  it fails the gate `plan without task report` (outcome 6). Approach:
+  the plan branch of `scripts/ci/check-plan-text.sh` and its self-test;
+  this branch's own plan gets its report in the same commit.
 - [ ] A branch plan holds only its header and items within the gate's
   line limit; strict-mode read-first docs, probes, drafts and cold-read
   gap fixes go to the report's `## Planner` (outcome 5). Approach:
