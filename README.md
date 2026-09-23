@@ -146,7 +146,17 @@ the session tree the repo's root `CLAUDE.md § Layout` declares, where
 the per-session state files live (`skills/dev/handoff.md`), and
 `supervisor/` beside it, the supervisor's ledgers (`skills/dev/run.md
 § Ledger`) - `/dev/session/` and `/dev/supervisor/` for a project
-without a declaration. An install leaves the declaration and the layout file
-exactly as it found them: they are the project's.
+without a declaration. A `--project` install into a git repo, full or
+`--minimal`, also wires the plan-text gate into the fast tier: it appends
+`` , then `bash .claude/scripts/ci/check-plan-text.sh` `` (the path relative
+to the repo root; this one is for `<path>` at the root) to the root `CLAUDE.md` `Test (fast):` line, else to its
+`Test:` line, keeping the file's mode. A line already naming
+`check-plan-text.sh` stays as it is; with neither line, or no root
+`CLAUDE.md`, the install writes nothing and prints one line naming the line
+to add. A global or non-git install leaves every `CLAUDE.md` alone. Beyond
+that line, an install leaves the declarations and the layout file exactly
+as it found them: they are the project's.
 The copied checks are yours to wire into CI; the installer ships them
-without registering them.
+without registering them and edits no CI config. A `--project` install into
+a git repo prints one line saying the project's CI must run the fast tier,
+which is what runs the plan-text gate there.

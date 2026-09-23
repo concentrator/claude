@@ -53,7 +53,10 @@ shipped Tier-1 checks `install-dev.sh --project` placed under
 `.claude/scripts/` (checks in `ci/`, self-tests in `test/`), wired
 into that CI; the batch-tags gate enforces via a local pre-push
 hook - its CI run only reports a skip. Document run commands in
-`CLAUDE.md`.
+`CLAUDE.md`. The install already appended the plan-text gate
+(`check-plan-text.sh`) to the `CLAUDE.md` `Test (fast):` line, else its
+`Test:` line, or printed the line to add when neither exists, and printed
+that the project's CI must run the fast tier: wire the CI to run it.
 
 ## 5. Commit
 
