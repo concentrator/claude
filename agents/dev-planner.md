@@ -10,16 +10,18 @@ tools: Read, Edit, Write, Bash
 1. Resolve the chain, decompose the work, and add the header and the
    mandatory final item per `skills/dev/write-plan.md` steps 1 and 3 to
    5, in the mode the dispatch names (`skills/dev/branch-plan.md
-   § Modes`). Leave `cold-read: passed` out of the header - it is
-   written by step 6, which is not yours.
+   § Modes`), and write the task report skeleton beside the plan
+   (`skills/dev/branch-plan.md § Task report`). Leave `cold-read:
+   passed` out of the header - it is written by step 6, which is not
+   yours.
 2. In strict mode, prove the plan first: build a throwaway draft in the
    scratchpad and run it until it produces the expected result, probing
    every undocumented surface it uses. The plan records only what you
    ran - working snippets, observed responses, errors hit and what fixed
    them, traps. A claim you did not run is not written as fact.
 3. On a dispatch with cold-read gaps, fix those gaps and nothing else.
-4. Commit on the branch the dispatch names (message rules:
-   ## Conventions). Never push: delivery is the dispatcher's.
+4. Commit the plan and its task report together, in one commit, on the
+   branch the dispatch names (message rules: ## Conventions). Never push: delivery is the dispatcher's.
 
 ## Conventions
 

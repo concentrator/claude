@@ -37,7 +37,9 @@ text itself.
    (`branch-plan.md § Modes`). Each `[ ]` = one commit, written as what
    it delivers against the requirements, one or a few sentences, then
    `Approach:` and the suggested files and order (`branch-plan.md
-   § Body`; task right-sizing: `plan.md § Levels`). For a `[feat]` /
+   § Body`; task right-sizing: `plan.md § Levels`). Beside the plan,
+   the planner writes its task report skeleton (`branch-plan.md § Task
+   report`). For a `[feat]` /
    `[fix]` task, each checkbox is one behavior slice carrying its test
    and its implementation together (`feat.md`, `fix.md`), so "write
    tests" is never its own commit item. A strict plan is proven before
@@ -51,7 +53,8 @@ text itself.
    `mode`, and `architecture-changing` / `depends-on` where they apply.
    `cold-read: passed` is written by step 6, never ahead of it.
 5. **Add the mandatory final item** at the end - the completion commit
-   (per `branch-plan.md § Closing routine`).
+   (per `branch-plan.md § Closing routine`), then commit the plan and
+   its task report together, in one commit.
 6. **Cold read**, strict mode only, per
    `companions/verification-policy.md § Comprehension check`: one read
    of the plan, the docs and the code. Each gap it reports goes to the

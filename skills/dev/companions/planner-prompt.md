@@ -30,8 +30,10 @@ Task tool (dev-planner):
 
     ## Your Job
 
-    1. Write the plan to `<path to the plan file>`. The dispatch names
-       that file: you neither choose the slug nor create the branch.
+    1. Write the plan to `<path to the plan file>` and its task report
+       skeleton to `<path to the report file>`, and commit both in one
+       commit. The dispatch names both files: you neither choose the
+       slug nor create the branch.
 
     ## Exit
 
@@ -43,8 +45,8 @@ Task tool (dev-planner):
     ## Report Format
 
     - **Status:** DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT
-    - The plan file, and its items in order - on a change, the diff of
-      items
+    - The plan file and its task report, and the plan's items in order -
+      on a change, the diff of items
     - Each decision an item implies, and where the item states or
       cites it
     - Anything the inputs could not settle

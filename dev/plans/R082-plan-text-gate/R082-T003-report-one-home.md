@@ -18,7 +18,7 @@ mode: normal
   backlog lines. No preamble, ordering prose or notes; order is list
   order. Approach: `templates.md § Per-initiative tasks.md`, the
   backlog form written as the R082-T001 gate detects it.
-- [ ] The task report is created with its branch plan, in the same
+- [x] The task report is created with its branch plan, in the same
   commit (outcome 6). Approach: `write-plan.md` steps 3 and 5,
   `agents/dev-planner.md § Your Job` and `companions/planner-prompt.md`
   have the planner write both files; `branch-plan.md § Task report`

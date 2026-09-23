@@ -127,7 +127,9 @@ smell, naming inconsistency:
 ## Task report
 
 `<task-id>-<slug>.report.md` beside the plan, a working file that lives
-as long as the R:
+as long as the R. The planner creates it with the plan, in the same
+commit, as a skeleton: the title and the `## Implementer` and
+`## Review` headings, no entries. The seats fill it in this form:
 
     # R0NN-T00N report
 
