@@ -9,8 +9,9 @@ pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 
 F=$(mktemp -d); git -C "$F" init -q; git -C "$F" checkout -qb work
-printf '## Agent toolchain\n\n- Test (fast): `make lint`\n- Test (full): `make test`\n' > "$F/CLAUDE.md"
+printf '## Agent toolchain\n\n- Test (fast): `make lint`\n- Test (full): `make test`\n' > "$F/CLAUDE.md"; chmod 644 "$F/CLAUDE.md"
 out=$(bash "$INSTALL" --project "$F" 2>&1) || die "install (fast-tier fixture) exits nonzero"
+[ "$(ls -l "$F/CLAUDE.md" | cut -c1-10)" = "-rw-r--r--" ] && pass "gate append keeps the CLAUDE.md mode" || die "CLAUDE.md mode: $(ls -l "$F/CLAUDE.md" | cut -c1-10)"
 grep -qxF -- '- Test (fast): `make lint`, then `bash .claude/scripts/ci/check-plan-text.sh`' "$F/CLAUDE.md" \
   && pass "gate appended to the Test (fast) line" || die "Test (fast) line: $(grep -F 'Test (fast)' "$F/CLAUDE.md")"
 grep -qxF -- '- Test (full): `make test`' "$F/CLAUDE.md" && pass "Test (full) line untouched" || die "Test (full) line rewritten"

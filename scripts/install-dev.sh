@@ -256,7 +256,7 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
   elif ! grep -qF 'check-plan-text.sh' <<<"${tier#*:}"; then
     tmp="$(mktemp)"
     awk -v n="${tier%%:*}" -v add=", then \`$gate\`" 'NR == n { $0 = $0 add } 1' "$repo/CLAUDE.md" > "$tmp"
-    mv "$tmp" "$repo/CLAUDE.md"
+    cat "$tmp" > "$repo/CLAUDE.md"
   fi
 fi
 
