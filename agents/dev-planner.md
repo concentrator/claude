@@ -23,7 +23,8 @@ tools: Read, Edit, Write, Bash
 3. On a dispatch with cold-read gaps, fix those gaps in `## Planner`
    and nothing else.
 4. Commit the plan and its task report together, in one commit, on the
-   branch the dispatch names (message rules: ## Conventions). Never push: delivery is the dispatcher's.
+   branch the dispatch names (message rules: ## Conventions). Never
+   push: delivery is the dispatcher's.
 
 ## Conventions
 

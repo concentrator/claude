@@ -96,8 +96,9 @@ branch per plan - and per commit checkbox:
 2. DONE → next item. DONE_WITH_CONCERNS → a concern that changes an item's
    acceptance takes § Question resolution as NEEDS_CONTEXT does: the item's
    `[x]` stands, and the runner writes the redo the user's answer asks for
-   as a `## Review` entry of the task report, which the next dispatch
-   names. Any
+   as a `## Review` entry of the task report in the `branch-plan.md § Task
+   report` form, its `Evidence:` line citing the concern (`observed <the
+   implementer's report>`), which the next dispatch names. Any
    other concern the runner ledgers (§ Ledger) and carries into the report.
    NEEDS_CONTEXT → § Question resolution. Halt triggers: `branch-plan.md § Stop
    conditions`.

@@ -97,9 +97,8 @@ Open `[ ]` items → next pass; last non-final `[x]` → § Closing routine.
 
 ## No TODOs in code
 
-Never write `TODO`/`FIXME`/`XXX` in code. Route each to a plan artifact
-(branch-plan commit, the R's `tasks.md`, or an R stub) at discovery
-(§ Scope discoveries).
+Never write `TODO`/`FIXME`/`XXX` in code. Route each at discovery to the
+task report or a backlog line (§ Scope discoveries).
 
 ## Scope discoveries
 
@@ -165,8 +164,10 @@ files are read as reports; a branch adding one fails the same gate.
 ## Scope changes mid-branch
 
 Changes needed after the final commit are proposed to the user
-(§ Plan edits); on approval the plan gains new checkboxes plus a new
-final commit, and each new item gets a fresh implementer.
+(§ Plan edits). On approval during a run, each change becomes a
+`## Review` entry of the task report (`run.md § Dispatch per item` 2);
+outside a run, the plan gains new checkboxes plus a new final commit.
+Each new item gets a fresh implementer.
 
 ## Closing routine
 
@@ -186,12 +187,12 @@ commit and the hand-off (`finish`).
    **Tier-2 compliance review**: every concern in
    `MAINTENANCE.md § Tier-2 AI review`, over the diff.
 2. Validate findings against full project context.
-3. Report; request user approval before applying.
+3. Report; the findings are written under the task report's `## Review`
+   (§ Task report); request user approval before applying.
 4. Apply approved fixes as commits.
 5. Capture the branch outcome: a summary against the task's acceptance
    criteria; surface manual-testing/automation needs (`finish § 2`).
-6. **Triage the task report** (§ Task report): the close review's
-   findings are written under `## Review`; in-scope items resolve here
+6. **Triage the task report** (§ Task report): in-scope items resolve here
    as commits, not deferrals (§ Scope discoveries). For each remaining
    `[ ]`, prompt user:
    - Promote to a task or an R stub (`plan.md § Referential

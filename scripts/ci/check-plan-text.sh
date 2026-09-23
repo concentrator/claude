@@ -101,7 +101,7 @@ while IFS=$'\t' read -r st f to; do
     tasks.md) scan "$f" "$id" tasks; backlog "$f" ;;
     *.report.md) report "$f" ;;
     *.md) scan "$f" "$id" plan
-      [ -f "${f%.md}.report.md" ] || { echo "PLAN-TEXT: $f: plan without task report"; fail=1; } ;;
+      [ -f "${f%.md}.report.md" ] || [ -f "${f%.md}.findings.md" ] || { echo "PLAN-TEXT: $f: plan without task report"; fail=1; } ;;
   esac
 done < <({ git diff --name-status -M "$base" -- "$P"; git ls-files --others --exclude-standard -- "$P" | awk '{ print "A\t" $0 }'; } | sort -u)
 
