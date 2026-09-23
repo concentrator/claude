@@ -247,7 +247,7 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
   parent=$(dirname "$sess")
   if [ "$parent" = "." ]; then parent=""; fi   # a root-level tree: supervisor/ sits at the root
   for line in "/$sess/" "/${parent:+$parent/}supervisor/"; do
-    grep -qxF "$line" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
+    alt=${line#/}; case ${alt%/} in */*) ;; *) alt=$line ;; esac; grep -qxF -e "$line" -e "$alt" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
   done
   gate="bash $(git -C "$target" rev-parse --show-prefix)scripts/ci/check-plan-text.sh"
   tier=$(grep -m1 -n '^- Test (fast):' "$repo/CLAUDE.md" 2>/dev/null || grep -m1 -n '^- Test:' "$repo/CLAUDE.md" 2>/dev/null || true)
