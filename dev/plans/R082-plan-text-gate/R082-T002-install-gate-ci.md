@@ -34,6 +34,9 @@ delivers, and both tasks edit `scripts/install-dev.sh`.
   project's CI must run the fast tier; it edits no project CI config.
   Approach: the closing echo of `scripts/install-dev.sh`; assert the line
   in the item-1 cases.
+- [ ] The close review's two findings resolve, each marked `[x]` in the
+  report: the gate append keeps the project CLAUDE.md's file mode with
+  no added line; the item-2 divergence is a plain bullet.
 - [ ] Docs (doc writer): `README.md § Installing the toolset elsewhere`
   (the "yours to wire" and "leaves the declaration" sentences),
   `skills/dev/start.md § 4` and `skills/dev/migrate.md § 5` state that the

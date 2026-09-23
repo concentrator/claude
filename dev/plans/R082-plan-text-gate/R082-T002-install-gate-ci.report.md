@@ -15,6 +15,14 @@
   lines > 300` with the deferred form.
 
 ### Findings
-- [ ] `scripts/install-dev.sh` sits one line under the code-size cap
+- [x] won't fix: the cap holds, the next installer change splits it - `scripts/install-dev.sh` sits one line under the code-size cap
   after item 2; item 3's CI notice line takes it to the cap.
   Evidence: observed - `wc -l scripts/install-dev.sh` prints 299.
+
+## Review
+- [ ] Appending the gate drops the project's CLAUDE.md mode from 0644
+  to 0600 (Suggestion) - scripts/install-dev.sh:257
+  Evidence: observed `-rw-r--r--` before and `-rw-------` after a project install
+- [ ] A divergence is written as a checkbox (Suggestion) - this report,
+  Divergences, item 2
+  Evidence: contract branch-plan.md, Task report template
