@@ -7,7 +7,7 @@ mode: normal
 
 # R082-T003: report one home
 
-- [ ] Findings have one home, the task report (outcome 3); a backlog
+- [x] Findings have one home, the task report (outcome 3); a backlog
   line is one line; a new findings file fails the gate. Approach: drop
   "task entry" from `rules/writing-artifacts.md § One home per finding`;
   `plan.md § Referential integrity` states the one-line backlog line;

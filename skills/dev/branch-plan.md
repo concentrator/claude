@@ -149,7 +149,7 @@ every `[ ]` becomes `[x]` - fixed, `-> backlog`, or `won't fix:
 <reason>` - and the final commit carries the resolved report. A
 checkbox without an `Evidence:` line of one of the three types fails
 `scripts/ci/check-plan-text.sh`. Legacy `<task-id>-<slug>.findings.md`
-files are read as reports.
+files are read as reports; a branch adding one fails the same gate.
 
 ## Scope changes mid-branch
 

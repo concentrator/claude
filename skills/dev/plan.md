@@ -88,8 +88,8 @@ its parent's R id (legacy files: § Archival).
   in a later shape round (`/dev plan R`).
 - Only a discovery that blocks the current task's goal becomes a task
   immediately. Anything else is an unnumbered backlog line in the owning
-  R's `tasks.md`, promoted to a task - or dropped - at that R's next
-  shape/detail round.
+  R's `tasks.md`, one line long, promoted to a task - or dropped - at
+  that R's next shape/detail round.
 
 ## Where things live
 
