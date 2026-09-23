@@ -3,7 +3,8 @@
 # ROADMAP entries, requirements.md, tasks.md and branch plans stay short and
 # stable (skills/dev/templates.md). Fails on links, ISO dates, #NNN refs,
 # commit hashes, ids of another initiative, oversize entries, a task report
-# checkbox without an Evidence: line, and an added *.findings.md.
+# checkbox without an Evidence: line, an added *.findings.md, and a branch
+# plan without its task report.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
@@ -99,7 +100,8 @@ while IFS=$'\t' read -r st f to; do
     requirements.md) scan "$f" "$id" req ;;
     tasks.md) scan "$f" "$id" tasks; backlog "$f" ;;
     *.report.md) report "$f" ;;
-    *.md) scan "$f" "$id" plan ;;
+    *.md) scan "$f" "$id" plan
+      [ -f "${f%.md}.report.md" ] || { echo "PLAN-TEXT: $f: plan without task report"; fail=1; } ;;
   esac
 done < <({ git diff --name-status -M "$base" -- "$P"; git ls-files --others --exclude-standard -- "$P" | awk '{ print "A\t" $0 }'; } | sort -u)
 
