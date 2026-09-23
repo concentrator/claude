@@ -34,6 +34,14 @@ grep -qxF -- '- Test (fast): `make lint`, then `bash .claude/scripts/ci/check-pl
   && pass "re-install leaves a line naming the gate as it is" || die "re-install line: $(grep -F 'Test (fast)' "$RI/CLAUDE.md")"
 rm -rf "$RI"
 
+W=$(mktemp -d); git -C "$W" init -q; git -C "$W" checkout -qb work
+printf '## Agent toolchain\n\n- Test (fast): `make lint` - the glob is\n  required.\n- Test (full): `make test`\n' > "$W/CLAUDE.md"
+bash "$INSTALL" --project "$W" --force >/dev/null 2>&1 || die "install (wrapped-line fixture) exits nonzero"
+bash "$INSTALL" --project "$W" --force >/dev/null 2>&1 || die "re-install (wrapped-line fixture) exits nonzero"
+printf '## Agent toolchain\n\n- Test (fast): `make lint` - the glob is\n  required, then `bash .claude/scripts/ci/check-plan-text.sh`\n- Test (full): `make test`\n' | cmp -s - "$W/CLAUDE.md" \
+  && pass "gate appended once to a wrapped line's last line" || die "wrapped line: $(sed -n 3,5p "$W/CLAUDE.md")"
+rm -rf "$W"
+
 NL=$(mktemp -d); git -C "$NL" init -q; git -C "$NL" checkout -qb work
 printf '## Agent toolchain\n\n- Test (full): `make test`\n' > "$NL/CLAUDE.md"
 out=$(bash "$INSTALL" --project "$NL" 2>&1) || die "install (no fast-tier line) exits nonzero"

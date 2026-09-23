@@ -253,9 +253,9 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
   tier=$(grep -m1 -n '^- Test (fast):' "$repo/CLAUDE.md" 2>/dev/null || grep -m1 -n '^- Test:' "$repo/CLAUDE.md" 2>/dev/null || true)
   if [ -z "$tier" ]; then
     echo "install-dev: no Test (fast): or Test: line in $repo/CLAUDE.md - add to its § Agent toolchain: - Test (fast): <fast tier>, then \`$gate\`"
-  elif ! grep -qF 'check-plan-text.sh' <<<"${tier#*:}"; then
+  elif end=$(awk -v n="${tier%%:*}" 'NR > n && !/^  / { exit } NR >= n { e = NR; g = g || /check-plan-text\.sh/ } END { if (!g) print e }' "$repo/CLAUDE.md") && [ -n "$end" ]; then
     tmp="$(mktemp)"
-    awk -v n="${tier%%:*}" -v add=", then \`$gate\`" 'NR == n { $0 = $0 add } 1' "$repo/CLAUDE.md" > "$tmp"
+    awk -v n="$end" -v add=", then \`$gate\`" 'NR == n { sub(/\.$/, ""); $0 = $0 add } 1' "$repo/CLAUDE.md" > "$tmp"
     cat "$tmp" > "$repo/CLAUDE.md"
   fi
 fi

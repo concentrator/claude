@@ -149,16 +149,17 @@ the per-session state files live (`skills/dev/handoff.md`), and
 without a declaration. A `--project` install into a git repo, full or
 `--minimal`, also wires the plan-text gate into the fast tier: it appends
 `` , then `bash <prefix>.claude/scripts/ci/check-plan-text.sh` `` to the
-repo's root `CLAUDE.md` `Test (fast):` line, else to its `Test:` line,
-keeping the file's mode. `<prefix>` is `<path>` relative to the repo root:
-empty when `<path>` is the root, `sub/` for `--project <repo>/sub`. A line
-already naming `check-plan-text.sh` stays as it is; with neither line, or
-no root `CLAUDE.md`, the root `CLAUDE.md` is left unmodified and the
-install prints one line naming the line to add. A global or non-git install
-does not touch the root `CLAUDE.md` or its fast-tier line; its only
-`CLAUDE.md` write is the `@writing.md` line above. Beyond that line, an
-install leaves the declarations and the layout file exactly as it found
-them: they are the project's.
+repo's root `CLAUDE.md` `Test (fast):` line, else to its `Test:` line
+(the last line of a wrapped one, its closing period dropped), keeping the
+file's mode. `<prefix>` is `<path>` relative to the repo root: empty when
+`<path>` is the root, `sub/` for `--project <repo>/sub`. A line already
+naming `check-plan-text.sh` on any of its lines stays as it is; with
+neither line, or no root `CLAUDE.md`, the root `CLAUDE.md` is left
+unmodified and the install prints one line naming the line to add. A
+global or non-git install does not touch the root `CLAUDE.md` or its
+fast-tier line; its only `CLAUDE.md` write is the `@writing.md` line
+above. Beyond that line, an install leaves the declarations and the
+layout file exactly as it found them: they are the project's.
 The copied checks are yours to wire into CI; the installer ships them
 without registering them and edits no CI config. A `--project` install into
 a git repo prints one line saying the project's CI must run the fast tier,
