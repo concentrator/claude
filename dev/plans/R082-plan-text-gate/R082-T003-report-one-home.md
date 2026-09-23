@@ -34,7 +34,7 @@ mode: normal
   `branch-plan.md § Body`, `§ Modes`; `write-plan.md` steps 3, 6;
   `verification-policy.md § Comprehension check`; `planner-prompt.md`;
   `agents/dev-planner.md`, `dev-cold-reader.md`, `dev-implementer.md § Before You Begin`.
-- [ ] Plan text is unchanged during a run (outcome 4): an answer to a
+- [x] Plan text is unchanged during a run (outcome 4): an answer to a
   halted item goes to the report's `## Answers`, naming its item; a redo
   or approved close fix is a `## Review` entry the dispatch names. Approach:
   `run.md § Question resolution`, `§ Dispatch per item` 2, `§ Close` 2,

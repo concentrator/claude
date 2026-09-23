@@ -66,8 +66,10 @@ No seat edits plan text on its own decision. An implementer taking a
 different route to the same outcome follows it in the code and reports
 the divergence and its reason; the plan is a temporary file and need
 not track the code. A change to plan text is proposed to the user and
-applied only on approval (`run.md § Question resolution`). Checkbox
-marks are bookkeeping, not plan edits.
+applied only on approval; during a run plan text is unchanged, and the
+approved change is an answer in the task report's `## Answers`
+(`run.md § Question resolution`). Checkbox marks are bookkeeping, not
+plan edits.
 
 ## Commit cadence (all types)
 
@@ -142,13 +144,18 @@ planner's filled `## Planner` (§ Modes). The seats fill it in this form:
     - [ ] <discovery outside the item's scope>
       Evidence: observed <output> | test <failing test> | contract <spec>
 
+    ## Answers
+    - Item <n>: <the user's answer to that item's halt>
+
     ## Review
     - [ ] <issue> (Critical | Important | Suggestion) - <file:line>
       Evidence: observed ... | test ... | contract ...
 
 The implementer appends its section in the commit that carries the
-code. The reviewer is read-only: the runner, or the session outside a
-run, writes the close review's findings under `## Review`. At close
+code, and marks `[x]` the `## Review` entry its dispatch names. The
+reviewer is read-only: the runner, or the session outside a run, writes
+the close review's findings and a redo under `## Review`, and the
+user's answers under `## Answers` (`run.md § Question resolution`). At close
 every `[ ]` becomes `[x]` - fixed, `-> backlog`, or `won't fix:
 <reason>` - and the final commit carries the resolved report. A
 checkbox without an `Evidence:` line of one of the three types fails
@@ -289,9 +296,10 @@ regardless of size; the full suite runs at batch close (`run.md
 
 ### Rails
 
-- Plan text changes only on the user's approval (§ Plan edits). No
-  seat makes the closing decisions. The implementer keeps the code,
-  the plan checkboxes and the task report's implementer section.
+- Plan text is unchanged during a run; an answer goes to the task
+  report (§ Plan edits). No seat makes the closing decisions. The
+  implementer keeps the code, the plan checkboxes, the task report's
+  implementer section and the mark on the `## Review` entry it works.
 - Pre-flight creates `batch/R<NNN>-B<NNN>` off latest `main` and sets the
   `pre-R<NNN>-B<NNN>` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.

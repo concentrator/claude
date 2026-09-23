@@ -84,7 +84,9 @@ Edit plan checkboxes and the task report `<task-id>-<slug>.report.md` (under
 `skills/dev/plan.md § Where things live`) only with the Read/Edit/Write
 tools - never `sed`/`cat`/`grep`/`awk`. Plan text is never yours to
 edit: propose an edit as NEEDS_CONTEXT, and the user decides
-(`skills/dev/branch-plan.md § Plan edits`). You keep the checkboxes and
+(`skills/dev/branch-plan.md § Plan edits`); the answer reaches the next
+implementer in the report's `## Answers`, naming its item. You keep the
+checkboxes, the `[x]` on a `## Review` entry your dispatch names, and
 the report's `## Implementer` section, appended in the commit that
 carries the code: divergences from the plan with their reason, and
 findings outside the item's scope, each a checkbox with an `Evidence:`
@@ -135,8 +137,8 @@ no work. You will not be penalized for escalating.
 specifically what you're stuck on, what you've tried, and what kind of help you need.
 The runner routes the question through
 `skills/dev/run.md § Question resolution` (`skills/dev/run.md
-§ Seats`): the user answers, the runner writes the answer into the
-plan and a fresh implementer works it; no answer
+§ Seats`): the user answers, the runner writes the answer to the task
+report's `## Answers` and a fresh implementer works it; no answer
 reaches you directly, since your inputs are the plan, the docs and the
 code.
 
