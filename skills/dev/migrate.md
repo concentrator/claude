@@ -99,7 +99,7 @@ contributors. A `--project` install into a git repo appends the plan-text
 gate (`check-plan-text.sh`) to the root `CLAUDE.md` `Test (fast):` line,
 else its `Test:` line, or prints the line to add when neither exists, and
 prints that the project's CI must run the fast tier; it edits no CI config,
-so wire the baseline's CI to run it.
+so wire the baseline's CI to run the fast tier.
 
 ## 6. Backfill plans
 
