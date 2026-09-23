@@ -13,7 +13,7 @@ mode: normal
   `plan.md § Referential integrity` states the one-line backlog line;
   `branch-plan.md § Task report` reads legacy findings files as reports
   and says a new one fails `scripts/ci/check-plan-text.sh`.
-- [ ] `tasks.md` holds its template and nothing else (outcome 7): the
+- [x] `tasks.md` holds its template and nothing else (outcome 7): the
   title, the `Why:` line, `## Open` with its task entries, and one-line
   backlog lines. No preamble, ordering prose or notes; order is list
   order. Approach: `templates.md § Per-initiative tasks.md`, the

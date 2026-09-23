@@ -61,7 +61,14 @@ Why: <one or two lines>
 ## Open
 
 - [ ] **R001-T001 [tag]**: <what to do, one or two lines>
+
+- <backlog line, one line>
 ```
+
+The file holds this template and nothing else: no preamble, ordering
+prose or notes. Tasks run in list order. A backlog line is an unnumbered
+`- ` bullet on one line after the task entries; a wrapped one fails
+`scripts/ci/check-plan-text.sh`.
 
 A task says what to do, never how: no probe results, numbers, dates,
 links or references to other plans.
