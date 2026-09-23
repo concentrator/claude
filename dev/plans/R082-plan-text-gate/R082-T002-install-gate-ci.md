@@ -41,6 +41,6 @@ delivers, and both tasks edit `scripts/install-dev.sh`.
   (the "yours to wire" and "leaves the declaration" sentences),
   `skills/dev/start.md § 4` and `skills/dev/migrate.md § 5` state that the
   install wires the gate and prints the CI notice.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan
+- [x] Complete the branch: cleanup (stale/temp data), mark plan
   complete, mark the task `[x]` in the R's `tasks.md` plus any
   release-plan entry, commit.
