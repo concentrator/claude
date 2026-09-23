@@ -106,7 +106,7 @@ layout`.
 To give another machine or project the DEV toolset - the `/dev` router,
 its mode-file companions, the bundled dependency skills, the writing
 conventions and the DEV-artifact writing rule, the project-agnostic Tier-1 checks (code-size, em-dash,
-accretion, batch-tags - the last two with self-tests), the permission
+accretion, batch-tags, plan-text - the last three with self-tests), the permission
 pre-flight and its self-test, the two
 PreToolUse guards, the branch-state line, the hand-off nudge, the
 SessionStart re-brief, and the seeded maintenance hygiene section (project installs, when absent) - run

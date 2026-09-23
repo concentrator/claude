@@ -37,25 +37,30 @@ text itself.
    (`branch-plan.md § Modes`). Each `[ ]` = one commit, written as what
    it delivers against the requirements, one or a few sentences, then
    `Approach:` and the suggested files and order (`branch-plan.md
-   § Body`; task right-sizing: `plan.md § Levels`). For a `[feat]` /
+   § Body`; task right-sizing: `plan.md § Levels`). Beside the plan,
+   the planner writes its task report skeleton (`branch-plan.md § Task
+   report`). For a `[feat]` /
    `[fix]` task, each checkbox is one behavior slice carrying its test
    and its implementation together (`feat.md`, `fix.md`), so "write
    tests" is never its own commit item. A strict plan is proven before
    it is written: the planner builds a throwaway draft in the
    scratchpad, runs it until it produces the expected result, probes
    every undocumented surface it uses, and records what worked in the
-   plan. A wire-level detail (response envelope, field names,
-   pagination keys) in a strict plan comes from its `## Probes`, never
-   from the repo's idiom.
+   task report's `## Planner`, the plan keeping only its header and
+   items (`branch-plan.md § Body`). A wire-level detail (response
+   envelope, field names, pagination keys) comes from those probes,
+   never from the repo's idiom.
 4. **Add header** per `branch-plan.md § Header`: `task`, `type`,
    `mode`, and `architecture-changing` / `depends-on` where they apply.
    `cold-read: passed` is written by step 6, never ahead of it.
 5. **Add the mandatory final item** at the end - the completion commit
-   (per `branch-plan.md § Closing routine`).
+   (per `branch-plan.md § Closing routine`), then commit the plan and
+   its task report together, in one commit.
 6. **Cold read**, strict mode only, per
    `companions/verification-policy.md § Comprehension check`: one read
-   of the plan, the docs and the code. Each gap it reports goes to the
-   planner once; the plan is not read again, and the header then
+   of the plan, its task report, the docs and the code. Each gap it
+   reports goes to the planner once, whose fix lands in the report's
+   `## Planner`; the plan is not read again, and the header then
    records `cold-read: passed`. The session commits that header edit on
    the plan branch. A plan whose `depends-on` names an unmerged task is
    read at its start instead.

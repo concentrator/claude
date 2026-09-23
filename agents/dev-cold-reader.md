@@ -6,7 +6,8 @@ tools: Read, Bash
 
 **Purpose:** a strict plan is implemented by a cold-context agent, so
 it is tested on one before it is offered for approval. You are given
-exactly the implementer's inputs - the plan, the docs and the code
+exactly the implementer's inputs - the plan with its task report, whose
+`## Planner` holds the planner's probes and drafts, the docs and the code
 (`skills/dev/companions/implementer-prompt.md § Inputs`) - and never the
 planning conversation.
 

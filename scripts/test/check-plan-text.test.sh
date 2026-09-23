@@ -106,7 +106,18 @@ rm -rf "$d"
 
 d=$(mkrepo)
 item 6 > "$d/dev/plans/$OWN-x/$OWN-T001-x.md"
-out=$(run_in "$d") && pass "6-line plan item passes" || die "6-line plan item failed: $out"
+printf '# %s-T001 report\n' "$OWN" > "$d/dev/plans/$OWN-x/$OWN-T001-x.report.md"
+out=$(run_in "$d") && pass "6-line plan item with its report passes" || die "6-line plan item failed: $out"
+rm -rf "$d"
+d=$(mkrepo); with_findings "$d"
+printf -- '- [ ] an item\n' > "$d/dev/plans/R090-old/R090-T001-old.md"
+out=$(run_in "$d") && pass "plan with its legacy findings file passes" || die "plan with legacy findings file failed: $out"
+rm -rf "$d"
+expect "plan without task report caught" "$OWN-x/$OWN-T001-x.md" "- [ ] an item" "PLAN-TEXT: dev/plans/$OWN-x/$OWN-T001-x.md: plan without task report"
+d=$(mkrepo)
+printf -- '- [ ] an item\n' > "$d/dev/plans/$OWN-x/$OWN-T001-x.md"
+printf '# %s-T002 report\n' "$OWN" > "$d/dev/plans/$OWN-x/$OWN-T002-y.report.md"
+out=$(run_in "$d"); case "$out" in *"$OWN-T001-x.md: plan without task report"*) pass "another plan's report does not count" ;; *) die "another plan's report: $out" ;; esac
 rm -rf "$d"
 expect "7-line plan item caught" "$OWN-x/$OWN-T001-x.md" "$(item 7)" "PLAN-TEXT: dev/plans/$OWN-x/$OWN-T001-x.md:1: item over 6 lines"
 d=$(mkrepo)

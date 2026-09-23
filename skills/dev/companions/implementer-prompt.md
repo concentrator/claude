@@ -14,10 +14,12 @@ Task tool (dev-implementer):
     ## Inputs
 
     - Plan: `<path to the branch plan>`. Read it: your item is the first
-      `[ ]` checkbox, and the items above it are the branch so far. Its
-      task report `<task-id>-<slug>.report.md`, where one exists,
-      carries the earlier items' divergences and findings: read it
-      with the plan.
+      `[ ]` checkbox, or the task report's `## Review` entry
+      `<entry, on a redo or close-fix dispatch>`, and the items above it
+      are the branch so far. Its task report
+      `<task-id>-<slug>.report.md` carries the earlier items'
+      divergences and findings, and under `## Answers` the user's
+      answers, each naming its item: read it with the plan.
     - Docs: the project's docs directory, `DESIGN.md` and `README.md`
       where present - the code's own documentation.
     - Code: the checkout you are in, `<directory>`.

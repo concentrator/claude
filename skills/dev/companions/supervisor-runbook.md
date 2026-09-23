@@ -54,7 +54,7 @@ The runner cycles until the scope is delivered:
   |         |
   |         +-- DONE?                -> mark, next ---------------------------------------+
   |         |                                                                             |
-  |         +-- acceptance question? -> user answers, plan edited, fresh implementer -----+
+  |         +-- acceptance question? -> user answers, report updated, fresh implementer --+
   |         |
   |         +-- last item?           -> close, checkpoint, push, MR/PR
   |                                  |
@@ -78,7 +78,8 @@ The runner cycles until the scope is delivered:
 3. **Runner** routes an acceptance-level question through `run.md
    § Question resolution` (`run.md § Seats`): the item halts, the
    **user** answers under either supervisor mode, the runner writes the
-   answer into the plan, and a fresh implementer follows.
+   answer to the task report's `## Answers`, and a fresh implementer
+   follows.
 4. **Runner** verifies the boundary from CI and artifacts
    (`run.md § Boundary verification`), then merges the green in-class
    MR/PR or asks the user (`run.md § Merge or ask`).

@@ -30,9 +30,9 @@ and the legacy `.claude/` locations before classifying:
   migration (`companions/tbd-migration.md`; approval-gated - the agent executes
   each approved step; host-side settings stay the user's); TBD-conformant →
   conformant, no changes. Either way, check the id/archival schema: a project on
-  the legacy global T-id scheme adopts composite ids for NEW tasks (`plan.md §
-  ID format`; legacy ids frozen, never renumbered) by stating the convention in
-  each open `tasks.md` header. Draining the stock - archive closed work, compact
+  the legacy global T-id scheme adopts composite ids for NEW tasks
+  (`plan.md § ID format`, the convention's one home); legacy ids stay
+  frozen, never renumbered. Draining the stock - archive closed work, compact
   living docs, gate accretion (`plan.md § Archival`, `rules/writing-artifacts.md
   § State the present`) - is proposed as a docs-reconcile initiative, never done
   inline during migration. The accretion gate in that proposal reuses the

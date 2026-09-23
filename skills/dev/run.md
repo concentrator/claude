@@ -37,7 +37,7 @@ table below leaves unassigned halts and reports, never improvises.
 
 | Duty | `Supervisor: human` | `Supervisor: AI` |
 | --- | --- | --- |
-| Writing a plan | planner, at the detail round; runner: the user's approved edits (§ Question resolution) | the same |
+| Writing a plan | planner, at the detail round; plan text is unchanged during a run (§ Question resolution) | the same |
 | Dispatching | user | supervisor |
 | Taking a different route to an item's outcome | implementer, in the code, reporting the divergence | the same |
 | Changing plan text | user approves (`branch-plan.md § Plan edits`) | the same |
@@ -89,12 +89,16 @@ skipped, noted for the checkpoint, never re-implemented; else its
 branch per plan - and per commit checkbox:
 
 1. Dispatch a fresh implementer naming the plan file - the item it
-   works is the first `[ ]`. Its loop is the plan's `type:` mode file
+   works is the first `[ ]`, or the task report's `## Review` entry the
+   dispatch names (2, § Close 2). Its loop is the plan's `type:` mode file
    (`feat.md`, `fix.md`, `refactor.md`); `doc`/`test`/`mnt` run
    `branch-plan.md § Commit cadence` alone.
 2. DONE → next item. DONE_WITH_CONCERNS → a concern that changes an item's
    acceptance takes § Question resolution as NEEDS_CONTEXT does: the item's
-   `[x]` stands, and the user's answer adds a new checkbox for the redo. Any
+   `[x]` stands, and the runner writes the redo the user's answer asks for
+   as a `## Review` entry of the task report in the `branch-plan.md § Task
+   report` form, its `Evidence:` line citing the concern (`observed <the
+   implementer's report>`), which the next dispatch names. Any
    other concern the runner ledgers (§ Ledger) and carries into the report.
    NEEDS_CONTEXT → § Question resolution. Halt triggers: `branch-plan.md § Stop
    conditions`.
@@ -117,18 +121,19 @@ whose answer changes what an item delivers, a proposed plan edit
 the seat's text, under either supervisor mode. The halt reverts the item's
 uncommitted edits - `git read-tree --reset -u HEAD` and removal of the
 untracked files the seat created - so the branch stands at its last commit.
-The runner writes the user's answer into the plan, as item text or a new
-checkbox, in a bookkeeping commit on the item's branch; the answer is the
-user's, so a `cold-read: passed` record stands. A fresh implementer then
-starts from that commit. A seat never resumes.
+The runner writes the user's answer to the task report's `## Answers`,
+naming the item it answers (`branch-plan.md § Task report`), in a
+bookkeeping commit on the item's branch; plan text is unchanged during a
+run, an approved plan edit included. A fresh implementer then starts
+from that commit. A seat never resumes.
 
 A route question - which files, which order, toward the same outcome -
 costs no seat and no approval: the implementer decides it in the code and
 reports the divergence. An implementer's inputs are the plan, the docs and
 the code (`companions/implementer-prompt.md`), so an answer reaches the next
-implementer only as plan text. Each answer is ledgered with the runner's
-commit (§ Ledger) and carried into the report's `## Supervisor decisions`
-section at checkpoint.
+implementer only through the task report beside the plan. Each answer is
+ledgered with the runner's commit (§ Ledger) and carried into the
+report's `## Supervisor decisions` section at checkpoint.
 
 ## Close
 
@@ -140,9 +145,10 @@ Per branch, when its last non-final item is `[x]`:
    routine`).
 2. Fixes, one round (§ Seats, loop bound): mechanical ones applied,
    judgment calls queued; approval of the applied set is the **user**'s
-   under `Supervisor: human` (§ Seats). The runner adds the approved
-   fixes to the plan as new checkboxes in a bookkeeping commit, and a
-   fresh implementer commits them. The fixes are not reviewed again.
+   under `Supervisor: human` (§ Seats). The approved fixes are the
+   `## Review` entries the runner wrote (`branch-plan.md § Task report`);
+   a fresh implementer, dispatched naming them, commits them. The fixes
+   are not reviewed again.
 3. Docs, only when the diff changes user-facing behavior: dispatch the
    doc writer (§ Seats) on the diff from the commit the branch was cut
    from, the plan and the docs, then the gate's verifier over every doc

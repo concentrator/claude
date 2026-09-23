@@ -23,7 +23,7 @@ archived with its task. `archive/` directories are exempt.
 ## One home per finding
 
 A finding - a measurement, a decision, change history - lives in its owning
-artifact (task entry, task report, commit/MR message), never inline in a
+artifact (task report, commit/MR message), never inline in a
 file the change happens to touch: no history or annotation fields in data
 or code files, no status notes parked in index docs. Cite the owning
 artifact instead.

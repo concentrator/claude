@@ -9,6 +9,6 @@ Why: the plan-text rules exist but no project enforces them.
   files.
 - [x] **R082-T002 [mnt]**: A project install wires the gate into the
   project's fast tier.
-- [ ] **R082-T003 [mnt]**: Route findings, answers, probes and cold-read
+- [x] **R082-T003 [mnt]**: Route findings, answers, probes and cold-read
   gaps to the task report; create the report with the plan; drop
   tasks.md boilerplate.

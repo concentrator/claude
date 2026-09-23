@@ -20,7 +20,8 @@ branch = one task. The plan is complete and committed to `main`
 
 ## Body
 
-A checkbox list: each `[ ]` = one commit, naming the change and
+The header and a checkbox list, nothing else, in either mode: each
+`[ ]` = one commit, naming the change and
 carrying the decisions its docs will need - the doc writer's to read,
 never the docs' to cite (`run.md § Seats`). Each item states what the
 commit delivers against the requirements, one or a few sentences,
@@ -35,29 +36,29 @@ happened, never intent - a commit that didn't land stays `[ ]`.
 suggests how. The implementer probes and decides the route.
 
 **Strict**: the planner proves the plan with a throwaway draft before
-writing it (`write-plan.md` step 3), and the plan carries what the
-draft taught:
+writing it (`write-plan.md` step 3). What the draft taught goes to the
+task report's `## Planner` (§ Task report), never the plan:
 
-    ## Read first
+    ## Planner
+    ### Read first
     - <doc path or spec URL the implementer reads before starting>
-
-    ## Probes
-    ### <surface, e.g. POST /v2/route>
+    ### Probes
+    #### <surface, e.g. POST /v2/route>
     Request: <the call that worked>
     Response: <observed body, trimmed>
     Errors hit: <what failed and what fixed it>
     Trap: <behavior that would mislead an implementer>
+    ### Drafts
+    #### <the item it serves>
+    Draft: <working snippet from the draft>
+    Tests: <what to cover>
+    Watch: <critical area or edge case actually seen>
 
-    ## Items
-    - [ ] <what the commit delivers>
-      Draft: <working snippet from the draft>
-      Tests: <what to cover>
-      Watch: <critical area or edge case actually seen>
-
-`## Probes` is shared by the items, which name the probe heading they
-rely on. The implementer develops the draft into production code with
-tests and checks the planner's claims rather than trusting them. A
-strict plan needs `cold-read: passed` to run.
+Each draft names the probes it relies on. A cold-read gap's fix
+(`write-plan.md` step 6) lands in this section too. The implementer
+develops the draft into production code with tests and checks the
+planner's claims rather than trusting them. A strict plan needs
+`cold-read: passed` to run.
 
 ## Plan edits
 
@@ -65,8 +66,10 @@ No seat edits plan text on its own decision. An implementer taking a
 different route to the same outcome follows it in the code and reports
 the divergence and its reason; the plan is a temporary file and need
 not track the code. A change to plan text is proposed to the user and
-applied only on approval (`run.md § Question resolution`). Checkbox
-marks are bookkeeping, not plan edits.
+applied only on approval; during a run plan text is unchanged, and the
+approved change is an answer in the task report's `## Answers`
+(`run.md § Question resolution`). Checkbox marks are bookkeeping, not
+plan edits.
 
 ## Commit cadence (all types)
 
@@ -94,9 +97,8 @@ Open `[ ]` items → next pass; last non-final `[x]` → § Closing routine.
 
 ## No TODOs in code
 
-Never write `TODO`/`FIXME`/`XXX` in code. Route each to a plan artifact
-(branch-plan commit, the R's `tasks.md`, or an R stub) at discovery
-(§ Scope discoveries).
+Never write `TODO`/`FIXME`/`XXX` in code. Route each at discovery to the
+task report or a backlog line (§ Scope discoveries).
 
 ## Scope discoveries
 
@@ -127,7 +129,10 @@ smell, naming inconsistency:
 ## Task report
 
 `<task-id>-<slug>.report.md` beside the plan, a working file that lives
-as long as the R:
+as long as the R. The planner creates it with the plan, in the same
+commit, as a skeleton: the title and the `## Implementer` and
+`## Review` headings, no entries; a strict plan's report opens with the
+planner's filled `## Planner` (§ Modes). The seats fill it in this form:
 
     # R0NN-T00N report
 
@@ -138,24 +143,31 @@ as long as the R:
     - [ ] <discovery outside the item's scope>
       Evidence: observed <output> | test <failing test> | contract <spec>
 
+    ## Answers
+    - Item <n>: <the user's answer to that item's halt>
+
     ## Review
     - [ ] <issue> (Critical | Important | Suggestion) - <file:line>
       Evidence: observed ... | test ... | contract ...
 
 The implementer appends its section in the commit that carries the
-code. The reviewer is read-only: the runner, or the session outside a
-run, writes the close review's findings under `## Review`. At close
+code, and marks `[x]` the `## Review` entry its dispatch names. The
+reviewer is read-only: the runner, or the session outside a run, writes
+the close review's findings and a redo under `## Review`, and the
+user's answers under `## Answers` (`run.md § Question resolution`). At close
 every `[ ]` becomes `[x]` - fixed, `-> backlog`, or `won't fix:
 <reason>` - and the final commit carries the resolved report. A
 checkbox without an `Evidence:` line of one of the three types fails
 `scripts/ci/check-plan-text.sh`. Legacy `<task-id>-<slug>.findings.md`
-files are read as reports.
+files are read as reports; a branch adding one fails the same gate.
 
 ## Scope changes mid-branch
 
 Changes needed after the final commit are proposed to the user
-(§ Plan edits); on approval the plan gains new checkboxes plus a new
-final commit, and each new item gets a fresh implementer.
+(§ Plan edits). On approval during a run, each change becomes a
+`## Review` entry of the task report (`run.md § Dispatch per item` 2);
+outside a run, the plan gains new checkboxes plus a new final commit.
+Each new item gets a fresh implementer.
 
 ## Closing routine
 
@@ -175,12 +187,12 @@ commit and the hand-off (`finish`).
    **Tier-2 compliance review**: every concern in
    `MAINTENANCE.md § Tier-2 AI review`, over the diff.
 2. Validate findings against full project context.
-3. Report; request user approval before applying.
+3. Report; the findings are written under the task report's `## Review`
+   (§ Task report); request user approval before applying.
 4. Apply approved fixes as commits.
 5. Capture the branch outcome: a summary against the task's acceptance
    criteria; surface manual-testing/automation needs (`finish § 2`).
-6. **Triage the task report** (§ Task report): the close review's
-   findings are written under `## Review`; in-scope items resolve here
+6. **Triage the task report** (§ Task report): in-scope items resolve here
    as commits, not deferrals (§ Scope discoveries). For each remaining
    `[ ]`, prompt user:
    - Promote to a task or an R stub (`plan.md § Referential
@@ -285,9 +297,10 @@ regardless of size; the full suite runs at batch close (`run.md
 
 ### Rails
 
-- Plan text changes only on the user's approval (§ Plan edits). No
-  seat makes the closing decisions. The implementer keeps the code,
-  the plan checkboxes and the task report's implementer section.
+- Plan text is unchanged during a run; an answer goes to the task
+  report (§ Plan edits). No seat makes the closing decisions. The
+  implementer keeps the code, the plan checkboxes, the task report's
+  implementer section and the mark on the `## Review` entry it works.
 - Pre-flight creates `batch/R<NNN>-B<NNN>` off latest `main` and sets the
   `pre-R<NNN>-B<NNN>` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.

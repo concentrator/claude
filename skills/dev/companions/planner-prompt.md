@@ -30,21 +30,26 @@ Task tool (dev-planner):
 
     ## Your Job
 
-    1. Write the plan to `<path to the plan file>`. The dispatch names
-       that file: you neither choose the slug nor create the branch.
+    1. Write the plan to `<path to the plan file>` and its task report
+       skeleton to `<path to the report file>`, and commit both in one
+       commit. The dispatch names both files: you neither choose the
+       slug nor create the branch. The plan holds only its header and
+       items; a strict plan's read-first docs, probes and drafts go to
+       the report's `## Planner` (`branch-plan.md § Modes`).
 
     ## Exit
 
     Report back. The plan is not yours to approve or deliver. A strict
     plan gets one cold read (`write-plan.md` step 6); its gaps come
-    back to a planner once, and the header then records
+    back to a planner once, whose fixes go to `## Planner`, and the
+    header then records
     `cold-read: passed`.
 
     ## Report Format
 
     - **Status:** DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT
-    - The plan file, and its items in order - on a change, the diff of
-      items
+    - The plan file and its task report, and the plan's items in order -
+      on a change, the diff of items
     - Each decision an item implies, and where the item states or
       cites it
     - Anything the inputs could not settle
