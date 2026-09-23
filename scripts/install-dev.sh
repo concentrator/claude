@@ -183,9 +183,9 @@ chmod +x "$target/hooks/dev-context-fill.sh"
 # 4. shipped Tier-1 checks - the ones with no dependency on this repo's
 #    own layout; adopters wire them into their CI (the batch-tags gate
 #    enforces locally, e.g. a pre-push hook - its CI run reports a
-#    skip). The accretion and batch-tags pair ship their self-tests:
-#    both are tuned per project (the MARKERS list, the ref namespaces)
-#    and the self-test is how an adopter validates that edit. Adopter
+#    skip). Accretion, batch-tags and plan-text ship their self-tests;
+#    the first two are tuned per project (the MARKERS list, the ref
+#    namespaces), and the self-test validates that edit. Adopter
 #    tuning survives a re-run: the code-size allowlist is written only
 #    when absent, and an existing MARKERS line (accretion) is carried
 #    across the copy. The permission pre-flight ships beside them
