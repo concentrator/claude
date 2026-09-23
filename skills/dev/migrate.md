@@ -95,7 +95,11 @@ existing config. If user defers any item, record
 For contributors without a global toolset, install it into their
 `~/.claude/skills/`, or ship a project copy at `.claude/skills/dev/` - skill
 precedence means a personal copy wins and a project copy serves no-global
-contributors.
+contributors. A `--project` install into a git repo appends the plan-text
+gate (`check-plan-text.sh`) to the root `CLAUDE.md` `Test (fast):` line,
+else its `Test:` line, or prints the line to add when neither exists, and
+prints that the project's CI must run the fast tier; it edits no CI config,
+so wire the baseline's CI to run the fast tier.
 
 ## 6. Backfill plans
 

@@ -249,6 +249,15 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
   for line in "/$sess/" "/${parent:+$parent/}supervisor/"; do
     grep -qxF "$line" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
   done
+  gate="bash $(git -C "$target" rev-parse --show-prefix)scripts/ci/check-plan-text.sh"
+  tier=$(grep -m1 -n '^- Test (fast):' "$repo/CLAUDE.md" 2>/dev/null || grep -m1 -n '^- Test:' "$repo/CLAUDE.md" 2>/dev/null || true)
+  if [ -z "$tier" ]; then
+    echo "install-dev: no Test (fast): or Test: line in $repo/CLAUDE.md - add to its § Agent toolchain: - Test (fast): <fast tier>, then \`$gate\`"
+  elif ! grep -qF 'check-plan-text.sh' <<<"${tier#*:}"; then
+    tmp="$(mktemp)"
+    awk -v n="${tier%%:*}" -v add=", then \`$gate\`" 'NR == n { $0 = $0 add } 1' "$repo/CLAUDE.md" > "$tmp"
+    cat "$tmp" > "$repo/CLAUDE.md"
+  fi
 fi
 
 # 8. maintenance: seed the hygiene section - the cleanup rules for the
@@ -288,3 +297,4 @@ echo "install-dev: DEV toolset ($set) installed into $target ($scope)"
 echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh, check-accretion.sh, check-batch-tags.sh, check-plan-text.sh)"
 echo "install-dev: self-tests in $target/scripts/test/ - wire checks and self-tests into your CI; the /dev run's permission pre-flight is $target/scripts/preflight-permissions.sh"
 if [ -n "$seeded" ]; then echo "install-dev: maintenance hygiene section seeded into $seeded"; fi
+if [ -n "${repo:-}" ]; then echo "install-dev: your CI must run the fast tier (the Test (fast): or Test: line of $repo/CLAUDE.md) - no CI config was edited"; fi
