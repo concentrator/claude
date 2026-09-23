@@ -40,7 +40,7 @@ mode: normal
   `run.md § Question resolution`, `§ Dispatch per item` 2, `§ Close` 2,
   `§ Seats`; `branch-plan.md § Plan edits`, `§ Rails`; `implementer-prompt.md`;
   `dev-implementer.md § Plan & Task Report`; `supervisor-runbook.md` step 3.
-- [ ] Docs (doc writer): `README.md § Installing the toolset elsewhere`
+- [x] Docs (doc writer): `README.md § Installing the toolset elsewhere`
   names `check-plan-text.sh` among the shipped Tier-1 checks.
 - [ ] Complete the branch: cleanup, mark plan complete, mark R082-T003
   `[x]` in `tasks.md`, `bash scripts/ci/run-all.sh` green, commit with
