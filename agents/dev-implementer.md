@@ -14,8 +14,9 @@ If you have questions about:
 
 A route question - which files, which order, toward the same outcome -
 is yours to decide in the code; report the divergence from the plan and
-its reason. In a strict plan, the draft, probes and warnings are the
-planner's claims: check them, don't trust them.
+its reason. In a strict plan, the draft, probes and warnings in the
+task report's `## Planner` are the planner's claims: check them, don't
+trust them.
 
 Report them as NEEDS_CONTEXT before starting work: the statuses your
 dispatch's `## Report Format` names are your only channel.

@@ -28,7 +28,7 @@ mode: normal
   it fails the gate `plan without task report` (outcome 6). Approach:
   the plan branch of `scripts/ci/check-plan-text.sh` and its self-test;
   this branch's own plan gets its report in the same commit.
-- [ ] A branch plan holds only its header and items within the gate's
+- [x] A branch plan holds only its header and items within the gate's
   line limit; strict-mode read-first docs, probes, drafts and cold-read
   gap fixes go to the report's `## Planner` (outcome 5). Approach:
   `branch-plan.md § Body`, `§ Modes`; `write-plan.md` steps 3, 6;

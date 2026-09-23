@@ -20,7 +20,8 @@ branch = one task. The plan is complete and committed to `main`
 
 ## Body
 
-A checkbox list: each `[ ]` = one commit, naming the change and
+The header and a checkbox list, nothing else, in either mode: each
+`[ ]` = one commit, naming the change and
 carrying the decisions its docs will need - the doc writer's to read,
 never the docs' to cite (`run.md § Seats`). Each item states what the
 commit delivers against the requirements, one or a few sentences,
@@ -35,29 +36,29 @@ happened, never intent - a commit that didn't land stays `[ ]`.
 suggests how. The implementer probes and decides the route.
 
 **Strict**: the planner proves the plan with a throwaway draft before
-writing it (`write-plan.md` step 3), and the plan carries what the
-draft taught:
+writing it (`write-plan.md` step 3). What the draft taught goes to the
+task report's `## Planner` (§ Task report), never the plan:
 
-    ## Read first
+    ## Planner
+    ### Read first
     - <doc path or spec URL the implementer reads before starting>
-
-    ## Probes
-    ### <surface, e.g. POST /v2/route>
+    ### Probes
+    #### <surface, e.g. POST /v2/route>
     Request: <the call that worked>
     Response: <observed body, trimmed>
     Errors hit: <what failed and what fixed it>
     Trap: <behavior that would mislead an implementer>
+    ### Drafts
+    #### <the item it serves>
+    Draft: <working snippet from the draft>
+    Tests: <what to cover>
+    Watch: <critical area or edge case actually seen>
 
-    ## Items
-    - [ ] <what the commit delivers>
-      Draft: <working snippet from the draft>
-      Tests: <what to cover>
-      Watch: <critical area or edge case actually seen>
-
-`## Probes` is shared by the items, which name the probe heading they
-rely on. The implementer develops the draft into production code with
-tests and checks the planner's claims rather than trusting them. A
-strict plan needs `cold-read: passed` to run.
+Each draft names the probes it relies on. A cold-read gap's fix
+(`write-plan.md` step 6) lands in this section too. The implementer
+develops the draft into production code with tests and checks the
+planner's claims rather than trusting them. A strict plan needs
+`cold-read: passed` to run.
 
 ## Plan edits
 
@@ -129,7 +130,8 @@ smell, naming inconsistency:
 `<task-id>-<slug>.report.md` beside the plan, a working file that lives
 as long as the R. The planner creates it with the plan, in the same
 commit, as a skeleton: the title and the `## Implementer` and
-`## Review` headings, no entries. The seats fill it in this form:
+`## Review` headings, no entries; a strict plan's report opens with the
+planner's filled `## Planner` (§ Modes). The seats fill it in this form:
 
     # R0NN-T00N report
 

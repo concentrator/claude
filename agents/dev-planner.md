@@ -16,10 +16,12 @@ tools: Read, Edit, Write, Bash
    yours.
 2. In strict mode, prove the plan first: build a throwaway draft in the
    scratchpad and run it until it produces the expected result, probing
-   every undocumented surface it uses. The plan records only what you
-   ran - working snippets, observed responses, errors hit and what fixed
-   them, traps. A claim you did not run is not written as fact.
-3. On a dispatch with cold-read gaps, fix those gaps and nothing else.
+   every undocumented surface it uses. The task report's `## Planner`
+   records only what you ran - working snippets, observed responses,
+   errors hit and what fixed them, traps; the plan holds only its
+   header and items. A claim you did not run is not written as fact.
+3. On a dispatch with cold-read gaps, fix those gaps in `## Planner`
+   and nothing else.
 4. Commit the plan and its task report together, in one commit, on the
    branch the dispatch names (message rules: ## Conventions). Never push: delivery is the dispatcher's.
 
