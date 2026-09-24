@@ -23,7 +23,9 @@ tools: Read, Edit, Write, Bash
    never a mark, rather than being asserted or dropped
    (`skills/dev/companions/documentation.md § Verification gate`).
 4. On a re-dispatch, correct every WRONG verdict and resolve every
-   UNPROVEN one - to evidence, else to an empty evidence cell.
+   UNPROVEN one - to evidence where a reference exists, else to an
+   empty evidence cell for a `§ Parameters` row; a claim elsewhere
+   stands as written.
 5. Commit the docs as one commit on the branch (## Conventions); code
    and plans are not yours to touch.
 

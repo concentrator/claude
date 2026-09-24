@@ -25,8 +25,8 @@ Two further types live in their own subdirectories of the docs tree
 
 - **Reports** (`<docs>/reports/`): probe and test reports - each
   records the call, its output and the environment it ran in, from a
-  run that could have failed: inputs value-identical to the fallback
-  demonstrate nothing. The one docs location where datetimes and tenant
+  run that could have failed (`verification-policy.md § Verification
+  modality`). The one docs location where datetimes and tenant
   or client ids are allowed. A report is a probed claim's evidence
   (`layout.md § Docs`); a probed claim without one has no evidence.
 - **Adapted references** (`<docs>/references/`): external or codebase
@@ -158,8 +158,9 @@ pass, `run.md § Batch close`);
   no evidence is UNPROVEN, never VERIFIED. VERIFIED needs a run that
   could have failed (`verification-policy.md § Verification modality`).
 - Every WRONG is corrected before completion.
-- Every UNPROVEN claim gets evidence or an empty evidence cell
-  (`layout.md § Docs`). The verdicts are the verifier's: none is
+- Every UNPROVEN claim gets evidence where a reference exists. Where
+  none does, a `§ Parameters` row keeps an empty evidence cell
+  (`layout.md § Docs`) and a claim elsewhere stands as written. The verdicts are the verifier's: none is
   written into a doc.
 - A claim that cannot be independently checked is UNPROVEN; split a large
   doc across one verifier dispatch per section, the split being the
