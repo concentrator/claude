@@ -24,7 +24,7 @@ mode: normal
   `verification-policy.md § Verification modality` cites the source read.
   Approach: those three files; `git grep -niE 'provenance|from-spec'` over
   `skills/ agents/ rules/` then finds nothing.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)

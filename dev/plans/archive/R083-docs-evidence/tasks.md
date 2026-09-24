@@ -5,6 +5,6 @@ silently, and cost projects rules to govern their spelling.
 
 ## Open
 
-- [ ] **R083-T001 [mnt]**: Replace the provenance column and its
+- [x] **R083-T001 [mnt]**: Replace the provenance column and its
   vocabulary with evidence references in the docs layout rule, the
   documentation framework, the verification policy and the doc-writer seat.
