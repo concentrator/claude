@@ -18,7 +18,7 @@ mode: normal
   evidence; an UNPROVEN claim gets evidence or an empty cell, and no verdict
   is written into a doc. § Evidence and provenance becomes § Evidence.
   Approach: § Diataxis typing, § Content quality, § Verification gate.
-- [ ] The doc writer and the verification policy use the rules' words:
+- [x] The doc writer and the verification policy use the rules' words:
   `agents/dev-doc-writer.md` fills each row's evidence cell or leaves it
   empty, never a mark; `doc-writer-prompt.md` reports the rows left empty;
   `verification-policy.md § Verification modality` cites the source read.

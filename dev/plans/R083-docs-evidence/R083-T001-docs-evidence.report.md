@@ -17,5 +17,11 @@
   `verification-policy.md § Verification modality` citation.
   Evidence: observed `skills/dev/companions/documentation.md
   § Diataxis typing` and `§ Verification gate` after this commit.
+- [ ] Item 3: the `unverified` mark goes with `provenance` and
+  `from-spec`, since the item bars any mark: `agents/dev-doc-writer.md`
+  3-4 and `doc-writer-prompt.md`'s NEEDS_CONTEXT line now name an empty
+  evidence cell, and its report line lists the rows left empty.
+  Evidence: observed `git grep -niE 'unverified' -- skills/ agents/
+  rules/` before this commit hit those two files; after it, neither.
 
 ## Review

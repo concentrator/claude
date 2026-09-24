@@ -17,14 +17,13 @@ tools: Read, Edit, Write, Bash
    style, and `README.md` for new public surface. A doc the diff leaves
    accurate stays untouched.
 3. Write per `skills/dev/companions/documentation.md § Reference
-   discipline` and `§ Content quality`, marking each `§ Parameters`
-   row's provenance per `skills/dev/layout.md § Docs`. A claim the
-   inputs cannot settle carries the `unverified` mark rather than being
-   asserted or dropped (`skills/dev/companions/documentation.md
-   § Verification gate`).
+   discipline` and `§ Content quality`, filling each `§ Parameters`
+   row's evidence cell per `skills/dev/layout.md § Docs`. A claim the
+   inputs cannot settle keeps its row with the evidence cell empty,
+   never a mark, rather than being asserted or dropped
+   (`skills/dev/companions/documentation.md § Verification gate`).
 4. On a re-dispatch, correct every WRONG verdict and resolve every
-   UNPROVEN one - to a verified or sourced claim, else to the
-   unverified mark.
+   UNPROVEN one - to evidence, else to an empty evidence cell.
 5. Commit the docs as one commit on the branch (## Conventions); code
    and plans are not yours to touch.
 
