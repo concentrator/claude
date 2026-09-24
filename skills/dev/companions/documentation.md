@@ -23,11 +23,12 @@ Procedures belong in a How-to; do not put steps in a Reference.
 Two further types live in their own subdirectories of the docs tree
 (`layout.md § Docs`):
 
-- **Reports** (`<docs>/reports/`): probe and test reports - executed
-  calls with their outputs, attached as evidence. The one docs
-  location where datetimes and tenant or client ids are allowed.
-  Feature docs link them plainly; a report is useful, never required -
-  the doc itself states facts without proving them.
+- **Reports** (`<docs>/reports/`): probe and test reports - each
+  records the call, its output and the environment it ran in, from a
+  run that could have failed (`verification-policy.md § Verification
+  modality`). The one docs location where datetimes and tenant
+  or client ids are allowed. A report is a probed claim's evidence
+  (`layout.md § Docs`); a probed claim without one has no evidence.
 - **Adapted references** (`<docs>/references/`): external or codebase
   material rewritten to project format, carrying exactly what the
   docs need; a source URL is allowed inside.
@@ -106,8 +107,8 @@ an Element.
 - **Snapshot, not history**: a doc states the subject's current
   behavior only - no development chronology, task or plan ids, round
   dates, or development details. Git holds history and plans hold
-  planning; a provenance mark (`layout.md § Docs`) is a state fact
-  about claim strength and stays, dateless.
+  planning; an evidence reference (`layout.md § Docs`) is a state fact
+  about what a claim rests on and stays, dateless.
 - **Closed link scope**: a doc links only sibling documents inside the
   docs tree, other files of the same project (`config/`, `scripts/`,
   `src/`), or external URLs - never plan files (live or archived),
@@ -148,18 +149,19 @@ pass, `run.md § Batch close`);
 `release.md` 6) - every claim, via the dedicated per-claim pass:
 
 - Read the doc's `§ Parameters` preamble before its table. The
-  provenance definitions are `layout.md § Docs`'s and a doc may not
-  restate or narrow them: one that does has rewritten the standard it
+  evidence definition is `layout.md § Docs`'s and a doc may not
+  restate or narrow it: one that does has rewritten the standard it
   is judged against and is WRONG at the preamble before any cell is
   checked.
 - Per-claim verdict: **VERIFIED** (confirmed live), **DOCS**
   (authoritative source cited), **WRONG**, or **UNPROVEN**. A claim with
   no evidence is UNPROVEN, never VERIFIED. VERIFIED needs a run that
-  could have failed: inputs value-identical to the fallback demonstrate
-  nothing (`verification-policy.md § Verification modality`).
+  could have failed (`verification-policy.md § Verification modality`).
 - Every WRONG is corrected before completion.
-- Every UNPROVEN is resolved to VERIFIED/DOCS, or explicitly marked in
-  the doc as unverified / expert-needed - never asserted as fact.
+- Every UNPROVEN claim gets evidence where a reference exists. Where
+  none does, a `§ Parameters` row keeps an empty evidence cell
+  (`layout.md § Docs`) and a claim elsewhere stands as written. The verdicts are the verifier's: none is
+  written into a doc.
 - A claim that cannot be independently checked is UNPROVEN; split a large
   doc across one verifier dispatch per section, the split being the
   dispatcher's: a seat holds no Agent tool.
@@ -176,11 +178,14 @@ touches.
 Either path is artifact-free: version-control history records that the
 review ran; no separate stamp or ledger is kept.
 
-## Evidence and provenance
+## Evidence
 
-- Prefer verified-by-doing over cited-from-docs over inferred.
+What a doc may cite as evidence is `layout.md § Docs`'s.
+
+- Prefer a report over a read source; an inferred claim has no
+  evidence.
 - A version- or environment-specific fact says which version or
-  environment it was verified against - as a provenance mark or in a
-  report doc (§ Diataxis typing), never as inline chronology.
+  environment it was verified against - in its report doc (§ Diataxis
+  typing) or its evidence reference, never as inline chronology.
 - A recalled or documented fact that names a file, flag, or field is
   re-checked against the current system before it is relied on.

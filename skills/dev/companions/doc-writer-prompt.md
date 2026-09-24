@@ -33,8 +33,8 @@ Task tool (dev-doc-writer):
 
     Nothing else is an input, and you have no NEEDS_CONTEXT: a fact
     these three cannot settle is never asked
-    (`agents/dev-doc-writer.md`: the claim takes the `unverified`
-    mark).
+    (`agents/dev-doc-writer.md`: the row keeps an empty evidence
+    cell).
 
     ## Exit
 
@@ -50,7 +50,7 @@ Task tool (dev-doc-writer):
     - **Status:** DONE | DONE_WITH_CONCERNS | BLOCKED
     - The docs you touched
     - The commit subject
-    - Every claim you marked unverified
+    - Every row whose evidence cell you left empty
     - Any concerns
 
     Use DONE_WITH_CONCERNS if you wrote the docs but doubt one,
