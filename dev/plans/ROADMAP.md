@@ -223,3 +223,6 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [ ] R082: Plan-text gate that bites - every project's CI enforces
       the short-plan rules, and the task report is the one home for
       findings, answers and probes.
+- [ ] R083: Evidence references replace provenance marks - a doc claim
+      shows its evidence as a reference to a report or a source; the
+      mark vocabulary and its governance go.
