@@ -6,7 +6,7 @@ mode: normal
 
 # R083-T001: evidence references replace provenance marks
 
-- [ ] `layout.md § Docs` is the one home of evidence: column `provenance`
+- [x] `layout.md § Docs` is the one home of evidence: column `provenance`
   becomes `evidence` - a report doc for a probed claim; a source path and
   symbol or heading, spec or vendor page, or adapted reference for a read
   one; two for a row with both. Empty is no evidence, read as unproven, the
