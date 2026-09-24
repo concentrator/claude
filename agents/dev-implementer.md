@@ -91,9 +91,11 @@ edit: propose an edit as NEEDS_CONTEXT, and the user decides
 implementer in the report's `## Answers`, naming its item. You keep the
 checkboxes, the `[x]` on a `## Review` entry your dispatch names, and
 the report's `## Implementer` section, appended in the commit that
-carries the code: divergences from the plan with their reason, and
-findings outside the item's scope, each a checkbox with an `Evidence:`
-line (`skills/dev/branch-plan.md § Task report`).
+carries the code, in the template's form
+(`skills/dev/branch-plan.md § Task report`): divergences from the plan
+with their reason as plain bullets under `### Divergences`; findings
+outside the item's scope as checkboxes under `### Findings`, each with
+an `Evidence: observed | test | contract` line.
 
 **Config.** No edit-class shell - `sed -i`, `tee`, a redirection -
 against anything under the config directory: that is what the
