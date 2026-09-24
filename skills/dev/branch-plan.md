@@ -76,16 +76,19 @@ plan edits.
 Every pass ends the same way; `feat`/`fix`/`refactor` add their mode
 file's loop, `doc`/`test`/`mnt` run this alone:
 
-1. **Verify** - the fast tier green: lint plus the declared scoped
-   subset (`companions/declarations.md § Declared commands`); the
-   full suite runs once at close (`finish.md`).
+1. **Verify** - the plan `[x]` and the task report's `## Implementer`
+   section written first, since the plan-text gate scans both; then
+   the fast tier green over the tree as the commit will carry it: lint
+   plus the declared scoped subset (`companions/declarations.md
+   § Declared commands`); the full suite runs once at close
+   (`finish.md`).
 2. **Docs** - none in this commit: every doc the branch ships -
    `<docs>` with its index, the CHANGELOG `## [Unreleased]` entry under
    `release-routine: yes`, `README.md` for new public surface - is the
    doc writer's, written once per branch at `run.md § Close` 3
    (`run.md § Seats`).
-3. **Commit** (`git-workflow.md § Commit messages`); mark the plan
-   `[x]` immediately.
+3. **Commit** (`git-workflow.md § Commit messages`); the mark and the
+   report section ride it, never a later commit.
 4. **Output** - throughout the pass a command prints only what the
    step needs: a status, a count, a range (`grep -c`, `sed -n`, a gate
    or push silenced with its exit status echoed), never a file already

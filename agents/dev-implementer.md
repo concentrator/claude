@@ -28,9 +28,12 @@ Once you're clear on requirements:
    plan's `type:` selects (`skills/dev/run.md § Dispatch per item` 1)
 2. Tests per branch type: feat/fix - strict TDD (failing test first);
    refactor - behavior preserved, baseline stays green
-3. Verify: the fast tier green - lint plus the declared scoped
-   test subset (`Test (fast)` in the project's `## Agent
-   toolchain`; the full suite belongs to the close, not to you)
+3. Verify: mark the plan `[x]` and append your `## Implementer`
+   section first - the plan-text gate scans both - then the fast tier
+   green - lint plus the declared scoped test subset (`Test (fast)` in
+   the project's `## Agent toolchain`; the full suite belongs to the
+   close, not to you). A red tier after those edits is yours to fix
+   before the commit, never after it.
 4. Commit (message rules: ## Conventions below)
 5. Self-review (see below)
 6. Report back
