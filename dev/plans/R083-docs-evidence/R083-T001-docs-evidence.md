@@ -12,7 +12,7 @@ mode: normal
   one; two for a row with both. Empty is no evidence, read as unproven, the
   row kept. It names what a doc may cite; a citation of a citation is none.
   Approach: replace the paragraphs under the table; the restate ban stays.
-- [ ] `companions/documentation.md` cites `layout.md § Docs` and keeps no
+- [x] `companions/documentation.md` cites `layout.md § Docs` and keeps no
   provenance word: a report records the call, its output and environment
   from a run that could have failed, and a probed claim without one has no
   evidence; an UNPROVEN claim gets evidence or an empty cell, and no verdict
