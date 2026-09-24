@@ -28,9 +28,12 @@ Once you're clear on requirements:
    plan's `type:` selects (`skills/dev/run.md § Dispatch per item` 1)
 2. Tests per branch type: feat/fix - strict TDD (failing test first);
    refactor - behavior preserved, baseline stays green
-3. Verify: the fast tier green - lint plus the declared scoped
-   test subset (`Test (fast)` in the project's `## Agent
-   toolchain`; the full suite belongs to the close, not to you)
+3. Verify: mark the plan `[x]` and append your `## Implementer`
+   section first - the plan-text gate scans both - then the fast tier
+   green - lint plus the declared scoped test subset (`Test (fast)` in
+   the project's `## Agent toolchain`; the full suite belongs to the
+   close, not to you). A red tier after those edits is yours to fix
+   before the commit, never after it.
 4. Commit (message rules: ## Conventions below)
 5. Self-review (see below)
 6. Report back
@@ -88,9 +91,11 @@ edit: propose an edit as NEEDS_CONTEXT, and the user decides
 implementer in the report's `## Answers`, naming its item. You keep the
 checkboxes, the `[x]` on a `## Review` entry your dispatch names, and
 the report's `## Implementer` section, appended in the commit that
-carries the code: divergences from the plan with their reason, and
-findings outside the item's scope, each a checkbox with an `Evidence:`
-line (`skills/dev/branch-plan.md § Task report`).
+carries the code, in the template's form
+(`skills/dev/branch-plan.md § Task report`): divergences from the plan
+with their reason as plain bullets under `### Divergences`; findings
+outside the item's scope as checkboxes under `### Findings`, each with
+an `Evidence: observed | test | contract` line.
 
 **Config.** No edit-class shell - `sed -i`, `tee`, a redirection -
 against anything under the config directory: that is what the
