@@ -158,7 +158,12 @@ Per branch, when its last non-final item is `[x]`:
    conditions`). The report rides the dispatch entry and the verdicts a
    verify entry (§ Ledger); folding never skips it (§ Seats).
 4. The runner makes the mandatory final commit (cleanup, plan complete,
-   task mark per `branch-plan.md § Closing routine`).
+   task mark per `branch-plan.md § Closing routine`). A branch closing
+   the R's last open task runs the closure check first
+   (`branch-plan.md § Closing routine` 7): the verdict goes to the
+   **user**, and on confirmation the ROADMAP `[x]` and the archive move
+   ride this commit; `check-archival` fails a delivery that leaves
+   every task closed and the initiative open.
 5. Fast tier green → batch scope: merge into `batch/R<NNN>-B<NNN>`;
    task scope: `finish.md` from its § 1, then § Checkpoint. Red → halt.
 

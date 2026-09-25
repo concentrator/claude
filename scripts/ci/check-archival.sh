@@ -40,5 +40,23 @@ for f in "$P"/*/requirements.md; do
   fail=1
 done
 
+# A task list with every task [x] under a live initiative dir: the last
+# task closed without the closure check (plan.md § Approval and closure).
+for t in "$P"/*/tasks.md; do
+  [[ -f "$t" ]] || continue
+  d=$(dirname "$t"); r=$(basename "$d")
+  id=$(sed -E 's/^(R-?[0-9]{3}).*/\1/' <<<"$r")
+  grep -q '^- \[x\] \*\*' "$t" || continue
+  grep -q '^- \[ \] \*\*' "$t" && continue
+  fm=$(sed -n '2,${/^---$/q;p;}' "$d/requirements.md" 2>/dev/null)
+  grep -q '^archival: deferred - .' <<<"$fm" && continue
+  if grep -qE "^- \[x\] ${id}:" "$P/ROADMAP.md" 2>/dev/null; then
+    echo "ARCHIVAL: $r is closed in ROADMAP but not archived - git mv $P/$r $P/archive/ in the closing delivery"
+  else
+    echo "ARCHIVAL: $r has every task closed but the initiative open - run the closure check, then mark it [x] in ROADMAP and git mv $P/$r $P/archive/ (plan.md § Approval and closure)"
+  fi
+  fail=1
+done
+
 (( fail == 0 )) && echo "check-archival: OK"
 exit $fail
