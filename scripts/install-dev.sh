@@ -20,7 +20,7 @@
 # Idempotent + re-runnable.
 set -euo pipefail
 
-SRC="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "install-dev: run from a checkout of the toolset repo" >&2; exit 1; }
+SRC="$(git rev-parse --show-toplevel 2>/dev/null)" && [ -f "$SRC/skills/dev/SKILL.md" ] || { echo "install-dev: run from a checkout of the toolset repo" >&2; exit 1; }
 command -v jq >/dev/null || { echo "install-dev: jq is required" >&2; exit 1; }
 target="$HOME/.claude"; scope="global"; force=0; set=full
 while [ $# -gt 0 ]; do
