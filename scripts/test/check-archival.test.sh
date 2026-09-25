@@ -115,5 +115,30 @@ fails_with "$d" 'git mv var/plans/R001-x var/plans/archive/' \
   || die "violation in the declared tree missed: $(run_in "$d")"
 rm -rf "$d"
 
+# --- every task closed, initiative still open or unarchived ---
+d=$(mkrepo)
+mkr "$d" "R002-y" "kind: feat"
+printf -- '- [ ] R002: y\n' > "$d/dev/plans/ROADMAP.md"
+printf -- '# R002 tasks\n\n## Open\n\n- [x] **R002-T001 [feat]**: a\n- [ ] **R002-T002 [feat]**: b\n' \
+  > "$d/dev/plans/R002-y/tasks.md"
+ok_in "$d" && pass "open task keeps the initiative open" \
+  || die "open task flagged: $(run_in "$d")"
+printf -- '# R002 tasks\n\n## Open\n\n- [x] **R002-T001 [feat]**: a\n- [x] **R002-T002 [feat]**: b\n' \
+  > "$d/dev/plans/R002-y/tasks.md"
+fails_with "$d" 'every task closed but the initiative open' \
+  && pass "closed tasks under an open initiative caught" \
+  || die "closed tasks under an open initiative missed: $(run_in "$d")"
+printf -- '- [x] R002: y\n' > "$d/dev/plans/ROADMAP.md"
+fails_with "$d" 'closed in ROADMAP but not archived' \
+  && pass "closed initiative left live caught" \
+  || die "closed initiative left live missed: $(run_in "$d")"
+mkr "$d" "R002-y" "archival: deferred - closure rides the batch"
+ok_in "$d" && pass "deferred closure exempt" \
+  || die "deferred closure flagged: $(run_in "$d")"
+mkdir -p "$d/dev/plans/archive" && mv "$d/dev/plans/R002-y" "$d/dev/plans/archive/"
+ok_in "$d" && pass "archived initiative ignored" \
+  || die "archived initiative flagged: $(run_in "$d")"
+rm -rf "$d"
+
 (( fail == 0 )) && echo "check-archival.test: OK"
 exit $fail

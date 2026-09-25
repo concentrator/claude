@@ -220,7 +220,7 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R081: Lean planning - the DEV chain stays, its cost drops:
       agents do only what was asked, short stable plan artifacts, plan
       modes, task reports, bounded loops, no code comments by default.
-- [ ] R082: Plan-text gate that bites - every project's CI enforces
+- [x] R082: Plan-text gate that bites - every project's CI enforces
       the short-plan rules, and the task report is the one home for
       findings, answers and probes.
 - [x] R083: Evidence references replace provenance marks - a doc claim
