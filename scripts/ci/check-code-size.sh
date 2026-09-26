@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # check-code-size.sh - Tier-1 code-size gate (R-022).
 # Flags tracked code files over 300 lines, and shell functions over 50 lines.
-# Per-path exemptions live in scripts/ci/code-size-allow.txt (one path per
-# line; text after `#` is an ignored reason). Function-length is checked for
+# Per-path exemptions live in code-size-allow.txt beside this script (one
+# path per line, relative to the repo root; text after `#` is an ignored
+# reason), so an installed copy under .claude/scripts/ci/ reads its own. Function-length is checked for
 # shell only, where control flow uses then/do/fi rather than braces; js and
 # other languages get the file-size check only (a line-based function scan
 # there collides with control-flow braces).
@@ -18,7 +19,7 @@ cd "$(git rev-parse --show-toplevel)"
 
 FILE_MAX=300
 FUNC_MAX=50
-ALLOW="scripts/ci/code-size-allow.txt"
+ALLOW="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/code-size-allow.txt"
 
 is_allowed() {
   [ -f "$ALLOW" ] || return 1
