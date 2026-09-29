@@ -75,12 +75,14 @@ Write `.claude/DESIGN.md` (≤1000 words inline). User approves.
 
 Ensure project `CLAUDE.md` has `## Conventions` (release-routine,
 publish-external, and a `<docs>/index.md` pointer if the docs layer is
-used) + stack, base branch, an `## Agent toolchain` section (VCS host +
-build/test/lint/change-request/state-check commands -
-`companions/declarations.md`), and a `## Layout` section after
-`## Supervision` where present and after `## Agent toolchain`
+used) + stack, base branch, and that the project's instructions, the
+root `CLAUDE.md` or `.claude/CLAUDE.md`, hold an `## Agent toolchain`
+section (VCS host + build/test/lint/change-request/state-check
+commands - `companions/declarations.md`) and a `## Layout` section
+after `## Supervision` where present and after `## Agent toolchain`
 otherwise, backfilled from the inventory (`companions/declarations.md
-§ Declared paths`); backfill any that are absent, and write `<layout>`
+§ Declared paths`); backfill any that are absent, each key once across
+the two files, and write `<layout>`
 from `git ls-files` (`layout.md § Layout file`). Propose deletion of
 any restated global rules. Keep it within the `rules/claude-md.md`
 limits (§ Content, § Size and structure).
@@ -96,8 +98,9 @@ For contributors without a global toolset, install it into their
 `~/.claude/skills/`, or ship a project copy at `.claude/skills/dev/` - skill
 precedence means a personal copy wins and a project copy serves no-global
 contributors. A `--project` install into a git repo appends the plan-text
-gate (`check-plan-text.sh`) to the root `CLAUDE.md` `Test (fast):` line,
-else its `Test:` line, or prints the line to add when neither exists, and
+gate (`check-plan-text.sh`) to the `Test (fast):` line, else the `Test:`
+line, in whichever of the root `CLAUDE.md` and `.claude/CLAUDE.md` holds
+it, or prints the line to add, naming both files, when neither exists, and
 prints that the project's CI must run the fast tier; it edits no CI config,
 so wire the baseline's CI to run the fast tier.
 

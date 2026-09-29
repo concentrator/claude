@@ -5,7 +5,7 @@ architecture-changing: true
 mode: normal
 ---
 
-- [ ] A project's declarations sit in its own instructions, the root
+- [x] A project's declarations sit in its own instructions, the root
   `CLAUDE.md` or `.claude/CLAUDE.md`, each key once; the global
   instructions hold none, and every script and hook reads both files,
   the first line found. Prose naming the root file as the home follows.

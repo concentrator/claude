@@ -1,15 +1,20 @@
 # `CLAUDE.md` declarations
 
-The keys a project declares in its `CLAUDE.md` - routine commands in
-`§ Agent toolchain`, supervision in the `§ Supervision` that follows
-it, and paths in the `§ Layout` after them - and the exact form each
-takes. All apply everywhere - both modes, every command. Push and
-MR/PR mechanics that consume them: `toolchain.md`.
+The keys a project declares - routine commands in `§ Agent toolchain`,
+supervision in the `§ Supervision` that follows it, and paths in the
+`§ Layout` after them - and the exact form each takes. All apply
+everywhere - both modes, every command. Push and MR/PR mechanics that
+consume them: `toolchain.md`.
+
+The declarations sit in the project's own instructions, the root
+`CLAUDE.md` or `.claude/CLAUDE.md`, each key once across the two; the
+global instructions hold none. Every script and hook that reads a key
+reads both files and takes the first line found.
 
 ## Declared commands
 
-A project's `CLAUDE.md` declares its routine commands in an `## Agent
-toolchain` section - the VCS host (→ `gh`/`glab`) and the exact
+A project declares its routine commands in an `## Agent toolchain`
+section - the VCS host (→ `gh`/`glab`) and the exact
 change-request / merge / state-check / test / lint / build commands. It
 is the single source the run reads:
 
