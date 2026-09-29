@@ -12,7 +12,7 @@ mode: normal
   deletes the branch; no answer leaves the MR/PR open, reported as such.
   Approach: `skills/dev/finish.md` intro, § 2 (outcome only) and § 3; drop
   Options, the merge-approval ask, the `plan/` skip; `/dev ship` enters § 3.
-- [ ] Who merges has one rule: every MR/PR merges after green, through the
+- [x] Who merges has one rule: every MR/PR merges after green, through the
   declared merge command, by the seat the supervision declaration names; no
   prefix merges on its own and no host auto-merge is armed.
   Approach: `git-workflow.md § Trunk` Merge policy cites `declarations.md

@@ -85,7 +85,7 @@ Commit and MR/PR text cites work by durable id, never a bare hash
 
 - Any decision (test result, approach, design, config or behavior
   change) needs explicit approval before it is saved or applied;
-  auto-merge delivers, never decides.
+  a merge delivers, never decides.
 - Memory holds cross-project user preferences only, never project
   data: in DEV, findings go to the owning artifact and a behavior
   change cites its commit/PR.

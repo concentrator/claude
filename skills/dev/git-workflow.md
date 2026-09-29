@@ -52,16 +52,12 @@ commands`).
   initiatives list ids: `plan/r014-r015-tasks`.
 - Branches are short-lived and single-owner: merge within a day, two
   days absolute max; keep ≤ 3 active.
-- **Merge policy.** Only `plan/` MR/PRs (planning artifacts) auto-merge;
-  every other prefix - `feat`/`fix`/`refactor`/`release`/`doc`/`test`/
-  `mnt`, and `batch` via its checkpoint accept - keeps review and merge
-  as the user's call (asked by `finish.md § 3`), delegable to a
-  supervisor within a project's declared bounds
-  (`companions/declarations.md § Supervisor bounds`; `run.md § Seats`).
-  Auto-merge runs on a green gate: native host auto-merge where available
-  (`gh pr merge --auto`, GitLab merge-when-pipeline-succeeds); where the
-  host can't gate (no branch protection), the user - or the supervisor
-  within bounds - merges (§ Merge order).
+- **Merge policy.** Every MR/PR, whatever its prefix, merges after its
+  gate is green (§ Merge order), through the declared merge command, by
+  the seat the supervision declaration names
+  (`companions/declarations.md § Supervisor bounds`; `run.md § Seats`,
+  the Merging row). No prefix merges on its own, and no host is armed
+  to merge automatically.
 - **Merge order.** Read the declared state check
   (`companions/toolchain.md § State check`) until it reports success,
   then merge. No pipeline yet, queued, or running is never success:

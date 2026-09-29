@@ -64,9 +64,11 @@ work as far as a green MR/PR and holds one decision class:
   **user** under either mode (`run.md § Seats`, `§ Question
   resolution`).
 
-**The grant includes the merge.** Within the declared bound the
-supervisor's last act on a green in-class MR/PR is the merge, carrying
-the supervision signature below; everything outside the bound - and
+**The grant includes the merge.** The seat this declaration names
+takes `finish.md § 3`'s decision, merge or discard, on every MR/PR:
+under `Supervisor: human` the user, under `Supervisor: AI` the
+supervisor on a green in-class MR/PR, its merge carrying the
+supervision signature below; everything outside the bound - and
 everything on the always-ask list - goes to the user. The
 implementer/supervisor seam stays: the doer never verifies its own
 delivery.
