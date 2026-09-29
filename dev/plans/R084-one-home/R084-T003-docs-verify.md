@@ -34,7 +34,7 @@ mode: normal
   `dev/plans/` finds no verdict name, evidence cell or per-claim pass.
   Approach: the prose class of `agents/code-reviewer.md`, then the search
   and a rewrite of each hit.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)
