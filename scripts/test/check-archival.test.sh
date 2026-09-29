@@ -115,8 +115,6 @@ fails_with "$d" 'git mv var/plans/R001-x var/plans/archive/' \
   || die "violation in the declared tree missed: $(run_in "$d")"
 rm -rf "$d"
 
-# 11. a declaration in .claude/CLAUDE.md is read when the root CLAUDE.md
-# carries none: a closed initiative there is caught
 d=$(mkrepo); printf '# x\n' > "$d/CLAUDE.md"; mkdir -p "$d/.claude"
 printf -- '- Plans: var/plans/\n' > "$d/.claude/CLAUDE.md"
 mkdir -p "$d/var/plans/R001-x"

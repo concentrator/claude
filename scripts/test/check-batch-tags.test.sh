@@ -233,8 +233,6 @@ out=$(out_in "$d"); rc=$?
   || die "stale ref in the declared tree missed: $out"
 rm -rf "$d"
 
-# 24. a declaration in .claude/CLAUDE.md is read when the root CLAUDE.md
-# carries none: a stale ref in the tree it declares is caught
 d=$(mkrepo); mkdir -p "$d/.claude"
 printf -- '- Plans: var/plans/\n' > "$d/.claude/CLAUDE.md"
 mkdir -p "$d/var/plans/R-042-pocs/batches"

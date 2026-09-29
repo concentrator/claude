@@ -172,8 +172,6 @@ fails_with "$d" 'R002-T001 in .* but its dir is R-001' \
   || die "violation in the declared tree missed"
 rm -rf "$d"
 
-# 14b. a declaration in .claude/CLAUDE.md is read when the root
-# CLAUDE.md carries none
 d=$(mkrepo); mkdir -p "$d/var/plans/R-001-x" "$d/.claude"
 printf '# x\n' > "$d/CLAUDE.md"
 printf -- '- Plans: var/plans/\n' > "$d/.claude/CLAUDE.md"

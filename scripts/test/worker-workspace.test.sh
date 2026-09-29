@@ -228,7 +228,6 @@ grep -q 'CLAUDE.md § Layout' <<<"$out" && grep -q 'info/exclude' <<<"$out" \
   && pass "project-clone excludes the ledger and session dirs" \
   || die "project-clone does not name the ledger exclude: $out"
 
-# 48. the session tree .claude/CLAUDE.md declares is excluded, supervisor/ beside it
 pr=$(mktemp -d); for r in attack-checker wallarm-api-js; do git init -q "$pr/$r"; done
 mkdir "$pr/attack-checker/.claude"; printf -- '- Session: var/state/\n' > "$pr/attack-checker/.claude/CLAUDE.md"
 env PATH=/usr/bin:/bin HOME="$pr" WORKER_PROJECTS_ROOT="$pr" bash "$WSSCRIPT" project-clone >/dev/null 2>&1

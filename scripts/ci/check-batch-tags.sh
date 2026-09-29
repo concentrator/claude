@@ -1,21 +1,4 @@
 #!/usr/bin/env bash
-# Tier-1 batch-ref gate (R-044, R-048): the batch refs the DEV flow
-# creates - the pre-R<NNN>-B<NNN> rollback tag and the batch/R<NNN>-B<NNN>
-# integration branch (legacy spelling R<NNN>-B-XXX) - must not outlive
-# their batch: the merge deletes the tag, post-merge cleanup the branch
-# (skills/dev/branch-plan.md § Rails). Member branches carry no reserved
-# namespace, so they stay outside the gate. A batch is closed once its
-# report (R<NNN>-B<NNN>.report.md, legacy B-XXX.report.md) reaches
-# the trunk via the merged batch MR/PR, so the gate judges the
-# trunk's tree, never the worktree: discard, halt, and the accept push
-# itself all hold refs while a report exists somewhere, and none of
-# them is stale. A pre-* tag or batch/* branch that is not a
-# well-formed composite ref naming an initiative present on the trunk
-# fails as unresolvable. Plans live at the tree CLAUDE.md § Layout
-# declares (skills/dev/companions/declarations.md); the
-# worktree's declaration is the one its refs resolve against, a trunk
-# whose tree sits elsewhere being a migration in flight that moves tree
-# and declaration together (skills/dev/companions/root-migration.md § 2).
 set -uo pipefail
 top="$(git rev-parse --show-toplevel)" \
   || { echo "BATCH-TAGS: not inside a git repo"; exit 1; }

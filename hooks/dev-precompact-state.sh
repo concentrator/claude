@@ -26,10 +26,6 @@ root=${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null)}
 [ -n "$root" ] || exit 0
 git -C "$root" rev-parse --show-toplevel >/dev/null 2>&1 || exit 0
 
-# Session dir: the tree CLAUDE.md § Layout declares
-# (skills/dev/companions/declarations.md, skills/dev/handoff.md);
-# DEV_STATE_DIR overrides it for tests. The hook runs without `set -e`, so
-# an absent file or line just reads empty.
 decl=$(sed -n 's/^- Session: *//p' "$root/CLAUDE.md" "$root/.claude/CLAUDE.md" 2>/dev/null | head -1)
 dir=${DEV_STATE_DIR:-$root/${decl:-dev/session}}
 dir=${dir%/}

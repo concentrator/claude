@@ -1,9 +1,4 @@
 #!/usr/bin/env bash
-# Tests scripts/ci/check-accretion.sh - the Tier-1 accretion gate. Each
-# case runs the real check in a throwaway git repo (the gate scans only
-# the plans tree CLAUDE.md § Layout declares, so this test
-# source never trips it).
-# Run: bash scripts/test/check-accretion.test.sh
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
@@ -134,8 +129,6 @@ c=$(hits_in "$d")
   || die "declared-tree violation missed ($c of 1)"
 rm -rf "$d"
 
-# 20. a declaration in .claude/CLAUDE.md is read when the root CLAUDE.md
-# carries none
 d=$(mkrepo); printf '# x\n' > "$d/CLAUDE.md"; mkdir -p "$d/.claude"
 printf -- '- Plans: var/plans/\n' > "$d/.claude/CLAUDE.md"
 mkdir -p "$d/var/plans"; printf 'clean\n' > "$d/var/plans/ROADMAP.md"

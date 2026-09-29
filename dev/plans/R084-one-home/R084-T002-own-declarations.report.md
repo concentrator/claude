@@ -47,3 +47,30 @@
   declaration.
 
 ## Review
+- [x] The start skill still says the install appends the plan-text gate
+  to the root file's test line; it now takes either instruction file
+  (Critical) - `skills/dev/start.md:56-59`
+  Evidence: contract `scripts/install-dev.sh` step 7
+- [x] The pre-flight's first-file guard is unpinned: removed, the suite
+  stays green and a second file's bullets leak into the section; add a
+  case with a toolchain in both files (Important) -
+  `scripts/preflight-permissions.sh:170`
+  Evidence: observed mutation run of `preflight-permissions.test.sh`
+- [x] The plan-text check's two-file read is unpinned, as the plan
+  limited new cases to self-tests declaring a tree (Suggestion) -
+  `scripts/ci/check-plan-text.sh:11`
+  Evidence: observed mutation run of `check-plan-text.test.sh`
+  won't fix: the plan limits new cases to self-tests declaring a tree
+- [x] The reworded toolchain comment splits "backticked span" from
+  "that holds a space" with an aside; rejoin them (Suggestion) -
+  `scripts/preflight-permissions.sh:157-161`
+  Evidence: observed text of the comment
+  Resolved with the entry below: the comment is removed.
+- [x] The branch edits and adds header and case comments in scripts,
+  while the global instructions say code carries no comments; the
+  user ruled the convention holds: strip every comment the branch
+  added or edited (Important) - `scripts/ci/`,
+  `hooks/dev-precompact-state.sh`, `scripts/test/`
+  Evidence: contract `CLAUDE.md § Code Comments`
+  Each comment block the branch added or edited went in full, its
+  untouched lines and `# Run:` lines included.

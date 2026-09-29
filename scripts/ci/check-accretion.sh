@@ -1,22 +1,4 @@
 #!/usr/bin/env bash
-# Tier-1 accretion gate (R-041, R-043): living plan artifacts state the
-# present (rules/writing-artifacts.md § State the present). Flags dated
-# supersession / amendment / status markers in tracked plan files under
-# the plans tree CLAUDE.md § Layout declares
-# (skills/dev/companions/declarations.md) - the full ISO
-# date is the discriminator: an undated terminal outcome ("mooted by
-# R-021") is present state, a dated one ("superseded 2026-07-07") is
-# hand-rolled version control that belongs to git history. A bare year
-# never matches - alone it reads as a count, a key length, or an id. The
-# separator tolerates bounded punctuation ("Superseded: 2026-07-07") but
-# not sentence terminators.
-# The rule is blind to markdown, so prose documenting the gate describes
-# a marker rather than quoting one - code spans are not exempt, or real
-# accretion could hide inside one. plans/archive/ is
-# frozen history and exempt. The status fields need no exemption:
-# `approved:` carries a state (`pending` / `yes`) rather than a date,
-# and `status: done` is retired, surviving only in the exempt archive
-# (`skills/dev/plan.md § Approval and closure`).
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 

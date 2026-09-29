@@ -154,11 +154,6 @@ resolve() {
   missing_list="$missing_list$1"$'\n'; missing_n=$((missing_n + 1))
 }
 
-# The project's declared commands as Bash prefix rules, read from the first
-# of CLAUDE.md and .claude/CLAUDE.md holding the section: each backticked span
-# in one of its bullets - a bullet line and its indented wrap, never the
-# section's prose, which cites section names too - that holds a space, cut at
-# its first placeholder. A spaceless span is a CLI name and adds no rule.
 toolchain_rules() {
   local f s files=()
   for f in "$project/CLAUDE.md" "$project/.claude/CLAUDE.md"; do [ -f "$f" ] && files+=("$f"); done
