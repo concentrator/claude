@@ -12,7 +12,7 @@ mode: normal
   and their times stay the ledger's alone. Approach: the form and rule
   in `branch-plan.md § Task report`, citing `run.md § Ledger`; then the
   form as `agents/dev-implementer.md § Plan & Task Report` states it.
-- [ ] `## Planner` records only what the planner ran, as
+- [x] `## Planner` records only what the planner ran, as
   `agents/dev-planner.md` already says: each probe's source, call,
   response, errors hit and fix, trap; each draft's snippet and what its
   run showed. `### Read first` and `Tests: <what to cover>` go. Approach:

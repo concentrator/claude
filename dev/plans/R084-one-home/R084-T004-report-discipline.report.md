@@ -9,5 +9,11 @@
 - Item 1: the implementer's section names only the dispatch, status and
   verdict of the ledgered events, the ones an implementer holds; the
   full list stays in `branch-plan.md § Task report`.
+- Item 2: `Watch:` went with `Tests:`, since its "critical area" was
+  not bound to a run; `Showed:` takes the draft's run result, edge cases
+  hit included. Result: each probe carries `Source:`, each draft
+  `Draft:` and `Showed:`.
+- Item 2: the acceptance grep still matches the plan's own item text,
+  which leaves with the plan at archive; no other tracked file matches.
 
 ## Review

@@ -34,8 +34,8 @@ Task tool (dev-planner):
        skeleton to `<path to the report file>`, and commit both in one
        commit. The dispatch names both files: you neither choose the
        slug nor create the branch. The plan holds only its header and
-       items; a strict plan's read-first docs, probes and drafts go to
-       the report's `## Planner` (`branch-plan.md § Modes`).
+       items; a strict plan's probes and drafts, only what you ran, go
+       to the report's `## Planner` (`branch-plan.md § Modes`).
 
     ## Exit
 

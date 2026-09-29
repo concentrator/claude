@@ -36,14 +36,14 @@ happened, never intent - a commit that didn't land stays `[ ]`.
 suggests how. The implementer probes and decides the route.
 
 **Strict**: the planner proves the plan with a throwaway draft before
-writing it (`write-plan.md` step 3). What the draft taught goes to the
-task report's `## Planner` (§ Task report), never the plan:
+writing it (`write-plan.md` step 3). What the planner ran, and only
+that, goes to the task report's `## Planner` (§ Task report), never the
+plan:
 
     ## Planner
-    ### Read first
-    - <doc path or spec URL the implementer reads before starting>
     ### Probes
     #### <surface, e.g. POST /v2/route>
+    Source: <doc path, spec URL or code the surface was read from>
     Request: <the call that worked>
     Response: <observed body, trimmed>
     Errors hit: <what failed and what fixed it>
@@ -51,8 +51,7 @@ task report's `## Planner` (§ Task report), never the plan:
     ### Drafts
     #### <the item it serves>
     Draft: <working snippet from the draft>
-    Tests: <what to cover>
-    Watch: <critical area or edge case actually seen>
+    Showed: <what its run produced, edge cases it hit included>
 
 Each draft names the probes it relies on. A cold-read gap's fix
 (`write-plan.md` step 6) lands in this section too. The implementer
