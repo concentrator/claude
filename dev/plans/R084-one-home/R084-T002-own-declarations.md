@@ -34,7 +34,7 @@ mode: normal
   its Tier-1 enforcement sentence, true only here.
   Approach: `.gitignore` allowlist, `LAYOUT.md` node, then a `git grep`
   finding no precedence sentence outside the plans tree and `README.md`.
-- [ ] `DESIGN.md § Self-hosting layout` states that the nested `.claude/`
+- [x] `DESIGN.md § Self-hosting layout` states that the nested `.claude/`
   holds Claude Code's project settings and this repository's
   instructions with its declarations, the root `CLAUDE.md` being the
   global instructions.

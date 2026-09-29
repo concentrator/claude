@@ -41,5 +41,9 @@
 - Item 5: the new `.claude/CLAUDE.md` opens with a `# Project
   instructions` title above the three moved sections, so the file reads
   as an instruction file; the sections themselves carry no preamble.
+- Item 6: the section's `CLAUDE.md § Layout` citation now reads
+  `.claude/CLAUDE.md § Layout`, since in this repository a bare
+  `CLAUDE.md` is the root file, which no longer holds the `## Layout`
+  declaration.
 
 ## Review
