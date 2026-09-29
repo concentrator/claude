@@ -165,7 +165,8 @@ Per branch, when its last non-final item is `[x]`:
    ride this commit; `check-archival` fails a delivery that leaves
    every task closed and the initiative open.
 5. Fast tier green → batch scope: merge into `batch/R<NNN>-B<NNN>`;
-   task scope: `finish.md` from its § 1, then § Checkpoint. Red → halt.
+   task scope: `finish.md § 1-2`, then § Checkpoint, whose accept,
+   § Boundary verification and § Merge or ask run its § 3. Red → halt.
 
 Rails hold throughout (`branch-plan.md § Rails`).
 
@@ -187,16 +188,15 @@ At scope end or halt, write the R's `batches/R<NNN>-B<NNN>.report.md`
 per `companions/report-template.md`, re-verifying acceptance criteria.
 No report → no accept. A task-scoped run has no report: `finish.md
 § 1`'s verify set stands in its place, and a branch missing it is no
-more mergeable than a batch missing its report. Then - the choice the
-**user**'s under `Supervisor: human`, the runner's within bounds under
-`Supervisor: AI` (§ Seats):
+more mergeable than a batch missing its report. Then:
 
-- **Accept** → push the branch to origin + open the CI-gated MR/PR per
+- **Accept** - on a report verifying each acceptance criterion, unasked
+  → push the branch to origin + open the CI-gated MR/PR per
   `companions/toolchain.md`, description from the report; then
-  § Boundary verification and § Merge or ask. Findings triage; ref
-  cleanup per `branch-plan.md § Rails` - after the MR/PR merges,
-  post-merge cleanup deletes the batch branch, local and origin.
-- **Reject** → ref handling per `branch-plan.md § Rails`.
+  § Boundary verification and § Merge or ask, whose discard is the one
+  way a branch is turned down. Findings triage; ref cleanup per
+  `branch-plan.md § Rails` - after the MR/PR merges, post-merge cleanup
+  deletes the batch branch, local and origin.
 - **Halt** → failed item reported. A question halt - an implementer's
   acceptance-changing concern, NEEDS_CONTEXT or an absorbable blocker
   (`branch-plan.md § Scope discoveries`; § Seats) - takes § Question resolution,
@@ -239,14 +239,17 @@ never deliver without a class or escalate without having read the
 declaration.
 
 The terminal state on a branch is a green MR/PR plus the report that verifies
-it. Under `Supervisor: AI`, within a named class the runner merges on the
-evidence it assembled - report path, gate results, state-check output - and
-applies the signature (§ Supervision signature there); everything else is asked
-of the user directly (Remote Control where connected) - the always-ask list per
-that same section, and anything the grant does not name (§ Seats). Under
-`Supervisor: human` every merge is the **user**'s (§ Seats): the run presents
-the MR/PR and its evidence and waits, and this step replaces the ship question
-of `finish.md § 2-3` for a task-scoped run under AI.
+it. This step is `finish.md § 3`'s verify and decision, on either scope: the
+verify runs and shows its results, then the seat the declared bound names
+merges or discards (§ Seats, the Merging row). Under `Supervisor: AI`, within a
+named class the runner decides on the evidence it assembled - report path, gate
+results, state-check output, the verify's results - and a merge carries the
+signature (§ Supervision signature there); everything else is asked of the user
+directly (Remote Control where connected) - the always-ask list per that same
+section, and anything the grant does not name (§ Seats). Under `Supervisor:
+human` every decision is the **user**'s (§ Seats): the run presents the MR/PR
+and its evidence and waits. A discard handles refs per `branch-plan.md
+§ Rails`; no answer leaves the MR/PR open, reported as such.
 
 Branch protection is not the runner's to satisfy by other means: a
 red gate escalates rather than being worked around. Escalations are

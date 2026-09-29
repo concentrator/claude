@@ -18,7 +18,7 @@ mode: normal
   Approach: `git-workflow.md § Trunk` Merge policy cites `declarations.md
   § Supervisor bounds`, which gives that seat `finish.md § 3`'s decision;
   root `CLAUDE.md` "auto-merge delivers" becomes "a merge delivers".
-- [ ] A run's branch reaches the same one decision: the checkpoint's accept
+- [x] A run's branch reaches the same one decision: the checkpoint's accept
   opens the MR/PR unasked on a report verifying the acceptance criteria,
   Reject retires into the discard, and § Merge or ask is `finish.md § 3`'s
   verify and decision, taken by the seat the declared bound names.
