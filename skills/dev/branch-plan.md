@@ -194,7 +194,8 @@ commit and the hand-off (`finish`).
    (§ Task report); request user approval before applying.
 4. Apply approved fixes as commits.
 5. Capture the branch outcome: a summary against the task's acceptance
-   criteria; surface manual-testing/automation needs (`finish § 2`).
+   criteria (`finish.md § 2`); surface manual-testing/automation needs
+   for the verify (`finish.md § 3` step 4).
 6. **Triage the task report** (§ Task report): in-scope items resolve here
    as commits, not deferrals (§ Scope discoveries). For each remaining
    `[ ]`, prompt user:

@@ -27,26 +27,30 @@
   case-insensitive `Reject` also matches "rejected by the sandbox" in
   `agents/dev-implementer.md`, which is no reject choice; case-sensitive
   it finds none of the listed terms.
+- Review 2: the migration merge rests on two always-ask entries,
+  off-plan work and `CLAUDE.md` changes beyond the declaration lines,
+  since in untracked mode `CLAUDE.md` is gitignored and no rewrite of it
+  rides the branch, which leaves off-plan work as the entry that holds.
 ### Findings
-- [ ] `branch-plan.md § Closing routine` 5 cites `finish § 2` for
+- [x] `branch-plan.md § Closing routine` 5 cites `finish § 2` for
   manual-testing needs, which now sit in `finish.md § 3`'s verify step;
   no item of this plan names routine 5.
   Evidence: observed `git grep` hit at `skills/dev/branch-plan.md:197`
 
 ## Review
-- [ ] `branch-plan.md § Closing routine` 5 cites `finish § 2` for the
+- [x] `branch-plan.md § Closing routine` 5 cites `finish § 2` for the
   manual-testing needs that now sit in `finish.md § 3` step 4 (Important)
   - `skills/dev/branch-plan.md:197`. Fix: cite `finish.md § 2` for the
   outcome and `finish.md § 3` step 4 for the verify.
   Evidence: contract `skills/dev/finish.md` § 2 holds the outcome only
   and § 3 step 4 is the verify.
-- [ ] The migration merge "stays the user's call" because the diff exceeds
+- [x] The migration merge "stays the user's call" because the diff exceeds
   planning artifacts, a contrast the Merge policy no longer draws
   (Important) - `skills/dev/companions/root-migration.md:46-48`. Fix: drop
   the planning-artifacts reason; rest the user-only merge on the always-ask
   list of `companions/declarations.md § Supervisor bounds`.
   Evidence: contract `skills/dev/git-workflow.md § Trunk` Merge policy.
-- [ ] The example ruling "plan/ merges on green without a second ask"
+- [x] The example ruling "plan/ merges on green without a second ask"
   states the retired plan exception (Suggestion) - `skills/dev/handoff.md:41`.
   Fix: an example ruling that describes no merge policy.
   Evidence: observed `git grep` hit at that line.
