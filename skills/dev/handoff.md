@@ -38,7 +38,7 @@ Append one `hand-off` block with these six keys, each one line;
     - next: /dev run R040-T019, item 3 (handoff.md)
     - branch: feat/precompact-state, 2 commits ahead of main
     - open: none
-    - rulings: plan/ merges on green without a second ask; keep the 405 note
+    - rulings: keep the retry cap at 3; keep the 405 note
     - notes: pre-push runs the full suite; the fix needed the index rebuilt
 
 The timestamp is read from the clock -

@@ -45,8 +45,10 @@ Two rounds, each emitting several artifact levels at once:
   their branch plans together.
 
 **Approval authorizes planning, not code** (gate: § Approval and
-closure). Approving a plan delivers its MR/PR and stops: shape-approval
-authorizes the detail round; detail-approval authorizes nothing to run.
+closure). Approving a plan sends its branch through `finish.md § 3`,
+the one decision every branch takes, and the round stops there:
+shape-approval authorizes the detail round; detail-approval authorizes
+nothing to run.
 A plan round ends by proposing `/dev run <slug>`, which the user
 invokes explicitly.
 
