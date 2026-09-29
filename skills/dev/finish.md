@@ -2,9 +2,10 @@
 
 Close out a task-scoped run's branch - the close step `run.md § Close`
 invokes after the mandatory final commit; its § 1 verify set is the
-run's evidence (`companions/declarations.md § Supervisor bounds`). § 2
-and § 3 are the human-mode surface: under `Supervisor: AI` the
-merge-or-ask step of `run.md` replaces the ship question.
+run's evidence (`companions/declarations.md § Supervisor bounds`). § 3
+holds the branch's one decision point, merge or discard, taken by the
+merging seat (`run.md § Seats`, the Merging row) under either
+supervision.
 
 ## 1. Verify
 
@@ -17,53 +18,46 @@ merge-or-ask step of `run.md` replaces the ship question.
   commands`) - the branch's one full local run; failing → stop and
   report.
 
-## 2. Report outcome, verify, then present options
+## 2. Report outcome
 
-Three ordered steps - the verify is a distinct, blocking step, never folded
-into the options or glossed past:
+What the branch produced vs the task's acceptance criteria. The report
+asks nothing; § 3 follows it.
 
-1. **Outcome** - what the branch produced vs the task's acceptance
-   criteria.
-2. **Verify** - offer the action the diff content calls for: code →
-   run it live; rules or process prose → dry-run the changed rule
-   against a real case; tests → the suite run is the verification;
-   data or config → run the work product and show the results. Present
-   this and wait.
-3. **Options** - only then present delivery: **ship / discard**. No
-   answer keeps the branch as it is, and the report says "kept, not
-   shipped".
+## 3. Ship
 
-MR/PR opens only on explicit choice - never automatically.
-
-## 3. Execute
-
-**Ship** - the one path from a landed branch (every planned commit in,
-nothing uncommitted) to a merged MR/PR. `/dev ship` enters it directly;
-on the default branch, or with uncommitted changes, it stops with an
-error naming that condition.
+The one path from a landed branch (every planned commit in, nothing
+uncommitted) to its decision. `/dev ship` enters it directly; on the
+default branch, or with uncommitted changes, it stops with an error
+naming that condition.
 
 1. Gate: the Tier-1 runner `ci/run-all.sh` (installed per
    `start.md § 4`) plus the declared `Test (full)` command - already
    satisfied by a § 1 run with no commit after it. CI on the MR/PR is
    the authority; a local failure stops Ship and is reported.
 2. `git push -u origin <branch>`, then open a CI-gated MR/PR via the
-   declared change-request command (`companions/declarations.md
+   declared change-request command, unasked (`companions/declarations.md
    § Declared commands`; no declared host → push and print the URL).
    **Stay on the branch** - do not switch to the default branch while
    the MR/PR is open, so the reviewer sees the branch's files; the
    switch to default is §4, after merge.
 3. Poll to green (`git-workflow.md § Merge order`).
-4. Report the MR/PR number and pipeline state in one line and ask for
-   merge approval. A `plan/` branch skips the ask (`plan.md
-   § Planning rounds`, `git-workflow.md § Merge policy`).
-5. On approval, merge via the declared merge command, then §4.
+4. **Verify** - a distinct, blocking step, never folded into the
+   decision or glossed past: run the action the diff content calls for
+   and show the results. Code → run it live; rules or process prose →
+   dry-run the changed rule against a real case; tests → the suite run
+   is the verification; data or config → run the work product.
+5. **Decision** - the merging seat merges or discards, on the MR/PR
+   number, its pipeline state and the verify's results:
+   - **Merge** via the declared merge command, then §4.
+   - **Discard** - list branch, commits, plan state; a user's discard
+     is confirmed by typing `discard`. Close the MR/PR, checkout
+     default, delete the branch local and origin. The task stays `[ ]`;
+     ask whether to keep the plan.
 
-Ship ends with one line: MR/PR number and final state - merged, open
-awaiting approval, or kept.
+   No answer leaves the MR/PR open.
 
-**Discard** - list branch, commits, plan state; require typing
-`discard`. Then checkout default, `git branch -D`. The task stays `[ ]`;
-ask whether to keep the plan.
+Ship ends with one line: MR/PR number and final state - merged,
+discarded, or open awaiting the decision.
 
 ## 4. Post-merge (after the branch merges)
 

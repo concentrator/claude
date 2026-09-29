@@ -6,7 +6,7 @@ mode: normal
 
 # R084-T001: one merge rule, one decision at branch close
 
-- [ ] `finish.md § 3` holds a branch's one decision point: Ship gates,
+- [x] `finish.md § 3` holds a branch's one decision point: Ship gates,
   pushes and opens the MR/PR unasked, polls it green, runs the live verify,
   then the merging seat merges or discards. Discard closes the MR/PR and
   deletes the branch; no answer leaves the MR/PR open, reported as such.
