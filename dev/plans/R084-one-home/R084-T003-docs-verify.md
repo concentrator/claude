@@ -4,7 +4,7 @@ type: mnt
 mode: normal
 ---
 
-- [ ] What a doc's claim is confirmed against has one home,
+- [x] What a doc's claim is confirmed against has one home,
   `documentation.md § Sources` in place of § Evidence, named in the doc
   writer's report and never in the doc; the definition leaves
   `layout.md § Docs`, whose `§ Parameters` table drops its evidence

@@ -141,19 +141,11 @@ The framework's Reference skeleton applied to a feature:
 § Parameters is the feature's detail bar: every input - wired through the
 code or not - one row:
 
-    | input | type/shape | req? | default | allowed values | constraints | on invalid/missing | evidence |
-    |-------|-----------|------|---------|----------------|-------------|--------------------|----------|
+    | input | type/shape | req? | default | allowed values | constraints | on invalid/missing |
+    |-------|-----------|------|---------|----------------|-------------|--------------------|
 
-evidence is what the row's claim rests on: a report doc for a probed
-claim; a source path and symbol or heading, a spec or vendor page, or
-an adapted reference for a read one; both for a row that holds one of
-each. An empty cell is no evidence: the claim reads as unproven and
-the row stays - never drop an input in silence. This names what a doc
-may cite; a citation of a citation is no evidence. A doc may not
-restate or narrow this definition in its own preamble: a local
-redefinition makes a false cell unfalsifiable, since a reviewer
-checking the table against the doc's own wording finds compliance.
-Cite this line instead.
+An input no source confirms (`companions/documentation.md § Sources`)
+keeps its row - never drop an input in silence.
 
 A project may raise the bar with its own `.claude/rules/feature-docs.md` -
 domain specifics and extra required content; the docs audit grades against it

@@ -27,8 +27,8 @@ Two further types live in their own subdirectories of the docs tree
   records the call, its output and the environment it ran in, from a
   run that could have failed (`verification-policy.md § Verification
   modality`). The one docs location where datetimes and tenant
-  or client ids are allowed. A report is a probed claim's evidence
-  (`layout.md § Docs`); a probed claim without one has no evidence.
+  or client ids are allowed. A report is a probed claim's source
+  (§ Sources); a probed claim without one has none.
 - **Adapted references** (`<docs>/references/`): external or codebase
   material rewritten to project format, carrying exactly what the
   docs need; a source URL is allowed inside.
@@ -106,9 +106,8 @@ an Element.
 - **No dead ends**: no empty, stale, or broken links.
 - **Snapshot, not history**: a doc states the subject's current
   behavior only - no development chronology, task or plan ids, round
-  dates, or development details. Git holds history and plans hold
-  planning; an evidence reference (`layout.md § Docs`) is a state fact
-  about what a claim rests on and stays, dateless.
+  dates, or development details. Git holds history, plans hold
+  planning, and the doc writer's report the sources (§ Sources).
 - **Closed link scope**: a doc links only sibling documents inside the
   docs tree, other files of the same project (`config/`, `scripts/`,
   `src/`), or external URLs - never plan files (live or archived),
@@ -178,14 +177,23 @@ touches.
 Either path is artifact-free: version-control history records that the
 review ran; no separate stamp or ledger is kept.
 
-## Evidence
+## Sources
 
-What a doc may cite as evidence is `layout.md § Docs`'s.
+What a doc's claim is confirmed against:
 
-- Prefer a report over a read source; an inferred claim has no
-  evidence.
+- a probed claim: a report doc (§ Diataxis typing);
+- a read claim: a source path and symbol or heading, a spec or vendor
+  page, or an adapted reference;
+- a claim resting on both: one of each.
+
+A citation of a citation is no source, and an inferred claim has none.
+The doc writer's report names the source per section
+(`agents/dev-doc-writer.md`); the doc itself carries no source cell,
+column or mark.
+
+- Prefer a report over a read source.
 - A version- or environment-specific fact says which version or
-  environment it was verified against - in its report doc (§ Diataxis
-  typing) or its evidence reference, never as inline chronology.
+  environment it was confirmed against in its report doc or the doc
+  writer's report, never as inline chronology.
 - A recalled or documented fact that names a file, flag, or field is
   re-checked against the current system before it is relied on.
