@@ -13,7 +13,7 @@ between homes costs a session of tracing before the work resumes.
   global instructions into a file read only here, drop the precedence
   sentences, and point every reader script and hook at the project's file.
 
-- [ ] **R084-T003 [mnt]**: Replace the docs gate's verdict vocabulary and
+- [x] **R084-T003 [mnt]**: Replace the docs gate's verdict vocabulary and
   evidence column with the three-check verification returning one
   mismatch list, and the doc-writer report naming its sources per section.
 

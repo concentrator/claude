@@ -28,29 +28,29 @@ Task tool (dev-doc-writer):
       write. `DESIGN.md` where present is read only: architecture is
       the implementer's (`branch-plan.md § Architecture-changing
       branches`).
-    - <Re-dispatch only: the docs gate's WRONG and UNPROVEN verdicts,
-      verbatim.>
+    - <Re-dispatch only: the docs gate's mismatch list, verbatim.>
 
     Nothing else is an input, and you have no NEEDS_CONTEXT: a fact
     these three cannot settle is never asked
-    (`agents/dev-doc-writer.md`: the row keeps an empty evidence
-    cell).
+    (`agents/dev-doc-writer.md`: the claim is listed in your report).
 
     ## Exit
 
     Report back. The gate is not yours to run: the runner dispatches
     the verifier over every doc you touched
     (`companions/documentation.md § Verification gate`), which is why
-    it is never the author, and a WRONG or UNPROVEN verdict
-    re-dispatches one fresh doc writer with the verdicts, whose result
-    goes to the user rather than to a second verification.
+    it is never the author. It checks each claim against the source
+    your report names, and a non-empty mismatch list re-dispatches one
+    fresh doc writer with the list, whose result goes to the user
+    rather than to a second verification.
 
     ## Report Format
 
     - **Status:** DONE | DONE_WITH_CONCERNS | BLOCKED
     - The docs you touched
     - The commit subject
-    - Every row whose evidence cell you left empty
+    - Per section of each doc you touched: the source you confirmed it
+      against and each claim none confirmed, never a log of your steps
     - Any concerns
 
     Use DONE_WITH_CONCERNS if you wrote the docs but doubt one,

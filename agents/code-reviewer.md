@@ -36,9 +36,9 @@ case the dispatch says the user ruled out is not raised.
 say which class you applied:
 
 - **Doc-only** (documentation content, no rules or behavior): a claim
-  spot-check - verify the changed claims against the sources the doc
-  cites and the code it describes; skip the code checklist. Plan
-  alignment still applies.
+  spot-check - verify the changed claims against their sources
+  (`skills/dev/companions/documentation.md § Sources`) and the code they
+  describe; skip the code checklist. Plan alignment still applies.
 - **Code or behavior** (source, scripts, config that executes): the
   full checklist, one line per dimension -
   - Correctness: the change does what the plan says, observed or
@@ -56,13 +56,11 @@ say which class you applied:
   an invariant without a guard, or an observed failure without a pin
   (`skills/dev/plan.md § Proportionality`); test absence is otherwise
   not a finding.
-- **Rules, skills, planning prose**: check each changed factual claim
-  against its ground truth per the verification gate
-  (`skills/dev/companions/documentation.md § Verification gate`) -
-  its source-selection and independence conditions apply as written;
-  report a mismatch as Critical. `<docs>` feature docs, `README.md` and
-  the CHANGELOG's `## [Unreleased]` entry take the gate's dedicated
-  per-claim pass instead.
+- **Rules, skills, planning prose**: run the verification gate's three
+  checks (`skills/dev/companions/documentation.md § Verification gate`)
+  over the changed text; report each mismatch as Critical. `<docs>`
+  feature docs, `README.md` and the CHANGELOG's `## [Unreleased]` entry
+  are the docs verifier's instead (`agents/dev-docs-verifier.md`).
 - **Mixed**: the strictest applicable class per file.
 
 **Escalation for the dispatcher**: a second verification agent is

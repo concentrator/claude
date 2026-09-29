@@ -27,8 +27,8 @@ Two further types live in their own subdirectories of the docs tree
   records the call, its output and the environment it ran in, from a
   run that could have failed (`verification-policy.md § Verification
   modality`). The one docs location where datetimes and tenant
-  or client ids are allowed. A report is a probed claim's evidence
-  (`layout.md § Docs`); a probed claim without one has no evidence.
+  or client ids are allowed. A report is a probed claim's source
+  (§ Sources); a probed claim without one has none.
 - **Adapted references** (`<docs>/references/`): external or codebase
   material rewritten to project format, carrying exactly what the
   docs need; a source URL is allowed inside.
@@ -106,9 +106,8 @@ an Element.
 - **No dead ends**: no empty, stale, or broken links.
 - **Snapshot, not history**: a doc states the subject's current
   behavior only - no development chronology, task or plan ids, round
-  dates, or development details. Git holds history and plans hold
-  planning; an evidence reference (`layout.md § Docs`) is a state fact
-  about what a claim rests on and stays, dateless.
+  dates, or development details. Git holds history, plans hold
+  planning, and the doc writer's report the sources (§ Sources).
 - **Closed link scope**: a doc links only sibling documents inside the
   docs tree, other files of the same project (`config/`, `scripts/`,
   `src/`), or external URLs - never plan files (live or archived),
@@ -130,62 +129,58 @@ an Element.
 
 No new or touched doc is complete until an **independent agent** - never
 the author, for `<docs>`, `README.md` and the CHANGELOG the doc-writer
-seat (`run.md § Seats`) -
-has verified the claims in scope against ground truth: the live system
-for observable facts, the authoritative source (source code, `--help`,
-config files, vendor docs) otherwise. The verifier is the docs-verifier
+seat (`run.md § Seats`) - has run the three checks below over it and
+every mismatch they list is fixed. The verifier is the docs-verifier
 seat (`agents/dev-docs-verifier.md`, the `dev-docs-verifier` type) the
 session - in a run, the runner (`run.md § Close` 3) - dispatches without
 pausing to confirm - a doc the author also verified is unverified -
 bounded by `verification-policy.md § Verifier isolation`. The prose class
-sets the scope
-and the clearing review: rules, skills, and planning prose - the
-changed claims, checked against their sources by the close review
+sets the scope and the clearing review: rules, skills, and planning
+prose - the changed text, checked by the close review
 (`branch-plan.md § Closing routine`; reviewer mandate:
 `agents/code-reviewer.md`; a batch-scoped run: the batch-close full-diff
-pass, `run.md § Batch close`);
-`<docs>` feature docs, `README.md` and the CHANGELOG's
-`## [Unreleased]` entry (a released block is the release's record,
-`release.md` 6) - every claim, via the dedicated per-claim pass:
+pass, `run.md § Batch close`); `<docs>` feature docs, `README.md` and
+the CHANGELOG's `## [Unreleased]` entry (a released block is the
+release's record, `release.md` 6) - the whole doc, or for the CHANGELOG
+the entry, never the diff: a claim's source can change under a line no
+branch touches.
 
-- Read the doc's `§ Parameters` preamble before its table. The
-  evidence definition is `layout.md § Docs`'s and a doc may not
-  restate or narrow it: one that does has rewritten the standard it
-  is judged against and is WRONG at the preamble before any cell is
-  checked.
-- Per-claim verdict: **VERIFIED** (confirmed live), **DOCS**
-  (authoritative source cited), **WRONG**, or **UNPROVEN**. A claim with
-  no evidence is UNPROVEN, never VERIFIED. VERIFIED needs a run that
-  could have failed (`verification-policy.md § Verification modality`).
-- Every WRONG is corrected before completion.
-- Every UNPROVEN claim gets evidence where a reference exists. Where
-  none does, a `§ Parameters` row keeps an empty evidence cell
-  (`layout.md § Docs`) and a claim elsewhere stands as written. The verdicts are the verifier's: none is
-  written into a doc.
-- A claim that cannot be independently checked is UNPROVEN; split a large
-  doc across one verifier dispatch per section, the split being the
-  dispatcher's: a seat holds no Agent tool.
-- Comprehension pass, same reviewer: answer from the doc alone - what is
-  ambiguous, what context does the doc assume the reader already has,
-  and where does it contradict itself. Findings are fixed like WRONG
-  claims: the verdicts check that the doc is true, this checks that it
-  is usable cold.
+The checks, over the text in scope:
 
-The per-claim pass covers the doc, or for the CHANGELOG the entry,
-never the diff: a claim's source can change under a line no branch
-touches.
+1. **Claims**: each claim against its section's source (§ Sources), for
+   a doc the writer touched the one its report names. A claim no source
+   confirms is listed.
+2. **Coherence**: the text read alone - what is ambiguous to a reader
+   holding only it, and where it contradicts itself. The first check
+   asks whether the text is true, this one whether it is usable cold.
+3. **Conformity**: the text against `writing.md`,
+   `rules/writing-artifacts.md` and this framework.
+
+The three return one mismatch list, each entry naming the text and the
+check it fails. The list is the verifier's: none of it is written into
+a doc. A large doc splits across one verifier dispatch per section, the
+split being the dispatcher's: a seat holds no Agent tool.
 
 Either path is artifact-free: version-control history records that the
 review ran; no separate stamp or ledger is kept.
 
-## Evidence
+## Sources
 
-What a doc may cite as evidence is `layout.md § Docs`'s.
+What a doc's claim is confirmed against:
 
-- Prefer a report over a read source; an inferred claim has no
-  evidence.
+- a probed claim: a report doc (§ Diataxis typing);
+- a read claim: a source path and symbol or heading, a spec or vendor
+  page, or an adapted reference;
+- a claim resting on both: one of each.
+
+A citation of a citation is no source, and an inferred claim has none.
+The doc writer's report names the source per section
+(`agents/dev-doc-writer.md`); the doc itself carries no source cell,
+column or mark.
+
+- Prefer a report over a read source.
 - A version- or environment-specific fact says which version or
-  environment it was verified against - in its report doc (§ Diataxis
-  typing) or its evidence reference, never as inline chronology.
+  environment it was confirmed against in its report doc or the doc
+  writer's report, never as inline chronology.
 - A recalled or documented fact that names a file, flag, or field is
   re-checked against the current system before it is relied on.
