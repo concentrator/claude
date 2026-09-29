@@ -18,7 +18,7 @@ mode: normal
   run showed. `### Read first` and `Tests: <what to cover>` go. Approach:
   `branch-plan.md § Modes`, then `companions/planner-prompt.md` step 1;
   `git grep -i 'read.first\|what to cover'` finds none outside archive.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan
+- [x] Complete the branch: cleanup (stale/temp data), mark plan
   complete, mark R084-T004 `[x]` in `tasks.md` plus any release-plan
   entry, `bash scripts/ci/run-all.sh` green, commit with the resolved
   task report. (Batch members: the task mark rides the batch branch.)
