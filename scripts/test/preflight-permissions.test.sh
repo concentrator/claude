@@ -290,5 +290,11 @@ runp --supervisor human --runner-mode default
 want "Bash(make a:*)" "the first file's toolchain section is read"
 nowant "Bash(make b:*)" "the section ends with its file, not in the next one"
 
+newfix; printf '## Agent toolchain\n\n- Test: `make a`\n' > "$PROJ/CLAUDE.md"
+printf '## Agent toolchain\n\n- Merge: `gh pr merge <n> --merge`\n' > "$PROJ/.claude/CLAUDE.md"
+runp --supervisor human --runner-mode default
+want "Bash(make a:*)" "the root file's toolchain section is read"
+want "Bash(gh pr merge:*)" "the .claude/ file's toolchain section is read too"
+
 (( fail == 0 )) && echo "preflight-permissions.test: ALL OK"
 exit $fail

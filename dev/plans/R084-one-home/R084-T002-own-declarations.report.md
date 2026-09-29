@@ -74,3 +74,8 @@
   Evidence: contract `CLAUDE.md § Code Comments`
   Each comment block the branch added or edited went in full, its
   untouched lines and `# Run:` lines included.
+- [x] The pre-flight reads the toolchain section of the first file
+  holding one, so keys split across the two files are missed; the user
+  ruled the block sits whole in one file and the pre-flight reads each
+  file's section (Important) - `scripts/preflight-permissions.sh:170`
+  Evidence: observed docs gate probe of `toolchain_rules`

@@ -162,7 +162,7 @@ toolchain_rules() {
     case "$s" in *" "*) ;; *) continue ;; esac
     s="${s%%<*}"; s="${s%"${s##*[![:space:]]}"}"
     [ -n "$s" ] && printf 'Bash(%s:*)\n' "$s"
-  done <<< "$(awk 'FNR == 1 && f { exit } /^## Agent toolchain/ { f = 1; next } f && /^## / { exit }
+  done <<< "$(awk 'FNR == 1 { f = 0; b = 0 } /^## Agent toolchain/ { f = 1; next } f && /^## / { f = 0; b = 0 }
     f && /^[[:space:]]*-[[:space:]]/ { b = 1 } f && /^([^[:space:]-]|$)/ { b = 0 }
     f && b { n = split($0, a, "`"); for (i = 2; i <= n; i += 2) if (a[i] != "") print a[i] }' "${files[@]}")"
 }

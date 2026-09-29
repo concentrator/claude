@@ -7,9 +7,10 @@ everywhere - both modes, every command. Push and MR/PR mechanics that
 consume them: `toolchain.md`.
 
 The declarations sit in the project's own instructions, the root
-`CLAUDE.md` or `.claude/CLAUDE.md`, each key once across the two; the
-global instructions hold none. Every script and hook that reads a key
-reads both files and takes the first line found.
+`CLAUDE.md` or `.claude/CLAUDE.md`, each key once across the two, the
+`## Agent toolchain` block whole in one of them; the global
+instructions hold none. Every script and hook that reads a key reads
+both files and takes the first line found.
 
 ## Declared commands
 
