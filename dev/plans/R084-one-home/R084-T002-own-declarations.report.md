@@ -30,5 +30,13 @@
   lines, so the header comment of `toolchain_rules` is reworded one line
   shorter while it takes the second file; case 48 is kept to the lines
   `worker-workspace.test.sh` has left under the same cap.
+- Item 4: the gate lands on the first `Test (fast):` line across the
+  two files, then the first `Test:` line, so a fast-tier line in
+  `.claude/CLAUDE.md` wins over a `Test:` line in the root file. The
+  closing CI notice names the file holding the line, or both files
+  when neither holds one.
+- Item 4: `install-dev.sh` stood at the code-size gate's 300 lines, so
+  the step 7 header comment is one line shorter and the temp-file
+  write shares a line with its `awk`.
 
 ## Review

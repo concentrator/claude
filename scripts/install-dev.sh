@@ -238,25 +238,25 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
   done
   # 7. runtime state: the session tree holds the per-session files the
   # PreCompact hook and hand-off notes write (skills/dev/handoff.md), and
-  # `supervisor/` beside it the supervisor's ledgers (skills/dev/run.md
-  # § Ledger); neither is ever tracked, so the target's .gitignore takes
-  # the anchored lines (idempotent). The tree is the one the target's
-  # CLAUDE.md § Layout declares, its default the fallback of the read.
-  sess=$(sed -n 's/^- Session: *//p' "$repo/CLAUDE.md" 2>/dev/null | head -1 || true)
+  # `supervisor/` beside it the ledgers (skills/dev/run.md § Ledger); the
+  # target's .gitignore takes both, anchored (idempotent). The tree is the
+  # one CLAUDE.md § Layout declares (skills/dev/companions/declarations.md).
+  sess=$(sed -n 's/^- Session: *//p' "$repo/CLAUDE.md" "$repo/.claude/CLAUDE.md" 2>/dev/null | head -1 || true)
   sess=${sess:-dev/session}; sess=${sess%/}
   parent=$(dirname "$sess")
   if [ "$parent" = "." ]; then parent=""; fi   # a root-level tree: supervisor/ sits at the root
   for line in "/$sess/" "/${parent:+$parent/}supervisor/"; do
     alt=${line#/}; case ${alt%/} in */*) ;; *) alt=$line ;; esac; grep -qxF -e "$line" -e "$alt" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
   done
-  gate="bash $(git -C "$target" rev-parse --show-prefix)scripts/ci/check-plan-text.sh"
-  tier=$(grep -m1 -n '^- Test (fast):' "$repo/CLAUDE.md" 2>/dev/null || grep -m1 -n '^- Test:' "$repo/CLAUDE.md" 2>/dev/null || true)
+  gate="bash $(git -C "$target" rev-parse --show-prefix)scripts/ci/check-plan-text.sh"; tier=""; claude=""
+  for key in 'Test (fast)' 'Test'; do for f in "$repo/CLAUDE.md" "$repo/.claude/CLAUDE.md"; do
+    if [ -z "$tier" ] && tier=$(grep -m1 -n "^- $key:" "$f" 2>/dev/null); then claude=$f; fi
+  done; done
   if [ -z "$tier" ]; then
-    echo "install-dev: no Test (fast): or Test: line in $repo/CLAUDE.md - add to its § Agent toolchain: - Test (fast): <fast tier>, then \`$gate\`"
-  elif end=$(awk -v n="${tier%%:*}" 'NR > n && !/^  / { exit } NR >= n { e = NR; g = g || /check-plan-text\.sh/ } END { if (!g) print e }' "$repo/CLAUDE.md") && [ -n "$end" ]; then
-    tmp="$(mktemp)"
-    awk -v n="$end" -v add=", then \`$gate\`" 'NR == n { sub(/\.$/, ""); $0 = $0 add } 1' "$repo/CLAUDE.md" > "$tmp"
-    cat "$tmp" > "$repo/CLAUDE.md"
+    echo "install-dev: no Test (fast): or Test: line in $repo/CLAUDE.md or $repo/.claude/CLAUDE.md - add to the § Agent toolchain of one: - Test (fast): <fast tier>, then \`$gate\`"
+  elif end=$(awk -v n="${tier%%:*}" 'NR > n && !/^  / { exit } NR >= n { e = NR; g = g || /check-plan-text\.sh/ } END { if (!g) print e }' "$claude") && [ -n "$end" ]; then
+    tmp="$(mktemp)"; awk -v n="$end" -v add=", then \`$gate\`" 'NR == n { sub(/\.$/, ""); $0 = $0 add } 1' "$claude" > "$tmp"
+    cat "$tmp" > "$claude"
   fi
 fi
 
@@ -297,4 +297,4 @@ echo "install-dev: DEV toolset ($set) installed into $target ($scope)"
 echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh, check-accretion.sh, check-batch-tags.sh, check-plan-text.sh)"
 echo "install-dev: self-tests in $target/scripts/test/ - wire checks and self-tests into your CI; the /dev run's permission pre-flight is $target/scripts/preflight-permissions.sh"
 if [ -n "$seeded" ]; then echo "install-dev: maintenance hygiene section seeded into $seeded"; fi
-if [ -n "${repo:-}" ]; then echo "install-dev: your CI must run the fast tier (the Test (fast): or Test: line of $repo/CLAUDE.md) - no CI config was edited"; fi
+if [ -n "${repo:-}" ]; then echo "install-dev: your CI must run the fast tier (the Test (fast): or Test: line of ${claude:-$repo/CLAUDE.md or $repo/.claude/CLAUDE.md}) - no CI config was edited"; fi

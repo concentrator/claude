@@ -23,7 +23,7 @@ mode: normal
   each change pinned by its test.
   Approach: `hooks/dev-precompact-state.sh`, `preflight-permissions.sh`,
   `worker-workspace.sh`, each with its file in `scripts/test/`.
-- [ ] A `--project` install reads `Session:` from both instruction files
+- [x] A `--project` install reads `Session:` from both instruction files
   and appends the plan-text gate to the `Test (fast):` or `Test:` line
   in whichever file holds it; with neither, its message names both.
   Approach: step 7 of `scripts/install-dev.sh`, then
