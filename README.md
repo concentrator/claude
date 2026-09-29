@@ -49,7 +49,7 @@ permission set the toolset declares against the three settings tiers a
 session reads: `scripts/preflight-permissions.sh` reports the tier that
 carries each rule, and a gap halts the run and prints the `--apply`
 command that closes it, which is the user's to run. `/dev ship` takes
-a landed branch to a merged MR/PR; `/dev handoff` writes the session's
+a landed branch to its MR/PR decision, merge or discard; `/dev handoff` writes the session's
 hand-off note, which with the PreCompact hook's tree block carries
 state across compaction (the SessionStart hook re-injects the last
 hand-off block when the session resumes or is compacted).

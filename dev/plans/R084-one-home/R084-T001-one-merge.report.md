@@ -54,7 +54,7 @@
   states the retired plan exception (Suggestion) - `skills/dev/handoff.md:41`.
   Fix: an example ruling that describes no merge policy.
   Evidence: observed `git grep` hit at that line.
-- [ ] `README.md` says `/dev ship` takes a landed branch "to a merged
+- [x] `README.md` says `/dev ship` takes a landed branch "to a merged
   MR/PR"; Ship now ends in merge, discard or an open MR/PR (Suggestion)
   - `README.md:51-52`. Fix: "to its MR/PR decision, merge or discard";
   the doc writer's, at the docs pass.
