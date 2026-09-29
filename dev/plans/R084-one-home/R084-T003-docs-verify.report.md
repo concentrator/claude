@@ -27,5 +27,22 @@
 - Item 4: `run.md § Close` 3 keeps the existing rule that the re-dispatch
   result goes to the user with the list, as it went with the verdicts,
   and its ledger verify entry now carries the mismatch list.
+- Item 5: the prose class drops the clause that the gate's
+  source-selection and independence conditions apply, since the gate's
+  checks now carry the source rule, and names the docs verifier as the
+  seat for `<docs>`, `README.md` and the CHANGELOG entry in place of the
+  per-claim pass.
+- Item 5: the search's remaining hits outside `dev/plans/` are ordinary
+  English on other subjects and stay: "verdict" for the closure check in
+  `run.md § Close` 4 and `branch-plan.md § Closing routine` 7, for CI and
+  guard results in `scripts/`, and in `worker-host/companions/pitfalls.md`;
+  "WRONG:" as an example label in `skills/receiving-code-review/SKILL.md`.
+
+### Findings
+- [ ] The code reviewer's doc-only class checks changed claims "against
+  the sources the doc cites", while `documentation.md § Sources` puts a
+  doc's sources in the doc writer's report and none in the doc.
+  Evidence: contract `skills/dev/companions/documentation.md § Sources`
+  against `agents/code-reviewer.md` Rubric, Doc-only
 
 ## Review

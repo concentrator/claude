@@ -56,13 +56,11 @@ say which class you applied:
   an invariant without a guard, or an observed failure without a pin
   (`skills/dev/plan.md § Proportionality`); test absence is otherwise
   not a finding.
-- **Rules, skills, planning prose**: check each changed factual claim
-  against its ground truth per the verification gate
-  (`skills/dev/companions/documentation.md § Verification gate`) -
-  its source-selection and independence conditions apply as written;
-  report a mismatch as Critical. `<docs>` feature docs, `README.md` and
-  the CHANGELOG's `## [Unreleased]` entry take the gate's dedicated
-  per-claim pass instead.
+- **Rules, skills, planning prose**: run the verification gate's three
+  checks (`skills/dev/companions/documentation.md § Verification gate`)
+  over the changed text; report each mismatch as Critical. `<docs>` feature docs, `README.md`
+  and the CHANGELOG's `## [Unreleased]` entry are the docs verifier's
+  instead (`agents/dev-docs-verifier.md`).
 - **Mixed**: the strictest applicable class per file.
 
 **Escalation for the dispatcher**: a second verification agent is

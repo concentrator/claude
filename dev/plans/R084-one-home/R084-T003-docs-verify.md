@@ -28,7 +28,7 @@ mode: normal
   writer whose result goes to the user, never to a second verification.
   Approach: `agents/dev-docs-verifier.md` with its description line, then
   `skills/dev/run.md § Close` 3.
-- [ ] The close review runs the gate's three checks on changed rules,
+- [x] The close review runs the gate's three checks on changed rules,
   skills and planning prose, a mismatch reported as Critical, and no
   retired term survives: `git grep` over tracked files outside
   `dev/plans/` finds no verdict name, evidence cell or per-claim pass.
