@@ -40,7 +40,7 @@ mode: normal
   global instructions.
   Approach: that section alone; the README's precedence sentence is the
   doc writer's to drop at close.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)

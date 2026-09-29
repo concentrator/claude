@@ -9,7 +9,7 @@ between homes costs a session of tracing before the work resumes.
   fold the ship question into one merge-or-discard decision at branch
   close, across the git workflow, finish, plan, run and the declaration.
 
-- [ ] **R084-T002 [mnt]**: Move this repository's declarations out of the
+- [x] **R084-T002 [mnt]**: Move this repository's declarations out of the
   global instructions into a file read only here, drop the precedence
   sentences, and point every reader script and hook at the project's file.
 
