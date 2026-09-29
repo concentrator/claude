@@ -39,10 +39,25 @@
   "WRONG:" as an example label in `skills/receiving-code-review/SKILL.md`.
 
 ### Findings
-- [ ] The code reviewer's doc-only class checks changed claims "against
+- [x] The code reviewer's doc-only class checks changed claims "against
   the sources the doc cites", while `documentation.md § Sources` puts a
   doc's sources in the doc writer's report and none in the doc.
   Evidence: contract `skills/dev/companions/documentation.md § Sources`
   against `agents/code-reviewer.md` Rubric, Doc-only
 
 ## Review
+- [x] The Doc-only class sends the reviewer to sources the doc cites,
+  which a doc no longer carries; point it at `§ Sources` instead
+  (Important) - `agents/code-reviewer.md:38-40`
+  Evidence: contract `skills/dev/companions/documentation.md § Sources`
+- [x] "cite the source read as the claim's source" repeats itself and
+  names no place to cite; name the source read instead (Suggestion) -
+  `skills/dev/companions/verification-policy.md:75-77`
+  Evidence: contract `writing.md § No repetition`
+- [x] One line of the prose class runs past the bullet's wrap; reflow
+  it (Suggestion) - `agents/code-reviewer.md:61`
+  Evidence: observed line length against the surrounding bullet
+- [x] Step 1 restates what the writer's report holds although it points
+  to the writer's step 3; keep the pointer, drop the restatement
+  (Suggestion) - `agents/dev-docs-verifier.md:16-18`
+  Evidence: contract `rules/writing-artifacts.md § One home per finding`

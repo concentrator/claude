@@ -72,9 +72,9 @@ have produced a different result had the claim been wrong: a cell
 claiming a cache carries certain keys is not verified by a
 hand-written cache containing them, and a default-valued config proves
 nothing about a row describing the default. Where the discriminating
-run is impossible, say so and cite the source read as the claim's
-source (`documentation.md § Sources`) rather than running something
-easier in its place.
+run is impossible, say so and name the source read
+(`documentation.md § Sources`) rather than running something easier in
+its place.
 
 **A check must count the unit it claims to check.** An exemption drawn
 per file does not exempt an entry; a count taken per line does not
