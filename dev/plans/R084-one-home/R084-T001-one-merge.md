@@ -24,7 +24,7 @@ mode: normal
   verify and decision, taken by the seat the declared bound names.
   Approach: `run.md § Checkpoint`, § Merge or ask (the ship-question
   sentence goes), § Close 5; the Merging row of § Seats stays.
-- [ ] `branch-plan.md` follows it: § Closing routine 7 and 8 name merge or
+- [x] `branch-plan.md` follows it: § Closing routine 7 and 8 name merge or
   discard; § Rails deletes the rollback tag and member refs at the merge,
   keeps them on a discard, and drops push decisions; § Batches and § Stop
   conditions carry no accept or reject choice.

@@ -221,8 +221,9 @@ commit and the hand-off (`finish`).
    present its verdict and ask - the closure marks, ROADMAP `[x]`, and
    the archive move (`plan.md § Archival`) land in the final commit only
    on explicit user confirmation, never as a side effect of finishing
-   the task. Marks land with the merge; a rejected branch discards them.
-8. Invoke `finish` - present the delivery options and execute.
+   the task. Marks land with the merge; a discard drops them.
+8. Invoke `finish`: its § 3 ends the branch in one decision, merge or
+   discard (a run reaches it through `run.md § Checkpoint`).
 
 ## Architecture-changing branches
 
@@ -287,7 +288,7 @@ batch.
 
 Batch-close bookkeeping: the close phase marks member-task
 checkboxes as commits on `batch/R<NNN>-B<NNN>` before the MR/PR -
-marks land per § Closing routine; reject: § Rails. The R-closure
+marks land per § Closing routine, refs per § Rails. The R-closure
 check and release marking ride a close-out plan MR/PR
 (`plan/r<NNN>-close`) after the batch MR/PR merges.
 
@@ -311,12 +312,12 @@ regardless of size; the full suite runs at batch close (`run.md
   **CI-gated MR/PR** of the batch branch to origin (`run.md
   § Checkpoint`).
 - No commit on a red fast tier - no exceptions.
-- Findings triage and push decisions defer to the checkpoint.
-- Branch refs stay until the user validates the checkpoint.
-  Accept = delete the `pre-R<NNN>-B<NNN>` tag and member refs;
+- Findings triage defers to the checkpoint.
+- Branch refs stay until the batch MR/PR's decision (`run.md § Merge
+  or ask`). Merge = delete the `pre-R<NNN>-B<NNN>` tag and member refs;
   post-merge cleanup deletes the batch branch, local and origin.
-  Reject = delete the batch branch; tag and member refs stay for
-  salvage.
+  Discard = delete the batch branch (`finish.md § 3`); tag and member
+  refs stay for salvage.
 
 ### Stop conditions
 
@@ -331,4 +332,4 @@ regardless of size; the full suite runs at batch close (`run.md
 | Tests/lint not green after the implementer's fix attempt | Halt, report |
 | Batch-close review finds a folded-branch defect beyond batch-branch fixup | Halt, report |
 | Non-blocker discovery | task report (§ Task report), continue |
-| Batch complete | Close phase on `batch/R<NNN>-B<NNN>`, then checkpoint (accept opens the MR/PR), wait for user |
+| Batch complete | Close phase on `batch/R<NNN>-B<NNN>`, then checkpoint: its accept opens the MR/PR unasked and `run.md § Merge or ask` decides it |

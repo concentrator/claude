@@ -18,6 +18,11 @@
   and leaves its § 3 to § Checkpoint's accept, § Boundary verification
   and § Merge or ask, since running `finish.md` from § 1 would now push,
   open and decide before the checkpoint.
+- Item 4: the `check-batch-tags.sh` header also says the report reaches
+  the trunk via the merged, not the accepted, batch MR/PR, and lists
+  discard where it listed reject, since accept now only opens the
+  MR/PR; the later comment that the batch branch reaches origin only at
+  accept stays, the checkpoint's accept still being the push.
 ### Findings
 - [ ] `branch-plan.md § Closing routine` 5 cites `finish § 2` for
   manual-testing needs, which now sit in `finish.md § 3`'s verify step;
