@@ -11,5 +11,11 @@
   § Verification gate` and `verification-policy.md § Verification
   modality` (item 2), `agents/dev-doc-writer.md` steps 3 and 4 and
   `companions/doc-writer-prompt.md` (item 3).
+- Item 2: the coherence check folds the old comprehension pass's
+  question of assumed context into ambiguity to a reader holding only
+  the text, keeping the item's two named concerns.
+- Item 2: the gate states only that every listed mismatch is fixed; how
+  a non-empty list is worked stays with `run.md § Close` 3, which
+  item 4 rewrites.
 
 ## Review

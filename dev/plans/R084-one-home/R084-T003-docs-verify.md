@@ -10,7 +10,7 @@ mode: normal
   `layout.md § Docs`, whose `§ Parameters` table drops its evidence
   column and preamble rule while every input keeps its row.
   Approach: then the evidence wording of the Reports and Snapshot bullets.
-- [ ] The docs gate is three checks returning one mismatch list: each
+- [x] The docs gate is three checks returning one mismatch list: each
   claim against its section's source, one no source confirms listed; the
   whole doc for ambiguity and contradiction; conformity to `writing.md`,
   `rules/writing-artifacts.md` and the framework. No verdict names.

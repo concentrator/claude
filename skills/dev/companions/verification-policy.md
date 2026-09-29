@@ -59,8 +59,8 @@ run closes in full (`skills/dev/branch-plan.md § Closing routine`).
 ## Verification modality
 
 Verification follows the claim, not the artifact: an observable claim's
-ground truth is a live run (`documentation.md`'s `VERIFIED`), a claim
-about source is checked against source (`DOCS`). A live run does not
+ground truth is a live run, a claim about source is checked against
+source (`documentation.md § Sources`). A live run does not
 relax independence - whoever authored the thing does not also certify
 that its run passed, and that holds beyond docs: code, plans, and
 gates alike.
@@ -73,8 +73,8 @@ claiming a cache carries certain keys is not verified by a
 hand-written cache containing them, and a default-valued config proves
 nothing about a row describing the default. Where the discriminating
 run is impossible, say so and cite the source read as the claim's
-evidence (`layout.md § Docs`) rather than running something easier and
-calling it verified.
+source (`documentation.md § Sources`) rather than running something
+easier in its place.
 
 **A check must count the unit it claims to check.** An exemption drawn
 per file does not exempt an entry; a count taken per line does not
