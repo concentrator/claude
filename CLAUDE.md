@@ -23,36 +23,6 @@ A problem needs evidence (observed output, a failing test, a documented
 contract); a case built from reading code is not raised, and one the
 user ruled out stays closed.
 
-## Agent toolchain
-
-This repository's declarations; a project's own `## Agent toolchain`
-wins.
-
-- Test (fast): `bash scripts/ci/run-all.sh` (the lint; no scoped subset)
-- Test (full): fast, then `bash scripts/test/run-all.sh`
-- VCS host: GitHub, CLI `gh` (MR/PR resolves to PR)
-- Change request: `gh pr create`
-- State-check: `gh pr view <n> --json state,mergedAt,statusCheckRollup`
-- Merge: `gh pr merge <n> --merge --delete-branch`
-
-## Supervision
-
-This repository's own declarations; they never stand in for a
-project's missing `## Supervision`.
-
-- Supervisor: AI
-- Supervisor bounds: batch-scoped delivery
-
-## Layout
-
-This repository's own declarations; a project's own `## Layout` wins,
-and a project without one is on the defaults.
-
-- Docs: docs/
-- Plans: dev/plans/
-- Session: dev/session/
-- Layout: LAYOUT.md
-
 ## Code Comments
 
 Code carries no comments. The exception is a consumer-facing library

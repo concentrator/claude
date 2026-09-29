@@ -38,5 +38,8 @@
 - Item 4: `install-dev.sh` stood at the code-size gate's 300 lines, so
   the step 7 header comment is one line shorter and the temp-file
   write shares a line with its `awk`.
+- Item 5: the new `.claude/CLAUDE.md` opens with a `# Project
+  instructions` title above the three moved sections, so the file reads
+  as an instruction file; the sections themselves carry no preamble.
 
 ## Review

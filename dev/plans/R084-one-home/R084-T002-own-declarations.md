@@ -28,7 +28,7 @@ mode: normal
   in whichever file holds it; with neither, its message names both.
   Approach: step 7 of `scripts/install-dev.sh`, then
   `install-dev-fast-tier.test.sh` and `install-dev-gitignore.test.sh`.
-- [ ] This repository's declarations move, values unchanged and without
+- [x] This repository's declarations move, values unchanged and without
   preamble, to a tracked `.claude/CLAUDE.md` that a session here loads;
   the global `CLAUDE.md` keeps conventions only, and `writing.md` drops
   its Tier-1 enforcement sentence, true only here.

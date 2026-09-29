@@ -48,7 +48,8 @@ repos are versioned there, not mapped.
 │   ├── worker-credentials.sh     # worker forge keys and CLI auth, run on the VM
 │   ├── worker-setup.sh           # worker host system setup, run on the VM
 │   └── worker-workspace.sh       # worker repositories and per-project settings, run on the VM
-├── .claude/                      # this repository's project settings
+├── .claude/                      # this repository's project settings and instructions
+│   ├── CLAUDE.md                 # this repository's instructions: its declarations
 │   └── settings.json             # project tier, tracked
 ├── dev/                          # DEV artifacts (session/, supervisor/ gitignored)
 │   ├── plans/                    # planning hierarchy
