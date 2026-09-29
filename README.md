@@ -47,10 +47,15 @@ under the supervisor the project declares, human or AI, within
 declared bounds. Before its first dispatch a run resolves the
 permission set the toolset declares against the three settings tiers a
 session reads: `scripts/preflight-permissions.sh` reports the tier that
-carries each rule, and a gap halts the run and prints the `--apply`
-command that closes it, which is the user's to run. `/dev ship` takes
-a landed branch to its MR/PR decision, merge or discard; `/dev handoff` writes the session's
-hand-off note, which with the PreCompact hook's tree block carries
+carries each rule, and a gap halts the run for the user to close. When
+every gap is a missing allow rule it prints the `--apply` command that
+closes them; a missing deny, or any other gap `--apply` cannot write,
+is closed by hand. `/dev ship` takes a landed branch (every planned
+commit in, nothing uncommitted) to its MR/PR decision - merged,
+discarded, or left open awaiting the decision - and a failing local
+gate stops it before the MR/PR opens. A task-scoped `/dev run` ends on
+the same path once its checkpoint is accepted; `/dev ship` enters it
+directly. `/dev handoff` writes the session's hand-off note, which with the PreCompact hook's tree block carries
 state across compaction (the SessionStart hook re-injects the last
 hand-off block when the session resumes or is compacted).
 `/dev start`, `/dev migrate`, and `/dev release` cover
