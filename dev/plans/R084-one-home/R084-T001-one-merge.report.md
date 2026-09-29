@@ -23,6 +23,10 @@
   discard where it listed reject, since accept now only opens the
   MR/PR; the later comment that the batch branch reaches origin only at
   accept stays, the checkpoint's accept still being the push.
+- Item 5: the closing `git grep` runs case-sensitive, since
+  case-insensitive `Reject` also matches "rejected by the sandbox" in
+  `agents/dev-implementer.md`, which is no reject choice; case-sensitive
+  it finds none of the listed terms.
 ### Findings
 - [ ] `branch-plan.md § Closing routine` 5 cites `finish § 2` for
   manual-testing needs, which now sit in `finish.md § 3`'s verify step;

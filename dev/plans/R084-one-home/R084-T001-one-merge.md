@@ -30,7 +30,7 @@ mode: normal
   conditions carry no accept or reject choice.
   Approach: those sections, then the header comment of
   `scripts/ci/check-batch-tags.sh`, which dates tag deletion to accept.
-- [ ] A plan's MR/PR takes the same decision with no planning exception:
+- [x] A plan's MR/PR takes the same decision with no planning exception:
   `plan.md § Planning rounds` and `write-plan.md` step 7 deliver to it.
   Approach: those two; then `git grep -nE` over `skills/dev agents rules
   CLAUDE.md` for auto-merge, `merge --auto`, merge-when, ship question,
