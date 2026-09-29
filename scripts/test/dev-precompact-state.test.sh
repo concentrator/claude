@@ -4,8 +4,9 @@
 # session under dev/session/, the header and tree block on a
 # dirty branch with an open plan item, appending on a second compaction,
 # the repository-keyed file without a session id, the DEV_STATE_DIR
-# override, the session and plans trees the root CLAUDE.md declares, the
-# root found from a subdirectory, and silence outside a git repo.
+# override, the session and plans trees CLAUDE.md or .claude/CLAUDE.md
+# declares, the root found from a subdirectory, and silence outside a git
+# repo.
 # Run: bash scripts/test/dev-precompact-state.test.sh
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
@@ -92,6 +93,18 @@ grep -q '^- plan: var/tracks/R/T1.md line 1: - \[ \] declared open$' "$f6" \
   && pass "declared plans tree fills the plan line" || die "plan line: $(grep plan: "$f6")"
 grep -q 'dev/plans/' "$f6" && die "undeclared dev/plans/ still matched" \
   || pass "no dev/plans/ line once a plans tree is declared"
+
+# The same declarations in .claude/CLAUDE.md are read when the root
+# CLAUDE.md carries none.
+printf '# x\n' > "$R/CLAUDE.md"; mkdir -p "$R/.claude"
+printf '## Layout\n\n- Session: var/own/\n- Plans: var/own-tracks/\n' > "$R/.claude/CLAUDE.md"
+mkdir -p "$R/var/own-tracks/R"; printf -- '- [ ] own open\n' > "$R/var/own-tracks/R/T2.md"
+git -C "$R" add -A; git -C "$R" commit -qm "declare the layout in .claude/"
+printf '{"session_id":"s7"}' | bash "$HOOK" >/dev/null 2>&1
+f7="$R/var/own/s7.md"
+[ -f "$f7" ] && pass "session tree declared in .claude/ holds the state file" || die "no state file at $f7"
+grep -q '^- plan: var/own-tracks/R/T2.md line 1: - \[ \] own open$' "$f7" \
+  && pass "plans tree declared in .claude/ fills the plan line" || die "plan line: $(grep plan: "$f7")"
 
 cd "$D"
 out=$(printf '{}' | bash "$HOOK" 2>/dev/null); rc=$?

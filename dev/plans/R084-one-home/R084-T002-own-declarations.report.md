@@ -18,5 +18,17 @@
   `plan.md § Where things live` citation where the last two carried
   one. `check-stray` has no self-test and the `check-plan-text` one
   declares no tree, so neither gains a case.
+- Item 3: the pre-flight reads a section, not a line, so "first line
+  found" becomes the `## Agent toolchain` section of the first file
+  holding one: the awk read runs over both files and stops when the
+  section ends or its file does.
+- Item 3: `worker-workspace.test.sh` had no case running
+  `exclude_session_tree`, only the dry-run text, so its new case 48 runs
+  `project-clone` against local fixture checkouts; `npm ci` fails there
+  after the exclude is written, which is all the case reads.
+- Item 3: `preflight-permissions.sh` stood at the code-size gate's 300
+  lines, so the header comment of `toolchain_rules` is reworded one line
+  shorter while it takes the second file; case 48 is kept to the lines
+  `worker-workspace.test.sh` has left under the same cap.
 
 ## Review

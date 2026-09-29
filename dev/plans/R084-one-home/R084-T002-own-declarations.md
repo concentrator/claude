@@ -17,7 +17,7 @@ mode: normal
   Approach: the one `sed` read in `scripts/ci/check-plan-text.sh`,
   `check-accretion`, `check-batch-tags`, `check-archival`,
   `check-plan-integrity` and `check-stray`, then `scripts/test/`.
-- [ ] The PreCompact state hook reads `Session:` and `Plans:`, the
+- [x] The PreCompact state hook reads `Session:` and `Plans:`, the
   permission pre-flight the `## Agent toolchain` commands, and the
   worker workspace `Session:` from both instruction files the same way,
   each change pinned by its test.

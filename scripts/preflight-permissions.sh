@@ -154,22 +154,22 @@ resolve() {
   missing_list="$missing_list$1"$'\n'; missing_n=$((missing_n + 1))
 }
 
-# The project's declared commands as Bash prefix rules. The section is prose
-# bullets, so a candidate is a backticked span inside one of its bullets - a
-# bullet line and the indented lines wrapping it, never the section's own
-# prose, which cites section names in backticks too. A span holding no space
-# is a CLI name rather than a command and contributes no prefix; every other
-# span becomes one rule whose prefix is the span up to its first placeholder.
+# The project's declared commands as Bash prefix rules, read from the first
+# of CLAUDE.md and .claude/CLAUDE.md holding the section: each backticked span
+# in one of its bullets - a bullet line and its indented wrap, never the
+# section's prose, which cites section names too - that holds a space, cut at
+# its first placeholder. A spaceless span is a CLI name and adds no rule.
 toolchain_rules() {
-  local f="$project/CLAUDE.md" s
-  [ -f "$f" ] || return 0
+  local f s files=()
+  for f in "$project/CLAUDE.md" "$project/.claude/CLAUDE.md"; do [ -f "$f" ] && files+=("$f"); done
+  [ "${#files[@]}" -gt 0 ] || return 0
   while IFS= read -r s; do
     case "$s" in *" "*) ;; *) continue ;; esac
     s="${s%%<*}"; s="${s%"${s##*[![:space:]]}"}"
     [ -n "$s" ] && printf 'Bash(%s:*)\n' "$s"
-  done <<< "$(awk '/^## Agent toolchain/ { f = 1; next } f && /^## / { exit }
+  done <<< "$(awk 'FNR == 1 && f { exit } /^## Agent toolchain/ { f = 1; next } f && /^## / { exit }
     f && /^[[:space:]]*-[[:space:]]/ { b = 1 } f && /^([^[:space:]-]|$)/ { b = 0 }
-    f && b { n = split($0, a, "`"); for (i = 2; i <= n; i += 2) if (a[i] != "") print a[i] }' "$f")"
+    f && b { n = split($0, a, "`"); for (i = 2; i <= n; i += 2) if (a[i] != "") print a[i] }' "${files[@]}")"
 }
 
 # Merge the missing allow rules into the local tier and restate their lines.

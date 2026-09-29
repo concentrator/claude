@@ -276,5 +276,13 @@ want "not a string" "jq's own message reaches the operator"
 nowant "present (" "a partial resolve reports no rule"
 unset SUT
 
+# --- 20. the toolchain section is read from .claude/CLAUDE.md too ---
+newfix; mv "$PROJ/CLAUDE.md" "$PROJ/.claude/CLAUDE.md"; printf '# x\n' > "$PROJ/CLAUDE.md"
+sat "$PT" "$PAIR"
+runp --supervisor human --runner-mode default
+rc0 "a toolchain declared in .claude/ exits zero"
+want "present (project) Bash(bash t.sh:*)" "a toolchain prefix declared in .claude/ is read"
+nowant "never run me" "a span outside the .claude/ toolchain section is not read"
+
 (( fail == 0 )) && echo "preflight-permissions.test: ALL OK"
 exit $fail
