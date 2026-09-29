@@ -34,3 +34,24 @@
   Evidence: observed `git grep` hit at `skills/dev/branch-plan.md:197`
 
 ## Review
+- [ ] `branch-plan.md § Closing routine` 5 cites `finish § 2` for the
+  manual-testing needs that now sit in `finish.md § 3` step 4 (Important)
+  - `skills/dev/branch-plan.md:197`. Fix: cite `finish.md § 2` for the
+  outcome and `finish.md § 3` step 4 for the verify.
+  Evidence: contract `skills/dev/finish.md` § 2 holds the outcome only
+  and § 3 step 4 is the verify.
+- [ ] The migration merge "stays the user's call" because the diff exceeds
+  planning artifacts, a contrast the Merge policy no longer draws
+  (Important) - `skills/dev/companions/root-migration.md:46-48`. Fix: drop
+  the planning-artifacts reason; rest the user-only merge on the always-ask
+  list of `companions/declarations.md § Supervisor bounds`.
+  Evidence: contract `skills/dev/git-workflow.md § Trunk` Merge policy.
+- [ ] The example ruling "plan/ merges on green without a second ask"
+  states the retired plan exception (Suggestion) - `skills/dev/handoff.md:41`.
+  Fix: an example ruling that describes no merge policy.
+  Evidence: observed `git grep` hit at that line.
+- [ ] `README.md` says `/dev ship` takes a landed branch "to a merged
+  MR/PR"; Ship now ends in merge, discard or an open MR/PR (Suggestion)
+  - `README.md:51-52`. Fix: "to its MR/PR decision, merge or discard";
+  the doc writer's, at the docs pass.
+  Evidence: contract `skills/dev/finish.md § 3` closing line.
