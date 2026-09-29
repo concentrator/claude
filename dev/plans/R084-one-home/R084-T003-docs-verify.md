@@ -16,7 +16,7 @@ mode: normal
   `rules/writing-artifacts.md` and the framework. No verdict names.
   Approach: `documentation.md § Verification gate`, its prose class kept
   on changed text; then `verification-policy.md § Verification modality`.
-- [ ] The doc writer's report names, per section of each doc it touched,
+- [x] The doc writer's report names, per section of each doc it touched,
   the source it confirmed against and each claim none confirmed, never a
   log of its steps; the doc holds no evidence cell or mark, and a
   re-dispatch takes the mismatch list verbatim and fixes every entry.

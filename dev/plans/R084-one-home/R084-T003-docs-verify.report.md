@@ -17,5 +17,12 @@
 - Item 2: the gate states only that every listed mismatch is fixed; how
   a non-empty list is worked stays with `run.md § Close` 3, which
   item 4 rewrites.
+- Item 3: a re-dispatch entry that still has no source stays listed in
+  the writer's report, the doc unmarked; this carries over the retired
+  rule that such a claim stood as written with an empty cell, since the
+  item names no other outcome for it.
+- Item 3: the prompt's Exit says the verifier checks each claim against
+  the source the report names, citing `documentation.md § Verification
+  gate` check 1, so the writer knows why its report must name sources.
 
 ## Review

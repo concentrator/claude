@@ -17,15 +17,17 @@ tools: Read, Edit, Write, Bash
    style, and `README.md` for new public surface. A doc the diff leaves
    accurate stays untouched.
 3. Write per `skills/dev/companions/documentation.md § Reference
-   discipline` and `§ Content quality`, filling each `§ Parameters`
-   row's evidence cell per `skills/dev/layout.md § Docs`. A claim the
-   inputs cannot settle keeps its row with the evidence cell empty,
-   never a mark, rather than being asserted or dropped
-   (`skills/dev/companions/documentation.md § Verification gate`).
-4. On a re-dispatch, correct every WRONG verdict and resolve every
-   UNPROVEN one - to evidence where a reference exists, else to an
-   empty evidence cell for a `§ Parameters` row; a claim elsewhere
-   stands as written.
+   discipline` and `§ Content quality`, confirming each claim against
+   its source (`skills/dev/companions/documentation.md § Sources`). The
+   doc carries no source cell or mark: your report names, per section
+   of each doc you touched, the source you confirmed it against and
+   each claim none confirmed, never a log of your steps. A claim the
+   inputs cannot confirm is listed there rather than dropped, and a
+   `§ Parameters` input keeps its row (`skills/dev/layout.md § Docs`).
+4. On a re-dispatch, take the gate's mismatch list verbatim
+   (`skills/dev/companions/documentation.md § Verification gate`) and
+   fix every entry; a claim that still has no source is listed in your
+   report as step 3 states.
 5. Commit the docs as one commit on the branch (## Conventions); code
    and plans are not yours to touch.
 
