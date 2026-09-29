@@ -11,7 +11,7 @@ mode: normal
   the first line found. Prose naming the root file as the home follows.
   Approach: `companions/declarations.md` intro, then `plan.md § Where
   things live`, the Docs input of `doc-writer-prompt.md`, `migrate.md`.
-- [ ] The Tier-1 checks read `Plans:` and `Layout:` from `CLAUDE.md` and
+- [x] The Tier-1 checks read `Plans:` and `Layout:` from `CLAUDE.md` and
   `.claude/CLAUDE.md`, first line found, the default the fallback; each
   self-test that declares the tree gains the case declared in `.claude/`.
   Approach: the one `sed` read in `scripts/ci/check-plan-text.sh`,

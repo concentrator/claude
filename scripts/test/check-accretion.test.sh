@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Tests scripts/ci/check-accretion.sh - the Tier-1 accretion gate. Each
 # case runs the real check in a throwaway git repo (the gate scans only
-# the plans tree the root CLAUDE.md § Layout declares, so this test
+# the plans tree CLAUDE.md § Layout declares, so this test
 # source never trips it).
 # Run: bash scripts/test/check-accretion.test.sh
 set -uo pipefail
@@ -132,6 +132,20 @@ git -C "$d" add -A
 c=$(hits_in "$d")
 [ "$c" = "1" ] && pass "violation in the declared tree caught" \
   || die "declared-tree violation missed ($c of 1)"
+rm -rf "$d"
+
+# 20. a declaration in .claude/CLAUDE.md is read when the root CLAUDE.md
+# carries none
+d=$(mkrepo); printf '# x\n' > "$d/CLAUDE.md"; mkdir -p "$d/.claude"
+printf -- '- Plans: var/plans/\n' > "$d/.claude/CLAUDE.md"
+mkdir -p "$d/var/plans"; printf 'clean\n' > "$d/var/plans/ROADMAP.md"
+git -C "$d" add -A
+check_in "$d" && pass ".claude/ plans tree read" || die ".claude/ plans tree not read"
+printf -- 'Superseded: 2026-07-07 in the declared home.\n' > "$d/var/plans/ROADMAP.md"
+git -C "$d" add -A
+c=$(hits_in "$d")
+[ "$c" = "1" ] && pass "violation in the .claude/ tree caught" \
+  || die ".claude/ tree violation missed ($c of 1)"
 rm -rf "$d"
 
 (( fail == 0 )) && echo "check-accretion.test: OK"

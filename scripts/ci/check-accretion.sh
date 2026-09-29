@@ -2,7 +2,8 @@
 # Tier-1 accretion gate (R-041, R-043): living plan artifacts state the
 # present (rules/writing-artifacts.md § State the present). Flags dated
 # supersession / amendment / status markers in tracked plan files under
-# the plans tree the root CLAUDE.md § Layout declares - the full ISO
+# the plans tree CLAUDE.md § Layout declares
+# (skills/dev/companions/declarations.md) - the full ISO
 # date is the discriminator: an undated terminal outcome ("mooted by
 # R-021") is present state, a dated one ("superseded 2026-07-07") is
 # hand-rolled version control that belongs to git history. A bare year
@@ -19,7 +20,7 @@
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
-P=$(sed -n 's/^- Plans: *//p' CLAUDE.md 2>/dev/null | head -1 || true)
+P=$(sed -n 's/^- Plans: *//p' CLAUDE.md .claude/CLAUDE.md 2>/dev/null | head -1 || true)
 P=${P:-dev/plans}
 P=${P%/}
 # quotePath off: a non-ASCII filename must arrive verbatim, not quoted,

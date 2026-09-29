@@ -10,7 +10,7 @@
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
-L=$(sed -n 's/^- Layout: *//p' CLAUDE.md 2>/dev/null | head -1 || true)
+L=$(sed -n 's/^- Layout: *//p' CLAUDE.md .claude/CLAUDE.md 2>/dev/null | head -1 || true)
 L=${L:-.claude/LAYOUT.md}
 
 fail=0

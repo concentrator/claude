@@ -11,8 +11,8 @@
 # itself all hold refs while a report exists somewhere, and none of
 # them is stale. A pre-* tag or batch/* branch that is not a
 # well-formed composite ref naming an initiative present on the trunk
-# fails as unresolvable. Plans live at the tree the root CLAUDE.md
-# § Layout declares (skills/dev/plan.md § Where things live); the
+# fails as unresolvable. Plans live at the tree CLAUDE.md § Layout
+# declares (skills/dev/companions/declarations.md); the
 # worktree's declaration is the one its refs resolve against, a trunk
 # whose tree sits elsewhere being a migration in flight that moves tree
 # and declaration together (skills/dev/companions/root-migration.md § 2).
@@ -21,7 +21,7 @@ top="$(git rev-parse --show-toplevel)" \
   || { echo "BATCH-TAGS: not inside a git repo"; exit 1; }
 cd "$top"
 
-P=$(sed -n 's/^- Plans: *//p' CLAUDE.md 2>/dev/null | head -1 || true)
+P=$(sed -n 's/^- Plans: *//p' CLAUDE.md .claude/CLAUDE.md 2>/dev/null | head -1 || true)
 P=${P:-dev/plans}
 P=${P%/}
 

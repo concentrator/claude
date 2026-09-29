@@ -233,5 +233,18 @@ out=$(out_in "$d"); rc=$?
   || die "stale ref in the declared tree missed: $out"
 rm -rf "$d"
 
+# 24. a declaration in .claude/CLAUDE.md is read when the root CLAUDE.md
+# carries none: a stale ref in the tree it declares is caught
+d=$(mkrepo); mkdir -p "$d/.claude"
+printf -- '- Plans: var/plans/\n' > "$d/.claude/CLAUDE.md"
+mkdir -p "$d/var/plans/R-042-pocs/batches"
+printf 'report\n' > "$d/var/plans/R-042-pocs/batches/B-001.report.md"
+commit_in "$d" report; git -C "$d" tag pre-R042-B-001
+out=$(out_in "$d"); rc=$?
+[ $rc -ne 0 ] && grep -q 'B-001\.report\.md' <<<"$out" \
+  && pass "stale ref in the .claude/ tree caught" \
+  || die "stale ref in the .claude/ tree missed: $out"
+rm -rf "$d"
+
 (( fail == 0 )) && echo "check-batch-tags.test: OK"
 exit $fail
