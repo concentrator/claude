@@ -17,10 +17,6 @@ between homes costs a session of tracing before the work resumes.
   evidence column with the three-check verification returning one
   mismatch list, and the doc-writer report naming its sources per section.
 
-- [ ] **R084-T004 [mnt]**: Bring the task report to the reports
+- [x] **R084-T004 [mnt]**: Bring the task report to the reports
   discipline: what was done, when, and the result; nothing the run
   ledger already holds.
-
-- The README's fresh-machine hedge: verify it or delete it.
-- The pre-flight rule says a gap prints the `--apply` line; the script prints it only when every gap is a missing allow rule.
-- Scripts, hooks and tests still carry comments the no-comments convention forbids.

@@ -226,6 +226,8 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R083: Evidence references replace provenance marks - a doc claim
       shows its evidence as a reference to a report or a source; the
       mark vocabulary and its governance go.
-- [ ] R084: One home per rule - the merge, the branch close, the project
+- [x] R084: One home per rule - the merge, the branch close, the project
       declarations and doc verification each get one definition;
       auto-merge, the ship question and verdict marks go.
+- [ ] R085: Code without comments - scripts, hooks and tests carry no
+      comments, per the no-comments convention.

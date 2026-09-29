@@ -92,10 +92,13 @@ implementer in the report's `## Answers`, naming its item. You keep the
 checkboxes, the `[x]` on a `## Review` entry your dispatch names, and
 the report's `## Implementer` section, appended in the commit that
 carries the code, in the template's form
-(`skills/dev/branch-plan.md § Task report`): divergences from the plan
-with their reason as plain bullets under `### Divergences`; findings
-outside the item's scope as checkboxes under `### Findings`, each with
-an `Evidence: observed | test | contract` line.
+(`skills/dev/branch-plan.md § Task report`), each entry opening with the
+item it came from - `Item <n>`, or `Review <n>` for the nth `## Review`
+entry when you work one: divergences from the plan with their reason
+and result as plain bullets under `### Divergences`; findings outside
+the item's scope as checkboxes under `### Findings`, each with an
+`Evidence: observed | test | contract` line. Your dispatch and status
+stay out of the report (`skills/dev/run.md § Ledger` in a run).
 
 **Config.** No edit-class shell - `sed -i`, `tee`, a redirection -
 against anything under the config directory: that is what the

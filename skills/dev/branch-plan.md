@@ -36,14 +36,14 @@ happened, never intent - a commit that didn't land stays `[ ]`.
 suggests how. The implementer probes and decides the route.
 
 **Strict**: the planner proves the plan with a throwaway draft before
-writing it (`write-plan.md` step 3). What the draft taught goes to the
-task report's `## Planner` (§ Task report), never the plan:
+writing it (`write-plan.md` step 3). What the planner ran, and only
+that, goes to the task report's `## Planner` (§ Task report), never the
+plan:
 
     ## Planner
-    ### Read first
-    - <doc path or spec URL the implementer reads before starting>
     ### Probes
     #### <surface, e.g. POST /v2/route>
+    Source: <doc path, spec URL or code the surface was read from>
     Request: <the call that worked>
     Response: <observed body, trimmed>
     Errors hit: <what failed and what fixed it>
@@ -51,8 +51,7 @@ task report's `## Planner` (§ Task report), never the plan:
     ### Drafts
     #### <the item it serves>
     Draft: <working snippet from the draft>
-    Tests: <what to cover>
-    Watch: <critical area or edge case actually seen>
+    Showed: <what its run produced, edge cases it hit included>
 
 Each draft names the probes it relies on. A cold-read gap's fix
 (`write-plan.md` step 6) lands in this section too. The implementer
@@ -141,17 +140,24 @@ planner's filled `## Planner` (§ Modes). The seats fill it in this form:
 
     ## Implementer
     ### Divergences
-    - <where the code left the plan, and why>
+    - <item>: <where the code left the plan, why, and the result>
     ### Findings
-    - [ ] <discovery outside the item's scope>
+    - [ ] <item>: <discovery outside the item's scope>
       Evidence: observed <output> | test <failing test> | contract <spec>
 
     ## Answers
     - Item <n>: <the user's answer to that item's halt>
 
     ## Review
-    - [ ] <issue> (Critical | Important | Suggestion) - <file:line>
+    - [ ] <item>: <issue> (Critical | Important | Suggestion) - <file:line>
       Evidence: observed ... | test ... | contract ...
+
+An entry records what was done, when and what came of it: `<item>`
+names its item or close step - `Item <n>` of the plan, `Review <n>` for
+the nth `## Review` entry, `Close review` - and a divergence also gives
+its result. A report holds no dispatch, status, prompt, verdict, merge
+or time: the commit that carries an entry dates it, and a run's events
+are the runner's ledger's (`run.md § Ledger`).
 
 The implementer appends its section in the commit that carries the
 code, and marks `[x]` the `## Review` entry its dispatch names. The
