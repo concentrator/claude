@@ -1,20 +1,8 @@
 #!/usr/bin/env bash
-# Tier-1 plan referential integrity (skills/dev/plan.md):
-#  - every task in a per-R tasks.md names the R that owns its dir
-#    (legacy `T-XXX (R-XXX)` tag or composite `R###-T###` prefix),
-#    and that R exists in ROADMAP.md. Initiatives are keyed by their
-#    digits, so the unified `R###` and legacy `R-###` spellings of one
-#    id - in ROADMAP.md, a dir name, or a task id - match each other
-#  - task ids are unique across all tasks.md (legacy global T-XXX ids
-#    frozen; composite ids unique by their initiative-scoped counter)
-#  - every branch plan's `task:` / `depends-on:` resolve to a known task
-#  - every branch plan sits under an R-dir that exists in ROADMAP.md
-# Plans live at the tree the root CLAUDE.md § Layout declares
-# (skills/dev/plan.md § Where things live).
 set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
-P=$(sed -n 's/^- Plans: *//p' CLAUDE.md 2>/dev/null | head -1 || true)
+P=$(sed -n 's/^- Plans: *//p' CLAUDE.md .claude/CLAUDE.md 2>/dev/null | head -1 || true)
 P=${P:-dev/plans}
 P=${P%/}
 [[ -f "$P/ROADMAP.md" ]] \

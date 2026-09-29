@@ -26,10 +26,7 @@ root=${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null)}
 [ -n "$root" ] || exit 0
 git -C "$root" rev-parse --show-toplevel >/dev/null 2>&1 || exit 0
 
-# Session dir: the tree the root CLAUDE.md § Layout declares
-# (skills/dev/handoff.md); DEV_STATE_DIR overrides it for tests. The hook
-# runs without `set -e`, so an absent file or line just reads empty.
-decl=$(sed -n 's/^- Session: *//p' "$root/CLAUDE.md" 2>/dev/null | head -1)
+decl=$(sed -n 's/^- Session: *//p' "$root/CLAUDE.md" "$root/.claude/CLAUDE.md" 2>/dev/null | head -1)
 dir=${DEV_STATE_DIR:-$root/${decl:-dev/session}}
 dir=${dir%/}
 
@@ -46,7 +43,7 @@ commits=$(git -C "$root" log --oneline -5 2>/dev/null | paste -sd ';' - | sed 's
 # plan this branch touched is where the work resumes. The tree is the one
 # the declaration names, so a plans tree whose name lacks `plans/` still
 # fills the line below.
-plans_dir=$(sed -n 's/^- Plans: *//p' "$root/CLAUDE.md" 2>/dev/null | head -1)
+plans_dir=$(sed -n 's/^- Plans: *//p' "$root/CLAUDE.md" "$root/.claude/CLAUDE.md" 2>/dev/null | head -1)
 plans_dir=${plans_dir:-dev/plans}; plans_dir=${plans_dir%/}
 base=HEAD
 for ref in origin/main origin/master main master; do

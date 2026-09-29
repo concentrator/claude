@@ -8,7 +8,7 @@
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
-P=$(sed -n 's/^- Plans: *//p' CLAUDE.md 2>/dev/null | head -1 || true)
+P=$(sed -n 's/^- Plans: *//p' CLAUDE.md .claude/CLAUDE.md 2>/dev/null | head -1 || true)
 P=${P:-dev/plans}
 P=${P%/}
 fail=0

@@ -69,7 +69,7 @@ config_clone() {
 # add -A, so both must be ignored whatever the cloned .gitignore says.
 exclude_session_tree() {
   local ex="$1/.git/info/exclude" sess sup
-  sess=$(sed -n 's/^- Session: *//p' "$1/CLAUDE.md" 2>/dev/null | head -1)
+  sess=$(sed -n 's/^- Session: *//p' "$1/CLAUDE.md" "$1/.claude/CLAUDE.md" 2>/dev/null | head -1)
   sess="${sess:-dev/session/}"
   sess="${sess%/}"
   sup="$(dirname "$sess")/supervisor"

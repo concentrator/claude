@@ -115,6 +115,16 @@ fails_with "$d" 'git mv var/plans/R001-x var/plans/archive/' \
   || die "violation in the declared tree missed: $(run_in "$d")"
 rm -rf "$d"
 
+d=$(mkrepo); printf '# x\n' > "$d/CLAUDE.md"; mkdir -p "$d/.claude"
+printf -- '- Plans: var/plans/\n' > "$d/.claude/CLAUDE.md"
+mkdir -p "$d/var/plans/R001-x"
+printf -- '---\napproved: yes\nstatus: done\nkind: feat\n---\n\n# R\n' \
+  > "$d/var/plans/R001-x/requirements.md"
+fails_with "$d" 'git mv var/plans/R001-x var/plans/archive/' \
+  && pass "violation in the .claude/ tree caught" \
+  || die "violation in the .claude/ tree missed: $(run_in "$d")"
+rm -rf "$d"
+
 # --- every task closed, initiative still open or unarchived ---
 d=$(mkrepo)
 mkr "$d" "R002-y" "kind: feat"

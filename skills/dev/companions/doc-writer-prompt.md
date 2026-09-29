@@ -22,8 +22,9 @@ Task tool (dev-doc-writer):
     - Plan items: every item of `<path to the branch plan>`, all of
       them this branch's. Read them for the decisions they carry; a
       doc never cites a plan.
-    - Docs: `<docs>`, the docs home the project's root `CLAUDE.md
-      § Layout` declares, with its index `<docs>/index.md`,
+    - Docs: `<docs>`, the docs home the project's `§ Layout` declares,
+      in its root `CLAUDE.md` or `.claude/CLAUDE.md`, with its index
+      `<docs>/index.md`,
       `README.md` and the CHANGELOG, each where present - yours to
       write. `DESIGN.md` where present is read only: architecture is
       the implementer's (`branch-plan.md § Architecture-changing

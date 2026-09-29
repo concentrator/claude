@@ -26,6 +26,15 @@ grep -qxF -- '- Test: `npm test`, then `bash .claude/scripts/ci/check-plan-text.
 [ "$(grep -c 'CI must run the fast tier' <<<"$out")" = 1 ] && pass "minimal install prints the CI notice" || die "minimal CI notice: $out"
 rm -rf "$T"
 
+DC=$(mktemp -d); git -C "$DC" init -q; git -C "$DC" checkout -qb work; mkdir -p "$DC/.claude"
+printf '# Project\n' > "$DC/CLAUDE.md"
+printf '## Agent toolchain\n\n- Test (fast): `make lint`\n' > "$DC/.claude/CLAUDE.md"
+out=$(bash "$INSTALL" --project "$DC" 2>&1) || die "install (.claude/ fast-tier fixture) exits nonzero"
+grep -qxF -- '- Test (fast): `make lint`, then `bash .claude/scripts/ci/check-plan-text.sh`' "$DC/.claude/CLAUDE.md" && printf '# Project\n' | cmp -s - "$DC/CLAUDE.md" \
+  && pass "gate appended to the Test (fast) line of .claude/CLAUDE.md" || die ".claude/ Test (fast) line: $(grep -F 'Test (fast)' "$DC/.claude/CLAUDE.md")"
+grep -F 'CI must run the fast tier' <<<"$out" | grep -qF '/.claude/CLAUDE.md)' && pass "CI notice names the file holding the line" || die ".claude/ CI notice: $out"
+rm -rf "$DC"
+
 RI=$(mktemp -d); git -C "$RI" init -q; git -C "$RI" checkout -qb work
 printf '## Agent toolchain\n\n- Test (fast): `make lint`\n' > "$RI/CLAUDE.md"
 bash "$INSTALL" --project "$RI" --force >/dev/null 2>&1 || die "first install (re-install fixture) exits nonzero"
@@ -56,6 +65,8 @@ out=$(bash "$INSTALL" --project "$NC" 2>&1) || die "install (no CLAUDE.md) exits
 [ ! -e "$NC/CLAUDE.md" ] && pass "no CLAUDE.md: none written" || die "no CLAUDE.md: one was written"
 [ "$(grep -cF 'check-plan-text.sh`' <<<"$out")" = 1 ] && grep -F 'Test (fast):' <<<"$out" | grep -qF 'bash .claude/scripts/ci/check-plan-text.sh' \
   && pass "no CLAUDE.md: one notice names the line to add" || die "no CLAUDE.md notice: $out"
+grep -F 'Test (fast): <fast tier>' <<<"$out" | grep -qE '/CLAUDE\.md or .*/\.claude/CLAUDE\.md - ' \
+  && pass "no CLAUDE.md: the notice names both instruction files" || die "no CLAUDE.md notice files: $out"
 rm -rf "$NC"
 
 NG=$(mktemp -d)

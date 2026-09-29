@@ -9,7 +9,7 @@ between homes costs a session of tracing before the work resumes.
   fold the ship question into one merge-or-discard decision at branch
   close, across the git workflow, finish, plan, run and the declaration.
 
-- [ ] **R084-T002 [mnt]**: Move this repository's declarations out of the
+- [x] **R084-T002 [mnt]**: Move this repository's declarations out of the
   global instructions into a file read only here, drop the precedence
   sentences, and point every reader script and hook at the project's file.
 
@@ -23,3 +23,4 @@ between homes costs a session of tracing before the work resumes.
 
 - The README's fresh-machine hedge: verify it or delete it.
 - The pre-flight rule says a gap prints the `--apply` line; the script prints it only when every gap is a missing allow rule.
+- Scripts, hooks and tests still carry comments the no-comments convention forbids.

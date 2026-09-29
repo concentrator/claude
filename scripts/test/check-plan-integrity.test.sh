@@ -172,6 +172,16 @@ fails_with "$d" 'R002-T001 in .* but its dir is R-001' \
   || die "violation in the declared tree missed"
 rm -rf "$d"
 
+d=$(mkrepo); mkdir -p "$d/var/plans/R-001-x" "$d/.claude"
+printf '# x\n' > "$d/CLAUDE.md"
+printf -- '- Plans: var/plans/\n' > "$d/.claude/CLAUDE.md"
+printf -- '- [ ] R-001: thing.\n' > "$d/var/plans/ROADMAP.md"
+printf -- '- [ ] **R001-T001 [doc]**: thing\n' > "$d/var/plans/R-001-x/tasks.md"
+add "$d"
+ok_in "$d" && pass ".claude/ plans tree read" \
+  || die ".claude/ plans tree not read: $(run_in "$d")"
+rm -rf "$d"
+
 # 15. plans/ at the repo root is not the gate's tree
 d=$(mkrepo); mkdir -p "$d"/plans/R-002-y "$d/dev/plans/R-001-x"
 printf -- '- [ ] R-001: thing.\n' > "$d/dev/plans/ROADMAP.md"

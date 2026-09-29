@@ -1,16 +1,8 @@
 #!/usr/bin/env bash
-# Tier-1 archival gate (skills/dev/plan.md § Archival): a closed
-# initiative leaves the plans tree the root CLAUDE.md § Layout declares
-# in the delivery that closes it. A non-archive <plans>/*/requirements.md
-# whose frontmatter carries `status: done` fails until the dir moves to
-# <plans>/archive/; `archival: deferred - <reason>` exempts it and the
-# reason is printed.
-# Reads the working tree: the gate judges the state a delivery would
-# leave, not history.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
-P=$(sed -n 's/^- Plans: *//p' CLAUDE.md 2>/dev/null | head -1 || true)
+P=$(sed -n 's/^- Plans: *//p' CLAUDE.md .claude/CLAUDE.md 2>/dev/null | head -1 || true)
 P=${P:-dev/plans}
 P=${P%/}
 

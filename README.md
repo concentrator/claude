@@ -14,6 +14,7 @@ every project on the machine.
 | `writing.md` | Universal writing conventions, `@import`ed by `CLAUDE.md` so they load every session |
 | `settings.json` | Global Claude Code config: permissions, hooks, plugins, session defaults |
 | `.claude/settings.json` | Project-tier Claude Code config: the push deny carve-out, branch-push allows, durable tool allows, model override |
+| `.claude/CLAUDE.md` | This repository's own instructions: its `## Agent toolchain`, `## Supervision` and `## Layout` declarations |
 | `rules/` | Path-scoped convention rules: the DEV-artifact writing rules (shipped by the installer), JS style, CLAUDE.md/skill maintenance |
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); beside it the bundled dependency skills the installer ships, the personal skills, and the worker-host runbook (`LAYOUT.md` marks each) |
 | `agents/` | Subagent definitions for the seats of `/dev run`, one per seat the run dispatches (the roster: `skills/dev/run.md § Seats`): each declares the seat's tools and, where it sets one, its model, and carries its standing instructions. This repository's own - `install-dev.sh` copies none of them |
@@ -22,7 +23,7 @@ every project on the machine.
 | `.github/`, `.githooks/`, `.gitignore` | The CI gate on pull requests, its advisory local pre-push mirror, and the ignore rules for harness state |
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
 | `DESIGN.md` | Architecture, self-hosting layout |
-| `LAYOUT.md` | The repository's actual tree - the layout file `CLAUDE.md § Layout` declares; `scripts/ci/check-stray.sh` checks every tracked top-level entry against it |
+| `LAYOUT.md` | The repository's actual tree - the layout file `.claude/CLAUDE.md § Layout` declares; `scripts/ci/check-stray.sh` checks every tracked top-level entry against it |
 | `MAINTENANCE.md` | The Tier-2 AI review's concerns, plus the sanity routine: cleanup, repair, allow-list hygiene, skill audits |
 | `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) and the gitignored `session/` and `supervisor/` |
 
@@ -66,28 +67,37 @@ release. Command surface and mode files:
 ## DEV artifacts
 
 Two trees: guarded config - what instructs agents - under `.claude/`,
-and agent-authored artifacts at the paths the project's root
-`CLAUDE.md § Layout` declares, one line per key: `Docs:` the docs tree,
-`Plans:` the planning tree, `Session:` the gitignored per-session state
-files, `Layout:` the layout file holding the repository's actual tree.
-A missing line or block means that key's default, so a project that
-has not declared keeps working. The supervisor's ledgers sit in
-`supervisor/` beside the session tree, gitignored like it. This repo's
-global `CLAUDE.md` carries a block of its own (§ Self-hosting); a
-project's block wins, and a project without one is on the defaults,
-not this block's values. Declaration form and the defaults:
-`skills/dev/companions/declarations.md § Declared paths`; canonical
-structure: `skills/dev/layout.md`; paths: `skills/dev/plan.md § Where
-things live`.
+and agent-authored artifacts at the paths the project's `§ Layout`
+declares, one line per key: `Docs:` the docs tree, `Plans:` the
+planning tree, `Session:` the gitignored per-session state files,
+`Layout:` the layout file holding the repository's actual tree. A
+missing path line or `§ Layout` block means that key's default, so a
+project that has not declared keeps working. The supervisor's ledgers
+sit in `supervisor/` beside the session tree, gitignored like it.
+
+All of a project's declarations - the `§ Agent toolchain` commands, the
+`§ Supervision` seat and the `§ Layout` paths - sit in its own
+instructions, the root `CLAUDE.md` or `.claude/CLAUDE.md`, each key
+once across the two and the `§ Agent toolchain` block whole in one of
+them; the global instructions hold none. A script or hook that reads a
+path reads both files, the root one first, and takes the first line
+found; the `/dev run` permission pre-flight reads the `§ Agent
+toolchain` section of each file. Declaration form:
+`skills/dev/companions/declarations.md`, the path defaults in its
+`§ Declared paths`; canonical structure: `skills/dev/layout.md`; paths:
+`skills/dev/plan.md § Where things live`.
 
 ## Self-hosting
 
 This repo manages itself with the same DEV discipline it provides:
 changes to the environment flow through initiatives in its plans tree
 like any other project. Because the repo root *is* the `.claude/`
-directory, the foundational files live at the root, `LAYOUT.md` among
-them, so its `CLAUDE.md § Layout` declares `LAYOUT.md` there and keeps
-`Docs:`, `Plans:` and `Session:` at their defaults: the DEV artifacts
+directory, the root `CLAUDE.md` is the global instructions every
+session loads, and this repository's own instructions, its
+declarations, sit in the nested `.claude/CLAUDE.md`. The foundational
+files live at the root, `LAYOUT.md` among them, so `.claude/CLAUDE.md
+§ Layout` declares `LAYOUT.md` there and keeps `Docs:`, `Plans:` and
+`Session:` at their defaults: the DEV artifacts
 sit beside the root files under `dev/` - see `DESIGN.md § Self-hosting
 layout`.
 
@@ -147,24 +157,27 @@ line to the install directory's `CLAUDE.md` (`~/.claude/CLAUDE.md`;
 to the repo's root `.gitignore`: a `!`-allowlist line for each
 installed path that repo ignores, so the toolset stays committable,
 plus two anchored ignore lines for runtime state:
-the session tree the repo's root `CLAUDE.md § Layout` declares, where
-the per-session state files live (`skills/dev/handoff.md`), and
+the session tree the repo's `Session:` line declares, read from the
+repo root's `CLAUDE.md` and `.claude/CLAUDE.md`, where the per-session
+state files live (`skills/dev/handoff.md`), and
 `supervisor/` beside it, the supervisor's ledgers (`skills/dev/run.md
 § Ledger`) - `/dev/session/` and `/dev/supervisor/` for a project
 without a declaration. A `--project` install into a git repo, full or
 `--minimal`, also wires the plan-text gate into the fast tier: it appends
 `` , then `bash <prefix>.claude/scripts/ci/check-plan-text.sh` `` to the
-repo's root `CLAUDE.md` `Test (fast):` line, else to its `Test:` line
-(the last line of a wrapped one, its closing period dropped), keeping the
-file's mode. `<prefix>` is `<path>` relative to the repo root: empty when
-`<path>` is the root, `sub/` for `--project <repo>/sub`. A line already
-naming `check-plan-text.sh` on any of its lines stays as it is; with
-neither line, or no root `CLAUDE.md`, the root `CLAUDE.md` is left
-unmodified and the install prints one line naming the line to add. A
-global or non-git install does not touch the root `CLAUDE.md` or its
-fast-tier line; its only `CLAUDE.md` write is the `@writing.md` line
-above. Beyond that line, an install leaves the declarations and the
-layout file exactly as it found them: they are the project's.
+repo's `Test (fast):` line, else to its `Test:` line, in whichever of
+the repo root's `CLAUDE.md` and `.claude/CLAUDE.md` holds it, the root
+one's when both do (the last line of a wrapped one, its closing period
+dropped), keeping the file's mode. `<prefix>` is `<path>` relative to
+the repo root: empty when `<path>` is the root, `sub/` for `--project
+<repo>/sub`. A line already naming `check-plan-text.sh` on any of its
+lines stays as it is; with neither line in either file, no fast-tier
+line is written and the install prints one line naming both files and
+the line to add. A global or non-git install touches no fast-tier line;
+its only `CLAUDE.md` write is the `@writing.md` line above. Past the
+`@writing.md` line and that fast-tier append, an install leaves the
+declarations and the layout file exactly as it found them: they are the
+project's.
 The copied checks are yours to wire into CI; the installer ships them
 without registering them and edits no CI config. A `--project` install into
 a git repo prints one line saying the project's CI must run the fast tier,

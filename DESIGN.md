@@ -17,9 +17,11 @@ relate, and the invariants that keep them coherent.
 
 This repo is consumed as `~/.claude`, so a project's `.claude/` is the
 repo root here: `REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md` and
-`LAYOUT.md` sit at the root, the nested `.claude/` holds only Claude
-Code's project settings, and DEV artifacts sit at the paths `CLAUDE.md
-§ Layout` declares, `dev/` here.
+`LAYOUT.md` sit at the root, and the root `CLAUDE.md` is the global
+instructions every session loads. The nested `.claude/` holds Claude
+Code's project settings and this repository's instructions, its
+`CLAUDE.md` carrying the declarations; DEV artifacts sit at the paths
+`.claude/CLAUDE.md § Layout` declares, `dev/` here.
 
 ## Tree-map
 

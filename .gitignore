@@ -31,6 +31,7 @@ stats-cache.json
 # Project tier: everything machine-local except the tracked settings
 .claude/*
 !.claude/settings.json
+!.claude/CLAUDE.md
 
 # Plugins (marketplace-managed)
 plugins/

@@ -17,8 +17,8 @@ determines their order."
 
 Never use an em dash (`U+2014`); use a hyphen. This holds for every tracked
 file, code included - an em dash in code is an encoding/syntax hazard, and in
-prose it is an AI-writing tell. Enforced by a Tier-1 gate, so a stray em dash
-fails CI. En dashes (`U+2013`, numeric ranges) are untouched.
+prose it is an AI-writing tell. En dashes (`U+2013`, numeric ranges) are
+untouched.
 
 ## Write like a human
 
