@@ -17,3 +17,16 @@
   which leaves with the plan at archive; no other tracked file matches.
 
 ## Review
+- [x] Close review: the rule says statuses and verdicts are the ledger's,
+  which records neither; state the exclusion as the rule and cite the
+  ledger for a run's events (Critical) - `skills/dev/branch-plan.md:158`,
+  `agents/dev-implementer.md:100`
+  Evidence: contract `skills/dev/run.md § Ledger`
+- [x] Close review: the user's ruling that a report holds no times, its
+  commit dating each entry, is only implied; state it (Suggestion) -
+  `skills/dev/branch-plan.md:155-157`
+  Evidence: contract the user's answer on item 1
+- [x] Close review: `Review <n>` implies numbered entries, which are
+  bullets; say it is the nth `## Review` entry (Suggestion) -
+  `skills/dev/branch-plan.md:156`, `agents/dev-implementer.md:96`
+  Evidence: observed the unnumbered `## Review` form

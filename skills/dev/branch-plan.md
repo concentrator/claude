@@ -153,10 +153,11 @@ planner's filled `## Planner` (§ Modes). The seats fill it in this form:
       Evidence: observed ... | test ... | contract ...
 
 An entry records what was done, when and what came of it: `<item>`
-names its item or close step - `Item <n>` of the plan, `Review <n>` of
-this report, `Close review` - and a divergence also gives its result.
-Dispatches, statuses, prompts, verdicts, merges and their times stay the
-ledger's alone (`run.md § Ledger`).
+names its item or close step - `Item <n>` of the plan, `Review <n>` for
+the nth `## Review` entry, `Close review` - and a divergence also gives
+its result. A report holds no dispatch, status, prompt, verdict, merge
+or time: the commit that carries an entry dates it, and a run's events
+are the runner's ledger's (`run.md § Ledger`).
 
 The implementer appends its section in the commit that carries the
 code, and marks `[x]` the `## Review` entry its dispatch names. The
