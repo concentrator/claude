@@ -70,18 +70,22 @@ Two trees: guarded config - what instructs agents - under `.claude/`,
 and agent-authored artifacts at the paths the project's `§ Layout`
 declares, one line per key: `Docs:` the docs tree, `Plans:` the
 planning tree, `Session:` the gitignored per-session state files,
-`Layout:` the layout file holding the repository's actual tree. The
-declarations sit in the project's own instructions, the root
-`CLAUDE.md` or `.claude/CLAUDE.md`, each key once across the two; the
-global instructions hold none. A script or hook that reads a key reads
-both files, the root one first, and takes the first line found. A
-missing line or block means that key's default, so a project that has
-not declared keeps working. The supervisor's ledgers sit in
-`supervisor/` beside the session tree, gitignored like it. Declaration
-form and the defaults:
-`skills/dev/companions/declarations.md § Declared paths`; canonical
-structure: `skills/dev/layout.md`; paths: `skills/dev/plan.md § Where
-things live`.
+`Layout:` the layout file holding the repository's actual tree. A
+missing path line or `§ Layout` block means that key's default, so a
+project that has not declared keeps working. The supervisor's ledgers
+sit in `supervisor/` beside the session tree, gitignored like it.
+
+All of a project's declarations - the `§ Agent toolchain` commands, the
+`§ Supervision` seat and the `§ Layout` paths - sit in its own
+instructions, the root `CLAUDE.md` or `.claude/CLAUDE.md`, each key
+once across the two and the `§ Agent toolchain` block whole in one of
+them; the global instructions hold none. A script or hook that reads a
+path reads both files, the root one first, and takes the first line
+found; the `/dev run` permission pre-flight reads the `§ Agent
+toolchain` section of each file. Declaration form:
+`skills/dev/companions/declarations.md`, the path defaults in its
+`§ Declared paths`; canonical structure: `skills/dev/layout.md`; paths:
+`skills/dev/plan.md § Where things live`.
 
 ## Self-hosting
 
@@ -164,14 +168,16 @@ without a declaration. A `--project` install into a git repo, full or
 repo's `Test (fast):` line, else to its `Test:` line, in whichever of
 the repo root's `CLAUDE.md` and `.claude/CLAUDE.md` holds it, the root
 one's when both do (the last line of a wrapped one, its closing period
-dropped), keeping the file's mode. `<prefix>` is `<path>` relative to the repo root: empty when
-`<path>` is the root, `sub/` for `--project <repo>/sub`. A line already
-naming `check-plan-text.sh` on any of its lines stays as it is; with
-neither line in either file, no fast-tier line is written and the
-install prints one line naming both files and the line to add. A
-global or non-git install touches no fast-tier line; its only
-`CLAUDE.md` write is the `@writing.md` line above. Beyond that line, an install leaves the declarations and the
-layout file exactly as it found them: they are the project's.
+dropped), keeping the file's mode. `<prefix>` is `<path>` relative to
+the repo root: empty when `<path>` is the root, `sub/` for `--project
+<repo>/sub`. A line already naming `check-plan-text.sh` on any of its
+lines stays as it is; with neither line in either file, no fast-tier
+line is written and the install prints one line naming both files and
+the line to add. A global or non-git install touches no fast-tier line;
+its only `CLAUDE.md` write is the `@writing.md` line above. Past the
+`@writing.md` line and that fast-tier append, an install leaves the
+declarations and the layout file exactly as it found them: they are the
+project's.
 The copied checks are yours to wire into CI; the installer ships them
 without registering them and edits no CI config. A `--project` install into
 a git repo prints one line saying the project's CI must run the fast tier,
