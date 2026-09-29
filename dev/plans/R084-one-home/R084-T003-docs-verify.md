@@ -22,7 +22,7 @@ mode: normal
   re-dispatch takes the mismatch list verbatim and fixes every entry.
   Approach: `agents/dev-doc-writer.md` steps 3 and 4, then the inputs,
   exit and report format of `companions/doc-writer-prompt.md`.
-- [ ] The docs verifier reads the writer's report first, runs the gate's
+- [x] The docs verifier reads the writer's report first, runs the gate's
   three checks over each doc and returns one mismatch list; the runner
   passes it the report, and a non-empty list re-dispatches one fresh doc
   writer whose result goes to the user, never to a second verification.

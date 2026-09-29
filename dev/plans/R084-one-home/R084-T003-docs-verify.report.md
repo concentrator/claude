@@ -24,5 +24,8 @@
 - Item 3: the prompt's Exit says the verifier checks each claim against
   the source the report names, citing `documentation.md § Verification
   gate` check 1, so the writer knows why its report must name sources.
+- Item 4: `run.md § Close` 3 keeps the existing rule that the re-dispatch
+  result goes to the user with the list, as it went with the verdicts,
+  and its ledger verify entry now carries the mismatch list.
 
 ## Review

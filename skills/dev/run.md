@@ -152,11 +152,12 @@ Per branch, when its last non-final item is `[x]`:
 3. Docs, only when the diff changes user-facing behavior: dispatch the
    doc writer (§ Seats) on the diff from the commit the branch was cut
    from, the plan and the docs, then the gate's verifier over every doc
-   it touched (§ Seats). WRONG or UNPROVEN re-dispatches one fresh doc
-   writer with the verdicts; its result goes to the user with them, not
-   to a second verification. A BLOCKED halts (`branch-plan.md § Stop
-   conditions`). The report rides the dispatch entry and the verdicts a
-   verify entry (§ Ledger); folding never skips it (§ Seats).
+   it touched (§ Seats), passing it the writer's report. A non-empty
+   mismatch list re-dispatches one fresh doc writer with the list; its
+   result goes to the user with the list, not to a second verification.
+   A BLOCKED halts (`branch-plan.md § Stop conditions`). The report
+   rides the dispatch entry and the mismatch list a verify entry
+   (§ Ledger); folding never skips it (§ Seats).
 4. The runner makes the mandatory final commit (cleanup, plan complete,
    task mark per `branch-plan.md § Closing routine`). A branch closing
    the R's last open task runs the closure check first
