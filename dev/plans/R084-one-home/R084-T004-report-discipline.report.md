@@ -19,6 +19,10 @@
   printed only when every gap is a missing allow rule, and that a gap
   the script cannot apply is a `cannot apply:` line. Result: the rule
   now matches the script.
+- Close: `documentation.md` exempts a project's root `README.md` from
+  single-type Diataxis typing and lets it cite the `.claude/` paths it
+  describes. Result: the README no longer conflicts with those two
+  rules.
 
 ## Review
 - [x] Close review: the rule says statuses and verdicts are the ledger's,

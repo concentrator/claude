@@ -8,7 +8,8 @@ docs (`<docs>`) are its Reference application
 
 ## Diataxis typing
 
-Every doc is exactly one of these types; never mix them in one file.
+Every doc is exactly one of these types; never mix them in one file. A
+project's root `README.md`, its front page, may mix them.
 
 | Type | Answers | Shape |
 |---|---|---|
@@ -114,8 +115,9 @@ an Element.
   task reports, or `.claude/` paths. Those name artifacts that move,
   are archived, or are retired, so the citation drifts while still
   reading as precise. An `archive/` directory inside the docs tree is
-  exempt. A project's docs gate checks this mechanically where the
-  project has one.
+  exempt, and a project's root `README.md` may cite the `.claude/`
+  paths it describes. A project's docs gate checks this mechanically
+  where the project has one.
 - **Right content, right place**: exclude test/environment artifacts;
   include the real parameters.
 - **DRY**: a shared fact lives in one doc; others cross-reference it
