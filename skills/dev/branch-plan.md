@@ -141,17 +141,23 @@ planner's filled `## Planner` (§ Modes). The seats fill it in this form:
 
     ## Implementer
     ### Divergences
-    - <where the code left the plan, and why>
+    - <item>: <where the code left the plan, why, and the result>
     ### Findings
-    - [ ] <discovery outside the item's scope>
+    - [ ] <item>: <discovery outside the item's scope>
       Evidence: observed <output> | test <failing test> | contract <spec>
 
     ## Answers
     - Item <n>: <the user's answer to that item's halt>
 
     ## Review
-    - [ ] <issue> (Critical | Important | Suggestion) - <file:line>
+    - [ ] <item>: <issue> (Critical | Important | Suggestion) - <file:line>
       Evidence: observed ... | test ... | contract ...
+
+An entry records what was done, when and what came of it: `<item>`
+names its item or close step - `Item <n>` of the plan, `Review <n>` of
+this report, `Close review` - and a divergence also gives its result.
+Dispatches, statuses, prompts, verdicts, merges and their times stay the
+ledger's alone (`run.md § Ledger`).
 
 The implementer appends its section in the commit that carries the
 code, and marks `[x]` the `## Review` entry its dispatch names. The

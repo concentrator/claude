@@ -6,7 +6,7 @@ mode: normal
 
 # R084-T004: report discipline
 
-- [ ] A task report entry records what was done, when and what came of
+- [x] A task report entry records what was done, when and what came of
   it (outcome 4): it names its item or close step, a divergence also
   gives its result, and dispatches, statuses, prompts, verdicts, merges
   and their times stay the ledger's alone. Approach: the form and rule
