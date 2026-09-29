@@ -5,7 +5,7 @@ between homes costs a session of tracing before the work resumes.
 
 ## Open
 
-- [ ] **R084-T001 [mnt]**: Retire the plan-branch auto-merge policy and
+- [x] **R084-T001 [mnt]**: Retire the plan-branch auto-merge policy and
   fold the ship question into one merge-or-discard decision at branch
   close, across the git workflow, finish, plan, run and the declaration.
 
@@ -22,3 +22,4 @@ between homes costs a session of tracing before the work resumes.
   ledger already holds.
 
 - The README's fresh-machine hedge: verify it or delete it.
+- The pre-flight rule says a gap prints the `--apply` line; the script prints it only when every gap is a missing allow rule.

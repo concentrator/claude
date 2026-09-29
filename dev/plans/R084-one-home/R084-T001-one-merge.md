@@ -35,7 +35,7 @@ mode: normal
   Approach: those two; then `git grep -nE` over `skills/dev agents rules
   CLAUDE.md` for auto-merge, `merge --auto`, merge-when, ship question,
   ship / discard, skips the ask, merge approval and Reject finds none.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)
