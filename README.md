@@ -107,9 +107,7 @@ layout`.
 2. Start any Claude Code session; the toolset itself has no install
    step, the clone being `~/.claude`. `settings.json` names the
    marketplace and the enabled plugins; `plugins/`, the caches and the
-   `*.local.json` overrides are gitignored harness state. That the
-   harness re-downloads the plugins and recreates that state on a
-   fresh machine's first run is unverified: not run on a fresh machine.
+   `*.local.json` overrides are gitignored harness state.
 3. Arm the advisory local gate: `git config core.hooksPath .githooks`,
    once per clone, so `.githooks/pre-push` runs Tier-1 - the checks and
    the test suites - before a push leaves the machine.
