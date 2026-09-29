@@ -22,5 +22,4 @@ between homes costs a session of tracing before the work resumes.
   ledger already holds.
 
 - The README's fresh-machine hedge: verify it or delete it.
-- The pre-flight rule says a gap prints the `--apply` line; the script prints it only when every gap is a missing allow rule.
 - Scripts, hooks and tests still carry comments the no-comments convention forbids.

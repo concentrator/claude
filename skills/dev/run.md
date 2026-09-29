@@ -68,8 +68,10 @@ table below leaves unassigned halts and reports, never improvises.
 - Permissions: `<config>/scripts/preflight-permissions.sh --project .
   --supervisor <declared> --runner-mode <the declared mode>`
   (`companions/supervisor-runbook.md § Modes by seat`) reports every rule with
-  the tier carrying it; a gap halts the run and prints the `--apply` line for
-  the **user** (§ Seats). No toolchain section → halt, ask.
+  the tier carrying it; a gap halts the run. The `--apply` line is printed for
+  the **user** (§ Seats) only when every gap is a missing allow rule; a gap the
+  script cannot apply is a `cannot apply:` line with its reason. No toolchain
+  section → halt, ask.
 - No plan in scope gives a **seat** a settings-surface target
   (`agents/dev-implementer.md`, its config paragraph); the rest of `.claude/` is
   tracked source a plan may name, and an item naming the **user** as the writer
