@@ -233,3 +233,5 @@ Initiative index. Items: `R-001: description`; each entry owns
       comments, per the no-comments convention.
 - [ ] R086: Outcomes without checkboxes - a requirements file states its
       outcomes as the template's numbered list, and a check holds it there.
+- [ ] R087: Hooks run once - a project install skips registering a hook
+      the global settings already run.
