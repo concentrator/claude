@@ -1,0 +1,29 @@
+# R086 tasks - Agent contracts
+
+Why: agents repeat convention breaches and docs carry stale claims, because rules are scattered and evidence goes stale in old reports.
+
+## Open
+
+- [ ] **R086-T001 [mnt]**: Make a new convention bind only what is created
+  after it, and have the gates check only what a branch adds.
+
+- [ ] **R086-T002 [mnt]**: Give each seat one contract of inputs, steps and
+  outputs, and narrow the global instructions to what every seat needs.
+
+- [ ] **R086-T003 [feat]**: List the claims to prove in the plan, have the
+  planner create the report and the implementer prove each before docs.
+
+- [ ] **R086-T004 [mnt]**: Fail a checkbox in a requirements file a branch
+  adds.
+
+- [ ] **R086-T005 [bug]**: Skip registering a project hook the global
+  settings already run.
+
+- [ ] **R086-T006 [mnt]**: Branch before the first edit, and sync the default
+  branch without switching onto a dirty tree.
+
+- The implementer prompt says which instructions are in context; it should give only its own context.
+- The code-comments rule lives in the global instructions; the implementer needs it in its prompt.
+- About a third of the planner prompt is its shell-config section.
+- This repo declares a docs path that holds no docs.
+- Find where git workflow rules are restated outside the git workflow file.
