@@ -231,5 +231,5 @@ Initiative index. Items: `R-001: description`; each entry owns
       auto-merge, the ship question and verdict marks go.
 - [ ] R085: Code without comments - scripts, hooks and tests carry no
       comments, per the no-comments convention.
-- [ ] R086: Outcomes without checkboxes - a requirements file states its
-      outcomes as the template's numbered list, and a check holds it there.
+- [ ] R086: Toolset fixes from project use - outcomes without checkboxes,
+      hooks that run once, and fewer default-branch blocks.
