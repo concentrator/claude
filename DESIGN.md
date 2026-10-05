@@ -65,8 +65,16 @@ Two tiers gate every change into `main` (hooks ship to adopters via
   reference, a dated accretion marker, an oversized code file or
   function, an em dash, a tracked secret (the hook's predicate), a
   stale batch ref (local-only), or an unconfigured context budget or
-  bare `Bash(git:*)` grant. `main` is protected: a merge needs a PR
-  with `tier1` green, `enforce_admins` on.
+  bare `Bash(git:*)` grant. Content checks - caps, code size, em
+  dashes, `TODO` markers, accretion, plan text - judge what a branch adds
+  over its merge-base with the default branch
+  (`scripts/ci/branch-diff.sh`). Tree checks - stray, plan integrity,
+  archival, references, batch tags, settings, secrets - judge the whole
+  tree, since a branch breaks those from outside the failing file and
+  a tracked credential is live at any age. With no base, content
+  checks judge the whole tree and plan-text skips. `main` is
+  protected: a merge needs a PR with `tier1` green, `enforce_admins`
+  on.
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
   concerns to the diff at branch close (`skills/dev/branch-plan.md
   § Closing routine`); they are enumerated there and nowhere else.

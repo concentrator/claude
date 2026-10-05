@@ -46,7 +46,7 @@ cold-read: passed
   or when its base had one.
   Approach: `check-plan-text.sh`; its test's changed-legacy case flips to
   passing, and an added line in that file fails.
-- [ ] `DESIGN.md § Self-enforcement` says content checks judge what a branch
+- [x] `DESIGN.md § Self-enforcement` says content checks judge what a branch
   adds and tree checks - stray, plan integrity, archival, references,
   batch tags, settings, secrets - the whole tree, since a branch breaks
   those from outside the failing file and a tracked credential is live at
