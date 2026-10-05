@@ -41,6 +41,7 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -f "$P/.claude/scripts/test/check-batch-tags.test.sh" ] && pass "batch-tags self-test copied" || die "no batch-tags self-test"
 [ -x "$P/.claude/scripts/ci/check-plan-text.sh" ] && [ -f "$P/.claude/scripts/test/check-plan-text.test.sh" ] && pass "plan-text check copied + exec, with its self-test" || die "no plan-text check or self-test"
 [ -x "$P/.claude/scripts/preflight-permissions.sh" ] && [ -f "$P/.claude/scripts/test/preflight-permissions.test.sh" ] && pass "permission pre-flight copied + exec, with its self-test" || die "no permission pre-flight or self-test"
+[ -f "$P/.claude/scripts/ci/branch-diff.sh" ] && [ ! -e "$P/.claude/scripts/test/branch-diff.test.sh" ] && pass "branch-diff helper copied, without its self-test" || die "no branch-diff helper, or its self-test shipped"
 [ -z "$(grep -L BASH_SOURCE "$P"/.claude/scripts/test/*.test.sh)" ] \
   && pass "copied self-tests resolve their subject relatively" \
   || die "copied self-test pinned to the repo root"

@@ -400,5 +400,13 @@ offending line passed; counting the keys made it fail at its own line.
   under both shell modes, run from a subdirectory with and without the
   helper beside it, and sets `diff.renames false` in its diff fixture, since
   without it a helper that drops `-M` still passed on git's default.
+- Item 3: `README.md § Installing the toolset elsewhere` is not edited in
+  this commit, since every doc the branch ships is the doc writer's
+  (`skills/dev/branch-plan.md § Commit cadence` 2); the listing is left
+  for the close.
+- Item 3: `install-dev.test.sh` also asserts that
+  `scripts/test/branch-diff.test.sh` is absent from the install, pinning
+  "no test this branch adds ships" in the same check as the helper's
+  presence, which failed before the copy-loop change and passes after it.
 
 ## Review

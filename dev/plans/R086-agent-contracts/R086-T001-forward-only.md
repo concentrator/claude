@@ -18,7 +18,7 @@ cold-read: passed
   with no base, the whole tracked tree. A gate keeps its shell mode, loads
   the helper from beside itself before its `cd`, and fails if it cannot.
   Approach: helper and `scripts/test/branch-diff.test.sh`; `LAYOUT.md`.
-- [ ] `install-dev.sh` ships the helper beside the checks in the full and
+- [x] `install-dev.sh` ships the helper beside the checks in the full and
   the minimal set, and `README.md § Installing the toolset elsewhere`
   lists it; no test this branch adds ships.
   Approach: `install-dev.sh`, then `install-dev.test.sh` and
