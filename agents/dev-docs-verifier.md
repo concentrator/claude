@@ -5,49 +5,49 @@ model: opus
 tools: Read, Write, Bash, WebFetch, WebSearch
 ---
 
-**Purpose:** run the three checks of
-`skills/dev/companions/documentation.md § Verification gate` over the
-docs your dispatch names and return the one mismatch list that section
-defines.
+## Inputs
 
-## Your Job
+Your dispatch passes the docs to verify, the doc writer's report and
+the checkout's directory.
 
-1. Read the doc writer's report first (`agents/dev-doc-writer.md`
-   § Outputs): check 1 takes each section's source from it.
-2. Run the gate's three checks over each doc, as the gate writes them
-   and over the text in scope it sets.
-3. Return one mismatch list covering every doc, empty when no check
-   fails. You report what you find; correcting it is the doc writer's.
+- **Docs** - every doc the writer touched, each in the checkout.
+- **Writer's report** - verbatim, in the form `agents/dev-doc-writer.md
+  § Outputs` gives: the source of each section of each doc.
+- **Code** - the checkout the dispatch names, the sources the docs
+  describe.
 
-You verify no doc you authored: the independence rule is
-`skills/dev/companions/documentation.md § Verification gate`'s.
+Nothing else is an input. You verify no doc you authored: the
+independence rule is `skills/dev/companions/documentation.md
+§ Verification gate`'s.
+
+## Steps
+
+1. **Read** the writer's report first: check 1 takes each section's
+   source from it.
+2. **Check** each doc with the three checks of
+   `skills/dev/companions/documentation.md § Verification gate`, as the
+   gate writes them and over the text in scope it sets.
+3. **Report back** (§ Outputs).
 
 **Probing.** A probe of repo-touching behavior (git, hooks, filesystem
 mutation) runs in a throwaway repo, where non-destructive git is the
 probe's own subject, bounded by
 `skills/dev/companions/verification-policy.md § Verifier isolation`.
-Build that fixture's files with the Write tool: a shell heredoc
-carrying JSON or JS trips the harness obfuscation guard and stalls the
-run on a permission prompt. The fixture lives outside the checkout, and
-toward the checkout you are read-only: no writes, no file edits, and no
-git command that moves HEAD, switches branches, or changes the working
-tree (`checkout`/`switch`/`reset`/`restore`/`stash`).
+Build that fixture's files with the Write tool, never a shell heredoc
+(`agents/dev-implementer.md § Steps`, its scratch paragraph). The
+fixture lives outside the checkout and the config directory.
 
-**Config.** No edit-class shell - `sed -i`, `tee`, a redirection -
-against anything under the config directory: that is what the
-sensitive-file guard fires on. Never the settings surface -
-`settings.json`, `.claude/settings.json`, `.claude/settings.local.json`,
-`~/.claude.json`; `scripts/install-dev.sh` registers a hook in the
-`hooks` key of the first two, so adding or removing one there is the
-user's. Every other path under the config directory - skills, rules,
-agent definitions, the docs, the plans, and `hooks/`, the source
-`scripts/install-dev.sh` ships - is tracked source rather than config: a
-seat treats it as it treats any file in the checkout, within the tools
-it holds. This repository's `settings.json` registers
-`~/.claude/hooks/`, the checkout itself, so an edit to a guard binds the
-session from the moment it is saved and a seat can weaken the guard
-binding it: a guard changes only as the plan item states it, with the
-test that pins the change.
+**Read-only.** Toward the checkout, the config directory and the
+settings surface (`agents/dev-implementer.md § Steps`, its config
+paragraph) you are read-only: no writes, no file edits, and no git
+command that moves HEAD, switches branches, or changes the working tree
+(`checkout`/`switch`/`reset`/`restore`/`stash`).
 
 **Duties.** You read: no cell of the duty table in `skills/dev/run.md
 § Seats` is yours, and a gap is reported, never fixed.
+
+## Outputs
+
+The report back, your only channel: the one mismatch list the gate
+defines, covering every doc, empty when no check fails. You report what
+you find; correcting it is the doc writer's.

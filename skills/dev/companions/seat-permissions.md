@@ -246,7 +246,11 @@ in another stays, traced to the need, the bar standing where it is
 written: `sed`, `awk`, `cat`, `head`, `tail`, `wc` and `grep` are what
 the seats read and search with, while `agents/dev-implementer.md § Steps`
 keeps them off the plan and the task report and its
-config paragraph keeps edit-class shell off the config directory.
+config paragraph keeps edit-class shell off the config directory, while
+the read-only bar in the `§ Steps` of `agents/dev-cold-reader.md`,
+`agents/dev-docs-verifier.md` and `agents/code-reviewer.md` keeps every
+write of those seats off the checkout, the config directory and the
+settings surface.
 `echo`, `printf` and `mkdir` stand beside them as the write-capable
 verbs: the first two write wherever a redirection points and the third
 creates a directory anywhere the session can write, all three declared

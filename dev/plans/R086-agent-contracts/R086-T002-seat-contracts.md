@@ -26,7 +26,7 @@ mode: normal
   it writes only docs, with the Read/Edit/Write tools; `LAYOUT.md` then lists
   no prompt templates under `companions/`. Approach:
   `agents/dev-doc-writer.md`, `run.md § Seats` and `§ Close` 3, `LAYOUT.md`.
-- [ ] The cold reader's, docs verifier's and code reviewer's definitions are
+- [x] The cold reader's, docs verifier's and code reviewer's definitions are
   contracts, each citing the checks it runs from their home; each drops the
   config paragraph, its read-only bar covering the config directory and the
   settings surface, so the implementer's definition is the paragraph's home.

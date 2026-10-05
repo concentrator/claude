@@ -45,11 +45,32 @@
 - Item 4: the seat-model initiative's completed branch plans and its
   requirements still name `doc-writer-prompt.md`; they stand, as in
   Item 1.
+- Item 5: the code reviewer's `§ Inputs` names the folded branches'
+  list and the ruled-out cases its dispatch already passes
+  (`verification-policy.md § Close folding`, the old evidence
+  paragraph), and its batch step reviews a folded branch as its first
+  review; its evidence bar, missing-test bar and second-agent condition
+  now cite `CLAUDE.md § Scope`, `plan.md § Proportionality` and
+  `branch-plan.md § Closing routine` 1. With no plan path it asks in its
+  report back, its only channel, rather than of the dispatcher.
+- Item 5: the cold reader's inputs cite the implementer's `§ Inputs`
+  and `branch-plan.md § Modes` for `## Planner`; the docs verifier's
+  heredoc bar cites the implementer's scratch paragraph, and the
+  settings surface in all three bars cites its config paragraph.
+- Item 5: `verification-policy.md § Comprehension check` passes the
+  values the cold reader's `§ Inputs` names instead of listing them;
+  `seat-permissions.md` names the three read-only bars beside the
+  implementer's config paragraph.
 ### Findings
 - [ ] Item 1: the seat-model initiative's `tasks.md` cites
   `agents/dev-implementer.md § Scratch & Probe Scripts` and
   `companions/implementer-prompt.md`, both gone after this item.
   Evidence: observed `git grep -n implementer-prompt` and the heading
   search over that initiative's `tasks.md`
+- [ ] Item 5: `seat-permissions.md`'s `Read(//__HOME__/.claude/rules/**)`
+  row traces the rule to `rules/writing-artifacts.md` alone, though
+  `agents/dev-implementer.md` and `agents/code-reviewer.md` send their
+  seats to `rules/code-comments.md`.
+  Evidence: observed `git grep -o "rules/[a-z-]*\.md" -- agents`
 
 ## Review
