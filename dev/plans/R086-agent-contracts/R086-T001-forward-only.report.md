@@ -462,7 +462,7 @@ offending line passed; counting the keys made it fail at its own line.
 - [x] Close review: comment text the branch rewrapped or extended
   (Suggestion) - scripts/ci/check-caps.sh, scripts/ci/check-plan-text.sh:7
   Evidence: contract CLAUDE.md § Code Comments
-- [ ] Close review: the fetch-depth comment credits only plan-text
+- [x] Close review: the fetch-depth comment credits only plan-text
   (Suggestion) - .github/workflows/ci.yml:19
   Evidence: observed six gates call branch_base and fall back to the whole
   tree without a full fetch
