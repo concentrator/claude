@@ -28,7 +28,7 @@ cold-read: passed
   judge the whole tracked tree as they do today.
   Approach: `check-no-em-dash.sh` and `check-todos.sh` on the helper, each
   with a new `scripts/test/` file covering old, added and untracked hits.
-- [ ] The accretion gate fails only on a line the branch adds, archive
+- [x] The accretion gate fails only on a line the branch adds, archive
   exempt as today; unborn-repo fixtures keep passing through the
   whole-tree fallback. `check-secrets.sh` neither loads the helper nor
   judges only added lines: it keeps scanning every tracked file.
