@@ -20,7 +20,7 @@ base=$(branch_base) || { echo "check-plan-text: SKIP (no default branch)"; exit 
 new=$(mktemp); old=$(mktemp); blob=$(mktemp)
 trap 'rm -f "$new" "$old" "$blob"' EXIT
 
-scan() { # file name own-id mode(req|tasks|roadmap|plan)
+scan() {
   awk -v f="$2" -v own="$3" -v mode="$4" '
     function bad(n, why, key) { printf "PLAN-TEXT: %s:%d: %s\t%s\t%s\n", f, n, why, why, key }
     function check(n, s,   t, id) {
@@ -65,7 +65,7 @@ scan() { # file name own-id mode(req|tasks|roadmap|plan)
     }' "$1"
 }
 
-report() { # file name
+report() {
   awk -v f="$2" '
     function close_box() { if (box && !ev) printf "PLAN-TEXT: %s:%d: finding without Evidence: observed|test|contract\tevidence\t%s\n", f, box, first; box = 0 }
     /^- \[[ x]\]/ { close_box(); box = NR; ev = 0; first = $0; sub(/^- \[.\]/, "- [ ]", first); next }
@@ -74,7 +74,7 @@ report() { # file name
     END { close_box() }' "$1"
 }
 
-backlog() { # file name
+backlog() {
   awk -v f="$2" '
     function over() { if (!told) printf "PLAN-TEXT: %s:%d: backlog line over 1 line\tbacklog\t%s\n", f, at, first; told = 1 }
     /^- \[/ { task = 1; ctx = ""; ub = 0; next }
@@ -87,7 +87,7 @@ backlog() { # file name
     { at = NR; first = $0; told = 0; ub = /^[-*] /; ctx = "line" }' "$1"
 }
 
-judge() { # scanner file base-path scanner-args
+judge() {
   local fn=$1 f=$2 from=$3 out; shift 3
   "$fn" "$f" "$f" "$@" > "$new"
   : > "$old"

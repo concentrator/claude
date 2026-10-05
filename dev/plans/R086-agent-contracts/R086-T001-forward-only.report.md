@@ -437,6 +437,10 @@ offending line passed; counting the keys made it fail at its own line.
   stays deleted, since the branch removed it rather than rewrapping or
   extending it, and untracked files are now judged (Item 6); the restored
   mode-file comment keeps the base line breaks, indented into its case arm.
+- Close review: the argument notes on `scan`, `report` and `backlog` are
+  deleted whole rather than restored to their base wording, since Item 7
+  rewrote each and the base wording no longer names the arguments the
+  functions take; the plan-text gate now carries no comment past its header.
 
 ## Answers
 - Review 1: fix it in branch-diff.sh - a line git removes and re-adds only
