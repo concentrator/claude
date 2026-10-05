@@ -144,9 +144,9 @@ A full install ships:
   - `check-accretion.sh`, with its self-test.
   - `check-batch-tags.sh`, with its self-test.
   - `check-plan-text.sh`, with its self-test.
-  - `branch-diff.sh`, without a self-test: the helper every check above
-    but `check-batch-tags.sh` sources from beside itself, failing when
-    it cannot load it.
+  - `branch-diff.sh`, without a self-test: the helper that every check
+    above except `check-batch-tags.sh` loads from the check's own
+    directory. A check that cannot load the helper fails, exiting 1.
 - `scripts/preflight-permissions.sh`, the `/dev run` permission
   pre-flight, with its self-test.
 - The hooks below.
@@ -227,10 +227,28 @@ The copied checks are yours to wire into CI; the installer ships them
 without registering them and edits no CI config. A `--project` install into
 a git repo prints one line saying the project's CI must run the fast tier,
 which is what runs the plan-text gate there.
-The code-size, em-dash, accretion and plan-text checks judge only what a
-branch adds over its merge-base with the first of `origin/main`,
-`origin/master`, `main` and `master` that has one. With no merge-base -
-a shallow CI checkout among the cases - the first three judge every
-tracked file in their scope and the plan-text check prints `SKIP` and
-passes. This repo's CI checks out the full history, `fetch-depth: 0` in
-`.github/workflows/ci.yml`.
+
+The four copied checks in the table below judge only what the working
+tree adds over a base: committed, staged and unstaged changes, and
+untracked files git does not ignore. The base is the merge-base of
+`HEAD` with the first of these refs that has one:
+
+1. `origin/main`
+2. `origin/master`
+3. `main`
+4. `master`
+
+The plans directory below is the one the `Plans:` line of the repo
+root's `CLAUDE.md` or `.claude/CLAUDE.md` declares, else `dev/plans`.
+
+| Check | Files it judges | With no merge-base |
+|---|---|---|
+| `check-code-size.sh` | code files, by the extensions in `\.(sh\|bash\|js\|mjs\|cjs\|jsx\|ts\|tsx\|py\|go\|rb\|rs)$` | every tracked file of that scope, whole |
+| `check-no-em-dash.sh` | every text file | every tracked text file, whole |
+| `check-accretion.sh` | `*.md` files under the plans directory, its `archive/` excluded | every tracked file of that scope, whole |
+| `check-plan-text.sh` | plan files under the plans directory, its `archive/` excluded | none: it prints `check-plan-text: SKIP (no default branch)` and passes |
+
+A shallow CI checkout is among the cases with no merge-base. A CI that
+keeps these checks scoped to the branch checks out the full history, as
+this repo's `.github/workflows/ci.yml` does with `fetch-depth: 0` on
+`actions/checkout`.
