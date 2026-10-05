@@ -40,7 +40,7 @@ cold-read: passed
   a unit over its cap at the base may grow. The allowlist is unchanged.
   Approach: `check-caps.sh` with cases in its test, then `check-code-size.sh`
   with a new test.
-- [ ] The plan-text gate fails only on a violation the base copy of the file
+- [x] The plan-text gate fails only on a violation the base copy of the file
   lacks, keyed by reason and text (an entry by its first line, checkbox
   mark ignored) and counted; a plan without a report fails only when new
   or when its base had one.

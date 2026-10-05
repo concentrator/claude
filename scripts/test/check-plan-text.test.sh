@@ -51,7 +51,38 @@ d=$(mkrepo)
 printf '# %s tasks\n\nWhy: a reason that\nwraps.\n\n## Open\n\n- [ ] **%s-T001 [mnt]**: a\n  b.\n\n- one backlog note.\n- another one.\n\nBacklog: a line.\n' "$OWN" "$OWN" > "$d/dev/plans/$OWN-x/tasks.md"
 out=$(run_in "$d") && pass "one-line backlog lines pass" || die "one-line backlog lines failed: $out"
 rm -rf "$d"
-expect "changed legacy initiative checked" "R090-old/requirements.md" "More." "PLAN-TEXT: dev/plans/R090-old/requirements.md:1: link"
+d=$(mkrepo)
+printf 'More.\n' >> "$d/dev/plans/R090-old/requirements.md"
+out=$(run_in "$d") && pass "old text in a changed legacy file passes" || die "changed legacy file failed: $out"
+rm -rf "$d"
+expect "added line in a legacy file caught" "R090-old/requirements.md" "See https://example.com." "PLAN-TEXT: dev/plans/R090-old/requirements.md:2: link"
+expect "added copy of an old line caught" "R090-old/requirements.md" "See https://example.com on 2026-01-01, #12, R001." "PLAN-TEXT: dev/plans/R090-old/requirements.md:2: link"
+on_main() { # repo file content: main gains the file, the branch then merges
+  git -C "$1" checkout -q main
+  printf '%s\n' "$3" > "$1/dev/plans/$2"
+  commit_in "$1" "$2"
+  git -C "$1" checkout -q feat
+  git -C "$1" -c user.email=t@t -c user.name=t merge -q --no-edit main
+}
+d=$(mkrepo); on_main "$d" R090-old/tasks.md "$(printf -- '- [ ] **R090-T001 [mnt]**: a\n  b\n  c\n  d')"
+printf -- '- [x] **R090-T001 [mnt]**: a\n  b\n  c\n  d\n  e\n' > "$d/dev/plans/R090-old/tasks.md"
+out=$(run_in "$d") && pass "old long entry checked off and grown passes" || die "old long entry failed: $out"
+printf -- '- [ ] **R090-T002 [mnt]**: a\n  b\n  c\n  d\n' >> "$d/dev/plans/R090-old/tasks.md"
+out=$(run_in "$d"); case "$out" in *"tasks.md:6: entry over 3 lines"*) pass "new long entry beside an old one caught" ;; *) die "new long entry: $out" ;; esac
+rm -rf "$d"
+d=$(mkrepo); on_main "$d" R090-old/R090-T001-old.report.md "$(printf -- '- [ ] shape may differ\n  no evidence')"
+printf -- '- [x] shape may differ\n  no evidence\n- [ ] another\n' > "$d/dev/plans/R090-old/R090-T001-old.report.md"
+out=$(run_in "$d"); case "$out" in *"report.md:3: finding without Evidence"*) [[ $out != *"report.md:1:"* ]] && pass "old box passes, new box without evidence caught" || die "old box reported: $out" ;; *) die "new box: $out" ;; esac
+rm -rf "$d"
+d=$(mkrepo); on_main "$d" R090-old/R090-T001-old.md "- [ ] an item"
+printf -- '- [x] an item\n' > "$d/dev/plans/R090-old/R090-T001-old.md"
+out=$(run_in "$d") && pass "legacy plan without a report passes" || die "legacy plan without a report failed: $out"
+rm -rf "$d"
+d=$(mkrepo); on_main "$d" R090-old/R090-T001-old.md "- [ ] an item"; on_main "$d" R090-old/R090-T001-old.report.md "# report"
+git -C "$d" rm -q dev/plans/R090-old/R090-T001-old.report.md
+printf -- '- [x] an item\n' > "$d/dev/plans/R090-old/R090-T001-old.md"
+out=$(run_in "$d"); case "$out" in *"R090-T001-old.md: plan without task report"*) pass "plan losing its report caught" ;; *) die "plan losing its report: $out" ;; esac
+rm -rf "$d"
 expect "R-NNN dir checked"     "R-083-y/tasks.md"       "Builds on R000-T002."      "id of another initiative: R000"
 
 d=$(mkrepo)

@@ -424,5 +424,14 @@ offending line passed; counting the keys made it fail at its own line.
   compliant pair; the test comment saying it does is removed, and the
   gate's header sentence limiting it to tracked files with it, since
   untracked files the helper yields are now judged.
+- Item 7: the plan-text scanners print the message first and the key after
+  it, read as the rest of the record, where the draft printed
+  `key<TAB>message`, since a key carrying the offending line's text can hold
+  a tab; a report box and a backlog line are keyed by their first line, the
+  box's mark read as `[ ]`.
+- Item 7: `check-plan-text.test.sh` also covers an old long entry checked off
+  and grown beside a new long one, an old box without Evidence beside a new
+  one, a legacy plan without a report, and a plan whose report the branch
+  deletes; the first three failed before the gate change.
 
 ## Review
