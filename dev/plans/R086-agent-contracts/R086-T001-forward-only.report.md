@@ -77,10 +77,58 @@ Errors hit: the code-size draft flagged `hooks/dev-branch-guard.sh` (363
 lines) in the clone: the allowlist is read beside the script, and the
 draft dir had none.
 
+#### Sourcing a file that is absent
+Source: bash 3.2.57 (`/bin/bash`, the only bash on this host, so bash 5
+on the CI runner was not run).
+Request: a gate shaped like the em-dash draft whose first step is
+`. "$(dirname "${BASH_SOURCE[0]}")/branch-diff.sh"`, run with no helper
+beside it; then `bash -c` one-liners.
+Response: under `set -uo pipefail` the unguarded gate printed `No such
+file or directory`, `branch_base: command not found`, `branch_added:
+command not found`, then `gate: OK`, rc 0. `. /nonexistent/x.sh || echo
+caught` prints `caught` without `-e`; under `set -e` it exits rc 1 before
+`caught`, and so does `if ! . /nonexistent/x.sh`. `{ [ -r "$f" ] && .
+"$f"; } || { echo caught; exit 1; }` prints `caught`, rc 1, under `-e`
+and without it.
+Trap: under `set -e` a failed `.` exits the shell even inside `||`, so
+`check-caps.sh` and `check-todos.sh` would stop with no stdout. Test the
+file with `[ -r ]` before sourcing it.
+
+#### Where the helper is loaded
+Request: the em-dash draft copied with the helper into a repo's
+`scripts/ci/`, run as `bash ../scripts/ci/check-no-em-dash.sh` from
+`sub/`, once loading before its `cd` to the top level and once after.
+Response: before the `cd`: `check-no-em-dash: OK`, rc 0. After it:
+`check-no-em-dash: cannot load branch-diff.sh`, rc 1, since
+`BASH_SOURCE` is relative to the directory the gate was started from.
+
+#### A rename under a one-path pathspec
+Request: on a branch that runs `git mv m.md n.md` and appends `d` to a
+3-line file: `branch_added "$b" ':(literal)n.md'`, then the same with
+`':(literal)m.md'` added, then `branch_changed "$b"`.
+Response: the new path alone gave all four lines as added; both paths
+gave only `n.md<TAB>4<TAB>d`; `branch_changed` gave
+`M<TAB>n.md<TAB>m.md`.
+Trap: rename detection needs the base path in the pathspec too, so a
+per-file call passes `:(literal)$from` beside `:(literal)$f`.
+
+#### set -e in a command substitution
+Request: the report's earlier `over()` (last command `(( ... )) &&
+echo`) called as `n=$(over f.txt "" 100 lines)` on a 1-line file under
+`set -euo pipefail`; then a form ending in `if (( ... )); then echo; fi`
+with `git show` of a path absent at `HEAD`.
+Response: the first exited rc 1 with no output, since the substitution
+returned 1 and the assignment tripped `-e`. The second printed `reached
+n=[]`, rc 0: bash 3.2 clears `-e` inside `$(...)`, so only the
+function's last status reaches the caller.
+
 ### Drafts
 
-All drafts run under `set -uo pipefail`; the scratch copies of
-`check-plan-text.test.sh` and `check-caps.test.sh` ran against them.
+Each draft runs under its gate's own shell mode: `set -euo pipefail` for
+the caps and todos drafts, `set -uo pipefail` for the rest; the scratch
+copies of `check-plan-text.test.sh`, `check-caps.test.sh`,
+`check-accretion.test.sh` and `check-secrets.test.sh` ran against them.
+Each gate draft loads the helper with the form under Item 2.
 
 #### Item 2
 Draft: the helper, relying on every probe above.
@@ -143,10 +191,42 @@ numbers, none from the deleted, binary or renamed-but-unchanged lines;
 `branch_changed` printed `M<TAB>moved.txt<TAB>move.txt` for the rename.
 With a pathspec it printed only that file's lines.
 
+Draft: the load, ahead of each gate's `cd`, relying on the three loading
+probes above (`check-secrets.sh` keeps its predicate load first,
+Item 5).
+
+```bash
+h="$(dirname "${BASH_SOURCE[0]}")/branch-diff.sh"
+{ [ -r "$h" ] && . "$h"; } \
+  || { echo "check-no-em-dash: cannot load branch-diff.sh"; exit 1; }
+cd "$(git rev-parse --show-toplevel)"
+```
+
+Showed: the em-dash, todos, accretion, secrets and caps drafts, and
+today's code-size and plan-text gates with this load put before their
+`cd`, each copied alone into a bare layout and run in a repo: every one
+printed `<gate>: cannot load branch-diff.sh`, rc 1, the two `-e` gates
+included. `check-secrets.sh` copied with `hooks/secret-patterns.sh` but
+no helper did the same.
+
 #### Item 3
-Draft: `check-no-em-dash.sh` on the helper; `check-todos.sh` was not
-drafted and takes the same shape with its `scripts .githooks` pathspec
-and `:(exclude)scripts/ci/check-todos.sh`.
+Draft: in a local clone of this checkout carrying the gate drafts,
+`ci/branch-diff.sh` added to the `install-dev.sh` copy loop,
+`[ -f "$P/.claude/scripts/ci/branch-diff.sh" ]` asserted in
+`install-dev.test.sh`, and `scripts/ci/branch-diff.sh` added to the
+keep-list of `install-dev-minimal.test.sh`.
+Showed: with the gates on the helper and the loop unchanged,
+`install-dev.test.sh` failed `copied accretion gate did not bite:
+check-accretion: cannot load branch-diff.sh` and `vendored
+check-accretion did not run under a leaked environment (rc=1)`, while
+`install-dev-minimal.test.sh` passed, since it runs no copied gate. With
+the change both printed OK. A full and a `--minimal` install both put
+`branch-diff.sh` in `scripts/ci/`; the installed `scripts/test/` held the
+four self-tests it holds today, each naming `BASH_SOURCE`, and the
+installed accretion and plan-text self-tests printed OK from there.
+
+#### Item 4
+Draft: `check-no-em-dash.sh` and `check-todos.sh` on the helper.
 
 ```bash
 em=$(printf '\xe2\x80\x94')
@@ -161,74 +241,138 @@ exit 1; an unborn repo with a staged em dash failed as today.
 Trap: matching on the whole record would also match an em dash in a
 path, so the text field is cut out first.
 
-#### Item 4
+```bash
+set -euo pipefail
+T=$'\t'
+base=$(branch_base) || base=
+hits=$(branch_added "$base" scripts .githooks ':(exclude)scripts/ci/check-todos.sh' \
+  | grep -E "^[^$T]*$T[0-9]+$T.*\b(TODO|FIXME|XXX)\b" \
+  | grep -vE "^[^$T]*$T[0-9]+$T.*\b[A-Z]-XXX\b" \
+  | awk -F '\t' '{ line = $0; sub(/^[^\t]*\t[^\t]*\t/, "", line); print $1 ":" $2 ":" line }' || true)
+```
+
+Showed, under `set -euo pipefail`: an old TODO in a touched script, an
+added `R-XXX` placeholder, an added TODO under `docs/`, an added TODO in
+the gate's own file and a branch with no marker each printed
+`check-todos: OK`, rc 0; an added FIXME in `.githooks/pre-push` failed as
+`.githooks/pre-push:2:<line>` and an untracked `scripts/new.sh` as
+`scripts/new.sh:1:<line>`, rc 1; an unborn repo with a staged TODO failed
+as today. In this checkout it printed OK. Today's gate applies the
+`[A-Z]-XXX` exclusion to the joined `file:N:text` output; this draft
+applies both patterns to the text field.
+Trap: with `|| true` dropped, a branch adding one marker-free line
+exited rc 1 with no output: grep's exit 1 fails the pipeline and `-e`
+stops the gate.
+
+#### Item 5
 Draft: accretion and secrets on the helper.
 
 ```bash
+T=$'\t'
+base=$(branch_base) || base=
 hits=$(branch_added "$base" "$P/*.md" ":(exclude)$P/archive/*" \
-  | awk -F '\t' '{ line = $0; sub(/^[^\t]*\t[^\t]*\t/, "", line); print $1 ":" $2 ":" line }' \
-  | grep -iE "$PAT" || true)
+  | grep -iE "^[^$T]*$T[0-9]+$T.*$PAT" \
+  | awk -F '\t' '{ line = $0; sub(/^[^\t]*\t[^\t]*\t/, "", line); print $1 ":" $2 ":" line }' || true)
 ```
 
 ```bash
+. "$(dirname "${BASH_SOURCE[0]}")/../../hooks/secret-patterns.sh" \
+  || { echo "check-secrets: cannot load hooks/secret-patterns.sh"; exit 1; }
+h="$(dirname "${BASH_SOURCE[0]}")/branch-diff.sh"
+{ [ -r "$h" ] && . "$h"; } \
+  || { echo "check-secrets: cannot load branch-diff.sh"; exit 1; }
+cd "$(git rev-parse --show-toplevel)"
+
+base=$(branch_base) || base=
+fail=0
 while IFS=$'\t' read -r st f from; do
   [ -f "$f" ] && [ ! -L "$f" ] || continue
   [ "$(wc -c < "$f" 2>/dev/null || echo 0)" -le 1000000 ] || continue
-  if branch_added "$base" ":(literal)$f" | cut -f3- | has_secret; then
-    [ "$fail" -eq 0 ] && echo "SECRETS: added content matches a secret pattern:"
+  if branch_added "$base" ":(literal)$f" ${from:+":(literal)$from"} | cut -f3- | has_secret; then
+    [ "$fail" -eq 0 ] && echo "SECRETS: tracked content matches a secret pattern; move it to a gitignored file, or mark the line 'secrets-guard: allow' if it is provably not a live credential:"
     echo "  $f"
     fail=1
   fi
 done < <(branch_changed "$base")
 ```
 
-Showed: an old dated marker in a touched ROADMAP and an old key in a
-touched file passed; an added dated marker in an archive file passed and
-one in a live `tasks.md` failed with `file:1:<line>`; an added key line
-carrying `secrets-guard: allow` passed; an added key line in a tracked
-file and one in an untracked file named `we*rd.txt` failed, both named.
-Trap: the accretion draft greps the joined `path:N:text` record, so a
-path could match the marker pattern; grep the text alone.
+Showed: accretion - the 21 cases of today's `check-accretion.test.sh`
+passed; on a branch, an old dated marker in a touched ROADMAP, an added
+one in an archive file and a plain line added to a plan file whose name
+carries a dated marker passed; an added one in a live `tasks.md` failed
+as `ACCRETION: dev/plans/<initiative>/tasks.md:2:<line>`; the copied gate with
+the helper beside it in an install location failed on the
+`install-dev.test.sh` unborn-repo ROADMAP as `ACCRETION:
+dev/plans/ROADMAP.md:1:<line>`. Secrets - the 13 cases of today's
+`check-secrets.test.sh` passed, "missing predicate fails closed"
+included; an old key in a touched file and in a file renamed and
+appended to passed; an added key line passed with `secrets-guard: allow`
+and failed without it; an untracked `we*rd.txt` with a key and an unborn
+repo with a staged key failed, each named. Each gate draft printed OK in
+this checkout.
+Errors hit: the earlier accretion draft grepped the joined
+`path:N:text` record; it failed the plain line in the dated-name plan
+file as `ACCRETION: <path>:2:plain`, which the anchored pattern above
+passes. With the helper loaded before the predicate, "missing predicate
+fails closed" failed: that case copies `check-secrets.sh` alone, so the
+first failed load names the helper rather than `secret-patterns.sh`.
 
-#### Item 5
+#### Item 6
 Draft: caps and code-size compare a measure at the base with the same
-measure now; mode-file line length runs on added lines only.
+measure now; mode-file line length runs on added lines only. The caps
+draft keeps `set -euo pipefail`, walks `branch_changed "$base"` and
+dispatches on the path (`CLAUDE.md`, `DESIGN.md`, `skills/*/SKILL.md`,
+`skills/dev/*/*` skipped, `skills/dev/*.md`), each measure printing a
+bare number (`wc` output through `tr -d ' '`, mode-file lines as `awk
+'END { print NR }'`).
 
 ```bash
 over() {
   local now was
   now=$("$4" "$1")
-  : > "$old"; [ -n "$2" ] && git show "$base:$2" > "$old" 2>/dev/null
+  : > "$old"
+  if [ -n "$2" ]; then git show "$base:$2" > "$old" 2>/dev/null || : > "$old"; fi
   was=$("$4" "$old")
-  (( now > $3 && was <= $3 )) && echo "$now"
+  if (( now > $3 && was <= $3 )); then echo "$now"; fi
+}
+
+long_added() {
+  branch_added "$base" ":(literal)$1" ${2:+":(literal)$2"} | while IFS= read -r rec; do
+    rec=${rec#*$'\t'}; n=${rec%%$'\t'*}; line=${rec#*$'\t'}
+    t="${line#"${line%%[![:space:]]*}"}"
+    [ "${t:0:1}" = '|' ] && continue
+    (( ${#line} <= 80 )) || { echo "line $n: ${#line} characters > 80"; break; }
+  done
 }
 ```
 
-```bash
-long=$(branch_added "$base" ":(literal)$f" | while IFS= read -r rec; do
-  rec=${rec#*$'\t'}; n=${rec%%$'\t'*}; line=${rec#*$'\t'}
-  t="${line#"${line%%[![:space:]]*}"}"
-  [ "${t:0:1}" = '|' ] && continue
-  (( ${#line} <= 80 )) || { echo "line $n: ${#line} characters > 80"; break; }
-done)
-```
-
+with call sites `n=$(over "$f" "$from" 350 lines); [ -z "$n" ] || report
+"$f $n lines > 350"` and `long=$(long_added "$f" "$from")`.
 Code-size keys a function by name: a function over the cap now is
 reported unless the base copy of the file has one of that name over it.
-Showed: caps - a 120-line `CLAUDE.md`, a 360-line mode file and a
-`SKILL.md` with a 13-word description, all over at the base, each gained
-a line and passed; a mode
+Showed: caps, under `set -euo pipefail` - the six existing
+`check-caps.test.sh` cases passed; on a branch, a 120-line `CLAUDE.md`,
+a 360-line mode file and a `SKILL.md` with a 13-word description, all
+over at the base, each gained a line and passed; `CLAUDE.md` going from
+100 to 101 lines failed (`CLAUDE.md 101 lines > 100`), a description
+going from 12 to 13 words failed (`description 13 words > 12`) and a mode
 file going from 340 to 360 lines failed (`360 lines > 350`); an old
 81-character line passed and an added tab-led one failed as `line 363:
-82 characters > 80`; the six existing `check-caps.test.sh` cases passed.
-Code-size - a 310-line file grown to 320, a renamed 310-line file and a
-60-line function grown to 70 passed; a 290-line file grown to 310, a new
-301-line file and a new 53-line function failed; an unborn repo with a
-301-line file failed as today.
+82 characters > 80`; a renamed mode file carrying an old 81-character
+line passed; an untracked new 351-line mode file failed; on `main` with
+a clean tree, over-cap files passed. In this checkout it printed OK.
+Code-size, with the earlier `(( ... )) && echo` form of `over()` under
+its own `set -uo pipefail` - a 310-line file grown to 320, a renamed
+310-line file and a 60-line function grown to 70 passed; a 290-line file
+grown to 310, a new 301-line file and a new 53-line function failed; an
+unborn repo with a 301-line file failed as today.
 Trap: `IFS=$'\t' read -r p n line` strips a leading tab from `line`
 (observed: length 8 against 9); the parameter expansion above keeps it.
+Under `-e`, an `over()` whose last command is `(( ... )) && echo` stops
+the gate at the first compliant unit (probe "set -e in a command
+substitution").
 
-#### Item 6
+#### Item 7
 Draft: each scanner prints `key<TAB>message`; the key is the reason plus
 the offending line's text, or for an entry its first line with the mark
 read as `[ ]`, or for the 40-line cap the reason alone. The file is

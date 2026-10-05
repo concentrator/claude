@@ -12,11 +12,16 @@ architecture-changing: true
   Approach: `CLAUDE.md § Scope`, then `MAINTENANCE.md § Tier-2 AI
   review`, then `rules/js.md § File names`.
 - [ ] A sourced `scripts/ci/branch-diff.sh` yields the merge-base (first of
-  `origin/main`, `origin/master`, `main`, `master`), each line added from
-  it to the working tree or in an untracked file, and each changed path
-  with its base path; with no base, the whole tracked tree.
-  Approach: helper and `scripts/test/branch-diff.test.sh`; `install-dev.sh`
-  ships it beside the checks, `install-dev.test.sh` asserts it; `LAYOUT.md`.
+  `origin/main`, `origin/master`, `main`, `master`), the lines added from
+  it, untracked files included, and each changed path with its base path;
+  with no base, the whole tracked tree. A gate keeps its shell mode, loads
+  the helper from beside itself before its `cd`, and fails if it cannot.
+  Approach: helper and `scripts/test/branch-diff.test.sh`; `LAYOUT.md`.
+- [ ] `install-dev.sh` ships the helper beside the checks in the full and
+  the minimal set, and `README.md § Installing the toolset elsewhere`
+  lists it; no test this branch adds ships.
+  Approach: `install-dev.sh`, then `install-dev.test.sh` and
+  `install-dev-minimal.test.sh`.
 - [ ] The em-dash and TODO gates fail only on a line the branch adds; an
   old hit in a file the branch touches passes, and with no base they
   judge the whole tracked tree as they do today.
@@ -24,7 +29,8 @@ architecture-changing: true
   with a new `scripts/test/` file covering old, added and untracked hits.
 - [ ] The accretion and secrets gates fail only on a line the branch adds,
   archive and the allow marker exempt as today; unborn-repo fixtures keep
-  passing through the whole-tree fallback.
+  passing through the whole-tree fallback. `check-secrets.sh` loads its
+  predicate before the helper.
   Approach: `check-accretion.sh`, then `check-secrets.sh`, each adding
   base-scoped cases to its existing test.
 - [ ] A size cap fails only on a unit the branch adds over it or takes past
