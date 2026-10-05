@@ -3,6 +3,7 @@ task: R086-T001
 type: mnt
 mode: strict
 architecture-changing: true
+cold-read: passed
 ---
 
 - [ ] A convention binds only work created after it: `CLAUDE.md § Scope`
