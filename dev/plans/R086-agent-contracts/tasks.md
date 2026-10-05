@@ -16,7 +16,7 @@ Why: agents repeat convention breaches and docs carry stale claims, because rule
 - [ ] **R086-T004 [mnt]**: Fail a checkbox in a requirements file a branch
   adds.
 
-- [ ] **R086-T005 [bug]**: Skip registering a project hook the global
+- [ ] **R086-T005 [fix]**: Skip registering a project hook the global
   settings already run.
 
 - [ ] **R086-T006 [mnt]**: Branch before the first edit, and sync the default
