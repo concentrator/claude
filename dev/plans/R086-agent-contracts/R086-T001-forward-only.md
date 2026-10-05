@@ -1,0 +1,51 @@
+---
+task: R086-T001
+type: mnt
+mode: strict
+architecture-changing: true
+---
+
+- [ ] A convention binds only work created after it: `CLAUDE.md § Scope`
+  says older work changes to meet one only on request, Tier-2 compliance
+  judges what the diff adds, and the go-forward bullet of `rules/js.md`
+  keeps only its renamed-file clause, citing the rule.
+  Approach: `CLAUDE.md § Scope`, then `MAINTENANCE.md § Tier-2 AI
+  review`, then `rules/js.md § File names`.
+- [ ] A sourced `scripts/ci/branch-diff.sh` yields the merge-base (first of
+  `origin/main`, `origin/master`, `main`, `master`), each line added from
+  it to the working tree or in an untracked file, and each changed path
+  with its base path; with no base, the whole tracked tree.
+  Approach: helper and `scripts/test/branch-diff.test.sh`; `install-dev.sh`
+  ships it beside the checks, `install-dev.test.sh` asserts it; `LAYOUT.md`.
+- [ ] The em-dash and TODO gates fail only on a line the branch adds; an
+  old hit in a file the branch touches passes, and with no base they
+  judge the whole tracked tree as they do today.
+  Approach: `check-no-em-dash.sh` and `check-todos.sh` on the helper, each
+  with a new `scripts/test/` file covering old, added and untracked hits.
+- [ ] The accretion and secrets gates fail only on a line the branch adds,
+  archive and the allow marker exempt as today; unborn-repo fixtures keep
+  passing through the whole-tree fallback.
+  Approach: `check-accretion.sh`, then `check-secrets.sh`, each adding
+  base-scoped cases to its existing test.
+- [ ] A size cap fails only on a unit the branch adds over it or takes past
+  it - file lines and words, a shell function, a SKILL body or
+  description - and a mode-file line over 80 characters only when added;
+  a unit over its cap at the base may grow. The allowlist is unchanged.
+  Approach: `check-caps.sh` with cases in its test, then `check-code-size.sh`
+  with a new test.
+- [ ] The plan-text gate fails only on a violation the base copy of the file
+  lacks, keyed by reason and text (an entry by its first line, checkbox
+  mark ignored) and counted; a plan without a report fails only when new
+  or when its base had one.
+  Approach: `check-plan-text.sh`; its test's changed-legacy case flips to
+  passing, and an added line in that file fails.
+- [ ] `DESIGN.md § Self-enforcement` says content checks judge what a branch
+  adds and tree checks - stray, plan integrity, archival, references,
+  batch tags, settings - the whole tree, since a branch breaks those from
+  outside the failing file; with no base a content check judges the
+  whole tree and the plan-text gate skips.
+  Approach: the Tier-1 bullet of `DESIGN.md § Self-enforcement`.
+- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+  mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
+  commit, the resolved task report included. (Batch members: the task
+  mark rides the batch branch.)
