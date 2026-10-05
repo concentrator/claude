@@ -445,6 +445,14 @@ offending line passed; counting the keys made it fail at its own line.
 - Review 3: delete the stale clauses; add no comment text.
 - Review 4: restore those comments to their base wording.
 - Review 5: delete the fetch-depth comment.
+- Docs gate: delete the two README sentences no report sources (a shallow
+  CI checkout has no merge-base; a full-history checkout keeps the checks
+  branch-scoped), and fix the three mismatches in README lines no branch
+  touched (inline comma-runs, no `.env.example` row, the
+  `.claude/settings.json` row missing `autoCompactWindow`).
+- Close review: delete the comment lines Item 7 added to
+  `scripts/ci/check-plan-text.sh` (the argument notes on `scan`, `report`
+  and `backlog`, and the comment on `judge()`).
 
 ## Review
 - [x] Close review: an old hit on a last line with no trailing newline
