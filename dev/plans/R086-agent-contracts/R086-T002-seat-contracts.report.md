@@ -35,6 +35,16 @@
 - Item 3: the seat-model initiative's completed branch plans and its
   requirements still name `planner-prompt.md`; they stand, as in
   Item 1.
+- Item 4: `agents/dev-docs-verifier.md` cited the doc writer's step 3
+  for its report's sources, now in the definition's `§ Outputs`, so
+  that cite points there, a file the plan's approach names for item 5.
+- Item 4: `run.md § Close` 3 dispatches the doc writer naming the base
+  commit and the plan file, the values its `§ Inputs` names; the
+  template's `## Exit` account of the gate is a cite of
+  `documentation.md § Verification gate` in step 5.
+- Item 4: the seat-model initiative's completed branch plans and its
+  requirements still name `doc-writer-prompt.md`; they stand, as in
+  Item 1.
 ### Findings
 - [ ] Item 1: the seat-model initiative's `tasks.md` cites
   `agents/dev-implementer.md § Scratch & Probe Scripts` and

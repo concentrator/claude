@@ -27,7 +27,7 @@ file owns, never restating it.
 | Planner | at the detail round, and to fix a strict plan's cold-read gaps once (`write-plan.md` step 6) | `agents/dev-planner.md` |
 | Cold reader | once over a new strict plan before it is approved (`write-plan.md` step 6) | `agents/dev-cold-reader.md`; `companions/verification-policy.md § Comprehension check` |
 | Implementer | per commit item (§ Dispatch per item) | `agents/dev-implementer.md` |
-| Doc writer | once per branch whose diff changes user-facing behavior (§ Close 3) | `agents/dev-doc-writer.md`; `companions/doc-writer-prompt.md` |
+| Doc writer | once per branch whose diff changes user-facing behavior (§ Close 3) | `agents/dev-doc-writer.md` |
 | Docs verifier | over every doc the writer touched (§ Close 3) | `agents/dev-docs-verifier.md`; `companions/documentation.md § Verification gate` |
 | Code reviewer | at branch close and at batch close (§ Close 1, § Batch close 1) | `agents/code-reviewer.md`; the steps at left, no companion |
 
@@ -158,8 +158,8 @@ Per branch, when its last non-final item is `[x]`:
    a fresh implementer, dispatched naming them, commits them. The fixes
    are not reviewed again.
 3. Docs, only when the diff changes user-facing behavior: dispatch the
-   doc writer (§ Seats) on the diff from the commit the branch was cut
-   from, the plan and the docs, then the gate's verifier over every doc
+   doc writer (§ Seats) naming the commit the branch was cut from and
+   the plan file, then the gate's verifier over every doc
    it touched (§ Seats), passing it the writer's report. A non-empty
    mismatch list re-dispatches one fresh doc writer with the list; its
    result goes to the user with the list, not to a second verification.

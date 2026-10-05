@@ -75,7 +75,7 @@ repos are versioned there, not mapped.
     ├── dev/                      # the DEV toolset
     │   ├── SKILL.md              #   the router
     │   ├── *.md                  # modes and process rules, routed by SKILL.md
-    │   └── companions/           # declarations, docs framework, prompts, verification policy, runbook
+    │   └── companions/           # declarations, docs framework, verification policy, runbook
     ├── test-driven-development/  # bundled dependency skills (installer ships these)
     ├── systematic-debugging/     # bundled
     ├── verification-before-completion/SKILL.md # bundled

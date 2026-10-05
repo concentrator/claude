@@ -21,7 +21,7 @@ mode: normal
   numbered entries there then point to it; it drops the config paragraph, as
   it writes only the plan and its report, with the Read/Edit/Write tools.
   Approach: `agents/dev-planner.md`, then `write-plan.md`, `run.md § Seats`.
-- [ ] The doc writer's definition is its contract, taking in
+- [x] The doc writer's definition is its contract, taking in
   `doc-writer-prompt.md`, then deleted, and dropping the config paragraph, as
   it writes only docs, with the Read/Edit/Write tools; `LAYOUT.md` then lists
   no prompt templates under `companions/`. Approach:

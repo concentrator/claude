@@ -13,7 +13,7 @@ defines.
 ## Your Job
 
 1. Read the doc writer's report first (`agents/dev-doc-writer.md`
-   step 3): check 1 takes each section's source from it.
+   § Outputs): check 1 takes each section's source from it.
 2. Run the gate's three checks over each doc, as the gate writes them
    and over the text in scope it sets.
 3. Return one mismatch list covering every doc, empty when no check
