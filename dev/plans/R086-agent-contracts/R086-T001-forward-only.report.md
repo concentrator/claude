@@ -43,10 +43,10 @@ with no SKIP, so `git merge-base HEAD origin/main` resolved on the runner.
 Request: `branch_base` in an unborn repo (`git init`, files staged, no
 commit) and in a repo whose only branch is `trunk`.
 Response: every one of `origin/main`, `origin/master`, `main`, `master`
-fails, return 1. `check-accretion.test.sh`, `check-caps.test.sh` and
-`check-secrets.test.sh` build their fixtures with `git init` and no
-commit, and `install-dev.test.sh` runs the copied accretion gate in an
-unborn repo, so all of them take this path.
+fails, return 1. `check-accretion.test.sh` and `check-caps.test.sh`
+build their fixtures with `git init` and no commit, and
+`install-dev.test.sh` runs the copied accretion gate in an unborn repo,
+so all of them take this path.
 
 #### On the default branch
 Response: on `main` with a clean tree the base is `HEAD` and no line is
@@ -126,8 +126,8 @@ function's last status reaches the caller.
 
 Each draft runs under its gate's own shell mode: `set -euo pipefail` for
 the caps and todos drafts, `set -uo pipefail` for the rest; the scratch
-copies of `check-plan-text.test.sh`, `check-caps.test.sh`,
-`check-accretion.test.sh` and `check-secrets.test.sh` ran against them.
+copies of `check-plan-text.test.sh`, `check-caps.test.sh` and
+`check-accretion.test.sh` ran against them.
 Each gate draft loads the helper with the form under Item 2.
 
 #### Item 2
@@ -192,8 +192,7 @@ numbers, none from the deleted, binary or renamed-but-unchanged lines;
 With a pathspec it printed only that file's lines.
 
 Draft: the load, ahead of each gate's `cd`, relying on the three loading
-probes above (`check-secrets.sh` keeps its predicate load first,
-Item 5).
+probes above.
 
 ```bash
 h="$(dirname "${BASH_SOURCE[0]}")/branch-diff.sh"
@@ -202,12 +201,10 @@ h="$(dirname "${BASH_SOURCE[0]}")/branch-diff.sh"
 cd "$(git rev-parse --show-toplevel)"
 ```
 
-Showed: the em-dash, todos, accretion, secrets and caps drafts, and
-today's code-size and plan-text gates with this load put before their
-`cd`, each copied alone into a bare layout and run in a repo: every one
-printed `<gate>: cannot load branch-diff.sh`, rc 1, the two `-e` gates
-included. `check-secrets.sh` copied with `hooks/secret-patterns.sh` but
-no helper did the same.
+Showed: the em-dash, todos, accretion and caps drafts, and today's
+code-size and plan-text gates with this load put before their `cd`, each
+copied alone into a bare layout and run in a repo: every one printed
+`<gate>: cannot load branch-diff.sh`, rc 1, the two `-e` gates included.
 
 #### Item 3
 Draft: in a local clone of this checkout carrying the gate drafts,
@@ -265,7 +262,7 @@ exited rc 1 with no output: grep's exit 1 fails the pipeline and `-e`
 stops the gate.
 
 #### Item 5
-Draft: accretion and secrets on the helper.
+Draft: accretion on the helper.
 
 ```bash
 T=$'\t'
@@ -275,47 +272,27 @@ hits=$(branch_added "$base" "$P/*.md" ":(exclude)$P/archive/*" \
   | awk -F '\t' '{ line = $0; sub(/^[^\t]*\t[^\t]*\t/, "", line); print $1 ":" $2 ":" line }' || true)
 ```
 
-```bash
-. "$(dirname "${BASH_SOURCE[0]}")/../../hooks/secret-patterns.sh" \
-  || { echo "check-secrets: cannot load hooks/secret-patterns.sh"; exit 1; }
-h="$(dirname "${BASH_SOURCE[0]}")/branch-diff.sh"
-{ [ -r "$h" ] && . "$h"; } \
-  || { echo "check-secrets: cannot load branch-diff.sh"; exit 1; }
-cd "$(git rev-parse --show-toplevel)"
-
-base=$(branch_base) || base=
-fail=0
-while IFS=$'\t' read -r st f from; do
-  [ -f "$f" ] && [ ! -L "$f" ] || continue
-  [ "$(wc -c < "$f" 2>/dev/null || echo 0)" -le 1000000 ] || continue
-  if branch_added "$base" ":(literal)$f" ${from:+":(literal)$from"} | cut -f3- | has_secret; then
-    [ "$fail" -eq 0 ] && echo "SECRETS: tracked content matches a secret pattern; move it to a gitignored file, or mark the line 'secrets-guard: allow' if it is provably not a live credential:"
-    echo "  $f"
-    fail=1
-  fi
-done < <(branch_changed "$base")
-```
-
-Showed: accretion - the 21 cases of today's `check-accretion.test.sh`
-passed; on a branch, an old dated marker in a touched ROADMAP, an added
-one in an archive file and a plain line added to a plan file whose name
-carries a dated marker passed; an added one in a live `tasks.md` failed
-as `ACCRETION: dev/plans/<initiative>/tasks.md:2:<line>`; the copied gate with
-the helper beside it in an install location failed on the
+Showed: the 21 cases of today's `check-accretion.test.sh` passed; on a
+branch, an old dated marker in a touched ROADMAP, an added one in an
+archive file and a plain line added to a plan file whose name carries a
+dated marker passed; an added one in a live `tasks.md` failed as
+`ACCRETION: dev/plans/<initiative>/tasks.md:2:<line>`; the copied gate
+with the helper beside it in an install location failed on the
 `install-dev.test.sh` unborn-repo ROADMAP as `ACCRETION:
-dev/plans/ROADMAP.md:1:<line>`. Secrets - the 13 cases of today's
-`check-secrets.test.sh` passed, "missing predicate fails closed"
-included; an old key in a touched file and in a file renamed and
-appended to passed; an added key line passed with `secrets-guard: allow`
-and failed without it; an untracked `we*rd.txt` with a key and an unborn
-repo with a staged key failed, each named. Each gate draft printed OK in
-this checkout.
+dev/plans/ROADMAP.md:1:<line>`. The draft printed OK in this checkout.
 Errors hit: the earlier accretion draft grepped the joined
 `path:N:text` record; it failed the plain line in the dated-name plan
 file as `ACCRETION: <path>:2:plain`, which the anchored pattern above
-passes. With the helper loaded before the predicate, "missing predicate
-fails closed" failed: that case copies `check-secrets.sh` alone, so the
-first failed load names the helper rather than `secret-patterns.sh`.
+passes.
+
+Probe: today's `check-secrets.sh`, unchanged, with
+`hooks/secret-patterns.sh` and no `branch-diff.sh` beside it, in a repo
+whose `origin/main` holds an AWS key id in `old.txt`, on a branch that
+only appends to `touched.txt`.
+Showed: run from the top level and from `sub/`, it printed `SECRETS:
+...` naming `old.txt`, rc 1: the scan reads every tracked file and needs
+no helper. Today's `check-secrets.test.sh` printed `check-secrets.test:
+OK` and the gate printed `check-secrets: OK` in this checkout.
 
 #### Item 6
 Draft: caps and code-size compare a measure at the base with the same

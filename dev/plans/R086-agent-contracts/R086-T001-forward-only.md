@@ -28,12 +28,12 @@ cold-read: passed
   judge the whole tracked tree as they do today.
   Approach: `check-no-em-dash.sh` and `check-todos.sh` on the helper, each
   with a new `scripts/test/` file covering old, added and untracked hits.
-- [ ] The accretion and secrets gates fail only on a line the branch adds,
-  archive and the allow marker exempt as today; unborn-repo fixtures keep
-  passing through the whole-tree fallback. `check-secrets.sh` loads its
-  predicate before the helper.
-  Approach: `check-accretion.sh`, then `check-secrets.sh`, each adding
-  base-scoped cases to its existing test.
+- [ ] The accretion gate fails only on a line the branch adds, archive
+  exempt as today; unborn-repo fixtures keep passing through the
+  whole-tree fallback. `check-secrets.sh` neither loads the helper nor
+  judges only added lines: it keeps scanning every tracked file.
+  Approach: `check-accretion.sh`, adding base-scoped cases to its existing
+  test.
 - [ ] A size cap fails only on a unit the branch adds over it or takes past
   it - file lines and words, a shell function, a SKILL body or
   description - and a mode-file line over 80 characters only when added;
@@ -48,9 +48,9 @@ cold-read: passed
   passing, and an added line in that file fails.
 - [ ] `DESIGN.md § Self-enforcement` says content checks judge what a branch
   adds and tree checks - stray, plan integrity, archival, references,
-  batch tags, settings - the whole tree, since a branch breaks those from
-  outside the failing file; with no base a content check judges the
-  whole tree and the plan-text gate skips.
+  batch tags, settings, secrets - the whole tree, since a branch breaks
+  those from outside the failing file and a tracked credential is live at
+  any age; with no base, content checks judge it all and plan-text skips.
   Approach: the Tier-1 bullet of `DESIGN.md § Self-enforcement`.
 - [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
