@@ -10,11 +10,12 @@ mode: normal
   The implementer's comes first: each rule of its definition and template
   kept once, none naming what else is in its context. Approach: `run.md`,
   `dev-implementer.md`; delete `implementer-prompt.md`, repoint its citers.
-- [ ] The code-comments rule leaves the global instructions for the
-  implementer's steps, the one seat that writes code, and the code
-  reviewer's maintainability check cites it there.
-  Approach: `CLAUDE.md § Code Comments`, then `agents/dev-implementer.md`,
-  then `agents/code-reviewer.md`.
+- [ ] The code-comments rule leaves the global instructions for a rule file
+  path-scoped to code files, which a VIBE session writing code and the
+  implementer both load; the implementer's contract and the code reviewer's
+  maintainability check cite that file. The sections only the user's
+  session applies stay global. Approach: `CLAUDE.md § Code Comments` into
+  `rules/code-comments.md`, then the two `agents/` files.
 - [ ] The planner's definition is its contract, taking in `planner-prompt.md`,
   then deleted, and the steps `write-plan.md` gives the planner, whose
   numbered entries there then point to it; it drops the config paragraph, as
