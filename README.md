@@ -144,6 +144,9 @@ A full install ships:
   - `check-accretion.sh`, with its self-test.
   - `check-batch-tags.sh`, with its self-test.
   - `check-plan-text.sh`, with its self-test.
+  - `branch-diff.sh`, without a self-test: the helper every check above
+    but `check-batch-tags.sh` sources from beside itself, failing when
+    it cannot load it.
 - `scripts/preflight-permissions.sh`, the `/dev run` permission
   pre-flight, with its self-test.
 - The hooks below.
@@ -224,3 +227,10 @@ The copied checks are yours to wire into CI; the installer ships them
 without registering them and edits no CI config. A `--project` install into
 a git repo prints one line saying the project's CI must run the fast tier,
 which is what runs the plan-text gate there.
+The code-size, em-dash, accretion and plan-text checks judge only what a
+branch adds over its merge-base with the first of `origin/main`,
+`origin/master`, `main` and `master` that has one. With no merge-base -
+a shallow CI checkout among the cases - the first three judge every
+tracked file in their scope and the plan-text check prints `SKIP` and
+passes. This repo's CI checks out the full history, `fetch-depth: 0` in
+`.github/workflows/ci.yml`.
