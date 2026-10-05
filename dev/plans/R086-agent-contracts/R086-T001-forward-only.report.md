@@ -434,6 +434,14 @@ offending line passed; counting the keys made it fail at its own line.
   one, a legacy plan without a report, and a plan whose report the branch
   deletes; the first three failed before the gate change.
 
+## Answers
+- Review 1: fix it in branch-diff.sh - a line git removes and re-adds only
+  because the file gained a trailing newline is not added - with a test case.
+- Review 2: the doc writer adds the README line at close.
+- Review 3: delete the stale clauses; add no comment text.
+- Review 4: restore those comments to their base wording.
+- Review 5: delete the fetch-depth comment.
+
 ## Review
 - [ ] Close review: an old hit on a last line with no trailing newline
   fails once the branch appends to that file (Important) -
