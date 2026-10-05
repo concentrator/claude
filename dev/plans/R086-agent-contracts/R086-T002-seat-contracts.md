@@ -4,7 +4,7 @@ type: mnt
 mode: normal
 ---
 
-- [ ] `run.md § Seats` makes a seat's agent definition its one contract -
+- [x] `run.md § Seats` makes a seat's agent definition its one contract -
   `## Inputs`, `## Steps`, `## Outputs` - its dispatch passing only the
   values the inputs name, a rule another file owns cited, never restated.
   The implementer's comes first: each rule of its definition and template

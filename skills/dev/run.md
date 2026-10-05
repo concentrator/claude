@@ -16,11 +16,17 @@ mode and shut down at its exit; the next seat starts fresh, and only
 the branch and the plan item carry over. Seats run one at a time, and
 the runner runs git only between dispatches.
 
+A seat's agent definition is its one contract: `## Inputs` names what
+the seat works from, `## Steps` what it does and `## Outputs` what it
+hands back. Its dispatch passes only the values the inputs name - a
+path, an entry, a directory - and the contract cites a rule another
+file owns, never restating it.
+
 | Seat | Dispatched | Definition; dispatch |
 | --- | --- | --- |
 | Planner | at the detail round, and to fix a strict plan's cold-read gaps once (`write-plan.md` step 6) | `agents/dev-planner.md`; `companions/planner-prompt.md` |
 | Cold reader | once over a new strict plan before it is approved (`write-plan.md` step 6) | `agents/dev-cold-reader.md`; `companions/verification-policy.md § Comprehension check` |
-| Implementer | per commit item (§ Dispatch per item) | `agents/dev-implementer.md`; `companions/implementer-prompt.md` |
+| Implementer | per commit item (§ Dispatch per item) | `agents/dev-implementer.md` |
 | Doc writer | once per branch whose diff changes user-facing behavior (§ Close 3) | `agents/dev-doc-writer.md`; `companions/doc-writer-prompt.md` |
 | Docs verifier | over every doc the writer touched (§ Close 3) | `agents/dev-docs-verifier.md`; `companions/documentation.md § Verification gate` |
 | Code reviewer | at branch close and at batch close (§ Close 1, § Batch close 1) | `agents/code-reviewer.md`; the steps at left, no companion |
@@ -132,7 +138,7 @@ from that commit. A seat never resumes.
 A route question - which files, which order, toward the same outcome -
 costs no seat and no approval: the implementer decides it in the code and
 reports the divergence. An implementer's inputs are the plan, the docs and
-the code (`companions/implementer-prompt.md`), so an answer reaches the next
+the code (`agents/dev-implementer.md § Inputs`), so an answer reaches the next
 implementer only through the task report beside the plan. Each answer is
 ledgered with the runner's commit (§ Ledger) and carried into the
 report's `## Supervisor decisions` section at checkpoint.

@@ -109,7 +109,7 @@ The dispatcher's read of a strict plan (`write-plan.md` step 6).
 Dispatch the cold reader (`agents/dev-cold-reader.md`, the
 `dev-cold-reader` type) once, with exactly the implementer's inputs -
 the plan with its task report, the docs and the code
-(`companions/implementer-prompt.md`), never the planning conversation.
+(`agents/dev-implementer.md § Inputs`), never the planning conversation.
 Its gaps go to a planner once, whose fixes land in the report's
 `## Planner`; the plan is not read again, and the header records
 `cold-read: passed` (`branch-plan.md § Header`). Normal plans take no read.
