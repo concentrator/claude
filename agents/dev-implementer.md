@@ -35,9 +35,9 @@ NEEDS_CONTEXT report, never a guess.
    the code; report the divergence and its reason.
 2. **Implement** exactly what the item specifies, on the loop the
    plan's `type:` selects (`skills/dev/run.md § Dispatch per item` 1),
-   following `CLAUDE.md § Code Comments` and `§ Audience visibility`.
-   Something unexpected or unclear in the acceptance is a NEEDS_CONTEXT
-   report: don't guess or make assumptions. A concern needs evidence
+   following `rules/code-comments.md` and `CLAUDE.md § Audience
+   visibility`. Something unexpected or unclear in the acceptance is a
+   NEEDS_CONTEXT report: don't guess or make assumptions. A concern needs evidence
    (`CLAUDE.md § Scope`); a case you constructed from the code is not
    one. The file structure in the plan is where the approach starts,
    not a boundary: split a file that has outgrown its job, or add one

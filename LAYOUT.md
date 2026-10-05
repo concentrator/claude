@@ -66,6 +66,7 @@ repos are versioned there, not mapped.
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
 │   ├── writing-artifacts.md      # DEV-artifact writing rules (**/*.md; shipped)
 │   ├── js.md                     # JS conventions (path-scoped)
+│   ├── code-comments.md          # code-comment rule (code files)
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/                       # the run's seat definitions (skills/dev/run.md § Seats)
 │   ├── code-reviewer.md          # branch-close quality review agent

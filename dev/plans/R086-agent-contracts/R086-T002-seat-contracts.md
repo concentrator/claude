@@ -10,7 +10,7 @@ mode: normal
   The implementer's comes first: each rule of its definition and template
   kept once, none naming what else is in its context. Approach: `run.md`,
   `dev-implementer.md`; delete `implementer-prompt.md`, repoint its citers.
-- [ ] The code-comments rule leaves the global instructions for a rule file
+- [x] The code-comments rule leaves the global instructions for a rule file
   path-scoped to code files, which a VIBE session writing code and the
   implementer both load; the implementer's contract and the code reviewer's
   maintainability check cite that file. The sections only the user's

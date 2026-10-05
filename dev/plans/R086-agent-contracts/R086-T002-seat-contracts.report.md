@@ -15,6 +15,10 @@
   full-suite note (`branch-plan.md § Commit cadence` 1-2), the report
   entry form (`§ Task report`), the answer route (`run.md § Question
   resolution`).
+- Item 2: `LAYOUT.md` lists the new `rules/code-comments.md` beside
+  the other rule files, a file the plan's approach does not name.
+- Item 2: "code files" is the rule's `paths:` list of source and shell
+  extensions, one glob per line as `rules/js.md` writes them.
 ### Findings
 - [ ] Item 1: the seat-model initiative's `tasks.md` cites
   `agents/dev-implementer.md § Scratch & Probe Scripts` and

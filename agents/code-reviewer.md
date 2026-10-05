@@ -50,7 +50,7 @@ say which class you applied:
     paths - flagged only where the diff plausibly regresses them.
   - Maintainability: naming and structure match the surrounding code,
     no duplication introduced, no comments beyond library API type docs
-    (`CLAUDE.md § Code Comments`).
+    (`rules/code-comments.md`).
 
   A missing test is flagged only when system integrity is at risk -
   an invariant without a guard, or an observed failure without a pin
