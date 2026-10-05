@@ -88,6 +88,13 @@ A${T}tricky.txt
 A${T}staged.txt
 A${T}untracked.txt" "$(in_repo "$d" branch_changed "$base")"
 
+n=$(mkrepo); printf 'a\nb' > "$n/grown.txt"; printf 'a\nb' > "$n/edited.txt"
+commit_in "$n" base; nb=$(git -C "$n" rev-parse HEAD)
+git -C "$n" checkout -q -b feat
+printf '\nc\n' >> "$n/grown.txt"; printf 'a\nB\n' > "$n/edited.txt"
+same "a last line that only gains its newline is not added" "grown.txt${T}3${T}c
+edited.txt${T}2${T}B" "$(in_repo "$n" branch_added "$nb")"
+
 u=$(mkrepo)
 printf 'x\ny\n' > "$u/a.txt"; printf 'x\0y\n' > "$u/bin.dat"; git -C "$u" add -A
 printf 'u\n' > "$u/untracked.txt"

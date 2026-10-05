@@ -443,7 +443,7 @@ offending line passed; counting the keys made it fail at its own line.
 - Review 5: delete the fetch-depth comment.
 
 ## Review
-- [ ] Close review: an old hit on a last line with no trailing newline
+- [x] Close review: an old hit on a last line with no trailing newline
   fails once the branch appends to that file (Important) -
   scripts/ci/branch-diff.sh:31
   Evidence: observed check-no-em-dash.sh printed doc.md:2 and exit 1 on a

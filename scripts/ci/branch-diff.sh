@@ -29,7 +29,7 @@ branch_added() {
   fi
   branch_git diff --no-color --no-ext-diff --no-textconv -M -U0 \
       --src-prefix=a/ --dst-prefix=b/ "$base" -- "$@" | awk '
-    /^diff --git / { hunk = 0; f = ""; next }
+    /^diff --git / { hunk = 0; f = ""; gone = 0; nonl = 0; next }
     !hunk && /^\+\+\+ / {
       f = substr($0, 5); sub(/\t$/, "", f)
       if (f == "/dev/null") f = ""; else sub(/^b\//, "", f)
@@ -40,7 +40,13 @@ branch_added() {
       n = substr($0, RSTART + 2, RLENGTH - 2) + 0
       next
     }
-    hunk && /^\+/ && f != "" { print f "\t" n "\t" substr($0, 2); n++ }'
+    hunk && /^-/ { gone = 1; last = substr($0, 2); next }
+    hunk && /^\\/ { if (gone) { nonl = 1; kept = last }; next }
+    hunk && /^\+/ && f != "" {
+      gone = 0
+      if (nonl && substr($0, 2) == kept) { nonl = 0; n++; next }
+      print f "\t" n "\t" substr($0, 2); n++
+    }'
   branch_git ls-files -z --others --exclude-standard -- "$@" | branch_whole
 }
 
