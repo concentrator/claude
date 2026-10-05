@@ -433,6 +433,10 @@ offending line passed; counting the keys made it fail at its own line.
   and grown beside a new long one, an old box without Evidence beside a new
   one, a legacy plan without a report, and a plan whose report the branch
   deletes; the first three failed before the gate change.
+- Review 4: the caps gate's header sentence limiting it to git-tracked files
+  stays deleted, since the branch removed it rather than rewrapping or
+  extending it, and untracked files are now judged (Item 6); the restored
+  mode-file comment keeps the base line breaks, indented into its case arm.
 
 ## Answers
 - Review 1: fix it in branch-diff.sh - a line git removes and re-adds only
@@ -455,7 +459,7 @@ offending line passed; counting the keys made it fail at its own line.
   (Suggestion) - scripts/ci/check-no-em-dash.sh:2,
   scripts/ci/check-code-size.sh:3
   Evidence: observed both gates judge only what a branch adds
-- [ ] Close review: comment text the branch rewrapped or extended
+- [x] Close review: comment text the branch rewrapped or extended
   (Suggestion) - scripts/ci/check-caps.sh, scripts/ci/check-plan-text.sh:7
   Evidence: contract CLAUDE.md § Code Comments
 - [ ] Close review: the fetch-depth comment credits only plan-text

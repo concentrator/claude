@@ -4,7 +4,7 @@
 # stable (skills/dev/templates.md). Fails on links, ISO dates, #NNN refs,
 # commit hashes, ids of another initiative, oversize entries, a task report
 # checkbox without an Evidence: line, an added *.findings.md, and a branch
-# plan without its task report, each only where the file's base copy lacks it.
+# plan without its task report.
 set -uo pipefail
 h="$(dirname "${BASH_SOURCE[0]}")/branch-diff.sh"
 { [ -r "$h" ] && . "$h"; } \

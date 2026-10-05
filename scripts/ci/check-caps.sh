@@ -61,9 +61,9 @@ while IFS=$'\t' read -r _ f from; do
       case "$reference"     in *" $key "*) cap=1500 ;; esac
       n=$(over "$f" "$from" "$cap" body_words); [ -z "$n" ] || report "$f body $n words > $cap"
       n=$(over "$f" "$from" 12 description_words); [ -z "$n" ] || report "$f description $n words > 12" ;;
-    # R-021: skills/dev/ mode files - 350 lines, 80 characters a line; a table
-    # row cannot wrap, so it is exempt from the length ceiling. companions/
-    # are exempt.
+    # R-021: skills/dev/ mode files (read on demand by the dev router) - 350
+    # lines, 80 characters a line; a table row cannot wrap, so it is exempt from
+    # the length ceiling. SKILL.md handled above; companions/ are exempt.
     skills/dev/*/*) ;;
     skills/dev/*.md)
       n=$(over "$f" "$from" 350 mode_lines); [ -z "$n" ] || report "$f $n lines > 350"
