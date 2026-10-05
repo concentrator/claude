@@ -14,7 +14,7 @@ A mandatory compliance review for `~/.claude`, complementing the Tier-1
 mechanical CI checks in `scripts/ci/`. At branch close, before delivery,
 review the diff against the rule set and confirm the concerns below:
 
-- **Compliance** - each changed file obeys its governing rule
+- **Compliance** - what the diff adds obeys its file's governing rule
   (`CLAUDE.md` per `rules/claude-md.md`; `SKILL.md` per `rules/skills.md`;
   plans per `skills/dev/plan.md`).
 - **Cross-file integrity** - references resolve; no rule duplicated

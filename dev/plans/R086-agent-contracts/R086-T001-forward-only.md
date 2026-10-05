@@ -6,7 +6,7 @@ architecture-changing: true
 cold-read: passed
 ---
 
-- [ ] A convention binds only work created after it: `CLAUDE.md § Scope`
+- [x] A convention binds only work created after it: `CLAUDE.md § Scope`
   says older work changes to meet one only on request, Tier-2 compliance
   judges what the diff adds, and the go-forward bullet of `rules/js.md`
   keeps only its renamed-file clause, citing the rule.

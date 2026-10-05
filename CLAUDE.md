@@ -17,11 +17,12 @@ task does not justify.
 Do the task asked, at the size asked. Extras (tests, reviews, tuning,
 hardening for a hazard that has not fired) are proposed in one line,
 never built unasked; adjacent work goes to the owning R's backlog line
-(`skills/dev/plan.md § Referential integrity`). Unknown facts are asked,
-never guessed; a remote is probed only on request or in a strict plan.
-A problem needs evidence (observed output, a failing test, a documented
-contract); a case built from reading code is not raised, and one the
-user ruled out stays closed.
+(`skills/dev/plan.md § Referential integrity`). A convention binds only
+work created after it: older work changes to meet one only on request.
+Unknown facts are asked, never guessed; a remote is probed only on
+request or in a strict plan. A problem needs evidence (observed output,
+a failing test, a documented contract); a case built from reading code
+is not raised, and one the user ruled out stays closed.
 
 ## Code Comments
 
