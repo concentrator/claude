@@ -74,3 +74,15 @@
   Evidence: observed `git grep -o "rules/[a-z-]*\.md" -- agents`
 
 ## Review
+- [ ] Close review: `rules/code-comments.md` says it applies to every code
+  file and governs data files, but its `paths:` lists 20 code globs and no
+  data glob (Critical) - rules/code-comments.md:1
+  Evidence: observed the frontmatter lists no `*.php`, `*.kt`, `*.json`
+  or `*.yaml` glob
+- [ ] Close review: the `rules/**` read row traces only to
+  `rules/writing-artifacts.md` (Suggestion) - seat-permissions.md:53
+  Evidence: observed the implementer and code reviewer cite
+  `rules/code-comments.md`
+- [ ] Close review: one sentence chains two "while" clauses (Suggestion) -
+  seat-permissions.md:244
+  Evidence: contract writing.md § Write like a human
