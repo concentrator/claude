@@ -23,7 +23,7 @@ cold-read: passed
   lists it; no test this branch adds ships.
   Approach: `install-dev.sh`, then `install-dev.test.sh` and
   `install-dev-minimal.test.sh`.
-- [ ] The em-dash and TODO gates fail only on a line the branch adds; an
+- [x] The em-dash and TODO gates fail only on a line the branch adds; an
   old hit in a file the branch touches passes, and with no base they
   judge the whole tracked tree as they do today.
   Approach: `check-no-em-dash.sh` and `check-todos.sh` on the helper, each

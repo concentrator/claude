@@ -4,12 +4,17 @@
 # tokens is out of scope; the [RT]-XXX plan-id placeholder is not a
 # marker; this script excludes itself.
 set -euo pipefail
+h="$(dirname "${BASH_SOURCE[0]}")/branch-diff.sh"
+{ [ -r "$h" ] && . "$h"; } \
+  || { echo "check-todos: cannot load branch-diff.sh"; exit 1; }
 cd "$(git rev-parse --show-toplevel)"
 
-files=$(git ls-files scripts .githooks 2>/dev/null | grep -v 'scripts/ci/check-todos.sh' || true)
-hits=""
-[ -n "$files" ] && hits=$(echo "$files" | xargs grep -nE '\b(TODO|FIXME|XXX)\b' 2>/dev/null \
-  | grep -vE '\b[A-Z]-XXX\b' || true)
+T=$'\t'
+base=$(branch_base) || base=
+hits=$(branch_added "$base" scripts .githooks ':(exclude)scripts/ci/check-todos.sh' \
+  | grep -E "^[^$T]*$T[0-9]+$T.*\b(TODO|FIXME|XXX)\b" \
+  | grep -vE "^[^$T]*$T[0-9]+$T.*\b[A-Z]-XXX\b" \
+  | awk -F '\t' '{ line = $0; sub(/^[^\t]*\t[^\t]*\t/, "", line); print $1 ":" $2 ":" line }' || true)
 
 if [ -n "$hits" ]; then
   echo "TODO/FIXME/XXX markers in code:"; echo "$hits"; exit 1

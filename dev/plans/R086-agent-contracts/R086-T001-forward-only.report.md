@@ -408,5 +408,9 @@ offending line passed; counting the keys made it fail at its own line.
   `scripts/test/branch-diff.test.sh` is absent from the install, pinning
   "no test this branch adds ships" in the same check as the helper's
   presence, which failed before the copy-loop change and passes after it.
+- Item 4: the TODO gate now names the path on every hit; today's gate
+  printed only `N:text` when one file was in scope, since `xargs grep` with
+  a single operand omits the name (observed in the red run of
+  `check-todos.test.sh`), and the new test's no-base cases assert the path.
 
 ## Review
