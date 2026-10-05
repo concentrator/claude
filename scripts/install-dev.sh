@@ -202,7 +202,7 @@ put_line() { # file, key, full line
 }
 markers="$(tuned check-accretion.sh MARKERS)"
 for f in ci/check-code-size.sh ci/check-no-em-dash.sh ci/check-accretion.sh \
-         ci/check-batch-tags.sh ci/check-plan-text.sh \
+         ci/check-batch-tags.sh ci/check-plan-text.sh ci/branch-diff.sh \
          preflight-permissions.sh \
          test/check-accretion.test.sh test/check-batch-tags.test.sh \
          test/check-plan-text.test.sh test/preflight-permissions.test.sh; do

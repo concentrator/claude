@@ -4,7 +4,7 @@ Why: agents repeat convention breaches and docs carry stale claims, because rule
 
 ## Open
 
-- [ ] **R086-T001 [mnt]**: Make a new convention bind only what is created
+- [x] **R086-T001 [mnt]**: Make a new convention bind only what is created
   after it, and have the gates check only what a branch adds.
 
 - [ ] **R086-T002 [mnt]**: Give each seat one contract of inputs, steps and
@@ -27,3 +27,4 @@ Why: agents repeat convention breaches and docs carry stale claims, because rule
 - About a third of the planner prompt is its shell-config section.
 - This repo declares a docs path that holds no docs.
 - Find where git workflow rules are restated outside the git workflow file.
+- The docs gate verifies a whole doc, though older text changes only on request.

@@ -1,9 +1,8 @@
 # Claude Code Environment
 
-Portable, version-controlled Claude Code configuration: the
-instructions, rules, skills, agents, hooks, and settings behind a
-spec-driven development workflow. Cloned as `~/.claude`, it applies to
-every project on the machine.
+Portable, version-controlled Claude Code configuration behind a
+spec-driven development workflow, each part listed under § Contents.
+Cloned as `~/.claude`, it applies to every project on the machine.
 
 ## Contents
 
@@ -13,18 +12,19 @@ every project on the machine.
 | `CLAUDE.md` | Global operating instructions, loaded every session |
 | `writing.md` | Universal writing conventions, `@import`ed by `CLAUDE.md` so they load every session |
 | `settings.json` | Global Claude Code config: permissions, hooks, plugins, session defaults |
-| `.claude/settings.json` | Project-tier Claude Code config: the push deny carve-out, branch-push allows, durable tool allows, model override |
+| `.claude/settings.json` | Project-tier Claude Code config: the push deny carve-out, branch-push allows, durable tool allows, model override, `autoCompactWindow` |
 | `.claude/CLAUDE.md` | This repository's own instructions: its `## Agent toolchain`, `## Supervision` and `## Layout` declarations |
-| `rules/` | Path-scoped convention rules: the DEV-artifact writing rules (shipped by the installer), JS style, CLAUDE.md/skill maintenance |
+| `rules/` | Path-scoped convention rules, one file per concern; `LAYOUT.md` lists each and marks the one the installer ships |
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); beside it the bundled dependency skills the installer ships, the personal skills, and the worker-host runbook (`LAYOUT.md` marks each) |
 | `agents/` | Subagent definitions for the seats of `/dev run`, one per seat the run dispatches (the roster: `skills/dev/run.md § Seats`): each declares the seat's tools and, where it sets one, its model, and carries its standing instructions. This repository's own - `install-dev.sh` copies none of them |
 | `hooks/` | The Claude Code hooks `settings.json` registers - the PreToolUse guards and the session-lifecycle hooks - and the helpers they call; `LAYOUT.md` lists each hook with the event it runs on |
 | `scripts/` | The Tier-1 gate - `ci/` the mechanical checks and `test/` the script tests, each behind a `run-all.sh`, which CI runs on every pull request (`DESIGN.md § Self-enforcement`) - and the standalone scripts beside it; `LAYOUT.md` lists each script with what it does, and `skills/worker-host/` documents the worker-host ones |
 | `.github/`, `.githooks/`, `.gitignore` | The CI gate on pull requests, its advisory local pre-push mirror, and the ignore rules for harness state |
+| `.env.example` | Template for the worker-host tokens; `.env` itself is never tracked |
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
 | `DESIGN.md` | Architecture, self-hosting layout |
 | `LAYOUT.md` | The repository's actual tree - the layout file `.claude/CLAUDE.md § Layout` declares; `scripts/ci/check-stray.sh` checks every tracked top-level entry against it |
-| `MAINTENANCE.md` | The Tier-2 AI review's concerns, plus the sanity routine: cleanup, repair, allow-list hygiene, skill audits |
+| `MAINTENANCE.md` | The Tier-2 AI review's concerns (`§ Tier-2 AI review`) and the time-based sanity routine (`§ Routine`) |
 | `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) and the gitignored `session/` and `supervisor/` |
 
 ## Workflow
@@ -51,12 +51,18 @@ session reads: `scripts/preflight-permissions.sh` reports the tier that
 carries each rule, and a gap halts the run for the user to close. When
 every gap is a missing allow rule it prints the `--apply` command that
 closes them; a missing deny, or any other gap `--apply` cannot write,
-is closed by hand. `/dev ship` takes a landed branch (every planned
-commit in, nothing uncommitted) to its MR/PR decision - merged,
-discarded, or left open awaiting the decision - and a failing local
-gate stops it before the MR/PR opens. A task-scoped `/dev run` ends on
-the same path once its checkpoint is accepted; `/dev ship` enters it
-directly. `/dev handoff` writes the session's hand-off note, which with the PreCompact hook's tree block carries
+is closed by hand.
+
+`/dev ship` takes a landed branch (every planned commit in, nothing
+uncommitted) to its MR/PR decision, one of:
+
+- merged
+- discarded
+- left open awaiting the decision
+
+A failing local gate stops it before the MR/PR opens. A task-scoped
+`/dev run` ends on the same path once its checkpoint is accepted;
+`/dev ship` enters it directly. `/dev handoff` writes the session's hand-off note, which with the PreCompact hook's tree block carries
 state across compaction (the SessionStart hook re-injects the last
 hand-off block when the session resumes or is compacted). Three
 more commands:
@@ -71,10 +77,14 @@ Command surface and mode files: `skills/dev/SKILL.md`.
 
 Two trees: guarded config - what instructs agents - under `.claude/`,
 and agent-authored artifacts at the paths the project's `§ Layout`
-declares, one line per key: `Docs:` the docs tree, `Plans:` the
-planning tree, `Session:` the gitignored per-session state files,
-`Layout:` the layout file holding the repository's actual tree. A
-missing path line or `§ Layout` block means that key's default, so a
+declares, one line per key:
+
+- `Docs:` the docs tree
+- `Plans:` the planning tree
+- `Session:` the gitignored per-session state files
+- `Layout:` the layout file holding the repository's actual tree
+
+A missing path line or `§ Layout` block means that key's default, so a
 project that has not declared keeps working. The supervisor's ledgers
 sit in `supervisor/` beside the session tree, gitignored like it.
 
@@ -144,6 +154,9 @@ A full install ships:
   - `check-accretion.sh`, with its self-test.
   - `check-batch-tags.sh`, with its self-test.
   - `check-plan-text.sh`, with its self-test.
+  - `branch-diff.sh`, without a self-test: the helper that every check
+    above except `check-batch-tags.sh` loads from the check's own
+    directory. A check that cannot load the helper fails, exiting 1.
 - `scripts/preflight-permissions.sh`, the `/dev run` permission
   pre-flight, with its self-test.
 - The hooks below.
@@ -224,3 +237,23 @@ The copied checks are yours to wire into CI; the installer ships them
 without registering them and edits no CI config. A `--project` install into
 a git repo prints one line saying the project's CI must run the fast tier,
 which is what runs the plan-text gate there.
+
+The four copied checks in the table below judge only what the working
+tree adds over a base: committed, staged and unstaged changes, and
+untracked files git does not ignore. The base is the merge-base of
+`HEAD` with the first of these refs that has one:
+
+1. `origin/main`
+2. `origin/master`
+3. `main`
+4. `master`
+
+The plans directory below is the one the `Plans:` line of the repo
+root's `CLAUDE.md` or `.claude/CLAUDE.md` declares, else `dev/plans`.
+
+| Check | Files it judges | With no merge-base |
+|---|---|---|
+| `check-code-size.sh` | code files, by the extensions in `\.(sh\|bash\|js\|mjs\|cjs\|jsx\|ts\|tsx\|py\|go\|rb\|rs)$` | every tracked file of that scope, whole |
+| `check-no-em-dash.sh` | every text file | every tracked text file, whole |
+| `check-accretion.sh` | `*.md` files under the plans directory, its `archive/` excluded | every tracked file of that scope, whole |
+| `check-plan-text.sh` | plan files under the plans directory, its `archive/` excluded | none: it prints `check-plan-text: SKIP (no default branch)` and passes |

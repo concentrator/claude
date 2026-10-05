@@ -23,7 +23,7 @@ M2=$(mktemp -d); bash "$INSTALL" --project "$M2" --minimal >/dev/null 2>&1 || di
 [ "$(ls "$M2/.claude/skills")" = "dev" ] && pass "minimal ships no bundled skills" || die "minimal skills/ holds: $(ls "$M2/.claude/skills" | tr '\n' ' ')"
 miss=
 for f in hooks/dev-branch-guard.sh hooks/dev-secrets-guard.sh hooks/dev-branch-state.sh hooks/dev-handoff-nudge.sh hooks/dev-session-brief.sh \
-         scripts/ci/check-plan-text.sh scripts/preflight-permissions.sh writing.md rules/writing-artifacts.md MAINTENANCE.md; do
+         scripts/ci/check-plan-text.sh scripts/ci/branch-diff.sh scripts/preflight-permissions.sh writing.md rules/writing-artifacts.md MAINTENANCE.md; do
   [ -f "$M2/.claude/$f" ] || miss="$miss $f"
 done
 [ -z "$miss" ] && pass "minimal keeps hooks, checks, pre-flight, writing and maintenance" || die "minimal missing:$miss"

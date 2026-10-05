@@ -6,6 +6,7 @@
 set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
+export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 CHECK="$(cd "$(dirname "${BASH_SOURCE[0]}")/../ci" && pwd)/check-caps.sh"
 [ -f "$CHECK" ] || { echo "not ok - $CHECK not found"; exit 1; }
 fail=0
@@ -14,10 +15,8 @@ die()  { echo "not ok - $1"; fail=1; }
 
 check_in()  { ( cd "$1" && bash "$CHECK" >/dev/null 2>&1 ); }
 report_in() { ( cd "$1" && bash "$CHECK" 2>&1 ) || true; }
-# The check reads CLAUDE.md and DESIGN.md unconditionally, so every fixture
-# carries a compliant pair beside its mode file.
 mkrepo() {
-  local d; d=$(mktemp -d); git -C "$d" init -q
+  local d; d=$(mktemp -d); git -C "$d" init -q -b main
   mkdir -p "$d/skills/dev"
   printf '# x\n' > "$d/CLAUDE.md"; printf 'x\n' > "$d/DESIGN.md"
   printf '%s' "$d"
@@ -54,6 +53,68 @@ rm -rf "$d"
 d=$(mkrepo); mkdir -p "$d/skills/dev/companions"
 lines 351 > "$d/skills/dev/companions/c.md"; git -C "$d" add -A
 check_in "$d" && pass "companion outside the tier" || die "companion wrongly caught: $(report_in "$d")"
+rm -rf "$d"
+
+commit_in() {
+  git -C "$1" add -A
+  git -C "$1" -c user.email=t@t -c user.name=t -c commit.gpgsign=false commit -qm "$2"
+}
+based() { commit_in "$1" base; git -C "$1" checkout -q -b feat; }
+words() { local i; for ((i = 1; i <= $1; i++)); do printf 'w '; done; echo; }
+skill() {
+  mkdir -p "$1/skills/s"
+  { echo '---'; echo 'name: s'; echo "description: $(words "$2")"; echo '---'; words "$3"; } \
+    > "$1/skills/s/SKILL.md"
+}
+fails_with() {
+  local out; out=$(report_in "$1")
+  [[ "$out" == *"$3"* ]] && ! check_in "$1" && pass "$2" || die "$2: [$out]"
+}
+
+d=$(mkrepo); lines 120 > "$d/CLAUDE.md"; words 1100 > "$d/DESIGN.md"; skill "$d" 13 310
+{ echo short; echo "${w80}x"; lines 358; } > "$d/skills/dev/x.md"; based "$d"
+echo more >> "$d/CLAUDE.md"; words 5 >> "$d/DESIGN.md"; words 5 >> "$d/skills/s/SKILL.md"
+echo more >> "$d/skills/dev/x.md"; commit_in "$d" grow
+check_in "$d" && pass "units over their cap at the base may grow" || die "grown over-cap units caught: $(report_in "$d")"
+rm -rf "$d"
+
+d=$(mkrepo); lines 100 > "$d/CLAUDE.md"; words 1000 > "$d/DESIGN.md"; based "$d"
+echo more >> "$d/CLAUDE.md"; echo more >> "$d/DESIGN.md"; commit_in "$d" grow
+fails_with "$d" "CLAUDE.md taken past its cap" "CLAUDE.md 101 lines > 100"
+fails_with "$d" "DESIGN.md taken past its cap" "DESIGN.md 1001 words > 1000"
+rm -rf "$d"
+
+d=$(mkrepo); skill "$d" 12 300; based "$d"; skill "$d" 13 301; commit_in "$d" grow
+fails_with "$d" "a description taken past its cap" "skills/s/SKILL.md description 13 words > 12"
+fails_with "$d" "a SKILL body taken past its cap" "skills/s/SKILL.md body 301 words > 300"
+rm -rf "$d"
+
+d=$(mkrepo); based "$d"; skill "$d" 13 1; commit_in "$d" add
+fails_with "$d" "a SKILL added over its cap" "skills/s/SKILL.md description 13 words > 12"
+rm -rf "$d"
+
+d=$(mkrepo); lines 340 > "$d/skills/dev/x.md"; based "$d"; lines 20 >> "$d/skills/dev/x.md"; commit_in "$d" grow
+fails_with "$d" "a mode file taken past its cap" "skills/dev/x.md 360 lines > 350"
+rm -rf "$d"
+
+d=$(mkrepo); { echo short; echo "${w80}x"; echo short; } > "$d/skills/dev/x.md"; based "$d"
+printf '\t%sx\n' "$w80" >> "$d/skills/dev/x.md"; commit_in "$d" grow
+fails_with "$d" "an added long line fails with its leading tab counted" "skills/dev/x.md line 4: 82 characters > 80"
+[[ "$(report_in "$d")" != *"line 2:"* ]] && pass "an old long line stays unreported" || die "old long line reported: $(report_in "$d")"
+rm -rf "$d"
+
+d=$(mkrepo); { echo short; echo "${w80}x"; echo short; } > "$d/skills/dev/x.md"; based "$d"
+git -C "$d" mv skills/dev/x.md skills/dev/y.md; echo more >> "$d/skills/dev/y.md"; commit_in "$d" move
+check_in "$d" && pass "a renamed mode file keeps its old long line" || die "renamed long line caught: $(report_in "$d")"
+rm -rf "$d"
+
+d=$(mkrepo); based "$d"; lines 351 > "$d/skills/dev/new.md"
+fails_with "$d" "an untracked mode file added over its cap" "skills/dev/new.md 351 lines > 350"
+rm -rf "$d"
+
+d=$(mkrepo); lines 120 > "$d/CLAUDE.md"; { echo "${w80}x"; lines 360; } > "$d/skills/dev/x.md"
+commit_in "$d" base
+check_in "$d" && pass "on main with a clean tree over-cap files pass" || die "clean main caught: $(report_in "$d")"
 rm -rf "$d"
 
 [ "$fail" -eq 0 ] && echo "check-caps.test: OK"

@@ -390,4 +390,91 @@ offending line passed; counting the keys made it fail at its own line.
 
 ## Implementer
 
+### Divergences
+- Item 2: `branch_whole` passes the path to awk through the environment and
+  feeds the file on stdin, where the draft used `awk -v f=` and a file
+  operand, since `-v` rewrites backslash escapes in the value and an
+  operand holding `=` is read as an assignment; the test output is the
+  draft's.
+- Item 2: `branch-diff.test.sh` also pins the load form with a fixture gate
+  under both shell modes, run from a subdirectory with and without the
+  helper beside it, and sets `diff.renames false` in its diff fixture, since
+  without it a helper that drops `-M` still passed on git's default.
+- Item 3: `README.md § Installing the toolset elsewhere` is not edited in
+  this commit, since every doc the branch ships is the doc writer's
+  (`skills/dev/branch-plan.md § Commit cadence` 2); the listing is left
+  for the close.
+- Item 3: `install-dev.test.sh` also asserts that
+  `scripts/test/branch-diff.test.sh` is absent from the install, pinning
+  "no test this branch adds ships" in the same check as the helper's
+  presence, which failed before the copy-loop change and passes after it.
+- Item 4: the TODO gate now names the path on every hit; today's gate
+  printed only `N:text` when one file was in scope, since `xargs grep` with
+  a single operand omits the name (observed in the red run of
+  `check-todos.test.sh`), and the new test's no-base cases assert the path.
+- Item 6: the caps gate's long-line scan reads every added line and keeps
+  the first hit, where the draft used `break`, since a `break` in a
+  function's pipeline under `set -euo pipefail` exited the gate rc 141 when
+  the producer was still writing (observed with `seq 1 200000`).
+- Item 6: code-size keys a function by its name with any `()` dropped, so
+  `f() {` and `function f {` share a key; the message keeps today's
+  `function f() is N lines` form, which the new test asserts.
+- Item 6: the caps gate measures `CLAUDE.md` and `DESIGN.md` only as
+  changed paths, like every other unit, so a fixture no longer needs a
+  compliant pair; the test comment saying it does is removed, and the
+  gate's header sentence limiting it to tracked files with it, since
+  untracked files the helper yields are now judged.
+- Item 7: the plan-text scanners print the message first and the key after
+  it, read as the rest of the record, where the draft printed
+  `key<TAB>message`, since a key carrying the offending line's text can hold
+  a tab; a report box and a backlog line are keyed by their first line, the
+  box's mark read as `[ ]`.
+- Item 7: `check-plan-text.test.sh` also covers an old long entry checked off
+  and grown beside a new long one, an old box without Evidence beside a new
+  one, a legacy plan without a report, and a plan whose report the branch
+  deletes; the first three failed before the gate change.
+- Review 4: the caps gate's header sentence limiting it to git-tracked files
+  stays deleted, since the branch removed it rather than rewrapping or
+  extending it, and untracked files are now judged (Item 6); the restored
+  mode-file comment keeps the base line breaks, indented into its case arm.
+- Close review: the argument notes on `scan`, `report` and `backlog` are
+  deleted whole rather than restored to their base wording, since Item 7
+  rewrote each and the base wording no longer names the arguments the
+  functions take; the plan-text gate now carries no comment past its header.
+
+## Answers
+- Review 1: fix it in branch-diff.sh - a line git removes and re-adds only
+  because the file gained a trailing newline is not added - with a test case.
+- Review 2: the doc writer adds the README line at close.
+- Review 3: delete the stale clauses; add no comment text.
+- Review 4: restore those comments to their base wording.
+- Review 5: delete the fetch-depth comment.
+- Docs gate: delete the two README sentences no report sources (a shallow
+  CI checkout has no merge-base; a full-history checkout keeps the checks
+  branch-scoped), and fix the three mismatches in README lines no branch
+  touched (inline comma-runs, no `.env.example` row, the
+  `.claude/settings.json` row missing `autoCompactWindow`).
+- Close review: delete the comment lines Item 7 added to
+  `scripts/ci/check-plan-text.sh` (the argument notes on `scan`, `report`
+  and `backlog`, and the comment on `judge()`).
+
 ## Review
+- [x] Close review: an old hit on a last line with no trailing newline
+  fails once the branch appends to that file (Important) -
+  scripts/ci/branch-diff.sh:31
+  Evidence: observed check-no-em-dash.sh printed doc.md:2 and exit 1 on a
+  branch appending to a file whose old last line held an em dash
+- [x] Close review: README.md § Installing the toolset elsewhere does not
+  list branch-diff.sh (Important) - README.md:140
+  Evidence: contract MAINTENANCE.md § This environment doc-sync row
+- [x] Close review: header comments still describe a whole-tree scan
+  (Suggestion) - scripts/ci/check-no-em-dash.sh:2,
+  scripts/ci/check-code-size.sh:3
+  Evidence: observed both gates judge only what a branch adds
+- [x] Close review: comment text the branch rewrapped or extended
+  (Suggestion) - scripts/ci/check-caps.sh, scripts/ci/check-plan-text.sh:7
+  Evidence: contract CLAUDE.md § Code Comments
+- [x] Close review: the fetch-depth comment credits only plan-text
+  (Suggestion) - .github/workflows/ci.yml:19
+  Evidence: observed six gates call branch_base and fall back to the whole
+  tree without a full fetch

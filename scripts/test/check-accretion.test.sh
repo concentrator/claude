@@ -141,5 +141,43 @@ c=$(hits_in "$d")
   || die ".claude/ tree violation missed ($c of 1)"
 rm -rf "$d"
 
+commit_in() {
+  git -C "$1" add -A
+  git -C "$1" -c user.email=t@t -c user.name=t -c commit.gpgsign=false commit -qm "$2"
+}
+branched() {
+  local d; d=$(mktemp -d); git -C "$d" init -q -b main
+  mkdir -p "$d/dev/plans/R-001-x" "$d/dev/plans/archive/R-000-y"
+  printf -- 'Superseded: 2026-07-07 by the old flow.\n' > "$d/dev/plans/old.md"
+  printf -- 'Resolved 2026-08-05 by ops.\nplain\n' > "$d/dev/plans/ROADMAP.md"
+  printf -- 'plain\n' > "$d/dev/plans/R-001-x/tasks.md"
+  printf -- 'plain\n' > "$d/dev/plans/archive/R-000-y/tasks.md"
+  printf -- 'plain\n' > "$d/dev/plans/done-2026-07-07.md"
+  commit_in "$d" base; git -C "$d" checkout -q -b feat
+  printf '%s' "$d"
+}
+run() { out=$(cd "$1" && bash "$CHECK" 2>&1); rc=$?; }
+passes() { [ "$rc" -eq 0 ] && [[ "$out" == *"check-accretion: OK"* ]] && pass "$1" || die "$1: rc=$rc [$out]"; }
+fails_at() { [ "$rc" -ne 0 ] && [[ "$out" == *"$2"* ]] && pass "$1" || die "$1: rc=$rc [$out]"; }
+
+d=$(branched); printf -- 'more\n' >> "$d/dev/plans/ROADMAP.md"; commit_in "$d" grow
+run "$d"; passes "an old marker in an untouched and a touched file passes"; rm -rf "$d"
+
+d=$(branched)
+printf -- 'Shipped 2026-09-01 here.\n' >> "$d/dev/plans/archive/R-000-y/tasks.md"
+printf -- 'plain too\n' >> "$d/dev/plans/done-2026-07-07.md"
+commit_in "$d" grow
+run "$d"; passes "an added marker under archive and a plain line in a dated name pass"; rm -rf "$d"
+
+d=$(branched); printf -- 'Deferred 2026-09-02 to later.\n' >> "$d/dev/plans/R-001-x/tasks.md"; commit_in "$d" grow
+run "$d"; fails_at "an added marker fails at its line" \
+  "ACCRETION: dev/plans/R-001-x/tasks.md:2:Deferred 2026-09-02 to later."
+[[ "$out" != *old.md* && "$out" != *ROADMAP.md* ]] && pass "old markers stay unreported" \
+  || die "old markers reported: [$out]"; rm -rf "$d"
+
+d=$(branched); printf -- 'Amended 2026-09-03 inline.\n' > "$d/dev/plans/R-001-x/new.md"
+run "$d"; fails_at "an untracked added marker fails" \
+  "ACCRETION: dev/plans/R-001-x/new.md:1:Amended 2026-09-03 inline."; rm -rf "$d"
+
 (( fail == 0 )) && echo "check-accretion.test: OK"
 exit $fail
