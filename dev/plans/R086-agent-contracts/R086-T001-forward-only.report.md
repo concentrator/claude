@@ -390,4 +390,15 @@ offending line passed; counting the keys made it fail at its own line.
 
 ## Implementer
 
+### Divergences
+- Item 2: `branch_whole` passes the path to awk through the environment and
+  feeds the file on stdin, where the draft used `awk -v f=` and a file
+  operand, since `-v` rewrites backslash escapes in the value and an
+  operand holding `=` is read as an assignment; the test output is the
+  draft's.
+- Item 2: `branch-diff.test.sh` also pins the load form with a fixture gate
+  under both shell modes, run from a subdirectory with and without the
+  helper beside it, and sets `diff.renames false` in its diff fixture, since
+  without it a helper that drops `-M` still passed on git's default.
+
 ## Review

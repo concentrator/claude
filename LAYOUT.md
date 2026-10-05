@@ -33,6 +33,7 @@ repos are versioned there, not mapped.
 │   └── secret-patterns.sh        # the secret predicate, sourced
 ├── scripts/                      # installer, checks, tests, host tooling
 │   ├── ci/                       # Tier-1 checks + run-all.sh
+│   │   ├── branch-diff.sh        # a branch's base, added lines and changed paths, sourced by the checks
 │   │   ├── check-*.sh            # the Tier-1 checks, one per file
 │   │   ├── code-size-allow.txt   # check-code-size.sh exemptions, one path per line
 │   │   └── run-all.sh            # the Tier-1 gate: every check, fails if any fails

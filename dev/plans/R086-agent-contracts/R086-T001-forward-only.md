@@ -12,7 +12,7 @@ cold-read: passed
   keeps only its renamed-file clause, citing the rule.
   Approach: `CLAUDE.md § Scope`, then `MAINTENANCE.md § Tier-2 AI
   review`, then `rules/js.md § File names`.
-- [ ] A sourced `scripts/ci/branch-diff.sh` yields the merge-base (first of
+- [x] A sourced `scripts/ci/branch-diff.sh` yields the merge-base (first of
   `origin/main`, `origin/master`, `main`, `master`), the lines added from
   it, untracked files included, and each changed path with its base path;
   with no base, the whole tracked tree. A gate keeps its shell mode, loads
