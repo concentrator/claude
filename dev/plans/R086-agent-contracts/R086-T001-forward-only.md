@@ -34,7 +34,7 @@ cold-read: passed
   judges only added lines: it keeps scanning every tracked file.
   Approach: `check-accretion.sh`, adding base-scoped cases to its existing
   test.
-- [ ] A size cap fails only on a unit the branch adds over it or takes past
+- [x] A size cap fails only on a unit the branch adds over it or takes past
   it - file lines and words, a shell function, a SKILL body or
   description - and a mode-file line over 80 characters only when added;
   a unit over its cap at the base may grow. The allowlist is unchanged.

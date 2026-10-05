@@ -412,5 +412,17 @@ offending line passed; counting the keys made it fail at its own line.
   printed only `N:text` when one file was in scope, since `xargs grep` with
   a single operand omits the name (observed in the red run of
   `check-todos.test.sh`), and the new test's no-base cases assert the path.
+- Item 6: the caps gate's long-line scan reads every added line and keeps
+  the first hit, where the draft used `break`, since a `break` in a
+  function's pipeline under `set -euo pipefail` exited the gate rc 141 when
+  the producer was still writing (observed with `seq 1 200000`).
+- Item 6: code-size keys a function by its name with any `()` dropped, so
+  `f() {` and `function f {` share a key; the message keeps today's
+  `function f() is N lines` form, which the new test asserts.
+- Item 6: the caps gate measures `CLAUDE.md` and `DESIGN.md` only as
+  changed paths, like every other unit, so a fixture no longer needs a
+  compliant pair; the test comment saying it does is removed, and the
+  gate's header sentence limiting it to tracked files with it, since
+  untracked files the helper yields are now judged.
 
 ## Review
