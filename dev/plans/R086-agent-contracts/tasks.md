@@ -10,8 +10,8 @@ Why: agents repeat convention breaches and docs carry stale claims, because rule
 - [ ] **R086-T002 [mnt]**: Give each seat one contract of inputs, steps and
   outputs, and narrow the global instructions to what every seat needs.
 
-- [ ] **R086-T003 [feat]**: List the claims to prove in the plan, have the
-  planner create the report and the implementer prove each before docs.
+- [ ] **R086-T003 [feat]**: List each doc claim and its evidence in the plan,
+  have the implementer fill the planner's report, and scope docs to what exists.
 
 - [ ] **R086-T004 [mnt]**: Fail a checkbox in a requirements file a branch
   adds.
