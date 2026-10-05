@@ -29,8 +29,8 @@ before a doc states it. A new convention binds only work created after it.
    a feature updates its docs, with the evidence in its report.
 6. Each seat's prompt holds its inputs, steps and outputs, and the global
    instructions hold only what every seat needs, each rule in one place.
-7. A new convention applies only to what is created after it, gates check
-   only what a branch adds, and older work changes only on request.
+7. A new convention applies only to what is created after it, content
+   gates check only what a branch adds, and older work changes on request.
 8. A check fails on a checkbox in a requirements file a branch adds.
 9. A project install skips a hook the global settings already run.
 10. Agents branch before the first edit, and the post-merge sync never
