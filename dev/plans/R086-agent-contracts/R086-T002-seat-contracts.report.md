@@ -19,6 +19,22 @@
   the other rule files, a file the plan's approach does not name.
 - Item 2: "code files" is the rule's `paths:` list of source and shell
   extensions, one glob per line as `rules/js.md` writes them.
+- Item 3: `branch-plan.md § Modes` cited `write-plan.md` step 3 for
+  the strict proof, now a pointer, so it cites `agents/dev-planner.md
+  § Steps` 2 instead, a file the plan's approach does not name.
+- Item 3: the task report skeleton, inside `write-plan.md` step 3
+  before, is the definition's own step 6, so `write-plan.md` step 5
+  points to the definition's steps 5 to 7.
+- Item 3: rules the template and `write-plan.md` restated now cite
+  their owner - the item form (`branch-plan.md § Body`), the header
+  fields (`§ Header`), the `## Planner` form (`§ Modes`), the plan's
+  present tense (`rules/writing-artifacts.md`), the cold-read sequence
+  (`write-plan.md` step 6). The requirements, `tasks.md`, the report
+  and the other plans are found beside the plan file the dispatch
+  names, no longer passed as paths of their own.
+- Item 3: the seat-model initiative's completed branch plans and its
+  requirements still name `planner-prompt.md`; they stand, as in
+  Item 1.
 ### Findings
 - [ ] Item 1: the seat-model initiative's `tasks.md` cites
   `agents/dev-implementer.md § Scratch & Probe Scripts` and

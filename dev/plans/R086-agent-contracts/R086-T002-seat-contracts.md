@@ -16,7 +16,7 @@ mode: normal
   maintainability check cite that file. The sections only the user's
   session applies stay global. Approach: `CLAUDE.md § Code Comments` into
   `rules/code-comments.md`, then the two `agents/` files.
-- [ ] The planner's definition is its contract, taking in `planner-prompt.md`,
+- [x] The planner's definition is its contract, taking in `planner-prompt.md`,
   then deleted, and the steps `write-plan.md` gives the planner, whose
   numbered entries there then point to it; it drops the config paragraph, as
   it writes only the plan and its report, with the Read/Edit/Write tools.

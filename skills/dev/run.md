@@ -24,7 +24,7 @@ file owns, never restating it.
 
 | Seat | Dispatched | Definition; dispatch |
 | --- | --- | --- |
-| Planner | at the detail round, and to fix a strict plan's cold-read gaps once (`write-plan.md` step 6) | `agents/dev-planner.md`; `companions/planner-prompt.md` |
+| Planner | at the detail round, and to fix a strict plan's cold-read gaps once (`write-plan.md` step 6) | `agents/dev-planner.md` |
 | Cold reader | once over a new strict plan before it is approved (`write-plan.md` step 6) | `agents/dev-cold-reader.md`; `companions/verification-policy.md § Comprehension check` |
 | Implementer | per commit item (§ Dispatch per item) | `agents/dev-implementer.md` |
 | Doc writer | once per branch whose diff changes user-facing behavior (§ Close 3) | `agents/dev-doc-writer.md`; `companions/doc-writer-prompt.md` |
