@@ -435,3 +435,22 @@ offending line passed; counting the keys made it fail at its own line.
   deletes; the first three failed before the gate change.
 
 ## Review
+- [ ] Close review: an old hit on a last line with no trailing newline
+  fails once the branch appends to that file (Important) -
+  scripts/ci/branch-diff.sh:31
+  Evidence: observed check-no-em-dash.sh printed doc.md:2 and exit 1 on a
+  branch appending to a file whose old last line held an em dash
+- [ ] Close review: README.md § Installing the toolset elsewhere does not
+  list branch-diff.sh (Important) - README.md:140
+  Evidence: contract MAINTENANCE.md § This environment doc-sync row
+- [ ] Close review: header comments still describe a whole-tree scan
+  (Suggestion) - scripts/ci/check-no-em-dash.sh:2,
+  scripts/ci/check-code-size.sh:3
+  Evidence: observed both gates judge only what a branch adds
+- [ ] Close review: comment text the branch rewrapped or extended
+  (Suggestion) - scripts/ci/check-caps.sh, scripts/ci/check-plan-text.sh:7
+  Evidence: contract CLAUDE.md § Code Comments
+- [ ] Close review: the fetch-depth comment credits only plan-text
+  (Suggestion) - .github/workflows/ci.yml:19
+  Evidence: observed six gates call branch_base and fall back to the whole
+  tree without a full fetch
