@@ -464,7 +464,7 @@ offending line passed; counting the keys made it fail at its own line.
   scripts/ci/branch-diff.sh:31
   Evidence: observed check-no-em-dash.sh printed doc.md:2 and exit 1 on a
   branch appending to a file whose old last line held an em dash
-- [ ] Close review: README.md § Installing the toolset elsewhere does not
+- [x] Close review: README.md § Installing the toolset elsewhere does not
   list branch-diff.sh (Important) - README.md:140
   Evidence: contract MAINTENANCE.md § This environment doc-sync row
 - [x] Close review: header comments still describe a whole-tree scan

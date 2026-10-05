@@ -52,7 +52,7 @@ cold-read: passed
   those from outside the failing file and a tracked credential is live at
   any age; with no base, content checks judge it all and plan-text skips.
   Approach: the Tier-1 bullet of `DESIGN.md § Self-enforcement`.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)
