@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# check-no-em-dash.sh - Tier-1 gate (R-026): no em dash (U+2014) in any
-# tracked text file; use a hyphen (writing.md). The em-dash character is
+# check-no-em-dash.sh - Tier-1 gate (R-026): no em dash (U+2014);
+# use a hyphen (writing.md). The em-dash character is
 # assembled at runtime (printf), so this script never contains a literal one
 # that would match itself. Binary files are skipped (grep -I).
 set -uo pipefail

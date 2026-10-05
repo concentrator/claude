@@ -451,7 +451,7 @@ offending line passed; counting the keys made it fail at its own line.
 - [ ] Close review: README.md § Installing the toolset elsewhere does not
   list branch-diff.sh (Important) - README.md:140
   Evidence: contract MAINTENANCE.md § This environment doc-sync row
-- [ ] Close review: header comments still describe a whole-tree scan
+- [x] Close review: header comments still describe a whole-tree scan
   (Suggestion) - scripts/ci/check-no-em-dash.sh:2,
   scripts/ci/check-code-size.sh:3
   Evidence: observed both gates judge only what a branch adds

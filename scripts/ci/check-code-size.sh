@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # check-code-size.sh - Tier-1 code-size gate (R-022).
-# Flags tracked code files over 300 lines, and shell functions over 50 lines.
+# Flags code files over 300 lines, and shell functions over 50 lines.
 # Per-path exemptions live in code-size-allow.txt beside this script (one
 # path per line, relative to the repo root; text after `#` is an ignored
 # reason), so an installed copy under .claude/scripts/ci/ reads its own. Function-length is checked for
