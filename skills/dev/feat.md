@@ -10,6 +10,9 @@ The implementer seat's TDD loop for one feature item, run per dispatch
 2. **Green** - minimal implementation to make the test pass.
 3. **Refactor** - clean up code and tests; coverage stays green.
 
+An item with a probe claim runs a probe before step 1 and a second
+after it (`agents/dev-implementer.md § Steps` 2).
+
 Finish every pass per `branch-plan.md § Commit cadence`.
 
 ## Code reuse

@@ -18,7 +18,7 @@ cold-read: passed
   `Output:` value counting when its lines sit indented under it.
   Approach: the gate and its test, then `documentation.md § Claims` and
   `agents/dev-implementer.md § Steps`.
-- [ ] The implementer probes read-only or on a test client, never a `## Proven`
+- [x] The implementer probes read-only or on a test client, never a `## Proven`
   statement; an item with a probe claim runs probe, failing test, a second
   probe confirming the values the test pins, then code; `CLAUDE.md § Scope`
   counts a probe claim as a request to probe a remote. Approach: `feat.md

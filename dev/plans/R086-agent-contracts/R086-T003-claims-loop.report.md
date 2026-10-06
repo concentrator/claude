@@ -351,5 +351,13 @@ Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
   entries, so neither still limits the implementer to its
   `## Implementer` section. Result: `check-plan-text.test.sh` passes,
   its new cases included.
+- Item 3: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. G4's rule - the
+  second probe fills a probe entry - is written in `documentation.md
+  § Claims` and reached from `dev-implementer.md § Steps` 2 through its
+  existing citation of that section, not restated there. `feat.md` and
+  `fix.md` cite the loop with one shared sentence after their steps
+  rather than a new step, keeping their step numbers. Result: the fast
+  tier passes.
 
 ## Review

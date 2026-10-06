@@ -227,7 +227,9 @@ text with the wrapped lines joined by one space; a field sits at two
 spaces, its value's own lines at three or more.
 
 The implementer fills its item's entries in the commit that marks the
-item `[x]` (`agents/dev-implementer.md § Steps`).
+item `[x]` (`agents/dev-implementer.md § Steps`), a probe entry from
+the second of its item's probes, the one confirming the values its
+test pins.
 `scripts/ci/check-plan-text.sh` fails a plan the branch adds without
 either section, a claim whose entry the report lacks, and a done item's
 entry with an empty field - one its kind needs or one it carries - a
