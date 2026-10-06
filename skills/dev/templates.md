@@ -30,9 +30,10 @@ In rules, skills, and docs, write it path-qualified wherever bare
 
 One shape for every `kind:`. The title names the parent R - the file
 has no id of its own. The goal and outcomes come from the user: no
-implementation detail unless the user supplied it, and no links, dates,
-PR refs or measured values (`scripts/ci/check-plan-text.sh`). Outcomes
-are the initiative's acceptance criteria, read for meaning, not wording.
+implementation detail unless the user supplied it, and no checkboxes,
+links, dates, PR refs or measured values
+(`scripts/ci/check-plan-text.sh`). Outcomes are the initiative's
+acceptance criteria, numbered, read for meaning, not wording.
 
 The shape round emits a draft `tasks.md` alongside this file, same
 gate (`plan.md § Planning rounds`).

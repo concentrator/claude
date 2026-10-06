@@ -10,7 +10,7 @@ mode: normal
   added to an older file fail, an older box checked off passes. The gate's
   header comment is unchanged. Approach: `scan` in `req` mode of
   `scripts/ci/check-plan-text.sh`, with cases in its test.
-- [ ] The per-initiative `requirements.md` template bars checkboxes beside
+- [x] The per-initiative `requirements.md` template bars checkboxes beside
   links, dates, PR refs and measured values, citing the gate; its outcomes
   stay numbered.
   Approach: the paragraph on what the goal and outcomes carry, in
