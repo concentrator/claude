@@ -36,9 +36,9 @@ happened, never intent - a commit that didn't land stays `[ ]`.
 suggests how. The implementer probes and decides the route.
 
 **Strict**: the planner proves the plan with a throwaway draft before
-writing it (`write-plan.md` step 3). What the planner ran, and only
-that, goes to the task report's `## Planner` (§ Task report), never the
-plan:
+writing it (`agents/dev-planner.md § Steps` 2). What the planner ran,
+and only that, goes to the task report's `## Planner` (§ Task report),
+never the plan:
 
     ## Planner
     ### Probes

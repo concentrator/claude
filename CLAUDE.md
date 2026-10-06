@@ -24,14 +24,6 @@ request or in a strict plan. A problem needs evidence (observed output,
 a failing test, a documented contract); a case built from reading code
 is not raised, and one the user ruled out stays closed.
 
-## Code Comments
-
-Code carries no comments. The exception is a consumer-facing library
-API, which may keep trimmed type docs: what a parameter, return value or
-error means, updated with the behavior they describe. Code and data
-files carry no history or annotation fields
-(`rules/writing-artifacts.md § One home per finding`).
-
 ## Audience visibility
 
 User-facing writing (CHANGELOG, docs, comments, PR bodies) never

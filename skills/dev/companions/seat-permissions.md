@@ -50,8 +50,8 @@ a declared set.
 | --- | --- | --- |
 | `Edit(//__PROJECT_DIR__/**)` | Edit-class, the checkout root | the seat definitions carrying an edit tool: `agents/dev-implementer.md`, `agents/dev-planner.md`, `agents/dev-doc-writer.md`, `agents/dev-docs-verifier.md` |
 | `Read(//__HOME__/.claude/skills/**)` | Read outside the checkout | the seat definitions, which send a seat to `skills/dev/...` (`agents/dev-implementer.md`, `agents/dev-planner.md`) |
-| `Read(//__HOME__/.claude/rules/**)` | Read outside the checkout | the seat definitions, which send a seat to `rules/writing-artifacts.md` (`agents/dev-planner.md`, `agents/dev-doc-writer.md`) |
-| `Read(//tmp/**)`, `Read(//private/tmp/**)`, `Edit(//tmp/**)`, `Edit(//private/tmp/**)` | Read and Edit outside the checkout | `agents/dev-implementer.md § Scratch & Probe Scripts` |
+| `Read(//__HOME__/.claude/rules/**)` | Read outside the checkout | the seat definitions, which send a seat to `rules/writing-artifacts.md` (`agents/dev-planner.md`, `agents/dev-doc-writer.md`) and to `rules/code-comments.md` (`agents/dev-implementer.md`, `agents/code-reviewer.md`) |
+| `Read(//tmp/**)`, `Read(//private/tmp/**)`, `Edit(//tmp/**)`, `Edit(//private/tmp/**)` | Read and Edit outside the checkout | `agents/dev-implementer.md § Steps`, its scratch paragraph |
 | `WebSearch` | bare tool | `agents/code-reviewer.md`, `agents/dev-docs-verifier.md`, which hold that tool |
 | `WebFetch(domain:<host>)` | WebFetch | a seat's dispatch naming the domain; the class has no default member |
 | `Skill(<name>)` | bare tool | a dispatch naming the skill; the implementer holds `Skill` (`agents/dev-implementer.md`) |
@@ -244,9 +244,13 @@ and a definition carries `tools:` and no permission key.
 An entry one conduct section bars in one context and a definition needs
 in another stays, traced to the need, the bar standing where it is
 written: `sed`, `awk`, `cat`, `head`, `tail`, `wc` and `grep` are what
-the seats read and search with, while `agents/dev-implementer.md § Plan
-& Task Report` keeps them off the plan and the task report and its
-config paragraph keeps edit-class shell off the config directory.
+the seats read and search with, while `agents/dev-implementer.md § Steps`
+keeps them off the plan and the task report and its
+config paragraph keeps edit-class shell off the config directory. The
+read-only bar in the `§ Steps` of `agents/dev-cold-reader.md`,
+`agents/dev-docs-verifier.md` and `agents/code-reviewer.md` keeps every
+write of those seats off the checkout, the config directory and the
+settings surface.
 `echo`, `printf` and `mkdir` stand beside them as the write-capable
 verbs: the first two write wherever a redirection points and the third
 creates a directory anywhere the session can write, all three declared
@@ -288,13 +292,13 @@ it, and nobody clears it (`run.md § Seats`, the prompt row).
 A **classifier event** under `auto` is no gap in any declared set: the
 denial lands inside a dispatched seat's own call and no other seat can
 see it, the seat's only channel being its report, whose statuses
-(`companions/implementer-prompt.md § Report Format`) carry no classifier
+(`agents/dev-implementer.md § Outputs`) carry no classifier
 class. So no retry is the runner's to hold: the seat handles the call
 itself, retrying it once identically, denials being nondeterministic,
 and rewriting it to be classifier-readable where the classifier could
 not evaluate it (`companions/supervisor-runbook.md § Failure modes`).
-What tells the seat that is its own dispatch
-(`companions/implementer-prompt.md`), the runbook being no seat's
+What tells the seat that is its own contract
+(`agents/dev-implementer.md § Steps`), the runbook being no seat's
 input. A second denial is an answer: the seat reports BLOCKED with the
 classifier's text, which halts the item and reports with its work intact
 (`run.md § Dispatch per item`), and the runner ledgers a `prompt` event

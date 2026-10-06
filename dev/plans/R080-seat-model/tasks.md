@@ -347,7 +347,7 @@ entry `toolchain.md § Permission carve-out` does not state, its local
 half covered by `Bash(git branch:*)`; and the work-product class no
 declared set can enumerate in advance, down to the
 `node --env-file=.env /tmp/probe.mjs` that `agents/dev-implementer.md
-§ Scratch & Probe Scripts` tells a seat to write and run with no
+§ Steps`, its scratch paragraph, tells a seat to write and run with no
 `Bash(node:*)` declared. `scripts/preflight-permissions.sh` prints the
 `--apply` line it tells the user to run unquoted, so that line breaks on
 a project path carrying `&` or a space - the very shape the `a&b`
@@ -356,8 +356,8 @@ tier 644 unconditionally after the `mv` from a 0600 `mktemp`, relaxing a
 deliberately restrictive mode where it should capture the existing
 file's mode and restore it, defaulting to 644 where the file did not
 exist. `branch-plan.md § Commit cadence` 3 cites `git-workflow.md
-§ Commit messages` and `companions/implementer-prompt.md` does not,
-though that companion is the seat's own instruction sheet and the one
+§ Commit messages` and `agents/dev-implementer.md` does not,
+though that definition is the seat's own instruction sheet and the one
 file an implementer certainly reads, so a seat invents the body
 convention: four messages drifted in this run while only
 `branch-plan.md` carried the cite, and none once a dispatch named the

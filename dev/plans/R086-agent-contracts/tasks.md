@@ -7,7 +7,7 @@ Why: agents repeat convention breaches and docs carry stale claims, because rule
 - [x] **R086-T001 [mnt]**: Make a new convention bind only what is created
   after it, and have the gates check only what a branch adds.
 
-- [ ] **R086-T002 [mnt]**: Give each seat one contract of inputs, steps and
+- [x] **R086-T002 [mnt]**: Give each seat one contract of inputs, steps and
   outputs, and narrow the global instructions to what every seat needs.
 
 - [ ] **R086-T003 [feat]**: List each doc claim and its evidence in the plan,

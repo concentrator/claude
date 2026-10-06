@@ -66,6 +66,7 @@ repos are versioned there, not mapped.
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
 │   ├── writing-artifacts.md      # DEV-artifact writing rules (**/*.md; shipped)
 │   ├── js.md                     # JS conventions (path-scoped)
+│   ├── code-comments.md          # code-comment rule (code and data files)
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/                       # the run's seat definitions (skills/dev/run.md § Seats)
 │   ├── code-reviewer.md          # branch-close quality review agent
@@ -74,7 +75,7 @@ repos are versioned there, not mapped.
     ├── dev/                      # the DEV toolset
     │   ├── SKILL.md              #   the router
     │   ├── *.md                  # modes and process rules, routed by SKILL.md
-    │   └── companions/           # declarations, docs framework, prompts, verification policy, runbook
+    │   └── companions/           # declarations, docs framework, verification policy, runbook
     ├── test-driven-development/  # bundled dependency skills (installer ships these)
     ├── systematic-debugging/     # bundled
     ├── verification-before-completion/SKILL.md # bundled
