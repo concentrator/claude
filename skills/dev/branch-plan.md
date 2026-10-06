@@ -213,11 +213,11 @@ commit and the hand-off (`finish`).
    - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")
-7. **Docs** - the doc-writer pass (`run.md § Close` 3): the seat writes
-   every doc the branch ships to the shipped code and commits it, and
-   the gate's verifier clears it (`companions/documentation.md
-   § Verification gate`; `run.md § Seats`). Then the **mandatory final
-   item** of every plan:
+7. **Docs** - the doc-writer pass (`run.md § Close` 3): the seat brings
+   the docs to the plan's claims or, for a plan without `## Claims`, to
+   the shipped code, commits them, and the gate's verifier clears them
+   (`companions/documentation.md § Verification gate`; `run.md § Seats`).
+   Then the **mandatory final item** of every plan:
 
    > Complete the branch: cleanup (stale/temp data), mark plan
    > complete, mark the task `[x]` in the R's `tasks.md` plus any

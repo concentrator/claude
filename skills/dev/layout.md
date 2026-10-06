@@ -147,9 +147,10 @@ feature's code takes or sends:
     |-------|-----------|------|---------|----------------|-------------|--------------------|
 
 Where the plan lists claims (`companions/documentation.md § Claims`),
-each row the doc writer writes, changes or removes is a listed claim,
-its link (`companions/documentation.md § Sources`) the row's last
-column, and a row no claim names stays as it is. For a plan without
+the table appends a final `source` column to the template, holding
+each row's link (`companions/documentation.md § Sources`); each row
+the doc writer writes, changes or removes is a listed claim, and a row
+no claim names stays as it is. For a plan without
 `## Claims`, an input no source confirms (`companions/documentation.md
 § Sources`) keeps its row - never drop an input in silence.
 

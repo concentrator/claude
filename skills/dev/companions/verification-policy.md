@@ -63,8 +63,11 @@ run closes in full (`skills/dev/branch-plan.md § Closing routine`).
 ## Verification modality
 
 Verification follows the claim, not the artifact: an observable claim's
-ground truth is a live run, a claim about source is checked against
-source (`documentation.md § Sources`). A live run does not
+ground truth is a live run - the implementer's probe, recorded in the
+task report, which the docs verifier checks (`documentation.md
+§ Verification gate`) -
+and a claim about source is checked against source
+(`documentation.md § Sources`). A live run does not
 relax independence - whoever authored the thing does not also certify
 that its run passed, and that holds beyond docs: code, plans, and
 gates alike.
