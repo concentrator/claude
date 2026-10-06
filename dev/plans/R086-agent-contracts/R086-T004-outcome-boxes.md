@@ -4,7 +4,7 @@ type: mnt
 mode: normal
 ---
 
-- [ ] The plan-text gate fails a checkbox, `[ ]` or `[x]` after any list
+- [x] The plan-text gate fails a checkbox, `[ ]` or `[x]` after any list
   marker at any indent, in an initiative's `requirements.md` where the
   file's base copy lacks it, the mark ignored: a new file's box and a box
   added to an older file fail, an older box checked off passes. The gate's
