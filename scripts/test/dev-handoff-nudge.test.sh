@@ -80,6 +80,21 @@ out=$(run "$ABOVE")
 echo "$out" | jq -e '.decision == "block"' >/dev/null 2>&1 \
   && pass "tree after hand-off: stale again" || die "expected re-block, got '$out'"
 
+H="$D/home"; P="$D/proj/.claude/hooks"; mkdir -p "$H/.claude" "$P"
+cp "$HOOK" "$ROOT/hooks/dev-hook-once.sh" "$ROOT/hooks/dev-precompact-state.sh" "$ROOT/hooks/dev-context-fill.sh" "$P/"
+run_copy() {
+  printf '{"session_id":"s1","transcript_path":"%s"}' "$ABOVE" \
+    | env CLAUDE_PROJECT_DIR="$D/proj" CLAUDE_CONFIG_DIR="$D/global" DEV_STATE_DIR="$D/state" HOME="$H" \
+      bash "$P/dev-handoff-nudge.sh" 2>/dev/null
+}
+jq -n '{hooks:{Stop:[{hooks:[{type:"command",command:"~/.claude/hooks/dev-handoff-nudge.sh"}]}]}}' > "$H/.claude/settings.json"
+out=$(run_copy)
+[ -z "$out" ] && pass "project copy silent when the global settings run it" || die "project copy blocked beside the global hook: $out"
+printf '{}\n' > "$H/.claude/settings.json"
+out=$(run_copy)
+echo "$out" | jq -e '.decision == "block"' >/dev/null 2>&1 \
+  && pass "project copy blocks when the global settings do not run it" || die "project copy silent with no global hook: '$out'"
+
 # Already continuing from a Stop block: silent even above + stale.
 out=$(printf '{"session_id":"s1","transcript_path":"%s","stop_hook_active":true}' "$ABOVE" \
   | env CLAUDE_PROJECT_DIR="$D/proj" CLAUDE_CONFIG_DIR="$D/global" DEV_STATE_DIR="$D/state" bash "$HOOK" 2>/dev/null); rc=$?

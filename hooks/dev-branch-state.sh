@@ -12,6 +12,7 @@
 set -uo pipefail
 
 input=$(cat 2>/dev/null || true)   # the prompt JSON: only session_id is used
+. "$(dirname "$0")/dev-hook-once.sh" 2>/dev/null && global_hook_runs "$0" UserPromptSubmit "" && exit 0
 
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
 [ -n "$branch" ] || exit 0

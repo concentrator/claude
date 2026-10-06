@@ -10,7 +10,7 @@ mode: normal
   matcher covering the call's tool; it acts when that file is absent or
   unparsable or the check's helper is missing. Approach: a sourced
   `hooks/dev-hook-once.sh` the installer copies, both hooks, tests on a temp `HOME`.
-- [ ] The branch-state, hand-off nudge and session-brief hooks run the same
+- [x] The branch-state, hand-off nudge and session-brief hooks run the same
   check for UserPromptSubmit, Stop and SessionStart, the last matched on the
   start's source, so each hook acts once; the installer registers every hook
   as today. Approach: the three hooks in `hooks/`, then a case in each test

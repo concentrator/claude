@@ -69,6 +69,15 @@ out=$(printf '{"session_id":"s9","transcript_path":"%s"}' "$T" \
   | env CLAUDE_CONFIG_DIR="$D/global" bash "$HOOK" 2>/dev/null)
 case "$out" in *context*) die "warning printed below threshold: $out" ;; *"| session-state: $D/dev/session/s9.md") pass "below threshold: line unchanged" ;; *) die "unexpected line: $out" ;; esac
 
+H="$D/home"; P="$D/proj/.claude/hooks"; mkdir -p "$H/.claude" "$P"
+cp "$HOOK" "$ROOT/hooks/dev-hook-once.sh" "$ROOT/hooks/dev-precompact-state.sh" "$ROOT/hooks/dev-context-fill.sh" "$P/"
+jq -n '{hooks:{UserPromptSubmit:[{hooks:[{type:"command",command:"~/.claude/hooks/dev-branch-state.sh"}]}]}}' > "$H/.claude/settings.json"
+out=$(printf '{}' | HOME="$H" bash "$P/dev-branch-state.sh" 2>/dev/null)
+[ -z "$out" ] && pass "project copy silent when the global settings run it" || die "project copy printed beside the global hook: $out"
+printf '{}\n' > "$H/.claude/settings.json"
+out=$(printf '{}' | HOME="$H" bash "$P/dev-branch-state.sh" 2>/dev/null)
+case "$out" in "branch-state: work"*) pass "project copy prints when the global settings do not run it" ;; *) die "project copy silent with no global hook: $out" ;; esac
+
 # Outside any git repo: silent, exit 0.
 N=$(mktemp -d); cd "$N"
 out=$(run); rc=$?

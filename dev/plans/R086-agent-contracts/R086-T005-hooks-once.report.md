@@ -22,5 +22,18 @@
   `dev-branch-guard.test.sh` past the code-size gate's 300 lines.
   Result: the cases fail against the guards on `main` and pass here.
 - Item 1: `LAYOUT.md` maps `hooks/dev-hook-once.sh`. Result: green.
+- Item 2: the branch-state and hand-off nudge hooks pass an empty
+  subject, so only an absent, empty or `*` global matcher on
+  UserPromptSubmit or Stop counts as running them; any other matcher
+  there makes the project copy act, never skip. Result: the cases pin
+  the matcherless entry the installer writes.
+- Item 2: the session brief reads the start's `source` after its JSON
+  check, so malformed input still exits silent there. Result: the
+  malformed-input case passes unchanged.
+- Item 2: each hook's case also runs the copy under global settings
+  that do not register it, and the session brief's under a `startup`
+  start its `compact|resume` matcher misses, so a silent copy is the
+  check rather than a broken copy. Result: the silent cases fail against
+  the hooks on `main` and pass here; the acting cases pass on both.
 
 ## Review

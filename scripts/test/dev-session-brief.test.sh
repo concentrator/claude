@@ -52,6 +52,14 @@ case "$ctx" in *"- rulings: keep the list"*) pass "block injected to its last li
 case "$ctx" in *"trigger: auto"*) die "tree block leaked into the brief" ;; *) pass "tree block stays out" ;; esac
 case "$ctx" in *"$D/dev/session/s9.md"*) pass "brief names its source file" ;; *) die "source file not named" ;; esac
 
+H="$D/home"; P="$D/proj/.claude/hooks"; mkdir -p "$H/.claude" "$P"
+cp "$HOOK" "$ROOT/hooks/dev-hook-once.sh" "$ROOT/hooks/dev-precompact-state.sh" "$P/"
+jq -n '{hooks:{SessionStart:[{matcher:"compact|resume",hooks:[{type:"command",command:"~/.claude/hooks/dev-session-brief.sh"}]}]}}' > "$H/.claude/settings.json"
+out=$(printf '{"session_id":"s9","source":"compact"}' | HOME="$H" bash "$P/dev-session-brief.sh" 2>/dev/null)
+[ -z "$out" ] && pass "project copy silent on a start the global settings run it for" || die "project copy injected beside the global hook: $out"
+out=$(printf '{"session_id":"s9","source":"startup"}' | HOME="$H" bash "$P/dev-session-brief.sh" 2>/dev/null)
+case "$out" in *"the fresh unit"*) pass "project copy injects on a start the global matcher misses" ;; *) die "project copy silent on a start the global matcher misses: $out" ;; esac
+
 # Silent paths: each exits 0 with no output.
 silent() { # $1 = label, $2 = stdin payload
   local o r; o=$(printf '%s' "$2" | bash "$HOOK" 2>/dev/null); r=$?
