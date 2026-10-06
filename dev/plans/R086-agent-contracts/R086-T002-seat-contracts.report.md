@@ -73,6 +73,15 @@
   seats to `rules/code-comments.md`.
   Evidence: observed `git grep -o "rules/[a-z-]*\.md" -- agents`
 
+## Answers
+- Review 1: add the common missing code extensions and `json`, `yaml`,
+  `yml` and `toml` to the rule's `paths:`.
+- Review 2 and Review 3: fix as proposed; Review 2 also resolves the
+  Item 5 finding.
+- Item 1 finding: repoint the seat-model initiative's `tasks.md` cites of
+  `implementer-prompt.md` and `§ Scratch & Probe Scripts` to the
+  implementer's definition.
+
 ## Review
 - [ ] Close review: `rules/code-comments.md` says it applies to every code
   file and governs data files, but its `paths:` lists 20 code globs and no
