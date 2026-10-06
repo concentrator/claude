@@ -119,6 +119,7 @@ rm -rf "$d"
 
 expect "added findings file caught" "$OWN-x/$OWN-T001-x.findings.md" "- a note" "PLAN-TEXT: dev/plans/$OWN-x/$OWN-T001-x.findings.md: findings file: use the task report"
 item() { printf -- '- [ ] an item\n'; for i in $(seq 2 "$1"); do printf '  line %s\n' "$i"; done; }
+none() { printf '\n## Claims\n- none\n\n## Proven\n- none\n'; }
 with_findings() { # repo: main gains a findings file with a 7-line item, the branch then merges
   git -C "$1" checkout -q main
   item 7 > "$1/dev/plans/R090-old/R090-T001-old.findings.md"
@@ -136,12 +137,12 @@ out=$(run_in "$d") && pass "renamed findings file passes" || die "renamed findin
 rm -rf "$d"
 
 d=$(mkrepo)
-item 6 > "$d/dev/plans/$OWN-x/$OWN-T001-x.md"
+{ item 6; none; } > "$d/dev/plans/$OWN-x/$OWN-T001-x.md"
 printf '# %s-T001 report\n' "$OWN" > "$d/dev/plans/$OWN-x/$OWN-T001-x.report.md"
 out=$(run_in "$d") && pass "6-line plan item with its report passes" || die "6-line plan item failed: $out"
 rm -rf "$d"
 d=$(mkrepo); with_findings "$d"
-printf -- '- [ ] an item\n' > "$d/dev/plans/R090-old/R090-T001-old.md"
+{ printf -- '- [ ] an item\n'; none; } > "$d/dev/plans/R090-old/R090-T001-old.md"
 out=$(run_in "$d") && pass "plan with its legacy findings file passes" || die "plan with legacy findings file failed: $out"
 rm -rf "$d"
 expect "plan without task report caught" "$OWN-x/$OWN-T001-x.md" "- [ ] an item" "PLAN-TEXT: dev/plans/$OWN-x/$OWN-T001-x.md: plan without task report"
@@ -155,6 +156,45 @@ d=$(mkrepo)
 mkdir -p "$d/dev/plans/$OWN-x/batches"
 item 7 > "$d/dev/plans/$OWN-x/batches/B001.md"
 out=$(run_in "$d") && pass "batches excluded from the plan check" || die "batches checked: $out"
+rm -rf "$d"
+
+d=$(mkrepo)
+printf -- '- [ ] an item\n' > "$d/dev/plans/$OWN-x/$OWN-T001-x.md"
+printf '# %s-T001 report\n' "$OWN" > "$d/dev/plans/$OWN-x/$OWN-T001-x.report.md"
+out=$(run_in "$d")
+[[ $out == *"$OWN-T001-x.md: plan without ## Claims"* && $out == *"$OWN-T001-x.md: plan without ## Proven"* ]] \
+  && pass "added plan without claims and proven caught" || die "added plan without sections: $out"
+rm -rf "$d"
+claim_a='- Item 1 (source): `check-x` exits 1 on a missing file.'
+claim_b=$(printf -- '- Item 1 (probe): A page holds at most 100 rows,\n  even when `limit` asks for more.')
+entry_a=$(printf '%s\n  Source:' "$claim_a")
+entry_b=$(printf '%s\n  Call: curl -s %s\n  Output:\n    {"rows": [], "next": "c2"}\n  Test: scripts/test/rows.test.sh\n  Environment:' "$claim_b" "'https://api.test/rows?limit=500'")
+plan_of() { printf -- '- [ ] an item\n\n## Claims\n%s\n\n## Proven\n- none\n' "$1"; }
+report_of() { printf '# report\n\n## Claims\n%s\n\n## Implementer\n' "$1"; }
+claims_in() { plan_of "$3" > "$1/dev/plans/$2.md"; report_of "$4" > "$1/dev/plans/$2.report.md"; }
+both="$claim_a"$'\n'"$claim_b"
+lacking="PLAN-TEXT: dev/plans/R090-old/R090-T001-old.md:5: claim without report entry"
+d=$(mkrepo); claims_in "$d" "$OWN-x/$OWN-T001-x" "$both" "$entry_a"$'\n'"$entry_b"
+out=$(run_in "$d") && pass "claims with their report entries pass" || die "claims with entries failed: $out"
+claims_in "$d" "$OWN-x/$OWN-T001-x" "$both" "$entry_a"
+out=$(run_in "$d")
+[[ $out == *"PLAN-TEXT: dev/plans/$OWN-x/$OWN-T001-x.md:5: claim without report entry"* ]] \
+  && [ "$(grep -c '^PLAN-TEXT' <<<"$out")" -eq 1 ] \
+  && pass "claim without report entry caught once" || die "claim without entry: $out"
+rm -rf "$d"
+d=$(mkrepo); on_main "$d" R090-old/R090-T001-old.md "$(plan_of "$both")"
+on_main "$d" R090-old/R090-T001-old.report.md "$(report_of "$entry_a")"
+printf '\n## Review\n' >> "$d/dev/plans/R090-old/R090-T001-old.report.md"
+out=$(run_in "$d") && pass "claim lacking its entry at the base passes" || die "base violation reported: $out"
+git -C "$d" reset -q --hard
+git -C "$d" mv dev/plans/R090-old/R090-T001-old.md dev/plans/R090-old/R090-T001-kept.md
+git -C "$d" mv dev/plans/R090-old/R090-T001-old.report.md dev/plans/R090-old/R090-T001-kept.report.md
+out=$(run_in "$d") && pass "renamed plan and report pass" || die "renamed pair failed: $out"
+rm -rf "$d"
+d=$(mkrepo); on_main "$d" R090-old/R090-T001-old.md "$(plan_of "$both")"
+on_main "$d" R090-old/R090-T001-old.report.md "$(report_of "$entry_a"$'\n'"$entry_b")"
+report_of "$entry_a" > "$d/dev/plans/R090-old/R090-T001-old.report.md"
+out=$(run_in "$d"); case "$out" in *"$lacking"*) pass "report entry removed on the branch caught" ;; *) die "removed entry: $out" ;; esac
 rm -rf "$d"
 
 d=$(mkrepo)

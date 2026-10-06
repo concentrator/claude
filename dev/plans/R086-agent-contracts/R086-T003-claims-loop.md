@@ -7,7 +7,7 @@ mode: strict
 cold-read: passed
 ---
 
-- [ ] A plan ends on `## Claims`, a `- Item <n> (source|probe|drop): <claim>`
+- [x] A plan ends on `## Claims`, a `- Item <n> (source|probe|drop): <claim>`
   line per claim its docs make or drop, and `## Proven`, each statement already
   proven with its evidence; the report repeats each claim under `## Claims`, a
   blank `Source:` below, or `Call:`, `Output:`, `Environment:` for a probe, and

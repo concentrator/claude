@@ -20,8 +20,9 @@ branch = one task. The plan is complete and committed to `main`
 
 ## Body
 
-The header and a checkbox list, nothing else, in either mode: each
-`[ ]` = one commit, naming the change and
+The header, a checkbox list, then `## Claims` and `## Proven`
+(`companions/documentation.md § Claims`), nothing else, in either
+mode: each `[ ]` = one commit, naming the change and
 carrying the decisions its docs will need - the doc writer's to read,
 never the docs' to cite (`run.md § Seats`). Each item states what the
 commit delivers against the requirements, one or a few sentences,
@@ -132,9 +133,11 @@ smell, naming inconsistency:
 
 `<task-id>-<slug>.report.md` beside the plan, a working file that lives
 as long as the R. The planner creates it with the plan, in the same
-commit, as a skeleton: the title and the `## Implementer` and
-`## Review` headings, no entries; a strict plan's report opens with the
-planner's filled `## Planner` (§ Modes). The seats fill it in this form:
+commit, as a skeleton: the title, `## Claims` with a blank entry per
+claim the plan lists (`companions/documentation.md § Claims`), and the
+`## Implementer` and `## Review` headings; a strict plan's report opens
+with the planner's filled `## Planner` (§ Modes), `## Claims` after it.
+The seats fill the rest in this form:
 
     # R0NN-T00N report
 

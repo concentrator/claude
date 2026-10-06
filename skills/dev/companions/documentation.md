@@ -186,3 +186,44 @@ column or mark.
   writer's report, never as inline chronology.
 - A recalled or documented fact that names a file, flag, or field is
   re-checked against the current system before it is relied on.
+
+## Claims
+
+A branch plan (`branch-plan.md § Body`) ends on two sections, each
+holding `- none` when it has nothing to list:
+
+- `## Claims` - one line per claim the branch's docs make or drop,
+  `- Item <n> (<kind>): <claim>`, `Item <n>` being the plan's nth
+  checkbox, the item whose change the claim describes. The kind is one
+  of:
+  - `source` - a fact of the project's own code, proven by reading it;
+  - `probe` - a fact of an external system, proven by a call to it;
+    the planner gives it only to an item whose code calls that system;
+  - `drop` - text the docs remove, proven by showing the behavior gone.
+- `## Proven` - one line per statement the docs rely on that is
+  already proven, `- <statement>: <evidence>`, the evidence a source
+  path, a test or a `<docs>/reports/` report, never a task report: that
+  lives only as long as its R (`branch-plan.md § Task report`).
+
+The task report's `## Claims` repeats each claim, word for word, as an
+entry whose fields hold its evidence; the planner writes the entries
+with their fields blank, and a plan whose `## Claims` is `- none` gives
+its report no `## Claims`:
+
+    ## Claims
+    - Item 1 (source): <claim>
+      Source: <the file and symbol, or the test, that shows it>
+    - Item 2 (probe): <claim>
+      Call: <the call>
+      Output:
+        <its output, each line indented under the field>
+      Environment: <where the call ran>
+    - Item 3 (drop): <claim>
+      Source: <the file and line, or the test, showing the behavior gone>
+
+Any entry may add `Test: <the test pinning the claim>`. A claim wraps
+at two spaces, in the plan and in its entry, and the two match on its
+text with the wrapped lines joined by one space; a field sits at two
+spaces, its value's own lines at three or more. `scripts/ci/check-plan-text.sh` fails a plan the
+branch adds without either section, and a claim whose entry the report
+lacks.

@@ -333,5 +333,15 @@ Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
   against its entry like any claim, but ends in no link.
 
 ## Implementer
+### Divergences
+- Item 1: the gate takes the planner's `claims()` without its done-item
+  half - the checkbox marks, the field values and `need[]` - which is
+  Item 2's; it still recognizes the five fields so a field line never
+  joins the claim text. The `pairs` dedup keeps the order plans were
+  seen in rather than `for (k in m)` order. The `dev-planner.md` rule
+  joins `§ Steps` 3 instead of a new step, keeping the step numbers
+  cited elsewhere. The `§ Task report` implementer sentence of G9 is
+  left to Item 2, which owns filling the entries. Result:
+  `check-plan-text.test.sh` passes, its new cases included.
 
 ## Review
