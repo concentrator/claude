@@ -331,13 +331,13 @@ Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
   allowed, and the gate fails an added plan lacking either heading.
 - Cold read G5 and G6: a CHANGELOG claim line is listed and checked
   against its entry like any claim, but ends in no link.
-- Review R1: fix - where the plan lists claims, the table appends a
+- Review 1: fix - where the plan lists claims, the table appends a
   final `source` column to the template, holding the link.
-- Review R2: keep the extended header comment.
-- Review R3: accept the empty-`Test:` failure and both edits.
-- Review R4: fix - the live run is the implementer's probe, recorded in
+- Review 2: keep the extended header comment.
+- Review 3: accept the empty-`Test:` failure and both edits.
+- Review 4: fix - the live run is the implementer's probe, recorded in
   the task report, which the verifier checks.
-- Review R5: fix - the step names the docs `run.md § Close` 3 has the
+- Review 5: fix - the step names the docs `run.md § Close` 3 has the
   writer write, keeping the line count.
 
 ## Implementer
@@ -410,17 +410,24 @@ Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
   an item whose code calls the system. Result: the fast tier passes.
 
 ## Review
-- R1 (Suggestion): `layout.md § Docs` puts a claim row's link in "the
-  row's last column", but the row template's last column is `on
-  invalid/missing`, so a writer may fill that cell or add a column.
-- R2: `scripts/ci/check-plan-text.sh` keeps a header comment, which
-  Items 1 and 2 extended with the new failures.
-- R3: Item 2 fails an empty `Test:` field an entry carries; Item 2 also
-  edited `branch-plan.md § Rails` and the implementer's "Plan and task
-  report" paragraph, outside its Approach.
-- R4: `verification-policy.md § Verification modality` says an
-  observable claim's ground truth is a live run, while the docs
-  verifier now probes nothing.
-- R5: `branch-plan.md § Closing routine` 7 says the doc writer "writes
-  every doc the branch ships to the shipped code", the path of a plan
-  without `## Claims` only.
+- [x] Close review: a claim row's link goes in "the row's last column",
+  which the row template fills with `on invalid/missing` (Suggestion) -
+  `skills/dev/layout.md:152`; fixed.
+  Evidence: observed the template's last column, `on invalid/missing`
+- [x] Close review: Items 1 and 2 extend the gate's header comment,
+  though code carries no comments (Suggestion) -
+  `scripts/ci/check-plan-text.sh:2`; won't fix: the comment predates
+  the rule and stays accurate.
+  Evidence: contract `rules/code-comments.md`
+- [x] Close review: Item 2 fails an empty `Test:` field and edits
+  `§ Rails` outside its Approach (Suggestion) -
+  `scripts/ci/check-plan-text.sh:117`; won't fix: accepted as is.
+  Evidence: observed Item 2's divergence entry
+- [x] Close review: an observable claim's ground truth is a live run,
+  while the docs verifier probes nothing (Suggestion) -
+  `skills/dev/companions/verification-policy.md:66`; fixed.
+  Evidence: observed the verifier's tools, `Read, Bash`
+- [x] Close review: the doc-writer step names only the path of a plan
+  without `## Claims` (Suggestion) - `skills/dev/branch-plan.md:217`;
+  fixed.
+  Evidence: observed "every doc the branch ships to the shipped code"
