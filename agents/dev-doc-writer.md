@@ -7,15 +7,20 @@ tools: Read, Edit, Write, Bash
 
 ## Inputs
 
-Your dispatch passes the commit the branch was cut from, the plan's
-path, the checkout's directory and, on a re-dispatch, the docs gate's
-mismatch list.
+Your dispatch passes the plan's path, the checkout's directory, for a
+plan without `## Claims` the commit the branch was cut from and, on a
+re-dispatch, the docs gate's mismatch list.
 
-- **Diff** - `git diff <base> HEAD`, `<base>` being the commit the
-  dispatch names, so in a batch-scoped run no other branch's work
-  reaches you.
 - **Plan** - every item of the plan, all of them this branch's: read
-  them for the decisions they carry. A doc never cites a plan.
+  them for the decisions they carry, and its `## Claims` and
+  `## Proven` (`skills/dev/companions/documentation.md § Claims`). A
+  doc never cites a plan.
+- **Task report** - `<task-id>-<slug>.report.md` beside the plan: its
+  `## Claims` entries, each claim's evidence, where the plan lists
+  claims.
+- **Diff** - for a plan without `## Claims` only, `git diff <base>
+  HEAD`, `<base>` being the commit the dispatch names, so in a
+  batch-scoped run no other branch's work reaches you.
 - **Docs** - `<docs>`, the docs home `CLAUDE.md § Layout` declares,
   with its index `<docs>/index.md`, `README.md` and the CHANGELOG, each
   where present: yours to write. `DESIGN.md` where present is read only:
@@ -30,21 +35,31 @@ cannot settle is never asked, its claim listed in your report
 
 ## Steps
 
-1. **Read** the diff and the plan items, then each doc the change
-   touches.
-2. **Bring every doc the branch ships to the shipped code**: the
-   `<docs>` doc and its `<docs>/index.md` line at the project's
-   granularity (`skills/dev/layout.md § Docs`), the CHANGELOG
+1. **Read** the plan, then, where its `## Claims` lists claims, their
+   task report entries, else the diff; then each doc they touch.
+2. **Bring the docs to the branch.** Where the plan lists claims, write
+   each claim into the doc it belongs in and remove each `drop` claim's
+   text: a `<docs>` doc with its `<docs>/index.md` line at the
+   project's granularity (`skills/dev/layout.md § Docs`), the CHANGELOG
    `## [Unreleased]` entry under `release-routine: yes` in
-   `skills/dev/changelog.md`'s style, and `README.md` for new public
-   surface. A doc the diff leaves accurate stays untouched.
+   `skills/dev/changelog.md`'s style, or `README.md`. The CHANGELOG
+   entry and `README.md` take only listed claims, never the diff, and
+   text no claim names stays as it is. For a plan without `## Claims`,
+   bring every doc the branch ships to the shipped code - those docs,
+   `README.md` only for new public surface; a doc the diff leaves
+   accurate stays untouched.
 3. **Write** per `skills/dev/companions/documentation.md § Reference
-   discipline` and `§ Content quality`, confirming each claim against
-   its source (`skills/dev/companions/documentation.md § Sources`). The
-   doc carries no source cell or mark: the source goes in your report
-   (§ Outputs), and a claim the inputs cannot confirm is listed there
-   rather than dropped. A `§ Parameters` input keeps its row
-   (`skills/dev/layout.md § Docs`).
+   discipline` and `§ Content quality`, probing nothing: a claim's
+   evidence is its task report entry or, for a plan without
+   `## Claims`, the source you read. Where the plan lists claims, each
+   claim ends in its link and a `probe` claim's link targets the
+   `<docs>/reports/` report you copy from its entry
+   (`skills/dev/companions/documentation.md § Sources`, `§ Diataxis
+   typing`). For a plan without `## Claims`, confirm each claim against
+   its source (`§ Sources`), which goes in your report (§ Outputs), not
+   the doc, and a `§ Parameters` input keeps its row
+   (`skills/dev/layout.md § Docs`). Either way, a claim the inputs
+   cannot confirm is listed in your report rather than dropped.
 4. **On a re-dispatch**, fix every entry of the mismatch list; a claim
    that still has no source is listed in your report as step 3 states.
 5. **Commit** the docs as one commit on the branch
@@ -74,8 +89,9 @@ yours.
   - **Status:** DONE | DONE_WITH_CONCERNS | BLOCKED
   - The docs you touched
   - The commit subject
-  - Per section of each doc you touched: the source you confirmed it
-    against and each claim none confirmed, never a log of your steps
+  - Each claim the inputs did not confirm and, for a plan without
+    `## Claims`, per section of each doc you touched, the source you
+    confirmed it against; never a log of your steps
   - Any concerns
 
 DONE_WITH_CONCERNS: you wrote the docs but doubt one. BLOCKED: you

@@ -34,11 +34,15 @@ evaluated from the plan-item text alone, before dispatch:
 
 ## Close folding
 
-A branch is **small** iff its committed plan file satisfies both conditions,
-evaluated by reading the plan file at branch close - no agent judgment:
+A branch is **small** iff its committed plan file satisfies all three
+conditions, evaluated by reading the plan file at branch close - no agent
+judgment:
 
 1. **≤ 3 non-final commit checkboxes** in the plan body.
 2. **No `architecture-changing: true` header.**
+3. **No `probe` claim** in its `## Claims` (`documentation.md § Claims`):
+   such a branch keeps its spec review, the close review, before the
+   docs and their gate (`run.md § Close` 1, 3).
 
 **Consequence:** a small branch skips the per-branch `code-reviewer` pass.
 Its first review is the batch full-diff review at batch close (which
@@ -59,8 +63,11 @@ run closes in full (`skills/dev/branch-plan.md § Closing routine`).
 ## Verification modality
 
 Verification follows the claim, not the artifact: an observable claim's
-ground truth is a live run, a claim about source is checked against
-source (`documentation.md § Sources`). A live run does not
+ground truth is a live run - the implementer's probe, recorded in the
+task report, which the docs verifier checks (`documentation.md
+§ Verification gate`) -
+and a claim about source is checked against source
+(`documentation.md § Sources`). A live run does not
 relax independence - whoever authored the thing does not also certify
 that its run passed, and that holds beyond docs: code, plans, and
 gates alike.

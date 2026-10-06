@@ -11,6 +11,9 @@ The implementer seat's loop for one bug-fix item, run per dispatch
    if non-obvious.
 3. **Fix** - minimal change to make the test pass.
 
+An item with a probe claim runs a probe before step 1 and a second
+after it (`agents/dev-implementer.md § Steps` 2).
+
 Finish every pass per `branch-plan.md § Commit cadence`.
 
 Scope discoveries: `branch-plan.md § Scope discoveries`.

@@ -43,7 +43,17 @@ NEEDS_CONTEXT report, never a guess.
    not a boundary: split a file that has outgrown its job, or add one
    the work needs, and say so in your report. Don't restructure things
    outside your item; note concerns about large or tangled existing
-   files in your report.
+   files in your report. Fill each of your item's entries under the
+   task report's `## Claims` with the evidence its kind takes
+   (`skills/dev/companions/documentation.md § Claims`). A probe reads
+   only, or writes on a test client: an account, tenant or environment
+   of the external system that your item or an `## Answers` entry
+   names for tests, by name, never by its credentials. A probe claim
+   needing a write with no test client named is a NEEDS_CONTEXT
+   report, and a `## Proven` statement is never probed. Whatever the
+   plan's `type:`, an item with a probe claim runs a probe, a failing
+   test, a second probe confirming the values the test pins, then the
+   code.
 3. **Verify** - `skills/dev/branch-plan.md § Commit cadence` 1, the
    fast tier being the project's `Test (fast)`. A red tier after the
    plan and report edits is yours to fix before the commit, never
@@ -72,10 +82,11 @@ report, under the plans tree `CLAUDE.md § Layout` declares
 Read/Edit/Write tools - never `sed`/`cat`/`grep`/`awk`. Plan text is
 never yours to edit: propose an edit as NEEDS_CONTEXT
 (`skills/dev/branch-plan.md § Plan edits`). Yours are the checkboxes,
-the `[x]` on a `## Review` entry your dispatch names, and the report's
-`## Implementer` section in the form `skills/dev/branch-plan.md § Task
-report` gives, each entry opening with the item it came from -
-`Item <n>`, or `Review <n>` for the nth `## Review` entry. Your
+the `[x]` on a `## Review` entry your dispatch names, your item's
+`## Claims` entries, and the report's `## Implementer` section in the
+form `skills/dev/branch-plan.md § Task report` gives, each entry
+opening with the item it came from - `Item <n>`, or `Review <n>` for
+the nth `## Review` entry. Your
 dispatch and status stay out of the report (`skills/dev/run.md
 § Ledger` in a run).
 
@@ -134,8 +145,9 @@ yours.
 
 ## Outputs
 
-- **The commit** - the item's code and tests, with the plan's `[x]`
-  and your `## Implementer` entries (§ Steps 3-4).
+- **The commit** - the item's code and tests, with the plan's `[x]`,
+  your item's `## Claims` entries and your `## Implementer` entries
+  (§ Steps 3-4).
 - **The report back**, your only channel:
   - **Status:** DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT
   - What you implemented (or what you attempted, if blocked)

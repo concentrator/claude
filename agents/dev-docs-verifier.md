@@ -2,19 +2,25 @@
 name: dev-docs-verifier
 description: "Seat of `/dev`, dispatched only by its flow: runs the docs gate's three checks over every doc the writer touched and returns one mismatch list."
 model: opus
-tools: Read, Write, Bash, WebFetch, WebSearch
+tools: Read, Bash
 ---
 
 ## Inputs
 
-Your dispatch passes the docs to verify, the doc writer's report and
-the checkout's directory.
+Your dispatch passes the docs to verify, the checkout's directory and,
+where the plan's `## Claims` lists claims, the plan's path, else the
+doc writer's report.
 
 - **Docs** - every doc the writer touched, each in the checkout.
-- **Writer's report** - verbatim, in the form `agents/dev-doc-writer.md
-  § Outputs` gives: the source of each section of each doc.
-- **Code** - the checkout the dispatch names, the sources the docs
-  describe.
+- **Plan** - where it lists claims, its `## Claims`
+  (`skills/dev/companions/documentation.md § Claims`).
+- **Task report** - `<task-id>-<slug>.report.md` beside the plan: the
+  `## Claims` entry of each claim, its evidence.
+- **Writer's report** - for a plan without `## Claims` only, verbatim,
+  in the form `agents/dev-doc-writer.md § Outputs` gives: the source of
+  each section of each doc.
+- **Code** - the checkout the dispatch names: the files the docs link
+  and the sources they describe.
 
 Nothing else is an input. You verify no doc you authored: the
 independence rule is `skills/dev/companions/documentation.md
@@ -22,20 +28,15 @@ independence rule is `skills/dev/companions/documentation.md
 
 ## Steps
 
-1. **Read** the writer's report first: check 1 takes each section's
-   source from it.
+1. **Read** the plan's `## Claims` and their task report entries, or,
+   for a plan without `## Claims`, the writer's report: check 1 takes
+   each claim's evidence from them.
 2. **Check** each doc with the three checks of
    `skills/dev/companions/documentation.md § Verification gate`, as the
-   gate writes them and over the text in scope it sets.
+   gate writes them and over the text in scope it sets, probing
+   nothing: check 1 reads files, never calling the system a claim
+   describes.
 3. **Report back** (§ Outputs).
-
-**Probing.** A probe of repo-touching behavior (git, hooks, filesystem
-mutation) runs in a throwaway repo, where non-destructive git is the
-probe's own subject, bounded by
-`skills/dev/companions/verification-policy.md § Verifier isolation`.
-Build that fixture's files with the Write tool, never a shell heredoc
-(`agents/dev-implementer.md § Steps`, its scratch paragraph). The
-fixture lives outside the checkout and the config directory.
 
 **Read-only.** Toward the checkout, the config directory and the
 settings surface (`agents/dev-implementer.md § Steps`, its config

@@ -29,7 +29,10 @@ Two further types live in their own subdirectories of the docs tree
   run that could have failed (`verification-policy.md § Verification
   modality`). The one docs location where datetimes and tenant
   or client ids are allowed. A report is a probed claim's source
-  (§ Sources); a probed claim without one has none.
+  (§ Sources); a probed claim without one has none. For a `probe`
+  claim (§ Claims) the doc writer writes the report, copying the call,
+  output and environment of the claim's task report entry. A report is
+  never archived: the claims linking it outlive the task.
 - **Adapted references** (`<docs>/references/`): external or codebase
   material rewritten to project format, carrying exactly what the
   docs need; a source URL is allowed inside.
@@ -67,6 +70,9 @@ an Element.
 
 - Enumerate **every element of the subject** - parameter, input, field,
   option, endpoint, file - and define each: name, type/default, meaning.
+  A feature doc's elements are those of the code it explains
+  (`layout.md § Docs`): an external system's element that code neither
+  takes nor sends is not one.
 - For each component, cover both its inputs (configuration, parameters)
   and its outputs (results, logs, errors).
 - Never paste an artifact (config dump, schema, sample output) without
@@ -108,7 +114,7 @@ an Element.
 - **Snapshot, not history**: a doc states the subject's current
   behavior only - no development chronology, task or plan ids, round
   dates, or development details. Git holds history, plans hold
-  planning, and the doc writer's report the sources (§ Sources).
+  planning, and a claim's source sits where § Sources puts it.
 - **Closed link scope**: a doc links only sibling documents inside the
   docs tree, other files of the same project (`config/`, `scripts/`,
   `src/`), or external URLs - never plan files (live or archived),
@@ -149,9 +155,15 @@ branch touches.
 
 The checks, over the text in scope:
 
-1. **Claims**: each claim against its section's source (§ Sources), for
-   a doc the writer touched the one its report names. A claim no source
-   confirms is listed.
+1. **Claims**: for a doc written from a plan's `## Claims` (§ Claims),
+   each claim the plan lists against its task report entry and the
+   link that ends it in the doc, the linked file read - for a `probe`
+   claim the `<docs>/reports/` report, matching its entry; a CHANGELOG
+   line, ending in no link, against its entry alone - and each `drop`
+   claim's text gone from the doc. Otherwise each claim against its
+   section's source (§ Sources), for a doc the writer touched the one
+   its report names. The docs verifier probes nothing, and a claim its
+   source does not confirm is listed.
 2. **Coherence**: the text read alone - what is ambiguous to a reader
    holding only it, and where it contradicts itself. The first check
    asks whether the text is true, this one whether it is usable cold.
@@ -176,9 +188,15 @@ What a doc's claim is confirmed against:
 - a claim resting on both: one of each.
 
 A citation of a citation is no source, and an inferred claim has none.
-The doc writer's report names the source per section
-(`agents/dev-doc-writer.md`); the doc itself carries no source cell,
-column or mark.
+
+Where the plan's `## Claims` lists claims (§ Claims), each claim the
+doc writer writes ends in a link: to the file its task report entry's
+`Source:` or `Test:` names, the symbol or test named in the link text,
+or, for a `probe` claim, to the `<docs>/reports/` report written from
+its entry (§ Diataxis typing). A CHANGELOG line ends in no link. For
+a plan without `## Claims`, the doc writer's report names the source
+per section (`agents/dev-doc-writer.md`), and the doc carries no
+source cell, column or mark.
 
 - Prefer a report over a read source.
 - A version- or environment-specific fact says which version or
@@ -186,3 +204,51 @@ column or mark.
   writer's report, never as inline chronology.
 - A recalled or documented fact that names a file, flag, or field is
   re-checked against the current system before it is relied on.
+
+## Claims
+
+A branch plan (`branch-plan.md § Body`) ends on two sections, each
+holding `- none` when it has nothing to list:
+
+- `## Claims` - one line per claim the branch's docs make or drop,
+  `- Item <n> (<kind>): <claim>`, `Item <n>` being the plan's nth
+  checkbox, the item whose change the claim describes. The kind is one
+  of:
+  - `source` - a fact of the project's own code, proven by reading it;
+  - `probe` - a fact of an external system, proven by a call to it;
+    the planner gives it only to an item whose code calls that system;
+  - `drop` - text the docs remove, proven by showing the behavior gone.
+- `## Proven` - one line per statement the docs rely on that is
+  already proven, `- <statement>: <evidence>`, the evidence a source
+  path, a test or a `<docs>/reports/` report, never a task report: that
+  lives only as long as its R (`branch-plan.md § Task report`).
+
+The task report's `## Claims` repeats each claim, word for word, as an
+entry whose fields hold its evidence; the planner writes the entries
+with their fields blank, and a plan whose `## Claims` is `- none` gives
+its report no `## Claims`:
+
+    ## Claims
+    - Item 1 (source): <claim>
+      Source: <the file and symbol, or the test, that shows it>
+    - Item 2 (probe): <claim>
+      Call: <the call>
+      Output:
+        <its output, each line indented under the field>
+      Environment: <where the call ran>
+    - Item 3 (drop): <claim>
+      Source: <the file and line, or the test, showing the behavior gone>
+
+Any entry may add `Test: <the test pinning the claim>`. A claim wraps
+at two spaces, in the plan and in its entry, and the two match on its
+text with the wrapped lines joined by one space; a field sits at two
+spaces, its value's own lines at three or more.
+
+The implementer fills its item's entries in the commit that marks the
+item `[x]` (`agents/dev-implementer.md § Steps`), a probe entry from
+the second of its item's probes, the one confirming the values its
+test pins.
+`scripts/ci/check-plan-text.sh` fails a plan the branch adds without
+either section, a claim whose entry the report lacks, and a done item's
+entry with an empty field - one its kind needs or one it carries - a
+value counting on the field's line or on lines indented under it.

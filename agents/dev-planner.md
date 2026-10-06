@@ -45,7 +45,11 @@ NEEDS_CONTEXT report, never a guess.
    right-sizing: `skills/dev/plan.md § Levels`). For a `[feat]` or
    `[fix]` task, each item is one behavior slice carrying its test and
    its implementation together (`skills/dev/feat.md`,
-   `skills/dev/fix.md`), so "write tests" is never its own item.
+   `skills/dev/fix.md`), so "write tests" is never its own item. Below
+   the items, `## Claims` lists each claim the branch's docs will make
+   or drop, with its item and kind, and `## Proven` each statement they
+   rely on that is already proven
+   (`skills/dev/companions/documentation.md § Claims`).
 4. **Add the header** per `skills/dev/branch-plan.md § Header`, without
    `cold-read: passed`: the cold read writes it
    (`skills/dev/write-plan.md` step 6), and that step is not yours.

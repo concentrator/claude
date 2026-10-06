@@ -331,7 +331,103 @@ Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
   allowed, and the gate fails an added plan lacking either heading.
 - Cold read G5 and G6: a CHANGELOG claim line is listed and checked
   against its entry like any claim, but ends in no link.
+- Review 1: fix - where the plan lists claims, the table appends a
+  final `source` column to the template, holding the link.
+- Review 2: keep the extended header comment.
+- Review 3: accept the empty-`Test:` failure and both edits.
+- Review 4: fix - the live run is the implementer's probe, recorded in
+  the task report, which the verifier checks.
+- Review 5: fix - the step names the docs `run.md § Close` 3 has the
+  writer write, keeping the line count.
 
 ## Implementer
+### Divergences
+- Item 1: the gate takes the planner's `claims()` without its done-item
+  half - the checkbox marks, the field values and `need[]` - which is
+  Item 2's; it still recognizes the five fields so a field line never
+  joins the claim text. The `pairs` dedup keeps the order plans were
+  seen in rather than `for (k in m)` order. The `dev-planner.md` rule
+  joins `§ Steps` 3 instead of a new step, keeping the step numbers
+  cited elsewhere. The `§ Task report` implementer sentence of G9 is
+  left to Item 2, which owns filling the entries. Result:
+  `check-plan-text.test.sh` passes, its new cases included.
+- Item 2: the gate also fails a `Test:` field a done item's entry
+  carries empty, reading "an empty field" past the planner's `need[]`,
+  which checks only the fields a kind needs; it prints one line per
+  empty field, naming it. Beyond the G9 edits, `branch-plan.md § Rails`
+  and the implementer's "Plan and task report" paragraph name the claim
+  entries, so neither still limits the implementer to its
+  `## Implementer` section. Result: `check-plan-text.test.sh` passes,
+  its new cases included.
+- Item 3: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. G4's rule - the
+  second probe fills a probe entry - is written in `documentation.md
+  § Claims` and reached from `dev-implementer.md § Steps` 2 through its
+  existing citation of that section, not restated there. `feat.md` and
+  `fix.md` cite the loop with one shared sentence after their steps
+  rather than a new step, keeping their step numbers. Result: the fast
+  tier passes.
+- Item 4: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. The spec review
+  joins `code-reviewer.md § Steps` 2, the plan check, rather than a new
+  step, and the task report becomes a named input, read in § Steps 1;
+  the dispatch still passes only the plan path, the report sitting
+  beside it. Result: the fast tier passes.
+- Item 5: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. Beyond the named
+  sections, `documentation.md § Content quality`'s snapshot bullet no
+  longer says the writer's report holds the sources, which a plan with
+  claims puts in the doc's links, and `dev-doc-writer.md § Outputs`
+  names per-section sources only for a plan without `## Claims`. The
+  writer's trigger in `run.md § Close` 3 is left to Item 7 and the
+  verifier's input there to Item 6; this item changes only what the
+  writer's dispatch names. Result: the fast tier passes.
+- Item 6: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. Beyond the named
+  files, `run.md § Close` 3 passes the verifier the plan file where it
+  lists claims, else the writer's report (G7), and
+  `seat-permissions.md § Mode-independent set` no longer traces its
+  edit-class and `WebSearch` rows to the verifier, which holds neither
+  tool now. Check 1 keeps its source branch for text written without
+  a plan's claims, which the code reviewer's prose class also runs,
+  and checks a `drop` claim's text gone from the doc, since removed
+  text carries no link to read. Result: the fast tier passes.
+- Item 7: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. G5's ruling that a
+  `§ Parameters` row carries its link in its last column, which no
+  earlier item wrote, joins G11's sentence in `layout.md § Docs`; the
+  row template keeps its columns, since a plan without `## Claims`
+  gives a doc no source column (`documentation.md § Sources`). The
+  skeleton table's Parameters row reads "every input the code takes or
+  sends" for "every input it accepts", and `documentation.md § Detail
+  bar` cites `layout.md § Docs` for a feature doc's elements rather than
+  restating its scope. Result: the fast tier passes.
+- Item 8: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. The paragraph says
+  the claims a plan's docs "make or drop", matching `documentation.md
+  § Claims`, cites that section for the detail, and names the
+  implementer as the seat that probes, since a probe claim goes only to
+  an item whose code calls the system. Result: the fast tier passes.
 
 ## Review
+- [x] Close review: a claim row's link goes in "the row's last column",
+  which the row template fills with `on invalid/missing` (Suggestion) -
+  `skills/dev/layout.md:152`; fixed.
+  Evidence: observed the template's last column, `on invalid/missing`
+- [x] Close review: Items 1 and 2 extend the gate's header comment,
+  though code carries no comments (Suggestion) -
+  `scripts/ci/check-plan-text.sh:2`; won't fix: the comment predates
+  the rule and stays accurate.
+  Evidence: contract `rules/code-comments.md`
+- [x] Close review: Item 2 fails an empty `Test:` field and edits
+  `§ Rails` outside its Approach (Suggestion) -
+  `scripts/ci/check-plan-text.sh:117`; won't fix: accepted as is.
+  Evidence: observed Item 2's divergence entry
+- [x] Close review: an observable claim's ground truth is a live run,
+  while the docs verifier probes nothing (Suggestion) -
+  `skills/dev/companions/verification-policy.md:66`; fixed.
+  Evidence: observed the verifier's tools, `Read, Bash`
+- [x] Close review: the doc-writer step names only the path of a plan
+  without `## Claims` (Suggestion) - `skills/dev/branch-plan.md:217`;
+  fixed.
+  Evidence: observed "every doc the branch ships to the shipped code"

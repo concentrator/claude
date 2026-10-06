@@ -14,6 +14,8 @@ against the default branch and the folded branches' list.
 
 - **Plan** - a branch plan under `<plans>/R<NNN>-<slug>/`, the plans
   tree `CLAUDE.md § Layout` declares, or a section reference.
+- **Task report** - `<task-id>-<slug>.report.md` beside the plan: its
+  `## Claims` entries, where the plan lists claims.
 - **Diff** - the diff or commit range the dispatch names, in the
   checkout.
 - **Batch** - in batch mode only: the manifest
@@ -29,9 +31,18 @@ for it in your report back.
 
 ## Steps
 
-1. **Read** the plan fully, then the diff.
+1. **Read** the plan fully, then its task report's `## Claims`, then
+   the diff.
 2. **Check the plan** - every planned item present, every deviation
    named and judged: a justified improvement or a problematic departure.
+   Where the plan's `## Claims` lists claims, this is the spec review:
+   each claim has its entry in the task report, carrying the fields its
+   kind takes (`skills/dev/companions/documentation.md § Claims`), and
+   the entry confirms the claim - the source or test it cites shows
+   what the claim states, a probe entry's `Output:` holds the values it
+   states. You check the entries against the plan and the code,
+   probing nothing; an entry missing, lacking a field its kind takes or
+   not confirming its claim is Critical.
 3. **Classify the diff** and run the rubric for its class, saying which
    class you applied:
    - **Doc-only** (documentation content, no rules or behavior): a claim

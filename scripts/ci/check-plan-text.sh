@@ -3,8 +3,10 @@
 # ROADMAP entries, requirements.md, tasks.md and branch plans stay short and
 # stable (skills/dev/templates.md). Fails on links, ISO dates, #NNN refs,
 # commit hashes, ids of another initiative, oversize entries, a task report
-# checkbox without an Evidence: line, an added *.findings.md, and a branch
-# plan without its task report.
+# checkbox without an Evidence: line, an added *.findings.md, a branch plan
+# without its task report, an added plan without ## Claims or ## Proven, a
+# plan's claim its task report's ## Claims does not repeat, and a done item's
+# claim entry with an empty field.
 set -uo pipefail
 h="$(dirname "${BASH_SOURCE[0]}")/branch-diff.sh"
 { [ -r "$h" ] && . "$h"; } \
@@ -17,8 +19,9 @@ P=${P%/}
 fail=0
 
 base=$(branch_base) || { echo "check-plan-text: SKIP (no default branch)"; exit 0; }
-new=$(mktemp); old=$(mktemp); blob=$(mktemp)
-trap 'rm -f "$new" "$old" "$blob"' EXIT
+new=$(mktemp); old=$(mktemp); blob=$(mktemp); blob2=$(mktemp)
+trap 'rm -f "$new" "$old" "$blob" "$blob2"' EXIT
+pairs=
 
 scan() {
   awk -v f="$2" -v own="$3" -v mode="$4" '
@@ -87,17 +90,74 @@ backlog() {
     { at = NR; first = $0; told = 0; ub = /^[-*] /; ctx = "line" }' "$1"
 }
 
-judge() {
-  local fn=$1 f=$2 from=$3 out; shift 3
-  "$fn" "$f" "$f" "$@" > "$new"
-  : > "$old"
-  if [ -n "$from" ] && git show "$base:$from" > "$blob" 2>/dev/null; then "$fn" "$blob" "$f" "$@" > "$old"; fi
+claims() {
+  awk -v fp="$3" -v fr="${3%.md}.report.md" '
+    function flush(  x) {
+      if (k != "" && inplan) { line[k] = start; item[k] = it; kind[k] = kd }
+      else if (k != "") { got[k] = start; for (x in fv) val[k, x] = fv[x] }
+      k = ""; fld = ""; split("", fv)
+    }
+    FNR == 1 { flush(); sec = ""; inplan = FILENAME == ARGV[1] }
+    /^## / { flush(); sec = $0; next }
+    inplan && sec == "" && /^- \[[ x]\]/ { done[++boxes] = /^- \[x\]/; next }
+    sec != "## Claims" { next }
+    /^- Item [0-9]+ \((source|probe|drop)\): / {
+      flush(); start = FNR; k = $0; it = $3 + 0; kd = $4; gsub(/[():]/, "", kd); next
+    }
+    k != "" && !inplan && match($0, /^  (Source|Call|Output|Environment|Test):/) {
+      fld = substr($0, 3, RLENGTH - 3); v = substr($0, RLENGTH + 1); gsub(/[ \t]/, "", v)
+      fv[fld] = v != ""; next
+    }
+    k != "" && fld != "" && /^   +[^ ]/ { fv[fld] = 1; next }
+    k != "" && fld == "" && /^  +[^ ]/ { t = $0; sub(/^ +/, "", t); k = k " " t; next }
+    { flush() }
+    END {
+      flush()
+      need["source"] = need["drop"] = " Source "; need["probe"] = " Call Output Environment "
+      n = split("Source Call Output Environment Test", fs, " ")
+      for (c in line) {
+        if (!(c in got)) {
+          printf "PLAN-TEXT: %s:%d: claim without report entry\tentry\t%s\n", fp, line[c], c
+          continue
+        }
+        if (!done[item[c]]) continue
+        for (i = 1; i <= n; i++) {
+          f = fs[i]
+          if (((c, f) in val || index(need[kind[c]], " " f " ")) && !val[c, f])
+            printf "PLAN-TEXT: %s:%d: claim of a done item with empty %s:\t%s\t%s\n", fr, got[c], f, f, c
+        }
+      }
+    }' "$1" "$2"
+}
+
+added() {
+  local out
   out=$(awk '
     { i = index($0, "\t"); k = substr($0, i + 1) }
     FILENAME == ARGV[1] { seen[k]++; next }
     seen[k] > 0 { seen[k]--; next }
     { print substr($0, 1, i - 1) }' "$old" "$new")
   [ -z "$out" ] || { printf '%s\n' "$out"; fail=1; }
+}
+
+judge() {
+  local fn=$1 f=$2 from=$3; shift 3
+  "$fn" "$f" "$f" "$@" > "$new"
+  : > "$old"
+  if [ -n "$from" ] && git show "$base:$from" > "$blob" 2>/dev/null; then "$fn" "$blob" "$f" "$@" > "$old"; fi
+  added
+}
+
+pair() {
+  local f=$1 from=$2
+  [ -f "${f%.md}.report.md" ] || return 0
+  claims "$f" "${f%.md}.report.md" "$f" > "$new"
+  : > "$old"
+  if [ -n "$from" ] && git show "$base:$from" > "$blob" 2>/dev/null \
+    && git show "$base:${from%.md}.report.md" > "$blob2" 2>/dev/null; then
+    claims "$blob" "$blob2" "$f" > "$old"
+  fi
+  added
 }
 
 had() { git cat-file -e "$base:$1" 2>/dev/null; }
@@ -112,13 +172,25 @@ while IFS=$'\t' read -r st f from; do
   case ${BASH_REMATCH[2]} in
     requirements.md) judge scan "$f" "$from" "$id" req ;;
     tasks.md) judge scan "$f" "$from" "$id" tasks; judge backlog "$f" "$from" ;;
-    *.report.md) judge report "$f" "$from" ;;
+    *.report.md) judge report "$f" "$from"
+      pairs+="${f%.report.md}.md"$'\t'"${from%.report.md}"${from:+.md}$'\n' ;;
     *.md) judge scan "$f" "$from" "$id" plan
+      pairs+="$f"$'\t'"$from"$'\n'
       [ -f "${f%.md}.report.md" ] || [ -f "${f%.md}.findings.md" ] \
         || { [ -n "$from" ] && ! had "${from%.md}.report.md" && ! had "${from%.md}.findings.md"; } \
-        || { echo "PLAN-TEXT: $f: plan without task report"; fail=1; } ;;
+        || { echo "PLAN-TEXT: $f: plan without task report"; fail=1; }
+      [[ $st == A ]] && for s in Claims Proven; do
+        grep -qx "## $s" "$f" || { echo "PLAN-TEXT: $f: plan without ## $s"; fail=1; }
+      done ;;
   esac
 done < <(branch_changed "$base" "$P")
+
+while IFS=$'\t' read -r f from; do
+  [ -f "$f" ] && pair "$f" "$from"
+done < <(printf '%s' "$pairs" | awk -F '\t' '
+  !($1 in m) { o[++n] = $1 }
+  !($1 in m) || m[$1] == "" { m[$1] = $2 }
+  END { for (i = 1; i <= n; i++) print o[i] "\t" m[o[i]] }')
 
 [ "$fail" -eq 0 ] && echo "check-plan-text: OK"
 exit "$fail"

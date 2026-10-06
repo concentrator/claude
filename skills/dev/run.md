@@ -27,7 +27,7 @@ file owns, never restating it.
 | Planner | at the detail round, and to fix a strict plan's cold-read gaps once (`write-plan.md` step 6) | `agents/dev-planner.md` |
 | Cold reader | once over a new strict plan before it is approved (`write-plan.md` step 6) | `agents/dev-cold-reader.md`; `companions/verification-policy.md § Comprehension check` |
 | Implementer | per commit item (§ Dispatch per item) | `agents/dev-implementer.md` |
-| Doc writer | once per branch whose diff changes user-facing behavior (§ Close 3) | `agents/dev-doc-writer.md` |
+| Doc writer | once per branch whose plan's `## Claims` lists a claim, or, for a plan without `## Claims`, whose diff changes user-facing behavior (§ Close 3) | `agents/dev-doc-writer.md` |
 | Docs verifier | over every doc the writer touched (§ Close 3) | `agents/dev-docs-verifier.md`; `companions/documentation.md § Verification gate` |
 | Code reviewer | at branch close and at batch close (§ Close 1, § Batch close 1) | `agents/code-reviewer.md`; the steps at left, no companion |
 
@@ -147,8 +147,11 @@ report's `## Supervisor decisions` section at checkpoint.
 
 Per branch, when its last non-final item is `[x]`:
 
-1. Close review: `code-reviewer` on the branch diff vs plan. In a batch-scoped
-   run a small branch skips it (`companions/verification-policy.md § Close
+1. Close review: `code-reviewer` on the branch diff vs plan, and the
+   spec review of the task report's `## Claims` against the plan
+   (`agents/code-reviewer.md § Steps` 2), before the docs (3). In a
+   batch-scoped run a small branch skips it, a branch with a `probe`
+   claim never being small (`companions/verification-policy.md § Close
    folding`); a task-scoped run closes in full (`branch-plan.md § Closing
    routine`).
 2. Fixes, one round (§ Seats, loop bound): mechanical ones applied,
@@ -157,10 +160,13 @@ Per branch, when its last non-final item is `[x]`:
    `## Review` entries the runner wrote (`branch-plan.md § Task report`);
    a fresh implementer, dispatched naming them, commits them. The fixes
    are not reviewed again.
-3. Docs, only when the diff changes user-facing behavior: dispatch the
-   doc writer (§ Seats) naming the commit the branch was cut from and
-   the plan file, then the gate's verifier over every doc
-   it touched (§ Seats), passing it the writer's report. A non-empty
+3. Docs, only when the plan's `## Claims` lists a claim, or, for a plan
+   without `## Claims`, when the diff changes user-facing behavior:
+   dispatch the doc writer (§ Seats) naming the plan file and, for a
+   plan without `## Claims`, the commit the branch was cut from, then
+   the gate's verifier over every doc it touched (§ Seats), passing it
+   the plan file where its `## Claims` lists claims, else the writer's
+   report. A non-empty
    mismatch list re-dispatches one fresh doc writer with the list; its
    result goes to the user with the list, not to a second verification.
    A BLOCKED halts (`branch-plan.md § Stop conditions`). The report
