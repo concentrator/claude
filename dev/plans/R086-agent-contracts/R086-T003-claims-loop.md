@@ -24,7 +24,7 @@ cold-read: passed
   counts a probe claim as a request to probe a remote. Approach: `feat.md
   § Pass`, `fix.md § Pass` citing it, `agents/dev-implementer.md § Steps`,
   `CLAUDE.md § Scope`.
-- [ ] The close review is the spec review: the code reviewer checks each
+- [x] The close review is the spec review: the code reviewer checks each
   report entry against its plan claim - present, of its kind, confirming the
   claim - and reports a gap as Critical; a branch with a probe claim never
   folds, so its spec review runs before the docs and the docs gate.

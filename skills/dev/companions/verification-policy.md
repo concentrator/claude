@@ -34,11 +34,15 @@ evaluated from the plan-item text alone, before dispatch:
 
 ## Close folding
 
-A branch is **small** iff its committed plan file satisfies both conditions,
-evaluated by reading the plan file at branch close - no agent judgment:
+A branch is **small** iff its committed plan file satisfies all three
+conditions, evaluated by reading the plan file at branch close - no agent
+judgment:
 
 1. **≤ 3 non-final commit checkboxes** in the plan body.
 2. **No `architecture-changing: true` header.**
+3. **No `probe` claim** in its `## Claims` (`documentation.md § Claims`):
+   such a branch keeps its spec review, the close review, before the
+   docs and their gate (`run.md § Close` 1, 3).
 
 **Consequence:** a small branch skips the per-branch `code-reviewer` pass.
 Its first review is the batch full-diff review at batch close (which

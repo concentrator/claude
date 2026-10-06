@@ -147,8 +147,11 @@ report's `## Supervisor decisions` section at checkpoint.
 
 Per branch, when its last non-final item is `[x]`:
 
-1. Close review: `code-reviewer` on the branch diff vs plan. In a batch-scoped
-   run a small branch skips it (`companions/verification-policy.md § Close
+1. Close review: `code-reviewer` on the branch diff vs plan, and the
+   spec review of the task report's `## Claims` against the plan
+   (`agents/code-reviewer.md § Steps` 2), before the docs (3). In a
+   batch-scoped run a small branch skips it, a branch with a `probe`
+   claim never being small (`companions/verification-policy.md § Close
    folding`); a task-scoped run closes in full (`branch-plan.md § Closing
    routine`).
 2. Fixes, one round (§ Seats, loop bound): mechanical ones applied,

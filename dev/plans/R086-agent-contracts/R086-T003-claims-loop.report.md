@@ -359,5 +359,11 @@ Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
   `fix.md` cite the loop with one shared sentence after their steps
   rather than a new step, keeping their step numbers. Result: the fast
   tier passes.
+- Item 4: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. The spec review
+  joins `code-reviewer.md § Steps` 2, the plan check, rather than a new
+  step, and the task report becomes a named input, read in § Steps 1;
+  the dispatch still passes only the plan path, the report sitting
+  beside it. Result: the fast tier passes.
 
 ## Review
