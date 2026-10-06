@@ -54,13 +54,15 @@ shipped Tier-1 checks `install-dev.sh --project` placed under
 into that CI; the batch-tags gate enforces via a local pre-push
 hook - its CI run only reports a skip. Document run commands in
 `CLAUDE.md`. An `install-dev.sh --project` install into a git repo
-appended the plan-text gate (`check-plan-text.sh`) to the
-`Test (fast):` line, else the `Test:` line, in whichever of the root
-`CLAUDE.md` and `.claude/CLAUDE.md` holds it, or printed the line to
-add, naming both files, when neither existed, and printed that the
-project's CI must run the fast tier: wire the CI to run the fast tier.
-A `Test (fast):` or `Test:` line written here, after the install, lacks
-the gate: end it with the gate as the install's printed line shows. A
+appended the plan-text gate (`check-plan-text.sh`), then the code-size
+gate (`check-code-size.sh`), each only where the line did not name it
+yet, to the `Test (fast):` line, else the `Test:` line, in whichever of
+the root `CLAUDE.md` and `.claude/CLAUDE.md` holds it, or printed the
+line to add, with both gates and naming both files, when neither
+existed, and printed that the project's CI must run the fast tier: wire
+the CI to run the fast tier. A `Test (fast):` or `Test:` line written
+here, after the install, lacks the gates: end it with them as the
+install's printed line shows, or re-run the install to append them. A
 personal `~/.claude` install or a non-git project gets no append and no
 notice.
 

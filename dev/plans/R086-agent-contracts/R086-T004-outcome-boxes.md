@@ -15,7 +15,7 @@ mode: normal
   stay numbered.
   Approach: the paragraph on what the goal and outcomes carry, in
   `skills/dev/templates.md § Per-initiative`.
-- [ ] A `--project` git install appends the code-size gate to the fast-tier
+- [x] A `--project` git install appends the code-size gate to the fast-tier
   line after the plan-text gate, each gate only where no line names it, so
   a re-install adds the missing one; the no-line notice names both. This
   repo's fast tier is unchanged. Approach: the append in

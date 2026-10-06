@@ -243,18 +243,20 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
   for line in "/$sess/" "/${parent:+$parent/}supervisor/"; do
     alt=${line#/}; case ${alt%/} in */*) ;; *) alt=$line ;; esac; grep -qxF -e "$line" -e "$alt" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
   done
-  gate="bash $(git -C "$target" rev-parse --show-prefix)scripts/ci/check-plan-text.sh"; tier=""; claude=""
+  pfx=$(git -C "$target" rev-parse --show-prefix); gates="check-plan-text.sh check-code-size.sh"; tier=""; claude=""
   for key in 'Test (fast)' 'Test'; do
     for f in "$repo/CLAUDE.md" "$repo/.claude/CLAUDE.md"; do
       if [ -z "$tier" ] && tier=$(grep -m1 -n "^- $key:" "$f" 2>/dev/null); then claude=$f; fi
     done
   done
   if [ -z "$tier" ]; then
-    echo "install-dev: no Test (fast): or Test: line in $repo/CLAUDE.md or $repo/.claude/CLAUDE.md - add to the § Agent toolchain of one: - Test (fast): <fast tier>, then \`$gate\`"
-  elif end=$(awk -v n="${tier%%:*}" 'NR > n && !/^  / { exit } NR >= n { e = NR; g = g || /check-plan-text\.sh/ } END { if (!g) print e }' "$claude") && [ -n "$end" ]; then
-    tmp="$(mktemp)"; awk -v n="$end" -v add=", then \`$gate\`" 'NR == n { sub(/\.$/, ""); $0 = $0 add } 1' "$claude" > "$tmp"
-    cat "$tmp" > "$claude"
-  fi
+    echo "install-dev: no Test (fast): or Test: line in $repo/CLAUDE.md or $repo/.claude/CLAUDE.md - add to the § Agent toolchain of one: - Test (fast): <fast tier>$(for g in $gates; do printf ', then `bash %sscripts/ci/%s`' "$pfx" "$g"; done)"
+  else for g in $gates; do
+    if end=$(awk -v n="${tier%%:*}" -v g="$g" 'NR > n && !/^  / { exit } NR >= n { e = NR; h = h || index($0, g) } END { if (!h) print e }' "$claude") && [ -n "$end" ]; then
+      tmp="$(mktemp)"; awk -v n="$end" -v add=", then \`bash ${pfx}scripts/ci/$g\`" 'NR == n { sub(/\.$/, ""); $0 = $0 add } 1' "$claude" > "$tmp"
+      cat "$tmp" > "$claude"
+    fi
+  done; fi
 fi
 
 # 8. maintenance: seed the hygiene section - the cleanup rules for the
