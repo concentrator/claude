@@ -53,7 +53,7 @@ cold-read: passed
   and the doc writer and verifier work from those two, so an external
   system's claim is probed in the task that relies on it.
   Approach: one paragraph after that section's seats paragraph.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)
