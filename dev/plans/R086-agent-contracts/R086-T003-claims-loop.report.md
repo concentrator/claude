@@ -326,6 +326,12 @@ plan without `## Claims`; `agents/dev-doc-writer.md § Steps` 3's last
 sentence is limited the same way.
 Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
 
+## Answers
+- Cold read G1: `## Proven` is required on every new plan too, `- none`
+  allowed, and the gate fails an added plan lacking either heading.
+- Cold read G5 and G6: a CHANGELOG claim line is listed and checked
+  against its entry like any claim, but ends in no link.
+
 ## Implementer
 
 ## Review

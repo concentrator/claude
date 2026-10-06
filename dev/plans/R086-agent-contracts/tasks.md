@@ -28,3 +28,4 @@ Why: agents repeat convention breaches and docs carry stale claims, because rule
 - This repo declares a docs path that holds no docs.
 - Find where git workflow rules are restated outside the git workflow file.
 - The docs gate verifies a whole doc, though older text changes only on request.
+- The planner's contract has no input for the user's decisions on a plan change.
