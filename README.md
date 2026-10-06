@@ -218,25 +218,28 @@ state files live (`skills/dev/handoff.md`), and
 `supervisor/` beside it, the supervisor's ledgers (`skills/dev/run.md
 § Ledger`) - `/dev/session/` and `/dev/supervisor/` for a project
 without a declaration. A `--project` install into a git repo, full or
-`--minimal`, also wires the plan-text gate into the fast tier: it appends
-`` , then `bash <prefix>.claude/scripts/ci/check-plan-text.sh` `` to the
+`--minimal`, also wires the plan-text and code-size gates into the fast
+tier: it appends, in this order,
+`` , then `bash <prefix>.claude/scripts/ci/check-plan-text.sh` `` and
+`` , then `bash <prefix>.claude/scripts/ci/check-code-size.sh` `` to the
 repo's `Test (fast):` line, else to its `Test:` line, in whichever of
 the repo root's `CLAUDE.md` and `.claude/CLAUDE.md` holds it, the root
 one's when both do (the last line of a wrapped one, its closing period
 dropped), keeping the file's mode. `<prefix>` is `<path>` relative to
 the repo root: empty when `<path>` is the root, `sub/` for `--project
-<repo>/sub`. A line already naming `check-plan-text.sh` on any of its
-lines stays as it is; with neither line in either file, no fast-tier
-line is written and the install prints one line naming both files and
-the line to add. A global or non-git install touches no fast-tier line;
-its only `CLAUDE.md` write is the `@writing.md` line above. Past the
+<repo>/sub`. Each gate is appended only where none of the line's lines
+names its script yet, so a re-install adds a missing gate and leaves a
+line naming both as it is. With neither line in either file, no
+fast-tier line is written and the install prints one line naming both
+files and the line to add, both gates included. A global or non-git
+install touches no fast-tier line; its only `CLAUDE.md` write is the `@writing.md` line above. Past the
 `@writing.md` line and that fast-tier append, an install leaves the
 declarations and the layout file exactly as it found them: they are the
 project's.
 The copied checks are yours to wire into CI; the installer ships them
 without registering them and edits no CI config. A `--project` install into
 a git repo prints one line saying the project's CI must run the fast tier,
-which is what runs the plan-text gate there.
+which is what runs the two gates there.
 
 The four copied checks in the table below judge only what the working
 tree adds over a base: committed, staged and unstaged changes, and

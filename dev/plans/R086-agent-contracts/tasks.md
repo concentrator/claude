@@ -13,7 +13,7 @@ Why: agents repeat convention breaches and docs carry stale claims, because rule
 - [x] **R086-T003 [feat]**: List each doc claim and its evidence in the plan,
   have the implementer fill the planner's report, and scope docs to what exists.
 
-- [ ] **R086-T004 [mnt]**: Fail a checkbox in a requirements file a branch
+- [x] **R086-T004 [mnt]**: Fail a checkbox in a requirements file a branch
   adds, and run the code-size gate in an installed project's fast tier.
 
 - [ ] **R086-T005 [fix]**: Skip registering a project hook the global

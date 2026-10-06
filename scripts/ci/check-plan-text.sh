@@ -61,6 +61,9 @@ scan() {
       if (start) len++
     }
     mode == "plan" { next }
+    mode == "req" && match($0, /^[ \t]*([-*+]|[0-9]+[.)])[ \t]+\[[ x]\]/) {
+      bad(NR, "checkbox", substr($0, 1, RLENGTH - 2) " " substr($0, RLENGTH))
+    }
     { check(NR, $0) }
     END {
       close_entry()

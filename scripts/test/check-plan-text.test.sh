@@ -246,6 +246,23 @@ out=$(run_in "$d"); case "$out" in *"over 40 lines"*) pass "long requirements ca
 rm -rf "$d"
 
 d=$(mkrepo)
+printf -- '- [ ] a\n  * [x] b\n+ [ ] c\n1. [x] d\n\t12) [ ] e\n' >> "$d/dev/plans/$OWN-x/requirements.md"
+out=$(run_in "$d")
+[ "$(grep -c 'requirements.md:[0-9]*: checkbox' <<<"$out")" -eq 5 ] \
+  && pass "checkbox after any list marker in a new requirements.md caught" || die "new file's boxes: $out"
+printf '# %s: Title\n\n1. An outcome.\n2. See [x] or - [ ] mid-line.\n[ ] no marker.\n' "$OWN" > "$d/dev/plans/$OWN-x/requirements.md"
+out=$(run_in "$d") && pass "numbered outcomes and boxes off a list marker pass" || die "outcomes without boxes: $out"
+rm -rf "$d"
+d=$(mkrepo); on_main "$d" R090-old/requirements.md "$(printf -- '- [ ] an outcome\n  1. [ ] a nested one')"
+printf -- '- [x] an outcome\n  1. [x] a nested one\n' > "$d/dev/plans/R090-old/requirements.md"
+out=$(run_in "$d") && pass "older boxes checked off pass" || die "older boxes checked off: $out"
+printf -- '- [ ] another outcome\n' >> "$d/dev/plans/R090-old/requirements.md"
+out=$(run_in "$d")
+[[ $out == *"PLAN-TEXT: dev/plans/R090-old/requirements.md:3: checkbox"* ]] && [ "$(grep -c '^PLAN-TEXT' <<<"$out")" -eq 1 ] \
+  && pass "box added to an older requirements.md caught" || die "added box: $out"
+rm -rf "$d"
+
+d=$(mkrepo)
 printf '      one\n      two\n      three\n' >> "$d/dev/plans/ROADMAP.md"
 out=$(run_in "$d"); case "$out" in *"entry over 3 lines"*) pass "long roadmap entry caught" ;; *) die "long roadmap entry: $out" ;; esac
 rm -rf "$d"
