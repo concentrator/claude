@@ -47,6 +47,12 @@ declared per project (`skills/dev/companions/declarations.md
 batch of one (`skills/dev/branch-plan.md § Agentic execution`).
 Releases tag the trunk (`skills/dev/git-workflow.md § Releases`).
 
+A plan lists the claims its docs make or drop, the implementer records
+each claim's evidence in the task report, and the doc writer and the
+docs verifier work from those two (`skills/dev/companions/documentation.md
+§ Claims`). A claim about an external system is therefore probed in the
+task that relies on it, by the implementer writing the code that calls it.
+
 Standard: Trunk-Based Development / GitHub Flow (trunkbaseddevelopment.com,
 dora.dev); tag-on-trunk releases (Pro Git, git-scm.com).
 

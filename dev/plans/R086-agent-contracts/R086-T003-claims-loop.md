@@ -48,7 +48,7 @@ cold-read: passed
   plan without `## Claims`, as today. Adoption grades docs against source,
   probing nothing. Approach: `layout.md § Docs`, `documentation.md § Detail
   bar`, `run.md § Seats` and `§ Close` 3, `docs-adoption.md § Audit`.
-- [ ] `DESIGN.md § Git & delivery model` says a plan lists the claims its docs
+- [x] `DESIGN.md § Git & delivery model` says a plan lists the claims its docs
   make, the implementer records each claim's evidence in the task report,
   and the doc writer and verifier work from those two, so an external
   system's claim is probed in the task that relies on it.

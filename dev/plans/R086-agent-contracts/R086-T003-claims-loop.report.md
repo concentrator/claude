@@ -394,5 +394,11 @@ Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
   sends" for "every input it accepts", and `documentation.md § Detail
   bar` cites `layout.md § Docs` for a feature doc's elements rather than
   restating its scope. Result: the fast tier passes.
+- Item 8: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. The paragraph says
+  the claims a plan's docs "make or drop", matching `documentation.md
+  § Claims`, cites that section for the detail, and names the
+  implementer as the seat that probes, since a probe claim goes only to
+  an item whose code calls the system. Result: the fast tier passes.
 
 ## Review
