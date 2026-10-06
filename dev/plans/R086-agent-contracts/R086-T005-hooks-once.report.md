@@ -36,4 +36,17 @@
   check rather than a broken copy. Result: the silent cases fail against
   the hooks on `main` and pass here; the acting cases pass on both.
 
+## Answers
+- Review 1: fix - the four tests run their hook under an empty temporary
+  `HOME`, as `install-dev.test.sh` does.
+
 ## Review
+- [ ] Close review: run from a checkout outside `$HOME/.claude` under the
+  real `HOME`, whose settings register the hooks, the hook tests see the
+  hook as a project copy and get silence (Important) -
+  `scripts/test/dev-branch-guard.test.sh`,
+  `scripts/test/secrets-guard.test.sh`,
+  `scripts/test/dev-branch-state.test.sh`,
+  `scripts/test/dev-handoff-nudge.test.sh`.
+  Evidence: observed "not ok - Write on main not denied" and the other
+  three tests' failures in an extracted copy of the branch
