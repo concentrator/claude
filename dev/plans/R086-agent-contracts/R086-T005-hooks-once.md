@@ -4,7 +4,7 @@ type: fix
 mode: normal
 ---
 
-- [ ] A project copy of the branch or secrets guard, run from outside
+- [x] A project copy of the branch or secrets guard, run from outside
   `$HOME/.claude/hooks`, exits silent when `$HOME/.claude/settings.json` runs
   it as `~/.claude/hooks/<name>` or its expanded path for PreToolUse under a
   matcher covering the call's tool; it acts when that file is absent or

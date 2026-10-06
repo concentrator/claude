@@ -59,6 +59,8 @@ is_trunk() {
 }
 
 tool=$(printf '%s' "$input" | jq -r '.tool_name // ""')
+. "$(dirname -- "${BASH_SOURCE[0]}")/dev-hook-once.sh" 2>/dev/null \
+  && global_hook_runs "${BASH_SOURCE[0]}" PreToolUse "$tool" && exit 0
 case "$tool" in
   Write | Edit | NotebookEdit)
     # A file mutation is judged by the repo that OWNS the target path -
