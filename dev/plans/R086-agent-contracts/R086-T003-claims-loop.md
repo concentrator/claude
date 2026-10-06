@@ -30,7 +30,7 @@ cold-read: passed
   folds, so its spec review runs before the docs and the docs gate.
   Approach: `agents/code-reviewer.md`, then `verification-policy.md § Close
   folding` (a third condition), `run.md § Close` 1.
-- [ ] The doc writer's inputs are the plan, its report and the docs: it writes
+- [x] The doc writer's inputs are the plan, its report and the docs: it writes
   each claim, removes each `drop` claim's text and probes nothing; a claim
   ends in a link to its source or test, or to a `<docs>/reports/` report it
   copies from the probe entry and that is never archived. A plan without

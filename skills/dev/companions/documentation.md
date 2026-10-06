@@ -29,7 +29,10 @@ Two further types live in their own subdirectories of the docs tree
   run that could have failed (`verification-policy.md § Verification
   modality`). The one docs location where datetimes and tenant
   or client ids are allowed. A report is a probed claim's source
-  (§ Sources); a probed claim without one has none.
+  (§ Sources); a probed claim without one has none. For a `probe`
+  claim (§ Claims) the doc writer writes the report, copying the call,
+  output and environment of the claim's task report entry. A report is
+  never archived: the claims linking it outlive the task.
 - **Adapted references** (`<docs>/references/`): external or codebase
   material rewritten to project format, carrying exactly what the
   docs need; a source URL is allowed inside.
@@ -108,7 +111,7 @@ an Element.
 - **Snapshot, not history**: a doc states the subject's current
   behavior only - no development chronology, task or plan ids, round
   dates, or development details. Git holds history, plans hold
-  planning, and the doc writer's report the sources (§ Sources).
+  planning, and a claim's source sits where § Sources puts it.
 - **Closed link scope**: a doc links only sibling documents inside the
   docs tree, other files of the same project (`config/`, `scripts/`,
   `src/`), or external URLs - never plan files (live or archived),
@@ -176,9 +179,15 @@ What a doc's claim is confirmed against:
 - a claim resting on both: one of each.
 
 A citation of a citation is no source, and an inferred claim has none.
-The doc writer's report names the source per section
-(`agents/dev-doc-writer.md`); the doc itself carries no source cell,
-column or mark.
+
+Where the plan's `## Claims` lists claims (§ Claims), each claim the
+doc writer writes ends in a link: to the file its task report entry's
+`Source:` or `Test:` names, the symbol or test named in the link text,
+or, for a `probe` claim, to the `<docs>/reports/` report written from
+its entry (§ Diataxis typing). A CHANGELOG line ends in no link. For
+a plan without `## Claims`, the doc writer's report names the source
+per section (`agents/dev-doc-writer.md`), and the doc carries no
+source cell, column or mark.
 
 - Prefer a report over a read source.
 - A version- or environment-specific fact says which version or

@@ -365,5 +365,14 @@ Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
   step, and the task report becomes a named input, read in § Steps 1;
   the dispatch still passes only the plan path, the report sitting
   beside it. Result: the fast tier passes.
+- Item 5: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. Beyond the named
+  sections, `documentation.md § Content quality`'s snapshot bullet no
+  longer says the writer's report holds the sources, which a plan with
+  claims puts in the doc's links, and `dev-doc-writer.md § Outputs`
+  names per-section sources only for a plan without `## Claims`. The
+  writer's trigger in `run.md § Close` 3 is left to Item 7 and the
+  verifier's input there to Item 6; this item changes only what the
+  writer's dispatch names. Result: the fast tier passes.
 
 ## Review

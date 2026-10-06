@@ -161,8 +161,9 @@ Per branch, when its last non-final item is `[x]`:
    a fresh implementer, dispatched naming them, commits them. The fixes
    are not reviewed again.
 3. Docs, only when the diff changes user-facing behavior: dispatch the
-   doc writer (§ Seats) naming the commit the branch was cut from and
-   the plan file, then the gate's verifier over every doc
+   doc writer (§ Seats) naming the plan file and, for a plan without
+   `## Claims`, the commit the branch was cut from, then the gate's
+   verifier over every doc
    it touched (§ Seats), passing it the writer's report. A non-empty
    mismatch list re-dispatches one fresh doc writer with the list; its
    result goes to the user with the list, not to a second verification.
