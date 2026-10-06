@@ -99,12 +99,12 @@ For contributors without a global toolset, install it into their
 precedence means a personal copy wins and a project copy serves no-global
 contributors. A `--project` install into a git repo appends the plan-text
 gate (`check-plan-text.sh`), then the code-size gate (`check-code-size.sh`),
-each only where the line does not name it yet, so a re-install adds a
-missing one, to the `Test (fast):` line, else the `Test:` line, in
-whichever of the root `CLAUDE.md` and `.claude/CLAUDE.md` holds it, or
-prints the line to add, with both gates and naming both files, when
-neither exists, and prints that the project's CI must run the fast tier;
-it edits no CI config, so wire the baseline's CI to run the fast tier.
+to the `Test (fast):` line, else the `Test:` line, in whichever of the root
+`CLAUDE.md` and `.claude/CLAUDE.md` holds it, or prints the line to add,
+with both gates and naming both files, when neither exists, and prints that
+the project's CI must run the fast tier; it edits no CI config, so wire the
+baseline's CI to run the fast tier. It appends each gate only where the
+line does not name it yet, so a re-install adds a missing one.
 
 ## 6. Backfill plans
 
