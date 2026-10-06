@@ -36,7 +36,7 @@ cold-read: passed
   copies from the probe entry and that is never archived. A plan without
   `## Claims` keeps the diff input. Approach: `documentation.md § Sources`,
   `§ Diataxis typing`, `agents/dev-doc-writer.md`, `run.md § Close` 3.
-- [ ] The docs verifier works from the plan and its report: check 1 takes each
+- [x] The docs verifier works from the plan and its report: check 1 takes each
   claim the plan lists against its entry and the doc's link, reading the
   linked file and probing nothing, so its definition drops the probing
   paragraph and the Write, WebFetch and WebSearch tools.

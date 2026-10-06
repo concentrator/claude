@@ -152,9 +152,15 @@ branch touches.
 
 The checks, over the text in scope:
 
-1. **Claims**: each claim against its section's source (§ Sources), for
-   a doc the writer touched the one its report names. A claim no source
-   confirms is listed.
+1. **Claims**: for a doc written from a plan's `## Claims` (§ Claims),
+   each claim the plan lists against its task report entry and the
+   link that ends it in the doc, the linked file read - for a `probe`
+   claim the `<docs>/reports/` report, matching its entry; a CHANGELOG
+   line, ending in no link, against its entry alone - and each `drop`
+   claim's text gone from the doc. Otherwise each claim against its
+   section's source (§ Sources), for a doc the writer touched the one
+   its report names. The docs verifier probes nothing, and a claim its
+   source does not confirm is listed.
 2. **Coherence**: the text read alone - what is ambiguous to a reader
    holding only it, and where it contradicts itself. The first check
    asks whether the text is true, this one whether it is usable cold.

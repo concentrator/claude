@@ -48,11 +48,11 @@ a declared set.
 
 | Rule | Class | Source |
 | --- | --- | --- |
-| `Edit(//__PROJECT_DIR__/**)` | Edit-class, the checkout root | the seat definitions carrying an edit tool: `agents/dev-implementer.md`, `agents/dev-planner.md`, `agents/dev-doc-writer.md`, `agents/dev-docs-verifier.md` |
+| `Edit(//__PROJECT_DIR__/**)` | Edit-class, the checkout root | the seat definitions carrying an edit tool: `agents/dev-implementer.md`, `agents/dev-planner.md`, `agents/dev-doc-writer.md` |
 | `Read(//__HOME__/.claude/skills/**)` | Read outside the checkout | the seat definitions, which send a seat to `skills/dev/...` (`agents/dev-implementer.md`, `agents/dev-planner.md`) |
 | `Read(//__HOME__/.claude/rules/**)` | Read outside the checkout | the seat definitions, which send a seat to `rules/writing-artifacts.md` (`agents/dev-planner.md`, `agents/dev-doc-writer.md`) and to `rules/code-comments.md` (`agents/dev-implementer.md`, `agents/code-reviewer.md`) |
 | `Read(//tmp/**)`, `Read(//private/tmp/**)`, `Edit(//tmp/**)`, `Edit(//private/tmp/**)` | Read and Edit outside the checkout | `agents/dev-implementer.md § Steps`, its scratch paragraph |
-| `WebSearch` | bare tool | `agents/code-reviewer.md`, `agents/dev-docs-verifier.md`, which hold that tool |
+| `WebSearch` | bare tool | `agents/code-reviewer.md`, which holds that tool |
 | `WebFetch(domain:<host>)` | WebFetch | a seat's dispatch naming the domain; the class has no default member |
 | `Skill(<name>)` | bare tool | a dispatch naming the skill; the implementer holds `Skill` (`agents/dev-implementer.md`) |
 | the carve-out pattern's deny set (below) | deny | `companions/toolchain.md § Permission carve-out` |

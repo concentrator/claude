@@ -374,5 +374,15 @@ Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
   writer's trigger in `run.md § Close` 3 is left to Item 7 and the
   verifier's input there to Item 6; this item changes only what the
   writer's dispatch names. Result: the fast tier passes.
+- Item 6: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. Beyond the named
+  files, `run.md § Close` 3 passes the verifier the plan file where it
+  lists claims, else the writer's report (G7), and
+  `seat-permissions.md § Mode-independent set` no longer traces its
+  edit-class and `WebSearch` rows to the verifier, which holds neither
+  tool now. Check 1 keeps its source branch for text written without
+  a plan's claims, which the code reviewer's prose class also runs,
+  and checks a `drop` claim's text gone from the doc, since removed
+  text carries no link to read. Result: the fast tier passes.
 
 ## Review
