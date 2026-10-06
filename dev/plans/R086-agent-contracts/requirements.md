@@ -36,3 +36,4 @@ before a doc states it. A new convention binds only work created after it.
 10. Agents branch before the first edit, and the post-merge sync never
     switches onto a tree dirty with changes the branch did not make.
 11. No new seat is added, and nothing probes only to prove an existing doc.
+12. An installed project's fast tier runs the code-size check.

@@ -4,6 +4,7 @@ type: feat
 architecture-changing: true
 depends-on: R086-T002
 mode: strict
+cold-read: passed
 ---
 
 - [ ] A plan ends on `## Claims`, a `- Item <n> (source|probe|drop): <claim>`

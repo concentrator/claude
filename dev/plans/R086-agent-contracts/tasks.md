@@ -14,7 +14,7 @@ Why: agents repeat convention breaches and docs carry stale claims, because rule
   have the implementer fill the planner's report, and scope docs to what exists.
 
 - [ ] **R086-T004 [mnt]**: Fail a checkbox in a requirements file a branch
-  adds.
+  adds, and run the code-size gate in an installed project's fast tier.
 
 - [ ] **R086-T005 [fix]**: Skip registering a project hook the global
   settings already run.
@@ -28,3 +28,4 @@ Why: agents repeat convention breaches and docs carry stale claims, because rule
 - This repo declares a docs path that holds no docs.
 - Find where git workflow rules are restated outside the git workflow file.
 - The docs gate verifies a whole doc, though older text changes only on request.
+- The planner's contract has no input for the user's decisions on a plan change.
