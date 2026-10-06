@@ -26,6 +26,7 @@ run() { printf '{}' | bash "$HOOK" 2>/dev/null; }
 
 # A branch repo with one changed tracked file and one untracked file.
 D=$(cd "$(mktemp -d)" && pwd -P); trap 'rm -rf "$D"' EXIT   # physical path: git resolves symlinks
+export HOME="$D/empty-home"; mkdir "$HOME"
 git -c init.defaultBranch=main -C "$D" init -q
 git -C "$D" config user.email t@e; git -C "$D" config user.name t
 printf 'clean\n' > "$D/tracked.sh"

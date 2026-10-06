@@ -35,13 +35,19 @@
   start its `compact|resume` matcher misses, so a silent copy is the
   check rather than a broken copy. Result: the silent cases fail against
   the hooks on `main` and pass here; the acting cases pass on both.
+- Review 1: each of the four tests exports an empty temporary `HOME` once,
+  before its first hook run, rather than setting `HOME` on each
+  invocation as `install-dev.test.sh` does, so every run in the file is
+  covered; the copy cases still set their own `HOME`. Result: the four
+  tests fail in a clone outside `$HOME/.claude` under the real `HOME`
+  before the change and pass there and in this checkout after it.
 
 ## Answers
 - Review 1: fix - the four tests run their hook under an empty temporary
   `HOME`, as `install-dev.test.sh` does.
 
 ## Review
-- [ ] Close review: run from a checkout outside `$HOME/.claude` under the
+- [x] Close review: run from a checkout outside `$HOME/.claude` under the
   real `HOME`, whose settings register the hooks, the hook tests see the
   hook as a project copy and get silence (Important) -
   `scripts/test/dev-branch-guard.test.sh`,

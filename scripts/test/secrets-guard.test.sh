@@ -10,6 +10,7 @@ set -uo pipefail
 # Never inherit a git environment - see scripts/test/isolation.test.sh.
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 HOOK="$(git rev-parse --show-toplevel)/hooks/dev-secrets-guard.sh"
+EMPTY_HOME=$(mktemp -d); export HOME="$EMPTY_HOME"
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
@@ -34,7 +35,7 @@ new_repo() {
   printf '%s' "$d"
 }
 
-R=$(new_repo); trap 'rm -rf "$R"' EXIT; cd "$R"
+R=$(new_repo); trap 'rm -rf "$R" "$EMPTY_HOME"' EXIT; cd "$R"
 
 # --- Write / Edit / NotebookEdit ---
 j=$(jq -nc --arg c "aws_key=$FAKE_AWS" '{tool_name:"Write",tool_input:{file_path:"config.sh",content:$c}}')

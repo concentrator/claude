@@ -20,6 +20,7 @@ jq -e '[.hooks.Stop[]?.hooks[]?.command // "" | select(test("dev-handoff-nudge")
   "$ROOT/settings.json" >/dev/null 2>&1 \
   && pass "hook registered on Stop" || die "hook not registered in settings.json"
 D=$(cd "$(mktemp -d)" && pwd -P); trap 'rm -rf "$D"' EXIT
+export HOME="$D/empty-home"; mkdir "$HOME"
 # A git repo project (dev-precompact-state.sh --path requires one), a
 # window of 100000 so sums read as percents, an empty global tier, and
 # DEV_STATE_DIR pointing the session file at the fixture.
