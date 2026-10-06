@@ -50,7 +50,7 @@ a declared set.
 | --- | --- | --- |
 | `Edit(//__PROJECT_DIR__/**)` | Edit-class, the checkout root | the seat definitions carrying an edit tool: `agents/dev-implementer.md`, `agents/dev-planner.md`, `agents/dev-doc-writer.md`, `agents/dev-docs-verifier.md` |
 | `Read(//__HOME__/.claude/skills/**)` | Read outside the checkout | the seat definitions, which send a seat to `skills/dev/...` (`agents/dev-implementer.md`, `agents/dev-planner.md`) |
-| `Read(//__HOME__/.claude/rules/**)` | Read outside the checkout | the seat definitions, which send a seat to `rules/writing-artifacts.md` (`agents/dev-planner.md`, `agents/dev-doc-writer.md`) |
+| `Read(//__HOME__/.claude/rules/**)` | Read outside the checkout | the seat definitions, which send a seat to `rules/writing-artifacts.md` (`agents/dev-planner.md`, `agents/dev-doc-writer.md`) and to `rules/code-comments.md` (`agents/dev-implementer.md`, `agents/code-reviewer.md`) |
 | `Read(//tmp/**)`, `Read(//private/tmp/**)`, `Edit(//tmp/**)`, `Edit(//private/tmp/**)` | Read and Edit outside the checkout | `agents/dev-implementer.md § Steps`, its scratch paragraph |
 | `WebSearch` | bare tool | `agents/code-reviewer.md`, `agents/dev-docs-verifier.md`, which hold that tool |
 | `WebFetch(domain:<host>)` | WebFetch | a seat's dispatch naming the domain; the class has no default member |
@@ -246,8 +246,8 @@ in another stays, traced to the need, the bar standing where it is
 written: `sed`, `awk`, `cat`, `head`, `tail`, `wc` and `grep` are what
 the seats read and search with, while `agents/dev-implementer.md § Steps`
 keeps them off the plan and the task report and its
-config paragraph keeps edit-class shell off the config directory, while
-the read-only bar in the `§ Steps` of `agents/dev-cold-reader.md`,
+config paragraph keeps edit-class shell off the config directory. The
+read-only bar in the `§ Steps` of `agents/dev-cold-reader.md`,
 `agents/dev-docs-verifier.md` and `agents/code-reviewer.md` keeps every
 write of those seats off the checkout, the config directory and the
 settings surface.

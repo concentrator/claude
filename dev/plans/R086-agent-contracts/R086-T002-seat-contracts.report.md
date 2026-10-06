@@ -61,13 +61,18 @@
   values the cold reader's `§ Inputs` names instead of listing them;
   `seat-permissions.md` names the three read-only bars beside the
   implementer's config paragraph.
+- Review 1: the extensions added are `kt`, `kts`, `scala`, `swift`,
+  `cs`, `php` and `pl`; with the data globs in, the rule's opening line
+  and its `LAYOUT.md` entry name code and data files.
+- Review 3: the sentence splits at its second "while", the read-only
+  bar becoming a sentence of its own.
 ### Findings
-- [ ] Item 1: the seat-model initiative's `tasks.md` cites
+- [x] Item 1: the seat-model initiative's `tasks.md` cites
   `agents/dev-implementer.md § Scratch & Probe Scripts` and
   `companions/implementer-prompt.md`, both gone after this item.
   Evidence: observed `git grep -n implementer-prompt` and the heading
   search over that initiative's `tasks.md`
-- [ ] Item 5: `seat-permissions.md`'s `Read(//__HOME__/.claude/rules/**)`
+- [x] Item 5: `seat-permissions.md`'s `Read(//__HOME__/.claude/rules/**)`
   row traces the rule to `rules/writing-artifacts.md` alone, though
   `agents/dev-implementer.md` and `agents/code-reviewer.md` send their
   seats to `rules/code-comments.md`.
@@ -83,15 +88,15 @@
   implementer's definition.
 
 ## Review
-- [ ] Close review: `rules/code-comments.md` says it applies to every code
+- [x] Close review: `rules/code-comments.md` says it applies to every code
   file and governs data files, but its `paths:` lists 20 code globs and no
   data glob (Critical) - rules/code-comments.md:1
   Evidence: observed the frontmatter lists no `*.php`, `*.kt`, `*.json`
   or `*.yaml` glob
-- [ ] Close review: the `rules/**` read row traces only to
+- [x] Close review: the `rules/**` read row traces only to
   `rules/writing-artifacts.md` (Suggestion) - seat-permissions.md:53
   Evidence: observed the implementer and code reviewer cite
   `rules/code-comments.md`
-- [ ] Close review: one sentence chains two "while" clauses (Suggestion) -
+- [x] Close review: one sentence chains two "while" clauses (Suggestion) -
   seat-permissions.md:244
   Evidence: contract writing.md § Write like a human

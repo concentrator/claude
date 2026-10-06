@@ -20,11 +20,23 @@ paths:
   - "**/*.hpp"
   - "**/*.rs"
   - "**/*.java"
+  - "**/*.kt"
+  - "**/*.kts"
+  - "**/*.scala"
+  - "**/*.swift"
+  - "**/*.cs"
+  - "**/*.php"
+  - "**/*.pl"
+  - "**/*.json"
+  - "**/*.yaml"
+  - "**/*.yml"
+  - "**/*.toml"
 ---
 
 # Code comments
 
-Applies to every code file, in any project; loaded when one is read.
+Applies to every code and data file, in any project; loaded when one is
+read.
 
 Code carries no comments. The exception is a consumer-facing library
 API, which may keep trimmed type docs: what a parameter, return value or
