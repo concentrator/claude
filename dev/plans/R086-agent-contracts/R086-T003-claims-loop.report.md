@@ -384,5 +384,15 @@ Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
   a plan's claims, which the code reviewer's prose class also runs,
   and checks a `drop` claim's text gone from the doc, since removed
   text carries no link to read. Result: the fast tier passes.
+- Item 7: no failing test first, though the plan is `feat`: the item
+  changes prose only and its Approach names no gate. G5's ruling that a
+  `§ Parameters` row carries its link in its last column, which no
+  earlier item wrote, joins G11's sentence in `layout.md § Docs`; the
+  row template keeps its columns, since a plan without `## Claims`
+  gives a doc no source column (`documentation.md § Sources`). The
+  skeleton table's Parameters row reads "every input the code takes or
+  sends" for "every input it accepts", and `documentation.md § Detail
+  bar` cites `layout.md § Docs` for a feature doc's elements rather than
+  restating its scope. Result: the fast tier passes.
 
 ## Review

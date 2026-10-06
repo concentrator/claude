@@ -100,8 +100,10 @@ is the project's own, kept-current counterpart.
 ## Docs
 
 `<docs>` holds the project's documentation - internal and external
-audiences under one contract, outside the planning tree. Its per-feature
-docs (data model, interfaces, business rules, edge cases)
+audiences under one contract, outside the planning tree. A doc explains
+an existing piece of the app's code, or the part of an external system
+the app uses. Its per-feature docs (data model, interfaces, business
+rules, edge cases)
 sit between `DESIGN.md` (architecture) and the code (line-level), and
 are the Reference application of the global documentation framework
 (`companions/documentation.md`). Their author is the doc-writer seat, at
@@ -134,18 +136,22 @@ The framework's Reference skeleton applied to a feature:
 | 2. Model | Entities, fields, types, relationships, invariants |
 | 3. Elements | The feature's components -> responsibility |
 | 4. Behavior | Business rules and why; edge cases, failure modes, and how each is handled |
-| 5. Parameters | Each method / endpoint / event: its outputs, errors, and every input it accepts |
+| 5. Parameters | Each method / endpoint / event: its outputs, errors, and every input the code takes or sends |
 | 6. Reference data | Domain lookups: codes, limits, fixed values |
 | 7. References | Sibling docs, report docs, and adapted references |
 
-§ Parameters is the feature's detail bar: every input - wired through the
-code or not - one row:
+§ Parameters is the feature's detail bar: one row per input the
+feature's code takes or sends:
 
     | input | type/shape | req? | default | allowed values | constraints | on invalid/missing |
     |-------|-----------|------|---------|----------------|-------------|--------------------|
 
-An input no source confirms (`companions/documentation.md § Sources`)
-keeps its row - never drop an input in silence.
+Where the plan lists claims (`companions/documentation.md § Claims`),
+each row the doc writer writes, changes or removes is a listed claim,
+its link (`companions/documentation.md § Sources`) the row's last
+column, and a row no claim names stays as it is. For a plan without
+`## Claims`, an input no source confirms (`companions/documentation.md
+§ Sources`) keeps its row - never drop an input in silence.
 
 A project may raise the bar with its own `.claude/rules/feature-docs.md` -
 domain specifics and extra required content; the docs audit grades against it

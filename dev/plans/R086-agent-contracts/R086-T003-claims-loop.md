@@ -42,7 +42,7 @@ cold-read: passed
   paragraph and the Write, WebFetch and WebSearch tools.
   Approach: `documentation.md § Verification gate`, then
   `agents/dev-docs-verifier.md`.
-- [ ] A doc explains an existing piece of the app's code or the part of an
+- [x] A doc explains an existing piece of the app's code or the part of an
   external system the app uses, a `§ Parameters` row per input that code
   takes or sends; the doc writer runs when the plan lists a claim, or, for a
   plan without `## Claims`, as today. Adoption grades docs against source,

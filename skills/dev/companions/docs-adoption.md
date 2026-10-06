@@ -15,12 +15,13 @@ Diataxis type, the Reference skeleton, the detail bar); a project's
 (`layout.md § Docs`). Per feature:
 
 - an existing doc → grade it against the code and the framework with a
-  fresh-agent spec-check (`dispatching-parallel-agents`): PASS (conformant
+  fresh-agent spec-check (`dispatching-parallel-agents`) that reads the
+  source and probes nothing: PASS (conformant
   and current), WARN (fails either axis - a re-align candidate),
   FAIL/TODO; keep it as input when the doc is rebuilt;
 - no doc → FAIL/TODO (no agent needed).
 
-Register code issues found while probing as tasks or R stubs
+Register code issues found while grading as tasks or R stubs
 (`plan.md § Referential integrity`). Record the coverage report; the missing
 docs and the WARN ones are the backlog.
 

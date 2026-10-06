@@ -70,6 +70,9 @@ an Element.
 
 - Enumerate **every element of the subject** - parameter, input, field,
   option, endpoint, file - and define each: name, type/default, meaning.
+  A feature doc's elements are those of the code it explains
+  (`layout.md § Docs`): an external system's element that code neither
+  takes nor sends is not one.
 - For each component, cover both its inputs (configuration, parameters)
   and its outputs (results, logs, errors).
 - Never paste an artifact (config dump, schema, sample output) without
