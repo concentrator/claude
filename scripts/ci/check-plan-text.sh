@@ -4,8 +4,9 @@
 # stable (skills/dev/templates.md). Fails on links, ISO dates, #NNN refs,
 # commit hashes, ids of another initiative, oversize entries, a task report
 # checkbox without an Evidence: line, an added *.findings.md, a branch plan
-# without its task report, an added plan without ## Claims or ## Proven, and
-# a plan's claim its task report's ## Claims does not repeat.
+# without its task report, an added plan without ## Claims or ## Proven, a
+# plan's claim its task report's ## Claims does not repeat, and a done item's
+# claim entry with an empty field.
 set -uo pipefail
 h="$(dirname "${BASH_SOURCE[0]}")/branch-diff.sh"
 { [ -r "$h" ] && . "$h"; } \
@@ -90,24 +91,42 @@ backlog() {
 }
 
 claims() {
-  awk -v fp="$3" '
-    function flush() {
-      if (k != "" && inplan) line[k] = start
-      else if (k != "") got[k] = 1
-      k = ""; fld = 0
+  awk -v fp="$3" -v fr="${3%.md}.report.md" '
+    function flush(  x) {
+      if (k != "" && inplan) { line[k] = start; item[k] = it; kind[k] = kd }
+      else if (k != "") { got[k] = start; for (x in fv) val[k, x] = fv[x] }
+      k = ""; fld = ""; split("", fv)
     }
     FNR == 1 { flush(); sec = ""; inplan = FILENAME == ARGV[1] }
     /^## / { flush(); sec = $0; next }
+    inplan && sec == "" && /^- \[[ x]\]/ { done[++boxes] = /^- \[x\]/; next }
     sec != "## Claims" { next }
-    /^- Item [0-9]+ \((source|probe|drop)\): / { flush(); start = FNR; k = $0; next }
-    k != "" && !inplan && /^  (Source|Call|Output|Environment|Test):/ { fld = 1; next }
-    k != "" && fld && /^   +[^ ]/ { next }
-    k != "" && !fld && /^  +[^ ]/ { t = $0; sub(/^ +/, "", t); k = k " " t; next }
+    /^- Item [0-9]+ \((source|probe|drop)\): / {
+      flush(); start = FNR; k = $0; it = $3 + 0; kd = $4; gsub(/[():]/, "", kd); next
+    }
+    k != "" && !inplan && match($0, /^  (Source|Call|Output|Environment|Test):/) {
+      fld = substr($0, 3, RLENGTH - 3); v = substr($0, RLENGTH + 1); gsub(/[ \t]/, "", v)
+      fv[fld] = v != ""; next
+    }
+    k != "" && fld != "" && /^   +[^ ]/ { fv[fld] = 1; next }
+    k != "" && fld == "" && /^  +[^ ]/ { t = $0; sub(/^ +/, "", t); k = k " " t; next }
     { flush() }
     END {
       flush()
-      for (c in line) if (!(c in got))
-        printf "PLAN-TEXT: %s:%d: claim without report entry\tentry\t%s\n", fp, line[c], c
+      need["source"] = need["drop"] = " Source "; need["probe"] = " Call Output Environment "
+      n = split("Source Call Output Environment Test", fs, " ")
+      for (c in line) {
+        if (!(c in got)) {
+          printf "PLAN-TEXT: %s:%d: claim without report entry\tentry\t%s\n", fp, line[c], c
+          continue
+        }
+        if (!done[item[c]]) continue
+        for (i = 1; i <= n; i++) {
+          f = fs[i]
+          if (((c, f) in val || index(need[kind[c]], " " f " ")) && !val[c, f])
+            printf "PLAN-TEXT: %s:%d: claim of a done item with empty %s:\t%s\t%s\n", fr, got[c], f, f, c
+        }
+      }
     }' "$1" "$2"
 }
 

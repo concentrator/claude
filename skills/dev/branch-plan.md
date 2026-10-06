@@ -76,8 +76,9 @@ plan edits.
 Every pass ends the same way; `feat`/`fix`/`refactor` add their mode
 file's loop, `doc`/`test`/`mnt` run this alone:
 
-1. **Verify** - the plan `[x]` and the task report's `## Implementer`
-   section written first, since the plan-text gate scans both; then
+1. **Verify** - the plan `[x]`, the item's `## Claims` entries and the
+   task report's `## Implementer` section written first, since the
+   plan-text gate scans them; then
    the fast tier green over the tree as the commit will carry it: lint
    plus the declared scoped subset (`companions/declarations.md
    § Declared commands`); the full suite runs once at close
@@ -87,8 +88,8 @@ file's loop, `doc`/`test`/`mnt` run this alone:
    `release-routine: yes`, `README.md` for new public surface - is the
    doc writer's, written once per branch at `run.md § Close` 3
    (`run.md § Seats`).
-3. **Commit** (`git-workflow.md § Commit messages`); the mark and the
-   report section ride it, never a later commit.
+3. **Commit** (`git-workflow.md § Commit messages`); the mark, the
+   claim entries and the report section ride it, never a later commit.
 4. **Output** - throughout the pass a command prints only what the
    step needs: a status, a count, a range (`grep -c`, `sed -n`, a gate
    or push silenced with its exit status echoed), never a file already
@@ -162,8 +163,9 @@ its result. A report holds no dispatch, status, prompt, verdict, merge
 or time: the commit that carries an entry dates it, and a run's events
 are the runner's ledger's (`run.md § Ledger`).
 
-The implementer appends its section in the commit that carries the
-code, and marks `[x]` the `## Review` entry its dispatch names. The
+The implementer appends its section and fills its item's `## Claims`
+entries in the commit that carries the code, and marks `[x]` the
+`## Review` entry its dispatch names. The
 reviewer is read-only: the runner, or the session outside a run, writes
 the close review's findings and a redo under `## Review`, and the
 user's answers under `## Answers` (`run.md § Question resolution`). At close
@@ -314,7 +316,7 @@ regardless of size; the full suite runs at batch close (`run.md
 - Plan text is unchanged during a run; an answer goes to the task
   report (§ Plan edits). No seat makes the closing decisions. The
   implementer keeps the code, the plan checkboxes, the task report's
-  implementer section and the mark on the `## Review` entry it works.
+  implementer section and claim entries, and its `## Review` entry's mark.
 - Pre-flight creates `batch/R<NNN>-B<NNN>` off latest `main` and sets the
   `pre-R<NNN>-B<NNN>` tag (rollback anchor). Member branches merge into the
   batch branch only; `main` is untouched until the batch MR/PR merges.

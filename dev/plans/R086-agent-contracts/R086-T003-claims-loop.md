@@ -13,7 +13,7 @@ cold-read: passed
   blank `Source:` below, or `Call:`, `Output:`, `Environment:` for a probe, and
   the plan-text gate fails an added claim it lacks. Approach: the gate, its test;
   new `documentation.md § Claims`, `branch-plan.md § Body`, `dev-planner.md`.
-- [ ] The implementer fills its item's entries in the commit marking it `[x]`;
+- [x] The implementer fills its item's entries in the commit marking it `[x]`;
   the plan-text gate fails a done item's entry with an empty field, an
   `Output:` value counting when its lines sit indented under it.
   Approach: the gate and its test, then `documentation.md § Claims` and

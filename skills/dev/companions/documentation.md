@@ -224,6 +224,11 @@ its report no `## Claims`:
 Any entry may add `Test: <the test pinning the claim>`. A claim wraps
 at two spaces, in the plan and in its entry, and the two match on its
 text with the wrapped lines joined by one space; a field sits at two
-spaces, its value's own lines at three or more. `scripts/ci/check-plan-text.sh` fails a plan the
-branch adds without either section, and a claim whose entry the report
-lacks.
+spaces, its value's own lines at three or more.
+
+The implementer fills its item's entries in the commit that marks the
+item `[x]` (`agents/dev-implementer.md § Steps`).
+`scripts/ci/check-plan-text.sh` fails a plan the branch adds without
+either section, a claim whose entry the report lacks, and a done item's
+entry with an empty field - one its kind needs or one it carries - a
+value counting on the field's line or on lines indented under it.

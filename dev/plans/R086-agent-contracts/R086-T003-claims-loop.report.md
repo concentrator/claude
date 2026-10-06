@@ -343,5 +343,13 @@ Affects: Item 7 (`layout.md § Docs`), Item 5 (`dev-doc-writer.md`).
   cited elsewhere. The `§ Task report` implementer sentence of G9 is
   left to Item 2, which owns filling the entries. Result:
   `check-plan-text.test.sh` passes, its new cases included.
+- Item 2: the gate also fails a `Test:` field a done item's entry
+  carries empty, reading "an empty field" past the planner's `need[]`,
+  which checks only the fields a kind needs; it prints one line per
+  empty field, naming it. Beyond the G9 edits, `branch-plan.md § Rails`
+  and the implementer's "Plan and task report" paragraph name the claim
+  entries, so neither still limits the implementer to its
+  `## Implementer` section. Result: `check-plan-text.test.sh` passes,
+  its new cases included.
 
 ## Review
