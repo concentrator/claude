@@ -33,7 +33,7 @@ mode: normal
   naming it for the user on a dirty tree, where the sync stays on it.
   Approach: `.claude/CLAUDE.md § Agent toolchain`, `finish.md § 4` step 4,
   then `branch-plan.md § Rails` and `run.md § Checkpoint` batch cleanup.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)
