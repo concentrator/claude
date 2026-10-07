@@ -27,7 +27,7 @@ mode: normal
   <default>:<default>` and names the dirty paths.
   Approach: `skills/dev/finish.md § 4` step 1, then `Bash(git fetch:*)` in
   `companions/auto-permissions.template.json` and `seat-permissions.md`.
-- [ ] The merge command only merges, `.claude/CLAUDE.md` declaring `gh pr
+- [x] The merge command only merges, `.claude/CLAUDE.md` declaring `gh pr
   merge <n> --merge`; a project relies on its host deleting a merged
   branch on origin, and the sync deletes only the local one, once off it,
   naming it for the user on a dirty tree, where the sync stays on it.

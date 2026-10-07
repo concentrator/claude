@@ -77,7 +77,10 @@ the merge with the user), then:
    for a late closure already on the trunk - tasks all `[x]` with the
    closure unrecorded and the closure check verifying (`plan.md
    § Approval and closure`).
-4. Delete the merged branch (local; remote too if pushed).
+4. Delete the merged branch locally, once step 1 has moved off it; on a
+   dirty tree, where step 1 stays on it, name the branch for the user
+   to delete. The merge command only merges: the project relies on its
+   host to delete the merged branch on origin.
 
 Bookkeeping landed with the merge (`branch-plan.md § Closing routine`;
 untracked mode: `companions/untracked-claude.md`); late closures:

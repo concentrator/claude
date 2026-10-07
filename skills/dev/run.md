@@ -211,7 +211,7 @@ more mergeable than a batch missing its report. Then:
   § Boundary verification and § Merge or ask, whose discard is the one
   way a branch is turned down. Findings triage; ref cleanup per
   `branch-plan.md § Rails` - after the MR/PR merges, post-merge cleanup
-  deletes the batch branch, local and origin.
+  deletes the local batch branch, the host the origin one.
 - **Halt** → failed item reported. A question halt - an implementer's
   acceptance-changing concern, NEEDS_CONTEXT or an absorbable blocker
   (`branch-plan.md § Scope discoveries`; § Seats) - takes § Question resolution,
