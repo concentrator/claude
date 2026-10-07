@@ -65,7 +65,10 @@ Detect the merge via the declared state-check command
 (`companions/toolchain.md § State check`; no declared host → confirm
 the merge with the user), then:
 
-1. Sync the default branch (`git checkout <default>`, `git pull`).
+1. Sync the default branch. When `git status --porcelain` prints
+   nothing, `git checkout <default>`, then `git pull`. Otherwise stay on
+   the merged branch, fast-forward the local default with `git fetch
+   origin <default>:<default>`, and name the dirty paths for the user.
 2. Promote any durable fact the closed task's artifacts established
    (`plan.md § Archival`).
 3. When the merge closed the initiative, verify the archive move

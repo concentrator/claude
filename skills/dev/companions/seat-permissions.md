@@ -230,6 +230,7 @@ and a definition carries `tools:` and no permission key.
 | `Bash(git add:*)`, `Bash(git commit:*)` | `branch-plan.md § Commit cadence` 3 |
 | `Bash(git switch:*)` | `run.md § Pre-flight`'s branch cut off the default, which spells no verb: both spellings that cut a branch are declared, `git checkout -b` and `git switch -c`, and the guard's second shape judges them alike |
 | `Bash(git checkout:*)`, `Bash(git pull:*)` | `finish.md § 4` step 1's sync of the default branch, and `finish.md § 3`'s discard entry into it |
+| `Bash(git fetch:*)` | `finish.md § 4` step 1's fast-forward of the local default branch from a dirty tree, which stays on the merged branch |
 | `Bash(git restore:*)` | § HEAD moves and whole-tree discards: a seat undoing one named file, and the `--staged` unstage route |
 | `Bash(git merge:*)` | `run.md § Close` 5 and `finish.md` |
 | `Bash(git tag:*)` | `run.md § Pre-flight`'s batch tag |

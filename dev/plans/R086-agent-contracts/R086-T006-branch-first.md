@@ -21,7 +21,7 @@ mode: normal
   unchanged.
   Approach: `hooks/dev-branch-guard.sh`, its two edit and one commit `deny`
   reasons each pinned in `scripts/test/dev-branch-guard.test.sh`.
-- [ ] The post-merge sync checks out the default branch and pulls only when
+- [x] The post-merge sync checks out the default branch and pulls only when
   `git status --porcelain` prints nothing; otherwise it stays on the merged
   branch, fast-forwards the local default with `git fetch origin
   <default>:<default>` and names the dirty paths.
