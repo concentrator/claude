@@ -64,8 +64,8 @@ A failing local gate stops it before the MR/PR opens. A task-scoped
 `/dev run` ends on the same path once its checkpoint is accepted;
 `/dev ship` enters it directly. `/dev handoff` writes the session's hand-off note, which with the PreCompact hook's tree block carries
 state across compaction (the SessionStart hook re-injects the last
-hand-off block when the session resumes or is compacted). Three
-more commands:
+hand-off block when the session resumes or is compacted). Other
+commands:
 
 - `/dev start` scaffolds a new project into DEV.
 - `/dev migrate` adopts an existing project into DEV.
@@ -254,7 +254,7 @@ without registering them and edits no CI config. A `--project` install into
 a git repo prints one line saying the project's CI must run the fast tier,
 which is what runs the two gates there.
 
-The four copied checks in the table below judge only what the working
+The copied checks in the table below judge only what the working
 tree adds over a base: committed, staged and unstaged changes, and
 untracked files git does not ignore. The base is the merge-base of
 `HEAD` with the first of these refs that has one:
