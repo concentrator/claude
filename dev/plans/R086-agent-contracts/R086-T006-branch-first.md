@@ -9,7 +9,7 @@ mode: normal
   VIBE's wait holds back the MR/PR and the merge, not the branch.
   Approach: a bullet in `skills/dev/git-workflow.md § Trunk`, then the VIBE
   paragraph of its `§ Delivery cadence`.
-- [ ] On the default branch, resolved as the branch guard resolves it, the
+- [x] On the default branch, resolved as the branch guard resolves it, the
   branch-state line adds that the first edit needs a working branch, cut
   with `git switch -c <prefix>/<slug>`, and cites `git-workflow.md § Trunk`
   for the prefixes, listing none; any other branch's line is unchanged.
