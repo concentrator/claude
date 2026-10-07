@@ -12,6 +12,9 @@ set -f   # no globbing (commit-flag scan word-splits the command)
 
 input=$(cat)
 command -v jq >/dev/null 2>&1 || exit 0   # no jq -> fail open
+tool=$(printf '%s' "$input" | jq -r '.tool_name // ""') || exit 0
+. "$(dirname -- "${BASH_SOURCE[0]}")/dev-hook-once.sh" 2>/dev/null \
+  && global_hook_runs "${BASH_SOURCE[0]}" PreToolUse "$tool" && exit 0
 
 deny() {
   local reason
@@ -53,8 +56,6 @@ commit_all() {
   done
   return 1
 }
-
-tool=$(printf '%s' "$input" | jq -r '.tool_name // ""') || exit 0
 
 case "$tool" in
   Write | Edit | NotebookEdit)

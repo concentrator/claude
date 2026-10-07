@@ -16,6 +16,7 @@ set -uo pipefail
 command -v jq >/dev/null 2>&1 || exit 0
 input=$(cat 2>/dev/null || true)
 dir=$(dirname "$0")
+. "$dir/dev-hook-once.sh" 2>/dev/null && global_hook_runs "$0" Stop "" && exit 0
 
 # Already continuing because this hook blocked: let the turn end.
 [ "$(printf '%s' "$input" | jq -r '.stop_hook_active // false' 2>/dev/null)" = "true" ] && exit 0

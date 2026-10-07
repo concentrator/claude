@@ -27,6 +27,7 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -x "$P/.claude/hooks/dev-branch-guard.sh" ]      && pass "hook copied + exec"   || die "no/again hook"
 [ -x "$P/.claude/hooks/dev-secrets-guard.sh" ]     && pass "secrets hook copied + exec" || die "no secrets hook"
 [ -f "$P/.claude/hooks/secret-patterns.sh" ]       && pass "secret patterns copied" || die "no secret patterns"
+[ -f "$P/.claude/hooks/dev-hook-once.sh" ]         && pass "run-once helper copied" || die "no run-once helper"
 [ -x "$P/.claude/hooks/dev-branch-state.sh" ]      && pass "state hook copied + exec" || die "no state hook"
 [ -x "$P/.claude/hooks/dev-precompact-state.sh" ]  && pass "session-state writer copied + exec" || die "no session-state writer"
 [ -x "$P/.claude/hooks/dev-context-fill.sh" ]      && pass "context-fill helper copied + exec" || die "no context-fill helper"
@@ -175,10 +176,10 @@ printf 'x\n' > "$S/f.sh"; git -C "$S" add -A; git -C "$S" -c user.email=t@t -c u
 git -C "$S" checkout -qb work   # the pre-write guard refuses a default-branch HEAD
 bash "$INSTALL" --project "$S" >/dev/null 2>&1 || die "install (subdirectory fixture) exits nonzero"
 git -C "$S" checkout -q main   # the branch-guard denies trunk writes only from trunk
-mkdir -p "$S/sub"
+mkdir -p "$S/sub" "$S/home"
 cmd=$(jq -r '[.hooks.PreToolUse[]?.hooks[]?.command | select(test("dev-branch-guard"))][0]' "$S/.claude/settings.json")
 j=$(jq -nc --arg p "$S/f.sh" '{tool_name:"Write",tool_input:{file_path:$p,content:"y"}}')
-out=$(cd "$S/sub" && printf '%s' "$j" | CLAUDE_PROJECT_DIR="$S" bash -c "$cmd" 2>/dev/null)
+out=$(cd "$S/sub" && printf '%s' "$j" | CLAUDE_PROJECT_DIR="$S" HOME="$S/home" bash -c "$cmd" 2>/dev/null)
 grep -q '"permissionDecision":"deny"' <<<"$out" && pass "registered guard denies a trunk write from a subdirectory" \
   || die "registered guard did not fire from a subdirectory: $cmd"
 rm -rf "$S"

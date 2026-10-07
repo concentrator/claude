@@ -15,6 +15,8 @@ input=$(cat 2>/dev/null || true)
 dir=$(dirname "$0")
 
 printf '%s' "$input" | jq -e . >/dev/null 2>&1 || exit 0
+start_source=$(printf '%s' "$input" | jq -r '.source // ""' 2>/dev/null)
+. "$dir/dev-hook-once.sh" 2>/dev/null && global_hook_runs "$0" SessionStart "$start_source" && exit 0
 [ -n "$(printf '%s' "$input" | jq -r '.agent_id // empty' 2>/dev/null)" ] && exit 0
 
 session=$(printf '%s' "$input" | bash "$dir/dev-precompact-state.sh" --path 2>/dev/null)

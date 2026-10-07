@@ -170,6 +170,7 @@ register_stop_hook dev-handoff-nudge.sh
 register_brief_hook dev-session-brief.sh
 # The secrets guard's predicate lives beside it (sourced, not registered).
 cp "$SRC/hooks/secret-patterns.sh" "$target/hooks/secret-patterns.sh"
+cp "$SRC/hooks/dev-hook-once.sh" "$target/hooks/dev-hook-once.sh"
 # The session-state writer is copied, not registered: PreCompact runs it
 # from the user-global settings only, but dev-branch-state.sh asks it for
 # the session file's path on every prompt (hooks/dev-precompact-state.sh).

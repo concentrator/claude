@@ -64,8 +64,8 @@ A failing local gate stops it before the MR/PR opens. A task-scoped
 `/dev run` ends on the same path once its checkpoint is accepted;
 `/dev ship` enters it directly. `/dev handoff` writes the session's hand-off note, which with the PreCompact hook's tree block carries
 state across compaction (the SessionStart hook re-injects the last
-hand-off block when the session resumes or is compacted). Three
-more commands:
+hand-off block when the session resumes or is compacted). Other
+commands:
 
 - `/dev start` scaffolds a new project into DEV.
 - `/dev migrate` adopts an existing project into DEV.
@@ -174,14 +174,27 @@ idempotently:
 | `dev-handoff-nudge.sh` | Stop | none |
 | `dev-session-brief.sh` | SessionStart | `compact\|resume` |
 
-It copies three files beside them unregistered, each used by a
-registered hook:
+The installer also copies these files beside the registered hooks,
+unregistered, each used by a registered hook:
 
 - `dev-precompact-state.sh`, the session-state writer: the branch-state
   hook asks it for the session file's path.
 - `dev-context-fill.sh`: the branch-state and hand-off-nudge hooks call
   it for the context-fill percent.
 - `secret-patterns.sh`, the secret predicate the secrets guard sources.
+- `dev-hook-once.sh`, the check every registered hook sources to skip a
+  run the global settings already make.
+
+A hook in a project's `.claude/hooks/` exits silent when
+`~/.claude/settings.json` registers the same hook, as
+`~/.claude/hooks/<name>` or its expanded path, for the same event under
+a matcher that covers the call, so a project that also has a global
+install runs each hook once. For the guards the matcher covers the call
+when it matches the tool name, for the session brief when it matches
+the start's source. For the branch-state hook and the hand-off nudge
+only a missing, empty or `*` matcher covers it, or one that matches the
+empty string. The project copy acts as usual when that settings file is
+absent or unparsable, `jq` is missing, or `dev-hook-once.sh` is.
 
 `--minimal` serves contributors who work a project's existing plans
 without `/dev`. It ships the full set less two parts of `skills/`: no
@@ -241,7 +254,7 @@ without registering them and edits no CI config. A `--project` install into
 a git repo prints one line saying the project's CI must run the fast tier,
 which is what runs the two gates there.
 
-The four copied checks in the table below judge only what the working
+The copied checks in the table below judge only what the working
 tree adds over a base: committed, staged and unstaged changes, and
 untracked files git does not ignore. The base is the merge-base of
 `HEAD` with the first of these refs that has one:

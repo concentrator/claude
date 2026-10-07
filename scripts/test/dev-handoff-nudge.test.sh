@@ -20,6 +20,7 @@ jq -e '[.hooks.Stop[]?.hooks[]?.command // "" | select(test("dev-handoff-nudge")
   "$ROOT/settings.json" >/dev/null 2>&1 \
   && pass "hook registered on Stop" || die "hook not registered in settings.json"
 D=$(cd "$(mktemp -d)" && pwd -P); trap 'rm -rf "$D"' EXIT
+export HOME="$D/empty-home"; mkdir "$HOME"
 # A git repo project (dev-precompact-state.sh --path requires one), a
 # window of 100000 so sums read as percents, an empty global tier, and
 # DEV_STATE_DIR pointing the session file at the fixture.
@@ -79,6 +80,21 @@ printf '\n## tree 2026-09-07T00:10:00Z\n- branch: work\n' >> "$D/state/s1.md"
 out=$(run "$ABOVE")
 echo "$out" | jq -e '.decision == "block"' >/dev/null 2>&1 \
   && pass "tree after hand-off: stale again" || die "expected re-block, got '$out'"
+
+H="$D/home"; P="$D/proj/.claude/hooks"; mkdir -p "$H/.claude" "$P"
+cp "$HOOK" "$ROOT/hooks/dev-hook-once.sh" "$ROOT/hooks/dev-precompact-state.sh" "$ROOT/hooks/dev-context-fill.sh" "$P/"
+run_copy() {
+  printf '{"session_id":"s1","transcript_path":"%s"}' "$ABOVE" \
+    | env CLAUDE_PROJECT_DIR="$D/proj" CLAUDE_CONFIG_DIR="$D/global" DEV_STATE_DIR="$D/state" HOME="$H" \
+      bash "$P/dev-handoff-nudge.sh" 2>/dev/null
+}
+jq -n '{hooks:{Stop:[{hooks:[{type:"command",command:"~/.claude/hooks/dev-handoff-nudge.sh"}]}]}}' > "$H/.claude/settings.json"
+out=$(run_copy)
+[ -z "$out" ] && pass "project copy silent when the global settings run it" || die "project copy blocked beside the global hook: $out"
+printf '{}\n' > "$H/.claude/settings.json"
+out=$(run_copy)
+echo "$out" | jq -e '.decision == "block"' >/dev/null 2>&1 \
+  && pass "project copy blocks when the global settings do not run it" || die "project copy silent with no global hook: '$out'"
 
 # Already continuing from a Stop block: silent even above + stale.
 out=$(printf '{"session_id":"s1","transcript_path":"%s","stop_hook_active":true}' "$ABOVE" \

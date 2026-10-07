@@ -23,6 +23,7 @@ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 # gitconfig (init.defaultBranch=main) even with the latter set.
 export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 HOOK="$(git rev-parse --show-toplevel)/hooks/dev-branch-guard.sh"
+EMPTY_HOME=$(mktemp -d); export HOME="$EMPTY_HOME"
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
@@ -55,7 +56,7 @@ new_develop() {
   printf '%s' "$d"
 }
 
-M=$(new_main); trap 'rm -rf "$M"' EXIT; cd "$M"
+M=$(new_main); trap 'rm -rf "$M" "$EMPTY_HOME"' EXIT; cd "$M"
 
 # --- true-positives: real direct-trunk mutations are denied ---
 j=$(jq -nc '{tool_name:"Write",tool_input:{file_path:"tracked.sh",content:"x"}}')
