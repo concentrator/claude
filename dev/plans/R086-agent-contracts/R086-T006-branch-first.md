@@ -4,7 +4,7 @@ type: mnt
 mode: normal
 ---
 
-- [ ] Every change, VIBE or DEV, cuts its working branch before the first
+- [x] Every change, VIBE or DEV, cuts its working branch before the first
   edit to a tracked path, never after edits made on the default branch;
   VIBE's wait holds back the MR/PR and the merge, not the branch.
   Approach: a bullet in `skills/dev/git-workflow.md § Trunk`, then the VIBE
