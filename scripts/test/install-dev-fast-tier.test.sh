@@ -100,5 +100,16 @@ grep -qxF -- '- Test (fast): `make lint`' "$GH/.claude/CLAUDE.md" && ! grep -qE 
   && pass "global install leaves the fast-tier line alone" || die "global install rewrote the fast-tier line"
 rm -rf "$GH"
 
+TR=$(mktemp -d); git -C "$TR" init -q; git -C "$TR" checkout -qb work
+printf -- '- Test (fast): `make lint`, then %s; runs per commit.\n- Test (full): `make test`.\n' "$PT" > "$TR/CLAUDE.md"
+bash "$INSTALL" --project "$TR" >/dev/null 2>&1 || die "install (trailing-text fixture) exits nonzero"
+grep -qxF -- "- Test (fast): \`make lint\`, then $PT, then $CS; runs per commit." "$TR/CLAUDE.md" \
+  && pass "gate inserted after the last command, before trailing text" || die "trailing-text line: $(grep -F 'Test (fast)' "$TR/CLAUDE.md")"
+printf -- '- Test (fast): `make lint`.\n' > "$TR/CLAUDE.md"
+bash "$INSTALL" --project "$TR" --force >/dev/null 2>&1 || die "re-install (period fixture) exits nonzero"
+grep -qxF -- "- Test (fast): \`make lint\`$GATES." "$TR/CLAUDE.md" \
+  && pass "gates inserted before a closing period" || die "period line: $(grep -F 'Test (fast)' "$TR/CLAUDE.md")"
+rm -rf "$TR"
+
 (( fail == 0 )) && echo "install-dev-fast-tier.test: OK"
 exit $fail

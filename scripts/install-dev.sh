@@ -254,7 +254,7 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
     echo "install-dev: no Test (fast): or Test: line in $repo/CLAUDE.md or $repo/.claude/CLAUDE.md - add to the § Agent toolchain of one: - Test (fast): <fast tier>$(for g in $gates; do printf ', then `bash %sscripts/ci/%s`' "$pfx" "$g"; done)"
   else for g in $gates; do
     if end=$(awk -v n="${tier%%:*}" -v g="$g" 'NR > n && !/^  / { exit } NR >= n { e = NR; h = h || index($0, g) } END { if (!h) print e }' "$claude") && [ -n "$end" ]; then
-      tmp="$(mktemp)"; awk -v n="$end" -v add=", then \`bash ${pfx}scripts/ci/$g\`" 'NR == n { sub(/\.$/, ""); $0 = $0 add } 1' "$claude" > "$tmp"
+      tmp="$(mktemp)"; awk -v n="$end" -v add=", then \`bash ${pfx}scripts/ci/$g\`" 'NR == n { if (match($0, /.*`/)) $0 = substr($0, 1, RLENGTH) add substr($0, RLENGTH + 1); else { sub(/\.$/, ""); $0 = $0 add } } 1' "$claude" > "$tmp"
       cat "$tmp" > "$claude"
     fi
   done; fi
