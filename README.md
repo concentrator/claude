@@ -174,7 +174,15 @@ idempotently:
 | `dev-handoff-nudge.sh` | Stop | none |
 | `dev-session-brief.sh` | SessionStart | `compact\|resume` |
 
-It copies three files beside them unregistered, each used by a
+A hook in a project's `.claude/hooks/` exits silent when
+`~/.claude/settings.json` registers the same hook, as
+`~/.claude/hooks/<name>` or its expanded path, for the same event under
+a matcher that covers the call - the tool name for the guards, the
+start's source for the session brief - so a project that also has a
+global install runs each hook once. The project copy acts as usual when
+that file is absent or unparsable, `jq` is missing, or its helper is.
+
+It copies four files beside them unregistered, each used by a
 registered hook:
 
 - `dev-precompact-state.sh`, the session-state writer: the branch-state
@@ -182,6 +190,8 @@ registered hook:
 - `dev-context-fill.sh`: the branch-state and hand-off-nudge hooks call
   it for the context-fill percent.
 - `secret-patterns.sh`, the secret predicate the secrets guard sources.
+- `dev-hook-once.sh`, the check every registered hook sources to skip a
+  run the global settings already make.
 
 `--minimal` serves contributors who work a project's existing plans
 without `/dev`. It ships the full set less two parts of `skills/`: no
