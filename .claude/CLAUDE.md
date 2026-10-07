@@ -7,7 +7,7 @@
 - VCS host: GitHub, CLI `gh` (MR/PR resolves to PR)
 - Change request: `gh pr create`
 - State-check: `gh pr view <n> --json state,mergedAt,statusCheckRollup`
-- Merge: `gh pr merge <n> --merge --delete-branch`
+- Merge: `gh pr merge <n> --merge`
 
 ## Supervision
 

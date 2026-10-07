@@ -43,6 +43,33 @@ case "$out" in *work*"1 changed"*"1 untracked"*) pass "branch and counts reporte
 git -C "$D" checkout -q -- tracked.sh; rm "$D/extra.md"
 out=$(run)
 case "$out" in *work*clean*) pass "clean tree reported" ;; *) die "expected clean form, got: $out" ;; esac
+[ "${out%% | session-state: *}" = "branch-state: work | clean" ] && pass "working branch: no branch-first segment" || die "working-branch line changed: $out"
+
+first=" | default branch: the first edit needs a working branch - git switch -c <prefix>/<slug> (prefixes: git-workflow.md § Trunk)"
+E="$D/trunk"; mkdir "$E"
+git -c init.defaultBranch=main -C "$E" init -q
+git -C "$E" config user.email t@e; git -C "$E" config user.name t
+git -C "$E" commit -q --allow-empty -m init
+git -C "$E" branch develop
+cd "$E"
+out=$(run)
+[ "${out%% | session-state: *}" = "branch-state: main | clean$first" ] && pass "main by the literal fallback: branch-first segment" || die "no branch-first segment on main: $out"
+case "$out" in *feat*|*mnt*|*fix/*) die "segment lists prefixes: $out" ;; *) pass "segment lists no prefix" ;; esac
+git -C "$E" config init.defaultBranch develop
+out=$(run)
+[ "${out%% | session-state: *}" = "branch-state: main | clean" ] && pass "main is not the default under init.defaultBranch=develop" || die "main flagged against init.defaultBranch: $out"
+git -C "$E" checkout -q develop
+out=$(run)
+[ "${out%% | session-state: *}" = "branch-state: develop | clean$first" ] && pass "develop by init.defaultBranch: branch-first segment" || die "no segment on init.defaultBranch: $out"
+git -C "$E" config init.defaultBranch main
+git -C "$E" update-ref refs/remotes/origin/develop HEAD
+git -C "$E" symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/develop
+out=$(run)
+[ "${out%% | session-state: *}" = "branch-state: develop | clean$first" ] && pass "develop by origin/HEAD over init.defaultBranch: branch-first segment" || die "origin/HEAD not preferred: $out"
+git -C "$E" checkout -q main
+out=$(run)
+[ "${out%% | session-state: *}" = "branch-state: main | clean" ] && pass "main is not the default under origin/HEAD=develop" || die "main flagged against origin/HEAD: $out"
+cd "$D"
 
 # The session file is named whether or not it exists yet (R040-T019).
 out=$(printf '{"session_id":"s9"}' | bash "$HOOK" 2>/dev/null)

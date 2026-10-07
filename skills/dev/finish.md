@@ -65,7 +65,10 @@ Detect the merge via the declared state-check command
 (`companions/toolchain.md § State check`; no declared host → confirm
 the merge with the user), then:
 
-1. Sync the default branch (`git checkout <default>`, `git pull`).
+1. Sync the default branch. When `git status --porcelain` prints
+   nothing, `git checkout <default>`, then `git pull`. Otherwise stay on
+   the merged branch, fast-forward the local default with `git fetch
+   origin <default>:<default>`, and name the dirty paths for the user.
 2. Promote any durable fact the closed task's artifacts established
    (`plan.md § Archival`).
 3. When the merge closed the initiative, verify the archive move
@@ -74,7 +77,10 @@ the merge with the user), then:
    for a late closure already on the trunk - tasks all `[x]` with the
    closure unrecorded and the closure check verifying (`plan.md
    § Approval and closure`).
-4. Delete the merged branch (local; remote too if pushed).
+4. Delete the merged branch locally, once step 1 has moved off it; on a
+   dirty tree, where step 1 stays on it, name the branch for the user
+   to delete. The merge command only merges: the project relies on its
+   host to delete the merged branch on origin.
 
 Bookkeeping landed with the merge (`branch-plan.md § Closing routine`;
 untracked mode: `companions/untracked-claude.md`); late closures:

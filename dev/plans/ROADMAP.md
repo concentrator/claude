@@ -231,6 +231,9 @@ Initiative index. Items: `R-001: description`; each entry owns
       auto-merge, the ship question and verdict marks go.
 - [ ] R085: Code without comments - scripts, hooks and tests carry no
       comments, per the no-comments convention.
-- [ ] R086: Agent contracts - each seat works from one step list, claims
+- [x] R086: Agent contracts - each seat works from one step list, claims
       are proven by the implementer's probes before docs, and a convention
       binds only work created after it.
+- [ ] R087: Seat contract follow-ups - the backlog the agent contracts
+      left: prompt context, the docs path, rule restatements and the docs
+      gate's scope.

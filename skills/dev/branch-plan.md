@@ -327,7 +327,8 @@ regardless of size; the full suite runs at batch close (`run.md
 - Findings triage defers to the checkpoint.
 - Branch refs stay until the batch MR/PR's decision (`run.md § Merge
   or ask`). Merge = delete the `pre-R<NNN>-B<NNN>` tag and member refs;
-  post-merge cleanup deletes the batch branch, local and origin.
+  post-merge cleanup deletes the local batch branch, the host the
+  origin one (`finish.md § 4` step 4).
   Discard = delete the batch branch (`finish.md § 3`); tag and member
   refs stay for salvage.
 

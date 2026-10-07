@@ -16,6 +16,8 @@ commands`).
   long-lived branches.
 - Every change reaches `main` through a short-lived branch and a
   **CI-gated MR/PR**. Never push to `main`; never merge to `main` locally.
+- Every change, VIBE or DEV, cuts its working branch before its first edit
+  to a tracked path, never after edits made on `main`.
 - **Bootstrap exception:** the single initial commit that *creates* `main`
   in a new repo, before protection is set, is the one permitted direct
   commit (`start.md`); every commit after it goes via a branch + CI-gated
@@ -85,7 +87,8 @@ The delivery unit - one or more coupled tasks shipped as one MR/PR - is the
 One branch = one coherent unit of work (a topic or work-session), never
 one atomic edit. Don't open or merge an MR/PR per change.
 
-VIBE: apply the change, then wait - no reflexive branch → MR/PR → merge.
+VIBE: cut the working branch first (§ Trunk), apply the change, then wait -
+the wait holds back the MR/PR and the merge, never the branch.
 Related edits accumulate on the working branch; deliver (open the MR/PR +
 merge) at a work boundary - when the user moves to unrelated work or says
 to wrap up - confirming the merge first. A work boundary also settles
