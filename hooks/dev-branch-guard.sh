@@ -133,13 +133,13 @@ case "$tool" in
       is_trunk "$top" "$branch" || exit 0           # owner on a working branch → allow
       git -C "$top" check-ignore -q -- "$target" 2>/dev/null
       [ $? -eq 1 ] || exit 0                        # ignored or error → allow
-      deny "branch-guard: refusing $tool into '$top' on '$branch'. Create a working branch there first - never edit the trunk (git-workflow)."
+      deny "branch-guard: refusing $tool into '$top' on '$branch', its default branch. Cut a working branch there first - git switch -c <prefix>/<slug> (prefixes: git-workflow.md § Trunk)."
     fi
     # No path in the call: keep the conservative cwd-repo judgment.
     branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
     [ -n "$branch" ] || exit 0
     is_trunk . "$branch" || exit 0
-    deny "branch-guard: refusing $tool on '$branch'. Create a working branch first - never edit the trunk (git-workflow)." ;;
+    deny "branch-guard: refusing $tool on '$branch', the default branch. Cut a working branch first - git switch -c <prefix>/<slug> (prefixes: git-workflow.md § Trunk)." ;;
   Bash)
     cmd=$(printf '%s' "$input" | jq -r '.tool_input.command // ""')
     # Global-option skipper (-c key=val, -C path, --flag) shared by the
@@ -359,7 +359,7 @@ case "$tool" in
     fi
 
     branch=$(git -C "$dir" rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
-    is_trunk "$dir" "$branch" && deny "branch-guard: refusing 'git commit' on '$branch'. Create a working branch first (git-workflow)." ;;
+    is_trunk "$dir" "$branch" && deny "branch-guard: refusing 'git commit' on '$branch', the default branch. Cut a working branch first - git switch -c <prefix>/<slug> (prefixes: git-workflow.md § Trunk)." ;;
 esac
 
 exit 0

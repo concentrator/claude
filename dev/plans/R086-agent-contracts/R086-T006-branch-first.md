@@ -15,7 +15,7 @@ mode: normal
   for the prefixes, listing none; any other branch's line is unchanged.
   Approach: `hooks/dev-branch-state.sh`, each case pinned in
   `scripts/test/dev-branch-state.test.sh`.
-- [ ] The branch guard's refusals of an edit and of a commit on the default
+- [x] The branch guard's refusals of an edit and of a commit on the default
   branch name `git switch -c <prefix>/<slug>` and cite `git-workflow.md
   § Trunk` for the prefixes, listing none; what the guard refuses is
   unchanged.

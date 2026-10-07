@@ -30,6 +30,7 @@ die()  { echo "not ok - $1"; fail=1; }
 
 # Run the hook with JSON on stdin from the current cwd; echo deny/allow.
 run() { printf '%s' "$1" | bash "$HOOK" 2>/dev/null | grep -q '"permissionDecision":"deny"' && echo deny || echo allow; }
+reason() { printf '%s' "$1" | bash "$HOOK" 2>/dev/null | jq -r '.hookSpecificOutput.permissionDecisionReason // empty'; }
 
 # A fresh git repo on `main`, with .env gitignored and one committed file.
 new_main() {
@@ -67,6 +68,18 @@ j=$(jq -nc '{tool_name:"Edit",tool_input:{file_path:"tracked.sh",new_string:"x"}
 
 j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git commit -m x"}}')
 [ "$(run "$j")" = deny ] && pass "git commit on main denied" || die "git commit on main not denied"
+
+cut="git switch -c <prefix>/<slug> (prefixes: git-workflow.md § Trunk)."
+MP=$(pwd -P)
+j=$(jq -nc '{tool_name:"Write",tool_input:{file_path:"tracked.sh",content:"x"}}')
+r=$(reason "$j")
+[ "$r" = "branch-guard: refusing Write into '$MP' on 'main', its default branch. Cut a working branch there first - $cut" ] && pass "edit refusal names the switch" || die "edit refusal reason: $r"
+j=$(jq -nc '{tool_name:"Edit",tool_input:{}}')
+r=$(reason "$j")
+[ "$r" = "branch-guard: refusing Edit on 'main', the default branch. Cut a working branch first - $cut" ] && pass "pathless edit refusal names the switch" || die "pathless edit refusal reason: $r"
+j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"git commit -m x"}}')
+r=$(reason "$j")
+[ "$r" = "branch-guard: refusing 'git commit' on 'main', the default branch. Cut a working branch first - $cut" ] && pass "commit refusal names the switch" || die "commit refusal reason: $r"
 
 # --- false-positive 1: gitignored-path Write on main is allowed ---
 j=$(jq -nc '{tool_name:"Write",tool_input:{file_path:".env",content:"SECRET=1"}}')
