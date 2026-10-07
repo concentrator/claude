@@ -45,6 +45,10 @@
 ## Answers
 - Review 1: fix - the four tests run their hook under an empty temporary
   `HOME`, as `install-dev.test.sh` does.
+- Review 2: accept - the guard reads the tool name before the library
+  load, so a copy the global settings run never reaches it.
+- Review 3: accept - no probe; a wider harness match only runs a copy
+  twice.
 
 ## Review
 - [x] Close review: run from a checkout outside `$HOME/.claude` under the
@@ -56,3 +60,11 @@
   `scripts/test/dev-handoff-nudge.test.sh`.
   Evidence: observed "not ok - Write on main not denied" and the other
   three tests' failures in an extracted copy of the branch
+- [x] Close review: with `secret-patterns.sh` missing, malformed input
+  now exits open before the fail-closed load (Suggestion) -
+  `hooks/dev-secrets-guard.sh:15`; won't fix: accepted as is.
+  Evidence: observed the moved `tool_name` read in the branch diff
+- [x] Close review: a settings matcher is read as a full-match regex,
+  unprobed against the harness (Suggestion) -
+  `hooks/dev-hook-once.sh`; won't fix: accepted without a probe.
+  Evidence: observed Item 1's divergence entry
