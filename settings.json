@@ -171,7 +171,8 @@
   },
   "enabledPlugins": {
     "gopls-lsp@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true
+    "frontend-design@claude-plugins-official": true,
+    "slack@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -183,6 +184,11 @@
   },
   "spinnerTipsEnabled": false,
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "autoCompactWindow": 200000,
   "skipWorkflowUsageWarning": true,
   "editorMode": "normal",
@@ -190,10 +196,5 @@
   "autoCompactEnabled": true,
   "switchModelsOnFlag": true,
   "remoteControlAtStartup": false,
-  "isolatePeerMachines": true,
-  "modelSettings": {
-    "claude-opus-5-5": {
-      "effortLevel": "high"
-    }
-  }
+  "isolatePeerMachines": true
 }
