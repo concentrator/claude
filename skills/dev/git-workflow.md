@@ -117,7 +117,6 @@ Body, only when the subject cannot carry the what/why (a no-diff
 move, a decision, a constraint): compact prose - no boilerplate, no
 file lists, no restating the diff. Routing between the commit,
 findings, and task homes: `rules/writing-artifacts.md § One home per finding`.
-No trailers (Co-Authored-By and kin).
 
 Examples:
 - GOOD: `Fix period chrome over logo`
@@ -141,7 +140,7 @@ checks that matter to verify (manual / non-obvious), not a paste of CI
 output; the declared full tier is one line - CI reports the detail.
 Scannable, not a wall of text.
 
-- No agent attribution, "Generated with…", or Co-Authored-By trailers.
+- No "Generated with…" line.
 - Audience visibility per `CLAUDE.md § Audience visibility`; link
   issues only if openable.
 

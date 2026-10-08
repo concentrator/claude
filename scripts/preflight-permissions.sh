@@ -159,7 +159,7 @@ toolchain_rules() {
   for f in "$project/CLAUDE.md" "$project/.claude/CLAUDE.md"; do [ -f "$f" ] && files+=("$f"); done
   [ "${#files[@]}" -gt 0 ] || return 0
   while IFS= read -r s; do
-    case "$s" in *" "*) ;; *) continue ;; esac
+    case "$s" in -*) continue ;; *" "*) ;; *) continue ;; esac
     s="${s%%<*}"; s="${s%"${s##*[![:space:]]}"}"
     [ -n "$s" ] && printf 'Bash(%s:*)\n' "$s"
   done <<< "$(awk 'FNR == 1 { f = 0; b = 0 } /^## Agent toolchain/ { f = 1; next } f && /^## / { f = 0; b = 0 }
