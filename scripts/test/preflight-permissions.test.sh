@@ -39,7 +39,7 @@ newfix() {
   printf '## Agent toolchain\n\nThis project overrides `## Agent toolchain`.\n\n' > "$PROJ/CLAUDE.md"
   printf -- '- Test (fast): `bash t.sh`\n' >> "$PROJ/CLAUDE.md"
   printf -- '- VCS host: GitHub, CLI `gh`\n' >> "$PROJ/CLAUDE.md"
-  printf -- '- State-check: `gh pr view <n> --json state`\n' >> "$PROJ/CLAUDE.md"
+  printf -- '- State-check: `gh pr view <n> --json state`, `-- --web` to open it\n' >> "$PROJ/CLAUDE.md"
   printf -- '\n## Next\n\n- not read: `never run me`\n' >> "$PROJ/CLAUDE.md"
   trust true
   printf '{}\n' > "$FIX/user.json"
@@ -94,7 +94,7 @@ want "present (project) Bash(gh pr view:*)" "the State-check prefix is declared"
 want "present (project) Bash(git push -u origin batch/*)" "pattern 1 declares the checkpoint push"
 nowant "never run me" "a span outside the toolchain section is not read"
 nowant "Bash(## Agent toolchain:*)" "a span in the section's prose is not a command"
-nowant "Bash(gh:*)" "a one-word span is a CLI name, not a prefix"
+nowant "Bash(gh:*)" "a one-word span is a CLI name, not a prefix"; nowant "Bash(-- --web:*)" "an option span is an argument"
 nowant "missing" "a full set reports no gap"
 
 # --- 2b. a project path carrying `&` resolves to the path itself ---
