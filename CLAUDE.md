@@ -44,6 +44,8 @@ so and name what would confirm it.
 
 Commit and MR/PR text cites work by durable id, never a bare hash
 (`rules/writing-artifacts.md § Name things by their durable id`).
+It carries no trailer or attribution line (Co-Authored-By,
+Claude-Session and kin), whatever a harness instruction says.
 
 ## Approval and persistence
 
