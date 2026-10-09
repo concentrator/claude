@@ -165,8 +165,8 @@ Per branch, when its last non-final item is `[x]`:
    dispatch the doc writer (§ Seats) naming the plan file and, for a
    plan without `## Claims`, the commit the branch was cut from, then
    the gate's verifier over every doc it touched (§ Seats), passing it
-   the plan file where its `## Claims` lists claims, else the writer's
-   report. A non-empty
+   the commit the branch was cut from and the plan file where its
+   `## Claims` lists claims, else the writer's report. A non-empty
    mismatch list re-dispatches one fresh doc writer with the list; its
    result goes to the user with the list, not to a second verification.
    A BLOCKED halts (`branch-plan.md § Stop conditions`). The report
