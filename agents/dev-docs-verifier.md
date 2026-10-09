@@ -7,11 +7,13 @@ tools: Read, Bash
 
 ## Inputs
 
-Your dispatch passes the docs to verify, the checkout's directory and,
-where the plan's `## Claims` lists claims, the plan's path, else the
+Your dispatch passes the docs to verify, the checkout's directory, the
+commit the branch was cut from and, where the plan's `## Claims` lists claims, the plan's path, else the
 doc writer's report.
 
-- **Docs** - every doc the writer touched, each in the checkout.
+- **Docs** - every doc the writer touched, each in the checkout;
+  `git diff <base> HEAD`, `<base>` being that commit, shows the text
+  the branch changed.
 - **Plan** - where it lists claims, its `## Claims`
   (`skills/dev/companions/documentation.md § Claims`).
 - **Task report** - `<task-id>-<slug>.report.md` beside the plan: the

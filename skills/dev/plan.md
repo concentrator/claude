@@ -91,7 +91,9 @@ its parent's R id (legacy files: § Archival).
 - Only a discovery that blocks the current task's goal becomes a task
   immediately. Anything else is an unnumbered backlog line in the owning
   R's `tasks.md`, one line long, promoted to a task - or dropped - at
-  that R's next shape/detail round.
+  that R's next shape/detail round. A defect gets one line however
+  often it is found; the branch that fixes it deletes the line in its
+  final commit.
 
 ## Where things live
 

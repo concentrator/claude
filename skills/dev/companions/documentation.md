@@ -143,17 +143,14 @@ seat (`agents/dev-docs-verifier.md`, the `dev-docs-verifier` type) the
 session - in a run, the runner (`run.md § Close` 3) - dispatches without
 pausing to confirm - a doc the author also verified is unverified -
 bounded by `verification-policy.md § Verifier isolation`. The prose class
-sets the scope and the clearing review: rules, skills, and planning
-prose - the changed text, checked by the close review
-(`branch-plan.md § Closing routine`; reviewer mandate:
+sets the clearing review: rules, skills, and planning prose - the close
+review (`branch-plan.md § Closing routine`; reviewer mandate:
 `agents/code-reviewer.md`; a batch-scoped run: the batch-close full-diff
 pass, `run.md § Batch close`); `<docs>` feature docs, `README.md` and
 the CHANGELOG's `## [Unreleased]` entry (a released block is the
-release's record, `release.md` 6) - the whole doc, or for the CHANGELOG
-the entry, never the diff: a claim's source can change under a line no
-branch touches.
+release's record, `release.md` 6) - the docs verifier.
 
-The checks, over the text in scope:
+The checks:
 
 1. **Claims**: for a doc written from a plan's `## Claims` (§ Claims),
    each claim the plan lists against its task report entry and the
@@ -169,6 +166,12 @@ The checks, over the text in scope:
    asks whether the text is true, this one whether it is usable cold.
 3. **Conformity**: the text against `writing.md`,
    `rules/writing-artifacts.md` and this framework.
+
+All three run over the text the branch changed, plus the sentences
+needed to read it. Check 1 also runs over the rest of a `<docs>` doc,
+`README.md` or the CHANGELOG entry, since a claim's source can change
+under a line no branch touches; there it lists only a claim its source
+contradicts.
 
 The three return one mismatch list, each entry naming the text and the
 check it fails. The list is the verifier's: none of it is written into
