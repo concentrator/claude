@@ -105,8 +105,7 @@ prompt, and bulk-clearing shared /tmp is destructive. /tmp is
 ephemeral; cleanup is not your job.
 
 **Config.** No edit-class shell - `sed -i`, `tee`, a redirection -
-against anything under the config directory: that is what the
-sensitive-file guard fires on. Never the settings surface -
+against anything under the config directory. Never the settings surface -
 `settings.json`, `.claude/settings.json`, `.claude/settings.local.json`,
 `~/.claude.json`; `scripts/install-dev.sh` registers a hook in the
 `hooks` key of the first two, so adding or removing one there is the
