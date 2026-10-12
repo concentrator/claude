@@ -54,15 +54,12 @@ plugins/
 policy-limits.json.stamp.json
 
 # DEV runtime state - hooks/dev-precompact-state.sh, skills/dev/handoff.md,
-# skills/dev/supervise.md § Ledger
+# skills/dev/run.md § Ledger
 /dev/session/
 /dev/supervisor/
 
 # OS
 .DS_Store
-
-# Supervisor portfolio (skills/dev/supervise.md)
-/supervisor/
 
 # Secrets - baseline requirement (layout.md § Baseline files)
 .env
