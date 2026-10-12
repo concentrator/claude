@@ -193,9 +193,7 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R072: Slim the per-task workflow - size-scaled close review,
       two-seat supervision (operator merges into the supervisor),
       proportional tests; supersedes the earlier close-review work.
-- [ ] R073: Planning moves to Jira - tickets replace the repo's planning
-      layer, one ticket one branch, reports in comments; `dev/` and its CI
-      retire; follows the seats work, moots the archival install. Frozen.
+- [x] R073: Planning moves to Jira - dropped: will not implement.
 - [x] R074: Session-state hand-off enforcement - compaction lost intent
       to the summary: a context-fill warning in `dev-branch-state.sh`, a
       `Stop`-hook nudge for autonomous turns, the PreCompact block the floor.
@@ -214,9 +212,8 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R079: Undated stamps - the agentic/supervised stamps go dateless,
       plan.md's contradiction on approval dates resolves, the one live
       dated stamp migrates.
-- [ ] R080: Work by seats - a non-implementing runner drives planned work
-      under a declared supervisor; planner (cold-read exit) and doc-writer
-      seats, per-seat inputs, a duties table per mode, one `docs/`. Frozen.
+- [x] R080: Work by seats - dropped: frozen unfinished; later initiatives
+      carried its live work.
 - [x] R081: Lean planning - the DEV chain stays, its cost drops:
       agents do only what was asked, short stable plan artifacts, plan
       modes, task reports, bounded loops, no code comments by default.
