@@ -234,3 +234,6 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [ ] R087: Seat contract follow-ups - the backlog the agent contracts
       left: prompt context, the docs path, rule restatements and the docs
       gate's scope.
+- [ ] R088: Native first - DEV runs on Claude Code's native behavior and
+      features, rules stop overriding defaults, and a weekly audit finds
+      new conflicts.
