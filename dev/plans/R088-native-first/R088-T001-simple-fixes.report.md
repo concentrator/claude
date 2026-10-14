@@ -22,3 +22,9 @@
   after the seat's commit.
 
 ## Review
+- [ ] Item 1: a classifier denial ends the call: no rule tells a seat or
+  the runner to retry a denied call identically; the seat reports
+  BLOCKED with the classifier's text. Approach: `agents/dev-implementer.md
+  § A denied call` and `supervisor-runbook.md`'s denial entry. (Important)
+  - agents/dev-implementer.md:122
+  Evidence: observed auto mode flagged item 1's identical retry of a denied CLAUDE.md edit as Auto-Mode Bypass
