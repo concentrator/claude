@@ -12,7 +12,6 @@
       "Edit(//Users/skywalker/.claude/**)",
       "Edit(//Users/skywalker/.claude/dev/plans/**)",
       "Bash(cd:*)",
-      "Workflow(code-review)",
       "Skill(claude-api)",
       "Bash(git push -u origin batch/*)",
       "Bash(git push -u origin doc/*)",

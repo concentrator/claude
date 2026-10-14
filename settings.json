@@ -1,6 +1,12 @@
 {
   "syncClaudeAiSkills": false,
-  "includeCoAuthoredBy": false,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "skillOverrides": {
+    "code-review": "off"
+  },
   "permissions": {
     "allow": [
       "Bash(ls:*)",
