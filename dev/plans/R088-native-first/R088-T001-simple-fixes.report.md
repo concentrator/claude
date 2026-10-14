@@ -2,6 +2,10 @@
 
 ## Implementer
 
+- Item 1: `settings.json` already held the `attribution` block (landed by
+  the session per `## Answers`); the seat dropped the harness-instruction
+  clause from `CLAUDE.md § Writing`.
+
 ## Answers
 - Item 1: the session writes the `settings.json` change, landed before
   the item; the seat drops the `CLAUDE.md` clause.

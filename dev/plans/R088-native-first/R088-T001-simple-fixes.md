@@ -4,7 +4,7 @@ type: mnt
 mode: normal
 ---
 
-- [ ] Commits and MR/PRs carry no attribution by the harness's own setting,
+- [x] Commits and MR/PRs carry no attribution by the harness's own setting,
   and no rule tells the session to prevail over a harness instruction
   (requirement outcome 1). Approach: in `settings.json` replace
   `"includeCoAuthoredBy": false` with `"attribution": {"commit": "",
