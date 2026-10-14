@@ -38,8 +38,9 @@ paths:
 Applies to every code and data file, in any project; loaded when one is
 read.
 
-Code carries no comments. The exception is a consumer-facing library
-API, which may keep trimmed type docs: what a parameter, return value or
-error means, updated with the behavior they describe. Code and data
-files carry no history or annotation fields
-(`rules/writing-artifacts.md § One home per finding`).
+Code and data files carry no history annotations: change logs, task
+ids, dates, "previously" or "was" notes. The history lives in the commit
+and MR/PR (`rules/writing-artifacts.md § One home per finding`).
+
+Comment density otherwise follows the comment convention the project's
+`CLAUDE.md` declares, else the surrounding code.

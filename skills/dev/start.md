@@ -36,6 +36,11 @@ Ask: **release routine?** Record `release-routine:` in `CLAUDE.md
 record `publish-external:`. If external, override
 `release` at `<project>/.claude/skills/release/SKILL.md`.
 
+Ask through the AskUserQuestion tool: **comment convention?**, "match
+surrounding code" the default option. Record `comments:` in `CLAUDE.md
+§ Conventions`; the project's code follows it from the first file
+(`rules/code-comments.md`).
+
 Write `## Layout` after `## Agent toolchain` with the defaults
 (`companions/declarations.md § Declared paths`), seed `<layout>` from
 `layout.md § Layout file`, and append `<session>` and `supervisor/` in

@@ -9,6 +9,11 @@
   `.claude/settings.json` no `Workflow(code-review)` allow (landed by the
   session per `## Answers`); the seat dropped the escalation clause and
   the `/code-review` ban.
+- Item 3: `rules/code-comments.md` drops the no-comments ban and the
+  library-API exception; density follows the project's declared
+  convention, else the surrounding code, so the `comments:` line
+  `start.md § 3` records binds the first code files. The two agents
+  already cite the rule and restate none of it, so they stay unchanged.
 
 ### Divergences
 - Review 1: `companions/seat-permissions.md § Prompt classes` also told

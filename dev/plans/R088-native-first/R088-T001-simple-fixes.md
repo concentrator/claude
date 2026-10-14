@@ -16,7 +16,7 @@ mode: normal
   in `settings.json`; drop the manual-escalation clause of `branch-plan.md
   § Closing routine` 1 and `/code-review` from the "You work alone" line of
   `agents/code-reviewer.md`.
-- [ ] The comment rule bans only history annotations in code - change logs,
+- [x] The comment rule bans only history annotations in code - change logs,
   task ids, dates, "previously"/"was" notes - and comment density otherwise
   follows the surrounding code. `/dev start` writes a comment-convention line
   into the new project's `CLAUDE.md`, and the first code files follow it.
