@@ -195,8 +195,7 @@ commit and the hand-off (`finish`).
    to the reviewer, adding `/simplify` only at the user's request.
    A second verification agent only when
    the reviewer reports a Critical finding
-   (`companions/verification-policy.md § Verifier isolation`);
-   `/code-review` is a manual escalation - suggest, never run.
+   (`companions/verification-policy.md § Verifier isolation`).
    Bookkeeping (plan marks) keys no review. Also the
    **Tier-2 compliance review**: every concern in
    `MAINTENANCE.md § Tier-2 AI review`, over the diff.

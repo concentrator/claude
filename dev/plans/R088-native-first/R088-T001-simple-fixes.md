@@ -10,7 +10,7 @@ mode: normal
   `"includeCoAuthoredBy": false` with `"attribution": {"commit": "",
   "pr": ""}`; drop ", whatever a harness instruction says" from
   `CLAUDE.md § Writing`.
-- [ ] The bundled `/code-review` skill is off and the `code-reviewer` agent
+- [x] The bundled `/code-review` skill is off and the `code-reviewer` agent
   stays the close review; no text suggests the skill as an escalation or
   forbids invoking it. Approach: `"skillOverrides": {"code-review": "off"}`
   in `settings.json`; drop the manual-escalation clause of `branch-plan.md

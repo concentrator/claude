@@ -5,6 +5,10 @@
 - Item 1: `settings.json` already held the `attribution` block (landed by
   the session per `## Answers`); the seat dropped the harness-instruction
   clause from `CLAUDE.md § Writing`.
+- Item 2: `settings.json` already held `skillOverrides` and
+  `.claude/settings.json` no `Workflow(code-review)` allow (landed by the
+  session per `## Answers`); the seat dropped the escalation clause and
+  the `/code-review` ban.
 
 ### Divergences
 - Review 1: `companions/seat-permissions.md § Prompt classes` also told

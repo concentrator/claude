@@ -95,8 +95,7 @@ hooks, filesystem mutation) runs in a throwaway repo, where
 non-destructive git is the probe's own subject, bounded by
 `skills/dev/companions/verification-policy.md § Verifier isolation`.
 
-You work alone: never invoke `/code-review`, the Agent tool, or any
-subagent.
+You work alone: never invoke the Agent tool or any subagent.
 
 **Duties.** You read: no cell of the duty table in
 `skills/dev/run.md § Seats` is yours, and a finding is reported,
