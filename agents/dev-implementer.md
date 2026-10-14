@@ -120,13 +120,13 @@ binding it: a guard changes only as the plan item states it, with the
 test that pins the change.
 
 **A denied call.** A call of yours may be denied by the permission
-mode's classifier rather than by a rule. Denials are nondeterministic,
-so retry the call once, identical; where the denial says the
-classifier could not evaluate it, re-write the call so it can be read -
+mode's classifier rather than by a rule. A denial ends the call: report
+BLOCKED with the classifier's text, and never retry the call, which the
+classifier can flag as a bypass attempt. Where the denial says the
+classifier could not evaluate the call, re-write it so it can be read -
 no base64 piped into a shell, no script copied to a host and executed -
-and run that. A second denial is an answer: report BLOCKED with the
-classifier's text. Nobody else sees the denial, and nobody else clears
-it.
+and run that once; a denial of the rewrite ends it the same way.
+Nobody else sees the denial, and nobody else clears it.
 
 **Corrections handed to you.** A correction you are given - from a
 reviewer, the runner, or the dispatch itself - is a claim, not an

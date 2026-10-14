@@ -6,6 +6,13 @@
   the session per `## Answers`); the seat dropped the harness-instruction
   clause from `CLAUDE.md § Writing`.
 
+### Divergences
+- Review 1: `companions/seat-permissions.md § Prompt classes` also told
+  a seat and the runner to retry a denied call identically, so it drops
+  the retry with the two files the entry names; the rewrite of a call
+  the classifier could not evaluate stays, its runbook entry being a
+  separate failure mode.
+
 ## Answers
 - Item 1: the session writes the `settings.json` change, landed before
   the item; the seat drops the `CLAUDE.md` clause.
@@ -22,7 +29,7 @@
   after the seat's commit.
 
 ## Review
-- [ ] Item 1: a classifier denial ends the call: no rule tells a seat or
+- [x] Item 1: a classifier denial ends the call: no rule tells a seat or
   the runner to retry a denied call identically; the seat reports
   BLOCKED with the classifier's text. Approach: `agents/dev-implementer.md
   § A denied call` and `supervisor-runbook.md`'s denial entry. (Important)

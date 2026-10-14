@@ -294,23 +294,21 @@ A **classifier event** under `auto` is no gap in any declared set: the
 denial lands inside a dispatched seat's own call and no other seat can
 see it, the seat's only channel being its report, whose statuses
 (`agents/dev-implementer.md § Outputs`) carry no classifier
-class. So no retry is the runner's to hold: the seat handles the call
-itself, retrying it once identically, denials being nondeterministic,
-and rewriting it to be classifier-readable where the classifier could
-not evaluate it (`companions/supervisor-runbook.md § Failure modes`).
-What tells the seat that is its own contract
-(`agents/dev-implementer.md § Steps`), the runbook being no seat's
-input. A second denial is an answer: the seat reports BLOCKED with the
-classifier's text, which halts the item and reports with its work intact
-(`run.md § Dispatch per item`), and the runner ledgers a `prompt` event
-(`run.md § Ledger`). That retry sits inside the seat's own call; no
-count of these events is kept anywhere.
+class. So the seat handles the call itself, rewriting it to be
+classifier-readable where the classifier could not evaluate it and
+never retrying a denied call, which the classifier can flag as a
+bypass attempt (`companions/supervisor-runbook.md § Failure modes`). What
+tells the seat that is its own contract (`agents/dev-implementer.md
+§ Steps`), the runbook being no seat's input. A denial is an answer:
+the seat reports BLOCKED with the classifier's text, which halts the
+item and reports with its work intact (`run.md § Dispatch per item`),
+and the runner ledgers a `prompt` event (`run.md § Ledger`). No count
+of these events is kept anywhere.
 
 A denial of the runner's own command - `git merge`, `git tag`, the
 halt's `git read-tree` - lands in the runner's call rather than a
-seat's and takes the same route: one identical retry, and a second
-denial halts the run and reports, nobody being able to clear a denial
-for it.
+seat's and takes the same route: no retry, the denial halting the run
+and reporting, nobody being able to clear a denial for it.
 
 ## Seat tool sets
 
