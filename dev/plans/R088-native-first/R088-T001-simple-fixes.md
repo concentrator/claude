@@ -55,7 +55,7 @@ mode: normal
   check holds, the id check in `requirements.md` included. Approach:
   `scripts/ci/check-plan-text.sh` and its header, its test, then the
   `templates.md` line banning "references to other plans" in a task.
-- [ ] The model-quota gate is gone; a dispatch failing on capacity still
+- [x] The model-quota gate is gone; a dispatch failing on capacity still
   falls back to the next model down and records the substitution.
   Approach: delete `scripts/model-quota.sh` and its test, then `LAYOUT.md`
   and the capacity paragraph of `verification-policy.md § Models`; the test

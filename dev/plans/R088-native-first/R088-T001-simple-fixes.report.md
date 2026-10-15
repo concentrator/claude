@@ -52,6 +52,10 @@
   in `tasks.md` and in ROADMAP, both failing against the old gate.
   `templates.md` drops the ban and has another initiative or task cited
   by its id.
+- Item 10: the script and its test are gone, with the `LAYOUT.md` row;
+  `verification-policy.md`'s capacity fallback keeps the next-model-down
+  substitution and its record, dropping the pre-dispatch gate read. No
+  other live file named the script.
 
 ### Divergences
 - Review 1: `companions/seat-permissions.md § Prompt classes` also told
