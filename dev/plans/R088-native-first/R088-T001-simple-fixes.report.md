@@ -20,6 +20,14 @@
 - Item 5: the global `CLAUDE.md` § Scope line binds unprompted findings
   and says a requested review reports what it reads; the § Communication
   line binds questions about approach.
+- Item 6: `verification-policy.md` has a dispatch override `model` and
+  `effort` through the Agent tool's parameters, and the mechanical tier
+  dispatch `sonnet` at `effort: low`; the `(judgment-heavy)` and default
+  tiers set no effort, the item naming none. `run.md § Seats` and the
+  runbook's loop diagram name the Agent tool; `plan.md § Templates` has
+  `templates.md` read on demand. Harness source read: the Claude Code
+  2.1.296 binary's Agent tool schema carries `effort` (`low` to `max`),
+  and `Task` survives there only as a legacy alias of `Agent`.
 
 ### Divergences
 - Review 1: `companions/seat-permissions.md § Prompt classes` also told

@@ -36,7 +36,7 @@ back, or when the host is provisioned for it
  |  RUNNER SESSION      /dev run <scope>             |
  |  resolves, dispatches, routes questions, verifies |
  +---------------------------------------------------+
-      |  Task tool, one seat at a time
+      |  Agent tool, one seat at a time
       v
  +---------------------------------------------------+
  |  SEAT (subagent)     one plan item                |

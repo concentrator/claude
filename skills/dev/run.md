@@ -10,7 +10,7 @@ never bypassed - no admin merges.
 
 ## Seats
 
-A seat is a subagent of the runner, dispatched with the Task tool in
+A seat is a subagent of the runner, dispatched with the Agent tool in
 the runner's checkout for one item, inheriting the runner's permission
 mode and shut down at its exit; the next seat starts fresh, and only
 the branch and the plan item carry over. Seats run one at a time, and

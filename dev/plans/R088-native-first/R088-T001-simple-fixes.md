@@ -33,7 +33,7 @@ mode: normal
   reports what it reads; in § Communication "A question gets a reply and a
   suggestion, no action until instructed" binds questions about approach
   ("should we ...?"). Approach: those two lines of the global `CLAUDE.md`.
-- [ ] Routing and tool names match the harness: a dispatch sets `effort` as
+- [x] Routing and tool names match the harness: a dispatch sets `effort` as
   well as `model`, a mechanical item dispatching `sonnet` at `effort: low`;
   seats go out by the Agent tool; `templates.md`, with no `paths:` key, is
   read on demand. Approach: `verification-policy.md § Effort mechanics` and

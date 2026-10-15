@@ -230,5 +230,5 @@ legacy artifacts (plan files with no `task:` header). Legacy
 
 Planning-artifact templates (foundational `REQUIREMENTS.md`,
 per-initiative `requirements.md` by `kind:`, release plan, milestone
-plan) live in `templates.md` - path-scoped to load only when editing
-the files they instantiate.
+plan) live in `templates.md`, which carries no `paths:` key: read it
+on demand, before writing the file a template instantiates.

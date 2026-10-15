@@ -12,10 +12,10 @@ Model and effort route per seat: each definition's frontmatter carries
 `model:` where the seat pins a model and `effort:` where it pins an
 effort (`low`/`medium`/`high`/`xhigh`/`max`; `agents/code-reviewer.md`
 pins `medium`), the roster being `run.md § Seats`. A dispatch overrides
-`model` only, which is why the implementer's tier is the dispatch's
-(§ Models) and its definition's value the default; a key a definition
-omits inherits the session's - `effortLevel` the default rather than
-the ceiling.
+either through the Agent tool's `model` and `effort` parameters, which
+is why the implementer's tier is the dispatch's (§ Models) and its
+definition's values the default; a key neither sets inherits the
+session's - `effortLevel` the default rather than the ceiling.
 
 ## Mechanical commits
 
@@ -125,10 +125,11 @@ again, and the header records `cold-read: passed` (`branch-plan.md
 A seat's model is its definition's (`run.md § Seats`); the two rules a
 definition cannot hold stay here.
 
-**Implementer tier.** The runner picks the implementer's model
-deterministically - mechanical predicate true (§ Mechanical commits) →
-`sonnet`; plan item explicitly tagged `(judgment-heavy)` → `fable`;
-otherwise the model `agents/dev-implementer.md` pins. No predicate
+**Implementer tier.** The runner picks the implementer's model and
+effort deterministically and sets both on the dispatch - mechanical
+predicate true (§ Mechanical commits) → `sonnet` at `effort: low`; plan
+item explicitly tagged `(judgment-heavy)` → `fable`; otherwise the
+model `agents/dev-implementer.md` pins. No predicate
 infers `(judgment-heavy)`; only the tag in the plan-item text does.
 
 **Capacity fallback.** A pinned model can be rate-limited, which is not
