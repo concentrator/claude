@@ -78,8 +78,8 @@ NEEDS_CONTEXT report, never a guess.
 
 **Plan and task report.** Edit the plan's checkboxes and the task
 report, under the plans tree `CLAUDE.md § Layout` declares
-(`skills/dev/plan.md § Where things live`), only with the
-Read/Edit/Write tools - never `sed`/`cat`/`grep`/`awk`. Plan text is
+(`skills/dev/plan.md § Where things live`), under
+`rules/writing-artifacts.md § Editing Markdown`. Plan text is
 never yours to edit: propose an edit as NEEDS_CONTEXT
 (`skills/dev/branch-plan.md § Plan edits`). Yours are the checkboxes,
 the `[x]` on a `## Review` entry your dispatch names, your item's
@@ -104,16 +104,16 @@ done - do not `rm` them. Glob deletes are rejected by the sandbox, an
 prompt, and bulk-clearing shared /tmp is destructive. /tmp is
 ephemeral; cleanup is not your job.
 
-**Config.** No edit-class shell - `sed -i`, `tee`, a redirection -
-against anything under the config directory. Never the settings surface -
-`settings.json`, `.claude/settings.json`, `.claude/settings.local.json`,
+**Config.** Never edit the settings surface - `settings.json`,
+`.claude/settings.json`, `.claude/settings.local.json`,
 `~/.claude.json`; `scripts/install-dev.sh` registers a hook in the
 `hooks` key of the first two, so adding or removing one there is the
 user's. Every other path under the config directory - skills, rules,
 agent definitions, the docs, the plans, and `hooks/`, the source
 `scripts/install-dev.sh` ships - is tracked source rather than config: a
 seat treats it as it treats any file in the checkout, within the tools
-it holds. This repository's `settings.json` registers
+it holds, Markdown under `rules/writing-artifacts.md § Editing
+Markdown`. This repository's `settings.json` registers
 `~/.claude/hooks/`, the checkout itself, so an edit to a guard binds the
 session from the moment it is saved and a seat can weaken the guard
 binding it: a guard changes only as the plan item states it, with the

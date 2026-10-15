@@ -22,7 +22,7 @@ mode: normal
   into the new project's `CLAUDE.md`, and the first code files follow it.
   Approach: `rules/code-comments.md`, its `paths:` kept, then `start.md § 3`;
   the agents and skills cite the rule and restate none of it.
-- [ ] Markdown has one editing rule: edit one anchored span with any tool -
+- [x] Markdown has one editing rule: edit one anchored span with any tool -
   Edit, or `sed` or a script asserting a single match - without the "wins
   ... whatever the instruction's source" and "owes ... no report" sentences.
   Approach: `rules/writing-artifacts.md § Bulk edits`, then the tool bans in

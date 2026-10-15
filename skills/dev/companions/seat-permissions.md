@@ -245,9 +245,10 @@ and a definition carries `tools:` and no permission key.
 An entry one conduct section bars in one context and a definition needs
 in another stays, traced to the need, the bar standing where it is
 written: `sed`, `awk`, `cat`, `head`, `tail`, `wc` and `grep` are what
-the seats read and search with, while `agents/dev-implementer.md § Steps`
-keeps them off the plan and the task report and its
-config paragraph keeps edit-class shell off the config directory. The
+the seats read and search with, `sed` editing Markdown under
+`rules/writing-artifacts.md § Editing Markdown`, while the config
+paragraph of `agents/dev-implementer.md § Steps` keeps every edit off
+the settings surface. The
 read-only bar in the `§ Steps` of `agents/dev-cold-reader.md`,
 `agents/dev-docs-verifier.md` and `agents/code-reviewer.md` keeps every
 write of those seats off the checkout, the config directory and the

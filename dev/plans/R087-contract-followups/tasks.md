@@ -11,7 +11,6 @@ Why: the agent contracts closed with backlog lines their rounds did not promote 
 - Find where git workflow rules are restated outside the git workflow file.
 - The docs gate verifies a whole doc, though older text changes only on request.
 - The planner's contract has no input for the user's decisions on a plan change.
-- Seats edit Markdown with sed or Python when the auto-mode notice asks for Bash, though the bulk-edits rule requires the Edit tool.
 - The toolchain rule says commands are declared as allow rules, but the pre-flight wraps each one in `Bash(...:*)`, so a declared rule is wrapped twice.
 - The pre-flight passes a chained toolchain command and a top-level `deny`/`allow`/`ask` key in a settings tier without a warning.
 - The supervisor seat can only change through a tracked edit; a session cannot pick a seat below the declared one.

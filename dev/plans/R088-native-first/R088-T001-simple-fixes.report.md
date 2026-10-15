@@ -14,6 +14,9 @@
   convention, else the surrounding code, so the `comments:` line
   `start.md § 3` records binds the first code files. The two agents
   already cite the rule and restate none of it, so they stay unchanged.
+- Item 4: `§ Bulk edits` becomes `§ Editing Markdown`; the three seats
+  cite it in place of their tool bans, and the implementer's config
+  paragraph keeps only the settings-surface bar.
 
 ### Divergences
 - Review 1: `companions/seat-permissions.md § Prompt classes` also told
@@ -21,6 +24,11 @@
   the retry with the two files the entry names; the rewrite of a call
   the classifier could not evaluate stays, its runbook entry being a
   separate failure mode.
+- Item 4: the section is renamed `§ Editing Markdown`, as the rule no
+  longer covers bulk edits only; `companions/seat-permissions.md`'s
+  paragraph on the seats' shell tools changes to match. The classifier
+  denied the seat that edit, and the session made it on the user's
+  approval.
 
 ## Answers
 - Item 1: the session writes the `settings.json` change, landed before
