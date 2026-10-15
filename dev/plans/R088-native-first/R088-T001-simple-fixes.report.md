@@ -66,6 +66,15 @@
   covering every ask of its routing tables. The typed `discard`
   confirmation in `finish.md § 3` stays typed: it confirms a decision
   already taken rather than choosing among options.
+- Item 12: `rules/claude-md.md` and `rules/skills.md` § Approval point
+  at the `permissions.ask` rules and keep only the changes those rules
+  cannot see: a `CLAUDE.local.md`, which the ask list leaves out, and an
+  edit through the shell, outside the Edit and Write tools those rules
+  name.
+  `MAINTENANCE.md § Repair` names settings among the governed files,
+  `SKILL.md` in place of skills, and the shell-edit case; its
+  "Elsewhere:" becomes "Repairs:", as a settings repair now asks too. The
+  `settings.json` ask rules are the session's, after this commit.
 
 ### Divergences
 - Review 1: `companions/seat-permissions.md § Prompt classes` also told

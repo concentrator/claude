@@ -58,5 +58,7 @@ read or edit.
 
 ## Approval
 
-**Never auto-create or auto-edit a skill.** Propose changes; wait for explicit
-approval before writing.
+`permissions.ask` in `settings.json` holds every Edit or Write of a
+`SKILL.md`, a new one included, for approval. An edit through the shell
+(`sed`, a script, `git mv`) is outside it: propose the change and wait for
+explicit approval.

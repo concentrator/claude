@@ -65,7 +65,7 @@ mode: normal
   § Question resolution and § Merge or ask, then the question sites in the
   mode files: `brainstorm.md` step 3, `start.md § 3`, `finish.md § 3`,
   `branch-plan.md § Closing routine` 6, and the ask routes of `SKILL.md`.
-- [ ] Edits to `**/CLAUDE.md`, `**/SKILL.md`, `rules/**` and `settings*.json`
+- [x] Edits to `**/CLAUDE.md`, `**/SKILL.md`, `rules/**` and `settings*.json`
   ask first through `permissions.ask` Edit and Write rules; `rules/claude-md.md`
   and `rules/skills.md` § Approval keep only what a permission rule cannot
   see. Last, so earlier items edit unprompted. Approach: the two rules, then
