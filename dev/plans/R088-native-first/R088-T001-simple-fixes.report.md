@@ -56,6 +56,16 @@
   `verification-policy.md`'s capacity fallback keeps the next-model-down
   substitution and its record, dropping the pre-dispatch gate read. No
   other live file named the script.
+- Item 11: `run.md` has a relayed seat question that is a choice go
+  through AskUserQuestion with the seat's report supplying the options,
+  and every user decision of § Merge or ask asked through it. The named
+  sites follow: brainstorm's multiple-choice clarifying questions, the
+  release-routine and publishing questions of `start.md § 3`, the merge
+  or discard decision and the keep-the-plan question of `finish.md § 3`,
+  the triage prompt of § Closing routine 6, and one line in `SKILL.md`
+  covering every ask of its routing tables. The typed `discard`
+  confirmation in `finish.md § 3` stays typed: it confirms a decision
+  already taken rather than choosing among options.
 
 ### Divergences
 - Review 1: `companions/seat-permissions.md § Prompt classes` also told

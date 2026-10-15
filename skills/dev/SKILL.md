@@ -6,7 +6,9 @@ description: Use to enter DEV mode for spec-driven, planned, reviewed work.
 # Dev
 
 DEV mode - strict, spec-driven: plan, then run as dispatched seats.
-**Read the mode file a command maps to before acting.**
+**Read the mode file a command maps to before acting.** An ask in the
+tables below goes to the user through the AskUserQuestion tool, the
+candidates the state offers as its options.
 
 ## Surface
 

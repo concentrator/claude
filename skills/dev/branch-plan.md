@@ -208,7 +208,7 @@ commit and the hand-off (`finish`).
    for the verify (`finish.md § 3` step 4).
 6. **Triage the task report** (§ Task report): in-scope items resolve here
    as commits, not deferrals (§ Scope discoveries). For each remaining
-   `[ ]`, prompt user:
+   `[ ]`, ask the user through the AskUserQuestion tool:
    - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")

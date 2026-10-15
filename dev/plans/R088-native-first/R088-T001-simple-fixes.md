@@ -60,7 +60,7 @@ mode: normal
   Approach: delete `scripts/model-quota.sh` and its test, then `LAYOUT.md`
   and the capacity paragraph of `verification-policy.md § Models`; the test
   runner globs, so no list names the test.
-- [ ] A question to the user during a DEV flow whose answer is a choice
+- [x] A question to the user during a DEV flow whose answer is a choice
   among options goes through the AskUserQuestion tool. Approach: `run.md`
   § Question resolution and § Merge or ask, then the question sites in the
   mode files: `brainstorm.md` step 3, `start.md § 3`, `finish.md § 3`,

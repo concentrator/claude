@@ -47,12 +47,13 @@ naming that condition.
    dry-run the changed rule against a real case; tests → the suite run
    is the verification; data or config → run the work product.
 5. **Decision** - the merging seat merges or discards, on the MR/PR
-   number, its pipeline state and the verify's results:
+   number, its pipeline state and the verify's results; the user's
+   decision is asked through the AskUserQuestion tool:
    - **Merge** via the declared merge command, then §4.
    - **Discard** - list branch, commits, plan state; a user's discard
      is confirmed by typing `discard`. Close the MR/PR, checkout
      default, delete the branch local and origin. The task stays `[ ]`;
-     ask whether to keep the plan.
+     ask through the AskUserQuestion tool whether to keep the plan.
 
    No answer leaves the MR/PR open.
 
