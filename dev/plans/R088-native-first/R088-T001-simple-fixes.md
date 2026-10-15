@@ -45,7 +45,7 @@ mode: normal
   three dirs, then `LAYOUT.md`, `.gitignore`, `install-dev.sh` with its
   test, `check-caps.sh`, `rules/skills.md`, `skills/writing-skills/` and
   `systematic-debugging/SKILL.md`.
-- [ ] The branch-state line drops the default-branch first-edit hint, which
+- [x] The branch-state line drops the default-branch first-edit hint, which
   the branch guard's deny repeats, and names the session-state file, and so
   the fill warning, only in a repo that uses DEV: its `CLAUDE.md` declares
   `- Plans:` or `- Session:`, or it holds `dev/plans/`. Approach:

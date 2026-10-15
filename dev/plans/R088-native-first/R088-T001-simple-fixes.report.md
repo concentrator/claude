@@ -37,6 +37,14 @@
   pointer to the TDD skill and its "Related skills" list;
   `rules/skills.md` takes `dispatching-parallel-agents` as its naming
   example.
+- Item 8: `dev-branch-state.sh` drops the hint with the default-branch
+  resolution that fed only it, and asks the state and fill helpers only
+  where the root the state helper uses holds `dev/plans/` or a
+  `CLAUDE.md` or `.claude/CLAUDE.md` declaring `- Plans:` or
+  `- Session:`. The test replaces the default-branch cases with one
+  hint-free `main` line, adds a non-DEV repo whose line carries neither
+  segment above the fill threshold, and one case per DEV signal; it
+  failed against the old hook on those two lines.
 
 ### Divergences
 - Review 1: `companions/seat-permissions.md § Prompt classes` also told
