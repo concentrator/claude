@@ -16,10 +16,6 @@ Write test cases (pressure scenarios with subagents), watch them fail
 **Core principle:** If you didn't watch an agent fail without the skill,
 you don't know if the skill teaches the right thing.
 
-**REQUIRED BACKGROUND:** You MUST understand `test-driven-development`
-before using this skill. That skill defines the fundamental RED-GREEN-REFACTOR
-cycle. This skill adapts TDD to documentation.
-
 ## TDD Mapping for Skills
 
 | TDD Concept | Skill Creation |

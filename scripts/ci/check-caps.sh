@@ -18,7 +18,7 @@ fail=0
 report() { echo "CAP: $1"; fail=1; }
 
 orchestrators=" dev "
-reference=" writing-skills verification-before-completion receiving-code-review dispatching-parallel-agents test-driven-development systematic-debugging "
+reference=" writing-skills dispatching-parallel-agents systematic-debugging "
 
 base=$(branch_base) || base=
 old=$(mktemp); trap 'rm -f "$old"' EXIT

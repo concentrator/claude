@@ -28,7 +28,7 @@ read or edit.
 
 ## Naming and location
 
-- Hyphenated, verb-first or gerund: `receiving-code-review`, `systematic-debugging`.
+- Hyphenated, verb-first or gerund: `dispatching-parallel-agents`, `systematic-debugging`.
 - Global: `~/.claude/skills/<name>/SKILL.md`
 - Project: `<project>/.claude/skills/<name>/SKILL.md`
 

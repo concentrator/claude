@@ -28,6 +28,15 @@
   `templates.md` read on demand. Harness source read: the Claude Code
   2.1.296 binary's Agent tool schema carries `effort` (`low` to `max`),
   and `Task` survives there only as a legacy alias of `Agent`.
+- Item 7: the three skill dirs are gone, and `BUNDLED`, the `.gitignore`
+  allowlist, `LAYOUT.md` and `check-caps.sh`'s reference class name only
+  `systematic-debugging` and `dispatching-parallel-agents`, the two the
+  companions invoke. The install test pins `skills/` to `dev` plus those
+  two. `writing-skills` drops its "required background" paragraphs, the
+  TDD mapping table carrying the cycle; `systematic-debugging` drops its
+  pointer to the TDD skill and its "Related skills" list;
+  `rules/skills.md` takes `dispatching-parallel-agents` as its naming
+  example.
 
 ### Divergences
 - Review 1: `companions/seat-permissions.md § Prompt classes` also told

@@ -77,10 +77,7 @@ repos are versioned there, not mapped.
     │   ├── SKILL.md              #   the router
     │   ├── *.md                  # modes and process rules, routed by SKILL.md
     │   └── companions/           # declarations, docs framework, verification policy, runbook
-    ├── test-driven-development/  # bundled dependency skills (installer ships these)
-    ├── systematic-debugging/     # bundled
-    ├── verification-before-completion/SKILL.md # bundled
-    ├── receiving-code-review/SKILL.md          # bundled
+    ├── systematic-debugging/     # bundled dependency skills (installer ships these)
     ├── dispatching-parallel-agents/SKILL.md    # bundled
     ├── skill-creator/SKILL.md    # personal (skill authoring)
     ├── writing-skills/           # personal

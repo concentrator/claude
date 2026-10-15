@@ -39,7 +39,7 @@ mode: normal
   read on demand. Approach: `verification-policy.md § Effort mechanics` and
   `§ Models`, then the "Task tool" in `run.md § Seats` and
   `supervisor-runbook.md`, and `plan.md § Templates`.
-- [ ] The unreferenced bundled skills `test-driven-development`,
+- [x] The unreferenced bundled skills `test-driven-development`,
   `verification-before-completion` and `receiving-code-review` are gone
   with every reference; the other two bundled skills stay. Approach: the
   three dirs, then `LAYOUT.md`, `.gitignore`, `install-dev.sh` with its

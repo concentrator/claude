@@ -39,10 +39,7 @@ plugins/
 # Skills: only the toolset's own are tracked; synced and symlinked ones are machine-local
 /skills/*
 !/skills/dev/
-!/skills/test-driven-development/
 !/skills/systematic-debugging/
-!/skills/verification-before-completion/
-!/skills/receiving-code-review/
 !/skills/dispatching-parallel-agents/
 !/skills/skill-creator/
 !/skills/writing-skills/
