@@ -50,7 +50,7 @@ mode: normal
   the fill warning, only in a repo that uses DEV: its `CLAUDE.md` declares
   `- Plans:` or `- Session:`, or it holds `dev/plans/`. Approach:
   `hooks/dev-branch-state.sh`, then its test, green, with a non-DEV case.
-- [ ] The plan-text gate accepts another initiative's R id in ROADMAP and
+- [x] The plan-text gate accepts another initiative's R id in ROADMAP and
   `tasks.md` text, a durable id being the house citation form; every other
   check holds, the id check in `requirements.md` included. Approach:
   `scripts/ci/check-plan-text.sh` and its header, its test, then the

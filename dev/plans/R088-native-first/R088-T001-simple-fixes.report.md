@@ -45,6 +45,13 @@
   hint-free `main` line, adds a non-DEV repo whose line carries neither
   segment above the fill threshold, and one case per DEV signal; it
   failed against the old hook on those two lines.
+- Item 9: `check-plan-text.sh` runs the id check in `requirements.md`
+  only, and the ROADMAP scan no longer derives an entry's own id, which
+  fed only that check. The test moves the two foreign-id cases and the
+  `R-NNN` own-id case to `requirements.md` and adds a passing foreign id
+  in `tasks.md` and in ROADMAP, both failing against the old gate.
+  `templates.md` drops the ban and has another initiative or task cited
+  by its id.
 
 ### Divergences
 - Review 1: `companions/seat-permissions.md § Prompt classes` also told
