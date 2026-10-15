@@ -28,7 +28,7 @@ mode: normal
   Approach: `rules/writing-artifacts.md § Bulk edits`, then the tool bans in
   `agents/dev-planner.md`, `dev-doc-writer.md` and `dev-implementer.md`; drop
   the matching "Seats edit Markdown" line from R087's `tasks.md`.
-- [ ] Two `CLAUDE.md` lines narrow: in § Scope "a case built from reading
+- [x] Two `CLAUDE.md` lines narrow: in § Scope "a case built from reading
   code is not raised" binds unprompted findings only, so a requested review
   reports what it reads; in § Communication "A question gets a reply and a
   suggestion, no action until instructed" binds questions about approach

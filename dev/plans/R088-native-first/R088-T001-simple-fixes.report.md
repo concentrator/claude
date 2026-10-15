@@ -17,6 +17,9 @@
 - Item 4: `§ Bulk edits` becomes `§ Editing Markdown`; the three seats
   cite it in place of their tool bans, and the implementer's config
   paragraph keeps only the settings-surface bar.
+- Item 5: the global `CLAUDE.md` § Scope line binds unprompted findings
+  and says a requested review reports what it reads; the § Communication
+  line binds questions about approach.
 
 ### Divergences
 - Review 1: `companions/seat-permissions.md § Prompt classes` also told
