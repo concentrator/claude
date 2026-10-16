@@ -110,3 +110,12 @@
   § A denied call` and `supervisor-runbook.md`'s denial entry. (Important)
   - agents/dev-implementer.md:122
   Evidence: observed auto mode flagged item 1's identical retry of a denied CLAUDE.md edit as Auto-Mode Bypass
+- [ ] Close review: the reviewer's evidence rule agrees with `CLAUDE.md
+  § Scope`: a finding read in the code is evidence, and one resting on
+  an input the reviewer constructed is listed once under "not checked",
+  marked hypothetical. (Critical) - agents/code-reviewer.md:83
+  Evidence: contract CLAUDE.md § Scope says a requested review reports what it reads
+- [x] Close review: the ask rules cover every `CLAUDE.md`, `SKILL.md`,
+  `.claude/rules/` and `.claude/settings*.json` path, anchored at the
+  filesystem root; the session made the change. (Critical) - settings.json
+  Evidence: contract the permissions docs resolve an unanchored `**/` pattern from the current directory only

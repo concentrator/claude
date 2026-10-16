@@ -101,14 +101,10 @@
       "Edit(//private/tmp/**)"
     ],
     "ask": [
-      "Edit(**/CLAUDE.md)",
-      "Edit(**/SKILL.md)",
-      "Edit(**/.claude/rules/**)",
-      "Edit(**/.claude/settings*.json)",
-      "Edit(~/.claude/CLAUDE.md)",
-      "Edit(~/.claude/skills/**/SKILL.md)",
-      "Edit(~/.claude/rules/**)",
-      "Edit(~/.claude/settings*.json)"
+      "Edit(//**/CLAUDE.md)",
+      "Edit(//**/SKILL.md)",
+      "Edit(//**/.claude/rules/**)",
+      "Edit(//**/.claude/settings*.json)"
     ],
     "defaultMode": "acceptEdits"
   },
