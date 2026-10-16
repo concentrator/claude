@@ -87,6 +87,10 @@
   paragraph on the seats' shell tools changes to match. The classifier
   denied the seat that edit, and the session made it on the user's
   approval.
+- Review 2: `agents/code-reviewer.md § Evidence` now says that in a
+  requested review what the reviewer reads in the code is evidence; only a
+  finding resting on a constructed input is dropped or listed as
+  hypothetical.
 
 ## Answers
 - Item 1: the session writes the `settings.json` change, landed before
@@ -110,7 +114,7 @@
   § A denied call` and `supervisor-runbook.md`'s denial entry. (Important)
   - agents/dev-implementer.md:122
   Evidence: observed auto mode flagged item 1's identical retry of a denied CLAUDE.md edit as Auto-Mode Bypass
-- [ ] Close review: the reviewer's evidence rule agrees with `CLAUDE.md
+- [x] Close review: the reviewer's evidence rule agrees with `CLAUDE.md
   § Scope`: a finding read in the code is evidence, and one resting on
   an input the reviewer constructed is listed once under "not checked",
   marked hypothetical. (Critical) - agents/code-reviewer.md:83

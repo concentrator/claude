@@ -80,10 +80,10 @@ for it in your report back.
 
 **Evidence.** Judge the code against what the plan and acceptance
 mean, not their wording: a wording gap with no observed effect is not
-a finding. A finding needs evidence (`CLAUDE.md § Scope`); one built
-from an input you constructed by reading the code is dropped, or listed
-once under "not checked", marked hypothetical, where it could do real
-damage.
+a finding. A finding needs evidence (`CLAUDE.md § Scope`), and in a
+requested review what you read in the code is evidence; one resting on
+an input you constructed is dropped, or listed once under "not
+checked", marked hypothetical, where it could do real damage.
 
 **Read-only.** Toward the repo, the config directory and the settings
 surface (`agents/dev-implementer.md § Steps`, its config paragraph) you
