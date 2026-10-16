@@ -226,8 +226,7 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [x] R084: One home per rule - the merge, the branch close, the project
       declarations and doc verification each get one definition;
       auto-merge, the ship question and verdict marks go.
-- [ ] R085: Code without comments - scripts, hooks and tests carry no
-      comments, per the no-comments convention.
+- [x] R085: Code without comments - dropped: superseded by R088-T001.
 - [x] R086: Agent contracts - each seat works from one step list, claims
       are proven by the implementer's probes before docs, and a convention
       binds only work created after it.

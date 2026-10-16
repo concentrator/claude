@@ -92,6 +92,22 @@
   finding resting on a constructed input is dropped or listed as
   hypothetical.
 
+### Findings
+- [x] Item 3: `/dev migrate` adds no `comments:` line to an existing
+  project's conventions. -> backlog
+  Evidence: observed `skills/dev/migrate.md § 4` lists the conventions keys without it
+- [x] Item 9: the gate's `#NNN` check rejects an MR/PR number the
+  durable-id rule allows. -> backlog
+  Evidence: observed `check-plan-text.sh` still fails `#545` in `tasks.md`
+- [x] Item 11: choice prompts outside the item's sites still ask in
+  plain text. -> backlog
+  Evidence: observed `brainstorm.md` step 4, `start.md § 1` and `§ 4`, `finish.md § 4`
+- [x] Item 6: the dispatching-parallel-agents skill shows `Task(...)`
+  examples. -> backlog
+  Evidence: observed `skills/dispatching-parallel-agents/SKILL.md` lines 71-73
+- [x] Item 12: `CLAUDE.local.md` has no ask rule. -> backlog
+  Evidence: observed the `permissions.ask` list in `settings.json`
+
 ## Answers
 - Item 1: the session writes the `settings.json` change, landed before
   the item; the seat drops the `CLAUDE.md` clause.
@@ -106,6 +122,9 @@
 - Item 12: the seat edits the rules and `MAINTENANCE.md`'s "never
   auto-edited" line; the session writes the `settings.json` ask rules
   after the seat's commit.
+- Close review: both fixes approved; the session anchors the ask rules.
+- Close triage: the five findings go to R088's backlog; R085 is dropped,
+  superseded by this task, its two README lines moving to R088.
 
 ## Review
 - [x] Item 1: a classifier denial ends the call: no rule tells a seat or

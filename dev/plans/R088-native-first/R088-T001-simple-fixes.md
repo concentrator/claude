@@ -71,7 +71,7 @@ mode: normal
   see. Last, so earlier items edit unprompted. Approach: the two rules, then
   `settings.json`, paths in the form of its `Edit(//...)` rules and the
   settings docs; `CLAUDE.md § Approval and persistence` unchanged.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)
