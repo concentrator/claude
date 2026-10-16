@@ -36,7 +36,7 @@ back, or when the host is provisioned for it
  |  RUNNER SESSION      /dev run <scope>             |
  |  resolves, dispatches, routes questions, verifies |
  +---------------------------------------------------+
-      |  Task tool, one seat at a time
+      |  Agent tool, one seat at a time
       v
  +---------------------------------------------------+
  |  SEAT (subagent)     one plan item                |
@@ -242,9 +242,9 @@ point 4: print what the step needs, never a file already in context.
   shown, never the label.
 - **Composer placeholder text renders as if typed** - dim suggested
   text at the prompt line in a pane capture is never input; leave it.
-- **The classifier denies a previously-allowed call**: denials are
-  nondeterministic - retry once, identical; a second denial is an
-  answer. A seat's answer is its BLOCKED report carrying the
+- **The classifier denies a call**: a denial is an answer, never
+  retried - the classifier can flag an identical retry as a bypass
+  attempt. A seat's answer is its BLOCKED report carrying the
   classifier's text, which halts the item (`run.md § Dispatch per
   item`); the runner's own denied command halts the run the same way,
   nobody being able to clear a denial for it.

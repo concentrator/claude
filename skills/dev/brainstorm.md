@@ -10,8 +10,9 @@ act of `plan.md § Directory conventions`. The discovery method behind
    commits. Know what exists before asking.
 2. **Scope check** - if the idea spans multiple independent initiatives,
    say so and split; brainstorm the first.
-3. **Clarify** - questions one at a time, multiple-choice when possible:
-   purpose, constraints, success criteria. Stop when you could write the
+3. **Clarify** - questions one at a time, multiple-choice through the
+   AskUserQuestion tool when possible: purpose, constraints, success
+   criteria. Stop when you could write the
    acceptance criteria.
 4. **Approaches** - only when the user asks for options: 2–3 with
    trade-offs, recommendation first.

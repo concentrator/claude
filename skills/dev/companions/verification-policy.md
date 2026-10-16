@@ -12,10 +12,10 @@ Model and effort route per seat: each definition's frontmatter carries
 `model:` where the seat pins a model and `effort:` where it pins an
 effort (`low`/`medium`/`high`/`xhigh`/`max`; `agents/code-reviewer.md`
 pins `medium`), the roster being `run.md § Seats`. A dispatch overrides
-`model` only, which is why the implementer's tier is the dispatch's
-(§ Models) and its definition's value the default; a key a definition
-omits inherits the session's - `effortLevel` the default rather than
-the ceiling.
+either through the Agent tool's `model` and `effort` parameters, which
+is why the implementer's tier is the dispatch's (§ Models) and its
+definition's values the default; a key neither sets inherits the
+session's - `effortLevel` the default rather than the ceiling.
 
 ## Mechanical commits
 
@@ -125,26 +125,18 @@ again, and the header records `cold-read: passed` (`branch-plan.md
 A seat's model is its definition's (`run.md § Seats`); the two rules a
 definition cannot hold stay here.
 
-**Implementer tier.** The runner picks the implementer's model
-deterministically - mechanical predicate true (§ Mechanical commits) →
-`sonnet`; plan item explicitly tagged `(judgment-heavy)` → `fable`;
-otherwise the model `agents/dev-implementer.md` pins. No predicate
+**Implementer tier.** The runner picks the implementer's model and
+effort deterministically and sets both on the dispatch - mechanical
+predicate true (§ Mechanical commits) → `sonnet` at `effort: low`; plan
+item explicitly tagged `(judgment-heavy)` → `fable`; otherwise the
+model `agents/dev-implementer.md` pins. No predicate
 infers `(judgment-heavy)`; only the tag in the plan-item text does.
 
 **Capacity fallback.** A pinned model can be rate-limited, which is not
-a fact about the work. Before a dispatch that sends `fable` - an
-implementer item tagged `(judgment-heavy)`, or the batch close's
-review, which `run.md § Batch close` 1 dispatches on the most capable
-model - read the gate:
-`bash ~/.claude/scripts/model-quota.sh "Fable"` (the endpoint's
-display name for Fable 5) exits 0 while the weekly window has headroom,
-1 at or over its ceiling, 2 when it cannot tell; dispatch `fable` on 0
-only, `opus` otherwise, a missing script included - a wrong `fable`
-stalls the dispatch on a consent dialog, a wrong `opus` costs a weaker
-result. A dispatch that still fails on capacity below the ceiling falls
-back to the next model down - a `fable` dispatch to `opus`, an `opus`
-dispatch to `sonnet`. Either way, record the substitution in the batch
-report or branch findings: dispatched model, substitute, reason. It is a
+a fact about the work. A dispatch that fails on capacity falls back to
+the next model down - a `fable` dispatch to `opus`, an `opus` dispatch
+to `sonnet` - and the substitution is recorded in the batch report or
+branch findings: dispatched model, substitute, reason. It is a
 documented degrade, not a decision to negotiate per batch, and not
 grounds to halt delivery.
 

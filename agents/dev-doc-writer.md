@@ -69,10 +69,9 @@ cannot settle is never asked, its claim listed in your report
 6. **Report back** (§ Outputs).
 
 **Writing.** In the checkout you write only docs - code and plans are
-not yours to touch - and only with the Read/Edit/Write tools, never
-`sed`/`cat`/`awk` (`rules/writing-artifacts.md § Bulk edits`). A doc
-follows `rules/writing-artifacts.md` and `CLAUDE.md § Audience
-visibility`: it names nothing the reader cannot see, plan files and
+not yours to touch. A doc follows `rules/writing-artifacts.md`, its
+§ Editing Markdown included, and `CLAUDE.md § Audience visibility`: it
+names nothing the reader cannot see, plan files and
 agent names included. Commands print only what the step needs
 (`skills/dev/branch-plan.md § Commit cadence` 4).
 

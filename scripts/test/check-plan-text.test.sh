@@ -43,7 +43,15 @@ expect "markdown link caught"  "$OWN-x/tasks.md"        "See [doc](docs/x.md)"  
 expect "date caught"           "$OWN-x/tasks.md"        "Probed 2026-09-17."        "date"
 expect "PR ref caught"         "$OWN-x/requirements.md" "Shipped in #545."          "#NNN ref"
 expect "commit hash caught"    "$OWN-x/tasks.md"        "Fixed by b0182f8."         "commit hash"
-expect "foreign id caught"     "$OWN-x/tasks.md"        "Builds on R000-T002."      "id of another initiative: R000"
+expect "foreign id caught"     "$OWN-x/requirements.md" "Builds on R000-T002."      "id of another initiative: R000"
+accept() { # description, file under dev/plans, content: the check passes
+  local d out; d=$(mkrepo)
+  printf '%s\n' "$3" >> "$d/dev/plans/$2"
+  out=$(run_in "$d") && pass "$1" || die "$1: $out"
+  rm -rf "$d"
+}
+accept "foreign id in tasks.md passes" "$OWN-x/tasks.md" "  Builds on R000-T002 and R-083."
+accept "foreign id in ROADMAP passes"  "ROADMAP.md"      "  Builds on R000-T002 and R-083."
 expect "long task entry caught" "$OWN-x/tasks.md" "$(printf -- '- [ ] **%s-T002 [mnt]**: a\n  b\n  c\n  d' "$OWN")" "entry over 3 lines"
 expect "wrapped backlog paragraph caught" "$OWN-x/tasks.md" "$(printf '\nBacklog: a note\nwrapped onto a second line.')" "tasks.md:5: backlog line over 1 line"
 expect "wrapped backlog bullet caught" "$OWN-x/tasks.md" "$(printf '\n- a backlog note\n  wrapped under its bullet.')" "tasks.md:5: backlog line over 1 line"
@@ -83,11 +91,11 @@ git -C "$d" rm -q dev/plans/R090-old/R090-T001-old.report.md
 printf -- '- [x] an item\n' > "$d/dev/plans/R090-old/R090-T001-old.md"
 out=$(run_in "$d"); case "$out" in *"R090-T001-old.md: plan without task report"*) pass "plan losing its report caught" ;; *) die "plan losing its report: $out" ;; esac
 rm -rf "$d"
-expect "R-NNN dir checked"     "R-083-y/tasks.md"       "Builds on R000-T002."      "id of another initiative: R000"
+expect "R-NNN dir checked"     "R-083-y/requirements.md" "Builds on R000-T002."     "id of another initiative: R000"
 
 d=$(mkrepo)
 mkdir -p "$d/dev/plans/R-083-y"
-printf -- '- [ ] **R-083-T001 [mnt]**: own id.\n' > "$d/dev/plans/R-083-y/tasks.md"
+printf 'Own id R-083-T001.\n' > "$d/dev/plans/R-083-y/requirements.md"
 out=$(run_in "$d") && pass "R-NNN dir's own id passes" || die "R-NNN own id failed: $out"
 rm -rf "$d"
 

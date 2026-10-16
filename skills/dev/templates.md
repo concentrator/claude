@@ -71,8 +71,9 @@ prose or notes. Tasks run in list order. A backlog line is an unnumbered
 `- ` bullet on one line after the task entries; a wrapped one fails
 `scripts/ci/check-plan-text.sh`.
 
-A task says what to do, never how: no probe results, numbers, dates,
-links or references to other plans.
+A task says what to do, never how: no probe results, numbers, dates or
+links. Another initiative or task is cited by its id
+(`rules/writing-artifacts.md § Name things by their durable id`).
 
 ## Roadmap entry
 

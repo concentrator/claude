@@ -195,8 +195,7 @@ commit and the hand-off (`finish`).
    to the reviewer, adding `/simplify` only at the user's request.
    A second verification agent only when
    the reviewer reports a Critical finding
-   (`companions/verification-policy.md § Verifier isolation`);
-   `/code-review` is a manual escalation - suggest, never run.
+   (`companions/verification-policy.md § Verifier isolation`).
    Bookkeeping (plan marks) keys no review. Also the
    **Tier-2 compliance review**: every concern in
    `MAINTENANCE.md § Tier-2 AI review`, over the diff.
@@ -209,7 +208,7 @@ commit and the hand-off (`finish`).
    for the verify (`finish.md § 3` step 4).
 6. **Triage the task report** (§ Task report): in-scope items resolve here
    as commits, not deferrals (§ Scope discoveries). For each remaining
-   `[ ]`, prompt user:
+   `[ ]`, ask the user through the AskUserQuestion tool:
    - Promote to a task or an R stub (`plan.md § Referential
      integrity` owns the routing)
    - Discard (mark `[x]` with reason: "won't fix")

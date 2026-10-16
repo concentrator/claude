@@ -4,7 +4,7 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 
 ## Open
 
-- [ ] **R088-T001 [mnt]**: simple fixes - align each rule that overrides a native
+- [x] **R088-T001 [mnt]**: simple fixes - align each rule that overrides a native
   default with a setting, a one-line edit or a deletion, and fix the stale
   names the audit found.
 
@@ -27,3 +27,11 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 
 - [ ] **R088-T007 [mnt]**: a saved workflow runs the seats, continuing a seat for
   its follow-ups, and each seat loads only the text its step needs.
+
+- `/dev migrate` does not add the `comments:` convention line to an existing project's `CLAUDE.md § Conventions`.
+- The durable-id rule allows citing an MR/PR number, but the plan-text gate still rejects `#NNN` in ROADMAP and `tasks.md`.
+- Brainstorm's approach choice, start's clarifying and quality questions, and finish's no-host merge confirmation still ask in plain text, not through AskUserQuestion.
+- The dispatching-parallel-agents skill still shows `Task(...)` examples; the tool is Agent.
+- `CLAUDE.local.md` has no `permissions.ask` rule, so its rule keeps a propose-and-wait step.
+- The README keeps inline comma-runs the docs gate did not list: its opening and several layout rows.
+- The README no longer says what the guards block.

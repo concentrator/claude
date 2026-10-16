@@ -10,7 +10,7 @@ never bypassed - no admin merges.
 
 ## Seats
 
-A seat is a subagent of the runner, dispatched with the Task tool in
+A seat is a subagent of the runner, dispatched with the Agent tool in
 the runner's checkout for one item, inheriting the runner's permission
 mode and shut down at its exit; the next seat starts fresh, and only
 the branch and the plan item carry over. Seats run one at a time, and
@@ -126,7 +126,9 @@ a declared prefix outside `auto` and are classifier-readable under it.
 A question the plan cannot answer - an implementer's blocker, a concern
 whose answer changes what an item delivers, a proposed plan edit
 (`branch-plan.md § Plan edits`) - halts the item and goes to the **user** as
-the seat's text, under either supervisor mode. The halt reverts the item's
+the seat's text, under either supervisor mode; a question whose answer is a
+choice among options goes through the AskUserQuestion tool, the options drawn
+from the seat's report. The halt reverts the item's
 uncommitted edits - `git read-tree --reset -u HEAD` and removal of the
 untracked files the seat created - so the branch stands at its last commit.
 The runner writes the user's answer to the task report's `## Answers`,
@@ -260,11 +262,12 @@ merges or discards (§ Seats, the Merging row). Under `Supervisor: AI`, within a
 named class the runner decides on the evidence it assembled - report path, gate
 results, state-check output, the verify's results - and a merge carries the
 signature (§ Supervision signature there); everything else is asked of the user
-directly (Remote Control where connected) - the always-ask list per that same
-section, and anything the grant does not name (§ Seats). Under `Supervisor:
-human` every decision is the **user**'s (§ Seats): the run presents the MR/PR
-and its evidence and waits. A discard handles refs per `branch-plan.md
-§ Rails`; no answer leaves the MR/PR open, reported as such.
+directly through the AskUserQuestion tool (Remote Control where connected) - the
+always-ask list per that same section, and anything the grant does not name
+(§ Seats). Under `Supervisor: human` every decision is the **user**'s
+(§ Seats): the run presents the MR/PR and its evidence and asks merge or
+discard through the AskUserQuestion tool. A discard handles refs per
+`branch-plan.md § Rails`; no answer leaves the MR/PR open, reported as such.
 
 Branch protection is not the runner's to satisfy by other means: a
 red gate escalates rather than being worked around. Escalations are

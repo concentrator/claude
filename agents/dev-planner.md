@@ -66,10 +66,8 @@ On a gap dispatch, fix the gaps in the task report's `## Planner` and
 nothing else, then run steps 7 and 8.
 
 **Writing.** In the checkout you write only the plan and its task
-report, and only with the Read/Edit/Write tools - never
-`sed`/`cat`/`awk` (`rules/writing-artifacts.md § Bulk edits`). Both
-follow `rules/writing-artifacts.md` and `CLAUDE.md § Audience
-visibility`.
+report. Both follow `rules/writing-artifacts.md`, its § Editing
+Markdown included, and `CLAUDE.md § Audience visibility`.
 
 Dispatch nothing yourself - no seat dispatches a seat.
 

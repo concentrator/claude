@@ -30,11 +30,16 @@ Baseline files (`layout.md § Baseline files`):
 
 Full config + artifacts layout and baseline set: `layout.md`.
 
-Ask: **release routine?** Record `release-routine:` in `CLAUDE.md
-§ Conventions`. If yes: `CHANGELOG.md`, versioning (default `vX.Y.Z`),
-`<plans>/release-v0.1.0.md`. Ask about external publishing;
-record `publish-external:`. If external, override
-`release` at `<project>/.claude/skills/release/SKILL.md`.
+Ask through the AskUserQuestion tool: **release routine?** Record
+`release-routine:` in `CLAUDE.md § Conventions`. If yes: `CHANGELOG.md`,
+versioning (default `vX.Y.Z`), `<plans>/release-v0.1.0.md`. Ask about
+external publishing the same way; record `publish-external:`. If
+external, override `release` at `<project>/.claude/skills/release/SKILL.md`.
+
+Ask through the AskUserQuestion tool: **comment convention?**, "match
+surrounding code" the default option. Record `comments:` in `CLAUDE.md
+§ Conventions`; the project's code follows it from the first file
+(`rules/code-comments.md`).
 
 Write `## Layout` after `## Agent toolchain` with the defaults
 (`companions/declarations.md § Declared paths`), seed `<layout>` from

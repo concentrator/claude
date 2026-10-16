@@ -2,7 +2,8 @@
 # Tier-1 plan-text gate on the plan files a branch changes, archive excluded:
 # ROADMAP entries, requirements.md, tasks.md and branch plans stay short and
 # stable (skills/dev/templates.md). Fails on links, ISO dates, #NNN refs,
-# commit hashes, ids of another initiative, oversize entries, a task report
+# commit hashes, ids of another initiative in requirements.md (ROADMAP and
+# tasks.md cite them by id), oversize entries, a task report
 # checkbox without an Evidence: line, an added *.findings.md, a branch plan
 # without its task report, an added plan without ## Claims or ## Proven, a
 # plan's claim its task report's ## Claims does not repeat, and a done item's
@@ -36,6 +37,7 @@ scan() {
         if (id ~ /[0-9]/ && id ~ /[a-f]/) { bad(n, "commit hash", s); break }
         t = substr(t, RSTART + RLENGTH)
       }
+      if (mode != "req") return
       t = s
       while (match(t, /R-?[0-9][0-9][0-9]/)) {
         id = substr(t, RSTART, RLENGTH); sub(/-/, "", id)
@@ -48,9 +50,7 @@ scan() {
     function close_entry() { if (start && len > max) bad(start, (mode == "plan" ? "item" : "entry") " over " max " lines", first); start = 0 }
     mode == "roadmap" {
       if ($0 ~ /^- \[[ x]\] R-?[0-9][0-9][0-9]/) {
-        close_entry(); match($0, /R-?[0-9][0-9][0-9]/)
-        own = substr($0, RSTART, RLENGTH); sub(/-/, "", own)
-        active = 1; open_entry()
+        close_entry(); active = 1; open_entry()
       } else if ($0 !~ /^      / && $0 !~ /^  [^ ]/) { close_entry(); active = 0 }
       if (active) { len++; check(NR, $0) }
       next

@@ -1,6 +1,22 @@
 {
   "syncClaudeAiSkills": false,
-  "includeCoAuthoredBy": false,
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "Trusted repo: ~/.claude is both this user's Claude Code config directory and the git repository github.com/concentrator/claude, which holds the DEV workflow framework. Its CLAUDE.md, rules/, agents/, skills/, hooks/ and scripts/ are the framework's source, edited on short-lived branches and merged to main only through CI-gated pull requests."
+    ],
+    "allow": [
+      "$defaults",
+      "On a non-default branch of ~/.claude, an edit to CLAUDE.md, rules/, agents/, skills/ or hooks/ that carries out an item of a branch plan under dev/plans/ is a requested source edit, not Self-Modification. This does not cover adding or widening permission allow rules, hook bypasses, or autoMode entries."
+    ]
+  },
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "skillOverrides": {
+    "code-review": "off"
+  },
   "permissions": {
     "allow": [
       "Bash(ls:*)",
@@ -83,6 +99,12 @@
       "Read(//private/tmp/**)",
       "Edit(//tmp/**)",
       "Edit(//private/tmp/**)"
+    ],
+    "ask": [
+      "Edit(//**/CLAUDE.md)",
+      "Edit(//**/SKILL.md)",
+      "Edit(//**/.claude/rules/**)",
+      "Edit(//**/.claude/settings*.json)"
     ],
     "defaultMode": "acceptEdits"
   },

@@ -41,7 +41,6 @@ repos are versioned there, not mapped.
 │   ├── context-cost.py           # session context cost + attribution
 │   ├── forge-keys.sh             # forge key exchange, the operator's half (sourced by provision-worker.sh)
 │   ├── install-dev.sh            # toolset installer (global or --project, full or --minimal)
-│   ├── model-quota.sh            # pinned-dispatch quota gate
 │   ├── preflight-permissions.sh  # the /dev run permission pre-flight
 │   ├── provision-worker.sh       # stands up the worker host, run on the operator's machine
 │   ├── test/                     # script tests + run-all.sh
@@ -77,10 +76,7 @@ repos are versioned there, not mapped.
     │   ├── SKILL.md              #   the router
     │   ├── *.md                  # modes and process rules, routed by SKILL.md
     │   └── companions/           # declarations, docs framework, verification policy, runbook
-    ├── test-driven-development/  # bundled dependency skills (installer ships these)
-    ├── systematic-debugging/     # bundled
-    ├── verification-before-completion/SKILL.md # bundled
-    ├── receiving-code-review/SKILL.md          # bundled
+    ├── systematic-debugging/     # bundled dependency skills (installer ships these)
     ├── dispatching-parallel-agents/SKILL.md    # bundled
     ├── skill-creator/SKILL.md    # personal (skill authoring)
     ├── writing-skills/           # personal

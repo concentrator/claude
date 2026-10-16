@@ -19,11 +19,11 @@ printf '{"model":"x","hooks":{"PostToolUse":[{"matcher":"Skill","hooks":[{"type"
 
 bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 
-# --- copied: router + companion + a bundled skill + the hook ---
+# --- copied: router + companion + the bundled skills + the hook ---
 [ -f "$P/.claude/skills/dev/SKILL.md" ]  && pass "dev router copied"            || die "no dev router"
 [ -f "$P/.claude/skills/dev/plan.md" ]   && pass "dev companion copied"         || die "no dev companion"
 [ -d "$P/.claude/skills/dev/companions" ] && [ -z "$(find "$P/.claude/skills/dev/companions" -mindepth 1 -type d)" ] && pass "companions ship as files only" || die "companions missing or ship a subdirectory"
-[ -d "$P/.claude/skills/test-driven-development" ] && pass "bundled skill copied" || die "no bundled skill"
+[ "$(ls "$P/.claude/skills" | tr '\n' ' ')" = "dev dispatching-parallel-agents systematic-debugging " ] && pass "the two bundled skills copied, no other" || die "skills/ holds: $(ls "$P/.claude/skills" | tr '\n' ' ')"
 [ -x "$P/.claude/hooks/dev-branch-guard.sh" ]      && pass "hook copied + exec"   || die "no/again hook"
 [ -x "$P/.claude/hooks/dev-secrets-guard.sh" ]     && pass "secrets hook copied + exec" || die "no secrets hook"
 [ -f "$P/.claude/hooks/secret-patterns.sh" ]       && pass "secret patterns copied" || die "no secret patterns"

@@ -66,9 +66,10 @@ Initial defaults - tune per project.
 
 ### Repair
 
-Governed files (CLAUDE.md, `rules/`, skills) are never auto-edited -
-propose the repair and await approval (`claude-md.md` / `skills.md`
-§ Approval). Elsewhere:
+Governed files (CLAUDE.md, `rules/`, `SKILL.md`, settings) ask before
+an Edit or Write (`permissions.ask` in `settings.json`); a shell edit to
+one is proposed and awaits approval (`claude-md.md` / `skills.md`
+§ Approval). Repairs:
 
 - Broken JSON / invalid settings → fix or revert.
 - Dead reference (missing skill, renamed path) → update or remove.

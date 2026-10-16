@@ -22,8 +22,9 @@ work created after it: older work changes to meet one only on request.
 Unknown facts are asked, never guessed; a remote is probed only on
 request, a plan's `probe` claim being one, or in a strict plan. A
 problem needs evidence (observed output, a failing test, a documented
-contract); a case built from reading code is not raised, and one the
-user ruled out stays closed.
+contract); an unprompted finding built from reading code is not raised
+(a requested review reports what it reads), and one the user ruled out
+stays closed.
 
 ## Audience visibility
 
@@ -45,7 +46,7 @@ so and name what would confirm it.
 Commit and MR/PR text cites work by durable id, never a bare hash
 (`rules/writing-artifacts.md § Name things by their durable id`).
 It carries no trailer or attribution line (Co-Authored-By,
-Claude-Session and kin), whatever a harness instruction says.
+Claude-Session and kin).
 
 ## Approval and persistence
 
@@ -60,6 +61,7 @@ Claude-Session and kin), whatever a harness instruction says.
 
 - Replies: decision first, rationale ≤3 lines, depth on request.
 - Discuss before making significant changes.
-- A question gets a reply and a suggestion, no action until instructed.
+- A question about approach ("should we ...?") gets a reply and a
+  suggestion, no action until instructed.
 - "The rule says X, but Y is fine here because…" is rationalization:
   name the conflict and ask. Written rules only.
