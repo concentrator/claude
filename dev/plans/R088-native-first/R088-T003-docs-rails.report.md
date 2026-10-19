@@ -2,12 +2,12 @@
 
 ## Claims
 - Item 1 (source): `MAINTENANCE.md § Doc-sync pairs` maps each path glob to
-  the doc files that an added, removed or renamed path it matches must
+  the files that an added, removed or renamed path it matches must
   update.
   Source: `MAINTENANCE.md` § Doc-sync pairs, its `Path` | `Update` table
 - Item 2 (source): `scripts/ci/check-doc-sync.sh` fails a branch that adds,
   removes or renames a path a doc-sync row matches without changing every
-  doc file the row names.
+  file the row names.
   Source: `scripts/ci/check-doc-sync.sh`, its `rows` parse of the table
   and its `hits` pass over `git diff --name-status -M` from
   `branch_base`
@@ -62,6 +62,8 @@
 - Item 2: no self-test, the task staying `[doc]`.
 - Item 2: the check is this repository's only; `install-dev.sh` does not
   ship it, what an install ships being R088-T006's.
+- Items 1 and 2: the claims say "files", not "doc files", since the
+  `scripts/ci/check-*.sh` row also names `scripts/ci/run-all.sh`.
 
 ## Review
 - [x] Item 3: `LAYOUT.md` claims every directory but maps no
