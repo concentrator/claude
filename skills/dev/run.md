@@ -106,7 +106,8 @@ branch per plan - and per commit checkbox:
    as a `## Review` entry of the task report in the `branch-plan.md § Task
    report` form, its `Evidence:` line citing the concern (`observed <the
    implementer's report>`), which the next dispatch names. Any
-   other concern the runner carries into the report.
+   other concern the runner writes there as it arises, a `## Review`
+   entry in the same form, which the close resolves.
    NEEDS_CONTEXT → § Question resolution. Halt triggers: `branch-plan.md § Stop
    conditions`.
 3. The implementer marks `[x]` in its commit (`branch-plan.md § Commit cadence`
@@ -124,10 +125,9 @@ and are classifier-readable under it.
 
 A question the plan cannot answer - an implementer's blocker, a concern
 whose answer changes what an item delivers, a proposed plan edit
-(`branch-plan.md § Plan edits`) - halts the item. The runner first checks
-the homes `rules/writing-artifacts.md § One home per finding` names: a
-question one of them settles is answered by citing it, never raised again.
-Any other goes to the **user** as
+(`branch-plan.md § Plan edits`) - halts the item. A question a home
+already settles is answered by citing it (`CLAUDE.md § Scope`); any
+other goes to the **user** as
 the seat's text, under either supervisor mode; a question whose answer is a
 choice among options goes through the AskUserQuestion tool, the options drawn
 from the seat's report. The halt reverts the item's
@@ -162,7 +162,8 @@ Per branch, when its last non-final item is `[x]`:
    folding`); a task-scoped run closes in full (`branch-plan.md § Closing
    routine`).
 2. Fixes, one round (§ Seats, loop bound): mechanical ones applied,
-   judgment calls queued; approval of the applied set is the **user**'s
+   judgment calls queued, each written as it arises as a `## Review`
+   entry of the task report; approval of the applied set is the **user**'s
    under `Supervisor: human` (§ Seats). The approved fixes are the
    `## Review` entries the runner wrote (`branch-plan.md § Task report`);
    a fresh implementer, dispatched naming them, commits them. The fixes

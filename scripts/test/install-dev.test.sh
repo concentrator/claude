@@ -136,6 +136,12 @@ jq -e '[.hooks.SessionStart[]? | select(.matcher == "compact|resume") | .hooks[]
 jq -e '.model == "x"' "$P/.claude/settings.json" >/dev/null && pass "pre-existing setting survives" || die "clobbered model"
 jq -e '.hooks.PostToolUse[0].matcher == "Skill"' "$P/.claude/settings.json" >/dev/null && pass "pre-existing PostToolUse survives" || die "clobbered PostToolUse"
 
+# --- upgrade: an earlier install's retired hooks and their entries go; others stay ---
+U=$(mktemp -d); mkdir -p "$U/.claude/hooks"; touch "$U/.claude/hooks/"{dev-handoff-nudge,dev-precompact-state,dev-context-fill}.sh
+printf '{"hooks":{"Stop":[{"hooks":[{"type":"command","command":"\\"$CLAUDE_PROJECT_DIR\\"/.claude/hooks/dev-handoff-nudge.sh"}]},{"hooks":[{"type":"command","command":"echo bye"}]}],"PreCompact":[{"hooks":[{"type":"command","command":"~/.claude/hooks/dev-precompact-state.sh"}]}]}}\n' > "$U/.claude/settings.json"
+bash "$INSTALL" --project "$U" >/dev/null 2>&1 && jq -e '(.hooks | has("PreCompact") | not) and [.hooks.Stop[].hooks[].command] == ["echo bye"]' "$U/.claude/settings.json" >/dev/null && [ -z "$(ls "$U/.claude/hooks" | grep -E 'nudge|precompact|context-fill')" ] \
+  && pass "upgrade removes the retired hooks and their entries, keeps the rest" || die "upgrade left: $(jq -c '.hooks | {Stop, PreCompact}' "$U/.claude/settings.json") $(ls "$U/.claude/hooks" | tr '\n' ' ')"; rm -rf "$U"
+
 # --- project-tier hooks register by $CLAUDE_PROJECT_DIR (install-dev.sh § 3) ---
 PFX='"$CLAUDE_PROJECT_DIR"/.claude/hooks'
 for h in dev-branch-guard dev-secrets-guard; do

@@ -14,7 +14,7 @@
   context-fill helper.
   Source: `settings.json` `.hooks` holds no `Stop` or `PreCompact` key;
    `hooks/` holds no `dev-handoff-nudge.sh`, `dev-precompact-state.sh` or
-   `dev-context-fill.sh`; `scripts/install-dev.sh` lines 149-152 register
+   `dev-context-fill.sh`; `scripts/install-dev.sh` lines 151-154 register
    only the PreToolUse, UserPromptSubmit and SessionStart hooks;
    `hooks/dev-branch-state.sh` prints branch and tree counts only
   Test: `scripts/test/install-dev.test.sh` ("no Stop or PreCompact hook
@@ -24,14 +24,14 @@
 - Item 3 (drop): `/dev handoff` writes the session's hand-off note, and
   `--minimal` ships `handoff.md`.
   Source: `skills/dev/` holds no `handoff.md`; `skills/dev/SKILL.md`
-   § Surface lists no `/dev handoff`; `scripts/install-dev.sh` line 65
+   § Surface lists no `/dev handoff`; `scripts/install-dev.sh` line 67
    `MINIMAL_DEV` names no `handoff.md`
   Test: `scripts/test/install-dev-minimal.test.sh` ("minimal ships only
    the delivery skill files")
 - Item 4 (drop): The supervisor's ledgers sit in `supervisor/` beside the
   session tree.
   Source: `skills/dev/run.md` holds no § Ledger, its § Resolve (lines
-   56-69) opens no file, and § Monitor (lines 282-286) re-derives the
+   56-69) opens no file, and § Monitor (lines 291-295) re-derives the
    scope's state from plans, task reports, git and MR/PR state;
    `skills/dev/companions/declarations.md § Declared paths` names no
    ledger directory; `skills/dev/companions/auto-permissions.template.json`
@@ -40,7 +40,7 @@
   install ignores with `supervisor/` beside it.
   Source: `skills/dev/companions/declarations.md § Declared paths`
    declares `Docs:`, `Plans:` and `Layout:` only and reads a `Session:`
-   line as nothing; `scripts/install-dev.sh` step 6 (lines 204-227)
+   line as nothing; `scripts/install-dev.sh` step 6 (lines 225-248)
    writes only the allowlist lines and step 8 seeds no `Session:` row;
    `scripts/worker-workspace.sh` `project_clone` (line 74 on) writes no
    `.git/info/exclude` line; `.gitignore` holds no `/dev/session/` or
@@ -57,7 +57,7 @@
   Source: `rules/writing-artifacts.md § One home per finding` lines
    31-35 route an explanation or conclusion, on the user's approval, to
    `CLAUDE.md`, `DESIGN.md`, `<plans>`, or `<docs>` and
-   `<docs>/references/`; `CLAUDE.md § Approval and persistence` line 58
+   `<docs>/references/`; `CLAUDE.md § Approval and persistence` line 61
    cites it
 - Item 8 (source): A project declares its CI wait command in its
   `§ Agent toolchain`.
@@ -88,10 +88,10 @@
 - Item 10 (source): A `review:` line in `CLAUDE.md § Conventions` sets the
   code reviewer's model and effort.
   Source: `skills/dev/companions/verification-policy.md § Models`
-   lines 136-140 read a `review: <model> <effort>` line in `CLAUDE.md
+   lines 133-137 read a `review: <model> <effort>` line in `CLAUDE.md
    § Conventions`, which the runner sets on every `code-reviewer`
    dispatch, the definition's pins holding without it; `run.md § Close`
-   1 (line 155) and `§ Batch close` 1 (line 196) dispatch the reviewer
+   1 (line 155) and `§ Batch close` 1 (line 197) dispatch the reviewer
    at that cost; `migrate.md § 4` line 77 lists the `review:` line among
    the conventions
 - Item 12 (source): A weekly cloud routine audits the repository against
@@ -240,6 +240,27 @@
   home per finding` rather than listing them. Result: the user's
   `/schedule` call takes the prompt as written in `MAINTENANCE.md
   § Weekly audit`.
+- Review 4: the installer removes the three retired scripts and every
+  settings entry, on any event, whose command runs one, dropping an
+  event it leaves empty, so a `PreCompact` entry naming the deleted
+  session-state writer goes with the `Stop` nudge rather than run a
+  missing script. The upgrade fixture's install and check share one
+  line, `install-dev.test.sh` standing at the code-size gate's 300
+  lines. Result: a reinstall over an earlier install leaves no retired
+  hook and no entry running one, and keeps every other entry.
+- Review 5: a queued judgment call and a carried concern are written as
+  `## Review` entries, the section the runner already writes and
+  § Monitor already re-derives from, which the close resolves;
+  `branch-plan.md § Task report` names the carried concern among the
+  runner's entries. Result: both survive compaction in the task
+  report.
+- Review 8: the claim entries also follow the line shifts this round's
+  edits make in `scripts/install-dev.sh` (items 2, 3 and 5) and
+  `run.md § Batch close` 1 (item 10).
+- Review 9: commit "Ignore the harness state directory" adds `state/` to
+  `.gitignore`, outside every item: the directory holds the harness's
+  `state/mcp-discover-verdicts.json` in this checkout. Result: the
+  harness's state stays out of the tree.
 ### Findings
 - [x] Item 10: `REQUIREMENTS.md` still has the batch close review the
   full batch diff on the most capable model, where `run.md § Batch
@@ -287,52 +308,52 @@
   `skills/dev/git-workflow.md:63`
   Evidence: observed the item 9 implementer report: the answer's
   wording gives no way to learn registration without polling
-- [ ] Close review: `MAINTENANCE.md § Weekly audit` cuts
+- [x] Close review: `MAINTENANCE.md § Weekly audit` cuts
   `plan/audit-<YYYY-MM-DD>`, a form the `plan/` naming rule does not
   admit; amend `git-workflow.md` to admit it for the audit (Critical) -
   `skills/dev/git-workflow.md:49`
   Evidence: contract `git-workflow.md:49-54`, `plan/r<NNN>-<action>`
-- [ ] Close review: a reinstall over an earlier install keeps the
+- [x] Close review: a reinstall over an earlier install keeps the
   `dev-handoff-nudge.sh` Stop entry and the three retired scripts;
   `install-dev.sh` removes both, `install-dev.test.sh` asserts it with an
   upgrade fixture (Important) - `scripts/install-dev.sh`
   Evidence: observed the close review's upgrade probe: `.hooks.Stop`
   still holds the nudge after a HEAD reinstall over an aa1137c install
-- [ ] Close review: with no ledger, queued judgment calls and carried
+- [x] Close review: with no ledger, queued judgment calls and carried
   concerns have no home after compaction; the runner writes each to the
   task report as it arises (Important) - `skills/dev/run.md:290`
   Evidence: contract `run.md:109` and `:165` queue them, `run.md:290-294`
   re-derives from sources that do not hold them
-- [ ] Close review: `run.md § Question resolution` restates the
+- [x] Close review: `run.md § Question resolution` restates the
   settled-homes check of `CLAUDE.md § Scope`; keep only the `## Answers`
   citation step and cite `CLAUDE.md § Scope` (Important) -
   `skills/dev/run.md:128`
   Evidence: contract `rules/claude-md.md § Size and structure`, "No
   duplication"
-- [ ] Close review: `verification-policy.md § Close folding` restates
+- [x] Close review: `verification-policy.md § Close folding` restates
   `run.md § Batch close` 1, which it cites; cut the restated clause
   (Important) - `skills/dev/companions/verification-policy.md:50`
   Evidence: contract `rules/claude-md.md § Size and structure`, "No
   duplication"
-- [ ] Close review: claim entries cite stale lines - item 6 `CLAUDE.md`
+- [x] Close review: claim entries cite stale lines - item 6 `CLAUDE.md`
   58 (now 61), item 4 `run.md § Monitor` 282-286 (now 290-294), item 10
   `verification-policy.md` 136-140 (now 135-139) (Suggestion) - this
   report, `## Claims`
   Evidence: observed the close review's reads
-- [ ] Close review: commit "Ignore the harness state directory" is not
+- [x] Close review: commit "Ignore the harness state directory" is not
   named in `## Implementer`; name it as a divergence (Suggestion) - this
   report
   Evidence: observed `git log aa1137c..HEAD`
-- [ ] Close review: `scripts/install-dev.sh` line 11 runs to 121
+- [x] Close review: `scripts/install-dev.sh` line 11 runs to 121
   characters where its comment wraps near 78; rewrap (Suggestion) -
   `scripts/install-dev.sh:11`
   Evidence: observed line length
-- [ ] Close review: count annotations "the three rules" and "Those three
+- [x] Close review: count annotations "the three rules" and "Those three
   values" drop the count (Suggestion) -
   `skills/dev/companions/verification-policy.md:125`,
   `skills/dev/companions/declarations.md:132`
   Evidence: contract `rules/writing-artifacts.md § One home per number`
-- [ ] Close review: `DESIGN.md` names retired mechanisms - "so no session
+- [x] Close review: `DESIGN.md` names retired mechanisms - "so no session
   file carries state across compaction" (drop the clause) and "The runner
   keeps no ledger" (say "keeps no record of its own") (Suggestion) -
   `DESIGN.md:103`, `DESIGN.md:48`

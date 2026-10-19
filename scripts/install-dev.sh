@@ -8,10 +8,12 @@
 #   --force                        bypass the pre-write project guard
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
-# branch-guard + secrets-guard + branch-state + session-brief hooks (registered in the target settings.json), the shipped
-# Tier-1 checks with their self-tests, the
-# writing conventions (@imported by CLAUDE.md), and - on a project
-# install - the maintenance hygiene section when the target doc lacks it.
+# branch-guard + secrets-guard + branch-state + session-brief hooks
+# (registered in the target settings.json), the shipped Tier-1 checks with
+# their self-tests, the writing conventions (@imported by CLAUDE.md), and -
+# on a project install - the maintenance hygiene section when the target doc
+# lacks it. Hooks the toolset no longer ships are removed with their
+# settings entries.
 # Does NOT ship the user's personal convention rules.
 # --minimal serves contributors who work existing plans without /dev: of
 # the skills it ships only the delivery files (MINIMAL_DEV); everything
@@ -153,6 +155,24 @@ register_brief_hook dev-session-brief.sh
 # The secrets guard's predicate lives beside it (sourced, not registered).
 cp "$SRC/hooks/secret-patterns.sh" "$target/hooks/secret-patterns.sh"
 cp "$SRC/hooks/dev-hook-once.sh" "$target/hooks/dev-hook-once.sh"
+# Retired hooks: an install over an earlier one removes each script below
+# and every settings entry, on any event, that runs one; an event left with
+# no entry is dropped.
+RETIRED="dev-handoff-nudge.sh dev-precompact-state.sh dev-context-fill.sh"
+for h in $RETIRED; do rm -f "$target/hooks/$h"; done
+tmp="$(mktemp)"
+if jq --arg names "$RETIRED" '
+  def retired: (.command // "") as $c | any($names | split(" ")[]; . as $n | $c | endswith("/" + $n));
+  if (.hooks | type) == "object" then .hooks |= ([to_entries[]
+    | if any(.value[]?.hooks[]?; retired)
+      then .value |= [.[] | .hooks |= map(select(retired | not)) | select(.hooks | length > 0)]
+        | select(.value | length > 0)
+      else . end] | from_entries) else . end
+' "$settings" > "$tmp"; then
+  mv "$tmp" "$settings"
+else
+  rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
+fi
 
 # 4. shipped Tier-1 checks - the ones with no dependency on this repo's
 #    own layout; adopters wire them into their CI (the batch-tags gate

@@ -129,7 +129,7 @@ the line:
 - Layout: .claude/LAYOUT.md
 ```
 
-Those three values are the defaults and this block is their one home: a
+Those values are the defaults and this block is their one home: a
 rule names a declared path by its placeholder, and a script that reads
 the declaration carries its default once, as the fallback of the read.
 Values are repository-relative, a directory with a trailing slash. A

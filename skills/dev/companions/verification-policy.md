@@ -48,9 +48,7 @@ judgment:
 **Consequence:** a small branch skips the per-branch `code-reviewer` pass.
 Its one review is the batch full-diff review at batch close. The runner
 passes the list of folded branches into the batch full-diff review
-dispatch; the reviewer checks their diffs against their own plans as
-well as cross-branch concerns, and checks no branch its close reviewed
-against its plan again (`run.md § Batch close` 1).
+dispatch (`run.md § Batch close` 1).
 
 **Invariants** - unaffected, per `branch-plan.md § Agentic execution`:
 the doc-writer pass and its gate (`run.md § Close` 3), the final commit
@@ -122,7 +120,7 @@ again, and the header records `cold-read: passed` (`branch-plan.md
 
 ## Models
 
-A seat's model is its definition's (`run.md § Seats`); the three rules a
+A seat's model is its definition's (`run.md § Seats`); the rules a
 definition cannot hold stay here.
 
 **Implementer tier.** The runner picks the implementer's model and

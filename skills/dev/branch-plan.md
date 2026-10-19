@@ -167,7 +167,8 @@ The implementer appends its section and fills its item's `## Claims`
 entries in the commit that carries the code, and marks `[x]` the
 `## Review` entry its dispatch names. The
 reviewer is read-only: the runner, or the session outside a run, writes
-the close review's findings and a redo under `## Review`, and the
+the close review's findings, a redo and a carried concern under
+`## Review` as each arises, and the
 user's answers under `## Answers` (`run.md § Question resolution`). At close
 every `[ ]` becomes `[x]` - fixed, `-> backlog`, or `won't fix:
 <reason>` - and the final commit carries the resolved report. A

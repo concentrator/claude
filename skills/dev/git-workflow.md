@@ -51,7 +51,9 @@ commands`).
   action e.g. `open` / `tasks` / `close`). A task's branch-plan uses the
   task id alone - the prefix already names the action:
   `plan/r<NNN>-t<NNN>` (legacy global ids: `plan/t<NNN>`). Multiple
-  initiatives list ids: `plan/r014-r015-tasks`.
+  initiatives list ids: `plan/r014-r015-tasks`. The weekly audit's
+  backlog belongs to no R, so its branch is dated instead:
+  `plan/audit-<YYYY-MM-DD>` (`MAINTENANCE.md § Weekly audit`).
 - Branches are short-lived and single-owner: merge within a day, two
   days absolute max; keep ≤ 3 active.
 - **Merge policy.** Every MR/PR, whatever its prefix, merges after its
