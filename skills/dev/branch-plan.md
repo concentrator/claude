@@ -1,9 +1,11 @@
 # Branch plan rules
 
 A branch plan is `<plans>/R<NNN>-<slug>/<task-id>-<slug>.md`
-(`plan.md § Directory conventions`). One
-branch = one task. The plan is complete and committed to `main`
-**before** the branch is created.
+(`plan.md § Directory conventions`). One branch = one task. The plan is
+complete and committed to `main` **before** the branch is created; a
+small change's is committed on its task's branch, which its code joins:
+one MR/PR ships its requirements, plan and code (`plan.md § Where plans
+live in git`).
 
 ## Header
 
@@ -14,9 +16,9 @@ branch = one task. The plan is complete and committed to `main`
     depends-on: R008-T001           # optional - blocks `/dev run` until merged
     mode: normal                    # required - normal | strict (§ Modes)
     cold-read: passed               # strict only - the dispatcher's read
-                                    #   (`write-plan.md` step 6); absent
-                                    #   on a strict plan = refused by
-                                    #   `/dev run`
+                                    #   (`write-plan.md` step 6)
+    approved: yes                   # small change only - the user's
+                                    #   confirmation (`write-plan.md` step 7)
 
 ## Body
 
@@ -274,9 +276,9 @@ is a batch of one, its branch the MR/PR. A batch-scoped run
 through the checkpoint below; a task-scoped run closes through
 § Closing routine + `finish`.
 
-A plan is admitted to a run once it is merged over approved
-requirements, a strict plan also needing its `cold-read: passed`
-record (`run.md § Resolve`).
+A plan is admitted to a run once merged over approved requirements, a
+small change's unmerged by its `approved: yes` (§ Header), a strict plan
+also needing its `cold-read: passed` record (`run.md § Resolve`).
 
 ### Batches
 

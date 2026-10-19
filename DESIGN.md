@@ -31,8 +31,9 @@ The tree is `LAYOUT.md` (`skills/dev/layout.md § Layout file`).
 
 Self-development uses the planning hierarchy per `skills/dev/plan.md`,
 unchanged - structure is never simplified, only description detail. A
-plan runs once merged; a strict plan also needs its cold read
-(`skills/dev/branch-plan.md § Modes`).
+plan runs once merged, a small change's once its `approved: yes` header
+is committed on its task's branch; a strict plan also needs its cold
+read (`skills/dev/branch-plan.md § Modes`).
 
 ## Git & delivery model
 
@@ -136,3 +137,6 @@ per `skills/dev/layout.md`).
   run (§ Planning model): a seat asks its question mid-run
   (`skills/dev/run.md § Question resolution`), so nothing certifies
   ahead of the run that a plan leaves none open.
+- A small change's plan is admitted unmerged, by a record on its
+  branch: the runner reads state only from artifacts (§ Git & delivery
+  model), and one MR/PR ships the requirements, plan and code.

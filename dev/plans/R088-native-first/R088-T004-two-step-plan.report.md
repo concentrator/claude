@@ -10,7 +10,9 @@
 - Item 3 (source): A small change, an initiative of one task, ships its
   requirements, plan and code in one MR/PR, its plan admitted unmerged by
   `approved: yes` in its header.
-  Source:
+  Source: `skills/dev/branch-plan.md` (opening, `§ Header`,
+   `§ Agentic execution`), `skills/dev/run.md § Resolve` and
+   `§ Pre-flight`, `skills/dev/write-plan.md` step 7
 
 ## Implementer
 ### Divergences
@@ -25,6 +27,15 @@
   runs in the same session. Step 5 now cuts "the branch" per
   `plan.md § Where plans live in git`, and step 8 runs the detail round
   for a small change.
+- Item 3: `write-plan.md` step 7 and `agents/dev-planner.md` step 4
+  also changed, outside the named files: no step wrote the mark the
+  run admits by, and the planner, adding the header per `§ Header`,
+  would have written it. Step 7 now commits the user's confirmation as
+  `approved: yes`, and the planner's step 4 leaves it out, as it leaves
+  out `cold-read: passed`.
+- Item 3: the `§ Header` comment on `cold-read: passed` lost its
+  "absent = refused" clause, which `§ Modes` and `run.md § Resolve`
+  state, to keep `branch-plan.md` within its 350-line cap.
 
 ## Answers
 

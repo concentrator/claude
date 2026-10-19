@@ -17,7 +17,7 @@ mode: normal
   requirements, task and plan. Approach: `plan.md § Planning rounds` and
   `§ Where plans live in git`, `brainstorm.md` step 2, `write-plan.md`
   steps 2 and 7, then the `plan` prefix of `git-workflow.md § Trunk`.
-- [ ] `/dev run` admits a small change's plan unmerged by `approved: yes` in
+- [x] `/dev run` admits a small change's plan unmerged by `approved: yes` in
   its header, committed on its branch (`branch-plan.md § Header`), which
   `run.md § Resolve` checks and names when missing; the code joins that
   branch: one MR/PR ships requirements, plan and code. Approach: those two,

@@ -52,7 +52,9 @@ text itself.
    `finish.md § 3`: its short-lived plan MR/PR (`plan.md § Where plans
    live in git`) takes the decision any branch takes. A small change's
    plan is not delivered alone: it stays committed on the task's
-   branch (`plan.md § Planning rounds`).
+   branch (`plan.md § Planning rounds`), where the session commits the
+   user's confirmation as `approved: yes` in its header
+   (`branch-plan.md § Header`), the record `/dev run` admits it by.
 
 ## Soft cap
 

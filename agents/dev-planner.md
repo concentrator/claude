@@ -51,8 +51,9 @@ NEEDS_CONTEXT report, never a guess.
    rely on that is already proven
    (`skills/dev/companions/documentation.md § Claims`).
 4. **Add the header** per `skills/dev/branch-plan.md § Header`, without
-   `cold-read: passed`: the cold read writes it
-   (`skills/dev/write-plan.md` step 6), and that step is not yours.
+   `cold-read: passed` or `approved: yes`: the cold read and the user's
+   confirmation write them (`skills/dev/write-plan.md` steps 6 and 7),
+   and those steps are not yours.
 5. **Add the mandatory final item** at the end - the completion commit
    (`skills/dev/branch-plan.md § Closing routine`).
 6. **Write the task report skeleton** beside the plan
