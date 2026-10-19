@@ -42,10 +42,8 @@ surrounding code" the default option. Record `comments:` in `CLAUDE.md
 (`rules/code-comments.md`).
 
 Write `## Layout` after `## Agent toolchain` with the defaults
-(`companions/declarations.md § Declared paths`), seed `<layout>` from
-`layout.md § Layout file`, and append `<session>` and `supervisor/` in
-its parent to `.gitignore`, anchored, as `install-dev.sh` step 7 writes
-them.
+(`companions/declarations.md § Declared paths`) and seed `<layout>`
+from `layout.md § Layout file`.
 
 If the project will keep `<docs>` feature docs (`layout.md § Docs`),
 record a one-line pointer to `<docs>/index.md` in `§ Conventions`.

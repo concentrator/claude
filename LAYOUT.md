@@ -49,7 +49,7 @@ repos are versioned there, not mapped.
 ├── .claude/                      # this repository's project settings and instructions
 │   ├── CLAUDE.md                 # this repository's instructions: its declarations
 │   └── settings.json             # project tier, tracked
-├── dev/                          # DEV artifacts (session/, supervisor/ gitignored)
+├── dev/                          # DEV artifacts
 │   ├── plans/                    # planning hierarchy
 │   │   ├── ROADMAP.md            # cross-R index: skills/dev/plan.md
 │   │   ├── R<NNN>-<slug>/        # one dir per roadmap entry (initiative-time)

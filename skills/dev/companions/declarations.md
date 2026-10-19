@@ -119,23 +119,24 @@ A project declares its key paths in a `## Layout` section directly
 after `## Supervision`, or directly after `## Agent toolchain` where
 the project has no `## Supervision`, so the declaration blocks stay
 contiguous. Rules and seat prompts name these paths by the
-placeholders below; the Tier-1 plan checks and the scripts that write
-or use the trees - the state hook, the installer - read the line:
+placeholders below; the Tier-1 checks and the session-brief hook read
+the line:
 
 ```
 - Docs: docs/
 - Plans: dev/plans/
-- Session: dev/session/
 - Layout: .claude/LAYOUT.md
 ```
 
-Those four values are the defaults and this block is their one home: a
+Those three values are the defaults and this block is their one home: a
 rule names a declared path by its placeholder, and a script that reads
 the declaration carries its default once, as the fallback of the read.
 Values are repository-relative, a directory with a trailing slash. A
 missing line, or no block at all, means that key's default - unlike
 `Supervisor:`, an absent declaration never halts a run, so a project
-that has not declared keeps working on the defaults.
+that has not declared keeps working on the defaults. A `Session:`
+line, the retired session tree's, is read by nothing, so a project
+still declaring it keeps working.
 
 - **`Docs:`** the project's one documentation directory, internal and
   external audiences under one contract (`layout.md § Docs`); the
@@ -143,13 +144,12 @@ that has not declared keeps working on the defaults.
 - **`Plans:`** the planning tree - `ROADMAP.md`, the per-initiative
   `R<NNN>-<slug>/` directories and `archive/` (`plan.md § Where
   things live`).
-- **`Session:`** the per-session state files, gitignored.
 - **`Layout:`** the project's layout file, holding the repository's
   actual tree; seeded from the canonical structure `layout.md` holds,
   project-owned and untouched by a tools refresh.
 
 A rule names a declared path by its placeholder - `<docs>`, `<plans>`,
-`<session>`, `<layout>` - bare in prose, the slash only before a child
+`<layout>` - bare in prose, the slash only before a child
 (`<docs>/index.md`) or on a tree's node line (`<plans>/`). The
 structure inside a declared root is the canonical structure's and stays
 literal, so `<plans>/R<NNN>-<slug>/tasks.md` and `<docs>/references/`

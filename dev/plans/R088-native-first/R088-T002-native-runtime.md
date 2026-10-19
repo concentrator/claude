@@ -29,7 +29,7 @@ mode: normal
   then the citations in `branch-plan.md`, `declarations.md`,
   `report-template.md`, `seat-permissions.md` with the permission
   template, `supervisor-runbook.md` and `agents/dev-implementer.md`.
-- [ ] Projects declare no `Session:` tree and keep no `supervisor/`: neither
+- [x] Projects declare no `Session:` tree and keep no `supervisor/`: neither
   the installer nor `worker-workspace.sh` writes an ignore line for them,
   and a project still declaring `Session:` keeps working. Approach:
   `declarations.md § Declared paths`, `plan.md`, `start.md § 3`,

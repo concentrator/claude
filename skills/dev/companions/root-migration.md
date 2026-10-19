@@ -36,8 +36,8 @@ Inventory, then report - touching nothing:
   rename, or abort is the user's call.
 - **Gaps** - a missing `## Layout` block or a stale `DEV artifacts
   root:` or `extended-docs:` line in `CLAUDE.md` (`migrate.md`, Stale
-  declarations); untracked mode, where `<plans>` and `<session>` must
-  be gitignored too (`untracked-claude.md § Detection`).
+  declarations); untracked mode, where `<plans>` must be gitignored
+  too (`untracked-claude.md § Detection`).
 
 Present the full report; **block on user approval**.
 

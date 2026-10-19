@@ -18,5 +18,4 @@
 
 - Docs: docs/
 - Plans: dev/plans/
-- Session: dev/session/
 - Layout: LAYOUT.md

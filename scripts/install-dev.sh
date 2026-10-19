@@ -210,13 +210,6 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"
   done
-  sess=$(sed -n 's/^- Session: *//p' "$repo/CLAUDE.md" "$repo/.claude/CLAUDE.md" 2>/dev/null | head -1 || true)
-  sess=${sess:-dev/session}; sess=${sess%/}
-  parent=$(dirname "$sess")
-  if [ "$parent" = "." ]; then parent=""; fi   # a root-level tree: supervisor/ sits at the root
-  for line in "/$sess/" "/${parent:+$parent/}supervisor/"; do
-    alt=${line#/}; case ${alt%/} in */*) ;; *) alt=$line ;; esac; grep -qxF -e "$line" -e "$alt" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
-  done
   pfx=$(git -C "$target" rev-parse --show-prefix); gates="check-plan-text.sh check-code-size.sh"; tier=""; claude=""
   for key in 'Test (fast)' 'Test'; do
     for f in "$repo/CLAUDE.md" "$repo/.claude/CLAUDE.md"; do
@@ -234,9 +227,9 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
 fi
 
 # 8. maintenance: seed the hygiene section - the cleanup rules for the
-#    toolset's own by-products (session files, closed plans, allow-list
-#    growth) - into the project doc when its heading is absent; the
-#    heading is the marker, so an adopter's tuned copy is never touched.
+#    toolset's own by-products (closed plans, allow-list growth) - into
+#    the project doc when its heading is absent; the heading is the
+#    marker, so an adopter's tuned copy is never touched.
 #    The global target is this repo, whose MAINTENANCE.md § Routine is
 #    the superset, so global installs seed nothing.
 seeded=""
@@ -257,7 +250,6 @@ never silently delete something you didn't create.
 
 | Target | Check | Cadence |
 |---|---|---|
-| the `Session:` tree (`CLAUDE.md § Layout`) | files whose session transcript is gone | weekly, delete |
 | the `Plans:` tree (`CLAUDE.md § Layout`) | orphaned or closed plan, findings, requirements and batch files; empty initiative dirs | monthly |
 | `.claude/settings.json` + any `settings.local.json` | allow-list mess: one-off, dead or overlapping rules | weekly |
 | repo root and `.claude/` | stray temp or build artifacts | weekly |

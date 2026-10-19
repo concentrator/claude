@@ -221,18 +221,17 @@ done
 grep -q 'forge-cli' <<<"$out" && grep -q 'repo view' <<<"$out" \
   && pass "project-clone hands the checkout to forge-cli" || die "project-clone names no forge-cli check: $out"
 
-# 45. the supervisor's ledger and the session state must never be stageable:
-#     the harness writes the declared session tree and its supervisor/
-#     sibling
-grep -q 'CLAUDE.md § Layout' <<<"$out" && grep -q 'info/exclude' <<<"$out" \
-  && pass "project-clone excludes the ledger and session dirs" \
-  || die "project-clone does not name the ledger exclude: $out"
+# 45. no session tree or supervisor/ is written any more, so a clone of a
+#     project still declaring Session: excludes neither
+! grep -q 'info/exclude' <<<"$out" \
+  && pass "project-clone names no session or ledger exclude" \
+  || die "project-clone still names an exclude: $out"
 
 pr=$(mktemp -d); for r in attack-checker wallarm-api-js; do git init -q "$pr/$r"; done
 mkdir "$pr/attack-checker/.claude"; printf -- '- Session: var/state/\n' > "$pr/attack-checker/.claude/CLAUDE.md"
 env PATH=/usr/bin:/bin HOME="$pr" WORKER_PROJECTS_ROOT="$pr" bash "$WSSCRIPT" project-clone >/dev/null 2>&1
-ex="$pr/attack-checker/.git/info/exclude"; grep -qx 'var/state/' "$ex" && grep -qx 'var/supervisor/' "$ex" \
-  && pass "project-clone excludes the session tree declared in .claude/" || die "not excluded: $(cat "$ex")"; rm -rf "$pr"
+ex="$pr/attack-checker/.git/info/exclude"; ! grep -qE '^var/(state|supervisor)/$' "$ex" 2>/dev/null \
+  && pass "project-clone excludes no session tree declared in .claude/" || die "excluded: $(cat "$ex")"; rm -rf "$pr"
 
 # 11. the sibling is not optional - file:../wallarm-api-js means npm ci fails
 #     outright without it, so the dry run must say so rather than list it as

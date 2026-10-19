@@ -38,7 +38,19 @@
    holds no `mkdir`, `date` or `printf` rule
 - Item 5 (drop): A project declares a `Session:` tree, which a `--project`
   install ignores with `supervisor/` beside it.
-  Source:
+  Source: `skills/dev/companions/declarations.md § Declared paths`
+   declares `Docs:`, `Plans:` and `Layout:` only and reads a `Session:`
+   line as nothing; `scripts/install-dev.sh` step 6 (lines 204-227)
+   writes only the allowlist lines and step 8 seeds no `Session:` row;
+   `scripts/worker-workspace.sh` `project_clone` (line 74 on) writes no
+   `.git/info/exclude` line; `.gitignore` holds no `/dev/session/` or
+   `/dev/supervisor/` line
+  Test: `scripts/test/install-dev.test.sh` ("no session or supervisor
+   ignore line written", "a declared Session: tree gets no ignore
+   line"); `scripts/test/install-dev-gitignore.test.sh` ("the session
+   tree .claude/CLAUDE.md declares gets no ignore line");
+   `scripts/test/worker-workspace.test.sh` ("project-clone excludes no
+   session tree declared in .claude/")
 - Item 6 (source): An explanation or conclusion goes, on the user's
   approval, to the home owning its kind: `CLAUDE.md`, `DESIGN.md`, the
   plans tree, or the docs home and its references.
@@ -97,5 +109,17 @@
   Result: no tracked file outside the plans tree, those three and
   `README.md` (the doc writer's) cites `run.md § Ledger` or the
   runner's ledger.
+- Item 5: `root-migration.md § 1` and `untracked-claude.md § Detection`
+  also cited `<session>`, so they drop it beside the listed files.
+  `MAINTENANCE.md`'s seeded copy keeps its `## Session and planning
+  hygiene` heading, the installer's seeding marker, so a project seeded
+  earlier is not seeded twice. `install-dev-gitignore.test.sh` drops its
+  slash-less dedupe case, the dedupe being gone. With the `.gitignore`
+  lines gone, this checkout's local `dev/session/` and `dev/supervisor/`
+  files show as untracked; left for item 14's cleanup. Result: no
+  tracked file outside the plans tree and `README.md` (the doc
+  writer's) names the `Session:` tree, `<session>` or a `supervisor/`
+  directory; `scripts/test/dev-branch-state.test.sh` keeps its
+  `Session:` fixture as a project still declaring it.
 
 ## Review
