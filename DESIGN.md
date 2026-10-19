@@ -138,5 +138,6 @@ per `skills/dev/layout.md`).
   (`skills/dev/run.md § Question resolution`), so nothing certifies
   ahead of the run that a plan leaves none open.
 - A small change's plan is admitted unmerged, by a record on its
-  branch: the runner reads state only from artifacts (§ Git & delivery
-  model), and one MR/PR ships the requirements, plan and code.
+  branch: the runner keeps no record of its own (§ Git & delivery
+  model), so the approval is committed where it reads, and one MR/PR
+  ships the requirements, plan and code.

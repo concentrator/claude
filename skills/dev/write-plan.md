@@ -46,8 +46,8 @@ text itself.
    reports goes to the planner once, whose fix lands in the report's
    `## Planner`; the plan is not read again, and the header then
    records `cold-read: passed`. The session commits that header edit on
-   the plan branch. A plan whose `depends-on` names an unmerged task is
-   read at its start instead.
+   the branch carrying the plan. A plan whose `depends-on` names an
+   unmerged task is read at its start instead.
 7. **Confirm with user**, then deliver the committed plan through
    `finish.md § 3`: its short-lived plan MR/PR (`plan.md § Where plans
    live in git`) takes the decision any branch takes. A small change's

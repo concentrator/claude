@@ -185,10 +185,13 @@ goes in the closing MR/PR body, never in `requirements.md`.
 The check runs on the branch completing the R's last open task, in its
 mandatory final commit (`branch-plan.md § Closing routine`), judged
 against `tasks.md` re-read from `main` - the closure lands with that
-branch's merge. A closure the final commit could not run - concurrent
-branches racing past the check, or run-dependent (later-verified)
-criteria - keeps the R open and ships later via its own plan MR/PR
-once verified (e.g. a batch checkpoint - `branch-plan.md § Batches`).
+branch's merge. A small change, whose `tasks.md` exists only on its
+own branch (§ Where plans live in git), is judged against that
+branch's, its closure marks riding the same MR/PR. A closure the final
+commit could not run - concurrent branches racing past the check, or
+run-dependent (later-verified) criteria - keeps the R open and ships
+later via its own plan MR/PR once verified (e.g. a batch checkpoint -
+`branch-plan.md § Batches`).
 
 ## Milestone plans
 

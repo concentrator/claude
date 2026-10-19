@@ -54,22 +54,22 @@
   natural writer and item 3 does not name it (Important) -
   `skills/dev/write-plan.md` step 7
   Evidence: observed item 2's implementer report
-- [ ] Item 2: `write-plan.md` step 6 commits the cold read's header edit
+- [x] Item 2: `write-plan.md` step 6 commits the cold read's header edit
   "on the plan branch", which a small change does not have (Suggestion) -
   `skills/dev/write-plan.md:49`
   Evidence: observed `grep -n "plan branch" skills/dev/write-plan.md`
-- [ ] Close review: a small change's R closure is judged against
+- [x] Close review: a small change's R closure is judged against
   `tasks.md` re-read from `main`, where its `tasks.md` does not exist, so
   its R would close through a second MR/PR; a small change judges
   closure against its own branch's `tasks.md`, its closure marks riding
   the same MR/PR (Important) - `skills/dev/plan.md:186-192`
   Evidence: contract `plan.md § Approval and closure` against
   `§ Where plans live in git`
-- [ ] Close review: the `§ Decisions` small-change rationale says the
+- [x] Close review: the `§ Decisions` small-change rationale says the
   runner reads state only from artifacts, narrower than the
   `§ Git & delivery model` it cites (Suggestion) - `DESIGN.md:140-142`
   Evidence: contract `DESIGN.md § Git & delivery model`
-- [ ] Close review: `run.md § Resolve` branches on a small change without
+- [x] Close review: `run.md § Resolve` branches on a small change without
   naming its marker, its plan carrying `approved: yes` (Suggestion) -
   `skills/dev/run.md:63-67`
   Evidence: observed the close review's read of `run.md § Resolve`

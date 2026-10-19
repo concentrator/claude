@@ -60,9 +60,10 @@ table below leaves unassigned halts and reports, never improvises.
    task `[ ]` in `tasks.md`, no report), else the next open task whose plan
    is read. An initiative runs its open batch, else its open tasks in
    `tasks.md` order, each a task-scoped run. Scope selects pre-approved work:
-   anything lacking approved requirements or a merged plan (for a small
-   change, its plan read on its task's branch, `approved: yes` committed
-   there in its header), or a strict plan lacking `cold-read: passed`
+   anything lacking approved requirements or a merged plan (a small
+   change's plan, marked by `approved: yes` in its header, is read on
+   its task's branch, where that committed mark stands in for the
+   merge), or a strict plan lacking `cold-read: passed`
    (`branch-plan.md § Header`), is reported NOT READY, never
    dispatched, the report naming the missing record; a plan whose
    `depends-on` is unmerged the same.
