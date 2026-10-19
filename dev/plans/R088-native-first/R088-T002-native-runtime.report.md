@@ -61,7 +61,16 @@
    cites it
 - Item 8 (source): A project declares its CI wait command in its
   `§ Agent toolchain`.
-  Source:
+  Source: `skills/dev/companions/declarations.md § Declared commands`
+   lines 17-21 name the CI wait among the declared commands, on a `CI
+   wait:` line; `skills/dev/companions/toolchain.md § CI wait` gives its
+   forms, `gh pr checks <n> --watch` and `glab ci status --branch
+   <branch> --wait`; `scripts/preflight-permissions.sh` `toolchain_rules`
+   (lines 157-168) reads every command span of the section;
+   `.claude/CLAUDE.md` line 10 declares this repository's CI wait
+  Test: `scripts/test/preflight-permissions.test.sh` ("the CI wait prefix
+   is declared"); `scripts/test/preflight-permissions-toolchain.test.sh`
+   ("the CI wait line is read with the other declared commands")
 - Item 9 (probe): The GitHub CI wait, `gh pr checks <n> --watch`, exits 0
   when every check passes and non-zero when one fails.
   Call:
@@ -138,6 +147,25 @@
   one channel to the next implementer. Result: the session, the runner
   and the code reviewer each check the item 6 homes before asking or
   raising a finding.
+- Item 8: `scripts/preflight-permissions.sh` is unchanged: its
+  `toolchain_rules` already reads every command span of `§ Agent
+  toolchain`, so the `CI wait:` line needs no reader of its own, and
+  only its test grows. The test stood at the code-size gate's 300
+  lines, so its cases on reading the section - from either instruction
+  file, the GitLab CI wait among them - move to
+  `scripts/test/preflight-permissions-toolchain.test.sh`, which
+  `install-dev.sh` ships beside it, `install-dev.test.sh` asserting
+  both. The GitLab form is `glab ci status --branch
+  <branch> --wait`, `--wait` being the flag of glab 1.112.0's help that
+  returns when the pipeline finishes without a prompt; `glab ci status`
+  takes a branch rather than an MR, so the form names the source
+  branch. Its exit status on a failed pipeline is unprobed, item 9's
+  probe covering the GitHub form alone. The template carries
+  `Bash(gh pr checks:*)` and `Bash(glab ci status:*)` beside the view
+  allows, as it does for the state check. `start.md § 4` declares the
+  wait where CI is wired. Result: a project's `CI wait:` line resolves
+  to a Bash prefix in the pre-flight report, which the template's rule
+  covers on either host.
 
 ## Answers
 

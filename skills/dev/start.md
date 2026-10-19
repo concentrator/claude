@@ -56,9 +56,11 @@ shipped Tier-1 checks `install-dev.sh --project` placed under
 `.claude/scripts/` (checks in `ci/`, self-tests in `test/`), wired
 into that CI; the batch-tags gate enforces via a local pre-push
 hook - its CI run only reports a skip. Document run commands in
-`CLAUDE.md`. An `install-dev.sh --project` install into a git repo
-appended the plan-text gate (`check-plan-text.sh`), then the code-size
-gate (`check-code-size.sh`), to the `Test (fast):` line, else the `Test:`
+`CLAUDE.md`, the wait on the CI just wired as the `CI wait:` line of
+`§ Agent toolchain` (`companions/declarations.md § Declared commands`).
+An `install-dev.sh --project` install into a git repo appended the
+plan-text gate (`check-plan-text.sh`), then the code-size gate
+(`check-code-size.sh`), to the `Test (fast):` line, else the `Test:`
 line, in whichever of the root `CLAUDE.md` and `.claude/CLAUDE.md` holds
 it, or printed the line to add, with both gates and naming both files,
 when neither existed, and printed that the project's CI must run the fast

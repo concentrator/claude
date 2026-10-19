@@ -239,6 +239,7 @@ and a definition carries `tools:` and no permission key.
 | `Bash(git grep:*)` | `companions/verification-policy.md § Verification modality`'s negative-search rule, the instrument the docs verifier is sent to through `companions/documentation.md § Verification gate` (`agents/dev-docs-verifier.md`) |
 | one `Bash(git push -u origin <prefix>/*)` per prefix, the strings' one home being `toolchain.md § Permission carve-out` 1 | `finish.md § 3` step 2's `git push -u origin <branch>` at `run.md § Checkpoint`'s accept; declared under carve-out pattern 1 alone |
 | `Bash(gh pr view:*)`, `Bash(glab mr view:*)` | `CLAUDE.md § Agent toolchain`'s State-check line |
+| `Bash(gh pr checks:*)`, `Bash(glab ci status:*)` | `CLAUDE.md § Agent toolchain`'s CI wait line |
 | the project's declared commands | `CLAUDE.md § Agent toolchain` |
 
 An entry one conduct section bars in one context and a definition needs

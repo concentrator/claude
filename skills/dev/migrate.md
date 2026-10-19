@@ -77,8 +77,8 @@ Ensure project `CLAUDE.md` has `## Conventions` (release-routine,
 publish-external, and a `<docs>/index.md` pointer if the docs layer is
 used) + stack, base branch, and that the project's instructions, the
 root `CLAUDE.md` or `.claude/CLAUDE.md`, hold an `## Agent toolchain`
-section (VCS host + build/test/lint/change-request/state-check
-commands - `companions/declarations.md`) and a `## Layout` section
+section (VCS host + build/test/lint/change-request/state-check/CI
+wait commands - `companions/declarations.md`) and a `## Layout` section
 after `## Supervision` where present and after `## Agent toolchain`
 otherwise, backfilled from the inventory (`companions/declarations.md
 § Declared paths`); backfill any that are absent, each key once across

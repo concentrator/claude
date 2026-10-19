@@ -179,7 +179,8 @@ for f in ci/check-code-size.sh ci/check-no-em-dash.sh ci/check-accretion.sh \
          ci/check-batch-tags.sh ci/check-plan-text.sh ci/branch-diff.sh \
          preflight-permissions.sh \
          test/check-accretion.test.sh test/check-batch-tags.test.sh \
-         test/check-plan-text.test.sh test/preflight-permissions.test.sh; do
+         test/check-plan-text.test.sh test/preflight-permissions.test.sh \
+         test/preflight-permissions-toolchain.test.sh; do
   cp "$SRC/scripts/$f" "$target/scripts/$f"
 done
 [ -n "$markers" ] && put_line check-accretion.sh MARKERS "$markers"

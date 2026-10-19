@@ -1,7 +1,7 @@
 # Checkpoint push + MR/PR mechanics
 
-Read by `finish`, `run.md`, and `declarations.md`. § State check applies
-everywhere. § Push and the carve-out below are the runner's
+Read by `finish`, `run.md`, and `declarations.md`. § State check and
+§ CI wait apply everywhere. § Push and the carve-out below are the runner's
 checkpoint-**accept** mechanics (`run.md § Checkpoint`) - the runner
 pushes at no other point and never pushes the default branch. `finish`
 pushes its own branch (`finish.md § 3`). The `CLAUDE.md` keys these mechanics
@@ -22,6 +22,20 @@ gh pr view <n> --json state,mergedAt,statusCheckRollup
 Both forms return state, merged-at, and checks/pipeline. The declared
 command is the canonical form above - flag shapes like `--web` are
 outside it. The view allows ship in `auto-permissions.template.json`.
+
+## CI wait
+
+The declared CI wait command blocks until the MR/PR's checks or
+pipeline finish. Canonical forms:
+
+```
+gh pr checks <n> --watch
+# GitLab: glab ci status --branch <branch> --wait
+```
+
+`glab ci status` reads a branch's pipeline rather than an MR's, so the
+GitLab form names the MR's source branch. The wait allows ship in
+`auto-permissions.template.json` beside the view allows.
 
 ## Push + MR/PR
 

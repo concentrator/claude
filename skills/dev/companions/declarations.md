@@ -16,8 +16,9 @@ both files and takes the first line found.
 
 A project declares its routine commands in an `## Agent toolchain`
 section - the VCS host (→ `gh`/`glab`) and the exact
-change-request / merge / state-check / test / lint / build commands. It
-is the single source the run reads:
+change-request / merge / state-check / CI wait / test / lint / build
+commands, the CI wait on a `CI wait:` line in the form `toolchain.md
+§ CI wait` gives. It is the single source the run reads:
 
 - `/dev run` uses it for `permissions.allow` (the pre-flight gate in
   `toolchain.md § Permission carve-out for the checkpoint push`).

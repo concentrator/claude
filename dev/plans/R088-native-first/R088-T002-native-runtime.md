@@ -45,7 +45,7 @@ mode: normal
   and the session check them before asking the user, and the code reviewer
   checks them before raising a finding. Approach: `run.md § Question
   resolution`, `CLAUDE.md § Scope`, `agents/code-reviewer.md § Inputs`.
-- [ ] A project declares a `CI wait:` command in `§ Agent toolchain` - `gh pr
+- [x] A project declares a `CI wait:` command in `§ Agent toolchain` - `gh pr
   checks <n> --watch` on GitHub, its GitLab form beside it - which the
   permission pre-flight reads with the other declared commands. Approach:
   `declarations.md § Declared commands`, `toolchain.md`, `start.md`,
