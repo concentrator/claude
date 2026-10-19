@@ -65,10 +65,9 @@ work as far as a green MR/PR and holds one decision class:
   set stands in for the checkpoint report, and its absence stops the
   delivery as a missing report does;
 - queued judgment calls at implementation level, each recorded in the
-  report's supervisor-decisions section and ledgered (`run.md
-  § Ledger`); an acceptance-level question instead goes to the
-  **user** under either mode (`run.md § Seats`, `§ Question
-  resolution`).
+  report's supervisor-decisions section; an acceptance-level question
+  instead goes to the **user** under either mode (`run.md § Seats`,
+  `§ Question resolution`).
 
 **The grant includes the merge.** The seat this declaration names
 takes `finish.md § 3`'s decision, merge or discard, on every MR/PR:
@@ -155,10 +154,6 @@ A rule names a declared path by its placeholder - `<docs>`, `<plans>`,
 structure inside a declared root is the canonical structure's and stays
 literal, so `<plans>/R<NNN>-<slug>/tasks.md` and `<docs>/references/`
 read as before with the root resolved here.
-
-The runner's ledger directory is not declared: it is `supervisor/` in
-the session tree's parent directory, gitignored like the session tree
-(`run.md § Ledger`).
 
 `extended-docs:` is retired. One documentation directory per project,
 so a second docs path has no key: the home a project keeps is its

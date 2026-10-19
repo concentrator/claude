@@ -237,7 +237,6 @@ and a definition carries `tools:` and no permission key.
 | `Bash(git read-tree:*)` | `run.md § Question resolution`'s halt revert |
 | `Bash(git check-ignore:*)` | `companions/untracked-claude.md § Detection`, which `finish.md § 1`'s bookkeeping line reaches |
 | `Bash(git grep:*)` | `companions/verification-policy.md § Verification modality`'s negative-search rule, the instrument the docs verifier is sent to through `companions/documentation.md § Verification gate` (`agents/dev-docs-verifier.md`) |
-| `Bash(mkdir:*)`, `Bash(date:*)`, `Bash(printf:*)` | `run.md § Ledger`, the runner's own bookkeeping: `mkdir -p` at § Resolve, the timestamp read from `date -u` at write time, the append through `printf '%s\n' ... >>` |
 | one `Bash(git push -u origin <prefix>/*)` per prefix, the strings' one home being `toolchain.md § Permission carve-out` 1 | `finish.md § 3` step 2's `git push -u origin <branch>` at `run.md § Checkpoint`'s accept; declared under carve-out pattern 1 alone |
 | `Bash(gh pr view:*)`, `Bash(glab mr view:*)` | `CLAUDE.md § Agent toolchain`'s State-check line |
 | the project's declared commands | `CLAUDE.md § Agent toolchain` |
@@ -253,15 +252,12 @@ read-only bar in the `§ Steps` of `agents/dev-cold-reader.md`,
 `agents/dev-docs-verifier.md` and `agents/code-reviewer.md` keeps every
 write of those seats off the checkout, the config directory and the
 settings surface.
-`echo`, `printf` and `mkdir` stand beside them as the write-capable
-verbs: the first two write wherever a redirection points and the third
-creates a directory anywhere the session can write, all three declared
-for the runner's own bookkeeping and under those same bars, so the rows
-widen the class `echo` opened rather than opening one. The push block
-is that shape from the runner's side - the push is `run.md
-§ Checkpoint`'s accept, so `branch-plan.md § Rails`' "Seats never push"
-stands as written and no seat definition and no § Seat tool sets row
-changes for it.
+`echo` stands beside them as the write-capable verb, writing wherever
+a redirection points, under those same bars. The push block is that
+shape from the runner's side - the push is `run.md § Checkpoint`'s
+accept, so `branch-plan.md § Rails`' "Seats never push" stands as
+written and no seat definition and no § Seat tool sets row changes for
+it.
 
 A rule enters this set only with the step or dispatch companion that
 runs it named, and the walk goes both ways: a step whose commands change
@@ -302,9 +298,8 @@ bypass attempt (`companions/supervisor-runbook.md § Failure modes`). What
 tells the seat that is its own contract (`agents/dev-implementer.md
 § Steps`), the runbook being no seat's input. A denial is an answer:
 the seat reports BLOCKED with the classifier's text, which halts the
-item and reports with its work intact (`run.md § Dispatch per item`),
-and the runner ledgers a `prompt` event (`run.md § Ledger`). No count
-of these events is kept anywhere.
+item and reports with its work intact (`run.md § Dispatch per item`).
+No record of these events is kept anywhere.
 
 A denial of the runner's own command - `git merge`, `git tag`, the
 halt's `git read-tree` - lands in the runner's call rather than a

@@ -38,9 +38,6 @@
       "Bash(wc:*)",
       "Bash(cat:*)",
       "Bash(echo:*)",
-      "Bash(printf:*)",
-      "Bash(mkdir:*)",
-      "Bash(date:*)",
       "Bash(ls:*)",
 
       "Read(//tmp/**)",

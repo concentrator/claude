@@ -67,7 +67,6 @@ table below leaves unassigned halts and reports, never improvises.
 2. **Supervisor** - read `CLAUDE.md § Supervision`: the `Supervisor:`
    line and the bounds, plus `.claude/supervisor.md` where referenced.
    No block, or no `Supervisor:` line → halt, naming it.
-3. **Ledger** - open the scope's file (§ Ledger).
 
 ## Pre-flight
 
@@ -107,7 +106,7 @@ branch per plan - and per commit checkbox:
    as a `## Review` entry of the task report in the `branch-plan.md § Task
    report` form, its `Evidence:` line citing the concern (`observed <the
    implementer's report>`), which the next dispatch names. Any
-   other concern the runner ledgers (§ Ledger) and carries into the report.
+   other concern the runner carries into the report.
    NEEDS_CONTEXT → § Question resolution. Halt triggers: `branch-plan.md § Stop
    conditions`.
 3. The implementer marks `[x]` in its commit (`branch-plan.md § Commit cadence`
@@ -118,8 +117,8 @@ Two prompt classes (`companions/seat-permissions.md § Prompt classes`). A
 pre-flight defect - a gap in the mode-independent set - halts the item, cleared
 by nobody (§ Seats, the prompt row). A classifier denial under `auto` is the
 seat's to handle; where it cannot, its BLOCKED report halts and reports, the
-work intact (§ Checkpoint), ledgered a `prompt` event (§ Ledger). Commands match
-a declared prefix outside `auto` and are classifier-readable under it.
+work intact (§ Checkpoint). Commands match a declared prefix outside `auto`
+and are classifier-readable under it.
 
 ## Question resolution
 
@@ -142,8 +141,8 @@ costs no seat and no approval: the implementer decides it in the code and
 reports the divergence. An implementer's inputs are the plan, the docs and
 the code (`agents/dev-implementer.md § Inputs`), so an answer reaches the next
 implementer only through the task report beside the plan. Each answer is
-ledgered with the runner's commit (§ Ledger) and carried into the
-report's `## Supervisor decisions` section at checkpoint.
+carried into the report's `## Supervisor decisions` section at
+checkpoint.
 
 ## Close
 
@@ -171,9 +170,8 @@ Per branch, when its last non-final item is `[x]`:
    `## Claims` lists claims, else the writer's report. A non-empty
    mismatch list re-dispatches one fresh doc writer with the list; its
    result goes to the user with the list, not to a second verification.
-   A BLOCKED halts (`branch-plan.md § Stop conditions`). The report
-   rides the dispatch entry and the mismatch list a verify entry
-   (§ Ledger); folding never skips it (§ Seats).
+   A BLOCKED halts (`branch-plan.md § Stop conditions`); folding never
+   skips it (§ Seats).
 4. The runner makes the mandatory final commit (cleanup, plan complete,
    task mark per `branch-plan.md § Closing routine`). A branch closing
    the R's last open task runs the closure check first
@@ -274,28 +272,18 @@ red gate escalates rather than being worked around. Escalations are
 existing artifacts read back - halted items, the reports' queued
 judgment calls, refused deliveries - never a parallel store.
 
-## Ledger
-
-The runner's working memory is `supervisor/<scope>.md` beside `<session>`
-(`companions/declarations.md § Declared paths`), ignored like it, so an append
-dirties nothing. One file per scope; a resumed runner on the same host opens
-the same file. Opened at § Resolve (`mkdir -p` the directory, then the first
-entry), it takes one entry per event from § Dispatch per item through § Merge
-or ask: `## <event> <UTC timestamp>` - dispatch, question, answer, prompt,
-verify, escalation, merge - the timestamp
-read from the clock (`date -u`) at write time, never composed or carried
-forward - over `- key: value` lines naming the ids, appended with a single
-`printf '%s\n' ... >>`, never `Edit`, which rewrites it. Working memory only:
-a decision still lands in the report's `## Supervisor decisions`
-(`companions/report-template.md`); the ledger is the evidence a re-brief
-reads, never a second home for a finding.
-
 ## Monitor
 
 The runner's context stays report-level: it collects report paths and
 MR/PR references, never diffs or transcripts, so one runner spans a
 scope. The scope is the runner's unit (`branch-plan.md § Session
 boundary`).
+
+The runner keeps no record of its own. After compaction, or on a run
+resumed on the same scope, it re-derives the scope's state as § Sync
+does: the plan checkboxes and `tasks.md` marks, the task reports'
+`## Answers` and `## Review` entries, the branches and their commits,
+and the MR/PR state-check output.
 
 ## Sync
 

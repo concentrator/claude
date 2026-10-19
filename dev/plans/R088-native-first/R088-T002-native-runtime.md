@@ -23,7 +23,7 @@ mode: normal
   user decisions not yet stored. Approach: the instructions' form from the
   Claude Code docs, then `SKILL.md`, every citation of `handoff.md` (`git
   grep`), and `install-dev.sh`'s minimal set with its test.
-- [ ] A run keeps no ledger: after compaction the runner re-derives its
+- [x] A run keeps no ledger: after compaction the runner re-derives its
   scope's state from plans, task reports, git and MR/PR state, as § Sync
   does. Approach: `run.md` § Ledger, § Resolve 3 and each ledger clause,
   then the citations in `branch-plan.md`, `declarations.md`,

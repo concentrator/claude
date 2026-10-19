@@ -30,7 +30,12 @@
    the delivery skill files")
 - Item 4 (drop): The supervisor's ledgers sit in `supervisor/` beside the
   session tree.
-  Source:
+  Source: `skills/dev/run.md` holds no § Ledger, its § Resolve (lines
+   56-69) opens no file, and § Monitor (lines 282-286) re-derives the
+   scope's state from plans, task reports, git and MR/PR state;
+   `skills/dev/companions/declarations.md § Declared paths` names no
+   ledger directory; `skills/dev/companions/auto-permissions.template.json`
+   holds no `mkdir`, `date` or `printf` rule
 - Item 5 (drop): A project declares a `Session:` tree, which a `--project`
   install ignores with `supervisor/` beside it.
   Source:
@@ -79,5 +84,18 @@
   `run.md § Monitor` drops its hand-off sentence outright. Result: no
   tracked file outside `README.md` (the doc writer's) and `DESIGN.md`
   (item 13) cites `handoff.md` or `/dev handoff`.
+- Item 4: the re-derivation lands in `run.md § Monitor`, the section on
+  the runner's context, which `branch-plan.md § Session boundary` and
+  § Task report now cite in place of § Ledger; `agents/dev-implementer.md`
+  cites `branch-plan.md § Task report` for keeping dispatch and status
+  out of the report. With the ledger gone, `Bash(mkdir:*)`,
+  `Bash(date:*)` and `Bash(printf:*)` had no step left to trace to
+  (`seat-permissions.md § Bash prefix set`), so their row and template
+  entries go and `echo` stands alone as the write-capable verb. The
+  ledger mentions in `scripts/worker-workspace.sh`, its test and
+  `.gitignore` sit beside their `supervisor/` lines, left to item 5.
+  Result: no tracked file outside the plans tree, those three and
+  `README.md` (the doc writer's) cites `run.md § Ledger` or the
+  runner's ledger.
 
 ## Review

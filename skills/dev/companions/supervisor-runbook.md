@@ -72,9 +72,8 @@ The runner cycles until the scope is delivered:
    `Supervisor: AI` with `claude --permission-mode auto`, under
    `Supervisor: human` their own session in its usual mode - and runs
    `/dev run <scope>`.
-2. **Runner** resolves the scope and the supervisor line, opens the
-   ledger (`run.md § Ledger`), and dispatches seats one at a time
-   (`run.md § Dispatch per item`).
+2. **Runner** resolves the scope and the supervisor line, and
+   dispatches seats one at a time (`run.md § Dispatch per item`).
 3. **Runner** routes an acceptance-level question through `run.md
    § Question resolution` (`run.md § Seats`): the item halts, the
    **user** answers under either supervisor mode, the runner writes the

@@ -57,8 +57,7 @@ previously verified">
 <the queued calls the supervisor resolved and the acceptance questions
 the user answered (`run.md § Seats`, `§ Question resolution`), each
 with the chosen option and rationale, carried in at checkpoint; or
-"none" when there were none. The runner's ledger (`run.md § Ledger`)
-is this section's evidence, not its copy>
+"none" when there were none>
 
 ## Judgment calls for checkpoint
 
