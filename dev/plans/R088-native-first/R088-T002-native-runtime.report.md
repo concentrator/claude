@@ -132,4 +132,9 @@
   modes. Result: the routing lives in one section, which `CLAUDE.md`
   cites rather than restates.
 
+## Answers
+
+- Item 6: keep the `CLAUDE.md` bullet without "in DEV"; routing to the
+  owning home binds in both modes.
+
 ## Review
