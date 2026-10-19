@@ -12,6 +12,7 @@ tasks/
 telemetry/
 downloads/
 debug/
+state/
 chrome/
 usage-data/
 
