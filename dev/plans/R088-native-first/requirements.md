@@ -32,7 +32,7 @@ carries its intent, or the rule aligns with the default.
     seat loads only the text its step needs.
 11. A weekly cloud routine audits the repository against the current
     defaults and docs and opens a plan MR/PR adding each new finding as
-    a backlog line here, never one already listed.
+    a line in the backlog of `MAINTENANCE.md`, never one already listed.
 
 ## Constraints
 

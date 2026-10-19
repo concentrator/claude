@@ -35,3 +35,4 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - `CLAUDE.local.md` has no `permissions.ask` rule, so its rule keeps a propose-and-wait step.
 - The README keeps inline comma-runs the docs gate did not list: its opening and several layout rows.
 - The README no longer says what the guards block.
+- The full test tier runs locally right before CI runs it.
