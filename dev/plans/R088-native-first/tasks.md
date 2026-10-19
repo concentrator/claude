@@ -8,7 +8,7 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
   default with a setting, a one-line edit or a deletion, and fix the stale
   names the audit found.
 
-- [ ] **R088-T002 [mnt]**: compaction without hand-off notes or a ledger, one CI
+- [x] **R088-T002 [mnt]**: compaction without hand-off notes or a ledger, one CI
   wait that notifies pass or fail, explanations in their existing homes,
   review cost under the project's control, and the weekly audit routine.
 
