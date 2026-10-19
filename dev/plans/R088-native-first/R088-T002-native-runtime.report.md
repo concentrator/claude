@@ -171,5 +171,9 @@
 
 - Item 6: keep the `CLAUDE.md` bullet without "in DEV"; routing to the
   owning home binds in both modes.
+- Item 9: a CI wait whose exit prints `no checks reported` is neither
+  pass nor fail; it runs again once the checks register, so "once" means
+  once per real result.
+- Item 9: no test; the `## Claims` entry is filled from the second probe.
 
 ## Review
