@@ -36,3 +36,4 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - The README keeps inline comma-runs the docs gate did not list: its opening and several layout rows.
 - The README no longer says what the guards block.
 - The full test tier runs locally right before CI runs it.
+- No allow rule covers the `sleep` the CI-wait retry runs.

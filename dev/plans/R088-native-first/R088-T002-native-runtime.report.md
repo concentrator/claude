@@ -261,6 +261,13 @@
   escalates to the user.
 - Item 10: with no `review:` line the batch review runs at the
   reviewer's pins; `REQUIREMENTS.md` follows the rule.
+- Close review: the branch-naming rule admits `plan/audit-<YYYY-MM-DD>`.
+- Close review: the CI-wait retry's `sleep` goes to R088's backlog, no
+  allow rule.
+- Close review: the installer cleanup of an earlier install is fixed on
+  this branch.
+- Close review: the runner writes each queued judgment call and carried
+  concern to the task report as it arises.
 
 ## Review
 
@@ -280,3 +287,53 @@
   `skills/dev/git-workflow.md:63`
   Evidence: observed the item 9 implementer report: the answer's
   wording gives no way to learn registration without polling
+- [ ] Close review: `MAINTENANCE.md § Weekly audit` cuts
+  `plan/audit-<YYYY-MM-DD>`, a form the `plan/` naming rule does not
+  admit; amend `git-workflow.md` to admit it for the audit (Critical) -
+  `skills/dev/git-workflow.md:49`
+  Evidence: contract `git-workflow.md:49-54`, `plan/r<NNN>-<action>`
+- [ ] Close review: a reinstall over an earlier install keeps the
+  `dev-handoff-nudge.sh` Stop entry and the three retired scripts;
+  `install-dev.sh` removes both, `install-dev.test.sh` asserts it with an
+  upgrade fixture (Important) - `scripts/install-dev.sh`
+  Evidence: observed the close review's upgrade probe: `.hooks.Stop`
+  still holds the nudge after a HEAD reinstall over an aa1137c install
+- [ ] Close review: with no ledger, queued judgment calls and carried
+  concerns have no home after compaction; the runner writes each to the
+  task report as it arises (Important) - `skills/dev/run.md:290`
+  Evidence: contract `run.md:109` and `:165` queue them, `run.md:290-294`
+  re-derives from sources that do not hold them
+- [ ] Close review: `run.md § Question resolution` restates the
+  settled-homes check of `CLAUDE.md § Scope`; keep only the `## Answers`
+  citation step and cite `CLAUDE.md § Scope` (Important) -
+  `skills/dev/run.md:128`
+  Evidence: contract `rules/claude-md.md § Size and structure`, "No
+  duplication"
+- [ ] Close review: `verification-policy.md § Close folding` restates
+  `run.md § Batch close` 1, which it cites; cut the restated clause
+  (Important) - `skills/dev/companions/verification-policy.md:50`
+  Evidence: contract `rules/claude-md.md § Size and structure`, "No
+  duplication"
+- [ ] Close review: claim entries cite stale lines - item 6 `CLAUDE.md`
+  58 (now 61), item 4 `run.md § Monitor` 282-286 (now 290-294), item 10
+  `verification-policy.md` 136-140 (now 135-139) (Suggestion) - this
+  report, `## Claims`
+  Evidence: observed the close review's reads
+- [ ] Close review: commit "Ignore the harness state directory" is not
+  named in `## Implementer`; name it as a divergence (Suggestion) - this
+  report
+  Evidence: observed `git log aa1137c..HEAD`
+- [ ] Close review: `scripts/install-dev.sh` line 11 runs to 121
+  characters where its comment wraps near 78; rewrap (Suggestion) -
+  `scripts/install-dev.sh:11`
+  Evidence: observed line length
+- [ ] Close review: count annotations "the three rules" and "Those three
+  values" drop the count (Suggestion) -
+  `skills/dev/companions/verification-policy.md:125`,
+  `skills/dev/companions/declarations.md:132`
+  Evidence: contract `rules/writing-artifacts.md § One home per number`
+- [ ] Close review: `DESIGN.md` names retired mechanisms - "so no session
+  file carries state across compaction" (drop the clause) and "The runner
+  keeps no ledger" (say "keeps no record of its own") (Suggestion) -
+  `DESIGN.md:103`, `DESIGN.md:48`
+  Evidence: contract `rules/writing-artifacts.md § State the present`
