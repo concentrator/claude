@@ -80,7 +80,8 @@ repos are versioned there, not mapped.
     ├── dispatching-parallel-agents/SKILL.md    # bundled
     ├── skill-creator/SKILL.md    # personal (skill authoring)
     ├── writing-skills/           # personal
-    │   └── SKILL.md              #   the skill, its references and examples beside it
+    │   ├── SKILL.md              #   the skill, its references beside it
+    │   └── examples/             #   worked examples its references cite
     └── worker-host/              # GCP worker host runbook, this repository's own
         ├── SKILL.md              #   the four scripts and where each runs
         └── companions/           #   provisioning order, pitfalls
