@@ -74,15 +74,16 @@
 - Item 9 (probe): The GitHub CI wait, `gh pr checks <n> --watch`, exits 0
   when every check passes and non-zero when one fails.
   Call: `gh pr checks 600 --watch; echo "exit=$?"` (every check passed);
-   `gh pr checks 14035 -R cli/cli --watch` (one check failed), its
-   exit status echoed and its failing rows printed once
+   `gh pr checks 14035 -R cli/cli --watch; echo "exit=$?"` (one check
+   failed); on finished checks `--watch` prints the table twice
   Output:
    tier1	pass	1m49s	https://github.com/concentrator/claude/actions/runs/39136505040/job/117701975682
    tier1	pass	1m49s	https://github.com/concentrator/claude/actions/runs/39136505040/job/117701975682
    exit=0
    lint	fail	1m11s	https://github.com/cli/cli/actions/runs/33321337572/job/99283726990
+   (ten passing rows, then all eleven rows a second time)
    exit=1
-  Environment: gh 2.97.0 on macOS (Darwin 25.5.0), 2026-10-19T08:42Z;
+  Environment: gh 2.97.0 on macOS (Darwin 25.5.0), 2026-10-19T09:39Z;
    concentrator/claude PR 600 and cli/cli PR 14035, both read only,
    their checks already finished
 - Item 10 (source): A `review:` line in `CLAUDE.md § Conventions` sets the
