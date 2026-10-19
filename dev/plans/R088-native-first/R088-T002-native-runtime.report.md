@@ -216,7 +216,7 @@
   `review:` line, or else `agents/code-reviewer.md`'s pins, sets the
   model and effort of every code review.
 ### Findings
-- [ ] Item 10: `REQUIREMENTS.md` still has the batch close review the
+- [x] Item 10: `REQUIREMENTS.md` still has the batch close review the
   full batch diff on the most capable model, where `run.md § Batch
   close` 1 now runs it at the review's cost
   Evidence: contract `REQUIREMENTS.md:62`, "The batch close phase
@@ -234,6 +234,8 @@
 - Item 9: after `no checks reported`, re-run the CI wait in the
   background after a short delay, at most 3 times; still no checks then
   escalates to the user.
+- Item 10: with no `review:` line the batch review runs at the
+  reviewer's pins; `REQUIREMENTS.md` follows the rule.
 
 ## Review
 
