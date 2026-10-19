@@ -194,5 +194,26 @@
   pass nor fail; it runs again once the checks register, so "once" means
   once per real result.
 - Item 9: no test; the `## Claims` entry is filled from the second probe.
+- Item 9: fix the missing head sha on this branch.
+- Item 9: after `no checks reported`, re-run the CI wait in the
+  background after a short delay, at most 3 times; still no checks then
+  escalates to the user.
 
 ## Review
+
+- [ ] Item 9: the GitHub state check returns no head sha, so
+  `run.md § Boundary verification` 4 cannot match CI to the head sha;
+  add `headRefOid` to the state-check form in `toolchain.md § State
+  check` and the `.claude/CLAUDE.md` declaration (Important) -
+  `skills/dev/companions/toolchain.md:11`
+  Evidence: observed `gh pr view 600 --json
+  state,mergedAt,statusCheckRollup` returns only `mergedAt`, `state`,
+  `statusCheckRollup`, no rollup entry holding a commit sha (implementer
+  report, item 9)
+- [ ] Item 9: "once the checks register" names no mechanism; after a
+  `no checks reported` exit the CI wait re-runs in the background after
+  a short delay (`sleep 30 && <CI wait>`), at most 3 times, and still no
+  checks escalates to the user (Important) -
+  `skills/dev/git-workflow.md:63`
+  Evidence: observed the item 9 implementer report: the answer's
+  wording gives no way to learn registration without polling
