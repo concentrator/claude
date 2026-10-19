@@ -45,10 +45,13 @@ Planning takes two rounds: `/dev plan R` writes an initiative's
 requirements and design, and `/dev plan R<NNN>` writes its task list
 with a branch plan per task
 ([`plan.md § Planning rounds`](skills/dev/plan.md#planning-rounds)). A
-small change, an initiative of one task, ships its requirements, plan
-and code in one MR/PR, `/dev run` admitting its plan unmerged by
+plan merges to `main` before its branch is cut, and `/dev run` admits
+only a merged plan. A small change, an initiative of one task, instead
+ships its requirements, plan and code in one MR/PR: its plan is
+committed on its task's branch, and `/dev run` admits it unmerged by
 `approved: yes` in the plan's header
-([`branch-plan.md` opening and `§ Header`](skills/dev/branch-plan.md#header)).
+([`branch-plan.md` opening and `§ Agentic execution`](skills/dev/branch-plan.md#agentic-execution),
+[`run.md § Resolve`](skills/dev/run.md#resolve)).
 
 Execution is `/dev run`: a task, a batch or an initiative runs as dispatched seats -
 subagents, each started fresh for one item and shut down at its exit -
