@@ -19,7 +19,10 @@ hardening for a hazard that has not fired) are proposed in one line,
 never built unasked; adjacent work goes to the owning R's backlog line
 (`skills/dev/plan.md § Referential integrity`). A convention binds only
 work created after it: older work changes to meet one only on request.
-Unknown facts are asked, never guessed; a remote is probed only on
+Unknown facts are asked, never guessed, and only once: the homes
+`rules/writing-artifacts.md § One home per finding` names are checked
+first, and a question one of them settles is not asked. A remote is
+probed only on
 request, a plan's `probe` claim being one, or in a strict plan. A
 problem needs evidence (observed output, a failing test, a documented
 contract); an unprompted finding built from reading code is not raised

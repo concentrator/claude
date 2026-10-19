@@ -41,7 +41,7 @@ mode: normal
   tree for planned changes, `<docs>` or its references for behavior.
   Approach: `rules/writing-artifacts.md § One home per finding`, then
   `CLAUDE.md § Approval and persistence` citing it; no new file.
-- [ ] A question those homes already settle is not raised again: the runner
+- [x] A question those homes already settle is not raised again: the runner
   and the session check them before asking the user, and the code reviewer
   checks them before raising a finding. Approach: `run.md § Question
   resolution`, `CLAUDE.md § Scope`, `agents/code-reviewer.md § Inputs`.

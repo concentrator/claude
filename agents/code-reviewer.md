@@ -25,6 +25,10 @@ against the default branch and the folded branches' list.
   § Close folding`).
 - **Ruled out** - where the dispatch names them, the cases the user
   ruled out: none is raised.
+- **Settled** - the homes `rules/writing-artifacts.md § One home per
+  finding` names, checked before a finding is raised: a finding one of
+  them settles - a decision recorded, a convention stated - is not
+  raised.
 
 Nothing else is an input. Without a plan path, review nothing and ask
 for it in your report back.

@@ -124,13 +124,17 @@ and are classifier-readable under it.
 
 A question the plan cannot answer - an implementer's blocker, a concern
 whose answer changes what an item delivers, a proposed plan edit
-(`branch-plan.md § Plan edits`) - halts the item and goes to the **user** as
+(`branch-plan.md § Plan edits`) - halts the item. The runner first checks
+the homes `rules/writing-artifacts.md § One home per finding` names: a
+question one of them settles is answered by citing it, never raised again.
+Any other goes to the **user** as
 the seat's text, under either supervisor mode; a question whose answer is a
 choice among options goes through the AskUserQuestion tool, the options drawn
 from the seat's report. The halt reverts the item's
 uncommitted edits - `git read-tree --reset -u HEAD` and removal of the
 untracked files the seat created - so the branch stands at its last commit.
-The runner writes the user's answer to the task report's `## Answers`,
+The runner writes the answer - the user's, or the citation of the home
+that settles it - to the task report's `## Answers`,
 naming the item it answers (`branch-plan.md § Task report`), in a
 bookkeeping commit on the item's branch; plan text is unchanged during a
 run, an approved plan edit included. A fresh implementer then starts

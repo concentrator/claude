@@ -131,6 +131,13 @@
   scope, the cited section applying to every Markdown file in both
   modes. Result: the routing lives in one section, which `CLAUDE.md`
   cites rather than restates.
+- Item 7: the three files cite `rules/writing-artifacts.md § One home
+  per finding` for the homes rather than list them. A question a home
+  settles still halts the item, so `run.md § Question resolution` has
+  the runner write the settling home's citation under `## Answers`, the
+  one channel to the next implementer. Result: the session, the runner
+  and the code reviewer each check the item 6 homes before asking or
+  raising a finding.
 
 ## Answers
 
