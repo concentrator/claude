@@ -46,12 +46,11 @@ judgment:
    docs and their gate (`run.md § Close` 1, 3).
 
 **Consequence:** a small branch skips the per-branch `code-reviewer` pass.
-Its first review is the batch full-diff review at batch close (which
-re-covers most of the per-branch pass, saving the bulk of a per-branch
-review's tokens per folded branch). The runner passes the list of
-folded branches into the batch full-diff review dispatch; the reviewer
-covers their diffs against their own plans (first review), not only
-cross-branch concerns.
+Its one review is the batch full-diff review at batch close. The runner
+passes the list of folded branches into the batch full-diff review
+dispatch; the reviewer checks their diffs against their own plans as
+well as cross-branch concerns, and checks no branch its close reviewed
+against its plan again (`run.md § Batch close` 1).
 
 **Invariants** - unaffected, per `branch-plan.md § Agentic execution`:
 the doc-writer pass and its gate (`run.md § Close` 3), the final commit

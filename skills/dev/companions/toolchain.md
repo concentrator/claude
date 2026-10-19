@@ -90,7 +90,7 @@ it. Two working patterns:
    which is a prompt in the one place a supervised run cannot answer
    one. The push strings above are a run's own prefixes - one per
    prefix of `git-workflow.md § Trunk` except `release`, whose branch
-   `release.md` step 10 pushes by hand under that file's bar on
+   `release.md` step 8 pushes by hand under that file's bar on
    auto-push - and the `glab mr create` entry beside them is the
    change-request command's rule rather than a push.
 

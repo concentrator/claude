@@ -215,6 +215,15 @@
   heading drops "most capable model" with it. Result: the project's
   `review:` line, or else `agents/code-reviewer.md`'s pins, sets the
   model and effort of every code review.
+- Item 11: dropping `release.md` steps 3 and 4 renumbers the procedure,
+  so the step citations in `documentation.md § Verification gate`,
+  `seat-permissions.md` and `toolchain.md` follow it. `release.md § Rules`
+  replaces its block-on-review rule with one stating the release runs no
+  code review, citing the two closes that review each change.
+  `REQUIREMENTS.md`'s batch close still reviews the full batch diff,
+  which the reviewer reads for cross-branch concerns, so it is
+  unchanged. Result: a branch's close reviews it, a folded branch's one
+  review is the batch close's, and the release reviews nothing.
 ### Findings
 - [x] Item 10: `REQUIREMENTS.md` still has the batch close review the
   full batch diff on the most capable model, where `run.md § Batch

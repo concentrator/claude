@@ -194,8 +194,9 @@ Rails hold throughout (`branch-plan.md § Rails`).
 ## Batch close
 
 1. Full-diff review vs default (`code-reviewer`, at the review's cost):
-   cross-branch interactions, duplicated helpers, convention drift;
-   folded small branches get first-review vs their plans.
+   each folded small branch vs its plan, as its one review, then
+   cross-branch interactions, duplicated helpers, convention drift; a
+   branch § Close 1 reviewed is not checked against its plan again.
 2. Fixes land as batch-branch commits; queue judgment calls.
 3. Run `Test (full)` - the batch's one full local run; red → halt.
 4. Mark member-task checkboxes; commit on `batch/R<NNN>-B<NNN>`

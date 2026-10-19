@@ -132,7 +132,7 @@ below is told from the command's arguments and a settings deny reads
 none of them, so a deny wide enough to catch a shape also stops the
 flow's own moves in that verb: `Bash(git checkout:*)` stops
 `finish.md`'s discard and post-merge entries into the default branch and
-the branch `run.md § Pre-flight` and `release.md` step 5 create, along
+the branch `run.md § Pre-flight` and `release.md` step 3 create, along
 with a dirty-tree trunk entry; `Bash(git reset:*)` stops a seat's
 unstaging along with `reset --hard`. The guard reads those arguments and
 tells them apart, and it already fires on the `Bash` matcher of the

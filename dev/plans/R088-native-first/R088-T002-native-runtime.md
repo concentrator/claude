@@ -62,7 +62,7 @@ mode: normal
   hold. Approach: `verification-policy.md § Effort mechanics` and
   `§ Models`, `run.md § Close` 1 and `§ Batch close` 1, `migrate.md`'s
   conventions list.
-- [ ] A change is reviewed once: the batch-close review covers the folded
+- [x] A change is reviewed once: the batch-close review covers the folded
   branches and cross-branch concerns, never re-checking a reviewed branch
   against its plan, and a release runs no code review. Approach: `run.md
   § Batch close` 1, `agents/code-reviewer.md § Steps` 4,
