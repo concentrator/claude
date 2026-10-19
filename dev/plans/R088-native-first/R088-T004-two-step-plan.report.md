@@ -11,4 +11,15 @@
 
 ## Implementer
 
+## Answers
+
+- Item 1: the design lives in an optional `## Design` section of the
+  initiative's `requirements.md`, within its 40-line cap; `DESIGN.md`
+  describes only the present architecture.
+- Item 2: a small change is an initiative of exactly one task, which the
+  user picks at `/dev plan R`.
+- Item 3: a small change's plan is admitted unmerged by a recorded mark,
+  `approved: yes` in the plan header committed on its branch, which
+  `run.md § Resolve` checks and names when missing.
+
 ## Review
