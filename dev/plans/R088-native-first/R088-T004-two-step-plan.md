@@ -5,7 +5,7 @@ architecture-changing: true
 mode: normal
 ---
 
-- [ ] Planning is two steps: `/dev plan R` writes the requirements and
+- [x] Planning is two steps: `/dev plan R` writes the requirements and
   their design - the standard followed, the components changed - at one
   gate, with no task list; `/dev plan R<NNN>` writes the task list and a
   plan per task. Approach: `plan.md § Planning rounds`, a `## Design`

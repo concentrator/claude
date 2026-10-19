@@ -35,14 +35,13 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 
 ## Planning rounds
 
-Two rounds, each emitting several artifact levels at once:
+Two rounds, each approved at one gate:
 
-- **Shape** (`/dev plan R`) - produce the initiative's `requirements.md`
-  **and** a draft task list (`tasks.md`) together, approved at one gate.
-  Deferrable: for a large or uncertain initiative, approve requirements
-  and defer the task list to the detail round.
-- **Detail** (`/dev plan R<NNN>`) - produce the open R's tasks **and**
-  their branch plans together.
+- **Shape** (`/dev plan R`) - produce the initiative's `requirements.md`:
+  its outcomes and its design - the standard it follows and the
+  components it changes (`templates.md § Per-initiative`). No task list.
+- **Detail** (`/dev plan R<NNN>`) - produce the open R's task list
+  (`tasks.md`) **and** a branch plan per task together.
 
 **Approval authorizes planning, not code** (gate: § Approval and
 closure). Approving a plan sends its branch through `finish.md § 3`,

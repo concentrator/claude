@@ -4,13 +4,21 @@
 - Item 1 (source): `/dev plan R` writes an initiative's requirements and
   design, and `/dev plan R<NNN>` writes its task list with a branch plan
   per task.
-  Source:
+  Source: `skills/dev/plan.md § Planning rounds` (Shape and Detail),
+   `skills/dev/templates.md § Per-initiative` (`## Design`),
+   `skills/dev/SKILL.md` (`/dev plan <target>`, rows `R` and `R<NNN>`)
 - Item 3 (source): A small change, an initiative of one task, ships its
   requirements, plan and code in one MR/PR, its plan admitted unmerged by
   `approved: yes` in its header.
   Source:
 
 ## Implementer
+### Divergences
+- Item 1: `brainstorm.md § Rules` also changed, outside the named steps:
+  its altitude bullet sent architecture to `DESIGN.md`, against the
+  answer that the design lives in `requirements.md`. It now names the
+  requirements' `## Design` for the planned architecture, `DESIGN.md`
+  for the present one, and the detail round for the task split.
 
 ## Answers
 

@@ -18,16 +18,18 @@ act of `plan.md § Directory conventions`. The discovery method behind
    trade-offs, recommendation first.
 5. **Draft** - pick the next free `R<NNN>` id, create the plan branch
    (`plan.md § Where plans live in git`), then draft: requirements
-   sections per `templates.md § Per-initiative`.
-   Present it section by section, confirming each. Then the draft
-   task list (`plan.md § Planning rounds`).
+   sections per `templates.md § Per-initiative`, `## Design` last: the
+   standard followed (§ Rules) and the components changed. Present it
+   section by section, confirming each. No task list
+   (`plan.md § Planning rounds`).
 6. **Self-check** - placeholders, contradictions, criteria readable two
    ways, scope creep. Fix inline before showing the file.
 7. **User review** - user reads the committed-to-be file; iterate.
    Approval stamp + delivery: `plan.md § Approval and closure`,
    `§ Where plans live in git`.
-8. **Next** - propose the detail round `/dev plan R<NNN>` for branch
-   plans (gate rules: `plan.md § Planning rounds`).
+8. **Next** - propose the detail round `/dev plan R<NNN>` for the task
+   list and a branch plan per task (gate rules: `plan.md § Planning
+   rounds`).
 
 ## Rules
 
@@ -36,8 +38,10 @@ act of `plan.md § Directory conventions`. The discovery method behind
   requirements can be short.
 - Stay at requirement altitude: the goal, inputs and outputs, and
   outcomes in the user's words. Implementation detail enters only when
-  the user supplies it; architecture belongs in `DESIGN.md`, commit
-  decomposition to branch planning.
+  the user supplies it; the planned architecture is the requirements'
+  `## Design`, never `DESIGN.md`, which holds the present one; the task
+  split belongs to the detail round, commit decomposition to branch
+  planning.
 - Outcomes state properties verifiable at close, never snapshot counts.
 - Proportion the draft to the observed failure
   (`plan.md § Proportionality`): ask what can be deleted before adding.
