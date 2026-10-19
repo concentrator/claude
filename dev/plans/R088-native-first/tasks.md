@@ -9,8 +9,8 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
   names the audit found.
 
 - [ ] **R088-T002 [mnt]**: compaction without hand-off notes or a ledger, one CI
-  wait that notifies pass or fail, a decision store, review cost under the
-  project's control, and the weekly audit routine.
+  wait that notifies pass or fail, explanations in their existing homes,
+  review cost under the project's control, and the weekly audit routine.
 
 - [ ] **R088-T003 [doc]**: docs rails - a table mapping paths to the doc files a
   change must update, a check that enforces it, and present-tense docs.
