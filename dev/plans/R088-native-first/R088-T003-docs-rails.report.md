@@ -64,3 +64,7 @@
   ship it, what an install ships being R088-T006's.
 
 ## Review
+- [ ] Item 3: `LAYOUT.md` claims every directory but maps no
+  `skills/writing-skills/examples/` node (Suggestion) - `LAYOUT.md:3`
+  Evidence: observed `git ls-files skills/writing-skills/examples` lists
+  `CLAUDE_MD_TESTING.md`
