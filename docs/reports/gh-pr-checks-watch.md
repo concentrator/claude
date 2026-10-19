@@ -8,12 +8,11 @@ were read only, their checks already finished.
 
 ```
 gh pr checks 600 --watch; echo "exit=$?"
-gh pr checks 14035 -R cli/cli --watch
+gh pr checks 14035 -R cli/cli --watch; echo "exit=$?"
 ```
 
-The first call reads a pull request whose every check passed; the
-second one whose `lint` check failed, its exit status echoed and its
-failing rows printed once.
+The first call reads a pull request whose every check passed, the
+second one whose `lint` check failed; each echoes its exit status.
 
 ## Output
 
@@ -26,7 +25,11 @@ exit=1
 ```
 
 Each check row holds the check name, its result, its duration and its
-job URL. `exit=0` follows the passing run, `exit=1` the failing one.
+job URL. The first call's lines are as printed: its `tier1` row
+appears twice, the same job both times, and the probe recorded no
+cause for the repeat. Of the second call's output the probe recorded
+the failing row alone, once, not every check row the call printed.
+`exit=0` follows the passing run, `exit=1` the failing one.
 
 ## Environment
 

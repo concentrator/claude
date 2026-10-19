@@ -24,9 +24,9 @@ Cloned as `~/.claude`, it applies to every project on the machine.
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
 | `DESIGN.md` | Architecture, self-hosting layout |
 | `LAYOUT.md` | The repository's actual tree - the layout file `.claude/CLAUDE.md § Layout` declares; `scripts/ci/check-stray.sh` checks every tracked top-level entry against it |
-| `MAINTENANCE.md` | The Tier-2 AI review's concerns (`§ Tier-2 AI review`), the time-based sanity routine (`§ Routine`), and this repository's backlog (`§ Backlog`) with the prompt of the weekly cloud routine that audits the repository against Claude Code's current defaults and docs and adds each new finding to that backlog ([`§ Weekly audit`](MAINTENANCE.md#weekly-audit)) |
+| `MAINTENANCE.md` | The Tier-2 AI review's concerns (`§ Tier-2 AI review`), the time-based sanity routine (`§ Routine`), and this repository's backlog (`§ Backlog`) with the prompt of the weekly cloud routine that audits the repository against Claude Code's current defaults and docs and proposes each new finding as a backlog line, in a pull request it opens and leaves unmerged ([`§ Weekly audit`](MAINTENANCE.md#weekly-audit)) |
 | `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) |
-| `docs/` | The docs home: `reports/` holds the probe reports a README claim cites |
+| `docs/` | The docs tree: `reports/` holds the probe reports a README claim cites |
 
 ## Workflow
 
@@ -52,8 +52,14 @@ session reads: `scripts/preflight-permissions.sh` reports the tier that
 carries each rule, and a gap halts the run for the user to close. When
 every gap is a missing allow rule it prints the `--apply` command that
 closes them; a missing deny, or any other gap `--apply` cannot write,
-is closed by hand. A `review:` line in `CLAUDE.md § Conventions` sets
-the code reviewer's model and effort
+is closed by hand.
+
+At a branch's close and at a batch's, a run dispatches the code
+reviewer, the seat that reviews the change against its plan. A project
+sets that reviewer's model and effort with a `review: <model> <effort>`
+line in the `## Conventions` section of its own `CLAUDE.md`; without
+the line, the reviewer's definition, `agents/code-reviewer.md`, sets
+them
 ([`verification-policy.md § Models`](skills/dev/companions/verification-policy.md#models)).
 
 `/dev ship` takes a landed branch (every planned commit in, nothing
@@ -108,8 +114,10 @@ check passes and non-zero when one fails
 `skills/dev/plan.md § Where things live`.
 
 An explanation the user gives or a conclusion an agent reaches goes,
-on the user's approval, to the home owning its kind: `CLAUDE.md`,
-`DESIGN.md`, the plans tree, or the docs tree and its references
+on the user's approval, to the home owning its kind: `CLAUDE.md` for a
+convention or a project detail, `DESIGN.md` for architecture, the plans
+tree for a planned change, and the docs tree or its `references/`
+subdirectory for behavior
 ([`§ One home per finding`](rules/writing-artifacts.md#one-home-per-finding)).
 
 ## Self-hosting
