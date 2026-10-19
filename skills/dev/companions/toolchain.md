@@ -1,7 +1,7 @@
 # Checkpoint push + MR/PR mechanics
 
-Read by `finish`, `run.md`, and `declarations.md`. § State check applies
-everywhere. § Push and the carve-out below are the runner's
+Read by `finish`, `run.md`, and `declarations.md`. § State check and
+§ CI wait apply everywhere. § Push and the carve-out below are the runner's
 checkpoint-**accept** mechanics (`run.md § Checkpoint`) - the runner
 pushes at no other point and never pushes the default branch. `finish`
 pushes its own branch (`finish.md § 3`). The `CLAUDE.md` keys these mechanics
@@ -15,13 +15,29 @@ state-check command only - one structured call, never text-parsed host
 output (`view | grep` pipelines). Canonical forms:
 
 ```
-gh pr view <n> --json state,mergedAt,statusCheckRollup
+gh pr view <n> --json state,mergedAt,statusCheckRollup,headRefOid
 # GitLab: glab mr view <iid> --output json
 ```
 
-Both forms return state, merged-at, and checks/pipeline. The declared
+Both forms return state, merged-at, and checks/pipeline; the GitHub
+form's `headRefOid` is the head sha `run.md § Boundary verification` 4
+matches CI to, the rollup's entries carrying no commit sha. The declared
 command is the canonical form above - flag shapes like `--web` are
 outside it. The view allows ship in `auto-permissions.template.json`.
+
+## CI wait
+
+The declared CI wait command blocks until the MR/PR's checks or
+pipeline finish. Canonical forms:
+
+```
+gh pr checks <n> --watch
+# GitLab: glab ci status --branch <branch> --wait
+```
+
+`glab ci status` reads a branch's pipeline rather than an MR's, so the
+GitLab form names the MR's source branch. The wait allows ship in
+`auto-permissions.template.json` beside the view allows.
 
 ## Push + MR/PR
 
@@ -74,7 +90,7 @@ it. Two working patterns:
    which is a prompt in the one place a supervised run cannot answer
    one. The push strings above are a run's own prefixes - one per
    prefix of `git-workflow.md § Trunk` except `release`, whose branch
-   `release.md` step 10 pushes by hand under that file's bar on
+   `release.md` step 8 pushes by hand under that file's bar on
    auto-push - and the `glab mr create` entry beside them is the
    change-request command's rule rather than a push.
 

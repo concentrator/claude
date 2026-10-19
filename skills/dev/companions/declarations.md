@@ -16,8 +16,9 @@ both files and takes the first line found.
 
 A project declares its routine commands in an `## Agent toolchain`
 section - the VCS host (→ `gh`/`glab`) and the exact
-change-request / merge / state-check / test / lint / build commands. It
-is the single source the run reads:
+change-request / merge / state-check / CI wait / test / lint / build
+commands, the CI wait on a `CI wait:` line in the form `toolchain.md
+§ CI wait` gives. It is the single source the run reads:
 
 - `/dev run` uses it for `permissions.allow` (the pre-flight gate in
   `toolchain.md § Permission carve-out for the checkpoint push`).
@@ -65,10 +66,9 @@ work as far as a green MR/PR and holds one decision class:
   set stands in for the checkpoint report, and its absence stops the
   delivery as a missing report does;
 - queued judgment calls at implementation level, each recorded in the
-  report's supervisor-decisions section and ledgered (`run.md
-  § Ledger`); an acceptance-level question instead goes to the
-  **user** under either mode (`run.md § Seats`, `§ Question
-  resolution`).
+  report's supervisor-decisions section; an acceptance-level question
+  instead goes to the **user** under either mode (`run.md § Seats`,
+  `§ Question resolution`).
 
 **The grant includes the merge.** The seat this declaration names
 takes `finish.md § 3`'s decision, merge or discard, on every MR/PR:
@@ -120,23 +120,24 @@ A project declares its key paths in a `## Layout` section directly
 after `## Supervision`, or directly after `## Agent toolchain` where
 the project has no `## Supervision`, so the declaration blocks stay
 contiguous. Rules and seat prompts name these paths by the
-placeholders below; the Tier-1 plan checks and the scripts that write
-or use the trees - the state hook, the installer - read the line:
+placeholders below; the Tier-1 checks and the session-brief hook read
+the line:
 
 ```
 - Docs: docs/
 - Plans: dev/plans/
-- Session: dev/session/
 - Layout: .claude/LAYOUT.md
 ```
 
-Those four values are the defaults and this block is their one home: a
+Those values are the defaults and this block is their one home: a
 rule names a declared path by its placeholder, and a script that reads
 the declaration carries its default once, as the fallback of the read.
 Values are repository-relative, a directory with a trailing slash. A
 missing line, or no block at all, means that key's default - unlike
 `Supervisor:`, an absent declaration never halts a run, so a project
-that has not declared keeps working on the defaults.
+that has not declared keeps working on the defaults. A `Session:`
+line, the retired session tree's, is read by nothing, so a project
+still declaring it keeps working.
 
 - **`Docs:`** the project's one documentation directory, internal and
   external audiences under one contract (`layout.md § Docs`); the
@@ -144,22 +145,16 @@ that has not declared keeps working on the defaults.
 - **`Plans:`** the planning tree - `ROADMAP.md`, the per-initiative
   `R<NNN>-<slug>/` directories and `archive/` (`plan.md § Where
   things live`).
-- **`Session:`** the per-session state files, gitignored
-  (`handoff.md § The file`).
 - **`Layout:`** the project's layout file, holding the repository's
   actual tree; seeded from the canonical structure `layout.md` holds,
   project-owned and untouched by a tools refresh.
 
 A rule names a declared path by its placeholder - `<docs>`, `<plans>`,
-`<session>`, `<layout>` - bare in prose, the slash only before a child
+`<layout>` - bare in prose, the slash only before a child
 (`<docs>/index.md`) or on a tree's node line (`<plans>/`). The
 structure inside a declared root is the canonical structure's and stays
 literal, so `<plans>/R<NNN>-<slug>/tasks.md` and `<docs>/references/`
 read as before with the root resolved here.
-
-The runner's ledger directory is not declared: it is `supervisor/` in
-the session tree's parent directory, gitignored like the session tree
-(`run.md § Ledger`).
 
 `extended-docs:` is retired. One documentation directory per project,
 so a second docs path has no key: the home a project keeps is its

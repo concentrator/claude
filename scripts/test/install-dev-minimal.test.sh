@@ -17,12 +17,12 @@ die()  { echo "not ok - $1"; fail=1; }
 N=$(mktemp -d)
 bash "$INSTALL" --project "$N" >/dev/null 2>&1 && bash "$INSTALL" --project "$N" --minimal >/dev/null 2>&1 || die "minimal install exits nonzero"
 got=$(cd "$N/.claude/skills/dev" && find . -type f | sed 's|^\./||' | sort | tr '\n' ' ')
-want="companions/auto-permissions.template.json companions/declarations.md companions/secrets.md companions/toolchain.md companions/untracked-claude.md finish.md git-workflow.md handoff.md "
+want="companions/auto-permissions.template.json companions/declarations.md companions/secrets.md companions/toolchain.md companions/untracked-claude.md finish.md git-workflow.md "
 [ "$got" = "$want" ] && pass "minimal ships only the delivery skill files" || die "minimal skills/dev holds: $got"
 M2=$(mktemp -d); bash "$INSTALL" --project "$M2" --minimal >/dev/null 2>&1 || die "fresh minimal install exits nonzero"
 [ "$(ls "$M2/.claude/skills")" = "dev" ] && pass "minimal ships no bundled skills" || die "minimal skills/ holds: $(ls "$M2/.claude/skills" | tr '\n' ' ')"
 miss=
-for f in hooks/dev-branch-guard.sh hooks/dev-secrets-guard.sh hooks/dev-branch-state.sh hooks/dev-handoff-nudge.sh hooks/dev-session-brief.sh \
+for f in hooks/dev-branch-guard.sh hooks/dev-secrets-guard.sh hooks/dev-branch-state.sh hooks/dev-session-brief.sh \
          scripts/ci/check-plan-text.sh scripts/ci/branch-diff.sh scripts/preflight-permissions.sh writing.md rules/writing-artifacts.md MAINTENANCE.md; do
   [ -f "$M2/.claude/$f" ] || miss="$miss $f"
 done

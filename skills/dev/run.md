@@ -67,7 +67,6 @@ table below leaves unassigned halts and reports, never improvises.
 2. **Supervisor** - read `CLAUDE.md § Supervision`: the `Supervisor:`
    line and the bounds, plus `.claude/supervisor.md` where referenced.
    No block, or no `Supervisor:` line → halt, naming it.
-3. **Ledger** - open the scope's file (§ Ledger).
 
 ## Pre-flight
 
@@ -107,7 +106,8 @@ branch per plan - and per commit checkbox:
    as a `## Review` entry of the task report in the `branch-plan.md § Task
    report` form, its `Evidence:` line citing the concern (`observed <the
    implementer's report>`), which the next dispatch names. Any
-   other concern the runner ledgers (§ Ledger) and carries into the report.
+   other concern the runner writes there as it arises, a `## Review`
+   entry in the same form, which the close resolves.
    NEEDS_CONTEXT → § Question resolution. Halt triggers: `branch-plan.md § Stop
    conditions`.
 3. The implementer marks `[x]` in its commit (`branch-plan.md § Commit cadence`
@@ -118,20 +118,23 @@ Two prompt classes (`companions/seat-permissions.md § Prompt classes`). A
 pre-flight defect - a gap in the mode-independent set - halts the item, cleared
 by nobody (§ Seats, the prompt row). A classifier denial under `auto` is the
 seat's to handle; where it cannot, its BLOCKED report halts and reports, the
-work intact (§ Checkpoint), ledgered a `prompt` event (§ Ledger). Commands match
-a declared prefix outside `auto` and are classifier-readable under it.
+work intact (§ Checkpoint). Commands match a declared prefix outside `auto`
+and are classifier-readable under it.
 
 ## Question resolution
 
 A question the plan cannot answer - an implementer's blocker, a concern
 whose answer changes what an item delivers, a proposed plan edit
-(`branch-plan.md § Plan edits`) - halts the item and goes to the **user** as
+(`branch-plan.md § Plan edits`) - halts the item. A question a home
+already settles is answered by citing it (`CLAUDE.md § Scope`); any
+other goes to the **user** as
 the seat's text, under either supervisor mode; a question whose answer is a
 choice among options goes through the AskUserQuestion tool, the options drawn
 from the seat's report. The halt reverts the item's
 uncommitted edits - `git read-tree --reset -u HEAD` and removal of the
 untracked files the seat created - so the branch stands at its last commit.
-The runner writes the user's answer to the task report's `## Answers`,
+The runner writes the answer - the user's, or the citation of the home
+that settles it - to the task report's `## Answers`,
 naming the item it answers (`branch-plan.md § Task report`), in a
 bookkeeping commit on the item's branch; plan text is unchanged during a
 run, an approved plan edit included. A fresh implementer then starts
@@ -142,22 +145,25 @@ costs no seat and no approval: the implementer decides it in the code and
 reports the divergence. An implementer's inputs are the plan, the docs and
 the code (`agents/dev-implementer.md § Inputs`), so an answer reaches the next
 implementer only through the task report beside the plan. Each answer is
-ledgered with the runner's commit (§ Ledger) and carried into the
-report's `## Supervisor decisions` section at checkpoint.
+carried into the report's `## Supervisor decisions` section at
+checkpoint.
 
 ## Close
 
 Per branch, when its last non-final item is `[x]`:
 
-1. Close review: `code-reviewer` on the branch diff vs plan, and the
-   spec review of the task report's `## Claims` against the plan
-   (`agents/code-reviewer.md § Steps` 2), before the docs (3). In a
-   batch-scoped run a small branch skips it, a branch with a `probe`
+1. Close review: `code-reviewer`, at the review's cost
+   (`companions/verification-policy.md § Models`), on the branch diff
+   vs plan, and the spec review of the task report's `## Claims`
+   against the plan (`agents/code-reviewer.md § Steps` 2), before the
+   docs (3). In a batch-scoped run a small branch skips it, a branch
+   with a `probe`
    claim never being small (`companions/verification-policy.md § Close
    folding`); a task-scoped run closes in full (`branch-plan.md § Closing
    routine`).
 2. Fixes, one round (§ Seats, loop bound): mechanical ones applied,
-   judgment calls queued; approval of the applied set is the **user**'s
+   judgment calls queued, each written as it arises as a `## Review`
+   entry of the task report; approval of the applied set is the **user**'s
    under `Supervisor: human` (§ Seats). The approved fixes are the
    `## Review` entries the runner wrote (`branch-plan.md § Task report`);
    a fresh implementer, dispatched naming them, commits them. The fixes
@@ -171,9 +177,8 @@ Per branch, when its last non-final item is `[x]`:
    `## Claims` lists claims, else the writer's report. A non-empty
    mismatch list re-dispatches one fresh doc writer with the list; its
    result goes to the user with the list, not to a second verification.
-   A BLOCKED halts (`branch-plan.md § Stop conditions`). The report
-   rides the dispatch entry and the mismatch list a verify entry
-   (§ Ledger); folding never skips it (§ Seats).
+   A BLOCKED halts (`branch-plan.md § Stop conditions`); folding never
+   skips it (§ Seats).
 4. The runner makes the mandatory final commit (cleanup, plan complete,
    task mark per `branch-plan.md § Closing routine`). A branch closing
    the R's last open task runs the closure check first
@@ -189,9 +194,10 @@ Rails hold throughout (`branch-plan.md § Rails`).
 
 ## Batch close
 
-1. Full-diff review vs default (`code-reviewer`, most capable):
-   cross-branch interactions, duplicated helpers, convention drift;
-   folded small branches get first-review vs their plans.
+1. Full-diff review vs default (`code-reviewer`, at the review's cost):
+   each folded small branch vs its plan, as its one review, then
+   cross-branch interactions, duplicated helpers, convention drift; a
+   branch § Close 1 reviewed is not checked against its plan again.
 2. Fixes land as batch-branch commits; queue judgment calls.
 3. Run `Test (full)` - the batch's one full local run; red → halt.
 4. Mark member-task checkboxes; commit on `batch/R<NNN>-B<NNN>`
@@ -232,9 +238,10 @@ Existing gates only, before the MR/PR is merged or asked of the user:
    `pre-R<NNN>-B<NNN>` (one `git log -1` on each): equal refs mean no
    member branch merged in, so the work took another route, with
    every gate on that route unrun. Check it before the gates below.
-4. CI on the MR/PR is green, matched to the head sha (declared
-   state-check command) - never a local re-run of gates the seats ran
-   and CI re-ran. Plan boxes, diff confinement, and the committer
+4. CI on the MR/PR is green - the pass the declared CI wait's exit
+   carries (`git-workflow.md § Merge order`) - matched to the head sha
+   (declared state-check command), never a local re-run of gates the
+   seats ran and CI re-ran. Plan boxes, diff confinement, and the committer
    signature complete the check.
 5. A batch closing an R does **not** carry the closure and archival
    marks - they ride a close-out plan MR/PR (`plan/r<NNN>-close`)
@@ -274,29 +281,18 @@ red gate escalates rather than being worked around. Escalations are
 existing artifacts read back - halted items, the reports' queued
 judgment calls, refused deliveries - never a parallel store.
 
-## Ledger
-
-The runner's working memory is `supervisor/<scope>.md` beside `<session>`
-(`companions/declarations.md § Declared paths`), ignored like it, so an append
-dirties nothing. One file per scope; a resumed runner on the same host opens
-the same file. Opened at § Resolve (`mkdir -p` the directory, then the first
-entry), it takes one entry per event from § Dispatch per item through § Merge
-or ask, in `handoff.md § The file` format: `## <event> <UTC timestamp>` -
-dispatch, question, answer, prompt, verify, escalation, merge - the timestamp
-read from the clock (`date -u`) at write time, never composed or carried
-forward - over `- key: value` lines naming the ids, appended with a single
-`printf '%s\n' ... >>`, never `Edit`, which rewrites it. Working memory only:
-a decision still lands in the report's `## Supervisor decisions`
-(`companions/report-template.md`); the ledger is the evidence a re-brief
-reads, never a second home for a finding.
-
 ## Monitor
 
 The runner's context stays report-level: it collects report paths and
 MR/PR references, never diffs or transcripts, so one runner spans a
-scope. Hand-off note at each boundary and re-brief after compaction:
-`handoff.md`. The scope is the runner's unit (`branch-plan.md
-§ Session boundary`).
+scope. The scope is the runner's unit (`branch-plan.md § Session
+boundary`).
+
+The runner keeps no record of its own. After compaction, or on a run
+resumed on the same scope, it re-derives the scope's state as § Sync
+does: the plan checkboxes and `tasks.md` marks, the task reports'
+`## Answers` and `## Review` entries, the branches and their commits,
+and the MR/PR state-check output.
 
 ## Sync
 

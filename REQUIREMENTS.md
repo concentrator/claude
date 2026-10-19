@@ -59,9 +59,9 @@ seats without touching the default branch:
 - A batch integration branch `batch/R<NNN>-B<NNN>` is cut off the
   default branch at pre-flight; member branches merge into it; the
   default branch advances only when the batch MR merges.
-- The batch close phase reviews the full batch diff on the most capable
-  model, applies fixes on the batch branch, re-runs tests + lint, and
-  checks docs coherence.
+- The batch close phase reviews the full batch diff at the review's
+  cost (`verification-policy.md § Models`), applies fixes on the batch
+  branch, re-runs tests + lint, and checks docs coherence.
 - A written checkpoint report (`R<NNN>-B<NNN>.report.md` - per-branch + batch
   sections, cost and defect outcomes) is mandatory; accept is invalid
   without it.

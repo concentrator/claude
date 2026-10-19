@@ -45,7 +45,13 @@ lifetime. Who holds the supervisor seat, the user or the runner, is
 declared per project (`skills/dev/companions/declarations.md
 § Supervisor bounds`). The unit of delivery is the batch, a lone task a
 batch of one (`skills/dev/branch-plan.md § Agentic execution`).
-Releases tag the trunk (`skills/dev/git-workflow.md § Releases`).
+The runner keeps no record of its own: after compaction it re-derives
+its scope's state from the plans, the task reports, git and the MR/PR
+state (`skills/dev/run.md § Monitor`). Each change is reviewed once, at its
+branch close, or, for a small branch folded into its batch, at the
+batch close, which also covers cross-branch concerns (`skills/dev/run.md
+§ Close` 1, `§ Batch close` 1). Releases tag the trunk
+(`skills/dev/git-workflow.md § Releases`) and run no code review.
 
 A plan lists the claims its docs make or drop, the implementer records
 each claim's evidence in the task report, and the doc writer and the
@@ -91,9 +97,10 @@ named as a default branch with uncommitted tracked work, no discard of
 tracked work that neither `git stash pop` nor the reflog brings back,
 no secrets into tracked files or commits (the secrets guard fails
 closed without its pattern library).
-The state hooks keep branch and tree in view, save them to the session
-file before compaction, and re-brief on resume from its last hand-off
-block (`skills/dev/handoff.md`).
+The state hooks keep branch and tree in view, and on a compacted or
+resumed start re-brief from the tree read at that moment - branch,
+status, recent commits and the first open item of each plan the branch
+touched; the summary keeps the rest (`CLAUDE.md § Compact instructions`).
 
 ## Context budget
 

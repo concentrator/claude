@@ -87,8 +87,8 @@ the `[x]` on a `## Review` entry your dispatch names, your item's
 form `skills/dev/branch-plan.md § Task report` gives, each entry
 opening with the item it came from - `Item <n>`, or `Review <n>` for
 the nth `## Review` entry. Your
-dispatch and status stay out of the report (`skills/dev/run.md
-§ Ledger` in a run).
+dispatch and status stay out of the report (`skills/dev/branch-plan.md
+§ Task report`).
 
 **Scratch and probe scripts.** When you need a throwaway script (API
 probe, one-off check), create the file with the Write tool, then run

@@ -8,9 +8,9 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
   default with a setting, a one-line edit or a deletion, and fix the stale
   names the audit found.
 
-- [ ] **R088-T002 [mnt]**: compaction without hand-off notes or a ledger, one CI
-  wait that notifies pass or fail, a decision store, review cost under the
-  project's control, and the weekly audit routine.
+- [x] **R088-T002 [mnt]**: compaction without hand-off notes or a ledger, one CI
+  wait that notifies pass or fail, explanations in their existing homes,
+  review cost under the project's control, and the weekly audit routine.
 
 - [ ] **R088-T003 [doc]**: docs rails - a table mapping paths to the doc files a
   change must update, a check that enforces it, and present-tense docs.
@@ -35,3 +35,6 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - `CLAUDE.local.md` has no `permissions.ask` rule, so its rule keeps a propose-and-wait step.
 - The README keeps inline comma-runs the docs gate did not list: its opening and several layout rows.
 - The README no longer says what the guards block.
+- The full test tier runs locally right before CI runs it.
+- No allow rule covers the `sleep` the CI-wait retry runs.
+- `run.md § Batch close` 2 queues judgment calls without naming where.

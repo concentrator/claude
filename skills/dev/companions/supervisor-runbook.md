@@ -72,17 +72,17 @@ The runner cycles until the scope is delivered:
    `Supervisor: AI` with `claude --permission-mode auto`, under
    `Supervisor: human` their own session in its usual mode - and runs
    `/dev run <scope>`.
-2. **Runner** resolves the scope and the supervisor line, opens the
-   ledger (`run.md § Ledger`), and dispatches seats one at a time
-   (`run.md § Dispatch per item`).
+2. **Runner** resolves the scope and the supervisor line, and
+   dispatches seats one at a time (`run.md § Dispatch per item`).
 3. **Runner** routes an acceptance-level question through `run.md
    § Question resolution` (`run.md § Seats`): the item halts, the
    **user** answers under either supervisor mode, the runner writes the
    answer to the task report's `## Answers`, and a fresh implementer
    follows.
-4. **Runner** verifies the boundary from CI and artifacts
-   (`run.md § Boundary verification`), then merges the green in-class
-   MR/PR or asks the user (`run.md § Merge or ask`).
+4. **Runner** waits on CI with the declared CI wait in the background
+   (`git-workflow.md § Merge order`), verifies the boundary from CI and
+   artifacts (`run.md § Boundary verification`), then merges the green
+   in-class MR/PR or asks the user (`run.md § Merge or ask`).
 
 ## Variant B: remote host
 
@@ -258,9 +258,10 @@ point 4: print what the step needs, never a file already in context.
   mode assertion fails on (`seat-permissions.md § Mode-independent
   set`).
 - **The MR view omits the pipeline** (`glab mr view` returns
-  `pipeline: null` on a live MR): CI evidence is a direct
-  pipelines-endpoint read, its ref and sha matched to the MR head, so
-  the green provably belongs to the commit being merged.
+  `pipeline: null` on a live MR): the CI wait's exit still carries the
+  result, and the head-sha match is a direct pipelines-endpoint read,
+  its ref and sha matched to the MR head, so the green provably belongs
+  to the commit being merged.
 - **A usage limit halts the session**: run `date` on the host before
   concluding the wait is over, establish what landed if the
   interrupted step was not idempotent, then resume with a message

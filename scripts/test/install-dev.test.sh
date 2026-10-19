@@ -29,10 +29,9 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -f "$P/.claude/hooks/secret-patterns.sh" ]       && pass "secret patterns copied" || die "no secret patterns"
 [ -f "$P/.claude/hooks/dev-hook-once.sh" ]         && pass "run-once helper copied" || die "no run-once helper"
 [ -x "$P/.claude/hooks/dev-branch-state.sh" ]      && pass "state hook copied + exec" || die "no state hook"
-[ -x "$P/.claude/hooks/dev-precompact-state.sh" ]  && pass "session-state writer copied + exec" || die "no session-state writer"
-[ -x "$P/.claude/hooks/dev-context-fill.sh" ]      && pass "context-fill helper copied + exec" || die "no context-fill helper"
-[ -x "$P/.claude/hooks/dev-handoff-nudge.sh" ]     && pass "hand-off nudge copied + exec" || die "no hand-off nudge"
 [ -x "$P/.claude/hooks/dev-session-brief.sh" ]     && pass "session brief copied + exec" || die "no session brief"
+[ "$(ls "$P/.claude/hooks" | tr '\n' ' ')" = "dev-branch-guard.sh dev-branch-state.sh dev-hook-once.sh dev-secrets-guard.sh dev-session-brief.sh secret-patterns.sh " ] \
+  && pass "no hand-off nudge, session-state writer or context-fill helper shipped" || die "hooks/ holds: $(ls "$P/.claude/hooks" | tr '\n' ' ')"
 [ -x "$P/.claude/scripts/ci/check-code-size.sh" ]  && pass "code-size check copied + exec" || die "no code-size check"
 [ -x "$P/.claude/scripts/ci/check-no-em-dash.sh" ] && pass "no-em-dash check copied + exec" || die "no no-em-dash check"
 [ -f "$P/.claude/scripts/ci/code-size-allow.txt" ] && pass "code-size allowlist template" || die "no code-size allowlist"
@@ -41,7 +40,7 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -f "$P/.claude/scripts/test/check-accretion.test.sh" ]  && pass "accretion self-test copied" || die "no accretion self-test"
 [ -f "$P/.claude/scripts/test/check-batch-tags.test.sh" ] && pass "batch-tags self-test copied" || die "no batch-tags self-test"
 [ -x "$P/.claude/scripts/ci/check-plan-text.sh" ] && [ -f "$P/.claude/scripts/test/check-plan-text.test.sh" ] && pass "plan-text check copied + exec, with its self-test" || die "no plan-text check or self-test"
-[ -x "$P/.claude/scripts/preflight-permissions.sh" ] && [ -f "$P/.claude/scripts/test/preflight-permissions.test.sh" ] && pass "permission pre-flight copied + exec, with its self-test" || die "no permission pre-flight or self-test"
+[ -x "$P/.claude/scripts/preflight-permissions.sh" ] && [ -f "$P/.claude/scripts/test/preflight-permissions.test.sh" ] && [ -f "$P/.claude/scripts/test/preflight-permissions-toolchain.test.sh" ] && pass "permission pre-flight copied + exec, with its self-tests" || die "no permission pre-flight or self-tests"
 [ -f "$P/.claude/scripts/ci/branch-diff.sh" ] && [ ! -e "$P/.claude/scripts/test/branch-diff.test.sh" ] && pass "branch-diff helper copied, without its self-test" || die "no branch-diff helper, or its self-test shipped"
 [ -z "$(grep -L BASH_SOURCE "$P"/.claude/scripts/test/*.test.sh)" ] \
   && pass "copied self-tests resolve their subject relatively" \
@@ -130,12 +129,18 @@ jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(test("dev-secrets-guard"))'
   && pass "secrets-guard registered" || die "secrets-guard not registered"
 jq -e '[.hooks.UserPromptSubmit[]?.hooks[]?.command] | any(test("dev-branch-state"))' "$P/.claude/settings.json" >/dev/null \
   && pass "branch-state registered on UserPromptSubmit" || die "branch-state not registered"
-jq -e '[.hooks.Stop[]?.hooks[]?.command] | any(test("dev-handoff-nudge"))' "$P/.claude/settings.json" >/dev/null \
-  && pass "handoff-nudge registered on Stop" || die "handoff-nudge not registered"
+jq -e '.hooks | has("Stop") or has("PreCompact") | not' "$P/.claude/settings.json" >/dev/null \
+  && pass "no Stop or PreCompact hook registered" || die "a Stop or PreCompact hook registered"
 jq -e '[.hooks.SessionStart[]? | select(.matcher == "compact|resume") | .hooks[]?.command // "" | select(test("dev-session-brief"))] | length > 0' "$P/.claude/settings.json" >/dev/null \
   && pass "session-brief registered on SessionStart (compact|resume)" || die "session-brief not registered"
 jq -e '.model == "x"' "$P/.claude/settings.json" >/dev/null && pass "pre-existing setting survives" || die "clobbered model"
 jq -e '.hooks.PostToolUse[0].matcher == "Skill"' "$P/.claude/settings.json" >/dev/null && pass "pre-existing PostToolUse survives" || die "clobbered PostToolUse"
+
+# --- upgrade: an earlier install's retired hooks and their entries go; others stay ---
+U=$(mktemp -d); mkdir -p "$U/.claude/hooks"; touch "$U/.claude/hooks/"{dev-handoff-nudge,dev-precompact-state,dev-context-fill}.sh
+printf '{"hooks":{"Stop":[{"hooks":[{"type":"command","command":"\\"$CLAUDE_PROJECT_DIR\\"/.claude/hooks/dev-handoff-nudge.sh"}]},{"hooks":[{"type":"command","command":"echo bye"}]}],"PreCompact":[{"hooks":[{"type":"command","command":"~/.claude/hooks/dev-precompact-state.sh"}]}]}}\n' > "$U/.claude/settings.json"
+bash "$INSTALL" --project "$U" >/dev/null 2>&1 && jq -e '(.hooks | has("PreCompact") | not) and [.hooks.Stop[].hooks[].command] == ["echo bye"]' "$U/.claude/settings.json" >/dev/null && [ -z "$(ls "$U/.claude/hooks" | grep -E 'nudge|precompact|context-fill')" ] \
+  && pass "upgrade removes the retired hooks and their entries, keeps the rest" || die "upgrade left: $(jq -c '.hooks | {Stop, PreCompact}' "$U/.claude/settings.json") $(ls "$U/.claude/hooks" | tr '\n' ' ')"; rm -rf "$U"
 
 # --- project-tier hooks register by $CLAUDE_PROJECT_DIR (install-dev.sh § 3) ---
 PFX='"$CLAUDE_PROJECT_DIR"/.claude/hooks'
@@ -145,8 +150,6 @@ for h in dev-branch-guard dev-secrets-guard; do
 done
 n=$(jq --arg c "$PFX/dev-branch-state.sh" '[.hooks.UserPromptSubmit[]?.hooks[]?.command | select(. == $c)] | length' "$P/.claude/settings.json")
 [ "$n" = "1" ] && pass "dev-branch-state registered by \$CLAUDE_PROJECT_DIR" || die "dev-branch-state: $n \$CLAUDE_PROJECT_DIR entries"
-n=$(jq --arg c "$PFX/dev-handoff-nudge.sh" '[.hooks.Stop[]?.hooks[]?.command | select(. == $c)] | length' "$P/.claude/settings.json")
-[ "$n" = "1" ] && pass "dev-handoff-nudge registered by \$CLAUDE_PROJECT_DIR" || die "dev-handoff-nudge: $n \$CLAUDE_PROJECT_DIR entries"
 n=$(jq --arg c "$PFX/dev-session-brief.sh" '[.hooks.SessionStart[]?.hooks[]?.command | select(. == $c)] | length' "$P/.claude/settings.json")
 [ "$n" = "1" ] && pass "dev-session-brief registered by \$CLAUDE_PROJECT_DIR" || die "dev-session-brief: $n \$CLAUDE_PROJECT_DIR entries"
 
@@ -190,8 +193,6 @@ n=$(jq '[.hooks.PreToolUse[]? | select(any(.hooks[]?.command; test("dev-branch-g
 [ "$n" = "2" ] && pass "idempotent (2 matcher blocks, no dupes)" || die "not idempotent: $n branch-guard blocks"
 n=$(jq '[.hooks.UserPromptSubmit[]? | select(any(.hooks[]?.command; test("dev-branch-state")))] | length' "$P/.claude/settings.json")
 [ "$n" = "1" ] && pass "branch-state idempotent (1 block)" || die "not idempotent: $n branch-state blocks"
-n=$(jq '[.hooks.Stop[]? | select(any(.hooks[]?.command; test("dev-handoff-nudge")))] | length' "$P/.claude/settings.json")
-[ "$n" = "1" ] && pass "handoff-nudge idempotent (1 block)" || die "not idempotent: $n handoff-nudge blocks"
 n=$(jq '[.hooks.SessionStart[]? | select(any(.hooks[]?.command; test("dev-session-brief")))] | length' "$P/.claude/settings.json")
 [ "$n" = "1" ] && pass "session-brief idempotent (1 block)" || die "not idempotent: $n session-brief blocks"
 [ "$(grep -c '^@writing.md$' "$P/.claude/CLAUDE.md")" = "1" ] && pass "writing import idempotent" || die "writing import duplicated"
@@ -242,8 +243,8 @@ rm -rf "$DB"
   && pass "hygiene section seeded on a fresh target" || die "no hygiene section on the fresh target"
 [ "$(grep -c '^## Session and planning hygiene' "$P/.claude/MAINTENANCE.md" 2>/dev/null)" = "1" ] \
   && pass "seeding idempotent over re-installs" || die "hygiene section count wrong"
-grep -q '`Session:` tree' "$P/.claude/MAINTENANCE.md" 2>/dev/null && grep -q '`Plans:` tree' "$P/.claude/MAINTENANCE.md" 2>/dev/null \
-  && pass "targets table names its rows by declaration key" || die "targets table incomplete"
+! grep -q '`Session:` tree' "$P/.claude/MAINTENANCE.md" 2>/dev/null && grep -q '`Plans:` tree' "$P/.claude/MAINTENANCE.md" 2>/dev/null \
+  && pass "targets table names its rows by declaration key, no session tree among them" || die "targets table wrong"
 # Existing MAINTENANCE.md without the heading: appended, prior content intact.
 M=$(mktemp -d); mkdir -p "$M/.claude"
 printf '# Maintenance\n\nproject-specific rules stay.\n' > "$M/.claude/MAINTENANCE.md"
@@ -282,18 +283,17 @@ done
 [ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1
 [ "$(grep -c '^!.claude/hooks/$' "$G/.gitignore")" = "1" ] && pass "gitignore allowlist idempotent" || die "duplicate allowlist entries"
-[ "$(grep -c '^/dev/session/$' "$G/.gitignore")" = "1" ] && [ "$(grep -c '^/dev/supervisor/$' "$G/.gitignore")" = "1" ] && pass "default session and supervisor dirs ignored once each" || die "default ignore lines: $(tr '\n' ' ' < "$G/.gitignore")"
-git -C "$G" check-ignore -q "skills/x/session/f" && die "unanchored session ignore" || pass "session ignore is anchored to the root"
-git -C "$G" check-ignore -q "skills/x/supervisor/f" && die "unanchored supervisor ignore" || pass "supervisor ignore is anchored to the root"
+! grep -qE '(session|supervisor)/$' "$G/.gitignore" && pass "no session or supervisor ignore line written" || die "ignore lines: $(tr '\n' ' ' < "$G/.gitignore")"
 rm -rf "$G"
 
-# --- layout declaration (R080-T009): step 7 follows the declared session
-# tree, and an install rewrites neither the declaration nor <layout> ---
+# --- layout declaration (R080-T009): a retired Session: line still installs
+# and gets no ignore line, and an install rewrites neither the declaration
+# nor <layout> ---
 L=$(mktemp -d); git -C "$L" init -q; git -C "$L" checkout -qb work; mkdir -p "$L/.claude"
 printf '## Layout\n\n- Session: var/state/\n- Layout: .claude/LAYOUT.md\n' > "$L/CLAUDE.md"
 printf '# Layout\n\nsrc/\n' > "$L/.claude/LAYOUT.md"; cat "$L/CLAUDE.md" "$L/.claude/LAYOUT.md" > "$L/before"
 bash "$INSTALL" --project "$L" >/dev/null 2>&1 && bash "$INSTALL" --project "$L" >/dev/null 2>&1 || die "install (layout fixture) exits nonzero"
-[ "$(grep -c '^/var/state/$' "$L/.gitignore")" = "1" ] && [ "$(grep -c '^/var/supervisor/$' "$L/.gitignore")" = "1" ] && pass "declared session and supervisor trees ignored once each" || die "declared ignore lines: $(tr '\n' ' ' < "$L/.gitignore")"
+! grep -qE '^/?var/(state|supervisor)/$' "$L/.gitignore" 2>/dev/null && pass "a declared Session: tree gets no ignore line" || die "declared ignore lines: $(tr '\n' ' ' < "$L/.gitignore")"
 cat "$L/CLAUDE.md" "$L/.claude/LAYOUT.md" | cmp -s - "$L/before" && pass "declaration and <layout> survive two installs byte-identical" || die "installer rewrote the declaration or LAYOUT.md"; rm -rf "$L"
 
 (( fail == 0 )) && echo "install-dev.test: OK"

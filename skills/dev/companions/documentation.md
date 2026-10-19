@@ -148,7 +148,7 @@ review (`branch-plan.md § Closing routine`; reviewer mandate:
 `agents/code-reviewer.md`; a batch-scoped run: the batch-close full-diff
 pass, `run.md § Batch close`); `<docs>` feature docs, `README.md` and
 the CHANGELOG's `## [Unreleased]` entry (a released block is the
-release's record, `release.md` 6) - the docs verifier.
+release's record, `release.md` 4) - the docs verifier.
 
 The checks:
 

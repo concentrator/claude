@@ -51,7 +51,9 @@ commands`).
   action e.g. `open` / `tasks` / `close`). A task's branch-plan uses the
   task id alone - the prefix already names the action:
   `plan/r<NNN>-t<NNN>` (legacy global ids: `plan/t<NNN>`). Multiple
-  initiatives list ids: `plan/r014-r015-tasks`.
+  initiatives list ids: `plan/r014-r015-tasks`. The weekly audit's
+  backlog belongs to no R, so its branch is dated instead:
+  `plan/audit-<YYYY-MM-DD>` (`MAINTENANCE.md § Weekly audit`).
 - Branches are short-lived and single-owner: merge within a day, two
   days absolute max; keep ≤ 3 active.
 - **Merge policy.** Every MR/PR, whatever its prefix, merges after its
@@ -60,14 +62,19 @@ commands`).
   (`companions/declarations.md § Supervisor bounds`; `run.md § Seats`,
   the Merging row). No prefix merges on its own, and no host is armed
   to merge automatically.
-- **Merge order.** Read the declared state check
-  (`companions/toolchain.md § State check`) until it reports success,
-  then merge. No pipeline yet, queued, or running is never success:
-  keep polling; a merge called before success fails (GitLab answers
-  405). The check reports the pipeline's current state, so a poll that
-  starts after the pipeline finished merges on its first read. An
-  MR/PR the check already reports merged is reported as merged, never
-  merged again.
+- **Merge order.** Run the declared CI wait
+  (`companions/toolchain.md § CI wait`) once, in the background (the
+  Bash tool's `run_in_background`), and merge on the pass its exit
+  notification carries: exit zero when every check passes, non-zero
+  when one fails. Nothing polls, and a merge called before the pass
+  fails (GitLab answers 405). A wait that exits printing `no checks
+  reported` is neither pass nor fail, the checks not yet registered: it
+  runs again in the background after a short delay, `sleep 30 && <CI
+  wait>`, at most 3 times, and a third re-run still printing it goes to
+  the user. The declared state
+  check (`companions/toolchain.md § State check`) stays the read of
+  merged state: an MR/PR it already reports merged is reported as
+  merged, never merged again.
 
 ## Coherent delivery
 

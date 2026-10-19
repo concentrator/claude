@@ -19,7 +19,10 @@ hardening for a hazard that has not fired) are proposed in one line,
 never built unasked; adjacent work goes to the owning R's backlog line
 (`skills/dev/plan.md § Referential integrity`). A convention binds only
 work created after it: older work changes to meet one only on request.
-Unknown facts are asked, never guessed; a remote is probed only on
+Unknown facts are asked, never guessed, and only once: the homes
+`rules/writing-artifacts.md § One home per finding` names are checked
+first, and a question one of them settles is not asked. A remote is
+probed only on
 request, a plan's `probe` claim being one, or in a strict plan. A
 problem needs evidence (observed output, a failing test, a documented
 contract); an unprompted finding built from reading code is not raised
@@ -54,8 +57,9 @@ Claude-Session and kin).
   change) needs explicit approval before it is saved or applied;
   a merge delivers, never decides.
 - Memory holds cross-project user preferences only, never project
-  data: in DEV, findings go to the owning artifact and a behavior
-  change cites its commit/PR.
+  data: a finding, explanation or conclusion goes to the home that
+  owns its kind (`rules/writing-artifacts.md § One home per finding`),
+  and a behavior change cites its commit/PR.
 
 ## Communication
 
@@ -65,3 +69,11 @@ Claude-Session and kin).
   suggestion, no action until instructed.
 - "The rule says X, but Y is fine here because…" is rationalization:
   name the conflict and ask. Written rules only.
+
+## Compact instructions
+
+When summarizing the conversation for compaction, keep:
+
+- the task and the plan item in progress, by durable id;
+- the open MR/PRs;
+- each user decision not yet stored in a file.

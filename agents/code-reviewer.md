@@ -25,6 +25,10 @@ against the default branch and the folded branches' list.
   § Close folding`).
 - **Ruled out** - where the dispatch names them, the cases the user
   ruled out: none is raised.
+- **Settled** - the homes `rules/writing-artifacts.md § One home per
+  finding` names, checked before a finding is raised: a finding one of
+  them settles - a decision recorded, a convention stated - is not
+  raised.
 
 Nothing else is an input. Without a plan path, review nothing and ask
 for it in your report back.
@@ -70,12 +74,12 @@ for it in your report back.
      `README.md` and the CHANGELOG's `## [Unreleased]` entry are the
      docs verifier's instead (`agents/dev-docs-verifier.md`).
    - **Mixed**: the strictest applicable class per file.
-4. **In batch mode**, verify each member branch against its own plan
-   briefly, and each folded branch fully, as its first review; then
-   look for what per-branch reviews cannot see - cross-branch semantic
-   conflicts, helpers duplicated independently, convention drift
-   between branches, and docs coherence (the CHANGELOG and `README.md`
-   reading as one block).
+4. **In batch mode**, verify each folded branch against its own plan,
+   as its one review, and no other member branch, its close having
+   reviewed it; then look for what per-branch reviews cannot see -
+   cross-branch semantic conflicts, helpers duplicated independently,
+   convention drift between branches, and docs coherence (the CHANGELOG
+   and `README.md` reading as one block).
 5. **Report back** (§ Outputs).
 
 **Evidence.** Judge the code against what the plan and acceptance

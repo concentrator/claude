@@ -160,14 +160,15 @@ An entry records what was done, when and what came of it: `<item>`
 names its item or close step - `Item <n>` of the plan, `Review <n>` for
 the nth `## Review` entry, `Close review` - and a divergence also gives
 its result. A report holds no dispatch, status, prompt, verdict, merge
-or time: the commit that carries an entry dates it, and a run's events
-are the runner's ledger's (`run.md § Ledger`).
+or time: the commit that carries an entry dates it, and a run records
+its events nowhere (`run.md § Monitor`).
 
 The implementer appends its section and fills its item's `## Claims`
 entries in the commit that carries the code, and marks `[x]` the
 `## Review` entry its dispatch names. The
 reviewer is read-only: the runner, or the session outside a run, writes
-the close review's findings and a redo under `## Review`, and the
+the close review's findings, a redo and a carried concern under
+`## Review` as each arises, and the
 user's answers under `## Answers` (`run.md § Question resolution`). At close
 every `[ ]` becomes `[x]` - fixed, `-> backlog`, or `won't fix:
 <reason>` - and the final commit carries the resolved report. A
@@ -257,8 +258,8 @@ A seat starts for one item and shuts down at its exit; only the branch
 and the plan item carry over to the next seat, and a seat outliving its
 item re-bills the finished work on every later call (`run.md § Seats`).
 The runner session's unit is the scope it runs (`run.md`): it clears at that
-boundary and re-briefs from `handoff.md` and its ledger (`run.md
-§ Ledger`).
+boundary and re-briefs from the scope's plans, task reports, git and
+MR/PR state (`run.md § Monitor`).
 
 Doc loading keys to the boundary: one load phase at the unit's
 start; sectional reads, not whole files; no re-reads within the

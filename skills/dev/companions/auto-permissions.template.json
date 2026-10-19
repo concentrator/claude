@@ -29,6 +29,8 @@
 
       "Bash(gh pr view:*)",
       "Bash(glab mr view:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(glab ci status:*)",
 
       "Bash(sed:*)",
       "Bash(grep:*)",
@@ -38,9 +40,6 @@
       "Bash(wc:*)",
       "Bash(cat:*)",
       "Bash(echo:*)",
-      "Bash(printf:*)",
-      "Bash(mkdir:*)",
-      "Bash(date:*)",
       "Bash(ls:*)",
 
       "Read(//tmp/**)",

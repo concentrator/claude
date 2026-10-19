@@ -25,11 +25,8 @@ repos are versioned there, not mapped.
 ├── hooks/                        # Claude Code hooks, wired in settings.json
 │   ├── dev-branch-guard.sh       # PreToolUse: no trunk mutations, no lost work
 │   ├── dev-branch-state.sh       # UserPromptSubmit: branch/tree state
-│   ├── dev-context-fill.sh       # context-fill percent helper
-│   ├── dev-handoff-nudge.sh      # Stop: hand-off nudge
 │   ├── dev-hook-once.sh          # a project copy skips what the global settings run, sourced
-│   ├── dev-precompact-state.sh   # PreCompact: session state
-│   ├── dev-session-brief.sh      # SessionStart: hand-off re-brief
+│   ├── dev-session-brief.sh      # SessionStart: live tree re-brief
 │   ├── dev-secrets-guard.sh      # PreToolUse: secrets guard
 │   └── secret-patterns.sh        # the secret predicate, sourced
 ├── scripts/                      # installer, checks, tests, host tooling
@@ -52,7 +49,7 @@ repos are versioned there, not mapped.
 ├── .claude/                      # this repository's project settings and instructions
 │   ├── CLAUDE.md                 # this repository's instructions: its declarations
 │   └── settings.json             # project tier, tracked
-├── dev/                          # DEV artifacts (session/, supervisor/ gitignored)
+├── dev/                          # DEV artifacts
 │   ├── plans/                    # planning hierarchy
 │   │   ├── ROADMAP.md            # cross-R index: skills/dev/plan.md
 │   │   ├── R<NNN>-<slug>/        # one dir per roadmap entry (initiative-time)
@@ -62,6 +59,8 @@ repos are versioned there, not mapped.
 │   │   │   ├── R<NNN>-T<NNN>-<slug>.report.md # task report
 │   │   │   └── batches/          # R<NNN>-B<NNN> manifests + reports (lazy)
 │   │   └── archive/              # closed initiatives, frozen history
+├── docs/                         # the docs home (.claude/CLAUDE.md § Layout)
+│   └── reports/                  # probe and test reports a doc claim cites
 ├── rules/                        # path-scoped convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
 │   ├── writing-artifacts.md      # DEV-artifact writing rules (**/*.md; shipped)

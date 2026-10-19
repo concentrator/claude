@@ -12,6 +12,7 @@ tasks/
 telemetry/
 downloads/
 debug/
+state/
 chrome/
 usage-data/
 
@@ -50,11 +51,6 @@ plugins/
 /wallarm-knowledge
 /feedback/
 policy-limits.json.stamp.json
-
-# DEV runtime state - hooks/dev-precompact-state.sh, skills/dev/handoff.md,
-# skills/dev/run.md § Ledger
-/dev/session/
-/dev/supervisor/
 
 # OS
 .DS_Store

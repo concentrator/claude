@@ -100,7 +100,7 @@ its parent's R id (legacy files: § Archival).
 DEV artifacts live at the paths the project's `§ Layout` declares, in
 its root `CLAUDE.md` or `.claude/CLAUDE.md`
 (`companions/declarations.md § Declared paths`): `<plans>`
-(below) and `<session>` (`handoff.md`); the docs tree is `<docs>`
+(below); the docs tree is `<docs>`
 (`layout.md § Docs`) and the repository's actual tree is `<layout>`
 (`layout.md § Layout file`). A `CLAUDE.md` still carrying a
 `DEV artifacts root:` or `extended-docs:` line is stale; `migrate.md`

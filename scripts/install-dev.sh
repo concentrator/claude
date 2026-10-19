@@ -8,11 +8,12 @@
 #   --force                        bypass the pre-write project guard
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
-# branch-guard + secrets-guard + branch-state + hand-off-nudge +
-# session-brief hooks (registered in the target settings.json), the shipped
-# Tier-1 checks with their self-tests, the
-# writing conventions (@imported by CLAUDE.md), and - on a project
-# install - the maintenance hygiene section when the target doc lacks it.
+# branch-guard + secrets-guard + branch-state + session-brief hooks
+# (registered in the target settings.json), the shipped Tier-1 checks with
+# their self-tests, the writing conventions (@imported by CLAUDE.md), and -
+# on a project install - the maintenance hygiene section when the target doc
+# lacks it. Hooks the toolset no longer ships are removed with their
+# settings entries.
 # Does NOT ship the user's personal convention rules.
 # --minimal serves contributors who work existing plans without /dev: of
 # the skills it ships only the delivery files (MINIMAL_DEV); everything
@@ -63,7 +64,7 @@ fi
 BUNDLED="systematic-debugging dispatching-parallel-agents"
 # The template is the permission pre-flight's input, read at run time
 # (scripts/preflight-permissions.sh), not documentation.
-MINIMAL_DEV="finish.md handoff.md git-workflow.md companions/declarations.md companions/toolchain.md companions/untracked-claude.md companions/secrets.md companions/auto-permissions.template.json"
+MINIMAL_DEV="finish.md git-workflow.md companions/declarations.md companions/toolchain.md companions/untracked-claude.md companions/secrets.md companions/auto-permissions.template.json"
 
 mkdir -p "$target/skills" "$target/hooks"
 
@@ -131,22 +132,6 @@ register_state_hook() {   # $1 = hook script basename; UserPromptSubmit, no matc
   fi
 }
 
-register_stop_hook() {   # $1 = hook script basename; Stop, no matcher
-  cp "$SRC/hooks/$1" "$target/hooks/$1"
-  chmod +x "$target/hooks/$1"
-  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
-  if jq --arg cmd "$cmd" --arg old "$old" '
-    .hooks.Stop = [(.hooks.Stop // [])[]
-      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
-    | if ([.hooks.Stop[].hooks[].command] | any(. == $cmd)) then .
-      else .hooks.Stop += [{hooks: [{type: "command", command: $cmd}]}] end
-  ' "$settings" > "$tmp"; then
-    mv "$tmp" "$settings"
-  else
-    rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
-  fi
-}
-
 register_brief_hook() {   # $1 = hook script basename; SessionStart, compact/resume starts
   cp "$SRC/hooks/$1" "$target/hooks/$1"
   chmod +x "$target/hooks/$1"
@@ -166,20 +151,28 @@ register_brief_hook() {   # $1 = hook script basename; SessionStart, compact/res
 register_hook dev-branch-guard.sh
 register_hook dev-secrets-guard.sh
 register_state_hook dev-branch-state.sh
-register_stop_hook dev-handoff-nudge.sh
 register_brief_hook dev-session-brief.sh
 # The secrets guard's predicate lives beside it (sourced, not registered).
 cp "$SRC/hooks/secret-patterns.sh" "$target/hooks/secret-patterns.sh"
 cp "$SRC/hooks/dev-hook-once.sh" "$target/hooks/dev-hook-once.sh"
-# The session-state writer is copied, not registered: PreCompact runs it
-# from the user-global settings only, but dev-branch-state.sh asks it for
-# the session file's path on every prompt (hooks/dev-precompact-state.sh).
-cp "$SRC/hooks/dev-precompact-state.sh" "$target/hooks/dev-precompact-state.sh"
-chmod +x "$target/hooks/dev-precompact-state.sh"
-# The context-fill helper is likewise copied, not registered: the
-# branch-state and handoff-nudge hooks call it for the fill percent.
-cp "$SRC/hooks/dev-context-fill.sh" "$target/hooks/dev-context-fill.sh"
-chmod +x "$target/hooks/dev-context-fill.sh"
+# Retired hooks: an install over an earlier one removes each script below
+# and every settings entry, on any event, that runs one; an event left with
+# no entry is dropped.
+RETIRED="dev-handoff-nudge.sh dev-precompact-state.sh dev-context-fill.sh"
+for h in $RETIRED; do rm -f "$target/hooks/$h"; done
+tmp="$(mktemp)"
+if jq --arg names "$RETIRED" '
+  def retired: (.command // "") as $c | any($names | split(" ")[]; . as $n | $c | endswith("/" + $n));
+  if (.hooks | type) == "object" then .hooks |= ([to_entries[]
+    | if any(.value[]?.hooks[]?; retired)
+      then .value |= [.[] | .hooks |= map(select(retired | not)) | select(.hooks | length > 0)]
+        | select(.value | length > 0)
+      else . end] | from_entries) else . end
+' "$settings" > "$tmp"; then
+  mv "$tmp" "$settings"
+else
+  rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
+fi
 
 # 4. shipped Tier-1 checks - the ones with no dependency on this repo's
 #    own layout; adopters wire them into their CI (the batch-tags gate
@@ -206,7 +199,8 @@ for f in ci/check-code-size.sh ci/check-no-em-dash.sh ci/check-accretion.sh \
          ci/check-batch-tags.sh ci/check-plan-text.sh ci/branch-diff.sh \
          preflight-permissions.sh \
          test/check-accretion.test.sh test/check-batch-tags.test.sh \
-         test/check-plan-text.test.sh test/preflight-permissions.test.sh; do
+         test/check-plan-text.test.sh test/preflight-permissions.test.sh \
+         test/preflight-permissions-toolchain.test.sh; do
   cp "$SRC/scripts/$f" "$target/scripts/$f"
 done
 [ -n "$markers" ] && put_line check-accretion.sh MARKERS "$markers"
@@ -237,13 +231,6 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"
   done
-  sess=$(sed -n 's/^- Session: *//p' "$repo/CLAUDE.md" "$repo/.claude/CLAUDE.md" 2>/dev/null | head -1 || true)
-  sess=${sess:-dev/session}; sess=${sess%/}
-  parent=$(dirname "$sess")
-  if [ "$parent" = "." ]; then parent=""; fi   # a root-level tree: supervisor/ sits at the root
-  for line in "/$sess/" "/${parent:+$parent/}supervisor/"; do
-    alt=${line#/}; case ${alt%/} in */*) ;; *) alt=$line ;; esac; grep -qxF -e "$line" -e "$alt" "$gi" 2>/dev/null || printf '%s\n' "$line" >> "$gi"
-  done
   pfx=$(git -C "$target" rev-parse --show-prefix); gates="check-plan-text.sh check-code-size.sh"; tier=""; claude=""
   for key in 'Test (fast)' 'Test'; do
     for f in "$repo/CLAUDE.md" "$repo/.claude/CLAUDE.md"; do
@@ -261,9 +248,9 @@ if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null
 fi
 
 # 8. maintenance: seed the hygiene section - the cleanup rules for the
-#    toolset's own by-products (session files, closed plans, allow-list
-#    growth) - into the project doc when its heading is absent; the
-#    heading is the marker, so an adopter's tuned copy is never touched.
+#    toolset's own by-products (closed plans, allow-list growth) - into
+#    the project doc when its heading is absent; the heading is the
+#    marker, so an adopter's tuned copy is never touched.
 #    The global target is this repo, whose MAINTENANCE.md § Routine is
 #    the superset, so global installs seed nothing.
 seeded=""
@@ -284,7 +271,6 @@ never silently delete something you didn't create.
 
 | Target | Check | Cadence |
 |---|---|---|
-| the `Session:` tree (`CLAUDE.md § Layout`) | files whose session transcript is gone (`.claude/skills/dev/handoff.md`) | weekly, delete |
 | the `Plans:` tree (`CLAUDE.md § Layout`) | orphaned or closed plan, findings, requirements and batch files; empty initiative dirs | monthly |
 | `.claude/settings.json` + any `settings.local.json` | allow-list mess: one-off, dead or overlapping rules | weekly |
 | repo root and `.claude/` | stray temp or build artifacts | weekly |

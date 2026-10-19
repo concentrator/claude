@@ -10,11 +10,10 @@ machinery is bypassed. Everything else in the workflow is unchanged.
 ## Detection
 
 Active when `.claude/` is gitignored: `git check-ignore -q .claude`
-exits 0. Then verify `<plans>` and `<session>` are gitignored too
-(`git check-ignore -q` on each); if either is not, add it to
-`.gitignore` before any plan write. Check this at the start of `migrate` (§ 1
-Inventory) and whenever plan bookkeeping is about to open a `plan/`
-branch.
+exits 0. Then verify `<plans>` is gitignored too (`git check-ignore -q`);
+if it is not, add it to `.gitignore` before any plan write. Check this
+at the start of `migrate` (§ 1 Inventory) and whenever plan
+bookkeeping is about to open a `plan/` branch.
 
 ## Flag
 

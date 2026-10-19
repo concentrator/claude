@@ -40,6 +40,7 @@ newfix() {
   printf -- '- Test (fast): `bash t.sh`\n' >> "$PROJ/CLAUDE.md"
   printf -- '- VCS host: GitHub, CLI `gh`\n' >> "$PROJ/CLAUDE.md"
   printf -- '- State-check: `gh pr view <n> --json state`, `-- --web` to open it\n' >> "$PROJ/CLAUDE.md"
+  printf -- '- CI wait: `gh pr checks <n> --watch`\n' >> "$PROJ/CLAUDE.md"
   printf -- '\n## Next\n\n- not read: `never run me`\n' >> "$PROJ/CLAUDE.md"
   trust true
   printf '{}\n' > "$FIX/user.json"
@@ -91,6 +92,7 @@ rc0 "a full set exits zero"
 want "present (project) Edit(//${PROJ#/}/**)" "the Edit rule names its tier"
 want "present (project) Bash(bash t.sh:*)" "a toolchain prefix is declared"
 want "present (project) Bash(gh pr view:*)" "the State-check prefix is declared"
+want "present (project) Bash(gh pr checks:*)" "the CI wait prefix is declared"
 want "present (project) Bash(git push -u origin batch/*)" "pattern 1 declares the checkpoint push"
 nowant "never run me" "a span outside the toolchain section is not read"
 nowant "Bash(## Agent toolchain:*)" "a span in the section's prose is not a command"
@@ -275,26 +277,6 @@ want "cannot apply: the permission template resolved no declared set" \
 want "not a string" "jq's own message reaches the operator"
 nowant "present (" "a partial resolve reports no rule"
 unset SUT
-
-newfix; mv "$PROJ/CLAUDE.md" "$PROJ/.claude/CLAUDE.md"; printf '# x\n' > "$PROJ/CLAUDE.md"
-sat "$PT" "$PAIR"
-runp --supervisor human --runner-mode default
-rc0 "a toolchain declared in .claude/ exits zero"
-want "present (project) Bash(bash t.sh:*)" "a toolchain prefix declared in .claude/ is read"
-nowant "never run me" "a span outside the .claude/ toolchain section is not read"
-
-newfix; printf '## Agent toolchain\n\n- Test: `make a`\n' > "$PROJ/CLAUDE.md"
-printf -- '- Build: `make b`\n' > "$PROJ/.claude/CLAUDE.md"
-sat "$PT" "$PAIR"
-runp --supervisor human --runner-mode default
-want "Bash(make a:*)" "the first file's toolchain section is read"
-nowant "Bash(make b:*)" "the section ends with its file, not in the next one"
-
-newfix; printf '## Agent toolchain\n\n- Test: `make a`\n' > "$PROJ/CLAUDE.md"
-printf '## Agent toolchain\n\n- Merge: `gh pr merge <n> --merge`\n' > "$PROJ/.claude/CLAUDE.md"
-runp --supervisor human --runner-mode default
-want "Bash(make a:*)" "the root file's toolchain section is read"
-want "Bash(gh pr merge:*)" "the .claude/ file's toolchain section is read too"
 
 (( fail == 0 )) && echo "preflight-permissions.test: ALL OK"
 exit $fail

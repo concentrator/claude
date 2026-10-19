@@ -24,8 +24,9 @@ Cloned as `~/.claude`, it applies to every project on the machine.
 | `REQUIREMENTS.md` | What this environment is for and how success is judged |
 | `DESIGN.md` | Architecture, self-hosting layout |
 | `LAYOUT.md` | The repository's actual tree - the layout file `.claude/CLAUDE.md § Layout` declares; `scripts/ci/check-stray.sh` checks every tracked top-level entry against it |
-| `MAINTENANCE.md` | The Tier-2 AI review's concerns (`§ Tier-2 AI review`) and the time-based sanity routine (`§ Routine`) |
-| `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) and the gitignored `session/` and `supervisor/` |
+| `MAINTENANCE.md` | The Tier-2 AI review's concerns (`§ Tier-2 AI review`), the time-based sanity routine (`§ Routine`), and this repository's backlog (`§ Backlog`) with the prompt of the weekly cloud routine that audits the repository against Claude Code's current defaults and docs and proposes each new finding as a backlog line, in a pull request it opens and leaves unmerged ([`§ Weekly audit`](MAINTENANCE.md#weekly-audit)) |
+| `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) |
+| `docs/` | The docs tree: `reports/` holds the probe reports a README claim cites |
 
 ## Workflow
 
@@ -53,6 +54,14 @@ every gap is a missing allow rule it prints the `--apply` command that
 closes them; a missing deny, or any other gap `--apply` cannot write,
 is closed by hand.
 
+At a branch's close and at a batch's, a run dispatches the code
+reviewer, the seat that reviews the change against its plan. A project
+sets that reviewer's model and effort with a `review: <model> <effort>`
+line in the `## Conventions` section of its own `CLAUDE.md`; without
+the line, the reviewer's definition, `agents/code-reviewer.md`, sets
+them
+([`verification-policy.md § Models`](skills/dev/companions/verification-policy.md#models)).
+
 `/dev ship` takes a landed branch (every planned commit in, nothing
 uncommitted) to its MR/PR decision, one of:
 
@@ -62,9 +71,10 @@ uncommitted) to its MR/PR decision, one of:
 
 A failing local gate stops it before the MR/PR opens. A task-scoped
 `/dev run` ends on the same path once its checkpoint is accepted;
-`/dev ship` enters it directly. `/dev handoff` writes the session's hand-off note, which with the PreCompact hook's tree block carries
-state across compaction (the SessionStart hook re-injects the last
-hand-off block when the session resumes or is compacted). Other
+`/dev ship` enters it directly. On a compacted or resumed start, the
+SessionStart hook injects the branch, its working-tree state, its
+recent commits and the first open item of each plan the branch touched
+([`dev-session-brief.sh`](hooks/dev-session-brief.sh)). Other
 commands:
 
 - `/dev start` scaffolds a new project into DEV.
@@ -81,12 +91,10 @@ declares, one line per key:
 
 - `Docs:` the docs tree
 - `Plans:` the planning tree
-- `Session:` the gitignored per-session state files
 - `Layout:` the layout file holding the repository's actual tree
 
 A missing path line or `§ Layout` block means that key's default, so a
-project that has not declared keeps working. The supervisor's ledgers
-sit in `supervisor/` beside the session tree, gitignored like it.
+project that has not declared keeps working.
 
 All of a project's declarations - the `§ Agent toolchain` commands, the
 `§ Supervision` seat and the `§ Layout` paths - sit in its own
@@ -95,10 +103,22 @@ once across the two and the `§ Agent toolchain` block whole in one of
 them; the global instructions hold none. A script or hook that reads a
 path reads both files, the root one first, and takes the first line
 found; the `/dev run` permission pre-flight reads the `§ Agent
-toolchain` section of each file. Declaration form:
+toolchain` section of each file. A project declares its CI wait
+command in its `§ Agent toolchain`
+([`§ Declared commands`](skills/dev/companions/declarations.md#declared-commands)).
+The GitHub CI wait, `gh pr checks <n> --watch`, exits 0 when every
+check passes and non-zero when one fails
+([probe report](docs/reports/gh-pr-checks-watch.md)). Declaration form:
 `skills/dev/companions/declarations.md`, the path defaults in its
 `§ Declared paths`; canonical structure: `skills/dev/layout.md`; paths:
 `skills/dev/plan.md § Where things live`.
+
+An explanation the user gives or a conclusion an agent reaches goes,
+on the user's approval, to the home owning its kind: `CLAUDE.md` for a
+convention or a project detail, `DESIGN.md` for architecture, the plans
+tree for a planned change, and the docs tree or its `references/`
+subdirectory for behavior
+([`§ One home per finding`](rules/writing-artifacts.md#one-home-per-finding)).
 
 ## Self-hosting
 
@@ -109,8 +129,8 @@ directory, the root `CLAUDE.md` is the global instructions every
 session loads, and this repository's own instructions, its
 declarations, sit in the nested `.claude/CLAUDE.md`. The foundational
 files live at the root, `LAYOUT.md` among them, so `.claude/CLAUDE.md
-§ Layout` declares `LAYOUT.md` there and keeps `Docs:`, `Plans:` and
-`Session:` at their defaults: the DEV artifacts
+§ Layout` declares `LAYOUT.md` there and keeps `Docs:` and `Plans:` at
+their defaults: the DEV artifacts
 sit beside the root files under `dev/` - see `DESIGN.md § Self-hosting
 layout`.
 
@@ -171,16 +191,11 @@ idempotently:
 | `dev-branch-guard.sh` | PreToolUse | `Write\|Edit\|NotebookEdit` and `Bash` |
 | `dev-secrets-guard.sh` | PreToolUse | `Write\|Edit\|NotebookEdit` and `Bash` |
 | `dev-branch-state.sh` | UserPromptSubmit | none |
-| `dev-handoff-nudge.sh` | Stop | none |
 | `dev-session-brief.sh` | SessionStart | `compact\|resume` |
 
 The installer also copies these files beside the registered hooks,
 unregistered, each used by a registered hook:
 
-- `dev-precompact-state.sh`, the session-state writer: the branch-state
-  hook asks it for the session file's path.
-- `dev-context-fill.sh`: the branch-state and hand-off-nudge hooks call
-  it for the context-fill percent.
 - `secret-patterns.sh`, the secret predicate the secrets guard sources.
 - `dev-hook-once.sh`, the check every registered hook sources to skip a
   run the global settings already make.
@@ -191,9 +206,8 @@ A hook in a project's `.claude/hooks/` exits silent when
 a matcher that covers the call, so a project that also has a global
 install runs each hook once. For the guards the matcher covers the call
 when it matches the tool name, for the session brief when it matches
-the start's source. For the branch-state hook and the hand-off nudge
-only a missing, empty or `*` matcher covers it, or one that matches the
-empty string. The project copy acts as usual when that settings file is
+the start's source. For the branch-state hook only a missing, empty or
+`*` matcher covers it, or one that matches the empty string. The project copy acts as usual when that settings file is
 absent or unparsable, `jq` is missing, or `dev-hook-once.sh` is.
 
 `--minimal` serves contributors who work a project's existing plans
@@ -201,7 +215,6 @@ without `/dev`. It ships the full set less two parts of `skills/`: no
 bundled dependency skills, and from `skills/dev/` only these files:
 
 - `finish.md`
-- `handoff.md`
 - `git-workflow.md`
 - `companions/declarations.md`
 - `companions/toolchain.md`
@@ -223,16 +236,9 @@ Beyond the copied files it appends, in both cases, an `@writing.md`
 line to the install directory's `CLAUDE.md` (`~/.claude/CLAUDE.md`;
 `<path>/.claude/CLAUDE.md` under `--project`), and - for `--project` -
 to the repo's root `.gitignore`: a `!`-allowlist line for each
-installed path that repo ignores, so the toolset stays committable,
-plus two anchored ignore lines for runtime state:
-the session tree the repo's `Session:` line declares, read from the
-repo root's `CLAUDE.md` and `.claude/CLAUDE.md`, where the per-session
-state files live (`skills/dev/handoff.md`), and
-`supervisor/` beside it, the supervisor's ledgers (`skills/dev/run.md
-§ Ledger`) - `/dev/session/` and `/dev/supervisor/` for a project
-without a declaration. A `--project` install into a git repo, full or
-`--minimal`, also wires the plan-text and code-size gates into the fast
-tier: it appends, in this order,
+installed path that repo ignores, so the toolset stays committable.
+A `--project` install into a git repo, full or `--minimal`, also wires
+the plan-text and code-size gates into the fast tier: it appends, in this order,
 `` , then `bash <prefix>.claude/scripts/ci/check-plan-text.sh` `` and
 `` , then `bash <prefix>.claude/scripts/ci/check-code-size.sh` `` to the
 repo's `Test (fast):` line, else to its `Test:` line, in whichever of
