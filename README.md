@@ -41,9 +41,16 @@ Two modes, defined in `CLAUDE.md`:
   plans tree (§ DEV artifacts; `dev/plans/` here), or in
   `archive/R<NNN>-<slug>/` under it once the initiative closes.
 
-Planning takes two rounds: `/dev plan R` shapes an initiative,
-`/dev plan R<NNN>` details its tasks and branch plans. Execution is
-`/dev run`: a task, a batch or an initiative runs as dispatched seats -
+Planning takes two rounds: `/dev plan R` writes an initiative's
+requirements and design, and `/dev plan R<NNN>` writes its task list
+with a branch plan per task
+([`plan.md § Planning rounds`](skills/dev/plan.md#planning-rounds)). A
+small change, an initiative of one task, ships its requirements, plan
+and code in one MR/PR, `/dev run` admitting its plan unmerged by
+`approved: yes` in the plan's header
+([`branch-plan.md` opening and `§ Header`](skills/dev/branch-plan.md#header)).
+
+Execution is `/dev run`: a task, a batch or an initiative runs as dispatched seats -
 subagents, each started fresh for one item and shut down at its exit -
 under the supervisor the project declares, human or AI, within
 declared bounds. Before its first dispatch a run resolves the
