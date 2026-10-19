@@ -152,10 +152,12 @@ checkpoint.
 
 Per branch, when its last non-final item is `[x]`:
 
-1. Close review: `code-reviewer` on the branch diff vs plan, and the
-   spec review of the task report's `## Claims` against the plan
-   (`agents/code-reviewer.md § Steps` 2), before the docs (3). In a
-   batch-scoped run a small branch skips it, a branch with a `probe`
+1. Close review: `code-reviewer`, at the review's cost
+   (`companions/verification-policy.md § Models`), on the branch diff
+   vs plan, and the spec review of the task report's `## Claims`
+   against the plan (`agents/code-reviewer.md § Steps` 2), before the
+   docs (3). In a batch-scoped run a small branch skips it, a branch
+   with a `probe`
    claim never being small (`companions/verification-policy.md § Close
    folding`); a task-scoped run closes in full (`branch-plan.md § Closing
    routine`).
@@ -191,7 +193,7 @@ Rails hold throughout (`branch-plan.md § Rails`).
 
 ## Batch close
 
-1. Full-diff review vs default (`code-reviewer`, most capable):
+1. Full-diff review vs default (`code-reviewer`, at the review's cost):
    cross-branch interactions, duplicated helpers, convention drift;
    folded small branches get first-review vs their plans.
 2. Fixes land as batch-branch commits; queue judgment calls.

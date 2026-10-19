@@ -87,7 +87,13 @@
    their checks already finished
 - Item 10 (source): A `review:` line in `CLAUDE.md § Conventions` sets the
   code reviewer's model and effort.
-  Source:
+  Source: `skills/dev/companions/verification-policy.md § Models`
+   lines 136-140 read a `review: <model> <effort>` line in `CLAUDE.md
+   § Conventions`, which the runner sets on every `code-reviewer`
+   dispatch, the definition's pins holding without it; `run.md § Close`
+   1 (line 155) and `§ Batch close` 1 (line 196) dispatch the reviewer
+   at that cost; `migrate.md § 4` line 77 lists the `review:` line among
+   the conventions
 - Item 12 (source): A weekly cloud routine audits the repository against
   Claude Code's current defaults and docs and adds each new finding to the
   backlog in `MAINTENANCE.md`, which keeps the routine's prompt.
@@ -200,6 +206,21 @@
   being one the pre-flight then requires of every project. Result: a
   `no checks reported` exit re-runs the wait after 30 seconds, at most
   3 times, then goes to the user.
+- Item 10: the line's form is `review: <model> <effort>`, both values
+  the Agent tool's, as `verification-policy.md § Effort mechanics`
+  names them. `run.md § Batch
+  close` 1 drops its "most capable" model for the review's cost, so
+  without a `review:` line the batch review runs on the definition's
+  pins as the close review does; `report-template.md`'s batch review
+  heading drops "most capable model" with it. Result: the project's
+  `review:` line, or else `agents/code-reviewer.md`'s pins, sets the
+  model and effort of every code review.
+### Findings
+- [ ] Item 10: `REQUIREMENTS.md` still has the batch close review the
+  full batch diff on the most capable model, where `run.md § Batch
+  close` 1 now runs it at the review's cost
+  Evidence: contract `REQUIREMENTS.md:62`, "The batch close phase
+  reviews the full batch diff on the most capable model"
 
 ## Answers
 

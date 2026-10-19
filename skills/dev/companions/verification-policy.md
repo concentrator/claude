@@ -13,9 +13,10 @@ Model and effort route per seat: each definition's frontmatter carries
 effort (`low`/`medium`/`high`/`xhigh`/`max`; `agents/code-reviewer.md`
 pins `medium`), the roster being `run.md § Seats`. A dispatch overrides
 either through the Agent tool's `model` and `effort` parameters, which
-is why the implementer's tier is the dispatch's (§ Models) and its
-definition's values the default; a key neither sets inherits the
-session's - `effortLevel` the default rather than the ceiling.
+is why the implementer's tier and the review's cost are the dispatch's
+(§ Models) and the definitions' values the default; a key neither sets
+inherits the session's - `effortLevel` the default rather than the
+ceiling.
 
 ## Mechanical commits
 
@@ -122,7 +123,7 @@ again, and the header records `cold-read: passed` (`branch-plan.md
 
 ## Models
 
-A seat's model is its definition's (`run.md § Seats`); the two rules a
+A seat's model is its definition's (`run.md § Seats`); the three rules a
 definition cannot hold stay here.
 
 **Implementer tier.** The runner picks the implementer's model and
@@ -131,6 +132,12 @@ predicate true (§ Mechanical commits) → `sonnet` at `effort: low`; plan
 item explicitly tagged `(judgment-heavy)` → `fable`; otherwise the
 model `agents/dev-implementer.md` pins. No predicate
 infers `(judgment-heavy)`; only the tag in the plan-item text does.
+
+**Review cost.** The project sets it with a `review: <model> <effort>`
+line in `CLAUDE.md § Conventions` - `review: opus high`, say - and the
+runner sets both on every `code-reviewer` dispatch (`run.md § Close` 1,
+`§ Batch close` 1). With no `review:` line the dispatch sets neither,
+and `agents/code-reviewer.md`'s pins hold.
 
 **Capacity fallback.** A pinned model can be rate-limited, which is not
 a fact about the work. A dispatch that fails on capacity falls back to

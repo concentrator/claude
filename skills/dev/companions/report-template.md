@@ -21,7 +21,7 @@ state: <branches merged>/<branches planned>, full tier <green|red>
   queued judgment call | dismissed (reason); or "folded into batch review (small branch)">
 - task report: <open items count, or "none">
 
-## Batch review (full diff vs base, most capable model)
+## Batch review (full diff vs base)
 
 - cross-branch findings: <interactions invisible to per-branch review:
   semantic conflicts, duplicated helpers, divergent conventions -

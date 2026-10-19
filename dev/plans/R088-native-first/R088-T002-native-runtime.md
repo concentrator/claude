@@ -56,7 +56,7 @@ mode: normal
   check, which stays the read of merged state and head sha. Approach:
   `git-workflow.md § Merge order`, `finish.md § 3` step 3, `run.md
   § Boundary verification` 4, then `supervisor-runbook.md`.
-- [ ] The project sets the review's cost: a `review:` line in `CLAUDE.md
+- [x] The project sets the review's cost: a `review:` line in `CLAUDE.md
   § Conventions` names the code reviewer's model and effort, which the
   runner sets on every reviewer dispatch; absent, the definition's pins
   hold. Approach: `verification-policy.md § Effort mechanics` and

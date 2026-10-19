@@ -74,9 +74,11 @@ Write `.claude/DESIGN.md` (≤1000 words inline). User approves.
 ## 4. CLAUDE.md alignment
 
 Ensure project `CLAUDE.md` has `## Conventions` (release-routine,
-publish-external, and a `<docs>/index.md` pointer if the docs layer is
-used) + stack, base branch, and that the project's instructions, the
-root `CLAUDE.md` or `.claude/CLAUDE.md`, hold an `## Agent toolchain`
+publish-external, `review:` where the project sets the review's cost -
+`companions/verification-policy.md § Models` - and a `<docs>/index.md`
+pointer if the docs layer is used) + stack, base branch, and that the
+project's instructions, the root `CLAUDE.md` or `.claude/CLAUDE.md`,
+hold an `## Agent toolchain`
 section (VCS host + build/test/lint/change-request/state-check/CI
 wait commands - `companions/declarations.md`) and a `## Layout` section
 after `## Supervision` where present and after `## Agent toolchain`
