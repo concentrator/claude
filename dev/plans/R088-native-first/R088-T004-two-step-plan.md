@@ -11,7 +11,7 @@ mode: normal
   plan per task. Approach: `plan.md § Planning rounds`, a `## Design`
   section in the `templates.md` requirements template within its 40-line
   cap, `brainstorm.md` steps 5 and 8, then the `R` row of `SKILL.md`.
-- [ ] A small change - an initiative of one task, which the user picks at
+- [x] A small change - an initiative of one task, which the user picks at
   `/dev plan R` - runs both steps in one session on the task's branch,
   `<prefix>/<slug>` from its tag, carrying its ROADMAP entry,
   requirements, task and plan. Approach: `plan.md § Planning rounds` and

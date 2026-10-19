@@ -31,7 +31,9 @@ text itself.
    `normal` unless the user picks `strict`. The slug names both the plan
    branch and the plan file `<plans>/R<NNN>-<slug>/<task-id>-<slug>.md`,
    so it is settled and the branch created before the dispatch, which
-   names that file.
+   names that file. A small change settled its slug at `brainstorm.md`
+   step 2, and its branch is the task's own, already cut
+   (`plan.md § Where plans live in git`).
 3. **Decompose work**, a strict plan proven first - the planner's
    (`agents/dev-planner.md § Steps` 2 and 3).
 4. **Add header** - the planner's (`agents/dev-planner.md § Steps` 4).
@@ -48,7 +50,9 @@ text itself.
    read at its start instead.
 7. **Confirm with user**, then deliver the committed plan through
    `finish.md § 3`: its short-lived plan MR/PR (`plan.md § Where plans
-   live in git`) takes the decision any branch takes.
+   live in git`) takes the decision any branch takes. A small change's
+   plan is not delivered alone: it stays committed on the task's
+   branch (`plan.md § Planning rounds`).
 
 ## Soft cap
 

@@ -19,6 +19,12 @@
   answer that the design lives in `requirements.md`. It now names the
   requirements' `## Design` for the planned architecture, `DESIGN.md`
   for the present one, and the detail round for the task split.
+- Item 2: `brainstorm.md` steps 5 and 8 also changed, outside the named
+  step 2: step 5 cut "the plan branch", which a small change does not
+  have, and step 8 only proposed the detail round, which a small change
+  runs in the same session. Step 5 now cuts "the branch" per
+  `plan.md § Where plans live in git`, and step 8 runs the detail round
+  for a small change.
 
 ## Answers
 

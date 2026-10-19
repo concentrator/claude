@@ -34,6 +34,9 @@ commands`).
   - `mnt` - repo maintenance (CI, scripts, hooks, settings, dependencies).
   - `plan` - planning artifacts (ROADMAP, requirements, tasks, branch
     plans; untracked `.claude/`: `companions/untracked-claude.md`).
+    A small change takes no `plan/` branch: its ROADMAP entry,
+    requirements, task and plan ride its task's branch (`plan.md
+    § Where plans live in git`).
     A planning change a branch discovers about its own task rides that
     branch instead: correcting a wrong item, recording a resolution,
     adding a task the work surfaced. Splitting it out costs a branch, an

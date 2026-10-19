@@ -43,11 +43,17 @@ Two rounds, each approved at one gate:
 - **Detail** (`/dev plan R<NNN>`) - produce the open R's task list
   (`tasks.md`) **and** a branch plan per task together.
 
+A **small change** is an initiative of one task, which the user picks
+in the shape round (`brainstorm.md` step 2). Both rounds run in that
+one session, each still at its own gate, on the task's branch
+(§ Where plans live in git).
+
 **Approval authorizes planning, not code** (gate: § Approval and
 closure). Approving a plan sends its branch through `finish.md § 3`,
 the one decision every branch takes, and the round stops there:
 shape-approval authorizes the detail round; detail-approval authorizes
-nothing to run.
+nothing to run. A small change's branch takes no decision at either
+gate: it stays open for the code.
 A plan round ends by proposing `/dev run <slug>`, which the user
 invokes explicitly.
 
@@ -131,6 +137,12 @@ every branch, reaching it via a plan branch + MR/PR like any change
 artifact write. A single planning act still commits each
 artifact type separately - `requirements.md` apart from the `ROADMAP`
 / `tasks.md` index edits.
+
+A small change (§ Planning rounds) cuts no plan branch: its branch is
+the task's own, `<prefix>/<slug>` from the task's tag
+(`git-workflow.md § Trunk`), cut before the first artifact write. It
+carries the ROADMAP entry, `requirements.md`, `tasks.md` and the
+branch plan.
 
 ## Cross-plan dependencies
 
