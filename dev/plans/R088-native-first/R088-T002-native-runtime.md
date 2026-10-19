@@ -74,7 +74,7 @@ mode: normal
   and a question item 6's homes settle; no PR when nothing is new.
   Approach: the backlog section and the routine's prompt in
   `MAINTENANCE.md`; the user then creates the routine with `/schedule`.
-- [ ] `DESIGN.md` describes the live re-brief in place of the session file,
+- [x] `DESIGN.md` describes the live re-brief in place of the session file,
   the run without a ledger and one review per change.
   Approach: `DESIGN.md` § Self-enforcement and § Git & delivery model.
 - [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
