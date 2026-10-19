@@ -23,7 +23,7 @@ mode: normal
   § Decisions` says what admits a plan, not which stamps went; the rest per
   `rules/writing-artifacts.md § State the present`, each row against `git
   ls-files`.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)
