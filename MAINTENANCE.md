@@ -34,11 +34,12 @@ review the diff against the rule set and confirm the concerns below:
 - **Doc sync** - a change that alters a documented surface updates the
   doc documenting it, in the same branch. The concern covers docs the
   diff does not touch: staleness a change induces elsewhere has no other
-  owner, since every other concern reads only changed files. Which
-  change obliges which doc is a per-project table, kept with the
-  project's own targets (here: § This environment › Doc-sync pairs); a
-  project without one still owes the concern, judged against its own
-  docs.
+  owner, since every other concern reads only changed files. A project
+  keeps, with its own targets, a table of path globs, each row naming
+  the docs that adding, removing or renaming a matching path must
+  update (here: § This environment › Doc-sync pairs); the concern judges
+  only what no row expresses. A project without one still owes the
+  concern, judged against its own docs.
 - **Writing** - changed prose follows `writing.md` and
   `rules/writing-artifacts.md`.
 
@@ -120,20 +121,42 @@ Targets beyond the generic routine:
 
 ### Doc-sync pairs
 
-Targets for the Doc sync concern (§ Tier-2 AI review). The left column
-is what the branch changed; the right is what it updates before
-delivery.
+Targets for the Doc sync concern (§ Tier-2 AI review). A branch that
+adds, removes or renames a tracked path a row's glob matches updates
+each file the row names, a renamed path answering to the rows of both
+its old and new paths. A glob matches the whole path, `*` standing for
+any run of characters but `/`. A row names a file only if that file
+lists each path the glob matches.
 
-| Changed | Also update |
+| Path | Update |
 |---|---|
-| A `/dev` command added, renamed, or removed | `README.md § Workflow`, `LAYOUT.md` |
-| A `skills/dev/` mode file or companion added, renamed, or removed | `SKILL.md`'s router table, `LAYOUT.md` |
-| A tracked root file or directory added or removed | `README.md § Contents`, `LAYOUT.md` |
-| What `install-dev.sh` copies or registers | `README.md § Installing the toolset elsewhere`, `scripts/test/install-dev.test.sh` and `install-dev-minimal.test.sh` (they assert the copied sets) |
-| A `scripts/ci/` check added or removed | `scripts/ci/run-all.sh` (its loop is what registers a check), `DESIGN.md § Self-enforcement` |
-| A `hooks/` guard added or removed | `LAYOUT.md` (`check-stray.sh` reads it) and `DESIGN.md § Self-enforcement`, `README.md § Contents` |
-| Planning layout or an id or naming convention | `README.md`, `REQUIREMENTS.md § Planning discipline`, `DESIGN.md`, and every `skills/dev/` file stating the convention (`plan.md`, `layout.md`, `branch-plan.md`, `write-plan.md`, `finish.md`, `templates.md`) |
-| Any file moved or renamed | Every inbound reference (grep the tracked tree) |
+| `*` | `LAYOUT.md`, `README.md § Contents` |
+| `.claude/*` | `LAYOUT.md`, `README.md § Contents` |
+| `.githooks/*` | `LAYOUT.md` |
+| `.github/workflows/*` | `LAYOUT.md` |
+| `hooks/*` | `LAYOUT.md` |
+| `rules/*` | `LAYOUT.md` |
+| `scripts/*` | `LAYOUT.md` |
+| `scripts/ci/check-*.sh` | `scripts/ci/run-all.sh`, `DESIGN.md § Self-enforcement` |
+| `skills/*/SKILL.md` | `LAYOUT.md` |
+| `skills/dev/*.md` | `skills/dev/SKILL.md` |
+
+The concern judges what no row expresses, these pairs included:
+
+- A file moved or renamed: every inbound reference (grep the tracked
+  tree).
+- A top-level directory added or removed: `LAYOUT.md`,
+  `README.md § Contents`.
+- A `/dev` command added, renamed or removed: `skills/dev/SKILL.md
+  § Surface`, `README.md § Workflow`.
+- What `install-dev.sh` copies or registers: `README.md § Installing
+  the toolset elsewhere`, and `scripts/test/install-dev.test.sh` and
+  `install-dev-minimal.test.sh`, which assert the copied sets.
+- What a `hooks/` guard blocks: `DESIGN.md § Self-enforcement`.
+- The planning layout or an id or naming convention: `README.md`,
+  `REQUIREMENTS.md § Planning discipline`, `DESIGN.md`, and every
+  `skills/dev/` file stating the convention (`plan.md`, `layout.md`,
+  `branch-plan.md`, `write-plan.md`, `finish.md`, `templates.md`).
 
 ### Weekly audit
 

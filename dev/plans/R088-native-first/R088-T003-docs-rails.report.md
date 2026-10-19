@@ -4,13 +4,30 @@
 - Item 1 (source): `MAINTENANCE.md § Doc-sync pairs` maps each path glob to
   the doc files that an added, removed or renamed path it matches must
   update.
-  Source:
+  Source: `MAINTENANCE.md` § Doc-sync pairs, its `Path` | `Update` table
 - Item 2 (source): `scripts/ci/check-doc-sync.sh` fails a branch that adds,
   removes or renames a path a doc-sync row matches without changing every
   doc file the row names.
   Source:
 
 ## Implementer
+### Divergences
+- Item 1: three rows name a file that does not yet list every path the
+  glob matches - `DESIGN.md § Self-enforcement` describes the checks by
+  what they fail rather than naming each `check-*.sh`, `SKILL.md`
+  routes 9 of the 16 other `skills/dev/*.md`, and `LAYOUT.md` maps
+  `systematic-debugging/` and `writing-skills/` as directories without
+  their `SKILL.md`. The rows stay, since item 3 brings each file to
+  list every path its row matches. Result: the table holds the rows
+  item 3 checks against `git ls-files`.
+- Item 1: the old pairs whose doc lists no path were dropped from the
+  table rather than kept as rows: `/dev` command to `LAYOUT.md`,
+  `skills/dev/companions/` to `SKILL.md` and `LAYOUT.md`, and `hooks/`
+  guard to `README.md § Contents`, none of which lists each such path.
+  The rest move to the bullet list the concern judges, with a top-level
+  directory added there, since `*` matches root files only. Result: the
+  concern's text names the table and judges only what no row
+  expresses.
 
 ## Answers
 

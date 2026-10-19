@@ -5,7 +5,7 @@ architecture-changing: true
 mode: normal
 ---
 
-- [ ] `MAINTENANCE.md § Doc-sync pairs` is a table of path globs, each row
+- [x] `MAINTENANCE.md § Doc-sync pairs` is a table of path globs, each row
   naming the doc files an added, removed or renamed matching path must
   update; the Tier-2 Doc sync concern judges only what no row expresses.
   Approach: a row names a doc only if it lists each matching path (`LAYOUT.md`,
