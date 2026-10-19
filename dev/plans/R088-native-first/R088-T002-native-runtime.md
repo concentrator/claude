@@ -35,7 +35,7 @@ mode: normal
   `declarations.md § Declared paths`, `plan.md`, `start.md § 3`,
   `rules/claude-md.md`, `MAINTENANCE.md` and its seeded copy, the two
   scripts and their tests, `.gitignore`, `.claude/CLAUDE.md`, `LAYOUT.md`.
-- [ ] An explanation the user gives or a conclusion an agent reaches goes,
+- [x] An explanation the user gives or a conclusion an agent reaches goes,
   on the user's approval, to the home that owns its kind: `CLAUDE.md` for
   conventions and project details, `DESIGN.md` for architecture, the plans
   tree for planned changes, `<docs>` or its references for behavior.

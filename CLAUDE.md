@@ -54,8 +54,9 @@ Claude-Session and kin).
   change) needs explicit approval before it is saved or applied;
   a merge delivers, never decides.
 - Memory holds cross-project user preferences only, never project
-  data: in DEV, findings go to the owning artifact and a behavior
-  change cites its commit/PR.
+  data: a finding, explanation or conclusion goes to the home that
+  owns its kind (`rules/writing-artifacts.md § One home per finding`),
+  and a behavior change cites its commit/PR.
 
 ## Communication
 

@@ -54,7 +54,11 @@
 - Item 6 (source): An explanation or conclusion goes, on the user's
   approval, to the home owning its kind: `CLAUDE.md`, `DESIGN.md`, the
   plans tree, or the docs home and its references.
-  Source:
+  Source: `rules/writing-artifacts.md § One home per finding` lines
+   31-35 route an explanation or conclusion, on the user's approval, to
+   `CLAUDE.md`, `DESIGN.md`, `<plans>`, or `<docs>` and
+   `<docs>/references/`; `CLAUDE.md § Approval and persistence` line 58
+   cites it
 - Item 8 (source): A project declares its CI wait command in its
   `§ Agent toolchain`.
   Source:
@@ -121,5 +125,11 @@
   writer's) names the `Session:` tree, `<session>` or a `supervisor/`
   directory; `scripts/test/dev-branch-state.test.sh` keeps its
   `Session:` fixture as a project still declaring it.
+- Item 6: the rule names the plans tree and the docs home by their
+  placeholders, `<plans>` and `<docs>`, as `declarations.md § Declared
+  paths` asks of a rule. The `CLAUDE.md` bullet drops its "in DEV"
+  scope, the cited section applying to every Markdown file in both
+  modes. Result: the routing lives in one section, which `CLAUDE.md`
+  cites rather than restates.
 
 ## Review

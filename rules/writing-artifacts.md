@@ -28,6 +28,12 @@ file the change happens to touch: no history or annotation fields in data
 or code files, no status notes parked in index docs. Cite the owning
 artifact instead.
 
+An explanation the user gives or a conclusion an agent reaches goes,
+on the user's approval, to the home that owns its kind: `CLAUDE.md`
+for a convention or a project detail, `DESIGN.md` for architecture,
+`<plans>` for a planned change, `<docs>` or `<docs>/references/` for
+behavior.
+
 ## One home per number
 
 A derived value - a count, total, or remaining-budget figure - is stated
