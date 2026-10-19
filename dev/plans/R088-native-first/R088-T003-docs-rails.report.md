@@ -8,7 +8,9 @@
 - Item 2 (source): `scripts/ci/check-doc-sync.sh` fails a branch that adds,
   removes or renames a path a doc-sync row matches without changing every
   doc file the row names.
-  Source:
+  Source: `scripts/ci/check-doc-sync.sh`, its `rows` parse of the table
+  and its `hits` pass over `git diff --name-status -M` from
+  `branch_base`
 
 ## Implementer
 ### Divergences
@@ -28,6 +30,16 @@
   directory added there, since `*` matches root files only. Result: the
   concern's text names the table and judges only what no row
   expresses.
+- Item 2: the check also counts an untracked, unignored file as added,
+  as `branch-diff.sh` `branch_changed` does, so a run before the commit
+  judges the tree the commit will carry. Result: an untracked file a
+  row matches fails the check until the row's files change.
+- Item 2: proved on the local branch `scratch/r088-t003-doc-sync`, its
+  worktree outside the repository: an added, removed, renamed and
+  untracked matching path each failed without the row's files and
+  passed with them, a rename across two rows answered to both, a plain
+  edit passed, and a repository with no default branch skipped. Result:
+  the branch is left for the close's cleanup.
 
 ## Answers
 

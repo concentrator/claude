@@ -11,7 +11,7 @@ mode: normal
   Approach: a row names a doc only if it lists each matching path (`LAYOUT.md`,
   `README.md § Contents`, `SKILL.md`, `DESIGN.md`, `run-all.sh`); then the
   concern's text and the pairs left to it, a moved file's references among them.
-- [ ] `scripts/ci/check-doc-sync.sh` fails a branch that adds, removes or
+- [x] `scripts/ci/check-doc-sync.sh` fails a branch that adds, removes or
   renames a path a row matches without changing each file the row names,
   from the `branch-diff.sh` base, skipping with none; `run-all.sh` runs it,
   `DESIGN.md § Self-enforcement` names it. Approach: parse the table, read
