@@ -7,7 +7,8 @@
 # project's CLAUDE.md § Agent toolchain - against the three settings tiers a
 # session reads, and prints one report whose every line names the tier that
 # satisfied the rule, so a report that read one tier cannot pass as a full
-# answer. Every tier is read from its working-tree file, which is what the
+# answer. Only the rules that bind in the runner's permission mode are
+# resolved. Every tier is read from its working-tree file, which is what the
 # session's own permission check reads; git state enters one check only, the
 # mode-key comparison, which needs a tracked value to compare against.
 # --apply merges the missing allow rules into the local tier, preserving its
@@ -143,14 +144,11 @@ carve_out() {
   for p in batch doc feat fix refactor mnt test plan; do declared="$declared"$'\n'"Bash(git push -u origin $p/*)"; done
 }
 
-# One declared allow rule. $2 is `bind` or `inert` - the Bash prefix set is
-# inert under Supervisor: AI, auto having suspended it, so its absence is
-# reported and never a gap.
+# One declared allow rule.
 resolve() {
   local t
   if t=$(tier_of "$1" denies); then blocked "the $t tier's deny reaches it" "$1"; return; fi
   if t=$(tier_of "$1" allow); then say "present ($t)" "$1"; return; fi
-  if [ "$2" = inert ]; then say "inert (auto)" "$1"; return; fi
   say missing "$1"
   missing_list="$missing_list$1"$'\n'; missing_n=$((missing_n + 1))
 }
@@ -273,14 +271,18 @@ done
 carve_out
 
 while IFS= read -r r; do
-  [ -n "$r" ] && resolve "$r" bind
+  [ -n "$r" ] && resolve "$r"
 done <<< "$(printf '%s\n' "$declared" | grep -v '^Bash(')"
 
-class=inert; [ "$supervisor" = human ] && class=bind
-while IFS= read -r r; do
-  [ -n "$r" ] && resolve "$r" "$class"
-done <<< "$(printf '%s\n%s\n' "$(printf '%s\n' "$declared" | grep '^Bash(')" \
-            "$(toolchain_rules)" | awk 'NF && !seen[$0]++')"
+# Auto drops every Bash allow rule only under the user tier's classifyAllShell.
+if [ "$runner_mode" = auto ] && [ "$(jq -r '.autoMode.classifyAllShell' "$UT" 2>/dev/null)" = true ]; then
+  say "dropped (auto)" "Bash allow rules (the user tier sets autoMode.classifyAllShell)"
+else
+  while IFS= read -r r; do
+    [ -n "$r" ] && resolve "$r"
+  done <<< "$(printf '%s\n%s\n' "$(printf '%s\n' "$declared" | grep '^Bash(')" \
+              "$(toolchain_rules)" | awk 'NF && !seen[$0]++')"
+fi
 
 # --- apply, report, verdict ----------------------------------------------
 if [ "$cannot_n" -eq 0 ] && [ "$missing_n" -gt 0 ]; then

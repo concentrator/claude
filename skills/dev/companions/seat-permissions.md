@@ -23,21 +23,26 @@ runner's launch mode (`auto`, `acceptEdits`, `default`); the
 
 ## What enforces what
 
-Under `--permission-mode auto` the only deterministic enforcement is
-deny rules, non-Bash allow rules and the mode assertion: auto suspends
-Bash allow rules and routes every shell command to a classifier
-(`companions/supervisor-runbook.md § Modes by seat`). So the set splits
-by enforcement rather than by seat.
+The set holds only what binds in the run's permission mode: deny rules,
+the mode assertion with its never-list, and the allow rules that mode
+reads. Under `--permission-mode auto` those are the narrow allow rules:
+auto drops the broad ones that grant arbitrary code execution - a
+blanket `Bash(*)`, a wildcarded interpreter such as `Bash(python*)`,
+package-manager run commands, and every `Agent` and `Monitor` rule -
+and routes a command no rule matches to its classifier. A rule set the
+mode drops is neither declared nor checked, so the set carries none of
+those. The set splits by enforcement rather than by seat.
 
-- The **mode-independent set** gates under both supervisor modes, is
-  applyable, and a gap in it stops the run, save a missing allow rule
-  under `Supervisor: human` (§ Prompt classes).
-- The **Bash prefix set** stays declared and traced but binds under
-  `Supervisor: human` alone. Under `Supervisor: AI` an absent rule
-  reports `inert (auto)` and never stops the run, while a rule a tier
-  carries still reports `present (<tier>)` naming that tier, so a user
-  tier's Bash entries are the human-supervised path rather than what
-  makes an autonomous run promptless.
+- The **mode-independent set** binds in every permission mode.
+- The **Bash prefix set** binds in every mode as well, auto keeping
+  narrow Bash rules - save when the user tier, of the three the one auto
+  reads `autoMode` from, sets `autoMode.classifyAllShell: true`, under which
+  auto suspends every Bash allow rule. The pre-flight then reports the
+  set `dropped (auto)` on one line and checks none of its rules;
+  outside auto the switch changes nothing.
+
+Both sets are applyable, and a gap in either stops the run, save a
+missing allow rule under `Supervisor: human` (§ Prompt classes).
 
 No declaration makes an autonomous run promptless on its own: a
 classifier denial is nondeterministic and a long transcript can fall
@@ -80,8 +85,8 @@ one and neither covering the other. Pattern 2 declares
 Pattern 1 declares the checkpoint-push allow block beside that pair -
 the push strings `toolchain.md § Permission carve-out` 1 prints, which
 is their one home (§ Bash prefix set). They are Bash prefix rules rather
-than mode-independent ones: they bind under `Supervisor: human` and go
-inert under `auto`, where the classifier judges the push. Pattern 2
+than mode-independent ones, binding wherever that set does
+(§ What enforces what). Pattern 2
 declares none of them. Its blanket deny beats every allow across all
 tiers, so its checkpoint push stays the one manual push per batch that
 pattern is, and a declared allow every pattern-2 tier denies would turn
@@ -284,8 +289,9 @@ remedy for the **user**, the settings surface being no seat's
 
 ## Prompt classes
 
-A **pre-flight defect** is a gap in the mode-independent set, including
-a compound command that offers no prefix for a Bash rule to match. Its
+A **pre-flight defect** is a gap in the declared set the run's mode
+reads, including a compound command that offers no prefix for a Bash
+rule to match. Its
 fix is a rule in this file and the tier that carries it. Under
 `Supervisor: AI` it halts the item and nobody clears it; under
 `Supervisor: human` the user answers the prompt it raises, so a missing

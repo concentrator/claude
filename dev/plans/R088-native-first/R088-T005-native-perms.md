@@ -9,7 +9,7 @@ mode: normal
   failing. Approach: `run.md § Seats` prompt row and `§ Dispatch per item`,
   `seat-permissions.md § Prompt classes`, `supervisor-runbook.md § Modes by
   seat`, then `preflight-permissions.sh` with its test.
-- [ ] The pre-flight checks only what binds in the run's permission mode:
+- [x] The pre-flight checks only what binds in the run's permission mode:
   deny rules, the mode, its never-list and the allow rules that mode reads;
   a rule set the mode drops is neither declared nor checked. Approach: which
   allow rules `auto` keeps, from Claude Code's permission-modes docs; then

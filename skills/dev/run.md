@@ -122,12 +122,13 @@ branch per plan - and per commit checkbox:
    branch's check against its plan is the close review (§ Close 1).
 
 Two prompt classes (`companions/seat-permissions.md § Prompt classes`). A
-pre-flight defect - a gap in the mode-independent set - halts the item under
-`Supervisor: AI`, cleared by nobody; under `Supervisor: human` the user answers
-its prompt and the item goes on (§ Seats, the prompt row). A classifier denial
-under `auto` is the seat's to handle; where it cannot, its BLOCKED report halts
-and reports, the work intact (§ Checkpoint). Commands match a declared prefix
-outside `auto` and are classifier-readable under it.
+pre-flight defect - a gap in the declared set the run's mode reads - halts the
+item under `Supervisor: AI`, cleared by nobody; under `Supervisor: human` the
+user answers its prompt and the item goes on (§ Seats, the prompt row). A
+classifier denial under `auto` is the seat's to handle; where it cannot, its
+BLOCKED report halts and reports, the work intact (§ Checkpoint). A command
+matches a declared prefix; under `auto`, one that matches none is written
+classifier-readable.
 
 ## Question resolution
 

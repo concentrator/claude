@@ -191,15 +191,15 @@ browser and phone control without joining.
 A dispatched seat is a subagent and has no mode of its own: the run
 has one permission mode, the runner's. Under `Supervisor: AI` that is
 `auto`: the runner's own tooling is compound shell - until-loops,
-pipelines - which prefix rules cannot match, and auto suspends Bash
-allow rules and routes every shell command to a classifier that judges
-what the command does, so the runner is never blocked. What a
-promptless run rests on is then the mode-independent set of
-`companions/seat-permissions.md`, never the Bash allow rules auto
-suspends, and a prompt the declared set did not predict is a pre-flight
-defect that nobody clears. Under `Supervisor: human` the user's
-session's mode governs, and the user answers such a prompt, so a
-missing allow rule halts no run (`run.md § Seats`, the prompt row).
+pipelines - which prefix rules cannot match, and auto routes a command
+no allow rule matches to a classifier that judges what the command
+does, so the runner is never blocked. What a promptless run rests on is
+then the declared set of `companions/seat-permissions.md`, cut to the
+rules auto reads (§ What enforces what there), and a prompt that set
+did not predict is a pre-flight defect that nobody clears. Under
+`Supervisor: human` the user's session's mode governs, and the user
+answers such a prompt, so a missing allow rule halts no run (`run.md
+§ Seats`, the prompt row).
 
 The `--runner-mode` the pre-flight takes (`run.md § Pre-flight`) is the
 mode this table gives the runner: the value is self-attested, no session
@@ -215,7 +215,7 @@ everything else, and never `dontAsk`, which denies rather than
 approves, so every prompt becomes a hard failure instead of a question.
 
 Deny rules survive auto mode - under it they are how the set is
-enforced. Only Bash *allow* rules are suspended, so a
+enforced. Auto drops *allow* rules alone, so a
 `git push origin main` or force-push deny still bites.
 
 Every seat holds its commands to `branch-plan.md § Commit cadence`

@@ -86,9 +86,10 @@ it. Two working patterns:
    The deny shrinks from all-push to default-branch/force push; the
    allow covers the push of any task branch, not only a batch. Cover
    the prefixes the project actually uses (`git-workflow.md § Trunk`) -
-   `batch/*` alone stalls every task-scoped run's branch at push time,
-   which is a prompt in the one place a supervised run cannot answer
-   one. The push strings above are a run's own prefixes - one per
+   `batch/*` alone leaves every task-scoped run's push uncovered: a
+   prompt outside `auto` and a classifier call under it, auto keeping
+   these narrow rules (`companions/seat-permissions.md § What enforces
+   what`). The push strings above are a run's own prefixes - one per
    prefix of `git-workflow.md § Trunk` except `release`, whose branch
    `release.md` step 8 pushes by hand under that file's bar on
    auto-push - and the `glab mr create` entry beside them is the
