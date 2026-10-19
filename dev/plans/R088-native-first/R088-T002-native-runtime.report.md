@@ -18,8 +18,9 @@
 - Item 5 (drop): A project declares a `Session:` tree, which a `--project`
   install ignores with `supervisor/` beside it.
   Source:
-- Item 6 (source): A project's settled questions live one per line in
-  `<plans>/DECISIONS.md`, which its `CLAUDE.md` imports.
+- Item 6 (source): An explanation or conclusion goes, on the user's
+  approval, to the home owning its kind: `CLAUDE.md`, `DESIGN.md`, the
+  plans tree, or the docs home and its references.
   Source:
 - Item 8 (source): A project declares its CI wait command in its
   `§ Agent toolchain`.
@@ -33,8 +34,8 @@
   code reviewer's model and effort.
   Source:
 - Item 12 (source): A weekly cloud routine audits the repository against
-  Claude Code's current defaults and docs, its prompt kept in
-  `MAINTENANCE.md § This environment`.
+  Claude Code's current defaults and docs and adds each new finding to the
+  backlog in `MAINTENANCE.md`, which keeps the routine's prompt.
   Source:
 
 ## Implementer

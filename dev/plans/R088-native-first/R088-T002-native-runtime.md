@@ -35,18 +35,16 @@ mode: normal
   `declarations.md § Declared paths`, `plan.md`, `start.md § 3`,
   `rules/claude-md.md`, `MAINTENANCE.md` and its seeded copy, the two
   scripts and their tests, `.gitignore`, `.claude/CLAUDE.md`, `LAYOUT.md`.
-- [ ] A project's settled questions live in `<plans>/DECISIONS.md`, one line
-  each - the question, the answer, its source - which the project's
-  `CLAUDE.md` imports, so every session loads it; an explanation or
-  conclusion no other artifact owns goes there on the user's approval.
-  Approach: `plan.md § Where things live`, `layout.md`, `start.md § 3`,
-  `migrate.md`, `templates.md`, the global `CLAUDE.md`, this repo's store.
-- [ ] A question `DECISIONS.md` settles is not raised again: the runner and
-  the session answer from it before asking the user, the code reviewer's
-  ruled-out cases are its lines, and a line leaves once a rule, doc or
-  requirement carries its decision. Approach: `run.md § Question
-  resolution`, `agents/code-reviewer.md § Inputs`, `CLAUDE.md § Scope`
-  and `rules/writing-artifacts.md § One home per finding`.
+- [ ] An explanation the user gives or a conclusion an agent reaches goes,
+  on the user's approval, to the home that owns its kind: `CLAUDE.md` for
+  conventions and project details, `DESIGN.md` for architecture, the plans
+  tree for planned changes, `<docs>` or its references for behavior.
+  Approach: `rules/writing-artifacts.md § One home per finding`, then
+  `CLAUDE.md § Approval and persistence` citing it; no new file.
+- [ ] A question those homes already settle is not raised again: the runner
+  and the session check them before asking the user, and the code reviewer
+  checks them before raising a finding. Approach: `run.md § Question
+  resolution`, `CLAUDE.md § Scope`, `agents/code-reviewer.md § Inputs`.
 - [ ] A project declares a `CI wait:` command in `§ Agent toolchain` - `gh pr
   checks <n> --watch` on GitHub, its GitLab form beside it - which the
   permission pre-flight reads with the other declared commands. Approach:
@@ -72,12 +70,12 @@ mode: normal
   and 4 and § Rules.
 - [ ] A weekly cloud routine audits this repository against Claude Code's
   current defaults and docs and opens a plan PR adding each new finding as
-  a backlog line in R088's `tasks.md`, skipping a line already listed and a
-  question `DECISIONS.md` settles; no PR when nothing is new. Approach: the
-  prompt in `MAINTENANCE.md § This environment`; the user then creates the
-  routine from it with `/schedule`.
+  a line in a backlog `MAINTENANCE.md` gains, skipping a line already listed
+  and a question item 6's homes settle; no PR when nothing is new.
+  Approach: the backlog section and the routine's prompt in
+  `MAINTENANCE.md`; the user then creates the routine with `/schedule`.
 - [ ] `DESIGN.md` describes the live re-brief in place of the session file,
-  the run without a ledger, the decision store and one review per change.
+  the run without a ledger and one review per change.
   Approach: `DESIGN.md` § Self-enforcement and § Git & delivery model.
 - [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
@@ -98,8 +96,9 @@ mode: normal
   session tree.
 - Item 5 (drop): A project declares a `Session:` tree, which a `--project`
   install ignores with `supervisor/` beside it.
-- Item 6 (source): A project's settled questions live one per line in
-  `<plans>/DECISIONS.md`, which its `CLAUDE.md` imports.
+- Item 6 (source): An explanation or conclusion goes, on the user's
+  approval, to the home owning its kind: `CLAUDE.md`, `DESIGN.md`, the
+  plans tree, or the docs home and its references.
 - Item 8 (source): A project declares its CI wait command in its
   `§ Agent toolchain`.
 - Item 9 (probe): The GitHub CI wait, `gh pr checks <n> --watch`, exits 0
@@ -107,8 +106,8 @@ mode: normal
 - Item 10 (source): A `review:` line in `CLAUDE.md § Conventions` sets the
   code reviewer's model and effort.
 - Item 12 (source): A weekly cloud routine audits the repository against
-  Claude Code's current defaults and docs, its prompt kept in
-  `MAINTENANCE.md § This environment`.
+  Claude Code's current defaults and docs and adds each new finding to the
+  backlog in `MAINTENANCE.md`, which keeps the routine's prompt.
 
 ## Proven
 
