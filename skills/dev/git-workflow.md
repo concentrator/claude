@@ -60,14 +60,17 @@ commands`).
   (`companions/declarations.md § Supervisor bounds`; `run.md § Seats`,
   the Merging row). No prefix merges on its own, and no host is armed
   to merge automatically.
-- **Merge order.** Read the declared state check
-  (`companions/toolchain.md § State check`) until it reports success,
-  then merge. No pipeline yet, queued, or running is never success:
-  keep polling; a merge called before success fails (GitLab answers
-  405). The check reports the pipeline's current state, so a poll that
-  starts after the pipeline finished merges on its first read. An
-  MR/PR the check already reports merged is reported as merged, never
-  merged again.
+- **Merge order.** Run the declared CI wait
+  (`companions/toolchain.md § CI wait`) once, in the background (the
+  Bash tool's `run_in_background`), and merge on the pass its exit
+  notification carries: exit zero when every check passes, non-zero
+  when one fails. Nothing polls, and a merge called before the pass
+  fails (GitLab answers 405). A wait that exits printing `no checks
+  reported` is neither pass nor fail: it runs again once the checks
+  register, so "once" means once per real result. The declared state
+  check (`companions/toolchain.md § State check`) stays the read of
+  merged state: an MR/PR it already reports merged is reported as
+  merged, never merged again.
 
 ## Coherent delivery
 

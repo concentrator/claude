@@ -73,9 +73,18 @@
    ("the CI wait line is read with the other declared commands")
 - Item 9 (probe): The GitHub CI wait, `gh pr checks <n> --watch`, exits 0
   when every check passes and non-zero when one fails.
-  Call:
+  Call: `gh pr checks 600 --watch; echo "exit=$?"` (every check passed);
+   `gh pr checks 14035 -R cli/cli --watch` (one check failed), its
+   exit status echoed and its failing rows printed once
   Output:
-  Environment:
+   tier1	pass	1m49s	https://github.com/concentrator/claude/actions/runs/39136505040/job/117701975682
+   tier1	pass	1m49s	https://github.com/concentrator/claude/actions/runs/39136505040/job/117701975682
+   exit=0
+   lint	fail	1m11s	https://github.com/cli/cli/actions/runs/33321337572/job/99283726990
+   exit=1
+  Environment: gh 2.97.0 on macOS (Darwin 25.5.0), 2026-10-19T08:42Z;
+   concentrator/claude PR 600 and cli/cli PR 14035, both read only,
+   their checks already finished
 - Item 10 (source): A `review:` line in `CLAUDE.md § Conventions` sets the
   code reviewer's model and effort.
   Source:
@@ -166,6 +175,16 @@
   wait where CI is wired. Result: a project's `CI wait:` line resolves
   to a Bash prefix in the pre-flight report, which the template's rule
   covers on either host.
+- Item 9: no tracked PR of this repository has a failed check at its
+  head, so the failing case reads a public `cli/cli` PR, read only.
+  `git-workflow.md § Merge order` drops the poll's first-read sentence
+  without a successor: the probes show the GitHub wait exits at once
+  on finished checks, the GitLab form being unprobed. The runbook's
+  GitLab failure mode keeps its pipelines-endpoint
+  read for the head-sha match only, the wait's exit carrying the
+  result. Result: `finish.md § 3`, `run.md § Boundary verification` 4
+  and the runbook take CI's result from one background wait, and no
+  rule polls the state check.
 
 ## Answers
 

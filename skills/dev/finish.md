@@ -40,7 +40,7 @@ naming that condition.
    **Stay on the branch** - do not switch to the default branch while
    the MR/PR is open, so the reviewer sees the branch's files; the
    switch to default is §4, after merge.
-3. Poll to green (`git-workflow.md § Merge order`).
+3. Wait on CI in the background (`git-workflow.md § Merge order`).
 4. **Verify** - a distinct, blocking step, never folded into the
    decision or glossed past: run the action the diff content calls for
    and show the results. Code → run it live; rules or process prose →

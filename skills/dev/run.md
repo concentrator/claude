@@ -234,9 +234,10 @@ Existing gates only, before the MR/PR is merged or asked of the user:
    `pre-R<NNN>-B<NNN>` (one `git log -1` on each): equal refs mean no
    member branch merged in, so the work took another route, with
    every gate on that route unrun. Check it before the gates below.
-4. CI on the MR/PR is green, matched to the head sha (declared
-   state-check command) - never a local re-run of gates the seats ran
-   and CI re-ran. Plan boxes, diff confinement, and the committer
+4. CI on the MR/PR is green - the pass the declared CI wait's exit
+   carries (`git-workflow.md § Merge order`) - matched to the head sha
+   (declared state-check command), never a local re-run of gates the
+   seats ran and CI re-ran. Plan boxes, diff confinement, and the committer
    signature complete the check.
 5. A batch closing an R does **not** carry the closure and archival
    marks - they ride a close-out plan MR/PR (`plan/r<NNN>-close`)

@@ -51,7 +51,7 @@ mode: normal
   `declarations.md § Declared commands`, `toolchain.md`, `start.md`,
   `migrate.md`, `seat-permissions.md` and the permission template,
   `preflight-permissions.sh` with its test, then `.claude/CLAUDE.md`.
-- [ ] Waiting on CI runs the declared CI wait once, in the background, and
+- [x] Waiting on CI runs the declared CI wait once, in the background, and
   its exit notification carries pass or fail; no rule polls the state
   check, which stays the read of merged state and head sha. Approach:
   `git-workflow.md § Merge order`, `finish.md § 3` step 3, `run.md
