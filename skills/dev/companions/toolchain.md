@@ -15,11 +15,13 @@ state-check command only - one structured call, never text-parsed host
 output (`view | grep` pipelines). Canonical forms:
 
 ```
-gh pr view <n> --json state,mergedAt,statusCheckRollup
+gh pr view <n> --json state,mergedAt,statusCheckRollup,headRefOid
 # GitLab: glab mr view <iid> --output json
 ```
 
-Both forms return state, merged-at, and checks/pipeline. The declared
+Both forms return state, merged-at, and checks/pipeline; the GitHub
+form's `headRefOid` is the head sha `run.md § Boundary verification` 4
+matches CI to, the rollup's entries carrying no commit sha. The declared
 command is the canonical form above - flag shapes like `--web` are
 outside it. The view allows ship in `auto-permissions.template.json`.
 

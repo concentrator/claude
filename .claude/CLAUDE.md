@@ -6,7 +6,7 @@
 - Test (full): fast, then `bash scripts/test/run-all.sh`
 - VCS host: GitHub, CLI `gh` (MR/PR resolves to PR)
 - Change request: `gh pr create`
-- State-check: `gh pr view <n> --json state,mergedAt,statusCheckRollup`
+- State-check: `gh pr view <n> --json state,mergedAt,statusCheckRollup,headRefOid`
 - CI wait: `gh pr checks <n> --watch`
 - Merge: `gh pr merge <n> --merge`
 

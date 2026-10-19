@@ -185,6 +185,13 @@
   result. Result: `finish.md § 3`, `run.md § Boundary verification` 4
   and the runbook take CI's result from one background wait, and no
   rule polls the state check.
+- Review 1: `gh pr view 600 --json
+  state,mergedAt,statusCheckRollup,headRefOid` returns the head sha the
+  form without `headRefOid` lacks, read only. `toolchain.md § State
+  check` names `headRefOid` as the sha Boundary verification 4 matches;
+  the GitLab form is unchanged, its head-sha field unprobed, no GitLab
+  remote being at hand. Result: the GitHub state check returns state,
+  merged-at, checks and the head sha in one call.
 
 ## Answers
 
@@ -201,7 +208,7 @@
 
 ## Review
 
-- [ ] Item 9: the GitHub state check returns no head sha, so
+- [x] Item 9: the GitHub state check returns no head sha, so
   `run.md § Boundary verification` 4 cannot match CI to the head sha;
   add `headRefOid` to the state-check form in `toolchain.md § State
   check` and the `.claude/CLAUDE.md` declaration (Important) -
