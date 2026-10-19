@@ -15,4 +15,17 @@
 
 ## Implementer
 
+## Answers
+
+- Item 1: under `Supervisor: human` the user answers a permission prompt
+  and the pre-flight reports a gap without failing; `Supervisor: AI`
+  keeps the halt.
+- Item 3: the soft_deny entries carry the action-level always-ask list
+  of `declarations.md § Supervisor bounds`.
+- Item 3: the template allows the runner's merge only within the
+  declared bounds, CI green on the head sha, against the default "Merge
+  Without Review" rule.
+- Item 4: the user also sets `permissions.disableBypassPermissionsMode:
+  "disable"`; the pre-flight keeps its own never-list check.
+
 ## Review
