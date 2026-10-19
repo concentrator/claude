@@ -38,3 +38,12 @@
   `run.md § Resolve` checks and names when missing.
 
 ## Review
+- [ ] Item 3: no step writes the `approved: yes` mark item 3 admits by;
+  `write-plan.md` step 7, where the user confirms the plan, is its
+  natural writer and item 3 does not name it (Important) -
+  `skills/dev/write-plan.md` step 7
+  Evidence: observed item 2's implementer report
+- [ ] Item 2: `write-plan.md` step 6 commits the cold read's header edit
+  "on the plan branch", which a small change does not have (Suggestion) -
+  `skills/dev/write-plan.md:49`
+  Evidence: observed `grep -n "plan branch" skills/dev/write-plan.md`
