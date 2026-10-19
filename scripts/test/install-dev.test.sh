@@ -29,10 +29,9 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -f "$P/.claude/hooks/secret-patterns.sh" ]       && pass "secret patterns copied" || die "no secret patterns"
 [ -f "$P/.claude/hooks/dev-hook-once.sh" ]         && pass "run-once helper copied" || die "no run-once helper"
 [ -x "$P/.claude/hooks/dev-branch-state.sh" ]      && pass "state hook copied + exec" || die "no state hook"
-[ -x "$P/.claude/hooks/dev-precompact-state.sh" ]  && pass "session-state writer copied + exec" || die "no session-state writer"
-[ -x "$P/.claude/hooks/dev-context-fill.sh" ]      && pass "context-fill helper copied + exec" || die "no context-fill helper"
-[ -x "$P/.claude/hooks/dev-handoff-nudge.sh" ]     && pass "hand-off nudge copied + exec" || die "no hand-off nudge"
 [ -x "$P/.claude/hooks/dev-session-brief.sh" ]     && pass "session brief copied + exec" || die "no session brief"
+[ "$(ls "$P/.claude/hooks" | tr '\n' ' ')" = "dev-branch-guard.sh dev-branch-state.sh dev-hook-once.sh dev-secrets-guard.sh dev-session-brief.sh secret-patterns.sh " ] \
+  && pass "no hand-off nudge, session-state writer or context-fill helper shipped" || die "hooks/ holds: $(ls "$P/.claude/hooks" | tr '\n' ' ')"
 [ -x "$P/.claude/scripts/ci/check-code-size.sh" ]  && pass "code-size check copied + exec" || die "no code-size check"
 [ -x "$P/.claude/scripts/ci/check-no-em-dash.sh" ] && pass "no-em-dash check copied + exec" || die "no no-em-dash check"
 [ -f "$P/.claude/scripts/ci/code-size-allow.txt" ] && pass "code-size allowlist template" || die "no code-size allowlist"
@@ -130,8 +129,8 @@ jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(test("dev-secrets-guard"))'
   && pass "secrets-guard registered" || die "secrets-guard not registered"
 jq -e '[.hooks.UserPromptSubmit[]?.hooks[]?.command] | any(test("dev-branch-state"))' "$P/.claude/settings.json" >/dev/null \
   && pass "branch-state registered on UserPromptSubmit" || die "branch-state not registered"
-jq -e '[.hooks.Stop[]?.hooks[]?.command] | any(test("dev-handoff-nudge"))' "$P/.claude/settings.json" >/dev/null \
-  && pass "handoff-nudge registered on Stop" || die "handoff-nudge not registered"
+jq -e '.hooks | has("Stop") or has("PreCompact") | not' "$P/.claude/settings.json" >/dev/null \
+  && pass "no Stop or PreCompact hook registered" || die "a Stop or PreCompact hook registered"
 jq -e '[.hooks.SessionStart[]? | select(.matcher == "compact|resume") | .hooks[]?.command // "" | select(test("dev-session-brief"))] | length > 0' "$P/.claude/settings.json" >/dev/null \
   && pass "session-brief registered on SessionStart (compact|resume)" || die "session-brief not registered"
 jq -e '.model == "x"' "$P/.claude/settings.json" >/dev/null && pass "pre-existing setting survives" || die "clobbered model"
@@ -145,8 +144,6 @@ for h in dev-branch-guard dev-secrets-guard; do
 done
 n=$(jq --arg c "$PFX/dev-branch-state.sh" '[.hooks.UserPromptSubmit[]?.hooks[]?.command | select(. == $c)] | length' "$P/.claude/settings.json")
 [ "$n" = "1" ] && pass "dev-branch-state registered by \$CLAUDE_PROJECT_DIR" || die "dev-branch-state: $n \$CLAUDE_PROJECT_DIR entries"
-n=$(jq --arg c "$PFX/dev-handoff-nudge.sh" '[.hooks.Stop[]?.hooks[]?.command | select(. == $c)] | length' "$P/.claude/settings.json")
-[ "$n" = "1" ] && pass "dev-handoff-nudge registered by \$CLAUDE_PROJECT_DIR" || die "dev-handoff-nudge: $n \$CLAUDE_PROJECT_DIR entries"
 n=$(jq --arg c "$PFX/dev-session-brief.sh" '[.hooks.SessionStart[]?.hooks[]?.command | select(. == $c)] | length' "$P/.claude/settings.json")
 [ "$n" = "1" ] && pass "dev-session-brief registered by \$CLAUDE_PROJECT_DIR" || die "dev-session-brief: $n \$CLAUDE_PROJECT_DIR entries"
 
@@ -190,8 +187,6 @@ n=$(jq '[.hooks.PreToolUse[]? | select(any(.hooks[]?.command; test("dev-branch-g
 [ "$n" = "2" ] && pass "idempotent (2 matcher blocks, no dupes)" || die "not idempotent: $n branch-guard blocks"
 n=$(jq '[.hooks.UserPromptSubmit[]? | select(any(.hooks[]?.command; test("dev-branch-state")))] | length' "$P/.claude/settings.json")
 [ "$n" = "1" ] && pass "branch-state idempotent (1 block)" || die "not idempotent: $n branch-state blocks"
-n=$(jq '[.hooks.Stop[]? | select(any(.hooks[]?.command; test("dev-handoff-nudge")))] | length' "$P/.claude/settings.json")
-[ "$n" = "1" ] && pass "handoff-nudge idempotent (1 block)" || die "not idempotent: $n handoff-nudge blocks"
 n=$(jq '[.hooks.SessionStart[]? | select(any(.hooks[]?.command; test("dev-session-brief")))] | length' "$P/.claude/settings.json")
 [ "$n" = "1" ] && pass "session-brief idempotent (1 block)" || die "not idempotent: $n session-brief blocks"
 [ "$(grep -c '^@writing.md$' "$P/.claude/CLAUDE.md")" = "1" ] && pass "writing import idempotent" || die "writing import duplicated"

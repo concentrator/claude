@@ -12,7 +12,15 @@
 - Item 2 (drop): The Stop hook nudges a hand-off note, the PreCompact hook
   saves the tree to a session file, and the installer ships both with the
   context-fill helper.
-  Source:
+  Source: `settings.json` `.hooks` holds no `Stop` or `PreCompact` key;
+   `hooks/` holds no `dev-handoff-nudge.sh`, `dev-precompact-state.sh` or
+   `dev-context-fill.sh`; `scripts/install-dev.sh` lines 149-152 register
+   only the PreToolUse, UserPromptSubmit and SessionStart hooks;
+   `hooks/dev-branch-state.sh` prints branch and tree counts only
+  Test: `scripts/test/install-dev.test.sh` ("no Stop or PreCompact hook
+   registered", "no hand-off nudge, session-state writer or context-fill
+   helper shipped"); `scripts/test/dev-branch-state.test.sh` ("DEV repo:
+   no session-state or context-fill segment")
 - Item 3 (drop): `/dev handoff` writes the session's hand-off note, and
   `--minimal` ships `handoff.md`.
   Source:
@@ -49,5 +57,11 @@
   until item 2 deletes it with its test; the brief no longer injects the
   session file's hand-off block, as it reads no session file, and
   `LAYOUT.md` names it a live tree re-brief.
+- Item 2: `scripts/test/dev-session-brief.test.sh` also stops unsetting
+  `DEV_STATE_DIR`, the deleted session-state writer's variable; the
+  branch-state hook drains its stdin unread, as it did before it passed
+  the prompt JSON to the two deleted helpers. Result: no tracked file
+  outside `README.md`, `.gitignore` and `skills/dev/handoff.md` (the doc
+  writer's and items 3 and 5) names the three deleted scripts.
 
 ## Review

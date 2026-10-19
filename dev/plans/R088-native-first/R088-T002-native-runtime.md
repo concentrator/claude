@@ -11,7 +11,7 @@ mode: normal
   Approach: move the tree read of `hooks/dev-precompact-state.sh` into
   `hooks/dev-session-brief.sh`, then its test, green, with a compact start
   in a repo whose branch carries an open plan item.
-- [ ] No hook asks for a hand-off or writes session state: the Stop nudge, the
+- [x] No hook asks for a hand-off or writes session state: the Stop nudge, the
   PreCompact writer and the context-fill helper are gone, and the
   branch-state line drops its session-state and fill segments. Approach: the
   user first drops the `Stop` and `PreCompact` entries from `settings.json`;

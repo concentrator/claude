@@ -8,8 +8,7 @@
 #   --force                        bypass the pre-write project guard
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
-# branch-guard + secrets-guard + branch-state + hand-off-nudge +
-# session-brief hooks (registered in the target settings.json), the shipped
+# branch-guard + secrets-guard + branch-state + session-brief hooks (registered in the target settings.json), the shipped
 # Tier-1 checks with their self-tests, the
 # writing conventions (@imported by CLAUDE.md), and - on a project
 # install - the maintenance hygiene section when the target doc lacks it.
@@ -131,22 +130,6 @@ register_state_hook() {   # $1 = hook script basename; UserPromptSubmit, no matc
   fi
 }
 
-register_stop_hook() {   # $1 = hook script basename; Stop, no matcher
-  cp "$SRC/hooks/$1" "$target/hooks/$1"
-  chmod +x "$target/hooks/$1"
-  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
-  if jq --arg cmd "$cmd" --arg old "$old" '
-    .hooks.Stop = [(.hooks.Stop // [])[]
-      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
-    | if ([.hooks.Stop[].hooks[].command] | any(. == $cmd)) then .
-      else .hooks.Stop += [{hooks: [{type: "command", command: $cmd}]}] end
-  ' "$settings" > "$tmp"; then
-    mv "$tmp" "$settings"
-  else
-    rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
-  fi
-}
-
 register_brief_hook() {   # $1 = hook script basename; SessionStart, compact/resume starts
   cp "$SRC/hooks/$1" "$target/hooks/$1"
   chmod +x "$target/hooks/$1"
@@ -166,20 +149,10 @@ register_brief_hook() {   # $1 = hook script basename; SessionStart, compact/res
 register_hook dev-branch-guard.sh
 register_hook dev-secrets-guard.sh
 register_state_hook dev-branch-state.sh
-register_stop_hook dev-handoff-nudge.sh
 register_brief_hook dev-session-brief.sh
 # The secrets guard's predicate lives beside it (sourced, not registered).
 cp "$SRC/hooks/secret-patterns.sh" "$target/hooks/secret-patterns.sh"
 cp "$SRC/hooks/dev-hook-once.sh" "$target/hooks/dev-hook-once.sh"
-# The session-state writer is copied, not registered: PreCompact runs it
-# from the user-global settings only, but dev-branch-state.sh asks it for
-# the session file's path on every prompt (hooks/dev-precompact-state.sh).
-cp "$SRC/hooks/dev-precompact-state.sh" "$target/hooks/dev-precompact-state.sh"
-chmod +x "$target/hooks/dev-precompact-state.sh"
-# The context-fill helper is likewise copied, not registered: the
-# branch-state and handoff-nudge hooks call it for the fill percent.
-cp "$SRC/hooks/dev-context-fill.sh" "$target/hooks/dev-context-fill.sh"
-chmod +x "$target/hooks/dev-context-fill.sh"
 
 # 4. shipped Tier-1 checks - the ones with no dependency on this repo's
 #    own layout; adopters wire them into their CI (the batch-tags gate

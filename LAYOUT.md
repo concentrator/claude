@@ -25,10 +25,7 @@ repos are versioned there, not mapped.
 ├── hooks/                        # Claude Code hooks, wired in settings.json
 │   ├── dev-branch-guard.sh       # PreToolUse: no trunk mutations, no lost work
 │   ├── dev-branch-state.sh       # UserPromptSubmit: branch/tree state
-│   ├── dev-context-fill.sh       # context-fill percent helper
-│   ├── dev-handoff-nudge.sh      # Stop: hand-off nudge
 │   ├── dev-hook-once.sh          # a project copy skips what the global settings run, sourced
-│   ├── dev-precompact-state.sh   # PreCompact: session state
 │   ├── dev-session-brief.sh      # SessionStart: live tree re-brief
 │   ├── dev-secrets-guard.sh      # PreToolUse: secrets guard
 │   └── secret-patterns.sh        # the secret predicate, sourced

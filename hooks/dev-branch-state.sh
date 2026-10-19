@@ -4,15 +4,10 @@
 # session knows where a write or commit would land without asking (the
 # __git_ps1 idea: ambient display, not a remembered check). Display only,
 # never a decision. Silent outside a git repo; a failed status read
-# degrades to "clean" (fail open). In a repo that uses DEV - its CLAUDE.md
-# declares `- Plans:` or `- Session:`, or it holds dev/plans/ - the line
-# ends with the session's state file, whether or not it exists yet, so a
-# session knows where hand-off notes go and where a compaction's tree
-# block landed. Near the compaction point it also carries the context
-# fill and the hand-off instruction (dev-context-fill.sh owns the number).
+# degrades to "clean" (fail open).
 set -uo pipefail
 
-input=$(cat 2>/dev/null || true)   # the prompt JSON: only session_id is used
+cat >/dev/null 2>&1 || true   # the prompt JSON on stdin is not used
 . "$(dirname "$0")/dev-hook-once.sh" 2>/dev/null && global_hook_runs "$0" UserPromptSubmit "" && exit 0
 
 branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || exit 0
@@ -27,16 +22,5 @@ done < <(git status --porcelain 2>/dev/null)
 state=
 [ "$changed" -gt 0 ] && state="$changed changed"
 [ "$untracked" -gt 0 ] && state="${state:+$state, }$untracked untracked"
-# The root the state helper resolves the session file under.
-root=${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null)}
-session= warn=
-if [ -n "$root" ] && { [ -d "$root/dev/plans" ] \
-  || grep -qE '^- (Plans|Session):' "$root/CLAUDE.md" "$root/.claude/CLAUDE.md" 2>/dev/null; }; then
-  session=$(printf '%s' "$input" | bash "$(dirname "$0")/dev-precompact-state.sh" --path 2>/dev/null)
-  # The helper prints only at or above the threshold, and the instruction
-  # needs a destination, so the warning appears only with a session path.
-  fill=$(printf '%s' "$input" | bash "$(dirname "$0")/dev-context-fill.sh" 2>/dev/null)
-  [ -n "$fill" ] && [ -n "$session" ] && warn=" | context ${fill}% - append the hand-off block to $session"
-fi
-printf 'branch-state: %s | %s%s%s\n' "$branch" "${state:-clean}" "${session:+ | session-state: $session}" "$warn"
+printf 'branch-state: %s | %s\n' "$branch" "${state:-clean}"
 exit 0
