@@ -68,3 +68,6 @@
   `skills/writing-skills/examples/` node (Suggestion) - `LAYOUT.md:3`
   Evidence: observed `git ls-files skills/writing-skills/examples` lists
   `CLAUDE_MD_TESTING.md`
+- [ ] Close review: `scripts/ci/check-doc-sync.sh` is mode 644 where most
+  `check-*.sh` are 755; set +x (Suggestion) - `scripts/ci/check-doc-sync.sh`
+  Evidence: observed the close review's `git ls-files -s scripts/ci`
