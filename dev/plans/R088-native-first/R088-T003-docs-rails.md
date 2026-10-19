@@ -17,7 +17,7 @@ mode: normal
   `DESIGN.md § Self-enforcement` names it. Approach: parse the table, read
   `git diff --name-status`, prove it on a scratch branch; no self-test, a
   doc task ships none (`skills/dev/plan.md § Proportionality`).
-- [ ] The docs describe the present: `DESIGN.md`, `REQUIREMENTS.md`,
+- [x] The docs describe the present: `DESIGN.md`, `REQUIREMENTS.md`,
   `LAYOUT.md`, `MAINTENANCE.md` and `SKILL.md` state no change history, and
   each lists every tracked path its row matches. Approach: `DESIGN.md
   § Decisions` says what admits a plan, not which stamps went; the rest per

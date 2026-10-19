@@ -40,6 +40,18 @@
   passed with them, a rename across two rows answered to both, a plain
   edit passed, and a repository with no default branch skipped. Result:
   the branch is left for the close's cleanup.
+- Item 3: of the five docs only `DESIGN.md § Decisions` stated change
+  history; `REQUIREMENTS.md` and `MAINTENANCE.md` change nowhere, and
+  `LAYOUT.md` and `skills/dev/SKILL.md` only where a row asked. Result:
+  `§ Decisions` gives the merge and the cold read as a plan's admission,
+  with its reason.
+- Item 3: `DESIGN.md § Self-enforcement` names each check in a nested
+  list, `check-plan-text.sh` among them, which the prose had described
+  by none of its breaks; `skills/dev/SKILL.md` gains `§ Process files`
+  for the seven `skills/dev/*.md` its tables route nowhere; `LAYOUT.md`
+  maps `SKILL.md` under `systematic-debugging/` and `writing-skills/`.
+  Result: every row's file lists each path `git ls-files` gives for its
+  glob, `SKILL.md` within its 400-word cap.
 
 ## Answers
 
