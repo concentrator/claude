@@ -17,12 +17,12 @@ mode: normal
   requirements, task and plan. Approach: `plan.md § Planning rounds` and
   `§ Where plans live in git`, `brainstorm.md` step 2, `write-plan.md`
   steps 2 and 7, then the `plan` prefix of `git-workflow.md § Trunk`.
-- [ ] `/dev run` admits a small change's plan unmerged on the branch
-  carrying it, once the user approved it there, and the code joins that
-  branch, so one MR/PR ships requirements, plan and code. Approach:
-  `run.md § Resolve` and `§ Pre-flight`, `branch-plan.md`'s opening and
-  `§ Agentic execution`, `DESIGN.md § Planning model` and `§ Decisions`;
-  prove the Tier-1 gate passes such a branch on a scratch branch.
+- [ ] `/dev run` admits a small change's plan unmerged by `approved: yes` in
+  its header, committed on its branch (`branch-plan.md § Header`), which
+  `run.md § Resolve` checks and names when missing; the code joins that
+  branch: one MR/PR ships requirements, plan and code. Approach: those two,
+  `run.md § Pre-flight`, `branch-plan.md`'s opening and `§ Agentic execution`,
+  `DESIGN.md § Planning model`, `§ Decisions`; Tier-1 passes a scratch branch.
 - [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
@@ -34,7 +34,8 @@ mode: normal
   design, and `/dev plan R<NNN>` writes its task list with a branch plan
   per task.
 - Item 3 (source): A small change, an initiative of one task, ships its
-  requirements, plan and code in one MR/PR.
+  requirements, plan and code in one MR/PR, its plan admitted unmerged by
+  `approved: yes` in its header.
 
 ## Proven
 

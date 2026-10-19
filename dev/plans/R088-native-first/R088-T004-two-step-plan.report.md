@@ -6,7 +6,8 @@
   per task.
   Source:
 - Item 3 (source): A small change, an initiative of one task, ships its
-  requirements, plan and code in one MR/PR.
+  requirements, plan and code in one MR/PR, its plan admitted unmerged by
+  `approved: yes` in its header.
   Source:
 
 ## Implementer
