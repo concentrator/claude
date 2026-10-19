@@ -37,3 +37,4 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - The README no longer says what the guards block.
 - The full test tier runs locally right before CI runs it.
 - No allow rule covers the `sleep` the CI-wait retry runs.
+- `run.md § Batch close` 2 queues judgment calls without naming where.
