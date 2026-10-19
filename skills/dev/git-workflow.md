@@ -66,8 +66,10 @@ commands`).
   notification carries: exit zero when every check passes, non-zero
   when one fails. Nothing polls, and a merge called before the pass
   fails (GitLab answers 405). A wait that exits printing `no checks
-  reported` is neither pass nor fail: it runs again once the checks
-  register, so "once" means once per real result. The declared state
+  reported` is neither pass nor fail, the checks not yet registered: it
+  runs again in the background after a short delay, `sleep 30 && <CI
+  wait>`, at most 3 times, and a third re-run still printing it goes to
+  the user. The declared state
   check (`companions/toolchain.md § State check`) stays the read of
   merged state: an MR/PR it already reports merged is reported as
   merged, never merged again.

@@ -192,6 +192,14 @@
   the GitLab form is unchanged, its head-sha field unprobed, no GitLab
   remote being at hand. Result: the GitHub state check returns state,
   merged-at, checks and the head sha in one call.
+- Review 2: the re-run lands in `git-workflow.md § Merge order` alone,
+  which `finish.md § 3`, `run.md § Boundary verification` 4 and the
+  runbook cite for the wait. `sleep` is reached by no rule of
+  `seat-permissions.md § Bash prefix set` or
+  `auto-permissions.template.json`; no rule is added, a template entry
+  being one the pre-flight then requires of every project. Result: a
+  `no checks reported` exit re-runs the wait after 30 seconds, at most
+  3 times, then goes to the user.
 
 ## Answers
 
@@ -217,7 +225,7 @@
   state,mergedAt,statusCheckRollup` returns only `mergedAt`, `state`,
   `statusCheckRollup`, no rollup entry holding a commit sha (implementer
   report, item 9)
-- [ ] Item 9: "once the checks register" names no mechanism; after a
+- [x] Item 9: "once the checks register" names no mechanism; after a
   `no checks reported` exit the CI wait re-runs in the background after
   a short delay (`sleep 30 && <CI wait>`), at most 3 times, and still no
   checks escalates to the user (Important) -
