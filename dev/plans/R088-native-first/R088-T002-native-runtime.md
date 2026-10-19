@@ -5,7 +5,7 @@ architecture-changing: true
 mode: normal
 ---
 
-- [ ] On a compacted or resumed start the SessionStart hook injects the tree
+- [x] On a compacted or resumed start the SessionStart hook injects the tree
   state read at that moment - repo, branch, status, recent commits and the
   first open item of each plan the branch touched - from no session file.
   Approach: move the tree read of `hooks/dev-precompact-state.sh` into

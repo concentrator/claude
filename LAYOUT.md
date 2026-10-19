@@ -29,7 +29,7 @@ repos are versioned there, not mapped.
 │   ├── dev-handoff-nudge.sh      # Stop: hand-off nudge
 │   ├── dev-hook-once.sh          # a project copy skips what the global settings run, sourced
 │   ├── dev-precompact-state.sh   # PreCompact: session state
-│   ├── dev-session-brief.sh      # SessionStart: hand-off re-brief
+│   ├── dev-session-brief.sh      # SessionStart: live tree re-brief
 │   ├── dev-secrets-guard.sh      # PreToolUse: secrets guard
 │   └── secret-patterns.sh        # the secret predicate, sourced
 ├── scripts/                      # installer, checks, tests, host tooling

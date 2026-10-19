@@ -4,7 +4,11 @@
 - Item 1 (source): On a compacted or resumed start, the SessionStart hook
   injects the branch, its working-tree state, its recent commits and the
   first open item of each plan the branch touched.
-  Source:
+  Source: `hooks/dev-session-brief.sh` lines 28-47 read branch, status,
+   commits and the plans' first open items live; lines 49-59 inject them
+   as the SessionStart `additionalContext`; `settings.json` registers it
+   under the `compact|resume` matcher
+  Test: `scripts/test/dev-session-brief.test.sh`
 - Item 2 (drop): The Stop hook nudges a hand-off note, the PreCompact hook
   saves the tree to a session file, and the installer ships both with the
   context-fill helper.
@@ -39,5 +43,11 @@
   Source:
 
 ## Implementer
+### Divergences
+- Item 1: the tree read is copied into `dev-session-brief.sh`, not cut
+  from `dev-precompact-state.sh`, which keeps writing its session file
+  until item 2 deletes it with its test; the brief no longer injects the
+  session file's hand-off block, as it reads no session file, and
+  `LAYOUT.md` names it a live tree re-brief.
 
 ## Review
