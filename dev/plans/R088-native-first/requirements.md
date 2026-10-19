@@ -23,8 +23,8 @@ carries its intent, or the rule aligns with the default.
 5. A review runs at a cost the project controls, and a change is reviewed once.
 6. Planning is two steps: requirements and design, then the task list
    with a plan per task; a small change ships in one MR/PR.
-7. A table names the doc files a change to each path must update, nothing
-   it names is missed, and docs describe the present.
+7. A table names the docs that adding, removing or renaming each path must
+   update, nothing it names is missed, and docs describe the present.
 8. Native permission modes, settings and hooks settle permissions.
 9. The toolset installs by copying files onto a machine, never
    overwriting the user's own files or settings.

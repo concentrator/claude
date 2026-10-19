@@ -12,4 +12,14 @@
 
 ## Implementer
 
+## Answers
+
+- Items 1 and 2: a row fires only when a matching path is added, removed
+  or renamed; a plain edit stays with the Tier-2 Doc sync concern.
+  Requirements outcome 7 reads so.
+- Item 3: a one-time rewrite; no check for history wording.
+- Item 2: no self-test, the task staying `[doc]`.
+- Item 2: the check is this repository's only; `install-dev.sh` does not
+  ship it, what an install ships being R088-T006's.
+
 ## Review
