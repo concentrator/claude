@@ -35,8 +35,12 @@ links, dates, PR refs or measured values
 (`scripts/ci/check-plan-text.sh`). Outcomes are the initiative's
 acceptance criteria, numbered, read for meaning, not wording.
 
-The shape round emits a draft `tasks.md` alongside this file, same
-gate (`plan.md § Planning rounds`).
+`## Design` names the standard the initiative follows and the
+components it changes: the planned change, never code. `DESIGN.md`
+describes only the present architecture. The whole file, design
+included, stays within 40 lines (`scripts/ci/check-plan-text.sh`). The
+shape round writes this file alone; the task list waits for the detail
+round (`plan.md § Planning rounds`).
 
 ```
 ---
@@ -50,6 +54,8 @@ kind: feat | bug | refactor | doc | test | mnt
 ## Inputs and outputs  - optional
 ## Outcomes            - numbered; what is true when done
 ## Constraints         - optional; only specifics the user supplied
+## Design              - optional; the standard followed, the components
+                         changed
 ```
 
 ## Per-initiative `tasks.md`

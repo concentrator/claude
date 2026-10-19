@@ -31,7 +31,9 @@ text itself.
    `normal` unless the user picks `strict`. The slug names both the plan
    branch and the plan file `<plans>/R<NNN>-<slug>/<task-id>-<slug>.md`,
    so it is settled and the branch created before the dispatch, which
-   names that file.
+   names that file. A small change settled its slug at `brainstorm.md`
+   step 2, and its branch is the task's own, already cut
+   (`plan.md § Where plans live in git`).
 3. **Decompose work**, a strict plan proven first - the planner's
    (`agents/dev-planner.md § Steps` 2 and 3).
 4. **Add header** - the planner's (`agents/dev-planner.md § Steps` 4).
@@ -44,11 +46,15 @@ text itself.
    reports goes to the planner once, whose fix lands in the report's
    `## Planner`; the plan is not read again, and the header then
    records `cold-read: passed`. The session commits that header edit on
-   the plan branch. A plan whose `depends-on` names an unmerged task is
-   read at its start instead.
+   the branch carrying the plan. A plan whose `depends-on` names an
+   unmerged task is read at its start instead.
 7. **Confirm with user**, then deliver the committed plan through
    `finish.md § 3`: its short-lived plan MR/PR (`plan.md § Where plans
-   live in git`) takes the decision any branch takes.
+   live in git`) takes the decision any branch takes. A small change's
+   plan is not delivered alone: it stays committed on the task's
+   branch (`plan.md § Planning rounds`), where the session commits the
+   user's confirmation as `approved: yes` in its header
+   (`branch-plan.md § Header`), the record `/dev run` admits it by.
 
 ## Soft cap
 

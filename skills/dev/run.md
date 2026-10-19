@@ -60,9 +60,12 @@ table below leaves unassigned halts and reports, never improvises.
    task `[ ]` in `tasks.md`, no report), else the next open task whose plan
    is read. An initiative runs its open batch, else its open tasks in
    `tasks.md` order, each a task-scoped run. Scope selects pre-approved work:
-   anything lacking approved requirements or a merged plan, or a strict plan
-   lacking `cold-read: passed` (`branch-plan.md § Header`), is reported NOT
-   READY, never dispatched, the report naming the missing record; a plan whose
+   anything lacking approved requirements or a merged plan (a small
+   change's plan, marked by `approved: yes` in its header, is read on
+   its task's branch, where that committed mark stands in for the
+   merge), or a strict plan lacking `cold-read: passed`
+   (`branch-plan.md § Header`), is reported NOT READY, never
+   dispatched, the report naming the missing record; a plan whose
    `depends-on` is unmerged the same.
 2. **Supervisor** - read `CLAUDE.md § Supervision`: the `Supervisor:`
    line and the bounds, plus `.claude/supervisor.md` where referenced.
@@ -83,11 +86,13 @@ table below leaves unassigned halts and reports, never improvises.
   is admitted, halting to the user when reached and resuming on their commit.
   Every pre-flight check runs before any action; failures are reported together
   in one message, and the run halts with no branch created and no edit made.
-- Default branch, clean tree, fast tier green
-  (`companions/declarations.md § Declared commands`).
+- Default branch (for a small change, its task's branch, which carries
+  its plan), clean tree, fast tier green (`companions/declarations.md
+  § Declared commands`).
 - Batch scope: tag `pre-R<NNN>-B<NNN>` (e.g. `pre-R062-B001`); create
   `batch/R<NNN>-B<NNN>` off default. Task scope: the task's branch off
-  default, prefix from `type:`, no tag.
+  default, prefix from `type:`, no tag; a small change's code joins its
+  existing branch, so one MR/PR ships its requirements, plan and code.
 
 ## Dispatch per item
 

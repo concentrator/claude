@@ -26,7 +26,7 @@ candidates the state offers as its options.
 
 | Target | Action | Read |
 |---|---|---|
-| `R` | Shape a new initiative (requirements + draft tasks, one gate) | `brainstorm.md` |
+| `R` | Shape a new initiative (requirements + design, one gate) | `brainstorm.md` |
 | `R<NNN>` | Detail an open initiative (tasks + branch plans) | `plan.md` |
 | `<task-id>` / `all` | Branch plan(s) for open task(s) | `write-plan.md` |
 | `batch [R<NNN>]` | Compose `R<NNN>-B<NNN>.md` (members, order) for that initiative; no R → ask | `branch-plan.md § Batches` |

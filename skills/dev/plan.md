@@ -35,20 +35,25 @@ foundational `.claude/REQUIREMENTS.md` doesn't already cover.
 
 ## Planning rounds
 
-Two rounds, each emitting several artifact levels at once:
+Two rounds, each approved at one gate:
 
-- **Shape** (`/dev plan R`) - produce the initiative's `requirements.md`
-  **and** a draft task list (`tasks.md`) together, approved at one gate.
-  Deferrable: for a large or uncertain initiative, approve requirements
-  and defer the task list to the detail round.
-- **Detail** (`/dev plan R<NNN>`) - produce the open R's tasks **and**
-  their branch plans together.
+- **Shape** (`/dev plan R`) - produce the initiative's `requirements.md`:
+  its outcomes and its design - the standard it follows and the
+  components it changes (`templates.md § Per-initiative`). No task list.
+- **Detail** (`/dev plan R<NNN>`) - produce the open R's task list
+  (`tasks.md`) **and** a branch plan per task together.
+
+A **small change** is an initiative of one task, which the user picks
+in the shape round (`brainstorm.md` step 2). Both rounds run in that
+one session, each still at its own gate, on the task's branch
+(§ Where plans live in git).
 
 **Approval authorizes planning, not code** (gate: § Approval and
 closure). Approving a plan sends its branch through `finish.md § 3`,
 the one decision every branch takes, and the round stops there:
 shape-approval authorizes the detail round; detail-approval authorizes
-nothing to run.
+nothing to run. A small change's branch takes no decision at either
+gate: it stays open for the code.
 A plan round ends by proposing `/dev run <slug>`, which the user
 invokes explicitly.
 
@@ -133,6 +138,12 @@ artifact write. A single planning act still commits each
 artifact type separately - `requirements.md` apart from the `ROADMAP`
 / `tasks.md` index edits.
 
+A small change (§ Planning rounds) cuts no plan branch: its branch is
+the task's own, `<prefix>/<slug>` from the task's tag
+(`git-workflow.md § Trunk`), cut before the first artifact write. It
+carries the ROADMAP entry, `requirements.md`, `tasks.md` and the
+branch plan.
+
 ## Cross-plan dependencies
 
 A branch plan may declare `depends-on: R008-T001` in its header. `/dev run`
@@ -174,10 +185,13 @@ goes in the closing MR/PR body, never in `requirements.md`.
 The check runs on the branch completing the R's last open task, in its
 mandatory final commit (`branch-plan.md § Closing routine`), judged
 against `tasks.md` re-read from `main` - the closure lands with that
-branch's merge. A closure the final commit could not run - concurrent
-branches racing past the check, or run-dependent (later-verified)
-criteria - keeps the R open and ships later via its own plan MR/PR
-once verified (e.g. a batch checkpoint - `branch-plan.md § Batches`).
+branch's merge. A small change, whose `tasks.md` exists only on its
+own branch (§ Where plans live in git), is judged against that
+branch's, its closure marks riding the same MR/PR. A closure the final
+commit could not run - concurrent branches racing past the check, or
+run-dependent (later-verified) criteria - keeps the R open and ships
+later via its own plan MR/PR once verified (e.g. a batch checkpoint -
+`branch-plan.md § Batches`).
 
 ## Milestone plans
 

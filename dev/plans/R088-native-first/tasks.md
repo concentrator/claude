@@ -15,7 +15,7 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - [x] **R088-T003 [doc]**: docs rails - a table mapping paths to the doc files a
   change must update, a check that enforces it, and present-tense docs.
 
-- [ ] **R088-T004 [mnt]**: two-step planning - requirements and design, then the
+- [x] **R088-T004 [mnt]**: two-step planning - requirements and design, then the
   task list with a plan per task; a small change ships in one MR/PR.
 
 - [ ] **R088-T005 [mnt]**: permissions on native modes, settings and hooks, with
