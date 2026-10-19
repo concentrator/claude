@@ -23,7 +23,7 @@ mode: normal
   branch: one MR/PR ships requirements, plan and code. Approach: those two,
   `run.md § Pre-flight`, `branch-plan.md`'s opening and `§ Agentic execution`,
   `DESIGN.md § Planning model`, `§ Decisions`; Tier-1 passes a scratch branch.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)
