@@ -59,6 +59,8 @@ repos are versioned there, not mapped.
 │   │   │   ├── R<NNN>-T<NNN>-<slug>.report.md # task report
 │   │   │   └── batches/          # R<NNN>-B<NNN> manifests + reports (lazy)
 │   │   └── archive/              # closed initiatives, frozen history
+├── docs/                         # the docs home (.claude/CLAUDE.md § Layout)
+│   └── reports/                  # probe and test reports a doc claim cites
 ├── rules/                        # path-scoped convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
 │   ├── writing-artifacts.md      # DEV-artifact writing rules (**/*.md; shipped)

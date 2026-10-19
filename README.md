@@ -26,6 +26,7 @@ Cloned as `~/.claude`, it applies to every project on the machine.
 | `LAYOUT.md` | The repository's actual tree - the layout file `.claude/CLAUDE.md § Layout` declares; `scripts/ci/check-stray.sh` checks every tracked top-level entry against it |
 | `MAINTENANCE.md` | The Tier-2 AI review's concerns (`§ Tier-2 AI review`), the time-based sanity routine (`§ Routine`), and this repository's backlog (`§ Backlog`) with the prompt of the weekly cloud routine that audits the repository against Claude Code's current defaults and docs and adds each new finding to that backlog ([`§ Weekly audit`](MAINTENANCE.md#weekly-audit)) |
 | `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) |
+| `docs/` | The docs home: `reports/` holds the probe reports a README claim cites |
 
 ## Workflow
 
