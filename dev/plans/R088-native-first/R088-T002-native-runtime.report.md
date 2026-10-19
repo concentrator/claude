@@ -97,7 +97,13 @@
 - Item 12 (source): A weekly cloud routine audits the repository against
   Claude Code's current defaults and docs and adds each new finding to the
   backlog in `MAINTENANCE.md`, which keeps the routine's prompt.
-  Source:
+  Source: `MAINTENANCE.md § Weekly audit` lines 138-167 keep the
+   routine's prompt, which audits the repository against Claude Code's
+   current defaults and docs (steps 1-3), skips a finding `§ Backlog`
+   lists or a `rules/writing-artifacts.md § One home per finding` home
+   settles (step 4), opens no PR when nothing is new (step 5) and
+   otherwise opens a plan PR appending one line per finding (step 6);
+   `§ Backlog` (line 169 on) gives the line's form
 
 ## Implementer
 ### Divergences
@@ -224,6 +230,16 @@
   which the reviewer reads for cross-branch concerns, so it is
   unchanged. Result: a branch's close reviews it, a folded branch's one
   review is the batch close's, and the release reviews nothing.
+- Item 12: both sections sit under `§ This environment`, the audit
+  covering this repository alone, so `install-dev.sh`'s seeded hygiene
+  copy does not carry them; the file's opening paragraph names them.
+  The prompt's branch is `plan/audit-<YYYY-MM-DD>`: the backlog belongs
+  to no R, where `git-workflow.md` names a `plan/` branch by its R id.
+  It names no documentation URL, the docs not being readable from this
+  seat, and cites the dedupe homes by `rules/writing-artifacts.md § One
+  home per finding` rather than listing them. Result: the user's
+  `/schedule` call takes the prompt as written in `MAINTENANCE.md
+  § Weekly audit`.
 ### Findings
 - [x] Item 10: `REQUIREMENTS.md` still has the batch close review the
   full batch diff on the most capable model, where `run.md § Batch

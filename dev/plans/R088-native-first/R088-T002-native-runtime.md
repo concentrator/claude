@@ -68,7 +68,7 @@ mode: normal
   § Batch close` 1, `agents/code-reviewer.md § Steps` 4,
   `verification-policy.md § Close folding`, then `release.md` steps 3
   and 4 and § Rules.
-- [ ] A weekly cloud routine audits this repository against Claude Code's
+- [x] A weekly cloud routine audits this repository against Claude Code's
   current defaults and docs and opens a plan PR adding each new finding as
   a line in a backlog `MAINTENANCE.md` gains, skipping a line already listed
   and a question item 6's homes settle; no PR when nothing is new.
