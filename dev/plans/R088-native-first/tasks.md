@@ -12,7 +12,7 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
   wait that notifies pass or fail, explanations in their existing homes,
   review cost under the project's control, and the weekly audit routine.
 
-- [ ] **R088-T003 [doc]**: docs rails - a table mapping paths to the doc files a
+- [x] **R088-T003 [doc]**: docs rails - a table mapping paths to the doc files a
   change must update, a check that enforces it, and present-tense docs.
 
 - [ ] **R088-T004 [mnt]**: two-step planning - requirements and design, then the

@@ -70,21 +70,34 @@ Two tiers gate every change into `main` (hooks ship to adopters via
 - **Tier-1 - mechanical CI.** `scripts/ci/*.sh`, and the script tests in
   `scripts/test/`, run in `.github/workflows/ci.yml` on
   `pull_request` and locally in the advisory `.githooks/pre-push` via
-  `core.hooksPath`; either failing blocks the push or the merge. One
-  `check-*.sh` each hard-fails a PR on: a cap violation, a stray
-  top-level file, a plan-integrity break, an unarchived closed
-  initiative, a `TODO`/`FIXME`/`XXX` marker in code, an expired
-  reference, a dated accretion marker, an oversized code file or
-  function, an em dash, a tracked secret (the hook's predicate), a
-  stale batch ref (local-only), or an unconfigured context budget or
-  bare `Bash(git:*)` grant. Content checks - caps, code size, em
-  dashes, `TODO` markers, accretion, plan text - judge what a branch adds
+  `core.hooksPath`; either failing blocks the push or the merge. Each
+  `check-*.sh` hard-fails a PR on one kind of break:
+  - `check-caps.sh` - a cap violation;
+  - `check-stray.sh` - a stray top-level file;
+  - `check-plan-integrity.sh` - a plan-integrity break;
+  - `check-plan-text.sh` - a changed plan file breaking its text rules
+    (`skills/dev/templates.md`) or out of step with its task report;
+  - `check-archival.sh` - an unarchived closed initiative;
+  - `check-todos.sh` - a `TODO`/`FIXME`/`XXX` marker in code;
+  - `check-references.sh` - an expired reference;
+  - `check-accretion.sh` - a dated accretion marker;
+  - `check-code-size.sh` - an oversized code file or function;
+  - `check-no-em-dash.sh` - an em dash;
+  - `check-secrets.sh` - a tracked secret (the hook's predicate);
+  - `check-batch-tags.sh` - a stale batch ref (local-only);
+  - `check-settings.sh` - an unconfigured context budget or bare
+    `Bash(git:*)` grant;
+  - `check-doc-sync.sh` - a path added, removed or renamed without the
+    docs its `MAINTENANCE.md § Doc-sync pairs` row names.
+
+  Content checks - caps, code size, em dashes, `TODO` markers,
+  accretion, plan text, doc sync - judge what a branch adds or changes
   over its merge-base with the default branch
   (`scripts/ci/branch-diff.sh`). Tree checks - stray, plan integrity,
   archival, references, batch tags, settings, secrets - judge the whole
   tree, since a branch breaks those from outside the failing file and
   a tracked credential is live at any age. With no base, content
-  checks judge the whole tree and plan-text skips. `main` is
+  checks judge the whole tree and plan-text and doc-sync skip. `main` is
   protected: a merge needs a PR with `tier1` green, `enforce_admins`
   on.
 - **Tier-2 - AI review.** `MAINTENANCE.md § Tier-2 AI review` applies its
@@ -119,7 +132,7 @@ session length; the gates judge changes, not sessions.
 Architecture Decision Records, when needed, live in `adr/` (lazy,
 per `skills/dev/layout.md`).
 
-- The `agentic:`/`supervised:` plan stamps went with the second
-  runner: each certified readiness for a flow with no one to ask, and
-  in one flow whose seats can ask, a merged plan (plus the cold read
-  for a strict one) is the only admission a plan needs.
+- A plan's merge, and for a strict plan its cold read, admit it to a
+  run (§ Planning model): a seat asks its question mid-run
+  (`skills/dev/run.md § Question resolution`), so nothing certifies
+  ahead of the run that a plan leaves none open.

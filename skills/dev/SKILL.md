@@ -36,3 +36,15 @@ candidates the state offers as its options.
 | (bare) | Ask | - |
 
 Round-gate rules: `plan.md § Planning rounds`.
+
+## Process files
+
+Read where a mode file cites them:
+
+| File | Holds |
+|---|---|
+| `feat.md`, `fix.md`, `refactor.md` | The implementer's loop per plan `type:` |
+| `git-workflow.md` | Branches, commits, MR/PRs, merges, releases |
+| `layout.md` | Project layout and the layout file |
+| `templates.md` | Planning templates |
+| `changelog.md` | CHANGELOG style |

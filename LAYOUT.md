@@ -76,9 +76,12 @@ repos are versioned there, not mapped.
     │   ├── *.md                  # modes and process rules, routed by SKILL.md
     │   └── companions/           # declarations, docs framework, verification policy, runbook
     ├── systematic-debugging/     # bundled dependency skills (installer ships these)
+    │   └── SKILL.md              #   the skill, its technique files beside it
     ├── dispatching-parallel-agents/SKILL.md    # bundled
     ├── skill-creator/SKILL.md    # personal (skill authoring)
     ├── writing-skills/           # personal
+    │   ├── SKILL.md              #   the skill, its references beside it
+    │   └── examples/             #   worked examples its references cite
     └── worker-host/              # GCP worker host runbook, this repository's own
         ├── SKILL.md              #   the four scripts and where each runs
         └── companions/           #   provisioning order, pitfalls
