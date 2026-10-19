@@ -237,7 +237,7 @@ and a definition carries `tools:` and no permission key.
 | `Bash(git read-tree:*)` | `run.md § Question resolution`'s halt revert |
 | `Bash(git check-ignore:*)` | `companions/untracked-claude.md § Detection`, which `finish.md § 1`'s bookkeeping line reaches |
 | `Bash(git grep:*)` | `companions/verification-policy.md § Verification modality`'s negative-search rule, the instrument the docs verifier is sent to through `companions/documentation.md § Verification gate` (`agents/dev-docs-verifier.md`) |
-| `Bash(mkdir:*)`, `Bash(date:*)`, `Bash(printf:*)` | `run.md § Ledger`, the runner's own bookkeeping: `mkdir -p` at § Resolve, the timestamp read from `date -u` at write time, the append through `printf '%s\n' ... >>`; and the stamp `handoff.md § Writing the note` spells |
+| `Bash(mkdir:*)`, `Bash(date:*)`, `Bash(printf:*)` | `run.md § Ledger`, the runner's own bookkeeping: `mkdir -p` at § Resolve, the timestamp read from `date -u` at write time, the append through `printf '%s\n' ... >>` |
 | one `Bash(git push -u origin <prefix>/*)` per prefix, the strings' one home being `toolchain.md § Permission carve-out` 1 | `finish.md § 3` step 2's `git push -u origin <branch>` at `run.md § Checkpoint`'s accept; declared under carve-out pattern 1 alone |
 | `Bash(gh pr view:*)`, `Bash(glab mr view:*)` | `CLAUDE.md § Agent toolchain`'s State-check line |
 | the project's declared commands | `CLAUDE.md § Agent toolchain` |

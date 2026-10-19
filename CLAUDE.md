@@ -65,3 +65,11 @@ Claude-Session and kin).
   suggestion, no action until instructed.
 - "The rule says X, but Y is fine here because…" is rationalization:
   name the conflict and ask. Written rules only.
+
+## Compact instructions
+
+When summarizing the conversation for compaction, keep:
+
+- the task and the plan item in progress, by durable id;
+- the open MR/PRs;
+- each user decision not yet stored in a file.

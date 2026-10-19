@@ -62,7 +62,7 @@ fi
 BUNDLED="systematic-debugging dispatching-parallel-agents"
 # The template is the permission pre-flight's input, read at run time
 # (scripts/preflight-permissions.sh), not documentation.
-MINIMAL_DEV="finish.md handoff.md git-workflow.md companions/declarations.md companions/toolchain.md companions/untracked-claude.md companions/secrets.md companions/auto-permissions.template.json"
+MINIMAL_DEV="finish.md git-workflow.md companions/declarations.md companions/toolchain.md companions/untracked-claude.md companions/secrets.md companions/auto-permissions.template.json"
 
 mkdir -p "$target/skills" "$target/hooks"
 
@@ -257,7 +257,7 @@ never silently delete something you didn't create.
 
 | Target | Check | Cadence |
 |---|---|---|
-| the `Session:` tree (`CLAUDE.md § Layout`) | files whose session transcript is gone (`.claude/skills/dev/handoff.md`) | weekly, delete |
+| the `Session:` tree (`CLAUDE.md § Layout`) | files whose session transcript is gone | weekly, delete |
 | the `Plans:` tree (`CLAUDE.md § Layout`) | orphaned or closed plan, findings, requirements and batch files; empty initiative dirs | monthly |
 | `.claude/settings.json` + any `settings.local.json` | allow-list mess: one-off, dead or overlapping rules | weekly |
 | repo root and `.claude/` | stray temp or build artifacts | weekly |

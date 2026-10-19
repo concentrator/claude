@@ -17,7 +17,7 @@ mode: normal
   user first drops the `Stop` and `PreCompact` entries from `settings.json`;
   then the three scripts and their tests, `dev-branch-state.sh` and its
   test, and `install-dev.sh` with its two tests and `LAYOUT.md`.
-- [ ] No rule asks for a hand-off note: `handoff.md` and `/dev handoff` are
+- [x] No rule asks for a hand-off note: `handoff.md` and `/dev handoff` are
   gone, and the global `CLAUDE.md` gains compaction instructions naming what
   the summary keeps - the task and plan item in progress, open MR/PRs, and
   user decisions not yet stored. Approach: the instructions' form from the

@@ -52,8 +52,7 @@ plugins/
 /feedback/
 policy-limits.json.stamp.json
 
-# DEV runtime state - hooks/dev-precompact-state.sh, skills/dev/handoff.md,
-# skills/dev/run.md § Ledger
+# DEV runtime state - hooks/dev-precompact-state.sh, skills/dev/run.md § Ledger
 /dev/session/
 /dev/supervisor/
 

@@ -23,7 +23,11 @@
    no session-state or context-fill segment")
 - Item 3 (drop): `/dev handoff` writes the session's hand-off note, and
   `--minimal` ships `handoff.md`.
-  Source:
+  Source: `skills/dev/` holds no `handoff.md`; `skills/dev/SKILL.md`
+   § Surface lists no `/dev handoff`; `scripts/install-dev.sh` line 65
+   `MINIMAL_DEV` names no `handoff.md`
+  Test: `scripts/test/install-dev-minimal.test.sh` ("minimal ships only
+   the delivery skill files")
 - Item 4 (drop): The supervisor's ledgers sit in `supervisor/` beside the
   session tree.
   Source:
@@ -63,5 +67,17 @@
   the prompt JSON to the two deleted helpers. Result: no tracked file
   outside `README.md`, `.gitignore` and `skills/dev/handoff.md` (the doc
   writer's and items 3 and 5) names the three deleted scripts.
+- Item 3: the compaction instructions take the `## Compact instructions`
+  heading the Claude Code 2.1.303 compaction prompt gives as its example
+  of summarization instructions in the included context, read from the
+  installed binary's strings, the docs not being readable from this seat.
+  Citations in files a later item rewrites lose only the `handoff.md`
+  cite, the rest left to that item: the ledger's (`run.md § Ledger`,
+  `branch-plan.md § Session boundary`, `seat-permissions.md`) to item 4,
+  the `Session:` tree's (`declarations.md`, `plan.md`, `MAINTENANCE.md`
+  and its seeded copy, `worker-workspace.sh`, `.gitignore`) to item 5.
+  `run.md § Monitor` drops its hand-off sentence outright. Result: no
+  tracked file outside `README.md` (the doc writer's) and `DESIGN.md`
+  (item 13) cites `handoff.md` or `/dev handoff`.
 
 ## Review

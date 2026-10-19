@@ -144,8 +144,7 @@ that has not declared keeps working on the defaults.
 - **`Plans:`** the planning tree - `ROADMAP.md`, the per-initiative
   `R<NNN>-<slug>/` directories and `archive/` (`plan.md § Where
   things live`).
-- **`Session:`** the per-session state files, gitignored
-  (`handoff.md § The file`).
+- **`Session:`** the per-session state files, gitignored.
 - **`Layout:`** the project's layout file, holding the repository's
   actual tree; seeded from the canonical structure `layout.md` holds,
   project-owned and untouched by a tools refresh.

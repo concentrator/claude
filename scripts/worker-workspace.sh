@@ -64,9 +64,9 @@ config_clone() {
     "$d" "$(git -C "$d" rev-parse --short HEAD)" "$hp"
 }
 
-# run.md § Ledger appends to supervisor/ beside the session tree CLAUDE.md
-# § Layout declares and handoff.md to that tree while a worker may run git
-# add -A, so both must be ignored whatever the cloned .gitignore says.
+# run.md § Ledger appends to supervisor/, beside the session tree CLAUDE.md
+# § Layout declares, while a worker may run git add -A, so both must be
+# ignored whatever the cloned .gitignore says.
 exclude_session_tree() {
   local ex="$1/.git/info/exclude" sess sup
   sess=$(sed -n 's/^- Session: *//p' "$1/CLAUDE.md" "$1/.claude/CLAUDE.md" 2>/dev/null | head -1)

@@ -55,7 +55,7 @@ Initial defaults - tune per project.
 | Target | Check | Cadence / threshold |
 |---|---|---|
 | Transcripts | retention | `cleanupPeriodDays` (settings) |
-| the `Session:` tree (`§ Layout` of `CLAUDE.md` or `.claude/CLAUDE.md`) | files whose session is gone (`skills/dev/handoff.md`) | weekly, delete |
+| the `Session:` tree (`§ Layout` of `CLAUDE.md` or `.claude/CLAUDE.md`) | files whose session is gone | weekly, delete |
 | the `Plans:` tree (`§ Layout` of `CLAUDE.md` or `.claude/CLAUDE.md`) | orphaned or closed plan, findings, requirements & batch files; empty `R<NNN>-<slug>` dirs | monthly |
 | `.claude/settings.json` + any regrown `settings.local.json` | allow-list mess: one-off / dead / overlapping rules; local entries a tracked tier already carries | weekly |
 | skills/ | dead, unused, broken, or duplicate skills | monthly |

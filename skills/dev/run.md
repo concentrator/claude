@@ -281,8 +281,8 @@ The runner's working memory is `supervisor/<scope>.md` beside `<session>`
 dirties nothing. One file per scope; a resumed runner on the same host opens
 the same file. Opened at § Resolve (`mkdir -p` the directory, then the first
 entry), it takes one entry per event from § Dispatch per item through § Merge
-or ask, in `handoff.md § The file` format: `## <event> <UTC timestamp>` -
-dispatch, question, answer, prompt, verify, escalation, merge - the timestamp
+or ask: `## <event> <UTC timestamp>` - dispatch, question, answer, prompt,
+verify, escalation, merge - the timestamp
 read from the clock (`date -u`) at write time, never composed or carried
 forward - over `- key: value` lines naming the ids, appended with a single
 `printf '%s\n' ... >>`, never `Edit`, which rewrites it. Working memory only:
@@ -294,9 +294,8 @@ reads, never a second home for a finding.
 
 The runner's context stays report-level: it collects report paths and
 MR/PR references, never diffs or transcripts, so one runner spans a
-scope. Hand-off note at each boundary and re-brief after compaction:
-`handoff.md`. The scope is the runner's unit (`branch-plan.md
-§ Session boundary`).
+scope. The scope is the runner's unit (`branch-plan.md § Session
+boundary`).
 
 ## Sync
 
