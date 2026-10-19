@@ -112,8 +112,10 @@ rc0 "a re-run on an & path exits zero"
 # --- 3/4. a missing allow rule is reported, applied, and reads back ---
 newfix; sat "$PT" "$PAIR"; edit "$PT" 'del(.permissions.allow[] | select(. == "WebSearch"))'
 printf '{"model":"x","permissions":{"allow":["Bash(foo:*)"]}}\n' > "$LT"
+runp --supervisor AI --runner-mode auto
+rcn "a missing allow rule stops an AI-supervised run"
 runp --supervisor human --runner-mode default
-rcn "a missing allow rule stops the run"
+rc0 "a missing allow rule halts no human-supervised run, the user answering its prompt"
 want "missing WebSearch" "a missing rule is reported"
 want "--apply" "the missing-allow remedy is the --apply line"
 runp --supervisor human --runner-mode default --apply
@@ -139,7 +141,7 @@ want "present (project) Edit(//${PROJ#/}/**)" "the covered rule names the coveri
 newfix; sat "$PT" "$PAIR"
 edit "$PT" 'del(.permissions.allow[] | select(startswith("Bash(git push -u origin")))'
 runp --supervisor human --runner-mode default
-rcn "an absent checkpoint-push string stops a human-supervised run"
+rc0 "an absent checkpoint-push string halts no human-supervised run"
 want "missing Bash(git push -u origin batch/*)" "an absent push string is missing under human"
 want "--apply" "the missing push string takes the --apply remedy"
 runp --supervisor AI --runner-mode auto
@@ -151,7 +153,7 @@ rc0 "an absent Bash prefix does not stop an AI-supervised run"
 want "inert (auto) Bash(git log:*)" "an absent prefix is inert under AI"
 want "present (project) Bash(git status:*)" "a carried prefix names its tier under AI"
 runp --supervisor human --runner-mode default
-rcn "the same prefix stops a human-supervised run"
+rc0 "the same prefix halts no human-supervised run"
 want "missing Bash(git log:*)" "an absent prefix is missing under human"
 runp --supervisor human --runner-mode default --apply
 rc0 "--apply closes a Bash gap under human"
@@ -191,6 +193,8 @@ rcn "a union carrying neither pattern is the missing-deny gap"
 want "missing Bash(git push origin main:*)" "the missing deny string is printed"
 want "$PT" "the missing-deny remedy names the tracked project tier"
 [ ! -f "$LT" ] && pass "--apply writes no deny" || die "--apply wrote a tier for a deny gap"
+runp --supervisor human --runner-mode default
+rcn "a missing deny stops a human-supervised run too"
 
 # --- 10. the shape a provisioned worker arrives in ---
 newfix; sat "$LT" "$PAIR"

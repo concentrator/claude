@@ -30,7 +30,8 @@ Bash allow rules and routes every shell command to a classifier
 by enforcement rather than by seat.
 
 - The **mode-independent set** gates under both supervisor modes, is
-  applyable, and a gap in it stops the run.
+  applyable, and a gap in it stops the run, save a missing allow rule
+  under `Supervisor: human` (§ Prompt classes).
 - The **Bash prefix set** stays declared and traced but binds under
   `Supervisor: human` alone. Under `Supervisor: AI` an absent rule
   reports `inert (auto)` and never stops the run, while a rule a tier
@@ -284,9 +285,12 @@ remedy for the **user**, the settings surface being no seat's
 ## Prompt classes
 
 A **pre-flight defect** is a gap in the mode-independent set, including
-a compound command that offers no prefix for a Bash rule to match. It
-halts the item, its fix is a rule in this file and the tier that carries
-it, and nobody clears it (`run.md § Seats`, the prompt row).
+a compound command that offers no prefix for a Bash rule to match. Its
+fix is a rule in this file and the tier that carries it. Under
+`Supervisor: AI` it halts the item and nobody clears it; under
+`Supervisor: human` the user answers the prompt it raises, so a missing
+allow rule halts no run and the pre-flight reports it without failing
+(`run.md § Seats`, the prompt row).
 
 A **classifier event** under `auto` is no gap in any declared set: the
 denial lands inside a dispatched seat's own call and no other seat can

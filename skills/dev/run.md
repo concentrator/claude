@@ -48,7 +48,7 @@ table below leaves unassigned halts and reports, never improvises.
 | Taking a different route to an item's outcome | implementer, in the code, reporting the divergence | the same |
 | Changing plan text | user approves (`branch-plan.md § Plan edits`) | the same |
 | Writing the docs | doc writer | the same |
-| Clearing a permission prompt | nobody: a pre-flight defect halts the item; a classifier denial reaches the user as the seat's BLOCKED report (§ Dispatch per item) | the same |
+| Clearing a permission prompt | user: answers the prompt, so a missing allow rule halts no run; a classifier denial reaches the user as the seat's BLOCKED report (§ Dispatch per item) | nobody: a pre-flight defect halts the item; a classifier denial reaches the user as the seat's BLOCKED report (§ Dispatch per item) |
 | Verifying the boundary | user | supervisor |
 | Merging | user | supervisor within the declared bounds, else user |
 | Being asked | user: pre-flight permission proposals, plan edits, the always-ask escalations | the same |
@@ -76,7 +76,9 @@ table below leaves unassigned halts and reports, never improvises.
 - Permissions: `<config>/scripts/preflight-permissions.sh --project .
   --supervisor <declared> --runner-mode <the declared mode>`
   (`companions/supervisor-runbook.md § Modes by seat`) reports every rule with
-  the tier carrying it; a gap halts the run. The `--apply` line is printed for
+  the tier carrying it; a gap halts the run, except a missing allow rule under
+  `Supervisor: human`, which it reports without failing, the user answering
+  its prompt (§ Seats, the prompt row). The `--apply` line is printed for
   the **user** (§ Seats) only when every gap is a missing allow rule; a gap the
   script cannot apply is a `cannot apply:` line with its reason. No toolchain
   section → halt, ask.
@@ -120,11 +122,12 @@ branch per plan - and per commit checkbox:
    branch's check against its plan is the close review (§ Close 1).
 
 Two prompt classes (`companions/seat-permissions.md § Prompt classes`). A
-pre-flight defect - a gap in the mode-independent set - halts the item, cleared
-by nobody (§ Seats, the prompt row). A classifier denial under `auto` is the
-seat's to handle; where it cannot, its BLOCKED report halts and reports, the
-work intact (§ Checkpoint). Commands match a declared prefix outside `auto`
-and are classifier-readable under it.
+pre-flight defect - a gap in the mode-independent set - halts the item under
+`Supervisor: AI`, cleared by nobody; under `Supervisor: human` the user answers
+its prompt and the item goes on (§ Seats, the prompt row). A classifier denial
+under `auto` is the seat's to handle; where it cannot, its BLOCKED report halts
+and reports, the work intact (§ Checkpoint). Commands match a declared prefix
+outside `auto` and are classifier-readable under it.
 
 ## Question resolution
 

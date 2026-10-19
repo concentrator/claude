@@ -150,12 +150,13 @@ minutes mean a hold the patterns missed; inspect the pane directly
 instead of waiting longer.
 
 **Keystroke authority.** A single key sent to the runner's dialog is
-an answer; text typed into its input box is a dispatch. No key goes
-past a permission prompt: the prompt is a pre-flight defect the runner
-halts on and reports, and the user fixes the declared set and re-runs
-(`run.md § Seats`; `run.md § Dispatch per item`). The other two routes
-are no keystroke's either: a classifier denial raises no prompt and is
-the seat's own to handle or report BLOCKED on, and a manual-approval
+an answer; text typed into its input box is a dispatch. Under
+`Supervisor: AI` no key goes past a permission prompt: the prompt is a
+pre-flight defect the runner halts on and reports, and the user fixes
+the declared set and re-runs; under `Supervisor: human` the user's key
+answers it (`run.md § Seats`; `run.md § Dispatch per item`). The other
+two routes are no keystroke's either: a classifier denial raises no
+prompt and is the seat's own to handle or report BLOCKED on, and a manual-approval
 fallback escalates to the user (§ Failure modes). Nor may the user
 type instructions into the box: that makes the user a second
 dispatcher, and the transcript records no channel for any input, so
@@ -195,9 +196,10 @@ allow rules and routes every shell command to a classifier that judges
 what the command does, so the runner is never blocked. What a
 promptless run rests on is then the mode-independent set of
 `companions/seat-permissions.md`, never the Bash allow rules auto
-suspends. Under `Supervisor: human` the user's session's mode governs;
-under either mode a prompt the declared set did not predict is a
-pre-flight defect that nobody clears (`run.md § Seats`).
+suspends, and a prompt the declared set did not predict is a pre-flight
+defect that nobody clears. Under `Supervisor: human` the user's
+session's mode governs, and the user answers such a prompt, so a
+missing allow rule halts no run (`run.md § Seats`, the prompt row).
 
 The `--runner-mode` the pre-flight takes (`run.md § Pre-flight`) is the
 mode this table gives the runner: the value is self-attested, no session

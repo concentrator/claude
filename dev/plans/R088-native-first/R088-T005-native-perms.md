@@ -4,7 +4,7 @@ type: mnt
 mode: normal
 ---
 
-- [ ] Under `Supervisor: human` the user answers a permission prompt: a
+- [x] Under `Supervisor: human` the user answers a permission prompt: a
   missing allow rule halts no run, and the pre-flight reports it without
   failing. Approach: `run.md § Seats` prompt row and `§ Dispatch per item`,
   `seat-permissions.md § Prompt classes`, `supervisor-runbook.md § Modes by

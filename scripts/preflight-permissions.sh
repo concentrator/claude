@@ -13,7 +13,8 @@
 # --apply merges the missing allow rules into the local tier, preserving its
 # other keys; it writes no deny rule, no mode key and nothing in
 # ~/.claude.json, and a cannot-apply verdict writes nothing at all.
-# Exit 0 the report is clean, 1 a gap or a cannot-apply, 2 a usage error.
+# Exit 0 the report is clean or, under Supervisor: human, its only gaps are
+# missing allow rules; 1 a gap or a cannot-apply; 2 a usage error.
 set -uo pipefail
 
 SELF="${BASH_SOURCE[0]}"
@@ -291,5 +292,7 @@ if [ "$cannot_n" -eq 0 ] && [ "$missing_n" -gt 0 ]; then
 fi
 report
 [ "$cannot_n" -eq 0 ] || exit 1
-[ "$missing_n" -eq 0 ] || [ "$apply" -eq 1 ] || exit 1
+# Under Supervisor: human the user answers the prompt a missing allow rule
+# raises, so the gap is reported and halts no run.
+[ "$missing_n" -eq 0 ] || [ "$apply" -eq 1 ] || [ "$supervisor" = human ] || exit 1
 exit 0
