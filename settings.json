@@ -7,7 +7,8 @@
     ],
     "allow": [
       "$defaults",
-      "On a non-default branch of ~/.claude, an edit to CLAUDE.md, rules/, agents/, skills/ or hooks/ that carries out an item of a branch plan under dev/plans/ is a requested source edit, not Self-Modification. This does not cover adding or widening permission allow rules, hook bypasses, or autoMode entries."
+      "On a non-default branch of ~/.claude, an edit to CLAUDE.md, rules/, agents/, skills/ or hooks/ that carries out an item of a branch plan under dev/plans/ is a requested source edit, not Self-Modification. This does not cover adding or widening permission allow rules, hook bypasses, or autoMode entries.",
+      "On a non-default branch of ~/.claude, reading tracked files with read-only shell commands, and writing a *.template.json under skills/dev/companions/ that carries out an item of a branch plan under dev/plans/, is a requested source task, not Self-Modification: a template is never loaded as live settings. This does not cover editing settings.json or settings.local.json, or loading any file with claude --settings."
     ]
   },
   "attribution": {
@@ -87,6 +88,7 @@
       "Bash(terraform:*)",
       "Bash(python3:*)",
       "Bash(curl:*)",
+      "Bash(od:*)",
       "Bash(claude plugin:*)",
       "Skill(update-config)",
       "WebSearch",
