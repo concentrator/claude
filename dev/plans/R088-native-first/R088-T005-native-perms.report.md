@@ -85,5 +85,12 @@
   narrow Bash allow rules bind under `auto`.
 - Item 2: a user-tier `Bash(*)` counting as cover under `auto` goes to
   the R088 backlog.
+- Item 3: after the classifier denied a `claude --settings` load of the
+  template, the item finishes without that check; item 4's `claude
+  auto-mode config` and `critique` test the template.
+- Item 3: soft_deny carries five action-level entries - release, a merge
+  changing `CLAUDE.md`, `rules/` or `skills/`, customer data, a rewrite of
+  pushed history, a red gate; off-plan work and design decisions stay out,
+  no single tool call showing them.
 
 ## Review
