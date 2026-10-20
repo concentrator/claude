@@ -98,5 +98,16 @@
   changing `CLAUDE.md`, `rules/` or `skills/`, customer data, a rewrite of
   pushed history, a red gate; off-plan work and design decisions stay out,
   no single tool call showing them.
+- Item 4: after `claude auto-mode critique`, the template drops its allow
+  entry: the classifier reads commands, not their output, so it cannot
+  see the CI wait pass or the head sha match. The runner's merge falls to
+  the default "Merge Without Review" rule; a redesign goes to the backlog.
+- Item 4: DEV Instruction Change exempts no `## Supervision` line, here
+  and in `declarations.md § Supervisor bounds`, so no merge changes who
+  merges.
+- Item 4: DEV Instruction Change also covers `hooks/`, `agents/`,
+  `scripts/`, `settings*.json`, `.mcp.json` and CI configuration.
+- Item 4: the critique's findings on the user's own `~/.claude` entries
+  get drafted wording the user applies; no seat edits them.
 
 ## Review
