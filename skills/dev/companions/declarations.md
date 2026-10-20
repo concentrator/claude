@@ -86,9 +86,10 @@ design-level is component boundaries, schemas, API shapes,
 classify escalates.
 
 Always asked of the user, under any grant: releases; changes to
-`CLAUDE.md`, `rules/`, or `skills/` - except a `CLAUDE.md` change
-confined to the declaration lines this file defines (`§ Agent
-toolchain`, `§ Supervision`, `§ Layout`); customer data or disclosure;
+`CLAUDE.md`, `rules/`, `skills/`, `hooks/`, `agents/`, `scripts/`,
+`settings*.json`, `.mcp.json` or CI configuration - except a
+`CLAUDE.md` change confined to the `§ Agent toolchain` and `§ Layout`
+declaration lines this file defines; customer data or disclosure;
 off-plan work; history rewrites; red gates; design and architectural
 decisions.
 Host gates (protected trunk, required checks) stay the hard floor for

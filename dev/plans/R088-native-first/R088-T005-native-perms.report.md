@@ -33,9 +33,11 @@
   Source: `skills/dev/companions/auto-mode.template.json`, its
    `environment` and `soft_deny` ("DEV Release", "DEV Instruction
    Change", "DEV Customer Data", "DEV History Rewrite", "DEV Red Gate")
-   lists, each keeping `"$defaults"`, and no allow entry of its own;
+   and `allow` lists, each keeping `"$defaults"`, the `allow` list
+   holding nothing else;
    `skills/dev/companions/declarations.md § Supervisor bounds`, its
-   always-ask list naming the paths DEV Instruction Change names;
+   always-ask list naming the paths DEV Instruction Change names and
+   exempting the same `## Agent toolchain` and `## Layout` lines;
    `skills/dev/companions/seat-permissions.md § Auto-mode template`, the
    tiers Claude Code reads `autoMode` from and the user's copy into the
    user tier
@@ -64,6 +66,10 @@
   § Dispatch per item` and `supervisor-runbook.md § Modes by seat`,
   outside the approach, carried the old premise and now state the
   docs'.
+- Item 3: DEV Instruction Change and the always-ask list keep exempting a
+  `CLAUDE.md` change confined to the `## Agent toolchain` and
+  `## Layout` lines, the item and its answers dropping only the
+  `## Supervision` one.
 ### Findings
 - [ ] Item 2: this repository's own pre-flight under `Supervisor: AI`
   now reports four missing Bash rules, none of its tiers carrying

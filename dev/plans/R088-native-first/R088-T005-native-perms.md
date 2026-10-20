@@ -15,7 +15,7 @@ mode: normal
   allow rules `auto` keeps, from Claude Code's permission-modes docs; then
   `seat-permissions.md`, the template, `preflight-permissions.sh` with its
   two tests, `worker-workspace.sh`, `toolchain.md § Permission carve-out`.
-- [ ] The `autoMode` template: an environment entry; no allow entry, so the
+- [x] The `autoMode` template: an environment entry; no allow entry, so the
   runner's merge meets the default "Merge Without Review" rule; soft_deny
   entries mirroring the always-ask list, both exempting no `## Supervision`
   line and covering `hooks/`, `agents/`, `scripts/`, `settings*.json`,
