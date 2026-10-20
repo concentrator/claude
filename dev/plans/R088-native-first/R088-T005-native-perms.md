@@ -17,8 +17,8 @@ mode: normal
   two tests, `worker-workspace.sh`, `toolchain.md § Permission carve-out`.
 - [ ] The `autoMode` template: an environment entry; no allow entry, so the
   runner's merge meets the default "Merge Without Review" rule; soft_deny
-  entries for the always-ask list, which exempts no `## Supervision` line, DEV
-  Instruction Change adding `hooks/`, `agents/`, `scripts/`, `settings*.json`,
+  entries mirroring the always-ask list, both exempting no `## Supervision`
+  line and covering `hooks/`, `agents/`, `scripts/`, `settings*.json`,
   `.mcp.json` and CI config. Approach: the template, `declarations.md
   § Supervisor bounds`, `seat-permissions.md § Auto-mode template`.
 - [ ] This machine's user tier replaces its copies of the template's
@@ -40,8 +40,8 @@ mode: normal
   in the run's permission mode, each reported with the tier carrying it.
 - Item 3 (source): `skills/dev/companions/auto-mode.template.json` holds the
   `autoMode` entries a DEV run needs, for the user to copy into their user
-  settings: an environment entry and soft_deny entries for the always-ask
-  actions, and no allow entry.
+  settings: an environment entry, soft_deny entries mirroring the always-ask
+  list of `declarations.md § Supervisor bounds`, and no allow entry.
 
 ## Proven
 
