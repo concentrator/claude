@@ -39,3 +39,4 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - No allow rule covers the `sleep` the CI-wait retry runs.
 - `run.md § Batch close` 2 queues judgment calls without naming where.
 - No command starts a remote runner, and `supervisor-runbook.md` Variant B omits pulling the host's `~/.claude` first.
+- The pre-flight counts a user-tier `Bash(*)` as covering every declared Bash rule under `auto`, which drops it.

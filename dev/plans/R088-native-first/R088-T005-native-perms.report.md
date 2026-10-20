@@ -79,5 +79,11 @@
   Without Review" rule.
 - Item 4: the user also sets `permissions.disableBypassPermissionsMode:
   "disable"`; the pre-flight keeps its own never-list check.
+- Item 4: the user's settings edit also runs the pre-flight's `--apply`,
+  adding the four allow rules item 2's check reports missing.
+- Item 3: the template leaves `autoMode.classifyAllShell` unset, so
+  narrow Bash allow rules bind under `auto`.
+- Item 2: a user-tier `Bash(*)` counting as cover under `auto` goes to
+  the R088 backlog.
 
 ## Review
