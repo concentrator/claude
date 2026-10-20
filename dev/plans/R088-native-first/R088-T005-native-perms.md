@@ -15,17 +15,18 @@ mode: normal
   allow rules `auto` keeps, from Claude Code's permission-modes docs; then
   `seat-permissions.md`, the template, `preflight-permissions.sh` with its
   two tests, `worker-workspace.sh`, `toolchain.md § Permission carve-out`.
-- [x] The toolset ships an `autoMode` template: a DEV-run environment entry;
-  an allow entry, against the default "Merge Without Review" rule, for the
-  runner's merge within the declared bounds, CI green on the head sha; and
-  soft_deny entries for the action-level always-ask list of `declarations.md
-  § Supervisor bounds`. Approach: `companions/auto-mode.template.json`, then
-  a `seat-permissions.md` section naming the tiers Claude Code reads it from.
-- [ ] This machine's user tier carries the template's entries beside the
-  repository's own `autoMode` entries, and `claude auto-mode config` shows
-  them; it also sets `permissions.disableBypassPermissionsMode: "disable"`.
-  Approach: the user makes both in one `settings.json` edit, the settings
-  surface being no seat's; then `claude auto-mode critique` over the result.
+- [ ] The `autoMode` template: an environment entry; no allow entry, so the
+  runner's merge meets the default "Merge Without Review" rule; soft_deny
+  entries for the always-ask list, which exempts no `## Supervision` line, DEV
+  Instruction Change adding `hooks/`, `agents/`, `scripts/`, `settings*.json`,
+  `.mcp.json` and CI config. Approach: the template, `declarations.md
+  § Supervisor bounds`, `seat-permissions.md § Auto-mode template`.
+- [ ] This machine's user tier replaces its copies of the template's
+  entries - DEV Supervised Merge removed, DEV Instruction Change updated -
+  and sets `permissions.disableBypassPermissionsMode: "disable"`; `claude
+  auto-mode config` shows the result. Approach: the user's one
+  `settings.json` edit, then `claude auto-mode critique`; for its findings
+  on the user's own entries the runner drafts wording the user applies.
 - [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
@@ -38,9 +39,9 @@ mode: normal
 - Item 2 (source): The permission pre-flight checks only the rules that bind
   in the run's permission mode, each reported with the tier carrying it.
 - Item 3 (source): `skills/dev/companions/auto-mode.template.json` holds the
-  `autoMode` entries a DEV run needs, for the user to merge into their user
-  settings: an environment entry, an allow entry for the supervised merge
-  and soft_deny entries for the always-ask actions.
+  `autoMode` entries a DEV run needs, for the user to copy into their user
+  settings: an environment entry and soft_deny entries for the always-ask
+  actions, and no allow entry.
 
 ## Proven
 

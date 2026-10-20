@@ -27,15 +27,15 @@
    `scripts/test/worker-workspace.test.sh` ("the seed carries no rule
    auto drops")
 - Item 3 (source): `skills/dev/companions/auto-mode.template.json` holds the
-  `autoMode` entries a DEV run needs, for the user to merge into their user
-  settings: an environment entry, an allow entry for the supervised merge
-  and soft_deny entries for the always-ask actions.
+  `autoMode` entries a DEV run needs, for the user to copy into their user
+  settings: an environment entry and soft_deny entries for the always-ask
+  actions, and no allow entry.
   Source: `skills/dev/companions/auto-mode.template.json`, its
-   `environment`, `allow` ("DEV Supervised Merge") and `soft_deny` ("DEV
-   Release", "DEV Instruction Change", "DEV Customer Data", "DEV History
-   Rewrite", "DEV Red Gate") lists, each keeping `"$defaults"`;
+   `environment` and `soft_deny` ("DEV Release", "DEV Instruction
+   Change", "DEV Customer Data", "DEV History Rewrite", "DEV Red Gate")
+   lists, each keeping `"$defaults"`, and no allow entry of its own;
    `skills/dev/companions/seat-permissions.md § Auto-mode template`, the
-   tiers Claude Code reads `autoMode` from and the user's merge into the
+   tiers Claude Code reads `autoMode` from and the user's copy into the
    user tier
 
 ## Implementer
