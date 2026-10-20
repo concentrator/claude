@@ -15,7 +15,7 @@ mode: normal
   allow rules `auto` keeps, from Claude Code's permission-modes docs; then
   `seat-permissions.md`, the template, `preflight-permissions.sh` with its
   two tests, `worker-workspace.sh`, `toolchain.md § Permission carve-out`.
-- [ ] The toolset ships an `autoMode` template: a DEV-run environment entry;
+- [x] The toolset ships an `autoMode` template: a DEV-run environment entry;
   an allow entry, against the default "Merge Without Review" rule, for the
   runner's merge within the declared bounds, CI green on the head sha; and
   soft_deny entries for the action-level always-ask list of `declarations.md

@@ -363,3 +363,26 @@ It carries no `Bash(cd:*)` rule: a bare `cd` changes nothing that
 outlives its segment, and a `cd` inside a compound command is what no
 prefix rule matches. It carries no `Read` rule for a settings tier
 either, no source naming a seat that reads one.
+
+## Auto-mode template
+
+`companions/auto-mode.template.json` is the run's `autoMode` block,
+read by the `auto` classifier: an environment entry describing a DEV
+run; an allow entry clearing the runner's merge within the declared
+bounds, CI green on the head sha, against the default "Merge Without
+Review" rule; and soft_deny entries for the action-level always-ask list
+of `companions/declarations.md § Supervisor bounds`. Each list keeps
+`"$defaults"`, which splices Claude Code's built-in entries in at that
+place; a list without it replaces them. The template sets no
+`classifyAllShell`, so narrow Bash allow rules keep binding under `auto`
+(§ What enforces what).
+
+Claude Code reads `autoMode` from the user tier,
+`~/.claude/settings.json`, from managed settings and from the
+`--settings` flag or the Agent SDK, combining the entries of each. It
+never reads `autoMode` from a project's `.claude/settings.json` or
+`.claude/settings.local.json`, so neither a project tier nor the
+pre-flight's `--apply` can carry the template. The user merges its
+entries into their user tier, the settings surface being no seat's
+(`run.md § Seats`, the asked-of row); nothing in the toolset reads the
+template by path.

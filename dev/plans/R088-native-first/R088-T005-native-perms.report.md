@@ -30,7 +30,13 @@
   `autoMode` entries a DEV run needs, for the user to merge into their user
   settings: an environment entry, an allow entry for the supervised merge
   and soft_deny entries for the always-ask actions.
-  Source:
+  Source: `skills/dev/companions/auto-mode.template.json`, its
+   `environment`, `allow` ("DEV Supervised Merge") and `soft_deny` ("DEV
+   Release", "DEV Instruction Change", "DEV Customer Data", "DEV History
+   Rewrite", "DEV Red Gate") lists, each keeping `"$defaults"`;
+   `skills/dev/companions/seat-permissions.md § Auto-mode template`, the
+   tiers Claude Code reads `autoMode` from and the user's merge into the
+   user tier
 
 ## Implementer
 ### Divergences
