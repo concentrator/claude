@@ -109,5 +109,10 @@
   `scripts/`, `settings*.json`, `.mcp.json` and CI configuration.
 - Item 4: the critique's findings on the user's own `~/.claude` entries
   get drafted wording the user applies; no seat edits them.
+- Item 3: the always-ask list in `declarations.md § Supervisor bounds`
+  gains the same paths as DEV Instruction Change, so the two still mirror.
+- Item 3: no `skills/dev/` text says what the classifier does with an AI
+  supervisor's merge; that waits for the backlog redesign.
+- Item 4: its text leaves out the `--apply`, which has already run.
 
 ## Review
