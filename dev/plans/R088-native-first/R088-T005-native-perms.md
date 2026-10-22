@@ -27,7 +27,7 @@ mode: normal
   config` shows the result. Approach: the user's one `settings.json` edit,
   then `claude auto-mode critique`; for its findings on the user's own
   entries the runner drafts wording the user applies.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)

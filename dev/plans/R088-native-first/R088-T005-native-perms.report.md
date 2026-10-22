@@ -73,15 +73,17 @@
   it now says beyond its `## Layout` lines, the one exemption DEV
   Instruction Change and the always-ask list keep.
 ### Findings
-- [ ] Item 2: this repository's own pre-flight under `Supervisor: AI`
+- [x] Item 2: this repository's own pre-flight under `Supervisor: AI`
   now reports four missing Bash rules, none of its tiers carrying
   `Bash(git read-tree:*)`, `Bash(glab ci status:*)`,
   `Bash(bash scripts/ci/run-all.sh:*)` or
   `Bash(bash scripts/test/run-all.sh:*)`, so the next run halts until
-  the user runs the printed `--apply` line.
+  the user runs the printed `--apply` line. Fixed: the user ran the
+  `--apply` (`## Answers`, Item 4), and the local tier carries all four.
   Evidence: observed `scripts/preflight-permissions.sh --project .
   --supervisor AI --runner-mode auto` printing those four `missing`
-  lines and the `--apply` remedy
+  lines and the `--apply` remedy; after the `--apply`, the same command
+  printing all four `present (local)` and exiting 0
 
 ## Answers
 
