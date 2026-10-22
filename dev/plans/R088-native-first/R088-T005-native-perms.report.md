@@ -124,5 +124,10 @@
 - Item 4: its text leaves out the `--apply`, which has already run.
 - Item 4: the user's edit also sets `attribution.sessionUrl: false`; the
   worker host's copy goes to the R088 backlog.
+- Item 3: DEV Instruction Change and the always-ask list exempt only a
+  `CLAUDE.md` change confined to `## Layout`; `## Agent toolchain`
+  declares the merge and CI-wait commands, so a change to it asks.
+- Item 4: the second critique's other soft_deny findings go to the R088
+  backlog, and the user's own `~/.claude` entries stay as they are.
 
 ## Review

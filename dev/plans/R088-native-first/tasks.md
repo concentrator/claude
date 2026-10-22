@@ -42,3 +42,4 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - The pre-flight counts a user-tier `Bash(*)` as covering every declared Bash rule under `auto`, which drops it.
 - No `autoMode` allow entry lets an AI supervisor merge, the classifier seeing no CI result or head sha.
 - The worker host sets no `attribution.sessionUrl: false`, and no gate stops a `Claude-Session` trailer before push.
+- The `autoMode` soft_deny entries name no visible DEV-run trigger or must-name slot, nor presume an unseen MR diff.
