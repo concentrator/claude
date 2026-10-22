@@ -71,14 +71,22 @@ deny, or any other gap `--apply` cannot write, is closed by hand.
 
 `skills/dev/companions/auto-mode.template.json` holds the `autoMode`
 entries a DEV run needs, for the user to copy into their user settings,
-`~/.claude/settings.json`: an environment entry describing a DEV run,
-soft_deny entries mirroring the always-ask list of `declarations.md
-§ Supervisor bounds`, the entries and that list both exempting only a
-`CLAUDE.md` change confined to its `## Layout` lines, and no allow
-entry
+`~/.claude/settings.json`
 ([`auto-mode.template.json`](skills/dev/companions/auto-mode.template.json),
 [`declarations.md § Supervisor bounds`](skills/dev/companions/declarations.md#supervisor-bounds),
-[`seat-permissions.md § Auto-mode template`](skills/dev/companions/seat-permissions.md#auto-mode-template)).
+[`seat-permissions.md § Auto-mode template`](skills/dev/companions/seat-permissions.md#auto-mode-template)):
+
+- an environment entry describing a DEV run;
+- soft_deny entries for the action-level classes of the always-ask list
+  of `declarations.md § Supervisor bounds`:
+  - DEV Release;
+  - DEV Instruction Change, which, like that list's instruction-file
+    class, exempts only a `CLAUDE.md` change confined to its
+    `## Layout` lines;
+  - DEV Customer Data;
+  - DEV History Rewrite;
+  - DEV Red Gate;
+- no allow entry.
 
 At a branch's close and at a batch's, a run dispatches the code
 reviewer, the seat that reviews the change against its plan. A project
