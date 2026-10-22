@@ -67,10 +67,10 @@
   § Dispatch per item` and `supervisor-runbook.md § Modes by seat`,
   outside the approach, carried the old premise and now state the
   docs'.
-- Item 3: DEV Instruction Change and the always-ask list keep exempting a
-  `CLAUDE.md` change confined to the `## Agent toolchain` and
-  `## Layout` lines, the item and its answers dropping only the
-  `## Supervision` one.
+- Item 3: `root-migration.md § 2. Execute`, outside the approach, said a
+  tracked migration rewrites `CLAUDE.md` "beyond the declaration lines";
+  it now says beyond its `## Layout` lines, the one exemption DEV
+  Instruction Change and the always-ask list keep.
 ### Findings
 - [ ] Item 2: this repository's own pre-flight under `Supervisor: AI`
   now reports four missing Bash rules, none of its tiers carrying

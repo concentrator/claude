@@ -45,7 +45,7 @@ Present the full report; **block on user approval**.
 
 On a short-lived `mnt/` branch, whose merge stays the user's call under
 any grant: a migration is off-plan work, and tracked it rewrites
-`CLAUDE.md` beyond the declaration lines, both on the always-ask list
+`CLAUDE.md` beyond its `## Layout` lines, both on the always-ask list
 (`companions/declarations.md § Supervisor bounds`). Untracked mode:
 the moved artifacts stay working-tree-only (`untracked-claude.md
 § What changes`); only tracked-file rewrites ride the branch.
