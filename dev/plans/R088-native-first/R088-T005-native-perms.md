@@ -17,10 +17,10 @@ mode: normal
   two tests, `worker-workspace.sh`, `toolchain.md § Permission carve-out`.
 - [x] The `autoMode` template: an environment entry; no allow entry, so the
   runner's merge meets the default "Merge Without Review" rule; soft_deny
-  entries mirroring the always-ask list, both covering `hooks/`, `agents/`,
-  `scripts/`, `settings*.json`, `.mcp.json`, CI config, and exempting only
-  a `CLAUDE.md` change confined to `## Layout`. Approach: the template,
-  `declarations.md § Supervisor bounds`, `seat-permissions.md`.
+  entries mirroring the action-level always-ask list, both covering
+  `hooks/`, `agents/`, `scripts/`, `settings*.json`, `.mcp.json`, CI config,
+  and exempting only a `CLAUDE.md` change confined to `## Layout`. Approach:
+  the template, `declarations.md § Supervisor bounds`, `seat-permissions.md`.
 - [x] Once item 3 lands, this machine's user tier drops DEV Supervised
   Merge, replaces DEV Instruction Change with item 3's and sets
   `permissions.disableBypassPermissionsMode: "disable"`; `claude auto-mode
@@ -40,9 +40,10 @@ mode: normal
   in the run's permission mode, each reported with the tier carrying it.
 - Item 3 (source): `skills/dev/companions/auto-mode.template.json` holds the
   `autoMode` entries a DEV run needs, for the user to copy into their user
-  settings: an environment entry, soft_deny entries mirroring the always-ask
-  list of `declarations.md § Supervisor bounds`, both exempting only a
-  `CLAUDE.md` change confined to `## Layout`, and no allow entry.
+  settings: an environment entry, soft_deny entries mirroring the
+  action-level always-ask list of `declarations.md § Supervisor bounds`,
+  both exempting only a `CLAUDE.md` change confined to `## Layout`, and no
+  allow entry.
 
 ## Proven
 
