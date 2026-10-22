@@ -122,5 +122,7 @@
 - Item 3: no `skills/dev/` text says what the classifier does with an AI
   supervisor's merge; that waits for the backlog redesign.
 - Item 4: its text leaves out the `--apply`, which has already run.
+- Item 4: the user's edit also sets `attribution.sessionUrl: false`; the
+  worker host's copy goes to the R088 backlog.
 
 ## Review
