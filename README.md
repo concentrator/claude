@@ -58,11 +58,27 @@ subagents, each started fresh for one item and shut down at its exit -
 under the supervisor the project declares, human or AI, within
 declared bounds. Before its first dispatch a run resolves the
 permission set the toolset declares against the three settings tiers a
-session reads: `scripts/preflight-permissions.sh` reports the tier that
-carries each rule, and a gap halts the run for the user to close. When
-every gap is a missing allow rule it prints the `--apply` command that
-closes them; a missing deny, or any other gap `--apply` cannot write,
-is closed by hand.
+session reads: `scripts/preflight-permissions.sh` checks only the rules
+that bind in the run's permission mode, each reported with the tier
+carrying it
+([`preflight-permissions.sh` `resolve`](scripts/preflight-permissions.sh)).
+A gap halts the run, with one exception: under `Supervisor: human` the
+user answers a permission prompt, and a missing allow rule halts no run
+([`run.md § Seats`](skills/dev/run.md#seats), the "Clearing a
+permission prompt" row). When every gap is a missing allow rule the
+pre-flight prints the `--apply` command that closes them; a missing
+deny, or any other gap `--apply` cannot write, is closed by hand.
+
+`skills/dev/companions/auto-mode.template.json` holds the `autoMode`
+entries a DEV run needs, for the user to copy into their user settings,
+`~/.claude/settings.json`: an environment entry describing a DEV run,
+soft_deny entries mirroring the always-ask list of `declarations.md
+§ Supervisor bounds`, the entries and that list both exempting only a
+`CLAUDE.md` change confined to its `## Layout` lines, and no allow
+entry
+([`auto-mode.template.json`](skills/dev/companions/auto-mode.template.json),
+[`declarations.md § Supervisor bounds`](skills/dev/companions/declarations.md#supervisor-bounds),
+[`seat-permissions.md § Auto-mode template`](skills/dev/companions/seat-permissions.md#auto-mode-template)).
 
 At a branch's close and at a batch's, a run dispatches the code
 reviewer, the seat that reviews the change against its plan. A project
