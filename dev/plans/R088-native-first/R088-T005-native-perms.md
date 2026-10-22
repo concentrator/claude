@@ -21,7 +21,7 @@ mode: normal
   `scripts/`, `settings*.json`, `.mcp.json`, CI config, and exempting only
   a `CLAUDE.md` change confined to `## Layout`. Approach: the template,
   `declarations.md § Supervisor bounds`, `seat-permissions.md`.
-- [ ] Once item 3 lands, this machine's user tier drops DEV Supervised
+- [x] Once item 3 lands, this machine's user tier drops DEV Supervised
   Merge, replaces DEV Instruction Change with item 3's and sets
   `permissions.disableBypassPermissionsMode: "disable"`; `claude auto-mode
   config` shows the result. Approach: the user's one `settings.json` edit,
