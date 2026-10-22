@@ -29,7 +29,8 @@
 - Item 3 (source): `skills/dev/companions/auto-mode.template.json` holds the
   `autoMode` entries a DEV run needs, for the user to copy into their user
   settings: an environment entry, soft_deny entries mirroring the always-ask
-  list of `declarations.md § Supervisor bounds`, and no allow entry.
+  list of `declarations.md § Supervisor bounds`, both exempting only a
+  `CLAUDE.md` change confined to `## Layout`, and no allow entry.
   Source: `skills/dev/companions/auto-mode.template.json`, its
    `environment` and `soft_deny` ("DEV Release", "DEV Instruction
    Change", "DEV Customer Data", "DEV History Rewrite", "DEV Red Gate")
@@ -37,7 +38,7 @@
    holding nothing else;
    `skills/dev/companions/declarations.md § Supervisor bounds`, its
    always-ask list naming the paths DEV Instruction Change names and
-   exempting the same `## Agent toolchain` and `## Layout` lines;
+   exempting the same `## Layout` line;
    `skills/dev/companions/seat-permissions.md § Auto-mode template`, the
    tiers Claude Code reads `autoMode` from and the user's copy into the
    user tier

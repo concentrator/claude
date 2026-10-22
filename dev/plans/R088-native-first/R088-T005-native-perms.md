@@ -15,18 +15,18 @@ mode: normal
   allow rules `auto` keeps, from Claude Code's permission-modes docs; then
   `seat-permissions.md`, the template, `preflight-permissions.sh` with its
   two tests, `worker-workspace.sh`, `toolchain.md § Permission carve-out`.
-- [x] The `autoMode` template: an environment entry; no allow entry, so the
+- [ ] The `autoMode` template: an environment entry; no allow entry, so the
   runner's merge meets the default "Merge Without Review" rule; soft_deny
-  entries mirroring the always-ask list, both exempting no `## Supervision`
-  line and covering `hooks/`, `agents/`, `scripts/`, `settings*.json`,
-  `.mcp.json` and CI config. Approach: the template, `declarations.md
-  § Supervisor bounds`, `seat-permissions.md § Auto-mode template`.
-- [ ] This machine's user tier replaces its copies of the template's
-  entries - DEV Supervised Merge removed, DEV Instruction Change updated -
-  and sets `permissions.disableBypassPermissionsMode: "disable"`; `claude
-  auto-mode config` shows the result. Approach: the user's one
-  `settings.json` edit, then `claude auto-mode critique`; for its findings
-  on the user's own entries the runner drafts wording the user applies.
+  entries mirroring the always-ask list, both covering `hooks/`, `agents/`,
+  `scripts/`, `settings*.json`, `.mcp.json`, CI config, and exempting only
+  a `CLAUDE.md` change confined to `## Layout`. Approach: the template,
+  `declarations.md § Supervisor bounds`, `seat-permissions.md`.
+- [ ] Once item 3 lands, this machine's user tier drops DEV Supervised
+  Merge, replaces DEV Instruction Change with item 3's and sets
+  `permissions.disableBypassPermissionsMode: "disable"`; `claude auto-mode
+  config` shows the result. Approach: the user's one `settings.json` edit,
+  then `claude auto-mode critique`; for its findings on the user's own
+  entries the runner drafts wording the user applies.
 - [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
@@ -41,7 +41,8 @@ mode: normal
 - Item 3 (source): `skills/dev/companions/auto-mode.template.json` holds the
   `autoMode` entries a DEV run needs, for the user to copy into their user
   settings: an environment entry, soft_deny entries mirroring the always-ask
-  list of `declarations.md § Supervisor bounds`, and no allow entry.
+  list of `declarations.md § Supervisor bounds`, both exempting only a
+  `CLAUDE.md` change confined to `## Layout`, and no allow entry.
 
 ## Proven
 
