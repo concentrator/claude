@@ -2,9 +2,10 @@
 
 ## Claims
 - Item 2 (source): An install records each file it copies in a manifest in
-  the target, and leaves in place, listing it, each target file that differs
-  from the shipped one and that the manifest does not record as copied
-  unchanged.
+  the target. It adopts and refreshes a target file whose hash matches its
+  manifest record or, unrecorded, any committed version of its path in the
+  framework repository; any other differing target file it leaves in place
+  and lists.
   Source:
 - Item 3 (source): An install writes `settings.json` only to add a missing
   toolset hook entry or to drop a retired one.

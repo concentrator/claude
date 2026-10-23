@@ -12,11 +12,11 @@ mode: normal
   pulls this branch into `~/.claude`. Approach: the user's commands, from
   wording the runner drafts.
 - [ ] An install owns only what it copied: a manifest in the target records
-  each copied file's hash, a file identical to the shipped one is adopted, and
-  any other differing file is the user's, left in place and listed; a dropped
-  file it owns goes, and it refuses its own checkout as target. Approach:
-  `install-dev.sh`, split under `check-code-size.sh`'s cap, hashes by `git
-  hash-object`, the manifest on the allowlist; then its two tests.
+  each copied file's hash; an unrecorded file matching any committed version
+  of its path is adopted and refreshed, any other differing file is the user's,
+  left and listed; a dropped owned file goes, and it refuses its own checkout
+  as target. Approach: `install-dev.sh`, split under `check-code-size.sh`'s
+  cap, hashes by `git hash-object`, the manifest allowlisted; its two tests.
 - [ ] An install writes `settings.json` only to add a missing toolset hook
   entry or drop a retired one, leaving the file byte-identical otherwise, and
   writes `CLAUDE.md` only by appending an import line. Approach: the three
@@ -73,9 +73,10 @@ mode: normal
 ## Claims
 
 - Item 2 (source): An install records each file it copies in a manifest in
-  the target, and leaves in place, listing it, each target file that differs
-  from the shipped one and that the manifest does not record as copied
-  unchanged.
+  the target. It adopts and refreshes a target file whose hash matches its
+  manifest record or, unrecorded, any committed version of its path in the
+  framework repository; any other differing target file it leaves in place
+  and lists.
 - Item 3 (source): An install writes `settings.json` only to add a missing
   toolset hook entry or to drop a retired one.
 - Item 4 (source): A full install ships the seat definitions under `agents/`
