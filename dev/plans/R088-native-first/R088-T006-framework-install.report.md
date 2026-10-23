@@ -25,4 +25,31 @@
 
 ## Implementer
 
+## Answers
+
+- Items 4, 8, 10: the repository's clone lives at `~/src/claude`.
+- Item 4: the user clones it before items 1-3 run, so every seat works in
+  the clone; item 4 moves `~/.claude/.git` aside and runs the install.
+- Item 5: the root `CLAUDE.md` becomes `dev-instructions.md`, shipped
+  whole, `## Communication` included, and `@`-imported from the user's
+  `CLAUDE.md` like `writing.md`.
+- Item 1: a manifest of hashes tells the install's files from the
+  user's; an identical file is adopted, a differing one stays and is
+  listed, an owned file the set drops is removed.
+- Item 1: an edited `check-accretion.sh` is the user's: it stays and is
+  listed, with no MARKERS carry-over.
+- Item 2: the install writes `settings.json` only to add a missing
+  toolset hook entry or drop a retired one, and only on a change.
+- Item 6: `settings.json`, `skills/skill-creator/`,
+  `skills/writing-skills/` and `rules/js.md` are untracked, the user's
+  copies staying in `~/.claude`; `rules/skills.md` stays tracked;
+  `check-settings.sh` judges `.claude/settings.json`.
+- Item 3: a full install in either scope ships `agents/`,
+  `rules/code-comments.md` and `rules/claude-md.md`; `--minimal` ships
+  none of them.
+- Item 8: the worker host changes in this task.
+- Items 5, 6: each edits only the `README.md § Contents` rows
+  `check-doc-sync.sh` names; the doc writer does the rest at close, and
+  the clash between the two rules goes to the R088 backlog.
+
 ## Review
