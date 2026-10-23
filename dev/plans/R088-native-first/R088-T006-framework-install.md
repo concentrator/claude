@@ -5,6 +5,12 @@ architecture-changing: true
 mode: normal
 ---
 
+- [ ] USER: the work moves to a clone at `~/src/claude`: clone this branch
+  from `~/.claude` (nothing pushed), point `origin` at GitHub, carry
+  `core.hooksPath`, `.claude/settings.local.json` and workspace trust; the
+  run resumes in a runner session started there, which marks this. No one
+  pulls this branch into `~/.claude`. Approach: the user's commands, from
+  wording the runner drafts.
 - [ ] An install owns only what it copied: a manifest in the target records
   each copied file's hash, a file identical to the shipped one is adopted, and
   any other differing file is the user's, left in place and listed; a dropped
@@ -21,11 +27,11 @@ mode: normal
   and `rules/claude-md.md`, which shipped skills cite; `--minimal` ships none
   of them. Approach: `install-dev.sh`, then both tests, the "personal rules
   not shipped" check among them.
-- [ ] USER: the repository leaves `~/.claude`: clone it outside, on this
-  branch, with `core.hooksPath`, `.claude/settings.local.json` and trust
-  carried over; move `~/.claude/.git` aside, every file staying; run the global
-  install from the clone, which adopts the copies `~/.claude` holds. Approach:
-  the user's commands; the run resumes in the clone, where the user marks this.
+- [ ] USER: `~/.claude` stops being a git checkout: move `~/.claude/.git`
+  aside, every file staying, and run the global install from
+  `~/src/claude`, which adopts the copies `~/.claude` holds. Approach: the
+  user's commands, from wording the runner drafts; it precedes items 6 and
+  7, the first to rename or untrack a file.
 - [ ] The root `CLAUDE.md` becomes `dev-instructions.md`, which an install
   ships and imports from the target's `CLAUDE.md` as it does `writing.md`;
   each citation of its sections names the new file. Approach: `git mv`,
@@ -45,7 +51,7 @@ mode: normal
   `<config>`, `supervisor-runbook.md § Remote Control`, `migrate.md`,
   `start.md`, `MAINTENANCE.md § Weekly audit`.
 - [ ] The worker host installs the framework rather than becoming a clone:
-  `config-clone` clones the repository outside `~/.claude` and runs the global
+  `config-clone` clones the repository to `~/src/claude` and runs the global
   install, its dry run saying so; the operator copies the worker's user
   settings, as with `.env`. Approach: `worker-workspace.sh` with its test,
   then `skills/worker-host/` and its `companions/provisioning.md`.
@@ -53,7 +59,7 @@ mode: normal
   into `~/.claude`, the files it did not copy being the user's. Approach:
   `§ Self-hosting layout`, then `§ Self-enforcement` where it names how hooks
   reach a machine.
-- [ ] USER: refresh `~/.claude` from the clone: run the global install, cut
+- [ ] USER: refresh `~/.claude` from `~/src/claude`: run the global install, cut
   `~/.claude/CLAUDE.md` to its import lines and personal text, update the
   `autoMode` entries naming `~/.claude` as the repository, and remove the
   repository-only files left there. Approach: the user's commands and
@@ -66,20 +72,20 @@ mode: normal
 
 ## Claims
 
-- Item 1 (source): An install records each file it copies in a manifest in
+- Item 2 (source): An install records each file it copies in a manifest in
   the target, and leaves in place, listing it, each target file that differs
   from the shipped one and that the manifest does not record as copied
   unchanged.
-- Item 2 (source): An install writes `settings.json` only to add a missing
+- Item 3 (source): An install writes `settings.json` only to add a missing
   toolset hook entry or to drop a retired one.
-- Item 3 (source): A full install ships the seat definitions under `agents/`
+- Item 4 (source): A full install ships the seat definitions under `agents/`
   and the rules `code-comments.md` and `claude-md.md`.
-- Item 3 (drop): `agents/` is this repository's own, `install-dev.sh` copying
+- Item 4 (drop): `agents/` is this repository's own, `install-dev.sh` copying
   none of it.
-- Item 5 (source): An install ships `dev-instructions.md`, the framework's
+- Item 6 (source): An install ships `dev-instructions.md`, the framework's
   global instructions, and appends a line importing it to the target's
   `CLAUDE.md`.
-- Item 6 (drop): The repository is cloned as `~/.claude`, with no install step
+- Item 7 (drop): The repository is cloned as `~/.claude`, with no install step
   of its own, its `settings.json` the machine's global Claude Code config.
 
 ## Proven
