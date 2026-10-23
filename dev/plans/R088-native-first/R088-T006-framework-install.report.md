@@ -12,7 +12,9 @@
   Test: `scripts/test/install-dev-manifest.test.sh`
 - Item 3 (source): An install writes `settings.json` only to add a missing
   toolset hook entry or to drop a retired one.
-  Source:
+  Source: `scripts/install-dev.sh` § 3 `edit_settings`, `register` and the
+    retired-hook pass
+  Test: `scripts/test/install-dev-settings.test.sh`
 - Item 4 (source): A full install ships the seat definitions under `agents/`
   and the rules `code-comments.md` and `claude-md.md`.
   Source:
@@ -45,6 +47,18 @@
 - Item 2: a file the manifest records whose content the user changed loses
   its record, so a later install treats it as unrecorded; a dropped edited
   file is listed once, the install that drops it from the set.
+- Item 3: the cases went to a new `scripts/test/install-dev-settings.test.sh`,
+  `install-dev.test.sh` sitting at the 300-line cap. The three register
+  functions share `register`, and they and the retired-hook pass write
+  through `edit_settings`, which replaces `settings.json` only when the jq
+  value changes; replacing a relative-form `.claude/hooks/<name>` entry
+  stays, as dropping a retired form of a toolset entry.
+- Item 3: the filters now drop an entry or event only when removing a
+  toolset command empties it; a user entry with an empty `hooks` list in a
+  touched event was dropped before, and the test pins it kept.
+- Item 3: `CLAUDE.md` needed no change, § 5 only appending `@writing.md`
+  when the line is absent; the test pins it byte-identical on a re-install
+  and only the import line added when missing.
 
 ## Answers
 

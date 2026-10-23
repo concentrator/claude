@@ -102,52 +102,37 @@ if [ "$scope" = global ]; then hp="~/.claude/hooks"; else hp='"$CLAUDE_PROJECT_D
 settings="$target/settings.json"
 [ -f "$settings" ] || echo '{}' > "$settings"
 
-register_hook() {   # $1 = hook script basename
-  ship "hooks/$1" x
-  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
-  if jq --arg cmd "$cmd" --arg old "$old" '
-    .hooks.PreToolUse = [(.hooks.PreToolUse // [])[]
-      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
-    | if ([.hooks.PreToolUse[].hooks[].command] | any(. == $cmd)) then .
-      else .hooks.PreToolUse += [
-        {matcher: "Write|Edit|NotebookEdit", hooks: [{type: "command", command: $cmd}]},
-        {matcher: "Bash", hooks: [{type: "command", command: $cmd}]}
-      ] end
-  ' "$settings" > "$tmp"; then
-    mv "$tmp" "$settings"
+# edit_settings <jq filter> [jq args]: settings.json is rewritten only when
+# the filter changes its value, so a file already holding every toolset entry
+# keeps its bytes. `unhook(f)` drops the commands f selects, and an entry
+# only when that empties it.
+edit_settings() {
+  local filter=$1 tmp; shift; tmp="$(mktemp)"
+  if jq "$@" 'def unhook(f): map(if any(.hooks[]?; f) then .hooks |= map(select(f | not)) | select(.hooks | length > 0) else . end);
+      . as $in | '"$filter"' | if . == $in then empty else . end' "$settings" > "$tmp"; then
+    if [ -s "$tmp" ]; then mv "$tmp" "$settings"; else rm -f "$tmp"; fi
   else
     rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
   fi
 }
 
+# register <event> <entries> <hook>: ship the hook, drop its relative-form
+# entries, and add <entries> for it when no entry of <event> runs it.
+register() {
+  ship "hooks/$3" x
+  edit_settings '.hooks[$ev] = ((.hooks[$ev] // []) | unhook(.command == $old))
+    | if any(.hooks[$ev][].hooks[]?; .command == $cmd) then . else .hooks[$ev] += $add end' \
+    --arg ev "$1" --arg cmd "$hp/$3" --arg old ".claude/hooks/$3" \
+    --argjson add "$(jq -cn --arg cmd "$hp/$3" "$2")"
+}
+register_hook() {   # $1 = hook script basename; PreToolUse, file edits and Bash
+  register PreToolUse '[{matcher: "Write|Edit|NotebookEdit"}, {matcher: "Bash"}] | map(.hooks = [{type: "command", command: $cmd}])' "$1"
+}
 register_state_hook() {   # $1 = hook script basename; UserPromptSubmit, no matcher
-  ship "hooks/$1" x
-  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
-  if jq --arg cmd "$cmd" --arg old "$old" '
-    .hooks.UserPromptSubmit = [(.hooks.UserPromptSubmit // [])[]
-      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
-    | if ([.hooks.UserPromptSubmit[].hooks[].command] | any(. == $cmd)) then .
-      else .hooks.UserPromptSubmit += [{hooks: [{type: "command", command: $cmd}]}] end
-  ' "$settings" > "$tmp"; then
-    mv "$tmp" "$settings"
-  else
-    rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
-  fi
+  register UserPromptSubmit '[{hooks: [{type: "command", command: $cmd}]}]' "$1"
 }
-
 register_brief_hook() {   # $1 = hook script basename; SessionStart, compact/resume starts
-  ship "hooks/$1" x
-  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
-  if jq --arg cmd "$cmd" --arg old "$old" '
-    .hooks.SessionStart = [(.hooks.SessionStart // [])[]
-      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
-    | if ([.hooks.SessionStart[].hooks[].command] | any(. == $cmd)) then .
-      else .hooks.SessionStart += [{matcher: "compact|resume", hooks: [{type: "command", command: $cmd}]}] end
-  ' "$settings" > "$tmp"; then
-    mv "$tmp" "$settings"
-  else
-    rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
-  fi
+  register SessionStart '[{matcher: "compact|resume", hooks: [{type: "command", command: $cmd}]}]' "$1"
 }
 
 register_hook dev-branch-guard.sh
@@ -160,19 +145,10 @@ ship hooks/dev-hook-once.sh
 # Retired hooks (RETIRED): an install over an earlier one removes each
 # script that is its copy (install-manifest.sh) and every settings entry, on
 # any event, that runs one; an event left with no entry is dropped.
-tmp="$(mktemp)"
-if jq --arg names "$RETIRED" '
-  def retired: (.command // "") as $c | any($names | split(" ")[]; . as $n | $c | endswith("/" + $n));
-  if (.hooks | type) == "object" then .hooks |= ([to_entries[]
-    | if any(.value[]?.hooks[]?; retired)
-      then .value |= [.[] | .hooks |= map(select(retired | not)) | select(.hooks | length > 0)]
-        | select(.value | length > 0)
-      else . end] | from_entries) else . end
-' "$settings" > "$tmp"; then
-  mv "$tmp" "$settings"
-else
-  rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
-fi
+edit_settings 'def retired: (.command // "") as $c | any($names | split(" ")[]; . as $n | $c | endswith("/" + $n));
+  if (.hooks | type) == "object" then .hooks |= with_entries(
+    if any(.value[]?.hooks[]?; retired) then .value |= unhook(retired) | select(.value | length > 0) else . end)
+  else . end' --arg names "$RETIRED"
 
 # 4. shipped Tier-1 checks - the ones with no dependency on this repo's
 #    own layout; adopters wire them into their CI (the batch-tags gate

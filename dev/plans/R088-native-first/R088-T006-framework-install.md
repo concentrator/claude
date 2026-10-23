@@ -17,7 +17,7 @@ mode: normal
   left and listed; a dropped owned file goes, and it refuses its own checkout
   as target. Approach: `install-dev.sh`, split under `check-code-size.sh`'s
   cap, hashes by `git hash-object`, the manifest allowlisted; its two tests.
-- [ ] An install writes `settings.json` only to add a missing toolset hook
+- [x] An install writes `settings.json` only to add a missing toolset hook
   entry or drop a retired one, leaving the file byte-identical otherwise, and
   writes `CLAUDE.md` only by appending an import line. Approach: the three
   register functions and the retired-hook pass of `install-dev.sh`, then a
