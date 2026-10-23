@@ -28,7 +28,7 @@
 
 ## Answers
 
-- Items 1, 5, 9, 11: the repository's clone lives at `~/src/claude`.
+- Items 1, 5, 9, 11: the repository's clone lives at `~/src/claude-dev`.
 - Items 1, 5: the user clones it before items 2-4 run, so every seat works
   in the clone; item 5 moves `~/.claude/.git` aside and runs the install.
 - Item 6: the root `CLAUDE.md` becomes `dev-instructions.md`, shipped
@@ -55,7 +55,7 @@
 - Item 9: the worker host changes in this task.
 - Item 1: the plan merges first in its own plan PR, `/dev run` admitting
   only a merged plan for a task of a multi-task initiative; the user
-  clones `~/src/claude` from `main` and the run cuts the task branch
+  clones `~/src/claude-dev` from `main` and the run cuts the task branch
   there.
 - Items 6, 7: each edits only the `README.md § Contents` rows
   `check-doc-sync.sh` names; the doc writer does the rest at close, and
