@@ -150,12 +150,13 @@ minutes mean a hold the patterns missed; inspect the pane directly
 instead of waiting longer.
 
 **Keystroke authority.** A single key sent to the runner's dialog is
-an answer; text typed into its input box is a dispatch. No key goes
-past a permission prompt: the prompt is a pre-flight defect the runner
-halts on and reports, and the user fixes the declared set and re-runs
-(`run.md § Seats`; `run.md § Dispatch per item`). The other two routes
-are no keystroke's either: a classifier denial raises no prompt and is
-the seat's own to handle or report BLOCKED on, and a manual-approval
+an answer; text typed into its input box is a dispatch. Under
+`Supervisor: AI` no key goes past a permission prompt: the prompt is a
+pre-flight defect the runner halts on and reports, and the user fixes
+the declared set and re-runs; under `Supervisor: human` the user's key
+answers it (`run.md § Seats`; `run.md § Dispatch per item`). The other
+two routes are no keystroke's either: a classifier denial raises no
+prompt and is the seat's own to handle or report BLOCKED on, and a manual-approval
 fallback escalates to the user (§ Failure modes). Nor may the user
 type instructions into the box: that makes the user a second
 dispatcher, and the transcript records no channel for any input, so
@@ -190,14 +191,15 @@ browser and phone control without joining.
 A dispatched seat is a subagent and has no mode of its own: the run
 has one permission mode, the runner's. Under `Supervisor: AI` that is
 `auto`: the runner's own tooling is compound shell - until-loops,
-pipelines - which prefix rules cannot match, and auto suspends Bash
-allow rules and routes every shell command to a classifier that judges
-what the command does, so the runner is never blocked. What a
-promptless run rests on is then the mode-independent set of
-`companions/seat-permissions.md`, never the Bash allow rules auto
-suspends. Under `Supervisor: human` the user's session's mode governs;
-under either mode a prompt the declared set did not predict is a
-pre-flight defect that nobody clears (`run.md § Seats`).
+pipelines - which prefix rules cannot match, and auto routes a command
+no allow rule matches to a classifier that judges what the command
+does, so the runner is never blocked. What a promptless run rests on is
+then the declared set of `companions/seat-permissions.md`, cut to the
+rules auto reads (§ What enforces what there), and a prompt that set
+did not predict is a pre-flight defect that nobody clears. Under
+`Supervisor: human` the user's session's mode governs, and the user
+answers such a prompt, so a missing allow rule halts no run (`run.md
+§ Seats`, the prompt row).
 
 The `--runner-mode` the pre-flight takes (`run.md § Pre-flight`) is the
 mode this table gives the runner: the value is self-attested, no session
@@ -213,7 +215,7 @@ everything else, and never `dontAsk`, which denies rather than
 approves, so every prompt becomes a hard failure instead of a question.
 
 Deny rules survive auto mode - under it they are how the set is
-enforced. Only Bash *allow* rules are suspended, so a
+enforced. Auto drops *allow* rules alone, so a
 `git push origin main` or force-push deny still bites.
 
 Every seat holds its commands to `branch-plan.md § Commit cadence`

@@ -293,6 +293,8 @@ grep -qxF -- "Read(//${h#/}/**)" <<<"$allow" \
 ! grep -qE '__PROJECT_DIR__|__HOME__' "$sf" \
   && pass "no placeholder survives into the seeded settings" \
   || die "a placeholder survived: $(grep -nE '__PROJECT_DIR__|__HOME__' "$sf")"
+# 48. the seed declares no interpreter or package-manager rule, which auto drops.
+! grep -qE '^Bash\((node|npm|npx)[ :]' <<<"$allow" && pass "the seed carries no rule auto drops" || die "auto-dropped rule seeded: $allow"
 rm -rf "$h"
 
 exit $fail

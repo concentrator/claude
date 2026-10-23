@@ -84,5 +84,16 @@ runp --supervisor human --runner-mode default
 rc0 "a GitLab CI wait exits zero on the template's rules"
 want "present (project) Bash(glab ci status --branch:*)" "the CI wait line is read with the other declared commands"
 
+newfix; sat "$PT" "$PAIR"
+edit_rm() { jq --arg r "$1" 'del(.permissions.allow[] | select(. == $r))' "$PT" > "$PT.new" && mv "$PT.new" "$PT"; }
+runp --supervisor AI --runner-mode auto
+rc0 "a declared toolchain command passes under auto"
+want "present (project) Bash(bash t.sh:*)" "auto keeps a narrow toolchain prefix, so it is checked"
+edit_rm "Bash(bash t.sh:*)"
+runp --supervisor AI --runner-mode auto
+[ "$RC" -ne 0 ] && pass "an absent toolchain prefix stops an AI-supervised run" \
+  || die "an absent toolchain prefix passed under auto"
+want "missing Bash(bash t.sh:*)" "the absent toolchain prefix is reported missing"
+
 (( fail == 0 )) && echo "preflight-permissions-toolchain.test: ALL OK"
 exit $fail

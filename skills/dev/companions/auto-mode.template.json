@@ -1,0 +1,19 @@
+{
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "DEV runs: a project whose CLAUDE.md declares `## Agent toolchain` and `## Supervision` runs the DEV workflow. A runner session dispatches subagent seats that commit on a short-lived working branch and never push; the runner pushes that branch, opens its MR/PR with the declared change-request command and waits on the declared CI wait. The `Supervisor:` line names who merges it with the declared merge command: the user under `Supervisor: human`, the runner session itself, holding the supervisor seat, within the `Supervisor bounds` line under `Supervisor: AI`. Plans and task reports live under the plans directory that CLAUDE.md's `## Layout` declares, and committing them on the working branch is the run's ordinary work."
+    ],
+    "allow": [
+      "$defaults"
+    ],
+    "soft_deny": [
+      "$defaults",
+      "DEV Release: in a DEV run, cutting or publishing a release - pushing a version tag, creating a release on the host (`gh release create`, `glab release create`), merging a `release/` branch's MR/PR, or running the project's publish step to a package registry.",
+      "DEV Instruction Change: in a DEV run, merging an MR/PR that changes the project's `CLAUDE.md`, a file under its `rules/`, `skills/`, `hooks/`, `agents/` or `scripts/` directories, a `settings*.json` file, its `.mcp.json` or its CI configuration, except a `CLAUDE.md` change confined to its `## Layout` declaration lines. Editing those files on a working branch for a plan item is not this rule; merging the change is.",
+      "DEV Customer Data: in a DEV run, reading customer or end-user data, or sending project material - code, plans, reports, logs - to a destination outside the project's repository and its host, such as a third-party service, a public paste, a message or an email.",
+      "DEV History Rewrite: in a DEV run, rewriting git history that has left the machine - any force push (`--force`, `--force-with-lease`), a rebase, amend, reset or filter of commits already pushed, or moving or deleting a pushed tag.",
+      "DEV Red Gate: in a DEV run, going past a red gate - merging or delivering an MR/PR whose CI or a required check has not passed on its head sha, or getting past a gate by skipping it: `--no-verify`, `--admin`, or disabling, skipping or deleting a check or a test."
+    ]
+  }
+}

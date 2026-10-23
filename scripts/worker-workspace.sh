@@ -118,7 +118,10 @@ project_clone() {
 # is exactly the file that keeps a worker from stalling on a permission
 # prompt. Built from companions/auto-permissions.template.json with
 # __PROJECT_DIR__ and __HOME__ substituted; the rules carry a // prefix,
-# so the paths go in without their leading slash.
+# so the paths go in without their leading slash. A worker runs under auto,
+# which drops the broad allow rules that grant arbitrary code execution - a
+# wildcarded interpreter such as node, a package manager's run commands - so
+# the seed carries none of them and the classifier judges those commands.
 #
 # The wholesale > write is the seed: it lands once on a fresh VM checkout,
 # before any run, while preflight-permissions.sh --apply merges into the same
@@ -158,7 +161,7 @@ settings() {
     '(.permissions.allow[] |= (gsub("__PROJECT_DIR__"; $pd) | gsub("__HOME__"; $h))) |
     .permissions.allow += [
       "Read(" + $siblings + ")",
-      "Bash(npm *)", "Bash(node *)", "Bash(npx *)", "Bash(glab *)", "Bash(gh *)",
+      "Bash(glab *)", "Bash(gh *)",
       "Bash(git push -u origin batch/*)", "Bash(git push -u origin doc/*)",
       "Bash(git push -u origin feat/*)",  "Bash(git push -u origin fix/*)",
       "Bash(git push -u origin refactor/*)", "Bash(git push -u origin mnt/*)",

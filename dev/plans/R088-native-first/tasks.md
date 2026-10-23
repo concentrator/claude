@@ -18,7 +18,7 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - [x] **R088-T004 [mnt]**: two-step planning - requirements and design, then the
   task list with a plan per task; a small change ships in one MR/PR.
 
-- [ ] **R088-T005 [mnt]**: permissions on native modes, settings and hooks, with
+- [x] **R088-T005 [mnt]**: permissions on native modes, settings and hooks, with
   the auto-mode classifier configured and the pre-flight cut to what binds.
 
 - [ ] **R088-T006 [mnt]**: framework install - files copied onto a machine, the
@@ -39,3 +39,7 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - No allow rule covers the `sleep` the CI-wait retry runs.
 - `run.md § Batch close` 2 queues judgment calls without naming where.
 - No command starts a remote runner, and `supervisor-runbook.md` Variant B omits pulling the host's `~/.claude` first.
+- The pre-flight counts a user-tier `Bash(*)` as covering every declared Bash rule under `auto`, which drops it.
+- No `autoMode` allow entry lets an AI supervisor merge, the classifier seeing no CI result or head sha.
+- The worker host sets no `attribution.sessionUrl: false`, and no gate stops a `Claude-Session` trailer before push.
+- The `autoMode` soft_deny entries name no visible DEV-run trigger or must-name slot, nor presume an unseen MR diff.
