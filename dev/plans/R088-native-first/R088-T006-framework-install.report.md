@@ -36,6 +36,10 @@
 - Item 2: a manifest of hashes tells the install's files from the
   user's; an identical file is adopted, a differing one stays and is
   listed, an owned file the set drops is removed.
+- Item 2: with no manifest record, a target file whose hash matches any
+  committed version of its path in the framework repository is an
+  unedited copy, adopted and refreshed; any other differing file is the
+  user's.
 - Item 2: an edited `check-accretion.sh` is the user's: it stays and is
   listed, with no MARKERS carry-over.
 - Item 3: the install writes `settings.json` only to add a missing
