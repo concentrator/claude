@@ -82,3 +82,15 @@
   the clash between the two rules goes to the R088 backlog.
 
 ## Review
+
+- [ ] Item 2: `MAINTENANCE.md` names `install-dev.test.sh` and
+  `install-dev-minimal.test.sh` as the tests asserting the copied sets,
+  not the new `install-dev-manifest.test.sh` (Suggestion) -
+  MAINTENANCE.md:152
+  Evidence: observed MAINTENANCE.md:152-154 lists the two tests only
+- [ ] Item 2: `migrate.md` tells an adopter to tune the shipped
+  `check-accretion.sh` `MARKERS` list without saying a tuned gate is then
+  the adopter's file, left and listed by later installs (Suggestion) -
+  skills/dev/migrate.md:40
+  Evidence: observed skills/dev/migrate.md:38-40 and the Item 2 answer
+  that an edited `check-accretion.sh` stays and is listed
