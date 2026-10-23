@@ -5,7 +5,7 @@ architecture-changing: true
 mode: normal
 ---
 
-- [ ] USER: the work moves to a clone at `~/src/claude-dev`: once this plan's
+- [x] USER: the work moves to a clone at `~/src/claude-dev`: once this plan's
   PR merges, clone GitHub `main` there and carry `core.hooksPath`,
   `.claude/settings.local.json` and workspace trust; `/dev run R088-T006`, in
   a runner session started there, cuts the task branch and marks this. No one
