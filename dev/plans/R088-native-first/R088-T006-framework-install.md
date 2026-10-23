@@ -22,7 +22,7 @@ mode: normal
   writes `CLAUDE.md` only by appending an import line. Approach: the three
   register functions and the retired-hook pass of `install-dev.sh`, then a
   test re-installing over registered, custom-formatted settings.
-- [ ] A full install ships what a machine needs to run DEV without this
+- [x] A full install ships what a machine needs to run DEV without this
   repository: the seat definitions under `agents/`, and `rules/code-comments.md`
   and `rules/claude-md.md`, which shipped skills cite; `--minimal` ships none
   of them. Approach: `install-dev.sh`, then both tests, the "personal rules

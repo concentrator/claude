@@ -8,7 +8,8 @@
 #   --force                        bypass the pre-write project guard
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
-# branch-guard + secrets-guard + branch-state + session-brief hooks
+# seat definitions /dev run dispatches with the rules they and the skills
+# cite, the branch-guard + secrets-guard + branch-state + session-brief hooks
 # (registered in the target settings.json), the shipped Tier-1 checks with
 # their self-tests, the writing conventions (@imported by CLAUDE.md), and -
 # on a project install - the maintenance hygiene section when the target doc
@@ -19,8 +20,9 @@
 # target inside its own checkout.
 # Does NOT ship the user's personal convention rules.
 # --minimal serves contributors who work existing plans without /dev: of
-# the skills it ships only the delivery files (MINIMAL_DEV); everything
-# else is the same as the full set.
+# the skills it ships only the delivery files (MINIMAL_DEV), and none of the
+# bundled skills, seat definitions or the rules they cite; everything else
+# is the same as the full set.
 # Idempotent + re-runnable.
 set -euo pipefail
 
@@ -71,6 +73,7 @@ if [ "$scope" = project ] && [ "$force" -eq 0 ] \
 fi
 
 BUNDLED="systematic-debugging dispatching-parallel-agents"
+CITED_RULES="code-comments.md claude-md.md"
 RETIRED="dev-handoff-nudge.sh dev-precompact-state.sh dev-context-fill.sh"
 # The template is the permission pre-flight's input, read at run time
 # (scripts/preflight-permissions.sh), not documentation.
@@ -85,9 +88,13 @@ else
   for f in $MINIMAL_DEV; do ship "skills/dev/$f"; done
 fi
 
-# 2. bundled dependency skills (the companions reference these by name)
+# 2. bundled dependency skills (the companions reference these by name), the
+#    seat definitions /dev run dispatches, and the rules the seats and the
+#    skills cite
 if [ "$set" = full ]; then
   for s in $BUNDLED; do ship_tree "skills/$s"; done
+  ship_tree agents
+  for f in $CITED_RULES; do ship "rules/$f"; done
 fi
 
 # 3. hooks: copy + register the branch-guard and the secrets guard
@@ -191,7 +198,7 @@ grep -qxF '@writing.md' "$claudemd" 2>/dev/null || printf '\n@writing.md\n' >> "
 # target repo's .gitignore excludes (idempotent), so they can be committed.
 if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null 2>&1; then
   repo="$(git -C "$proj" rev-parse --show-toplevel)"; gi="$repo/.gitignore"
-  for p in ".claude/skills/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/rules/" ".claude/CLAUDE.md" ".claude/settings.json" ".claude/MAINTENANCE.md" ".claude/$MANIFEST"; do
+  for p in ".claude/skills/" ".claude/agents/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/rules/" ".claude/CLAUDE.md" ".claude/settings.json" ".claude/MAINTENANCE.md" ".claude/$MANIFEST"; do
     git -C "$repo" check-ignore -q "${p%/}" 2>/dev/null || continue   # not ignored → skip
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"

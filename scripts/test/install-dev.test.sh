@@ -119,8 +119,8 @@ cmp -s "$PWD/scripts/ci/check-plan-text.sh" "$P/.claude/scripts/ci/check-plan-te
 [ -f "$P/.claude/rules/writing-artifacts.md" ] && pass "writing-artifacts rule copied" || die "no writing-artifacts rule"
 grep -qxF '@writing.md' "$P/.claude/CLAUDE.md" 2>/dev/null && pass "writing.md imported in CLAUDE.md" || die "writing.md not imported"
 
-# --- NOT shipped: personal convention rules ---
-[ "$(ls "$P/.claude/rules")" = "writing-artifacts.md" ] && pass "personal rules not shipped" || die "rules/ holds: $(ls "$P/.claude/rules" | tr "\n" " ")"
+# --- shipped: the seat definitions and the rules they and the skills cite; NOT the personal convention rules ---
+diff -r agents "$P/.claude/agents" >/dev/null && [ "$(ls "$P/.claude/rules" | tr '\n' ' ')" = "claude-md.md code-comments.md writing-artifacts.md " ] && pass "seat definitions and cited rules shipped, personal rules not" || die "agents/ differs, or rules/ holds: $(ls "$P/.claude/rules" | tr "\n" " ")"
 
 # --- settings.json: branch-guard registered; pre-existing survives ---
 jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(test("dev-branch-guard"))' "$P/.claude/settings.json" >/dev/null \
@@ -263,7 +263,7 @@ rm -rf "$M"
 # --- global path (no --project): installs into HOME/.claude with a ~/... hook ---
 H=$(mktemp -d)
 HOME="$H" bash "$INSTALL" >/dev/null 2>&1 || die "global install exits nonzero"
-[ -f "$H/.claude/skills/dev/SKILL.md" ] && pass "global install copies toolset" || die "global install missing toolset"
+[ -f "$H/.claude/skills/dev/SKILL.md" ] && diff -r agents "$H/.claude/agents" >/dev/null && pass "global install copies toolset, seat definitions included" || die "global install missing toolset or seat definitions"
 jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(. == "~/.claude/hooks/dev-branch-guard.sh")' "$H/.claude/settings.json" >/dev/null \
   && pass "global hook path is ~/.claude/..." || die "global hook path wrong"
 jq -e '[.hooks.SessionStart[]?.hooks[]?.command] | any(. == "~/.claude/hooks/dev-session-brief.sh")' "$H/.claude/settings.json" >/dev/null \
@@ -277,7 +277,7 @@ git -C "$G" checkout -qb work   # keep the fixture off a default branch in case 
 printf '.claude/*\n' > "$G/.gitignore"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (gitignore fixture) exits nonzero"
 still=""
-for p in .claude/skills .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/writing.md .claude/rules/writing-artifacts.md .claude/settings.json .claude/MAINTENANCE.md .claude/dev-install-manifest.txt; do
+for p in .claude/skills .claude/agents/dev-implementer.md .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/writing.md .claude/rules/writing-artifacts.md .claude/settings.json .claude/MAINTENANCE.md .claude/dev-install-manifest.txt; do
   git -C "$G" check-ignore -q "$p" && still="$still $p"
 done
 [ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"

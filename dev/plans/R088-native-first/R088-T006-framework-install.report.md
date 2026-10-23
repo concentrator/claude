@@ -17,10 +17,16 @@
   Test: `scripts/test/install-dev-settings.test.sh`
 - Item 4 (source): A full install ships the seat definitions under `agents/`
   and the rules `code-comments.md` and `claude-md.md`.
-  Source:
+  Source: `scripts/install-dev.sh` § 2, `ship_tree agents` and
+    `CITED_RULES`, under `set = full`
+  Test: `scripts/test/install-dev.test.sh` "seat definitions and cited
+    rules shipped, personal rules not" and "global install copies toolset,
+    seat definitions included"; `scripts/test/install-dev-minimal.test.sh`
 - Item 4 (drop): `agents/` is this repository's own, `install-dev.sh` copying
   none of it.
-  Source:
+  Source: `scripts/install-dev.sh` § 2, `ship_tree agents`
+  Test: `scripts/test/install-dev.test.sh` "seat definitions and cited
+    rules shipped, personal rules not"
 - Item 6 (source): An install ships `dev-instructions.md`, the framework's
   global instructions, and appends a line importing it to the target's
   `CLAUDE.md`.
@@ -59,6 +65,13 @@
 - Item 3: `CLAUDE.md` needed no change, § 5 only appending `@writing.md`
   when the line is absent; the test pins it byte-identical on a re-install
   and only the import line added when missing.
+- Item 4: § 6 also allowlists `.claude/agents/` for a project install, as
+  it does every other shipped path, so the seat definitions stay committable
+  under a restrictive `.gitignore`; the committability case checks one. The
+  manifest test's expected count takes in `agents/` and the two rules.
+- Item 4: `install-dev.test.sh` sits at the 300-line cap, so the full-set
+  checks extend its existing rules check and global-install check, each one
+  line, rather than adding lines.
 
 ## Answers
 

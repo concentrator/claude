@@ -12,8 +12,9 @@ fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 
-# --- --minimal: delivery skill files only, no router or bundled skills; the
-# rest of the set unchanged; over a full install it drops the other dev files ---
+# --- --minimal: delivery skill files only, no router, bundled skills, seat
+# definitions or cited rules; the rest of the set unchanged; over a full
+# install it drops the rest of the full set ---
 N=$(mktemp -d)
 bash "$INSTALL" --project "$N" >/dev/null 2>&1 && bash "$INSTALL" --project "$N" --minimal >/dev/null 2>&1 || die "minimal install exits nonzero"
 got=$(cd "$N/.claude/skills/dev" && find . -type f | sed 's|^\./||' | sort | tr '\n' ' ')
@@ -21,8 +22,12 @@ want="companions/auto-permissions.template.json companions/declarations.md compa
 [ "$got" = "$want" ] && pass "minimal ships only the delivery skill files" || die "minimal skills/dev holds: $got"
 [ "$(ls "$N/.claude/skills")" = dev ] && [ "$(cd "$N/.claude/skills/dev" && find . -mindepth 1 -type d)" = ./companions ] \
   && pass "minimal over full drops the bundled skills and the emptied directories" || die "minimal over full left: $(ls "$N/.claude/skills" | tr '\n' ' ')"
+[ ! -e "$N/.claude/agents" ] && [ "$(ls "$N/.claude/rules")" = writing-artifacts.md ] \
+  && pass "minimal over full drops the seat definitions and the cited rules" || die "minimal over full left: $(ls "$N/.claude/agents" "$N/.claude/rules" 2>/dev/null | tr '\n' ' ')"
 M2=$(mktemp -d); bash "$INSTALL" --project "$M2" --minimal >/dev/null 2>&1 || die "fresh minimal install exits nonzero"
 [ "$(ls "$M2/.claude/skills")" = "dev" ] && pass "minimal ships no bundled skills" || die "minimal skills/ holds: $(ls "$M2/.claude/skills" | tr '\n' ' ')"
+[ ! -e "$M2/.claude/agents" ] && [ "$(ls "$M2/.claude/rules")" = writing-artifacts.md ] \
+  && pass "minimal ships no seat definitions or cited rules" || die "minimal ships: $(ls "$M2/.claude/agents" "$M2/.claude/rules" 2>/dev/null | tr '\n' ' ')"
 miss=
 for f in hooks/dev-branch-guard.sh hooks/dev-secrets-guard.sh hooks/dev-branch-state.sh hooks/dev-session-brief.sh \
          scripts/ci/check-plan-text.sh scripts/ci/branch-diff.sh scripts/preflight-permissions.sh writing.md rules/writing-artifacts.md MAINTENANCE.md; do
