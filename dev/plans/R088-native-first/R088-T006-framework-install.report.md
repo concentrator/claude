@@ -6,7 +6,10 @@
   manifest record or, unrecorded, any committed version of its path in the
   framework repository; any other differing target file it leaves in place
   and lists.
-  Source:
+  Source: `scripts/install-manifest.sh` `copy_shipped`, `owned`,
+    `committed`, `install_shipped` and `list_kept`, called from
+    `scripts/install-dev.sh` § 5
+  Test: `scripts/test/install-dev-manifest.test.sh`
 - Item 3 (source): An install writes `settings.json` only to add a missing
   toolset hook entry or to drop a retired one.
   Source:
@@ -25,6 +28,23 @@
   Source:
 
 ## Implementer
+### Divergences
+- Item 2: the manifest's cases went to a new
+  `scripts/test/install-dev-manifest.test.sh`, as `install-dev.test.sh`
+  sits at `check-code-size.sh`'s 300-line cap; the two named tests carry
+  the changed cases - the tuned accretion gate left and listed, retired
+  hooks holding committed content, the manifest allowlisted, and minimal
+  over full dropping the bundled skills. The split put the ownership
+  functions in `scripts/install-manifest.sh`, sourced by `install-dev.sh`
+  and listed in `LAYOUT.md`.
+- Item 2: retired hooks are removed only where they are the install's
+  copies, by the same test as a dropped recorded file, so a retired hook
+  the user edited stays and is listed; "its own checkout" is refused as a
+  target equal to or under the checkout's physical path, `--project` into
+  it and a symlinked target included.
+- Item 2: a file the manifest records whose content the user changed loses
+  its record, so a later install treats it as unrecorded; a dropped edited
+  file is listed once, the install that drops it from the set.
 
 ## Answers
 

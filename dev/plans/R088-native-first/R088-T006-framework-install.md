@@ -11,7 +11,7 @@ mode: normal
   a runner session started there, cuts the task branch and marks this. No one
   pulls that branch, or a `main` holding it, into `~/.claude`. Approach: the
   user's commands, from wording the runner drafts.
-- [ ] An install owns only what it copied: a manifest in the target records
+- [x] An install owns only what it copied: a manifest in the target records
   each copied file's hash; an unrecorded file matching any committed version
   of its path is adopted and refreshed, any other differing file is the user's,
   left and listed; a dropped owned file goes, and it refuses its own checkout

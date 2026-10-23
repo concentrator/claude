@@ -19,6 +19,8 @@ bash "$INSTALL" --project "$N" >/dev/null 2>&1 && bash "$INSTALL" --project "$N"
 got=$(cd "$N/.claude/skills/dev" && find . -type f | sed 's|^\./||' | sort | tr '\n' ' ')
 want="companions/auto-permissions.template.json companions/declarations.md companions/secrets.md companions/toolchain.md companions/untracked-claude.md finish.md git-workflow.md "
 [ "$got" = "$want" ] && pass "minimal ships only the delivery skill files" || die "minimal skills/dev holds: $got"
+[ "$(ls "$N/.claude/skills")" = dev ] && [ "$(cd "$N/.claude/skills/dev" && find . -mindepth 1 -type d)" = ./companions ] \
+  && pass "minimal over full drops the bundled skills and the emptied directories" || die "minimal over full left: $(ls "$N/.claude/skills" | tr '\n' ' ')"
 M2=$(mktemp -d); bash "$INSTALL" --project "$M2" --minimal >/dev/null 2>&1 || die "fresh minimal install exits nonzero"
 [ "$(ls "$M2/.claude/skills")" = "dev" ] && pass "minimal ships no bundled skills" || die "minimal skills/ holds: $(ls "$M2/.claude/skills" | tr '\n' ' ')"
 miss=

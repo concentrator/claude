@@ -110,10 +110,10 @@ for t in check-accretion check-batch-tags; do
 done
 rm -rf "$VH"
 
-# --- tuned MARKERS line survives re-install; the plan-text gate lands as shipped ---
+# --- a tuned accretion gate is the adopter's: left and listed; the plan-text gate lands as shipped ---
 T=$(mktemp); sed "s/^MARKERS=.*/MARKERS='justonemarker'/" "$P/.claude/scripts/ci/check-accretion.sh" > "$T" && mv "$T" "$P/.claude/scripts/ci/check-accretion.sh"
-bash "$INSTALL" --project "$P" >/dev/null 2>&1
-grep -q "^MARKERS='justonemarker'" "$P/.claude/scripts/ci/check-accretion.sh" && pass "tuned MARKERS survives re-install" || die "re-install clobbered MARKERS"
+out=$(bash "$INSTALL" --project "$P" 2>&1)
+grep -q "^MARKERS='justonemarker'" "$P/.claude/scripts/ci/check-accretion.sh" && grep -qF "not the install's copy: $P/.claude/scripts/ci/check-accretion.sh" <<<"$out" && pass "tuned accretion gate survives re-install, listed" || die "re-install clobbered or did not list the tuned gate"
 cmp -s "$PWD/scripts/ci/check-plan-text.sh" "$P/.claude/scripts/ci/check-plan-text.sh" && pass "plan-text gate installed as shipped" || die "installed plan-text gate differs from the shipped one"
 [ -f "$P/.claude/writing.md" ]                     && pass "writing.md copied" || die "no writing.md"
 [ -f "$P/.claude/rules/writing-artifacts.md" ] && pass "writing-artifacts rule copied" || die "no writing-artifacts rule"
@@ -137,7 +137,7 @@ jq -e '.model == "x"' "$P/.claude/settings.json" >/dev/null && pass "pre-existin
 jq -e '.hooks.PostToolUse[0].matcher == "Skill"' "$P/.claude/settings.json" >/dev/null && pass "pre-existing PostToolUse survives" || die "clobbered PostToolUse"
 
 # --- upgrade: an earlier install's retired hooks and their entries go; others stay ---
-U=$(mktemp -d); mkdir -p "$U/.claude/hooks"; touch "$U/.claude/hooks/"{dev-handoff-nudge,dev-precompact-state,dev-context-fill}.sh
+U=$(mktemp -d); mkdir -p "$U/.claude/hooks"; for h in dev-handoff-nudge dev-precompact-state dev-context-fill; do git show "$(git log -1 --format=%H --diff-filter=D -- "hooks/$h.sh")^:hooks/$h.sh" > "$U/.claude/hooks/$h.sh"; done
 printf '{"hooks":{"Stop":[{"hooks":[{"type":"command","command":"\\"$CLAUDE_PROJECT_DIR\\"/.claude/hooks/dev-handoff-nudge.sh"}]},{"hooks":[{"type":"command","command":"echo bye"}]}],"PreCompact":[{"hooks":[{"type":"command","command":"~/.claude/hooks/dev-precompact-state.sh"}]}]}}\n' > "$U/.claude/settings.json"
 bash "$INSTALL" --project "$U" >/dev/null 2>&1 && jq -e '(.hooks | has("PreCompact") | not) and [.hooks.Stop[].hooks[].command] == ["echo bye"]' "$U/.claude/settings.json" >/dev/null && [ -z "$(ls "$U/.claude/hooks" | grep -E 'nudge|precompact|context-fill')" ] \
   && pass "upgrade removes the retired hooks and their entries, keeps the rest" || die "upgrade left: $(jq -c '.hooks | {Stop, PreCompact}' "$U/.claude/settings.json") $(ls "$U/.claude/hooks" | tr '\n' ' ')"; rm -rf "$U"
@@ -277,7 +277,7 @@ git -C "$G" checkout -qb work   # keep the fixture off a default branch in case 
 printf '.claude/*\n' > "$G/.gitignore"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (gitignore fixture) exits nonzero"
 still=""
-for p in .claude/skills .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/writing.md .claude/rules/writing-artifacts.md .claude/settings.json .claude/MAINTENANCE.md; do
+for p in .claude/skills .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/writing.md .claude/rules/writing-artifacts.md .claude/settings.json .claude/MAINTENANCE.md .claude/dev-install-manifest.txt; do
   git -C "$G" check-ignore -q "$p" && still="$still $p"
 done
 [ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"
