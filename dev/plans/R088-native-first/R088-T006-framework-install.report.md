@@ -53,6 +53,10 @@
   `rules/code-comments.md` and `rules/claude-md.md`; `--minimal` ships
   none of them.
 - Item 9: the worker host changes in this task.
+- Item 1: the plan merges first in its own plan PR, `/dev run` admitting
+  only a merged plan for a task of a multi-task initiative; the user
+  clones `~/src/claude` from `main` and the run cuts the task branch
+  there.
 - Items 6, 7: each edits only the `README.md § Contents` rows
   `check-doc-sync.sh` names; the doc writer does the rest at close, and
   the clash between the two rules goes to the R088 backlog.
