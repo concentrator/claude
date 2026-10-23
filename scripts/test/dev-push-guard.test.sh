@@ -15,6 +15,7 @@ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 # init.defaultBranch; NOSYSTEM for Apple git's vendor config).
 export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 HOOK="$(git rev-parse --show-toplevel)/hooks/dev-branch-guard.sh"
+EMPTY_HOME=$(mktemp -d); export HOME="$EMPTY_HOME"
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
@@ -47,7 +48,7 @@ j=$(jq -nc '{tool_name:"Bash",tool_input:{command:"echo git push -f origin main"
 # --- pushes targeting the default branch are denied ---
 # A fresh repo on `main`; config is scrubbed above, so the literal
 # fallback names its trunk.
-M=$(mktemp -d); trap 'rm -rf "$M"' EXIT
+M=$(mktemp -d); trap 'rm -rf "$M" "$EMPTY_HOME"' EXIT
 git -c init.defaultBranch=main -C "$M" init -q
 git -C "$M" config user.email t@e >/dev/null; git -C "$M" config user.name t >/dev/null
 git -C "$M" commit -q --allow-empty -m init

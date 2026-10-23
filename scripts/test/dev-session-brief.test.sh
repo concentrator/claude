@@ -9,6 +9,7 @@ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 unset CLAUDE_PROJECT_DIR
 ROOT="$(git rev-parse --show-toplevel)"
 HOOK="$ROOT/hooks/dev-session-brief.sh"
+EMPTY_HOME=$(mktemp -d); export HOME="$EMPTY_HOME"
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
@@ -23,7 +24,7 @@ jq -e '[.hooks.SessionStart[]? | select(.matcher == "compact|resume")
 
 # A repo with a remote main, a work branch whose plan carries an open item,
 # one uncommitted change, and no session file anywhere.
-D=$(cd "$(mktemp -d)" && pwd -P); trap 'rm -rf "$D"' EXIT   # physical path: git resolves symlinks
+D=$(cd "$(mktemp -d)" && pwd -P); trap 'rm -rf "$D" "$EMPTY_HOME"' EXIT   # physical path: git resolves symlinks
 git -c init.defaultBranch=main -C "$D" init -q --bare origin
 git -c init.defaultBranch=main -C "$D" init -q repo
 R="$D/repo"
