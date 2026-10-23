@@ -14,6 +14,7 @@ unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 # init.defaultBranch; NOSYSTEM for Apple git's vendor config).
 export GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_NOSYSTEM=1
 HOOK="$(git rev-parse --show-toplevel)/hooks/dev-branch-guard.sh"
+EMPTY_HOME=$(mktemp -d); export HOME="$EMPTY_HOME"
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
@@ -24,7 +25,7 @@ run() { printf '%s' "$1" | bash "$HOOK" 2>/dev/null | grep -q '"permissionDecisi
 call() { jq -nc --arg c "$1" '{tool_name:"Bash",tool_input:{command:$c}}'; }
 
 # A fixture repo on `main` with a subdirectory and a committed file.
-M=$(mktemp -d); trap 'rm -rf "$M"' EXIT
+M=$(mktemp -d); trap 'rm -rf "$M" "$EMPTY_HOME"' EXIT
 git -c init.defaultBranch=main -C "$M" init -q
 git -C "$M" config user.email t@e >/dev/null; git -C "$M" config user.name t >/dev/null
 mkdir -p "$M/docs"; echo x > "$M/docs/x.md"
