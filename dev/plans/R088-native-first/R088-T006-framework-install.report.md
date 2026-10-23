@@ -80,6 +80,9 @@
 - Items 6, 7: each edits only the `README.md § Contents` rows
   `check-doc-sync.sh` names; the doc writer does the rest at close, and
   the clash between the two rules goes to the R088 backlog.
+- Item 3: the `CLAUDE.md` clause covers the `@writing.md` import append
+  only; a project install's wiring of `check-plan-text.sh` and
+  `check-code-size.sh` into the `- Test (fast):` line stays as it is.
 
 ## Review
 
