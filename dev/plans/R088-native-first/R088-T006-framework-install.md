@@ -5,12 +5,12 @@ architecture-changing: true
 mode: normal
 ---
 
-- [ ] USER: the work moves to a clone at `~/src/claude`: clone this branch
-  from `~/.claude` (nothing pushed), point `origin` at GitHub, carry
-  `core.hooksPath`, `.claude/settings.local.json` and workspace trust; the
-  run resumes in a runner session started there, which marks this. No one
-  pulls this branch into `~/.claude`. Approach: the user's commands, from
-  wording the runner drafts.
+- [ ] USER: the work moves to a clone at `~/src/claude`: once this plan's PR
+  merges, clone GitHub `main` there and carry `core.hooksPath`,
+  `.claude/settings.local.json` and workspace trust; `/dev run R088-T006`, in
+  a runner session started there, cuts the task branch and marks this. No one
+  pulls that branch, or a `main` holding it, into `~/.claude`. Approach: the
+  user's commands, from wording the runner drafts.
 - [ ] An install owns only what it copied: a manifest in the target records
   each copied file's hash; an unrecorded file matching any committed version
   of its path is adopted and refreshed, any other differing file is the user's,
