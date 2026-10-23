@@ -5,8 +5,8 @@ architecture-changing: true
 mode: normal
 ---
 
-- [ ] USER: the work moves to a clone at `~/src/claude`: once this plan's PR
-  merges, clone GitHub `main` there and carry `core.hooksPath`,
+- [ ] USER: the work moves to a clone at `~/src/claude-dev`: once this plan's
+  PR merges, clone GitHub `main` there and carry `core.hooksPath`,
   `.claude/settings.local.json` and workspace trust; `/dev run R088-T006`, in
   a runner session started there, cuts the task branch and marks this. No one
   pulls that branch, or a `main` holding it, into `~/.claude`. Approach: the
@@ -29,7 +29,7 @@ mode: normal
   not shipped" check among them.
 - [ ] USER: `~/.claude` stops being a git checkout: move `~/.claude/.git`
   aside, every file staying, and run the global install from
-  `~/src/claude`, which adopts the copies `~/.claude` holds. Approach: the
+  `~/src/claude-dev`, which adopts the copies `~/.claude` holds. Approach: the
   user's commands, from wording the runner drafts; it precedes items 6 and
   7, the first to rename or untrack a file.
 - [ ] The root `CLAUDE.md` becomes `dev-instructions.md`, which an install
@@ -51,19 +51,19 @@ mode: normal
   `<config>`, `supervisor-runbook.md § Remote Control`, `migrate.md`,
   `start.md`, `MAINTENANCE.md § Weekly audit`.
 - [ ] The worker host installs the framework rather than becoming a clone:
-  `config-clone` clones the repository to `~/src/claude` and runs the global
-  install, its dry run saying so; the operator copies the worker's user
+  `config-clone` clones the repository to `~/src/claude-dev` and runs the
+  global install, its dry run saying so; the operator copies the worker's user
   settings, as with `.env`. Approach: `worker-workspace.sh` with its test,
   then `skills/worker-host/` and its `companions/provisioning.md`.
 - [ ] `DESIGN.md` describes the repository as a clone the installer copies
   into `~/.claude`, the files it did not copy being the user's. Approach:
   `§ Self-hosting layout`, then `§ Self-enforcement` where it names how hooks
   reach a machine.
-- [ ] USER: refresh `~/.claude` from `~/src/claude`: run the global install, cut
-  `~/.claude/CLAUDE.md` to its import lines and personal text, update the
-  `autoMode` entries naming `~/.claude` as the repository, and remove the
-  repository-only files left there. Approach: the user's commands and
-  `settings.json` edit, from wording the runner drafts; then `claude
+- [ ] USER: refresh `~/.claude` from `~/src/claude-dev`: run the global
+  install, cut `~/.claude/CLAUDE.md` to its import lines and personal text,
+  update the `autoMode` entries naming `~/.claude` as the repository, and
+  remove the repository-only files left there. Approach: the user's commands
+  and `settings.json` edit, from wording the runner drafts; then `claude
   auto-mode config`.
 - [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
