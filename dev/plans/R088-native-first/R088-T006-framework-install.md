@@ -27,7 +27,7 @@ mode: normal
   and `rules/claude-md.md`, which shipped skills cite; `--minimal` ships none
   of them. Approach: `install-dev.sh`, then both tests, the "personal rules
   not shipped" check among them.
-- [ ] USER: `~/.claude` stops being a git checkout: move `~/.claude/.git`
+- [x] USER: `~/.claude` stops being a git checkout: move `~/.claude/.git`
   aside, every file staying, and run the global install from
   `~/src/claude-dev`, which adopts the copies `~/.claude` holds. Approach: the
   user's commands, from wording the runner drafts; it precedes items 6 and
