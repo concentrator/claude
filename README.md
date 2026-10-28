@@ -10,7 +10,7 @@ spec-driven development workflow, each part listed under § Contents.
 | `README.md` | This file: what the repo is, how to set it up, how the workflow runs |
 | `dev-instructions.md` | Global operating instructions; the installer ships it and `@import`s it from the target's `CLAUDE.md`, so it loads every session |
 | `writing.md` | Universal writing conventions; the installer ships it and `@import`s it from the target's `CLAUDE.md` as it does `dev-instructions.md` |
-| `.claude/settings.json` | Project-tier Claude Code config: the push deny carve-out, branch-push allows, durable tool allows, model override, `autoCompactWindow` |
+| `.claude/settings.json` | Project-tier Claude Code config: the push deny carve-out, branch-push allows, durable tool allows, model override, `autoCompactEnabled` and `autoCompactWindow` |
 | `.claude/CLAUDE.md` | This repository's own instructions: its `## Agent toolchain`, `## Supervision` and `## Layout` declarations |
 | `rules/` | Path-scoped convention rules, one file per concern; `LAYOUT.md` lists each, and § Installing the toolset elsewhere names the ones the installer ships |
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); beside it the bundled dependency skills the installer ships and the worker-host runbook (`LAYOUT.md` marks each) |
@@ -287,8 +287,12 @@ An install records each file it copies in a manifest in the target,
 `dev-install-manifest.txt`. It adopts and refreshes a target file whose
 hash matches its manifest record or, unrecorded, any committed version
 of its path in this repository; any other target file that differs from
-the shipped copy it leaves in place and lists
-([`install-manifest.sh` `copy_shipped`, `owned`, `committed`, `install_shipped`, `list_kept`](scripts/install-manifest.sh)).
+the shipped copy it leaves in place and lists. By the same test it
+removes a target file the set no longer ships - a recorded file, a
+retired hook, and, with no manifest in the target, any file under the
+trees it ships whole - when it is the install's copy, and leaves and
+lists any other
+([`install-manifest.sh` `copy_shipped`, `owned`, `committed`, `install_shipped`, `drop_unshipped`, `list_kept`](scripts/install-manifest.sh)).
 
 Beyond the copied files it appends, in both cases, an `@writing.md`
 line and an `@dev-instructions.md` line, each when absent, to the

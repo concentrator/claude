@@ -29,8 +29,8 @@ Four steps need a human and are not failures when they pause:
 
 - Run `keys-install`, which needs their forge credentials.
 - Run `claude` once on the VM and complete SSO.
-- Copy the worker's user settings to `~/.claude/settings.json` before
-  `config-clone`, whose install adds its hook entries to that file.
+- Copy the worker's user settings before `config-clone`
+  (`companions/provisioning.md` step 8).
 - Copy `~/src/claude-dev/.env.example` to `~/.claude/.env` and fill in
   the tokens.
 

@@ -155,7 +155,7 @@ miss=""
 for f in "concentrator/claude" "src/claude-dev" "core.hooksPath" "pre-push" "install-dev.sh" "~/.claude"; do
   grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
 done
-[ -z "$miss" ] && pass "config-clone names repo, clone, hooks, proof and install" || die "config-clone missing:$miss"
+[ -z "$miss" ] && pass "config-clone names repo, clone, hooks, pre-push check and install" || die "config-clone missing:$miss"
 
 # 31. dry run clones nothing and installs nothing
 [ ! -e "$h/src" ] && [ -z "$(ls -A "$h/.claude")" ] && pass "config-clone dry run clones and installs nothing" \

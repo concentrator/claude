@@ -15,7 +15,8 @@ mechanical CI checks in `scripts/ci/`. At branch close, before delivery,
 review the diff against the rule set and confirm the concerns below:
 
 - **Compliance** - what the diff adds obeys its file's governing rule
-  (`CLAUDE.md` per `rules/claude-md.md`; `SKILL.md` per `rules/skills.md`;
+  (`CLAUDE.md` and `dev-instructions.md` per `rules/claude-md.md`;
+  `SKILL.md` per `rules/skills.md`;
   plans per `skills/dev/plan.md`).
 - **Cross-file integrity** - references resolve; no rule duplicated
   across files (read maximally: any echo of a rule's text is a
@@ -66,10 +67,12 @@ Initial defaults - tune per project.
 
 ### Repair
 
-Governed files (CLAUDE.md, `rules/`, `SKILL.md`, settings) ask before
-an Edit or Write (`permissions.ask` in `settings.json`); a shell edit to
-one is proposed and awaits approval (`claude-md.md` / `skills.md`
-§ Approval). Repairs:
+Governed files ask before an Edit or Write: the `permissions.ask` list
+of `~/.claude/settings.json` holds every `CLAUDE.md`,
+`dev-instructions.md`, `SKILL.md`, `.claude/rules/` file and
+`.claude/settings*.json`, and this clone's `rules/` by its absolute
+path. A shell edit to one is proposed and awaits approval
+(`claude-md.md` / `skills.md` § Approval). Repairs:
 
 - Broken JSON / invalid settings → fix or revert.
 - Dead reference (missing skill, renamed path) → update or remove.
@@ -110,7 +113,7 @@ Targets beyond the generic routine:
   (written by the `PostToolUse`/`Skill` hook in
   `~/.claude/settings.json`). A skill with
   zero invocations over the period and no inbound reference from
-  CLAUDE.md / rules / other skills → flag for triage (wire in, accept
+  `dev-instructions.md` / rules / other skills → flag for triage (wire in, accept
   as description-triggered, or remove). Truncate the log after review.
 - Pre-push hook: a tracked `.githooks/pre-push` runs the Tier-1 gate
   (`scripts/ci/run-all.sh`) locally - advisory, bypass with
