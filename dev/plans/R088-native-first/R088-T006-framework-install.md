@@ -65,7 +65,7 @@ mode: normal
   remove the repository-only files left there. Approach: the user's commands
   and `settings.json` edit, from wording the runner drafts; then `claude
   auto-mode config`.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)

@@ -184,29 +184,32 @@
 - Review 15: `SKILL.md` names the settings step and points to
   `provisioning.md` step 8 for its place and reason.
 ### Findings
-- [ ] Item 6: `DESIGN.md § Self-enforcement` cites `CLAUDE.md § Compact
+- [x] Item 6: `DESIGN.md § Self-enforcement` cites `CLAUDE.md § Compact
   instructions`, a section now in `dev-instructions.md`; a doc, so the doc
-  writer's at close.
+  writer's at close. Fixed in item 10: DESIGN.md:118 cites
+  `dev-instructions.md § Compact instructions`.
   Evidence: observed DESIGN.md:117
-- [ ] Item 6: `check-caps.sh` holds only a file named `CLAUDE.md` to 100
+- [x] Item 6: `check-caps.sh` holds only a file named `CLAUDE.md` to 100
   lines, and `rules/claude-md.md` loads by the path `**/CLAUDE.md`, so
-  `dev-instructions.md` is under neither.
+  `dev-instructions.md` is under neither. Fixed as Review 3.
   Evidence: observed scripts/ci/check-caps.sh:53-54 and
   rules/claude-md.md:2-4
-- [ ] Item 6: the `MAINTENANCE.md § Weekly audit` prompt tells the routine
+- [x] Item 6: the `MAINTENANCE.md § Weekly audit` prompt tells the routine
   to read `CLAUDE.md`, which the repository no longer has; item 8 edits
-  that section.
+  that section. Fixed in item 8: the prompt reads `dev-instructions.md`
+  and `.claude/settings.json`.
   Evidence: observed MAINTENANCE.md:174
-- [ ] Item 7: `rules/skills.md` cites `skills/skill-creator/SKILL.md` and
+- [x] Item 7: `rules/skills.md` cites `skills/skill-creator/SKILL.md` and
   `skills/writing-skills/SKILL.md`, and `check-caps.sh`'s reference class
   names `writing-skills`, though the repository no longer tracks either
-  skill.
+  skill. Fixed as Review 4.
   Evidence: observed rules/skills.md:8-9 and scripts/ci/check-caps.sh:21
-- [ ] Item 7: `README.md` still says it is cloned as `~/.claude`, its
+- [x] Item 7: `README.md` still says it is cloned as `~/.claude`, its
   `skills/` row names personal skills, its `.gitignore` row and its setup
   steps the harness state and `plugins/` the file no longer ignores, and
   the weekly audit prompt reads `settings.json`; docs, so the doc
-  writer's at close, the last item 8's.
+  writer's at close, the last item 8's. Fixed by the doc writer's pass and
+  its docs-gate round, the weekly audit prompt in item 8.
   Evidence: observed README.md:5, README.md:17, README.md:21,
   README.md:184-191 and MAINTENANCE.md:174
 

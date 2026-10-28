@@ -61,9 +61,9 @@ claude-dev/
 ├── docs/                         # the docs home (.claude/CLAUDE.md § Layout)
 │   └── reports/                  # probe and test reports a doc claim cites
 ├── rules/                        # path-scoped convention rules
-│   ├── claude-md.md              # CLAUDE.md maintenance rules
+│   ├── claude-md.md              # CLAUDE.md maintenance rules (shipped)
 │   ├── writing-artifacts.md      # DEV-artifact writing rules (**/*.md; shipped)
-│   ├── code-comments.md          # code-comment rule (code and data files)
+│   ├── code-comments.md          # code-comment rule (code and data files; shipped)
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/                       # the run's seat definitions (skills/dev/run.md § Seats)
 │   ├── code-reviewer.md          # branch-close quality review agent

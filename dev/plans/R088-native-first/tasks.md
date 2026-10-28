@@ -21,7 +21,7 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - [x] **R088-T005 [mnt]**: permissions on native modes, settings and hooks, with
   the auto-mode classifier configured and the pre-flight cut to what binds.
 
-- [ ] **R088-T006 [mnt]**: framework install - files copied onto a machine, the
+- [x] **R088-T006 [mnt]**: framework install - files copied onto a machine, the
   user's files and settings never overwritten, the repository no longer the
   user's config directory.
 
