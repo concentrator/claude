@@ -58,7 +58,7 @@ below apply on every SKILL.md read or edit.
 
 ## Approval
 
-`permissions.ask` in `~/.claude/settings.json` holds every Edit or Write of a
-`SKILL.md`, a new one included, for approval. An edit through the shell
-(`sed`, a script, `git mv`) is outside it: propose the change and wait for
-explicit approval.
+`permissions.ask` in `~/.claude/settings.json` holds every Edit of a
+`SKILL.md` for approval. A new `SKILL.md` and an edit through the shell
+(`sed`, a script, `git mv`) are outside it: propose the change and wait
+for explicit approval.
