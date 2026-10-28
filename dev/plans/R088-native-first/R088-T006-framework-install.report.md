@@ -145,6 +145,19 @@
   `worker-credentials.sh`) now name the framework clone, and
   `pitfalls.md` drops the tracked-`settings.json` entry, the worker's
   `settings.json` being untracked.
+- Item 10: beyond the two named sections, the intro names the
+  `~/.claude` framework rather than the `~/.claude` configuration, and
+  `§ Components` names `dev-instructions.md`, the root `CLAUDE.md` being
+  gone; `§ Self-enforcement` now cites `dev-instructions.md § Compact
+  instructions`, the Item 6 finding on `DESIGN.md:117`.
+- Item 10: `§ Self-enforcement` says Claude Code hooks reach a machine
+  only through `install-dev.sh`, this one included:
+  `.claude/settings.json` registers no hooks, and the global install
+  registers `~/.claude/hooks/<name>` (`install-dev.sh:109`).
+- Item 10: `DESIGN.md` stood at 999 words under `check-caps.sh`'s
+  1000-word cap, so `§ Self-hosting layout` names the manifest script
+  without restating what the install writes into `settings.json` and
+  `CLAUDE.md`, which `install-dev.sh`'s header and items 2-3 hold.
 ### Findings
 - [ ] Item 6: `DESIGN.md § Self-enforcement` cites `CLAUDE.md § Compact
   instructions`, a section now in `dev-instructions.md`; a doc, so the doc

@@ -55,7 +55,7 @@ mode: normal
   global install, its dry run saying so; the operator copies the worker's user
   settings, as with `.env`. Approach: `worker-workspace.sh` with its test,
   then `skills/worker-host/` and its `companions/provisioning.md`.
-- [ ] `DESIGN.md` describes the repository as a clone the installer copies
+- [x] `DESIGN.md` describes the repository as a clone the installer copies
   into `~/.claude`, the files it did not copy being the user's. Approach:
   `§ Self-hosting layout`, then `§ Self-enforcement` where it names how hooks
   reach a machine.
