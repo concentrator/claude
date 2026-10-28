@@ -237,6 +237,15 @@
   `~/.claude` as the user's files, with `rules/js.md`,
   `skills/skill-creator/` and `skills/writing-skills/`; the other
   repository-only files there go.
+- Review 6: fixed - with no manifest in the target, an install also
+  examines the unshipped files under its shipped trees (`skills/dev`, the
+  bundled skills, `agents`): an unedited committed version is removed,
+  any other file is left and listed.
+- Review 4: `rules/skills.md` cites the copies at
+  `~/.claude/skills/skill-creator/SKILL.md` and
+  `~/.claude/skills/writing-skills/SKILL.md`; `check-caps.sh` drops
+  `writing-skills` from its reference skills.
+- Reviews 1-3, 5, 7, 8: fixed in the close fix round.
 
 ## Review
 
