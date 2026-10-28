@@ -202,3 +202,9 @@
   (Important) - scripts/ci/check-caps.sh:53
   Evidence: observed scripts/ci/check-caps.sh:52-54 and the `paths:` of
   rules/claude-md.md:2-3
+- [ ] Item 7: `rules/skills.md` sends a reader to the untracked
+  `skills/skill-creator/` and `skills/writing-skills/`, and `check-caps.sh`
+  still lists `writing-skills` as a reference skill (Important) -
+  rules/skills.md:8
+  Evidence: observed rules/skills.md:8-9, scripts/ci/check-caps.sh:21 and
+  `ls skills/` holding neither skill
