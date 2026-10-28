@@ -59,7 +59,7 @@ mode: normal
   into `~/.claude`, the files it did not copy being the user's. Approach:
   `§ Self-hosting layout`, then `§ Self-enforcement` where it names how hooks
   reach a machine.
-- [ ] USER: refresh `~/.claude` from `~/src/claude-dev`: run the global
+- [x] USER: refresh `~/.claude` from `~/src/claude-dev`: run the global
   install, cut `~/.claude/CLAUDE.md` to its import lines and personal text,
   update the `autoMode` entries naming `~/.claude` as the repository, and
   remove the repository-only files left there. Approach: the user's commands
