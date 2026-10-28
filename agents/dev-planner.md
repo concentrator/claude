@@ -68,7 +68,7 @@ nothing else, then run steps 7 and 8.
 
 **Writing.** In the checkout you write only the plan and its task
 report. Both follow `rules/writing-artifacts.md`, its § Editing
-Markdown included, and `CLAUDE.md § Audience visibility`.
+Markdown included, and `dev-instructions.md § Audience visibility`.
 
 Dispatch nothing yourself - no seat dispatches a seat.
 

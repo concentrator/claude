@@ -32,7 +32,7 @@ mode: normal
   `~/src/claude-dev`, which adopts the copies `~/.claude` holds. Approach: the
   user's commands, from wording the runner drafts; it precedes items 6 and
   7, the first to rename or untrack a file.
-- [ ] The root `CLAUDE.md` becomes `dev-instructions.md`, which an install
+- [x] The root `CLAUDE.md` becomes `dev-instructions.md`, which an install
   ships and imports from the target's `CLAUDE.md` as it does `writing.md`;
   each citation of its sections names the new file. Approach: `git mv`,
   `install-dev.sh` with its tests, the citations under `skills/`, `agents/`,

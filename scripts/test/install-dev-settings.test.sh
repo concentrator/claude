@@ -23,12 +23,12 @@ cp "$C/settings.json" "$P/registered.json"
 # --- registered settings, custom-formatted and holding a user entry with no
 # hooks, survive a re-install byte-identical ---
 jq --tab '{hooks: (.hooks | .PreToolUse += [{matcher: "Read", hooks: []}]), model}' "$P/registered.json" > "$C/settings.json"
-printf '# Mine\n\nkeep this\n\n@writing.md\n' > "$C/CLAUDE.md"
+printf '# Mine\n\nkeep this\n\n@writing.md\n@dev-instructions.md\n' > "$C/CLAUDE.md"
 cp "$C/settings.json" "$P/custom.json"; cp "$C/CLAUDE.md" "$P/claude.before"
 bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "re-install exits nonzero"
 cmp -s "$C/settings.json" "$P/custom.json" && pass "registered custom-formatted settings.json survives a re-install byte-identical" \
   || die "re-install rewrote settings.json: $(diff "$P/custom.json" "$C/settings.json" | head -5)"
-cmp -s "$C/CLAUDE.md" "$P/claude.before" && pass "a CLAUDE.md importing writing.md survives a re-install byte-identical" \
+cmp -s "$C/CLAUDE.md" "$P/claude.before" && pass "a CLAUDE.md holding both imports survives a re-install byte-identical" \
   || die "re-install rewrote CLAUDE.md"
 
 # --- a missing toolset entry is added back, nothing else changed ---
@@ -43,10 +43,10 @@ jq '.hooks.Stop = [{hooks: [{type: "command", command: "echo bye"}]}, {hooks: []
 bash "$INSTALL" --project "$P" >/dev/null 2>&1 && same "$C/settings.json" "$P/want.json" \
   && pass "a retired entry is dropped, the rest unchanged" || die "retired entry: $(jq -c .hooks.Stop "$C/settings.json")"
 
-# --- CLAUDE.md without the import only gains the import line ---
+# --- CLAUDE.md without the imports only gains the import lines ---
 printf '# Mine\n\nkeep this' > "$C/CLAUDE.md"
-bash "$INSTALL" --project "$P" >/dev/null 2>&1 && [ "$(cat "$C/CLAUDE.md")" = "$(printf '# Mine\n\nkeep this\n@writing.md')" ] \
-  && pass "CLAUDE.md gains only the import line" || die "CLAUDE.md: $(cat "$C/CLAUDE.md")"
+bash "$INSTALL" --project "$P" >/dev/null 2>&1 && [ "$(cat "$C/CLAUDE.md")" = "$(printf '# Mine\n\nkeep this\n@writing.md\n\n@dev-instructions.md')" ] \
+  && pass "CLAUDE.md gains only the import lines" || die "CLAUDE.md: $(cat "$C/CLAUDE.md")"
 rm -rf "$P"
 
 (( fail == 0 )) && echo "install-dev-settings.test: OK"

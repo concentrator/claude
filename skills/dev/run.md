@@ -135,7 +135,7 @@ classifier-readable.
 A question the plan cannot answer - an implementer's blocker, a concern
 whose answer changes what an item delivers, a proposed plan edit
 (`branch-plan.md § Plan edits`) - halts the item. A question a home
-already settles is answered by citing it (`CLAUDE.md § Scope`); any
+already settles is answered by citing it (`dev-instructions.md § Scope`); any
 other goes to the **user** as
 the seat's text, under either supervisor mode; a question whose answer is a
 choice among options goes through the AskUserQuestion tool, the options drawn

@@ -11,7 +11,8 @@
 # seat definitions /dev run dispatches with the rules they and the skills
 # cite, the branch-guard + secrets-guard + branch-state + session-brief hooks
 # (registered in the target settings.json), the shipped Tier-1 checks with
-# their self-tests, the writing conventions (@imported by CLAUDE.md), and -
+# their self-tests, the writing conventions and the framework's global
+# instructions (dev-instructions.md), each @imported by CLAUDE.md, and -
 # on a project install - the maintenance hygiene section when the target doc
 # lacks it. Hooks the toolset no longer ships are removed, where they are its
 # copies, with their settings entries.
@@ -185,20 +186,24 @@ if [ ! -f "$target/scripts/ci/code-size-allow.txt" ]; then
 EOF
 fi
 
-# 5. writing conventions: ship writing.md + @import it from the target CLAUDE.md,
-#    and the path-scoped DEV-artifact writing rule
+# 5. writing conventions and global instructions: ship writing.md and
+#    dev-instructions.md + @import each from the target CLAUDE.md, and the
+#    path-scoped DEV-artifact writing rule
 #    (append-only + idempotent; never clobbers an existing CLAUDE.md).
-ship writing.md
+IMPORTS="writing.md dev-instructions.md"
+for f in $IMPORTS; do ship "$f"; done
 ship rules/writing-artifacts.md
 install_shipped
 claudemd="$target/CLAUDE.md"
-grep -qxF '@writing.md' "$claudemd" 2>/dev/null || printf '\n@writing.md\n' >> "$claudemd"
+for f in $IMPORTS; do
+  grep -qxF "@$f" "$claudemd" 2>/dev/null || printf '\n@%s\n' "$f" >> "$claudemd"
+done
 
 # 6. committability: for a project install, allowlist installed paths that the
 # target repo's .gitignore excludes (idempotent), so they can be committed.
 if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null 2>&1; then
   repo="$(git -C "$proj" rev-parse --show-toplevel)"; gi="$repo/.gitignore"
-  for p in ".claude/skills/" ".claude/agents/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/rules/" ".claude/CLAUDE.md" ".claude/settings.json" ".claude/MAINTENANCE.md" ".claude/$MANIFEST"; do
+  for p in ".claude/skills/" ".claude/agents/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/dev-instructions.md" ".claude/rules/" ".claude/CLAUDE.md" ".claude/settings.json" ".claude/MAINTENANCE.md" ".claude/$MANIFEST"; do
     git -C "$repo" check-ignore -q "${p%/}" 2>/dev/null || continue   # not ignored → skip
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"

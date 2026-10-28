@@ -20,7 +20,7 @@ paths:
 - The "PascalCase ⇒ the export is a matching class/component"
   correspondence is review-level (Tier-2 Compliance), not mechanically
   checked.
-- A renamed file takes these names too (`CLAUDE.md § Scope`).
+- A renamed file takes these names too (`dev-instructions.md § Scope`).
 
 A project with CI can enforce the casing - copy this into
 `scripts/ci/check-js-naming.sh` (illustrative; not wired into this repo's

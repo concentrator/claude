@@ -8,7 +8,7 @@ repos are versioned there, not mapped.
 
 ```
 ~/.claude/
-├── CLAUDE.md                     # global instructions, every session
+├── dev-instructions.md           # global instructions (shipped; @imported by the installed CLAUDE.md)
 ├── writing.md                    # universal writing conventions (@imported by CLAUDE.md)
 ├── settings.json                 # global Claude Code config (tracked)
 ├── .gitignore                    # ignore rules for harness state

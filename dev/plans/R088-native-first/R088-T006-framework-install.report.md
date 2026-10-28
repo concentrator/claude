@@ -30,7 +30,14 @@
 - Item 6 (source): An install ships `dev-instructions.md`, the framework's
   global instructions, and appends a line importing it to the target's
   `CLAUDE.md`.
-  Source:
+  Source: `scripts/install-dev.sh` § 5, `IMPORTS` shipped and each
+    appended as an `@` line when absent
+  Test: `scripts/test/install-dev.test.sh` "writing.md and
+    dev-instructions.md copied", "writing.md and dev-instructions.md
+    imported in CLAUDE.md" and "global install copies toolset, seat
+    definitions included, and imports the instructions";
+    `scripts/test/install-dev-settings.test.sh`;
+    `scripts/test/install-dev-minimal.test.sh`
 - Item 7 (drop): The repository is cloned as `~/.claude`, with no install step
   of its own, its `settings.json` the machine's global Claude Code config.
   Source:
@@ -72,6 +79,32 @@
 - Item 4: `install-dev.test.sh` sits at the 300-line cap, so the full-set
   checks extend its existing rules check and global-install check, each one
   line, rather than adding lines.
+- Item 6: `dev-instructions.md` ships in the minimal set too, as
+  `writing.md` does, and its import line follows `@writing.md`'s; a project
+  install allowlists `.claude/dev-instructions.md` beside `.claude/writing.md`.
+  `install-dev.test.sh` sits at the 300-line cap, so its copy, import,
+  idempotence, global-install and committability checks each extend an
+  existing line.
+- Item 6: the citations moved are those of the root file's sections in
+  `agents/`, `rules/` and `skills/dev/`, `rules/js.md` included though item
+  7 untracks it; `plan.md § Proportionality` rewraps for the mode files'
+  80-character line. The `LAYOUT.md` line and `README.md § Contents` row of
+  `writing.md` still say an import from `CLAUDE.md`, which holds for an
+  installed target, and stay.
+### Findings
+- [ ] Item 6: `DESIGN.md § Self-enforcement` cites `CLAUDE.md § Compact
+  instructions`, a section now in `dev-instructions.md`; a doc, so the doc
+  writer's at close.
+  Evidence: observed DESIGN.md:117
+- [ ] Item 6: `check-caps.sh` holds only a file named `CLAUDE.md` to 100
+  lines, and `rules/claude-md.md` loads by the path `**/CLAUDE.md`, so
+  `dev-instructions.md` is under neither.
+  Evidence: observed scripts/ci/check-caps.sh:53-54 and
+  rules/claude-md.md:2-4
+- [ ] Item 6: the `MAINTENANCE.md § Weekly audit` prompt tells the routine
+  to read `CLAUDE.md`, which the repository no longer has; item 8 edits
+  that section.
+  Evidence: observed MAINTENANCE.md:174
 
 ## Answers
 
