@@ -152,7 +152,7 @@ rm -rf "$h" "$stub"
 h=$(mktemp -d); mkdir -p "$h/.claude" "$h/.worker-bootstrap"
 out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$WSSCRIPT" config-clone --dry-run 2>&1)
 miss=""
-for f in "concentrator/claude" "src/claude-dev" "core.hooksPath" "pre-push" "install-dev.sh" "~/.claude"; do
+for f in "concentrator/claude-dev" "src/claude-dev" "core.hooksPath" "pre-push" "install-dev.sh" "~/.claude"; do
   grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
 done
 [ -z "$miss" ] && pass "config-clone names repo, clone, hooks, pre-push check and install" || die "config-clone missing:$miss"

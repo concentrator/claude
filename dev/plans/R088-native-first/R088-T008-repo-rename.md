@@ -10,7 +10,7 @@ mode: normal
   task branch is pushed. Approach: the user's commands, from wording the
   runner drafts (`gh repo rename`, `git remote set-url`), then `claude
   auto-mode config` shows the new name.
-- [ ] `config-clone` clones `git@github.com:concentrator/claude-dev.git` by
+- [x] `config-clone` clones `git@github.com:concentrator/claude-dev.git` by
   default and its dry run names that remote. Approach: the default in
   `scripts/worker-workspace.sh`, then the dry-run check in its test pinning
   `concentrator/claude-dev`; a tree grep finds no other name, the probe
