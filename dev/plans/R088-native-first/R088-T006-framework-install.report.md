@@ -157,3 +157,9 @@
   skills/dev/migrate.md:40
   Evidence: observed skills/dev/migrate.md:38-40 and the Item 2 answer
   that an edited `check-accretion.sh` stays and is listed
+- [ ] Item 6: `dev-instructions.md` escapes the guards meant for the
+  global instructions: `check-caps.sh` caps only a file named `CLAUDE.md`
+  at 100 lines, and `rules/claude-md.md` loads only for `**/CLAUDE.md`
+  (Important) - scripts/ci/check-caps.sh:53
+  Evidence: observed scripts/ci/check-caps.sh:52-54 and the `paths:` of
+  rules/claude-md.md:2-3
