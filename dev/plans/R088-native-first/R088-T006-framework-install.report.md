@@ -267,3 +267,19 @@
   fires, while the step only checks the hook exists and is executable
   (Suggestion) - scripts/worker-workspace.sh:21
   Evidence: observed scripts/worker-workspace.sh:21 and :41
+- [ ] Close review: a first install over a target with no manifest keeps
+  every file the framework has since deleted under its shipped trees -
+  unrecorded, unshipped and unlisted - where the removed `rm -rf` of
+  `skills/dev` and the bundled skills used to clear it (Important) -
+  scripts/install-manifest.sh:96
+  Evidence: observed a `--project` install into a fresh repo seeded with
+  `.claude/skills/dev/supervise.md` at its last committed content: exit 0,
+  the file kept, absent from the manifest and from the install's output
+- [ ] Close review: `layout.md` gives `~/.claude/` as the tree root of a
+  repository consumed at a fixed path, the example this repository no
+  longer is (Suggestion) - skills/dev/layout.md:167
+  Evidence: observed skills/dev/layout.md:166-168 and LAYOUT.md's tree
+  root `claude-dev/`
+- [ ] Close review: "a clone apart from `~/.claude`" is unclear to a
+  reader who has not seen the old layout (Suggestion) - DESIGN.md:18
+  Evidence: observed DESIGN.md:18, REQUIREMENTS.md:96 and LAYOUT.md:5
