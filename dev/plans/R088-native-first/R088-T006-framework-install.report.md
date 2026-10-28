@@ -217,6 +217,9 @@
   block, the credentials and `downloads/` block, and the `/skills/*`
   block; `*.local.json`, `*.local.md`, the `.claude/*` project tier,
   `.env*`, `__pycache__/` and `.DS_Store` stay.
+- Item 9: a worker whose `~/.claude` is a checkout from the earlier
+  `config-clone` is reprovisioned from scratch; `config-clone` does not
+  move an existing `~/.claude/.git` aside.
 
 ## Review
 
@@ -243,3 +246,7 @@
   rules/skills.md:8
   Evidence: observed rules/skills.md:8-9, scripts/ci/check-caps.sh:21 and
   `ls skills/` holding neither skill
+- [ ] Item 9: the `config-clone` dry run says it proves the pre-push hook
+  fires, while the step only checks the hook exists and is executable
+  (Suggestion) - scripts/worker-workspace.sh:21
+  Evidence: observed scripts/worker-workspace.sh:21 and :41
