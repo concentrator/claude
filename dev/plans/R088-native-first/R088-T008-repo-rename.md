@@ -4,7 +4,7 @@ type: mnt
 mode: normal
 ---
 
-- [ ] USER: rename the GitHub repository `concentrator/claude` to
+- [x] USER: rename the GitHub repository `concentrator/claude` to
   `claude-dev`, point this clone's `origin` at its new URL, and rename the
   repository in the `~/.claude/settings.json` `autoMode` entries, before the
   task branch is pushed. Approach: the user's commands, from wording the
