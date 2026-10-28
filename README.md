@@ -2,7 +2,6 @@
 
 Portable, version-controlled Claude Code configuration behind a
 spec-driven development workflow, each part listed under § Contents.
-Cloned as `~/.claude`, it applies to every project on the machine.
 
 ## Contents
 
@@ -15,7 +14,7 @@ Cloned as `~/.claude`, it applies to every project on the machine.
 | `.claude/CLAUDE.md` | This repository's own instructions: its `## Agent toolchain`, `## Supervision` and `## Layout` declarations |
 | `rules/` | Path-scoped convention rules, one file per concern; `LAYOUT.md` lists each and marks the one the installer ships |
 | `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); beside it the bundled dependency skills the installer ships, the personal skills, and the worker-host runbook (`LAYOUT.md` marks each) |
-| `agents/` | Subagent definitions for the seats of `/dev run`, one per seat the run dispatches (the roster: `skills/dev/run.md § Seats`): each declares the seat's tools and, where it sets one, its model, and is the seat's one contract - `## Inputs`, `## Steps`, `## Outputs` - and a dispatch passes only the values its `## Inputs` names. This repository's own - `install-dev.sh` copies none of them |
+| `agents/` | Subagent definitions for the seats of `/dev run`, one per seat the run dispatches (the roster: `skills/dev/run.md § Seats`): each declares the seat's tools and, where it sets one, its model, and is the seat's one contract - `## Inputs`, `## Steps`, `## Outputs` - and a dispatch passes only the values its `## Inputs` names |
 | `hooks/` | The Claude Code hooks `settings.json` registers - the PreToolUse guards and the session-lifecycle hooks - and the helpers they call; `LAYOUT.md` lists each hook with the event it runs on |
 | `scripts/` | The Tier-1 gate - `ci/` the mechanical checks and `test/` the script tests, each behind a `run-all.sh`, which CI runs on every pull request (`DESIGN.md § Self-enforcement`) - and the standalone scripts beside it; `LAYOUT.md` lists each script with what it does, and `skills/worker-host/` documents the worker-host ones |
 | `.github/`, `.githooks/`, `.gitignore` | The CI gate on pull requests, its advisory local pre-push mirror, and the ignore rules for harness state |
@@ -157,10 +156,8 @@ subdirectory for behavior
 
 This repo manages itself with the same DEV discipline it provides:
 changes to the environment flow through initiatives in its plans tree
-like any other project. Because the repo root *is* the `.claude/`
-directory, the root `CLAUDE.md` is the global instructions every
-session loads, and this repository's own instructions, its
-declarations, sit in the nested `.claude/CLAUDE.md`. The foundational
+like any other project. This repository's own instructions, its
+declarations, sit in `.claude/CLAUDE.md`. The foundational
 files live at the root, `LAYOUT.md` among them, so `.claude/CLAUDE.md
 § Layout` declares `LAYOUT.md` there and keeps `Docs:` and `Plans:` at
 their defaults: the DEV artifacts
@@ -176,21 +173,18 @@ row names ([`check-doc-sync.sh` `hits`](scripts/ci/check-doc-sync.sh)).
 
 ## Setup on a new machine
 
-1. Clone to `~/.claude`.
-2. Start any Claude Code session; the toolset itself has no install
-   step, the clone being `~/.claude`. The clone carries
-   `settings.json`, which names the `claude-plugins-official`
-   marketplace and the enabled plugins, but not the plugins themselves:
-   `.gitignore` keeps `plugins/` out of the repo, with the harness
-   caches and the `*.local.json` overrides.
+1. Clone the repository to any path but `~/.claude`: an install
+   refuses a target inside the checkout it runs from
+   ([`install-dev.sh`](scripts/install-dev.sh)).
+2. From the clone, run the global install, `scripts/install-dev.sh`,
+   which copies the toolset into `~/.claude` (§ Installing the toolset
+   elsewhere).
 3. Arm the advisory local gate: `git config core.hooksPath .githooks`,
    once per clone, so `.githooks/pre-push` runs Tier-1 - the checks and
    the test suites - before a push leaves the machine.
 4. For each skill you keep in its own repository, clone that
-   repository and link the skill's directory into `skills/`:
-   `ln -s <clone>/<skill-dir> ~/.claude/skills/<name>`. `.gitignore`
-   tracks only the skills `LAYOUT.md` maps, so the clone carries none
-   of these links.
+   repository and link the skill's directory into `~/.claude/skills/`:
+   `ln -s <clone>/<skill-dir> ~/.claude/skills/<name>`.
 
 ## Installing the toolset elsewhere
 
@@ -205,8 +199,17 @@ A full install ships:
 - `skills/dev/` whole: the `/dev` router and its mode-file companions.
 - The bundled dependency skills the companions reference by name, the
   `BUNDLED` list in `scripts/install-dev.sh`.
-- `writing.md`, the writing conventions, and from `rules/` only
-  `writing-artifacts.md`, the DEV-artifact writing rule.
+- The seat definitions under `agents/`, the subagents `/dev run`
+  dispatches
+  ([`install-dev.sh` `ship_tree agents`](scripts/install-dev.sh)).
+- `writing.md`, the writing conventions, and `dev-instructions.md`, the
+  framework's global instructions
+  ([`install-dev.sh` `IMPORTS`](scripts/install-dev.sh)).
+- From `rules/` only these:
+  - `writing-artifacts.md`, the DEV-artifact writing rule.
+  - `code-comments.md` and `claude-md.md`, the rules the shipped skills
+    and seat definitions cite
+    ([`install-dev.sh` `CITED_RULES`](scripts/install-dev.sh)).
 - The project-agnostic Tier-1 checks, into `scripts/ci/`:
   - `check-code-size.sh`, plus an empty `code-size-allow.txt` when the
     target has none.
@@ -223,8 +226,10 @@ A full install ships:
 - On a `--project` install, the maintenance hygiene section, seeded
   into the target's `MAINTENANCE.md` when that heading is absent.
 
-The installer registers these hooks in the target `settings.json`,
-idempotently:
+The installer registers these hooks in the target `settings.json`. It
+writes that file only to add a missing entry for one of them or to drop
+a retired hook's entry
+([`install-dev.sh` `edit_settings`](scripts/install-dev.sh)):
 
 | Hook | Event | Matcher |
 |---|---|---|
@@ -251,8 +256,10 @@ the start's source. For the branch-state hook only a missing, empty or
 absent or unparsable, `jq` is missing, or `dev-hook-once.sh` is.
 
 `--minimal` serves contributors who work a project's existing plans
-without `/dev`. It ships the full set less two parts of `skills/`: no
-bundled dependency skills, and from `skills/dev/` only these files:
+without `/dev`. It ships the full set less the seat definitions,
+`rules/code-comments.md`, `rules/claude-md.md` and two parts of
+`skills/`: no bundled dependency skills, and from `skills/dev/` only
+these files:
 
 - `finish.md`
 - `git-workflow.md`
@@ -272,9 +279,18 @@ Global install serves a contributor who wants `/dev` everywhere; the
 means a contributor's own global copy still wins). Re-run the installer
 to refresh.
 
+An install records each file it copies in a manifest in the target,
+`dev-install-manifest.txt`. It adopts and refreshes a target file whose
+hash matches its manifest record or, unrecorded, any committed version
+of its path in this repository; any other target file that differs from
+the shipped copy it leaves in place and lists
+([`install-manifest.sh` `copy_shipped`, `owned`, `committed`, `install_shipped`, `list_kept`](scripts/install-manifest.sh)).
+
 Beyond the copied files it appends, in both cases, an `@writing.md`
-line to the install directory's `CLAUDE.md` (`~/.claude/CLAUDE.md`;
-`<path>/.claude/CLAUDE.md` under `--project`), and - for `--project` -
+line and an `@dev-instructions.md` line, each when absent, to the
+install directory's `CLAUDE.md` (`~/.claude/CLAUDE.md`;
+`<path>/.claude/CLAUDE.md` under `--project`)
+([`install-dev.sh` `IMPORTS`](scripts/install-dev.sh)), and - for `--project` -
 to the repo's root `.gitignore`: a `!`-allowlist line for each
 installed path that repo ignores, so the toolset stays committable.
 A `--project` install into a git repo, full or `--minimal`, also wires
@@ -291,8 +307,9 @@ names its script yet, so a re-install adds a missing gate and leaves a
 line naming both as it is. With neither line in either file, no
 fast-tier line is written and the install prints one line naming both
 files and the line to add, both gates included. A global or non-git
-install touches no fast-tier line; its only `CLAUDE.md` write is the `@writing.md` line above. Past the
-`@writing.md` line and that fast-tier append, an install leaves the
+install touches no fast-tier line; its only `CLAUDE.md` writes are the
+two import lines above. Past the import lines and that fast-tier
+append, an install leaves the
 declarations and the layout file exactly as it found them: they are the
 project's.
 The copied checks are yours to wire into CI; the installer ships them
