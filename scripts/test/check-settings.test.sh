@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Tests scripts/ci/check-settings.sh - the Tier-1 gate over the context
 # budget and the git grant. Each case runs the real check inside a throwaway git repo, so this
-# repo's own settings.json is never the subject and a case cannot pass by
+# repo's own .claude/settings.json is never the subject and a case cannot pass by
 # accident of the live config.
 # Run: bash scripts/test/check-settings.test.sh
 set -uo pipefail
@@ -17,15 +17,15 @@ die()  { echo "not ok - $1"; fail=1; }
 root=$(mktemp -d)
 trap 'rm -rf "$root"' EXIT
 
-# $1 = settings.json body, or the literal NONE to omit the file entirely.
+# $1 = .claude/settings.json body, or the literal NONE to omit the file entirely.
 # Fixtures get a fresh dir under one parent: the helper runs in a command
 # substitution, so nothing it assigns survives to the caller - neither a
 # path list for the trap nor a counter, and a reused dir would leave the
-# missing-file case inheriting the previous fixture's settings.json.
+# missing-file case inheriting the previous fixture's .claude/settings.json.
 fixture() {
   local d; d=$(mktemp -d "$root/XXXXXX")
   git -C "$d" init -q
-  [ "$1" = NONE ] || printf '%s\n' "$1" > "$d/settings.json"
+  [ "$1" = NONE ] || { mkdir "$d/.claude" && printf '%s\n' "$1" > "$d/.claude/settings.json"; }
   echo "$d"
 }
 run_in() { ( cd "$1" && bash "$CHECK" 2>&1 ); }
@@ -66,14 +66,14 @@ fails_with "$d" "SETTINGS: autoCompactEnabled is not true" && pass "disabled aut
   || die "disabled auto-compaction not caught: $(run_in "$d")"
 
 d=$(fixture '{ "autoCompactEnabled": true, "autoCompactWindow": }')
-fails_with "$d" "SETTINGS: settings.json is not a JSON object" && pass "malformed JSON caught, named" \
+fails_with "$d" "SETTINGS: .claude/settings.json is not a JSON object" && pass "malformed JSON caught, named" \
   || die "malformed JSON not caught: $(run_in "$d")"
 
 # A bare null parses as JSON but is not a settings file, and a string value
 # is a plausible hand-edit; both previously slipped through to a message that
 # named the wrong condition.
 d=$(fixture 'null')
-fails_with "$d" "SETTINGS: settings.json is not a JSON object" \
+fails_with "$d" "SETTINGS: .claude/settings.json is not a JSON object" \
   && pass "a parsing non-object caught, named" \
   || die "bare null not caught: $(run_in "$d")"
 
@@ -96,8 +96,16 @@ fails_with "$d" "SETTINGS: permissions.allow is not an array" \
   || die "non-array allow not caught: $(run_in "$d")"
 
 d=$(fixture NONE)
-fails_with "$d" "is missing; the context budget has no home" && pass "missing settings.json caught, named" \
-  || die "missing settings.json not caught: $(run_in "$d")"
+fails_with "$d" "is missing; the context budget has no home" && pass "missing .claude/settings.json caught, named" \
+  || die "missing .claude/settings.json not caught: $(run_in "$d")"
+
+# The subject is the project tier: a root settings.json is not the
+# repository's to judge, so neither its presence nor its faults count.
+d=$(fixture NONE); printf '%s\n' "$good" > "$d/settings.json"
+fails_with "$d" ".claude/settings.json is missing" && pass "a root settings.json does not stand in for the project tier" \
+  || die "root settings.json judged in place of .claude/settings.json: $(run_in "$d")"
+d=$(fixture "$good"); printf 'null\n' > "$d/settings.json"
+ok_in "$d" && pass "a faulty root settings.json is not judged" || die "root settings.json judged: $(run_in "$d")"
 
 # Without jq the gate can judge nothing, so it must say so and let the rest
 # of the suite run rather than blaming a valid file. The shim PATH carries

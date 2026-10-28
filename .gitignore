@@ -1,31 +1,3 @@
-# Harness-managed state
-history.jsonl
-session-env/
-projects/
-file-history/
-cache/
-paste-cache/
-shell-snapshots/
-backups/
-sessions/
-tasks/
-telemetry/
-downloads/
-debug/
-state/
-chrome/
-usage-data/
-
-# Harness-managed cache/state files
-skill_invocations.jsonl
-mcp-needs-auth-cache.json
-policy-limits.json
-remote-settings.json
-remote-settings.json.synced-at
-stats-cache.json
-.last-cleanup
-.last-update-result.json
-
 # Local overrides
 *.local.json
 *.local.md
@@ -34,23 +6,6 @@ stats-cache.json
 .claude/*
 !.claude/settings.json
 !.claude/CLAUDE.md
-
-# Plugins (marketplace-managed)
-plugins/
-
-# Skills: only the toolset's own are tracked; synced and symlinked ones are machine-local
-/skills/*
-!/skills/dev/
-!/skills/systematic-debugging/
-!/skills/dispatching-parallel-agents/
-!/skills/skill-creator/
-!/skills/writing-skills/
-!/skills/worker-host/
-
-# Machine-local harness output
-/wallarm-knowledge
-/feedback/
-policy-limits.json.stamp.json
 
 # OS
 .DS_Store
@@ -62,7 +17,3 @@ policy-limits.json.stamp.json
 
 # Python bytecode from importing scripts/*.py
 __pycache__/
-
-# Claude Code credentials and local state (worker hosts make this dir a repo)
-.credentials.json
-downloads/

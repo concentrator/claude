@@ -11,7 +11,6 @@ Cloned as `~/.claude`, it applies to every project on the machine.
 | `README.md` | This file: what the repo is, how to set it up, how the workflow runs |
 | `dev-instructions.md` | Global operating instructions; the installer ships it and `@import`s it from the target's `CLAUDE.md`, so it loads every session |
 | `writing.md` | Universal writing conventions, `@import`ed by `CLAUDE.md` so they load every session |
-| `settings.json` | Global Claude Code config: permissions, hooks, plugins, session defaults |
 | `.claude/settings.json` | Project-tier Claude Code config: the push deny carve-out, branch-push allows, durable tool allows, model override, `autoCompactWindow` |
 | `.claude/CLAUDE.md` | This repository's own instructions: its `## Agent toolchain`, `## Supervision` and `## Layout` declarations |
 | `rules/` | Path-scoped convention rules, one file per concern; `LAYOUT.md` lists each and marks the one the installer ships |

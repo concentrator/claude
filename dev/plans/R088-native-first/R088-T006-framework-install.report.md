@@ -40,7 +40,14 @@
     `scripts/test/install-dev-minimal.test.sh`
 - Item 7 (drop): The repository is cloned as `~/.claude`, with no install step
   of its own, its `settings.json` the machine's global Claude Code config.
-  Source:
+  Source: `settings.json` no longer tracked (`git ls-files settings.json`
+    empty); `scripts/ci/check-settings.sh:25` judges
+    `.claude/settings.json`; `scripts/install-dev.sh:45` refuses a target
+    inside its own checkout; `REQUIREMENTS.md § Constraints`
+  Test: `scripts/test/check-settings.test.sh` "a root settings.json does
+    not stand in for the project tier";
+    `scripts/test/install-dev-manifest.test.sh` "global install from
+    ~/.claude refused"
 
 ## Implementer
 ### Divergences
@@ -91,6 +98,18 @@
   80-character line. The `LAYOUT.md` line and `README.md § Contents` row of
   `writing.md` still say an import from `CLAUDE.md`, which holds for an
   installed target, and stay.
+- Item 7: `dev-branch-state.test.sh` and `dev-session-brief.test.sh`
+  checked their hook's entry in the root `settings.json`, which leaves;
+  both now check the hook file only, the installer's registration of each
+  being pinned by `install-dev.test.sh`.
+- Item 7: `check-settings.test.sh` writes its fixtures to
+  `.claude/settings.json` and adds two cases, a root `settings.json`
+  neither standing in for the project tier nor judged when faulty; the
+  gate's comments name the project tier.
+- Item 7: `LAYOUT.md`'s tree root reads `claude-dev/`, the clone, and its
+  intro drops the gitignored harness state, which the clone never holds.
+  The `README.md § Contents` row edited is the `settings.json` row the
+  gate names, removed.
 ### Findings
 - [ ] Item 6: `DESIGN.md § Self-enforcement` cites `CLAUDE.md § Compact
   instructions`, a section now in `dev-instructions.md`; a doc, so the doc
@@ -105,6 +124,18 @@
   to read `CLAUDE.md`, which the repository no longer has; item 8 edits
   that section.
   Evidence: observed MAINTENANCE.md:174
+- [ ] Item 7: `rules/skills.md` cites `skills/skill-creator/SKILL.md` and
+  `skills/writing-skills/SKILL.md`, and `check-caps.sh`'s reference class
+  names `writing-skills`, though the repository no longer tracks either
+  skill.
+  Evidence: observed rules/skills.md:8-9 and scripts/ci/check-caps.sh:21
+- [ ] Item 7: `README.md` still says it is cloned as `~/.claude`, its
+  `skills/` row names personal skills, its `.gitignore` row and its setup
+  steps the harness state and `plugins/` the file no longer ignores, and
+  the weekly audit prompt reads `settings.json`; docs, so the doc
+  writer's at close, the last item 8's.
+  Evidence: observed README.md:5, README.md:17, README.md:21,
+  README.md:184-191 and MAINTENANCE.md:174
 
 ## Answers
 

@@ -38,7 +38,7 @@ mode: normal
   `install-dev.sh` with its tests, the citations under `skills/`, `agents/`,
   `rules/`, then `LAYOUT.md` and the `README.md § Contents` row
   `check-doc-sync.sh` needs.
-- [ ] The repository tracks the framework and its own tooling only:
+- [x] The repository tracks the framework and its own tooling only:
   `settings.json`, `skills/skill-creator/`, `skills/writing-skills/` and
   `rules/js.md` leave it, `.gitignore` drops the harness lines and
   `check-settings.sh` judges `.claude/settings.json`. Approach: `git rm`, the

@@ -2,16 +2,14 @@
 
 The repository's actual tree - every directory and fixed-name file, a
 collection of same-kind files as one pattern line (`skills/dev/layout.md
-§ Layout file`); harness-managed state (`projects/`, `cache/`,
-`plugins/`, logs) is gitignored, and skills symlinked from external
-repos are versioned there, not mapped.
+§ Layout file`). The repository is a clone apart from the config
+directory, so harness state never enters it.
 
 ```
-~/.claude/
+claude-dev/
 ├── dev-instructions.md           # global instructions (shipped; @imported by the installed CLAUDE.md)
 ├── writing.md                    # universal writing conventions (@imported by CLAUDE.md)
-├── settings.json                 # global Claude Code config (tracked)
-├── .gitignore                    # ignore rules for harness state
+├── .gitignore                    # ignore rules for local overrides, secrets, bytecode
 ├── .env.example                  # worker-host tokens; `.env` is never tracked
 ├── README.md                     # overview and install
 ├── REQUIREMENTS.md               # foundational requirements
@@ -65,7 +63,6 @@ repos are versioned there, not mapped.
 ├── rules/                        # path-scoped convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules
 │   ├── writing-artifacts.md      # DEV-artifact writing rules (**/*.md; shipped)
-│   ├── js.md                     # JS conventions (path-scoped)
 │   ├── code-comments.md          # code-comment rule (code and data files)
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/                       # the run's seat definitions (skills/dev/run.md § Seats)
@@ -79,10 +76,6 @@ repos are versioned there, not mapped.
     ├── systematic-debugging/     # bundled dependency skills (installer ships these)
     │   └── SKILL.md              #   the skill, its technique files beside it
     ├── dispatching-parallel-agents/SKILL.md    # bundled
-    ├── skill-creator/SKILL.md    # personal (skill authoring)
-    ├── writing-skills/           # personal
-    │   ├── SKILL.md              #   the skill, its references beside it
-    │   └── examples/             #   worked examples its references cite
     └── worker-host/              # GCP worker host runbook, this repository's own
         ├── SKILL.md              #   the four scripts and where each runs
         └── companions/           #   provisioning order, pitfalls
