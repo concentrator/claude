@@ -233,6 +233,10 @@
 - Item 9: a worker whose `~/.claude` is a checkout from the earlier
   `config-clone` is reprovisioned from scratch; `config-clone` does not
   move an existing `~/.claude/.git` aside.
+- Item 11: `skills/worker-host/` and `rules/skills.md` stay in
+  `~/.claude` as the user's files, with `rules/js.md`,
+  `skills/skill-creator/` and `skills/writing-skills/`; the other
+  repository-only files there go.
 
 ## Review
 
