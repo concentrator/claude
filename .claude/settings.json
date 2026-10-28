@@ -24,7 +24,6 @@
       "Bash(git push -u origin plan/*)",
       "Read(//Users/skywalker/.claude/skills/**)",
       "Read(//Users/skywalker/.claude/rules/**)",
-      "Read(//Users/skywalker/.claude/dev/plans/**)",
       "Read(//Users/skywalker/.claude/settings.json)"
     ],
     "deny": [
