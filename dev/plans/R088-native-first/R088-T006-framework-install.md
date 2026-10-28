@@ -77,8 +77,9 @@ mode: normal
   manifest record or, unrecorded, any committed version of its path in the
   framework repository; any other differing target file it leaves in place
   and lists.
-- Item 3 (source): An install writes `settings.json` only to add a missing
-  toolset hook entry or to drop a retired one.
+- Item 3 (source): An install writes `settings.json` only to create it as
+  `{}` when it is missing, to add a missing toolset hook entry, or to drop a
+  retired one, a relative-form `.claude/hooks/<name>` entry among them.
 - Item 4 (source): A full install ships the seat definitions under `agents/`
   and the rules `code-comments.md` and `claude-md.md`.
 - Item 4 (drop): `agents/` is this repository's own, `install-dev.sh` copying

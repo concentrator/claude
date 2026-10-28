@@ -10,8 +10,9 @@
     `committed`, `install_shipped` and `list_kept`, called from
     `scripts/install-dev.sh` § 5
   Test: `scripts/test/install-dev-manifest.test.sh`
-- Item 3 (source): An install writes `settings.json` only to add a missing
-  toolset hook entry or to drop a retired one.
+- Item 3 (source): An install writes `settings.json` only to create it as
+  `{}` when it is missing, to add a missing toolset hook entry, or to drop a
+  retired one, a relative-form `.claude/hooks/<name>` entry among them.
   Source: `scripts/install-dev.sh` § 3 `edit_settings`, `register` and the
     retired-hook pass
   Test: `scripts/test/install-dev-settings.test.sh`
