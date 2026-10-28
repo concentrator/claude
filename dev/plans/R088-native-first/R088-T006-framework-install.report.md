@@ -143,6 +143,14 @@
 - Item 3: the `CLAUDE.md` clause covers the `@writing.md` import append
   only; a project install's wiring of `check-plan-text.sh` and
   `check-code-size.sh` into the `- Test (fast):` line stays as it is.
+- Item 7: the user adds `"autoCompactEnabled": true` to
+  `.claude/settings.json` in a commit on the task branch before the item
+  runs; `check-settings.sh` keeps its checks unchanged.
+- Item 7: the harness lines `.gitignore` drops are the harness-managed
+  state and cache blocks, `plugins/`, the machine-local harness output
+  block, the credentials and `downloads/` block, and the `/skills/*`
+  block; `*.local.json`, `*.local.md`, the `.claude/*` project tier,
+  `.env*`, `__pycache__/` and `.DS_Store` stay.
 
 ## Review
 
