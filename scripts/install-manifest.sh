@@ -1,5 +1,5 @@
 # install-manifest.sh - what an install owns in its target, sourced by
-# install-dev.sh once it has set SRC, target and RETIRED.
+# install-dev.sh, whose SRC, target, RETIRED and TREES it reads.
 #
 # An install owns only what it copied. `ship` queues a file, its path the same
 # under the repository and the target; `install_shipped` copies the queue and
@@ -9,7 +9,8 @@
 # committed version of its path in the repository; any other is the user's,
 # left in place and listed. A recorded file the set no longer ships, and a
 # retired hook, go when the same test finds them the install's, and are
-# listed otherwise.
+# listed otherwise; with no manifest in the target, so does every unshipped
+# file under the trees install-dev.sh names in TREES.
 
 MANIFEST=dev-install-manifest.txt
 WORK=$(mktemp -d); trap 'rm -rf "$WORK"' EXIT
@@ -90,14 +91,19 @@ drop_unshipped() {   # remove each recorded file or retired hook the set does no
 }
 
 install_shipped() {   # copy the queue, drop what the set no longer ships, rewrite the manifest
-  local h
-  : > "$WORK/new"
+  local h d
+  : > "$WORK/new"; : > "$WORK/found"
   if [ -f "$target/$MANIFEST" ]; then
     awk '{ h = $1; sub(/^[^ ]+  /, ""); print $0 "\t" h }' "$target/$MANIFEST" > "$WORK/rec"
   else
+    # No record of what an earlier install copied: every file under TREES is
+    # judged, so a committed version the trees have since dropped goes.
     : > "$WORK/rec"
+    for d in $TREES; do
+      if [ -d "$target/$d" ]; then (cd "$target" && find "$d" -type f) >> "$WORK/found"; fi
+    done
   fi
-  { cut -f1 "$WORK/rec"; for h in $RETIRED; do printf 'hooks/%s\n' "$h"; done; } | LC_ALL=C sort -u \
+  { cut -f1 "$WORK/rec"; cat "$WORK/found"; for h in $RETIRED; do printf 'hooks/%s\n' "$h"; done; } | LC_ALL=C sort -u \
     | { grep -vxFf <(cut -f1 "$WORK/ship") || true; } > "$WORK/drop"
   copy_shipped
   drop_unshipped

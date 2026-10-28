@@ -2,11 +2,12 @@
 paths:
   - "**/CLAUDE.md"
   - "**/CLAUDE.local.md"
+  - "**/dev-instructions.md"
 ---
 
 # CLAUDE.md maintenance
 
-Rules for any CLAUDE.md (global, project, nested). Apply on every read and edit.
+Rules for any CLAUDE.md (global, project, nested) and for `dev-instructions.md`, the framework's global instructions a CLAUDE.md imports. Apply on every read and edit.
 
 ## Content
 - **Only persistent facts.** Build/test commands, conventions, architecture, "always do X" rules. If it's a procedure or only matters for one area, move to a skill or `.claude/rules/*.md`.

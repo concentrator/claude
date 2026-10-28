@@ -64,6 +64,18 @@ listed skills/dev/run.md && listed hooks/dev-branch-guard.sh && listed hooks/dev
   && pass "a third install still lists the user's files at shipped or retired paths, an unrecorded unshipped one no more" || die "third install lists: $out"
 rm -rf "$P"
 
+# --- with no manifest, a committed file the trees dropped goes; any other file under them stays ---
+P=$(mktemp -d); C="$P/.claude"
+gone=$(git log --diff-filter=D --format= --name-only -- skills/dev | grep -m1 .)
+[ -e "$gone" ] && die "fixture: $gone is shipped again"
+mkdir -p "$C/${gone%/*}" "$C/agents"; printf 'mine\n' > "$C/agents/mine.md"
+git show "$(git log -1 --diff-filter=D --format=%H -- "$gone")^:$gone" > "$C/$gone"
+out=$(bash "$INSTALL" --project "$P" 2>&1) || die "first install exits nonzero: $out"
+[ ! -e "$C/$gone" ] && ! listed "$gone" && pass "a first install removes a committed version its trees no longer ship" || die "dropped committed file $gone kept: $out"
+[ "$(cat "$C/agents/mine.md")" = mine ] && listed agents/mine.md && [ "$(record agents/mine.md)" = 0 ] \
+  && pass "a first install leaves and lists any other unshipped file under its trees" || die "user's file under agents/: $out"
+rm -rf "$P"
+
 # --- its own checkout is refused as target, symlinked or not ---
 H=$(mktemp -d); git init -q "$H/.claude"; mkdir -p "$H/.claude/skills/dev" "$H/l"; touch "$H/.claude/skills/dev/SKILL.md"
 ln -s "$H/.claude" "$H/l/.claude"

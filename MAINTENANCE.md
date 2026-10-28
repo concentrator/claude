@@ -151,8 +151,9 @@ The concern judges what no row expresses, these pairs included:
 - A `/dev` command added, renamed or removed: `skills/dev/SKILL.md
   § Surface`, `README.md § Workflow`.
 - What `install-dev.sh` copies or registers: `README.md § Installing
-  the toolset elsewhere`, and `scripts/test/install-dev.test.sh` and
-  `install-dev-minimal.test.sh`, which assert the copied sets.
+  the toolset elsewhere`, and `scripts/test/install-dev.test.sh`,
+  `install-dev-minimal.test.sh` and `install-dev-manifest.test.sh`, which
+  assert the copied sets.
 - What a `hooks/` guard blocks: `DESIGN.md § Self-enforcement`.
 - The planning layout or an id or naming convention: `README.md`,
   `REQUIREMENTS.md § Planning discipline`, `DESIGN.md`, and every

@@ -15,7 +15,7 @@ relate, and the invariants that keep them coherent.
 
 ## Self-hosting layout
 
-This repository is a clone apart from `~/.claude`:
+This repository is cloned outside `~/.claude`, and
 `scripts/install-dev.sh` copies the framework there, the files it did
 not copy being the user's (`scripts/install-manifest.sh`).
 `REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md` and `LAYOUT.md` sit at

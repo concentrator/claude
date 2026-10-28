@@ -18,7 +18,7 @@ config_clone() {
     printf 'config-clone would:\n'
     printf '  - clone %s to %s, or fast-forward the clone already there\n' "$remote" "$d"
     printf '  - restore core.hooksPath=.githooks, which clone never carries\n'
-    printf '  - prove the pre-push hook actually fires, rather than assuming it\n'
+    printf '  - check the pre-push hook is present and executable\n'
     printf '  - run the global install, scripts/install-dev.sh, from the clone into\n'
     printf '    ~/.claude: it copies the toolset and adds its hook entries to the\n'
     printf '    settings.json the operator copied there\n'

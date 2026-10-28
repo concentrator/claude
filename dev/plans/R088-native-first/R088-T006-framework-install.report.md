@@ -158,6 +158,20 @@
   1000-word cap, so `§ Self-hosting layout` names the manifest script
   without restating what the install writes into `settings.json` and
   `CLAUDE.md`, which `install-dev.sh`'s header and items 2-3 hold.
+- Review 3: `check-caps.sh` holds `dev-instructions.md` to the root
+  `CLAUDE.md`'s 100 lines, its report naming the file, and
+  `rules/claude-md.md` loads for `**/dev-instructions.md`, its opening
+  line naming the file; `check-caps.test.sh` pins the cap.
+- Review 6: `install-dev.sh` names the trees a full install ships whole in
+  `TREES`, and with no manifest in the target `install_shipped` judges each
+  unshipped file under them, in either set, as it judges a dropped
+  recorded one; `install-dev-manifest.test.sh` pins a committed file the
+  trees dropped removed and a user's file under `agents/` left and listed.
+- Review 7: the fixed-path example is now `~/.config/nvim/`, an editor
+  configuration kept as a checkout.
+- Review 8: the same phrase in `REQUIREMENTS.md § Constraints` and
+  `LAYOUT.md`, which the entry's evidence cites, now reads "cloned outside"
+  too.
 ### Findings
 - [ ] Item 6: `DESIGN.md § Self-enforcement` cites `CLAUDE.md § Compact
   instructions`, a section now in `dev-instructions.md`; a doc, so the doc
@@ -249,34 +263,34 @@
 
 ## Review
 
-- [ ] Item 2: `MAINTENANCE.md` names `install-dev.test.sh` and
+- [x] Item 2: `MAINTENANCE.md` names `install-dev.test.sh` and
   `install-dev-minimal.test.sh` as the tests asserting the copied sets,
   not the new `install-dev-manifest.test.sh` (Suggestion) -
   MAINTENANCE.md:152
   Evidence: observed MAINTENANCE.md:152-154 lists the two tests only
-- [ ] Item 2: `migrate.md` tells an adopter to tune the shipped
+- [x] Item 2: `migrate.md` tells an adopter to tune the shipped
   `check-accretion.sh` `MARKERS` list without saying a tuned gate is then
   the adopter's file, left and listed by later installs (Suggestion) -
   skills/dev/migrate.md:40
   Evidence: observed skills/dev/migrate.md:38-40 and the Item 2 answer
   that an edited `check-accretion.sh` stays and is listed
-- [ ] Item 6: `dev-instructions.md` escapes the guards meant for the
+- [x] Item 6: `dev-instructions.md` escapes the guards meant for the
   global instructions: `check-caps.sh` caps only a file named `CLAUDE.md`
   at 100 lines, and `rules/claude-md.md` loads only for `**/CLAUDE.md`
   (Important) - scripts/ci/check-caps.sh:53
   Evidence: observed scripts/ci/check-caps.sh:52-54 and the `paths:` of
   rules/claude-md.md:2-3
-- [ ] Item 7: `rules/skills.md` sends a reader to the untracked
+- [x] Item 7: `rules/skills.md` sends a reader to the untracked
   `skills/skill-creator/` and `skills/writing-skills/`, and `check-caps.sh`
   still lists `writing-skills` as a reference skill (Important) -
   rules/skills.md:8
   Evidence: observed rules/skills.md:8-9, scripts/ci/check-caps.sh:21 and
   `ls skills/` holding neither skill
-- [ ] Item 9: the `config-clone` dry run says it proves the pre-push hook
+- [x] Item 9: the `config-clone` dry run says it proves the pre-push hook
   fires, while the step only checks the hook exists and is executable
   (Suggestion) - scripts/worker-workspace.sh:21
   Evidence: observed scripts/worker-workspace.sh:21 and :41
-- [ ] Close review: a first install over a target with no manifest keeps
+- [x] Close review: a first install over a target with no manifest keeps
   every file the framework has since deleted under its shipped trees -
   unrecorded, unshipped and unlisted - where the removed `rm -rf` of
   `skills/dev` and the bundled skills used to clear it (Important) -
@@ -284,11 +298,11 @@
   Evidence: observed a `--project` install into a fresh repo seeded with
   `.claude/skills/dev/supervise.md` at its last committed content: exit 0,
   the file kept, absent from the manifest and from the install's output
-- [ ] Close review: `layout.md` gives `~/.claude/` as the tree root of a
+- [x] Close review: `layout.md` gives `~/.claude/` as the tree root of a
   repository consumed at a fixed path, the example this repository no
   longer is (Suggestion) - skills/dev/layout.md:167
   Evidence: observed skills/dev/layout.md:166-168 and LAYOUT.md's tree
   root `claude-dev/`
-- [ ] Close review: "a clone apart from `~/.claude`" is unclear to a
+- [x] Close review: "a clone apart from `~/.claude`" is unclear to a
   reader who has not seen the old layout (Suggestion) - DESIGN.md:18
   Evidence: observed DESIGN.md:18, REQUIREMENTS.md:96 and LAYOUT.md:5

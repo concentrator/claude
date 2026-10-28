@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Tier-1 cap check: CLAUDE.md / DESIGN.md / SKILL.md / dev mode-file size
 # limits. Caps per rules/skills.md § Size and skills/dev/layout.md; this
-# repo's CLAUDE.md is held to 100 lines, inside rules/claude-md.md's general
-# 200. SKILL body = file minus YAML frontmatter (skills.md caps are on
+# repo's CLAUDE.md and dev-instructions.md, the global instructions, are held
+# to 100 lines, inside rules/claude-md.md's general 200. SKILL body = file minus YAML frontmatter (skills.md caps are on
 # body). Mode files are measured in lines and line length, never words:
 # a word count does not measure a document (R040-T025).
 # Skill class lists below mirror skills.md § Size; new skills default to
@@ -18,7 +18,7 @@ fail=0
 report() { echo "CAP: $1"; fail=1; }
 
 orchestrators=" dev "
-reference=" writing-skills dispatching-parallel-agents systematic-debugging "
+reference=" dispatching-parallel-agents systematic-debugging "
 
 base=$(branch_base) || base=
 old=$(mktemp); trap 'rm -f "$old"' EXIT
@@ -50,8 +50,8 @@ long_added() {
 
 while IFS=$'\t' read -r _ f from; do
   case "$f" in
-    CLAUDE.md)
-      n=$(over "$f" "$from" 100 lines_of); [ -z "$n" ] || report "CLAUDE.md $n lines > 100" ;;
+    CLAUDE.md|dev-instructions.md)
+      n=$(over "$f" "$from" 100 lines_of); [ -z "$n" ] || report "$f $n lines > 100" ;;
     DESIGN.md)
       n=$(over "$f" "$from" 1000 words_of); [ -z "$n" ] || report "DESIGN.md $n words > 1000" ;;
     skills/*/SKILL.md)

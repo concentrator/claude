@@ -2,7 +2,7 @@
 
 The repository's actual tree - every directory and fixed-name file, a
 collection of same-kind files as one pattern line (`skills/dev/layout.md
-§ Layout file`). The repository is a clone apart from the config
+§ Layout file`). The repository is cloned outside the config
 directory, so harness state never enters it.
 
 ```

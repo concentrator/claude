@@ -74,6 +74,10 @@ if [ "$scope" = project ] && [ "$force" -eq 0 ] \
 fi
 
 BUNDLED="systematic-debugging dispatching-parallel-agents"
+# The trees a full install ships whole; an install into a target with no
+# manifest also judges each file under them that it does not ship
+# (install-manifest.sh).
+TREES="skills/dev agents $(printf 'skills/%s ' $BUNDLED)"
 CITED_RULES="code-comments.md claude-md.md"
 RETIRED="dev-handoff-nudge.sh dev-precompact-state.sh dev-context-fill.sh"
 # The template is the permission pre-flight's input, read at run time

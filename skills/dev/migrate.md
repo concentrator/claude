@@ -37,7 +37,8 @@ and the legacy `.claude/` locations before classifying:
   § State the present`) - is proposed as a docs-reconcile initiative, never done
   inline during migration. The accretion gate in that proposal reuses the
   shipped `.claude/scripts/ci/check-accretion.sh` (placed by `install-dev.sh
-  --project`) - tune its `MARKERS` list, never rewrite the check.
+  --project`) - tune its `MARKERS` list, never rewrite the check; the tuned
+  copy is then the project's, which later installs leave in place and list.
 
   **Stale declarations** - a project set up before the paths were
   declared may carry a `- DEV artifacts root:` or `extended-docs:` line

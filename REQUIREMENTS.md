@@ -93,7 +93,7 @@ execution`, `skills/dispatching-parallel-agents/`.
 
 ## Constraints
 
-- Self-hosting: the repository is a clone apart from the config
+- Self-hosting: the repository is cloned outside the config
   directory, and `scripts/install-dev.sh` copies the framework from it
   into `~/.claude`, the files it did not copy staying the user's. The
   repository's own Claude Code project settings live at

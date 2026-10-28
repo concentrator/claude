@@ -5,9 +5,9 @@ paths:
 
 # SKILL.md maintenance rules
 
-For the creation workflow see `skills/skill-creator/SKILL.md`; for pressure-tested
-authoring see `skills/writing-skills/SKILL.md`. Rules below apply on every SKILL.md
-read or edit.
+For the creation workflow see `~/.claude/skills/skill-creator/SKILL.md`; for
+pressure-tested authoring see `~/.claude/skills/writing-skills/SKILL.md`. Rules
+below apply on every SKILL.md read or edit.
 
 ## Frontmatter
 
