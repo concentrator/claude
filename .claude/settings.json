@@ -11,7 +11,6 @@
       "Bash(glab config *)",
       "Read(//opt/homebrew/**)",
       "Edit(//Users/skywalker/.claude/**)",
-      "Edit(//Users/skywalker/.claude/dev/plans/**)",
       "Bash(cd:*)",
       "Skill(claude-api)",
       "Bash(git push -u origin batch/*)",
