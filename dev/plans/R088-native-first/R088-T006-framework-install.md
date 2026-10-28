@@ -50,7 +50,7 @@ mode: normal
   `agents/dev-implementer.md`'s config paragraph, `seat-permissions.md`'s
   `<config>`, `supervisor-runbook.md § Remote Control`, `migrate.md`,
   `start.md`, `MAINTENANCE.md § Weekly audit`.
-- [ ] The worker host installs the framework rather than becoming a clone:
+- [x] The worker host installs the framework rather than becoming a clone:
   `config-clone` clones the repository to `~/src/claude-dev` and runs the
   global install, its dry run saying so; the operator copies the worker's user
   settings, as with `.env`. Approach: `worker-workspace.sh` with its test,

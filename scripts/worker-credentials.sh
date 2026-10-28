@@ -59,8 +59,8 @@ keys_verify() {
 
 # Runs ON the VM. Both CLIs are API-layer only: git traffic rides the SSH keys
 # above, so these exist for MR/PR create, view and merge. Tokens come from
-# ~/.claude/.env, which is gitignored and therefore does not arrive with the
-# config clone - the operator places it. Values are read, never echoed: this
+# ~/.claude/.env, which is gitignored and therefore arrives with neither the
+# framework clone nor its install - the operator places it. Values are read, never echoed: this
 # output reaches transcripts and shell history.
 forge_cli() {
   local dry=0 checkout=""

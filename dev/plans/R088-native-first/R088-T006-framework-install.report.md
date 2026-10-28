@@ -128,6 +128,23 @@
   target this repo. The weekly audit prompt reads `dev-instructions.md`
   and `.claude/settings.json`, the gap the Item 6 and Item 7 findings name
   for `MAINTENANCE.md:174`.
+- Item 9: `config-clone` makes a full clone, not the shallow fetch it used:
+  the install adopts an unrecorded file by the clone's history
+  (`install-manifest.sh` `committed`). The `.git/info/exclude` credentials
+  lines go, the clone holding no Claude Code state.
+- Item 9: the operator copies the user settings before `config-clone`, so
+  the install adds its hook entries to them; `SKILL.md`, `provisioning.md`
+  step 8 and the dry run say so. `SKILL.md`'s body reached the 300-word
+  cap, so its closing line is cut to the four scripts not being shipped.
+- Item 9: the test's case 30, a clone into the existing `~/.claude`, gives
+  way to 49-51: the clone's place, the global install run from it, and a
+  failed install failing the step; 31 and 38 share one dry-run home, which
+  keeps the file under `check-code-size.sh`'s cap.
+- Item 9: beyond the named files, the comments item 8 left
+  (`provision-worker.sh`, `provision-worker.test.sh`,
+  `worker-credentials.sh`) now name the framework clone, and
+  `pitfalls.md` drops the tracked-`settings.json` entry, the worker's
+  `settings.json` being untracked.
 ### Findings
 - [ ] Item 6: `DESIGN.md § Self-enforcement` cites `CLAUDE.md § Compact
   instructions`, a section now in `dev-instructions.md`; a doc, so the doc

@@ -4,63 +4,54 @@
 # changes, worker-credentials.sh for keys and forge authentication.
 set -uo pipefail
 
-# Runs ON the VM. The config repo becomes ~/.claude itself, giving the worker
-# byte-identical config to the operator: CLAUDE.md, rules/, skills/, agents/,
-# hooks/, settings.json, with all harness state gitignored. Deliberately not
-# install-dev.sh, which targets adopter projects and omits personal convention
-# rules the worker needs.
-#
-# Claude Code has already written credentials and state into ~/.claude, so a
-# plain clone would refuse a non-empty target. Initialise in place instead and
-# check out over the top; the ignored state survives untouched.
+# Runs ON the VM. Clones the framework repository to ~/src/claude-dev and runs
+# its global install, which copies the toolset into ~/.claude and registers its
+# hooks in ~/.claude/settings.json, as on the operator's machine. ~/.claude is
+# no checkout: Claude Code's credentials and state, and the user settings the
+# operator copies in, are files the install did not copy, and it leaves them.
 config_clone() {
   local dry=0
   [ "${1:-}" = "--dry-run" ] && dry=1
-  local d="$HOME/.claude" remote="${WORKER_CONFIG_REMOTE:-git@github.com:concentrator/claude.git}"
+  local d="$HOME/src/claude-dev" remote="${WORKER_CONFIG_REMOTE:-git@github.com:concentrator/claude.git}"
 
   if [ "$dry" -eq 1 ]; then
     printf 'config-clone would:\n'
-    printf '  - git init in the existing %s (Claude Code state already lives there)\n' "$d"
-    printf '  - add %s as origin and check out main over the top\n' "$remote"
+    printf '  - clone %s to %s, or fast-forward the clone already there\n' "$remote" "$d"
     printf '  - restore core.hooksPath=.githooks, which clone never carries\n'
     printf '  - prove the pre-push hook actually fires, rather than assuming it\n'
-    printf '  - leave .credentials.json and other ignored state in place\n'
-    printf '  - retire ~/%s, the bootstrap staging dir this checkout supersedes\n' \
+    printf '  - run the global install, scripts/install-dev.sh, from the clone into\n'
+    printf '    ~/.claude: it copies the toolset and adds its hook entries to the\n'
+    printf '    settings.json the operator copied there\n'
+    printf '  - leave every ~/.claude file the install did not copy in place\n'
+    printf '  - retire ~/%s, the bootstrap staging dir this clone supersedes\n' \
       "${WORKER_BOOTSTRAP_DIR:-.worker-bootstrap}"
     return 0
   fi
 
-  mkdir -p "$d"
-  if [ ! -d "$d/.git" ]; then
-    git -C "$d" init -q
-    git -C "$d" remote add origin "$remote" 2>/dev/null || git -C "$d" remote set-url origin "$remote"
-    git -C "$d" fetch -q --depth=1 origin main || return 1
-    git -C "$d" checkout -q -f -B main FETCH_HEAD || return 1
-  else
+  if [ -d "$d/.git" ]; then
     git -C "$d" fetch -q origin main && git -C "$d" merge -q --ff-only FETCH_HEAD 2>/dev/null
+  else
+    mkdir -p "$(dirname "$d")"
+    git clone -q -b main "$remote" "$d" || return 1
   fi
   git -C "$d" config core.hooksPath .githooks
-
-  # Belt and braces, local to this checkout: the worker's Claude Code
-  # credentials must never be stageable, and relying on the cloned .gitignore
-  # makes that depend on which commit was fetched. A clone of an older main
-  # left .credentials.json untracked-and-visible on a real worker.
-  local ex="$d/.git/info/exclude"
-  mkdir -p "$(dirname "$ex")"
-  grep -q '^\.credentials\.json$' "$ex" 2>/dev/null || printf '.credentials.json\ndownloads/\n' >> "$ex"
 
   local hp; hp=$(git -C "$d" config --get core.hooksPath)
   [ "$hp" = ".githooks" ] || { printf 'config-clone: hooksPath not set\n' >&2; return 1; }
   [ -x "$d/.githooks/pre-push" ] || { printf 'config-clone: pre-push hook missing or not executable\n' >&2; return 1; }
 
-  # scripts/ is now the VM-side scripts' home, so the copies provision-worker.sh
-  # push-scripts staged to bootstrap this host are superseded, and a second copy
-  # is one an operator can edit or run by mistake. Removed only once every check
-  # above has passed, and safe even though this script is running from there:
-  # the kernel keeps the open file alive until it exits.
+  # install-dev.sh finds its source by the working directory's checkout.
+  ( cd "$d" && bash scripts/install-dev.sh ) || { printf 'config-clone: global install failed\n' >&2; return 1; }
+
+  # The clone's scripts/ is the VM-side scripts' home, so the copies
+  # provision-worker.sh push-scripts staged to bootstrap this host are
+  # superseded, and a second copy is one an operator can edit or run by
+  # mistake. Removed only once every step above has passed, and safe even
+  # though this script is running from there: the kernel keeps the open file
+  # alive until it exits.
   rm -rf "$HOME/${WORKER_BOOTSTRAP_DIR:-.worker-bootstrap}"
 
-  printf 'config-clone: %s at %s, hooksPath=%s, pre-push present\n' \
+  printf 'config-clone: %s at %s, hooksPath=%s, pre-push present, installed into ~/.claude\n' \
     "$d" "$(git -C "$d" rev-parse --short HEAD)" "$hp"
 }
 

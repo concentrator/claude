@@ -25,13 +25,17 @@ debugging round to find.
 
 ## What only the operator can do
 
-Three steps need a human and are not failures when they pause:
+Four steps need a human and are not failures when they pause:
 
 - Run `keys-install`, which needs their forge credentials.
 - Run `claude` once on the VM and complete SSO.
-- Copy `.env.example` to `~/.claude/.env` and fill in the tokens.
-  Secrets are the operator's to move; the scripts read them and never
-  echo them.
+- Copy the worker's user settings to `~/.claude/settings.json` before
+  `config-clone`, whose install adds its hook entries to that file.
+- Copy `~/src/claude-dev/.env.example` to `~/.claude/.env` and fill in
+  the tokens.
+
+No clone carries either file; the scripts read the tokens and never
+echo them.
 
 ## Connecting
 
@@ -47,6 +51,5 @@ When IAP or sshd fails, `gcloud compute connect-to-serial-port` reaches
 the box independently of the network stack. Exercise it once while
 nothing is broken.
 
-`scripts/provision-worker.sh` is supervisor infrastructure and is
-deliberately not shipped by `install-dev.sh`, which targets adopter
-projects.
+`install-dev.sh` deliberately ships none of the four scripts: they are
+supervisor infrastructure.

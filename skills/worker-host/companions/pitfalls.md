@@ -70,10 +70,6 @@ Each of these cost a debugging round on a real host.
   before the prompt line appears is lost. Wait for the prompt line, and
   confirm the text landed before pressing Enter.
 
-- **Claude Code writes `defaultMode` into the tracked `settings.json`.**
-  A supervised run dirties the config repo by starting. Do not stage
-  it.
-
 - **A usage-limit reset time is shown in the account's timezone, not
   the host's.** Run `date` on the host before concluding the wait is
   over.

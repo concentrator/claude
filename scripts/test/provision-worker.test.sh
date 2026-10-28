@@ -173,7 +173,7 @@ push() { env PATH="$HERMETIC" WORKER_SDK_ROOTS="$1" bash "$SCRIPT" push-scripts 
 
 # 37. the dry run names every script it would stage and where, and copies
 #     nothing. All three are needed: steps 3 to 7 all run on the VM before the
-#     config repo that is their permanent home has been cloned.
+#     framework clone that is their permanent home has been made.
 r=$(mkrecorder)
 out=$(env PATH="$HERMETIC" WORKER_SDK_ROOTS="$r" bash "$SCRIPT" push-scripts --dry-run 2>&1)
 miss=""

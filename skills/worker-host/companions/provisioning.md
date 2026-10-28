@@ -13,8 +13,8 @@ subcommands in this sequence.
    every later change, so it is proven first.
 3. **`push-scripts`** - stage the three VM-side scripts in
    `~/.worker-bootstrap` on the host. Nothing VM-side can run until they
-   are there, and the config repo that is their permanent home is not
-   cloned until step 8 - by one of the three. Re-run it to refresh the
+   are there, and the clone that is their permanent home is not made
+   until step 8 - by one of the three. Re-run it to refresh the
    host after editing a script.
 4. **`baseline`** - Node >= 22 from NodeSource, `jq`, `tmux`, swap sized
    to memory and capped, timezone, `/opt/wallarm`. Idempotent.
@@ -31,16 +31,21 @@ subcommands in this sequence.
    a key that authenticates as the wrong account looks like success.
 7. **`claude-install`**, then the operator authenticates by running
    `claude` once and completing SSO.
-8. **`config-clone`** - this config repo becomes the worker's `~/.claude`,
-   which makes `~/.claude/scripts/` the VM-side scripts' home. It retires
+8. **`config-clone`** - clones this repository to `~/src/claude-dev`,
+   which makes `~/src/claude-dev/scripts/` the VM-side scripts' home,
+   and runs its global install into `~/.claude`, as on the operator's
+   machine. The operator first copies the worker's user settings to
+   `~/.claude/settings.json`: no clone carries them, and the install
+   adds its hook entries to the file it finds. It retires
    `~/.worker-bootstrap` on the way out, so only one copy of each script
    is ever on the host.
 9. **`forge-cli`** - installs `glab` and `gh`, then authenticates from
    `~/.claude/.env`: `glab auth login --hostname <host> --stdin` with
    the token on stdin, then `glab api user` for the identity. The clone
-   brings `.env.example` but never `.env`, which is gitignored: the
-   operator copies one to the other and fills in the tokens. Each
-   variable's purpose and scope is in that file.
+   holds `.env.example` but never `.env`, which is gitignored: the
+   operator copies `~/src/claude-dev/.env.example` to `~/.claude/.env`
+   and fills in the tokens. Each variable's purpose and scope is in that
+   file.
 10. **`project-clone`** then **`settings`** - repositories into
    `/opt/wallarm`, then the per-project allowlist and workspace trust.
    `project-clone` ends by running `forge-cli <checkout>`, whose
