@@ -260,6 +260,17 @@
   `~/.claude/skills/writing-skills/SKILL.md`; `check-caps.sh` drops
   `writing-skills` from its reference skills.
 - Reviews 1-3, 5, 7, 8: fixed in the close fix round.
+- Close: `LAYOUT.md` marks `rules/code-comments.md` and
+  `rules/claude-md.md` shipped in the final commit; the Item 3 claim is
+  reworded to the code in a plan PR after this branch merges.
+- Review 9: the user adds `Edit(//**/dev-instructions.md)` and
+  `Edit(//Users/skywalker/src/claude-dev/rules/**)` to the ask list of
+  `~/.claude/settings.json`; `MAINTENANCE.md` describes that ask list.
+- Review 10: the user removes the two `~/.claude/dev/plans/**` rules from
+  `.claude/settings.json` in a commit on the task branch; the other
+  `~/.claude` rules stay.
+- Reviews 11-15: fixed in the Tier-2 fix round; the settings-copy step
+  stays in `provisioning.md`, and `SKILL.md` points to it.
 
 ## Review
 
@@ -306,3 +317,42 @@
 - [x] Close review: "a clone apart from `~/.claude`" is unclear to a
   reader who has not seen the old layout (Suggestion) - DESIGN.md:18
   Evidence: observed DESIGN.md:18, REQUIREMENTS.md:96 and LAYOUT.md:5
+- [ ] Tier-2 review: no ask rule covers an Edit of this clone's `rules/`
+  or of `dev-instructions.md`, while `MAINTENANCE.md` and
+  `rules/claude-md.md` say governed files ask first (Important) -
+  MAINTENANCE.md:69
+  Evidence: observed `jq .permissions.ask` printing
+  `Edit(//**/CLAUDE.md)`, `Edit(//**/SKILL.md)`, `Edit(//**/.claude/rules/**)`
+  and `Edit(//**/.claude/settings*.json)` for `~/.claude/settings.json`
+  and `null` for `.claude/settings.json`
+- [ ] Tier-2 review: `.claude/settings.json` allows Edit and Read of
+  `~/.claude/dev/plans/**`, which no longer exists (Suggestion) -
+  .claude/settings.json:14
+  Evidence: observed .claude/settings.json:14 and :28, and
+  `ls ~/.claude/dev` failing with no such file or directory
+- [ ] Tier-2 review: the `config-clone` dry-run test is still labelled
+  "proof" after the dry run stopped claiming one (Suggestion) -
+  scripts/test/worker-workspace.test.sh:158
+  Evidence: observed scripts/test/worker-workspace.test.sh:158 and
+  scripts/worker-workspace.sh:20
+- [ ] Tier-2 review: `README.md § Installing the toolset elsewhere` does
+  not say an install removes target files - a dropped recorded file, a
+  retired hook that is its copy, an unedited unshipped file under its
+  trees (Suggestion) - README.md:286
+  Evidence: observed README.md:286-291 against
+  scripts/install-manifest.sh:79-104
+- [ ] Tier-2 review: the README `.claude/settings.json` row omits
+  `autoCompactEnabled`, which `check-settings.sh` requires (Suggestion) -
+  README.md:13
+  Evidence: observed README.md:13, .claude/settings.json:3 and
+  scripts/ci/check-settings.sh:43
+- [ ] Tier-2 review: `MAINTENANCE.md` and `rules/skills.md` name
+  `CLAUDE.md` for the global instructions, which `dev-instructions.md`
+  holds (Suggestion) - MAINTENANCE.md:18
+  Evidence: observed MAINTENANCE.md:18, MAINTENANCE.md:113 and
+  rules/skills.md:56
+- [ ] Tier-2 review: the step copying the worker's user settings is
+  stated in both the worker-host skill and its provisioning companion
+  (Suggestion) - skills/worker-host/SKILL.md:33
+  Evidence: observed skills/worker-host/SKILL.md:33-34 and
+  skills/worker-host/companions/provisioning.md:37-40
