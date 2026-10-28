@@ -12,7 +12,7 @@ moved and opens the docs for *how*.
   under the kind headings, internal-only under `### Internal`.
 - Breaking entries: state the change and a one-line migration, not a
   paragraph of behavior analysis.
-- Audience visibility per `CLAUDE.md § Audience visibility`.
+- Audience visibility per `dev-instructions.md § Audience visibility`.
 
 GOOD: `` `SecurityIssues.get` - args now `(clientId, id)`; unknown id returns
 `null`. ``

@@ -8,16 +8,22 @@
 #   --force                        bypass the pre-write project guard
 #
 # Copies the /dev router + its companions, the bundled dependency skills, the
-# branch-guard + secrets-guard + branch-state + session-brief hooks
+# seat definitions /dev run dispatches with the rules they and the skills
+# cite, the branch-guard + secrets-guard + branch-state + session-brief hooks
 # (registered in the target settings.json), the shipped Tier-1 checks with
-# their self-tests, the writing conventions (@imported by CLAUDE.md), and -
+# their self-tests, the writing conventions and the framework's global
+# instructions (dev-instructions.md), each @imported by CLAUDE.md, and -
 # on a project install - the maintenance hygiene section when the target doc
-# lacks it. Hooks the toolset no longer ships are removed with their
-# settings entries.
+# lacks it. Hooks the toolset no longer ships are removed, where they are its
+# copies, with their settings entries.
+# An install owns only what it copied (scripts/install-manifest.sh): a file
+# in the target that is not its copy stays, and is listed. It refuses a
+# target inside its own checkout.
 # Does NOT ship the user's personal convention rules.
 # --minimal serves contributors who work existing plans without /dev: of
-# the skills it ships only the delivery files (MINIMAL_DEV); everything
-# else is the same as the full set.
+# the skills it ships only the delivery files (MINIMAL_DEV), and none of the
+# bundled skills, seat definitions or the rules they cite; everything else
+# is the same as the full set.
 # Idempotent + re-runnable.
 set -euo pipefail
 
@@ -33,6 +39,12 @@ while [ $# -gt 0 ]; do
   esac
   shift
 done
+src_real=$(cd "$SRC" && pwd -P); t=$target; rest=""
+while [ ! -d "$t" ]; do rest="/$(basename "$t")$rest"; t=$(dirname "$t"); done
+case "$(cd "$t" && pwd -P)$rest/" in
+  "$src_real"/*) echo "install-dev: $target is inside the toolset checkout $src_real - install into a target outside it" >&2; exit 1 ;;
+esac
+. "$(dirname "${BASH_SOURCE[0]}")/install-manifest.sh"
 
 # Pre-write guard (R075): a --project install drops files a later session
 # may commit blind alongside unrelated work; refuse a dirty tracked tree
@@ -62,27 +74,32 @@ if [ "$scope" = project ] && [ "$force" -eq 0 ] \
 fi
 
 BUNDLED="systematic-debugging dispatching-parallel-agents"
+# The trees a full install ships whole; an install into a target with no
+# manifest also judges each file under them that it does not ship
+# (install-manifest.sh).
+TREES="skills/dev agents $(printf 'skills/%s ' $BUNDLED)"
+CITED_RULES="code-comments.md claude-md.md"
+RETIRED="dev-handoff-nudge.sh dev-precompact-state.sh dev-context-fill.sh"
 # The template is the permission pre-flight's input, read at run time
 # (scripts/preflight-permissions.sh), not documentation.
 MINIMAL_DEV="finish.md git-workflow.md companions/declarations.md companions/toolchain.md companions/untracked-claude.md companions/secrets.md companions/auto-permissions.template.json"
 
-mkdir -p "$target/skills" "$target/hooks"
+mkdir -p "$target"
 
 # 1. the /dev router + companions (minimal: the delivery files only, no router)
-rm -rf "$target/skills/dev"
 if [ "$set" = full ]; then
-  cp -R "$SRC/skills/dev" "$target/skills/dev"
+  ship_tree skills/dev
 else
-  mkdir -p "$target/skills/dev/companions"
-  for f in $MINIMAL_DEV; do cp "$SRC/skills/dev/$f" "$target/skills/dev/$f"; done
+  for f in $MINIMAL_DEV; do ship "skills/dev/$f"; done
 fi
 
-# 2. bundled dependency skills (the companions reference these by name)
+# 2. bundled dependency skills (the companions reference these by name), the
+#    seat definitions /dev run dispatches, and the rules the seats and the
+#    skills cite
 if [ "$set" = full ]; then
-  for s in $BUNDLED; do
-    rm -rf "$target/skills/$s"
-    cp -R "$SRC/skills/$s" "$target/skills/$s"
-  done
+  for s in $BUNDLED; do ship_tree "skills/$s"; done
+  ship_tree agents
+  for f in $CITED_RULES; do ship "rules/$f"; done
 fi
 
 # 3. hooks: copy + register the branch-guard and the secrets guard
@@ -97,55 +114,37 @@ if [ "$scope" = global ]; then hp="~/.claude/hooks"; else hp='"$CLAUDE_PROJECT_D
 settings="$target/settings.json"
 [ -f "$settings" ] || echo '{}' > "$settings"
 
-register_hook() {   # $1 = hook script basename
-  cp "$SRC/hooks/$1" "$target/hooks/$1"
-  chmod +x "$target/hooks/$1"
-  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
-  if jq --arg cmd "$cmd" --arg old "$old" '
-    .hooks.PreToolUse = [(.hooks.PreToolUse // [])[]
-      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
-    | if ([.hooks.PreToolUse[].hooks[].command] | any(. == $cmd)) then .
-      else .hooks.PreToolUse += [
-        {matcher: "Write|Edit|NotebookEdit", hooks: [{type: "command", command: $cmd}]},
-        {matcher: "Bash", hooks: [{type: "command", command: $cmd}]}
-      ] end
-  ' "$settings" > "$tmp"; then
-    mv "$tmp" "$settings"
+# edit_settings <jq filter> [jq args]: settings.json is rewritten only when
+# the filter changes its value, so a file already holding every toolset entry
+# keeps its bytes. `unhook(f)` drops the commands f selects, and an entry
+# only when that empties it.
+edit_settings() {
+  local filter=$1 tmp; shift; tmp="$(mktemp)"
+  if jq "$@" 'def unhook(f): map(if any(.hooks[]?; f) then .hooks |= map(select(f | not)) | select(.hooks | length > 0) else . end);
+      . as $in | '"$filter"' | if . == $in then empty else . end' "$settings" > "$tmp"; then
+    if [ -s "$tmp" ]; then mv "$tmp" "$settings"; else rm -f "$tmp"; fi
   else
     rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
   fi
 }
 
+# register <event> <entries> <hook>: ship the hook, drop its relative-form
+# entries, and add <entries> for it when no entry of <event> runs it.
+register() {
+  ship "hooks/$3" x
+  edit_settings '.hooks[$ev] = ((.hooks[$ev] // []) | unhook(.command == $old))
+    | if any(.hooks[$ev][].hooks[]?; .command == $cmd) then . else .hooks[$ev] += $add end' \
+    --arg ev "$1" --arg cmd "$hp/$3" --arg old ".claude/hooks/$3" \
+    --argjson add "$(jq -cn --arg cmd "$hp/$3" "$2")"
+}
+register_hook() {   # $1 = hook script basename; PreToolUse, file edits and Bash
+  register PreToolUse '[{matcher: "Write|Edit|NotebookEdit"}, {matcher: "Bash"}] | map(.hooks = [{type: "command", command: $cmd}])' "$1"
+}
 register_state_hook() {   # $1 = hook script basename; UserPromptSubmit, no matcher
-  cp "$SRC/hooks/$1" "$target/hooks/$1"
-  chmod +x "$target/hooks/$1"
-  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
-  if jq --arg cmd "$cmd" --arg old "$old" '
-    .hooks.UserPromptSubmit = [(.hooks.UserPromptSubmit // [])[]
-      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
-    | if ([.hooks.UserPromptSubmit[].hooks[].command] | any(. == $cmd)) then .
-      else .hooks.UserPromptSubmit += [{hooks: [{type: "command", command: $cmd}]}] end
-  ' "$settings" > "$tmp"; then
-    mv "$tmp" "$settings"
-  else
-    rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
-  fi
+  register UserPromptSubmit '[{hooks: [{type: "command", command: $cmd}]}]' "$1"
 }
-
 register_brief_hook() {   # $1 = hook script basename; SessionStart, compact/resume starts
-  cp "$SRC/hooks/$1" "$target/hooks/$1"
-  chmod +x "$target/hooks/$1"
-  local cmd="$hp/$1" old=".claude/hooks/$1" tmp; tmp="$(mktemp)"
-  if jq --arg cmd "$cmd" --arg old "$old" '
-    .hooks.SessionStart = [(.hooks.SessionStart // [])[]
-      | .hooks = [.hooks[]? | select(.command != $old)] | select(.hooks | length > 0)]
-    | if ([.hooks.SessionStart[].hooks[].command] | any(. == $cmd)) then .
-      else .hooks.SessionStart += [{matcher: "compact|resume", hooks: [{type: "command", command: $cmd}]}] end
-  ' "$settings" > "$tmp"; then
-    mv "$tmp" "$settings"
-  else
-    rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
-  fi
+  register SessionStart '[{matcher: "compact|resume", hooks: [{type: "command", command: $cmd}]}]' "$1"
 }
 
 register_hook dev-branch-guard.sh
@@ -153,26 +152,15 @@ register_hook dev-secrets-guard.sh
 register_state_hook dev-branch-state.sh
 register_brief_hook dev-session-brief.sh
 # The secrets guard's predicate lives beside it (sourced, not registered).
-cp "$SRC/hooks/secret-patterns.sh" "$target/hooks/secret-patterns.sh"
-cp "$SRC/hooks/dev-hook-once.sh" "$target/hooks/dev-hook-once.sh"
-# Retired hooks: an install over an earlier one removes each script below
-# and every settings entry, on any event, that runs one; an event left with
-# no entry is dropped.
-RETIRED="dev-handoff-nudge.sh dev-precompact-state.sh dev-context-fill.sh"
-for h in $RETIRED; do rm -f "$target/hooks/$h"; done
-tmp="$(mktemp)"
-if jq --arg names "$RETIRED" '
-  def retired: (.command // "") as $c | any($names | split(" ")[]; . as $n | $c | endswith("/" + $n));
-  if (.hooks | type) == "object" then .hooks |= ([to_entries[]
-    | if any(.value[]?.hooks[]?; retired)
-      then .value |= [.[] | .hooks |= map(select(retired | not)) | select(.hooks | length > 0)]
-        | select(.value | length > 0)
-      else . end] | from_entries) else . end
-' "$settings" > "$tmp"; then
-  mv "$tmp" "$settings"
-else
-  rm -f "$tmp"; echo "install-dev: failed to update $settings (invalid JSON?)" >&2; exit 1
-fi
+ship hooks/secret-patterns.sh
+ship hooks/dev-hook-once.sh
+# Retired hooks (RETIRED): an install over an earlier one removes each
+# script that is its copy (install-manifest.sh) and every settings entry, on
+# any event, that runs one; an event left with no entry is dropped.
+edit_settings 'def retired: (.command // "") as $c | any($names | split(" ")[]; . as $n | $c | endswith("/" + $n));
+  if (.hooks | type) == "object" then .hooks |= with_entries(
+    if any(.value[]?.hooks[]?; retired) then .value |= unhook(retired) | select(.value | length > 0) else . end)
+  else . end' --arg names "$RETIRED"
 
 # 4. shipped Tier-1 checks - the ones with no dependency on this repo's
 #    own layout; adopters wire them into their CI (the batch-tags gate
@@ -181,31 +169,20 @@ fi
 #    the first two are tuned per project (the MARKERS list, the ref
 #    namespaces), and the self-test validates that edit. Adopter
 #    tuning survives a re-run: the code-size allowlist is written only
-#    when absent, and an existing MARKERS line (accretion) is carried
-#    across the copy. The permission pre-flight ships beside them
-#    because skills/dev/run.md § Pre-flight names it: an adopter's runner
+#    when absent, and a tuned check is the adopter's, left in place and
+#    listed (install-manifest.sh). The permission pre-flight ships beside
+#    them because skills/dev/run.md § Pre-flight names it: an adopter's runner
 #    would otherwise cite a script its checkout lacks.
-mkdir -p "$target/scripts/ci" "$target/scripts/test"
-tuned() { [ -f "$target/scripts/ci/$1" ] && grep -m1 "^$2=" "$target/scripts/ci/$1" || true; }
-put_line() { # file, key, full line
-  local tmp; tmp="$(mktemp)"
-  while IFS= read -r line; do
-    case "$line" in "$2="*) printf '%s\n' "$3" ;; *) printf '%s\n' "$line" ;; esac
-  done < "$target/scripts/ci/$1" > "$tmp"
-  mv "$tmp" "$target/scripts/ci/$1"
-}
-markers="$(tuned check-accretion.sh MARKERS)"
-for f in ci/check-code-size.sh ci/check-no-em-dash.sh ci/check-accretion.sh \
-         ci/check-batch-tags.sh ci/check-plan-text.sh ci/branch-diff.sh \
-         preflight-permissions.sh \
-         test/check-accretion.test.sh test/check-batch-tags.test.sh \
-         test/check-plan-text.test.sh test/preflight-permissions.test.sh \
-         test/preflight-permissions-toolchain.test.sh; do
-  cp "$SRC/scripts/$f" "$target/scripts/$f"
+mkdir -p "$target/scripts/ci"
+for f in check-code-size.sh check-no-em-dash.sh check-accretion.sh check-batch-tags.sh check-plan-text.sh; do
+  ship "scripts/ci/$f" x
 done
-[ -n "$markers" ] && put_line check-accretion.sh MARKERS "$markers"
-chmod +x "$target"/scripts/ci/check-*.sh
-chmod +x "$target/scripts/preflight-permissions.sh"
+ship scripts/ci/branch-diff.sh
+ship scripts/preflight-permissions.sh x
+for f in check-accretion.test.sh check-batch-tags.test.sh check-plan-text.test.sh \
+         preflight-permissions.test.sh preflight-permissions-toolchain.test.sh; do
+  ship "scripts/test/$f"
+done
 if [ ! -f "$target/scripts/ci/code-size-allow.txt" ]; then
   cat > "$target/scripts/ci/code-size-allow.txt" <<'EOF'
 # check-code-size.sh exemptions: one tracked path per line; text after `#` is
@@ -213,20 +190,24 @@ if [ ! -f "$target/scripts/ci/code-size-allow.txt" ]; then
 EOF
 fi
 
-# 5. writing conventions: ship writing.md + @import it from the target CLAUDE.md,
-#    and the path-scoped DEV-artifact writing rule
+# 5. writing conventions and global instructions: ship writing.md and
+#    dev-instructions.md + @import each from the target CLAUDE.md, and the
+#    path-scoped DEV-artifact writing rule
 #    (append-only + idempotent; never clobbers an existing CLAUDE.md).
-cp "$SRC/writing.md" "$target/writing.md"
-mkdir -p "$target/rules"
-cp "$SRC/rules/writing-artifacts.md" "$target/rules/writing-artifacts.md"
+IMPORTS="writing.md dev-instructions.md"
+for f in $IMPORTS; do ship "$f"; done
+ship rules/writing-artifacts.md
+install_shipped
 claudemd="$target/CLAUDE.md"
-grep -qxF '@writing.md' "$claudemd" 2>/dev/null || printf '\n@writing.md\n' >> "$claudemd"
+for f in $IMPORTS; do
+  grep -qxF "@$f" "$claudemd" 2>/dev/null || printf '\n@%s\n' "$f" >> "$claudemd"
+done
 
 # 6. committability: for a project install, allowlist installed paths that the
 # target repo's .gitignore excludes (idempotent), so they can be committed.
 if [ "$scope" = project ] && git -C "$proj" rev-parse --show-toplevel >/dev/null 2>&1; then
   repo="$(git -C "$proj" rev-parse --show-toplevel)"; gi="$repo/.gitignore"
-  for p in ".claude/skills/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/rules/" ".claude/CLAUDE.md" ".claude/settings.json" ".claude/MAINTENANCE.md"; do
+  for p in ".claude/skills/" ".claude/agents/" ".claude/hooks/" ".claude/scripts/" ".claude/writing.md" ".claude/dev-instructions.md" ".claude/rules/" ".claude/CLAUDE.md" ".claude/settings.json" ".claude/MAINTENANCE.md" ".claude/$MANIFEST"; do
     git -C "$repo" check-ignore -q "${p%/}" 2>/dev/null || continue   # not ignored → skip
     grep -qxF "!$p" "$gi" 2>/dev/null && continue                      # already allowlisted
     printf '!%s\n' "$p" >> "$gi"
@@ -251,8 +232,9 @@ fi
 #    toolset's own by-products (closed plans, allow-list growth) - into
 #    the project doc when its heading is absent; the heading is the
 #    marker, so an adopter's tuned copy is never touched.
-#    The global target is this repo, whose MAINTENANCE.md § Routine is
-#    the superset, so global installs seed nothing.
+#    The global target ~/.claude is no project: the toolset's own hygiene
+#    is this repo's MAINTENANCE.md § Routine, the superset, so global
+#    installs seed nothing.
 seeded=""
 if [ "$scope" = project ]; then
   m="$target/MAINTENANCE.md"
@@ -282,5 +264,6 @@ fi
 echo "install-dev: DEV toolset ($set) installed into $target ($scope)"
 echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh, check-accretion.sh, check-batch-tags.sh, check-plan-text.sh)"
 echo "install-dev: self-tests in $target/scripts/test/ - wire checks and self-tests into your CI; the /dev run's permission pre-flight is $target/scripts/preflight-permissions.sh"
+list_kept
 if [ -n "$seeded" ]; then echo "install-dev: maintenance hygiene section seeded into $seeded"; fi
 if [ -n "${repo:-}" ]; then echo "install-dev: your CI must run the fast tier (the Test (fast): or Test: line of ${claude:-$repo/CLAUDE.md or $repo/.claude/CLAUDE.md}) - no CI config was edited"; fi

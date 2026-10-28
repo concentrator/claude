@@ -37,7 +37,8 @@ and the legacy `.claude/` locations before classifying:
   § State the present`) - is proposed as a docs-reconcile initiative, never done
   inline during migration. The accretion gate in that proposal reuses the
   shipped `.claude/scripts/ci/check-accretion.sh` (placed by `install-dev.sh
-  --project`) - tune its `MARKERS` list, never rewrite the check.
+  --project`) - tune its `MARKERS` list, never rewrite the check; the tuned
+  copy is then the project's, which later installs leave in place and list.
 
   **Stale declarations** - a project set up before the paths were
   declared may carry a `- DEV artifacts root:` or `extended-docs:` line
@@ -97,7 +98,8 @@ existing config. If user defers any item, record
 `quality-deferred: true` in `CLAUDE.md § Conventions`.
 
 For contributors without a global toolset, install it into their
-`~/.claude/skills/`, or ship a project copy at `.claude/skills/dev/` - skill
+`~/.claude` from a clone of the framework repository (`install-dev.sh`),
+or ship a project copy at `.claude/skills/dev/` - skill
 precedence means a personal copy wins and a project copy serves no-global
 contributors. A `--project` install into a git repo appends the plan-text
 gate (`check-plan-text.sh`), then the code-size gate (`check-code-size.sh`),

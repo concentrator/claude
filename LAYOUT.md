@@ -2,16 +2,14 @@
 
 The repository's actual tree - every directory and fixed-name file, a
 collection of same-kind files as one pattern line (`skills/dev/layout.md
-§ Layout file`); harness-managed state (`projects/`, `cache/`,
-`plugins/`, logs) is gitignored, and skills symlinked from external
-repos are versioned there, not mapped.
+§ Layout file`). The repository is cloned outside the config
+directory, so harness state never enters it.
 
 ```
-~/.claude/
-├── CLAUDE.md                     # global instructions, every session
+claude-dev/
+├── dev-instructions.md           # global instructions (shipped; @imported by the installed CLAUDE.md)
 ├── writing.md                    # universal writing conventions (@imported by CLAUDE.md)
-├── settings.json                 # global Claude Code config (tracked)
-├── .gitignore                    # ignore rules for harness state
+├── .gitignore                    # ignore rules for local overrides, secrets, bytecode
 ├── .env.example                  # worker-host tokens; `.env` is never tracked
 ├── README.md                     # overview and install
 ├── REQUIREMENTS.md               # foundational requirements
@@ -38,6 +36,7 @@ repos are versioned there, not mapped.
 │   ├── context-cost.py           # session context cost + attribution
 │   ├── forge-keys.sh             # forge key exchange, the operator's half (sourced by provision-worker.sh)
 │   ├── install-dev.sh            # toolset installer (global or --project, full or --minimal)
+│   ├── install-manifest.sh       # what an install owns in its target, sourced by install-dev.sh
 │   ├── preflight-permissions.sh  # the /dev run permission pre-flight
 │   ├── provision-worker.sh       # stands up the worker host, run on the operator's machine
 │   ├── test/                     # script tests + run-all.sh
@@ -62,10 +61,9 @@ repos are versioned there, not mapped.
 ├── docs/                         # the docs home (.claude/CLAUDE.md § Layout)
 │   └── reports/                  # probe and test reports a doc claim cites
 ├── rules/                        # path-scoped convention rules
-│   ├── claude-md.md              # CLAUDE.md maintenance rules
+│   ├── claude-md.md              # CLAUDE.md maintenance rules (shipped)
 │   ├── writing-artifacts.md      # DEV-artifact writing rules (**/*.md; shipped)
-│   ├── js.md                     # JS conventions (path-scoped)
-│   ├── code-comments.md          # code-comment rule (code and data files)
+│   ├── code-comments.md          # code-comment rule (code and data files; shipped)
 │   └── skills.md                 # SKILL.md maintenance rules
 ├── agents/                       # the run's seat definitions (skills/dev/run.md § Seats)
 │   ├── code-reviewer.md          # branch-close quality review agent
@@ -78,10 +76,6 @@ repos are versioned there, not mapped.
     ├── systematic-debugging/     # bundled dependency skills (installer ships these)
     │   └── SKILL.md              #   the skill, its technique files beside it
     ├── dispatching-parallel-agents/SKILL.md    # bundled
-    ├── skill-creator/SKILL.md    # personal (skill authoring)
-    ├── writing-skills/           # personal
-    │   ├── SKILL.md              #   the skill, its references beside it
-    │   └── examples/             #   worked examples its references cite
     └── worker-host/              # GCP worker host runbook, this repository's own
         ├── SKILL.md              #   the four scripts and where each runs
         └── companions/           #   provisioning order, pitfalls

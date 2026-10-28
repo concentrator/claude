@@ -110,17 +110,17 @@ for t in check-accretion check-batch-tags; do
 done
 rm -rf "$VH"
 
-# --- tuned MARKERS line survives re-install; the plan-text gate lands as shipped ---
+# --- a tuned accretion gate is the adopter's: left and listed; the plan-text gate lands as shipped ---
 T=$(mktemp); sed "s/^MARKERS=.*/MARKERS='justonemarker'/" "$P/.claude/scripts/ci/check-accretion.sh" > "$T" && mv "$T" "$P/.claude/scripts/ci/check-accretion.sh"
-bash "$INSTALL" --project "$P" >/dev/null 2>&1
-grep -q "^MARKERS='justonemarker'" "$P/.claude/scripts/ci/check-accretion.sh" && pass "tuned MARKERS survives re-install" || die "re-install clobbered MARKERS"
+out=$(bash "$INSTALL" --project "$P" 2>&1)
+grep -q "^MARKERS='justonemarker'" "$P/.claude/scripts/ci/check-accretion.sh" && grep -qF "not the install's copy: $P/.claude/scripts/ci/check-accretion.sh" <<<"$out" && pass "tuned accretion gate survives re-install, listed" || die "re-install clobbered or did not list the tuned gate"
 cmp -s "$PWD/scripts/ci/check-plan-text.sh" "$P/.claude/scripts/ci/check-plan-text.sh" && pass "plan-text gate installed as shipped" || die "installed plan-text gate differs from the shipped one"
-[ -f "$P/.claude/writing.md" ]                     && pass "writing.md copied" || die "no writing.md"
+cmp -s writing.md "$P/.claude/writing.md" && cmp -s dev-instructions.md "$P/.claude/dev-instructions.md" && pass "writing.md and dev-instructions.md copied" || die "writing.md or dev-instructions.md not copied as shipped"
 [ -f "$P/.claude/rules/writing-artifacts.md" ] && pass "writing-artifacts rule copied" || die "no writing-artifacts rule"
-grep -qxF '@writing.md' "$P/.claude/CLAUDE.md" 2>/dev/null && pass "writing.md imported in CLAUDE.md" || die "writing.md not imported"
+grep -qxF '@writing.md' "$P/.claude/CLAUDE.md" 2>/dev/null && grep -qxF '@dev-instructions.md' "$P/.claude/CLAUDE.md" && pass "writing.md and dev-instructions.md imported in CLAUDE.md" || die "writing.md or dev-instructions.md not imported"
 
-# --- NOT shipped: personal convention rules ---
-[ "$(ls "$P/.claude/rules")" = "writing-artifacts.md" ] && pass "personal rules not shipped" || die "rules/ holds: $(ls "$P/.claude/rules" | tr "\n" " ")"
+# --- shipped: the seat definitions and the rules they and the skills cite; NOT the personal convention rules ---
+diff -r agents "$P/.claude/agents" >/dev/null && [ "$(ls "$P/.claude/rules" | tr '\n' ' ')" = "claude-md.md code-comments.md writing-artifacts.md " ] && pass "seat definitions and cited rules shipped, personal rules not" || die "agents/ differs, or rules/ holds: $(ls "$P/.claude/rules" | tr "\n" " ")"
 
 # --- settings.json: branch-guard registered; pre-existing survives ---
 jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(test("dev-branch-guard"))' "$P/.claude/settings.json" >/dev/null \
@@ -137,7 +137,7 @@ jq -e '.model == "x"' "$P/.claude/settings.json" >/dev/null && pass "pre-existin
 jq -e '.hooks.PostToolUse[0].matcher == "Skill"' "$P/.claude/settings.json" >/dev/null && pass "pre-existing PostToolUse survives" || die "clobbered PostToolUse"
 
 # --- upgrade: an earlier install's retired hooks and their entries go; others stay ---
-U=$(mktemp -d); mkdir -p "$U/.claude/hooks"; touch "$U/.claude/hooks/"{dev-handoff-nudge,dev-precompact-state,dev-context-fill}.sh
+U=$(mktemp -d); mkdir -p "$U/.claude/hooks"; for h in dev-handoff-nudge dev-precompact-state dev-context-fill; do git show "$(git log -1 --format=%H --diff-filter=D -- "hooks/$h.sh")^:hooks/$h.sh" > "$U/.claude/hooks/$h.sh"; done
 printf '{"hooks":{"Stop":[{"hooks":[{"type":"command","command":"\\"$CLAUDE_PROJECT_DIR\\"/.claude/hooks/dev-handoff-nudge.sh"}]},{"hooks":[{"type":"command","command":"echo bye"}]}],"PreCompact":[{"hooks":[{"type":"command","command":"~/.claude/hooks/dev-precompact-state.sh"}]}]}}\n' > "$U/.claude/settings.json"
 bash "$INSTALL" --project "$U" >/dev/null 2>&1 && jq -e '(.hooks | has("PreCompact") | not) and [.hooks.Stop[].hooks[].command] == ["echo bye"]' "$U/.claude/settings.json" >/dev/null && [ -z "$(ls "$U/.claude/hooks" | grep -E 'nudge|precompact|context-fill')" ] \
   && pass "upgrade removes the retired hooks and their entries, keeps the rest" || die "upgrade left: $(jq -c '.hooks | {Stop, PreCompact}' "$U/.claude/settings.json") $(ls "$U/.claude/hooks" | tr '\n' ' ')"; rm -rf "$U"
@@ -195,7 +195,7 @@ n=$(jq '[.hooks.UserPromptSubmit[]? | select(any(.hooks[]?.command; test("dev-br
 [ "$n" = "1" ] && pass "branch-state idempotent (1 block)" || die "not idempotent: $n branch-state blocks"
 n=$(jq '[.hooks.SessionStart[]? | select(any(.hooks[]?.command; test("dev-session-brief")))] | length' "$P/.claude/settings.json")
 [ "$n" = "1" ] && pass "session-brief idempotent (1 block)" || die "not idempotent: $n session-brief blocks"
-[ "$(grep -c '^@writing.md$' "$P/.claude/CLAUDE.md")" = "1" ] && pass "writing import idempotent" || die "writing import duplicated"
+[ "$(grep -c '^@writing.md$' "$P/.claude/CLAUDE.md")" = "1" ] && [ "$(grep -c '^@dev-instructions.md$' "$P/.claude/CLAUDE.md")" = "1" ] && pass "writing and instructions imports idempotent" || die "an import duplicated"
 
 # --- malformed settings.json → install fails loudly, file untouched ---
 Q=$(mktemp -d)
@@ -263,7 +263,7 @@ rm -rf "$M"
 # --- global path (no --project): installs into HOME/.claude with a ~/... hook ---
 H=$(mktemp -d)
 HOME="$H" bash "$INSTALL" >/dev/null 2>&1 || die "global install exits nonzero"
-[ -f "$H/.claude/skills/dev/SKILL.md" ] && pass "global install copies toolset" || die "global install missing toolset"
+[ -f "$H/.claude/skills/dev/SKILL.md" ] && diff -r agents "$H/.claude/agents" >/dev/null && grep -qxF '@dev-instructions.md' "$H/.claude/CLAUDE.md" && pass "global install copies toolset, seat definitions included, and imports the instructions" || die "global install missing toolset, seat definitions or the instructions import"
 jq -e '[.hooks.PreToolUse[]?.hooks[]?.command] | any(. == "~/.claude/hooks/dev-branch-guard.sh")' "$H/.claude/settings.json" >/dev/null \
   && pass "global hook path is ~/.claude/..." || die "global hook path wrong"
 jq -e '[.hooks.SessionStart[]?.hooks[]?.command] | any(. == "~/.claude/hooks/dev-session-brief.sh")' "$H/.claude/settings.json" >/dev/null \
@@ -277,7 +277,7 @@ git -C "$G" checkout -qb work   # keep the fixture off a default branch in case 
 printf '.claude/*\n' > "$G/.gitignore"
 bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (gitignore fixture) exits nonzero"
 still=""
-for p in .claude/skills .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/writing.md .claude/rules/writing-artifacts.md .claude/settings.json .claude/MAINTENANCE.md; do
+for p in .claude/skills .claude/agents/dev-implementer.md .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/writing.md .claude/dev-instructions.md .claude/rules/writing-artifacts.md .claude/settings.json .claude/MAINTENANCE.md .claude/dev-install-manifest.txt; do
   git -C "$G" check-ignore -q "$p" && still="$still $p"
 done
 [ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"

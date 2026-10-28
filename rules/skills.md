@@ -5,9 +5,9 @@ paths:
 
 # SKILL.md maintenance rules
 
-For the creation workflow see `skills/skill-creator/SKILL.md`; for pressure-tested
-authoring see `skills/writing-skills/SKILL.md`. Rules below apply on every SKILL.md
-read or edit.
+For the creation workflow see `~/.claude/skills/skill-creator/SKILL.md`; for
+pressure-tested authoring see `~/.claude/skills/writing-skills/SKILL.md`. Rules
+below apply on every SKILL.md read or edit.
 
 ## Frontmatter
 
@@ -53,7 +53,7 @@ read or edit.
 ## On edit
 
 - Verify body still ≤ word limit (`wc -w SKILL.md`).
-- If a renamed/removed file is referenced, grep other skills + `~/.claude/CLAUDE.md`
+- If a renamed/removed file is referenced, grep other skills + `dev-instructions.md`
   for stale references.
 
 ## Approval

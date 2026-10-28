@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Tests hooks/dev-session-brief.sh - the SessionStart re-brief hook.
-# Covers the settings.json registration, the live tree state it injects,
+# Covers the hook file, the live tree state it injects,
 # the plans tree a declaration names, and every silent fail-open path.
 # Run: bash scripts/test/dev-session-brief.test.sh
 set -uo pipefail
@@ -15,12 +15,9 @@ pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 ctx_of() { printf '%s' "$1" | jq -r '.hookSpecificOutput.additionalContext // empty' 2>/dev/null; }
 
-# The mechanism exists and is registered on SessionStart for compact/resume.
+# The mechanism exists. Its SessionStart entry for compact/resume is the
+# installer's, pinned by install-dev.test.sh.
 [ -x "$HOOK" ] && pass "hook file present and executable" || die "hook file missing"
-jq -e '[.hooks.SessionStart[]? | select(.matcher == "compact|resume")
-        | .hooks[]?.command // "" | select(test("dev-session-brief"))] | length > 0' \
-  "$ROOT/settings.json" >/dev/null 2>&1 \
-  && pass "hook registered on SessionStart (compact|resume)" || die "hook not registered in settings.json"
 
 # A repo with a remote main, a work branch whose plan carries an open item,
 # one uncommitted change, and no session file anywhere.

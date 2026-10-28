@@ -145,64 +145,63 @@ out=$(CHECKOUT="$h/proj" real); rc=$?
   && pass "a passing check stays silent" || die "passing check noisy or failed (rc=$rc): $out"
 rm -rf "$h" "$stub"
 
-# --- config clone: this repo becomes the worker's ~/.claude -----------------
+# --- config clone: the framework cloned, then installed into ~/.claude ------
 
-cfg() { env PATH=/usr/bin:/bin "$@" bash "$WSSCRIPT" config-clone --dry-run 2>&1; }
-
-# 29. names the repo, the hooks path clone drops, and why it is not install-dev
-out=$(cfg)
+# 29. names the repo, where it is cloned, the hooks path clone drops, and the
+#     global install that copies the framework into ~/.claude
+h=$(mktemp -d); mkdir -p "$h/.claude" "$h/.worker-bootstrap"
+out=$(env PATH=/usr/bin:/bin HOME="$h" bash "$WSSCRIPT" config-clone --dry-run 2>&1)
 miss=""
-for f in "concentrator/claude" "core.hooksPath" "pre-push"; do
+for f in "concentrator/claude" "src/claude-dev" "core.hooksPath" "pre-push" "install-dev.sh" "~/.claude"; do
   grep -qF -- "$f" <<<"$out" || miss="$miss [$f]"
 done
-[ -z "$miss" ] && pass "config-clone names repo, hooks and proof" || die "config-clone missing:$miss"
+[ -z "$miss" ] && pass "config-clone names repo, clone, hooks, pre-push check and install" || die "config-clone missing:$miss"
 
-# 30. it must clone INTO an existing directory - Claude Code has already put
-#     credentials and state in ~/.claude, and a plain clone would refuse or
-#     replace them
-grep -qiE 'existing|in place|init' <<<"$out" && pass "clones into the existing dir" \
-  || die "config-clone assumes an empty target: $out"
+# 31. dry run clones nothing and installs nothing
+[ ! -e "$h/src" ] && [ -z "$(ls -A "$h/.claude")" ] && pass "config-clone dry run clones and installs nothing" \
+  || die "dry run wrote: $(ls -A "$h" "$h/.claude")"
 
-# 31. dry run creates no repo
-h=$(mktemp -d); mkdir -p "$h/.claude"
-env PATH=/usr/bin:/bin HOME="$h" bash "$WSSCRIPT" config-clone --dry-run >/dev/null 2>&1
-[ ! -d "$h/.claude/.git" ] && pass "config-clone dry run creates no repo" || die "dry run made a repo"
-rm -rf "$h"
+# 38. the dry run names the staging dir it retires, and removes nothing
+grep -qF -- ".worker-bootstrap" <<<"$out" && [ -d "$h/.worker-bootstrap" ] && pass "config-clone dry run names the staging dir without removing it" \
+  || die "staging dir removal unannounced or done anyway: $out"
 
-# A local bare repo standing in for the config remote, so a real config-clone
-# runs offline. It carries the one file config-clone verifies after checkout.
+# A local bare repo standing in for the framework remote, so a real config-clone runs
+# offline: the file it verifies after the clone, and an install-dev.sh stub logging its run.
 mkremote() {
   local d; d=$(mktemp -d); local w="$d/work"
-  mkdir -p "$w/.githooks"; printf '#!/bin/sh\nexit 0\n' > "$w/.githooks/pre-push"
+  mkdir -p "$w/.githooks" "$w/scripts"; printf '#!/bin/sh\nexit 0\n' > "$w/.githooks/pre-push"
+  printf '#!/bin/sh\necho "$PWD $*" > "$HOME/install.log"\nexit "${STUB_INSTALL_RC:-0}"\n' > "$w/scripts/install-dev.sh"
   chmod +x "$w/.githooks/pre-push"
-  git -C "$w" init -q -b main >/dev/null 2>&1
-  git -C "$w" add -A >/dev/null 2>&1
-  git -C "$w" -c user.email=t@example.com -c user.name=t commit -qm init >/dev/null 2>&1
+  { git -C "$w" init -q -b main && git -C "$w" add -A \
+    && git -C "$w" -c user.email=t@example.com -c user.name=t commit -qm init; } >/dev/null 2>&1
   git clone -q --bare "$w" "$d/remote.git" >/dev/null 2>&1
   printf '%s' "$d"
 }
 
-# 37. the checkout retires the bootstrap staging dir. Once ~/.claude is the repo,
-#     scripts/ is the scripts' home, and a second copy in ~/.worker-bootstrap is
-#     one the operator can edit or run by mistake.
-h=$(mktemp -d); mkdir -p "$h/.claude" "$h/.worker-bootstrap"
-rem=$(mkremote); cp /dev/null "$h/.worker-bootstrap/worker-setup.sh"
-out=$(env PATH=/usr/bin:/bin HOME="$h" WORKER_CONFIG_REMOTE="file://$rem/remote.git" \
-  bash "$WSSCRIPT" config-clone 2>&1)
-if [ -d "$h/.claude/.git" ]; then
-  [ ! -d "$h/.worker-bootstrap" ] && pass "config-clone retires the staging dir" \
-    || die "staging dir survived the checkout"
-else
-  die "config-clone did not check out from the fixture remote: $out"
-fi
+clone() { env PATH=/usr/bin:/bin HOME="$h" WORKER_CONFIG_REMOTE="file://$rem/remote.git" "$@" bash "$WSSCRIPT" config-clone 2>&1; }
 
-# 38. the dry run says so, and removes nothing
-h2=$(mktemp -d); mkdir -p "$h2/.claude" "$h2/.worker-bootstrap"
-out=$(env PATH=/usr/bin:/bin HOME="$h2" bash "$WSSCRIPT" config-clone --dry-run 2>&1)
-grep -qF -- ".worker-bootstrap" <<<"$out" && [ -d "$h2/.worker-bootstrap" ] \
-  && pass "config-clone dry run names the staging dir without removing it" \
-  || die "staging dir removal unannounced or done anyway: $out"
-rm -rf "$h" "$h2" "$rem"
+# 49. the clone lands at ~/src/claude-dev with its hooks path; ~/.claude stays no checkout
+rem=$(mkremote); cp /dev/null "$h/.worker-bootstrap/worker-setup.sh"
+out=$(clone); rc=$?
+[ "$rc" -eq 0 ] && [ "$(git -C "$h/src/claude-dev" config --get core.hooksPath)" = ".githooks" ] \
+  && [ ! -e "$h/.claude/.git" ] && pass "config-clone clones to ~/src/claude-dev, not ~/.claude" \
+  || die "config-clone misplaced the clone (rc=$rc): $out"
+
+# 50. it runs the global install from the clone: no flag, so ~/.claude
+[ "$(cat "$h/install.log" 2>/dev/null)" = "$h/src/claude-dev " ] \
+  && pass "config-clone runs the global install from the clone" \
+  || die "install not run from the clone as global: $(cat "$h/install.log" 2>/dev/null)"
+
+# 37. the clone retires the bootstrap staging dir: its scripts/ is the scripts' home, and a
+#     second copy in ~/.worker-bootstrap is one the operator can edit or run by mistake.
+[ ! -d "$h/.worker-bootstrap" ] && pass "config-clone retires the staging dir" \
+  || die "staging dir survived the clone"
+
+# 51. a failed install fails the step, and the staging dir stays for a re-run
+mkdir -p "$h/.worker-bootstrap"; out=$(clone STUB_INSTALL_RC=1); rc=$?
+[ "$rc" -ne 0 ] && [ -d "$h/.worker-bootstrap" ] && pass "a failed install fails config-clone" \
+  || die "install failure passed or retired the staging dir (rc=$rc): $out"
+rm -rf "$h" "$rem"
 
 # --- project clone: into /opt/wallarm, siblings adjacent --------------------
 

@@ -68,8 +68,8 @@ tier: wire the CI to run the fast tier. It appended each gate only where
 the line did not name it yet. A `Test (fast):` or `Test:` line written
 here, after the install, lacks the gates: end it with them as the
 install's printed line shows, or re-run the install to append them. A
-personal `~/.claude` install or a non-git project gets no append and no
-notice.
+global install into `~/.claude` or a non-git project gets no append and
+no notice.
 
 ## 5. Commit
 

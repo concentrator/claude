@@ -151,7 +151,7 @@ output; the declared full tier is one line - CI reports the detail.
 Scannable, not a wall of text.
 
 - No "Generated with…" line.
-- Audience visibility per `CLAUDE.md § Audience visibility`; link
+- Audience visibility per `dev-instructions.md § Audience visibility`; link
   issues only if openable.
 
 ## Releases - tag-on-trunk

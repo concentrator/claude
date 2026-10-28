@@ -70,7 +70,7 @@ cannot settle is never asked, its claim listed in your report
 
 **Writing.** In the checkout you write only docs - code and plans are
 not yours to touch. A doc follows `rules/writing-artifacts.md`, its
-§ Editing Markdown included, and `CLAUDE.md § Audience visibility`: it
+§ Editing Markdown included, and `dev-instructions.md § Audience visibility`: it
 names nothing the reader cannot see, plan files and
 agent names included. Commands print only what the step needs
 (`skills/dev/branch-plan.md § Commit cadence` 4).

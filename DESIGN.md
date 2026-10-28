@@ -1,12 +1,12 @@
 # Environment design
 
-Architecture of the `~/.claude` configuration: the components, how they
+Architecture of the `~/.claude` framework: the components, how they
 relate, and the invariants that keep them coherent.
 
 ## Components
 
-- **CLAUDE.md** - global operating instructions, loaded every session.
-  Maintenance: `rules/claude-md.md`.
+- **dev-instructions.md** - global instructions the installed
+  `CLAUDE.md` imports. Maintenance: `rules/claude-md.md`.
 - **rules/** - path-scoped convention rules; the DEV process rules live
   in `skills/dev/`, not here.
 - **skills/** - invocable capabilities: `skills/dev/`, the `/dev` router
@@ -15,13 +15,14 @@ relate, and the invariants that keep them coherent.
 
 ## Self-hosting layout
 
-This repo is consumed as `~/.claude`, so a project's `.claude/` is the
-repo root here: `REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md` and
-`LAYOUT.md` sit at the root, and the root `CLAUDE.md` is the global
-instructions every session loads. The nested `.claude/` holds Claude
-Code's project settings and this repository's instructions, its
-`CLAUDE.md` carrying the declarations; DEV artifacts sit at the paths
-`.claude/CLAUDE.md § Layout` declares, `dev/` here.
+This repository is cloned outside `~/.claude`, and
+`scripts/install-dev.sh` copies the framework there, the files it did
+not copy being the user's (`scripts/install-manifest.sh`).
+`REQUIREMENTS.md`, `DESIGN.md`, `MAINTENANCE.md` and `LAYOUT.md` sit at
+the root; the nested `.claude/` holds Claude Code's project settings and
+this repository's instructions, its `CLAUDE.md` carrying the declarations;
+DEV artifacts sit at the paths `.claude/CLAUDE.md § Layout` declares,
+`dev/` here.
 
 ## Tree-map
 
@@ -65,8 +66,8 @@ dora.dev); tag-on-trunk releases (Pro Git, git-scm.com).
 
 ## Self-enforcement
 
-Two tiers gate every change into `main` (hooks ship to adopters via
-`install-dev.sh`):
+Two tiers gate every change into `main` (Claude Code hooks reach a
+machine only through `install-dev.sh`):
 
 - **Tier-1 - mechanical CI.** `scripts/ci/*.sh`, and the script tests in
   `scripts/test/`, run in `.github/workflows/ci.yml` on
@@ -114,7 +115,8 @@ closed without its pattern library).
 The state hooks keep branch and tree in view, and on a compacted or
 resumed start re-brief from the tree read at that moment - branch,
 status, recent commits and the first open item of each plan the branch
-touched; the summary keeps the rest (`CLAUDE.md § Compact instructions`).
+touched; the summary keeps the rest (`dev-instructions.md § Compact
+instructions`).
 
 ## Context budget
 

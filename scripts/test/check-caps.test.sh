@@ -78,9 +78,10 @@ echo more >> "$d/skills/dev/x.md"; commit_in "$d" grow
 check_in "$d" && pass "units over their cap at the base may grow" || die "grown over-cap units caught: $(report_in "$d")"
 rm -rf "$d"
 
-d=$(mkrepo); lines 100 > "$d/CLAUDE.md"; words 1000 > "$d/DESIGN.md"; based "$d"
-echo more >> "$d/CLAUDE.md"; echo more >> "$d/DESIGN.md"; commit_in "$d" grow
+d=$(mkrepo); lines 100 > "$d/CLAUDE.md"; lines 100 > "$d/dev-instructions.md"; words 1000 > "$d/DESIGN.md"; based "$d"
+echo more >> "$d/CLAUDE.md"; echo more >> "$d/dev-instructions.md"; echo more >> "$d/DESIGN.md"; commit_in "$d" grow
 fails_with "$d" "CLAUDE.md taken past its cap" "CLAUDE.md 101 lines > 100"
+fails_with "$d" "dev-instructions.md taken past its cap" "dev-instructions.md 101 lines > 100"
 fails_with "$d" "DESIGN.md taken past its cap" "DESIGN.md 1001 words > 1000"
 rm -rf "$d"
 

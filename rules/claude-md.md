@@ -2,11 +2,12 @@
 paths:
   - "**/CLAUDE.md"
   - "**/CLAUDE.local.md"
+  - "**/dev-instructions.md"
 ---
 
 # CLAUDE.md maintenance
 
-Rules for any CLAUDE.md (global, project, nested). Apply on every read and edit.
+Rules for any CLAUDE.md (global, project, nested) and for `dev-instructions.md`, the framework's global instructions a CLAUDE.md imports. Apply on every read and edit.
 
 ## Content
 - **Only persistent facts.** Build/test commands, conventions, architecture, "always do X" rules. If it's a procedure or only matters for one area, move to a skill or `.claude/rules/*.md`.
@@ -16,7 +17,7 @@ Rules for any CLAUDE.md (global, project, nested). Apply on every read and edit.
 - **No transient content.** No changelogs, task lists, in-progress notes, dated entries, history.
 - **No secrets.** No tokens, keys, credentials, private URLs.
 - **No absolute home paths** (`/Users/...`, `/home/...`). Use `~/` or repo-relative.
-- **Operative instructions only.** State the WHAT, not the why - rationale belongs in requirements/DESIGN; compaction cuts framing, never meaning. (Phrasing: `CLAUDE.md § Writing`.)
+- **Operative instructions only.** State the WHAT, not the why - rationale belongs in requirements/DESIGN; compaction cuts framing, never meaning. (Phrasing: `dev-instructions.md § Writing`.)
 
 ## Size and structure
 - **Max 200 lines.** Over budget → split via `@path/to/file` import or move narrow rules to `.claude/rules/*.md` with `paths:` frontmatter.
@@ -32,4 +33,4 @@ Rules for any CLAUDE.md (global, project, nested). Apply on every read and edit.
 - Projects run via `/dev run` declare their build/test/VCS commands as `permissions.allow` rules in an `## Agent toolchain` section of the project CLAUDE.md - including a VCS-host CLI (`gh`/`glab`) for the checkpoint push + PR. The `/dev run` pre-flight reads it to prepare agent settings deterministically. A `## Supervision` section beside it declares `Supervisor: human | AI` and the supervisor's bounds (`skills/dev/companions/declarations.md § Supervisor bounds`). A `## Layout` section after it declares the docs home, the plans tree and the layout file (`skills/dev/companions/declarations.md § Declared paths`). Declaration syntax: `skills/dev/companions/declarations.md`; push-permission patterns: `skills/dev/companions/toolchain.md`.
 
 ## Approval
-- `permissions.ask` in `settings.json` holds every Edit or Write of a `CLAUDE.md` for approval. Where it cannot see the change - a `CLAUDE.local.md`, or an edit through the shell (`sed`, a script) - propose it and wait for explicit approval.
+- `permissions.ask` in `~/.claude/settings.json` holds every Edit or Write of a `CLAUDE.md` or `dev-instructions.md` for approval. Where it cannot see the change - a `CLAUDE.local.md`, or an edit through the shell (`sed`, a script) - propose it and wait for explicit approval.

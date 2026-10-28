@@ -6,9 +6,10 @@ approved: yes
 
 ## Vision
 
-`~/.claude` is a portable, version-controlled Claude Code environment
-configuration - the skills, rules, agents, hooks, and settings the DEV
-workflow runs on. It is not a product project; it is the toolset itself,
+This repository is a portable, version-controlled Claude Code framework -
+the skills, rules, agents and hooks the DEV workflow runs on, with the
+tooling that installs and checks them; an installer copies the framework
+into `~/.claude`. It is not a product project; it is the toolset itself,
 self-managed by the same `/dev` discipline it provides, so it stays a
 working reference implementation of its own conventions.
 
@@ -92,9 +93,11 @@ execution`, `skills/dispatching-parallel-agents/`.
 
 ## Constraints
 
-- Self-hosting: foundational files live at the repo root (`~/.claude/`),
-  which is itself the `.claude/` config directory. Claude Code's own
-  project settings live at `~/.claude/.claude/settings.json`, tracked.
+- Self-hosting: the repository is cloned outside the config
+  directory, and `scripts/install-dev.sh` copies the framework from it
+  into `~/.claude`, the files it did not copy staying the user's. The
+  repository's own Claude Code project settings live at
+  `.claude/settings.json`, tracked; the user's `settings.json` is not.
 - Must stay compatible with the Claude Code settings/skill/hook schemas.
 
 ## Open questions

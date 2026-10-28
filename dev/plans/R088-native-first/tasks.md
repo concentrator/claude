@@ -21,7 +21,7 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - [x] **R088-T005 [mnt]**: permissions on native modes, settings and hooks, with
   the auto-mode classifier configured and the pre-flight cut to what binds.
 
-- [ ] **R088-T006 [mnt]**: framework install - files copied onto a machine, the
+- [x] **R088-T006 [mnt]**: framework install - files copied onto a machine, the
   user's files and settings never overwritten, the repository no longer the
   user's config directory.
 
@@ -44,3 +44,4 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - The worker host sets no `attribution.sessionUrl: false`, and no gate stops a `Claude-Session` trailer before push.
 - The `autoMode` soft_deny entries name no visible DEV-run trigger or must-name slot, nor presume an unseen MR diff.
 - `check-doc-sync.sh` needs README edits in an item's commit, while `branch-plan.md` gives README to the doc writer at close.
+- The GitHub repository is still named `claude`, while its clone lives at `~/src/claude-dev`; rename it `claude-dev`.

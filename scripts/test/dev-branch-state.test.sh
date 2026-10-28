@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Tests hooks/dev-branch-state.sh - the UserPromptSubmit ambient-state hook
-# (R-052). Covers the registration in settings.json (the run that fails when
-# the mechanism is removed), the one-line output on a branch with changes,
+# (R-052). Covers the hook file (the run that fails when the mechanism is
+# removed), the one-line output on a branch with changes,
 # the clean form, the same line in a DEV repo with a session file and a
 # full context, and silence outside a git repo.
 # Run: bash scripts/test/dev-branch-state.test.sh
@@ -15,12 +15,9 @@ fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }
 
-# The mechanism exists and is registered: removing the hook file or its
-# UserPromptSubmit entry in settings.json fails here.
+# The mechanism exists: removing the hook file fails here. Its
+# UserPromptSubmit entry is the installer's, pinned by install-dev.test.sh.
 [ -x "$HOOK" ] && pass "hook file present and executable" || die "hook file missing"
-jq -e '[.hooks.UserPromptSubmit[]?.hooks[]?.command // "" | select(test("dev-branch-state"))] | length > 0' \
-  "$ROOT/settings.json" >/dev/null 2>&1 \
-  && pass "hook registered on UserPromptSubmit" || die "hook not registered in settings.json"
 
 # Run the hook from the current cwd with the empty prompt JSON on stdin.
 run() { printf '{}' | bash "$HOOK" 2>/dev/null; }

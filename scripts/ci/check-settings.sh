@@ -11,10 +11,10 @@
 # The 100000 to 1000000 bounds are the Claude Code settings reference's, not
 # this repo's; they are restated here because the gate has to compare against
 # something and no tracked file owns them. The chosen value inside those
-# bounds lives in settings.json alone.
+# bounds lives in .claude/settings.json alone.
 #
 # A bare `Bash(git:*)` here would already cover every git entry the
-# per-project template grants, so on a host carrying this config the
+# per-project template grants, so in a session in this repository the
 # template's list would decide nothing and its acceptance test could not
 # tell a placed file from a missing one.
 set -euo pipefail
@@ -22,7 +22,7 @@ cd "$(git rev-parse --show-toplevel)"
 
 MIN=100000
 MAX=1000000
-f=settings.json
+f=.claude/settings.json
 
 # No jq means this gate cannot judge anything; say so and let the rest of
 # the suite run rather than blaming the file (hooks/dev-secrets-guard.sh

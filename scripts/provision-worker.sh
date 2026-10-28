@@ -133,10 +133,10 @@ firewall() {
 }
 
 # The three VM-side scripts have to be on the host before any of them can run,
-# and the config repo that is their permanent home is cloned much later in the
-# order - by worker-workspace.sh, one of the three. Staged into a directory of
-# their own rather than $HOME, so a bootstrap copy is never mistaken for the
-# repo's; config-clone removes it once the repo lands.
+# and the framework clone that is their permanent home is made much later in
+# the order - by worker-workspace.sh, one of the three. Staged into a directory
+# of their own rather than $HOME, so a bootstrap copy is never mistaken for the
+# clone's; config-clone removes it once the clone lands.
 push_scripts() {
   local dry=0
   [ "${1:-}" = "--dry-run" ] && dry=1

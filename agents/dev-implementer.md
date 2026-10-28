@@ -35,10 +35,10 @@ NEEDS_CONTEXT report, never a guess.
    the code; report the divergence and its reason.
 2. **Implement** exactly what the item specifies, on the loop the
    plan's `type:` selects (`skills/dev/run.md § Dispatch per item` 1),
-   following `rules/code-comments.md` and `CLAUDE.md § Audience
-   visibility`. Something unexpected or unclear in the acceptance is a
+   following `rules/code-comments.md` and `dev-instructions.md
+   § Audience visibility`. Something unexpected or unclear in the acceptance is a
    NEEDS_CONTEXT report: don't guess or make assumptions. A concern needs evidence
-   (`CLAUDE.md § Scope`); a case you constructed from the code is not
+   (`dev-instructions.md § Scope`); a case you constructed from the code is not
    one. The file structure in the plan is where the approach starts,
    not a boundary: split a file that has outgrown its job, or add one
    the work needs, and say so in your report. Don't restructure things
@@ -104,20 +104,20 @@ done - do not `rm` them. Glob deletes are rejected by the sandbox, an
 prompt, and bulk-clearing shared /tmp is destructive. /tmp is
 ephemeral; cleanup is not your job.
 
-**Config.** Never edit the settings surface - `settings.json`,
+**Config.** Never edit the settings surface - `~/.claude/settings.json`,
 `.claude/settings.json`, `.claude/settings.local.json`,
 `~/.claude.json`; `scripts/install-dev.sh` registers a hook in the
 `hooks` key of the first two, so adding or removing one there is the
-user's. Every other path under the config directory - skills, rules,
-agent definitions, the docs, the plans, and `hooks/`, the source
-`scripts/install-dev.sh` ships - is tracked source rather than config: a
-seat treats it as it treats any file in the checkout, within the tools
-it holds, Markdown under `rules/writing-artifacts.md § Editing
-Markdown`. This repository's `settings.json` registers
-`~/.claude/hooks/`, the checkout itself, so an edit to a guard binds the
-session from the moment it is saved and a seat can weaken the guard
-binding it: a guard changes only as the plan item states it, with the
-test that pins the change.
+user's. The checkout is a clone of the framework repository, from
+which `scripts/install-dev.sh` copies the toolset into `~/.claude`.
+Every other path in it - skills, rules, agent definitions, the docs, the plans, and
+`hooks/` - is tracked source rather than config: a seat treats it as it
+treats any file in the checkout, within the tools it holds, Markdown
+under `rules/writing-artifacts.md § Editing Markdown`. The guards
+binding the session are the copies an install placed in
+`~/.claude/hooks/`, so an edit to one under `hooks/` binds no session
+until the next install: a guard changes only as the plan item states
+it, with the test that pins the change.
 
 **A denied call.** A call of yours may be denied by the permission
 mode's classifier rather than by a rule. A denial ends the call: report
