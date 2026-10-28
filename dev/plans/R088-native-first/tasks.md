@@ -28,6 +28,9 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - [ ] **R088-T007 [mnt]**: a saved workflow runs the seats, continuing a seat for
   its follow-ups, and each seat loads only the text its step needs.
 
+- [ ] **R088-T008 [mnt]**: the GitHub repository is named `claude-dev`,
+  matching its clone, and everything that names it follows.
+
 - `/dev migrate` does not add the `comments:` convention line to an existing project's `CLAUDE.md § Conventions`.
 - The durable-id rule allows citing an MR/PR number, but the plan-text gate still rejects `#NNN` in ROADMAP and `tasks.md`.
 - Brainstorm's approach choice, start's clarifying and quality questions, and finish's no-host merge confirmation still ask in plain text, not through AskUserQuestion.
@@ -44,4 +47,3 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - The worker host sets no `attribution.sessionUrl: false`, and no gate stops a `Claude-Session` trailer before push.
 - The `autoMode` soft_deny entries name no visible DEV-run trigger or must-name slot, nor presume an unseen MR diff.
 - `check-doc-sync.sh` needs README edits in an item's commit, while `branch-plan.md` gives README to the doc writer at close.
-- The GitHub repository is still named `claude`, while its clone lives at `~/src/claude-dev`; rename it `claude-dev`.
