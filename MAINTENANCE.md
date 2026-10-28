@@ -10,7 +10,7 @@ unique to this repo, the weekly audit and its backlog among them.
 
 ## Tier-2 AI review
 
-A mandatory compliance review for `~/.claude`, complementing the Tier-1
+A mandatory compliance review for this repository, complementing the Tier-1
 mechanical CI checks in `scripts/ci/`. At branch close, before delivery,
 review the diff against the rule set and confirm the concerns below:
 
@@ -106,8 +106,9 @@ tier, any regrown `settings.local.json` per machine):
 
 Targets beyond the generic routine:
 
-- Skill usage audit (monthly): read `skill_invocations.jsonl` (written
-  by the `PostToolUse`/`Skill` hook in `settings.json`). A skill with
+- Skill usage audit (monthly): read `~/.claude/skill_invocations.jsonl`
+  (written by the `PostToolUse`/`Skill` hook in
+  `~/.claude/settings.json`). A skill with
   zero invocations over the period and no inbound reference from
   CLAUDE.md / rules / other skills → flag for triage (wire in, accept
   as description-triggered, or remove). Truncate the log after review.
@@ -165,14 +166,15 @@ against Claude Code's current defaults and documentation and proposes
 each new finding as a § Backlog line. Its prompt:
 
 ```text
-Audit this repository - a Claude Code configuration and the DEV toolset
-it installs - against Claude Code's current defaults and documentation.
+Audit this repository - the DEV toolset, which its installer copies into
+~/.claude - against Claude Code's current defaults and documentation.
 
 1. Read Claude Code's current documentation and release notes for the
    settings, hook events, tools, permission modes, slash commands and
    default behaviors this repository uses or replaces.
-2. Read the repository: CLAUDE.md, writing.md, settings.json,
-   DESIGN.md, rules/, skills/, agents/, hooks/ and scripts/.
+2. Read the repository: dev-instructions.md, writing.md,
+   .claude/settings.json, DESIGN.md, rules/, skills/, agents/, hooks/
+   and scripts/.
 3. A finding is a rule, skill, hook, script or setting that overrides a
    Claude Code default, rebuilds a native feature, or names a setting,
    event, tool or behavior the documentation no longer describes. Each

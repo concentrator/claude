@@ -44,7 +44,7 @@ mode: normal
   `check-settings.sh` judges `.claude/settings.json`. Approach: `git rm`, the
   gate with its test, `LAYOUT.md`, `REQUIREMENTS.md § Vision` and
   `§ Constraints`, the `README.md § Contents` rows `check-doc-sync.sh` needs.
-- [ ] No skill, agent, script or `MAINTENANCE.md` text says this checkout is
+- [x] No skill, agent, script or `MAINTENANCE.md` text says this checkout is
   the config directory: each describes a clone installed into `~/.claude`.
   Approach: grep the tree for `~/.claude` and checkout-as-config wording; then
   `agents/dev-implementer.md`'s config paragraph, `seat-permissions.md`'s

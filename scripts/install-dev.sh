@@ -228,8 +228,9 @@ fi
 #    toolset's own by-products (closed plans, allow-list growth) - into
 #    the project doc when its heading is absent; the heading is the
 #    marker, so an adopter's tuned copy is never touched.
-#    The global target is this repo, whose MAINTENANCE.md § Routine is
-#    the superset, so global installs seed nothing.
+#    The global target ~/.claude is no project: the toolset's own hygiene
+#    is this repo's MAINTENANCE.md § Routine, the superset, so global
+#    installs seed nothing.
 seeded=""
 if [ "$scope" = project ]; then
   m="$target/MAINTENANCE.md"

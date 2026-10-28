@@ -97,7 +97,8 @@ existing config. If user defers any item, record
 `quality-deferred: true` in `CLAUDE.md § Conventions`.
 
 For contributors without a global toolset, install it into their
-`~/.claude/skills/`, or ship a project copy at `.claude/skills/dev/` - skill
+`~/.claude` from a clone of the framework repository (`install-dev.sh`),
+or ship a project copy at `.claude/skills/dev/` - skill
 precedence means a personal copy wins and a project copy serves no-global
 contributors. A `--project` install into a git repo appends the plan-text
 gate (`check-plan-text.sh`), then the code-size gate (`check-code-size.sh`),

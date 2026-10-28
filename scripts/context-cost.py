@@ -19,7 +19,7 @@ Usage:
     python3 scripts/context-cost.py --last 10
 
 --last reads the transcripts under CLAUDE_CONFIG_DIR/projects, defaulting
-to the config directory this script lives in. Exit status is nonzero if any
+to ~/.claude, Claude Code's own default. Exit status is nonzero if any
 session fails its identity check or cannot be read.
 """
 import argparse
@@ -204,8 +204,8 @@ def report(path, calls):
 def projects_root():
     """Where the harness keeps transcripts, honouring CLAUDE_CONFIG_DIR so a
     test can point the tool at a throwaway tree."""
-    config = os.environ.get("CLAUDE_CONFIG_DIR") or os.path.dirname(
-        os.path.dirname(os.path.abspath(__file__)))
+    config = os.environ.get("CLAUDE_CONFIG_DIR") or os.path.expanduser(
+        "~/.claude")
     return os.path.join(config, "projects")
 
 

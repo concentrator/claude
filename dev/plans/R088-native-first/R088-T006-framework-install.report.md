@@ -110,6 +110,24 @@
   intro drops the gitignored harness state, which the clone never holds.
   The `README.md § Contents` row edited is the `settings.json` row the
   gate names, removed.
+- Item 8: `scripts/context-cost.py` defaulted `--last` to the directory
+  it sits in, the clone once the checkout is no config directory; it now
+  defaults to `~/.claude`, and `context-cost.test.sh` pins the default
+  with `CLAUDE_CONFIG_DIR` unset.
+- Item 8: the worker host's text stays for item 9, true of the
+  `config-clone` it changes: `worker-workspace.sh` and its test,
+  `skills/worker-host/`, and the comments of `provision-worker.sh:135-139`,
+  `provision-worker.test.sh:175-176` and `worker-credentials.sh:61-63`,
+  which call the clone the config repo or `~/.claude/.env` gitignored.
+- Item 8: beyond the named spans, the `settings.json` the companions
+  called tracked is now `~/.claude/settings.json` or the tracked
+  `.claude/settings.json` (`seat-permissions.md` pattern 1 and the guard's
+  matcher, `supervisor-runbook.md § Failure modes`), and the
+  `MAINTENANCE.md` skill usage audit reads its log and hook under
+  `~/.claude`; the `install-dev.sh` § 8 comment no longer calls the global
+  target this repo. The weekly audit prompt reads `dev-instructions.md`
+  and `.claude/settings.json`, the gap the Item 6 and Item 7 findings name
+  for `MAINTENANCE.md:174`.
 ### Findings
 - [ ] Item 6: `DESIGN.md § Self-enforcement` cites `CLAUDE.md § Compact
   instructions`, a section now in `dev-instructions.md`; a doc, so the doc

@@ -149,6 +149,14 @@ grep -qF -- "== new ==" <<<"$out" && grep -qF -- "== mid ==" <<<"$out" \
   && pass "--last takes the most recent, not the first found" \
   || die "--last picked the wrong sessions: $out"
 
+# Without CLAUDE_CONFIG_DIR, --last reads ~/.claude/projects, not the
+# checkout the tool sits in.
+mkdir -p "$d/home/.claude/projects/p1"
+asst 10 0 0 1 > "$d/home/.claude/projects/p1/home.jsonl"
+out=$(env -u CLAUDE_CONFIG_DIR HOME="$d/home" python3 "$TOOL" --last 1 2>&1)
+grep -qF -- "== home ==" <<<"$out" && pass "--last defaults to ~/.claude" \
+  || die "--last did not read ~/.claude/projects: $out"
+
 # An unreadable path is the likeliest operator error, so it must name the
 # path rather than surface a traceback.
 python3 "$TOOL" --session "$d/nope.jsonl" >/dev/null 2>&1 \

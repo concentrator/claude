@@ -169,15 +169,15 @@ place.
 
 Join by launch flag or, for a running session, `/remote-control
 <name>`, never by settings: `remoteControlAtStartup` is
-honoured at user scope only, and on the remote host `~/.claude` is the
-tracked config repo. Confirm the join by the `/rc active` marker in
-the session footer; an enabled session also prints its own
-`https://claude.ai/code/session_...` URL. Leave `autoUploadSessions`
+honoured at user scope only, and `~/.claude/settings.json` is the
+user's, an install writing it only to register its hooks. Confirm the
+join by the `/rc active` marker in the session footer; an enabled
+session also prints its own `https://claude.ai/code/session_...` URL. Leave `autoUploadSessions`
 unset: it mirrors sessions to claude.ai view-only, is not required,
 and is the one setting here with a data-egress consequence. A
 session of the user's own joins too: a host session appears in
 `ListAgents` only when both ends are connected, and
-`isolatePeerMachines: true` in the tracked `settings.json` gates each
+`isolatePeerMachines: true` in `~/.claude/settings.json` gates each
 cross-machine send behind explicit approval. The printed URL gives
 browser and phone control without joining.
 
@@ -254,7 +254,7 @@ point 4: print what the step needs, never a file already in context.
   dedupe hashes the command's own output shape, so freeze a watch
   command verbatim for the life of its watch.
 - **A tier's mode key drifts from its tracked value** after a run
-  starts - a `defaultMode` appearing in the tracked `settings.json`,
+  starts - a `defaultMode` appearing in the tracked `.claude/settings.json`,
   or its value changing: do not stage it. A `defaultMode` that is part
   of the tracked value is no defect - the drift is what the pre-flight's
   mode assertion fails on (`seat-permissions.md § Mode-independent

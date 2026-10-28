@@ -3,9 +3,9 @@
 The run's permission set: declared once, split by what enforces it, and
 settled before the first dispatch. `run.md § Pre-flight` resolves it
 against the settings tiers through `<config>/scripts/preflight-permissions.sh`,
-`<config>` being the directory the toolset is installed into: `scripts/` in this
-repository, whose checkout is that directory, and `.claude/scripts/` from an
-adopter's project root.
+`<config>` being the directory the toolset is installed into: `~/.claude` for
+a global install, from a clone of the framework repository, and `.claude`
+from the root of a project installed with `--project`.
 
 Every rule here traces to one of four sources: a seat definition under
 `agents/`, a dispatch companion under `companions/`, the project's
@@ -125,9 +125,9 @@ edit is the whole remedy, with no commit and no branch, so the halted
 run waits on nothing that would put a commit on the default branch it is
 standing on (`git-workflow.md § Trunk`).
 
-This repository is on pattern 1: its `.claude/settings.json` carries the
-pair, and its user tier, the `settings.json` at the checkout root,
-carries no `deny` key.
+This repository's `.claude/settings.json` carries the pair, so a session
+in it is on pattern 1 unless the user tier, `~/.claude/settings.json`,
+or the local tier carries a blanket entry.
 
 ## HEAD moves and whole-tree discards
 
@@ -141,9 +141,9 @@ flow's own moves in that verb: `Bash(git checkout:*)` stops
 the branch `run.md § Pre-flight` and `release.md` step 3 create, along
 with a dirty-tree trunk entry; `Bash(git reset:*)` stops a seat's
 unstaging along with `reset --hard`. The guard reads those arguments and
-tells them apart, and it already fires on the `Bash` matcher of the
-tracked `settings.json` and of every project `scripts/install-dev.sh`
-writes, for a dispatched seat's call as for the session's.
+tells them apart, and it already fires on the `Bash` matcher of every
+`settings.json` `scripts/install-dev.sh` writes, global or project, for
+a dispatched seat's call as for the session's.
 
 The predicate, judged per command segment against the repo that segment
 targets as the push scan's is, denies four shapes:
