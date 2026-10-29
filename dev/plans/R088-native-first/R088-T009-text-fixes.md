@@ -14,7 +14,7 @@ mode: normal
   pre-condition, and prunes no ROADMAP entry, a closed R's `[x]` being its
   closure record (`plan.md § Approval and closure`). Approach: `release.md`
   step 5 becomes that step in place, so no step renumbers.
-- [ ] Under `release-routine: yes`, the detail round adds each planned
+- [x] Under `release-routine: yes`, the detail round adds each planned
   branch to the open release plan, if one exists, as the `templates.md
   § Release plan` entry the closing routine marks. Approach: `write-plan.md`
   step 7, the session's, committing the entry on the branch carrying the

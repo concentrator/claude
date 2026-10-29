@@ -48,9 +48,13 @@ text itself.
    records `cold-read: passed`. The session commits that header edit on
    the branch carrying the plan. A plan whose `depends-on` names an
    unmerged task is read at its start instead.
-7. **Confirm with user**, then deliver the committed plan through
-   `finish.md § 3`: its short-lived plan MR/PR (`plan.md § Where plans
-   live in git`) takes the decision any branch takes. A small change's
+7. **Confirm with user**. Under `release-routine: yes` the session
+   then adds the plan's branch to the open release plan, if one exists,
+   as the `templates.md § Release plan` entry the closing routine marks,
+   committed on the branch carrying the plan. It delivers the committed
+   plan through `finish.md § 3`: its short-lived plan MR/PR
+   (`plan.md § Where plans live in git`) takes the decision any branch
+   takes. A small change's
    plan is not delivered alone: it stays committed on the task's
    branch (`plan.md § Planning rounds`), where the session commits the
    user's confirmation as `approved: yes` in its header

@@ -89,8 +89,9 @@ lines.
 ## Release plan `release-vX.Y.Z.md`
 
 Created by `/dev plan release` (requires ≥1 closed task since the last
-release). One checkbox per planned branch; the `[x]` is a closing-routine
-bookkeeping mark (`branch-plan.md § Closing routine`; auto and untracked
+release). One checkbox per planned branch, which `write-plan.md` step 7
+adds; the `[x]` is a closing-routine bookkeeping mark
+(`branch-plan.md § Closing routine`; auto and untracked
 modes place marks per § Batches / `finish § 4`). The
 `release` skill halts while planned entries remain `[ ]` unless the user
 confirms dropping them.
