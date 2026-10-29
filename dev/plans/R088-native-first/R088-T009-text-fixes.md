@@ -30,7 +30,7 @@ mode: normal
   (supervised)`, the `committer.name` `scripts/worker-credentials.sh` sets
   on the worker host. Approach: the committer sentence of the "Supervision
   signature" paragraph in `declarations.md § Supervisor bounds`.
-- [ ] `run.md § Batch close` 2 names the seat that commits each fix: a fresh
+- [x] `run.md § Batch close` 2 names the seat that commits each fix: a fresh
   implementer naming that member's plan and the fix's `## Review` entry, as
   `§ Close` 2 does, the entry in the report of the member whose code the
   fix changes, the last in batch order for several. Approach: that step,
