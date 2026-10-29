@@ -150,8 +150,7 @@ checks that matter to verify (manual / non-obvious), not a paste of CI
 output; the declared full tier is one line - CI reports the detail.
 Scannable, not a wall of text.
 
-- No "Generated with…" line: the `attribution` setting's `pr` is left
-  empty (`dev-instructions.md § Writing`).
+- No "Generated with…" line (`dev-instructions.md § Writing`).
 - Audience visibility per `dev-instructions.md § Audience visibility`; link
   issues only if openable.
 

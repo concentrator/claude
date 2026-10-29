@@ -104,7 +104,8 @@ branch per plan - and per commit checkbox:
 
 1. Dispatch a fresh implementer naming the plan file - the item it
    works is the first `[ ]`, or the task report's `## Review` entry the
-   dispatch names (2, § Close 2). Its loop is the plan's `type:` mode file
+   dispatch names (2, § Close 2, § Batch close 2). Its loop is the plan's
+   `type:` mode file
    (`feat.md`, `fix.md`, `refactor.md`); `doc`/`test`/`mnt` run
    `branch-plan.md § Commit cadence` alone.
 2. DONE → next item. DONE_WITH_CONCERNS → a concern that changes an item's

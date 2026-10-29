@@ -32,10 +32,9 @@ Full config + artifacts layout and baseline set: `layout.md`.
 
 Ask through the AskUserQuestion tool: **release routine?** Record
 `release-routine:` in `CLAUDE.md § Conventions`. If yes: `CHANGELOG.md`
-seeded with `# Changelog` over an empty `## [Unreleased]`, the heading
-`release.md`'s pre-condition requires and the doc writer's entries go
-under; versioning (default `vX.Y.Z`); `<plans>/release-v0.1.0.md`. Ask about
-external publishing the same way; record `publish-external:`. If
+seeded with `# Changelog` over an empty `## [Unreleased]`; versioning
+(default `vX.Y.Z`); `<plans>/release-v0.1.0.md`. Ask about external
+publishing the same way; record `publish-external:`. If
 external, override `release` at `<project>/.claude/skills/release/SKILL.md`.
 
 Ask through the AskUserQuestion tool: **comment convention?**, "match
