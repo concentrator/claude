@@ -16,7 +16,7 @@ mode: normal
   `concentrator/claude-dev`; a tree grep finds no other name, the probe
   record `docs/reports/gh-pr-checks-watch.md` and task reports keeping the
   name their runs observed.
-- [ ] USER: what runs outside this machine follows the rename: each worker
+- [x] USER: what runs outside this machine follows the rename: each worker
   host's clone points `origin` at the new URL and its copied settings name
   `claude-dev`, and the weekly audit routine's repository reads
   `concentrator/claude-dev`, re-selected if not. Approach: the user's

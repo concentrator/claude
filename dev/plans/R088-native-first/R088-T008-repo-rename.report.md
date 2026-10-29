@@ -13,6 +13,7 @@
   `~/.claude-repo-leftovers`.
 - Item 3: the runner stops the host's runner sessions before the
   migration; the user restarts them.
-- Item 3: the user checks the weekly audit routine's repository.
+- Item 3: the user checks the weekly audit routine's repository; it reads
+  `concentrator/claude-dev`, the rename carried over.
 
 ## Review
