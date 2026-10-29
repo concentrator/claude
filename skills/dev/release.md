@@ -24,8 +24,10 @@ Generic release flow. Projects override via
    long-lived release line).
 4. **Finalize CHANGELOG.** Replace `## [Unreleased]` with `## [vX.Y.Z] -
    <YYYY-MM-DD>`. Drop reverted-change entries.
-5. **Prune roadmap.** Scan `<plans>/ROADMAP.md` for entries matching CHANGELOG
-   bullets; propose removal.
+5. **Reopen `[Unreleased]`.** Add an empty `## [Unreleased]` above the block
+   step 4 stamps, for the doc writer's next entries and the next release's
+   pre-condition. Prune no ROADMAP entry: a closed R's `[x]` is its closure
+   record (`plan.md § Approval and closure`).
 6. **Release notes.** Generate from the CHANGELOG diff, as the body of the
    release MR/PR step 8 opens.
 7. **Commit on release branch.** Message: `Stamp vX.Y.Z release`.

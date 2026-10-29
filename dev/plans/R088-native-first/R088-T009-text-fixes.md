@@ -9,7 +9,7 @@ mode: normal
   batch anchor never reads as a release, and step 6 names the notes'
   home: the body of the release MR/PR step 8 opens. Approach: those two
   steps, in place.
-- [ ] A release leaves an empty `## [Unreleased]` above the block step 4
+- [x] A release leaves an empty `## [Unreleased]` above the block step 4
   stamps, for the doc writer's next entries and the next release's
   pre-condition, and prunes no ROADMAP entry, a closed R's `[x]` being its
   closure record (`plan.md § Approval and closure`). Approach: `release.md`
