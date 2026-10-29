@@ -48,7 +48,7 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - No command starts a remote runner, and `supervisor-runbook.md` Variant B omits pulling the host's `~/.claude` first.
 - The pre-flight counts a user-tier `Bash(*)` as covering every declared Bash rule under `auto`, which drops it.
 - No `autoMode` allow entry lets an AI supervisor merge, the classifier seeing no CI result or head sha.
-- The worker host sets no `attribution.sessionUrl: false`, and no gate stops a `Claude-Session` trailer before push.
+- No gate stops a `Claude-Session` trailer before push.
 - The `autoMode` soft_deny entries name no visible DEV-run trigger or must-name slot, nor presume an unseen MR diff.
 - `check-doc-sync.sh` needs README edits in an item's commit, while `branch-plan.md` gives README to the doc writer at close.
 - `release.md` step 8 tags with `-m "<short>"`, `git-workflow.md § Releases` with `-m "X.Y.Z"`.
