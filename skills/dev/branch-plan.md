@@ -9,6 +9,7 @@ live in git`).
 
 ## Header
 
+    ---
     task: R008-T002
     type: feat                      # required - task tag; sets branch prefix
     architecture-changing: true     # optional - triggers DESIGN.md
@@ -19,6 +20,7 @@ live in git`).
                                     #   (`write-plan.md` step 6)
     approved: yes                   # small change only - the user's
                                     #   confirmation (`write-plan.md` step 7)
+    ---
 
 ## Body
 
@@ -248,10 +250,9 @@ foldable into the final commit without the flag.
 
 ## Size cap
 
-A branch runs ~20 commits: warn past 20, prompt to split
-past 30; a batch's planned commits split past 30 - subordinate to
-the short-lived governor
-(`git-workflow.md § Delivery cadence`). Override with stated
+A branch runs ~20 commits: warn past 20, prompt to split past 30; a
+batch's planned commits split past 30 - subordinate to the short-lived
+governor (`git-workflow.md § Delivery cadence`). Override with stated
 reason in plan header.
 
 ## Session boundary
@@ -295,10 +296,9 @@ home is the R's `tasks.md`. Open iff a member is `[ ]` there and no
 
 Delivery grouping, not a planning level: a batch is scoped to the R
 whose dir holds it - its open, coupled tasks (not independently
-shippable). `depends-on` resolves within batch order or merged work;
-a cross-initiative need becomes its own R. The checkpoint validates
-that R's acceptance criteria. The § Size cap governor bounds the
-batch.
+shippable). `depends-on` resolves within batch order or merged work; a
+cross-initiative need becomes its own R. The checkpoint validates that
+R's acceptance criteria. The § Size cap governor bounds the batch.
 
 Batch-close bookkeeping: the close phase marks member-task
 checkboxes as commits on `batch/R<NNN>-B<NNN>` before the MR/PR -

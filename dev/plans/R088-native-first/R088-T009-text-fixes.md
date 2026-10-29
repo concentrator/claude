@@ -23,7 +23,7 @@ mode: normal
   `# Changelog` over an empty `## [Unreleased]`, the heading `release.md`'s
   pre-condition requires and the doc writer's entries go under. Approach:
   the release-routine sentence of `start.md § 3`.
-- [ ] `branch-plan.md § Header` shows the header as the YAML frontmatter
+- [x] `branch-plan.md § Header` shows the header as the YAML frontmatter
   every branch plan opens with, between `---` lines. Approach: an opening
   and a closing `---` inside the § Header block, its comments unchanged.
 - [ ] The supervision signature names its committer value, `<hostname>
