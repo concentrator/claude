@@ -57,3 +57,4 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - `branch-plan.md § Batches` routes release marking to the close-out MR/PR, while `release.md` step 1 has it ride each branch's final commit.
 - `/dev plan release` routes to `release.md`, which has no step that writes a release plan.
 - `/dev migrate` does not add `## [Unreleased]` to an existing project's CHANGELOG.
+- The install does not write the `attribution` setting that the no-trailer intent relies on.
