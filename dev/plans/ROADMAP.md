@@ -236,3 +236,6 @@ Initiative index. Items: `R-001: description`; each entry owns
 - [ ] R088: Native first - DEV runs on Claude Code's native behavior and
       features, rules stop overriding defaults, and a weekly audit finds
       new conflicts.
+- [ ] R089: Autonomous adopter runs - a new project runs DEV end to end in
+      a cloud session under `auto` with `Supervisor: AI`, no human
+      answering, at a cost in proportion to the work.
