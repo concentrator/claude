@@ -26,7 +26,7 @@ mode: normal
 - [x] `branch-plan.md § Header` shows the header as the YAML frontmatter
   every branch plan opens with, between `---` lines. Approach: an opening
   and a closing `---` inside the § Header block, its comments unchanged.
-- [ ] The supervision signature names its committer value, `<hostname>
+- [x] The supervision signature names its committer value, `<hostname>
   (supervised)`, the `committer.name` `scripts/worker-credentials.sh` sets
   on the worker host. Approach: the committer sentence of the "Supervision
   signature" paragraph in `declarations.md § Supervisor bounds`.
