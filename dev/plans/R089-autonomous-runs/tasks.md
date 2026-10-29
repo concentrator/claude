@@ -16,9 +16,9 @@ Why: a cloud session under `auto` with no human answering stalls or pays twice w
   and the denials the report's stops table names; `start.md` hands the
   user each file the session may not write, with its content.
 
-- [ ] **R089-T004 [mnt]**: the declared state-check and CI-wait commands
-  have REST forms, and `/dev start` adopts a repository whose `main`
-  already exists (`dev-dogfood-report.md`).
+- [ ] **R089-T004 [mnt]**: the declared state-check, CI-wait and merge
+  commands have REST forms, each allow rule as narrow as its command, and
+  `/dev start` adopts a repository whose `main` already exists.
 
 - [ ] **R089-T005 [mnt]**: the doc writer and docs verifier hold one bar, a
   reference doc states each failure behavior once, and one rule says
@@ -29,5 +29,5 @@ Why: a cloud session under `auto` with no human answering stalls or pays twice w
   step finds is fixed with its doc in the close.
 
 - [ ] **R089-T007 [mnt]**: `context-cost.py` prints the checkpoint's cost
-  block, and code contradicting a written design decision is a
-  reviewable finding (`dev-dogfood-report.md`).
+  block from a step the pre-flight admits, and code contradicting a
+  written design decision is a reviewable finding.
