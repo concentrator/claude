@@ -11,7 +11,16 @@
   Call:
   Output:
   Environment:
-- Item 4 (source): `/dev start` in a repository whose `main` already exists
+- Item 3 (probe): The REST merge merges a pull request with a merge commit
+  from one REST call, making no GraphQL request, and exits non-zero when the
+  host refuses the merge.
+  Call:
+  Output:
+  Environment:
+- Item 4 (source): Each rule the pre-flight derives from a REST line reaches
+  no `gh api` write but the declared merge.
+  Source:
+- Item 5 (source): `/dev start` in a repository whose `main` already exists
   delivers the scaffold through a working branch and an MR/PR.
   Source:
 
