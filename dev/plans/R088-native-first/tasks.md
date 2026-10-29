@@ -31,9 +31,9 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - [ ] **R088-T008 [mnt]**: the GitHub repository is named `claude-dev`,
   matching its clone, and everything that names it follows.
 
-- [ ] **R088-T009 [doc]**: the toolset's text agrees with itself: release steps,
-  release plan entries, CHANGELOG seed, plan header fence, committer signature,
-  batch-close fix seat and attribution precedence.
+- [ ] **R088-T009 [doc]**: the text gaps `docs/reports/dev-dogfood-report.md`
+  found close: release steps, release plan entries, CHANGELOG seed, plan header
+  fence, committer value, batch-close fix seat, attribution precedence.
 
 - `/dev migrate` does not add the `comments:` convention line to an existing project's `CLAUDE.md § Conventions`.
 - The durable-id rule allows citing an MR/PR number, but the plan-text gate still rejects `#NNN` in ROADMAP and `tasks.md`.
@@ -51,3 +51,9 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - The worker host sets no `attribution.sessionUrl: false`, and no gate stops a `Claude-Session` trailer before push.
 - The `autoMode` soft_deny entries name no visible DEV-run trigger or must-name slot, nor presume an unseen MR diff.
 - `check-doc-sync.sh` needs README edits in an item's commit, while `branch-plan.md` gives README to the doc writer at close.
+- `release.md` step 8 tags with `-m "<short>"`, `git-workflow.md § Releases` with `-m "X.Y.Z"`.
+- `git-workflow.md § Releases` says "No release branch", while `release.md` step 3 cuts `release/vX.Y.Z`.
+- `release.md` step 10 offers the release plan's archive move after the merge, a commit on the default branch.
+- `branch-plan.md § Batches` routes release marking to the close-out MR/PR, while `release.md` step 1 has it ride each branch's final commit.
+- `/dev plan release` routes to `release.md`, which has no step that writes a release plan.
+- `/dev migrate` does not add `## [Unreleased]` to an existing project's CHANGELOG.
