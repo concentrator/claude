@@ -35,7 +35,7 @@ mode: normal
   `§ Close` 2 does, the entry in the report of the member whose code the
   fix changes, the last in batch order for several. Approach: that step,
   then the § Seats implementer row naming both closes.
-- [ ] Commit and MR/PR attribution follows Claude Code's `attribution`
+- [x] Commit and MR/PR attribution follows Claude Code's `attribution`
   setting: `dev-instructions.md § Writing` states the no-trailer intent as
   that setting's `commit` and `pr` left empty, never as a rule over a
   harness instruction (requirement outcome 1), and `git-workflow.md § MR/PR

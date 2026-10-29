@@ -48,8 +48,9 @@ so and name what would confirm it.
 
 Commit and MR/PR text cites work by durable id, never a bare hash
 (`rules/writing-artifacts.md § Name things by their durable id`).
-It carries no trailer or attribution line (Co-Authored-By,
-Claude-Session and kin).
+Its attribution follows Claude Code's `attribution` setting, whose
+`commit` and `pr` are left empty: a commit carries no trailer
+(Co-Authored-By and kin) and an MR/PR no attribution line.
 
 ## Approval and persistence
 
