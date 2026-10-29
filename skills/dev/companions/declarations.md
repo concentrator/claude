@@ -106,7 +106,9 @@ places and never as prose. Every merge of supervised work carries a
 seat that applied it. And
 where a host exists to run supervised delivery, every commit made on it
 carries the mode in its committer field: the author is the human whose
-work it is, and `committer.name` says how it was applied. git honours
+work it is, and `committer.name` says how it was applied, as
+`<hostname> (supervised)`, the value `scripts/worker-credentials.sh`
+sets on the worker host. git honours
 `committer.*` independently of `user.*`, so `git log --author`,
 shortlog and blame keep answering about the human.
 

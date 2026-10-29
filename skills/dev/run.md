@@ -26,7 +26,7 @@ file owns, never restating it.
 | --- | --- | --- |
 | Planner | at the detail round, and to fix a strict plan's cold-read gaps once (`write-plan.md` step 6) | `agents/dev-planner.md` |
 | Cold reader | once over a new strict plan before it is approved (`write-plan.md` step 6) | `agents/dev-cold-reader.md`; `companions/verification-policy.md § Comprehension check` |
-| Implementer | per commit item (§ Dispatch per item) | `agents/dev-implementer.md` |
+| Implementer | per commit item (§ Dispatch per item), and to commit the close fixes (§ Close 2, § Batch close 2) | `agents/dev-implementer.md` |
 | Doc writer | once per branch whose plan's `## Claims` lists a claim, or, for a plan without `## Claims`, whose diff changes user-facing behavior (§ Close 3) | `agents/dev-doc-writer.md` |
 | Docs verifier | over every doc the writer touched (§ Close 3) | `agents/dev-docs-verifier.md`; `companions/documentation.md § Verification gate` |
 | Code reviewer | at branch close and at batch close (§ Close 1, § Batch close 1) | `agents/code-reviewer.md`; the steps at left, no companion |
@@ -104,7 +104,8 @@ branch per plan - and per commit checkbox:
 
 1. Dispatch a fresh implementer naming the plan file - the item it
    works is the first `[ ]`, or the task report's `## Review` entry the
-   dispatch names (2, § Close 2). Its loop is the plan's `type:` mode file
+   dispatch names (2, § Close 2, § Batch close 2). Its loop is the plan's
+   `type:` mode file
    (`feat.md`, `fix.md`, `refactor.md`); `doc`/`test`/`mnt` run
    `branch-plan.md § Commit cadence` alone.
 2. DONE → next item. DONE_WITH_CONCERNS → a concern that changes an item's
@@ -207,7 +208,11 @@ Rails hold throughout (`branch-plan.md § Rails`).
    each folded small branch vs its plan, as its one review, then
    cross-branch interactions, duplicated helpers, convention drift; a
    branch § Close 1 reviewed is not checked against its plan again.
-2. Fixes land as batch-branch commits; queue judgment calls.
+2. Fixes land as batch-branch commits; queue judgment calls. The runner
+   writes each fix as a `## Review` entry of the task report of the member
+   whose code it changes, the last in batch order when it changes
+   several, and a fresh implementer, dispatched naming that member's plan
+   and the entry, commits it, as § Close 2 does.
 3. Run `Test (full)` - the batch's one full local run; red → halt.
 4. Mark member-task checkboxes; commit on `batch/R<NNN>-B<NNN>`
    (`branch-plan.md § Batches`).
