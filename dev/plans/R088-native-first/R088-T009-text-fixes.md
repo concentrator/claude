@@ -40,7 +40,7 @@ mode: normal
   that setting's `commit` and `pr` left empty, never as a rule over a
   harness instruction (requirement outcome 1), and `git-workflow.md § MR/PR
   messages` cites it for its "Generated with" bullet. Approach: both lines.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)

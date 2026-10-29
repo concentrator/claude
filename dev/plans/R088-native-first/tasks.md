@@ -31,7 +31,7 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - [x] **R088-T008 [mnt]**: the GitHub repository is named `claude-dev`,
   matching its clone, and everything that names it follows.
 
-- [ ] **R088-T009 [doc]**: the text gaps `docs/reports/dev-dogfood-report.md`
+- [x] **R088-T009 [doc]**: the text gaps `docs/reports/dev-dogfood-report.md`
   found close: release steps, release plan entries, CHANGELOG seed, plan header
   fence, committer value, batch-close fix seat, attribution precedence.
 
