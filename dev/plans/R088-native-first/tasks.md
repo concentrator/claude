@@ -31,6 +31,10 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - [ ] **R088-T008 [mnt]**: the GitHub repository is named `claude-dev`,
   matching its clone, and everything that names it follows.
 
+- [ ] **R088-T009 [doc]**: the toolset's text agrees with itself: release steps,
+  release plan entries, CHANGELOG seed, plan header fence, committer signature,
+  batch-close fix seat and attribution precedence.
+
 - `/dev migrate` does not add the `comments:` convention line to an existing project's `CLAUDE.md § Conventions`.
 - The durable-id rule allows citing an MR/PR number, but the plan-text gate still rejects `#NNN` in ROADMAP and `tasks.md`.
 - Brainstorm's approach choice, start's clarifying and quality questions, and finish's no-host merge confirmation still ask in plain text, not through AskUserQuestion.
