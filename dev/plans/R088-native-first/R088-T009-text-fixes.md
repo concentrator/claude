@@ -4,7 +4,7 @@ type: doc
 mode: normal
 ---
 
-- [ ] `release.md` step 2 diffs from the last release tag, found with
+- [x] `release.md` step 2 diffs from the last release tag, found with
   `git describe --abbrev=0 --tags --match 'v*'`, so a `pre-R<NNN>-B<NNN>`
   batch anchor never reads as a release, and step 6 names the notes'
   home: the body of the release MR/PR step 8 opens. Approach: those two

@@ -16,8 +16,9 @@ Generic release flow. Projects override via
    `branch-plan.md § Closing routine`; verify, never set); flag any planned
    branches not yet merged. Halt if planned branches remain unmerged unless user
    confirms drop.
-2. **Diff scope.** `git log $(git describe --abbrev=0 --tags)..HEAD --oneline` +
-   stat. Report accumulated changes.
+2. **Diff scope.** `git log $(git describe --abbrev=0 --tags --match 'v*')..HEAD
+   --oneline` + stat. Report accumulated changes. The `v*` match finds the last
+   release tag, so a `pre-R<NNN>-B<NNN>` batch anchor never reads as a release.
 3. **Cut a short-lived branch.** `git checkout -b release/vX.Y.Z` - a
    `release`-prefix branch for the CHANGELOG/notes, delivered by MR/PR (no
    long-lived release line).
@@ -25,7 +26,8 @@ Generic release flow. Projects override via
    <YYYY-MM-DD>`. Drop reverted-change entries.
 5. **Prune roadmap.** Scan `<plans>/ROADMAP.md` for entries matching CHANGELOG
    bullets; propose removal.
-6. **Release notes.** Generate from the CHANGELOG diff. Output filepath.
+6. **Release notes.** Generate from the CHANGELOG diff, as the body of the
+   release MR/PR step 8 opens.
 7. **Commit on release branch.** Message: `Stamp vX.Y.Z release`.
 8. **Hand off.** `git push -u origin release/vX.Y.Z` → CI-gated MR/PR → merge
    to `main`, then tag trunk: `git tag -a vX.Y.Z -m "<short>"` + `git push
