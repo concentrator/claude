@@ -19,7 +19,7 @@ mode: normal
   § Release plan` entry the closing routine marks. Approach: `write-plan.md`
   step 7, the session's, committing the entry on the branch carrying the
   plan; `templates.md § Release plan` names that step.
-- [ ] Under `release-routine: yes`, `start.md` seeds `CHANGELOG.md` with
+- [x] Under `release-routine: yes`, `start.md` seeds `CHANGELOG.md` with
   `# Changelog` over an empty `## [Unreleased]`, the heading `release.md`'s
   pre-condition requires and the doc writer's entries go under. Approach:
   the release-routine sentence of `start.md § 3`.
