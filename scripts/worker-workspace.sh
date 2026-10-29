@@ -12,7 +12,7 @@ set -uo pipefail
 config_clone() {
   local dry=0
   [ "${1:-}" = "--dry-run" ] && dry=1
-  local d="$HOME/src/claude-dev" remote="${WORKER_CONFIG_REMOTE:-git@github.com:concentrator/claude.git}"
+  local d="$HOME/src/claude-dev" remote="${WORKER_CONFIG_REMOTE:-git@github.com:concentrator/claude-dev.git}"
 
   if [ "$dry" -eq 1 ]; then
     printf 'config-clone would:\n'

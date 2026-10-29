@@ -28,7 +28,7 @@ Why: rules that override Claude Code's defaults cost turns, dispatches and token
 - [ ] **R088-T007 [mnt]**: a saved workflow runs the seats, continuing a seat for
   its follow-ups, and each seat loads only the text its step needs.
 
-- [ ] **R088-T008 [mnt]**: the GitHub repository is named `claude-dev`,
+- [x] **R088-T008 [mnt]**: the GitHub repository is named `claude-dev`,
   matching its clone, and everything that names it follows.
 
 - [ ] **R088-T009 [doc]**: the text gaps `docs/reports/dev-dogfood-report.md`
