@@ -21,7 +21,7 @@ mode: normal
   `claude-dev`, and the weekly audit routine's repository reads
   `concentrator/claude-dev`, re-selected if not. Approach: the user's
   commands and routine settings, from wording the runner drafts.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)
