@@ -75,6 +75,9 @@
 - Close review, item 3: `rules/skills.md § Approval` and
   `MAINTENANCE.md § Repair` stay as they are; neither ships, and this
   repository's setup holds the rules they cite.
+- Docs gate: `README.md § Setup on a new machine` is the one home of the
+  cloud setup script and the sha command; `preparation.md` step 4 keeps
+  its dogfood-specific lines and points there instead of repeating them.
 
 ## Review
 
