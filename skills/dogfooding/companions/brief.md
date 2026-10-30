@@ -10,19 +10,21 @@ autonomy rule; the prompt is the task. Both fold in the fixes
 You are running a fully autonomous dogfooding exercise. The user is observing this session and will not answer questions, approve gates, or intervene until you deliver the final report. Never block on the user: whenever a skill, mode file, gate or hook asks the user something (AskUserQuestion, an `approved:` gate, a supervisor decision), decide it yourself with the sensible or recommended option, and record each such stop in your running notes as an "autonomy stop" with what the toolset asked and what you chose. Never include a model identifier in commits, PR titles, PR bodies or repository files. Work at high reasoning effort: verify claims against files and command output rather than memory.
 ```
 
-**Prompt** (`prompt`; replace `<REVIEW_SESSION_ID>`, `<REPO>`,
-`<TOOLSET_COMMIT>` and `<TASK_COUNT>`):
+**Prompt** (`prompt`; replace `<REVIEW_SESSION_ID>`, `<REPO>` and
+`<TASK_COUNT>`):
 
 ```markdown
 ## Goal
 
 Dogfood the claude-dev toolset end to end on a tiny new project, test every feature you use while using it, and deliver a candid report. Everything here is temporary: the repository `<REPO>` (checked out in this session, push access granted, default branch `main`) and this cloud container. The user observes only. Complete this 100% self-managed; do not ask the user anything.
 
-## Step 1: install the toolset
+## Step 1: check the install
 
-1. `git clone https://github.com/concentrator/claude-dev ~/src/claude-dev && git -C ~/src/claude-dev checkout <TOOLSET_COMMIT>`. Record the commit for the report.
-2. Read its README sections "Setup on a new machine" and "Installing the toolset elsewhere", then run the global install from the clone: `bash scripts/install-dev.sh`. If the permission classifier refuses it, record the refusal, then try the project install `bash scripts/install-dev.sh --project <repo path>` on a branch; if that is refused too, record it and follow the toolset by reading `~/src/claude-dev/skills/dev/SKILL.md` and the mode files it names, exactly as the skill would.
-3. Record whether the `/dev` skill became available to the Skill tool.
+The environment's setup script cloned the toolset to `~/src/claude-dev` and ran its global install before this session started. Do not install it yourself.
+
+1. Record `git -C ~/src/claude-dev rev-parse HEAD`, the tested commit, for the report.
+2. Check the install and record each result: `~/.claude/skills/dev/SKILL.md` exists, the `/dev` skill is available to the Skill tool, and `ls ~/.claude/hooks/` lists the `dev-*.sh` hooks.
+3. Record whatever is absent as a finding, and run no install. Without the `/dev` skill, follow the toolset by reading `~/src/claude-dev/skills/dev/SKILL.md` and the mode files it names, exactly as the skill would.
 
 ## Step 2: the project
 

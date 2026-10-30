@@ -4,7 +4,7 @@ Each must hold before the run session is created.
 
 | Item | Requirement | Why |
 | --- | --- | --- |
-| Toolset | `concentrator/claude-dev` public on GitHub, at the commit to test | The run clones it over HTTPS; a private clone needs the Claude GitHub App to cover it too |
+| Toolset | `concentrator/claude-dev` public on GitHub, at the commit to test | The environment's setup script clones it over HTTPS before the session starts |
 | Target repository | A fresh GitHub repository under the user's account, one initial commit on `main`, public or covered by the Claude GitHub App | The run needs push and pull-request access; a repository the session's credential cannot see fails at `add_repo` |
 | GitHub App coverage | The Claude GitHub App installation on the owner account includes the target repository (`github.com/settings/installations`, Claude, Repository access) | Making the repository public fixes reads only; pushes are refused until the app covers it |
 | GitHub identity | claude.ai's GitHub connection is the repository owner | A connection to another GitHub user cannot see the owner's private repositories |

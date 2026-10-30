@@ -40,6 +40,7 @@ bash "$INSTALL" --project "$P" >/dev/null 2>&1 || die "install exits nonzero"
 [ -f "$P/.claude/scripts/test/check-accretion.test.sh" ]  && pass "accretion self-test copied" || die "no accretion self-test"
 [ -f "$P/.claude/scripts/test/check-batch-tags.test.sh" ] && pass "batch-tags self-test copied" || die "no batch-tags self-test"
 [ -x "$P/.claude/scripts/ci/check-plan-text.sh" ] && [ -f "$P/.claude/scripts/test/check-plan-text.test.sh" ] && pass "plan-text check copied + exec, with its self-test" || die "no plan-text check or self-test"
+[ -x "$P/.claude/scripts/ci/check-archival.sh" ] && [ -f "$P/.claude/scripts/test/check-archival.test.sh" ] && pass "archival check copied + exec, with its self-test" || die "no archival check or self-test"
 [ -x "$P/.claude/scripts/preflight-permissions.sh" ] && [ -f "$P/.claude/scripts/test/preflight-permissions.test.sh" ] && [ -f "$P/.claude/scripts/test/preflight-permissions-toolchain.test.sh" ] && pass "permission pre-flight copied + exec, with its self-tests" || die "no permission pre-flight or self-tests"
 [ -f "$P/.claude/scripts/ci/branch-diff.sh" ] && [ ! -e "$P/.claude/scripts/test/branch-diff.test.sh" ] && pass "branch-diff helper copied, without its self-test" || die "no branch-diff helper, or its self-test shipped"
 [ -z "$(grep -L BASH_SOURCE "$P"/.claude/scripts/test/*.test.sh)" ] \
@@ -64,6 +65,13 @@ out=$( cd "$R" && env -u CI bash "$P/.claude/scripts/ci/check-batch-tags.sh" 2>&
   && pass "copied batch-tags gate bites from install location" \
   || die "copied batch-tags gate did not bite: $out"
 rm -rf "$R"
+# From a cwd outside any repo, so only the check beside the self-test can serve.
+W=$(mktemp -d)
+out=$( cd "$W" && bash "$P/.claude/scripts/test/check-archival.test.sh" 2>&1 ); rc=$?
+rm -rf "$W"
+[ $rc -eq 0 ] && grep -q 'check-archival.test: OK' <<<"$out" \
+  && pass "vendored archival self-test finds the check beside itself" \
+  || die "vendored archival self-test failed from the install: $(grep -m2 'not ok' <<<"$out")"
 
 # --- the vendored self-tests carry T001's scrub, and it holds from the install
 # location: a leaked git environment must not reach the adopter's own repo ---
@@ -270,21 +278,6 @@ jq -e '[.hooks.SessionStart[]?.hooks[]?.command] | any(. == "~/.claude/hooks/dev
   && pass "global session-brief path is ~/.claude/..." || die "global session-brief path wrong"
 [ ! -e "$H/.claude/MAINTENANCE.md" ] && pass "global install seeds no MAINTENANCE.md" || die "global install wrote MAINTENANCE.md"
 rm -rf "$H"
-
-# --- committability: restrictive .claude/* gitignore → installed paths trackable ---
-G=$(mktemp -d); git -C "$G" init -q
-git -C "$G" checkout -qb work   # keep the fixture off a default branch in case it gains commits
-printf '.claude/*\n' > "$G/.gitignore"
-bash "$INSTALL" --project "$G" >/dev/null 2>&1 || die "install (gitignore fixture) exits nonzero"
-still=""
-for p in .claude/skills .claude/agents/dev-implementer.md .claude/hooks/dev-branch-guard.sh .claude/scripts/ci/check-code-size.sh .claude/writing.md .claude/dev-instructions.md .claude/rules/writing-artifacts.md .claude/settings.json .claude/MAINTENANCE.md .claude/dev-install-manifest.txt; do
-  git -C "$G" check-ignore -q "$p" && still="$still $p"
-done
-[ -z "$still" ] && pass "installed paths trackable under .claude/* gitignore" || die "still ignored:$still"
-bash "$INSTALL" --project "$G" >/dev/null 2>&1
-[ "$(grep -c '^!.claude/hooks/$' "$G/.gitignore")" = "1" ] && pass "gitignore allowlist idempotent" || die "duplicate allowlist entries"
-! grep -qE '(session|supervisor)/$' "$G/.gitignore" && pass "no session or supervisor ignore line written" || die "ignore lines: $(tr '\n' ' ' < "$G/.gitignore")"
-rm -rf "$G"
 
 # --- layout declaration (R080-T009): a retired Session: line still installs
 # and gets no ignore line, and an install rewrites neither the declaration

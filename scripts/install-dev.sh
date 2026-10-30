@@ -165,21 +165,22 @@ edit_settings 'def retired: (.command // "") as $c | any($names | split(" ")[]; 
 # 4. shipped Tier-1 checks - the ones with no dependency on this repo's
 #    own layout; adopters wire them into their CI (the batch-tags gate
 #    enforces locally, e.g. a pre-push hook - its CI run reports a
-#    skip). Accretion, batch-tags and plan-text ship their self-tests;
-#    the first two are tuned per project (the MARKERS list, the ref
-#    namespaces), and the self-test validates that edit. Adopter
+#    skip). Accretion, batch-tags, plan-text and archival ship their
+#    self-tests; the first two are tuned per project (the MARKERS list,
+#    the ref namespaces), and the self-test validates that edit. Adopter
 #    tuning survives a re-run: the code-size allowlist is written only
 #    when absent, and a tuned check is the adopter's, left in place and
 #    listed (install-manifest.sh). The permission pre-flight ships beside
 #    them because skills/dev/run.md § Pre-flight names it: an adopter's runner
 #    would otherwise cite a script its checkout lacks.
 mkdir -p "$target/scripts/ci"
-for f in check-code-size.sh check-no-em-dash.sh check-accretion.sh check-batch-tags.sh check-plan-text.sh; do
+for f in check-code-size.sh check-no-em-dash.sh check-accretion.sh check-batch-tags.sh check-plan-text.sh \
+         check-archival.sh; do
   ship "scripts/ci/$f" x
 done
 ship scripts/ci/branch-diff.sh
 ship scripts/preflight-permissions.sh x
-for f in check-accretion.test.sh check-batch-tags.test.sh check-plan-text.test.sh \
+for f in check-accretion.test.sh check-batch-tags.test.sh check-plan-text.test.sh check-archival.test.sh \
          preflight-permissions.test.sh preflight-permissions-toolchain.test.sh; do
   ship "scripts/test/$f"
 done
@@ -262,7 +263,7 @@ EOF
 fi
 
 echo "install-dev: DEV toolset ($set) installed into $target ($scope)"
-echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh, check-accretion.sh, check-batch-tags.sh, check-plan-text.sh)"
+echo "install-dev: Tier-1 checks in $target/scripts/ci/ (check-code-size.sh, check-no-em-dash.sh, check-accretion.sh, check-batch-tags.sh, check-plan-text.sh, check-archival.sh)"
 echo "install-dev: self-tests in $target/scripts/test/ - wire checks and self-tests into your CI; the /dev run's permission pre-flight is $target/scripts/preflight-permissions.sh"
 list_kept
 if [ -n "$seeded" ]; then echo "install-dev: maintenance hygiene section seeded into $seeded"; fi
