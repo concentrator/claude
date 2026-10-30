@@ -15,7 +15,11 @@
 - Item 4 (source): A cloud session gets the toolset from its environment's
   setup script, which shallow-clones the toolset outside `~/.claude` and
   runs the global install, so no command of the session installs it.
-  Source:
+  Source: `skills/dogfooding/companions/preparation.md` step 4, the
+   setup script's `git clone --depth 1` into `~/src/claude-dev`, then
+   `bash scripts/install-dev.sh` from it; `brief.md` step 1, "Do not
+   install it yourself" and the checks of `~/.claude/skills/dev/`, the
+   `/dev` skill and `~/.claude/hooks/`
 
 ## Implementer
 ### Divergences
@@ -34,5 +38,18 @@
   the last commit's fast run beside the § 1 full run as already
   satisfying the gate, the fast tier running per commit. Result: no test
   pins the step; the fast tier passes.
+- Item 4: the setup script clones with `--no-checkout`, then fetches and
+  checks out `<TOOLSET_COMMIT>` at depth 1, since `git clone --branch`
+  takes no sha and `toolset_commit` may be one. Run under two throwaway
+  `HOME`s, the lines installed the full set, the `dev-*.sh` hooks in
+  `~/.claude/hooks/` registered in `settings.json`, from branch `main`
+  and from a full sha; an abbreviated sha failed the fetch ("couldn't
+  find remote ref"), so `SKILL.md`'s `toolset_commit` input and step 4
+  ask for a full sha. Beyond preparation and brief: the prompt drops its
+  `<TOOLSET_COMMIT>` placeholder, the run recording the commit the
+  script checked out; preparation's new owner step 4 renumbers the
+  review session's steps, so `pitfalls.md` cites the trust step as 6,
+  and its "Installer refused" row names the setup script as the fix.
+  Result: no test pins the skill's text; the fast tier passes.
 
 ## Review

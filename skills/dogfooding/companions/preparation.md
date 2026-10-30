@@ -1,6 +1,6 @@
 # Preparation
 
-Steps 1 to 3 are the owner's, done once per run; the rest the review
+Steps 1 to 4 are the owner's, done once per run; the rest the review
 session does.
 
 1. **Create the target repository** on GitHub: `tmp-dev-<slug>` under
@@ -14,27 +14,47 @@ session does.
    before anything else. Changing it later restarts the session's worker
    and loses nothing, but the run session cannot be created in `auto`
    until this is done.
-4. **Attach the repository** from the review session: `add_repo` with
+4. **Install the toolset from the setup script** of the cloud
+   environment the run session starts in, `<TOOLSET_COMMIT>` replaced by
+   `toolset_commit`, a branch or a full 40-character sha (an abbreviated
+   sha fails the fetch):
+
+   ```bash
+   set -e
+   git clone -q --depth 1 --no-checkout https://github.com/concentrator/claude-dev ~/src/claude-dev
+   cd ~/src/claude-dev
+   git fetch -q --depth 1 origin <TOOLSET_COMMIT>
+   git checkout -q --detach FETCH_HEAD
+   bash scripts/install-dev.sh
+   ```
+
+   The script runs before the session starts, so no command of the
+   session installs the toolset, the commands `auto` refused
+   (`pitfalls.md`). The clone sits outside `~/.claude`, since the install
+   refuses a target inside the checkout it runs from. Change the script
+   when `toolset_commit` changes.
+5. **Attach the repository** from the review session: `add_repo` with
    `access: push`, then `check_repo_access`; both must report push ok. A
    `not_found_or_no_access` result means step 2 or the identity is
    wrong; a `push_check: refused` after a successful attach means step 2
    alone.
-5. **Confirm session trust** once: the first `send_message` to another
+6. **Confirm session trust** once: the first `send_message` to another
    session returns a `content_digest`; pass it to
    `confirm_repository_trust`, and the owner answers the card in person.
    Skip this and the run session's summary never arrives.
-6. **Record the toolset commit** to test:
+7. **Record the toolset commit** to test:
    `git -C <claude-dev clone> rev-parse HEAD`, and that it equals
-   `origin/main` or the branch under test.
-7. **Create the run session** with `create_session`: `source_url` = the
+   `origin/main` or the branch under test, the commit step 4's script
+   checks out.
+8. **Create the run session** with `create_session`: `source_url` = the
    repository, `model: claude-opus-5-5`, `permission_mode: auto`, a tag
    such as `dogfood-<date>`, the system prompt addition and the prompt
    from `brief.md`, with the review session's id substituted into the
    prompt's delivery step.
-8. **Arm a safety-net check-in** with `send_later`, 90 minutes, naming
+9. **Arm a safety-net check-in** with `send_later`, 90 minutes, naming
    the run session id, so a stalled run is noticed without polling.
    Delete it when the summary arrives.
-9. **Clone the repository locally** in the review session as well,
+10. **Clone the repository locally** in the review session as well,
    shallow, for the verification step at the end.
 
 The owner's part (repository, app coverage, `auto` mode, trust) is the

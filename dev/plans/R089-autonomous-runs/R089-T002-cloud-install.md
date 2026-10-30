@@ -19,7 +19,7 @@ mode: normal
   `permissions.ask` holds every `CLAUDE.md` edit, a rule no install writes:
   the edit needs explicit approval, which such a rule raises as a prompt
   where the user keeps one. Approach: that bullet alone.
-- [ ] The dogfood skill's preparation puts the cloud install in the run
+- [x] The dogfood skill's preparation puts the cloud install in the run
   environment's setup script - a shallow clone outside `~/.claude`, then
   the global install - and brief step 1 checks the install, the `/dev`
   skill and `~/.claude/hooks/`, recording its absence, instead of running
