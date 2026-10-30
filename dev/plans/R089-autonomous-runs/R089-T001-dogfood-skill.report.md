@@ -52,3 +52,32 @@
   the rename, `git mv` of its `SKILL.md` included.
 
 ## Review
+
+- [ ] Item 2: `README.md § Contents` names the worker-host runbook beside
+  the bundled skills but not `skills/dogfooding/` (Important) -
+  README.md:16
+  Evidence: observed README.md:16; the doc writer's claim covers it
+- [ ] Item 4: criterion 10 takes the previous runs-table row as the
+  baseline, while `SKILL.md` makes `baseline` an input and
+  `dogfood-runs.md` compares only at equal task count (Important) -
+  skills/dogfooding/companions/monitoring.md:29
+  Evidence: observed monitoring.md:29, SKILL.md:33, dogfood-runs.md:4
+- [ ] Item 3: Item 2's claim Source cites `skills/dogfood/`, and the
+  `tasks.md` T001 line and the T002 plan name it, after the rename
+  (Important) - dev/plans/R089-autonomous-runs/tasks.md:8
+  Evidence: observed the report's Source field, tasks.md:8,
+  R089-T002-cloud-install.md:27
+- [ ] Item 1: `README.md` and `LAYOUT.md` describe `docs/reports/` as
+  probe reports only, which the runs table is not (Suggestion) -
+  LAYOUT.md:62
+  Evidence: observed README.md:27, LAYOUT.md:62
+- [ ] Item 4: "the brief's first that many tasks" reads badly cold
+  (Suggestion) - skills/dogfooding/SKILL.md:31
+  Evidence: observed SKILL.md:31-32
+- [ ] Item 2: "twelve criteria" annotates the numbered list with its own
+  count in three places (Suggestion) - skills/dogfooding/SKILL.md:10
+  Evidence: observed SKILL.md:10, SKILL.md:50, monitoring.md:18
+- [ ] Item 2: four companions keep the playbook's unwrapped prose lines
+  while `preparation.md` and `SKILL.md` wrap at 80 (Suggestion) -
+  skills/dogfooding/companions/finishing.md:1
+  Evidence: observed the companions' line lengths
