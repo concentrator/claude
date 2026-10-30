@@ -50,6 +50,9 @@
   `rules/skills.md § Naming and location` asks for; item 3's commit
   renames `skills/dogfood/` and its `LAYOUT.md` entry. The user approved
   the rename, `git mv` of its `SKILL.md` included.
+- Docs gate: `README.md:27` returns to its wording on `main`, no plan
+  claim covering the widened line; `LAYOUT.md:62` describes
+  `docs/reports/` with the runs record.
 
 ## Review
 
