@@ -13,7 +13,7 @@ spec-driven development workflow, each part listed under § Contents.
 | `.claude/settings.json` | Project-tier Claude Code config: the push deny carve-out, branch-push allows, durable tool allows, model override, `autoCompactEnabled` and `autoCompactWindow` |
 | `.claude/CLAUDE.md` | This repository's own instructions: its `## Agent toolchain`, `## Supervision` and `## Layout` declarations |
 | `rules/` | Path-scoped convention rules, one file per concern; `LAYOUT.md` lists each, and § Installing the toolset elsewhere names the ones the installer ships |
-| `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); beside it the bundled dependency skills the installer ships and the worker-host runbook (`LAYOUT.md` marks each), and `dogfooding/`, this repository's own runbook for a dogfood run of the toolset, which the installer does not ship ([`install-dev.sh` `BUNDLED`](scripts/install-dev.sh)) |
+| `skills/` | Invocable capabilities - `dev/` is the /dev router + its mode-file companions (the DEV toolset); beside it the bundled dependency skills the installer ships, and this repository's own runbooks, which it does not ship - `worker-host/` for the worker host and `dogfooding/` for a dogfood run of the toolset ([`install-dev.sh` `BUNDLED`](scripts/install-dev.sh)); `LAYOUT.md` marks each |
 | `agents/` | Subagent definitions for the seats of `/dev run`, one per seat the run dispatches (the roster: `skills/dev/run.md § Seats`): each declares the seat's tools and, where it sets one, its model, and is the seat's one contract - `## Inputs`, `## Steps`, `## Outputs` - and a dispatch passes only the values its `## Inputs` names |
 | `hooks/` | The Claude Code hooks the installer registers in the target's `settings.json` - the PreToolUse guards and the session-lifecycle hooks - and the helpers they call; `LAYOUT.md` lists each hook with the event it runs on |
 | `scripts/` | The Tier-1 gate - `ci/` the mechanical checks and `test/` the script tests, each behind a `run-all.sh`, which CI runs on every pull request (`DESIGN.md § Self-enforcement`) - and the standalone scripts beside it; `LAYOUT.md` lists each script with what it does, and `skills/worker-host/` documents the worker-host ones |
@@ -24,7 +24,7 @@ spec-driven development workflow, each part listed under § Contents.
 | `LAYOUT.md` | The repository's actual tree - the layout file `.claude/CLAUDE.md § Layout` declares; `scripts/ci/check-stray.sh` checks every tracked top-level entry against it |
 | `MAINTENANCE.md` | The Tier-2 AI review's concerns (`§ Tier-2 AI review`), the time-based sanity routine (`§ Routine`), and this repository's backlog (`§ Backlog`) with the prompt of the weekly cloud routine that audits the repository against Claude Code's current defaults and docs and proposes each new finding as a backlog line, in a pull request it opens and leaves unmerged ([`§ Weekly audit`](MAINTENANCE.md#weekly-audit)) |
 | `dev/` | This repo's own DEV artifacts: `plans/` (the roadmap index, per-initiative `R<NNN>-<slug>/` dirs, `archive/` for closed initiatives) |
-| `docs/` | The docs tree: `reports/` holds the probe and test reports a doc claim cites, plus the dogfood runs' record |
+| `docs/` | The docs tree: `reports/` holds the probe reports a README claim cites |
 
 ## Workflow
 
