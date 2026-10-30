@@ -14,34 +14,11 @@ session does.
    before anything else. Changing it later restarts the session's worker
    and loses nothing, but the run session cannot be created in `auto`
    until this is done.
-4. **Install the toolset from the setup script** of a cloud environment,
-   and make that environment the account's default, so the run session
-   starts in it. Resolve `toolset_commit` to its full 40-character sha; a
-   branch resolves with
-
-   ```bash
-   git ls-remote https://github.com/concentrator/claude-dev refs/heads/<branch> | cut -f1
-   ```
-
-   and a full sha is its own (an abbreviated sha fails the fetch). Write
-   that sha for `<TOOLSET_SHA>`:
-
-   ```bash
-   set -e
-   git clone -q --depth 1 --no-checkout https://github.com/concentrator/claude-dev ~/src/claude-dev
-   cd ~/src/claude-dev
-   git fetch -q --depth 1 origin <TOOLSET_SHA>
-   git checkout -q --detach FETCH_HEAD
-   bash scripts/install-dev.sh
-   ```
-
-   The script runs before the session starts, so no command of the
-   session installs the toolset, the commands `auto` refused
-   (`pitfalls.md`). The clone sits outside `~/.claude`, since the install
-   refuses a target inside the checkout it runs from. Resolve and write
-   the sha each run: the environment reruns its setup script only when
-   the script changes, and starts later sessions from the first run's
-   cached result, so a branch name would keep that run's commit.
+4. **Install the toolset from a cloud environment's setup script**, set
+   up and made the account's default as `README.md § Setup on a new
+   machine` gives it, so the run session starts with the toolset `auto`
+   mode refuses to install (`pitfalls.md`). The commit to resolve there
+   is `toolset_commit`; write its sha into the script each run.
 5. **Attach the repository** from the review session: `add_repo` with
    `access: push`, then `check_repo_access`; both must report push ok. A
    `not_found_or_no_access` result means step 2 or the identity is

@@ -15,8 +15,8 @@
 - Item 4 (source): A cloud session gets the toolset from its environment's
   setup script, which shallow-clones the toolset outside `~/.claude` and
   runs the global install, so no command of the session installs it.
-  Source: `skills/dogfooding/companions/preparation.md` step 4, the
-   setup script's `git clone --depth 1` into `~/src/claude-dev`, then
+  Source: `README.md § Setup on a new machine`, the cloud setup script's
+   `git clone --depth 1` into `~/src/claude-dev`, then
    `bash scripts/install-dev.sh` from it; `brief.md` step 1, "Do not
    install it yourself" and the checks of `~/.claude/skills/dev/`, the
    `/dev` skill and `~/.claude/hooks/`
