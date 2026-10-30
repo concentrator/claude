@@ -22,7 +22,7 @@ mode: normal
   `gh api` form and no stacking; the requirements row, the pitfalls' fixes
   and the finishing steps follow. Approach: the brief's step 2, then each
   companion line citing it.
-- [ ] The brief takes the task count as a fourth placeholder, the first that
+- [x] The brief takes the task count as a fourth placeholder, the first that
   many of its four named tasks in order, 4 by default (finding 2); the
   pitfalls cite `skills/dev/companions/toolchain.md` (finding 3), and the
   budget row cites `dogfood-runs.md` instead of copying its figures

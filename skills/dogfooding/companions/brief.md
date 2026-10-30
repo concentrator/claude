@@ -10,7 +10,7 @@ autonomy rule; the prompt is the task. Both fold in the fixes
 You are running a fully autonomous dogfooding exercise. The user is observing this session and will not answer questions, approve gates, or intervene until you deliver the final report. Never block on the user: whenever a skill, mode file, gate or hook asks the user something (AskUserQuestion, an `approved:` gate, a supervisor decision), decide it yourself with the sensible or recommended option, and record each such stop in your running notes as an "autonomy stop" with what the toolset asked and what you chose. Never include a model identifier in commits, PR titles, PR bodies or repository files. Work at high reasoning effort: verify claims against files and command output rather than memory.
 ```
 
-**Prompt** (`prompt`; replace `<REVIEW_SESSION_ID>`, `<REPO>` and `<TOOLSET_COMMIT>`):
+**Prompt** (`prompt`; replace `<REVIEW_SESSION_ID>`, `<REPO>`, `<TOOLSET_COMMIT>` and `<TASK_COUNT>`):
 
 ```markdown
 ## Goal
@@ -25,7 +25,7 @@ Dogfood the claude-dev toolset end to end on a tiny new project, test every feat
 
 ## Step 2: the project
 
-Build a dependency-free Node.js command-line calculator, CalcApp.js, in the repository root. Keep it small; the process is the point. Use the DEV workflow for everything: `/dev start` (REQUIREMENTS, DESIGN, project CLAUDE.md with `## Agent toolchain`, `## Supervision` declaring `Supervisor: AI`, `## Layout`, docs home `docs/` with `index.md`, plans tree `dev/plans/`, `.gitignore`, README, lint + test + CI). CI is a GitHub Actions workflow running the fast tier on pull requests. Then `/dev plan R` for one initiative, `/dev plan R001` for four feature tasks (arithmetic module; expression parser with precedence and parentheses; CLI with argv and a REPL; history and memory), each adding a documented component; `/dev plan batch R001`; `/dev run`; `/dev ship` per branch; `/dev release` if a release routine was set up. Follow `git-workflow.md` for branches, commits, PRs and merges. If a declared host command fails or the permission classifier refuses a merge, record the command and its reason as a finding, and go on as the toolset's text directs; name the merge order in the report.
+Build a dependency-free Node.js command-line calculator, CalcApp.js, in the repository root. Keep it small; the process is the point. Use the DEV workflow for everything: `/dev start` (REQUIREMENTS, DESIGN, project CLAUDE.md with `## Agent toolchain`, `## Supervision` declaring `Supervisor: AI`, `## Layout`, docs home `docs/` with `index.md`, plans tree `dev/plans/`, `.gitignore`, README, lint + test + CI). CI is a GitHub Actions workflow running the fast tier on pull requests. Then `/dev plan R` for one initiative, `/dev plan R001` for the first <TASK_COUNT> of these feature tasks, in this order (arithmetic module; expression parser with precedence and parentheses; CLI with argv and a REPL; history and memory), each adding a documented component; `/dev plan batch R001`; `/dev run`; `/dev ship` per branch; `/dev release` if a release routine was set up. Follow `git-workflow.md` for branches, commits, PRs and merges. If a declared host command fails or the permission classifier refuses a merge, record the command and its reason as a finding, and go on as the toolset's text directs; name the merge order in the report.
 
 ## Step 3: test while using
 

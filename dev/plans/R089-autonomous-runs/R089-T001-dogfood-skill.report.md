@@ -38,6 +38,11 @@
   implementer's to edit. Finishing steps 2 and 3 keep the retarget, now
   for any stacked pull request rather than every one, since the
   monitoring table still logs stacking the toolset itself may cause.
+- Item 4: the `scale` input is renamed `task_count`, matching its
+  `<TASK_COUNT>` placeholder as `repo` and `toolset_commit` match
+  theirs. Its "a quarter of the cost" becomes "more cheaply": the
+  input's longer wording took the body past the 300-word cap, and the
+  quarter was an estimate no run has measured.
 
 ## Answers
 

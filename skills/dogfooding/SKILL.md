@@ -28,8 +28,8 @@ repository state and a report. `install-dev.sh` does not ship it.
   owner; refuse to start until `check_repo_access` reports push ok.
 - `toolset_commit`: a sha or branch of `claude-dev`; default
   `origin/main`.
-- `scale`: task count, default 4; a 1-task smoke run exercises the same
-  modes at a quarter of the cost.
+- `task_count`: the brief's first that many tasks, default 4; a 1-task
+  smoke run exercises the same modes more cheaply.
 - `baseline`: the previous run's report URL or figures, for the delta.
 
 ## Outputs
