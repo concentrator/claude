@@ -187,6 +187,15 @@ row names ([`check-doc-sync.sh` `hits`](scripts/ci/check-doc-sync.sh)).
    repository and link the skill's directory into `~/.claude/skills/`:
    `ln -s <clone>/<skill-dir> ~/.claude/skills/<name>`.
 
+A Claude Code cloud session gets the toolset from its environment's
+setup script, which shallow-clones the toolset outside `~/.claude` and
+runs the global install, so no command of the session installs it
+([`preparation.md` step 4](skills/dogfooding/companions/preparation.md)).
+Under the `auto` permission mode, a session's own
+`bash scripts/install-dev.sh` is refused as Code from External, and a
+copy of its files by hand as Auto-Mode Bypass
+([`dev-dogfood-report.md`](docs/reports/dev-dogfood-report.md)).
+
 ## Installing the toolset elsewhere
 
 Run from a checkout of this repo, the installer copies the DEV toolset
@@ -219,9 +228,14 @@ A full install ships:
   - `check-accretion.sh`, with its self-test.
   - `check-batch-tags.sh`, with its self-test.
   - `check-plan-text.sh`, with its self-test.
+  - `check-archival.sh`, the gate failing a closed initiative left
+    unarchived, with its self-test
+    ([`install-dev.sh` § 4](scripts/install-dev.sh),
+    [`check-archival.sh` `status: done` loop](scripts/ci/check-archival.sh)).
   - `branch-diff.sh`, without a self-test: the helper that every check
-    above except `check-batch-tags.sh` loads from the check's own
-    directory. A check that cannot load the helper fails, exiting 1.
+    above except `check-batch-tags.sh` and `check-archival.sh` loads
+    from the check's own directory. A check that cannot load the helper
+    fails, exiting 1.
 - `scripts/preflight-permissions.sh`, the `/dev run` permission
   pre-flight, with its self-test.
 - The hooks below.
