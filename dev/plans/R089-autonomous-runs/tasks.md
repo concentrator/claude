@@ -4,7 +4,7 @@ Why: a cloud session under `auto` with no human answering stalls or pays twice w
 
 ## Open
 
-- [ ] **R089-T001 [doc]**: `docs/reports/dogfood-playbook.md` lands as the
+- [x] **R089-T001 [doc]**: `docs/reports/dogfood-playbook.md` lands as the
   repository-only skill `skills/dogfooding/`, its review findings applied,
   the report file removed.
 

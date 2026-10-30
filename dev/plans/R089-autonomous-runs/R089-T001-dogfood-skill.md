@@ -28,7 +28,7 @@ mode: normal
   budget row cites `dogfood-runs.md` instead of copying its figures
   (`rules/writing-artifacts.md § One home per number`). Approach: the brief,
   the inputs in `SKILL.md`, then the pitfalls and requirements companions.
-- [ ] Complete the branch: cleanup (stale/temp data), mark plan complete,
+- [x] Complete the branch: cleanup (stale/temp data), mark plan complete,
   mark the task `[x]` in the R's `tasks.md` plus any release-plan entry,
   commit, the resolved task report included. (Batch members: the task
   mark rides the batch branch.)
