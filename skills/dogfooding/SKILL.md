@@ -28,7 +28,7 @@ repository state and a report. `install-dev.sh` does not ship it.
 - `repo`: the target repository URL, created and app-covered by the
   owner; refuse to start until `check_repo_access` reports push ok.
 - `toolset_commit`: a branch or full sha of `claude-dev`; default
-  `origin/main`.
+  `main`.
 - `task_count`: how many of the brief's four tasks to run, in order;
   default 4; a 1-task smoke run exercises the same modes more cheaply.
 - `baseline`: the previous run's report URL or figures, for the delta.

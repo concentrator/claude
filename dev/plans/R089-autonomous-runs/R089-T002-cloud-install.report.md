@@ -51,6 +51,14 @@
   review session's steps, so `pitfalls.md` cites the trust step as 6,
   and its "Installer refused" row names the setup script as the fix.
   Result: no test pins the skill's text; the fast tier passes.
+- Review 1, Review 2: step 4 resolves a branch with `git ls-remote`
+  against `refs/heads/<branch>` and takes a full sha as is, since
+  `ls-remote` matches ref names and returns nothing for a sha; the
+  setup script's placeholder becomes `<TOOLSET_SHA>`. Run under a
+  throwaway `HOME`, `main` resolved to a full sha, the script with it
+  written in checked out that sha and installed the `/dev` skill and the
+  `dev-*.sh` hooks registered in `settings.json`. Result: no test pins
+  the skill's text; the fast tier passes.
 
 ## Answers
 
@@ -70,14 +78,14 @@
 
 ## Review
 
-- [ ] Item 4: the default `toolset_commit`, `origin/main`, is no ref on
+- [x] Item 4: the default `toolset_commit`, `origin/main`, is no ref on
   the remote, so the setup script's fetch fails under `set -e` and
   installs nothing; step 7 compares against the same name (Critical) -
   skills/dogfooding/SKILL.md:31
   Evidence: test in a throwaway repo, `git fetch --depth 1 origin
   origin/main` exits 128 ("couldn't find remote ref"), `main` exits 0;
   a second verifier confirmed; preparation.md:20, preparation.md:47
-- [ ] Item 4: the environment caches the setup script's result and
+- [x] Item 4: the environment caches the setup script's result and
   reruns it only when the script changes, so a branch name keeps the
   first run's commit while the branch moves (Important) -
   skills/dogfooding/companions/preparation.md:33
@@ -89,14 +97,14 @@
   exception names only `check-batch-tags.sh` (Important) - README.md:215
   Evidence: observed README.md:215-224, `MAINTENANCE.md § Doc-sync
   pairs`; the doc writer's claim covers it
-- [ ] Item 4: step 4 names "the cloud environment the run session starts
+- [x] Item 4: step 4 names "the cloud environment the run session starts
   in" and step 8's `create_session` names none, so nothing ensures the
   run starts in the environment holding the script (Important) -
   skills/dogfooding/companions/preparation.md:51
   Evidence: contract the cloud-environments doc lists the app selector, an org
   default, project settings and `/remote-env` as the ways to pick one;
   whether `create_session` takes one is unverified
-- [ ] Item 4: the requirements' toolset row says the run clones it and a
+- [x] Item 4: the requirements' toolset row says the run clones it and a
   private clone needs app coverage, while the setup script now clones it
   before the session's GitHub proxy exists (Suggestion) -
   skills/dogfooding/companions/requirements.md:7
