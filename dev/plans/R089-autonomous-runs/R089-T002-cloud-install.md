@@ -15,7 +15,7 @@ mode: normal
   `Test (full)` commands, which carry the gates an install appends, and
   names no `ci/run-all.sh`: that runner is this repository's own, calling
   checks no install ships. Approach: that step alone.
-- [ ] `rules/claude-md.md § Approval` stops saying the user tier's
+- [x] `rules/claude-md.md § Approval` stops saying the user tier's
   `permissions.ask` holds every `CLAUDE.md` edit, a rule no install writes:
   the edit needs explicit approval, which such a rule raises as a prompt
   where the user keeps one. Approach: that bullet alone.
