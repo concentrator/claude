@@ -1,7 +1,7 @@
 # R089-T001 report
 
 ## Claims
-- Item 2 (source): `skills/dogfood/` is this repository's own runbook for a
+- Item 2 (source): `skills/dogfooding/` is this repository's own runbook for a
   dogfood run of the toolset, which `install-dev.sh` does not ship.
   Source: `scripts/install-dev.sh`: step 1 ships `skills/dev` and step 2
     only the `BUNDLED` trees (`systematic-debugging`,

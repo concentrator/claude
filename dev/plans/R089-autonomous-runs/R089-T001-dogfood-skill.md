@@ -35,7 +35,7 @@ mode: normal
 
 ## Claims
 
-- Item 2 (source): `skills/dogfood/` is this repository's own runbook for a
+- Item 2 (source): `skills/dogfooding/` is this repository's own runbook for a
   dogfood run of the toolset, which `install-dev.sh` does not ship.
 
 ## Proven
