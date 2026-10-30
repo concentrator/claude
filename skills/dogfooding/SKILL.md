@@ -1,5 +1,5 @@
 ---
-name: dogfood
+name: dogfooding
 description: Use when dogfooding the DEV toolset on a throwaway cloud project.
 ---
 

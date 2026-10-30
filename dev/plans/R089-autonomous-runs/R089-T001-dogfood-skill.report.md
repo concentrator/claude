@@ -30,6 +30,14 @@
   `## Review findings` section is not carried: it is this task's work
   list, not runbook content, and items 3 and 4 state its open changes in
   full.
+- Item 3: the commit carries the `## Answers` rename: `skills/dogfood/`
+  moves to `skills/dogfooding/`, its `SKILL.md` `name:` and its
+  `LAYOUT.md` entry following. The `skills/dogfood/` mentions in plan
+  text (this plan, `tasks.md`, the T002 plan) and in Item 2's claim
+  evidence above are left, plan text and another item's claim being no
+  implementer's to edit. Finishing steps 2 and 3 keep the retarget, now
+  for any stacked pull request rather than every one, since the
+  monitoring table still logs stacking the toolset itself may cause.
 
 ## Answers
 

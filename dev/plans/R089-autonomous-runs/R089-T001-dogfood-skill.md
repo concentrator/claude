@@ -16,7 +16,7 @@ mode: normal
   companions' order; companions hold the rest, the brief verbatim. Approach:
   `SKILL.md`, then `companions/` split as `skills/worker-host/` splits its
   own, `LAYOUT.md`'s entry, the playbook removed.
-- [ ] The brief stops working around what R089 is judged on (finding 1): a
+- [x] The brief stops working around what R089 is judged on (finding 1): a
   failing declared host command or a refused merge is recorded with its
   reason and the run goes on as the toolset's text directs, naming no
   `gh api` form and no stacking; the requirements row, the pitfalls' fixes

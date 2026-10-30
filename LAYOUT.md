@@ -76,7 +76,7 @@ claude-dev/
     ├── systematic-debugging/     # bundled dependency skills (installer ships these)
     │   └── SKILL.md              #   the skill, its technique files beside it
     ├── dispatching-parallel-agents/SKILL.md    # bundled
-    ├── dogfood/                  # dogfood run of the toolset, this repository's own
+    ├── dogfooding/               # dogfood run of the toolset, this repository's own
     │   ├── SKILL.md              #   purpose, triggers, inputs, outputs, companions' order
     │   └── companions/           #   requirements, preparation, brief, monitoring, finishing, pitfalls
     └── worker-host/              # GCP worker host runbook, this repository's own
