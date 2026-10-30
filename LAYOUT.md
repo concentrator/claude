@@ -59,7 +59,7 @@ claude-dev/
 │   │   │   └── batches/          # R<NNN>-B<NNN> manifests + reports (lazy)
 │   │   └── archive/              # closed initiatives, frozen history
 ├── docs/                         # the docs home (.claude/CLAUDE.md § Layout)
-│   └── reports/                  # probe and test reports a doc claim cites
+│   └── reports/                  # probe and test reports a doc claim cites, plus the dogfood runs' record
 ├── rules/                        # path-scoped convention rules
 │   ├── claude-md.md              # CLAUDE.md maintenance rules (shipped)
 │   ├── writing-artifacts.md      # DEV-artifact writing rules (**/*.md; shipped)
@@ -76,6 +76,9 @@ claude-dev/
     ├── systematic-debugging/     # bundled dependency skills (installer ships these)
     │   └── SKILL.md              #   the skill, its technique files beside it
     ├── dispatching-parallel-agents/SKILL.md    # bundled
+    ├── dogfooding/               # dogfood run of the toolset, this repository's own
+    │   ├── SKILL.md              #   purpose, triggers, inputs, outputs, companions' order
+    │   └── companions/           #   requirements, preparation, brief, monitoring, finishing, pitfalls
     └── worker-host/              # GCP worker host runbook, this repository's own
         ├── SKILL.md              #   the four scripts and where each runs
         └── companions/           #   provisioning order, pitfalls
