@@ -95,7 +95,7 @@
   Evidence: contract code.claude.com/docs/en/cloud-environments: the setup
   script runs on the first session, later ones start from the cached
   snapshot
-- [ ] Item 1: `README.md § Installing the toolset elsewhere` lists the
+- [x] Item 1: `README.md § Installing the toolset elsewhere` lists the
   shipped checks without `check-archival.sh`, and its `branch-diff.sh`
   exception names only `check-batch-tags.sh` (Important) - README.md:215
   Evidence: observed README.md:215-224, `MAINTENANCE.md § Doc-sync
@@ -112,7 +112,7 @@
   before the session's GitHub proxy exists (Suggestion) -
   skills/dogfooding/companions/requirements.md:7
   Evidence: observed requirements.md:7, preparation.md step 4
-- [ ] Item 3: `rules/skills.md § Approval` and `MAINTENANCE.md § Repair`
+- [x] Item 3: `rules/skills.md § Approval` and `MAINTENANCE.md § Repair`
   keep the `permissions.ask` claim item 3 removed from `claude-md.md`
   (Suggestion) - rules/skills.md:61
   Evidence: observed both files; `install-dev.sh` writes no `ask` rule,

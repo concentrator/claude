@@ -8,7 +8,7 @@ Why: a cloud session under `auto` with no human answering stalls or pays twice w
   repository-only skill `skills/dogfooding/`, its review findings applied,
   the report file removed.
 
-- [ ] **R089-T002 [mnt]**: a cloud session installs the toolset by a
+- [x] **R089-T002 [mnt]**: a cloud session installs the toolset by a
   documented step the classifier admits, and every gate, check and rule
   the text cites exists after install (`dev-dogfood-report.md`).
 
