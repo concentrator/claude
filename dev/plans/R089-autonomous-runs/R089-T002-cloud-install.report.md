@@ -28,5 +28,11 @@
   committability section, the `.claude/*` gitignore case, moved unchanged
   to `install-dev-gitignore.test.sh`. Result: every `install-dev*` test
   and `check-archival.test.sh` pass.
+- Item 2: the step names the fast tier, not both, as carrying the gates an
+  install appends, since `start.md § 4` appends them to the `Test (fast)`
+  line, else to the single `Test:` one serving both tiers; and it counts
+  the last commit's fast run beside the § 1 full run as already
+  satisfying the gate, the fast tier running per commit. Result: no test
+  pins the step; the fast tier passes.
 
 ## Review
