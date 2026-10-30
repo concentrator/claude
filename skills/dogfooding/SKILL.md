@@ -7,9 +7,10 @@ description: Use when dogfooding the DEV toolset on a throwaway cloud project.
 
 A dogfood run drives the DEV toolset (`concentrator/claude-dev`) end to
 end on a throwaway project, in a fresh cloud session nobody touches, and
-ends with a report graded against twelve criteria. It answers whether an
-agent can adopt the toolset and deliver a small initiative without a
-human, and at what cost; the toolset's own CI is the Tier-1 gate's.
+ends with a report graded against the criteria in
+`companions/monitoring.md`. It answers whether an agent can adopt the
+toolset and deliver a small initiative without a human, and at what
+cost; the toolset's own CI is the Tier-1 gate's.
 
 The run session does the work. This skill runs in the review session,
 which prepares the run, watches it, merges its output and writes the
@@ -28,8 +29,8 @@ repository state and a report. `install-dev.sh` does not ship it.
   owner; refuse to start until `check_repo_access` reports push ok.
 - `toolset_commit`: a sha or branch of `claude-dev`; default
   `origin/main`.
-- `task_count`: the brief's first that many tasks, default 4; a 1-task
-  smoke run exercises the same modes more cheaply.
+- `task_count`: how many of the brief's four tasks to run, in order;
+  default 4; a 1-task smoke run exercises the same modes more cheaply.
 - `baseline`: the previous run's report URL or figures, for the delta.
 
 ## Outputs
@@ -47,5 +48,5 @@ Read `companions/pitfalls.md` before the first run, then:
 1. `companions/requirements.md` - what must hold first.
 2. `companions/preparation.md` - the owner's steps, then yours.
 3. `companions/brief.md` - the run session's two texts, verbatim.
-4. `companions/monitoring.md` - what to log, the twelve criteria.
+4. `companions/monitoring.md` - what to log, the criteria.
 5. `companions/finishing.md` - merge, verify, judge, clean up.

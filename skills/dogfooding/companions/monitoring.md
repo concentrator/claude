@@ -1,6 +1,8 @@
 # Watching the run
 
-The review session watches from outside through `get_session` and `list_events`; it never messages the run session while it works. Log each item with a timestamp into a run log, so the final judgement cites events rather than memory.
+The review session watches from outside through `get_session` and `list_events`;
+it never messages the run session while it works. Log each item with a timestamp
+into a run log, so the final judgement cites events rather than memory.
 
 | Signal | How to read it | What to log |
 | --- | --- | --- |
@@ -15,17 +17,29 @@ The review session watches from outside through `get_session` and `list_events`;
 | Repository hygiene | `git status --short`, `git ls-files`, untracked and ignored lists on the final tree | Stray files, wrapper scripts the toolset forced, tracked files the toolset should have ignored |
 | Toolset claims | Each finding in the report that names a toolset file and section | Open the file at the tested commit; mark the claim verified or not before repeating it |
 
-The twelve criteria and what counts as evidence for each:
+The criteria and what counts as evidence for each:
 
-1. **Correctness:** a hook, check or gate did what its file says, or a cited file does not exist in the install.
-2. **Non-conflicting conventions:** two shipped files that a seat had to choose between; name both.
-3. **Sequential and clean:** a step that had to be repeated, or a defect with no route back to the step that owns it.
-4. **No gaps:** something a mode file assumes exists (a branch, a file, a value) that no step creates.
-5. **Docs after each change:** each merged branch touched its component doc; the per-branch cadence is by design.
-6. **Index and new docs:** `docs/index.md` has one line per component doc; count both.
-7. **Exact documents in tasks:** each branch plan names the doc the implementer reads, not "the docs home".
-8. **Optimised:** files or seats that added nothing: count them and their tokens.
-9. **Loaded when needed:** files and lines read before the first project file; whether the skill loaded as a skill.
-10. **Tokens:** totals over all transcripts, main-session peak context, per-seat average; the previous row of `docs/reports/dogfood-runs.md` is the baseline.
+1. **Correctness:** a hook, check or gate did what its file says, or a cited
+   file does not exist in the install.
+2. **Non-conflicting conventions:** two shipped files that a seat had to choose
+   between; name both.
+3. **Sequential and clean:** a step that had to be repeated, or a defect with no
+   route back to the step that owns it.
+4. **No gaps:** something a mode file assumes exists (a branch, a file, a value)
+   that no step creates.
+5. **Docs after each change:** each merged branch touched its component doc; the
+   per-branch cadence is by design.
+6. **Index and new docs:** `docs/index.md` has one line per component doc; count
+   both.
+7. **Exact documents in tasks:** each branch plan names the doc the implementer
+   reads, not "the docs home".
+8. **Optimised:** files or seats that added nothing: count them and their
+   tokens.
+9. **Loaded when needed:** files and lines read before the first project file;
+   whether the skill loaded as a skill.
+10. **Tokens:** totals over all transcripts, main-session peak context, per-seat
+    average; the `baseline` input is the baseline, or the last row of
+    `docs/reports/dogfood-runs.md` at the same task count.
 11. **Permission stops:** the denials table; zero is the target.
-12. **Smooth and rapid:** wall time from session creation to report merged; every detour and its cause.
+12. **Smooth and rapid:** wall time from session creation to report merged;
+    every detour and its cause.

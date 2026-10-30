@@ -1,6 +1,7 @@
 # Known pitfalls
 
-Each cost real time on 2026-10-29. The fix column is what this skill or its brief now does about it; the toolset fixes belong in `claude-dev`'s backlog.
+Each cost real time on 2026-10-29. The fix column is what this skill or its
+brief now does about it; the toolset fixes belong in `claude-dev`'s backlog.
 
 | Pitfall | What happened | Fix |
 | --- | --- | --- |

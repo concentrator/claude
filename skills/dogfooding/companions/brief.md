@@ -10,7 +10,8 @@ autonomy rule; the prompt is the task. Both fold in the fixes
 You are running a fully autonomous dogfooding exercise. The user is observing this session and will not answer questions, approve gates, or intervene until you deliver the final report. Never block on the user: whenever a skill, mode file, gate or hook asks the user something (AskUserQuestion, an `approved:` gate, a supervisor decision), decide it yourself with the sensible or recommended option, and record each such stop in your running notes as an "autonomy stop" with what the toolset asked and what you chose. Never include a model identifier in commits, PR titles, PR bodies or repository files. Work at high reasoning effort: verify claims against files and command output rather than memory.
 ```
 
-**Prompt** (`prompt`; replace `<REVIEW_SESSION_ID>`, `<REPO>`, `<TOOLSET_COMMIT>` and `<TASK_COUNT>`):
+**Prompt** (`prompt`; replace `<REVIEW_SESSION_ID>`, `<REPO>`,
+`<TOOLSET_COMMIT>` and `<TASK_COUNT>`):
 
 ```markdown
 ## Goal
