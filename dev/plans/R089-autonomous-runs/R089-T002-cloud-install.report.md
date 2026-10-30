@@ -53,3 +53,41 @@
   Result: no test pins the skill's text; the fast tier passes.
 
 ## Review
+
+- [ ] Item 4: the default `toolset_commit`, `origin/main`, is no ref on
+  the remote, so the setup script's fetch fails under `set -e` and
+  installs nothing; step 7 compares against the same name (Critical) -
+  skills/dogfooding/SKILL.md:31
+  Evidence: test in a throwaway repo, `git fetch --depth 1 origin
+  origin/main` exits 128 ("couldn't find remote ref"), `main` exits 0;
+  a second verifier confirmed; preparation.md:20, preparation.md:47
+- [ ] Item 4: the environment caches the setup script's result and
+  reruns it only when the script changes, so a branch name keeps the
+  first run's commit while the branch moves (Important) -
+  skills/dogfooding/companions/preparation.md:33
+  Evidence: contract code.claude.com/docs/en/cloud-environments: the setup
+  script runs on the first session, later ones start from the cached
+  snapshot
+- [ ] Item 1: `README.md § Installing the toolset elsewhere` lists the
+  shipped checks without `check-archival.sh`, and its `branch-diff.sh`
+  exception names only `check-batch-tags.sh` (Important) - README.md:215
+  Evidence: observed README.md:215-224, `MAINTENANCE.md § Doc-sync
+  pairs`; the doc writer's claim covers it
+- [ ] Item 4: step 4 names "the cloud environment the run session starts
+  in" and step 8's `create_session` names none, so nothing ensures the
+  run starts in the environment holding the script (Important) -
+  skills/dogfooding/companions/preparation.md:51
+  Evidence: contract the cloud-environments doc lists the app selector, an org
+  default, project settings and `/remote-env` as the ways to pick one;
+  whether `create_session` takes one is unverified
+- [ ] Item 4: the requirements' toolset row says the run clones it and a
+  private clone needs app coverage, while the setup script now clones it
+  before the session's GitHub proxy exists (Suggestion) -
+  skills/dogfooding/companions/requirements.md:7
+  Evidence: observed requirements.md:7, preparation.md step 4
+- [ ] Item 3: `rules/skills.md § Approval` and `MAINTENANCE.md § Repair`
+  keep the `permissions.ask` claim item 3 removed from `claude-md.md`
+  (Suggestion) - rules/skills.md:61
+  Evidence: observed both files; `install-dev.sh` writes no `ask` rule,
+  but neither file ships and this repository's setup holds the rules
+  (`~/.claude/settings.json` `permissions.ask`)
