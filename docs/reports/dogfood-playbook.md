@@ -4,7 +4,7 @@ Oct 29, 2026 · @Dmitry
 
 ## Purpose and scope
 
-A dogfood run drives the DEV toolset (`concentrator/claude-dev`) end to end on a throwaway project, in a fresh cloud session that nobody touches, and ends with a report graded against twelve criteria. The first run, on 2026-10-29, built CalcApp.js in about 55 minutes for about 28 USD and produced [this report](https://github.com/concentrator/tmp-dev-calcapp/blob/main/docs/reports/dev-dogfood-report.md).
+A dogfood run drives the DEV toolset (`concentrator/claude-dev`) end to end on a throwaway project, in a fresh cloud session that nobody touches, and ends with a report graded against twelve criteria.
 
 The run answers one question: can an agent adopt the toolset and deliver a small initiative without a human, and what does that cost. It does not test the toolset's own CI, which `claude-dev`'s Tier-1 gate covers.
 
@@ -29,13 +29,13 @@ The run answers one question: can an agent adopt the toolset and deliver a small
 
 ## Preparation, step by step
 
-Steps 1 to 3 are the owner's, done once per run; the rest the review session does. The first run lost about two hours to steps 2, 3 and 5 being discovered one at a time.
+Steps 1 to 3 are the owner's, done once per run; the rest the review session does.
 
 1. **Create the target repository** on GitHub: `tmp-dev-<slug>` under the owner account, private or public, "Add a README" ticked so `main` exists. Record its URL.
 2. **Cover it with the Claude GitHub App:** `github.com/apps/claude/installations/select_target`, pick the owner account, Repository access, add the repository, save. Check that claude.ai's GitHub connection is that same owner.
 3. **Put the review session in `auto` mode** in the app's mode selector before anything else. Changing it later restarts the session's worker and loses nothing, but the run session cannot be created in `auto` until this is done.
 4. **Attach the repository** from the review session: `add_repo` with `access: push`, then `check_repo_access`; both must report push ok. A `not_found_or_no_access` result means step 2 or the identity is wrong; a `push_check: refused` after a successful attach means step 2 alone.
-5. **Confirm session trust** once: the first `send_message` to another session returns a `content_digest`; pass it to `confirm_repository_trust`, and the owner answers the card in person. Skip this and the run session's summary never arrives (it saved it to its scratchpad instead on the first run).
+5. **Confirm session trust** once: the first `send_message` to another session returns a `content_digest`; pass it to `confirm_repository_trust`, and the owner answers the card in person. Skip this and the run session's summary never arrives.
 6. **Record the toolset commit** to test: `git -C <claude-dev clone> rev-parse HEAD`, and that it equals `origin/main` or the branch under test.
 7. **Create the run session** with `create_session`: `source_url` = the repository, `model: claude-opus-5-5`, `permission_mode: auto`, a tag such as `dogfood-<date>`, the system prompt addition and the brief from the next section, with the review session's id substituted into the brief's delivery step.
 8. **Arm a safety-net check-in** with `send_later`, 90 minutes, naming the run session id, so a stalled run is noticed without polling. Delete it when the summary arrives.
@@ -43,7 +43,7 @@ Steps 1 to 3 are the owner's, done once per run; the rest the review session doe
 
 ## The brief
 
-Two texts go into `create_session`. The system prompt addition sets the autonomy rule; the prompt is the task. Both are what the first run used, with the fixes the pitfalls section calls for folded in.
+Two texts go into `create_session`. The system prompt addition sets the autonomy rule; the prompt is the task. Both fold in the fixes the pitfalls section calls for.
 
 **System prompt addition** (`append_system_prompt`):
 
@@ -107,7 +107,7 @@ The twelve criteria and what counts as evidence for each:
 7. **Exact documents in tasks:** each branch plan names the doc the implementer reads, not "the docs home".
 8. **Optimised:** files or seats that added nothing: count them and their tokens.
 9. **Loaded when needed:** files and lines read before the first project file; whether the skill loaded as a skill.
-10. **Tokens:** totals over all transcripts, main-session peak context, per-seat average; the first run's figures are the baseline.
+10. **Tokens:** totals over all transcripts, main-session peak context, per-seat average; the previous row of `docs/reports/dogfood-runs.md` is the baseline.
 11. **Permission stops:** the denials table; zero is the target.
 12. **Smooth and rapid:** wall time from session creation to report merged; every detour and its cause.
 
@@ -120,8 +120,8 @@ The run ends with the report on a branch and, until the merge rule is shipped, e
 3. **Retarget before merging.** Set every stacked pull request's base to `main` with `update_pull_request` first, then merge in number order with `merge_pull_request`, method `merge`, passing `expectedHeadSha`. Merging a stacked PR while its base is still a branch lands it on that branch, not on `main`; GitHub retargets only when the base branch is deleted.
 4. **Verify `main`:** shallow pull, `git status --short` empty, the report present, tests green (`node --test`), the app runs, `CHANGELOG.md` stamped.
 5. **Tag the release by hand** on a trusted machine: `git tag -a v0.1.0 <release merge sha> -m v0.1.0 && git push origin v0.1.0`. Cloud sessions cannot create tags.
-6. **Verify the report's toolset claims** against the tested commit before repeating them; the first run's three strongest claims all held.
-7. **Write the judgement:** verdict per criterion with the review session's own evidence where it differs from the run's, then the three findings lists. Deliver it to the owner, and append the run's row to the comparison table in the skill's own record.
+6. **Verify the report's toolset claims** against the tested commit before repeating them.
+7. **Write the judgement:** verdict per criterion with the review session's own evidence where it differs from the run's, then the three findings lists. Deliver it to the owner, and append the run's row to the comparison table in `docs/reports/dogfood-runs.md`.
 8. **Clean up:** the owner deletes the repository, or keeps it as the baseline for the next run's diff. Merged branches stay unless the owner deletes them; branch deletion is refused to the session as destructive.
 
 ## Known pitfalls from the first run
@@ -157,7 +157,7 @@ The skill runs in a review session and treats the run session as a black box wit
 **Outputs**
 
 - The report on `main` of the target repository, and the judgement delivered to the owner.
-- One row appended to a comparison table kept with the skill: date, toolset commit, tasks, wall minutes, cost USD, tokens processed, output tokens, seats, denials, stalls, verdict counts (pass / partial / fail). The first run's row: 2026-10-29, d1a854d, 4 tasks, 55 min, 28 USD, 63.7M processed, 259k output, 37 seats, 10 denials, 0 stalls, 2 / 5 / 5.
+- One row appended to the comparison table in `docs/reports/dogfood-runs.md`.
 - The findings diff: findings new since the baseline, findings gone, findings unchanged. A finding is matched by the toolset file and section it names.
 
 **Schedule and triggers**
@@ -171,11 +171,6 @@ The skill runs in a review session and treats the run session as a black box wit
 - Token figures recomputed from the run's `get_session` usage, not only the run's own sums.
 - The merged `main` verified as in Finishing step 4.
 - Verdict changes against the baseline explained by a named finding, or flagged as unexplained.
-
-**Open questions**
-
-- Whether a merge rule for the declared merge command is enough for `auto` mode to let a seat merge, or whether the classifier refuses regardless; the next run with the rule shipped answers it.
-- Whether the project install (`--project`) is also refused as external code; the first run tried only the global one.
 
 ## Review findings
 

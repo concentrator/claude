@@ -199,3 +199,17 @@ prompt appeared, since none could be answered.
   `git-workflow.md § MR/PR messages` forbids a "Generated with" line,
   while the cloud harness asks for both; the toolset's rule was followed.
   Maybe wrong only in that the toolset could say which wins.
+
+## Setup and review
+
+The review session that prepared the run, watched it and merged its
+output adds what the run session could not see:
+
+- Preparation lost about two hours to three requirements discovered one
+  at a time: covering the repository with the Claude GitHub App, putting
+  the review session in `auto` mode before creating the run session, and
+  trusting the review session to reach other sessions.
+- Without that trust the run's summary never arrived: its `send_message`
+  was refused and it saved the summary to its scratchpad instead.
+- The report's three strongest toolset claims, each opened at the tested
+  commit, all held.

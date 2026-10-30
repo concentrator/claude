@@ -4,7 +4,7 @@ type: doc
 mode: normal
 ---
 
-- [ ] Run measurements and run history leave the playbook: a new
+- [x] Run measurements and run history leave the playbook: a new
   `docs/reports/dogfood-runs.md` holds the comparison table, its first row
   citing the tested commit by its merge subject (findings 4, 5), and the
   open questions the next run answers; the first-run history lines, those
