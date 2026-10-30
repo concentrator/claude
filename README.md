@@ -191,9 +191,43 @@ A Claude Code cloud session gets the toolset from its environment's
 setup script, which shallow-clones the toolset outside `~/.claude` and
 runs the global install, so no command of the session installs it
 ([`preparation.md` step 4](skills/dogfooding/companions/preparation.md)).
-Under the `auto` permission mode, a session's own
-`bash scripts/install-dev.sh` is refused as Code from External, and a
-copy of its files by hand as Auto-Mode Bypass
+That step is where the dogfood run sets its environment up; outside a
+run, an environment carries no such script until you write it:
+
+1. Resolve the toolset commit to its full 40-character sha. A branch
+   resolves with the command below, and a full sha is its own; an
+   abbreviated sha fails the script's fetch.
+
+   ```bash
+   git ls-remote https://github.com/concentrator/claude-dev refs/heads/<branch> | cut -f1
+   ```
+
+2. Set the cloud environment's setup script to the lines below, that
+   sha in place of `<TOOLSET_SHA>`. The clone sits outside `~/.claude`,
+   since the install refuses a target inside the checkout it runs from.
+
+   ```bash
+   set -e
+   git clone -q --depth 1 --no-checkout https://github.com/concentrator/claude-dev ~/src/claude-dev
+   cd ~/src/claude-dev
+   git fetch -q --depth 1 origin <TOOLSET_SHA>
+   git checkout -q --detach FETCH_HEAD
+   bash scripts/install-dev.sh
+   ```
+
+3. Make that environment the account's default, so a new session
+   starts in it.
+
+To move the toolset, write the new sha into the script: the environment
+reruns its setup script only when the script changes, and starts later
+sessions from the first run's cached result, so a branch name in the
+script would keep that run's commit.
+
+The install runs in the setup script because a session in the `auto`
+permission mode cannot run it itself: the permission classifier
+refuses a session's own `bash scripts/install-dev.sh` with the reason
+"Code from External", and a copy of its files by hand with the reason
+"Auto-Mode Bypass"
 ([`dev-dogfood-report.md`](docs/reports/dev-dogfood-report.md)).
 
 ## Installing the toolset elsewhere
