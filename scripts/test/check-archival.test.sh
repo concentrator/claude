@@ -10,7 +10,8 @@ set -uo pipefail
 unset GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
 # Overridable so a mutated copy can be run against these cases,
 # confirming each report site has a case that fails when it breaks.
-CHECK="${CHECK:-$(git rev-parse --show-toplevel)/scripts/ci/check-archival.sh}"
+CHECK="${CHECK:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../ci" && pwd)/check-archival.sh}"
+[ -f "$CHECK" ] || { echo "not ok - $CHECK not found"; exit 1; }
 fail=0
 pass() { echo "ok - $1"; }
 die()  { echo "not ok - $1"; fail=1; }

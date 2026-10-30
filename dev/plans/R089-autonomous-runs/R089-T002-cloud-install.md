@@ -5,7 +5,7 @@ depends-on: R089-T001
 mode: normal
 ---
 
-- [ ] A full install ships `check-archival.sh`, the Tier-1 gate `plan.md
+- [x] A full install ships `check-archival.sh`, the Tier-1 gate `plan.md
   § Archival`, `run.md § Close` 4 and `finish.md § 4` cite, with its
   self-test, which finds the check beside itself; unwired, as the other
   shipped checks are, and named in the install's summary line. Approach:
