@@ -52,6 +52,22 @@
   and its "Installer refused" row names the setup script as the fix.
   Result: no test pins the skill's text; the fast tier passes.
 
+## Answers
+
+- Close review, item 4: `toolset_commit` defaults to `main`; step 4
+  resolves it to its full sha (`git ls-remote`) and writes the sha into
+  the setup script, so the script changes each run and the cached
+  environment rebuilds; step 7 compares the run's commit with that sha.
+- Close review, item 4: step 4 has the owner make the script's
+  environment the account's default; brief step 1 records a missing
+  install if the run starts elsewhere.
+- Close review, item 4: the requirements' toolset row says the setup
+  script clones it over HTTPS before the session starts, the
+  private-clone clause dropped.
+- Close review, item 3: `rules/skills.md § Approval` and
+  `MAINTENANCE.md § Repair` stay as they are; neither ships, and this
+  repository's setup holds the rules they cite.
+
 ## Review
 
 - [ ] Item 4: the default `toolset_commit`, `origin/main`, is no ref on
