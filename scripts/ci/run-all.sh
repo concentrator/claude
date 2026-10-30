@@ -3,6 +3,7 @@
 # Used by .github/workflows/ci.yml and the .githooks/pre-push hook.
 set -uo pipefail
 cd "$(git rev-parse --show-toplevel)"
+echo "probe: tier1 fails on purpose"; exit 1
 
 fail=0
 failed=""
