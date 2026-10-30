@@ -53,7 +53,7 @@
 
 ## Review
 
-- [ ] Item 2: `README.md § Contents` names the worker-host runbook beside
+- [x] Item 2: `README.md § Contents` names the worker-host runbook beside
   the bundled skills but not `skills/dogfooding/` (Important) -
   README.md:16
   Evidence: observed README.md:16; the doc writer's claim covers it
