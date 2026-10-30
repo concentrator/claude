@@ -31,4 +31,11 @@
   list, not runbook content, and items 3 and 4 state its open changes in
   full.
 
+## Answers
+
+- Item 3: the skill is named `dogfooding`, the gerund
+  `rules/skills.md § Naming and location` asks for; item 3's commit
+  renames `skills/dogfood/` and its `LAYOUT.md` entry. The user approved
+  the rename, `git mv` of its `SKILL.md` included.
+
 ## Review
