@@ -10,7 +10,7 @@ mode: normal
   open questions the next run answers; the first-run history lines, those
   finding 6 quotes among them, join `dev-dogfood-report.md`. Approach: the
   new report, the old one, then the playbook loses those lines.
-- [ ] The playbook becomes the repository-only skill `skills/dogfood/`, the
+- [x] The playbook becomes the repository-only skill `skills/dogfood/`, the
   new `SKILL.md` this plan proposes (`rules/skills.md § Approval`): its body,
   within the § Size cap, gives purpose, triggers, inputs, outputs and the
   companions' order; companions hold the rest, the brief verbatim. Approach:
